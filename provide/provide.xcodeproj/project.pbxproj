@@ -25,6 +25,51 @@
 		682D326F1B07D16300BC4EEC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0881B07C5C4002A72E8 /* ViewController.swift */; };
 		682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		682D32711B07D16300BC4EEC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0881B07C5C4002A72E8 /* ViewController.swift */; };
+		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
+		687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
+		687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
+		687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */; };
+		687CB54B1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */; };
+		687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */; };
+		687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5351B07EAD30048B692 /* NSDateExtensions.swift */; };
+		687CB54E1B07EAD30048B692 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5351B07EAD30048B692 /* NSDateExtensions.swift */; };
+		687CB54F1B07EAD30048B692 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5351B07EAD30048B692 /* NSDateExtensions.swift */; };
+		687CB5531B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
+		687CB5541B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
+		687CB5551B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
+		687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
+		687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
+		687CB5641B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
+		687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
+		687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
+		687CB5671B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
+		687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */; };
+		687CB56C1B07EAD30048B692 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */; };
+		687CB56D1B07EAD30048B692 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */; };
+		687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5401B07EAD30048B692 /* UIImageExtensions.swift */; };
+		687CB56F1B07EAD30048B692 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5401B07EAD30048B692 /* UIImageExtensions.swift */; };
+		687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5401B07EAD30048B692 /* UIImageExtensions.swift */; };
+		687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5431B07EAD30048B692 /* UITableViewCellExtensions.swift */; };
+		687CB5781B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5431B07EAD30048B692 /* UITableViewCellExtensions.swift */; };
+		687CB5791B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5431B07EAD30048B692 /* UITableViewCellExtensions.swift */; };
+		687CB57A1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5441B07EAD30048B692 /* UITableViewExtensions.swift */; };
+		687CB57B1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5441B07EAD30048B692 /* UITableViewExtensions.swift */; };
+		687CB57C1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5441B07EAD30048B692 /* UITableViewExtensions.swift */; };
+		687CB5801B07EAD30048B692 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5461B07EAD30048B692 /* UIViewExtensions.swift */; };
+		687CB5811B07EAD30048B692 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5461B07EAD30048B692 /* UIViewExtensions.swift */; };
+		687CB5821B07EAD30048B692 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5461B07EAD30048B692 /* UIViewExtensions.swift */; };
+		687CB5841B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */; };
+		687CB5851B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */; };
+		687CB5861B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */; };
+		687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5881B07EEF00048B692 /* HelperFunctions.swift */; };
+		687CB58A1B07EEF00048B692 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5881B07EEF00048B692 /* HelperFunctions.swift */; };
+		687CB58B1B07EEF00048B692 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5881B07EEF00048B692 /* HelperFunctions.swift */; };
+		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
+		689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
+		689B0CBE1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
+		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
+		689B0CC01B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
+		689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB0891B07C5C4002A72E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0881B07C5C4002A72E8 /* ViewController.swift */; };
@@ -70,6 +115,21 @@
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		686A263E1B07C96D0054BB92 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapViewExtensions.swift; sourceTree = "<group>"; };
+		687CB5351B07EAD30048B692 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
+		687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDictionaryExtensions.swift; sourceTree = "<group>"; };
+		687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKHTTPRequestOperationExtensions.swift; sourceTree = "<group>"; };
+		687CB53D1B07EAD30048B692 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		687CB5401B07EAD30048B692 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		687CB5431B07EAD30048B692 /* UITableViewCellExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellExtensions.swift; sourceTree = "<group>"; };
+		687CB5441B07EAD30048B692 /* UITableViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewExtensions.swift; sourceTree = "<group>"; };
+		687CB5461B07EAD30048B692 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatterExtensions.swift; sourceTree = "<group>"; };
+		687CB5881B07EEF00048B692 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
+		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
+		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +191,42 @@
 			name = "Supporting FIles";
 			sourceTree = "<group>";
 		};
+		687CB5321B07EAD30048B692 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				687CB5331B07EAD30048B692 /* ArrayExtensions.swift */,
+				687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */,
+				687CB5351B07EAD30048B692 /* NSDateExtensions.swift */,
+				687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */,
+				687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */,
+				687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */,
+				687CB53D1B07EAD30048B692 /* StringExtensions.swift */,
+				687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */,
+				687CB5401B07EAD30048B692 /* UIImageExtensions.swift */,
+				687CB5431B07EAD30048B692 /* UITableViewCellExtensions.swift */,
+				687CB5441B07EAD30048B692 /* UITableViewExtensions.swift */,
+				687CB5461B07EAD30048B692 /* UIViewExtensions.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		687CB5871B07EEF00048B692 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				687CB5881B07EEF00048B692 /* HelperFunctions.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		689B0CB91B07E0F1005694B7 /* enums */ = {
+			isa = PBXGroup;
+			children = (
+				689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */,
+				689B0CBB1B07E0F1005694B7 /* Environment.swift */,
+			);
+			path = enums;
+			sourceTree = "<group>";
+		};
 		68DFB0751B07C5C4002A72E8 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +255,9 @@
 				68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */,
 				68DFB0881B07C5C4002A72E8 /* ViewController.swift */,
 				68DFB08A1B07C5C4002A72E8 /* Main.storyboard */,
+				687CB5321B07EAD30048B692 /* extensions */,
+				689B0CB91B07E0F1005694B7 /* enums */,
+				687CB5871B07EEF00048B692 /* helpers */,
 				68DFB08D1B07C5C4002A72E8 /* Images.xcassets */,
 				68DFB08F1B07C5C4002A72E8 /* LaunchScreen.xib */,
 				68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */,
@@ -430,9 +529,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				687CB5531B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */,
+				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
+				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
+				687CB5841B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				68DFB0891B07C5C4002A72E8 /* ViewController.swift in Sources */,
+				687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
+				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
+				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
+				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				687CB57A1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
+				687CB5801B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
+				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
+				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */,
+				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
+				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,9 +554,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68F730711B07DE94001A21B0 /* Contact.swift in Sources */,
+				687CB5541B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */,
+				689B0CC01B07E0F1005694B7 /* Environment.swift in Sources */,
+				68F730741B07DE94001A21B0 /* Customer.swift in Sources */,
+				68F7306B1B07DE94001A21B0 /* Attachment.swift in Sources */,
+				687CB58A1B07EEF00048B692 /* HelperFunctions.swift in Sources */,
+				687CB5851B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				682D32711B07D16300BC4EEC /* ViewController.swift in Sources */,
+				68F730861B07DE94001A21B0 /* Route.swift in Sources */,
+				687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
+				687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
+				689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				689B0CB31B07DFE3005694B7 /* ApiService.swift in Sources */,
+				687CB5781B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
+				68F730831B07DE94001A21B0 /* Provider.swift in Sources */,
+				689B0CB71B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */,
+				68F730801B07DE94001A21B0 /* Product.swift in Sources */,
+				687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				687CB57B1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
+				687CB5811B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
+				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
+				687CB54E1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
+				687CB56F1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
+				68F7308F1B07DE94001A21B0 /* Service.swift in Sources */,
+				68F7306E1B07DE94001A21B0 /* Company.swift in Sources */,
 				68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */,
+				68F7309B1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
+				687CB56C1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
+				68F730981B07DE94001A21B0 /* WorkOrder.swift in Sources */,
+				68F7307A1B07DE94001A21B0 /* Directions.swift in Sources */,
+				68F730891B07DE94001A21B0 /* RouteLeg.swift in Sources */,
+				687CB54B1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
+				68F730951B07DE94001A21B0 /* User.swift in Sources */,
+				68F7308C1B07DE94001A21B0 /* RouteLegStep.swift in Sources */,
+				68F730921B07DE94001A21B0 /* Token.swift in Sources */,
+				68F730771B07DE94001A21B0 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,8 +598,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				689B0CBE1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				68F7307E1B07DE94001A21B0 /* Model.swift in Sources */,
 				682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */,
+				687CB5861B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
+				68F730901B07DE94001A21B0 /* Service.swift in Sources */,
+				687CB57C1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
+				687CB54F1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
+				68F7308D1B07DE94001A21B0 /* RouteLegStep.swift in Sources */,
+				68F7306C1B07DE94001A21B0 /* Attachment.swift in Sources */,
+				68F730721B07DE94001A21B0 /* Contact.swift in Sources */,
+				687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
+				687CB5551B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */,
+				689B0CB41B07DFE3005694B7 /* ApiService.swift in Sources */,
+				68F730751B07DE94001A21B0 /* Customer.swift in Sources */,
+				687CB5671B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				687CB5791B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
+				68F730961B07DE94001A21B0 /* User.swift in Sources */,
+				687CB5821B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
+				689B0CB81B07E0A7005694B7 /* KeyChainService.swift in Sources */,
+				68F730931B07DE94001A21B0 /* Token.swift in Sources */,
 				682D326F1B07D16300BC4EEC /* ViewController.swift in Sources */,
+				687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
+				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
+				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
+				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
+				68F730841B07DE94001A21B0 /* Provider.swift in Sources */,
+				687CB56D1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
+				68F730811B07DE94001A21B0 /* Product.swift in Sources */,
+				687CB58B1B07EEF00048B692 /* HelperFunctions.swift in Sources */,
+				68F730991B07DE94001A21B0 /* WorkOrder.swift in Sources */,
+				68F730871B07DE94001A21B0 /* Route.swift in Sources */,
+				68F7308A1B07DE94001A21B0 /* RouteLeg.swift in Sources */,
+				68F7306F1B07DE94001A21B0 /* Company.swift in Sources */,
+				687CB5641B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
+				68F7309C1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
+				68F7307B1B07DE94001A21B0 /* Directions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
