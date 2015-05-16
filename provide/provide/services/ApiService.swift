@@ -43,9 +43,12 @@ class ApiService: NSObject {
 
     override init() {
         super.init()
-
+     
         if let token = KeyChainService.sharedService().token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
+
+            CheckinService.sharedService().start()
+            LocationService.sharedService().start()
         }
     }
 
@@ -85,6 +88,8 @@ class ApiService: NSObject {
     }
 
     private func localLogout() {
+        CheckinService.sharedService().stop()
+        LocationService.sharedService().stop()
         unregisterForRemoteNotifications()
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
