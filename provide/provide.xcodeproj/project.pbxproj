@@ -149,6 +149,12 @@
 		68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */; };
 		68B4127F1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */; };
 		68B412801B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */; };
+		68B4128B1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
+		68B4128C1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
+		68B4128D1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
+		68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
+		68B412B21B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
+		68B412B31B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB0891B07C5C4002A72E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0881B07C5C4002A72E8 /* ViewController.swift */; };
@@ -280,6 +286,8 @@
 		68B412481B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		68B412491B07FC15009A4C05 /* Exo2-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Thin.ttf"; sourceTree = "<group>"; };
 		68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-ThinItalic.ttf"; sourceTree = "<group>"; };
+		68B4128A1B08036F009A4C05 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -381,6 +389,8 @@
 		687CB5871B07EEF00048B692 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
+				68B412B01B08063B009A4C05 /* AppearenceProxy.swift */,
+				68B4128A1B08036F009A4C05 /* Color.swift */,
 				687CB5881B07EEF00048B692 /* HelperFunctions.swift */,
 			);
 			path = helpers;
@@ -839,6 +849,7 @@
 				687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				68F730821B07DE94001A21B0 /* Provider.swift in Sources */,
@@ -866,6 +877,7 @@
 				68F7308B1B07DE94001A21B0 /* RouteLegStep.swift in Sources */,
 				68F730911B07DE94001A21B0 /* Token.swift in Sources */,
 				687CB5941B07F6020048B692 /* CheckinService.swift in Sources */,
+				68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 				68F730761B07DE94001A21B0 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -888,6 +900,7 @@
 				687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				68B4128C1B08036F009A4C05 /* Color.swift in Sources */,
 				689B0CB31B07DFE3005694B7 /* ApiService.swift in Sources */,
 				687CB5781B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				68F730831B07DE94001A21B0 /* Provider.swift in Sources */,
@@ -915,6 +928,7 @@
 				68F7308C1B07DE94001A21B0 /* RouteLegStep.swift in Sources */,
 				68F730921B07DE94001A21B0 /* Token.swift in Sources */,
 				687CB5951B07F6020048B692 /* CheckinService.swift in Sources */,
+				68B412B21B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 				68F730771B07DE94001A21B0 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -936,6 +950,7 @@
 				687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				687CB5551B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */,
 				689B0CB41B07DFE3005694B7 /* ApiService.swift in Sources */,
+				68B412B31B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 				68F730751B07DE94001A21B0 /* Customer.swift in Sources */,
 				687CB5961B07F6020048B692 /* CheckinService.swift in Sources */,
 				687CB5671B07EAD30048B692 /* StringExtensions.swift in Sources */,
@@ -950,6 +965,7 @@
 				687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
+				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
 				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
 				68F730841B07DE94001A21B0 /* Provider.swift in Sources */,
 				687CB56D1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
