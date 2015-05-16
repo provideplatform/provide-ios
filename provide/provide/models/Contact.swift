@@ -1,0 +1,62 @@
+//
+//  Contact.swift
+//  provide
+//
+//  Created by Kyle Thomas on 5/16/15.
+//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//
+
+import Foundation
+
+class Contact: Model {
+
+    var id: NSNumber!
+    var name: String!
+    var address1: String!
+    var address2: String!
+    var city: String!
+    var state: String!
+    var zip: String!
+    var email: String!
+    var phone: String!
+    var fax: String!
+    var mobile: String!
+    var timeZoneId: String!
+    var latitude: NSNumber!
+    var longitude: NSNumber!
+
+    class func mapping() -> RKObjectMapping {
+        var mapping = RKObjectMapping(forClass: self)
+        mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "address1": "address1",
+            "address2": "address2",
+            "city": "city",
+            "state": "state",
+            "zip": "zip",
+            "email": "email",
+            "phone": "phone",
+            "fax": "fax",
+            "mobile": "mobile",
+            "time_zone_id": "timeZoneId",
+            "latitude": "latitude",
+            "longitude": "longitude"
+        ])
+        return mapping
+    }
+
+    var address: String! {
+        get {
+            var address = ""
+            if address1 != nil {
+                address += address1
+            }
+            if address2 != nil {
+                address += "\n\(address2)"
+            }
+            address += "\n\(city), \(state) \(zip)"
+            return address
+        }
+    }
+
+}
