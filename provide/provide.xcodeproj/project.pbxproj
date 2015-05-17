@@ -244,6 +244,9 @@
 		68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
 		68B4131D1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
 		68B4131E1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
+		68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */; };
+		68B413211B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */; };
+		68B413221B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */; };
 		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
@@ -421,6 +424,7 @@
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		68B413171B081C25009A4C05 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
+		68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterExtensions.swift; sourceTree = "<group>"; };
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
 		68B413261B083161009A4C05 /* PackingSlip.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PackingSlip.storyboard; sourceTree = "<group>"; };
@@ -511,6 +515,7 @@
 				687CB5351B07EAD30048B692 /* NSDateExtensions.swift */,
 				687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */,
 				687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */,
+				68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */,
 				687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */,
 				687CB53D1B07EAD30048B692 /* StringExtensions.swift */,
 				68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */,
@@ -1130,6 +1135,7 @@
 				687CB5801B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
+				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307C1B07DE94001A21B0 /* Model.swift in Sources */,
@@ -1207,6 +1213,7 @@
 				687CB5811B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				68B4129C1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				68B413111B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
+				68B413211B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412A51B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A41B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
@@ -1290,6 +1297,7 @@
 				68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68B412CA1B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
+				68B413221B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
 				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
