@@ -174,4 +174,12 @@ class Route: Model {
         ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
+    func loadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
+        RouteService.loadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
+    }
+
+    func unloadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
+        RouteService.unloadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
+    }
+
 }
