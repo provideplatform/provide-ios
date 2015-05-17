@@ -1,0 +1,60 @@
+//
+//  NextWorkOrderSegue.swift
+//  provide
+//
+//  Created by Kyle Thomas on 5/16/15.
+//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//
+
+import UIKit
+
+class NextWorkOrderSegue: UIStoryboardSegue {
+
+    override func perform() {
+        switch identifier! {
+        case "WorkOrderAnnotationViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is WorkOrderAnnotationViewController)
+            (destinationViewController as! WorkOrderAnnotationViewController).render()
+            (destinationViewController as! WorkOrderAnnotationViewController).onConfirmationRequired = { () -> () in
+                self.destinationViewController.performSegueWithIdentifier("WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.sourceViewController)
+            }
+            if let mapView = (sourceViewController as! WorkOrdersViewControllerDelegate).mapViewForViewController?(sourceViewController as! ViewController) {
+                (mapView as WorkOrderMapView).mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
+            }
+            break
+        case "WorkOrderAnnotationViewTouchedUpInsideSegue":
+            assert(sourceViewController is WorkOrderAnnotationViewController)
+            assert(destinationViewController is WorkOrdersViewController)
+            sourceViewController.performSegueWithIdentifier("WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
+            break
+        case "WorkOrderDestinationHeaderViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is WorkOrderDestinationHeaderViewController)
+            (destinationViewController as! WorkOrderDestinationHeaderViewController).render()
+            break
+        case "WorkOrderDestinationConfirmationViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is WorkOrderDestinationConfirmationViewController)
+
+            let destinationConfirmationViewController = destinationViewController as! WorkOrderDestinationConfirmationViewController
+            destinationConfirmationViewController.render()
+            destinationConfirmationViewController.onConfirmationReceived = { () -> () in
+                let delegate = (destinationConfirmationViewController as WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate
+                for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) {
+                    if vc != destinationConfirmationViewController {
+                        delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)
+                    }
+                }
+
+                destinationConfirmationViewController.showProgressIndicator()
+
+                delegate.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
+            }
+            break
+        default:
+            break
+        }
+    }
+
+}
