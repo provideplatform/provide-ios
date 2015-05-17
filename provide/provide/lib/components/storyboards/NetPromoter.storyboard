@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xBK-6R-TUa">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Light.ttf">
+            <string>Exo2-Light</string>
+        </mutableArray>
+        <mutableArray key="Exo2-SemiBold.ttf">
+            <string>Exo2-SemiBold</string>
+            <string>Exo2-SemiBold</string>
+            <string>Exo2-SemiBold</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Net Promoter View Controller-->
+        <scene sceneID="pAu-Ea-UM7">
+            <objects>
+                <viewController id="xBK-6R-TUa" customClass="NetPromoterViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vfj-6T-Oq0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wbu-eX-z3M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Gk6-f4-hnB">
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1F2-9E-i0c">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="800"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sQT-2O-ZL3">
+                                <rect key="frame" x="90" y="35" width="620" height="330"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="How likely are you to recommend this service to a friend/family member who is shopping for a new mattress?" translatesAutoresizingMaskIntoConstraints="NO" id="CC3-BZ-b3i">
+                                        <rect key="frame" x="74" y="8" width="472" height="83"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" tag="1000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-OD-fB6">
+                                        <rect key="frame" x="70" y="95" width="30" height="30"/>
+                                        <state key="normal" title="1">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="biO-uZ-FlO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODk-ID-G93">
+                                        <rect key="frame" x="121" y="95" width="30" height="30"/>
+                                        <state key="normal" title="2">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="YEA-Wk-9iE"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-Fc-X76">
+                                        <rect key="frame" x="171" y="95" width="30" height="30"/>
+                                        <state key="normal" title="3">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="ZFv-Je-cGd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="4000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jl-KR-VwE">
+                                        <rect key="frame" x="221" y="95" width="30" height="30"/>
+                                        <state key="normal" title="4">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="17Y-zf-ro9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="5000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHv-Pk-lJQ">
+                                        <rect key="frame" x="271" y="95" width="30" height="30"/>
+                                        <state key="normal" title="5">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="3ro-tM-fuv"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="6000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZG-Fg-Slx">
+                                        <rect key="frame" x="321" y="95" width="30" height="30"/>
+                                        <state key="normal" title="6">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="6CA-Ra-hA2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="7000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfb-xR-oKL">
+                                        <rect key="frame" x="371" y="95" width="30" height="30"/>
+                                        <state key="normal" title="7">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="SQm-dp-Lvq"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="8000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1F-XS-9FA">
+                                        <rect key="frame" x="421" y="95" width="30" height="30"/>
+                                        <state key="normal" title="8">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="E8S-T9-aUB"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="9000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO4-FB-XFL">
+                                        <rect key="frame" x="471" y="95" width="30" height="30"/>
+                                        <state key="normal" title="9">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="gW5-0n-S1u"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="10000" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv7-iV-XHu">
+                                        <rect key="frame" x="521" y="95" width="30" height="30"/>
+                                        <state key="normal" title="10">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="4i2-ni-mNf"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not likely at all" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869-LA-duF">
+                                        <rect key="frame" x="29" y="133" width="112" height="21"/>
+                                        <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="12"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Very likely" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwR-06-ZwC">
+                                        <rect key="frame" x="498" y="133" width="76" height="21"/>
+                                        <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="11"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xf9-nl-0XA">
+                                        <rect key="frame" x="260" y="205" width="100" height="35"/>
+                                        <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="19"/>
+                                        <state key="normal" title="NO THANKS">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancel:" destination="xBK-6R-TUa" eventType="touchUpInside" id="0H5-aG-Dlq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="800" height="400"/>
+                    <connections>
+                        <outlet property="promptTextView" destination="CC3-BZ-b3i" id="FEx-8R-WzA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="saw-Qy-I7W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15" y="1689"/>
+        </scene>
+    </scenes>
+</document>

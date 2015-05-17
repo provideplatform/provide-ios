@@ -196,6 +196,9 @@
 		68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
 		68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
 		68B412C11B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
+		68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
+		68B412C61B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
+		68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
 		68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
 		68B412CF1B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
 		68B412D01B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
@@ -226,6 +229,9 @@
 		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
+		68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
+		68B4132F1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
+		68B413301B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68B4133B1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68B4133C1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
@@ -376,6 +382,7 @@
 		68B412971B0804BC009A4C05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
 		68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetPromoterViewController.swift; sourceTree = "<group>"; };
 		68B412BC1B080D42009A4C05 /* SelfieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		68B412BD1B080D42009A4C05 /* SignatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureViewController.swift; sourceTree = "<group>"; };
 		68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
@@ -385,6 +392,7 @@
 		68B413171B081C25009A4C05 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
+		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -608,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
+				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -628,6 +637,7 @@
 			isa = PBXGroup;
 			children = (
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
+				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -868,6 +878,7 @@
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
+				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
 				68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
@@ -913,6 +924,7 @@
 				68B412791B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B412521B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4127C1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
+				68B4132F1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
 				68B4125E1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -943,6 +955,7 @@
 				68B4127A1B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B412531B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4127D1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
+				68B413301B083161009A4C05 /* NetPromoter.storyboard in Resources */,
 				68B4125F1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1051,6 +1064,7 @@
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
+				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
@@ -1122,6 +1136,7 @@
 				687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68B412EA1B080E6D009A4C05 /* SignatureView.swift in Sources */,
+				68B412C61B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				68B4128C1B08036F009A4C05 /* Color.swift in Sources */,
 				68B4129F1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
 				689B0CB31B07DFE3005694B7 /* ApiService.swift in Sources */,
@@ -1211,6 +1226,7 @@
 				687CB59F1B07F6020048B692 /* LocationService.swift in Sources */,
 				68B4131A1B081C25009A4C05 /* RoundedButton.swift in Sources */,
 				687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
+				68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
