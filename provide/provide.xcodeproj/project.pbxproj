@@ -202,6 +202,9 @@
 		68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
 		68B412C61B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
 		68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
+		68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */; };
+		68B412C91B080D42009A4C05 /* PackingSlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */; };
+		68B412CA1B080D42009A4C05 /* PackingSlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */; };
 		68B412CB1B080D42009A4C05 /* RouteManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BB1B080D42009A4C05 /* RouteManifestViewController.swift */; };
 		68B412CC1B080D42009A4C05 /* RouteManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BB1B080D42009A4C05 /* RouteManifestViewController.swift */; };
 		68B412CD1B080D42009A4C05 /* RouteManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BB1B080D42009A4C05 /* RouteManifestViewController.swift */; };
@@ -220,6 +223,9 @@
 		68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
 		68B412E11B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
 		68B412E21B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
+		68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */; };
+		68B412E41B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */; };
+		68B412E51B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */; };
 		68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */; };
 		68B412E71B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */; };
 		68B412E81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */; };
@@ -244,6 +250,9 @@
 		68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
 		68B4132F1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
 		68B413301B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
+		68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
+		68B413321B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
+		68B413331B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
 		68B413371B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
 		68B413381B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
 		68B413391B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
@@ -399,12 +408,14 @@
 		68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		68B412B81B080D41009A4C05 /* DirectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetPromoterViewController.swift; sourceTree = "<group>"; };
+		68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipViewController.swift; sourceTree = "<group>"; };
 		68B412BB1B080D42009A4C05 /* RouteManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestViewController.swift; sourceTree = "<group>"; };
 		68B412BC1B080D42009A4C05 /* SelfieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		68B412BD1B080D42009A4C05 /* SignatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureViewController.swift; sourceTree = "<group>"; };
 		68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsInstructionView.swift; sourceTree = "<group>"; };
+		68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipItemTableViewCell.swift; sourceTree = "<group>"; };
 		68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestItemTableViewCell.swift; sourceTree = "<group>"; };
 		68B412D91B080E6D009A4C05 /* SignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
@@ -412,6 +423,7 @@
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
+		68B413261B083161009A4C05 /* PackingSlip.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PackingSlip.storyboard; sourceTree = "<group>"; };
 		68B413281B083161009A4C05 /* RouteManifest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RouteManifest.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
@@ -638,6 +650,7 @@
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
+				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
 				68B412BB1B080D42009A4C05 /* RouteManifestViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
@@ -651,6 +664,7 @@
 				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
+				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
 				68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */,
 				68B412D91B080E6D009A4C05 /* SignatureView.swift */,
 			);
@@ -662,6 +676,7 @@
 			children = (
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
+				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
 				68B413281B083161009A4C05 /* RouteManifest.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
@@ -906,6 +921,7 @@
 				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
 				68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
+				68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
@@ -929,6 +945,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68B412581B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
+				68B413321B083161009A4C05 /* PackingSlip.storyboard in Resources */,
 				68B4133E1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
@@ -961,6 +978,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68B412591B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
+				68B413331B083161009A4C05 /* PackingSlip.storyboard in Resources */,
 				68B4133F1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4126B1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124D1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
@@ -1106,6 +1124,7 @@
 				68F7307F1B07DE94001A21B0 /* Product.swift in Sources */,
 				68B412981B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57A1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
 				687CB5801B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
@@ -1182,6 +1201,7 @@
 				68F730801B07DE94001A21B0 /* Product.swift in Sources */,
 				68B412991B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				68B412C91B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57B1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
 				687CB5811B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
@@ -1204,6 +1224,7 @@
 				68F730981B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68B412851B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				68B412DB1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
+				68B412E41B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				687CB59B1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F7307A1B07DE94001A21B0 /* Directions.swift in Sources */,
 				68F730891B07DE94001A21B0 /* RouteLeg.swift in Sources */,
@@ -1268,6 +1289,7 @@
 				687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
+				68B412CA1B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
 				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
@@ -1282,6 +1304,7 @@
 				68F730991B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68F730871B07DE94001A21B0 /* Route.swift in Sources */,
 				68F7308A1B07DE94001A21B0 /* RouteLeg.swift in Sources */,
+				68B412E51B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				687CB5A51B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7306F1B07DE94001A21B0 /* Company.swift in Sources */,
 				687CB5641B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,

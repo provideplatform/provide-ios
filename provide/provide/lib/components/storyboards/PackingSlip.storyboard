@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lnc-1M-7jn">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Packing Slip View Controller-->
+        <scene sceneID="IzW-uO-lpD">
+            <objects>
+                <viewController storyboardIdentifier="PackingSlipViewController" autoresizesArchivedViewToFullSize="NO" id="lnc-1M-7jn" customClass="PackingSlipViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HWv-CX-mxc"/>
+                        <viewControllerLayoutGuide type="bottom" id="z7W-yH-fS5"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="PwC-Su-RWl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t5m-HI-aah">
+                                <rect key="frame" x="0.0" y="128" width="320" height="44"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="fNV-9f-BVZ">
+                                        <rect key="frame" x="28" y="8" width="263" height="29"/>
+                                        <segments>
+                                            <segment title="UNLOADED"/>
+                                            <segment title="ON TRUCK"/>
+                                            <segment title="REJECTED"/>
+                                        </segments>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </segmentedControl>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="fNV-9f-BVZ" firstAttribute="top" secondItem="t5m-HI-aah" secondAttribute="topMargin" id="Inc-df-cKB"/>
+                                    <constraint firstItem="fNV-9f-BVZ" firstAttribute="bottom" secondItem="t5m-HI-aah" secondAttribute="bottomMargin" id="W6U-XP-1Jf"/>
+                                    <constraint firstItem="fNV-9f-BVZ" firstAttribute="centerX" secondItem="t5m-HI-aah" secondAttribute="centerX" id="ugx-SZ-Sym"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ChV-O8-qOe">
+                                <rect key="frame" x="0.0" y="44" width="320" height="256"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="packingSlipItemTableViewCell" rowHeight="75" id="QSV-Ak-Ani" userLabel="Packing Slip Item" customClass="PackingSlipItemTableViewCell" customModule="provide" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QSV-Ak-Ani" id="aLv-jo-Jcb">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="51M-23150" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Roo-va-Pb4">
+                                                    <rect key="frame" x="8" y="11" width="76" height="28"/>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BSEA 54712251" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kha-gD-8IM">
+                                                    <rect key="frame" x="203" y="11" width="110" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="5m0-9T-iV7"/>
+                                                        <constraint firstAttribute="height" constant="28" id="svW-po-U5B"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARSONS FM Q" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCO-WU-k8Q">
+                                                    <rect key="frame" x="8" y="47" width="101" height="14"/>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iie-6h-Niv">
+                                                    <rect key="frame" x="227" y="47" width="85" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="85" id="kS0-jS-LU1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kha-gD-8IM" firstAttribute="top" secondItem="aLv-jo-Jcb" secondAttribute="topMargin" constant="3" id="G67-ZS-vwt"/>
+                                                <constraint firstItem="kha-gD-8IM" firstAttribute="baseline" secondItem="Roo-va-Pb4" secondAttribute="baseline" id="XoG-d4-BsJ"/>
+                                                <constraint firstItem="Roo-va-Pb4" firstAttribute="leading" secondItem="aLv-jo-Jcb" secondAttribute="leadingMargin" id="aZ1-MN-G27"/>
+                                                <constraint firstItem="Iie-6h-Niv" firstAttribute="baseline" secondItem="mCO-WU-k8Q" secondAttribute="firstBaseline" id="dtz-ea-3qs"/>
+                                                <constraint firstItem="Roo-va-Pb4" firstAttribute="leading" secondItem="mCO-WU-k8Q" secondAttribute="leading" id="ggf-V3-y5c"/>
+                                                <constraint firstItem="Iie-6h-Niv" firstAttribute="baseline" secondItem="mCO-WU-k8Q" secondAttribute="baseline" id="hc1-Zd-SdW"/>
+                                                <constraint firstItem="Iie-6h-Niv" firstAttribute="trailing" secondItem="aLv-jo-Jcb" secondAttribute="trailingMargin" id="jeu-m3-WaB"/>
+                                                <constraint firstItem="mCO-WU-k8Q" firstAttribute="top" secondItem="Roo-va-Pb4" secondAttribute="bottom" constant="8" symbolic="YES" id="l3k-CN-Bug"/>
+                                                <constraint firstItem="Roo-va-Pb4" firstAttribute="firstBaseline" secondItem="kha-gD-8IM" secondAttribute="firstBaseline" id="mG5-Fn-5oK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="kha-gD-8IM" secondAttribute="trailing" constant="-1" id="z47-Y8-Z9J"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="mpnLabel" destination="Roo-va-Pb4" id="WqQ-tA-Leg"/>
+                                            <outlet property="nameLabel" destination="mCO-WU-k8Q" id="chn-EV-MqK"/>
+                                            <outlet property="priceLabel" destination="Iie-6h-Niv" id="R2d-wy-ylH"/>
+                                            <outlet property="skuLabel" destination="kha-gD-8IM" id="IBY-Wd-efv"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="lnc-1M-7jn" id="rAc-gO-8TP"/>
+                                    <outlet property="delegate" destination="lnc-1M-7jn" id="xH9-nV-LUx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91764712329999998" green="0.9215686917" blue="0.92941182850000004" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="t5m-HI-aah" firstAttribute="trailing" secondItem="ChV-O8-qOe" secondAttribute="trailing" id="7sg-nX-7FI"/>
+                            <constraint firstItem="t5m-HI-aah" firstAttribute="top" secondItem="HWv-CX-mxc" secondAttribute="bottom" id="9TP-5g-BKM"/>
+                            <constraint firstItem="ChV-O8-qOe" firstAttribute="bottom" secondItem="z7W-yH-fS5" secondAttribute="top" id="DMI-o7-AzH"/>
+                            <constraint firstItem="t5m-HI-aah" firstAttribute="leading" secondItem="PwC-Su-RWl" secondAttribute="leading" id="Ylb-EV-JkU"/>
+                            <constraint firstItem="t5m-HI-aah" firstAttribute="leading" secondItem="ChV-O8-qOe" secondAttribute="leading" id="t1v-0s-PVD"/>
+                            <constraint firstAttribute="trailing" secondItem="ChV-O8-qOe" secondAttribute="trailing" id="tBG-oo-Rz6"/>
+                            <constraint firstItem="ChV-O8-qOe" firstAttribute="top" secondItem="t5m-HI-aah" secondAttribute="bottom" id="taU-dh-K4D"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="300"/>
+                    <connections>
+                        <outlet property="packingSlipTableView" destination="ChV-O8-qOe" id="KoX-or-1Pt"/>
+                        <outlet property="packingSlipToolbarSegmentedControl" destination="fNV-9f-BVZ" id="JpG-kw-Yyj"/>
+                        <outlet property="packingSlipToolbarView" destination="t5m-HI-aah" id="pJa-Yj-uv9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QoO-nP-bDb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-539" y="1823"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,300 @@
+//
+//  PackingSlipViewController.swift
+//  provide
+//
+//  Created by Kyle Thomas on 5/16/15.
+//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//
+
+import Foundation
+import AVFoundation
+
+//@objc
+//protocol PackingSlipViewControllerDelegate {
+//
+//    optional func workOrderDeliveryConfirmedForViewController(packingSlipViewController: PackingSlipViewController!)
+//    optional func workOrderAbandonedForViewController(packingSlipViewController: PackingSlipViewController!)
+//    optional func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
+//
+//}
+
+class PackingSlipViewController: WorkOrderComponentViewController,
+                                 UITableViewDataSource,
+                                 UITableViewDelegate,
+                                 PackingSlipItemTableViewCellDelegate,
+                                 BarcodeScannerViewControllerDelegate {
+
+    enum Segment {
+        case OnTruck, Unloaded, Rejected
+
+        static let allValues = [Unloaded, OnTruck, Rejected]
+    }
+
+    @IBOutlet private weak var packingSlipToolbarView: UIView!
+    @IBOutlet private weak var packingSlipToolbarSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var packingSlipTableView: UITableView!
+
+    private var barcodeScannerViewController: BarcodeScannerViewController!
+    private var productToUnload: Product!
+
+    private var deliverItem: UIBarButtonItem!
+    private var abandonItem: UIBarButtonItem!
+
+    private var segment: Segment!
+
+    private var items: [Product]! {
+        get {
+            switch Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex] {
+            case .Unloaded:
+                return workOrdersViewControllerDelegate?.workOrderItemsUnloadedForViewController?(self)
+            case .OnTruck:
+                return workOrdersViewControllerDelegate?.workOrderItemsOnTruckForViewController?(self)
+            case .Rejected:
+                return workOrdersViewControllerDelegate?.workOrderItemsRejectedForViewController?(self)
+            default:
+                return nil
+            }
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = UIColor.clearColor()
+
+        packingSlipToolbarView.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(),
+                                                                                     rect: CGRectMake(0.0, 0.0, view.frame.width, view.frame.height)).colorWithAlphaComponent(0.7)
+
+        packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
+
+        packingSlipTableView.backgroundView = UIImageView(image: UIImage(named: "navbar-background")!)
+
+        barcodeScannerViewController = UIStoryboard(name: "BarcodeScanner", bundle: nil).instantiateInitialViewController() as! BarcodeScannerViewController
+        barcodeScannerViewController.delegate = self
+    }
+
+    func segmentChanged() {
+        segment = Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex]
+
+        dispatch_after_delay(0.0) {
+            self.packingSlipTableView.reloadData()
+        }
+    }
+
+    override func render() {
+        let frame = CGRectMake(0.0,
+            targetView.frame.size.height,
+            targetView.frame.size.width,
+            view.frame.size.height)
+
+        view.alpha = 0.0
+        view.frame = frame
+
+        view.addDropShadow(CGSizeMake(1.0, 1.0), radius: 2.5, opacity: 1.0)
+
+        targetView.addSubview(view)
+
+        setupNavigationItem()
+
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: { () -> Void in
+                self.view.alpha = 1
+                self.view.frame = CGRectMake(frame.origin.x,
+                    frame.origin.y - self.view.frame.size.height,
+                    frame.size.width,
+                    frame.size.height)
+
+            },
+            completion: { (complete) -> Void in
+
+            }
+        )
+    }
+
+    override func unwind() {
+        clearNavigationItem()
+
+        if let barcodeScannerViewController = self.barcodeScannerViewController {
+            barcodeScannerViewController.stopScanner()
+        }
+
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: { () -> Void in
+                self.view.alpha = 0
+                self.view.frame = CGRectMake(0.0,
+                    self.view.frame.origin.y + self.view.frame.size.height,
+                    self.view.frame.size.width,
+                    self.view.frame.size.height)
+
+            },
+            completion: { (complete) -> Void in
+                
+            }
+        )
+    }
+
+    // MARK: Navigation item
+
+    func setupNavigationItem(deliverItemEnabled: Bool = false, abandomItemEnabled: Bool = true) {
+        if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
+            deliverItem = UIBarButtonItem(title: "DELIVER", style: .Plain, target: self, action: "deliver:")
+            deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            deliverItem.enabled = deliverItemEnabled
+
+            abandonItem = UIBarButtonItem(title: "ABANDON", style: .Plain, target: self, action: "abandon:")
+            abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            abandonItem.enabled = abandomItemEnabled
+
+            navigationItem.leftBarButtonItems = [deliverItem]
+            navigationItem.rightBarButtonItems = [abandonItem]
+        }
+    }
+
+    func deliver(sender: UIBarButtonItem) {
+        workOrdersViewControllerDelegate?.workOrderDeliveryConfirmedForViewController?(self)
+    }
+
+    func abandon(sender: UIBarButtonItem) {
+        workOrdersViewControllerDelegate?.workOrderAbandonedForViewController?(self)
+    }
+
+    // MARK: UITableViewDelegate
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let items = self.items {
+            return items.count
+        }
+        return 0
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCellWithIdentifier("packingSlipItemTableViewCell") as! PackingSlipItemTableViewCell
+
+        if let items = self.items {
+            cell.product = items[indexPath.row] as Product
+            cell.packingSlipItemTableViewCellDelegate = self
+        }
+
+        return cell
+    }
+
+    // MARK: UITableViewDataSource
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 75.0
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
+    }
+
+    // MARK: PackingSlipItemTableViewCellDelegate
+
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, didRejectProduct rejectedProduct: Product!) {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if workOrder.canRejectGtin(rejectedProduct.gtin) {
+                workOrder.rejectItem(rejectedProduct)
+                workOrder.loadItem(rejectedProduct)
+
+                packingSlipTableView.reloadData()
+
+                if let route = RouteService.sharedService().inProgressRoute {
+                    route.loadManifestItemByGtin(rejectedProduct.gtin, onSuccess: { (statusCode, responseString) -> () in
+                        println("loaded manifest item by gtin...")
+                    }) { (error, statusCode, responseString) -> () in
+                                
+                    }
+                }
+
+                dispatch_after_delay(0.0, { () -> Void in
+                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: !workOrder.canBeDelivered)
+                })
+            }
+        }
+    }
+
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadProduct product: Product!) {
+        productToUnload = product
+
+        if isSimulator() == true { // HACK!!!
+            unloadItem(product.gtin)
+        } else {
+            presentViewController(barcodeScannerViewController, animated: true)
+        }
+    }
+
+    // MARK: BarcodeScannerViewControllerDelegate
+
+    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        for object in metadataObjects {
+            if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
+                self.processCode(machineReadableCodeObject)
+            }
+        }
+    }
+
+    private func processCode(metadataObject: AVMetadataMachineReadableCodeObject!) {
+        if let code = metadataObject {
+            if code.type == "org.gs1.EAN-13" {
+                unloadItem(code.stringValue)
+            }
+        }
+    }
+
+    private func unloadItem(gtin: String!) {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if let product = productToUnload {
+                if product.gtin == gtin {
+                    if workOrder.canUnloadGtin(gtin) {
+                        workOrder.approveItem(product)
+                        workOrder.unloadItem(product)
+
+                        dispatch_after_delay(0.0) {
+                            self.packingSlipTableView.reloadData()
+                        }
+
+                        if let route = RouteService.sharedService().inProgressRoute {
+                            route.unloadManifestItemByGtin(product.gtin, onSuccess: { (statusCode, responseString) -> () in
+
+                            }) { (error, statusCode, responseString) -> () in
+
+                            }
+                        }
+
+                        dispatch_after_delay(0.0, { () -> Void in
+                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                        })
+
+                        dismissBarcodeScannerViewController()
+                    } else {
+                        // TODO-- show UI for state when gtin cannot be unloaded
+                        //println("gtin cannot be unloaded for work order...")
+                    }
+                } else {
+                    // TODO-- show UI for state when barcode does not match item being unloaded
+                    //println("gtin does not match product being unloaded...")
+                }
+            }
+        }
+    }
+
+    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController!) {
+        dismissBarcodeScannerViewController()
+    }
+
+    func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController!) -> CGRect {
+        return view.frame
+    }
+
+    private func dismissBarcodeScannerViewController() {
+        productToUnload = nil
+
+        dismissViewController(animated: true) { () -> Void in
+            
+        }
+    }
+
+}
