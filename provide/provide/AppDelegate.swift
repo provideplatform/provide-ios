@@ -32,10 +32,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+
+        if ApiService.hasCachedToken() {
+            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+        }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+        if ApiService.hasCachedToken() {
+            CheckinService.sharedService().checkin()
+        }
+    }
+
+    // MARK: Remote notifications
+
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        ApiService.sharedService().createDevice(["user_id": KeyChainService.sharedService().token!.userId, "apns_device_id": "\(deviceToken)"], onSuccess: { (statusCode, responseString) -> () in
+
+        }) { (error, statusCode, responseString) -> () in
+            logError("Failed to set apn device token for authenticated user")
+        }
+    }
+
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println(error.localizedDescription)
+    }
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        if ApiService.hasCachedToken() {
+            if let checkin = userInfo["checkin"] as? Bool {
+                if checkin {
+                    LocationService.sharedService().resolveCurrentLocation({ (location: CLLocation) -> () in
+                        ApiService.sharedService().checkin(location)
+                        LocationService.sharedService().background()
+                    })
+                }
+            }
+
+            if let workOrderId = userInfo["work_order_id"] as? NSNumber {
+                if let providerRemoved = userInfo["provider_removed"] as? Bool {
+                    if providerRemoved == true {
+                        log("provider removed from work order id \(workOrderId)")
+                    }
+                } else {
+                    if WorkOrderService.sharedService().inProgressWorkOrder != nil {
+                        if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId.integerValue {
+                            ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue, onSuccess: { (statusCode, mappingResult) -> () in
+                                if let wo = mappingResult.firstObject as? WorkOrder {
+                                    if wo.status == "canceled" {
+                                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                    }
+                                }
+                            }) { (error, statusCode, responseString) -> () in
+
+                            }
+                        }
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    }
+                }
+            }
+        }
+        
+        completionHandler(.NewData);
     }
 
     func applicationWillTerminate(application: UIApplication) {

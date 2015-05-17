@@ -85,7 +85,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 
         loadRouteContext()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextUpdated") { _ in
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder == true) {
                 if self.viewingDirections {
                     WorkOrderService.sharedService().inProgressWorkOrder.reload({ (statusCode, mappingResult) -> () in
