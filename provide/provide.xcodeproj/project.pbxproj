@@ -232,6 +232,27 @@
 		68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D91B080E6D009A4C05 /* SignatureView.swift */; };
 		68B412EA1B080E6D009A4C05 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D91B080E6D009A4C05 /* SignatureView.swift */; };
 		68B412EB1B080E6D009A4C05 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D91B080E6D009A4C05 /* SignatureView.swift */; };
+		68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
+		68B412FB1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
+		68B412FC1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
+		68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
+		68B412FE1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
+		68B412FF1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
+		68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */; };
+		68B413011B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */; };
+		68B413021B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */; };
+		68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */; };
+		68B413041B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */; };
+		68B413051B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */; };
+		68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */; };
+		68B413071B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */; };
+		68B413081B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */; };
+		68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
+		68B4130A1B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
+		68B4130B1B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
+		68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
+		68B4130D1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
+		68B4130E1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
 		68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
 		68B413111B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
 		68B413121B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
@@ -265,6 +286,9 @@
 		68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B4132A1B083161009A4C05 /* Signature.storyboard */; };
 		68B4133E1B083161009A4C05 /* Signature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B4132A1B083161009A4C05 /* Signature.storyboard */; };
 		68B4133F1B083161009A4C05 /* Signature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B4132A1B083161009A4C05 /* Signature.storyboard */; };
+		68B413411B08318C009A4C05 /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413401B08318C009A4C05 /* Provider.storyboard */; };
+		68B413421B08318C009A4C05 /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413401B08318C009A4C05 /* Provider.storyboard */; };
+		68B413431B08318C009A4C05 /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413401B08318C009A4C05 /* Provider.storyboard */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
@@ -421,6 +445,13 @@
 		68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipItemTableViewCell.swift; sourceTree = "<group>"; };
 		68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestItemTableViewCell.swift; sourceTree = "<group>"; };
 		68B412D91B080E6D009A4C05 /* SignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
+		68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationViewController.swift; sourceTree = "<group>"; };
+		68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderComponentViewController.swift; sourceTree = "<group>"; };
+		68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDestinationConfirmationViewController.swift; sourceTree = "<group>"; };
+		68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDestinationHeaderViewController.swift; sourceTree = "<group>"; };
+		68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrdersViewController.swift; sourceTree = "<group>"; };
+		68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationView.swift; sourceTree = "<group>"; };
+		68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderMapView.swift; sourceTree = "<group>"; };
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		68B413171B081C25009A4C05 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
@@ -431,6 +462,7 @@
 		68B413281B083161009A4C05 /* RouteManifest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RouteManifest.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
+		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -635,6 +667,7 @@
 			isa = PBXGroup;
 			children = (
 				68B412B51B080D41009A4C05 /* components */,
+				68B412F01B08153D009A4C05 /* provider */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -672,6 +705,37 @@
 				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
 				68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */,
 				68B412D91B080E6D009A4C05 /* SignatureView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		68B412F01B08153D009A4C05 /* provider */ = {
+			isa = PBXGroup;
+			children = (
+				68B412F11B08153D009A4C05 /* controllers */,
+				68B412F71B08153D009A4C05 /* views */,
+				68B413401B08318C009A4C05 /* Provider.storyboard */,
+			);
+			path = provider;
+			sourceTree = "<group>";
+		};
+		68B412F11B08153D009A4C05 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */,
+				68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */,
+				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
+				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
+				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		68B412F71B08153D009A4C05 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */,
+				68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -934,6 +998,7 @@
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
+				68B413411B08318C009A4C05 /* Provider.storyboard in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
@@ -969,6 +1034,7 @@
 				68B412611B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				68B4120E1B07FB02009A4C05 /* Application.storyboard in Resources */,
 				68B4124F1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
+				68B413421B08318C009A4C05 /* Provider.storyboard in Resources */,
 				68B412361B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68B412791B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B412521B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
@@ -1002,6 +1068,7 @@
 				68B412621B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				68B4120F1B07FB02009A4C05 /* Application.storyboard in Resources */,
 				68B412501B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
+				68B413431B08318C009A4C05 /* Provider.storyboard in Resources */,
 				68B412371B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68B4127A1B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B412531B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
@@ -1110,8 +1177,10 @@
 				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
 				687CB5841B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				68B413141B0819C7009A4C05 /* VersionHelper.swift in Sources */,
+				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */,
 				68F730851B07DE94001A21B0 /* Route.swift in Sources */,
+				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
@@ -1120,9 +1189,12 @@
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
+				68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
+				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
+				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68F730821B07DE94001A21B0 /* Provider.swift in Sources */,
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
@@ -1136,6 +1208,7 @@
 				68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
 				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
+				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307C1B07DE94001A21B0 /* Model.swift in Sources */,
@@ -1148,6 +1221,7 @@
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306D1B07DE94001A21B0 /* Company.swift in Sources */,
 				68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */,
+				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F7309A1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
 				68F730971B07DE94001A21B0 /* WorkOrder.swift in Sources */,
@@ -1188,8 +1262,10 @@
 				687CB58A1B07EEF00048B692 /* HelperFunctions.swift in Sources */,
 				687CB5851B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				68B413151B0819C7009A4C05 /* VersionHelper.swift in Sources */,
+				68B413041B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68B4131D1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */,
 				68F730861B07DE94001A21B0 /* Route.swift in Sources */,
+				68B4130D1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412AB1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
@@ -1198,9 +1274,12 @@
 				68B412C61B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				68B4128C1B08036F009A4C05 /* Color.swift in Sources */,
 				68B4129F1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
+				68B412FB1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
 				689B0CB31B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68B412D21B080D42009A4C05 /* SignatureViewController.swift in Sources */,
 				687CB5781B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
+				68B413011B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
+				68B4130A1B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68F730831B07DE94001A21B0 /* Provider.swift in Sources */,
 				689B0CB71B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */,
@@ -1214,6 +1293,7 @@
 				68B4129C1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				68B413111B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
 				68B413211B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
+				68B412FE1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				68B412A51B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A41B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
@@ -1226,6 +1306,7 @@
 				687CB56F1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306E1B07DE94001A21B0 /* Company.swift in Sources */,
 				68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */,
+				68B413071B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F7309B1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				687CB56C1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
 				68F730981B07DE94001A21B0 /* WorkOrder.swift in Sources */,
@@ -1254,9 +1335,12 @@
 				68B412C11B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				689B0CBE1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68F7307E1B07DE94001A21B0 /* Model.swift in Sources */,
+				68B413081B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */,
 				687CB5861B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				68B412AC1B0804BC009A4C05 /* TopViewController.swift in Sources */,
+				68B412FF1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
+				68B4130E1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412EB1B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				68B412E81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
 				68B412A31B0804BC009A4C05 /* MenuViewController.swift in Sources */,
@@ -1268,11 +1352,13 @@
 				68F7306C1B07DE94001A21B0 /* Attachment.swift in Sources */,
 				68B412A91B0804BC009A4C05 /* SlidingViewController.swift in Sources */,
 				68B412E21B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
+				68B413051B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68F730721B07DE94001A21B0 /* Contact.swift in Sources */,
 				687CB59C1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68B412C41B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
 				687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				687CB5551B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */,
+				68B413021B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				689B0CB41B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68B412B31B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 				68F730751B07DE94001A21B0 /* Customer.swift in Sources */,
@@ -1300,7 +1386,9 @@
 				68B413221B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
+				68B412FC1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
 				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
+				68B4130B1B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68B412DF1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68F730841B07DE94001A21B0 /* Provider.swift in Sources */,
 				68B413121B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
