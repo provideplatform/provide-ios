@@ -193,6 +193,15 @@
 		68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68B412B21B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68B412B31B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
+		68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
+		68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
+		68B412C11B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
+		68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
+		68B412DB1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
+		68B412DC1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
+		68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
+		68B412DE1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
+		68B412DF1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
 		68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
 		68B413111B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
 		68B413121B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
@@ -205,6 +214,9 @@
 		68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
 		68B4131D1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
 		68B4131E1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
+		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
+		68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
+		68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
@@ -348,9 +360,13 @@
 		68B412961B0804BC009A4C05 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		68B412971B0804BC009A4C05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
+		68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
+		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		68B413171B081C25009A4C05 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
+		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -550,6 +566,49 @@
 			path = main;
 			sourceTree = "<group>";
 		};
+		68B412B41B080D41009A4C05 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				68B412B51B080D41009A4C05 /* components */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		68B412B51B080D41009A4C05 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				68B412B61B080D41009A4C05 /* controllers */,
+				68B412BE1B080D42009A4C05 /* views */,
+				68B413231B083161009A4C05 /* storyboards */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		68B412B61B080D41009A4C05 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		68B412BE1B080D42009A4C05 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
+				68B412D51B080E6D009A4C05 /* CameraView.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		68B413231B083161009A4C05 /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
+			);
+			path = storyboards;
+			sourceTree = "<group>";
+		};
 		68DFB0751B07C5C4002A72E8 = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +635,7 @@
 			isa = PBXGroup;
 			children = (
 				68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */,
+				68B412B41B080D41009A4C05 /* lib */,
 				68B4128E1B0804BC009A4C05 /* controllers */,
 				68B412811B0802AF009A4C05 /* views */,
 				68F730581B07DE94001A21B0 /* models */,
@@ -783,6 +843,7 @@
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
+				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
@@ -807,6 +868,7 @@
 				68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68B412701B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
+				68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B412761B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125B1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68B412641B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
@@ -834,6 +896,7 @@
 				68B4126B1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124D1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68B412711B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
+				68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B412771B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125C1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68B412651B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
@@ -943,6 +1006,7 @@
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68F730731B07DE94001A21B0 /* Customer.swift in Sources */,
 				6825FD431B0849C600E4B10B /* VersionHelper.swift in Sources */,
+				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68F7306A1B07DE94001A21B0 /* Attachment.swift in Sources */,
 				68B412A71B0804BC009A4C05 /* SlidingViewController.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
@@ -965,6 +1029,7 @@
 				68F7307F1B07DE94001A21B0 /* Product.swift in Sources */,
 				68B412981B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57A1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
 				687CB5801B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
@@ -1009,6 +1074,7 @@
 				689B0CC01B07E0F1005694B7 /* Environment.swift in Sources */,
 				68F730741B07DE94001A21B0 /* Customer.swift in Sources */,
 				6825FD441B0849C600E4B10B /* VersionHelper.swift in Sources */,
+				68B412DE1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68F7306B1B07DE94001A21B0 /* Attachment.swift in Sources */,
 				68B412A81B0804BC009A4C05 /* SlidingViewController.swift in Sources */,
 				68B412A21B0804BC009A4C05 /* MenuViewController.swift in Sources */,
@@ -1031,6 +1097,7 @@
 				68F730801B07DE94001A21B0 /* Product.swift in Sources */,
 				68B412991B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */,
+				68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57B1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
 				687CB5811B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				68B4129C1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
@@ -1048,6 +1115,7 @@
 				687CB56C1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
 				68F730981B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68B412851B0802AF009A4C05 /* AnnotationView.swift in Sources */,
+				68B412DB1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
 				687CB59B1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F7307A1B07DE94001A21B0 /* Directions.swift in Sources */,
 				68F730891B07DE94001A21B0 /* RouteLeg.swift in Sources */,
@@ -1066,6 +1134,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68B412DC1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
+				68B412C11B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				689B0CBE1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68F7307E1B07DE94001A21B0 /* Model.swift in Sources */,
 				682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */,
@@ -1106,6 +1176,7 @@
 				689B0CC11B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B4128D1B08036F009A4C05 /* Color.swift in Sources */,
 				68F730781B07DE94001A21B0 /* Device.swift in Sources */,
+				68B412DF1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68F730841B07DE94001A21B0 /* Provider.swift in Sources */,
 				68B413121B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
 				68B413161B0819C7009A4C05 /* VersionHelper.swift in Sources */,
