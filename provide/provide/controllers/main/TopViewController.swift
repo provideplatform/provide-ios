@@ -1,0 +1,92 @@
+//
+//  TopViewController.swift
+//  provide
+//
+//  Created by Kyle Thomas on 5/16/15.
+//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//
+
+import UIKit
+
+class TopViewController: ViewController, SelfieViewControllerDelegate {
+
+    private var childViewController: ViewController!
+
+    private let defaultInitialStoryboardName = "Provider"
+
+    private var initialStoryboard: UIStoryboard! {
+        get {
+            let storyboardName = ENV("INITIAL_STORYBOARD") ?? defaultInitialStoryboardName
+            return UIStoryboard(name: storyboardName, bundle: nil)
+        }
+    }
+
+    private var selfieViewController: SelfieViewController!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        childViewController = initialStoryboard?.instantiateInitialViewController() as! ViewController
+        navigationController?.pushViewController(childViewController, animated: false)
+
+        navigationItem.hidesBackButton = true
+        navigationController?.setNavigationBarHidden(false, animated: false)
+
+        fetchUser()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
+    private func fetchUser() {
+        ApiService.sharedService().fetchUser(onSuccess: { (statusCode, mappingResult) -> () in
+            if let user = mappingResult.firstObject as? User {
+                if user.profileImageUrl == nil {
+                    self.initSelfieViewController()
+                }
+            }
+        }, onError: { (error, statusCode, responseString) -> () in
+
+        })
+    }
+
+    // MARK: SelfieViewController
+
+    func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!) {
+        navigationController?.popViewControllerAnimated(false)
+
+        if let user = KeyChainService.sharedService().user {
+            let data = UIImageJPEGRepresentation(image, 1.0)
+
+            var params = [
+                "public": false,
+                "tags": ["profile_image", "default"]
+            ]
+
+            ApiService.sharedService().addAttachment(data,
+                withMimeType: "image/jpg",
+                toUserWithId: user.id.stringValue,
+                params: NSDictionary(dictionary: params),
+                onSuccess: { (statusCode, responseString) -> () in
+
+                }, onError: { (statusCode, responseString, error) -> () in
+
+                }
+            )
+        }
+
+
+    }
+
+    func selfieViewControllerCanceled(viewController: SelfieViewController!) {
+        navigationController?.popViewControllerAnimated(false)
+    }
+
+    private func initSelfieViewController() {
+        selfieViewController = UIStoryboard(name: "Selfie", bundle: nil).instantiateInitialViewController() as! SelfieViewController
+        selfieViewController.delegate = self
+
+        navigationController?.pushViewController(selfieViewController, animated: false)
+    }
+}

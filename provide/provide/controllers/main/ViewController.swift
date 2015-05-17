@@ -1,0 +1,64 @@
+//
+//  ViewController.swift
+//  provide
+//
+//  Created by Kyle Thomas on 5/16/15.
+//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//
+
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var statusLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if let navigationController = self.navigationController {
+            navigationController.navigationBar.setBackgroundImage(UIImage(named: "navbar-background"), forBarMetrics: .Default)
+            navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
+        }
+    }
+
+    // MARK: Preferred status bar style
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+
+    // MARK: Activity indicator and status messaging
+
+    func showError(errorMessage: String) {
+        updateStatus(errorMessage, showActivity: false, isError: true)
+        logError(errorMessage)
+    }
+
+    func updateStatus(text: String) {
+        updateStatus(text, showActivity: !text.isEmpty, isError: false)
+    }
+
+    func showActivity() {
+        updateStatus("", showActivity: true, isError: false)
+    }
+
+    func hideActivity() {
+        updateStatus("", showActivity: false, isError: false)
+    }
+    
+    private func updateStatus(text: String, showActivity: Bool, isError: Bool) {
+        if let status = statusLabel {
+            status.text = text
+            status.hidden = false
+            status.textColor = isError ? UIColor.redColor() : UIColor.darkTextColor()
+        }
+
+        if showActivity {
+            activityIndicator?.startAnimating()
+        } else {
+            activityIndicator?.stopAnimating()
+        }
+    }
+
+}
