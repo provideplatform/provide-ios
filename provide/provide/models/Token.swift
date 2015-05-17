@@ -32,15 +32,6 @@ class Token: Model {
         return "Basic " + "\(token):\(uuid)".base64EncodedString
     }
 
-    override func toDictionary() -> [String : AnyObject] {
-        return [
-            "id": id,
-            "uuid": uuid,
-            "token": token,
-            "userId": userId
-        ]
-    }
-
     class func fromJSON(json: String!) -> Token! {
         var token: Token!
         if let obj = json.toJSONObject() {

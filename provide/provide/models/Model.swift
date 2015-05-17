@@ -29,23 +29,24 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary() -> [String : AnyObject] {
+    func toDictionary(snakeKeys: Bool = true) -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
 
         var count: UInt32 = 0
         var ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
 
         for i in 0..<count {
-            let key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
+            var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
             var value: AnyObject! = valueForKey(key)
-            dictionary[key] = value != nil && value.isKindOfClass(Model) ? value.toDictionary() : value
+            key = snakeKeys ? key.snakeCaseString() : key
+            dictionary[key] = value != nil && value.isKindOfClass(Model) ? (value as! Model).toDictionary() : value
         }
 
         return dictionary
     }
 
-    func toJSONString() -> String! {
-        return (toDictionary() as NSDictionary).toJSON()
+    func toJSONString(snakeCaseKeys: Bool = false) -> String! {
+        return (toDictionary(snakeKeys: false) as NSDictionary).toJSON()
     }
 
     override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String, error outError: NSErrorPointer) -> Bool {
