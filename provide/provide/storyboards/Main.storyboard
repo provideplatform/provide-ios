@@ -803,7 +803,6 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="zgg-rd-vWF"/>
                     <connections>
-                        <outlet property="environmentLabel" destination="P8R-pV-2G2" id="S0e-LO-sLG"/>
                         <outlet property="statusLabel" destination="ECB-p0-3tW" id="kgN-rm-dRD"/>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="SlidingViewControllerSegue" modalTransitionStyle="crossDissolve" id="flA-yQ-9Vg"/>
