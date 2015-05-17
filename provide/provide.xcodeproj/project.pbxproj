@@ -196,6 +196,9 @@
 		68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
 		68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
 		68B412C11B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
+		68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
+		68B412CF1B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
+		68B412D01B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
 		68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
 		68B412DB1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
 		68B412DC1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
@@ -217,6 +220,9 @@
 		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
+		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
+		68B4133B1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
+		68B4133C1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
@@ -361,12 +367,14 @@
 		68B412971B0804BC009A4C05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
 		68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
+		68B412BC1B080D42009A4C05 /* SelfieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		68B413171B081C25009A4C05 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
+		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -588,6 +596,7 @@
 			isa = PBXGroup;
 			children = (
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
+				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -605,6 +614,7 @@
 			isa = PBXGroup;
 			children = (
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
+				68B413291B083161009A4C05 /* Selfie.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -846,6 +856,7 @@
 				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
+				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
@@ -868,6 +879,7 @@
 				68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68B412701B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
+				68B4133B1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B412761B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125B1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
@@ -896,6 +908,7 @@
 				68B4126B1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124D1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68B412711B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
+				68B4133C1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B412771B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125C1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
@@ -1039,6 +1052,7 @@
 				68F7307C1B07DE94001A21B0 /* Model.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
+				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306D1B07DE94001A21B0 /* Company.swift in Sources */,
@@ -1107,6 +1121,7 @@
 				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
 				687CB54E1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68B412881B0802AF009A4C05 /* MapView.swift in Sources */,
+				68B412CF1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AE1B0804BC009A4C05 /* ViewController.swift in Sources */,
 				687CB56F1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306E1B07DE94001A21B0 /* Company.swift in Sources */,
@@ -1163,6 +1178,7 @@
 				68B4131E1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */,
 				687CB5791B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				68F730961B07DE94001A21B0 /* User.swift in Sources */,
+				68B412D01B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				687CB5821B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				689B0CB81B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				68B4129A1B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
