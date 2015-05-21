@@ -59,19 +59,6 @@ class KeyChainService {
         }
     }
 
-    var user: User? {
-        get {
-            if let userJsonString = self["user"] {
-                return User(string: userJsonString)
-            } else {
-                return nil
-            }
-        }
-        set {
-            self["user"] = newValue?.toJSONString()
-        }
-    }
-
     func clearStoredUserData() {
         if CurrentBuildConfig != .Debug {
             uicStore.removeAllItems()

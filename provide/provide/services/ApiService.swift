@@ -104,7 +104,7 @@ class ApiService: NSObject {
             dispatchApiOperationForPath("users/\(token.userId)", method: .GET, params: [:], onSuccess: { (statusCode, mappingResult) -> () in
                 assert(statusCode == 200)
                 let user = mappingResult.firstObject as! User
-                KeyChainService.sharedService().user = user
+                KeyChainService.sharedService().token?.user = user
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             }, onError: { (error, statusCode, responseString) -> () in
                 var errorMessage: String

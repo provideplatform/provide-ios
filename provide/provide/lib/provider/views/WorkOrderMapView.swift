@@ -32,7 +32,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         get {
             var imageView: UIImageView!
 
-            if let user = KeyChainService.sharedService().user {
+            if let user = KeyChainService.sharedService().token?.user {
                 if user.profileImageUrl != nil {
                     imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
                     imageView.contentMode = .ScaleAspectFit

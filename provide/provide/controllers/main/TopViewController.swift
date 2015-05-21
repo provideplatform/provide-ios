@@ -48,7 +48,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
     func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!) {
         navigationController?.popViewControllerAnimated(false)
 
-        if let user = KeyChainService.sharedService().user {
+        if let user = KeyChainService.sharedService().token?.user {
             let data = UIImageJPEGRepresentation(image, 1.0)
 
             var params = [
