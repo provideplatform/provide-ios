@@ -8,6 +8,7 @@
 #import <MapKit/MapKit.h>
 
 // CocoaPods
+#import <Analytics/Analytics.h>
 #import <BlocksKit/BlocksKit.h>
 #import <BlocksKit/BlocksKit+UIKit.h>
 #import <ECSlidingViewController/ECSlidingSegue.h>

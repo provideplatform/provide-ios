@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
+
         return true
     }
 
@@ -28,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+        AnalyticsService.sharedService().track("App Entered Background", properties: [:])
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -40,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+
+        AnalyticsService.sharedService().track("App Became Active", properties: [:])
 
         if ApiService.hasCachedToken() {
             CheckinService.sharedService().checkin()
@@ -54,17 +60,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         ApiService.sharedService().createDevice(["user_id": KeyChainService.sharedService().token!.userId, "apns_device_id": "\(deviceToken)"], onSuccess: { (statusCode, responseString) -> () in
-
+            AnalyticsService.sharedService().track("App Registered For Remote Notifications")
         }) { (error, statusCode, responseString) -> () in
             logError("Failed to set apn device token for authenticated user")
         }
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        AnalyticsService.sharedService().track("App Failed To Register For Remote Notifications")
+
         println(error.localizedDescription)
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(NSDate().timeIntervalSince1970)"])
+
         if ApiService.hasCachedToken() {
             if let checkin = userInfo["checkin"] as? Bool {
                 if checkin {
@@ -108,6 +118,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+
+        AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
     }
 
     // MARK: - Core Data stack

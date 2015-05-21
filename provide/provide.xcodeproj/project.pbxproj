@@ -24,6 +24,9 @@
 		59096D21721B65DB15EB5BF9 /* libPods-provideKIFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C11969598E3AA01F971BC3 /* libPods-provideKIFTests.a */; };
 		682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
+		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
+		686A5A1D1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
+		686A5A1E1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
 		687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
 		687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
@@ -414,6 +417,7 @@
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		686A263E1B07C96D0054BB92 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapViewExtensions.swift; sourceTree = "<group>"; };
 		687CB5351B07EAD30048B692 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -627,6 +631,7 @@
 		689B0CB01B07DFE3005694B7 /* services */ = {
 			isa = PBXGroup;
 			children = (
+				686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */,
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
 				687CB58C1B07F6020048B692 /* CheckinService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
@@ -1347,6 +1352,7 @@
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307C1B07DE94001A21B0 /* Model.swift in Sources */,
 				68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
+				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
@@ -1438,6 +1444,7 @@
 				687CB5A41B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
 				68B412E71B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
+				686A5A1D1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				687CB54E1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68B412881B0802AF009A4C05 /* MapView.swift in Sources */,
 				68B412CF1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
@@ -1499,6 +1506,7 @@
 				68B978C41B084DCF00863E21 /* VersionHelper.swift in Sources */,
 				68B978D21B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */,
 				68F730721B07DE94001A21B0 /* Contact.swift in Sources */,
+				686A5A1E1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				687CB59C1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68B412C41B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
 				687CB5491B07EAD30048B692 /* ArrayExtensions.swift in Sources */,

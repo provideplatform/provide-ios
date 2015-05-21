@@ -32,6 +32,7 @@ class ViewController: UIViewController {
 
     func showError(errorMessage: String) {
         updateStatus(errorMessage, showActivity: false, isError: true)
+        AnalyticsService.sharedService().track("Showed User an Error", properties: ["errorMessage": errorMessage])
         logError(errorMessage)
     }
 
@@ -59,6 +60,11 @@ class ViewController: UIViewController {
         } else {
             activityIndicator?.stopAnimating()
         }
+    }
+
+    func swizzled_viewDidAppear(animated: Bool) {
+        AnalyticsService.sharedService().viewDidAppearForController(self, animated: animated)
+        swizzled_viewDidAppear(animated)
     }
 
 }

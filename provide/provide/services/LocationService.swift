@@ -157,6 +157,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     
     private func locationResolved(location: CLLocation) {
         log("Resolved current location: \(location)")
+        AnalyticsService.sharedService().track("Location resolved", properties: ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude])
+
         currentLocation = location
 
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)

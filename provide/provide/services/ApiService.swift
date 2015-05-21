@@ -66,6 +66,8 @@ class ApiService: NSObject {
             KeyChainService.sharedService().token = token
             KeyChainService.sharedService().email = params.objectForKey("email") as? String
 
+            AnalyticsService.sharedService().identify(token.user)
+
             self.registerForRemoteNotifications()
             onSuccess(statusCode: statusCode, mappingResult: mappingResult)
         }) { (error, statusCode, responseString) -> () in
@@ -75,7 +77,6 @@ class ApiService: NSObject {
     }
 
     func logout(onSuccess: OnSuccess, onError: OnError) {
-
         if let token = KeyChainService.sharedService().token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil, onSuccess: { (statusCode, mappingResult) -> () in
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -93,6 +94,7 @@ class ApiService: NSObject {
         unregisterForRemoteNotifications()
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
+        AnalyticsService.sharedService().logout()
     }
 
     // MARK: User API
@@ -452,9 +454,14 @@ class ApiService: NSObject {
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
                 op.setCompletionBlockWithSuccess({ (operation, mappingResult) -> Void in
+                    let properties = ["request": request, "response": operation.HTTPRequestOperation.response, "mappingResult": mappingResult != nil ? mappingResult : NSNull()]
+                    AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: properties)
+
                     onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode, mappingResult: mappingResult)
                     return
                 }, failure: { (operation, error) -> Void in
+                    AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["request": request, "response": operation.HTTPRequestOperation.response])
+
                     onError(error: error,
                         statusCode: operation.HTTPRequestOperation.response.statusCode,
                         responseString: operation.HTTPRequestOperation.responseString)
