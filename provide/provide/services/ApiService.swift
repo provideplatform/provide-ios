@@ -454,13 +454,12 @@ class ApiService: NSObject {
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
                 op.setCompletionBlockWithSuccess({ (operation, mappingResult) -> Void in
-                    let properties = ["request": request, "response": operation.HTTPRequestOperation.response, "mappingResult": mappingResult != nil ? mappingResult : NSNull()]
-                    AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: properties)
+                    AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
 
                     onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode, mappingResult: mappingResult)
                     return
                 }, failure: { (operation, error) -> Void in
-                    AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["request": request, "response": operation.HTTPRequestOperation.response])
+                    AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
 
                     onError(error: error,
                         statusCode: operation.HTTPRequestOperation.response.statusCode,
