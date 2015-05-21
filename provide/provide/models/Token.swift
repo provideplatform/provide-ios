@@ -13,7 +13,6 @@ class Token: Model {
     var id: NSNumber!
     var uuid: String!
     var token: String!
-    var userId: NSNumber!
     var user: User!
 
     override class func mapping() -> RKObjectMapping {
@@ -21,27 +20,20 @@ class Token: Model {
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "uuid": "uuid",
-            "token": "token",
-            "user_id": "userId"
+            "token": "token"
         ])
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         return mapping
     }
 
-    var authorizationHeaderString: String {
-        return "Basic " + "\(token):\(uuid)".base64EncodedString
+    var userId: NSNumber! {
+        get {
+            return user.id
+        }
     }
 
-    class func fromJSON(json: String!) -> Token! {
-        var token: Token!
-        if let obj = json.toJSONObject() {
-            token = Token()
-            token.id = obj["id"] as! Int
-            token.uuid = obj["uuid"] as! String
-            token.token = obj["token"] as! String
-            token.userId = obj["userId"] as! Int
-        }
-        return token
+    var authorizationHeaderString: String {
+        return "Basic " + "\(token):\(uuid)".base64EncodedString
     }
 
 }

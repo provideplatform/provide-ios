@@ -32,23 +32,15 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)
 
-        fetchUser()
+        if let user = KeyChainService.sharedService().token?.user {
+            if user.profileImageUrl == nil {
+                self.initSelfieViewController()
+            }
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-    }
-
-    private func fetchUser() {
-        ApiService.sharedService().fetchUser(onSuccess: { (statusCode, mappingResult) -> () in
-            if let user = mappingResult.firstObject as? User {
-                if user.profileImageUrl == nil {
-                    self.initSelfieViewController()
-                }
-            }
-        }, onError: { (error, statusCode, responseString) -> () in
-
-        })
     }
 
     // MARK: SelfieViewController
