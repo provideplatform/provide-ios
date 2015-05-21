@@ -18,7 +18,7 @@ class Attachment: Model {
     var fields: NSDictionary!
     var url: String!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

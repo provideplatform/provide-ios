@@ -16,7 +16,7 @@ class User: Model {
     var profileImageUrl: String!
     var contact: Contact!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

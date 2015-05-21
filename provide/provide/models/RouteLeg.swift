@@ -16,7 +16,7 @@ class RouteLeg: Model {
 
     var currentStepIndex: Int = 0
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "Length": "distanceInMeters",

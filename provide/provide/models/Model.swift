@@ -10,11 +10,16 @@ import Foundation
 
 class Model: NSObject {
 
+    class func mapping() -> RKObjectMapping {
+        var mapping = RKObjectMapping(forClass: self)
+        return mapping
+    }
+
     override init() {
         super.init()
     }
 
-    init(string: String!) {
+    required init(string: String!) {
         super.init()
 
         let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
@@ -22,7 +27,21 @@ class Model: NSObject {
 
         if let dictionary = obj as? NSDictionary {
             for key in dictionary.allKeys {
-                if let value: AnyObject = dictionary.objectForKey(key) {
+                if let obj: AnyObject = dictionary.objectForKey(key) {
+                    var value: AnyObject = obj
+
+                    if value.isKindOfClass(NSDictionary) {
+                        if let mapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[key as! String] as? RKRelationshipMapping {
+                            let pattern = NSRegularExpression(pattern: "objectClass=(.*) ", options: nil, error: nil)!
+                            let range = pattern.firstMatchInString(mapping.mapping.description, options: nil, range: NSMakeRange(0, mapping.mapping.description.length))!.range
+                            var className = ((mapping.mapping.description as NSString).substringWithRange(range) as NSString).substringFromIndex(12)
+                            className = (className as NSString).substringToIndex(className.length - 1)
+                            if let clazz = NSClassFromString(className) as? Model.Type {
+                                value = clazz(string: (value as! NSDictionary).toJSON())
+                            }
+                        }
+                    }
+
                     setValue(value, forKey: key as! String)
                 }
             }

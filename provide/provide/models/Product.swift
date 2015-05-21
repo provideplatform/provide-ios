@@ -14,7 +14,7 @@ class Product: Model {
     var gtin: String!
     var data: NSDictionary!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

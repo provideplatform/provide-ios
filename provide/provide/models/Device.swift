@@ -13,7 +13,7 @@ class Device: Model {
     var id: NSNumber!
     var apnsDeviceId: String!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

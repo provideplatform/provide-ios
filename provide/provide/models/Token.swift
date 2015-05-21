@@ -16,7 +16,7 @@ class Token: Model {
     var userId: NSNumber!
     var user: User!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

@@ -62,7 +62,7 @@ class RouteLegStep: Model {
 
     var currentShapeIndex: Int = 0
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "Position": "position",

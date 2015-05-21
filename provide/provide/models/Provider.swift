@@ -16,7 +16,7 @@ class Provider: Model {
     var contact: Contact!
     var services: NSSet!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

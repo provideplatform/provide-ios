@@ -14,7 +14,7 @@ class WorkOrderProvider: Model {
     var providerRating: NSNumber!
     var provider: Provider!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",

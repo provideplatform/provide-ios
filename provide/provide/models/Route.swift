@@ -18,7 +18,7 @@ class Route: Model {
     var incompleteManifest: NSNumber!
     var currentLegIndex: Int!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "status": "status"

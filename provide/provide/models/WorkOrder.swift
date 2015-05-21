@@ -31,7 +31,7 @@ class WorkOrder: Model, MKAnnotation {
     var itemsRejected: NSMutableArray!
     var itemsUnloaded: NSMutableArray!
 
-    class func mapping() -> RKObjectMapping {
+    override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
