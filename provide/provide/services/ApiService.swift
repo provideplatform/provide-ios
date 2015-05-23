@@ -443,6 +443,8 @@ class ApiService: NSObject {
                         for item in (value as! NSArray) {
                             if item.isKindOfClass(Model) {
                                 newValue.addObject((item as! Model).toDictionary())
+                            } else {
+                                newValue.addObject(item)
                             }
                         }
                         (params as! NSMutableDictionary).setObject(newValue, forKey: key as! String)
