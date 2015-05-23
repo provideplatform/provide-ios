@@ -15,37 +15,21 @@ class Model: NSObject {
         return mapping
     }
 
-    override init() {
-        super.init()
-    }
-
     required init(string: String!) {
         super.init()
 
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        var obj: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil)
+        let data = string.dataUsingEncoding(NSUTF8StringEncoding)!
+        let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String: AnyObject]
 
-        if let dictionary = obj as? NSDictionary {
-            for snakeKey in dictionary.allKeys {
-                let key = (snakeKey as! String).snakeCaseToCamelCaseString()
-                if let obj: AnyObject = dictionary.objectForKey(snakeKey) {
-                    var value: AnyObject = obj
-
-                    if value.isKindOfClass(NSDictionary) {
-                        if let mapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[key] as? RKRelationshipMapping {
-                            let pattern = NSRegularExpression(pattern: "objectClass=(.*) ", options: nil, error: nil)!
-                            let range = pattern.firstMatchInString(mapping.mapping.description, options: nil, range: NSMakeRange(0, mapping.mapping.description.length))!.range
-                            var className = ((mapping.mapping.description as NSString).substringWithRange(range) as NSString).substringFromIndex(12)
-                            className = (className as NSString).substringToIndex(className.length - 1)
-                            if let clazz = NSClassFromString(className) as? Model.Type {
-                                value = clazz(string: (value as! NSDictionary).toJSON())
-                            }
-                        }
-                    }
-
-                    setValue(value, forKey: key)
-                }
+        for (key, var value) in dictionary {
+            let camelCaseKey = key.snakeCaseToCamelCaseString()
+            if value is NSDictionary {
+                let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as! RKRelationshipMapping
+                let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
+                value = clazz(string: (value as! NSDictionary).toJSON())
             }
+
+            setValue(value, forKey: camelCaseKey)
         }
     }
 
