@@ -14,10 +14,6 @@ class RouteService: NSObject {
 
     private var routes = [Route]()
 
-    required override init() {
-        super.init()
-    }
-
     class func sharedService() -> RouteService {
         struct Static {
             static let instance = RouteService()

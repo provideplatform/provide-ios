@@ -37,17 +37,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var addressTextView: UITextView!
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.933, green: 0.937, blue: 0.945, alpha: 1.00)
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
 
     func render() {

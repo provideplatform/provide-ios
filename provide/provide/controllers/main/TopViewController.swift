@@ -39,10 +39,6 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     // MARK: SelfieViewController
 
     func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!) {

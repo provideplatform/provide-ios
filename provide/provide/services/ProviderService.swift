@@ -14,10 +14,6 @@ class ProviderService: NSObject {
 
     private var providers = [Provider]()
 
-    required override init() {
-        super.init()
-    }
-
     class func sharedService() -> ProviderService {
         struct Static {
             static let instance = ProviderService()

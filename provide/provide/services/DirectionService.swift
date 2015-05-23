@@ -42,10 +42,6 @@ class DirectionService: NSObject {
     private var lastDirectionsApiRequestDate: NSDate!
     private var lastEtaApiRequestDate: NSDate!
 
-    required override init() {
-        super.init()
-    }
-
     class func sharedService() -> DirectionService {
         struct Static {
             static let instance = DirectionService()

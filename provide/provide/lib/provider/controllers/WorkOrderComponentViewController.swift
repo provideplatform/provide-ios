@@ -38,22 +38,6 @@ class WorkOrderComponentViewController: ViewController {
         }
     }
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     func render() {
         if let mapView = delegate?.mapViewForWorkOrderViewController?(self) {
             if mapView.alpha == 0 {

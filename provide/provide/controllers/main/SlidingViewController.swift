@@ -23,10 +23,6 @@ class SlidingViewController: ECSlidingViewController {
         topViewController = UIStoryboard(name: "Application", bundle: nil).instantiateInitialViewController() as! UIViewController
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     @objc private func hamburgerPressed(sender: UIBarButtonItem) {
         if currentTopViewPosition == .Centered {
             anchorTopViewToRightAnimated(true)

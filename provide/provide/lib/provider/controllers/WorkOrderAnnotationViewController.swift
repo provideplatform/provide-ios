@@ -24,18 +24,6 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 

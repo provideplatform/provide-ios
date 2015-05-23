@@ -28,10 +28,6 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
 
     @IBOutlet private weak var barcodeScannerView: BarcodeScannerView!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

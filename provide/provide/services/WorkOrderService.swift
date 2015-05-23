@@ -51,10 +51,6 @@ class WorkOrderService: NSObject {
 
     private var workOrders = [WorkOrder]()
 
-    required override init() {
-        super.init()
-    }
-
     class func sharedService() -> WorkOrderService {
         struct Static {
             static let instance = WorkOrderService()

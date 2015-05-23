@@ -43,15 +43,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     @IBOutlet private weak var arrivalEtaEstimateLabel: UILabel!
     @IBOutlet private weak var confirmStartWorkOrderButton: RoundedButton!
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 

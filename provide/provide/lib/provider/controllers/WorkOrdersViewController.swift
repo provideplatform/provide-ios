@@ -72,10 +72,6 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     @IBOutlet private weak var mapView: WorkOrderMapView!
     @IBOutlet private weak var tableView: UITableView!
 
-    required  init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -229,10 +225,6 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 //                })
 //            }
         }
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
     }
 
     // MARK Navigation

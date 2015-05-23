@@ -73,15 +73,6 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
