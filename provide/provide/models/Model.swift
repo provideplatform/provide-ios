@@ -26,12 +26,13 @@ class Model: NSObject {
         var obj: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil)
 
         if let dictionary = obj as? NSDictionary {
-            for key in dictionary.allKeys {
-                if let obj: AnyObject = dictionary.objectForKey(key) {
+            for snakeKey in dictionary.allKeys {
+                let key = (snakeKey as! String).snakeCaseToCamelCaseString()
+                if let obj: AnyObject = dictionary.objectForKey(snakeKey) {
                     var value: AnyObject = obj
 
                     if value.isKindOfClass(NSDictionary) {
-                        if let mapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[key as! String] as? RKRelationshipMapping {
+                        if let mapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[key] as? RKRelationshipMapping {
                             let pattern = NSRegularExpression(pattern: "objectClass=(.*) ", options: nil, error: nil)!
                             let range = pattern.firstMatchInString(mapping.mapping.description, options: nil, range: NSMakeRange(0, mapping.mapping.description.length))!.range
                             var className = ((mapping.mapping.description as NSString).substringWithRange(range) as NSString).substringFromIndex(12)
@@ -42,7 +43,7 @@ class Model: NSObject {
                         }
                     }
 
-                    setValue(value, forKey: key as! String)
+                    setValue(value, forKey: key)
                 }
             }
         }

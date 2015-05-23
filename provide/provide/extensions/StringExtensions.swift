@@ -61,6 +61,21 @@ extension String {
         return nil
     }
 
+    func snakeCaseToCamelCaseString() -> String {
+        var items: [String] = componentsSeparatedByString("_")
+        var camelCase = ""
+        var isFirst = true
+        for item: String in items {
+            if isFirst == true {
+                isFirst = false
+                camelCase += item
+            } else {
+                camelCase += item.capitalizedString
+            }
+        }
+        return camelCase
+    }
+
     func snakeCaseString() -> String {
         let pattern = NSRegularExpression(pattern: "([a-z])([A-Z])", options: nil, error: nil)!
         return pattern.stringByReplacingMatchesInString(self, options: nil, range: NSMakeRange(0, count(self)), withTemplate: "$1_$2").lowercaseString
