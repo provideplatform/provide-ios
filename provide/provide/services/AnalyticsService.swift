@@ -30,7 +30,7 @@ class AnalyticsService: NSObject {
 
         if analyticsEnabled {
             let configuration = SEGAnalyticsConfiguration(writeKey: "7c9wf6cpxb")
-            SEGAnalytics.debug(true)
+            //SEGAnalytics.debug(true)
             configuration.flushAt = 1
             log("Segment.io enabled with version \(SEGAnalytics.version())")
             SEGAnalytics.setupWithConfiguration(configuration)
