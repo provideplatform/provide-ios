@@ -182,7 +182,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 self.tableView.reloadData()
             },
             onError: { error, statusCode, responseString in
-                
+
             }
         )
     }

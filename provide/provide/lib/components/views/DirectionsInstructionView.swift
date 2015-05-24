@@ -11,7 +11,7 @@ import UIKit
 class DirectionsInstructionView: UIView {
 
     @IBOutlet private weak var backgroundView: UIView!
-    
+
     @IBOutlet private weak var icon: UIImageView!
     @IBOutlet private weak var etaLabel: UILabel!
     @IBOutlet private weak var instructionLabel: UILabel!

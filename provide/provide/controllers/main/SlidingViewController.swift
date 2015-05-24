@@ -9,7 +9,7 @@
 import UIKit
 
 class SlidingViewController: ECSlidingViewController {
-    
+
     override var topViewController: UIViewController! {
         didSet {
             topViewController.view.addGestureRecognizer(panGesture)
@@ -22,7 +22,7 @@ class SlidingViewController: ECSlidingViewController {
 
         topViewController = UIStoryboard(name: "Application", bundle: nil).instantiateInitialViewController() as! UIViewController
     }
-    
+
     @objc private func hamburgerPressed(sender: UIBarButtonItem) {
         if currentTopViewPosition == .Centered {
             anchorTopViewToRightAnimated(true)
@@ -30,5 +30,5 @@ class SlidingViewController: ECSlidingViewController {
             resetTopViewAnimated(true)
         }
     }
-    
+
 }

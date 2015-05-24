@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+
         completionHandler(.NewData);
     }
 
@@ -162,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
         }
-        
+
         return coordinator
     }()
 

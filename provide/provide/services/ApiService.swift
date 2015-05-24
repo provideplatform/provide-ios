@@ -522,13 +522,13 @@ class ApiService: NSObject {
                     },
                     failure: { operation, error in
                         AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
-                        
+
                         onError(error: error,
                             statusCode: operation.HTTPRequestOperation.response.statusCode,
                             responseString: operation.HTTPRequestOperation.responseString)
                     }
                 )
-                
+
                 op.start()
             }
         }

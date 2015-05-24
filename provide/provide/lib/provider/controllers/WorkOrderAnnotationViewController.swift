@@ -21,7 +21,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             (view as! WorkOrderAnnotationView).minutesEta = minutesEta
         }
     }
-    
+
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
     override func viewWillAppear(animated: Bool) {

@@ -459,7 +459,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             }
         )
     }
-    
+
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
         var products = [Product]()
         if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
@@ -522,7 +522,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                 )
             },
             onError: { error, statusCode, responseString in
-                
+
             }
         )
     }

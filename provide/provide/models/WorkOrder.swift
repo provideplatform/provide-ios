@@ -233,7 +233,7 @@ class WorkOrder: Model, MKAnnotation {
         if itemsRejected == nil {
             itemsRejected = NSMutableArray()
         }
-        
+
         var gtinRejectedCount = 0
         for product in itemsRejected {
             if (product as! Product).gtin == gtin {

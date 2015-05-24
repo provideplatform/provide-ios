@@ -12,7 +12,7 @@ class NavigationRootViewController: ViewController {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

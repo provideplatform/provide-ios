@@ -16,12 +16,12 @@ let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? ""
 enum Environment: String {
     case QA = "QA"
     case Production = "Production"
-    
+
     var baseUrlString: String {
         let scheme = useSSL ? "https" : "http"
         return "\(scheme)://\(hostName)"
     }
-    
+
     var hostName: String {
         var hostName = productionHostSuffix
         switch self {
@@ -30,16 +30,16 @@ enum Environment: String {
         default:
             break
         }
-        
+
         return ENV("OVERRIDE_HOST") ?? hostName
     }
-    
+
     var prefixString: String {
         return rawValue.lowercaseString
     }
-    
+
     var useSSL: Bool {
         return hostName.hasSuffix(productionHostSuffix)
     }
-    
+
 }

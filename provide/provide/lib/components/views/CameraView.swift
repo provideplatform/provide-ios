@@ -122,5 +122,5 @@ class CameraView: UIView {
             }
         }
     }
-    
+
 }

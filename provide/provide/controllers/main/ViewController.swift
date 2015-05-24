@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private weak var statusLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     func hideActivity() {
         updateStatus("", showActivity: false, isError: false)
     }
-    
+
     private func updateStatus(text: String, showActivity: Bool, isError: Bool) {
         if let status = statusLabel {
             status.text = text

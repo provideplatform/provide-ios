@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-    
+
     func enableTapToDismissKeyboard() {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "endEditing:"))
     }

@@ -60,7 +60,7 @@ class DirectionService: NSObject {
                     }
                 },
                 onError: { _, statusCode, _ in
-                    
+
                 }
             )
         }

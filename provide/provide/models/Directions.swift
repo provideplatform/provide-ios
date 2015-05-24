@@ -29,7 +29,7 @@ class Directions: Model {
                 if selectedRouteIndex == nil {
                     selectedRouteIndex = 0
                 }
-                
+
                 return routes[selectedRouteIndex] as! Route
             }
             return nil

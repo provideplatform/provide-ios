@@ -78,7 +78,7 @@ class RouteLeg: Model {
             if steps == nil {
                 return false
             }
-            
+
             return currentStepIndex == steps.count - 1
         }
     }

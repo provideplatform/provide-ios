@@ -48,7 +48,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
         confirmStartWorkOrderButton.titleText = "START WORK ORDER" // FIXME
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
-        
+
         minutesEta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
     }
 

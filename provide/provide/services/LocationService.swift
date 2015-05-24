@@ -42,7 +42,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         desiredAccuracy = defaultAccuracy
         distanceFilter = defaultDistanceFilter
     }
-    
+
     private static let sharedInstance = LocationService()
 
     class func sharedService() -> LocationService {
@@ -70,7 +70,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     // MARK: Start/stop location updates
-    
+
     func start() {
         startUpdatingLocation()
 
@@ -153,7 +153,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             onLocationResolvedDurableCallbacks.removeValueForKey(key)
         }
     }
-    
+
     private func locationResolved(location: CLLocation) {
         log("Resolved current location: \(location)")
         AnalyticsService.sharedService().track("Location resolved", properties: ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude])

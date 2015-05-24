@@ -162,7 +162,7 @@ class DirectionsViewController: ViewController {
                             if let lastRegionCrossing = self.lastRegionCrossing {
                                 if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && self.lastRegionCrossed.containsCoordinate(location.coordinate) == false {
                                     self.directions = nil
-                                    
+
                                 }
                             } else {
                                 self.fetchDrivingDirections(location)
@@ -240,7 +240,7 @@ class DirectionsViewController: ViewController {
                                 }
                             }
                             }, onDidExitRegion: {
-                                
+
                             }
                         )
                     }

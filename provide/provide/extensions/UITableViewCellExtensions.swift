@@ -9,11 +9,11 @@
 import UIKit
 
 extension UITableViewCell {
-    
+
     func enableEdgeToEdgeDividers() {
         layoutMargins = UIEdgeInsetsZero
         separatorInset = UIEdgeInsetsZero
         preservesSuperviewLayoutMargins = false
     }
-    
+
 }

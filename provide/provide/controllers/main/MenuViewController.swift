@@ -20,7 +20,7 @@ class MenuViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
-            
+
         default:
             break
         }
@@ -31,13 +31,13 @@ class MenuViewController: UITableViewController {
     }
 
     // MARK: UITableView Delegate Functions
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = tableView.cellForRowAtIndexPath(indexPath)!
         let reuseIdentifier = selectedCell.reuseIdentifier ?? ""
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+
         switch reuseIdentifier {
         case "DashboardCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
@@ -58,14 +58,14 @@ class MenuViewController: UITableViewController {
             break
         }
     }
-    
+
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.enableEdgeToEdgeDividers()
         cell.backgroundColor = UIColor.clearColor()
     }
-    
+
     // MARK: UITableView DataSource Functions
-    
+
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return VersionHelper.fullVersion()
@@ -73,7 +73,7 @@ class MenuViewController: UITableViewController {
             return nil
         }
     }
-    
+
     // MARK: Private Methods
 
     private func alignSections() {
@@ -91,5 +91,5 @@ class MenuViewController: UITableViewController {
         let ecSlidingSegue = ECSlidingSegue(identifier: nil, source: self, destination: initialViewController)
         ecSlidingSegue.perform()
     }
-    
+
 }

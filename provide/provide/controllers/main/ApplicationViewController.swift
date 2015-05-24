@@ -9,7 +9,7 @@
 import UIKit
 
 class ApplicationViewController: UINavigationController, UINavigationControllerDelegate {
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,5 +27,5 @@ class ApplicationViewController: UINavigationController, UINavigationControllerD
             view.backgroundColor = viewController.view.backgroundColor
         }
     }
-    
+
 }

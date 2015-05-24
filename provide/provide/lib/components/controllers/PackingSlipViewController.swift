@@ -129,7 +129,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
             },
             completion: { complete in
-                
+
             }
         )
     }
@@ -299,7 +299,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         productToUnload = nil
 
         dismissViewController(animated: true) {
-            
+
         }
     }
 
