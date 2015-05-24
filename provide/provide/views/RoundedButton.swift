@@ -28,7 +28,7 @@ class RoundedButton: UIButton {
 
     var titleText: String = "" {
         didSet {
-            titleLabel!.text = titleText;
+            titleLabel!.text = titleText
         }
     }
 

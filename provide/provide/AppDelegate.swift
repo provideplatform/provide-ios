@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        completionHandler(.NewData);
+        completionHandler(.NewData)
     }
 
     func applicationWillTerminate(application: UIApplication) {

@@ -15,8 +15,8 @@ class NetPromoterViewController: WorkOrderComponentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2));
-        view.transform = transform;
+        let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        view.transform = transform
 
         view.backgroundColor = UIColor.clearColor()
         view.alpha = 1

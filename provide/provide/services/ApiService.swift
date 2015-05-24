@@ -257,8 +257,8 @@ class ApiService: NSObject {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         let checkinDate = dateFormatter.stringFromDate(location.timestamp)
 
-        let longitude = location.coordinate.longitude;
-        let latitude = location.coordinate.latitude;
+        let longitude = location.coordinate.longitude
+        let latitude = location.coordinate.latitude
 
         let params = ["latitude": latitude, "longitude": longitude, "checkin_at": checkinDate]
 
