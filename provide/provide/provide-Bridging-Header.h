@@ -6,6 +6,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 // CocoaPods
 #import <Analytics/Analytics.h>
