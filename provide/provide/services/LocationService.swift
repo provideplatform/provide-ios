@@ -117,15 +117,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Location resolution
 
-    func resolveCurrentLocation(onResolved: OnLocationResolved) {
-        resolveCurrentLocation(onResolved, durableKey: nil)
-    }
-
-    func resolveCurrentLocation(onResolved: OnLocationResolved, allowCachedLocation: Bool) {
-        resolveCurrentLocation(onResolved, durableKey: nil, allowCachedLocation: allowCachedLocation)
-    }
-
-    func resolveCurrentLocation(onResolved: OnLocationResolved, durableKey: String!, allowCachedLocation: Bool = false) {
+    func resolveCurrentLocation(durableKey: String! = nil, allowCachedLocation: Bool = false, onResolved: OnLocationResolved) {
         if allowCachedLocation == true && currentLocation != nil {
             onResolved(currentLocation)
         } else {

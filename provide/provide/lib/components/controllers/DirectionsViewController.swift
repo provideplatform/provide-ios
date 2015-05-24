@@ -124,49 +124,48 @@ class DirectionsViewController: ViewController {
                                              frame.height)
             },
             completion: { complete in
-                LocationService.sharedService().resolveCurrentLocation(
-                    { location in
-                        var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
-                        var cameraAltitude: Double = self.defaultMapCameraAltitude
+                LocationService.sharedService().resolveCurrentLocation(durableKey: self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
+                    var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
+                    var cameraAltitude: Double = self.defaultMapCameraAltitude
 
-                        //                    var cameraHeading: Double = 0.0
-                        //                    if let heading = LocationService.sharedService().currentHeading {
-                        //                        cameraHeading = heading.trueHeading
-                        //                    }
+                    // var cameraHeading: Double = 0.0
+                    // if let heading = LocationService.sharedService().currentHeading {
+                    //     cameraHeading = heading.trueHeading
+                    // }
 
-                        if let directions = self.directions {
-                            if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-                                mapView.setCenterCoordinate(location.coordinate,
-                                    fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
-                                    eyeAltitude: cameraAltitude,
-                                    heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
-                                    pitch: cameraPitch,
-                                    animated: false)
-                            }
+                    if let directions = self.directions {
+                        if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+                            mapView.setCenterCoordinate(location.coordinate,
+                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
+                                eyeAltitude: cameraAltitude,
+                                heading: -1, // 360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
+                                pitch: cameraPitch,
+                                animated: false)
                         }
+                    }
 
+                    if let lastRegionCrossing = self.lastRegionCrossing {
+                        if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && self.lastRegionCrossed.containsCoordinate(location.coordinate) == false {
+                            self.directions = nil
+                        }
+                    }
+
+                    if self.directions == nil {
+                        self.regions = [CLCircularRegion]()
+                        self.lastRegionCrossing = nil
+                        self.lastRegionCrossed = nil
+
+                        self.fetchDrivingDirections(location)
+                    } else {
                         if let lastRegionCrossing = self.lastRegionCrossing {
                             if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && self.lastRegionCrossed.containsCoordinate(location.coordinate) == false {
                                 self.directions = nil
                             }
-                        }
-
-                        if self.directions == nil {
-                            self.regions = [CLCircularRegion]()
-                            self.lastRegionCrossing = nil
-                            self.lastRegionCrossed = nil
-
-                            self.fetchDrivingDirections(location)
                         } else {
-                            if let lastRegionCrossing = self.lastRegionCrossing {
-                                if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && self.lastRegionCrossed.containsCoordinate(location.coordinate) == false {
-                                    self.directions = nil
-                                }
-                            } else {
-                                self.fetchDrivingDirections(location)
-                            }
+                            self.fetchDrivingDirections(location)
                         }
-                    }, durableKey: self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false)
+                    }
+                }
             }
         )
     }
