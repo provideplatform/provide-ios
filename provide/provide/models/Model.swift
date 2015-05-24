@@ -15,6 +15,11 @@ class Model: NSObject {
         return mapping
     }
 
+    // Empty init() required by RestKit
+    override init() {
+        super.init()
+    }
+
     required init(string: String!) {
         super.init()
 
