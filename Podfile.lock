@@ -4,21 +4,6 @@ PODS:
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
   - Analytics/Segmentio (1.8.15):
     - Analytics/Core-iOS
-  - BlocksKit (2.2.5):
-    - BlocksKit/All (= 2.2.5)
-  - BlocksKit/All (2.2.5):
-    - BlocksKit/Core
-    - BlocksKit/DynamicDelegate
-    - BlocksKit/MessageUI
-    - BlocksKit/UIKit
-  - BlocksKit/Core (2.2.5)
-  - BlocksKit/DynamicDelegate (2.2.5)
-  - BlocksKit/MessageUI (2.2.5):
-    - BlocksKit/Core
-    - BlocksKit/DynamicDelegate
-  - BlocksKit/UIKit (2.2.5):
-    - BlocksKit/Core
-    - BlocksKit/DynamicDelegate
   - ECSlidingViewController (2.0.3)
   - ELFixSecureTextFieldFont (0.1.0)
   - ISO8601DateFormatterValueTransformer (0.6.0):
@@ -54,7 +39,6 @@ PODS:
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
-  - SevenSwitch (1.4.0)
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.1.1)
@@ -63,7 +47,6 @@ PODS:
 
 DEPENDENCIES:
   - Analytics/Segmentio (~> 1.8.6)
-  - BlocksKit
   - ECSlidingViewController
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
   - KIF (~> 3.0.8)
@@ -72,7 +55,6 @@ DEPENDENCIES:
   - RestKit (= 0.24.1)
   - RFGravatarImageView
   - SDWebImage (~> 3.7.2)
-  - SevenSwitch (= 1.4.0)
   - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell.git`)
   - UICKeyChainStore
 
@@ -93,7 +75,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   Analytics: 4e0d4e619bab9d7226f636c8f4f6621b6f3ff003
-  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
@@ -104,7 +85,6 @@ SPEC CHECKSUMS:
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
-  SevenSwitch: e992e56e2e7f401eb00538b9fa92bf848bacbe27
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1

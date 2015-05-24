@@ -10,15 +10,12 @@
 
 // CocoaPods
 #import <Analytics/Analytics.h>
-#import <BlocksKit/BlocksKit.h>
-#import <BlocksKit/BlocksKit+UIKit.h>
 #import <ECSlidingViewController/ECSlidingSegue.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <MKNetworkKit/MKNetworkKit.h>
 #import <RestKit/RestKit.h>
 #import <RFGravatarImageView/RFGravatarImageView.h>
-#import <SevenSwitch/SevenSwitch.h>
 #import <SWTableViewCell/SWTableViewCell.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import "UIViewController+ECSlidingViewController.h"
