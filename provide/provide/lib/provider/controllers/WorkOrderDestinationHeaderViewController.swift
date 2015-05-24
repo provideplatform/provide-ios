@@ -12,9 +12,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     var initialFrame: CGRect! {
         return CGRectMake(view.frame.origin.x,
-                          view.frame.size.height * -2,
-                          view.frame.size.width,
-                          view.frame.size.height)
+                          view.frame.height * -2,
+                          view.frame.width,
+                          view.frame.height)
     }
 
     var targetView: UIView! {
@@ -69,15 +69,15 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
         //var frame = initialFrame
         var frame = CGRectMake(0.0,
-            targetView.frame.size.height,
-            targetView.frame.size.width,
-            view.frame.size.height)
+            targetView.frame.height,
+            targetView.frame.width,
+            view.frame.height)
 
         if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
             frame = CGRectMake(frame.origin.x,
-                               navigationController.navigationBar.frame.size.height + navigationController.navigationBar.frame.origin.y,
-                               navigationController.navigationBar.frame.size.width,
-                               frame.size.height)
+                               navigationController.navigationBar.frame.height + navigationController.navigationBar.frame.origin.y,
+                               navigationController.navigationBar.frame.width,
+                               frame.height)
         }
 
         view.frame = frame
@@ -89,8 +89,8 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
                                              frame.origin.y,
-                                             frame.size.width,
-                                             frame.size.height)
+                                             frame.width,
+                                             frame.height)
             },
             completion: { complete in
 

@@ -39,7 +39,7 @@ extension UIView {
     }
 
     func makeCircular() {
-        layer.cornerRadius = frame.size.width / 2
+        layer.cornerRadius = frame.width / 2
         clipsToBounds = true
     }
 

@@ -84,9 +84,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     override func render() {
         let frame = CGRectMake(0.0,
-            targetView.frame.size.height,
-            targetView.frame.size.width,
-            view.frame.size.height)
+            targetView.frame.height,
+            targetView.frame.width,
+            view.frame.height)
 
         view.alpha = 0.0
         view.frame = frame
@@ -101,9 +101,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
-                    frame.origin.y - self.view.frame.size.height,
-                    frame.size.width,
-                    frame.size.height)
+                    frame.origin.y - self.view.frame.height,
+                    frame.width,
+                    frame.height)
             },
             completion: { complete in
             }
@@ -121,9 +121,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(0.0,
-                    self.view.frame.origin.y + self.view.frame.size.height,
-                    self.view.frame.size.width,
-                    self.view.frame.size.height)
+                    self.view.frame.origin.y + self.view.frame.height,
+                    self.view.frame.width,
+                    self.view.frame.height)
 
             },
             completion: { complete in
