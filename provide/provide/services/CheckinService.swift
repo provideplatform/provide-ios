@@ -31,11 +31,10 @@ class CheckinService: NSObject {
         checkinTimeInterval = defaultCheckinTimeInterval
     }
 
+    private static let sharedInstance = CheckinService()
+
     class func sharedService() -> CheckinService {
-        struct Static {
-            static let instance = CheckinService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     // MARK: Navigation accuracy

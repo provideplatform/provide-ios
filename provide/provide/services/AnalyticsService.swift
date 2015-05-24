@@ -16,11 +16,10 @@ class AnalyticsService: NSObject {
         }
     }
 
+    private static let sharedInstance = AnalyticsService()
+
     class func sharedService() -> AnalyticsService {
-        struct Static {
-            static let instance = AnalyticsService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     override init() {

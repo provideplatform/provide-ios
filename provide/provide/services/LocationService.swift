@@ -43,11 +43,10 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         distanceFilter = defaultDistanceFilter
     }
     
+    private static let sharedInstance = LocationService()
+
     class func sharedService() -> LocationService {
-        struct Static {
-            static let instance = LocationService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     // MARK: Authorization

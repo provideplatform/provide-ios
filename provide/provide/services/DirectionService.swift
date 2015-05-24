@@ -42,11 +42,10 @@ class DirectionService: NSObject {
     private var lastDirectionsApiRequestDate: NSDate!
     private var lastEtaApiRequestDate: NSDate!
 
+    private static let sharedInstance = DirectionService()
+
     class func sharedService() -> DirectionService {
-        struct Static {
-            static let instance = DirectionService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     func fetchDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onEtaFetched: OnEtaFetched) {

@@ -12,11 +12,10 @@ class KeyChainService {
 
     private let uicStore = UICKeyChainStore()
 
+    private static let sharedInstance = KeyChainService()
+
     class func sharedService() -> KeyChainService {
-        struct Static {
-            static let instance = KeyChainService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     subscript(key: String) -> String? {

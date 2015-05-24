@@ -14,11 +14,10 @@ class ProviderService: NSObject {
 
     private var providers = [Provider]()
 
+    private static let sharedInstance = ProviderService()
+
     class func sharedService() -> ProviderService {
-        struct Static {
-            static let instance = ProviderService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     func fetch(page: Int = 1,

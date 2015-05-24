@@ -14,11 +14,10 @@ class RouteService: NSObject {
 
     private var routes = [Route]()
 
+    private static let sharedInstance = RouteService()
+
     class func sharedService() -> RouteService {
-        struct Static {
-            static let instance = RouteService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     class func loadManifestItemByGtin(gtin: String, onRoute route: Route!, onSuccess: OnSuccess!, onError: OnError!) {

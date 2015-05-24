@@ -34,11 +34,10 @@ class ApiService: NSObject {
 
     private var headers = [String : String]()
 
+    private static let sharedInstance = ApiService()
+
     class func sharedService() -> ApiService {
-        struct Static {
-            static let instance = ApiService()
-        }
-        return Static.instance
+         return sharedInstance
     }
 
     override init() {

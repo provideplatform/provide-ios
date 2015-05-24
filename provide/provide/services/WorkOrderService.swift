@@ -51,11 +51,10 @@ class WorkOrderService: NSObject {
 
     private var workOrders = [WorkOrder]()
 
+    private static let sharedInstance = WorkOrderService()
+
     class func sharedService() -> WorkOrderService {
-        struct Static {
-            static let instance = WorkOrderService()
-        }
-        return Static.instance
+        return sharedInstance
     }
 
     func setWorkOrders(workOrders: [WorkOrder]!) {
