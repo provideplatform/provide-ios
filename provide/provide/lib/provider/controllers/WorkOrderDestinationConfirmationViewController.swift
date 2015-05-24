@@ -78,7 +78,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                                              frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
 
             }
         )
@@ -92,7 +92,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                 self.confirmStartWorkOrderButton.alpha = 0
                 self.arrivalEtaEstimateLabel.alpha = 0
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.showActivity()
             }
         )
@@ -104,7 +104,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                 self.confirmStartWorkOrderButton.alpha = 1
                 self.arrivalEtaEstimateLabel.alpha = 1
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.hideActivity()
             }
         )
@@ -134,7 +134,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                                              self.view.frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.view.removeFromSuperview()
                 self.clearNavigationItem()
             }

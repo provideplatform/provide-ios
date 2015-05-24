@@ -26,14 +26,14 @@ class RouteService: NSObject {
             var gtinsLoaded = route.gtinsLoaded
             gtinsLoaded.append(gtin)
 
-            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtinsLoaded], onSuccess: { (statusCode, mappingResult) -> () in
+            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtinsLoaded], onSuccess: { statusCode, mappingResult in
                 var itemsLoaded = NSMutableArray(array: route.itemsLoaded)
                 itemsLoaded.addObject(route.itemForGtin(gtin))
 
                 route.itemsLoaded = itemsLoaded as [AnyObject]
 
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            }, onError: { (error, statusCode, responseString) -> () in
+            }, onError: { error, statusCode, responseString in
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             })
         }
@@ -52,9 +52,9 @@ class RouteService: NSObject {
                 i++
             }
 
-            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: { (statusCode, mappingResult) -> () in
+            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            }, onError: { (error, statusCode, responseString) -> () in
+            }, onError: { error, statusCode, responseString in
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             })
         }
@@ -83,7 +83,7 @@ class RouteService: NSObject {
         }
 
         ApiService.sharedService().fetchRoutes(params,
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { statusCode, mappingResult in
                 var fetchedRoutes = [Route]()
 
                 for route in mappingResult.array() as! [Route] {

@@ -59,7 +59,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
                 return
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.performSegueWithIdentifier("AuthenticationViewControllerUnwindSegue", sender: self)
             }
         )
@@ -76,7 +76,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         UIView.animateWithDuration(0.15, animations: { () -> Void in
             self.tableView.alpha = 1
-        }) { (completion) -> Void in
+        }) { completion in
 
         }
     }
@@ -86,7 +86,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         UIView.animateWithDuration(0.15, animations: { () -> Void in
             self.tableView.alpha = 0
-        }) { (completion) -> Void in
+        }) { completion in
 
         }
     }
@@ -110,9 +110,9 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         let params = ["email" : emailField.text,
                       "password" : passwordField.text]
         
-        ApiService.sharedService().login(params, onSuccess: { (statusCode, responseString) -> () in
+        ApiService.sharedService().login(params, onSuccess: { statusCode, responseString in
             self.userWasAuthenticated()
-        }) { (error, statusCode, responseString) -> () in
+        }) { error, statusCode, responseString in
             logError("Failed to create API token")
             self.showError("Authorization failed \(statusCode)")
             self.showForm()

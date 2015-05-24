@@ -124,8 +124,8 @@ class DirectionsViewController: ViewController {
                                              frame.size.height)
 
             },
-            completion: { (complete) -> Void in
-                LocationService.sharedService().resolveCurrentLocation({ (location) -> () in
+            completion: { complete in
+                LocationService.sharedService().resolveCurrentLocation({ location in
                     var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
                     var cameraAltitude: Double = self.defaultMapCameraAltitude
 
@@ -176,7 +176,7 @@ class DirectionsViewController: ViewController {
         var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
         var cameraAltitude: Double = self.defaultMapCameraAltitude
 
-        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onWorkOrderDrivingDirectionsFetched: { (workOrder, directions) -> () in
+        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onWorkOrderDrivingDirectionsFetched: { workOrder, directions in
             self.directions = directions
 
             if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
@@ -313,7 +313,7 @@ class DirectionsViewController: ViewController {
             animations: { () -> Void in
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.showActivity()
             }
         )
@@ -324,7 +324,7 @@ class DirectionsViewController: ViewController {
             animations: { () -> Void in
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.hideActivity()
             }
         )
@@ -362,7 +362,7 @@ class DirectionsViewController: ViewController {
                                              self.view.frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.view.removeFromSuperview()
                 if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
                     mapView.removeOverlays(mapView.overlays)

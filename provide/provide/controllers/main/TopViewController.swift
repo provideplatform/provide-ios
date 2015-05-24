@@ -56,9 +56,9 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
                 withMimeType: "image/jpg",
                 toUserWithId: user.id.stringValue,
                 params: NSDictionary(dictionary: params),
-                onSuccess: { (statusCode, responseString) -> () in
+                onSuccess: { statusCode, responseString in
 
-                }, onError: { (statusCode, responseString, error) -> () in
+                }, onError: { statusCode, responseString, error in
 
                 }
             )

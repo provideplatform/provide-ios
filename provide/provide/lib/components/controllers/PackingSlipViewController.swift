@@ -106,7 +106,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
 
             }
         )
@@ -128,7 +128,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     self.view.frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 
             }
         )
@@ -202,9 +202,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 packingSlipTableView.reloadData()
 
                 if let route = RouteService.sharedService().inProgressRoute {
-                    route.loadManifestItemByGtin(rejectedProduct.gtin, onSuccess: { (statusCode, responseString) -> () in
+                    route.loadManifestItemByGtin(rejectedProduct.gtin, onSuccess: { statusCode, responseString in
                         println("loaded manifest item by gtin...")
-                    }) { (error, statusCode, responseString) -> () in
+                    }) { error, statusCode, responseString in
                                 
                     }
                 }
@@ -257,9 +257,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         }
 
                         if let route = RouteService.sharedService().inProgressRoute {
-                            route.unloadManifestItemByGtin(product.gtin, onSuccess: { (statusCode, responseString) -> () in
+                            route.unloadManifestItemByGtin(product.gtin, onSuccess: { statusCode, responseString in
 
-                            }) { (error, statusCode, responseString) -> () in
+                            }) { error, statusCode, responseString in
 
                             }
                         }

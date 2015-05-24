@@ -83,7 +83,7 @@ class SignatureView: UIView {
     private func enableDoneButton() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut, animations: { () -> Void in
             self.doneButton.alpha = 1
-        }) { (finished) -> Void in
+        }) { finished in
             self.doneButton.enabled = true
         }
     }

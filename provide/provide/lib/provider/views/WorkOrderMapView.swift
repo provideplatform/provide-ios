@@ -37,7 +37,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                     imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
                     imageView.contentMode = .ScaleAspectFit
                     imageView.alpha = 0.0
-                    imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl), completed: { (image, error, cacheType, url) -> Void in
+                    imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl), completed: { image, error, cacheType, url in
                         imageView.makeCircular()
                         imageView.alpha = 1
                     })
@@ -45,7 +45,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                     imageView = RFGravatarImageView(frame: CGRectMake(0, 0, 50, 50))
                     imageView.alpha = 0.0
                     (imageView as! RFGravatarImageView).email = user.email
-                    (imageView as! RFGravatarImageView).load({ (error) -> Void in
+                    (imageView as! RFGravatarImageView).load({ error in
                         imageView.makeCircular()
                         imageView.alpha = 1
                     })
@@ -178,7 +178,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         if let token = KeyChainService.sharedService().token { // HACK this is temporary
             if viewingDirections == false && WorkOrderService.sharedService().nextWorkOrder != nil {
                 if workOrdersViewControllerDelegate != nil {
-                    WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate, onWorkOrderEtaFetched: { (workOrder, minutesEta) -> () in
+                    WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate, onWorkOrderEtaFetched: { workOrder, minutesEta in
                         for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
                             if vc is WorkOrdersViewControllerDelegate {
                                 (vc as! WorkOrdersViewControllerDelegate).drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)

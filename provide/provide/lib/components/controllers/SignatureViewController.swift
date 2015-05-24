@@ -49,7 +49,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
                                              frame.size.height)
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.suspendTopViewGestureRecognizers()
             }
         )
@@ -66,7 +66,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
                     self.view.frame.size.width,
                     self.view.frame.size.height)
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.enableSuspendedTopViewGestureRecognizers()
             }
         )

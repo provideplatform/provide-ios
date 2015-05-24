@@ -55,7 +55,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             } else if workOrder.customer.contact.email != nil {
                 var gravatarImageView = RFGravatarImageView(frame: titleImageView.frame)
                 gravatarImageView.email = workOrder.contact.email
-                gravatarImageView.load({ (error) -> Void in
+                gravatarImageView.load({ error in
                     gravatarImageView.makeCircular()
                     self.view.insertSubview(gravatarImageView, aboveSubview: self.titleImageView)
                     self.titleImageView.alpha = 0
@@ -95,7 +95,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 
             }
         )
@@ -108,7 +108,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 self.view.frame = self.initialFrame
 
             },
-            completion: { (complete) -> Void in
+            completion: { complete in
                 self.view.removeFromSuperview()
             }
         )

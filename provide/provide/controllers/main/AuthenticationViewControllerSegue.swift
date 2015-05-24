@@ -27,7 +27,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                         navigationController?.navigationBar.alpha = 1.0
                         (self.destinationViewController as! AuthenticationViewController).view.alpha = 1.0
                     },
-                    completion: { (complete) -> Void in
+                    completion: { complete in
 
                     }
                 )
@@ -45,7 +45,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                         (self.sourceViewController as! AuthenticationViewController).view.alpha = 0.0
                         navigationController?.navigationBar.alpha = 0.0
                     },
-                    completion: { (complete) -> Void in
+                    completion: { complete in
                         navigationController?.setNavigationBarHidden(true, animated: false)
                         navigationController?.popViewControllerAnimated(false)
                         navigationController?.navigationBar.alpha = 1.0

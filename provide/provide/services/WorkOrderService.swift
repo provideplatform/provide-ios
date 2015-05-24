@@ -87,7 +87,7 @@ class WorkOrderService: NSObject {
         }
 
         ApiService.sharedService().fetchWorkOrders(params,
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { statusCode, mappingResult in
                 var fetchedWorkOrders = [WorkOrder]()
 
                 for workOrder in mappingResult.array() as! [WorkOrder] {
@@ -106,7 +106,7 @@ class WorkOrderService: NSObject {
 
     func fetchNextWorkOrderDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: OnWorkOrderEtaFetched) {
         if let workOrder = nextWorkOrder {
-            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { (minutesEta) -> () in
+            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { minutesEta in
                 self.nextWorkOrderDrivingEtaMinutes = minutesEta
                 onWorkOrderEtaFetched(workOrder: workOrder, minutesEta: minutesEta)
             })
@@ -115,7 +115,7 @@ class WorkOrderService: NSObject {
 
     func fetchInProgressWorkOrderDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: OnWorkOrderEtaFetched) {
         if let workOrder = inProgressWorkOrder {
-            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { (minutesEta) -> () in
+            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { minutesEta in
                 self.nextWorkOrderDrivingEtaMinutes = minutesEta
                 onWorkOrderEtaFetched(workOrder: workOrder, minutesEta: minutesEta)
             })
@@ -124,7 +124,7 @@ class WorkOrderService: NSObject {
 
     func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderDrivingDirectionsFetched: OnWorkOrderDrivingDirectionsFetched) {
         if let workOrder = inProgressWorkOrder {
-            DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onDrivingDirectionsFetched: { (directions) -> () in
+            DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onDrivingDirectionsFetched: { directions in
                 onWorkOrderDrivingDirectionsFetched(workOrder: workOrder, directions: directions)
             })
         }
