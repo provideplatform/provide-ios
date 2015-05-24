@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if ApiService.hasCachedToken() {
             if let checkin = userInfo["checkin"] as? Bool {
                 if checkin {
-                    LocationService.sharedService().resolveCurrentLocation({ (location: CLLocation) -> () in
+                    LocationService.sharedService().resolveCurrentLocation({ location in
                         ApiService.sharedService().checkin(location)
                         LocationService.sharedService().background()
                     })

@@ -68,7 +68,7 @@ class CheckinService: NSObject {
     }
 
     func checkin() {
-        LocationService.sharedService().resolveCurrentLocation({ (location: CLLocation) -> () in
+        LocationService.sharedService().resolveCurrentLocation({ location in
             ApiService.sharedService().checkin(location)
             LocationService.sharedService().background()
         })

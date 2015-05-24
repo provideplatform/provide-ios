@@ -52,7 +52,7 @@ class MapView: MKMapView, MKMapViewDelegate {
                 if animations != nil {
                     animations()
                 }
-            }, completion: { (finished: Bool) -> Void in
+            }, completion: { finished in
                 if completion != nil {
                     completion()
                 }

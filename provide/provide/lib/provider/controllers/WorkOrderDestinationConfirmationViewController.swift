@@ -177,7 +177,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 //    // MARK: Location updates (no longer needed due to the above delegate method but here for reference)
     //    private var listeningToLocationUpdates = false
 //    private func registerForLocationUpdates() {
-//        LocationService.sharedService().resolveCurrentLocation({ (location: CLLocation) -> () in
+//        LocationService.sharedService().resolveCurrentLocation({ location in
 //            self.listeningToLocationUpdates = true
 //            self.minutesEta = self.workOrdersViewControllerDelegate.drivingEtaToNextWorkOrderForViewController(self)
 //            LocationService.sharedService().background()
