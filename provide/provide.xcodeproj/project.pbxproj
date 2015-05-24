@@ -40,9 +40,6 @@
 		687CB5531B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
 		687CB5541B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
 		687CB5551B07EAD30048B692 /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */; };
-		687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
-		687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
-		687CB5641B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */; };
 		687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
 		687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
 		687CB5671B07EAD30048B692 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB53D1B07EAD30048B692 /* StringExtensions.swift */; };
@@ -424,7 +421,6 @@
 		687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapViewExtensions.swift; sourceTree = "<group>"; };
 		687CB5351B07EAD30048B692 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDictionaryExtensions.swift; sourceTree = "<group>"; };
-		687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKHTTPRequestOperationExtensions.swift; sourceTree = "<group>"; };
 		687CB53D1B07EAD30048B692 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		687CB5401B07EAD30048B692 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
@@ -606,7 +602,6 @@
 				687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */,
 				687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */,
 				68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */,
-				687CB53C1B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift */,
 				687CB53D1B07EAD30048B692 /* StringExtensions.swift */,
 				68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */,
 				687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */,
@@ -1320,7 +1315,6 @@
 				68F730851B07DE94001A21B0 /* Route.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */,
-				687CB5621B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
@@ -1413,7 +1407,6 @@
 				68B4130D1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412AB1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				68B978C31B084DCF00863E21 /* VersionHelper.swift in Sources */,
-				687CB5631B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				687CB5481B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68B412EA1B080E6D009A4C05 /* SignatureView.swift in Sources */,
@@ -1562,7 +1555,6 @@
 				687CB5A51B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7306F1B07DE94001A21B0 /* Company.swift in Sources */,
 				68B978D81B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */,
-				687CB5641B07EAD30048B692 /* RKHTTPRequestOperationExtensions.swift in Sources */,
 				68F7309C1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				68F7307B1B07DE94001A21B0 /* Directions.swift in Sources */,
 				68B412861B0802AF009A4C05 /* AnnotationView.swift in Sources */,
