@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		59096D21721B65DB15EB5BF9 /* libPods-provideKIFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C11969598E3AA01F971BC3 /* libPods-provideKIFTests.a */; };
+		5C9F77EC1B11758E0022686E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C9F77EB1B11758E0022686E /* LaunchScreen.xib */; };
 		682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
@@ -413,6 +414,7 @@
 		0052247D6B7C91ED10B647E1 /* Pods-provideKIFTests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideKIFTests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideKIFTests/Pods-provideKIFTests.appstore.xcconfig"; sourceTree = "<group>"; };
 		2B0CDA460D236638E75CFB3A /* Pods-provideKIFTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideKIFTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideKIFTests/Pods-provideKIFTests.debug.xcconfig"; sourceTree = "<group>"; };
 		405278A4B9F8A66B9658B72F /* Pods-provideKIFTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideKIFTests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideKIFTests/Pods-provideKIFTests.adhoc.xcconfig"; sourceTree = "<group>"; };
+		5C9F77EB1B11758E0022686E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		647A46D83EAFFF4D1036DA95 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				68B413281B083161009A4C05 /* RouteManifest.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
+				5C9F77EB1B11758E0022686E /* LaunchScreen.xib */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -1121,6 +1124,7 @@
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
 				68B4120D1B07FB02009A4C05 /* Application.storyboard in Resources */,
+				5C9F77EC1B11758E0022686E /* LaunchScreen.xib in Resources */,
 				68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */,
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B413371B083161009A4C05 /* RouteManifest.storyboard in Resources */,
@@ -1689,7 +1693,6 @@
 			baseConfigurationReference = CE6BCE7A9D383AD1B3C43363 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = provide/Info.plist;
@@ -1706,7 +1709,6 @@
 			baseConfigurationReference = 647A46D83EAFFF4D1036DA95 /* Pods.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = provide/Info.plist;
@@ -1867,7 +1869,6 @@
 			baseConfigurationReference = D97B413E731DE62D384B2EC6 /* Pods.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = provide/Info.plist;
