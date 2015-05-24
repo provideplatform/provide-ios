@@ -43,7 +43,7 @@ class MenuViewController: UITableViewController {
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
         case "LogoutCell":
-            self.slidingViewController().dismissViewController(animated: true)
+            slidingViewController().dismissViewController(animated: true)
             ApiService.sharedService().logout(
                 { statusCode, _ in
                     assert(statusCode == 204)

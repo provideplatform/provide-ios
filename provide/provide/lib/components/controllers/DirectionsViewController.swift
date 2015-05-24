@@ -43,9 +43,9 @@ class DirectionsViewController: ViewController {
             if directions == nil {
                 showProgressIndicator()
 
-                self.unregisterMonitoredRegions()
-                self.regions = [CLCircularRegion]()
-                self.lastRegionCrossing = nil
+                unregisterMonitoredRegions()
+                regions = [CLCircularRegion]()
+                lastRegionCrossing = nil
             } else {
                 hideProgressIndicator()
 
@@ -93,7 +93,7 @@ class DirectionsViewController: ViewController {
                                             pitch: CGFloat(defaultMapCameraPitch),
                                             animated: true)
 
-                (mapView as! WorkOrderMapView).directionsViewControllerDelegate = self.directionsViewControllerDelegate
+                (mapView as! WorkOrderMapView).directionsViewControllerDelegate = directionsViewControllerDelegate
             }
         }
 
@@ -139,7 +139,7 @@ class DirectionsViewController: ViewController {
                             mapView.setCenterCoordinate(location.coordinate,
                                 fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                                 eyeAltitude: cameraAltitude,
-                                heading: -1, //360.0 * (1.0 - self.calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
+                                heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
                                 pitch: cameraPitch,
                                 animated: false)
                         }
@@ -173,22 +173,22 @@ class DirectionsViewController: ViewController {
     }
 
     private func fetchDrivingDirections(location: CLLocation!) {
-        var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
-        var cameraAltitude: Double = self.defaultMapCameraAltitude
+        var cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
+        var cameraAltitude: Double = defaultMapCameraAltitude
 
         WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onWorkOrderDrivingDirectionsFetched: { workOrder, directions in
             self.directions = directions
 
             if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
                 mapView.setCenterCoordinate(location.coordinate,
-                    fromEyeCoordinate: self.directions.selectedRoute.currentLeg.currentStep.startCoordinate,
+                    fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                     eyeAltitude: cameraAltitude,
-                    heading: -1, //360.0 * (1.0 - self.calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
+                    heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
                     pitch: cameraPitch,
                     animated: false)
             }
 
-            for leg in self.directions.selectedRoute.legs {
+            for leg in directions.selectedRoute.legs {
                 for step in [(leg as! RouteLeg).currentStep] {
                     for coordinate in (step as RouteLegStep).shapeCoordinates {
                         let overlay = MKCircle(centerCoordinate: coordinate, radius: 5.0)
@@ -248,7 +248,7 @@ class DirectionsViewController: ViewController {
     }
 
     private func unregisterMonitoredRegions() {
-        if let regions = self.regions {
+        if let regions = regions {
             for region in regions {
                 LocationService.sharedService().unregisterRegionMonitor(region.identifier)
                 self.regions.removeObject(region)
@@ -268,7 +268,7 @@ class DirectionsViewController: ViewController {
     }
 
     func refreshInstructions() {
-        if let directions = self.directions {
+        if let directions = directions {
             if let route = directions.selectedRoute {
                 if let leg = route.currentLeg {
                     directionsInstructionView.routeLeg = leg
@@ -281,7 +281,7 @@ class DirectionsViewController: ViewController {
 //
 //    func setupNavigationItem(cancelItemEnabled: Bool = false) {
 //        if let navigationItem = directionsViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
-//            if let directions = self.directions {
+//            if let directions = directions {
 //                if let route = directions.selectedRoute() {
 //                    if let leg = route.currentLeg {
 //                        println("steps \(leg.steps)")
@@ -298,7 +298,7 @@ class DirectionsViewController: ViewController {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             mapView.removeOverlays(mapView.overlays)
 
-            if let directions = self.directions {
+            if let directions = directions {
                 if let overview = directions.selectedRoute.overviewPolyline {
                     mapView.addOverlay(overview, level: .AboveRoads)
                 }
@@ -376,14 +376,14 @@ class DirectionsViewController: ViewController {
                 CheckinService.sharedService().disableNavigationAccuracy()
                 LocationService.sharedService().disableNavigationAccuracy()
 
-                //self.clearNavigationItem()
+                //clearNavigationItem()
             }
         )
     }
 
     func routeLegAtIndex(i: Int) -> RouteLeg! {
         var routeLeg: RouteLeg!
-        if let directions = self.directions {
+        if let directions = directions {
             if let selectedRoute = directions.selectedRoute {
                 routeLeg = selectedRoute.legs[i] as! RouteLeg
             }

@@ -98,7 +98,7 @@ class CameraView: UIView {
                 window.layer.renderInContext(UIGraphicsGetCurrentContext())
                 var image = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
-                self.delegate?.cameraView(self, didCaptureStillImage: image)
+                delegate?.cameraView(self, didCaptureStillImage: image)
             }
             return
         }

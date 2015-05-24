@@ -31,7 +31,7 @@ class Provider: Model {
     var firstName: String! {
         get {
             var firstName: String!
-            if let name = self.name {
+            if let name = name {
                 firstName = name.splitAtString(" ").0
             }
             return firstName
@@ -41,7 +41,7 @@ class Provider: Model {
     var lastName: String! {
         get {
             var lastName: String!
-            if let name = self.name {
+            if let name = name {
                 lastName = name.splitAtString(" ").1
             }
             return lastName

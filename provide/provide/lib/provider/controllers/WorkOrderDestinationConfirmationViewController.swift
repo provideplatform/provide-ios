@@ -178,8 +178,8 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     //    private var listeningToLocationUpdates = false
 //    private func registerForLocationUpdates() {
 //        LocationService.sharedService().resolveCurrentLocation({ location in
-//            self.listeningToLocationUpdates = true
-//            self.minutesEta = self.workOrdersViewControllerDelegate.drivingEtaToNextWorkOrderForViewController(self)
+//            listeningToLocationUpdates = true
+//            minutesEta = self.workOrdersViewControllerDelegate.drivingEtaToNextWorkOrderForViewController(self)
 //            LocationService.sharedService().background()
 //        }, durableKey: "workOrderDestinationConfirmationViewController")
 //    }

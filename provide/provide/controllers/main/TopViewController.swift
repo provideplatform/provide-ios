@@ -34,7 +34,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
         if let user = KeyChainService.sharedService().token?.user {
             if user.profileImageUrl == nil {
-                self.initSelfieViewController()
+                initSelfieViewController()
             }
         }
     }

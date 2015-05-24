@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        saveContext()
 
         AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
     }
@@ -174,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data Saving support
 
     func saveContext () {
-        if let moc = self.managedObjectContext {
+        if let moc = managedObjectContext {
             var error: NSError? = nil
             if moc.hasChanges && !moc.save(&error) {
                 // Replace this implementation with code to handle the error appropriately.

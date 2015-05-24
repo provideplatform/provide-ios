@@ -115,7 +115,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     override func unwind() {
         clearNavigationItem()
 
-        if let barcodeScannerViewController = self.barcodeScannerViewController {
+        if let barcodeScannerViewController = barcodeScannerViewController {
             barcodeScannerViewController.stopScanner()
         }
 
@@ -164,7 +164,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let items = self.items {
+        if let items = items {
             return items.count
         }
         return 0
@@ -173,7 +173,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("packingSlipItemTableViewCell") as! PackingSlipItemTableViewCell
 
-        if let items = self.items {
+        if let items = items {
             cell.product = items[indexPath.row] as Product
             cell.packingSlipItemTableViewCellDelegate = self
         }
@@ -231,7 +231,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         for object in metadataObjects {
             if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
-                self.processCode(machineReadableCodeObject)
+                processCode(machineReadableCodeObject)
             }
         }
     }

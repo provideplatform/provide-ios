@@ -67,8 +67,8 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
         }
 
-        self.setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
-        self.setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 90.0)
+        setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
+        setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 90.0)
     }
 
     // MARK: SWTableViewCellDelegate

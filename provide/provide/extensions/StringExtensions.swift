@@ -27,7 +27,7 @@ extension String {
     }
 
     func urlEncodedString() -> String {
-        return self.replaceString(" ", withString: "+").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        return replaceString(" ", withString: "+").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
     }
 
     func splitAtString(seperator: String) -> (String, String) {

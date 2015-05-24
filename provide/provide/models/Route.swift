@@ -50,7 +50,7 @@ class Route: Model {
     var currentLeg: RouteLeg! {
         get {
             var leg: RouteLeg!
-            if let legs = self.legs {
+            if let legs = legs {
                 if legs.count > 0 {
                     if currentLegIndex == nil {
                         currentLegIndex = 0
@@ -85,7 +85,7 @@ class Route: Model {
         get {
             var itemsNotLoaded = [Product]()
 
-            if let workOrders = self.workOrders {
+            if let workOrders = workOrders {
                 for workOrder in (workOrders as Array).reverse() {
                     if let products = (workOrder as! WorkOrder).itemsOrdered {
                         for product in products {
@@ -108,7 +108,7 @@ class Route: Model {
     var itemsOrdered: [Product] {
         get {
             var itemsOrdered = [Product]()
-            if let workOrders = self.workOrders {
+            if let workOrders = workOrders {
                 for workOrder in (workOrders as Array).reverse() {
                     if let products = (workOrder as! WorkOrder).itemsOrdered {
                         for product in products {

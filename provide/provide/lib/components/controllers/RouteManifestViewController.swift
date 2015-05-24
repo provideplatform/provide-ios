@@ -122,9 +122,9 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private func dismissBarcodeScannerViewController() {
-        self.refreshNavigationItem()
+        refreshNavigationItem()
 
-        self.dismissViewController(animated: true, completion: {
+        dismissViewController(animated: true, completion: {
             self.tableView.reloadData()
         })
     }
@@ -209,10 +209,10 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     // MARK: BarcodeScannerViewControllerDelegate
 
     func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        if self.processingCode == false {
+        if processingCode == false {
             for object in metadataObjects {
                 if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
-                    self.processCode(machineReadableCodeObject)
+                    processCode(machineReadableCodeObject)
                 }
             }
         }
@@ -223,10 +223,10 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             if code.type == "org.gs1.EAN-13" {
                 let value = code.stringValue
 
-                if self.route.isGtinRequired(value) {
-                    self.processingCode = true
+                if route.isGtinRequired(value) {
+                    processingCode = true
 
-                    self.route.loadManifestItemByGtin(value, onSuccess: { statusCode, responseString in
+                    route.loadManifestItemByGtin(value, onSuccess: { statusCode, responseString in
                         self.processingCode = false
                     }, onError: { error, statusCode, responseString in
                         self.processingCode = false

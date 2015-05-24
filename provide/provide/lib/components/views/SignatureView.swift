@@ -93,7 +93,7 @@ class SignatureView: UIView {
         doneButton.alpha = 0
         doneButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
 
-        if let delegate = self.delegate {
+        if let delegate = delegate {
             delegate.signatureView(self, capturedSignature: image())
         }
     }

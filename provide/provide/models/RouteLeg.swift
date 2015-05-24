@@ -87,7 +87,7 @@ class RouteLeg: Model {
         get {
             var step: RouteLegStep!
 
-            if let steps = self.steps {
+            if let steps = steps {
                 if currentStepIndex <= steps.count - 1 {
                     step = steps[currentStepIndex] as! RouteLegStep
                 }
@@ -101,7 +101,7 @@ class RouteLeg: Model {
         get {
             var step: RouteLegStep!
 
-            if let steps = self.steps {
+            if let steps = steps {
                 let nextStepIndex = currentStepIndex + 1
                 if nextStepIndex <= steps.count - 1 {
                     step = steps[nextStepIndex] as! RouteLegStep

@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let navigationController = self.navigationController {
+        if let navigationController = navigationController {
             navigationController.navigationBar.setBackgroundImage(UIImage(named: "navbar-background"), forBarMetrics: .Default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
         }

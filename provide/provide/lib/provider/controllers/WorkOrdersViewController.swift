@@ -219,7 +219,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             // FIXME -- the following needs to be done differently as to allow the dispatcher to close out routes:
 //            if canAttemptSegueToInProgressRoute == true {
 //                RouteService.sharedService().inProgressRoute.complete({ statusCode, responseString in
-//                    self.attemptSegueToValidRouteContext()
+//                    attemptSegueToValidRouteContext()
 //                }, onError: { error, statusCode, responseString in
 //
 //                })

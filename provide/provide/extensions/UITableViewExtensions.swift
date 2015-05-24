@@ -11,19 +11,19 @@ import UIKit
 extension UITableView {
     
     subscript(reuseIdentifier: String) -> UITableViewCell {
-        return self.dequeueReusableCellWithIdentifier(reuseIdentifier) as! UITableViewCell
+        return dequeueReusableCellWithIdentifier(reuseIdentifier) as! UITableViewCell
     }
     
     subscript(reuseIdentifier: String, indexPath: NSIndexPath) -> UITableViewCell {
-        return self.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        return dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
     }
     
     subscript(row: Int) -> UITableViewCell {
-        return self.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0))!
+        return cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0))!
     }
     
     subscript(row: Int, section: Int) -> UITableViewCell {
-        return self.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: section))!
+        return cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: section))!
     }
     
 }

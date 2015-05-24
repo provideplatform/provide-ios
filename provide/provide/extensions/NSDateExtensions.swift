@@ -74,7 +74,7 @@ extension NSDate {
     }
 
     func daysSince(otherDate: NSDate) -> Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self.atMidnight, toDate: otherDate.atMidnight, options: nil)
+        let components = NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: atMidnight, toDate: otherDate.atMidnight, options: nil)
         return components.day
     }
 

@@ -24,7 +24,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     func setupNavigationItem() {
-        if let navigationController = self.navigationController {
+        if let navigationController = navigationController {
             navigationController.navigationBarHidden = false
         }
 

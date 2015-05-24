@@ -26,7 +26,7 @@ enum Environment: String {
         var hostName = productionHostSuffix
         switch self {
         case .QA:
-            hostName = "\(self.prefixString).\(hostName)"
+            hostName = "\(prefixString).\(hostName)"
         default:
             break
         }
