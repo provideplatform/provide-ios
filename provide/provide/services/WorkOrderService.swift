@@ -66,15 +66,15 @@ class WorkOrderService: NSObject {
     }
 
     func fetch(page: Int = 1,
-               rpp: Int = 10,
-               status: String = "scheduled",
-               today: Bool = false,
-               onWorkOrdersFetched: OnWorkOrdersFetched!) {
-
+        rpp: Int = 10,
+        status: String = "scheduled",
+        today: Bool = false,
+        onWorkOrdersFetched: OnWorkOrdersFetched!)
+    {
         let params = NSMutableDictionary(dictionary: [
-                "page": page,
-                "rpp": rpp,
-                "status": status
+            "page": page,
+            "rpp": rpp,
+            "status": status
             ])
 
         if today == true {
@@ -97,7 +97,8 @@ class WorkOrderService: NSObject {
                 if onWorkOrdersFetched != nil {
                     onWorkOrdersFetched(workOrders: fetchedWorkOrders)
                 }
-            }, onError: { error, statusCode, responseString in
+            },
+            onError: { error, statusCode, responseString in
                 // TODO
             }
         )
@@ -105,27 +106,27 @@ class WorkOrderService: NSObject {
 
     func fetchNextWorkOrderDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: OnWorkOrderEtaFetched) {
         if let workOrder = nextWorkOrder {
-            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { minutesEta in
+            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
                 self.nextWorkOrderDrivingEtaMinutes = minutesEta
                 onWorkOrderEtaFetched(workOrder: workOrder, minutesEta: minutesEta)
-            })
+            }
         }
     }
 
     func fetchInProgressWorkOrderDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: OnWorkOrderEtaFetched) {
         if let workOrder = inProgressWorkOrder {
-            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onEtaFetched: { minutesEta in
+            DirectionService.sharedService().fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
                 self.nextWorkOrderDrivingEtaMinutes = minutesEta
                 onWorkOrderEtaFetched(workOrder: workOrder, minutesEta: minutesEta)
-            })
+            }
         }
     }
 
     func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderDrivingDirectionsFetched: OnWorkOrderDrivingDirectionsFetched) {
         if let workOrder = inProgressWorkOrder {
-            DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onDrivingDirectionsFetched: { directions in
+            DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { directions in
                 onWorkOrderDrivingDirectionsFetched(workOrder: workOrder, directions: directions)
-            })
+            }
         }
     }
 

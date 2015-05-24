@@ -25,16 +25,19 @@ class RouteService: NSObject {
             var gtinsLoaded = route.gtinsLoaded
             gtinsLoaded.append(gtin)
 
-            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtinsLoaded], onSuccess: { statusCode, mappingResult in
-                var itemsLoaded = NSMutableArray(array: route.itemsLoaded)
-                itemsLoaded.addObject(route.itemForGtin(gtin))
+            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtinsLoaded],
+                onSuccess: { statusCode, mappingResult in
+                    var itemsLoaded = NSMutableArray(array: route.itemsLoaded)
+                    itemsLoaded.addObject(route.itemForGtin(gtin))
 
-                route.itemsLoaded = itemsLoaded as [AnyObject]
+                    route.itemsLoaded = itemsLoaded as [AnyObject]
 
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            }, onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            })
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
         }
     }
 
@@ -51,21 +54,25 @@ class RouteService: NSObject {
                 i++
             }
 
-            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            }, onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            })
+            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded],
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
         }
     }
 
     func fetch(page: Int = 1,
-               rpp: Int = 10,
-               status: String = "scheduled",
-               today: Bool = false,
-               nextRouteOnly: Bool = false,
-               includeWorkOrders: Bool = true,
-               onRoutesFetched: OnRoutesFetched!) {
+        rpp: Int = 10,
+        status: String = "scheduled",
+        today: Bool = false,
+        nextRouteOnly: Bool = false,
+        includeWorkOrders: Bool = true,
+        onRoutesFetched: OnRoutesFetched!)
+    {
         let params = NSMutableDictionary(dictionary: [
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
@@ -93,7 +100,8 @@ class RouteService: NSObject {
                 if onRoutesFetched != nil {
                     onRoutesFetched(routes: fetchedRoutes)
                 }
-            }, onError: { error, statusCode, responseString in
+            },
+            onError: { error, statusCode, responseString in
                 // TODO
             }
         )

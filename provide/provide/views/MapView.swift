@@ -41,22 +41,28 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func revealMap(force: Bool = false) {
-        revealMap(force, animations: {
-            self.alpha = 1
-        }, completion: nil)
+        revealMap(force,
+            animations: {
+                self.alpha = 1
+            },
+            completion: nil
+        )
     }
 
     func revealMap(force: Bool, animations: VoidBlock!, completion: VoidBlock!) {
         if shouldReveal == true || force == true {
-            UIView.animateWithDuration(0.25, animations: {
-                if animations != nil {
-                    animations()
+            UIView.animateWithDuration(0.25,
+                animations: {
+                    if animations != nil {
+                        animations()
+                    }
+                },
+                completion: { finished in
+                    if completion != nil {
+                        completion()
+                    }
                 }
-            }, completion: { finished in
-                if completion != nil {
-                    completion()
-                }
-            })
+            )
         }
     }
 

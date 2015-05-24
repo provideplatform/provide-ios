@@ -48,7 +48,8 @@ class MenuViewController: UITableViewController {
                 { statusCode, _ in
                     assert(statusCode == 204)
                     log("Logout Successful")
-                }, onError: { error, _, _ in
+                },
+                onError: { error, _, _ in
                     logError("Logout attempt failed; " + error.localizedDescription)
                     selectedCell.userInteractionEnabled = true
                 }

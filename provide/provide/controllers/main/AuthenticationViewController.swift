@@ -74,20 +74,16 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             emailField?.becomeFirstResponder()
         }
 
-        UIView.animateWithDuration(0.15, animations: {
+        UIView.animateWithDuration(0.15) {
             self.tableView.alpha = 1
-        }) { completion in
-
         }
     }
     
     private func hideForm() {
         view.endEditing(true)
 
-        UIView.animateWithDuration(0.15, animations: {
+        UIView.animateWithDuration(0.15) {
             self.tableView.alpha = 0
-        }) { completion in
-
         }
     }
     
@@ -107,16 +103,20 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     private func login() {
-        let params = ["email" : emailField.text,
-                      "password" : passwordField.text]
-        
-        ApiService.sharedService().login(params, onSuccess: { statusCode, responseString in
-            self.userWasAuthenticated()
-        }) { error, statusCode, responseString in
-            logError("Failed to create API token")
-            self.showError("Authorization failed \(statusCode)")
-            self.showForm()
-        }
+        let params = [
+            "email" : emailField.text,
+            "password" : passwordField.text]
+
+        ApiService.sharedService().login(params,
+            onSuccess: { statusCode, responseString in
+                self.userWasAuthenticated()
+            },
+            onError: { error, statusCode, responseString in
+                logError("Failed to create API token")
+                self.showError("Authorization failed \(statusCode)")
+                self.showForm()
+            }
+        )
     }
 
     private func userWasAuthenticated() {

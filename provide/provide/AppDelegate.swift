@@ -59,11 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        ApiService.sharedService().createDevice(["user_id": KeyChainService.sharedService().token!.userId, "apns_device_id": "\(deviceToken)"], onSuccess: { statusCode, responseString in
-            AnalyticsService.sharedService().track("App Registered For Remote Notifications")
-        }) { error, statusCode, responseString in
-            logError("Failed to set apn device token for authenticated user")
-        }
+        ApiService.sharedService().createDevice(["user_id": KeyChainService.sharedService().token!.userId, "apns_device_id": "\(deviceToken)"],
+            onSuccess: { statusCode, responseString in
+                AnalyticsService.sharedService().track("App Registered For Remote Notifications")
+            },
+            onError: { error, statusCode, responseString in
+                logError("Failed to set apn device token for authenticated user")
+            }
+        )
     }
 
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -78,10 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if ApiService.hasCachedToken() {
             if let checkin = userInfo["checkin"] as? Bool {
                 if checkin {
-                    LocationService.sharedService().resolveCurrentLocation({ location in
+                    LocationService.sharedService().resolveCurrentLocation { location in
                         ApiService.sharedService().checkin(location)
                         LocationService.sharedService().background()
-                    })
+                    }
                 }
             }
 
@@ -93,16 +96,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 } else {
                     if WorkOrderService.sharedService().inProgressWorkOrder != nil {
                         if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId.integerValue {
-                            ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue, onSuccess: { statusCode, mappingResult in
-                                if let wo = mappingResult.firstObject as? WorkOrder {
-                                    if wo.status == "canceled" {
-                                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                            ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue,
+                                onSuccess: { statusCode, mappingResult in
+                                    if let wo = mappingResult.firstObject as? WorkOrder {
+                                        if wo.status == "canceled" {
+                                            LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                        }
                                     }
-                                }
-                            }) { error, statusCode, responseString in
+                                },
+                                onError: { error, statusCode, responseString in
 
-                            }
+                                }
+                            )
                         }
                     } else {
                         NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")

@@ -20,9 +20,11 @@ class ProviderService: NSObject {
         return sharedInstance
     }
 
-    func fetch(page: Int = 1,
-               rpp: Int = 10,
-               onProvidersFetched: OnProvidersFetched!) {
+    func fetch(
+        page: Int = 1,
+        rpp: Int = 10,
+        onProvidersFetched: OnProvidersFetched!)
+    {
         let params = [
             "page": page,
             "rpp": rpp
@@ -40,7 +42,8 @@ class ProviderService: NSObject {
                 if onProvidersFetched != nil {
                     onProvidersFetched(providers: fetchedProviders)
                 }
-            }, onError: { error, statusCode, responseString in
+            },
+            onError: { error, statusCode, responseString in
                 // TODO
             }
         )

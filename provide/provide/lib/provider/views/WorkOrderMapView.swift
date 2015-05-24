@@ -12,19 +12,19 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate! {
         didSet {
-            LocationService.sharedService().resolveCurrentLocation({ [weak self] (location: CLLocation) -> () in
+            LocationService.sharedService().resolveCurrentLocation { [weak self] location in
                 self!.mapViewDidUpdateUserLocation(self, location: location)
                 LocationService.sharedService().background()
-            })
+            }
         }
     }
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate! {
         didSet {
-            LocationService.sharedService().resolveCurrentLocation({ [weak self] (location: CLLocation) -> () in
+            LocationService.sharedService().resolveCurrentLocation { [weak self] location in
                 self!.mapViewDidUpdateUserLocation(self, location: location)
                 LocationService.sharedService().background()
-            })
+            }
         }
     }
 
@@ -37,18 +37,18 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                     imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
                     imageView.contentMode = .ScaleAspectFit
                     imageView.alpha = 0.0
-                    imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl), completed: { image, error, cacheType, url in
+                    imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl)) { image, error, cacheType, url in
                         imageView.makeCircular()
                         imageView.alpha = 1
-                    })
+                    }
                 } else {
                     imageView = RFGravatarImageView(frame: CGRectMake(0, 0, 50, 50))
                     imageView.alpha = 0.0
                     (imageView as! RFGravatarImageView).email = user.email
-                    (imageView as! RFGravatarImageView).load({ error in
+                    (imageView as! RFGravatarImageView).load { error in
                         imageView.makeCircular()
                         imageView.alpha = 1
-                    })
+                    }
                 }
             }
 
@@ -74,10 +74,10 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         showsBuildings = true
         showsPointsOfInterest = true
 
-        LocationService.sharedService().requireAuthorization({
+        LocationService.sharedService().requireAuthorization {
             self.showsUserLocation = true
             LocationService.sharedService().start()
-        })
+        }
     }
 
     override func removeAnnotations() {
@@ -89,11 +89,14 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     override func revealMap(force: Bool = false) {
-        super.revealMap(force, animations: {
-            self.alpha = 1
-        }, completion: {
+        super.revealMap(force,
+            animations: {
+                self.alpha = 1
+            },
+            completion: {
 
-        })
+            }
+        )
     }
 
     // MARK: MKMapViewDelegate
@@ -167,24 +170,27 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(false, animations: {
-                log("Revealing map rect based on location: \(location)")
-                mapView.alpha = 1
-            }, completion: {
+            mapView.revealMap(false,
+                animations: {
+                    log("Revealing map rect based on location: \(location)")
+                    mapView.alpha = 1
+                },
+                completion: {
 
-            })
+                }
+            )
         }
 
         if let token = KeyChainService.sharedService().token { // HACK this is temporary
             if viewingDirections == false && WorkOrderService.sharedService().nextWorkOrder != nil {
                 if workOrdersViewControllerDelegate != nil {
-                    WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate, onWorkOrderEtaFetched: { workOrder, minutesEta in
+                    WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
                         for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
                             if vc is WorkOrdersViewControllerDelegate {
                                 (vc as! WorkOrdersViewControllerDelegate).drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)
                             }
                         }
-                    })
+                    }
                 }
             }
         } else {

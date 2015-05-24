@@ -55,12 +55,12 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             } else if workOrder.customer.contact.email != nil {
                 var gravatarImageView = RFGravatarImageView(frame: titleImageView.frame)
                 gravatarImageView.email = workOrder.contact.email
-                gravatarImageView.load({ error in
+                gravatarImageView.load { error in
                     gravatarImageView.makeCircular()
                     self.view.insertSubview(gravatarImageView, aboveSubview: self.titleImageView)
                     self.titleImageView.alpha = 0
                     gravatarImageView.alpha = 1
-                })
+                }
             }
 
             titleLabel.text = workOrder.customer.displayName

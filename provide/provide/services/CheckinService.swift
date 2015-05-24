@@ -67,10 +67,10 @@ class CheckinService: NSObject {
     }
 
     func checkin() {
-        LocationService.sharedService().resolveCurrentLocation({ location in
+        LocationService.sharedService().resolveCurrentLocation { location in
             ApiService.sharedService().checkin(location)
             LocationService.sharedService().background()
-        })
+        }
     }
 
     private func restart() {

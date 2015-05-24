@@ -124,9 +124,9 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     private func dismissBarcodeScannerViewController() {
         refreshNavigationItem()
 
-        dismissViewController(animated: true, completion: {
+        dismissViewController(animated: true) {
             self.tableView.reloadData()
-        })
+        }
     }
 
     func refreshNavigationItem() {
@@ -171,39 +171,48 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             gtins.append(item.gtin)
         }
 
-        ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins], onSuccess: { statusCode, responseString in
-            var itemsLoaded = NSMutableArray()
-            for product in self.route.itemsOrdered {
-                itemsLoaded.addObject(product)
+        ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
+            onSuccess: { statusCode, responseString in
+                var itemsLoaded = NSMutableArray()
+                for product in self.route.itemsOrdered {
+                    itemsLoaded.addObject(product)
+                }
+                self.route.itemsLoaded = itemsLoaded as [AnyObject]
+                self.refreshNavigationItem()
+                self.tableView.reloadData()
+            },
+            onError: { error, statusCode, responseString in
+                
             }
-            self.route.itemsLoaded = itemsLoaded as [AnyObject]
-            self.refreshNavigationItem()
-            self.tableView.reloadData()
-        }, onError: { error, statusCode, responseString in
-
-        })
+        )
     }
 
     func start() {
         clearNavigationItem()
-        route.start({ statusCode, responseString in
-            if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
-                self.delegate?.routeUpdated?(self.route, byViewController: self)
-            }
-        }, onError: { error, statusCode, responseString in
+        route.start(
+            { statusCode, responseString in
+                if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
+                    self.delegate?.routeUpdated?(self.route, byViewController: self)
+                }
+            },
+            onError: { error, statusCode, responseString in
 
-        })
+            }
+        )
     }
 
     func complete() {
         clearNavigationItem()
-        route.complete({ statusCode, responseString in
-            if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
-                self.delegate?.routeUpdated?(self.route, byViewController: self)
+        route.complete(
+            { statusCode, responseString in
+                if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
+                    self.delegate?.routeUpdated?(self.route, byViewController: self)
+                }
+            },
+            onError: { error, statusCode, responseString in
+
             }
-        }, onError: { error, statusCode, responseString in
-                
-        })
+        )
     }
 
     // MARK: BarcodeScannerViewControllerDelegate
@@ -226,11 +235,14 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 if route.isGtinRequired(value) {
                     processingCode = true
 
-                    route.loadManifestItemByGtin(value, onSuccess: { statusCode, responseString in
-                        self.processingCode = false
-                    }, onError: { error, statusCode, responseString in
-                        self.processingCode = false
-                    })
+                    route.loadManifestItemByGtin(value,
+                        onSuccess: { statusCode, responseString in
+                            self.processingCode = false
+                        },
+                        onError: { error, statusCode, responseString in
+                            self.processingCode = false
+                        }
+                    )
                 }
             }
         }

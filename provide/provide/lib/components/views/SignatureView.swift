@@ -81,11 +81,14 @@ class SignatureView: UIView {
     }
 
     private func enableDoneButton() {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut, animations: {
-            self.doneButton.alpha = 1
-        }) { finished in
-            self.doneButton.enabled = true
-        }
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut,
+            animations: {
+                self.doneButton.alpha = 1
+            },
+            completion: { finished in
+                self.doneButton.enabled = true
+            }
+        )
     }
 
     @IBAction func doneButtonPressed(sender: UIButton!) {

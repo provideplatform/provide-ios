@@ -84,19 +84,22 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder == true) {
                 if self.viewingDirections {
-                    WorkOrderService.sharedService().inProgressWorkOrder.reload({ statusCode, mappingResult in
-                        if let workOrder = mappingResult.firstObject as? WorkOrder {
-                            if workOrder.status != "en_route" {
-                                self.updatingWorkOrderContext = true
-                                self.loadRouteContext()
-                            } else {
-                                log("not reloading context due to work order being routed to destination")
+                    WorkOrderService.sharedService().inProgressWorkOrder.reload(
+                        { statusCode, mappingResult in
+                            if let workOrder = mappingResult.firstObject as? WorkOrder {
+                                if workOrder.status != "en_route" {
+                                    self.updatingWorkOrderContext = true
+                                    self.loadRouteContext()
+                                } else {
+                                    log("not reloading context due to work order being routed to destination")
+                                }
                             }
+                        },
+                        onError: { error, statusCode, responseString in
+                            self.updatingWorkOrderContext = true
+                            self.loadRouteContext()
                         }
-                    }, onError: { error, statusCode, responseString in
-                        self.updatingWorkOrderContext = true
-                        self.loadRouteContext()
-                    })
+                    )
                 } else {
                     self.updatingWorkOrderContext = true
                     self.loadRouteContext()
@@ -220,7 +223,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 //            if canAttemptSegueToInProgressRoute == true {
 //                RouteService.sharedService().inProgressRoute.complete({ statusCode, responseString in
 //                    attemptSegueToValidRouteContext()
-//                }, onError: { error, statusCode, responseString in
+//                },onError: { error, statusCode, responseString in
 //
 //                })
 //            }
@@ -237,17 +240,23 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             assert(segue.destinationViewController is DirectionsViewController)
 
             if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
-                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks({
-                    wo.arrive({ statusCode, responseString in
-                        self.nextWorkOrderContextShouldBeRewound()
-                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
-                        self.attemptSegueToValidWorkOrderContext()
-                    }, onError: { error, statusCode, responseString in
+                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
+                    {
+                        wo.arrive(
+                            { statusCode, responseString in
+                                self.nextWorkOrderContextShouldBeRewound()
+                                LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
+                                self.attemptSegueToValidWorkOrderContext()
+                            },
+                            onError: { error, statusCode, responseString in
 
-                    })
-                }, onDidExitRegion: {
+                            }
+                        )
+                    },
+                    onDidExitRegion: {
 
-                })
+                    }
+                )
             }
 
             CheckinService.sharedService().enableNavigationAccuracy()
@@ -420,12 +429,15 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     func confirmationReceivedForWorkOrderViewController(viewController: ViewController!) {
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.sharedService().nextWorkOrder {
-                workOrder.start({ statusCode, responseString in
-                    self.nextWorkOrderContextShouldBeRewound()
-                    self.performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
-                }, onError: { error, statusCode, responseString in
+                workOrder.start(
+                    { statusCode, responseString in
+                        self.nextWorkOrderContextShouldBeRewound()
+                        self.performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
+                    },
+                    onError: { error, statusCode, responseString in
 
-                })
+                    }
+                )
             }
         }
     }
@@ -438,13 +450,16 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 
     func workOrderAbandonedForViewController(viewController: ViewController!) {
         nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.abandon({ statusCode, responseString in
-            self.attemptSegueToValidWorkOrderContext()
-        }, onError: { error, statusCode, responseString in
+        WorkOrderService.sharedService().inProgressWorkOrder.abandon(
+            { statusCode, responseString in
+                self.attemptSegueToValidWorkOrderContext()
+            },
+            onError: { error, statusCode, responseString in
 
-        })
+            }
+        )
     }
-
+    
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
         var products = [Product]()
         if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
@@ -495,15 +510,21 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             "public": false
         ]
 
-        WorkOrderService.sharedService().inProgressWorkOrder.attach(signature, params: params, onSuccess: { statusCode, responseString in
-            WorkOrderService.sharedService().inProgressWorkOrder.updateDeliveredItems({ statusCode, responseString in
-                println("updated delivered items!")
-            }) { error, statusCode, responseString in
-                    
-            }
-        }) { error, statusCode, responseString in
+        WorkOrderService.sharedService().inProgressWorkOrder.attach(signature, params: params,
+            onSuccess: { statusCode, responseString in
+                WorkOrderService.sharedService().inProgressWorkOrder.updateDeliveredItems(
+                    { statusCode, responseString in
+                        println("updated delivered items!")
+                    },
+                    onError: { error, statusCode, responseString in
 
-        }
+                    }
+                )
+            },
+            onError: { error, statusCode, responseString in
+                
+            }
+        )
     }
 
     func netPromoterScoreReceived(netPromoterScore: NSNumber!, forWorkOrderViewController: ViewController!) {
@@ -511,24 +532,33 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
         attemptSegueToValidWorkOrderContext()
 
-        WorkOrderService.sharedService().inProgressWorkOrder.scoreProvider(netPromoterScore, onSuccess: { statusCode, responseString in
-            WorkOrderService.sharedService().inProgressWorkOrder.complete({ statusCode, responseString in
-                println("net promoter score received")
-                self.attemptSegueToValidWorkOrderContext()
-            }, onError: { error, statusCode, responseString in
+        WorkOrderService.sharedService().inProgressWorkOrder.scoreProvider(netPromoterScore,
+            onSuccess: { statusCode, responseString in
+                WorkOrderService.sharedService().inProgressWorkOrder.complete(
+                    { statusCode, responseString in
+                        println("net promoter score received")
+                        self.attemptSegueToValidWorkOrderContext()
+                    },
+                    onError: { error, statusCode, responseString in
 
-            })
-        }) { error, statusCode, responseString in
+                    }
+                )
+            },
+            onError: { error, statusCode, responseString in
 
-        }
+            }
+        )
     }
 
     func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController!) {
-        WorkOrderService.sharedService().inProgressWorkOrder.complete({ statusCode, responseString in
-            self.attemptSegueToValidWorkOrderContext()
-        }, onError: { error, statusCode, responseString in
+        WorkOrderService.sharedService().inProgressWorkOrder.complete(
+            { statusCode, responseString in
+                self.attemptSegueToValidWorkOrderContext()
+            },
+            onError: { error, statusCode, responseString in
 
-        })
+            }
+        )
     }
 
     func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController!) {

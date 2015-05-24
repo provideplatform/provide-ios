@@ -75,15 +75,18 @@ extension MKMapView {
         setRegion(region, animated: animated)
     }
 
-    func setCenterCoordinate(centerCoordinate: CLLocationCoordinate2D,
-                             fromEyeCoordinate: CLLocationCoordinate2D,
-                             eyeAltitude: CLLocationDistance = 0,
-                             pitch: CGFloat = 0,
-                             heading: CLLocationDirection = 0,
-                             animated: Bool = true) {
-        let camera = MKMapCamera(lookingAtCenterCoordinate: centerCoordinate,
-                                 fromEyeCoordinate: fromEyeCoordinate,
-                                 eyeAltitude: eyeAltitude)
+    func setCenterCoordinate(
+        centerCoordinate: CLLocationCoordinate2D,
+        fromEyeCoordinate: CLLocationCoordinate2D,
+        eyeAltitude: CLLocationDistance = 0,
+        pitch: CGFloat = 0,
+        heading: CLLocationDirection = 0,
+        animated: Bool = true)
+    {
+        let camera = MKMapCamera(
+            lookingAtCenterCoordinate: centerCoordinate,
+            fromEyeCoordinate: fromEyeCoordinate,
+            eyeAltitude: eyeAltitude)
 
         if heading >= 0.0 {
             camera.heading = heading

@@ -58,7 +58,8 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
                 params: NSDictionary(dictionary: params),
                 onSuccess: { statusCode, responseString in
 
-                }, onError: { statusCode, responseString, error in
+                },
+                onError: { statusCode, responseString, error in
 
                 }
             )
