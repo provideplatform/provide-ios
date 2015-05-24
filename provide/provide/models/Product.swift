@@ -20,44 +20,32 @@ class Product: Model {
             "id": "id",
             "gtin": "gtin",
             "data": "data"
-        ])
+            ])
         return mapping
     }
 
     var name: String! {
-        get {
-            return data != nil ? data["name"] as? String : nil
-        }
+        return data != nil ? data["name"] as? String : nil
     }
 
     var desc: String! {
-        get {
-            return data != nil ? data["description"] as? String : nil
-        }
+        return data != nil ? data["description"] as? String : nil
     }
 
     var mpn: String! {
-        get {
-            return data != nil ? data["mpn"] as? String : nil
-        }
+        return data != nil ? data["mpn"] as? String : nil
     }
 
     var price: Double! {
-        get {
-            return data != nil ? data["price"] as? Double : nil
-        }
+        return data != nil ? data["price"] as? Double : nil
     }
 
     var size: String! {
-        get {
-            return data != nil ? data["size"] as? String : nil
-        }
+        return data != nil ? data["size"] as? String : nil
     }
 
     var sku: String! {
-        get {
-            return data != nil ? data["sku"] as? String : nil
-        }
+        return data != nil ? data["sku"] as? String : nil
     }
 
 }

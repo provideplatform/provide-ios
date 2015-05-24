@@ -25,17 +25,13 @@ class WorkOrderComponentViewController: ViewController {
     private var childViewController: WorkOrderComponentViewController!
 
     private var slidingView: UIView! {
-        get {
-            return workOrdersViewControllerDelegate?.slidingViewControllerForViewController?(self)?.topViewController.view
-        }
+        return workOrdersViewControllerDelegate?.slidingViewControllerForViewController?(self)?.topViewController.view
     }
 
     private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
 
     var targetView: UIView! {
-        get {
-            return delegate?.targetViewForViewController?(self)
-        }
+        return delegate?.targetViewForViewController?(self)
     }
 
     func render() {

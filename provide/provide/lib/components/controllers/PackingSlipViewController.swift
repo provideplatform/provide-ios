@@ -43,17 +43,15 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     private var segment: Segment!
 
     private var items: [Product]! {
-        get {
-            switch Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex] {
-            case .Unloaded:
-                return workOrdersViewControllerDelegate?.workOrderItemsUnloadedForViewController?(self)
-            case .OnTruck:
-                return workOrdersViewControllerDelegate?.workOrderItemsOnTruckForViewController?(self)
-            case .Rejected:
-                return workOrdersViewControllerDelegate?.workOrderItemsRejectedForViewController?(self)
-            default:
-                return nil
-            }
+        switch Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex] {
+        case .Unloaded:
+            return workOrdersViewControllerDelegate?.workOrderItemsUnloadedForViewController?(self)
+        case .OnTruck:
+            return workOrdersViewControllerDelegate?.workOrderItemsOnTruckForViewController?(self)
+        case .Rejected:
+            return workOrdersViewControllerDelegate?.workOrderItemsRejectedForViewController?(self)
+        default:
+            return nil
         }
     }
 

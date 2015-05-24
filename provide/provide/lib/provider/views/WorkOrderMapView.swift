@@ -29,31 +29,29 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     private var userLocationImageView: UIImageView! {
-        get {
-            var imageView: UIImageView!
+        var imageView: UIImageView!
 
-            if let user = KeyChainService.sharedService().token?.user {
-                if user.profileImageUrl != nil {
-                    imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
-                    imageView.contentMode = .ScaleAspectFit
-                    imageView.alpha = 0.0
-                    imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl)) { image, error, cacheType, url in
-                        imageView.makeCircular()
-                        imageView.alpha = 1
-                    }
-                } else {
-                    imageView = RFGravatarImageView(frame: CGRectMake(0, 0, 50, 50))
-                    imageView.alpha = 0.0
-                    (imageView as! RFGravatarImageView).email = user.email
-                    (imageView as! RFGravatarImageView).load { error in
-                        imageView.makeCircular()
-                        imageView.alpha = 1
-                    }
+        if let user = KeyChainService.sharedService().token?.user {
+            if user.profileImageUrl != nil {
+                imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
+                imageView.contentMode = .ScaleAspectFit
+                imageView.alpha = 0.0
+                imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl)) { image, error, cacheType, url in
+                    imageView.makeCircular()
+                    imageView.alpha = 1
+                }
+            } else {
+                imageView = RFGravatarImageView(frame: CGRectMake(0, 0, 50, 50))
+                imageView.alpha = 0.0
+                (imageView as! RFGravatarImageView).email = user.email
+                (imageView as! RFGravatarImageView).load { error in
+                    imageView.makeCircular()
+                    imageView.alpha = 1
                 }
             }
-
-            return imageView
         }
+
+        return imageView
     }
 
     private var viewingDirections: Bool {

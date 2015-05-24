@@ -24,16 +24,14 @@ class Directions: Model {
     }
 
     var selectedRoute: Route! {
-        get {
-            if routes.count > 0 {
-                if selectedRouteIndex == nil {
-                    selectedRouteIndex = 0
-                }
-
-                return routes[selectedRouteIndex] as! Route
+        if routes.count > 0 {
+            if selectedRouteIndex == nil {
+                selectedRouteIndex = 0
             }
-            return nil
+
+            return routes[selectedRouteIndex] as! Route
         }
+        return nil
     }
 
 }

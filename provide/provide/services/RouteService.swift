@@ -78,7 +78,7 @@ class RouteService: NSObject {
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
             "include_work_orders": (includeWorkOrders == true ? "true" : "false")
-        ])
+            ])
 
         if today == true {
             let today = NSDate()
@@ -108,57 +108,51 @@ class RouteService: NSObject {
     }
 
     var nextRoute: Route! {
-        get {
-            var route: Route!
+        var route: Route!
 
-            var i = 0
-            while route == nil && i <= routes.count - 1 {
-                let r = routes[i] as Route
-                if r.status == "scheduled" {
-                    route = r
-                }
-
-                i++
+        var i = 0
+        while route == nil && i <= routes.count - 1 {
+            let r = routes[i] as Route
+            if r.status == "scheduled" {
+                route = r
             }
 
-            return route
+            i++
         }
+
+        return route
     }
 
     var inProgressRoute: Route! {
-        get {
-            var route: Route!
+        var route: Route!
 
-            var i = 0
-            while route == nil && i <= routes.count - 1 {
-                let r = routes[i] as Route
-                if r.status == "in_progress" {
-                    route = r
-                }
-
-                i++
+        var i = 0
+        while route == nil && i <= routes.count - 1 {
+            let r = routes[i] as Route
+            if r.status == "in_progress" {
+                route = r
             }
 
-            return route
+            i++
         }
+
+        return route
     }
 
     var loadingRoute: Route! {
-        get {
-            var route: Route!
+        var route: Route!
 
-            var i = 0
-            while route == nil && i <= routes.count - 1 {
-                let r = routes[i] as Route
-                if r.status == "loading" {
-                    route = r
-                }
-
-                i++
+        var i = 0
+        while route == nil && i <= routes.count - 1 {
+            let r = routes[i] as Route
+            if r.status == "loading" {
+                route = r
             }
 
-            return route
+            i++
         }
+
+        return route
     }
 
 }

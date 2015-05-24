@@ -15,10 +15,8 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
     private let defaultInitialStoryboardName = "Provider"
 
     private var initialStoryboard: UIStoryboard! {
-        get {
-            let storyboardName = ENV("INITIAL_STORYBOARD") ?? defaultInitialStoryboardName
-            return UIStoryboard(name: storyboardName, bundle: nil)
-        }
+        let storyboardName = ENV("INITIAL_STORYBOARD") ?? defaultInitialStoryboardName
+        return UIStoryboard(name: storyboardName, bundle: nil)
     }
 
     private var selfieViewController: SelfieViewController!

@@ -39,9 +39,7 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     }
 
     private var workOrder: WorkOrder! {
-        get {
-            return WorkOrderService.sharedService().inProgressWorkOrder
-        }
+        return WorkOrderService.sharedService().inProgressWorkOrder
     }
 
     required init(coder aDecoder: NSCoder) {

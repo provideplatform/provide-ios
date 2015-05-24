@@ -18,15 +18,11 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     }
 
     var targetView: UIView! {
-        get {
-            return workOrdersViewControllerDelegate.targetViewForViewController?(self)
-        }
+        return workOrdersViewControllerDelegate.targetViewForViewController?(self)
     }
 
     weak var workOrder: WorkOrder! {
-        get {
-            return WorkOrderService.sharedService().nextWorkOrder
-        }
+        return WorkOrderService.sharedService().nextWorkOrder
     }
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!

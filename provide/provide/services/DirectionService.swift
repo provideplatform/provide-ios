@@ -14,29 +14,25 @@ typealias OnDrivingDirectionsFetched = (directions: Directions) -> ()
 class DirectionService: NSObject {
 
     private var canSendDirectionsApiRequest: Bool {
-        get {
-            if let lastRequestDate = lastDirectionsApiRequestDate {
-                if abs(lastDirectionsApiRequestDate.timeIntervalSinceNow) >= 1.0 {
-                    return true
-                }
-            } else {
+        if let lastRequestDate = lastDirectionsApiRequestDate {
+            if abs(lastDirectionsApiRequestDate.timeIntervalSinceNow) >= 1.0 {
                 return true
             }
-            return false
+        } else {
+            return true
         }
+        return false
     }
 
     private var canSendEtaApiRequest: Bool {
-        get {
-            if let lastRequestDate = lastEtaApiRequestDate {
-                if abs(lastEtaApiRequestDate.timeIntervalSinceNow) >= 1.0 {
-                    return true
-                }
-            } else {
+        if let lastRequestDate = lastEtaApiRequestDate {
+            if abs(lastEtaApiRequestDate.timeIntervalSinceNow) >= 1.0 {
                 return true
             }
-            return false
+        } else {
+            return true
         }
+        return false
     }
 
     private var lastDirectionsApiRequestDate: NSDate!

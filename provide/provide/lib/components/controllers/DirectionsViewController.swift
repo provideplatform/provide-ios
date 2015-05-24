@@ -68,9 +68,7 @@ class DirectionsViewController: ViewController {
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate!
 
     private var targetView: UIView! {
-        get {
-            return directionsViewControllerDelegate.targetViewForViewController?(self)
-        }
+        return directionsViewControllerDelegate.targetViewForViewController?(self)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -239,7 +237,7 @@ class DirectionsViewController: ViewController {
                                 }
                             },
                             onDidExitRegion: {
-                                
+
                             }
                         )
                     }

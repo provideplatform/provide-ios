@@ -29,14 +29,12 @@ class CameraView: UIView {
     private var stillCameraOutput: AVCaptureStillImageOutput!
 
     private var frontCamera: AVCaptureDevice! {
-        get {
-            for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
-                if device.position == .Front {
-                    return device as! AVCaptureDevice
-                }
+        for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
+            if device.position == .Front {
+                return device as! AVCaptureDevice
             }
-            return nil
         }
+        return nil
     }
 
     override func awakeFromNib() {

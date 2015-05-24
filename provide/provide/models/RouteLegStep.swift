@@ -44,7 +44,7 @@ class RouteLegStep: Model {
         "nameChange": UIImage(named: "maneuver-icon-sprites")!,
         "trafficCircle": UIImage(named: "maneuver-icon-sprites")!,
         "ferry": UIImage(named: "maneuver-icon-sprites")!
-    ])
+        ])
 
     var identifier: String!
     var position: NSDictionary!
@@ -78,133 +78,105 @@ class RouteLegStep: Model {
             "NextManeuver": "nextManeuver",
             "ToLink": "toLink",
             "id": "identifier"
-        ])
+            ])
         return mapping
     }
 
     var maneuverIcon: UIImage! {
-        get {
-            return maneuverIcons[maneuver] as! UIImage!
-        }
+        return maneuverIcons[maneuver] as! UIImage!
     }
 
     var distance: CLLocationDistance! {
-        get {
-            return distanceInMeters.doubleValue
-        }
+        return distanceInMeters.doubleValue
     }
 
     var distanceInMiles: Double {
-        get {
-            return distance * 0.000621371
-        }
+        return distance * 0.000621371
     }
 
     var distanceInFeet: Double! {
-        get {
-            return distanceInMiles * 5820.0
-        }
+        return distanceInMiles * 5820.0
     }
 
     var remainingDistanceString: String! {
-        get {
-            var distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
-            if distanceInMiles > 0.1 {
-                return String(format: "%.1f", distanceInMiles) + " mi"
-            } else {
-                var distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
-                return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
-            }
+        var distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
+        if distanceInMiles > 0.1 {
+            return String(format: "%.1f", distanceInMiles) + " mi"
+        } else {
+            var distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
+            return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
         }
     }
 
     var distanceString: String! {
-        get {
-            if distanceInMiles > 0.1 {
-                return String(format: "%.1f", distanceInMiles) + " mi"
-            } else {
-                return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
-            }
+        if distanceInMiles > 0.1 {
+            return String(format: "%.1f", distanceInMiles) + " mi"
+        } else {
+            return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
         }
     }
 
     var isFinished: Bool {
-        get {
-            if shape == nil {
-                return false
-            }
-
-            return currentShapeIndex == shape.count - 1
+        if shape == nil {
+            return false
         }
+
+        return currentShapeIndex == shape.count - 1
     }
 
     var regionIdentifier: String! {
-        get {
-            return identifier
-        }
+        return identifier
     }
 
     var regionMonitoringRadius: CLLocationDistance {
-        get {
-            return 25.0
-        }
+        return 25.0
     }
 
     var regionOverlay: MKCircle! {
-        get {
-            if let endCoordinate = endCoordinate {
-                return MKCircle(centerCoordinate: endCoordinate, radius: regionMonitoringRadius)
-            }
-            return nil
+        if let endCoordinate = endCoordinate {
+            return MKCircle(centerCoordinate: endCoordinate, radius: regionMonitoringRadius)
         }
+        return nil
     }
 
     var currentShapeCoordinate: CLLocationCoordinate2D {
-        get {
-            return shapeCoordinates[currentShapeIndex]
-        }
+        return shapeCoordinates[currentShapeIndex]
     }
 
     var shapeCoordinates: [CLLocationCoordinate2D] {
-        get {
-            var coords = [CLLocationCoordinate2D]()
-            if let shape = shape {
-                for shapeString in shape {
-                    let shapeCoords = (shapeString as! String).splitAtString(",")
-                    let latitude = (shapeCoords.0 as NSString).doubleValue
-                    let longitude = (shapeCoords.1 as NSString).doubleValue
-                    coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                }
+        var coords = [CLLocationCoordinate2D]()
+        if let shape = shape {
+            for shapeString in shape {
+                let shapeCoords = (shapeString as! String).splitAtString(",")
+                let latitude = (shapeCoords.0 as NSString).doubleValue
+                let longitude = (shapeCoords.1 as NSString).doubleValue
+                coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
             }
-
-            return coords
         }
+
+        return coords
     }
 
     var startCoordinate: CLLocationCoordinate2D! {
-        get {
-            if let startLocation = (shape as Array).first as? String {
-                let startCoords = startLocation.splitAtString(",")
-                let latitude = (startCoords.0 as NSString).doubleValue
-                let longitude = (startCoords.1 as NSString).doubleValue
-                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            }
-
-            return nil
+        if let startLocation = (shape as Array).first as? String {
+            let startCoords = startLocation.splitAtString(",")
+            let latitude = (startCoords.0 as NSString).doubleValue
+            let longitude = (startCoords.1 as NSString).doubleValue
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
+
+        return nil
     }
 
     var endCoordinate: CLLocationCoordinate2D! {
-        get {
-            if let endLocation = (shape as Array).last as? String {
-                let endCoords = endLocation.splitAtString(",")
-                let latitude = (endCoords.0 as NSString).doubleValue
-                let longitude = (endCoords.1 as NSString).doubleValue
-                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            }
-
-            return nil
+        if let endLocation = (shape as Array).last as? String {
+            let endCoords = endLocation.splitAtString(",")
+            let latitude = (endCoords.0 as NSString).doubleValue
+            let longitude = (endCoords.1 as NSString).doubleValue
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
+
+        return nil
     }
 
 }

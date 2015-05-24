@@ -23,29 +23,25 @@ class Provider: Model {
             "user_id": "userId",
             "name": "name",
             "services": "services"
-        ])
+            ])
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }
 
     var firstName: String! {
-        get {
-            var firstName: String!
-            if let name = name {
-                firstName = name.splitAtString(" ").0
-            }
-            return firstName
+        var firstName: String!
+        if let name = name {
+            firstName = name.splitAtString(" ").0
         }
+        return firstName
     }
 
     var lastName: String! {
-        get {
-            var lastName: String!
-            if let name = name {
-                lastName = name.splitAtString(" ").1
-            }
-            return lastName
+        var lastName: String!
+        if let name = name {
+            lastName = name.splitAtString(" ").1
         }
+        return lastName
     }
 
 }

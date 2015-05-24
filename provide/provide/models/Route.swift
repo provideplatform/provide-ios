@@ -22,45 +22,41 @@ class Route: Model {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "status": "status"
-        ])
+            ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
     }
 
     var overviewPolyline: MKPolyline! {
-        get {
-            var coords = [CLLocationCoordinate2D]()
-            for leg in legs {
-                for step in (leg as! RouteLeg).steps {
-                    if let shapes = (step as! RouteLegStep).shape {
-                        for shape in shapes {
-                            let shapeCoords = (shape as! String).splitAtString(",")
-                            let latitude = (shapeCoords.0 as NSString).doubleValue
-                            let longitude = (shapeCoords.1 as NSString).doubleValue
-                            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                        }
+        var coords = [CLLocationCoordinate2D]()
+        for leg in legs {
+            for step in (leg as! RouteLeg).steps {
+                if let shapes = (step as! RouteLegStep).shape {
+                    for shape in shapes {
+                        let shapeCoords = (shape as! String).splitAtString(",")
+                        let latitude = (shapeCoords.0 as NSString).doubleValue
+                        let longitude = (shapeCoords.1 as NSString).doubleValue
+                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                     }
                 }
             }
-
-            return MKPolyline(coordinates: &coords, count: coords.count)
         }
+
+        return MKPolyline(coordinates: &coords, count: coords.count)
     }
 
     var currentLeg: RouteLeg! {
-        get {
-            var leg: RouteLeg!
-            if let legs = legs {
-                if legs.count > 0 {
-                    if currentLegIndex == nil {
-                        currentLegIndex = 0
-                    }
-
-                    leg = legs[currentLegIndex] as! RouteLeg
+        var leg: RouteLeg!
+        if let legs = legs {
+            if legs.count > 0 {
+                if currentLegIndex == nil {
+                    currentLegIndex = 0
                 }
+
+                leg = legs[currentLegIndex] as! RouteLeg
             }
-            return leg
         }
+        return leg
     }
 
     func canStart() -> Bool {
@@ -68,58 +64,52 @@ class Route: Model {
     }
 
     var gtinsLoaded: [String] {
-        get {
-            var gtinsLoaded = [String]()
+        var gtinsLoaded = [String]()
 
-            if let products = itemsLoaded {
-                for product in products {
-                    gtinsLoaded.append((product as! Product).gtin)
-                }
+        if let products = itemsLoaded {
+            for product in products {
+                gtinsLoaded.append((product as! Product).gtin)
             }
-
-            return gtinsLoaded
         }
+
+        return gtinsLoaded
     }
 
     var itemsNotLoaded: [Product] {
-        get {
-            var itemsNotLoaded = [Product]()
+        var itemsNotLoaded = [Product]()
 
-            if let workOrders = workOrders {
-                for workOrder in (workOrders as Array).reverse() {
-                    if let products = (workOrder as! WorkOrder).itemsOrdered {
-                        for product in products {
-                            itemsNotLoaded.append(product as! Product)
-                        }
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = (workOrder as! WorkOrder).itemsOrdered {
+                    for product in products {
+                        itemsNotLoaded.append(product as! Product)
                     }
                 }
             }
-
-            if let products = itemsLoaded {
-                for productDict in products {
-                    itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
-                }
-            }
-
-            return itemsNotLoaded
         }
+
+        if let products = itemsLoaded {
+            for productDict in products {
+                itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
+            }
+        }
+
+        return itemsNotLoaded
     }
 
     var itemsOrdered: [Product] {
-        get {
-            var itemsOrdered = [Product]()
-            if let workOrders = workOrders {
-                for workOrder in (workOrders as Array).reverse() {
-                    if let products = (workOrder as! WorkOrder).itemsOrdered {
-                        for product in products {
-                            itemsOrdered.append(product as! Product)
-                        }
+        var itemsOrdered = [Product]()
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = (workOrder as! WorkOrder).itemsOrdered {
+                    for product in products {
+                        itemsOrdered.append(product as! Product)
                     }
                 }
             }
-
-            return itemsOrdered
         }
+
+        return itemsOrdered
     }
 
     var itemsToLoadCountRemaining: Int! {

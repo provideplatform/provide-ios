@@ -19,9 +19,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     var targetView: UIView! {
-        get {
-            return workOrdersViewControllerDelegate.targetViewForViewController?(self)
-        }
+        return workOrdersViewControllerDelegate.targetViewForViewController?(self)
     }
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!

@@ -46,17 +46,15 @@ class Contact: Model {
     }
 
     var address: String! {
-        get {
-            var address = ""
-            if address1 != nil {
-                address += address1
-            }
-            if address2 != nil {
-                address += "\n\(address2)"
-            }
-            address += "\n\(city), \(state) \(zip)"
-            return address
+        var address = ""
+        if address1 != nil {
+            address += address1
         }
+        if address2 != nil {
+            address += "\n\(address2)"
+        }
+        address += "\n\(city), \(state) \(zip)"
+        return address
     }
 
 }

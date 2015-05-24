@@ -11,9 +11,7 @@ import Foundation
 class AnalyticsService: NSObject {
 
     private var analyticsEnabled: Bool {
-        get {
-            return !isSimulator() && !(isRunningUnitTests() || isRunningKIFTests())
-        }
+        return !isSimulator() && !(isRunningUnitTests() || isRunningKIFTests())
     }
 
     private static let sharedInstance = AnalyticsService()

@@ -15,38 +15,34 @@ typealias OnWorkOrderDrivingDirectionsFetched = (workOrder: WorkOrder, direction
 class WorkOrderService: NSObject {
 
     var nextWorkOrder: WorkOrder! {
-        get {
-            var workOrder: WorkOrder!
-            var i = 0
-            while workOrder == nil && i <= workOrders.count - 1 {
-                let wo = workOrders[i] as WorkOrder
-                if wo.status == "scheduled" {
-                    workOrder = wo
-                }
-
-                i++
+        var workOrder: WorkOrder!
+        var i = 0
+        while workOrder == nil && i <= workOrders.count - 1 {
+            let wo = workOrders[i] as WorkOrder
+            if wo.status == "scheduled" {
+                workOrder = wo
             }
 
-            return workOrder
+            i++
         }
+
+        return workOrder
     }
     var nextWorkOrderDrivingEtaMinutes: Int!
 
     var inProgressWorkOrder: WorkOrder! {
-        get {
-            var workOrder: WorkOrder!
-            var i = 0
-            while workOrder == nil && i <= workOrders.count - 1 {
-                let wo = workOrders[i] as WorkOrder
-                if wo.status == "en_route" || wo.status == "in_progress" { // can be en_route or in_progress
-                    workOrder = wo
-                }
-
-                i++
+        var workOrder: WorkOrder!
+        var i = 0
+        while workOrder == nil && i <= workOrders.count - 1 {
+            let wo = workOrders[i] as WorkOrder
+            if wo.status == "en_route" || wo.status == "in_progress" { // can be en_route or in_progress
+                workOrder = wo
             }
 
-            return workOrder
+            i++
         }
+
+        return workOrder
     }
 
     private var workOrders = [WorkOrder]()

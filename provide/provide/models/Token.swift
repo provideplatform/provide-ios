@@ -21,15 +21,13 @@ class Token: Model {
             "id": "id",
             "uuid": "uuid",
             "token": "token"
-        ])
+            ])
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         return mapping
     }
 
     var userId: NSNumber! {
-        get {
-            return user.id
-        }
+        return user.id
     }
 
     var authorizationHeaderString: String {

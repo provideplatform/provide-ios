@@ -43,28 +43,24 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     @IBOutlet private weak var tableView: UITableView!
 
     private var items: [Product]! {
-        get {
-            var items = [Product]()
-            switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
-            case .OnTruck:
-                if let itemsLoaded = route.itemsLoaded {
-                    for product in itemsLoaded {
-                        items.append(product as! Product)
-                    }
+        var items = [Product]()
+        switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
+        case .OnTruck:
+            if let itemsLoaded = route.itemsLoaded {
+                for product in itemsLoaded {
+                    items.append(product as! Product)
                 }
-            case .Required:
-                items = route.itemsNotLoaded
-            default:
-                return nil
             }
-            return items
+        case .Required:
+            items = route.itemsNotLoaded
+        default:
+            return nil
         }
+        return items
     }
 
     private var route: Route! {
-        get {
-            return delegate?.routeForViewController?(self)
-        }
+        return delegate?.routeForViewController?(self)
     }
 
     private var segment: Segment!
@@ -88,9 +84,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private var targetView: UIView! {
-        get {
-            return delegate?.targetViewForViewController?(self)
-        }
+        return delegate?.targetViewForViewController?(self)
     }
 
     override func viewDidLoad() {

@@ -46,7 +46,7 @@ class WorkOrder: Model, MKAnnotation {
             "provider_rating": "providerRating",
             "customer_rating": "customerRating",
             "components": "components"
-        ])
+            ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
@@ -60,105 +60,89 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var canBeDelivered: Bool {
-        get {
-            let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
-            let itemsUnloadedCount = (itemsUnloaded != nil) ? itemsUnloaded.count : 0
-            let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
+        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
+        let itemsUnloadedCount = (itemsUnloaded != nil) ? itemsUnloaded.count : 0
+        let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
 
-            return !canBeRejected && itemsOrderedCount == itemsUnloadedCount + itemsRejectedCount
-        }
+        return !canBeRejected && itemsOrderedCount == itemsUnloadedCount + itemsRejectedCount
     }
 
     var canBeRejected: Bool {
-        get {
-            let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
-            let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
+        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
+        let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
 
-            return itemsOrderedCount == itemsRejectedCount
-        }
+        return itemsOrderedCount == itemsRejectedCount
     }
 
     var contact: Contact! {
-        get {
-            return customer.contact
-        }
+        return customer.contact
     }
 
     var coordinate: CLLocationCoordinate2D {
-        get {
-            return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
-                                              customer.contact.longitude.doubleValue)
-        }
+        return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
+            customer.contact.longitude.doubleValue)
     }
 
     var currentComponentIdentifier: String! {
-        get {
-            var componentIdentifier: String!
-            for component in components.objectEnumerator().allObjects {
-                if let completed = component.objectForKey("completed") as? Bool {
-                    if completed == false {
-                        componentIdentifier = component.objectForKey("component") as! String
-                        break
-                    }
-                } else {
+        var componentIdentifier: String!
+        for component in components.objectEnumerator().allObjects {
+            if let completed = component.objectForKey("completed") as? Bool {
+                if completed == false {
                     componentIdentifier = component.objectForKey("component") as! String
                     break
                 }
+            } else {
+                componentIdentifier = component.objectForKey("component") as! String
+                break
             }
-            return componentIdentifier
         }
+        return componentIdentifier
     }
 
     var itemsOnTruck: [Product]! {
-        get {
-            if itemsUnloaded == nil {
-                itemsUnloaded = NSMutableArray()
-            }
-
-            var itemsOnTruck = [Product]()
-            for itemOrdered in itemsOrdered {
-                itemsOnTruck.append(itemOrdered as! Product)
-            }
-
-            var newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
-
-            var gtinsUnloaded = [String]()
-            for itemUnloaded in itemsUnloaded {
-                gtinsUnloaded.append((itemUnloaded as! Product).gtin)
-            }
-
-            while gtinsUnloaded.count > 0 {
-                let gtin = gtinsUnloaded.removeAtIndex(0)
-
-                var i = 0
-                for item in newItemsOnTruck {
-                    if gtin == (item as! Product).gtin {
-                        newItemsOnTruck.removeObjectAtIndex(i)
-                        break
-                    }
-                    i++
-                }
-            }
-
-            itemsOnTruck = [Product]()
-            for item in newItemsOnTruck {
-                itemsOnTruck.append(item as! Product)
-            }
-
-            return itemsOnTruck
+        if itemsUnloaded == nil {
+            itemsUnloaded = NSMutableArray()
         }
+
+        var itemsOnTruck = [Product]()
+        for itemOrdered in itemsOrdered {
+            itemsOnTruck.append(itemOrdered as! Product)
+        }
+
+        var newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
+
+        var gtinsUnloaded = [String]()
+        for itemUnloaded in itemsUnloaded {
+            gtinsUnloaded.append((itemUnloaded as! Product).gtin)
+        }
+
+        while gtinsUnloaded.count > 0 {
+            let gtin = gtinsUnloaded.removeAtIndex(0)
+
+            var i = 0
+            for item in newItemsOnTruck {
+                if gtin == (item as! Product).gtin {
+                    newItemsOnTruck.removeObjectAtIndex(i)
+                    break
+                }
+                i++
+            }
+        }
+
+        itemsOnTruck = [Product]()
+        for item in newItemsOnTruck {
+            itemsOnTruck.append(item as! Product)
+        }
+
+        return itemsOnTruck
     }
 
     var regionIdentifier: String {
-        get {
-            return "work order \(id)"
-        }
+        return "work order \(id)"
     }
 
     var regionMonitoringRadius: CLLocationDistance {
-        get {
-            return 50.0
-        }
+        return 50.0
     }
 
     func rejectItem(item: Product) {
