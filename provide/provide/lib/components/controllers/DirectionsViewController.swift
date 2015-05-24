@@ -122,7 +122,6 @@ class DirectionsViewController: ViewController {
                                              frame.origin.y - self.view.frame.size.height,
                                              frame.size.width,
                                              frame.size.height)
-
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(
@@ -162,7 +161,6 @@ class DirectionsViewController: ViewController {
                             if let lastRegionCrossing = self.lastRegionCrossing {
                                 if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && self.lastRegionCrossed.containsCoordinate(location.coordinate) == false {
                                     self.directions = nil
-
                                 }
                             } else {
                                 self.fetchDrivingDirections(location)
@@ -363,7 +361,6 @@ class DirectionsViewController: ViewController {
                                              self.view.frame.origin.y + self.view.frame.size.height,
                                              self.view.frame.size.width,
                                              self.view.frame.size.height)
-
             },
             completion: { complete in
                 self.view.removeFromSuperview()

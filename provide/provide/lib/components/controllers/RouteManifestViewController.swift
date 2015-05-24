@@ -17,7 +17,6 @@ protocol RouteManifestViewControllerDelegate {
     optional func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem!
     optional func routeForViewController(viewController: ViewController!) -> Route!
     optional func routeUpdated(route: Route!, byViewController viewController: ViewController!)
-
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {

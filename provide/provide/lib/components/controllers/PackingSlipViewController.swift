@@ -104,10 +104,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     frame.origin.y - self.view.frame.size.height,
                     frame.size.width,
                     frame.size.height)
-
             },
             completion: { complete in
-
             }
         )
     }

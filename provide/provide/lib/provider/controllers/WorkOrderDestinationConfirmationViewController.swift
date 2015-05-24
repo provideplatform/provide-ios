@@ -76,7 +76,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                                              frame.origin.y - self.view.frame.size.height,
                                              frame.size.width,
                                              frame.size.height)
-
             },
             completion: { complete in
 
@@ -132,7 +131,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                                              self.view.frame.origin.y + self.view.frame.size.height,
                                              self.view.frame.size.width,
                                              self.view.frame.size.height)
-
             },
             completion: { complete in
                 self.view.removeFromSuperview()

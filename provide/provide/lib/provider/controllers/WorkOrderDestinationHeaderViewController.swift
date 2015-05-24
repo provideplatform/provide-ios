@@ -91,9 +91,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                                              frame.origin.y,
                                              frame.size.width,
                                              frame.size.height)
-
-
-
             },
             completion: { complete in
 

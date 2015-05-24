@@ -64,8 +64,6 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
                 }
             )
         }
-
-
     }
 
     func selfieViewControllerCanceled(viewController: SelfieViewController!) {

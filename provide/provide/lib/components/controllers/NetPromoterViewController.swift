@@ -42,7 +42,6 @@ class NetPromoterViewController: WorkOrderComponentViewController {
                     0.0,
                     frame.size.width,
                     frame.size.height)
-
             },
             completion: { complete in
                 self.suspendTopViewGestureRecognizers()
