@@ -45,7 +45,7 @@ class MenuViewController: UITableViewController {
         case "LogoutCell":
             slidingViewController().dismissViewController(animated: true)
             ApiService.sharedService().logout(
-                { statusCode, _ in
+                onSuccess: { statusCode, _ in
                     assert(statusCode == 204)
                     log("Logout Successful")
                 },

@@ -189,7 +189,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     func start() {
         clearNavigationItem()
         route.start(
-            { statusCode, responseString in
+            onSuccess: { statusCode, responseString in
                 if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
                     self.delegate?.routeUpdated?(self.route, byViewController: self)
                 }
@@ -203,7 +203,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     func complete() {
         clearNavigationItem()
         route.complete(
-            { statusCode, responseString in
+            onSuccess: { statusCode, responseString in
                 if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
                     self.delegate?.routeUpdated?(self.route, byViewController: self)
                 }

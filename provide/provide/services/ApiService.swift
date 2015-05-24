@@ -78,7 +78,7 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(onSuccess: OnSuccess, onError: OnError) {
+    func logout(#onSuccess: OnSuccess, onError: OnError) {
         if let token = KeyChainService.sharedService().token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in

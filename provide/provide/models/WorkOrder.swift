@@ -267,41 +267,41 @@ class WorkOrder: Model, MKAnnotation {
         return gtinUnloadedCount
     }
 
-    func reload(onSuccess: OnSuccess, onError: OnError) {
+    func reload(#onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchWorkOrderWithId(id.stringValue, onSuccess: onSuccess, onError: onError)
     }
 
-    func start(onSuccess: OnSuccess, onError: OnError) {
+    func start(#onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func arrive(onSuccess: OnSuccess, onError: OnError) {
+    func arrive(#onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func abandon(onSuccess: OnSuccess, onError: OnError) {
+    func abandon(#onSuccess: OnSuccess, onError: OnError) {
         status = "abandoned"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func cancel(onSuccess: OnSuccess, onError: OnError) {
+    func cancel(#onSuccess: OnSuccess, onError: OnError) {
         status = "canceled"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func reject(onSuccess: OnSuccess, onError: OnError) {
+    func reject(#onSuccess: OnSuccess, onError: OnError) {
         status = "rejected"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func complete(onSuccess: OnSuccess, onError: OnError) {
+    func complete(#onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func updateDeliveredItems(onSuccess: OnSuccess, onError: OnError) {
+    func updateDeliveredItems(#onSuccess: OnSuccess, onError: OnError) {
         var params = [
             "gtins_delivered": gtinsDelivered
         ]

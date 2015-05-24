@@ -85,7 +85,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder == true) {
                 if self.viewingDirections {
                     WorkOrderService.sharedService().inProgressWorkOrder.reload(
-                        { statusCode, mappingResult in
+                        onSuccess: { statusCode, mappingResult in
                             if let workOrder = mappingResult.firstObject as? WorkOrder {
                                 if workOrder.status != "en_route" {
                                     self.updatingWorkOrderContext = true
@@ -243,7 +243,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                 WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
                     {
                         wo.arrive(
-                            { statusCode, responseString in
+                            onSuccess: { statusCode, responseString in
                                 self.nextWorkOrderContextShouldBeRewound()
                                 LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
                                 self.attemptSegueToValidWorkOrderContext()
@@ -430,7 +430,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.sharedService().nextWorkOrder {
                 workOrder.start(
-                    { statusCode, responseString in
+                    onSuccess: { statusCode, responseString in
                         self.nextWorkOrderContextShouldBeRewound()
                         self.performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
                     },
@@ -451,7 +451,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     func workOrderAbandonedForViewController(viewController: ViewController!) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.sharedService().inProgressWorkOrder.abandon(
-            { statusCode, responseString in
+            onSuccess: { statusCode, responseString in
                 self.attemptSegueToValidWorkOrderContext()
             },
             onError: { error, statusCode, responseString in
@@ -513,7 +513,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         WorkOrderService.sharedService().inProgressWorkOrder.attach(signature, params: params,
             onSuccess: { statusCode, responseString in
                 WorkOrderService.sharedService().inProgressWorkOrder.updateDeliveredItems(
-                    { statusCode, responseString in
+                    onSuccess: { statusCode, responseString in
                         println("updated delivered items!")
                     },
                     onError: { error, statusCode, responseString in
@@ -535,7 +535,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         WorkOrderService.sharedService().inProgressWorkOrder.scoreProvider(netPromoterScore,
             onSuccess: { statusCode, responseString in
                 WorkOrderService.sharedService().inProgressWorkOrder.complete(
-                    { statusCode, responseString in
+                    onSuccess: { statusCode, responseString in
                         println("net promoter score received")
                         self.attemptSegueToValidWorkOrderContext()
                     },
@@ -552,7 +552,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 
     func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController!) {
         WorkOrderService.sharedService().inProgressWorkOrder.complete(
-            { statusCode, responseString in
+            onSuccess: { statusCode, responseString in
                 self.attemptSegueToValidWorkOrderContext()
             },
             onError: { error, statusCode, responseString in
