@@ -48,7 +48,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     func cancel() {
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 if self.emailField?.isFirstResponder() == true {
                     self.emailField?.resignFirstResponder()
                 }
@@ -74,7 +74,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             emailField?.becomeFirstResponder()
         }
 
-        UIView.animateWithDuration(0.15, animations: { () -> Void in
+        UIView.animateWithDuration(0.15, animations: {
             self.tableView.alpha = 1
         }) { completion in
 
@@ -84,7 +84,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     private func hideForm() {
         view.endEditing(true)
 
-        UIView.animateWithDuration(0.15, animations: { () -> Void in
+        UIView.animateWithDuration(0.15, animations: {
             self.tableView.alpha = 0
         }) { completion in
 

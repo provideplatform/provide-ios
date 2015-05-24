@@ -98,7 +98,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         setupNavigationItem()
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
                     frame.origin.y - self.view.frame.size.height,
@@ -120,7 +120,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(0.0,
                     self.view.frame.origin.y + self.view.frame.size.height,
@@ -209,7 +209,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     }
                 }
 
-                dispatch_after_delay(0.0, { () -> Void in
+                dispatch_after_delay(0.0, {
                     self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: !workOrder.canBeDelivered)
                 })
             }
@@ -264,7 +264,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                             }
                         }
 
-                        dispatch_after_delay(0.0, { () -> Void in
+                        dispatch_after_delay(0.0, {
                             self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
                         })
 
@@ -292,7 +292,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     private func dismissBarcodeScannerViewController() {
         productToUnload = nil
 
-        dismissViewController(animated: true) { () -> Void in
+        dismissViewController(animated: true) {
             
         }
     }

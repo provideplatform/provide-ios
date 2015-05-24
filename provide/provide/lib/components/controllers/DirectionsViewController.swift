@@ -116,7 +116,7 @@ class DirectionsViewController: ViewController {
         refreshInstructions()
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
                                              frame.origin.y - self.view.frame.size.height,
@@ -197,7 +197,7 @@ class DirectionsViewController: ViewController {
 
                         self.regions.append(region)
 
-                        LocationService.sharedService().monitorRegion(region, onDidEnterRegion: { () -> Void in
+                        LocationService.sharedService().monitorRegion(region, onDidEnterRegion: {
                             self.lastRegionCrossed = region
                             self.lastRegionCrossing = NSDate()
 
@@ -238,7 +238,7 @@ class DirectionsViewController: ViewController {
                                     }
                                 }
                             }
-                            }, onDidExitRegion: { () -> Void in
+                            }, onDidExitRegion: {
 
                         })
                     }
@@ -310,7 +310,7 @@ class DirectionsViewController: ViewController {
 
     func showProgressIndicator() {
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
 
             },
             completion: { complete in
@@ -321,7 +321,7 @@ class DirectionsViewController: ViewController {
 
     func hideProgressIndicator() {
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
 
             },
             completion: { complete in
@@ -354,7 +354,7 @@ class DirectionsViewController: ViewController {
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(self.view.frame.origin.x,
                                              self.view.frame.origin.y + self.view.frame.size.height,

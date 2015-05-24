@@ -41,7 +41,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
         summaryLabel.text = workOrdersViewControllerDelegate?.summaryLabelTextForSignatureViewController?(self)
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(0.0,
                                              0.0,
@@ -59,7 +59,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
         clearNavigationItem()
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(self.view.frame.origin.x,
                     -self.view.frame.size.height,

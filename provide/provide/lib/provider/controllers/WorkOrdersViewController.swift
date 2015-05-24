@@ -237,7 +237,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             assert(segue.destinationViewController is DirectionsViewController)
 
             if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
-                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks({ () -> Void in
+                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks({
                     wo.arrive({ statusCode, responseString in
                         self.nextWorkOrderContextShouldBeRewound()
                         LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
@@ -245,7 +245,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                     }, onError: { error, statusCode, responseString in
 
                     })
-                }, onDidExitRegion: { () -> Void in
+                }, onDidExitRegion: {
 
                 })
             }

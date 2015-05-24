@@ -23,7 +23,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 (destinationViewController as! AuthenticationViewController).setupNavigationItem()
 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
-                    animations: { () -> Void in
+                    animations: {
                         navigationController?.navigationBar.alpha = 1.0
                         (self.destinationViewController as! AuthenticationViewController).view.alpha = 1.0
                     },
@@ -40,7 +40,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
 
             if let navigationController = sourceViewController.navigationController {
                 UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
-                    animations: { () -> Void in
+                    animations: {
                         (self.destinationViewController as! UIViewController).view.alpha = 1.0
                         (self.sourceViewController as! AuthenticationViewController).view.alpha = 0.0
                         navigationController?.navigationBar.alpha = 0.0

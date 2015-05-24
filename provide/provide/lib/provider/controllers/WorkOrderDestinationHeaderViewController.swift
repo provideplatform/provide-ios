@@ -85,7 +85,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         view.addDropShadow(CGSizeMake(1.0, 1.25), radius: 2.0, opacity: 0.3)
 
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
                                              frame.origin.y,
@@ -103,7 +103,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     func unwind() {
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = self.initialFrame
 

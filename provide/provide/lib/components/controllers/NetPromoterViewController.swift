@@ -36,7 +36,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         targetView.addSubview(view)
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(0.0,
                     0.0,
@@ -54,7 +54,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         clearNavigationItem()
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(self.view.frame.origin.x,
                     -self.view.frame.size.height,

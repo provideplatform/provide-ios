@@ -124,7 +124,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     private func dismissBarcodeScannerViewController() {
         self.refreshNavigationItem()
 
-        self.dismissViewController(animated: true, completion: { () -> Void in
+        self.dismissViewController(animated: true, completion: {
             self.tableView.reloadData()
         })
     }

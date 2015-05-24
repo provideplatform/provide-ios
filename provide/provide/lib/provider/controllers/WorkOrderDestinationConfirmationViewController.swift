@@ -70,7 +70,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         setupNavigationItem()
 
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRectMake(frame.origin.x,
                                              frame.origin.y - self.view.frame.size.height,
@@ -88,7 +88,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     func showProgressIndicator() {
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.confirmStartWorkOrderButton.alpha = 0
                 self.arrivalEtaEstimateLabel.alpha = 0
             },
@@ -100,7 +100,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     func hideProgressIndicator() {
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
-            animations: { () -> Void in
+            animations: {
                 self.confirmStartWorkOrderButton.alpha = 1
                 self.arrivalEtaEstimateLabel.alpha = 1
             },
@@ -126,7 +126,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     func unwind() {
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
-            animations: { () -> Void in
+            animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRectMake(self.view.frame.origin.x,
                                              self.view.frame.origin.y + self.view.frame.size.height,

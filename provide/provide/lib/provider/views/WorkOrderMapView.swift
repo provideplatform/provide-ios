@@ -74,7 +74,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         showsBuildings = true
         showsPointsOfInterest = true
 
-        LocationService.sharedService().requireAuthorization({ () -> Void in
+        LocationService.sharedService().requireAuthorization({
             self.showsUserLocation = true
             LocationService.sharedService().start()
         })
@@ -89,9 +89,9 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     override func revealMap(force: Bool = false) {
-        super.revealMap(force, animations: { () -> Void in
+        super.revealMap(force, animations: {
             self.alpha = 1
-        }, completion: { () -> Void in
+        }, completion: {
 
         })
     }
@@ -167,10 +167,10 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(false, animations: { () -> Void in
+            mapView.revealMap(false, animations: {
                 log("Revealing map rect based on location: \(location)")
                 mapView.alpha = 1
-            }, completion: { () -> Void in
+            }, completion: {
 
             })
         }

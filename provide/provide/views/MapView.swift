@@ -41,14 +41,14 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func revealMap(force: Bool = false) {
-        revealMap(force, animations: { () -> Void in
+        revealMap(force, animations: {
             self.alpha = 1
         }, completion: nil)
     }
 
     func revealMap(force: Bool, animations: VoidBlock!, completion: VoidBlock!) {
         if shouldReveal == true || force == true {
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
+            UIView.animateWithDuration(0.25, animations: {
                 if animations != nil {
                     animations()
                 }
