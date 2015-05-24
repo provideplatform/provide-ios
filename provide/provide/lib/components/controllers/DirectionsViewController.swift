@@ -174,7 +174,7 @@ class DirectionsViewController: ViewController {
         var cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
         var cameraAltitude: Double = defaultMapCameraAltitude
 
-        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onWorkOrderDrivingDirectionsFetched: { workOrder, directions in
+        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate) { workOrder, directions in
             self.directions = directions
 
             if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
@@ -195,56 +195,57 @@ class DirectionsViewController: ViewController {
 
                         self.regions.append(region)
 
-                        LocationService.sharedService().monitorRegion(region, onDidEnterRegion: {
-                            self.lastRegionCrossed = region
-                            self.lastRegionCrossing = NSDate()
+                        LocationService.sharedService().monitorRegion(region,
+                            onDidEnterRegion: {
+                                self.lastRegionCrossed = region
+                                self.lastRegionCrossing = NSDate()
 
-                            LocationService.sharedService().unregisterRegionMonitor(region.identifier)
-                            self.regions.removeObject(region)
+                                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
+                                self.regions.removeObject(region)
 
-                            if let directions = self.directions {
-                                if let currentLeg = directions.selectedRoute.currentLeg {
-                                    if let currentStep = currentLeg.currentStep {
-                                        var identifier = currentStep.identifier + "_\(currentStep.currentShapeCoordinate.latitude),\(currentStep.currentShapeCoordinate.longitude)"
-                                        if self.lastRegionCrossed.identifier == identifier {
-                                            currentStep.currentShapeIndex += 1
+                                if let directions = self.directions {
+                                    if let currentLeg = directions.selectedRoute.currentLeg {
+                                        if let currentStep = currentLeg.currentStep {
+                                            var identifier = currentStep.identifier + "_\(currentStep.currentShapeCoordinate.latitude),\(currentStep.currentShapeCoordinate.longitude)"
+                                            if self.lastRegionCrossed.identifier == identifier {
+                                                currentStep.currentShapeIndex += 1
 
-                                            if currentStep.isFinished {
-                                                currentLeg.currentStepIndex += 1
-                                            }
-                                        } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
-                                            currentLeg.currentStepIndex += 1
-                                        } else {
-                                            var shapeIndex = currentStep.shape.count - 1
-                                            for shapeCoord in currentStep.shapeCoordinates.reverse() {
-                                                if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
-                                                    currentStep.currentShapeIndex = shapeIndex
-                                                    if currentStep.isFinished {
-                                                        currentLeg.currentStepIndex += 1
-                                                    }
-                                                    break
+                                                if currentStep.isFinished {
+                                                    currentLeg.currentStepIndex += 1
                                                 }
-                                                shapeIndex -= 1
+                                            } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
+                                                currentLeg.currentStepIndex += 1
+                                            } else {
+                                                var shapeIndex = currentStep.shape.count - 1
+                                                for shapeCoord in currentStep.shapeCoordinates.reverse() {
+                                                    if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
+                                                        currentStep.currentShapeIndex = shapeIndex
+                                                        if currentStep.isFinished {
+                                                            currentLeg.currentStepIndex += 1
+                                                        }
+                                                        break
+                                                    }
+                                                    shapeIndex -= 1
+                                                }
                                             }
-                                        }
 
-                                        dispatch_after_delay(0.0) {
-                                            self.resolveCurrentStep()
-                                            self.refreshInstructions()
-                                            self.renderRouteOverview()
+                                            dispatch_after_delay(0.0) {
+                                                self.resolveCurrentStep()
+                                                self.refreshInstructions()
+                                                self.renderRouteOverview()
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            }, onDidExitRegion: {
-
+                            },
+                            onDidExitRegion: {
+                                
                             }
                         )
                     }
                 }
             }
-            }
-        )
+        }
     }
 
     private func unregisterMonitoredRegions() {
