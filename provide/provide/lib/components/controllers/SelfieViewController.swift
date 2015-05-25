@@ -25,8 +25,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
 
         setupNavigationItem()
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer()
-        swipeGestureRecognizer.addTarget(self, action: "dismiss")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss")
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
