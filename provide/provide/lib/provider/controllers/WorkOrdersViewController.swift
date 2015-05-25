@@ -608,7 +608,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController!) -> WorkOrderComponentViewController! {
         var vc: WorkOrderComponentViewController!
         if let componentIdentifier = WorkOrderService.sharedService().inProgressWorkOrder.currentComponentIdentifier {
-            vc = UIStoryboard(name: componentIdentifier, bundle: nil).instantiateInitialViewController() as! WorkOrderComponentViewController
+            vc = UIStoryboard(componentIdentifier).instantiateInitialViewController() as! WorkOrderComponentViewController
         }
         return vc
     }

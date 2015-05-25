@@ -68,7 +68,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
         packingSlipTableView.backgroundView = UIImageView(image: UIImage(named: "navbar-background")!)
 
-        barcodeScannerViewController = UIStoryboard(name: "BarcodeScanner", bundle: nil).instantiateInitialViewController() as! BarcodeScannerViewController
+        barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
         barcodeScannerViewController.delegate = self
     }
 

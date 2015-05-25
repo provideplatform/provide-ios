@@ -87,7 +87,7 @@ class MenuViewController: UITableViewController {
     }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
-        let initialViewController = UIStoryboard(name: storyboardName, bundle: nil).instantiateInitialViewController() as! UIViewController
+        let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController() as! UIViewController
         let ecSlidingSegue = ECSlidingSegue(identifier: nil, source: self, destination: initialViewController)
         ecSlidingSegue.perform()
     }

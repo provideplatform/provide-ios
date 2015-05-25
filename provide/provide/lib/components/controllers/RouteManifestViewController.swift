@@ -94,7 +94,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
         refreshNavigationItem()
 
-        barcodeScannerViewController = UIStoryboard(name: "BarcodeScanner", bundle: nil).instantiateInitialViewController() as! BarcodeScannerViewController
+        barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
         barcodeScannerViewController.delegate = self
     }
 

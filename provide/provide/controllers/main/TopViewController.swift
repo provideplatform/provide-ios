@@ -16,7 +16,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
     private var initialStoryboard: UIStoryboard! {
         let storyboardName = ENV("INITIAL_STORYBOARD") ?? defaultInitialStoryboardName
-        return UIStoryboard(name: storyboardName, bundle: nil)
+        return UIStoryboard(storyboardName)
     }
 
     private var selfieViewController: SelfieViewController!
@@ -69,7 +69,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
     }
 
     private func initSelfieViewController() {
-        selfieViewController = UIStoryboard(name: "Selfie", bundle: nil).instantiateInitialViewController() as! SelfieViewController
+        selfieViewController = UIStoryboard("Selfie").instantiateInitialViewController() as! SelfieViewController
         selfieViewController.delegate = self
 
         navigationController?.pushViewController(selfieViewController, animated: false)
