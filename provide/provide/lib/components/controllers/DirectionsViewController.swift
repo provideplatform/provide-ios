@@ -186,9 +186,9 @@ class DirectionsViewController: ViewController {
 
             for leg in directions.selectedRoute.legs {
                 for step in [(leg as! RouteLeg).currentStep] {
-                    for coordinate in (step as RouteLegStep).shapeCoordinates {
+                    for coordinate in step.shapeCoordinates {
                         let overlay = MKCircle(centerCoordinate: coordinate, radius: 5.0)
-                        let identifier = (step as RouteLegStep).identifier + "_\(coordinate.latitude),\(coordinate.longitude)"
+                        let identifier = step.identifier + "_\(coordinate.latitude),\(coordinate.longitude)"
                         let region = CLCircularRegion(center: overlay.coordinate, radius: overlay.radius, identifier: identifier)
 
                         self.regions.append(region)

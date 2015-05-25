@@ -18,7 +18,7 @@ class WorkOrderService: NSObject {
         var workOrder: WorkOrder!
         var i = 0
         while workOrder == nil && i <= workOrders.count - 1 {
-            let wo = workOrders[i] as WorkOrder
+            let wo = workOrders[i]
             if wo.status == "scheduled" {
                 workOrder = wo
             }
@@ -34,7 +34,7 @@ class WorkOrderService: NSObject {
         var workOrder: WorkOrder!
         var i = 0
         while workOrder == nil && i <= workOrders.count - 1 {
-            let wo = workOrders[i] as WorkOrder
+            let wo = workOrders[i]
             if wo.status == "en_route" || wo.status == "in_progress" { // can be en_route or in_progress
                 workOrder = wo
             }

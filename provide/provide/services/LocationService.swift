@@ -272,7 +272,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         var region: CLRegion!
         for monitoredRegion in regions {
             if monitoredRegion.identifier == identifier {
-                region = monitoredRegion as CLRegion
+                region = monitoredRegion
                 break
             }
         }

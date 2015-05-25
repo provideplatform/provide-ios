@@ -20,7 +20,7 @@ class NextWorkOrderSegue: UIStoryboardSegue {
                 self.destinationViewController.performSegueWithIdentifier("WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.sourceViewController)
             }
             if let mapView = (sourceViewController as! WorkOrdersViewControllerDelegate).mapViewForViewController?(sourceViewController as! ViewController) {
-                (mapView as WorkOrderMapView).mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
+                mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
             }
             break
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
@@ -40,7 +40,7 @@ class NextWorkOrderSegue: UIStoryboardSegue {
             let destinationConfirmationViewController = destinationViewController as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
             destinationConfirmationViewController.onConfirmationReceived = { () -> () in
-                let delegate = (destinationConfirmationViewController as WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate
+                let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate
                 for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) {
                     if vc != destinationConfirmationViewController {
                         delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)

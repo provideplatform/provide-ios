@@ -10,8 +10,8 @@ import Foundation
 
 class CheckinService: NSObject {
 
-    let defaultCheckinTimeInterval = 300 as NSTimeInterval
-    let navigationCheckinTimeInterval = 10 as NSTimeInterval
+    let defaultCheckinTimeInterval: NSTimeInterval = 300
+    let navigationCheckinTimeInterval: NSTimeInterval = 10
 
     private var checkinTimeInterval: NSTimeInterval! {
         didSet {
