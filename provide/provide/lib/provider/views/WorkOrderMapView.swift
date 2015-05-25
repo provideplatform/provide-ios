@@ -101,7 +101,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
     override func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
-        if fullyRendered == true {
+        if fullyRendered {
             if let mode = directionsViewControllerDelegate?.mapViewUserTrackingMode?(mapView) {
                 mapView.setUserTrackingMode(mode, animated: true)
             }

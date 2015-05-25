@@ -151,7 +151,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     func scan() {
         clearNavigationItem()
 
-        if isSimulator() == true { // HACK!!!
+        if isSimulator() { // HACK!!!
             simulateScanningAllItems()
         } else {
             presentViewController(barcodeScannerViewController, animated: true)

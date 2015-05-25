@@ -218,7 +218,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadProduct product: Product!) {
         productToUnload = product
 
-        if isSimulator() == true { // HACK!!!
+        if isSimulator() { // HACK!!!
             unloadItem(product.gtin)
         } else {
             presentViewController(barcodeScannerViewController, animated: true)

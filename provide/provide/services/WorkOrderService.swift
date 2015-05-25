@@ -73,7 +73,7 @@ class WorkOrderService: NSObject {
             "status": status
             ])
 
-        if today == true {
+        if today {
             let today = NSDate()
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString

@@ -89,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             if let workOrderId = userInfo["work_order_id"] as? NSNumber {
                 if let providerRemoved = userInfo["provider_removed"] as? Bool {
-                    if providerRemoved == true {
+                    if providerRemoved {
                         log("provider removed from work order id \(workOrderId)")
                     }
                 } else {

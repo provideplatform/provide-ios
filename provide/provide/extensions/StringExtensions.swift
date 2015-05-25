@@ -66,7 +66,7 @@ extension String {
         var camelCase = ""
         var isFirst = true
         for item: String in items {
-            if isFirst == true {
+            if isFirst {
                 isFirst = false
                 camelCase += item
             } else {

@@ -16,7 +16,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     var requireUserLocationBeforeRevealing = false
 
     private var shouldReveal: Bool {
-        return requireUserLocationBeforeRevealing == false || (alpha == 0 && mapFullyRenderedOnce == true && updatedUserLocationOnce == true)
+        return requireUserLocationBeforeRevealing == false || (alpha == 0 && mapFullyRenderedOnce && updatedUserLocationOnce)
     }
 
     private var mapFullyRenderedOnce = false
@@ -50,7 +50,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func revealMap(force: Bool, animations: VoidBlock!, completion: VoidBlock!) {
-        if shouldReveal == true || force == true {
+        if shouldReveal || force {
             UIView.animateWithDuration(0.25,
                 animations: {
                     if animations != nil {
@@ -69,7 +69,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     // MARK: MKMapViewDelegate
 
     func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
-        if fullyRendered == true {
+        if fullyRendered {
             mapFullyRenderedOnce = true
 
             revealMap()

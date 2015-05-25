@@ -82,7 +82,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         loadRouteContext()
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
-            if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder == true) {
+            if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
                     WorkOrderService.sharedService().inProgressWorkOrder.reload(
                         onSuccess: { statusCode, mappingResult in
@@ -111,7 +111,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     // MARK: Route segue state interrogation
 
     private var canAttemptSegueToValidRouteContext: Bool {
-        return canAttemptSegueToLoadingRoute == true || canAttemptSegueToInProgressRoute == true || canAttemptSegueToNextRoute == true
+        return canAttemptSegueToLoadingRoute || canAttemptSegueToInProgressRoute || canAttemptSegueToNextRoute
     }
 
     private var canAttemptSegueToLoadingRoute: Bool {
@@ -137,7 +137,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                 return false
             }
         }
-        return canAttemptSegueToInProgressWorkOrder == true || canAttemptSegueToEnRouteWorkOrder == true || canAttemptSegueToNextWorkOrder == true
+        return canAttemptSegueToInProgressWorkOrder || canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToNextWorkOrder
     }
 
     private var canAttemptSegueToNextWorkOrder: Bool {
@@ -220,7 +220,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             mapView.revealMap(force: true)
 
             // FIXME -- the following needs to be done differently as to allow the dispatcher to close out routes:
-//            if canAttemptSegueToInProgressRoute == true {
+//            if canAttemptSegueToInProgressRoute {
 //                RouteService.sharedService().inProgressRoute.complete({ statusCode, responseString in
 //                    attemptSegueToValidRouteContext()
 //                },onError: { error, statusCode, responseString in
@@ -576,7 +576,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     // MARK: DirectionsViewControllerDelegate
 
     func isPresentingDirections() -> Bool {
-        return viewingDirections == true
+        return viewingDirections
     }
 
     func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController!) -> MKMapView! {

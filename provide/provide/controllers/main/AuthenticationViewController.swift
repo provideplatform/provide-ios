@@ -222,11 +222,11 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         case "SlidingViewControllerSegue":
             let slidingViewController = segue.destinationViewController as! SlidingViewController
         case "AuthenticationViewControllerUnwindSegue":
-            if emailField.isFirstResponder() == true {
+            if emailField.isFirstResponder() {
                 emailField?.resignFirstResponder()
             }
 
-            if passwordField.isFirstResponder() == true {
+            if passwordField.isFirstResponder() {
                 passwordField?.resignFirstResponder()
             }
 

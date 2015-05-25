@@ -49,7 +49,7 @@ class AnnotationView: MKAnnotationView {
         var selected: Bool = false {
             didSet {
                 var color = annotationView.unselectedBackgroundColor
-                if selected == true {
+                if selected {
                     color = annotationView.selectedBackgroundColor
                 }
 
@@ -74,7 +74,7 @@ class AnnotationView: MKAnnotationView {
         }
 
         override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-            if selected == true {
+            if selected {
                 if let callback = annotationView.onConfirmationRequired {
                     callback()
                 }

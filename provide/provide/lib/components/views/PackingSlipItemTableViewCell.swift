@@ -52,14 +52,14 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         var leftUtilityButtons = NSMutableArray()
         var rightUtilityButtons = NSMutableArray()
 
-        if workOrder.canUnloadGtin(product.gtin) == false && workOrder.canRejectGtin(product.gtin) == true {
+        if workOrder.canUnloadGtin(product.gtin) == false && workOrder.canRejectGtin(product.gtin) {
             let i = rightUtilityButtons.count
             let redColor = UIColor(red: 1.1, green: 0.231, blue: 0.16, alpha: 1.0)
             rightUtilityButtons.sw_addUtilityButtonWithColor(redColor, title: "Reject")
             rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
         }
 
-        if workOrder.canUnloadGtin(product.gtin) == true {
+        if workOrder.canUnloadGtin(product.gtin) {
             let i = rightUtilityButtons.count
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
             rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
@@ -82,7 +82,7 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
         switch index {
         case 0:
-            if workOrder.canUnloadGtin(product.gtin) == false && workOrder.canRejectGtin(product.gtin) == true {
+            if workOrder.canUnloadGtin(product.gtin) == false && workOrder.canRejectGtin(product.gtin) {
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, didRejectProduct: product)
             } else {
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, shouldAttemptToUnloadProduct: product)

@@ -34,7 +34,7 @@ class RoundedButton: UIButton {
 
     override var highlighted: Bool {
         didSet {
-            if highlighted == true {
+            if highlighted {
                 backgroundColor = UIColor.darkGrayColor()
             } else {
                 backgroundColor = initialBackgroundColor

@@ -77,10 +77,10 @@ class RouteService: NSObject {
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
-            "include_work_orders": (includeWorkOrders == true ? "true" : "false")
+            "include_work_orders": (includeWorkOrders ? "true" : "false")
             ])
 
-        if today == true {
+        if today {
             let today = NSDate()
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString

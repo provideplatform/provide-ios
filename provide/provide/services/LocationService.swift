@@ -118,7 +118,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Location resolution
 
     func resolveCurrentLocation(durableKey: String! = nil, allowCachedLocation: Bool = false, onResolved: OnLocationResolved) {
-        if allowCachedLocation == true && currentLocation != nil {
+        if allowCachedLocation && currentLocation != nil {
             onResolved(currentLocation)
         } else {
             foreground()
@@ -186,7 +186,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func resolveCurrentHeading(onResolved: OnHeadingResolved, durableKey: String!, allowCachedHeading: Bool = false) {
-        if allowCachedHeading == true && currentHeading != nil {
+        if allowCachedHeading && currentHeading != nil {
             onResolved(currentHeading)
         } else if requireNavigationAccuracy == false {
             startUpdatingHeading()
