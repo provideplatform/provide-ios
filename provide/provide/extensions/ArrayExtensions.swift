@@ -14,6 +14,15 @@ extension Array {
         }
     }
 
+    func findFirst(conditionBlock: (T) -> Bool) -> T? {
+        for object in self {
+            if conditionBlock(object) {
+                return object
+            }
+        }
+        return nil
+    }
+
     func indexOfObject<T: Equatable>(obj: T) -> Int? {
         var idx = 0
         for elem in self {

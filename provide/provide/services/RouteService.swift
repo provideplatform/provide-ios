@@ -108,51 +108,15 @@ class RouteService: NSObject {
     }
 
     var nextRoute: Route! {
-        var route: Route!
-
-        var i = 0
-        while route == nil && i <= routes.count - 1 {
-            let r = routes[i] as Route
-            if r.status == "scheduled" {
-                route = r
-            }
-
-            i++
-        }
-
-        return route
+        return routes.findFirst { $0.status == "scheduled" }
     }
 
     var inProgressRoute: Route! {
-        var route: Route!
-
-        var i = 0
-        while route == nil && i <= routes.count - 1 {
-            let r = routes[i] as Route
-            if r.status == "in_progress" {
-                route = r
-            }
-
-            i++
-        }
-
-        return route
+        return routes.findFirst { $0.status == "in_progress" }
     }
 
     var loadingRoute: Route! {
-        var route: Route!
-
-        var i = 0
-        while route == nil && i <= routes.count - 1 {
-            let r = routes[i] as Route
-            if r.status == "loading" {
-                route = r
-            }
-
-            i++
-        }
-
-        return route
+        return routes.findFirst { $0.status == "loading" }
     }
 
 }

@@ -23,6 +23,7 @@
 /* Begin PBXBuildFile section */
 		59096D21721B65DB15EB5BF9 /* libPods-provideKIFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 99C11969598E3AA01F971BC3 /* libPods-provideKIFTests.a */; };
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
+		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
@@ -412,6 +413,7 @@
 		2B0CDA460D236638E75CFB3A /* Pods-provideKIFTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideKIFTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideKIFTests/Pods-provideKIFTests.debug.xcconfig"; sourceTree = "<group>"; };
 		405278A4B9F8A66B9658B72F /* Pods-provideKIFTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideKIFTests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideKIFTests/Pods-provideKIFTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		647A46D83EAFFF4D1036DA95 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -577,6 +579,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5CAC66221B12B0140079A58E /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		686A263D1B07C94A0054BB92 /* provideKIFTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -919,6 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				68DFB09C1B07C5C4002A72E8 /* provideTests.swift */,
+				5CAC66221B12B0140079A58E /* extensions */,
 				68DFB09A1B07C5C4002A72E8 /* Supporting Files */,
 			);
 			path = provideTests;
@@ -1419,6 +1430,7 @@
 				689B0CB31B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68B412D21B080D42009A4C05 /* SignatureViewController.swift in Sources */,
 				687CB5781B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
+				5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */,
 				68B413011B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68B4130A1B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68F730831B07DE94001A21B0 /* Provider.swift in Sources */,
