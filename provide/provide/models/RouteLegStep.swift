@@ -12,39 +12,39 @@ class RouteLegStep: Model {
 
     let maneuverIconSprites = UIImage(named: "maneuver-icon-sprites")
     let maneuverIconHeight = 18.0
-    let maneuverIcons = NSDictionary(dictionary: [
-        "leftUTurn": UIImage(named: "uturn-left")!,
-        "leftTurn": UIImage(named: "left")!,
-        "slightLeftTurn": UIImage(named: "left")!,
-        "sharpLeftTurn": UIImage(named: "left")!,
-        "leftMerge": UIImage(named: "left")!,
-        "leftExit": UIImage(named: "exit-left")!,
-        "leftLoop": UIImage(named: "left")!,
-        "leftFork": UIImage(named: "left")!,
-        "leftRamp": UIImage(named: "left")!,
-        "leftRoundaboutExit1": UIImage(named: "roundabout-left")!,
-        "rightUTurn": UIImage(named: "uturn-right")!,
-        "rightTurn": UIImage(named: "right")!,
-        "slightRightTurn": UIImage(named: "right")!,
-        "sharpRightTurn": UIImage(named: "right")!,
-        "rightMerge": UIImage(named: "right")!,
-        "rightExit": UIImage(named: "exit-right")!,
-        "rightFork": UIImage(named: "right")!,
-        "rightLoop": UIImage(named: "right")!,
-        "rightRamp": UIImage(named: "right")!,
-        "rightRoundaboutExit1": UIImage(named: "roundabout-right")!,
-        "arrive": UIImage(named: "maneuver-icon-sprites")!,
-        "arriveLeft": UIImage(named: "maneuver-icon-sprites")!,
-        "arriveRight": UIImage(named: "maneuver-icon-sprites")!,
-        "arriveAirport": UIImage(named: "maneuver-icon-sprites")!,
-        "depart": UIImage(named: "maneuver-icon-sprites")!,
-        "departAirport": UIImage(named: "maneuver-icon-sprites")!,
-        "continue": UIImage(named: "straight")!,
-        "middleFork": UIImage(named: "straight")!,
-        "nameChange": UIImage(named: "maneuver-icon-sprites")!,
-        "trafficCircle": UIImage(named: "maneuver-icon-sprites")!,
-        "ferry": UIImage(named: "maneuver-icon-sprites")!
-        ])
+    let maneuverIcons = [
+        "leftUTurn":            "uturn-left",
+        "leftTurn":             "left",
+        "slightLeftTurn":       "left",
+        "sharpLeftTurn":        "left",
+        "leftMerge":            "left",
+        "leftExit":             "exit-left",
+        "leftLoop":             "left",
+        "leftFork":             "left",
+        "leftRamp":             "left",
+        "leftRoundaboutExit1":  "roundabout-left",
+        "rightUTurn":           "uturn-right",
+        "rightTurn":            "right",
+        "slightRightTurn":      "right",
+        "sharpRightTurn":       "right",
+        "rightMerge":           "right",
+        "rightExit":            "exit-right",
+        "rightFork":            "right",
+        "rightLoop":            "right",
+        "rightRamp":            "right",
+        "rightRoundaboutExit1": "roundabout-right",
+        "arrive":               "maneuver-icon-sprites",
+        "arriveLeft":           "maneuver-icon-sprites",
+        "arriveRight":          "maneuver-icon-sprites",
+        "arriveAirport":        "maneuver-icon-sprites",
+        "depart":               "maneuver-icon-sprites",
+        "departAirport":        "maneuver-icon-sprites",
+        "continue":             "straight",
+        "middleFork":           "straight",
+        "nameChange":           "maneuver-icon-sprites",
+        "trafficCircle":        "maneuver-icon-sprites",
+        "ferry":                "maneuver-icon-sprites",
+    ]
 
     var identifier: String!
     var position: NSDictionary!
@@ -82,8 +82,8 @@ class RouteLegStep: Model {
         return mapping
     }
 
-    var maneuverIcon: UIImage! {
-        return maneuverIcons[maneuver] as! UIImage!
+    var maneuverIcon: UIImage {
+        return UIImage(named: maneuverIcons[maneuver]!)!
     }
 
     var distance: CLLocationDistance! {
