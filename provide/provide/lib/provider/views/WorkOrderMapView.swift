@@ -180,7 +180,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         }
 
         if let token = KeyChainService.sharedService().token { // HACK this is temporary
-            if viewingDirections == false && WorkOrderService.sharedService().nextWorkOrder != nil {
+            if !viewingDirections && WorkOrderService.sharedService().nextWorkOrder != nil {
                 if workOrdersViewControllerDelegate != nil {
                     WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
                         for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {

@@ -16,7 +16,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     var requireUserLocationBeforeRevealing = false
 
     private var shouldReveal: Bool {
-        return requireUserLocationBeforeRevealing == false || (alpha == 0 && mapFullyRenderedOnce && updatedUserLocationOnce)
+        return !requireUserLocationBeforeRevealing || (alpha == 0 && mapFullyRenderedOnce && updatedUserLocationOnce)
     }
 
     private var mapFullyRenderedOnce = false

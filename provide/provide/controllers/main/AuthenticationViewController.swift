@@ -204,7 +204,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
-        if validFieldValues() == false {
+        if !validFieldValues() {
             // no-op for now
         }
     }

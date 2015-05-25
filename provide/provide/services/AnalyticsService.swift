@@ -96,7 +96,7 @@ class AnalyticsService: NSObject {
         if analyticsEnabled {
             let className = classNameForObject(controller)
 
-            if shouldIgnoreViewController(className) == false {
+            if !shouldIgnoreViewController(className) {
                 screen(className)
             }
         }

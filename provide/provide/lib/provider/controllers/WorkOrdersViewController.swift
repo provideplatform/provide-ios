@@ -82,7 +82,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         loadRouteContext()
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
-            if self.updatingWorkOrderContext == false && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
+            if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
                     WorkOrderService.sharedService().inProgressWorkOrder.reload(
                         onSuccess: { statusCode, mappingResult in
@@ -133,7 +133,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 
     private var canAttemptSegueToValidWorkOrderContext: Bool {
         for route in [RouteService.sharedService().inProgressRoute, RouteService.sharedService().nextRoute] {
-            if route != nil && route.canStart() == false {
+            if route != nil && !route.canStart() {
                 return false
             }
         }

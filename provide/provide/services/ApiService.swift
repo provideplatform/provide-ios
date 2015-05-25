@@ -202,7 +202,7 @@ class ApiService: NSObject {
     // MARK: Remote notifications
 
     private func registerForRemoteNotifications() {
-        if isSimulator() == false {
+        if !isSimulator() {
             let notificationTypes = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
             let settings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
@@ -210,7 +210,7 @@ class ApiService: NSObject {
     }
 
     private func unregisterForRemoteNotifications() {
-        if isSimulator() == false {
+        if !isSimulator() {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
 
             if let deviceId = KeyChainService.sharedService().deviceId {

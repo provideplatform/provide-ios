@@ -33,7 +33,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private var processingCode: Bool = false {
         didSet {
-            if processingCode == false {
+            if !processingCode {
                 dismissBarcodeScannerViewController()
             }
         }
@@ -211,7 +211,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     // MARK: BarcodeScannerViewControllerDelegate
 
     func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
-        if processingCode == false {
+        if !processingCode {
             for object in metadataObjects {
                 if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
                     processCode(machineReadableCodeObject)

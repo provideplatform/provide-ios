@@ -90,7 +90,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func background() {
-        if requireNavigationAccuracy == false {
+        if !requireNavigationAccuracy {
             distanceFilter = 99999.0
         }
     }
@@ -126,7 +126,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
         if durableKey != nil {
             onLocationResolvedDurableCallbacks[durableKey] = onResolved
-        } else if allowCachedLocation == false {
+        } else if !allowCachedLocation {
             onLocationResolvedCallbacks.append(onResolved)
         }
     }
@@ -188,13 +188,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     func resolveCurrentHeading(onResolved: OnHeadingResolved, durableKey: String!, allowCachedHeading: Bool = false) {
         if allowCachedHeading && currentHeading != nil {
             onResolved(currentHeading)
-        } else if requireNavigationAccuracy == false {
+        } else if !requireNavigationAccuracy {
             startUpdatingHeading()
         }
 
         if durableKey != nil {
             onHeadingResolvedDurableCallbacks[durableKey] = onResolved
-        } else if allowCachedHeading == false {
+        } else if !allowCachedHeading {
             onHeadingResolvedCallbacks.append(onResolved)
         }
     }
@@ -224,7 +224,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             callback(heading)
         }
 
-        if requireNavigationAccuracy == false {
+        if !requireNavigationAccuracy {
             stopUpdatingHeading()
         }
     }

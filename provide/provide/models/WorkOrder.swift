@@ -87,7 +87,7 @@ class WorkOrder: Model, MKAnnotation {
         var componentIdentifier: String!
         for component in components.objectEnumerator().allObjects {
             if let completed = component.objectForKey("completed") as? Bool {
-                if completed == false {
+                if !completed {
                     componentIdentifier = component.objectForKey("component") as! String
                     break
                 }
