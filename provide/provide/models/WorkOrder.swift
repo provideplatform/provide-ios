@@ -119,13 +119,11 @@ class WorkOrder: Model, MKAnnotation {
         while gtinsUnloaded.count > 0 {
             let gtin = gtinsUnloaded.removeAtIndex(0)
 
-            var i = 0
-            for item in newItemsOnTruck {
+            for (i, item) in enumerate(newItemsOnTruck) {
                 if gtin == (item as! Product).gtin {
                     newItemsOnTruck.removeObjectAtIndex(i)
                     break
                 }
-                i++
             }
         }
 
@@ -160,14 +158,12 @@ class WorkOrder: Model, MKAnnotation {
 
         var newItemsRejected = NSMutableArray(array: itemsRejected)
 
-        var i = 0
-        for rejectedItem in itemsRejected {
+        for (i, rejectedItem) in enumerate(itemsRejected) {
             if (rejectedItem as! Product).gtin == item.gtin {
                 newItemsRejected.removeObjectAtIndex(i)
                 itemsRejected = newItemsRejected
                 break
             }
-            i++
         }
     }
 
@@ -186,14 +182,12 @@ class WorkOrder: Model, MKAnnotation {
 
         var newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
 
-        var i = 0
-        for unloadedItem in itemsUnloaded {
+        for (i, unloadedItem) in enumerate(itemsUnloaded) {
             if (unloadedItem as! Product).gtin == item.gtin {
                 newItemsUnloaded.removeObjectAtIndex(i)
                 itemsUnloaded = newItemsUnloaded
                 break
             }
-            i++
         }
     }
 

@@ -128,11 +128,10 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         if points.count > 0 {
             CGPointMakeWithDictionaryRepresentation((points[0] as! CFDictionaryRef), &point)
             CGPathMoveToPoint(path, nil, point.x, point.y)
-            var i = 1
-            while i < points.count {
-                CGPointMakeWithDictionaryRepresentation((points[i] as! CFDictionaryRef), &point)
+
+            for pointInArray in points {
+                CGPointMakeWithDictionaryRepresentation((pointInArray as! CFDictionaryRef), &point)
                 CGPathAddLineToPoint(path, nil, point.x, point.y)
-                i++
             }
 
             CGPathCloseSubpath(path)
