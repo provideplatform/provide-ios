@@ -132,9 +132,7 @@ class ApiService: NSObject {
                 assert(statusCode == 204)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
@@ -153,20 +151,12 @@ class ApiService: NSObject {
                         var url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
                         realParams.setObject(url, forKey: "url")
 
-                        self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess,
-                            onError: { error, statusCode, responseString in
-                                onError(error: error, statusCode: statusCode, responseString: responseString)
-                            }
-                        )
+                        self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
-                    onError: { error, statusCode, responseString in
-                        onError(error: error, statusCode: statusCode, responseString: responseString)
-                    }
+                    onError: onError
                 )
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
@@ -179,21 +169,12 @@ class ApiService: NSObject {
                 KeyChainService.sharedService().deviceId = (mappingResult.firstObject as! Device).id.stringValue
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
     func deleteDeviceWithId(id: String!, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("devices/\(id)", method: .DELETE, params: nil,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("devices/\(id)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Remote notifications
@@ -226,25 +207,11 @@ class ApiService: NSObject {
     // MARK: Provider API
 
     func fetchProviders(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("providers", method: .GET, params: params,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func fetchProviderAvailability(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Checkin API
@@ -275,34 +242,18 @@ class ApiService: NSObject {
                 assert(statusCode == 201)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
     // MARK: Work order API
 
     func fetchWorkOrderWithId(id: String!, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:],
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
     func fetchWorkOrders(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders", method: .GET, params: params,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func createWorkOrder(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
@@ -312,14 +263,7 @@ class ApiService: NSObject {
         realParams.removeObjectForKey("companyId")
         realParams.removeObjectForKey("customerId")
 
-        dispatchApiOperationForPath("work_orders", method: .POST, params: realParams,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     func updateWorkOrderWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
@@ -329,14 +273,7 @@ class ApiService: NSObject {
         realParams.removeObjectForKey("companyId")
         realParams.removeObjectForKey("customerId")
 
-        dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     func addAttachment(data: NSData!, withMimeType mimeType: String!, toWorkOrderWithId id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
@@ -354,48 +291,26 @@ class ApiService: NSObject {
                         var url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
                         realParams.setObject(url, forKey: "url")
 
-                        self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess,
-                            onError: { error, statusCode, responseString in
-                                onError(error: error, statusCode: statusCode, responseString: responseString)
-                            }
-                        )
+                        self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
-                    onError: { error, statusCode, responseString in
-                        onError(error: error, statusCode: statusCode, responseString: responseString)
-                    }
+                    onError: onError
                 )
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
     // MARK: Route API
 
     func fetchRoutes(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("routes", method: .GET, params: params,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func updateRouteWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         var realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
 
-        dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Directions and Routing API
@@ -408,9 +323,7 @@ class ApiService: NSObject {
                 assert(statusCode == 200 || statusCode == 304)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
@@ -422,9 +335,7 @@ class ApiService: NSObject {
                 assert(statusCode == 200 || statusCode == 304)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 

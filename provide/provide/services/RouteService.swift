@@ -34,9 +34,7 @@ class RouteService: NSObject {
 
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
-                }
+                onError: onError
             )
         }
     }
@@ -52,14 +50,7 @@ class RouteService: NSObject {
                 }
             }
 
-            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded],
-                onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                },
-                onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
-                }
-            )
+            ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: onSuccess, onError: onError)
         }
     }
 
