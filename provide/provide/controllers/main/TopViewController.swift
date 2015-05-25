@@ -10,8 +10,6 @@ import UIKit
 
 class TopViewController: ViewController, SelfieViewControllerDelegate {
 
-    private var childViewController: ViewController!
-
     private let defaultInitialStoryboardName = "Provider"
 
     private var initialStoryboard: UIStoryboard! {
@@ -19,13 +17,11 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         return UIStoryboard(storyboardName)
     }
 
-    private var selfieViewController: SelfieViewController!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        childViewController = initialStoryboard?.instantiateInitialViewController() as! ViewController
-        navigationController?.pushViewController(childViewController, animated: false)
+        let viewController = initialStoryboard?.instantiateInitialViewController() as! ViewController
+        navigationController?.pushViewController(viewController, animated: false)
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -69,7 +65,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
     }
 
     private func initSelfieViewController() {
-        selfieViewController = UIStoryboard("Selfie").instantiateInitialViewController() as! SelfieViewController
+        let selfieViewController = UIStoryboard("Selfie").instantiateInitialViewController() as! SelfieViewController
         selfieViewController.delegate = self
 
         navigationController?.pushViewController(selfieViewController, animated: false)
