@@ -42,14 +42,14 @@ class WorkOrderAnnotationView: AnnotationView {
         opaque = false
         backgroundColor = UIColor.clearColor()
 
-        selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRectMake(0.0, 0.0, containerView.frame.width, containerView.frame.height))
-        unselectedBackgroundColor = resizedBackgroundColorForRect(CGRectMake(0.0, 0.0, containerView.frame.width, containerView.frame.height))
+        selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
+        unselectedBackgroundColor = resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
 
         containerView.backgroundColor = unselectedBackgroundColor
         containerView.addDropShadow()
         containerView.roundCorners(25.0)
 
-        pinPointerView.backgroundColor = unselectedBackgroundColor //resizedBackgroundColorForRect(CGRectMake(0.0, 0.0, pinPointerView.frame.width, pinPointerView.frame.height))
+        pinPointerView.backgroundColor = unselectedBackgroundColor //resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: pinPointerView.frame.width, height: pinPointerView.frame.height))
         pinPointerView.addDropShadow()
         sendSubviewToBack(pinPointerView)
 

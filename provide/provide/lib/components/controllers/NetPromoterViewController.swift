@@ -25,10 +25,11 @@ class NetPromoterViewController: WorkOrderComponentViewController {
     }
 
     override func render() {
-        let frame = CGRectMake(0.0,
-            targetView.frame.height,
-            targetView.frame.width,
-            targetView.frame.height)
+        let frame = CGRect(
+            x: 0.0,
+            y: targetView.frame.height,
+            width: targetView.frame.width,
+            height: targetView.frame.height)
 
         view.alpha = 0.0
         view.frame = frame
@@ -38,10 +39,12 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.view.alpha = 1
-                self.view.frame = CGRectMake(0.0,
-                    0.0,
-                    frame.width,
-                    frame.height)
+                self.view.frame = CGRect(
+                    x: 0.0,
+                    y: 0.0,
+                    width: frame.width,
+                    height: frame.height
+                )
             },
             completion: { complete in
                 self.suspendTopViewGestureRecognizers()
@@ -55,10 +58,12 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.view.alpha = 0
-                self.view.frame = CGRectMake(self.view.frame.origin.x,
-                    -self.view.frame.height,
-                    self.view.frame.width,
-                    self.view.frame.height)
+                self.view.frame = CGRect(
+                    x: self.view.frame.origin.x,
+                    y: -self.view.frame.height,
+                    width: self.view.frame.width,
+                    height: self.view.frame.height
+                )
             },
             completion: { complete in
                 self.enableSuspendedTopViewGestureRecognizers()

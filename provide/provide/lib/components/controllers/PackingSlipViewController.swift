@@ -61,7 +61,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         view.backgroundColor = UIColor.clearColor()
 
         packingSlipToolbarView.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(),
-                                                                                     rect: CGRectMake(0.0, 0.0, view.frame.width, view.frame.height)).colorWithAlphaComponent(0.7)
+                                                                                     rect: CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)).colorWithAlphaComponent(0.7)
 
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
@@ -81,10 +81,12 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     override func render() {
-        let frame = CGRectMake(0.0,
-            targetView.frame.height,
-            targetView.frame.width,
-            view.frame.height)
+        let frame = CGRect(
+            x: 0.0,
+            y: targetView.frame.height,
+            width: targetView.frame.width,
+            height: view.frame.height
+        )
 
         view.alpha = 0.0
         view.frame = frame
@@ -98,10 +100,12 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.view.alpha = 1
-                self.view.frame = CGRectMake(frame.origin.x,
-                    frame.origin.y - self.view.frame.height,
-                    frame.width,
-                    frame.height)
+                self.view.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y - self.view.frame.height,
+                    width: frame.width,
+                    height: frame.height
+                )
             },
             completion: { complete in
             }
@@ -118,11 +122,12 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.view.alpha = 0
-                self.view.frame = CGRectMake(0.0,
-                    self.view.frame.origin.y + self.view.frame.height,
-                    self.view.frame.width,
-                    self.view.frame.height)
-
+                self.view.frame = CGRect(
+                    x: 0.0,
+                    y: self.view.frame.origin.y + self.view.frame.height,
+                    width: self.view.frame.width,
+                    height: self.view.frame.height
+                )
             },
             completion: { complete in
 

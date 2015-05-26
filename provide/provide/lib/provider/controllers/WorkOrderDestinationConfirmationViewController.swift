@@ -53,10 +53,12 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     // MARK: Rendering
 
     func render() {
-        let frame = CGRectMake(0.0,
-                               targetView.frame.height,
-                               targetView.frame.width,
-                               view.frame.height)
+        let frame = CGRect(
+            x: 0.0,
+            y: targetView.frame.height,
+            width: targetView.frame.width,
+            height: view.frame.height
+        )
 
         view.alpha = 0.0
         view.frame = frame
@@ -70,10 +72,12 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
             animations: {
                 self.view.alpha = 1
-                self.view.frame = CGRectMake(frame.origin.x,
-                                             frame.origin.y - self.view.frame.height,
-                                             frame.width,
-                                             frame.height)
+                self.view.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y - self.view.frame.height,
+                    width: frame.width,
+                    height: frame.height
+                )
             },
             completion: { complete in
 
@@ -125,10 +129,12 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
             animations: {
                 self.view.alpha = 0
-                self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                             self.view.frame.origin.y + self.view.frame.height,
-                                             self.view.frame.width,
-                                             self.view.frame.height)
+                self.view.frame = CGRect(
+                    x: self.view.frame.origin.x,
+                    y: self.view.frame.origin.y + self.view.frame.height,
+                    width: self.view.frame.width,
+                    height: self.view.frame.height
+                )
             },
             completion: { complete in
                 self.view.removeFromSuperview()

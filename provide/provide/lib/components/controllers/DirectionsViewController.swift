@@ -95,20 +95,22 @@ class DirectionsViewController: ViewController {
             }
         }
 
-        let frame = CGRectMake(0.0,
-                               targetView.frame.height,
-                               targetView.frame.width,
-                               view.frame.height)
+        let frame = CGRect(
+            x: 0.0,
+            y: targetView.frame.height,
+            width: targetView.frame.width,
+            height: view.frame.height)
 
         view.alpha = 0.0
         view.frame = frame
 
         targetView.addSubview(view)
 
-        directionsInstructionView.frame = CGRectMake(directionsInstructionView.frame.origin.x,
-                                                     directionsInstructionView.frame.origin.y,
-                                                     targetView.frame.width,
-                                                     directionsInstructionView.frame.height)
+        directionsInstructionView.frame = CGRect(
+            x: directionsInstructionView.frame.origin.x,
+            y: directionsInstructionView.frame.origin.y,
+            width: targetView.frame.width,
+            height: directionsInstructionView.frame.height)
 
         directionsInstructionView.routeLeg = nil
         refreshInstructions()
@@ -116,10 +118,12 @@ class DirectionsViewController: ViewController {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.view.alpha = 1
-                self.view.frame = CGRectMake(frame.origin.x,
-                                             frame.origin.y - self.view.frame.height,
-                                             frame.width,
-                                             frame.height)
+                self.view.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y - self.view.frame.height,
+                    width: frame.width,
+                    height: frame.height
+                )
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(durableKey: self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
@@ -355,10 +359,12 @@ class DirectionsViewController: ViewController {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,
             animations: {
                 self.view.alpha = 0
-                self.view.frame = CGRectMake(self.view.frame.origin.x,
-                                             self.view.frame.origin.y + self.view.frame.height,
-                                             self.view.frame.width,
-                                             self.view.frame.height)
+                self.view.frame = CGRect(
+                    x: self.view.frame.origin.x,
+                    y: self.view.frame.origin.y + self.view.frame.height,
+                    width: self.view.frame.width,
+                    height: self.view.frame.height
+                )
             },
             completion: { complete in
                 self.view.removeFromSuperview()

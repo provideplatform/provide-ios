@@ -33,7 +33,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
         if let user = KeyChainService.sharedService().token?.user {
             if user.profileImageUrl != nil {
-                imageView = UIImageView(frame: CGRectMake(0, 0, 50, 50))
+                imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
                 imageView.contentMode = .ScaleAspectFit
                 imageView.alpha = 0.0
                 imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl)) { image, error, cacheType, url in
@@ -41,7 +41,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                     imageView.alpha = 1
                 }
             } else {
-                imageView = RFGravatarImageView(frame: CGRectMake(0, 0, 50, 50))
+                imageView = RFGravatarImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
                 imageView.alpha = 0.0
                 (imageView as! RFGravatarImageView).email = user.email
                 (imageView as! RFGravatarImageView).load { error in

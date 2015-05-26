@@ -11,10 +11,12 @@ import UIKit
 class WorkOrderDestinationHeaderViewController: ViewController {
 
     var initialFrame: CGRect! {
-        return CGRectMake(view.frame.origin.x,
-                          view.frame.height * -2,
-                          view.frame.width,
-                          view.frame.height)
+        return CGRect(
+            x: view.frame.origin.x,
+            y: view.frame.height * -2,
+            width: view.frame.width,
+            height: view.frame.height
+        )
     }
 
     var targetView: UIView! {
@@ -64,16 +66,20 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         }
 
         //var frame = initialFrame
-        var frame = CGRectMake(0.0,
-            targetView.frame.height,
-            targetView.frame.width,
-            view.frame.height)
+        var frame = CGRect(
+            x: 0.0,
+            y: targetView.frame.height,
+            width: targetView.frame.width,
+            height: view.frame.height
+        )
 
         if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
-            frame = CGRectMake(frame.origin.x,
-                               navigationController.navigationBar.frame.height + navigationController.navigationBar.frame.origin.y,
-                               navigationController.navigationBar.frame.width,
-                               frame.height)
+            frame = CGRect(
+                x: frame.origin.x,
+                y: navigationController.navigationBar.frame.height + navigationController.navigationBar.frame.origin.y,
+                width: navigationController.navigationBar.frame.width,
+                height: frame.height
+            )
         }
 
         view.frame = frame
@@ -83,10 +89,12 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
             animations: {
                 self.view.alpha = 1
-                self.view.frame = CGRectMake(frame.origin.x,
-                                             frame.origin.y,
-                                             frame.width,
-                                             frame.height)
+                self.view.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y,
+                    width: frame.width,
+                    height: frame.height
+                )
             },
             completion: { complete in
 
