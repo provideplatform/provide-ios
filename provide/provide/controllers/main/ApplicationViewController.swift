@@ -16,10 +16,6 @@ class ApplicationViewController: UINavigationController, UINavigationControllerD
         delegate = self
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-
     // MARK: UINavigationControllerDelegate
 
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {

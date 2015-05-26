@@ -22,12 +22,6 @@ class ViewController: UIViewController {
         }
     }
 
-    // MARK: Preferred status bar style
-
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-
     // MARK: Activity indicator and status messaging
 
     func showError(errorMessage: String) {

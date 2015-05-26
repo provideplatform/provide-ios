@@ -64,6 +64,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>

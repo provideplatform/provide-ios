@@ -26,10 +26,6 @@ class MenuViewController: UITableViewController {
         }
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-
     // MARK: UITableView Delegate Functions
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

@@ -45,7 +45,4 @@ class NavigationRootViewController: ViewController {
         }
     }
 
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
 }
