@@ -21,7 +21,7 @@
         <!--Application View Controller-->
         <scene sceneID="dsG-cH-el8">
             <objects>
-                <navigationController storyboardIdentifier="MainNavigationController" navigationBarHidden="YES" id="J41-78-tRE" customClass="ApplicationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="J41-78-tRE" customClass="ApplicationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaA-8b-5sD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -739,7 +739,7 @@
         <image name="provide_logo_transparent" width="503" height="146"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="baH-vf-SLM"/>
-        <segue reference="flA-yQ-9Vg"/>
+        <segue reference="pyb-Ej-lW7"/>
+        <segue reference="qEh-KF-YoG"/>
     </inferredMetricsTieBreakers>
 </document>
