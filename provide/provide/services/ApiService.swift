@@ -147,7 +147,7 @@ class ApiService: NSObject {
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
 
-                self.uploadToS3(NSURL(string: attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
+                self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
                         var realParams = NSMutableDictionary(dictionary: params)
                         realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
@@ -348,7 +348,7 @@ class ApiService: NSObject {
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
 
-                self.uploadToS3(NSURL(string: attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
+                self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
                         var realParams = NSMutableDictionary(dictionary: params)
                         realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
@@ -457,7 +457,7 @@ class ApiService: NSObject {
     }
 
     private func dispatchApiOperationForPath(path: String!, method: RKRequestMethod! = .GET, params: NSDictionary!, onSuccess: OnSuccess!, onError: OnError!) {
-        dispatchOperationForURL(NSURL(string: CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
+        dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     private func objectMappingForPath(var path: String!) -> RKObjectMapping! {

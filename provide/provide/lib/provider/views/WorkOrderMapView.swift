@@ -36,7 +36,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                 imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
                 imageView.contentMode = .ScaleAspectFit
                 imageView.alpha = 0.0
-                imageView.sd_setImageWithURL(NSURL(string: user.profileImageUrl)) { image, error, cacheType, url in
+                imageView.sd_setImageWithURL(NSURL(user.profileImageUrl)) { image, error, cacheType, url in
                     imageView.makeCircular()
                     imageView.alpha = 1
                 }

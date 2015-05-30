@@ -29,6 +29,9 @@
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		682D326E1B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
+		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
+		685D99FD1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
+		685D99FE1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		686A5A1D1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		686A5A1E1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
@@ -421,6 +424,7 @@
 		647A46D83EAFFF4D1036DA95 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
+		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686A263E1B07C96D0054BB92 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -616,6 +620,7 @@
 				687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */,
 				687CB5371B07EAD30048B692 /* NSDictionaryExtensions.swift */,
 				68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */,
+				685D99FB1B19BE2900007920 /* NSURLExtensions.swift */,
 				687CB53D1B07EAD30048B692 /* StringExtensions.swift */,
 				68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */,
 				687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */,
@@ -1343,6 +1348,7 @@
 				68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */,
+				685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */,
 				5C4AF3A31B13AC0500423B71 /* UIStoryboardExtensions.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
@@ -1463,6 +1469,7 @@
 				686A5A1D1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				687CB54E1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68B412881B0802AF009A4C05 /* MapView.swift in Sources */,
+				685D99FD1B19BE2900007920 /* NSURLExtensions.swift in Sources */,
 				68B412CF1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AE1B0804BC009A4C05 /* ViewController.swift in Sources */,
 				68B412C31B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
@@ -1541,6 +1548,7 @@
 				68F730961B07DE94001A21B0 /* User.swift in Sources */,
 				68B978C81B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				68B412D01B080D42009A4C05 /* SelfieViewController.swift in Sources */,
+				685D99FE1B19BE2900007920 /* NSURLExtensions.swift in Sources */,
 				687CB5821B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				689B0CB81B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				68B4129A1B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
