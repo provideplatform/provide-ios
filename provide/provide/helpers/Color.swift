@@ -19,7 +19,7 @@ class Color {
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
-        return UIImage(named: "navbar-background")!
+        return UIImage("navbar-background")
     }
 
     class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {

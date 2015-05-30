@@ -66,7 +66,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
 
-        packingSlipTableView.backgroundView = UIImageView(image: UIImage(named: "navbar-background")!)
+        packingSlipTableView.backgroundView = UIImageView(image: UIImage("navbar-background"))
 
         barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
         barcodeScannerViewController.delegate = self

@@ -10,7 +10,7 @@ import Foundation
 
 class RouteLegStep: Model {
 
-    let maneuverIconSprites = UIImage(named: "maneuver-icon-sprites")
+    let maneuverIconSprites = UIImage("maneuver-icon-sprites")
     let maneuverIconHeight = 18.0
     let maneuverIcons = [
         "leftUTurn":            "uturn-left",
@@ -83,7 +83,7 @@ class RouteLegStep: Model {
     }
 
     var maneuverIcon: UIImage {
-        return UIImage(named: maneuverIcons[maneuver]!)!
+        return UIImage(maneuverIcons[maneuver]!)
     }
 
     var distance: CLLocationDistance! {

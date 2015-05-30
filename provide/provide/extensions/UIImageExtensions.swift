@@ -18,4 +18,8 @@ extension UIImage {
         return image
     }
 
+    convenience init!(_ imageName: String) {
+        self.init(named: imageName)
+    }
+
 }
