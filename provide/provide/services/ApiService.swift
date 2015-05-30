@@ -79,18 +79,17 @@ class ApiService: NSObject {
     }
 
     func logout(#onSuccess: OnSuccess, onError: OnError) {
-        if let token = KeyChainService.sharedService().token {
-            dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
-                onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                    self.localLogout()
-                },
-                onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
-                    self.localLogout()
-                }
-            )
-        }
+        let token = KeyChainService.sharedService().token!
+        dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                self.localLogout()
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+                self.localLogout()
+            }
+        )
     }
 
     private func localLogout() {
@@ -105,40 +104,38 @@ class ApiService: NSObject {
     // MARK: User API
 
     func fetchUser(#onSuccess: OnSuccess, onError: OnError) {
-        if let token = KeyChainService.sharedService().token {
-            dispatchApiOperationForPath("users/\(token.userId)", method: .GET, params: [:],
-                onSuccess: { statusCode, mappingResult in
-                    assert(statusCode == 200)
-                    let user = mappingResult.firstObject as! User
-                    KeyChainService.sharedService().token?.user = user
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                },
-                onError: { error, statusCode, responseString in
-                    var errorMessage: String
-                    switch statusCode {
-                    case 401: errorMessage = "Authorization revoked"
-                    case 403: errorMessage = "Forbidden"
-                    default:  errorMessage = "Failed to retrieve user details"
-                    }
-
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+        let token = KeyChainService.sharedService().token!
+        dispatchApiOperationForPath("users/\(token.userId)", method: .GET, params: [:],
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 200)
+                let user = mappingResult.firstObject as! User
+                KeyChainService.sharedService().token?.user = user
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                var errorMessage: String
+                switch statusCode {
+                case 401: errorMessage = "Authorization revoked"
+                case 403: errorMessage = "Forbidden"
+                default:  errorMessage = "Failed to retrieve user details"
                 }
-            )
-        }
+
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func updateUser(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        if let token = KeyChainService.sharedService().token {
-            dispatchApiOperationForPath("users/\(token.userId)", method: .PUT, params: params,
-                onSuccess: { statusCode, mappingResult in
-                    assert(statusCode == 204)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                },
-                onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
-                }
-            )
-        }
+        let token = KeyChainService.sharedService().token!
+        dispatchApiOperationForPath("users/\(token.userId)", method: .PUT, params: params,
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 204)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func addAttachment(data: NSData!, withMimeType mimeType: String!, toUserWithId id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {

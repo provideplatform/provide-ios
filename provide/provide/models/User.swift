@@ -13,7 +13,7 @@ class User: Model {
     var id: NSNumber!
     var name: String!
     var email: String!
-    var profileImageUrl: String!
+    var profileImageUrl: String?
     var contact: Contact!
 
     override class func mapping() -> RKObjectMapping {

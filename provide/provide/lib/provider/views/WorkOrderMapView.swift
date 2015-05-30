@@ -31,23 +31,22 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     private var userLocationImageView: UIImageView! {
         var imageView: UIImageView!
 
-        if let user = KeyChainService.sharedService().token?.user {
-            if user.profileImageUrl != nil {
-                imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                imageView.contentMode = .ScaleAspectFit
-                imageView.alpha = 0.0
-                imageView.sd_setImageWithURL(NSURL(user.profileImageUrl)) { image, error, cacheType, url in
-                    imageView.makeCircular()
-                    imageView.alpha = 1
-                }
-            } else {
-                imageView = RFGravatarImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-                imageView.alpha = 0.0
-                (imageView as! RFGravatarImageView).email = user.email
-                (imageView as! RFGravatarImageView).load { error in
-                    imageView.makeCircular()
-                    imageView.alpha = 1
-                }
+        let user = KeyChainService.sharedService().token!.user
+        if let profileImageUrl = user.profileImageUrl {
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            imageView.contentMode = .ScaleAspectFit
+            imageView.alpha = 0.0
+            imageView.sd_setImageWithURL(NSURL(profileImageUrl)) { image, error, cacheType, url in
+                imageView.makeCircular()
+                imageView.alpha = 1
+            }
+        } else {
+            imageView = RFGravatarImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            imageView.alpha = 0.0
+            (imageView as! RFGravatarImageView).email = user.email
+            (imageView as! RFGravatarImageView).load { error in
+                imageView.makeCircular()
+                imageView.alpha = 1
             }
         }
 
@@ -179,20 +178,17 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
             )
         }
 
-        if let token = KeyChainService.sharedService().token { // HACK this is temporary
-            if !viewingDirections && WorkOrderService.sharedService().nextWorkOrder != nil {
-                if workOrdersViewControllerDelegate != nil {
-                    WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
-                        for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
-                            if vc is WorkOrdersViewControllerDelegate {
-                                (vc as! WorkOrdersViewControllerDelegate).drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)
-                            }
+        let token = KeyChainService.sharedService().token! // HACK this is temporary
+        if !viewingDirections && WorkOrderService.sharedService().nextWorkOrder != nil {
+            if workOrdersViewControllerDelegate != nil {
+                WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
+                    for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
+                        if let delegate = vc as? WorkOrdersViewControllerDelegate {
+                            delegate.drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)
                         }
                     }
                 }
             }
-        } else {
-            mapView.showsUserLocation = false
         }
     }
 
