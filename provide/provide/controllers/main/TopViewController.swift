@@ -10,17 +10,10 @@ import UIKit
 
 class TopViewController: ViewController, SelfieViewControllerDelegate {
 
-    private let defaultInitialStoryboardName = "Provider"
-
-    private var initialStoryboard: UIStoryboard! {
-        let storyboardName = ENV("INITIAL_STORYBOARD") ?? defaultInitialStoryboardName
-        return UIStoryboard(storyboardName)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewController = initialStoryboard?.instantiateInitialViewController() as! ViewController
+        let viewController = UIStoryboard("Provider").instantiateInitialViewController() as! WorkOrdersViewController
         navigationController?.pushViewController(viewController, animated: false)
 
         navigationItem.hidesBackButton = true
