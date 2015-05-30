@@ -170,9 +170,6 @@
 		68B4128B1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
 		68B4128C1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
 		68B4128D1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
-		68B412981B0804BC009A4C05 /* ApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412901B0804BC009A4C05 /* ApplicationViewController.swift */; };
-		68B412991B0804BC009A4C05 /* ApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412901B0804BC009A4C05 /* ApplicationViewController.swift */; };
-		68B4129A1B0804BC009A4C05 /* ApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412901B0804BC009A4C05 /* ApplicationViewController.swift */; };
 		68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412911B0804BC009A4C05 /* AuthenticationViewController.swift */; };
 		68B4129C1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412911B0804BC009A4C05 /* AuthenticationViewController.swift */; };
 		68B4129D1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412911B0804BC009A4C05 /* AuthenticationViewController.swift */; };
@@ -472,7 +469,6 @@
 		68B412821B0802AF009A4C05 /* AnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		68B412831B0802AF009A4C05 /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		68B4128A1B08036F009A4C05 /* Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		68B412901B0804BC009A4C05 /* ApplicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationViewController.swift; sourceTree = "<group>"; };
 		68B412911B0804BC009A4C05 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		68B412921B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewControllerSegue.swift; sourceTree = "<group>"; };
 		68B412931B0804BC009A4C05 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -726,7 +722,6 @@
 		68B4128F1B0804BC009A4C05 /* main */ = {
 			isa = PBXGroup;
 			children = (
-				68B412901B0804BC009A4C05 /* ApplicationViewController.swift */,
 				68B412911B0804BC009A4C05 /* AuthenticationViewController.swift */,
 				68B412921B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift */,
 				68B412931B0804BC009A4C05 /* MenuViewController.swift */,
@@ -1357,7 +1352,6 @@
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
 				68F7307F1B07DE94001A21B0 /* Product.swift in Sources */,
-				68B412981B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
 				68B978D91B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */,
 				68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
@@ -1450,7 +1444,6 @@
 				689B0CB71B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */,
 				68F730801B07DE94001A21B0 /* Product.swift in Sources */,
-				68B412991B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */,
 				68B978DA1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */,
 				68B412C91B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
@@ -1551,7 +1544,6 @@
 				685D99FE1B19BE2900007920 /* NSURLExtensions.swift in Sources */,
 				687CB5821B07EAD30048B692 /* UIViewExtensions.swift in Sources */,
 				689B0CB81B07E0A7005694B7 /* KeyChainService.swift in Sources */,
-				68B4129A1B0804BC009A4C05 /* ApplicationViewController.swift in Sources */,
 				68B4129D1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				687CB5A21B07F6020048B692 /* ProviderService.swift in Sources */,
 				68F730931B07DE94001A21B0 /* Token.swift in Sources */,

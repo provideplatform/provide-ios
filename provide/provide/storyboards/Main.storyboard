@@ -18,10 +18,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Application View Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="dsG-cH-el8">
             <objects>
-                <navigationController navigationBarHidden="YES" id="J41-78-tRE" customClass="ApplicationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="J41-78-tRE" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaA-8b-5sD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
