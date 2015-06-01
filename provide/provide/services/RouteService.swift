@@ -79,12 +79,8 @@ class RouteService: NSObject {
 
         ApiService.sharedService().fetchRoutes(params,
             onSuccess: { statusCode, mappingResult in
-                var fetchedRoutes = [Route]()
-
-                for route in mappingResult.array() as! [Route] {
-                    self.routes.append(route)
-                    fetchedRoutes.append(route)
-                }
+                let fetchedRoutes = mappingResult.array() as! [Route]
+                self.routes += fetchedRoutes
 
                 if onRoutesFetched != nil {
                     onRoutesFetched(routes: fetchedRoutes)

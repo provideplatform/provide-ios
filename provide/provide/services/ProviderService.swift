@@ -32,12 +32,8 @@ class ProviderService: NSObject {
 
         ApiService.sharedService().fetchProviders(params,
             onSuccess: { statusCode, mappingResult in
-                var fetchedProviders = [Provider]()
-
-                for provider in mappingResult.array() as! [Provider] {
-                    self.providers.append(provider)
-                    fetchedProviders.append(provider)
-                }
+                let fetchedProviders = mappingResult.array() as! [Provider]
+                self.providers += fetchedProviders
 
                 if onProvidersFetched != nil {
                     onProvidersFetched(providers: fetchedProviders)

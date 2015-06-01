@@ -62,12 +62,8 @@ class WorkOrderService: NSObject {
 
         ApiService.sharedService().fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
-                var fetchedWorkOrders = [WorkOrder]()
-
-                for workOrder in mappingResult.array() as! [WorkOrder] {
-                    self.workOrders.append(workOrder)
-                    fetchedWorkOrders.append(workOrder)
-                }
+                let fetchedWorkOrders = mappingResult.array() as! [WorkOrder]
+                self.workOrders += fetchedWorkOrders
 
                 if onWorkOrdersFetched != nil {
                     onWorkOrdersFetched(workOrders: fetchedWorkOrders)
