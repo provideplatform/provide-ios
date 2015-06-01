@@ -8,11 +8,15 @@
 
 import Foundation
 
-class Model: NSObject {
+class Model: NSObject, Printable {
 
     class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         return mapping
+    }
+
+    override var description: String {
+        return "\(toDictionary(snakeKeys: false))"
     }
 
     // Empty init() required by RestKit
@@ -48,7 +52,7 @@ class Model: NSObject {
             var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
             var value: AnyObject! = valueForKey(key)
             key = snakeKeys ? key.snakeCaseString() : key
-            dictionary[key] = value != nil && value.isKindOfClass(Model) ? (value as! Model).toDictionary() : value
+            dictionary[key] = value != nil && value is Model ? (value as! Model).toDictionary(snakeKeys: snakeKeys) : value
         }
 
         return dictionary
