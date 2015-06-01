@@ -90,9 +90,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
             animations: {
                 self.alpha = 1
             },
-            completion: {
-
-            }
+            completion: nil
         )
     }
 
@@ -172,9 +170,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
                     log("Revealing map rect based on location: \(location)")
                     mapView.alpha = 1
                 },
-                completion: {
-
-                }
+                completion: nil
             )
         }
 

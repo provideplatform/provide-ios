@@ -107,8 +107,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     height: frame.height
                 )
             },
-            completion: { complete in
-            }
+            completion: nil
         )
     }
 
@@ -129,9 +128,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     height: self.view.frame.height
                 )
             },
-            completion: { complete in
-
-            }
+            completion: nil
         )
     }
 
@@ -299,9 +296,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     private func dismissBarcodeScannerViewController() {
         productToUnload = nil
 
-        dismissViewController(animated: true) {
-
-        }
+        dismissViewController(animated: true)
     }
 
 }

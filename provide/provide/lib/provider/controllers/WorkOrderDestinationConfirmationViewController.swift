@@ -79,9 +79,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                     height: frame.height
                 )
             },
-            completion: { complete in
-
-            }
+            completion: nil
         )
     }
 

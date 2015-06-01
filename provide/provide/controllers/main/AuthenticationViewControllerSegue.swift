@@ -27,9 +27,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                         navigationController?.navigationBar.alpha = 1.0
                         (self.destinationViewController as! AuthenticationViewController).view.alpha = 1.0
                     },
-                    completion: { complete in
-
-                    }
+                    completion: nil
                 )
             }
             break
@@ -49,8 +47,6 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                         navigationController?.setNavigationBarHidden(true, animated: false)
                         navigationController?.popViewControllerAnimated(false)
                         navigationController?.navigationBar.alpha = 1.0
-
-                        return
                     }
                 )
             }
