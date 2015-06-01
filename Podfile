@@ -9,6 +9,7 @@ pod 'Analytics/Segmentio', '~> 1.8.6'
 pod 'ECSlidingViewController'
 pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont.git'
 pod 'MKNetworkKit', :head
+pod 'OHHTTPStubs', '~> 4.0.2'
 pod 'Reachability'
 pod 'RestKit', '0.24.1'
 pod 'RFGravatarImageView'

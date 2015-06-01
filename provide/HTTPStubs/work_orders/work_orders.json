@@ -1,0 +1,75 @@
+[
+    {
+        "arrived_at": null,
+        "company_id": 2,
+        "components": [],
+        "customer": {
+            "contact": {
+                "address1": "111 Summer Dr NE",
+                "address2": null,
+                "city": "Atlanta",
+                "email": "kyle+jawwadinc@unmarkedconsulting.com",
+                "fax": null,
+                "id": 7,
+                "latitude": 33.9242439,
+                "longitude": -84.3523026,
+                "mobile": "8599673476",
+                "name": "Kyle Thomas",
+                "phone": null,
+                "state": "GA",
+                "time_zone_id": "Eastern Time (US & Canada)",
+                "zip": "30328"
+            },
+            "display_name": "Kyle Thomas",
+            "id": 3,
+            "name": "Kyle Thomas",
+            "profile_image_url": null
+        },
+        "customer_id": 3,
+        "description": "This is a new work order being created by admin: jawwad@provide.services and will be sent to provider: Joe Driver to deliver a mattress to the customer Kyle Thomas",
+        "duration": null,
+        "ended_at": null,
+        "estimated_duration": 300,
+        "id": 42,
+        "items_delivered": [],
+        "items_ordered": [],
+        "provider_rating": null,
+        "scheduled_start_at": "2015-05-31T22:00:00-04:00",
+        "started_at": null,
+        "status": "scheduled",
+        "work_order_providers": [
+            {
+                "id": 42,
+                "provider": {
+                    "contact": {
+                        "address1": "123 Elm St",
+                        "address2": null,
+                        "city": "Atlanta",
+                        "email": null,
+                        "fax": null,
+                        "id": 8,
+                        "latitude": 34.1002197,
+                        "longitude": -84.5244827,
+                        "mobile": null,
+                        "name": "Joe Driver",
+                        "phone": null,
+                        "state": "GA",
+                        "time_zone_id": "Eastern Time (US & Canada)",
+                        "zip": "30328"
+                    },
+                    "id": 3,
+                    "last_checkin": {
+                        "checkin_at": "2015-06-01T00:46:47Z",
+                        "latitude": 33.9253024,
+                        "locatable_id": 5,
+                        "locatable_type": "user",
+                        "longitude": -84.3857442,
+                        "reason": null
+                    },
+                    "profile_image_url": null,
+                    "user_id": 5
+                }
+            }
+        ]
+    }
+]

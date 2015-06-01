@@ -14,6 +14,7 @@
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <MKNetworkKit/MKNetworkKit.h>
+#import <OHHTTPStubs/OHHTTPStubs.h>
 #import <RestKit/RestKit.h>
 #import <RFGravatarImageView/RFGravatarImageView.h>
 #import <SWTableViewCell/SWTableViewCell.h>

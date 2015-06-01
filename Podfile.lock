@@ -13,6 +13,7 @@ PODS:
   - KIF/XCTest (3.0.8)
   - MKNetworkKit (HEAD based on 0.87):
     - Reachability (~> 3.1.0)
+  - OHHTTPStubs (4.0.2)
   - Reachability (3.1.1)
   - RestKit (0.24.1):
     - RestKit/Core (= 0.24.1)
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
   - KIF (~> 3.0.8)
   - MKNetworkKit (HEAD)
+  - OHHTTPStubs (~> 4.0.2)
   - Reachability
   - RestKit (= 0.24.1)
   - RFGravatarImageView
@@ -80,6 +82,7 @@ SPEC CHECKSUMS:
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
+  OHHTTPStubs: dbd1957d414659783e07b49c961940b7564c23d9
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
