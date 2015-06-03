@@ -19,8 +19,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)
 
-        let user = KeyChainService.sharedService().token!.user
-        if user.profileImageUrl == nil {
+        if currentUser().profileImageUrl == nil {
             initSelfieViewController()
         }
     }
@@ -30,7 +29,6 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
     func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!) {
         navigationController?.popViewControllerAnimated(false)
 
-        let user = KeyChainService.sharedService().token!.user
         let data = UIImageJPEGRepresentation(image, 1.0)
 
         var params = [
@@ -40,7 +38,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
         ApiService.sharedService().addAttachment(data,
             withMimeType: "image/jpg",
-            toUserWithId: user.id.stringValue,
+            toUserWithId: currentUser().id.stringValue,
             params: NSDictionary(dictionary: params),
             onSuccess: { statusCode, responseString in
 

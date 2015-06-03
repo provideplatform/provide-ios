@@ -104,8 +104,7 @@ class ApiService: NSObject {
     // MARK: User API
 
     func fetchUser(#onSuccess: OnSuccess, onError: OnError) {
-        let token = KeyChainService.sharedService().token!
-        dispatchApiOperationForPath("users/\(token.userId)", method: .GET, params: [:],
+        dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let user = mappingResult.firstObject as! User
@@ -126,8 +125,7 @@ class ApiService: NSObject {
     }
 
     func updateUser(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        let token = KeyChainService.sharedService().token!
-        dispatchApiOperationForPath("users/\(token.userId)", method: .PUT, params: params,
+        dispatchApiOperationForPath("users/\(currentUser().id)", method: .PUT, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 204)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)

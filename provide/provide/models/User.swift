@@ -29,3 +29,10 @@ class User: Model {
     }
 
 }
+
+
+// MARK: - Functions
+
+func currentUser() -> User {
+    return KeyChainService.sharedService().token!.user
+}

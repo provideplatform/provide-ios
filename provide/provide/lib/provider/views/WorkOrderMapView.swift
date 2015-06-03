@@ -31,8 +31,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     private var userLocationImageView: UIImageView! {
         var imageView: UIImageView!
 
-        let user = KeyChainService.sharedService().token!.user
-        if let profileImageUrl = user.profileImageUrl {
+        if let profileImageUrl = currentUser().profileImageUrl {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             imageView.contentMode = .ScaleAspectFit
             imageView.alpha = 0.0
@@ -43,7 +42,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         } else {
             imageView = RFGravatarImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             imageView.alpha = 0.0
-            (imageView as! RFGravatarImageView).email = user.email
+            (imageView as! RFGravatarImageView).email = currentUser().email
             (imageView as! RFGravatarImageView).load { error in
                 imageView.makeCircular()
                 imageView.alpha = 1
@@ -174,7 +173,6 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
             )
         }
 
-        let token = KeyChainService.sharedService().token! // HACK this is temporary
         if !viewingDirections && WorkOrderService.sharedService().nextWorkOrder != nil {
             if workOrdersViewControllerDelegate != nil {
                 WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in

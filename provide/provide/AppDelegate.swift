@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        ApiService.sharedService().createDevice(["user_id": KeyChainService.sharedService().token!.userId, "apns_device_id": "\(deviceToken)"],
+        ApiService.sharedService().createDevice(["user_id": currentUser().id, "apns_device_id": "\(deviceToken)"],
             onSuccess: { statusCode, responseString in
                 AnalyticsService.sharedService().track("App Registered For Remote Notifications")
             },
