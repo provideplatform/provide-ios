@@ -38,6 +38,19 @@ extension UIView {
         layer.shadowPath = UIBezierPath(rect:layer.bounds).CGPath
     }
 
+    func addGradient(startColor: UIColor, endColor: UIColor, horizontal: Bool = false) {
+        var gradient = CAGradientLayer()
+        gradient.frame = bounds
+        gradient.colors = [startColor.CGColor, endColor.CGColor]
+
+        if horizontal {
+            gradient.startPoint = CGPointMake(0.0, 0.5)
+            gradient.endPoint = CGPointMake(1.0, 0.5)
+        }
+
+        layer.insertSublayer(gradient, atIndex: 0)
+    }
+
     func makeCircular() {
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
