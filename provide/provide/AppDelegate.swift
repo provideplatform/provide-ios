@@ -71,45 +71,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(NSDate().timeIntervalSince1970)"])
 
         if ApiService.hasCachedToken() {
-            if let checkin = userInfo["checkin"] as? Bool {
-                if checkin {
-                    LocationService.sharedService().resolveCurrentLocation { location in
-                        ApiService.sharedService().checkin(location)
-                        LocationService.sharedService().background()
-                    }
-                }
-            }
-
-            if let workOrderId = userInfo["work_order_id"] as? NSNumber {
-                if let providerRemoved = userInfo["provider_removed"] as? Bool {
-                    if providerRemoved {
-                        log("provider removed from work order id \(workOrderId)")
-                    }
-                } else {
-                    if WorkOrderService.sharedService().inProgressWorkOrder != nil {
-                        if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId.integerValue {
-                            ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue,
-                                onSuccess: { statusCode, mappingResult in
-                                    if let wo = mappingResult.firstObject as? WorkOrder {
-                                        if wo.status == "canceled" {
-                                            LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-                                        }
-                                    }
-                                },
-                                onError: { error, statusCode, responseString in
-
-                                }
-                            )
-                        }
-                    } else {
-                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-                    }
-                }
-            }
+            handleRemoteNotification(userInfo as! [String: AnyObject])
         }
 
         completionHandler(.NewData)
+    }
+
+    func handleRemoteNotification(userInfo: [String: AnyObject]) {
+        let (notificationType, notificationValue: AnyObject) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
+
+        switch notificationType {
+        case .CheckIn:
+            let checkin = notificationValue as! Bool
+            if checkin {
+                LocationService.sharedService().resolveCurrentLocation { location in
+                    ApiService.sharedService().checkin(location)
+                    LocationService.sharedService().background()
+                }
+            }
+        case .WorkOrder:
+            let workOrderId = notificationValue as! NSNumber
+            if let providerRemoved = userInfo["provider_removed"] as? Bool {
+                if providerRemoved {
+                    log("provider removed from work order id \(workOrderId)")
+                }
+            } else {
+                if WorkOrderService.sharedService().inProgressWorkOrder != nil {
+                    if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId.integerValue {
+                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue,
+                            onSuccess: { statusCode, mappingResult in
+                                if let wo = mappingResult.firstObject as? WorkOrder {
+                                    if wo.status == "canceled" {
+                                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                    }
+                                }
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    }
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                }
+            }
+        }
     }
 
     func applicationWillTerminate(application: UIApplication) {
