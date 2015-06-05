@@ -8,6 +8,7 @@ xcodeproj 'provide/provide.xcodeproj'
 pod 'Analytics/Segmentio', '~> 1.8.6'
 pod 'ECSlidingViewController'
 pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont.git'
+pod 'JSQMessagesViewController', '~> 7.1.0'
 pod 'MKNetworkKit', :head
 pod 'OHHTTPStubs', '~> 4.0.2'
 pod 'Reachability'

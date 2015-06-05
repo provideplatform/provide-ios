@@ -8,6 +8,9 @@ PODS:
   - ELFixSecureTextFieldFont (0.1.0)
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
+  - JSQMessagesViewController (7.1.0):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
   - KIF (3.0.8):
     - KIF/XCTest (= 3.0.8)
   - KIF/XCTest (3.0.8)
@@ -50,6 +53,7 @@ DEPENDENCIES:
   - Analytics/Segmentio (~> 1.8.6)
   - ECSlidingViewController
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
+  - JSQMessagesViewController (~> 7.1.0)
   - KIF (~> 3.0.8)
   - MKNetworkKit (HEAD)
   - OHHTTPStubs (~> 4.0.2)
@@ -80,6 +84,8 @@ SPEC CHECKSUMS:
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
+  JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   KIF: 3c2cb8e66fb216f9c3abcd714699411f0256f767
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
   OHHTTPStubs: dbd1957d414659783e07b49c961940b7564c23d9
