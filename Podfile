@@ -19,5 +19,5 @@ pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell.git'
 pod 'UICKeyChainStore'
 
 target 'provideKIFTests', :exclusive => true do
-  pod 'KIF', '~> 3.0.8'
+  pod 'KIF', '~> 3.2.3'
 end
