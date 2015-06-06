@@ -29,7 +29,8 @@ class ApiService: NSObject {
         "routes": Route.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
-        "users": User.mapping()
+        "users": User.mapping(),
+        "messages": Message.mapping(),
     ]
 
     private var headers = [String : String]()
@@ -335,6 +336,12 @@ class ApiService: NSObject {
             },
             onError: onError
         )
+    }
+
+    // MARK: - Messages API
+
+    func fetchMessages(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("messages", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: S3

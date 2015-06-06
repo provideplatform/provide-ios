@@ -1,0 +1,162 @@
+[
+    {
+        "body": "Hey Joe, its Don, just got a message from the customer, they are not gonna be home so want you to take the next delivery",
+        "created_at": "2015-05-30T12:01:00Z",
+        "id": 1,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "Hey Don, no problem, send me the new route and I'll be on my way",
+        "created_at": "2015-05-30T12:02:00Z",
+        "id": 2,
+        "recipient_id": 1,
+        "recipient_name": "Don Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "Coming right up Joe, let me just double check something",
+        "created_at": "2015-05-30T12:03:00Z",
+        "id": 3,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "No prob Bob, haha, I mean Don. I'll pull over at Micky D's here. I'm hungry!",
+        "created_at": "2015-05-30T12:04:00Z",
+        "id": 4,
+        "recipient_id": 1,
+        "recipient_name": "Don Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "Just sent you the new info Joe. Want you to delivery to Mr Whale at 225 Baker St NW, Atlanta, GA 30313. His number is (404) 581-4000.",
+        "created_at": "2015-05-30T12:05:00Z",
+        "id": 5,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "Roger that",
+        "created_at": "2015-05-30T12:06:00Z",
+        "id": 6,
+        "recipient_id": 1,
+        "recipient_name": "Don Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "Over and out",
+        "created_at": "2015-05-30T12:07:00Z",
+        "id": 7,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "Catch ya later",
+        "created_at": "2015-05-30T12:08:00Z",
+        "id": 8,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "Later aligator",
+        "created_at": "2015-05-30T12:09:00Z",
+        "id": 9,
+        "recipient_id": 1,
+        "recipient_name": "Don Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "After a while, crocodile!",
+        "created_at": "2015-05-30T12:10:00Z",
+        "id": 10,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 1,
+        "sender_name": "Don Dispatcher",
+        "sender_profile_image_url": "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg"
+    },
+    {
+        "body": "Hey Joe! This is Jim Dispatcher taking over for Don.",
+        "created_at": "2015-05-30T12:11:00Z",
+        "id": 11,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 3,
+        "sender_name": "Jim Dispatcher",
+        "sender_profile_image_url": null
+    },
+    {
+        "body": "Hi Jim!",
+        "created_at": "2015-05-30T12:12:00Z",
+        "id": 12,
+        "recipient_id": 3,
+        "recipient_name": "Jim Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "I'm just about finished for the day, just one more delivery to go",
+        "created_at": "2015-05-30T12:13:00Z",
+        "id": 13,
+        "recipient_id": 3,
+        "recipient_name": "Jim Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    },
+    {
+        "body": "Great news!",
+        "created_at": "2015-05-30T12:14:00Z",
+        "id": 14,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 3,
+        "sender_name": "Jim Dispatcher",
+        "sender_profile_image_url": null
+    },
+    {
+        "body": "We appreciate all the hard work you've been putting in Joe. Have a great day!",
+        "created_at": "2015-05-30T12:15:00Z",
+        "id": 15,
+        "recipient_id": 2,
+        "recipient_name": "Joe Driver",
+        "sender_id": 3,
+        "sender_name": "Jim Dispatcher",
+        "sender_profile_image_url": null
+    },
+    {
+        "body": "Thanks JD, and same to you. Goodbye. This is the end of our conversation.",
+        "created_at": "2015-05-30T12:13:00Z",
+        "id": 16,
+        "recipient_id": 3,
+        "recipient_name": "Jim Dispatcher",
+        "sender_id": 2,
+        "sender_name": "Joe Driver",
+        "sender_profile_image_url": "http://www.maiedge.com/maiedge-site/wp-content/uploads/2013/06/truck-icon.png"
+    }
+]
