@@ -31,11 +31,15 @@ class Model: NSObject, Printable {
         let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String: AnyObject]
 
         for (key, var value) in dictionary {
-            let camelCaseKey = key.snakeCaseToCamelCaseString()
+            var camelCaseKey = key.snakeCaseToCamelCaseString()
             if value is NSDictionary {
                 let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as! RKRelationshipMapping
                 let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
                 value = clazz(string: (value as! NSDictionary).toJSON())
+            }
+
+            if camelCaseKey == "senderId" {
+                camelCaseKey = "senderID" // HACK to accommodate creating a Message object
             }
 
             setValue(value, forKey: camelCaseKey)

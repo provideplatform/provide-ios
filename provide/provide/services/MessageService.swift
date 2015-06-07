@@ -10,9 +10,13 @@ import Foundation
 
 typealias OnMessagesFetched = (messages: [Message]) -> ()
 
-class MessageService: NSObject {
+class MessageService {
 
     private var messages = [Message]()
+
+    private init() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNewMessageReceived:", name: "NewMessageReceivedNotification")
+    }
 
     private static let sharedInstance = MessageService()
 
@@ -31,6 +35,11 @@ class MessageService: NSObject {
             },
             onError: onError
         )
+    }
+
+    @objc private func handleNewMessageReceived(notification: NSNotification) {
+        let message = notification.object as! Message
+        messages.append(message)
     }
 
 }

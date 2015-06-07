@@ -89,6 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     LocationService.sharedService().background()
                 }
             }
+        case .Message:
+            let message = Message(string: (notificationValue as! NSDictionary).toJSON())
+            NSNotificationCenter.defaultCenter().postNotificationName("NewMessageReceivedNotification", object: message)
         case .WorkOrder:
             let workOrderId = notificationValue as! NSNumber
             if let providerRemoved = userInfo["provider_removed"] as? Bool {
