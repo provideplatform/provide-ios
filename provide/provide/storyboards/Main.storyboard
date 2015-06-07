@@ -63,19 +63,20 @@
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="4dX-yg-MPa">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="4dX-yg-MPa">
                                 <rect key="frame" x="153" y="100" width="294" height="146"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="294" id="Xsk-I2-Gpu"/>
+                                    <constraint firstAttribute="width" constant="294" id="GjK-ww-vAH"/>
+                                    <constraint firstAttribute="height" constant="146" id="YGl-2y-oEA"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="4dX-yg-MPa" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" id="9RK-46-I8A"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="634" id="AzN-je-Z1P"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="Es4-5f-YDi"/>
-                            <constraint firstItem="4dX-yg-MPa" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="80" id="KT5-ah-lIE"/>
-                            <constraint firstItem="4dX-yg-MPa" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" id="ZTw-SI-ird"/>
+                            <constraint firstItem="4dX-yg-MPa" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="80" id="cvF-cw-YrV"/>
                             <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" symbolic="YES" id="jyT-wL-GlT"/>
                         </constraints>
                         <variation key="default">
@@ -736,7 +737,7 @@
     </scenes>
     <resources>
         <image name="hamburger" width="20" height="20"/>
-        <image name="provide_logo_transparent" width="503" height="146"/>
+        <image name="home-logo" width="383" height="315"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pyb-Ej-lW7"/>

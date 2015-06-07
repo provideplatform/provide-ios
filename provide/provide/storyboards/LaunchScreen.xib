@@ -31,20 +31,21 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide_logo_transparent" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-aO-sEQ">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-aO-sEQ">
                         <rect key="frame" x="153" y="100" width="294" height="146"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="294" id="vDI-aM-Ecz"/>
+                            <constraint firstAttribute="width" constant="294" id="abG-jz-0tQ"/>
+                            <constraint firstAttribute="height" constant="146" id="jK8-BW-FxU"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.14901960784313725" green="0.17647058823529413" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="ppB-XT-PCv" secondAttribute="centerX" id="GIg-rs-Mxt"/>
                     <constraint firstItem="ppB-XT-PCv" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="634" id="IuW-Ge-8Fr"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="80" id="M2b-Et-ees"/>
                     <constraint firstItem="ppB-XT-PCv" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="OqL-G1-fFb"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="ppB-XT-PCv" secondAttribute="centerX" id="WVv-yV-aiV"/>
                     <constraint firstAttribute="bottom" secondItem="ppB-XT-PCv" secondAttribute="bottom" constant="20" symbolic="YES" id="da0-IN-hdx"/>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="80" id="fjD-W3-LFT"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -63,6 +64,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="provide_logo_transparent" width="503" height="146"/>
+        <image name="home-logo" width="383" height="315"/>
     </resources>
 </document>
