@@ -9,6 +9,7 @@
 import Foundation
 
 typealias OnMessagesFetched = (messages: [Message]) -> ()
+typealias OnMessageCreated = Message -> Void
 
 class MessageService {
 
@@ -32,6 +33,17 @@ class MessageService {
                 let fetchedMessages = mappingResult.array() as! [Message]
                 self.messages += fetchedMessages
                 onMessagesFetched(messages: fetchedMessages)
+            },
+            onError: onError
+        )
+    }
+
+    func createMessage(text: String, recipientId: Int, onMessageCreated: OnMessageCreated, onError: OnError) {
+        ApiService.sharedService().createMessage(["body": text, "recipient_id": recipientId],
+            onSuccess: { statusCode, mappingResult in
+                let message = mappingResult.firstObject as! Message
+                self.messages.append(message)
+                onMessageCreated(message)
             },
             onError: onError
         )
