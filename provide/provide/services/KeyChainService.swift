@@ -45,10 +45,14 @@ class KeyChainService {
         }
     }
 
+    private var _cachedToken: Token?
     var token: Token? {
         get {
-            if let tokenJsonString = self["token"] {
-                return Token(string: tokenJsonString)
+            if let token = _cachedToken {
+                return token
+            } else if let tokenJsonString = self["token"] {
+                _cachedToken = Token(string: tokenJsonString)
+                return _cachedToken
             } else {
                 return nil
             }
@@ -59,6 +63,7 @@ class KeyChainService {
     }
 
     func clearStoredUserData() {
+        _cachedToken = nil
         if CurrentBuildConfig != .Debug {
             uicStore.removeAllItems()
         } else {
