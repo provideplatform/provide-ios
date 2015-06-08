@@ -13,6 +13,7 @@
 #import <ECSlidingViewController/ECSlidingSegue.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
+#import <FontAwesomeKit/FontAwesomeKit.h>
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <MKNetworkKit/MKNetworkKit.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>

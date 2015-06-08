@@ -6,6 +6,21 @@ PODS:
     - Analytics/Core-iOS
   - ECSlidingViewController (2.0.3)
   - ELFixSecureTextFieldFont (0.1.0)
+  - FontAwesomeKit (2.1.8):
+    - FontAwesomeKit/Core (= 2.1.8)
+    - FontAwesomeKit/FontAwesome (= 2.1.8)
+    - FontAwesomeKit/FoundationIcons (= 2.1.8)
+    - FontAwesomeKit/IonIcons (= 2.1.8)
+    - FontAwesomeKit/Zocial (= 2.1.8)
+  - FontAwesomeKit/Core (2.1.8)
+  - FontAwesomeKit/FontAwesome (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/FoundationIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/IonIcons (2.1.8):
+    - FontAwesomeKit/Core
+  - FontAwesomeKit/Zocial (2.1.8):
+    - FontAwesomeKit/Core
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
   - JSQMessagesViewController (7.1.0):
@@ -53,6 +68,7 @@ DEPENDENCIES:
   - Analytics/Segmentio (~> 1.8.6)
   - ECSlidingViewController
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
+  - FontAwesomeKit (~> 2.1.0)
   - JSQMessagesViewController (~> 7.1.0)
   - KIF (~> 3.2.3)
   - MKNetworkKit (HEAD)
@@ -83,6 +99,7 @@ SPEC CHECKSUMS:
   Analytics: 4e0d4e619bab9d7226f636c8f4f6621b6f3ff003
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
+  FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
