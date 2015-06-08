@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class MessagesViewController: JSQMessagesViewController {
 
     private var messages = [Message]()
@@ -16,7 +15,12 @@ class MessagesViewController: JSQMessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Messages"
+        if let navigationController = navigationController {
+            navigationController.navigationBar.setBackgroundImage(UIImage("navbar-background"), forBarMetrics: .Default)
+            navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
+        }
+
+        title = "MESSAGES"
 
         // Must set senderId and senderDisplayName
         senderId = currentUser().id.stringValue
