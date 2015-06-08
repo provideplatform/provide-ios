@@ -14,6 +14,8 @@ class KeyChainService {
 
     private static let sharedInstance = KeyChainService()
 
+    private var cachedToken: Token?
+
     class func sharedService() -> KeyChainService {
         return sharedInstance
     }
@@ -45,14 +47,13 @@ class KeyChainService {
         }
     }
 
-    private var _cachedToken: Token?
     var token: Token? {
         get {
-            if let token = _cachedToken {
+            if let token = cachedToken {
                 return token
             } else if let tokenJsonString = self["token"] {
-                _cachedToken = Token(string: tokenJsonString)
-                return _cachedToken
+                cachedToken = Token(string: tokenJsonString)
+                return cachedToken
             } else {
                 return nil
             }
@@ -63,7 +64,8 @@ class KeyChainService {
     }
 
     func clearStoredUserData() {
-        _cachedToken = nil
+        cachedToken = nil
+
         if CurrentBuildConfig != .Debug {
             uicStore.removeAllItems()
         } else {
