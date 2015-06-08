@@ -106,6 +106,13 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                 }
             }
         }
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "messageButtonTapped:")
+    }
+
+    @objc private func messageButtonTapped(sender: UIBarButtonItem) {
+        let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
+        presentViewController(messagesNavCon!, animated: true)
     }
 
     // MARK: Route segue state interrogation
