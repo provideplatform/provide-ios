@@ -153,3 +153,11 @@ func classNameForObject(object: AnyObject) -> String {
         return objectName.componentsSeparatedByString(".").last!
     }
 }
+
+func decodeJSON(data: NSData) -> [String: AnyObject]? {
+    return NSJSONSerialization.JSONObjectWithData(data, options: .allZeros, error: nil) as? [String: AnyObject]
+}
+
+func encodeJSON(input: [String: AnyObject], options: NSJSONWritingOptions = .allZeros) -> NSData? {
+    return NSJSONSerialization.dataWithJSONObject(input, options: options, error: nil)
+}
