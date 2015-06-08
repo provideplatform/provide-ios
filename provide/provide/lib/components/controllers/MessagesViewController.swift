@@ -18,6 +18,10 @@ class MessagesViewController: JSQMessagesViewController {
         if let navigationController = navigationController {
             navigationController.navigationBar.setBackgroundImage(UIImage("navbar-background"), forBarMetrics: .Default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
+
+            var dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
+            dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            navigationItem.leftBarButtonItem = dismissItem
         }
 
         title = "MESSAGES"
@@ -51,7 +55,7 @@ class MessagesViewController: JSQMessagesViewController {
         )
     }
 
-    @IBAction private func doneButtonTapped(sender: UIBarButtonItem) {
+    func dismiss() {
         dismissViewController(animated: true)
     }
 
