@@ -107,7 +107,11 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             }
         }
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "messageButtonTapped:")
+        var messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        var messagesBarButtonItem = UIBarButtonItem(image: messageIconImage, style: .Plain, target: self, action: "messageButtonTapped:")
+        messagesBarButtonItem.tintColor = UIColor.whiteColor()
+
+        navigationItem.rightBarButtonItem = messagesBarButtonItem
     }
 
     @objc private func messageButtonTapped(sender: UIBarButtonItem) {
