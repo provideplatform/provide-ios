@@ -23,6 +23,7 @@ class Route: Model {
         mapping.addAttributeMappingsFromDictionary([
             "status": "status"
             ])
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
     }
