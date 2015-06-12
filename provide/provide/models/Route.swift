@@ -16,13 +16,15 @@ class Route: Model {
     var workOrders: NSArray!
     var itemsLoaded: NSArray!
     var incompleteManifest: NSNumber!
-    var currentLegIndex: Int!
+    var currentLegIndex = 0
 
     override class func mapping() -> RKObjectMapping {
         var mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
-            "status": "status"
+            "status": "status",
+            "id": "id",
             ])
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
@@ -50,10 +52,6 @@ class Route: Model {
         var leg: RouteLeg!
         if let legs = legs {
             if legs.count > 0 {
-                if currentLegIndex == nil {
-                    currentLegIndex = 0
-                }
-
                 leg = legs[currentLegIndex] as! RouteLeg
             }
         }
