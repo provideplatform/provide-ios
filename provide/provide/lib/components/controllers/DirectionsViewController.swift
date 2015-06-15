@@ -140,7 +140,7 @@ class DirectionsViewController: ViewController {
                             mapView.setCenterCoordinate(location.coordinate,
                                 fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                                 eyeAltitude: cameraAltitude,
-                                heading: -1, // 360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
+                                //heading: -1, // 360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
                                 pitch: cameraPitch,
                                 animated: false)
                         }
@@ -183,7 +183,7 @@ class DirectionsViewController: ViewController {
                 mapView.setCenterCoordinate(location.coordinate,
                     fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                     eyeAltitude: cameraAltitude,
-                    heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
+                    //heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
                     pitch: cameraPitch,
                     animated: false)
             }
