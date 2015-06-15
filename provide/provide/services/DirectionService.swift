@@ -15,7 +15,16 @@ class DirectionService: NSObject {
 
     private var canSendDirectionsApiRequest: Bool {
         if let lastRequestDate = lastDirectionsApiRequestDate {
-            if abs(lastDirectionsApiRequestDate.timeIntervalSinceNow) >= 1.0 {
+            var sufficientDelta = false
+            if let currentLocation = LocationService.sharedService().currentLocation {
+                if let lastDirectionsApiRequestCoordinate = lastDirectionsApiRequestCoordinate {
+                    var region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 10.0, identifier: "sufficientDeltaRegionMonitor")
+                    sufficientDelta = !region.containsCoordinate(currentLocation.coordinate)
+                } else {
+                    sufficientDelta = true
+                }
+            }
+            if abs(lastDirectionsApiRequestDate.timeIntervalSinceNow) >= 1.0 && sufficientDelta {
                 return true
             }
         } else {
@@ -34,6 +43,8 @@ class DirectionService: NSObject {
         }
         return false
     }
+
+    private var lastDirectionsApiRequestCoordinate: CLLocationCoordinate2D!
 
     private var lastDirectionsApiRequestDate: NSDate!
     private var lastEtaApiRequestDate: NSDate!
@@ -65,6 +76,7 @@ class DirectionService: NSObject {
     func fetchDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: OnDrivingDirectionsFetched) {
         if canSendDirectionsApiRequest {
             lastDirectionsApiRequestDate = NSDate()
+            lastDirectionsApiRequestCoordinate = coordinate
             ApiService.sharedService().getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate,
                 onSuccess: { statusCode, mappingResult in
                     if let directions = mappingResult.firstObject as? Directions {
