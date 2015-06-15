@@ -455,7 +455,13 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
 
     func workOrderDeliveryConfirmedForViewController(viewController: ViewController!) {
         nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+        if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            inProgressWorkOrder.components = NSMutableArray(array: inProgressWorkOrder.components)
+            if inProgressWorkOrder.components.count > 0 {
+                inProgressWorkOrder.components.removeObjectAtIndex(0)
+            }
+        }
+
         attemptSegueToValidWorkOrderContext()
     }
 
