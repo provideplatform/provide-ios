@@ -222,7 +222,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private func processCode(metadataObject: AVMetadataMachineReadableCodeObject!) {
         if let code = metadataObject {
-            if code.type == "org.gs1.EAN-13" {
+            if code.type == AVMetadataObjectTypeEAN13Code || code.type == AVMetadataObjectTypeCode39Code {
                 let value = code.stringValue
 
                 if route.isGtinRequired(value) {

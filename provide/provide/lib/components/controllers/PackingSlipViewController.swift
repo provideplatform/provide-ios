@@ -239,7 +239,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     private func processCode(metadataObject: AVMetadataMachineReadableCodeObject!) {
         if let code = metadataObject {
-            if code.type == "org.gs1.EAN-13" {
+            if code.type == AVMetadataObjectTypeEAN13Code || code.type == AVMetadataObjectTypeCode39Code {
                 unloadItem(code.stringValue)
             }
         }
