@@ -3,11 +3,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Exo2-Light.ttf">
-            <string>Exo2-Light</string>
-        </mutableArray>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,44 +15,19 @@
                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppB-XT-PCv">
-                        <rect key="frame" x="248" y="544" width="105" height="36"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="36" id="cUn-6x-qjC"/>
-                            <constraint firstAttribute="width" constant="105" id="ykx-m6-qyH"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
-                        <state key="normal" title="SIGN IN">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-aO-sEQ">
                         <rect key="frame" x="153" y="100" width="294" height="146"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="294" id="abG-jz-0tQ"/>
-                            <constraint firstAttribute="height" constant="146" id="jK8-BW-FxU"/>
+                            <constraint firstAttribute="width" constant="294" id="mJT-lF-SCR"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.14901960784313725" green="0.17647058823529413" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="ppB-XT-PCv" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="634" id="IuW-Ge-8Fr"/>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="80" id="M2b-Et-ees"/>
-                    <constraint firstItem="ppB-XT-PCv" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="OqL-G1-fFb"/>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="ppB-XT-PCv" secondAttribute="centerX" id="WVv-yV-aiV"/>
-                    <constraint firstAttribute="bottom" secondItem="ppB-XT-PCv" secondAttribute="bottom" constant="20" symbolic="YES" id="da0-IN-hdx"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="GIn-xa-01U"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="80" id="K9m-9K-95i"/>
+                    <constraint firstItem="9aV-y1-lTs" firstAttribute="top" secondItem="8Rd-aO-sEQ" secondAttribute="bottom" constant="354" id="lFp-DQ-WOb"/>
                 </constraints>
-                <variation key="default">
-                    <mask key="constraints">
-                        <exclude reference="IuW-Ge-8Fr"/>
-                    </mask>
-                </variation>
-                <variation key="heightClass=regular-widthClass=regular">
-                    <mask key="constraints">
-                        <include reference="IuW-Ge-8Fr"/>
-                        <exclude reference="da0-IN-hdx"/>
-                    </mask>
-                </variation>
             </view>
             <navigationItem key="navigationItem" id="LFV-Kh-15L"/>
             <point key="canvasLocation" x="-53" y="-486"/>
