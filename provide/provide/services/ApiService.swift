@@ -417,7 +417,7 @@ class ApiService: NSObject {
                         var newValue = NSMutableArray()
                         for item in (value as! NSArray) {
                             if item.isKindOfClass(Model) {
-                                newValue.addObject((item as! Model).toDictionary())
+                                //newValue.addObject((item as! Model).toDictionary())
                             } else {
                                 newValue.addObject(item)
                             }
