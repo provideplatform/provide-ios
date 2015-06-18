@@ -29,7 +29,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     private var userLocationImageView: UIImageView! {
-        var imageView: UIImageView!
+        let imageView: UIImageView!
 
         if let profileImageUrl = currentUser().profileImageUrl {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -77,7 +77,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     override func removeAnnotations() {
-        var annotations = NSMutableArray(array: self.annotations)
+        let annotations = NSMutableArray(array: self.annotations)
         if let location = userLocation {
             annotations.removeObject(mapView(self, viewForAnnotation: userLocation))
         }

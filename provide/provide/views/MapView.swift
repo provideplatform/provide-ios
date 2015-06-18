@@ -11,7 +11,7 @@ import Foundation
 class MapView: MKMapView, MKMapViewDelegate {
 
     var defaultAnnotationViewReuseIdentifier = "defaultAnnotationViewReuseIdentifier"
-    var userLocationAnnotationViewReuseIdentifier = "userLocationAnnotationViewReuseIdentifier"
+    let userLocationAnnotationViewReuseIdentifier = "userLocationAnnotationViewReuseIdentifier"
 
     var requireUserLocationBeforeRevealing = false
 
@@ -29,7 +29,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func removeAnnotations() {
-        var annotations = NSMutableArray(array: self.annotations)
+        let annotations = NSMutableArray(array: self.annotations)
         if let location = userLocation {
             annotations.removeObject(location)
         }

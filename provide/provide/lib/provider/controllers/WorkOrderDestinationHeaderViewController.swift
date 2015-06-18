@@ -29,7 +29,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    private var rendered = false
+    private let rendered = false
 
     @IBOutlet private weak var titleImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!

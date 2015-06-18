@@ -38,7 +38,7 @@ class MessageServiceTests: XCTestCase {
     func testFetch() {
         let expectation = expectationWithDescription("GET messages")
 
-        var fetchedMessages = [Message]()
+        let fetchedMessages = [Message]()
         MessageService.sharedService().fetch(
             onMessagesFetched: { messages in
                 fetchedMessages = messages

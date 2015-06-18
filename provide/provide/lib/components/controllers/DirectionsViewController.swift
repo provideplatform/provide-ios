@@ -127,8 +127,8 @@ class DirectionsViewController: ViewController {
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(durableKey: self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
-                    var cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
-                    var cameraAltitude: Double = self.defaultMapCameraAltitude
+                    let cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
+                    let cameraAltitude: Double = self.defaultMapCameraAltitude
 
                     // var cameraHeading: Double = 0.0
                     // if let heading = LocationService.sharedService().currentHeading {
@@ -288,7 +288,7 @@ class DirectionsViewController: ViewController {
 //                if let route = directions.selectedRoute() {
 //                    if let leg = route.currentLeg {
 //                        println("steps \(leg.steps)")
-//                        var title = leg.steps[0].htmlInstructions
+//                        let title = leg.steps[0].htmlInstructions
 //                        println("title \(title)")
 //                        navigationItem.title = title
 //                    }

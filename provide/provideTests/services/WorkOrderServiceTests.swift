@@ -38,7 +38,7 @@ class WorkOrderServiceTests: XCTestCase {
     func testFetch() {
         let expectation = expectationWithDescription("GET work_orders")
 
-        var fetchedWorkOrders = [WorkOrder]()
+        let fetchedWorkOrders = [WorkOrder]()
         WorkOrderService.sharedService().fetch { workOrders in
             fetchedWorkOrders = workOrders
             expectation.fulfill()

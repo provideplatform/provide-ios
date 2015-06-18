@@ -113,7 +113,7 @@ class ApiService: NSObject {
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in
-                var errorMessage: String
+                let errorMessage: String
                 switch statusCode {
                 case 401: errorMessage = "Authorization revoked"
                 case 403: errorMessage = "Forbidden"

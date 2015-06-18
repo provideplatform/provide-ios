@@ -50,11 +50,11 @@ class Model: NSObject, Printable {
         var dictionary = [String : AnyObject]()
 
         var count: UInt32 = 0
-        var ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
+        let ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
 
         for i in 0..<count {
             var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
-            var value: AnyObject! = valueForKey(key)
+            let value: AnyObject! = valueForKey(key)
             key = snakeKeys ? key.snakeCaseString() : key
             dictionary[key] = value != nil && value is Model ? (value as! Model).toDictionary(snakeKeys: snakeKeys) : value
         }

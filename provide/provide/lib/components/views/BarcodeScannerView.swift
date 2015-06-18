@@ -29,7 +29,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     @IBOutlet private weak var rectOfInterestView: UIView!
 
     private var capturePreviewLayer = AVCaptureVideoPreviewLayer()
-    private var codeDetectionLayer = CALayer()
+    private let codeDetectionLayer = CALayer()
 
     override func awakeFromNib() {
         super.awakeFromNib()

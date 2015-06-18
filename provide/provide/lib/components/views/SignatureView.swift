@@ -21,7 +21,7 @@ class SignatureView: UIView {
 
     @IBOutlet private weak var doneButton: UIButton!
 
-    private var minTouchesRequired = 20
+    private let minTouchesRequired = 20
     private var path: UIBezierPath!
     private var writing = false
     private var touches = 0
@@ -102,7 +102,7 @@ class SignatureView: UIView {
     }
 
     func image() -> UIImage! {
-        var img: UIImage!
+        let img: UIImage!
 
         let imageSize = bounds.size
 

@@ -11,7 +11,7 @@ import Foundation
 class OHHTTPStubsHelper {
 
 
-    static var iso8601DateFormatter: NSDateFormatter = {
+    static let iso8601DateFormatter: NSDateFormatter = {
         let dateFormatter = NSDateFormatter(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
         dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
         return dateFormatter

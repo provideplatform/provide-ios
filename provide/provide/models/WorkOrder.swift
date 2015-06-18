@@ -280,7 +280,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func updateDeliveredItems(#onSuccess: OnSuccess, onError: OnError) {
-        var params = [
+        let params = [
             "gtins_delivered": gtinsDelivered
         ]
 
