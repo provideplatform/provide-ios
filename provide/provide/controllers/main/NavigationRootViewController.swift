@@ -37,7 +37,6 @@ class NavigationRootViewController: ViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "AuthenticationViewControllerSegue":
-            assert(segue.sourceViewController is UIViewController)
             assert(segue.destinationViewController is AuthenticationViewController)
             break
         default:
