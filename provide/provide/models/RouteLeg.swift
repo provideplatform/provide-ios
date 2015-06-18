@@ -17,7 +17,7 @@ class RouteLeg: Model {
     var currentStepIndex: Int = 0
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "Length": "distanceInMeters",
             "TravelTime": "duration"
@@ -55,7 +55,7 @@ class RouteLeg: Model {
     }
 
     var etaMinutes: Int! {
-        var minutes = duration.doubleValue / 60.0 //duration.doubleValue / Double(steps.count - 1) / 60.0
+        let minutes = duration.doubleValue / 60.0 //duration.doubleValue / Double(steps.count - 1) / 60.0
         return Int(round(minutes))
     }
 

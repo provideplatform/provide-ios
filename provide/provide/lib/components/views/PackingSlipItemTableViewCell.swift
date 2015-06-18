@@ -49,8 +49,8 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     }
 
     private func setupUtilityButtons() {
-        var leftUtilityButtons = NSMutableArray()
-        var rightUtilityButtons = NSMutableArray()
+        let leftUtilityButtons = NSMutableArray()
+        let rightUtilityButtons = NSMutableArray()
 
         if !workOrder.canUnloadGtin(product.gtin) && workOrder.canRejectGtin(product.gtin) {
             let i = rightUtilityButtons.count

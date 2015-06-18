@@ -31,7 +31,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        var params = [
+        let params = [
             "public": false,
             "tags": ["profile_image", "default"]
         ]

@@ -114,8 +114,8 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             }
         }
 
-        var messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-        var messagesBarButtonItem = UIBarButtonItem(image: messageIconImage, style: .Plain, target: self, action: "messageButtonTapped:")
+        let messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        let messagesBarButtonItem = UIBarButtonItem(image: messageIconImage, style: .Plain, target: self, action: "messageButtonTapped:")
         messagesBarButtonItem.tintColor = UIColor.whiteColor()
 
         navigationItem.rightBarButtonItem = messagesBarButtonItem
@@ -363,7 +363,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     // MARK: WorkOrdersViewControllerDelegate
 
     func annotationsForMapView(mapView: MKMapView!, workOrder: WorkOrder!) -> [MKAnnotation]! {
-        var annotations = [MKAnnotation]()
+        let annotations = [MKAnnotation]()
 
         return annotations
     }

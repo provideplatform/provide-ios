@@ -60,7 +60,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     private var segment: Segment!
 
     private var dismissItem: UIBarButtonItem! {
-        var dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -126,7 +126,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("routeManifestTableViewCell") as! RouteManifestItemTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("routeManifestTableViewCell") as! RouteManifestItemTableViewCell
         cell.product = items[indexPath.row]
         return cell
     }

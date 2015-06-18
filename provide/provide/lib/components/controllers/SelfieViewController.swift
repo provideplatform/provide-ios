@@ -52,7 +52,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         navigationItem.title = "TAKE A SELFIE!"
         navigationItem.hidesBackButton = true
 
-        var cancelItem = UIBarButtonItem(title: "SKIP", style: .Plain, target: self, action: "dismiss")
+        let cancelItem = UIBarButtonItem(title: "SKIP", style: .Plain, target: self, action: "dismiss")
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
 
         navigationItem.leftBarButtonItems = [cancelItem]

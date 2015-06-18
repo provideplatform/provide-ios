@@ -20,7 +20,7 @@ extension NSDate {
     }
 
     class func monthNameForNumber(month: Int) -> String {
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         return (dateFormatter.monthSymbols as NSArray).objectAtIndex(month - 1) as! String
     }
 

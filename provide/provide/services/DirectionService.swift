@@ -18,7 +18,7 @@ class DirectionService: NSObject {
             var sufficientDelta = false
             if let currentLocation = LocationService.sharedService().currentLocation {
                 if let lastDirectionsApiRequestCoordinate = lastDirectionsApiRequestCoordinate {
-                    var region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 10.0, identifier: "sufficientDeltaRegionMonitor")
+                    let region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 10.0, identifier: "sufficientDeltaRegionMonitor")
                     sufficientDelta = !region.containsCoordinate(currentLocation.coordinate)
                 } else {
                     sufficientDelta = true

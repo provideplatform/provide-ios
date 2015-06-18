@@ -32,7 +32,7 @@ class WorkOrder: Model, MKAnnotation {
     var itemsUnloaded: NSMutableArray!
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "company_id": "companyId",
@@ -109,7 +109,7 @@ class WorkOrder: Model, MKAnnotation {
             itemsOnTruck.append(itemOrdered as! Product)
         }
 
-        var newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
+        let newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
 
         var gtinsUnloaded = [String]()
         for itemUnloaded in itemsUnloaded {
@@ -156,7 +156,7 @@ class WorkOrder: Model, MKAnnotation {
             itemsRejected = NSMutableArray()
         }
 
-        var newItemsRejected = NSMutableArray(array: itemsRejected)
+        let newItemsRejected = NSMutableArray(array: itemsRejected)
 
         for (i, rejectedItem) in enumerate(itemsRejected) {
             if (rejectedItem as! Product).gtin == item.gtin {
@@ -180,7 +180,7 @@ class WorkOrder: Model, MKAnnotation {
             itemsUnloaded = NSMutableArray()
         }
 
-        var newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
+        let newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
 
         for (i, unloadedItem) in enumerate(itemsUnloaded) {
             if (unloadedItem as! Product).gtin == item.gtin {

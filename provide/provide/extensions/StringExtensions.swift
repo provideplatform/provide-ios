@@ -62,7 +62,7 @@ extension String {
     }
 
     func snakeCaseToCamelCaseString() -> String {
-        var items: [String] = componentsSeparatedByString("_")
+        let items: [String] = componentsSeparatedByString("_")
         var camelCase = ""
         var isFirst = true
         for item: String in items {
@@ -109,7 +109,7 @@ extension String {
 
     func isValidForEmail() -> Bool {
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        var test = NSPredicate(format:"SELF MATCHES %@", regex)
+        let test = NSPredicate(format:"SELF MATCHES %@", regex)
         return test.evaluateWithObject(self)
     }
 

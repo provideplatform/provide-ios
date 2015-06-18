@@ -20,7 +20,7 @@ class Route: Model {
     var currentLegIndex = 0
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "status": "status",
             "id": "id",

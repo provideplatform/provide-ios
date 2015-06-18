@@ -15,7 +15,7 @@ class Directions: Model {
     var selectedRouteIndex: Int!
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "minutes": "minutes"
         ])

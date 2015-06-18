@@ -62,7 +62,7 @@ class CameraView: UIView {
                 device.unlockForConfiguration()
             }
 
-            var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error) as! AVCaptureInput
+            let input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error) as! AVCaptureInput
 
             captureSession = AVCaptureSession()
             captureSession.sessionPreset = AVCaptureSessionPresetHigh
@@ -94,7 +94,7 @@ class CameraView: UIView {
             if let window = UIApplication.sharedApplication().keyWindow {
                 UIGraphicsBeginImageContextWithOptions(window.bounds.size, false, UIScreen.mainScreen().scale)
                 window.layer.renderInContext(UIGraphicsGetCurrentContext())
-                var image = UIGraphicsGetImageFromCurrentImageContext()
+                let image = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 delegate?.cameraView(self, didCaptureStillImage: image)
             }

@@ -66,19 +66,19 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     private var segment: Segment!
 
     private var completeItem: UIBarButtonItem! {
-        var completeItem = UIBarButtonItem(title: "Complete", style: .Plain, target: self, action: "complete")
+        let completeItem = UIBarButtonItem(title: "Complete", style: .Plain, target: self, action: "complete")
         completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return completeItem
     }
 
     private var scanItem: UIBarButtonItem! {
-        var scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan")
+        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan")
         scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return scanItem
     }
 
     private var startItem: UIBarButtonItem! {
-        var startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start")
+        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start")
         startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return startItem
     }
@@ -166,7 +166,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
         ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
             onSuccess: { statusCode, responseString in
-                var itemsLoaded = NSMutableArray()
+                let itemsLoaded = NSMutableArray()
                 for product in self.route.itemsOrdered {
                     itemsLoaded.addObject(product)
                 }
@@ -252,7 +252,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("routeManifestTableViewCell") as! RouteManifestItemTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("routeManifestTableViewCell") as! RouteManifestItemTableViewCell
         cell.product = items[indexPath.row]
         return cell
     }

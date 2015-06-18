@@ -51,7 +51,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
                 device.unlockForConfiguration()
             }
 
-            var input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error) as! AVCaptureInput
+            let input = AVCaptureDeviceInput.deviceInputWithDevice(device, error: &error) as! AVCaptureInput
 
             captureSession = AVCaptureSession()
             captureSession.sessionPreset = AVCaptureSessionPresetHigh
@@ -72,7 +72,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             codeDetectionLayer.frame = rectOfInterest
             layer.insertSublayer(codeDetectionLayer, above: capturePreviewLayer)
 
-            var metadataOutput = AVCaptureMetadataOutput()
+            let metadataOutput = AVCaptureMetadataOutput()
             captureSession.addOutput(metadataOutput)
 
             metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataOutputQueue)
@@ -109,7 +109,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         for object in metadataObjects {
             if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
                 if let detectedCode = capturePreviewLayer.transformedMetadataObjectForMetadataObject(machineReadableCodeObject) as? AVMetadataMachineReadableCodeObject {
-                    var shapeLayer = CAShapeLayer()
+                    let shapeLayer = CAShapeLayer()
                     shapeLayer.strokeColor = UIColor.greenColor().CGColor
                     shapeLayer.fillColor = UIColor.clearColor().CGColor
                     shapeLayer.lineWidth = 2.0
@@ -122,7 +122,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     private func createPathForPoints(points: NSArray) -> CGPath {
-        var path = CGPathCreateMutable()
+        let path = CGPathCreateMutable()
         var point = CGPointZero
 
         if points.count > 0 {

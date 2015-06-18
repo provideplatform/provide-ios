@@ -21,9 +21,9 @@ extension NSDictionary {
     func toQueryString() -> String {
         var queryString = ""
         for (key, value) in self {
-            var encodedName = (key as! String).urlEncodedString()
-            var encodedValue = "\(value)".urlEncodedString()
-            var encodedParameter = "\(encodedName)=\(encodedValue)"
+            let encodedName = (key as! String).urlEncodedString()
+            let encodedValue = "\(value)".urlEncodedString()
+            let encodedParameter = "\(encodedName)=\(encodedValue)"
             queryString = queryString + (queryString == "" ? "" : "&") + encodedParameter
         }
         return queryString

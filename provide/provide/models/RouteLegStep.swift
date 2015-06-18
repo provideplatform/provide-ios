@@ -61,7 +61,7 @@ class RouteLegStep: Model {
     var currentShapeIndex: Int = 0
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "Position": "position",
             "Instruction": "instruction",
@@ -97,11 +97,11 @@ class RouteLegStep: Model {
     }
 
     var remainingDistanceString: String! {
-        var distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
+        let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
         if distanceInMiles > 0.1 {
             return String(format: "%.1f", distanceInMiles) + " mi"
         } else {
-            var distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
+            let distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
             return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
         }
     }

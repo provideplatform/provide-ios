@@ -67,7 +67,7 @@ class SignatureView: UIView {
         }
 
         for touch in touches {
-            var pt = (touch as! UITouch).locationInView(touch.view)
+            let pt = (touch as! UITouch).locationInView(touch.view)
             path.addLineToPoint(pt)
 
             self.touches++
@@ -107,7 +107,7 @@ class SignatureView: UIView {
         let imageSize = bounds.size
 
         UIGraphicsBeginImageContext(imageSize)
-        var imageContext = UIGraphicsGetCurrentContext()
+        let imageContext = UIGraphicsGetCurrentContext()
 
         //CGContextTranslateCTM(imageContext, 0.0, imageSize.height)
         //CGContextScaleCTM(imageContext, 1.0, -1.0)

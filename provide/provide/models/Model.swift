@@ -11,7 +11,7 @@ import Foundation
 class Model: NSObject, Printable {
 
     class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         return mapping
     }
 

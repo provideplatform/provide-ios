@@ -169,7 +169,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("packingSlipItemTableViewCell") as! PackingSlipItemTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("packingSlipItemTableViewCell") as! PackingSlipItemTableViewCell
 
         if let items = items {
             cell.product = items[indexPath.row]

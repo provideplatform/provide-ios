@@ -173,8 +173,8 @@ class DirectionsViewController: ViewController {
     }
 
     private func fetchDrivingDirections(location: CLLocation!) {
-        var cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
-        var cameraAltitude: Double = defaultMapCameraAltitude
+        let cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
+        let cameraAltitude: Double = defaultMapCameraAltitude
 
         WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate) { workOrder, directions in
             self.directions = directions
@@ -208,7 +208,7 @@ class DirectionsViewController: ViewController {
                                 if let directions = self.directions {
                                     if let currentLeg = directions.selectedRoute.currentLeg {
                                         if let currentStep = currentLeg.currentStep {
-                                            var identifier = currentStep.identifier + "_\(currentStep.currentShapeCoordinate.latitude),\(currentStep.currentShapeCoordinate.longitude)"
+                                            let identifier = currentStep.identifier + "_\(currentStep.currentShapeCoordinate.latitude),\(currentStep.currentShapeCoordinate.longitude)"
                                             if self.lastRegionCrossed.identifier == identifier {
                                                 currentStep.currentShapeIndex += 1
 
@@ -261,10 +261,10 @@ class DirectionsViewController: ViewController {
 
     func calculateBearing(toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
         if let location = LocationService.sharedService().location {
-            var lon = location.coordinate.longitude - toCoordinate.longitude
-            var y = sin(lon) * cos(toCoordinate.latitude)
-            var x = cos(location.coordinate.latitude) * sin(toCoordinate.latitude) - sin(location.coordinate.latitude) * cos(toCoordinate.latitude) * cos(lon)
-            var angle = atan2(y, x)
+            let lon = location.coordinate.longitude - toCoordinate.longitude
+            let y = sin(lon) * cos(toCoordinate.latitude)
+            let x = cos(location.coordinate.latitude) * sin(toCoordinate.latitude) - sin(location.coordinate.latitude) * cos(toCoordinate.latitude) * cos(lon)
+            let angle = atan2(y, x)
             return angle
         }
         return 0.0

@@ -143,11 +143,11 @@ class ApiService: NSObject {
 
                 self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
-                        var realParams = NSMutableDictionary(dictionary: params)
+                        let realParams = NSMutableDictionary(dictionary: params)
                         realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
                         realParams.setObject(mimeType, forKey: "mime_type")
 
-                        var url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
+                        let url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
                         realParams.setObject(url, forKey: "url")
 
                         self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
@@ -216,7 +216,7 @@ class ApiService: NSObject {
     // MARK: Checkin API
 
     func checkin(location: CLLocation) {
-        var dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         let checkinDate = dateFormatter.stringFromDate(location.timestamp)
 
@@ -256,7 +256,7 @@ class ApiService: NSObject {
     }
 
     func createWorkOrder(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        var realParams = NSMutableDictionary(dictionary: params)
+        let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
         realParams.removeObjectForKey("customer")
         realParams.removeObjectForKey("companyId")
@@ -266,7 +266,7 @@ class ApiService: NSObject {
     }
 
     func updateWorkOrderWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        var realParams = NSMutableDictionary(dictionary: params)
+        let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
         realParams.removeObjectForKey("customer")
         realParams.removeObjectForKey("companyId")
@@ -283,11 +283,11 @@ class ApiService: NSObject {
 
                 self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
-                        var realParams = NSMutableDictionary(dictionary: params)
+                        let realParams = NSMutableDictionary(dictionary: params)
                         realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
                         realParams.setObject(mimeType, forKey: "mime_type")
 
-                        var url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
+                        let url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
                         realParams.setObject(url, forKey: "url")
 
                         self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
@@ -306,7 +306,7 @@ class ApiService: NSObject {
     }
 
     func updateRouteWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        var realParams = NSMutableDictionary(dictionary: params)
+        let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
 
         dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
@@ -395,12 +395,12 @@ class ApiService: NSObject {
         }
 
         if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
-            var urlComponents = NSURLComponents(URL: baseURL.URLByAppendingPathComponent(path), resolvingAgainstBaseURL: false)!
+            let urlComponents = NSURLComponents(URL: baseURL.URLByAppendingPathComponent(path), resolvingAgainstBaseURL: false)!
             if method == .GET && params.count > 0 {
                 urlComponents.query = params.toQueryString()
             }
 
-            var request = NSMutableURLRequest(URL: urlComponents.URL!)
+            let request = NSMutableURLRequest(URL: urlComponents.URL!)
             request.HTTPMethod = RKStringFromRequestMethod(method)
             request.HTTPShouldHandleCookies = false
             request.setValue("application/json", forHTTPHeaderField: "content-type")
@@ -412,9 +412,9 @@ class ApiService: NSObject {
             if contains([.POST, .PUT], method) {
                 params = NSMutableDictionary(dictionary: params)
                 for key in params.allKeys {
-                    var value: AnyObject? = params.objectForKey(key)
+                    let value: AnyObject? = params.objectForKey(key)
                     if value != nil && value!.isKindOfClass(NSArray) {
-                        var newValue = NSMutableArray()
+                        let newValue = NSMutableArray()
                         for item in (value as! NSArray) {
                             if item.isKindOfClass(Model) {
                                 //newValue.addObject((item as! Model).toDictionary())

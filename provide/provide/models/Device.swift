@@ -14,7 +14,7 @@ class Device: Model {
     var apnsDeviceId: String!
 
     override class func mapping() -> RKObjectMapping {
-        var mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "apns_device_id": "apnsDeviceId"

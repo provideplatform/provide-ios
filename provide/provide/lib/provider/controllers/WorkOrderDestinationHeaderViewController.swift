@@ -51,7 +51,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             if workOrder.customer.profileImageUrl != nil {
                 // TODO -- load the image view using the profileImageUrl
             } else if workOrder.customer.contact.email != nil {
-                var gravatarImageView = RFGravatarImageView(frame: titleImageView.frame)
+                let gravatarImageView = RFGravatarImageView(frame: titleImageView.frame)
                 gravatarImageView.email = workOrder.contact.email
                 gravatarImageView.load { error in
                     gravatarImageView.makeCircular()
