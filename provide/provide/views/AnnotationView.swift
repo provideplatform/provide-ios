@@ -28,7 +28,7 @@ class AnnotationView: MKAnnotationView {
     }
 
     func gestureRecognized() {
-        println("recognized")
+        log("recognized")
     }
 
     func attachGestureRecognizers() {

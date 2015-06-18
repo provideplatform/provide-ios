@@ -138,7 +138,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        println("selected loaded manifest item: \(items[indexPath.row])")
+        log("selected loaded manifest item: \(items[indexPath.row])")
     }
     
 }

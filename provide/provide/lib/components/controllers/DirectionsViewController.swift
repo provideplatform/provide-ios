@@ -287,9 +287,9 @@ class DirectionsViewController: ViewController {
 //            if let directions = directions {
 //                if let route = directions.selectedRoute() {
 //                    if let leg = route.currentLeg {
-//                        println("steps \(leg.steps)")
+//                        log("steps \(leg.steps)")
 //                        let title = leg.steps[0].htmlInstructions
-//                        println("title \(title)")
+//                        log("title \(title)")
 //                        navigationItem.title = title
 //                    }
 //                }

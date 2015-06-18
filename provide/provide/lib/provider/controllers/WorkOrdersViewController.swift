@@ -543,7 +543,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             onSuccess: { statusCode, responseString in
                 WorkOrderService.sharedService().inProgressWorkOrder.updateDeliveredItems(
                     onSuccess: { statusCode, responseString in
-                        println("updated delivered items!")
+                        log("updated delivered items!")
                     },
                     onError: { error, statusCode, responseString in
 
@@ -565,7 +565,7 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             onSuccess: { statusCode, responseString in
                 WorkOrderService.sharedService().inProgressWorkOrder.complete(
                     onSuccess: { statusCode, responseString in
-                        println("net promoter score received")
+                        log("net promoter score received")
                         self.attemptSegueToValidWorkOrderContext()
                     },
                     onError: { error, statusCode, responseString in

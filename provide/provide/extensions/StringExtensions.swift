@@ -41,7 +41,7 @@ extension String {
         var error: NSError?
         let jsonObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error)
         if let error = error {
-            println("WARNING: Error converting String to JSONObject : \(error.localizedDescription)")
+            logWarn("Error converting String to JSONObject : \(error.localizedDescription)")
         }
 
         return jsonObject

@@ -26,7 +26,7 @@ func dispatch_async_global_queue(priority: Int, block: dispatch_block_t) {
 }
 
 func log(message: String, _ fileName: String = __FILE__, _ functionName: String = __FUNCTION__, _ lineNumber: Int = __LINE__) {
-    if CurrentBuildConfig == .Debug && CurrentEnvironment != .Production {
+    if CurrentBuildConfig == .Debug {
         let timestamp = logTimestampDateFormatter.stringFromDate(NSDate())
         var fileAndMethod = "[\(timestamp)] [\(fileName.lastPathComponent.stringByDeletingPathExtension):\(lineNumber)] "
         fileAndMethod = fileAndMethod.replaceString("ViewController", withString: "VC")

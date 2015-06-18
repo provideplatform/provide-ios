@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         AnalyticsService.sharedService().track("App Failed To Register For Remote Notifications")
 
-        println(error.localizedDescription)
+        log(error.localizedDescription)
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {

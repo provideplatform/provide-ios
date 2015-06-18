@@ -202,7 +202,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 if let route = RouteService.sharedService().inProgressRoute {
                     route.loadManifestItemByGtin(rejectedProduct.gtin,
                         onSuccess: { statusCode, responseString in
-                            println("loaded manifest item by gtin...")
+                            log("loaded manifest item by gtin...")
                         },
                         onError: { error, statusCode, responseString in
 
@@ -275,11 +275,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         dismissBarcodeScannerViewController()
                     } else {
                         // TODO-- show UI for state when gtin cannot be unloaded
-                        //println("gtin cannot be unloaded for work order...")
+                        //log("gtin cannot be unloaded for work order...")
                     }
                 } else {
                     // TODO-- show UI for state when barcode does not match item being unloaded
-                    //println("gtin does not match product being unloaded...")
+                    //log("gtin does not match product being unloaded...")
                 }
             }
         }

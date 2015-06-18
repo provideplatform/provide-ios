@@ -15,7 +15,7 @@ class WorkOrderServiceTests: XCTestCase {
         super.setUp()
 
         OHHTTPStubs.onStubActivation() { request, stub in
-            println("\(request.URL!) stubbed by \(stub.name).")
+            logInfo("\(request.URL!) stubbed by \(stub.name).")
         }
 
         let stub = OHHTTPStubs.stubRequestsPassingTest(
