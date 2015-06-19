@@ -46,8 +46,6 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
                 }
             case .Rejected:
                 items = route.itemsNotLoaded
-            default:
-                return nil
             }
         }
         return items

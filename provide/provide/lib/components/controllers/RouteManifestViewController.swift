@@ -53,8 +53,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             }
         case .Required:
             items = route.itemsNotLoaded
-        default:
-            return nil
         }
         return items
     }

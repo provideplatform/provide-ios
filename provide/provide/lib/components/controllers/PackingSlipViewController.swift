@@ -50,8 +50,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             return workOrdersViewControllerDelegate?.workOrderItemsOnTruckForViewController?(self)
         case .Rejected:
             return workOrdersViewControllerDelegate?.workOrderItemsRejectedForViewController?(self)
-        default:
-            return nil
         }
     }
 
