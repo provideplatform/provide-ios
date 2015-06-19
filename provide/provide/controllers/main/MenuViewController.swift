@@ -18,14 +18,6 @@ class MenuViewController: UITableViewController {
         alignSections()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier! {
-            
-        default:
-            break
-        }
-    }
-
     // MARK: UITableView Delegate Functions
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
