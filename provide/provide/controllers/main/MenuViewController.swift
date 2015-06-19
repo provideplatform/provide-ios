@@ -20,7 +20,7 @@ class MenuViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
-
+            
         default:
             break
         }
@@ -35,7 +35,7 @@ class MenuViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         switch reuseIdentifier {
-        case "DashboardCell":
+        case "ManifestCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
         case "LogoutCell":
@@ -83,9 +83,14 @@ class MenuViewController: UITableViewController {
     }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
-        let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController() as! UIViewController
-        let ecSlidingSegue = ECSlidingSegue(identifier: nil, source: self, destination: initialViewController)
-        ecSlidingSegue.perform()
+        if let storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc") {
+            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController() as! UIViewController
+            let ecSlidingSegue = ECSlidingSegue(identifier: nil, source: self, destination: initialViewController)
+            ecSlidingSegue.perform()
+        } else {
+            NSNotificationCenter.defaultCenter().postNotificationName("SegueTo\(storyboardName)Storyboard", object: self)
+            slidingViewController().resetTopViewAnimated(true)
+        }
     }
 
 }

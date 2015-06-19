@@ -64,7 +64,8 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
                                                 WorkOrdersViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
-                                                RouteManifestViewControllerDelegate {
+                                                RouteManifestViewControllerDelegate,
+                                                ManifestViewControllerDelegate {
 
     private var managedViewControllers = [ViewController]()
     private var updatingWorkOrderContext = false
@@ -80,6 +81,12 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
         navigationItem.hidesBackButton = true
 
         loadRouteContext()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
+                self.performSegueWithIdentifier("ManifestViewControllerSegue", sender: self)
+            }
+        }
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
@@ -274,6 +281,11 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             LocationService.sharedService().enableNavigationAccuracy()
 
             (segue.destinationViewController as! DirectionsViewController).directionsViewControllerDelegate = self
+            break
+
+        case "ManifestViewControllerSegue":
+            assert(segue.destinationViewController is ManifestViewController)
+            (segue.destinationViewController as! ManifestViewController).delegate = self
             break
 
         case "RouteManifestViewControllerSegue":

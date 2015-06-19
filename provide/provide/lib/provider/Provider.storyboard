@@ -22,6 +22,9 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
@@ -233,6 +236,7 @@
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="InProgressWorkOrderSegue" customModule="provide" customModuleProvider="target" id="MiJ-YI-L7r"/>
                         <segue destination="jXg-51-56R" kind="custom" identifier="WorkOrderComponentViewControllerSegue" customClass="InProgressWorkOrderSegue" customModule="provide" customModuleProvider="target" id="pC3-sD-UC4"/>
                         <segue destination="IBj-c7-kLC" kind="custom" identifier="RouteManifestViewControllerSegue" customClass="RouteSegue" customModule="provide" customModuleProvider="target" id="7WN-4i-lPl"/>
+                        <segue destination="AiO-Uo-7Bj" kind="custom" identifier="ManifestViewControllerSegue" id="JeI-DH-1MQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,20 +480,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIK-X5-rhP" id="9nQ-Y6-zmV">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sealy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5y5-Ka-jNk">
-                                                    <rect key="frame" x="25" y="8" width="44" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Sealy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5y5-Ka-jNk">
+                                                    <rect key="frame" x="25" y="8" width="44" height="21"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0513044117394" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-DV-jjX">
-                                                    <rect key="frame" x="25" y="37" width="97" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0513044117394" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-DV-jjX">
+                                                    <rect key="frame" x="25" y="37" width="101.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queen" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU6-Xe-C5x">
-                                                    <rect key="frame" x="545" y="8" width="47" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Queen" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU6-Xe-C5x">
+                                                    <rect key="frame" x="544.5" y="8" width="47.5" height="19"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -532,13 +536,91 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkv-KQ-44v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="1500"/>
+            <point key="canvasLocation" x="421" y="2004"/>
+        </scene>
+        <!--ManifestViewController-->
+        <scene sceneID="512-Ue-hGv">
+            <objects>
+                <viewController autoresizesArchivedViewToFullSize="NO" title="ManifestViewController" id="AiO-Uo-7Bj" customClass="ManifestViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9MI-9Q-Ekq"/>
+                        <viewControllerLayoutGuide type="bottom" id="iSN-Bf-B6m"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h3c-9v-O2u">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pig-C6-YOM">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="routeManifestTableViewCell" rowHeight="75" id="h1Y-AN-tmN" customClass="RouteManifestItemTableViewCell" customModule="provide" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Y-AN-tmN" id="1Gu-0G-tHd">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sealy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4l5-9f-MFJ">
+                                                    <rect key="frame" x="25" y="8" width="44" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0513044117394" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGV-h2-UJ6">
+                                                    <rect key="frame" x="25" y="37" width="97" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queen" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvu-Eh-OVg">
+                                                    <rect key="frame" x="545" y="8" width="47" height="20"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="4l5-9f-MFJ" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="8" id="52w-to-i50"/>
+                                                <constraint firstAttribute="trailing" secondItem="Cvu-Eh-OVg" secondAttribute="trailing" constant="8" id="Id2-vj-x4b"/>
+                                                <constraint firstItem="XGV-h2-UJ6" firstAttribute="leading" secondItem="1Gu-0G-tHd" secondAttribute="leading" constant="25" id="d5c-o2-gbv"/>
+                                                <constraint firstItem="XGV-h2-UJ6" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="37" id="jB4-If-CZG"/>
+                                                <constraint firstItem="4l5-9f-MFJ" firstAttribute="leading" secondItem="1Gu-0G-tHd" secondAttribute="leading" constant="25" id="s3S-8n-vxz"/>
+                                                <constraint firstItem="Cvu-Eh-OVg" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="8" id="s55-9a-Ed1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="gtinLabel" destination="XGV-h2-UJ6" id="vAV-vB-vn1"/>
+                                            <outlet property="nameLabel" destination="4l5-9f-MFJ" id="8PV-4I-A0g"/>
+                                            <outlet property="sizeLabel" destination="Cvu-Eh-OVg" id="IEL-dc-e9L"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="AiO-Uo-7Bj" id="yKd-8I-ng9"/>
+                                    <outlet property="delegate" destination="AiO-Uo-7Bj" id="IPH-Z9-3IN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pig-C6-YOM" firstAttribute="top" secondItem="h3c-9v-O2u" secondAttribute="top" id="8ge-Bg-duw"/>
+                            <constraint firstAttribute="trailing" secondItem="pig-C6-YOM" secondAttribute="trailing" id="q7S-Zu-vBY"/>
+                            <constraint firstItem="pig-C6-YOM" firstAttribute="bottom" secondItem="iSN-Bf-B6m" secondAttribute="top" id="rlC-Hb-CyO"/>
+                            <constraint firstItem="pig-C6-YOM" firstAttribute="leading" secondItem="h3c-9v-O2u" secondAttribute="leading" id="uRk-Vq-fz9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="pig-C6-YOM" id="75a-CG-nYX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ct7-1I-SZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="421" y="1204"/>
         </scene>
     </scenes>
     <resources>
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AbM-fQ-MfU"/>
+        <segue reference="fAd-Aq-llj"/>
     </inferredMetricsTieBreakers>
 </document>

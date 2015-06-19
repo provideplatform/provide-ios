@@ -11,6 +11,7 @@ import Foundation
 class Route: Model {
 
     var id: NSNumber!
+    var name: String!
     var legs: NSArray!
     var status: String!
     var workOrders: NSArray!
@@ -23,6 +24,7 @@ class Route: Model {
         mapping.addAttributeMappingsFromDictionary([
             "status": "status",
             "id": "id",
+            "name": "name",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
@@ -94,6 +96,21 @@ class Route: Model {
         }
 
         return itemsNotLoaded
+    }
+
+    var itemsDelivered: [Product] {
+        var itemsDelivered = [Product]()
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = (workOrder as! WorkOrder).itemsOrdered {
+                    for product in products {
+                        itemsDelivered.append(product as! Product)
+                    }
+                }
+            }
+        }
+
+        return itemsDelivered
     }
 
     var itemsOrdered: [Product] {

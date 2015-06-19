@@ -295,9 +295,6 @@
 		68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
 		68B413321B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
 		68B413331B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
-		68B413371B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
-		68B413381B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
-		68B413391B083161009A4C05 /* RouteManifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413281B083161009A4C05 /* RouteManifest.storyboard */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68B4133B1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68B4133C1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
@@ -331,6 +328,9 @@
 		68B978DF1B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
 		68B978E01B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
 		68B978E11B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
+		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
+		68C12EDC1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
+		68C12EDD1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AA1B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AB1B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
@@ -535,7 +535,6 @@
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
 		68B413261B083161009A4C05 /* PackingSlip.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PackingSlip.storyboard; sourceTree = "<group>"; };
-		68B413281B083161009A4C05 /* RouteManifest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RouteManifest.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
 		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
@@ -547,6 +546,7 @@
 		68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextWorkOrderUnwindSegue.swift; sourceTree = "<group>"; };
 		68B978CE1B085A6C00863E21 /* RouteSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSegue.swift; sourceTree = "<group>"; };
 		68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUnwindSegue.swift; sourceTree = "<group>"; };
+		68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestViewController.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
 		68D218A21B0861EF000D3ABA /* directions_0.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = directions_0.gpx; sourceTree = "<group>"; };
@@ -801,6 +801,7 @@
 			children = (
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
+				68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */,
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
@@ -863,7 +864,6 @@
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
-				68B413281B083161009A4C05 /* RouteManifest.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -1189,7 +1189,6 @@
 				5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */,
 				68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */,
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
-				68B413371B083161009A4C05 /* RouteManifest.storyboard in Resources */,
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 			);
@@ -1204,7 +1203,6 @@
 				68B4133E1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
-				68B413381B083161009A4C05 /* RouteManifest.storyboard in Resources */,
 				68B412701B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
 				68B4133B1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68B4132C1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
@@ -1248,7 +1246,6 @@
 				68B4133F1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4126B1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				68B4124D1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
-				68B413391B083161009A4C05 /* RouteManifest.storyboard in Resources */,
 				68B412711B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
 				68B4133C1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68B4132D1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
@@ -1433,6 +1430,7 @@
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
 				68B412C21B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
+				68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306D1B07DE94001A21B0 /* Company.swift in Sources */,
 				68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */,
@@ -1472,6 +1470,7 @@
 				68F730741B07DE94001A21B0 /* Customer.swift in Sources */,
 				68B412E11B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B978D41B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */,
+				68C12EDC1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				68B412DE1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				5C0049561B1BE964000ACE9D /* WorkOrderServiceTests.swift in Sources */,
 				68F7306B1B07DE94001A21B0 /* Attachment.swift in Sources */,
@@ -1642,6 +1641,7 @@
 				68F730991B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68F730871B07DE94001A21B0 /* Route.swift in Sources */,
 				68F7308A1B07DE94001A21B0 /* RouteLeg.swift in Sources */,
+				68C12EDD1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				68B412E51B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				687CB5A51B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7306F1B07DE94001A21B0 /* Company.swift in Sources */,

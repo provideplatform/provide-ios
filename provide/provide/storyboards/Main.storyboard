@@ -510,14 +510,14 @@
                         <sections>
                             <tableViewSection id="AYa-RW-QBf">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DashboardCell" id="hcy-LV-lnb">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ManifestCell" id="hcy-LV-lnb">
                                         <rect key="frame" x="0.0" y="35" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hcy-LV-lnb" id="lVz-x8-g9A">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DASHBOARD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-ft-Tkt">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MANIFEST" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3D5-ft-Tkt">
                                                     <rect key="frame" x="58" y="12" width="242" height="21"/>
                                                     <accessibility key="accessibilityConfiguration" label="dash_slider"/>
                                                     <constraints>
