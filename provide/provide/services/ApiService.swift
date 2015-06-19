@@ -112,16 +112,7 @@ class ApiService: NSObject {
                 KeyChainService.sharedService().token?.user = user
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                let errorMessage: String
-                switch statusCode {
-                case 401: errorMessage = "Authorization revoked"
-                case 403: errorMessage = "Forbidden"
-                default:  errorMessage = "Failed to retrieve user details"
-                }
-
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
+            onError: onError
         )
     }
 
