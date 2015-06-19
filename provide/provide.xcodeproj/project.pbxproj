@@ -356,7 +356,6 @@
 		68D218BF1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
 		68D218C01B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
-		68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
 		68F7306A1B07DE94001A21B0 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730591B07DE94001A21B0 /* Attachment.swift */; };
@@ -558,7 +557,6 @@
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		68DFB0861B07C5C4002A72E8 /* provide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = provide.xcdatamodel; sourceTree = "<group>"; };
 		68DFB08D1B07C5C4002A72E8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -959,7 +957,6 @@
 				687CB5871B07EEF00048B692 /* helpers */,
 				68B411FF1B07FB02009A4C05 /* storyboards */,
 				68DFB08D1B07C5C4002A72E8 /* Images.xcassets */,
-				68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */,
 				68B412381B07FC15009A4C05 /* fonts */,
 				68D2189D1B0861EF000D3ABA /* gpx */,
 				68DFB0811B07C5C4002A72E8 /* Supporting Files */,
@@ -1433,7 +1430,6 @@
 				68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68F7306D1B07DE94001A21B0 /* Company.swift in Sources */,
-				68DFB0871B07C5C4002A72E8 /* provide.xcdatamodeld in Sources */,
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F7309A1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
@@ -2067,19 +2063,6 @@
 			defaultConfigurationName = AppStore;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		68DFB0851B07C5C4002A72E8 /* provide.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				68DFB0861B07C5C4002A72E8 /* provide.xcdatamodel */,
-			);
-			currentVersion = 68DFB0861B07C5C4002A72E8 /* provide.xcdatamodel */;
-			path = provide.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 68DFB0761B07C5C4002A72E8 /* Project object */;
 }
