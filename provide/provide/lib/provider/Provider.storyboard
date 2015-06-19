@@ -171,65 +171,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="mfm-q5-xzF">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="ZLI-P7-Mie" id="F1d-Rc-LQI"/>
-                                    <outlet property="delegate" destination="ZLI-P7-Mie" id="xrh-ZT-3ok"/>
-                                </connections>
-                            </tableView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rux-3S-Dfa" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="3pg-eq-Qrn"/>
-                            <constraint firstAttribute="trailing" secondItem="mfm-q5-xzF" secondAttribute="trailing" id="AqS-Gf-Xqh"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="bottom" secondItem="rux-3S-Dfa" secondAttribute="bottom" id="Bhz-Ng-1Oa"/>
-                            <constraint firstAttribute="trailing" secondItem="mfm-q5-xzF" secondAttribute="trailing" id="FiO-cl-s9Y"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="dOc-tC-XPP" secondAttribute="top" id="Hzf-Fu-d0V"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="trailing" secondItem="mfm-q5-xzF" secondAttribute="trailing" id="NpW-Vg-jtj"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="leading" secondItem="rux-3S-Dfa" secondAttribute="leading" id="Rl1-Sx-OTI"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="Wjj-lL-tWV"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="aXh-Nn-T06"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="mfm-q5-xzF" secondAttribute="top" id="bci-cD-6cb"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="top" secondItem="rux-3S-Dfa" secondAttribute="top" id="brA-Xu-f75"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="top" secondItem="dOc-tC-XPP" secondAttribute="top" id="eBN-7X-DQR"/>
+                            <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="c4K-i0-hwg"/>
+                            <constraint firstItem="urM-pc-Y9e" firstAttribute="top" secondItem="rux-3S-Dfa" secondAttribute="bottom" id="gks-ki-gRi"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="oSs-sl-Hz6"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="plN-MN-g3J"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="qeY-70-F97"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="u3N-1o-cnH"/>
-                            <constraint firstItem="mfm-q5-xzF" firstAttribute="leading" secondItem="rux-3S-Dfa" secondAttribute="leading" id="xYC-kp-prk"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="dOc-tC-XPP" secondAttribute="top" id="yAq-HY-Htp"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="FiO-cl-s9Y"/>
-                                <exclude reference="u3N-1o-cnH"/>
-                                <exclude reference="xYC-kp-prk"/>
                                 <exclude reference="Hzf-Fu-d0V"/>
-                                <exclude reference="NpW-Vg-jtj"/>
                                 <exclude reference="aXh-Nn-T06"/>
-                                <exclude reference="bci-cD-6cb"/>
                                 <exclude reference="oSs-sl-Hz6"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="FiO-cl-s9Y"/>
-                                <include reference="u3N-1o-cnH"/>
-                                <include reference="xYC-kp-prk"/>
                                 <include reference="Hzf-Fu-d0V"/>
-                                <include reference="NpW-Vg-jtj"/>
                                 <include reference="aXh-Nn-T06"/>
-                                <include reference="bci-cD-6cb"/>
                                 <include reference="oSs-sl-Hz6"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="rux-3S-Dfa" id="DCB-UB-At2"/>
-                        <outlet property="tableView" destination="mfm-q5-xzF" id="8Dm-d5-jy4"/>
                         <segue destination="4Ye-TD-wVA" kind="custom" identifier="WorkOrderDestinationConfirmationViewControllerSegue" customClass="NextWorkOrderSegue" customModule="provide" customModuleProvider="target" id="xeT-sO-EvV"/>
                         <segue destination="yQd-Wz-48G" kind="custom" identifier="WorkOrderAnnotationViewControllerSegue" customClass="NextWorkOrderSegue" customModule="provide" customModuleProvider="target" id="vW2-GH-KBk"/>
                         <segue destination="mb7-X8-f0h" kind="custom" identifier="WorkOrderDestinationHeaderViewControllerSegue" customClass="NextWorkOrderSegue" customModule="provide" customModuleProvider="target" id="3Wt-Cm-qPJ"/>

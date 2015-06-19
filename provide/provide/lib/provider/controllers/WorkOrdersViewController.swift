@@ -59,9 +59,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     optional func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController!)
 }
 
-class WorkOrdersViewController: ViewController, UITableViewDelegate,
-                                                UITableViewDataSource,
-                                                WorkOrdersViewControllerDelegate,
+class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
@@ -71,12 +69,9 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
     private var updatingWorkOrderContext = false
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
-    @IBOutlet private weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.hidden = true
 
         navigationItem.hidesBackButton = true
 
@@ -304,51 +299,6 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             break
         }
     }
-
-    // MARK UITableViewDataSource
-
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-    }
-
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
-
-        return cell
-    }
-
-    //optional func numberOfSectionsInTableView(tableView: UITableView) -> Int // Default is 1 if not implemented
-
-    //optional func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? // fixed font style. use custom view (UILabel) if you want something different
-    //optional func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String?
-
-    // Editing
-
-    // Individual rows can opt out of having the -editing property set for them. If not implemented, all rows are assumed to be editable.
-    //optional func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-
-    // Moving/reordering
-
-    // Allows the reorder accessory view to optionally be shown for a particular row. By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:
-    //optional func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool
-
-    // Index
-
-    //optional func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! // return list of section titles to display in section index view (e.g. "ABCD...Z#")
-    //optional func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int // tell table which section corresponds to section title/index (e.g. "B",1))
-
-    // Data manipulation - insert and delete support
-
-    // After a row has the minus or plus button invoked (based on the UITableViewCellEditingStyle for the cell), the dataSource must commit the change
-    // Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
-    //optional func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-
-    // Data manipulation - reorder / moving support
-
-    //optional func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
 
     // MARK: WorkOrdersViewControllerDelegate
 
