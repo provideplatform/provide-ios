@@ -125,7 +125,7 @@ class MessagesViewController: JSQMessagesViewController {
 
         let message = messages[indexPath.row]
         cell.textView!.textColor = isFromCurrentUser(message) ? UIColor.whiteColor() : UIColor.blackColor()
-        cell.textView!.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView!.textColor, NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+        // TODO: cell.textView!.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView!.textColor, NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
 
         return cell
     }

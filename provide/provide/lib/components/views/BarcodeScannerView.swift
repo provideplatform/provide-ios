@@ -43,31 +43,23 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         }
 
         if let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
-            var error: NSError?
-
             do {
                 try device.lockForConfiguration()
                 device.focusMode = .ContinuousAutoFocus
                 device.unlockForConfiguration()
-            } catch let error1 as NSError {
-                error = error1
+            } catch let error as NSError {
+                logError(error)
             }
 
             let input: AVCaptureDeviceInput!
             do {
                 input = try AVCaptureDeviceInput(device: device)
-            } catch let error1 as NSError {
-                error = error1
-                input = nil
-            }
-
-            if let error = error {
+                captureSession = AVCaptureSession()
+                captureSession.sessionPreset = AVCaptureSessionPresetHigh
+                captureSession.addInput(input)
+            } catch let error as NSError {
                 logError(error)
             }
-
-            captureSession = AVCaptureSession()
-            captureSession.sessionPreset = AVCaptureSessionPresetHigh
-            captureSession.addInput(input)
 
             var rectOfInterest = bounds
             if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView?(self) {

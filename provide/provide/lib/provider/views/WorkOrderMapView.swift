@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WorkOrderMapView: MapView, MKMapViewDelegate {
+class WorkOrderMapView: MapView {
 
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate! {
         didSet {
@@ -95,7 +95,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
 
     // MARK: MKMapViewDelegate
 
-    override func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
+    override func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
         if fullyRendered {
             if let mode = directionsViewControllerDelegate?.mapViewUserTrackingMode?(mapView) {
@@ -126,7 +126,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     func mapViewWillStartLocatingUser(mapView: MKMapView) {
     }
 
-    override func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+    override func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdateUserLocation: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location)

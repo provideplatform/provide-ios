@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func handleRemoteNotification(userInfo: [String: AnyObject]) {
-        let (notificationType, notificationValue: AnyObject) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
+        let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
         case .CheckIn:

@@ -43,7 +43,7 @@ class SignatureView: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         writing = true
 
-        if let touch = touches.first as? UITouch {
+        if let touch = touches.first {
             let pt = touch.locationInView(touch.view)
             path.moveToPoint(pt)
         }

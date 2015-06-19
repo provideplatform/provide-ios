@@ -70,7 +70,7 @@ func ENV(envVarName: String) -> String? {
 }
 
 private func envVarRawValue(envVarName: String) -> String? {
-    return NSProcessInfo.processInfo().environment[envVarName] as? NSString as? String
+    return NSProcessInfo.processInfo().environment[envVarName]
 }
 
 func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundle = NSBundle.mainBundle()) -> String {
@@ -79,17 +79,15 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
     let filePath = bundle.pathForResource(resourceName, ofType: type, inDirectory:bundlePath)
     assert(filePath != nil, "File not found: \(resourceName).\(type)")
 
-    var error: NSError?
     let fileAsString: NSString?
     do {
         fileAsString = try NSString(contentsOfFile: filePath!, encoding: NSUTF8StringEncoding)
-    } catch let error1 as NSError {
-        error = error1
+    } catch let error as NSError {
+        logError(error.localizedDescription)
         fileAsString = nil
     }
-    if let error = error {
-        logError(error)
-    }
+
+    assert(fileAsString != nil)
 
     return fileAsString as! String
 }
@@ -169,12 +167,12 @@ func classNameForObject(object: AnyObject) -> String {
 }
 
 func decodeJSON(data: NSData) -> [String: AnyObject] {
-    let error: NSError?
-    let json = NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject]
-    if let error = error {
-        logError(error)
+    do {
+        return try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String : AnyObject]
+    } catch {
+        log("\(error)")
+        fatalError()
     }
-    return json!
 }
 
 func encodeJSON(input: AnyObject, options: NSJSONWritingOptions = []) -> NSData {

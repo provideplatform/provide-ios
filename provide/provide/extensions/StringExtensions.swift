@@ -34,16 +34,12 @@ extension String {
 
     private func toJSONAnyObject() -> AnyObject! {
         let data = dataUsingEncoding(NSUTF8StringEncoding)
-        var error: NSError?
         let jsonObject: AnyObject?
         do {
             jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-        } catch let error1 as NSError {
-            error = error1
-            jsonObject = nil
-        }
-        if let error = error {
+        } catch let error as NSError {
             logError("Error converting String to JSONObject : \(error.localizedDescription)")
+            jsonObject = nil
         }
 
         return jsonObject

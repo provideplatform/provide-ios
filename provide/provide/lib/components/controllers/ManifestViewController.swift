@@ -54,7 +54,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     private var navigationItemPrompt: String {
         var prompt = "No Active Route"
         if let name = route?.name {
-            prompt = "Manifest for \(route?.name)"
+            prompt = "Manifest for \(name)"
         }
         return prompt
     }

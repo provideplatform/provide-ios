@@ -69,7 +69,7 @@ class WorkOrderComponentViewController: ViewController {
     }
 
     func suspendTopViewGestureRecognizers() {
-        suspendedTopViewGestureRecognizers = slidingView.gestureRecognizers as! [UIGestureRecognizer]
+        suspendedTopViewGestureRecognizers = slidingView.gestureRecognizers!
         if let gestureRecognizers = suspendedTopViewGestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
                 slidingView.removeGestureRecognizer(gestureRecognizer)

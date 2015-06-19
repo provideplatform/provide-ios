@@ -131,9 +131,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.count > 0 {
-            let location = locations.last as! CLLocation
+            let location = locations.last!
             if abs(location.timestamp.timeIntervalSinceNow) < 1.0 && location.horizontalAccuracy >= 0.0 && location.horizontalAccuracy <= 50.0 && location.verticalAccuracy <= 10.0 {
                 locationResolved(location)
             }

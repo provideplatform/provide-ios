@@ -333,7 +333,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return annotationView
     }
 
-    func drivingEtaToNextWorkOrderForViewController(viewController: ViewController!) -> Int! {
+    func drivingEtaToNextWorkOrderForViewController(viewController: ViewController!) -> NSNumber! {
         return WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
     }
 

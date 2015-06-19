@@ -20,7 +20,7 @@ class SlidingViewController: ECSlidingViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UIViewController
+        topViewController = UIStoryboard("Application").instantiateInitialViewController()!
     }
 
     @objc private func hamburgerPressed(sender: UIBarButtonItem) {

@@ -11,7 +11,7 @@ import UIKit
 extension UITableView {
 
     subscript(reuseIdentifier: String) -> UITableViewCell {
-        return dequeueReusableCellWithIdentifier(reuseIdentifier) as! UITableViewCell
+        return dequeueReusableCellWithIdentifier(reuseIdentifier)!
     }
 
     subscript(reuseIdentifier: String, indexPath: NSIndexPath) -> UITableViewCell {
