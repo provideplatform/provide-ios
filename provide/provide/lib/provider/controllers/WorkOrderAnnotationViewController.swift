@@ -66,7 +66,6 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             assert(segue.sourceViewController is WorkOrderAnnotationViewController)
             assert(segue.destinationViewController is WorkOrdersViewController)
             unwind()
-            break
         default:
             break
         }

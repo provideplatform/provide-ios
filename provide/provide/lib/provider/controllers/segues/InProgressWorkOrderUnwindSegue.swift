@@ -15,11 +15,9 @@ class InProgressWorkOrderUnwindSegue: UIStoryboardSegue {
         case "DirectionsViewControllerUnwindSegue":
             assert(sourceViewController is DirectionsViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         case "WorkOrderComponentViewControllerUnwindSegue":
             assert(sourceViewController is WorkOrderComponentViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         default:
             break
         }

@@ -30,8 +30,6 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                     completion: nil
                 )
             }
-            break
-
         case "AuthenticationViewControllerUnwindSegue":
             assert(sourceViewController is AuthenticationViewController)
             assert(destinationViewController is NavigationRootViewController)
@@ -50,7 +48,6 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                     }
                 )
             }
-            break
         default:
             break
         }

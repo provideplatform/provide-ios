@@ -340,7 +340,6 @@ class DirectionsViewController: ViewController {
         case "DirectionsViewControllerUnwindSegue":
             assert(segue.sourceViewController is DirectionsViewController)
             unwind()
-            break
         default:
             break
         }

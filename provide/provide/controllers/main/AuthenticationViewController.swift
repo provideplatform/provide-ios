@@ -229,8 +229,6 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             if passwordField.isFirstResponder() {
                 passwordField?.resignFirstResponder()
             }
-
-            break
         default:
             assertUnhandledSegue(segue.identifier)
         }

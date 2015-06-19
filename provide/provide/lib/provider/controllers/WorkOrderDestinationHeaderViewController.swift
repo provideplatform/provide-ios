@@ -121,7 +121,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             assert(segue.sourceViewController is WorkOrderDestinationHeaderViewController)
             assert(segue.destinationViewController is WorkOrdersViewController)
             unwind()
-            break
         default:
             break
         }

@@ -86,7 +86,6 @@ class WorkOrderComponentViewController: ViewController {
             assert(segue.sourceViewController is WorkOrderComponentViewController)
             assert(segue.destinationViewController is WorkOrdersViewController)
             unwind()
-            break
         default:
             break
         }

@@ -87,12 +87,8 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             } else {
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, shouldAttemptToUnloadProduct: product)
             }
-            break
-
         case 1:
             packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, shouldAttemptToUnloadProduct: product)
-            break
-
         default:
             break
         }

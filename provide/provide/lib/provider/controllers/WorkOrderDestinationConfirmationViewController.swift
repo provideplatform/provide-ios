@@ -117,7 +117,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
             assert(segue.sourceViewController is WorkOrderDestinationConfirmationViewController)
             assert(segue.destinationViewController is WorkOrdersViewController)
             unwind()
-            break
         default:
             break
         }

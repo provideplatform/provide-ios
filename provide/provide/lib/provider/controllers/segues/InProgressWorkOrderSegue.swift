@@ -16,12 +16,10 @@ class InProgressWorkOrderSegue: UIStoryboardSegue {
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is DirectionsViewController)
             (destinationViewController as! DirectionsViewController).render()
-            break
         case "WorkOrderComponentViewControllerSegue":
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is WorkOrderComponentViewController)
             (destinationViewController as! WorkOrderComponentViewController).render()
-            break
         default:
             break
         }

@@ -22,17 +22,14 @@ class NextWorkOrderSegue: UIStoryboardSegue {
             if let mapView = (sourceViewController as! WorkOrdersViewControllerDelegate).mapViewForViewController?(sourceViewController as! ViewController) {
                 mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
             }
-            break
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
             assert(sourceViewController is WorkOrderAnnotationViewController)
             assert(destinationViewController is WorkOrdersViewController)
             sourceViewController.performSegueWithIdentifier("WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
-            break
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is WorkOrderDestinationHeaderViewController)
             (destinationViewController as! WorkOrderDestinationHeaderViewController).render()
-            break
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is WorkOrderDestinationConfirmationViewController)
@@ -51,7 +48,6 @@ class NextWorkOrderSegue: UIStoryboardSegue {
 
                 delegate.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
             }
-            break
         default:
             break
         }

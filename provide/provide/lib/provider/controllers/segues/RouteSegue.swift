@@ -16,7 +16,6 @@ class RouteSegue: UIStoryboardSegue {
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is RouteManifestViewController)
             (destinationViewController as! RouteManifestViewController).render()
-            break
         default:
             break
         }

@@ -15,7 +15,6 @@ class RouteUnwindSegue: UIStoryboardSegue {
         case "RouteManifestViewControllerUnwindSegue":
             assert(sourceViewController is RouteManifestViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         default:
             break
         }

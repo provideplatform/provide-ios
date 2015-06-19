@@ -281,35 +281,25 @@ class WorkOrdersViewController: ViewController, UITableViewDelegate,
             LocationService.sharedService().enableNavigationAccuracy()
 
             (segue.destinationViewController as! DirectionsViewController).directionsViewControllerDelegate = self
-            break
-
         case "ManifestViewControllerSegue":
             assert(segue.destinationViewController is ManifestViewController)
             (segue.destinationViewController as! ManifestViewController).delegate = self
-            break
-
         case "RouteManifestViewControllerSegue":
             assert(segue.destinationViewController is RouteManifestViewController)
             (segue.destinationViewController as! RouteManifestViewController).delegate = self
-            break
-
         case "WorkOrderAnnotationViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderAnnotationViewController)
             (segue.destinationViewController as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self
-            break
         case "WorkOrderComponentViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderComponentViewController)
             (segue.destinationViewController as! WorkOrderComponentViewController).delegate = self
             (segue.destinationViewController as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
-            break
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderDestinationHeaderViewController)
             (segue.destinationViewController as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
-            break
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderDestinationConfirmationViewController)
             (segue.destinationViewController as! WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate = self
-            break
         default:
             break
         }

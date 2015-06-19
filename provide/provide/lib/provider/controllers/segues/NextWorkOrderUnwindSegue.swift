@@ -15,15 +15,12 @@ class NextWorkOrderUnwindSegue: UIStoryboardSegue {
         case "WorkOrderAnnotationViewControllerUnwindSegue":
             assert(sourceViewController is WorkOrderAnnotationViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         case "WorkOrderDestinationHeaderViewControllerUnwindSegue":
             assert(sourceViewController is WorkOrderDestinationHeaderViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         case "WorkOrderDestinationConfirmationViewControllerUnwindSegue":
             assert(sourceViewController is WorkOrderDestinationConfirmationViewController)
             assert(destinationViewController is WorkOrdersViewController)
-            break
         default:
             break
         }

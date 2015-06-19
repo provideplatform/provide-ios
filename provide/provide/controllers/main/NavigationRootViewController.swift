@@ -38,7 +38,6 @@ class NavigationRootViewController: ViewController {
         switch segue.identifier! {
         case "AuthenticationViewControllerSegue":
             assert(segue.destinationViewController is AuthenticationViewController)
-            break
         default:
             break
         }
