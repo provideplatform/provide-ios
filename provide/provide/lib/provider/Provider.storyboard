@@ -208,7 +208,7 @@
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="MiJ-YI-L7r"/>
                         <segue destination="jXg-51-56R" kind="custom" identifier="WorkOrderComponentViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="pC3-sD-UC4"/>
                         <segue destination="IBj-c7-kLC" kind="custom" identifier="RouteManifestViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="7WN-4i-lPl"/>
-                        <segue destination="AiO-Uo-7Bj" kind="custom" identifier="ManifestViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="JeI-DH-1MQ"/>
+                        <segue destination="AiO-Uo-7Bj" kind="show" identifier="ManifestViewControllerSegue" id="JeI-DH-1MQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
