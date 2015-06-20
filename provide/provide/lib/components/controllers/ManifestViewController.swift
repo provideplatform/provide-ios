@@ -51,6 +51,14 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         return items
     }
 
+    private var navigationItemPrompt: String {
+        var prompt = "No Active Route"
+        if let name = route?.name {
+            prompt = "Manifest for \(route?.name)"
+        }
+        return prompt
+    }
+
     private var route: Route! {
         return delegate?.routeForViewController?(self)
     }
@@ -93,7 +101,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     func refreshNavigationItem() {
         navigationItem.titleView = toolbarSegmentedControl
-        navigationItem.prompt = "Manifest for \(route?.name)"
+        navigationItem.prompt = navigationItemPrompt
 
         navigationItem.leftBarButtonItems = [dismissItem]
 
@@ -104,7 +112,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     func clearNavigationItem() {
         navigationItem.hidesBackButton = true
-        navigationItem.prompt = "Manifest for \(route?.name)"
+        navigationItem.prompt = navigationItemPrompt
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
     }
