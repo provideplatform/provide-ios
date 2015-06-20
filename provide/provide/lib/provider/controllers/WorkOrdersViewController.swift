@@ -65,6 +65,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                                 RouteManifestViewControllerDelegate,
                                                 ManifestViewControllerDelegate {
 
+    private let managedViewControllerSegues = [
+        "DirectionsViewControllerSegue",
+        "RouteManifestViewControllerSegue",
+        "WorkOrderAnnotationViewControllerSegue",
+        "WorkOrderComponentViewControllerSegue",
+        "WorkOrderDestinationHeaderViewControllerSegue",
+        "WorkOrderDestinationConfirmationViewControllerSegue",
+    ]
+
     private var managedViewControllers = [ViewController]()
     private var updatingWorkOrderContext = false
 
@@ -246,8 +255,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        managedViewControllers.append(segue.destinationViewController as! ViewController)
-
+        if let i = managedViewControllerSegues.indexOfObject(segue.identifier!) {
+            managedViewControllers.append(segue.destinationViewController as! ViewController)
+        }
+        
         switch segue.identifier! {
         case "DirectionsViewControllerSegue":
             assert(segue.destinationViewController is DirectionsViewController)
