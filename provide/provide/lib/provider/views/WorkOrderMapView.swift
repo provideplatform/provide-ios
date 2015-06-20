@@ -77,11 +77,11 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     override func removeAnnotations() {
-        let annotations = NSMutableArray(array: self.annotations)
-        if let location = userLocation {
-            annotations.removeObject(mapView(self, viewForAnnotation: userLocation))
+        var nonUserAnnotations = annotations as! [MKAnnotation]
+        if userLocation.location != nil {
+            nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation))
         }
-        removeAnnotations(annotations as [AnyObject])
+        removeAnnotations(nonUserAnnotations)
     }
 
     override func revealMap(force: Bool = false) {

@@ -29,11 +29,11 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func removeAnnotations() {
-        let annotations = NSMutableArray(array: self.annotations)
-        if let location = userLocation {
-            annotations.removeObject(location)
+        var nonUserAnnotations = annotations as! [MKAnnotation]
+        if userLocation.location != nil {
+            nonUserAnnotations.removeObject(userLocation)
         }
-        removeAnnotations(annotations as [AnyObject])
+        removeAnnotations(nonUserAnnotations)
     }
 
     func removeOverlays() {
