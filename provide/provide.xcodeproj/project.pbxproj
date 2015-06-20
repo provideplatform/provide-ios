@@ -310,24 +310,9 @@
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978C71B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978C81B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
-		68B978D01B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CA1B085A6C00863E21 /* InProgressWorkOrderSegue.swift */; };
-		68B978D11B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CA1B085A6C00863E21 /* InProgressWorkOrderSegue.swift */; };
-		68B978D21B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CA1B085A6C00863E21 /* InProgressWorkOrderSegue.swift */; };
-		68B978D31B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CB1B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift */; };
-		68B978D41B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CB1B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift */; };
-		68B978D51B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CB1B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift */; };
-		68B978D61B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* NextWorkOrderSegue.swift */; };
-		68B978D71B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* NextWorkOrderSegue.swift */; };
-		68B978D81B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* NextWorkOrderSegue.swift */; };
-		68B978D91B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */; };
-		68B978DA1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */; };
-		68B978DB1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */; };
-		68B978DC1B085A6C00863E21 /* RouteSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CE1B085A6C00863E21 /* RouteSegue.swift */; };
-		68B978DD1B085A6C00863E21 /* RouteSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CE1B085A6C00863E21 /* RouteSegue.swift */; };
-		68B978DE1B085A6C00863E21 /* RouteSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CE1B085A6C00863E21 /* RouteSegue.swift */; };
-		68B978DF1B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
-		68B978E01B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
-		68B978E11B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */; };
+		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
+		68B978D71B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
+		68B978D81B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
 		68C12EDC1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
 		68C12EDD1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
@@ -539,12 +524,7 @@
 		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		68B978C11B084DCF00863E21 /* VersionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionHelper.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		68B978CA1B085A6C00863E21 /* InProgressWorkOrderSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InProgressWorkOrderSegue.swift; sourceTree = "<group>"; };
-		68B978CB1B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InProgressWorkOrderUnwindSegue.swift; sourceTree = "<group>"; };
-		68B978CC1B085A6C00863E21 /* NextWorkOrderSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextWorkOrderSegue.swift; sourceTree = "<group>"; };
-		68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextWorkOrderUnwindSegue.swift; sourceTree = "<group>"; };
-		68B978CE1B085A6C00863E21 /* RouteSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteSegue.swift; sourceTree = "<group>"; };
-		68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUnwindSegue.swift; sourceTree = "<group>"; };
+		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestViewController.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
@@ -871,12 +851,7 @@
 		68B978C91B085A6C00863E21 /* segues */ = {
 			isa = PBXGroup;
 			children = (
-				68B978CA1B085A6C00863E21 /* InProgressWorkOrderSegue.swift */,
-				68B978CB1B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift */,
-				68B978CC1B085A6C00863E21 /* NextWorkOrderSegue.swift */,
-				68B978CD1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift */,
-				68B978CE1B085A6C00863E21 /* RouteSegue.swift */,
-				68B978CF1B085A6C00863E21 /* RouteUnwindSegue.swift */,
+				68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */,
 			);
 			path = segues;
 			sourceTree = "<group>";
@@ -1368,7 +1343,6 @@
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68F730731B07DE94001A21B0 /* Customer.swift in Sources */,
 				68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
-				68B978D31B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */,
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68F7306A1B07DE94001A21B0 /* Attachment.swift in Sources */,
 				68B412A71B0804BC009A4C05 /* SlidingViewController.swift in Sources */,
@@ -1387,7 +1361,6 @@
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */,
-				68B978DF1B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
@@ -1406,7 +1379,6 @@
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
 				68F7307F1B07DE94001A21B0 /* Product.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
-				68B978D91B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */,
 				68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57A1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
@@ -1417,7 +1389,6 @@
 				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
-				68B978DC1B085A6C00863E21 /* RouteSegue.swift in Sources */,
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307C1B07DE94001A21B0 /* Model.swift in Sources */,
 				68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
@@ -1433,8 +1404,7 @@
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F7309A1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
-				68B978D61B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */,
-				68B978D01B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */,
+				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				68F730971B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
@@ -1465,7 +1435,6 @@
 				689B0CC01B07E0F1005694B7 /* Environment.swift in Sources */,
 				68F730741B07DE94001A21B0 /* Customer.swift in Sources */,
 				68B412E11B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
-				68B978D41B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */,
 				68C12EDC1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				68B412DE1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				5C0049561B1BE964000ACE9D /* WorkOrderServiceTests.swift in Sources */,
@@ -1486,7 +1455,6 @@
 				689B0CBD1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
 				68B412EA1B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				68B412C61B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
-				68B978E01B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */,
 				68B978C71B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				68B4128C1B08036F009A4C05 /* Color.swift in Sources */,
 				68B4129F1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
@@ -1503,7 +1471,6 @@
 				682D32701B07D16300BC4EEC /* AppDelegate.swift in Sources */,
 				68F730801B07DE94001A21B0 /* Product.swift in Sources */,
 				687CB5661B07EAD30048B692 /* StringExtensions.swift in Sources */,
-				68B978DA1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */,
 				68B412C91B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B412C01B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				687CB57B1B07EAD30048B692 /* UITableViewExtensions.swift in Sources */,
@@ -1513,7 +1480,6 @@
 				68B413211B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412FE1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				68B412A51B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
-				68B978DD1B085A6C00863E21 /* RouteSegue.swift in Sources */,
 				5C4AF3A01B13A3ED00423B71 /* Message.swift in Sources */,
 				687CB5A41B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7307D1B07DE94001A21B0 /* Model.swift in Sources */,
@@ -1531,9 +1497,8 @@
 				68B413071B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F7309B1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				687CB56C1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
-				68B978D71B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */,
+				68B978D71B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				5C41C5971B2152A900FA7783 /* MessageServiceTests.swift in Sources */,
-				68B978D11B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */,
 				68F730981B07DE94001A21B0 /* WorkOrder.swift in Sources */,
 				68B412851B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				68B412DB1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
@@ -1569,7 +1534,6 @@
 				68B412AC1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				68B412FF1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				5C4AF3A51B13AC0500423B71 /* UIStoryboardExtensions.swift in Sources */,
-				68B978DB1B085A6C00863E21 /* NextWorkOrderUnwindSegue.swift in Sources */,
 				68B4130E1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68B412EB1B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				68B412E81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
@@ -1585,7 +1549,6 @@
 				68B412E21B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B413051B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68B978C41B084DCF00863E21 /* VersionHelper.swift in Sources */,
-				68B978D21B085A6C00863E21 /* InProgressWorkOrderSegue.swift in Sources */,
 				68F730721B07DE94001A21B0 /* Contact.swift in Sources */,
 				686A5A1E1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				687CB59C1B07F6020048B692 /* DirectionService.swift in Sources */,
@@ -1615,9 +1578,7 @@
 				687CB59F1B07F6020048B692 /* LocationService.swift in Sources */,
 				687CB54C1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				68B412C71B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
-				68B978E11B085A6C00863E21 /* RouteUnwindSegue.swift in Sources */,
 				687CB5701B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
-				68B978D51B085A6C00863E21 /* InProgressWorkOrderUnwindSegue.swift in Sources */,
 				68B412CA1B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B413221B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				5C10663D1B1A703F00866F3C /* MessagesViewController.swift in Sources */,
@@ -1641,12 +1602,11 @@
 				68B412E51B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				687CB5A51B07F6020048B692 /* RouteService.swift in Sources */,
 				68F7306F1B07DE94001A21B0 /* Company.swift in Sources */,
-				68B978D81B085A6C00863E21 /* NextWorkOrderSegue.swift in Sources */,
+				68B978D81B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				68F7309C1B07DE94001A21B0 /* WorkOrderProvider.swift in Sources */,
 				68F7307B1B07DE94001A21B0 /* Directions.swift in Sources */,
 				68B412861B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				68B412D31B080D42009A4C05 /* SignatureViewController.swift in Sources */,
-				68B978DE1B085A6C00863E21 /* RouteSegue.swift in Sources */,
 				5C54123D1B24038800AD8B04 /* OHHTTPStubsHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

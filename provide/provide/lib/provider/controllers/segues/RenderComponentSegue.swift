@@ -1,5 +1,5 @@
 //
-//  NextWorkOrderSegue.swift
+//  RenderComponentSegue.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -8,10 +8,21 @@
 
 import UIKit
 
-class NextWorkOrderSegue: UIStoryboardSegue {
+class RenderComponentSegue: UIStoryboardSegue {
 
     override func perform() {
         switch identifier! {
+        case "DirectionsViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is DirectionsViewController)
+            (destinationViewController as! DirectionsViewController).render()
+        case "ManifestViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is RouteManifestViewController)
+        case "RouteManifestViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is RouteManifestViewController)
+            (destinationViewController as! RouteManifestViewController).render()
         case "WorkOrderAnnotationViewControllerSegue":
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is WorkOrderAnnotationViewController)
@@ -26,6 +37,10 @@ class NextWorkOrderSegue: UIStoryboardSegue {
             assert(sourceViewController is WorkOrderAnnotationViewController)
             assert(destinationViewController is WorkOrdersViewController)
             sourceViewController.performSegueWithIdentifier("WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
+        case "WorkOrderComponentViewControllerSegue":
+            assert(sourceViewController is WorkOrdersViewController)
+            assert(destinationViewController is WorkOrderComponentViewController)
+            (destinationViewController as! WorkOrderComponentViewController).render()
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(sourceViewController is WorkOrdersViewController)
             assert(destinationViewController is WorkOrderDestinationHeaderViewController)
