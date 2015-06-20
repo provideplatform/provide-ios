@@ -70,7 +70,7 @@ class KeyChainService {
             uicStore.removeAllItems()
         } else {
             for key in ["user", "token", "email", "deviceId"] {
-                if let value = self[key] {
+                if self[key] != nil {
                     self[key] = nil
                 }
             }

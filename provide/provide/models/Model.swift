@@ -67,7 +67,7 @@ class Model: NSObject {
     }
 
     override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String, error outError: NSErrorPointer) -> Bool {
-        if let memory: AnyObject = ioValue.memory {
+        if ioValue.memory != nil {
             if ioValue.memory is NSNull {
                 ioValue.memory = nil
                 return true

@@ -75,7 +75,8 @@ class MenuViewController: UITableViewController {
     }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
-        if let storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc") {
+        let storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc")
+        if storyboardPath != nil {
             let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController() as! UIViewController
             let ecSlidingSegue = ECSlidingSegue(identifier: nil, source: self, destination: initialViewController)
             ecSlidingSegue.perform()

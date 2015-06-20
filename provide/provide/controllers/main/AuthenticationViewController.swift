@@ -120,7 +120,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     private func userWasAuthenticated() {
-        if let email = KeyChainService.sharedService().email {
+        if KeyChainService.sharedService().email != nil {
             performSegueWithIdentifier("SlidingViewControllerSegue", sender: self)
         }
     }

@@ -141,7 +141,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func removeOnLocationResolvedDurableCallback(key: String) {
-        if let callback = onLocationResolvedDurableCallbacks[key] {
+        let callback = onLocationResolvedDurableCallbacks[key]
+        if callback != nil {
             onLocationResolvedDurableCallbacks.removeValueForKey(key)
         }
     }
@@ -206,7 +207,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func removeOnHeadingResolvedDurableCallback(key: String) {
-        if let callback = onHeadingResolvedDurableCallbacks[key] {
+        let callback = onHeadingResolvedDurableCallbacks[key]
+        if callback != nil {
             onHeadingResolvedDurableCallbacks.removeValueForKey(key)
         }
     }

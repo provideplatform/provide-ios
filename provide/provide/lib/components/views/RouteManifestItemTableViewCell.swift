@@ -17,15 +17,15 @@ class RouteManifestItemTableViewCell: UITableViewCell {
     var product: Product! {
         didSet {
             if let name = product.name {
-                nameLabel?.text = product.name
+                nameLabel?.text = name
             }
 
             if let gtin = product.gtin {
-                gtinLabel?.text = product.gtin
+                gtinLabel?.text = gtin
             }
 
             if let desc = product.desc {
-                sizeLabel?.text = product.desc
+                sizeLabel?.text = desc
             }
         }
     }

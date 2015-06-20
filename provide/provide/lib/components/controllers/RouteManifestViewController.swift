@@ -182,7 +182,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         clearNavigationItem()
         route.start(
             onSuccess: { statusCode, responseString in
-                if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
+                let navigationController = self.delegate?.navigationControllerForViewController?(self)
+                if navigationController != nil {
                     self.delegate?.routeUpdated?(self.route, byViewController: self)
                 }
             },
@@ -196,7 +197,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         clearNavigationItem()
         route.complete(
             onSuccess: { statusCode, responseString in
-                if let navigationController = self.delegate?.navigationControllerForViewController?(self) {
+                let navigationController = self.delegate?.navigationControllerForViewController?(self)
+                if navigationController != nil {
                     self.delegate?.routeUpdated?(self.route, byViewController: self)
                 }
             },

@@ -89,10 +89,8 @@ class Route: Model {
             }
         }
 
-        if let products = itemsLoaded {
-            for productDict in products {
-                itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
-            }
+        if itemsLoaded != nil {
+            itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
         }
 
         return itemsNotLoaded

@@ -24,7 +24,7 @@ class DirectionService: NSObject {
                     sufficientDelta = true
                 }
             }
-            if abs(lastDirectionsApiRequestDate.timeIntervalSinceNow) >= 1.0 && sufficientDelta {
+            if abs(lastRequestDate.timeIntervalSinceNow) >= 1.0 && sufficientDelta {
                 return true
             }
         } else {
@@ -35,7 +35,7 @@ class DirectionService: NSObject {
 
     private var canSendEtaApiRequest: Bool {
         if let lastRequestDate = lastEtaApiRequestDate {
-            if abs(lastEtaApiRequestDate.timeIntervalSinceNow) >= 1.0 {
+            if abs(lastRequestDate.timeIntervalSinceNow) >= 1.0 {
                 return true
             }
         } else {
