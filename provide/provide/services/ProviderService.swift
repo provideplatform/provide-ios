@@ -44,5 +44,4 @@ class ProviderService: NSObject {
             }
         )
     }
-
 }

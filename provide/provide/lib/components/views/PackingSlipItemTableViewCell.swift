@@ -13,7 +13,6 @@ protocol PackingSlipItemTableViewCellDelegate {
 
     optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, didRejectProduct rejectedProduct: Product!)
     optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadProduct product: Product!)
-
 }
 
 class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
@@ -105,5 +104,4 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
         return true
     }
-
 }

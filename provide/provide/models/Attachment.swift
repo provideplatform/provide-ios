@@ -31,5 +31,4 @@ class Attachment: Model {
         ])
         return mapping
     }
-
 }

@@ -14,7 +14,6 @@ protocol WorkOrderComponentViewControllerDelegate {
     func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController!) -> WorkOrderComponentViewController!
     optional func mapViewForWorkOrderViewController(viewController: ViewController!) -> MapView!
     optional func targetViewForViewController(viewController: ViewController!) -> UIView!
-
 }
 
 class WorkOrderComponentViewController: ViewController {
@@ -102,5 +101,4 @@ class WorkOrderComponentViewController: ViewController {
             navigationItem.rightBarButtonItems = []
         }
     }
-
 }

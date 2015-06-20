@@ -23,5 +23,4 @@ class Company: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }
-
 }

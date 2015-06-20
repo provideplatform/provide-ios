@@ -83,5 +83,4 @@ class WorkOrderAnnotationView: AnnotationView {
     private func resizedSelectedBackgroundColorForRect(rect: CGRect) -> UIColor! {
         return UIColor(patternImage: backgroundImageForRect(rect)).colorWithAlphaComponent(0.90)
     }
-
 }

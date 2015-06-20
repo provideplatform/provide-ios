@@ -33,5 +33,4 @@ class Directions: Model {
         }
         return nil
     }
-
 }

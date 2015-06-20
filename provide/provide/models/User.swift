@@ -27,7 +27,6 @@ class User: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }
-
 }
 
 

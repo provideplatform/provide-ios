@@ -23,5 +23,4 @@ extension UIViewController {
     func dismissViewController(animated: Bool = false, completion: VoidBlock? = nil) {
         dismissViewControllerAnimated(animated, completion: completion)
     }
-
 }

@@ -101,5 +101,4 @@ extension NSDate {
         let dateFormatter = NSDateFormatter(dateFormat: "yyyy")
         return dateFormatter.stringFromDate(self)
     }
-
 }

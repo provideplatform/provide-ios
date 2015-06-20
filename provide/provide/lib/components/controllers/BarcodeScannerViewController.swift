@@ -15,7 +15,6 @@ protocol BarcodeScannerViewControllerDelegate {
     optional func barcodeScannerViewController(viewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!)
     optional func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController!)
     optional func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController!) -> CGRect
-
 }
 
 class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
@@ -65,5 +64,4 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
         }
         return CGRectZero
     }
-
 }

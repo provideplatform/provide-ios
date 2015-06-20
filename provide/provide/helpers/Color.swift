@@ -37,5 +37,4 @@ class Color {
     class func annotationViewBackgroundSelectedImageColor() -> UIColor {
         return UIColor(patternImage: annotationViewBackgroundImage()).colorWithAlphaComponent(1.0)
     }
-
 }

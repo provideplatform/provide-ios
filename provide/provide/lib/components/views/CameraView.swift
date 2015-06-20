@@ -12,7 +12,6 @@ import AVFoundation
 protocol CameraViewDelegate {
 
     func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!)
-
 }
 
 class CameraView: UIView {
@@ -120,5 +119,4 @@ class CameraView: UIView {
             }
         }
     }
-
 }

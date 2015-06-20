@@ -76,5 +76,4 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber!) {
         self.minutesEta = minutesEta as Int
     }
-
 }

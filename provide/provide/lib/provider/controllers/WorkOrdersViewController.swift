@@ -592,5 +592,4 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
         return vc
     }
-
 }

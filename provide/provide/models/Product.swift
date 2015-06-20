@@ -47,5 +47,4 @@ class Product: Model {
     var sku: String! {
         return data != nil ? data["sku"] as? String : nil
     }
-
 }

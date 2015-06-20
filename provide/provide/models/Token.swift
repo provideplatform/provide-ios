@@ -33,5 +33,4 @@ class Token: Model {
     var authorizationHeaderString: String {
         return "Basic " + "\(token):\(uuid)".base64EncodedString
     }
-
 }

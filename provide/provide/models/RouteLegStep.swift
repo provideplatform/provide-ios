@@ -176,5 +176,4 @@ class RouteLegStep: Model {
 
         return nil
     }
-
 }

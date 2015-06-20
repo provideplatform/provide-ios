@@ -23,5 +23,4 @@ class WorkOrderProvider: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("provider", mapping: Provider.mapping())
         return mapping
     }
-
 }

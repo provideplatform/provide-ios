@@ -21,7 +21,6 @@ protocol DirectionsViewControllerDelegate {
     optional func mapViewUserTrackingMode(mapView: MKMapView!) -> MKUserTrackingMode
 
     optional func targetViewForViewController(viewController: ViewController!) -> UIView!
-
 }
 
 class DirectionsViewController: ViewController {
@@ -403,5 +402,4 @@ class DirectionsViewController: ViewController {
         }
         return routeLegStep
     }
-
 }

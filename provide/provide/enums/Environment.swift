@@ -41,5 +41,4 @@ enum Environment: String {
     var useSSL: Bool {
         return hostName.hasSuffix(productionHostSuffix)
     }
-
 }

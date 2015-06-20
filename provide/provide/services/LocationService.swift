@@ -314,5 +314,4 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             }
         }
     }
-
 }

@@ -23,5 +23,4 @@ extension NSDateFormatter {
     class func localizedStringFromDate(date: NSDate, dateStyle: NSDateFormatterStyle) -> String {
         return NSDateFormatter.localizedStringFromDate(date, dateStyle: dateStyle, timeStyle: .NoStyle)
     }
-
 }

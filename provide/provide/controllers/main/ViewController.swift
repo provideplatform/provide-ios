@@ -60,5 +60,4 @@ class ViewController: UIViewController {
         AnalyticsService.sharedService().viewDidAppearForController(self, animated: animated)
         swizzled_viewDidAppear(animated)
     }
-
 }

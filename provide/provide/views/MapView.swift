@@ -79,5 +79,4 @@ class MapView: MKMapView, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         updatedUserLocationOnce = true
     }
-
 }

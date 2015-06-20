@@ -84,5 +84,4 @@ class KeyChainService {
             return "\(CurrentEnvironment.prefixString)-\(key)"
         }
     }
-
 }

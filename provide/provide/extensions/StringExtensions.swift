@@ -140,5 +140,4 @@ extension String {
         }
         return str as String
     }
-
 }

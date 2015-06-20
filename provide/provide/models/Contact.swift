@@ -56,5 +56,4 @@ class Contact: Model {
         address += "\n\(city), \(state) \(zip)"
         return address
     }
-
 }

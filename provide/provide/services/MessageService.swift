@@ -53,5 +53,4 @@ class MessageService {
         let message = notification.object as! Message
         messages.append(message)
     }
-
 }

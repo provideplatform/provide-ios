@@ -25,5 +25,4 @@ extension UITableView {
     subscript(row: Int, section: Int) -> UITableViewCell {
         return cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: section))!
     }
-
 }

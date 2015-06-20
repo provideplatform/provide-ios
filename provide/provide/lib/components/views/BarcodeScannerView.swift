@@ -14,7 +14,6 @@ protocol BarcodeScannerViewDelegate {
 
     optional func barcodeScannerView(barcodeScannerView: BarcodeScannerView!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!)
     optional func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView!) -> CGRect
-
 }
 
 class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
@@ -139,5 +138,4 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
         return path
     }
-
 }

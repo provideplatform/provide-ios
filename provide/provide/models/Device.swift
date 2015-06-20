@@ -21,5 +21,4 @@ class Device: Model {
         ])
         return mapping
     }
-
 }

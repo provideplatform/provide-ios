@@ -15,5 +15,4 @@ extension UIColor {
         UIGraphicsEndImageContext()
         return UIColor(patternImage: resizedImage)
     }
-
 }

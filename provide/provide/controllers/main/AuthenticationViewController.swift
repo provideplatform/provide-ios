@@ -233,7 +233,6 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             assertUnhandledSegue(segue.identifier)
         }
     }
-
 }
 
 class AuthenticationCell: UITableViewCell {

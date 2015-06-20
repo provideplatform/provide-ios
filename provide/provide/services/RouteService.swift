@@ -103,5 +103,4 @@ class RouteService: NSObject {
     var loadingRoute: Route! {
         return routes.findFirst { $0.status == "loading" }
     }
-
 }

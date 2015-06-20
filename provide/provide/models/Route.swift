@@ -185,5 +185,4 @@ class Route: Model {
     func unloadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
         RouteService.unloadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
-
 }

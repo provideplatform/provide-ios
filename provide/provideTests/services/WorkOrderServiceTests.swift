@@ -58,5 +58,4 @@ class WorkOrderServiceTests: XCTestCase {
             XCTAssertEqual(provider.provider.contact.address1, "123 Elm St")
         }
     }
-
 }

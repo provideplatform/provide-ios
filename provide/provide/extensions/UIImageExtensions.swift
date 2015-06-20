@@ -21,5 +21,4 @@ extension UIImage {
     convenience init!(_ imageName: String) {
         self.init(named: imageName)
     }
-
 }

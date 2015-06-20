@@ -85,5 +85,4 @@ class MenuViewController: UITableViewController {
             slidingViewController().resetTopViewAnimated(true)
         }
     }
-
 }

@@ -28,5 +28,4 @@ extension NSDictionary {
         }
         return queryString
     }
-
 }

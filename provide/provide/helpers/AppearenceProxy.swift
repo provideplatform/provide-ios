@@ -34,5 +34,4 @@ class AppearenceProxy {
             NSForegroundColorAttributeName : UIColor.darkGrayColor()
         ]
     }
-
 }

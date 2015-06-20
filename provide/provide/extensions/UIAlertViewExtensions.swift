@@ -22,5 +22,4 @@ extension UIAlertView {
     convenience init(title: String? = nil, message: String? = nil, cancelButtonTitle: String? = "OK") {
         self.init(title: title, message: message, delegate: nil, cancelButtonTitle: cancelButtonTitle)
     }
-
 }

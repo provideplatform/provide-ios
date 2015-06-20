@@ -82,5 +82,4 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
     func signatureView(signatureView: SignatureView!, capturedSignature signature: UIImage!) {
         workOrdersViewControllerDelegate?.signatureReceived?(signature, forWorkOrderViewController: self)
     }
-
 }

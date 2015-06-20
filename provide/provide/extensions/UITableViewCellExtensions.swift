@@ -15,5 +15,4 @@ extension UITableViewCell {
         separatorInset = UIEdgeInsetsZero
         preservesSuperviewLayoutMargins = false
     }
-
 }

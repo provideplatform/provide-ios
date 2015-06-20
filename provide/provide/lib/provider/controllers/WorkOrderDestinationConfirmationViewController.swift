@@ -187,5 +187,4 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 //        listeningToLocationUpdates = false
 //        LocationService.sharedService().removeOnLocationResolvedDurableCallback("workOrderDestinationConfirmationViewController")
 //    }
-
 }

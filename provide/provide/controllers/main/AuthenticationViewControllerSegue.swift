@@ -52,5 +52,4 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
             break
         }
     }
-
 }

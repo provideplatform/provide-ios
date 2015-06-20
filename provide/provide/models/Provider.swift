@@ -43,5 +43,4 @@ class Provider: Model {
         }
         return lastName
     }
-
 }

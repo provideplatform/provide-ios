@@ -12,7 +12,6 @@ import Foundation
 protocol SignatureViewDelegate {
 
     func signatureView(signatureView: SignatureView!, capturedSignature signature: UIImage!)
-
 }
 
 class SignatureView: UIView {

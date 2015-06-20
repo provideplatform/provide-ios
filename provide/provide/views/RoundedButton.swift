@@ -51,5 +51,4 @@ class RoundedButton: UIButton {
             callback()
         }
     }
-
 }

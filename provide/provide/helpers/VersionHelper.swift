@@ -32,7 +32,6 @@ class VersionHelper {
     class func fullVersion() -> String {
         return "\(shortVersion()).\(buildNumber()) \(buildTime()) (\(gitSha()))"
     }
-
 }
 
 // MARK: Private Functions

@@ -302,5 +302,4 @@ class WorkOrder: Model, MKAnnotation {
         providerRating = netPromoterScore
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
-
 }

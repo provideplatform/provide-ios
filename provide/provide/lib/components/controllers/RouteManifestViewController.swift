@@ -266,5 +266,4 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         log("selected loaded manifest item: \(items[indexPath.row])")
     }
-
 }

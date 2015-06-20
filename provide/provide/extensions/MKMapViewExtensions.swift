@@ -113,5 +113,4 @@ extension MKMapView {
     func disableUserInteraction() {
         enableUserInteraction(enabled: false)
     }
-
 }

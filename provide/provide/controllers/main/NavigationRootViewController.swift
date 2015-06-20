@@ -42,5 +42,4 @@ class NavigationRootViewController: ViewController {
             break
         }
     }
-
 }

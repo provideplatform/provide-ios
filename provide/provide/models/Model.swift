@@ -75,5 +75,4 @@ class Model: NSObject {
         }
         return super.validateValue(ioValue, forKeyPath: inKeyPath, error: outError)
     }
-
 }

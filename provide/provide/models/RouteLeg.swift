@@ -91,5 +91,4 @@ class RouteLeg: Model {
 
         return step
     }
-
 }

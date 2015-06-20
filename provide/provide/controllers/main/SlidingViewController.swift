@@ -30,5 +30,4 @@ class SlidingViewController: ECSlidingViewController {
             resetTopViewAnimated(true)
         }
     }
-
 }

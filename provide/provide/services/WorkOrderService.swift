@@ -112,5 +112,4 @@ class WorkOrderService: NSObject {
                                                                            onDidExitRegion: onDidExitRegion)
         }
     }
-
 }

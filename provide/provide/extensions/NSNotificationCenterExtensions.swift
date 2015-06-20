@@ -21,5 +21,4 @@ extension NSNotificationCenter {
     func addObserverForName(name: String?, queue: NSOperationQueue? = nil, usingBlock block: (NSNotification!) -> Void) {
         addObserverForName(name, object: nil, queue: queue, usingBlock: block)
     }
-
 }

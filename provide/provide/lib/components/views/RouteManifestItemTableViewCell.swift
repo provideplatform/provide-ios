@@ -29,5 +29,4 @@ class RouteManifestItemTableViewCell: UITableViewCell {
             }
         }
     }
-
 }

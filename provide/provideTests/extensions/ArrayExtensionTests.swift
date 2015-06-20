@@ -23,5 +23,4 @@ class ArrayExtensionTests: XCTestCase {
         let beginsWithT = array.findFirst { $0.hasPrefix("t") }
         XCTAssertEqual("two", beginsWithT!)
     }
-
 }
