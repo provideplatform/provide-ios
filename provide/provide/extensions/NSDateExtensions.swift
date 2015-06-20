@@ -73,11 +73,6 @@ extension NSDate {
         return round(seconds * 100) / 100
     }
 
-    func daysSince(otherDate: NSDate) -> Int {
-        let components = NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: atMidnight, toDate: otherDate.atMidnight, options: nil)
-        return components.day
-    }
-
     var utcString: String {
         return format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     }
