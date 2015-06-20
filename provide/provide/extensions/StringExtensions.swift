@@ -14,10 +14,6 @@ extension String {
         return lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
     }
 
-    func isDigit() -> Bool {
-        return (length == 1) && (toInt() >= 0) && (toInt() <= 9)
-    }
-
     func replaceString(target: String, withString replacementString: String) -> String {
         return stringByReplacingOccurrencesOfString(target, withString: replacementString)
     }

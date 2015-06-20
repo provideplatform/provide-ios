@@ -351,9 +351,6 @@ class ApiService: NSObject {
         op.addCompletionHandler(
             { completedOperation in
                 let statusCode = completedOperation.HTTPStatusCode
-                let responseString = completedOperation.responseString()
-                let request = completedOperation.readonlyRequest
-
                 onSuccess(statusCode: statusCode, mappingResult: nil)
             },
             errorHandler: { completedOperation, error in

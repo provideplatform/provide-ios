@@ -255,7 +255,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let i = managedViewControllerSegues.indexOfObject(segue.identifier!) {
+        if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {
             managedViewControllers.append(segue.destinationViewController as! ViewController)
         }
         

@@ -221,7 +221,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "SlidingViewControllerSegue":
-            let slidingViewController = segue.destinationViewController as! SlidingViewController
+            break // let slidingViewController = segue.destinationViewController as! SlidingViewController
         case "AuthenticationViewControllerUnwindSegue":
             if emailField.isFirstResponder() {
                 emailField?.resignFirstResponder()
