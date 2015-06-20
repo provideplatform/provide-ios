@@ -31,11 +31,11 @@ class MessagesViewController: JSQMessagesViewController {
         senderDisplayName = currentUser().name
 
         // Hide the media attachment button
-        inputToolbar.contentView.leftBarButtonItem = nil
+        inputToolbar!.contentView!.leftBarButtonItem = nil
 
         // No avatars for now
-        collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
-        collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
 
         automaticallyScrollsToMostRecentMessage = true
 
@@ -46,7 +46,7 @@ class MessagesViewController: JSQMessagesViewController {
         MessageService.sharedService().fetch(
             onMessagesFetched: { messages in
                 self.messages += messages
-                self.collectionView.reloadData()
+                self.collectionView!.reloadData()
                 self.scrollToBottomAnimated(false)
             },
             onError: { error, statusCode, responseString in
@@ -69,7 +69,7 @@ class MessagesViewController: JSQMessagesViewController {
     @objc private func newMessageReceived(notification: NSNotification) {
         let message = notification.object as! Message
         messages.append(message)
-        collectionView.reloadData()
+        collectionView!.reloadData()
         scrollToBottomAnimated(true)
     }
 
@@ -100,7 +100,7 @@ class MessagesViewController: JSQMessagesViewController {
             onMessageCreated: { message in
                 self.messages.removeLast() // remove the temp
                 self.messages.append(message) // add the real 
-                self.collectionView.reloadData()
+                self.collectionView!.reloadData()
             },
             onError: { error, statusCode, responseString in
                 // TODO: Handle error
@@ -124,8 +124,8 @@ class MessagesViewController: JSQMessagesViewController {
         let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
 
         let message = messages[indexPath.row]
-        cell.textView.textColor = isFromCurrentUser(message) ? UIColor.whiteColor() : UIColor.blackColor()
-        cell.textView.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView.textColor, NSUnderlineStyleAttributeName: 1]
+        cell.textView!.textColor = isFromCurrentUser(message) ? UIColor.whiteColor() : UIColor.blackColor()
+        cell.textView!.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView!.textColor, NSUnderlineStyleAttributeName: 1]
 
         return cell
     }
