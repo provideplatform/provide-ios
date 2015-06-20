@@ -90,7 +90,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: Process Methods
 
     func submit(sender: UIButton!) {
-        let loginInvalid = emailField.text.length == 0 || passwordField.text.length == 0
+        let loginInvalid = emailField.text?.length == 0 || passwordField.text?.length == 0
         if loginInvalid {
             UIAlertView.showToast("Please enter both email and password.")
             return
@@ -104,8 +104,9 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     private func login() {
         let params = [
-            "email" : emailField.text,
-            "password" : passwordField.text]
+            "email" : emailField.text!,
+            "password" : passwordField.text!
+        ]
 
         ApiService.sharedService().login(params,
             onSuccess: { statusCode, responseString in
@@ -157,7 +158,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         if let storedEmail = KeyChainService.sharedService().email {
             emailField.text = storedEmail
         }
-        if emailField.text.isEmpty && tableView.alpha != 0 {
+        if emailField.text!.isEmpty && tableView.alpha != 0 {
             emailField.becomeFirstResponder()
         }
         return cell
@@ -194,7 +195,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         if emailField != nil && textField == emailField {
             passwordField.becomeFirstResponder()
             return false
-        } else if emailField != nil && emailField.text.isEmpty {
+        } else if emailField != nil && emailField.text!.isEmpty {
             emailField.becomeFirstResponder()
             return false
         } else {
@@ -212,7 +213,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: Validation Methods
 
     private func validFieldValues() -> Bool {
-        return emailField != nil && emailField.text.isValidForEmail()
+        return emailField != nil && emailField.text!.isValidForEmail()
     }
 
     // MARK: Navigation Methods
