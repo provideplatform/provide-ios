@@ -160,10 +160,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let items = items {
-            return items.count
-        }
-        return 0
+        return items?.count ?? 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -181,10 +178,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 75.0
-    }
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
     }
 
     // MARK: PackingSlipItemTableViewCellDelegate

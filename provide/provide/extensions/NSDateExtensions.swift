@@ -31,33 +31,13 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
 
-    var weekOfYear: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitWeekOfYear, fromDate: self).weekOfYear
-    }
-
     var timeString: String? {
         let dateFormatter = NSDateFormatter(dateFormat: "hh:mm a")
         return dateFormatter.stringFromDate(self)
     }
 
-    var hour: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: self).hour
-    }
-
     var minutes: Int {
         return NSCalendar.currentCalendar().components(.CalendarUnitMinute, fromDate: self).minute
-    }
-
-    var dayOfMonth: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self).day
-    }
-
-    var monthOfYear: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitMonth, fromDate: self).month
-    }
-
-    var year: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitYear, fromDate: self).year
     }
 
     var minutesString: String {

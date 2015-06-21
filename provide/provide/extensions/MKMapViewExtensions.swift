@@ -105,12 +105,16 @@ extension MKMapView {
 
     // MARK: Interaction
 
-    func enableUserInteraction(enabled: Bool = true) {
+    func setUserInteraction(#enabled: Bool) {
         scrollEnabled = enabled
         zoomEnabled = enabled
     }
 
     func disableUserInteraction() {
-        enableUserInteraction(enabled: false)
+        setUserInteraction(enabled: false)
+    }
+
+    func enableUserInteraction() {
+        setUserInteraction(enabled: true)
     }
 }

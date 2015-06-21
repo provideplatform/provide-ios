@@ -17,7 +17,7 @@ class OHHTTPStubsHelper {
         return dateFormatter
     }()
 
-    class func stubMessagesNetworkRequests() {
+    func stubMessagesNetworkRequests() {
 
         // GET messages
         OHHTTPStubs.stubRequestsPassingTest(
@@ -45,7 +45,7 @@ class OHHTTPStubsHelper {
                     "body": text,
                     "recipient_id": recipientId.toInt()!,
                     "sender_id": currentUser().id.integerValue,
-                    "created_at": self.iso8601DateFormatter.stringFromDate(NSDate()),
+                    "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
                     "recipient_name":"Kyle Thomas",
                     "sender_name": currentUser().name]
                 return OHHTTPStubsResponse(JSONObject: responseJSON, statusCode: 201, headers: ["Content-Type":"application/json"]).requestTime(1.0, responseTime: 1.0)
