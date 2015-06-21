@@ -52,6 +52,10 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
             let input = AVCaptureDeviceInput(device: device, error: &error)
 
+            if let error = error {
+                logError(error)
+            }
+
             captureSession = AVCaptureSession()
             captureSession.sessionPreset = AVCaptureSessionPresetHigh
             captureSession.addInput(input)

@@ -11,11 +11,8 @@ import Foundation
 extension NSDictionary {
 
     func toJSON() -> String! {
-        var error: NSError?
-        if let json = NSJSONSerialization.dataWithJSONObject(self, options: nil, error: &error) {
-            return NSString(bytes: json.bytes, length: json.length, encoding: NSUTF8StringEncoding) as! String
-        }
-        return nil
+        let jsonData = encodeJSON(self as! [String: AnyObject])
+        return NSString(bytes: jsonData.bytes, length: jsonData.length, encoding: NSUTF8StringEncoding) as! String
     }
 
     func toQueryString() -> String {

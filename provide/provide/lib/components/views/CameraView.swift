@@ -61,7 +61,15 @@ class CameraView: UIView {
                 device.unlockForConfiguration()
             }
 
+            if let error = error {
+                logError(error)
+            }
+
             let input = AVCaptureDeviceInput(device: device, error: &error)
+
+            if let error = error {
+                logError(error)
+            }
 
             captureSession = AVCaptureSession()
             captureSession.sessionPreset = AVCaptureSessionPresetHigh

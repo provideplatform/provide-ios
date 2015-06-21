@@ -40,6 +40,11 @@ func why(message: String, fileName: String = __FILE__, functionName: String = __
     log("❓ WHY: \(message)", fileName, functionName, lineNumber)
 }
 
+func logError(error: NSError, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+    log("❌ NSError: \(error.localizedDescription)", fileName, functionName, lineNumber)
+    fatalError("Encountered: NSError: \(error)")
+}
+
 func logError(errorMessage: String, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
     log("‼️ ERROR: \(errorMessage)", fileName, functionName, lineNumber)
 }
@@ -76,10 +81,11 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
 
     var error: NSError?
     let fileAsString = NSString(contentsOfFile: filePath!, encoding: NSUTF8StringEncoding, error: &error)
-    assert(error == nil)
-    assert(fileAsString != nil)
+    if let error = error {
+        logError(error)
+    }
 
-    return fileAsString! as String
+    return fileAsString as! String
 }
 
 func pluralizedPhrase(count: Int, phrase: String, _ suffix: String? = nil) -> String {
@@ -109,8 +115,8 @@ func isSimulator() -> Bool {
 func prettyPrintedJson(uglyJsonStr: String?) -> String! {
     if let uglyJsonString = uglyJsonStr {
         if let uglyJson: AnyObject = NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil) {
-            let prettyPrintedJson = NSJSONSerialization.dataWithJSONObject(uglyJson, options: .PrettyPrinted, error: nil)
-            return NSString(data: prettyPrintedJson!, encoding: NSUTF8StringEncoding) as! String
+            let prettyPrintedJson = encodeJSON(uglyJson, options: .PrettyPrinted)
+            return NSString(data: prettyPrintedJson, encoding: NSUTF8StringEncoding) as! String
         }
     }
 
@@ -154,10 +160,20 @@ func classNameForObject(object: AnyObject) -> String {
     }
 }
 
-func decodeJSON(data: NSData) -> [String: AnyObject]? {
-    return NSJSONSerialization.JSONObjectWithData(data, options: .allZeros, error: nil) as? [String: AnyObject]
+func decodeJSON(data: NSData) -> [String: AnyObject] {
+    var error: NSError?
+    let json = NSJSONSerialization.JSONObjectWithData(data, options: .allZeros, error: &error) as? [String: AnyObject]
+    if let error = error {
+        logError(error)
+    }
+    return json!
 }
 
-func encodeJSON(input: [String: AnyObject], options: NSJSONWritingOptions = .allZeros) -> NSData? {
-    return NSJSONSerialization.dataWithJSONObject(input, options: options, error: nil)
+func encodeJSON(input: AnyObject, options: NSJSONWritingOptions = .allZeros) -> NSData {
+    var error: NSError?
+    let data =  NSJSONSerialization.dataWithJSONObject(input, options: options, error: &error)
+    if let error = error {
+        logError(error)
+    }
+    return data!
 }

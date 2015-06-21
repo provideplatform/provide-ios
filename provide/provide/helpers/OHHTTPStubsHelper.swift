@@ -36,7 +36,7 @@ class OHHTTPStubsHelper {
                 return request.URL!.path! == "/api/messages" && request.HTTPMethod == "POST"
             },
             withStubResponse: { request in
-                let bodyJson = decodeJSON(request.HTTPBody!)!
+                let bodyJson = decodeJSON(request.HTTPBody!)
                 let text = bodyJson["body"] as! String
                 let recipientId = bodyJson["recipient_id"] as! String
 

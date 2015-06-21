@@ -28,7 +28,7 @@ class Model: NSObject {
         super.init()
 
         let data = string.dataUsingEncoding(NSUTF8StringEncoding)!
-        let dictionary = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as! [String: AnyObject]
+        let dictionary = decodeJSON(data)
 
         for (key, var value) in dictionary {
             var camelCaseKey = key.snakeCaseToCamelCaseString()
