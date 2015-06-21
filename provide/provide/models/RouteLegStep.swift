@@ -80,8 +80,11 @@ class RouteLegStep: Model {
         return mapping
     }
 
-    var maneuverIcon: UIImage {
-        return UIImage(maneuverIcons[maneuver]!)
+    var maneuverIcon: UIImage! {
+        if let iconName = maneuverIcons[maneuver] {
+            return UIImage(iconName)
+        }
+        return nil
     }
 
     var distance: CLLocationDistance! {

@@ -45,6 +45,8 @@ class DirectionsInstructionView: UIView {
 
                 if let icon = routeLeg.currentStep?.maneuverIcon {
                     self.icon.image = icon
+                } else {
+                    self.icon.image = nil
                 }
 
                 if let distance = routeLeg.currentStep?.remainingDistanceString {
