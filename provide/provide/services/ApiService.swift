@@ -425,15 +425,23 @@ class ApiService: NSObject {
                     { operation, mappingResult in
                         AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
 
-                        onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode, mappingResult: mappingResult)
-                        return
+                        onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode,
+                                  mappingResult: mappingResult)
                     },
                     failure: { operation, error in
-                        AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
+                        let receivedResponse = operation.HTTPRequestOperation.response != nil
+                        let responseString = receivedResponse ? operation.HTTPRequestOperation.responseString : "{}"
+                        let statusCode = receivedResponse ? operation.HTTPRequestOperation.response.statusCode : -1
+
+                        if receivedResponse {
+                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": responseString, "statusCode": statusCode])
+                        } else if let err = error {
+                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription, "code": err.code])
+                        }
 
                         onError(error: error,
-                            statusCode: operation.HTTPRequestOperation.response.statusCode,
-                            responseString: operation.HTTPRequestOperation.responseString)
+                                statusCode: statusCode,
+                                responseString: responseString)
                     }
                 )
 
