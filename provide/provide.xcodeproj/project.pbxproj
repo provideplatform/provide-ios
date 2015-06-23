@@ -1100,6 +1100,7 @@
 		68DFB0761B07C5C4002A72E8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Provide Technologies Inc.";
 				TargetAttributes = {
