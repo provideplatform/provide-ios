@@ -19,11 +19,6 @@ extension NSDate {
         return dateFormatter.dateFromString(string)
     }
 
-    class func monthNameForNumber(month: Int) -> String {
-        let dateFormatter = NSDateFormatter()
-        return (dateFormatter.monthSymbols as NSArray).objectAtIndex(month - 1) as! String
-    }
-
     func format(dateFormat: String) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")

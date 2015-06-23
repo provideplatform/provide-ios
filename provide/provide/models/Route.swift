@@ -39,9 +39,9 @@ class Route: Model {
                 if let shapes = (step as! RouteLegStep).shape {
                     for shape in shapes {
                         let shapeCoords = (shape as! String).splitAtString(",")
-                        let latitude = (shapeCoords.0 as NSString).doubleValue
-                        let longitude = (shapeCoords.1 as NSString).doubleValue
-                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                        let latitude = Double(shapeCoords.0)
+                        let longitude = Double(shapeCoords.1)
+                        coords.append(CLLocationCoordinate2D(latitude: latitude!, longitude: longitude))
                     }
                 }
             }

@@ -149,8 +149,8 @@ class RouteLegStep: Model {
         if let shape = shape {
             for shapeString in shape {
                 let shapeCoords = (shapeString as! String).splitAtString(",")
-                let latitude = (shapeCoords.0 as NSString).doubleValue
-                let longitude = (shapeCoords.1 as NSString).doubleValue
+                let latitude = Double(shapeCoords.0)!
+                let longitude = Double(shapeCoords.1)!
                 coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
             }
         }
@@ -161,8 +161,8 @@ class RouteLegStep: Model {
     var startCoordinate: CLLocationCoordinate2D! {
         if let startLocation = (shape as Array).first as? String {
             let startCoords = startLocation.splitAtString(",")
-            let latitude = (startCoords.0 as NSString).doubleValue
-            let longitude = (startCoords.1 as NSString).doubleValue
+            let latitude = Double(startCoords.0)!
+            let longitude = Double(startCoords.1)!
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
 
@@ -172,8 +172,8 @@ class RouteLegStep: Model {
     var endCoordinate: CLLocationCoordinate2D! {
         if let endLocation = (shape as Array).last as? String {
             let endCoords = endLocation.splitAtString(",")
-            let latitude = (endCoords.0 as NSString).doubleValue
-            let longitude = (endCoords.1 as NSString).doubleValue
+            let latitude = Double(endCoords.0)!
+            let longitude = Double(endCoords.1)!
             return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
 

@@ -22,7 +22,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
         view.backgroundColor = UIColor.clearColor()
         view.alpha = 1
 
-        (view.subviews[1] as UIView).roundCorners(3.0)
+        view.subviews[1].roundCorners(3.0)
 
         signatureView.delegate = self
     }
