@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+@testable import provide
 
 class WorkOrderServiceTests: XCTestCase {
 
@@ -38,7 +39,7 @@ class WorkOrderServiceTests: XCTestCase {
     func testFetch() {
         let expectation = expectationWithDescription("GET work_orders")
 
-        let fetchedWorkOrders = [WorkOrder]()
+        var fetchedWorkOrders = [WorkOrder]()
         WorkOrderService.sharedService().fetch { workOrders in
             fetchedWorkOrders = workOrders
             expectation.fulfill()

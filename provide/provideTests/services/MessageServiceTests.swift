@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+@testable import provide
 
 class MessageServiceTests: XCTestCase {
 
@@ -38,7 +39,7 @@ class MessageServiceTests: XCTestCase {
     func testFetch() {
         let expectation = expectationWithDescription("GET messages")
 
-        let fetchedMessages = [Message]()
+        var fetchedMessages = [Message]()
         MessageService.sharedService().fetch(
             onMessagesFetched: { messages in
                 fetchedMessages = messages
