@@ -1101,7 +1101,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Provide Technologies Inc.";
 				TargetAttributes = {
 					68DFB07D1B07C5C4002A72E8 = {
@@ -1684,6 +1684,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1773,6 +1774,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 			};
@@ -1792,6 +1794,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 			};
@@ -1812,6 +1815,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
@@ -1832,6 +1836,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
@@ -1856,6 +1861,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D KIF_TESTS $(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = provideKIFTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
@@ -1880,6 +1886,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D KIF_TESTS $(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = provideKIFTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
@@ -1959,6 +1966,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 			};
@@ -1978,6 +1986,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
@@ -2002,6 +2011,7 @@
 				INFOPLIST_PREFIX_HEADER = "$(inherited)";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D KIF_TESTS $(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = provideKIFTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
