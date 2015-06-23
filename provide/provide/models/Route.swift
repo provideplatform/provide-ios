@@ -41,7 +41,7 @@ class Route: Model {
                         let shapeCoords = (shape as! String).splitAtString(",")
                         let latitude = Double(shapeCoords.0)
                         let longitude = Double(shapeCoords.1)
-                        coords.append(CLLocationCoordinate2D(latitude: latitude!, longitude: longitude))
+                        coords.append(CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!))
                     }
                 }
             }
