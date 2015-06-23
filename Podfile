@@ -18,7 +18,3 @@ pod 'RFGravatarImageView'
 pod 'SDWebImage', '~> 3.7.2'
 pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell.git'
 pod 'UICKeyChainStore'
-
-target 'provideKIFTests', :exclusive => true do
-  pod 'KIF', '~> 3.2.3'
-end

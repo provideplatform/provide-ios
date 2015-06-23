@@ -27,8 +27,3 @@
 #undef __IPHONE_OS_VERSION_MIN_REQUIRED
 #define __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_7_0
 #import <SDWebImage/UIImageView+WebCache.h>
-
-// provideKIFTests
-#ifdef KIF_TESTS
-#import <KIF/KIF.h>
-#endif
