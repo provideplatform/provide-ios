@@ -26,5 +26,23 @@ class provideUITests: XCTestCase {
 
         // TODO-- make sure any existing token is destroyed
     }
-    
+
+    func testLoginLogout() {
+        let app = XCUIApplication()
+        app.buttons["SIGN IN"].tap()
+
+        let emailTextField = app.tables.textFields["email"]
+        emailTextField.typeText("kyle@unmarkedconsulting.com")
+
+        app.buttons["Next"].tap()
+
+        let xcuiSecureTextField = app.tables.textFields["_XCUI:Secure"]
+        xcuiSecureTextField.typeText("test123")
+
+        app.buttons["Go"].tap()
+        app.navigationBars["provide.WorkOrdersView"].swipeRight()
+
+        let logoutSliderStaticText = app.tables.childrenMatchingType(.Cell).elementAtIndex(2).staticTexts["logout_slider"]
+        logoutSliderStaticText.tap()
+    }
 }
