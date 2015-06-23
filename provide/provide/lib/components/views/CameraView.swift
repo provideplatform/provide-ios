@@ -51,7 +51,8 @@ class CameraView: UIView {
         if let device = frontCamera {
             var error: NSError?
 
-            if device.lockForConfiguration(&error) {
+            do {
+                try device.lockForConfiguration()
                 if device.isFocusModeSupported(.ContinuousAutoFocus) {
                     device.focusMode = .ContinuousAutoFocus
                 } else if device.isFocusModeSupported(.AutoFocus) {
@@ -59,13 +60,21 @@ class CameraView: UIView {
                 }
 
                 device.unlockForConfiguration()
+            } catch let error1 as NSError {
+                error = error1
             }
 
             if let error = error {
                 logError(error)
             }
 
-            let input = AVCaptureDeviceInput(device: device, error: &error)
+            let input: AVCaptureDeviceInput!
+            do {
+                input = try AVCaptureDeviceInput(device: device)
+            } catch let error1 as NSError {
+                error = error1
+                input = nil
+            }
 
             if let error = error {
                 logError(error)

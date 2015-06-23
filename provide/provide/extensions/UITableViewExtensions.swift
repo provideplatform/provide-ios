@@ -15,7 +15,7 @@ extension UITableView {
     }
 
     subscript(reuseIdentifier: String, indexPath: NSIndexPath) -> UITableViewCell {
-        return dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        return dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as UITableViewCell
     }
 
     subscript(row: Int) -> UITableViewCell {

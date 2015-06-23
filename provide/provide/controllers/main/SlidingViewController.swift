@@ -13,7 +13,7 @@ class SlidingViewController: ECSlidingViewController {
     override var topViewController: UIViewController! {
         didSet {
             topViewController.view.addGestureRecognizer(panGesture)
-            topViewAnchoredGesture = .Panning | .Tapping
+            topViewAnchoredGesture = [.Panning, .Tapping]
         }
     }
 

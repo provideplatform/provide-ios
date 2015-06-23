@@ -39,7 +39,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         view.bringSubviewToFront(button)
 
         button.addTarget(cameraView, action: "captureFrame", forControlEvents: .TouchUpInside)
-        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchCancel | .TouchDragExit)
+        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchCancel, .TouchDragExit])
         button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
 
         button.addBorder(5.0, color: UIColor.whiteColor())

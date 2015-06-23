@@ -37,7 +37,7 @@ extension NSDate {
     }
 
     var minutes: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitMinute, fromDate: self).minute
+        return NSCalendar.currentCalendar().components(.Minute, fromDate: self).minute
     }
 
     var minutesString: String {
@@ -63,7 +63,7 @@ extension NSDate {
     }
 
     var atMidnight: NSDate {
-        let componentsWithoutTime = NSCalendar.currentCalendar().components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: self)
+        let componentsWithoutTime = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: self)
         return NSCalendar.currentCalendar().dateFromComponents(componentsWithoutTime)!
     }
 

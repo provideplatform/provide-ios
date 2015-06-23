@@ -38,7 +38,7 @@ class DirectionsInstructionView: UIView {
                 if let duration = routeLeg.durationString {
                     remainingTimeLabel.text = duration
 
-                    if let time = NSDate().dateByAddingTimeInterval(routeLeg.duration as! NSTimeInterval).timeString {
+                    if let time = NSDate().dateByAddingTimeInterval(routeLeg.duration as NSTimeInterval).timeString {
                         etaLabel.text = "\(time) arrival"
                     }
                 }

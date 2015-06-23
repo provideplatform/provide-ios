@@ -43,7 +43,7 @@ class OHHTTPStubsHelper {
                 let responseJSON = [
                     "id": Int(NSDate().timeIntervalSinceDate(NSDate().atMidnight)),
                     "body": text,
-                    "recipient_id": recipientId.toInt()!,
+                    "recipient_id": Int(recipientId)!,
                     "sender_id": currentUser().id.integerValue,
                     "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
                     "recipient_name":"Kyle Thomas",

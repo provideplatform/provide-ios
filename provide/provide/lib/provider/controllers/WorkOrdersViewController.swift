@@ -227,7 +227,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(force: true) // FIXME -- show zero state
+            mapView.revealMap(true) // FIXME -- show zero state
         }
     }
 
@@ -239,7 +239,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(force: true)
+            mapView.revealMap(true)
 
             // FIXME -- the following needs to be done differently as to allow the dispatcher to close out routes:
 //            if canAttemptSegueToInProgressRoute {
@@ -374,7 +374,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController!) {
-        if let i = find(managedViewControllers, viewController) {
+        if let i = managedViewControllers.indexOf(viewController) {
             if viewController is WorkOrderAnnotationViewController {
                 shouldRemoveMapAnnotationsForWorkOrderViewController(viewController)
             } else {

@@ -119,7 +119,7 @@ class WorkOrder: Model, MKAnnotation {
         while gtinsUnloaded.count > 0 {
             let gtin = gtinsUnloaded.removeAtIndex(0)
 
-            for (i, item) in enumerate(newItemsOnTruck) {
+            for (i, item) in newItemsOnTruck.enumerate() {
                 if gtin == (item as! Product).gtin {
                     newItemsOnTruck.removeObjectAtIndex(i)
                     break
@@ -158,7 +158,7 @@ class WorkOrder: Model, MKAnnotation {
 
         let newItemsRejected = NSMutableArray(array: itemsRejected)
 
-        for (i, rejectedItem) in enumerate(itemsRejected) {
+        for (i, rejectedItem) in itemsRejected.enumerate() {
             if (rejectedItem as! Product).gtin == item.gtin {
                 newItemsRejected.removeObjectAtIndex(i)
                 itemsRejected = newItemsRejected
@@ -182,7 +182,7 @@ class WorkOrder: Model, MKAnnotation {
 
         let newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
 
-        for (i, unloadedItem) in enumerate(itemsUnloaded) {
+        for (i, unloadedItem) in itemsUnloaded.enumerate() {
             if (unloadedItem as! Product).gtin == item.gtin {
                 newItemsUnloaded.removeObjectAtIndex(i)
                 itemsUnloaded = newItemsUnloaded
@@ -245,41 +245,41 @@ class WorkOrder: Model, MKAnnotation {
         return gtinUnloadedCount
     }
 
-    func reload(#onSuccess: OnSuccess, onError: OnError) {
+    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchWorkOrderWithId(id.stringValue, onSuccess: onSuccess, onError: onError)
     }
 
-    func start(#onSuccess: OnSuccess, onError: OnError) {
+    func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func arrive(#onSuccess: OnSuccess, onError: OnError) {
+    func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func abandon(#onSuccess: OnSuccess, onError: OnError) {
+    func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "abandoned"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func cancel(#onSuccess: OnSuccess, onError: OnError) {
+    func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "canceled"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func reject(#onSuccess: OnSuccess, onError: OnError) {
+    func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "rejected"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func complete(#onSuccess: OnSuccess, onError: OnError) {
+    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func updateDeliveredItems(#onSuccess: OnSuccess, onError: OnError) {
+    func updateDeliveredItems(onSuccess onSuccess: OnSuccess, onError: OnError) {
         let params = [
             "gtins_delivered": gtinsDelivered
         ]

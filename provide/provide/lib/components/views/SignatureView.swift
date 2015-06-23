@@ -40,7 +40,7 @@ class SignatureView: UIView {
         path.stroke()
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         writing = true
 
         if let touch = touches.first as? UITouch {
@@ -51,11 +51,11 @@ class SignatureView: UIView {
         write(touches)
     }
 
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         write(touches)
     }
 
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         write(touches)
         writing = false
     }

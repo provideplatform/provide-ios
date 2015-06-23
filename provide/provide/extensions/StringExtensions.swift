@@ -19,7 +19,7 @@ extension String {
     }
 
     var base64EncodedString: String {
-        return NSData(bytes: (self as NSString).UTF8String, length: length).base64EncodedStringWithOptions(nil)
+        return NSData(bytes: (self as NSString).UTF8String, length: length).base64EncodedStringWithOptions([])
     }
 
     func urlEncodedString() -> String {
@@ -35,7 +35,13 @@ extension String {
     private func toJSONAnyObject() -> AnyObject! {
         let data = dataUsingEncoding(NSUTF8StringEncoding)
         var error: NSError?
-        let jsonObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error)
+        let jsonObject: AnyObject?
+        do {
+            jsonObject = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+        } catch let error1 as NSError {
+            error = error1
+            jsonObject = nil
+        }
         if let error = error {
             logError("Error converting String to JSONObject : \(error.localizedDescription)")
         }
@@ -73,8 +79,8 @@ extension String {
     }
 
     func snakeCaseString() -> String {
-        let pattern = NSRegularExpression(pattern: "([a-z])([A-Z])", options: nil, error: nil)!
-        return pattern.stringByReplacingMatchesInString(self, options: nil, range: NSMakeRange(0, count(self)), withTemplate: "$1_$2").lowercaseString
+        let pattern = try! NSRegularExpression(pattern: "([a-z])([A-Z])", options: [])
+        return pattern.stringByReplacingMatchesInString(self, options: [], range: NSMakeRange(0, self.characters.count), withTemplate: "$1_$2").lowercaseString
     }
 
     var containsNonASCIICharacters: Bool {

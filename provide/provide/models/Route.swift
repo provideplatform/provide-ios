@@ -80,7 +80,7 @@ class Route: Model {
         var itemsNotLoaded = [Product]()
 
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
+            for workOrder in Array((workOrders as Array).reverse()) {
                 if let products = (workOrder as! WorkOrder).itemsOrdered {
                     for product in products {
                         itemsNotLoaded.append(product as! Product)
@@ -99,7 +99,7 @@ class Route: Model {
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
+            for workOrder in Array((workOrders as Array).reverse()) {
                 if let products = (workOrder as! WorkOrder).itemsOrdered {
                     for product in products {
                         itemsDelivered.append(product as! Product)
@@ -114,7 +114,7 @@ class Route: Model {
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
+            for workOrder in Array((workOrders as Array).reverse()) {
                 if let products = (workOrder as! WorkOrder).itemsOrdered {
                     for product in products {
                         itemsOrdered.append(product as! Product)
@@ -163,17 +163,17 @@ class Route: Model {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
-    func complete(#onSuccess: OnSuccess, onError: OnError) {
+    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
         ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func load(#onSuccess: OnSuccess, onError: OnError) {
+    func load(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
         ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func start(#onSuccess: OnSuccess, onError: OnError) {
+    func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
         ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }

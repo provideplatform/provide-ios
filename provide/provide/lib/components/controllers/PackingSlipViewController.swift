@@ -202,7 +202,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 }
 
                 dispatch_after_delay(0.0) {
-                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: !workOrder.canBeDelivered)
+                    self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: !workOrder.canBeDelivered)
                 }
             }
         }
@@ -260,7 +260,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         }
 
                         dispatch_after_delay(0.0) {
-                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                            self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: false)
                         }
 
                         dismissBarcodeScannerViewController()

@@ -29,7 +29,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func removeAnnotations() {
-        var nonUserAnnotations = annotations as! [MKAnnotation]
+        var nonUserAnnotations = annotations as [MKAnnotation]
         if userLocation.location != nil {
             nonUserAnnotations.removeObject(userLocation)
         }
@@ -68,7 +68,7 @@ class MapView: MKMapView, MKMapViewDelegate {
 
     // MARK: MKMapViewDelegate
 
-    func mapViewDidFinishRenderingMap(mapView: MKMapView!, fullyRendered: Bool) {
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
             mapFullyRenderedOnce = true
 
@@ -76,7 +76,7 @@ class MapView: MKMapView, MKMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         updatedUserLocationOnce = true
     }
 }

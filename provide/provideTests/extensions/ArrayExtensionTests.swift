@@ -14,10 +14,10 @@ class ArrayExtensionTests: XCTestCase {
     let array = ["one", "two", "three", "four", "five"]
 
     func testFindFirst() {
-        let fiveLetterWord = array.findFirst { count($0) == 5 }
+        let fiveLetterWord = array.findFirst { $0.characters.count == 5 }
         XCTAssertEqual("three", fiveLetterWord!)
 
-        let sixLetterWord = array.findFirst { count($0) == 6 }
+        let sixLetterWord = array.findFirst { $0.characters.count == 6 }
         XCTAssertNil(sixLetterWord)
 
         let beginsWithT = array.findFirst { $0.hasPrefix("t") }

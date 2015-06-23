@@ -16,7 +16,7 @@ class Model: NSObject {
     }
 
     override var description: String {
-        return "\(toDictionary(snakeKeys: false))"
+        return "\(toDictionary(false))"
     }
 
     // Empty init() required by RestKit
@@ -35,7 +35,7 @@ class Model: NSObject {
             if value is NSDictionary {
                 let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as! RKRelationshipMapping
                 let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
-                value = clazz(string: (value as! NSDictionary).toJSON())
+                value = clazz.init(string: (value as! NSDictionary).toJSON())
             }
 
             if camelCaseKey == "senderId" {
@@ -56,23 +56,23 @@ class Model: NSObject {
             var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
             let value: AnyObject! = valueForKey(key)
             key = snakeKeys ? key.snakeCaseString() : key
-            dictionary[key] = value != nil && value is Model ? (value as! Model).toDictionary(snakeKeys: snakeKeys) : value
+            dictionary[key] = value != nil && value is Model ? (value as! Model).toDictionary(snakeKeys) : value
         }
 
         return dictionary
     }
 
     func toJSONString(snakeCaseKeys: Bool = false) -> String! {
-        return (toDictionary(snakeKeys: false) as NSDictionary).toJSON()
+        return (toDictionary(false) as NSDictionary).toJSON()
     }
 
-    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String, error outError: NSErrorPointer) -> Bool {
+    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {
         if ioValue.memory != nil {
             if ioValue.memory is NSNull {
                 ioValue.memory = nil
-                return true
+                return
             }
         }
-        return super.validateValue(ioValue, forKeyPath: inKeyPath, error: outError)
+        try super.validateValue(ioValue, forKeyPath: inKeyPath)
     }
 }

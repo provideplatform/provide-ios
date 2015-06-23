@@ -77,7 +77,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
     }
 
     override func removeAnnotations() {
-        var nonUserAnnotations = annotations as! [MKAnnotation]
+        var nonUserAnnotations = annotations as [MKAnnotation]
         if userLocation.location != nil {
             nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation))
         }
@@ -104,7 +104,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         }
     }
 
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
         var view: MKAnnotationView?
 
         if annotation is MKUserLocation {
@@ -123,7 +123,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         return view
     }
 
-    func mapViewWillStartLocatingUser(mapView: MKMapView!) {
+    func mapViewWillStartLocatingUser(mapView: MKMapView) {
     }
 
     override func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
@@ -132,17 +132,17 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         mapViewDidUpdateUserLocation(self, location: userLocation.location)
     }
 
-    func mapViewDidStopLocatingUser(mapView: MKMapView!) {
+    func mapViewDidStopLocatingUser(mapView: MKMapView) {
     }
 
-    func mapView(mapView: MKMapView!, didFailToLocateUserWithError error: NSError!) {
+    func mapView(mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
         logWarn("MapView failed to locate user")
     }
 
-    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         var renderer: MKOverlayRenderer!
 
-        if overlay! is MKPolyline {
+        if overlay is MKPolyline {
             let route = overlay as! MKPolyline
             renderer = MKPolylineRenderer(polyline: route)
             (renderer as! MKPolylineRenderer).strokeColor = UIColor.blueColor()
@@ -152,7 +152,7 @@ class WorkOrderMapView: MapView, MKMapViewDelegate {
         return renderer
     }
 
-    func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!) {
+    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
 
     }
 

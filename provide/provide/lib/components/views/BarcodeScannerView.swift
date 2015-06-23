@@ -45,12 +45,21 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         if let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
             var error: NSError?
 
-            if device.lockForConfiguration(&error) {
+            do {
+                try device.lockForConfiguration()
                 device.focusMode = .ContinuousAutoFocus
                 device.unlockForConfiguration()
+            } catch let error1 as NSError {
+                error = error1
             }
 
-            let input = AVCaptureDeviceInput(device: device, error: &error)
+            let input: AVCaptureDeviceInput!
+            do {
+                input = try AVCaptureDeviceInput(device: device)
+            } catch let error1 as NSError {
+                error = error1
+                input = nil
+            }
 
             if let error = error {
                 logError(error)

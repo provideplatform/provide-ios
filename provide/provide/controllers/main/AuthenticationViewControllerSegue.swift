@@ -16,8 +16,8 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
             assert(sourceViewController is NavigationRootViewController)
             assert(destinationViewController is AuthenticationViewController)
 
-            if let navigationController = (sourceViewController as! UIViewController).navigationController {
-                (destinationViewController as! UIViewController).view.alpha = 0.0
+            if let navigationController = (sourceViewController as UIViewController).navigationController {
+                (destinationViewController as UIViewController).view.alpha = 0.0
                 navigationController.navigationBar.alpha = 0.0
                 navigationController.pushViewController(destinationViewController as! AuthenticationViewController, animated: false)
                 (destinationViewController as! AuthenticationViewController).setupNavigationItem()
@@ -34,10 +34,10 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
             assert(sourceViewController is AuthenticationViewController)
             assert(destinationViewController is NavigationRootViewController)
 
-            if let navigationController = (sourceViewController as! UIViewController).navigationController {
+            if let navigationController = (sourceViewController as UIViewController).navigationController {
                 UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
                     animations: {
-                        (self.destinationViewController as! UIViewController).view.alpha = 1.0
+                        (self.destinationViewController as UIViewController).view.alpha = 1.0
                         (self.sourceViewController as! AuthenticationViewController).view.alpha = 0.0
                         navigationController.navigationBar.alpha = 0.0
                     },

@@ -79,7 +79,7 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(#onSuccess: OnSuccess, onError: OnError) {
+    func logout(onSuccess onSuccess: OnSuccess, onError: OnError) {
         let token = KeyChainService.sharedService().token!
         dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
             onSuccess: { statusCode, mappingResult in
@@ -104,7 +104,7 @@ class ApiService: NSObject {
 
     // MARK: User API
 
-    func fetchUser(#onSuccess: OnSuccess, onError: OnError) {
+    func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -171,7 +171,7 @@ class ApiService: NSObject {
 
     private func registerForRemoteNotifications() {
         if !isSimulator() {
-            let notificationTypes = UIUserNotificationType.Badge | UIUserNotificationType.Sound | UIUserNotificationType.Alert
+            let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert]
             let settings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)
         }
@@ -366,7 +366,7 @@ class ApiService: NSObject {
     }
 
     private func objectMappingForPath(var path: String!) -> RKObjectMapping! {
-        let parts = split(path) { $0 == "/" }
+        let parts = split(path.characters) { $0 == "/" }.map { String($0) }
         if parts.count > 3 {
             path = "/".join([parts[1], parts[3]])
             path = path.splitAtString("/").1
@@ -397,7 +397,7 @@ class ApiService: NSObject {
                 request.setValue(value, forHTTPHeaderField: name)
             }
 
-            if contains([.POST, .PUT], method) {
+            if [.POST, .PUT].contains(method) {
                 params = NSMutableDictionary(dictionary: params)
                 for key in params.allKeys {
                     let value: AnyObject? = params.objectForKey(key)

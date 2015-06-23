@@ -65,15 +65,15 @@ class AnnotationView: MKAnnotationView {
             delegate = self
         }
 
-        override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
             selected = true
         }
 
-        override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+        override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
             selected = false
         }
 
-        override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
             if selected {
                 if let callback = annotationView.onConfirmationRequired {
                     callback()

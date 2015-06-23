@@ -41,7 +41,7 @@ class RouteService: NSObject {
 
     class func unloadManifestItemByGtin(gtin: String, onRoute route: Route!, onSuccess: OnSuccess!, onError: OnError!) {
         if route.gtinLoadedCount(gtin) > 0 {
-            for (i, product) in enumerate(route.itemsLoaded) {
+            for (i, product) in route.itemsLoaded.enumerate() {
             let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
                 if (product as! Product).gtin == gtin {
                     itemsLoaded.removeObjectAtIndex(i)

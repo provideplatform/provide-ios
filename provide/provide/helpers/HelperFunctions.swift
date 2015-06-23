@@ -32,7 +32,7 @@ func log(message: String, _ fileName: String = __FILE__, _ functionName: String 
         fileAndMethod = fileAndMethod.replaceString("ViewController", withString: "VC")
         fileAndMethod = fileAndMethod.stringByPaddingToLength(38, withString: "-", startingAtIndex: 0)
         let logStatement = "\(fileAndMethod)--> \(message)"
-        println(logStatement)
+        print(logStatement)
     }
 }
 
@@ -80,7 +80,13 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
     assert(filePath != nil, "File not found: \(resourceName).\(type)")
 
     var error: NSError?
-    let fileAsString = NSString(contentsOfFile: filePath!, encoding: NSUTF8StringEncoding, error: &error)
+    let fileAsString: NSString?
+    do {
+        fileAsString = try NSString(contentsOfFile: filePath!, encoding: NSUTF8StringEncoding)
+    } catch let error1 as NSError {
+        error = error1
+        fileAsString = nil
+    }
     if let error = error {
         logError(error)
     }
@@ -114,9 +120,11 @@ func isSimulator() -> Bool {
 
 func prettyPrintedJson(uglyJsonStr: String?) -> String! {
     if let uglyJsonString = uglyJsonStr {
-        if let uglyJson: AnyObject = NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil) {
+        do {
+            let uglyJson: AnyObject = try NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
             let prettyPrintedJson = encodeJSON(uglyJson, options: .PrettyPrinted)
             return NSString(data: prettyPrintedJson, encoding: NSUTF8StringEncoding) as! String
+        } catch _ {
         }
     }
 
@@ -135,7 +143,7 @@ func assertUnhandledSegue(segueIdentifier: String?) {
     }
 }
 
-func assertionFailure(message: String, #logToAnalytics: Bool) {
+func assertionFailure(message: String, logToAnalytics: Bool) {
     if CurrentBuildConfig == .Debug {
         assertionFailure(message)
     } else if logToAnalytics {
@@ -143,7 +151,7 @@ func assertionFailure(message: String, #logToAnalytics: Bool) {
     }
 }
 
-func swizzleMethodSelector(origSelector: String, #withSelector: String, #forClass: AnyClass) {
+func swizzleMethodSelector(origSelector: String, withSelector: String, forClass: AnyClass) {
     let originalMethod = class_getInstanceMethod(forClass, Selector(origSelector))
     let swizzledMethod = class_getInstanceMethod(forClass, Selector(withSelector))
     method_exchangeImplementations(originalMethod, swizzledMethod)
@@ -161,17 +169,23 @@ func classNameForObject(object: AnyObject) -> String {
 }
 
 func decodeJSON(data: NSData) -> [String: AnyObject] {
-    var error: NSError?
-    let json = NSJSONSerialization.JSONObjectWithData(data, options: .allZeros, error: &error) as? [String: AnyObject]
+    let error: NSError?
+    let json = NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String: AnyObject]
     if let error = error {
         logError(error)
     }
     return json!
 }
 
-func encodeJSON(input: AnyObject, options: NSJSONWritingOptions = .allZeros) -> NSData {
+func encodeJSON(input: AnyObject, options: NSJSONWritingOptions = []) -> NSData {
     var error: NSError?
-    let data =  NSJSONSerialization.dataWithJSONObject(input, options: options, error: &error)
+    let data: NSData?
+    do {
+        data = try NSJSONSerialization.dataWithJSONObject(input, options: options)
+    } catch let error1 as NSError {
+        error = error1
+        data = nil
+    }
     if let error = error {
         logError(error)
     }

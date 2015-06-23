@@ -125,7 +125,7 @@ class DirectionsViewController: ViewController {
                 )
             },
             completion: { complete in
-                LocationService.sharedService().resolveCurrentLocation(durableKey: self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
+                LocationService.sharedService().resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
                     let cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
                     let cameraAltitude: Double = self.defaultMapCameraAltitude
 
@@ -218,7 +218,7 @@ class DirectionsViewController: ViewController {
                                                 currentLeg.currentStepIndex += 1
                                             } else {
                                                 var shapeIndex = currentStep.shape.count - 1
-                                                for shapeCoord in currentStep.shapeCoordinates.reverse() {
+                                                for shapeCoord in Array(currentStep.shapeCoordinates.reverse()) {
                                                     if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
                                                         currentStep.currentShapeIndex = shapeIndex
                                                         if currentStep.isFinished {

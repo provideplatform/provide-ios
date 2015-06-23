@@ -60,7 +60,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .AuthorizedAlways {
             while onManagerAuthorizedCallbacks.count > 0 {
                 let callback = onManagerAuthorizedCallbacks.removeAtIndex(0)
@@ -131,7 +131,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
         if locations.count > 0 {
             let location = locations.last as! CLLocation
             if abs(location.timestamp.timeIntervalSinceNow) < 1.0 && location.horizontalAccuracy >= 0.0 && location.horizontalAccuracy <= 50.0 && location.verticalAccuracy <= 10.0 {
@@ -200,7 +200,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
+    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if abs(newHeading.timestamp.timeIntervalSinceNow) < 5.0 && newHeading.headingAccuracy >= 0.0 {
             headingResolved(newHeading)
         }
@@ -295,11 +295,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!, didStartMonitoringForRegion region: CLRegion!) {
+    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
         log("Started monitoring region \(region)")
     }
 
-    func locationManager(manager: CLLocationManager!, didEnterRegion region: CLRegion!) {
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let callbacks = geofenceCallbacks[region.identifier] {
             if let callback = callbacks["didEnterRegion"] {
                 callback()
@@ -307,7 +307,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager!, didExitRegion region: CLRegion!) {
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         if let callbacks = geofenceCallbacks[region.identifier] {
             if let callback = callbacks["didExitRegion"] {
                 callback()
