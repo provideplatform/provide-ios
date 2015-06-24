@@ -807,7 +807,8 @@
 				68DFB07B1B07C5C4002A72E8 /* Frameworks */,
 				68DFB07C1B07C5C4002A72E8 /* Resources */,
 				6868A484D324651DE63114D7 /* Copy Pods Resources */,
-				685C02791B36DD3500DA730A /* ShellScript */,
+				685C02791B36DD3500DA730A /* Run Fabric.framework Script */,
+				5C4A2D301B118A6200458299 /* Run /usr/local/bin/swiftlint */,
 			);
 			buildRules = (
 			);
@@ -949,6 +950,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5C4A2D301B118A6200458299 /* Run /usr/local/bin/swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run /usr/local/bin/swiftlint";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SCRIPT_LOCATION='/usr/local/bin/swiftlint'\n\nVIOLATIONS_TO_IGNORE=\"\\\nLength|\\\nForce Cast|\\\nName Format|\\\nTODO or FIXME\"\n\nif [ -e $SCRIPT_LOCATION ] ; then\n    $SCRIPT_LOCATION | grep -Ev \"($VIOLATIONS_TO_IGNORE) Violation\"\nelse\n    echo \"error: $SCRIPT_LOCATION not found. Please run: brew update && brew install swiftlint\"\n    exit 1\nfi\n\n";
+		};
 		682D32691B07CBDD00BC4EEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -962,13 +977,14 @@
 			shellPath = /bin/sh;
 			shellScript = "${SRCROOT}/../scripts/version-build.sh";
 		};
-		685C02791B36DD3500DA730A /* ShellScript */ = {
+		685C02791B36DD3500DA730A /* Run Fabric.framework Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Fabric.framework Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
