@@ -159,7 +159,7 @@ class WorkOrder: Model, MKAnnotation {
         let newItemsRejected = NSMutableArray(array: itemsRejected)
 
         for (i, rejectedItem) in itemsRejected.enumerate() {
-            if (rejectedItem as! Product).gtin == item.gtin {
+            if item.gtin == (rejectedItem as! Product).gtin {
                 newItemsRejected.removeObjectAtIndex(i)
                 itemsRejected = newItemsRejected
                 break

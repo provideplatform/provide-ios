@@ -66,7 +66,7 @@ class RouteService: NSObject {
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
-            "include_work_orders": (includeWorkOrders ? "true" : "false")
+            "include_work_orders": includeWorkOrders ? "true" : "false"
             ])
 
         if today {

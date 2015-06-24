@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
-        
+
         RKLogConfigureFromEnvironment()
 
         return true
@@ -131,4 +131,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
     }
 }
-

@@ -258,7 +258,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {
             managedViewControllers.append(segue.destinationViewController as! ViewController)
         }
-        
+
         switch segue.identifier! {
         case "DirectionsViewControllerSegue":
             assert(segue.destinationViewController is DirectionsViewController)

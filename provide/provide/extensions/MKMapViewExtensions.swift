@@ -15,7 +15,7 @@ extension MKMapView {
 
     // MARK: Map conversion methods
 
-    func degToRad(deg : Double) -> Double {
+    func degToRad(deg: Double) -> Double {
         return deg * M_PI / 180.0
     }
 

@@ -136,9 +136,9 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 75.0
     }
-    
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         log("selected loaded manifest item: \(items[indexPath.row])")
     }
-    
+
 }

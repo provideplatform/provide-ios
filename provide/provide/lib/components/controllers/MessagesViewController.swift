@@ -98,7 +98,7 @@ class MessagesViewController: JSQMessagesViewController {
         MessageService.sharedService().createMessage(text, recipientId: lastDispatcherId(),
             onMessageCreated: { message in
                 self.messages.removeLast() // remove the temp
-                self.messages.append(message) // add the real 
+                self.messages.append(message) // add the real
                 self.collectionView!.reloadData()
             },
             onError: { error, statusCode, responseString in
@@ -169,7 +169,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    // MARK: - Private 
+    // MARK: - Private
 
     private func isFromCurrentUser(message: Message) -> Bool {
         return message.senderId() == currentUser().id.stringValue
