@@ -962,7 +962,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SCRIPT_LOCATION='/usr/local/bin/swiftlint'\n\nVIOLATIONS_TO_IGNORE=\"\\\nLength|\\\nForce Cast|\\\nName Format|\\\nTODO or FIXME\"\n\nif [ -e $SCRIPT_LOCATION ] ; then\n    $SCRIPT_LOCATION | grep -Ev \"($VIOLATIONS_TO_IGNORE) Violation\"\nelse\n    echo \"error: $SCRIPT_LOCATION not found. Please run: brew update && brew install swiftlint\"\n    exit 1\nfi\n\n";
+			shellScript = "$PROJECT_DIR/../scripts/run_swiftlint_from_xcode.sh\n";
 		};
 		682D32691B07CBDD00BC4EEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
