@@ -52,8 +52,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         navigationItem.title = "TAKE A SELFIE!"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "SKIP", target: self, action: "dismiss:")
-        navigationItem.leftBarButtonItems = [cancelItem]
+        navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "SKIP", target: self, action: "dismiss:")
     }
 
     func setupCameraView() {

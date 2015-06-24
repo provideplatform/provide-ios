@@ -106,14 +106,11 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         navigationItem.prompt = "\(route.itemsToLoadCountRemaining) item(s) missing from manifest"
 
         if route.status == "in_progress" {
-            let completeItem = UIBarButtonItem.plainBarButtonItem(title: "Complete", target: self, action: "complete:")
-            navigationItem.leftBarButtonItems = [completeItem]
+            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "Complete", target: self, action: "complete:")
         } else if route.itemsToLoadCountRemaining == 0 {
-            let startItem = UIBarButtonItem.plainBarButtonItem(title: "START", target: self, action: "start:")
-            navigationItem.leftBarButtonItems = [startItem]
+            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "START", target: self, action: "start:")
         } else {
-            let scanItem = UIBarButtonItem.plainBarButtonItem(title: "+ SCAN", target: self, action: "scan:")
-            navigationItem.leftBarButtonItems = [scanItem]
+            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "+ SCAN", target: self, action: "scan:")
         }
     }
 

@@ -96,8 +96,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         navigationItem.titleView = toolbarSegmentedControl
         navigationItem.prompt = navigationItemPrompt
 
-        let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
-        navigationItem.leftBarButtonItems = [dismissItem]
+        navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
 
         if let navigationController = delegate?.navigationControllerForViewController?(self) {
             navigationController.setNavigationBarHidden(false, animated: true)

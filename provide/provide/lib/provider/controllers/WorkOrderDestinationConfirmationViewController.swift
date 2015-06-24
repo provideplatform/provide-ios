@@ -143,8 +143,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     private func setupNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = "CONFIRMATION"
-            let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: "cancel:")
-            navigationItem.leftBarButtonItems = [cancelItem]
+            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: "cancel:")
         }
     }
 

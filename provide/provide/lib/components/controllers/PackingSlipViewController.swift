@@ -140,8 +140,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             abandonItem = UIBarButtonItem.plainBarButtonItem(title: "ABANDON", target: self, action: "abandon:")
             abandonItem.enabled = abandomItemEnabled
 
-            navigationItem.leftBarButtonItems = [deliverItem]
-            navigationItem.rightBarButtonItems = [abandonItem]
+            navigationItem.leftBarButtonItem = deliverItem
+            navigationItem.rightBarButtonItem = abandonItem
         }
     }
 
