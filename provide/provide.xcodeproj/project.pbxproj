@@ -64,41 +64,23 @@
 		68B4120D1B07FB02009A4C05 /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412001B07FB02009A4C05 /* Application.storyboard */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
-		68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
-		68B4124F1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
 		68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123B1B07FC15009A4C05 /* Exo2-Bold.ttf */; };
-		68B412521B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123B1B07FC15009A4C05 /* Exo2-Bold.ttf */; };
 		68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123C1B07FC15009A4C05 /* Exo2-BoldItalic.ttf */; };
-		68B412551B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123C1B07FC15009A4C05 /* Exo2-BoldItalic.ttf */; };
 		68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123D1B07FC15009A4C05 /* Exo2-ExtraBold.ttf */; };
-		68B412581B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123D1B07FC15009A4C05 /* Exo2-ExtraBold.ttf */; };
 		68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
-		68B4125B1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123F1B07FC15009A4C05 /* Exo2-ExtraLight.ttf */; };
-		68B4125E1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123F1B07FC15009A4C05 /* Exo2-ExtraLight.ttf */; };
 		68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412401B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf */; };
-		68B412611B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412401B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf */; };
 		68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412411B07FC15009A4C05 /* Exo2-Italic.ttf */; };
-		68B412641B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412411B07FC15009A4C05 /* Exo2-Italic.ttf */; };
 		68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412421B07FC15009A4C05 /* Exo2-Light.ttf */; };
-		68B412671B07FC15009A4C05 /* Exo2-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412421B07FC15009A4C05 /* Exo2-Light.ttf */; };
 		68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412431B07FC15009A4C05 /* Exo2-LightItalic.ttf */; };
-		68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412431B07FC15009A4C05 /* Exo2-LightItalic.ttf */; };
 		68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
-		68B4126D1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412451B07FC15009A4C05 /* Exo2-MediumItalic.ttf */; };
-		68B412701B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412451B07FC15009A4C05 /* Exo2-MediumItalic.ttf */; };
 		68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412461B07FC15009A4C05 /* Exo2-Regular.ttf */; };
-		68B412731B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412461B07FC15009A4C05 /* Exo2-Regular.ttf */; };
 		68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412471B07FC15009A4C05 /* Exo2-SemiBold.ttf */; };
-		68B412761B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412471B07FC15009A4C05 /* Exo2-SemiBold.ttf */; };
 		68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412481B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf */; };
-		68B412791B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412481B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf */; };
 		68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412491B07FC15009A4C05 /* Exo2-Thin.ttf */; };
-		68B4127C1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412491B07FC15009A4C05 /* Exo2-Thin.ttf */; };
 		68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */; };
-		68B4127F1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4124A1B07FC15009A4C05 /* Exo2-ThinItalic.ttf */; };
 		68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412821B0802AF009A4C05 /* AnnotationView.swift */; };
 		68B412871B0802AF009A4C05 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412831B0802AF009A4C05 /* MapView.swift */; };
 		68B4128B1B08036F009A4C05 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4128A1B08036F009A4C05 /* Color.swift */; };
@@ -144,21 +126,13 @@
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
-		68D218AA1B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
-		68D218AD1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
 		68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
-		68D218B01B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
 		68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A41B0861EF000D3ABA /* houston-1.gpx */; };
-		68D218B31B0861EF000D3ABA /* houston-1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A41B0861EF000D3ABA /* houston-1.gpx */; };
 		68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A51B0861EF000D3ABA /* houston-2.gpx */; };
-		68D218B61B0861EF000D3ABA /* houston-2.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A51B0861EF000D3ABA /* houston-2.gpx */; };
 		68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A61B0861EF000D3ABA /* houston-3.gpx */; };
-		68D218B91B0861EF000D3ABA /* houston-3.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A61B0861EF000D3ABA /* houston-3.gpx */; };
 		68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A71B0861EF000D3ABA /* houston-4.gpx */; };
-		68D218BC1B0861EF000D3ABA /* houston-4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A71B0861EF000D3ABA /* houston-4.gpx */; };
 		68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
-		68D218BF1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
@@ -965,33 +939,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68B412581B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
-				68B4126A1B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
-				68B4124C1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
-				68B412701B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
-				68B412761B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
-				68B4125B1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
-				68B412641B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
-				68B4127F1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
-				68B4126D1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
-				68B412551B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
-				68B412671B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
-				68B412731B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
-				68B412611B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
-				68D218B01B0861EF000D3ABA /* directions_0.gpx in Resources */,
-				68D218BC1B0861EF000D3ABA /* houston-4.gpx in Resources */,
-				68D218BF1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
-				68B4124F1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
-				68B412791B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
-				68B412521B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
-				68D218B61B0861EF000D3ABA /* houston-2.gpx in Resources */,
-				68D218AD1B0861EF000D3ABA /* sandy-springs.gpx in Resources */,
 				5C0049521B1BD9FF000ACE9D /* HTTPStubs in Resources */,
-				68D218B91B0861EF000D3ABA /* houston-3.gpx in Resources */,
-				68B4127C1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
-				68D218B31B0861EF000D3ABA /* houston-1.gpx in Resources */,
-				68D218AA1B0861EF000D3ABA /* atlanta.gpx in Resources */,
-				68B4125E1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
