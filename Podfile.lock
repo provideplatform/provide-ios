@@ -1,25 +1,25 @@
 PODS:
   - AFNetworking (1.3.4)
-  - Analytics/Core-iOS (1.8.15):
+  - Analytics/Core-iOS (1.12.0):
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
-  - Analytics/Segmentio (1.8.15):
+  - Analytics/Segmentio (1.12.0):
     - Analytics/Core-iOS
   - ECSlidingViewController (2.0.3)
   - ELFixSecureTextFieldFont (0.1.0)
-  - FontAwesomeKit (2.1.8):
-    - FontAwesomeKit/Core (= 2.1.8)
-    - FontAwesomeKit/FontAwesome (= 2.1.8)
-    - FontAwesomeKit/FoundationIcons (= 2.1.8)
-    - FontAwesomeKit/IonIcons (= 2.1.8)
-    - FontAwesomeKit/Zocial (= 2.1.8)
-  - FontAwesomeKit/Core (2.1.8)
-  - FontAwesomeKit/FontAwesome (2.1.8):
+  - FontAwesomeKit (2.2.0):
+    - FontAwesomeKit/Core (= 2.2.0)
+    - FontAwesomeKit/FontAwesome (= 2.2.0)
+    - FontAwesomeKit/FoundationIcons (= 2.2.0)
+    - FontAwesomeKit/IonIcons (= 2.2.0)
+    - FontAwesomeKit/Zocial (= 2.2.0)
+  - FontAwesomeKit/Core (2.2.0)
+  - FontAwesomeKit/FontAwesome (2.2.0):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/FoundationIcons (2.1.8):
+  - FontAwesomeKit/FoundationIcons (2.2.0):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/IonIcons (2.1.8):
+  - FontAwesomeKit/IonIcons (2.2.0):
     - FontAwesomeKit/Core
-  - FontAwesomeKit/Zocial (2.1.8):
+  - FontAwesomeKit/Zocial (2.2.0):
     - FontAwesomeKit/Core
   - ISO8601DateFormatterValueTransformer (0.6.0):
     - RKValueTransformers (~> 1.1.0)
@@ -59,13 +59,13 @@ PODS:
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.1.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
-  - UICKeyChainStore (2.0.5)
+  - UICKeyChainStore (2.0.6)
 
 DEPENDENCIES:
-  - Analytics/Segmentio (~> 1.8.6)
+  - Analytics/Segmentio (~> 1.12.0)
   - ECSlidingViewController
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
-  - FontAwesomeKit (~> 2.1.0)
+  - FontAwesomeKit (~> 2.2.0)
   - JSQMessagesViewController (~> 7.1.0)
   - MKNetworkKit (HEAD)
   - OHHTTPStubs (~> 4.0.2)
@@ -92,10 +92,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
-  Analytics: 4e0d4e619bab9d7226f636c8f4f6621b6f3ff003
+  Analytics: b8cc04af04e4751109730fa852fa1b86341f50e4
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
-  FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
+  FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
   ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
@@ -110,6 +110,6 @@ SPEC CHECKSUMS:
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
-  UICKeyChainStore: a389515ca090d4d49780fd563fec961571caa92b
+  UICKeyChainStore: c5719c814e8bd69e74e4a0fc09daf8f4d6257a59
 
 COCOAPODS: 0.37.2
