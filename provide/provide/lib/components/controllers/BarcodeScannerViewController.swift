@@ -11,10 +11,9 @@ import AVFoundation
 
 @objc
 protocol BarcodeScannerViewControllerDelegate {
-
-    optional func barcodeScannerViewController(viewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!)
-    optional func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController!)
-    optional func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController!) -> CGRect
+    optional func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    optional func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController)
+    optional func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController) -> CGRect
 }
 
 class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
@@ -54,11 +53,11 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
 
     // MARK: BarcodeScannerViewDelegate
 
-    func barcodeScannerView(barcodeScannerView: BarcodeScannerView!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         delegate?.barcodeScannerViewController?(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
     }
 
-    func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView!) -> CGRect {
+    func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect {
         if let rectOfInterest = delegate?.rectOfInterestForBarcodeScannerViewController?(self) {
             return rectOfInterest
         }

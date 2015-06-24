@@ -24,7 +24,7 @@ class Model: NSObject {
         super.init()
     }
 
-    required init(string: String!) {
+    required init(string: String) {
         super.init()
 
         let data = string.dataUsingEncoding(NSUTF8StringEncoding)!
@@ -62,7 +62,7 @@ class Model: NSObject {
         return dictionary
     }
 
-    func toJSONString(snakeCaseKeys: Bool = false) -> String! {
+    func toJSONString(snakeCaseKeys: Bool = false) -> String {
         return (toDictionary(false) as NSDictionary).toJSON()
     }
 

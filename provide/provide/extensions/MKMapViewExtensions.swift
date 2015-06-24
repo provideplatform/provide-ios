@@ -99,7 +99,7 @@ extension MKMapView {
 
     // MARK: Set heading
 
-    func setHeading(heading: CLHeading!) {
+    func setHeading(heading: CLHeading) {
         camera.heading = heading.trueHeading
     }
 

@@ -26,10 +26,10 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
     // MARK: SelfieViewController
 
-    func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!) {
+    func selfieViewController(viewController: SelfieViewController, didCaptureStillImage image: UIImage) {
         navigationController?.popViewControllerAnimated(false)
 
-        let data = UIImageJPEGRepresentation(image, 1.0)
+        let data = UIImageJPEGRepresentation(image, 1.0)!
 
         let params = [
             "public": false,
@@ -49,7 +49,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         )
     }
 
-    func selfieViewControllerCanceled(viewController: SelfieViewController!) {
+    func selfieViewControllerCanceled(viewController: SelfieViewController) {
         navigationController?.popViewControllerAnimated(false)
     }
 

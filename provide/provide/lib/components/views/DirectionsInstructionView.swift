@@ -31,16 +31,12 @@ class DirectionsInstructionView: UIView {
     var routeLeg: RouteLeg! {
         didSet {
             if routeLeg != nil {
-                if let distance = routeLeg.distanceString {
-                    remainingDistanceLabel.text = distance
-                }
+                remainingDistanceLabel.text = routeLeg.distanceString
 
-                if let duration = routeLeg.durationString {
-                    remainingTimeLabel.text = duration
+                remainingTimeLabel.text = routeLeg.durationString
 
-                    if let time = NSDate().dateByAddingTimeInterval(routeLeg.duration as NSTimeInterval).timeString {
-                        etaLabel.text = "\(time) arrival"
-                    }
+                if let time = NSDate().dateByAddingTimeInterval(routeLeg.duration as NSTimeInterval).timeString {
+                    etaLabel.text = "\(time) arrival"
                 }
 
                 if let icon = routeLeg.currentStep?.maneuverIcon {

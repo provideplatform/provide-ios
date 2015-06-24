@@ -45,7 +45,7 @@ class Contact: Model {
         return mapping
     }
 
-    var address: String! {
+    var address: String {
         var address = ""
         if address1 != nil {
             address += address1

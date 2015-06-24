@@ -169,7 +169,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     // MARK: WorkOrdersViewControllerDelegate
 
-    func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber!) {
+    func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber) {
         self.minutesEta = minutesEta as Int
     }
 

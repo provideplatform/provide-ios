@@ -11,52 +11,52 @@ import UIKit
 @objc
 protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correctly. need an abstract WorkOrderComponent class and repurpose this hack as that delegate.
     // general UIKit callbacks
-    optional func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem!
-    optional func targetViewForViewController(viewController: ViewController!) -> UIView!
-    optional func slidingViewControllerForViewController(viewController: ViewController!) -> ECSlidingViewController!
+    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    optional func targetViewForViewController(viewController: ViewController) -> UIView
+    optional func slidingViewControllerForViewController(viewController: ViewController) -> ECSlidingViewController
 
     // mapping-related callbacks
-    optional func annotationsForMapView(mapView: MKMapView!, workOrder: WorkOrder!) -> [MKAnnotation]!
-    optional func annotationViewForMapView(mapView: MKMapView!, annotation: MKAnnotation!) -> MKAnnotationView!
+    optional func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation]
+    optional func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView
     optional func mapViewForViewController(viewController: ViewController!) -> WorkOrderMapView!
-    optional func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView!, animated: Bool)
-    optional func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController!)
+    optional func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView, animated: Bool)
+    optional func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController)
 
 //    // location service related callbacks
 //    optional func locationServiceDidUpdateUserLocation(coordinate: CLLocationCoordinate2D)
 
     // eta and driving directions callbacks
-    optional func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber!)
-    optional func drivingEtaToNextWorkOrderForViewController(viewController: ViewController!) -> NSNumber!
-    optional func drivingEtaToInProgressWorkOrderChanged(minutesEta: NSNumber!)
-    optional func drivingDirectionsToNextWorkOrderForViewController(viewController: ViewController!) -> Directions!
+    optional func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber)
+    optional func drivingEtaToNextWorkOrderForViewController(viewController: ViewController) -> NSNumber
+    optional func drivingEtaToInProgressWorkOrderChanged(minutesEta: NSNumber)
+    optional func drivingDirectionsToNextWorkOrderForViewController(viewController: ViewController) -> Directions!
 
     // next work order context and related segue callbacks
-    optional func managedViewControllersForViewController(viewController: ViewController!) -> [ViewController]!
+    optional func managedViewControllersForViewController(viewController: ViewController!) -> [ViewController]
     optional func nextWorkOrderContextShouldBeRewound()
-    optional func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController!)
-    optional func unwindManagedViewController(viewController: ViewController!)
-    optional func confirmationRequiredForWorkOrderViewController(viewController: ViewController!)
-    optional func confirmationCanceledForWorkOrderViewController(viewController: ViewController!)
-    optional func confirmationReceivedForWorkOrderViewController(viewController: ViewController!)
+    optional func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController)
+    optional func unwindManagedViewController(viewController: ViewController)
+    optional func confirmationRequiredForWorkOrderViewController(viewController: ViewController)
+    optional func confirmationCanceledForWorkOrderViewController(viewController: ViewController)
+    optional func confirmationReceivedForWorkOrderViewController(viewController: ViewController)
 
     // in progress work order context and related segue callbacks
     // packing slip
-    optional func workOrderAbandonedForViewController(viewController: ViewController!)
-    optional func workOrderDeliveryConfirmedForViewController(viewController: ViewController!)
-    optional func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
-    optional func workOrderItemsOnTruckForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
-    optional func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
-    optional func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
+    optional func workOrderAbandonedForViewController(viewController: ViewController)
+    optional func workOrderDeliveryConfirmedForViewController(viewController: ViewController)
+    optional func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product]
+    optional func workOrderItemsOnTruckForViewController(packingSlipViewController: PackingSlipViewController) -> [Product]
+    optional func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product]
+    optional func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product]
 
     // signature
-    optional func summaryLabelTextForSignatureViewController(viewController: SignatureViewController!) -> String!
-    optional func signatureReceived(signature: UIImage!, forWorkOrderViewController: ViewController!)
+    optional func summaryLabelTextForSignatureViewController(viewController: SignatureViewController) -> String
+    optional func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController)
 
     // net promoter
-    optional func netPromoterScoreReceived(netPromoterScore: NSNumber!, forWorkOrderViewController: ViewController!)
-    optional func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController!)
+    optional func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController)
+    optional func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController)
 }
 
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
@@ -313,13 +313,13 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     // MARK: WorkOrdersViewControllerDelegate
 
-    func annotationsForMapView(mapView: MKMapView!, workOrder: WorkOrder!) -> [MKAnnotation]! {
+    func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation] {
         let annotations = [MKAnnotation]()
 
         return annotations
     }
 
-    func annotationViewForMapView(mapView: MKMapView!, annotation: MKAnnotation!) -> MKAnnotationView! {
+    func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView {
         var annotationView: MKAnnotationView!
 
         if annotation is WorkOrder {
@@ -333,34 +333,34 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return annotationView
     }
 
-    func drivingEtaToNextWorkOrderForViewController(viewController: ViewController!) -> NSNumber! {
+    func drivingEtaToNextWorkOrderForViewController(viewController: ViewController) -> NSNumber {
         return WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
     }
 
-    func drivingDirectionsToNextWorkOrderForViewController(viewController: ViewController!) -> Directions! {
+    func drivingDirectionsToNextWorkOrderForViewController(viewController: ViewController) -> Directions! {
         return nil
     }
 
-    func managedViewControllersForViewController(viewController: ViewController!) -> [ViewController]! {
+    func managedViewControllersForViewController(viewController: ViewController) -> [ViewController] {
         return managedViewControllers
     }
 
-    func mapViewForViewController(viewController: ViewController!) -> WorkOrderMapView! {
+    func mapViewForViewController(viewController: ViewController) -> WorkOrderMapView {
         return mapView
     }
 
-    func mapViewUserTrackingMode(mapView: MKMapView!) -> MKUserTrackingMode {
+    func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode {
 //        if viewingDirections {
 //            return .FollowWithHeading
 //        }
         return .None
     }
 
-    func targetViewForViewController(viewController: ViewController!) -> UIView! {
+    func targetViewForViewController(viewController: ViewController) -> UIView {
         return view
     }
 
-    func slidingViewControllerForViewController(viewController: ViewController!) -> ECSlidingViewController! {
+    func slidingViewControllerForViewController(viewController: ViewController) -> ECSlidingViewController {
         return slidingViewController()
     }
 
@@ -373,7 +373,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         assert(managedViewControllers.count == 0)
     }
 
-    func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController!) {
+    func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController) {
         if let i = managedViewControllers.indexOf(viewController) {
             if viewController is WorkOrderAnnotationViewController {
                 shouldRemoveMapAnnotationsForWorkOrderViewController(viewController)
@@ -385,22 +385,22 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func unwindManagedViewController(viewController: ViewController!) {
+    func unwindManagedViewController(viewController: ViewController) {
         let segueIdentifier = ("\(NSStringFromClass((viewController as AnyObject).dynamicType))UnwindSegue" as String).splitAtString(".").1
         viewController.performSegueWithIdentifier(segueIdentifier, sender: self)
     }
 
-    func confirmationRequiredForWorkOrderViewController(viewController: ViewController!) {
+    func confirmationRequiredForWorkOrderViewController(viewController: ViewController) {
         performSegueWithIdentifier("WorkOrderDestinationHeaderViewControllerSegue", sender: self)
         performSegueWithIdentifier("WorkOrderDestinationConfirmationViewControllerSegue", sender: self)
     }
 
-    func confirmationCanceledForWorkOrderViewController(viewController: ViewController!) {
+    func confirmationCanceledForWorkOrderViewController(viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         attemptSegueToValidWorkOrderContext()
     }
 
-    func confirmationReceivedForWorkOrderViewController(viewController: ViewController!) {
+    func confirmationReceivedForWorkOrderViewController(viewController: ViewController) {
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.sharedService().nextWorkOrder {
                 workOrder.start(
@@ -416,7 +416,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func workOrderDeliveryConfirmedForViewController(viewController: ViewController!) {
+    func workOrderDeliveryConfirmedForViewController(viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             inProgressWorkOrder.components = NSMutableArray(array: inProgressWorkOrder.components)
@@ -428,7 +428,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         attemptSegueToValidWorkOrderContext()
     }
 
-    func workOrderAbandonedForViewController(viewController: ViewController!) {
+    func workOrderAbandonedForViewController(viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.sharedService().inProgressWorkOrder.abandon(
             onSuccess: { statusCode, responseString in
@@ -440,7 +440,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         )
     }
 
-    func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
+    func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
             for product in itemsOrdered.objectEnumerator().allObjects {
@@ -450,11 +450,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return products
     }
 
-    func workOrderItemsOnTruckForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
+    func workOrderItemsOnTruckForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         return WorkOrderService.sharedService().inProgressWorkOrder.itemsOnTruck
     }
 
-    func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
+    func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         if let itemsUnloaded = WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded {
             for product in itemsUnloaded.objectEnumerator().allObjects {
@@ -464,7 +464,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return products
     }
 
-    func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]! {
+    func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         if let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected {
             for product in itemsRejected.objectEnumerator().allObjects {
@@ -474,11 +474,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return products
     }
 
-    func summaryLabelTextForSignatureViewController(viewController: SignatureViewController!) -> String! {
+    func summaryLabelTextForSignatureViewController(viewController: SignatureViewController) -> String {
         return "Received \(WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded.count) item(s) in good condition"
     }
 
-    func signatureReceived(signature: UIImage!, forWorkOrderViewController: ViewController!) {
+    func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
         attemptSegueToValidWorkOrderContext()
@@ -507,7 +507,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         )
     }
 
-    func netPromoterScoreReceived(netPromoterScore: NSNumber!, forWorkOrderViewController: ViewController!) {
+    func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
         attemptSegueToValidWorkOrderContext()
@@ -530,7 +530,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         )
     }
 
-    func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController!) {
+    func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController) {
         WorkOrderService.sharedService().inProgressWorkOrder.complete(
             onSuccess: { statusCode, responseString in
                 self.attemptSegueToValidWorkOrderContext()
@@ -541,15 +541,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         )
     }
 
-    func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController!) {
+    func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController) {
         mapView.removeAnnotations()
     }
 
-    func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController! {
-        return navigationController
+    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController {
+        return navigationController!
     }
 
-    func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem! {
+    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem {
         return navigationItem
     }
 
@@ -559,17 +559,17 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return viewingDirections
     }
 
-    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController!) -> MKMapView! {
+    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView {
         return mapView
     }
 
-    func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController!) -> CLLocationCoordinate2D {
+    func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D {
         return WorkOrderService.sharedService().inProgressWorkOrder.coordinate
     }
 
     // MARK: RouteManifestViewControllerDelegate
 
-    func routeForViewController(viewController: ViewController!) -> Route! {
+    func routeForViewController(viewController: ViewController) -> Route {
         let routeService = RouteService.sharedService()
         var route = routeService.inProgressRoute
         if route == nil {
@@ -578,14 +578,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return route
     }
 
-    func routeUpdated(route: Route!, byViewController viewController: ViewController!) {
+    func routeUpdated(route: Route, byViewController viewController: ViewController) {
         navigationController?.popViewControllerAnimated(true)
         attemptSegueToValidRouteContext()
     }
 
     // MARK: WorkOrderComponentViewControllerDelegate
 
-    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController!) -> WorkOrderComponentViewController! {
+    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController {
         var vc: WorkOrderComponentViewController!
         if let componentIdentifier = WorkOrderService.sharedService().inProgressWorkOrder.currentComponentIdentifier {
             vc = UIStoryboard(componentIdentifier).instantiateInitialViewController() as! WorkOrderComponentViewController

@@ -26,7 +26,7 @@ class Token: Model {
         return mapping
     }
 
-    var userId: NSNumber! {
+    var userId: NSNumber {
         return user.id
     }
 

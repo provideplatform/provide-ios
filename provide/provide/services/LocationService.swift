@@ -51,7 +51,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Authorization
 
-    func requireAuthorization(callback: VoidBlock!) {
+    func requireAuthorization(callback: VoidBlock) {
         if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
             callback()
         } else {
@@ -117,7 +117,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Location resolution
 
-    func resolveCurrentLocation(durableKey: String! = nil, allowCachedLocation: Bool = false, onResolved: OnLocationResolved) {
+    func resolveCurrentLocation(durableKey: String? = nil, allowCachedLocation: Bool = false, onResolved: OnLocationResolved) {
         if allowCachedLocation && currentLocation != nil {
             onResolved(currentLocation)
         } else {
@@ -125,7 +125,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
 
         if durableKey != nil {
-            onLocationResolvedDurableCallbacks[durableKey] = onResolved
+            onLocationResolvedDurableCallbacks[durableKey!] = onResolved
         } else if !allowCachedLocation {
             onLocationResolvedCallbacks.append(onResolved)
         }
@@ -186,14 +186,14 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         resolveCurrentHeading(onResolved, durableKey: nil, allowCachedHeading: allowCachedHeading)
     }
 
-    func resolveCurrentHeading(onResolved: OnHeadingResolved, durableKey: String!, allowCachedHeading: Bool = false) {
+    func resolveCurrentHeading(onResolved: OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
         if allowCachedHeading && currentHeading != nil {
             onResolved(currentHeading)
         } else if !requireNavigationAccuracy {
             startUpdatingHeading()
         }
 
-        if durableKey != nil {
+        if let durableKey = durableKey {
             onHeadingResolvedDurableCallbacks[durableKey] = onResolved
         } else if !allowCachedHeading {
             onHeadingResolvedCallbacks.append(onResolved)
@@ -233,14 +233,14 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Geofencing
 
-    func monitorRegion(region: CLCircularRegion!, onDidEnterRegion: VoidBlock!, onDidExitRegion: VoidBlock!) {
+    func monitorRegion(region: CLCircularRegion, onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
         monitorRegionWithCircularOverlay(MKCircle(centerCoordinate: region.center, radius: region.radius),
                                          identifier: region.identifier,
                                          onDidEnterRegion: onDidEnterRegion,
                                          onDidExitRegion: onDidExitRegion)
     }
 
-    func monitorRegionWithCircularOverlay(overlay: MKCircle!, identifier: String!, onDidEnterRegion: VoidBlock!, onDidExitRegion: VoidBlock!) {
+    func monitorRegionWithCircularOverlay(overlay: MKCircle, identifier: String, onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
         if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
             return
         }
@@ -256,13 +256,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             callbacks = [String : VoidBlock]()
         }
 
-        if let callback = onDidEnterRegion {
-            callbacks!["didEnterRegion"] = callback
-        }
+        callbacks!["didEnterRegion"] = onDidEnterRegion
 
-        if let callback = onDidExitRegion {
-            callbacks!["didExitRegion"] = callback
-        }
+        callbacks!["didExitRegion"] = onDidExitRegion
 
         geofenceCallbacks[identifier] = callbacks
 
@@ -270,7 +266,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         regions.append(region)
     }
 
-    func unregisterRegionMonitor(identifier: String!) {
+    func unregisterRegionMonitor(identifier: String) {
         var region: CLRegion!
         for monitoredRegion in regions {
             if monitoredRegion.identifier == identifier {

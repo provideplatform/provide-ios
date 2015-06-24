@@ -74,7 +74,7 @@ class WorkOrder: Model, MKAnnotation {
         return itemsOrderedCount == itemsRejectedCount
     }
 
-    var contact: Contact! {
+    var contact: Contact {
         return customer.contact
     }
 
@@ -99,7 +99,7 @@ class WorkOrder: Model, MKAnnotation {
         return componentIdentifier
     }
 
-    var itemsOnTruck: [Product]! {
+    var itemsOnTruck: [Product] {
         if itemsUnloaded == nil {
             itemsUnloaded = NSMutableArray()
         }
@@ -191,11 +191,11 @@ class WorkOrder: Model, MKAnnotation {
         }
     }
 
-    func canUnloadGtin(gtin: String!) -> Bool {
+    func canUnloadGtin(gtin: String) -> Bool {
         return gtinOrderedCount(gtin) > gtinUnloadedCount(gtin)
     }
 
-    func canRejectGtin(gtin: String!) -> Bool {
+    func canRejectGtin(gtin: String) -> Bool {
         return gtinOrderedCount(gtin) > gtinRejectedCount(gtin)
     }
 
@@ -207,7 +207,7 @@ class WorkOrder: Model, MKAnnotation {
         return gtinsDelivered
     }
 
-    func gtinRejectedCount(gtin: String!) -> Int {
+    func gtinRejectedCount(gtin: String) -> Int {
         if itemsRejected == nil {
             itemsRejected = NSMutableArray()
         }
@@ -221,7 +221,7 @@ class WorkOrder: Model, MKAnnotation {
         return gtinRejectedCount
     }
 
-    func gtinOrderedCount(gtin: String!) -> Int {
+    func gtinOrderedCount(gtin: String) -> Int {
         var gtinOrderedCount = 0
         for product in itemsOrdered {
             if (product as! Product).gtin == gtin {
@@ -231,7 +231,7 @@ class WorkOrder: Model, MKAnnotation {
         return gtinOrderedCount
     }
 
-    func gtinUnloadedCount(gtin: String!) -> Int {
+    func gtinUnloadedCount(gtin: String) -> Int {
         if itemsUnloaded == nil {
             itemsUnloaded = NSMutableArray()
         }
@@ -287,8 +287,8 @@ class WorkOrder: Model, MKAnnotation {
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func attach(image: UIImage!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        let data = UIImageJPEGRepresentation(image, 1.0)
+    func attach(image: UIImage, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+        let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.sharedService().addAttachment(data,
             withMimeType: "image/jpg",
@@ -298,7 +298,7 @@ class WorkOrder: Model, MKAnnotation {
             onError: onError)
     }
 
-    func scoreProvider(netPromoterScore: NSNumber!, onSuccess: OnSuccess, onError: OnError) {
+    func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
         providerRating = netPromoterScore
         ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }

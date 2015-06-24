@@ -32,11 +32,11 @@ class WorkOrderService: NSObject {
         return sharedInstance
     }
 
-    func setWorkOrders(workOrders: [WorkOrder]!) {
+    func setWorkOrders(workOrders: [WorkOrder]) {
         self.workOrders = workOrders
     }
 
-    func setWorkOrdersUsingRoute(route: Route!) {
+    func setWorkOrdersUsingRoute(route: Route) {
         workOrders = route.workOrders as! [WorkOrder]
     }
 
@@ -44,7 +44,7 @@ class WorkOrderService: NSObject {
         rpp: Int = 10,
         status: String = "scheduled",
         today: Bool = false,
-        onWorkOrdersFetched: OnWorkOrdersFetched!)
+        onWorkOrdersFetched: OnWorkOrdersFetched)
     {
         let params = NSMutableDictionary(dictionary: [
             "page": page,
@@ -65,9 +65,7 @@ class WorkOrderService: NSObject {
                 let fetchedWorkOrders = mappingResult.array() as! [WorkOrder]
                 self.workOrders += fetchedWorkOrders
 
-                if onWorkOrdersFetched != nil {
-                    onWorkOrdersFetched(workOrders: fetchedWorkOrders)
-                }
+                onWorkOrdersFetched(workOrders: fetchedWorkOrders)
             },
             onError: { error, statusCode, responseString in
                 // TODO

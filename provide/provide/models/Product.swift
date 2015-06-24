@@ -24,27 +24,27 @@ class Product: Model {
         return mapping
     }
 
-    var name: String! {
-        return data != nil ? data["name"] as? String : nil
+    var name: String? {
+        return data["name"] as? String
     }
 
-    var desc: String! {
-        return data != nil ? data["description"] as? String : nil
+    var desc: String? {
+        return data["description"] as? String
     }
 
-    var mpn: String! {
-        return data != nil ? data["mpn"] as? String : nil
+    var mpn: String? {
+        return data["mpn"] as? String
     }
 
-    var price: Double! {
-        return data != nil ? data["price"] as? Double : nil
+    var price: Double? {
+        return data["price"] as? Double
     }
 
-    var size: String! {
-        return data != nil ? data["size"] as? String : nil
+    var size: String? {
+        return data["size"] as? String
     }
 
-    var sku: String! {
-        return data != nil ? data["sku"] as? String : nil
+    var sku: String? {
+        return data["sku"] as? String
     }
 }

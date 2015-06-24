@@ -11,7 +11,7 @@ import AVFoundation
 
 protocol CameraViewDelegate {
 
-    func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!)
+    func cameraView(cameraView: CameraView, didCaptureStillImage image: UIImage)
 }
 
 class CameraView: UIView {
@@ -27,10 +27,10 @@ class CameraView: UIView {
 
     private var stillCameraOutput: AVCaptureStillImageOutput!
 
-    private var frontCamera: AVCaptureDevice! {
+    private var frontCamera: AVCaptureDevice? {
         for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
             if device.position == .Front {
-                return device as! AVCaptureDevice
+                return device as? AVCaptureDevice
             }
         }
         return nil

@@ -10,9 +10,8 @@ import Foundation
 
 @objc
 protocol PackingSlipItemTableViewCellDelegate {
-
-    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, didRejectProduct rejectedProduct: Product!)
-    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadProduct product: Product!)
+    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product)
+    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product)
 }
 
 class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
@@ -70,15 +69,15 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
     // MARK: SWTableViewCellDelegate
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
+    func swipeableTableViewCell(cell: SWTableViewCell, canSwipeToState state: SWCellState) -> Bool {
         return true
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(cell: SWTableViewCell, didTriggerLeftUtilityButtonWithIndex index: Int) {
 
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(cell: SWTableViewCell, didTriggerRightUtilityButtonWithIndex index: Int) {
         switch index {
         case 0:
             if !workOrder.canUnloadGtin(product.gtin) && workOrder.canRejectGtin(product.gtin) {
@@ -93,15 +92,15 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         }
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, scrollingToState state: SWCellState) {
+    func swipeableTableViewCell(cell: SWTableViewCell, scrollingToState state: SWCellState) {
 
     }
 
-    func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell!) {
+    func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell) {
 
     }
 
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell) -> Bool {
         return true
     }
 }

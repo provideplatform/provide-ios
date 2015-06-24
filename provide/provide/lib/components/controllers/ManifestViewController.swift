@@ -10,11 +10,10 @@ import UIKit
 
 @objc
 protocol ManifestViewControllerDelegate {
-
-    optional func targetViewForViewController(viewController: ViewController!) -> UIView!
-    optional func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem!
-    optional func routeForViewController(viewController: ViewController!) -> Route!
+    optional func targetViewForViewController(viewController: ViewController) -> UIView
+    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    optional func routeForViewController(viewController: ViewController) -> Route
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -30,7 +29,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     private var toolbarSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var tableView: UITableView!
 
-    private var items: [Product]! {
+    private var items: [Product] {
         var items = [Product]()
         if let route = route {
             switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
@@ -65,7 +64,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var segment: Segment!
 
-    private var dismissItem: UIBarButtonItem! {
+    private var dismissItem: UIBarButtonItem {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem

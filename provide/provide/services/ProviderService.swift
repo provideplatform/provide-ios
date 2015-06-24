@@ -23,7 +23,7 @@ class ProviderService: NSObject {
     func fetch(
         page: Int = 1,
         rpp: Int = 10,
-        onProvidersFetched: OnProvidersFetched!)
+        onProvidersFetched: OnProvidersFetched)
     {
         let params = [
             "page": page,
@@ -35,9 +35,7 @@ class ProviderService: NSObject {
                 let fetchedProviders = mappingResult.array() as! [Provider]
                 self.providers += fetchedProviders
 
-                if onProvidersFetched != nil {
-                    onProvidersFetched(providers: fetchedProviders)
-                }
+                onProvidersFetched(providers: fetchedProviders)
             },
             onError: { error, statusCode, responseString in
                 // TODO

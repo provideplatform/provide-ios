@@ -20,7 +20,7 @@ class RouteService: NSObject {
         return sharedInstance
     }
 
-    class func loadManifestItemByGtin(gtin: String, onRoute route: Route!, onSuccess: OnSuccess!, onError: OnError!) {
+    class func loadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
         if route.isGtinRequired(gtin) {
             var gtinsLoaded = route.gtinsLoaded
             gtinsLoaded.append(gtin)
@@ -28,7 +28,7 @@ class RouteService: NSObject {
             ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtinsLoaded],
                 onSuccess: { statusCode, mappingResult in
                     let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
-                    itemsLoaded.addObject(route.itemForGtin(gtin))
+                    itemsLoaded.addObject(route.itemForGtin(gtin)!)
 
                     route.itemsLoaded = itemsLoaded as [AnyObject]
 
@@ -39,7 +39,7 @@ class RouteService: NSObject {
         }
     }
 
-    class func unloadManifestItemByGtin(gtin: String, onRoute route: Route!, onSuccess: OnSuccess!, onError: OnError!) {
+    class func unloadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
         if route.gtinLoadedCount(gtin) > 0 {
             for (i, product) in route.itemsLoaded.enumerate() {
             let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
@@ -60,7 +60,7 @@ class RouteService: NSObject {
         today: Bool = false,
         nextRouteOnly: Bool = false,
         includeWorkOrders: Bool = true,
-        onRoutesFetched: OnRoutesFetched!)
+        onRoutesFetched: OnRoutesFetched)
     {
         let params = NSMutableDictionary(dictionary: [
             "page": (nextRouteOnly ? 1 : page),
@@ -82,9 +82,7 @@ class RouteService: NSObject {
                 let fetchedRoutes = mappingResult.array() as! [Route]
                 self.routes += fetchedRoutes
 
-                if onRoutesFetched != nil {
-                    onRoutesFetched(routes: fetchedRoutes)
-                }
+                onRoutesFetched(routes: fetchedRoutes)
             },
             onError: { error, statusCode, responseString in
                 // TODO

@@ -10,10 +10,9 @@ import UIKit
 
 @objc
 protocol WorkOrderComponentViewControllerDelegate {
-
-    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController!) -> WorkOrderComponentViewController!
-    optional func mapViewForWorkOrderViewController(viewController: ViewController!) -> MapView!
-    optional func targetViewForViewController(viewController: ViewController!) -> UIView!
+    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController
+    optional func mapViewForWorkOrderViewController(viewController: ViewController) -> MapView
+    optional func targetViewForViewController(viewController: ViewController) -> UIView
 }
 
 class WorkOrderComponentViewController: ViewController {
@@ -24,7 +23,7 @@ class WorkOrderComponentViewController: ViewController {
     private var childViewController: WorkOrderComponentViewController!
 
     private var slidingView: UIView! {
-        return workOrdersViewControllerDelegate?.slidingViewControllerForViewController?(self)?.topViewController.view
+        return workOrdersViewControllerDelegate?.slidingViewControllerForViewController?(self).topViewController.view
     }
 
     private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!

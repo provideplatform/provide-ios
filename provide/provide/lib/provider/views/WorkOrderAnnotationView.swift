@@ -67,7 +67,7 @@ class WorkOrderAnnotationView: AnnotationView {
         travelEtaActivityIndicatorView.startAnimating()
     }
 
-    private func backgroundImageForRect(rect: CGRect) -> UIImage! {
+    private func backgroundImageForRect(rect: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0.0)
         let image = Color.annotationViewBackgroundImage()
         image.drawInRect(rect)
@@ -76,11 +76,11 @@ class WorkOrderAnnotationView: AnnotationView {
         return resizedImage
     }
 
-    private func resizedBackgroundColorForRect(rect: CGRect) -> UIColor! {
+    private func resizedBackgroundColorForRect(rect: CGRect) -> UIColor {
         return UIColor(patternImage: backgroundImageForRect(rect)).colorWithAlphaComponent(0.70)
     }
 
-    private func resizedSelectedBackgroundColorForRect(rect: CGRect) -> UIColor! {
+    private func resizedSelectedBackgroundColorForRect(rect: CGRect) -> UIColor {
         return UIColor(patternImage: backgroundImageForRect(rect)).colorWithAlphaComponent(0.90)
     }
 }

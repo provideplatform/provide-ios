@@ -12,15 +12,15 @@ import Foundation
 protocol DirectionsViewControllerDelegate {
 
     func isPresentingDirections() -> Bool
-    func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController!) -> CLLocationCoordinate2D
-    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController!) -> MKMapView!
+    func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
+    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView!
 
-    optional func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem!
+    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
 
-    optional func mapViewUserTrackingMode(mapView: MKMapView!) -> MKUserTrackingMode
+    optional func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode
 
-    optional func targetViewForViewController(viewController: ViewController!) -> UIView!
+    optional func targetViewForViewController(viewController: ViewController) -> UIView
 }
 
 class DirectionsViewController: ViewController {
@@ -37,7 +37,7 @@ class DirectionsViewController: ViewController {
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
-    var directions: Directions! {
+    var directions: Directions? {
         didSet {
             if directions == nil {
                 showProgressIndicator()
@@ -171,7 +171,7 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    private func fetchDrivingDirections(location: CLLocation!) {
+    private func fetchDrivingDirections(location: CLLocation) {
         let cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
         let cameraAltitude: Double = defaultMapCameraAltitude
 
@@ -301,9 +301,7 @@ class DirectionsViewController: ViewController {
             mapView.removeOverlays(mapView.overlays)
 
             if let directions = directions {
-                if let overview = directions.selectedRoute.overviewPolyline {
-                    mapView.addOverlay(overview, level: .AboveRoads)
-                }
+                mapView.addOverlay(directions.selectedRoute.overviewPolyline, level: .AboveRoads)
             }
         }
     }
@@ -383,7 +381,7 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    func routeLegAtIndex(i: Int) -> RouteLeg! {
+    func routeLegAtIndex(i: Int) -> RouteLeg? {
         var routeLeg: RouteLeg!
         if let directions = directions {
             if let selectedRoute = directions.selectedRoute {
@@ -393,7 +391,7 @@ class DirectionsViewController: ViewController {
         return routeLeg
     }
 
-    func routeLegStepAtIndexPath(indexPath: NSIndexPath) -> RouteLegStep! {
+    func routeLegStepAtIndexPath(indexPath: NSIndexPath) -> RouteLegStep? {
         var routeLegStep: RouteLegStep!
         if let routeLeg = routeLegAtIndex(indexPath.section) {
             if let steps = routeLeg.steps {

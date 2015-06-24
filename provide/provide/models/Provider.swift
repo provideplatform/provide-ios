@@ -28,16 +28,16 @@ class Provider: Model {
         return mapping
     }
 
-    var firstName: String! {
-        var firstName: String!
+    var firstName: String? {
+        var firstName: String?
         if let name = name {
             firstName = name.splitAtString(" ").0
         }
         return firstName
     }
 
-    var lastName: String! {
-        var lastName: String!
+    var lastName: String? {
+        var lastName: String?
         if let name = name {
             lastName = name.splitAtString(" ").1
         }

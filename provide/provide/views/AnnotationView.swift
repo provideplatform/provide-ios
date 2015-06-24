@@ -59,7 +59,7 @@ class AnnotationView: MKAnnotationView {
             }
         }
 
-        init(annotationView: AnnotationView!) {
+        init(annotationView: AnnotationView) {
             super.init(target: annotationView, action: "gestureRecognized")
             self.annotationView = annotationView
             delegate = self

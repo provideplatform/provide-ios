@@ -8,7 +8,7 @@
 
 extension UIColor {
 
-    class func resizedColorWithPatternImage(patternImage: UIImage!, rect: CGRect) -> UIColor! {
+    class func resizedColorWithPatternImage(patternImage: UIImage, rect: CGRect) -> UIColor {
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         patternImage.drawInRect(rect)
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()

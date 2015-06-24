@@ -32,16 +32,16 @@ class Route: Model {
         return mapping
     }
 
-    var overviewPolyline: MKPolyline! {
+    var overviewPolyline: MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
             for step in (leg as! RouteLeg).steps {
                 if let shapes = (step as! RouteLegStep).shape {
                     for shape in shapes {
                         let shapeCoords = (shape as! String).splitAtString(",")
-                        let latitude = Double(shapeCoords.0)
-                        let longitude = Double(shapeCoords.1)
-                        coords.append(CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!))
+                        let latitude = Double(shapeCoords.0)!
+                        let longitude = Double(shapeCoords.1)!
+                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                     }
                 }
             }
@@ -126,11 +126,11 @@ class Route: Model {
         return itemsOrdered
     }
 
-    var itemsToLoadCountRemaining: Int! {
+    var itemsToLoadCountRemaining: Int {
         return itemsOrdered.count - (itemsLoaded != nil ? itemsLoaded.count : 0)
     }
 
-    func gtinOrderedCount(gtin: String!) -> Int {
+    func gtinOrderedCount(gtin: String) -> Int {
         var gtinOrderedCount = 0
         for product in itemsOrdered {
             if product.gtin == gtin {
@@ -140,7 +140,7 @@ class Route: Model {
         return gtinOrderedCount
     }
 
-    func gtinLoadedCount(gtin: String!) -> Int {
+    func gtinLoadedCount(gtin: String) -> Int {
         var gtinLoadedCount = 0
         for gtinLoaded in gtinsLoaded {
             if gtin == gtinLoaded {
@@ -150,7 +150,7 @@ class Route: Model {
         return gtinLoadedCount
     }
 
-    func itemForGtin(gtin: String!) -> Product! {
+    func itemForGtin(gtin: String) -> Product? {
         for item in itemsOrdered {
             if item.gtin == gtin {
                 return item
@@ -159,7 +159,7 @@ class Route: Model {
         return nil
     }
 
-    func isGtinRequired(gtin: String!) -> Bool {
+    func isGtinRequired(gtin: String) -> Bool {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
@@ -178,11 +178,11 @@ class Route: Model {
         ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func loadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
+    func loadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {
         RouteService.loadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
 
-    func unloadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
+    func unloadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {
         RouteService.unloadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
 }

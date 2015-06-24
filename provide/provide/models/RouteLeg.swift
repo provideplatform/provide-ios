@@ -26,7 +26,7 @@ class RouteLeg: Model {
         return mapping
     }
 
-    var distance: CLLocationDistance! {
+    var distance: CLLocationDistance {
         return distanceInMeters.doubleValue
     }
 
@@ -34,15 +34,15 @@ class RouteLeg: Model {
         return distance * 0.000621371
     }
 
-    var distanceInFeet: CLLocationDistance! {
+    var distanceInFeet: CLLocationDistance {
         return distanceInMiles * 5820.0
     }
 
-    var distancePerStep: CLLocationDistance! {
+    var distancePerStep: CLLocationDistance {
         return distance / Double(steps.count)
     }
 
-    var distanceString: String! {
+    var distanceString: String {
         if distanceInMiles > 0.1 {
             return String(format: "%.1f", distanceInMiles) + " mi"
         } else {
@@ -50,11 +50,11 @@ class RouteLeg: Model {
         }
     }
 
-    var durationString: String! {
+    var durationString: String {
         return "\(etaMinutes) min"
     }
 
-    var etaMinutes: Int! {
+    var etaMinutes: Int {
         let minutes = duration.doubleValue / 60.0 //duration.doubleValue / Double(steps.count - 1) / 60.0
         return Int(round(minutes))
     }

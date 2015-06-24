@@ -116,17 +116,14 @@ func isSimulator() -> Bool {
     return modelName == "iPhone Simulator" || modelName == "iPad Simulator"
 }
 
-func prettyPrintedJson(uglyJsonStr: String?) -> String! {
+func prettyPrintedJson(uglyJsonStr: String?) -> String {
     if let uglyJsonString = uglyJsonStr {
-        do {
-            let uglyJson: AnyObject = try NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
-            let prettyPrintedJson = encodeJSON(uglyJson, options: .PrettyPrinted)
-            return NSString(data: prettyPrintedJson, encoding: NSUTF8StringEncoding) as! String
-        } catch _ {
-        }
+        let uglyJson: AnyObject = try! NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
+        let prettyPrintedJson = encodeJSON(uglyJson, options: .PrettyPrinted)
+        return NSString(data: prettyPrintedJson, encoding: NSUTF8StringEncoding) as! String
     }
 
-    return nil
+    return ""
 }
 
 func displayNameForProperty(propertyName: String) -> String {

@@ -126,7 +126,7 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData!, withMimeType mimeType: String!, toUserWithId id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -163,7 +163,7 @@ class ApiService: NSObject {
         )
     }
 
-    func deleteDeviceWithId(id: String!, onSuccess: OnSuccess, onError: OnError) {
+    func deleteDeviceWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("devices/\(id)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
     }
 
@@ -200,7 +200,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchProviderAvailability(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchProviderAvailability(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -238,7 +238,7 @@ class ApiService: NSObject {
 
     // MARK: Work order API
 
-    func fetchWorkOrderWithId(id: String!, onSuccess: OnSuccess, onError: OnError) {
+    func fetchWorkOrderWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
@@ -256,7 +256,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkOrderWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func updateWorkOrderWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
         realParams.removeObjectForKey("customer")
@@ -266,7 +266,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData!, withMimeType mimeType: String!, toWorkOrderWithId id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -296,7 +296,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateRouteWithId(id: String!, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func updateRouteWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
 
@@ -341,9 +341,9 @@ class ApiService: NSObject {
 
     // MARK: S3
 
-    func uploadToS3(url: NSURL!, data: NSData!, withMimeType mimeType: String!, params: NSDictionary!, onSuccess: OnSuccess, onError: OnError) {
-        let api = MKNetworkEngine(hostName: url!.host)
-        let path = NSString(string: url!.path!)
+    func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+        let api = MKNetworkEngine(hostName: url.host)
+        let path = NSString(string: url.path!)
 
         let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params as! [String : AnyObject], httpMethod: "POST", ssl: true)
         op.addData(data, forKey: "file", mimeType: mimeType, fileName: "filename")
@@ -361,11 +361,11 @@ class ApiService: NSObject {
         api.enqueueOperation(op)
     }
 
-    private func dispatchApiOperationForPath(path: String!, method: RKRequestMethod! = .GET, params: NSDictionary!, onSuccess: OnSuccess!, onError: OnError!) {
+    private func dispatchApiOperationForPath(path: String, method: RKRequestMethod! = .GET, params: NSDictionary?, onSuccess: OnSuccess, onError: OnError) {
         dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    private func objectMappingForPath(var path: String!) -> RKObjectMapping! {
+    private func objectMappingForPath(var path: String) -> RKObjectMapping? {
         let parts = split(path.characters) { $0 == "/" }.map { String($0) }
         if parts.count > 3 {
             path = "/".join([parts[1], parts[3]])
@@ -376,7 +376,7 @@ class ApiService: NSObject {
         return objectMappings[path]
     }
 
-    private func dispatchOperationForURL(baseURL: NSURL!, path: String!, method: RKRequestMethod! = .GET, var params: NSDictionary!, onSuccess: OnSuccess!, onError: OnError!) {
+    private func dispatchOperationForURL(baseURL: NSURL, path: String, method: RKRequestMethod = .GET, var params: NSDictionary!, onSuccess: OnSuccess, onError: OnError) {
         var responseMapping = objectMappingForPath(path)
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)

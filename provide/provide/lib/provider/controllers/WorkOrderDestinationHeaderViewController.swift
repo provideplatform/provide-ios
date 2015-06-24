@@ -10,7 +10,7 @@ import UIKit
 
 class WorkOrderDestinationHeaderViewController: ViewController {
 
-    var initialFrame: CGRect! {
+    var initialFrame: CGRect {
         return CGRect(
             x: view.frame.origin.x,
             y: view.frame.height * -2,

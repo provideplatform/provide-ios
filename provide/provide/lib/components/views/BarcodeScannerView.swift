@@ -11,9 +11,8 @@ import AVFoundation
 
 @objc
 protocol BarcodeScannerViewDelegate {
-
-    optional func barcodeScannerView(barcodeScannerView: BarcodeScannerView!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!)
-    optional func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView!) -> CGRect
+    optional func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    optional func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect
 }
 
 class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
@@ -96,7 +95,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate
 
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(captureOutput: AVCaptureOutput, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         dispatch_sync(dispatch_get_main_queue()) {
             self.clearDetectedMetadataObjects()
             self.showDetectedMetadataObjects(metadataObjects)
@@ -109,7 +108,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         codeDetectionLayer.sublayers = nil
     }
 
-    private func showDetectedMetadataObjects(metadataObjects: [AnyObject]!) {
+    private func showDetectedMetadataObjects(metadataObjects: [AnyObject]) {
         for object in metadataObjects {
             if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
                 if let detectedCode = capturePreviewLayer.transformedMetadataObjectForMetadataObject(machineReadableCodeObject) as? AVMetadataMachineReadableCodeObject {

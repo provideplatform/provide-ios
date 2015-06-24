@@ -10,8 +10,7 @@ import Foundation
 
 @objc
 protocol SignatureViewDelegate {
-
-    func signatureView(signatureView: SignatureView!, capturedSignature signature: UIImage!)
+    func signatureView(signatureView: SignatureView, capturedSignature signature: UIImage)
 }
 
 class SignatureView: UIView {
@@ -86,7 +85,7 @@ class SignatureView: UIView {
         )
     }
 
-    @IBAction func doneButtonPressed(sender: UIButton!) {
+    @IBAction func doneButtonPressed(sender: UIButton) {
         doneButton.enabled = false
         doneButton.alpha = 0
         doneButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
@@ -96,9 +95,7 @@ class SignatureView: UIView {
         }
     }
 
-    func image() -> UIImage! {
-        let img: UIImage!
-
+    func image() -> UIImage {
         let imageSize = bounds.size
 
         UIGraphicsBeginImageContext(imageSize)
@@ -108,7 +105,7 @@ class SignatureView: UIView {
         //CGContextScaleCTM(imageContext, 1.0, -1.0)
 
         layer.renderInContext(imageContext)
-        img = UIGraphicsGetImageFromCurrentImageContext()
+        let img = UIGraphicsGetImageFromCurrentImageContext()
 
         UIGraphicsEndImageContext()
 

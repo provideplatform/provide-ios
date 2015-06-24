@@ -127,7 +127,7 @@ extension String {
         return rangeOfCharacterFromSet(nonDigits) == nil
     }
 
-    func stringByStrippingHTML() -> String! {
+    func stringByStrippingHTML() -> String {
         var range = NSMakeRange(0, 0)
         var str = NSString(string: self)
         while range.location != NSNotFound {

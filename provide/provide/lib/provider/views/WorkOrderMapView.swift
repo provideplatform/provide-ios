@@ -13,8 +13,10 @@ class WorkOrderMapView: MapView {
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate! {
         didSet {
             LocationService.sharedService().resolveCurrentLocation { [weak self] location in
-                self!.mapViewDidUpdateUserLocation(self, location: location)
-                LocationService.sharedService().background()
+                if let strongSelf = self {
+                    strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
+                    LocationService.sharedService().background()
+                }
             }
         }
     }
@@ -22,14 +24,16 @@ class WorkOrderMapView: MapView {
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate! {
         didSet {
             LocationService.sharedService().resolveCurrentLocation { [weak self] location in
-                self!.mapViewDidUpdateUserLocation(self, location: location)
-                LocationService.sharedService().background()
+                if let strongSelf = self {
+                    strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
+                    LocationService.sharedService().background()
+                }
             }
         }
     }
 
-    private var userLocationImageView: UIImageView! {
-        let imageView: UIImageView!
+    private var userLocationImageView: UIImageView {
+        let imageView: UIImageView
 
         if let profileImageUrl = currentUser().profileImageUrl {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
@@ -79,7 +83,7 @@ class WorkOrderMapView: MapView {
     override func removeAnnotations() {
         var nonUserAnnotations = annotations as [MKAnnotation]
         if userLocation.location != nil {
-            nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation))
+            nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation)!)
         }
         removeAnnotations(nonUserAnnotations)
     }
@@ -104,7 +108,7 @@ class WorkOrderMapView: MapView {
         }
     }
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         var view: MKAnnotationView?
 
         if annotation is MKUserLocation {
@@ -129,7 +133,7 @@ class WorkOrderMapView: MapView {
     override func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdateUserLocation: userLocation)
-        mapViewDidUpdateUserLocation(self, location: userLocation.location)
+        mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
     func mapViewDidStopLocatingUser(mapView: MKMapView) {
@@ -156,7 +160,7 @@ class WorkOrderMapView: MapView {
 
     }
 
-    func mapViewDidUpdateUserLocation(mapView: MapView!, location: CLLocation!) {
+    func mapViewDidUpdateUserLocation(mapView: MapView, location: CLLocation) {
         log("Map view updated user location: \(location)")
 
         if mapView.alpha == 0 {
@@ -186,11 +190,11 @@ class WorkOrderMapView: MapView {
         }
     }
 
-    func mapViewDidFailToUpdateUserLocation(mapView: MapView!, error: NSError!) {
+    func mapViewDidFailToUpdateUserLocation(mapView: MapView, error: NSError) {
         logWarn("Map view failed to update user location")
     }
 
-    func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView!, animated: Bool = false) {
+    func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
     }

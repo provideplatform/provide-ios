@@ -11,12 +11,11 @@ import AVFoundation
 
 @objc
 protocol RouteManifestViewControllerDelegate {
-
-    optional func targetViewForViewController(viewController: ViewController!) -> UIView!
-    optional func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController!) -> UINavigationItem!
-    optional func routeForViewController(viewController: ViewController!) -> Route!
-    optional func routeUpdated(route: Route!, byViewController viewController: ViewController!)
+    optional func targetViewForViewController(viewController: ViewController) -> UIView
+    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    optional func routeForViewController(viewController: ViewController) -> Route
+    optional func routeUpdated(route: Route, byViewController viewController: ViewController)
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {
@@ -63,19 +62,19 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private var segment: Segment!
 
-    private var completeItem: UIBarButtonItem! {
+    private var completeItem: UIBarButtonItem {
         let completeItem = UIBarButtonItem(title: "Complete", style: .Plain, target: self, action: "complete")
         completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return completeItem
     }
 
-    private var scanItem: UIBarButtonItem! {
+    private var scanItem: UIBarButtonItem {
         let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan")
         scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return scanItem
     }
 
-    private var startItem: UIBarButtonItem! {
+    private var startItem: UIBarButtonItem {
         let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start")
         startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return startItem
@@ -210,7 +209,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     // MARK: BarcodeScannerViewControllerDelegate
 
-    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         if !processingCode {
             for object in metadataObjects {
                 if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
@@ -220,7 +219,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private func processCode(metadataObject: AVMetadataMachineReadableCodeObject!) {
+    private func processCode(metadataObject: AVMetadataMachineReadableCodeObject?) {
         if let code = metadataObject {
             if code.type == AVMetadataObjectTypeEAN13Code || code.type == AVMetadataObjectTypeCode39Code {
                 let value = code.stringValue
@@ -241,7 +240,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController!) {
+    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController) {
         dismissBarcodeScannerViewController()
     }
 

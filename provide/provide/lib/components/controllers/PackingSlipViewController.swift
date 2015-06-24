@@ -182,7 +182,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     // MARK: PackingSlipItemTableViewCellDelegate
 
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, didRejectProduct rejectedProduct: Product!) {
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
                 workOrder.rejectItem(rejectedProduct)
@@ -208,7 +208,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadProduct product: Product!) {
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product) {
         productToUnload = product
 
         if isSimulator() { // HACK!!!
@@ -220,7 +220,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     // MARK: BarcodeScannerViewControllerDelegate
 
-    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         for object in metadataObjects {
             if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
                 processCode(machineReadableCodeObject)
@@ -236,7 +236,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func unloadItem(gtin: String!) {
+    private func unloadItem(gtin: String) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let product = productToUnload {
                 if product.gtin == gtin {
@@ -276,11 +276,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController!) {
+    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController) {
         dismissBarcodeScannerViewController()
     }
 
-    func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController!) -> CGRect {
+    func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController) -> CGRect {
         return view.frame
     }
 

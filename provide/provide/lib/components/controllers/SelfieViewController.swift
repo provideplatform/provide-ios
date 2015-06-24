@@ -9,8 +9,8 @@
 import UIKit
 
 protocol SelfieViewControllerDelegate {
-    func selfieViewController(viewController: SelfieViewController!, didCaptureStillImage image: UIImage!)
-    func selfieViewControllerCanceled(viewController: SelfieViewController!)
+    func selfieViewController(viewController: SelfieViewController, didCaptureStillImage image: UIImage)
+    func selfieViewControllerCanceled(viewController: SelfieViewController)
 }
 
 class SelfieViewController: ViewController, CameraViewDelegate {
@@ -76,7 +76,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds)
     }
 
-    func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!) {
+    func cameraView(cameraView: CameraView, didCaptureStillImage image: UIImage) {
         delegate?.selfieViewController(self, didCaptureStillImage: image)
     }
 }
