@@ -134,14 +134,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     func setupNavigationItem(deliverItemEnabled: Bool = false, abandomItemEnabled: Bool = true) {
         if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
-            deliverItem = UIBarButtonItem(title: "DELIVER", style: .Plain, target: self, action: "deliver:")
-            deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            deliverItem = UIBarButtonItem.plainBarButtonItem(title: "DELIVER", target: self, action: "deliver:")
             deliverItem.enabled = deliverItemEnabled
 
-            abandonItem = UIBarButtonItem(title: "ABANDON", style: .Plain, target: self, action: "abandon:")
-            abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            abandonItem = UIBarButtonItem.plainBarButtonItem(title: "ABANDON", target: self, action: "abandon:")
             abandonItem.enabled = abandomItemEnabled
 
             navigationItem.leftBarButtonItems = [deliverItem]

@@ -64,12 +64,6 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var segment: Segment!
 
-    private var dismissItem: UIBarButtonItem {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
     private var targetView: UIView! {
         return delegate?.targetViewForViewController?(self)
     }
@@ -102,6 +96,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         navigationItem.titleView = toolbarSegmentedControl
         navigationItem.prompt = navigationItemPrompt
 
+        let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss")
         navigationItem.leftBarButtonItems = [dismissItem]
 
         if let navigationController = delegate?.navigationControllerForViewController?(self) {

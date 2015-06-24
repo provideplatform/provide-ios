@@ -62,24 +62,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private var segment: Segment!
 
-    private var completeItem: UIBarButtonItem {
-        let completeItem = UIBarButtonItem(title: "Complete", style: .Plain, target: self, action: "complete")
-        completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return completeItem
-    }
-
-    private var scanItem: UIBarButtonItem {
-        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan")
-        scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return scanItem
-    }
-
-    private var startItem: UIBarButtonItem {
-        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start")
-        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return startItem
-    }
-
     private var targetView: UIView! {
         return delegate?.targetViewForViewController?(self)
     }
@@ -124,10 +106,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         navigationItem.prompt = "\(route.itemsToLoadCountRemaining) item(s) missing from manifest"
 
         if route.status == "in_progress" {
+            let completeItem = UIBarButtonItem.plainBarButtonItem(title: "Complete", target: self, action: "complete")
             navigationItem.leftBarButtonItems = [completeItem]
         } else if route.itemsToLoadCountRemaining == 0 {
+            let startItem = UIBarButtonItem.plainBarButtonItem(title: "START", target: self, action: "start")
             navigationItem.leftBarButtonItems = [startItem]
         } else {
+            let scanItem = UIBarButtonItem.plainBarButtonItem(title: "+ SCAN", target: self, action: "scan")
             navigationItem.leftBarButtonItems = [scanItem]
         }
     }

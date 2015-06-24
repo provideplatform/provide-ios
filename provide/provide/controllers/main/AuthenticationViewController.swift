@@ -31,9 +31,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancel")
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-
+        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: "cancel")
         navigationItem.leftBarButtonItems = [cancelItem]
     }
 
