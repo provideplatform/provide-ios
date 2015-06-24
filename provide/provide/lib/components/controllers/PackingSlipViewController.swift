@@ -62,7 +62,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                                                                      rect: CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)).colorWithAlphaComponent(0.7)
 
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
+        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
 
         packingSlipTableView.backgroundView = UIImageView(image: UIImage("navbar-background"))
 
@@ -70,8 +70,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         barcodeScannerViewController.delegate = self
     }
 
-    func segmentChanged() {
-        segment = Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex]
+    @objc private func segmentChanged(sender: UISegmentedControl) {
+        segment = Segment.allValues[sender.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
             self.packingSlipTableView.reloadData()

@@ -31,7 +31,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: "cancel")
+        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: "cancel:")
         navigationItem.leftBarButtonItems = [cancelItem]
     }
 
@@ -44,7 +44,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: User Interface Methods
 
-    func cancel() {
+    @objc private func cancel(_: UIBarButtonItem) {
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
             animations: {
                 if self.emailField?.isFirstResponder() == true {

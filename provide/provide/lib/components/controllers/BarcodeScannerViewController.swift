@@ -29,7 +29,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss:")
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
@@ -43,7 +43,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
         barcodeScannerView?.startScanner()
     }
 
-    func dismiss() {
+    @objc private func dismiss(_: UISwipeGestureRecognizer) {
         delegate?.barcodeScannerViewControllerShouldBeDismissed?(self)
     }
 

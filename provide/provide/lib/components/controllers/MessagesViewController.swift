@@ -19,7 +19,7 @@ class MessagesViewController: JSQMessagesViewController {
             navigationController.navigationBar.setBackgroundImage(UIImage("navbar-background"), forBarMetrics: .Default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
 
-            let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss")
+            let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
             navigationItem.leftBarButtonItem = dismissItem
         }
 
@@ -54,7 +54,7 @@ class MessagesViewController: JSQMessagesViewController {
         )
     }
 
-    func dismiss() {
+    @objc private func dismiss(_: UIBarButtonItem) {
         dismissViewController(animated: true)
     }
 

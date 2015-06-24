@@ -25,7 +25,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
 
         setupNavigationItem()
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss:")
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
@@ -38,9 +38,9 @@ class SelfieViewController: ViewController, CameraViewDelegate {
     func setupCameraUI() {
         view.bringSubviewToFront(button)
 
-        button.addTarget(cameraView, action: "captureFrame", forControlEvents: .TouchUpInside)
-        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchCancel, .TouchDragExit])
-        button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
+        button.addTarget(cameraView, action: "captureFrame:", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: "renderDefaultButtonAppearance:", forControlEvents: [.TouchUpInside, .TouchUpOutside, .TouchCancel, .TouchDragExit])
+        button.addTarget(self, action: "renderTappedButtonAppearance:", forControlEvents: .TouchDown)
 
         button.addBorder(5.0, color: UIColor.whiteColor())
         button.makeCircular()
@@ -52,7 +52,7 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         navigationItem.title = "TAKE A SELFIE!"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "SKIP", target: self, action: "dismiss")
+        let cancelItem = UIBarButtonItem.plainBarButtonItem(title: "SKIP", target: self, action: "dismiss:")
         navigationItem.leftBarButtonItems = [cancelItem]
     }
 
@@ -62,15 +62,15 @@ class SelfieViewController: ViewController, CameraViewDelegate {
         cameraView?.startCapture()
     }
 
-    func dismiss() {
+    @objc private func dismiss(_: AnyObject) {
         delegate?.selfieViewControllerCanceled(self)
     }
 
-    func renderDefaultButtonAppearance() {
+    @objc private func renderDefaultButtonAppearance(_: UIButton? = nil) {
         button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).colorWithAlphaComponent(0.75)
     }
 
-    func renderTappedButtonAppearance() {
+    @objc private func renderTappedButtonAppearance(_: UIButton) {
         button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds)
     }
 

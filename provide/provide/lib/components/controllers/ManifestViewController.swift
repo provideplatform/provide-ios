@@ -76,8 +76,8 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         refreshNavigationItem()
     }
 
-    func segmentChanged() {
-        segment = Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex]
+    @objc private func segmentChanged(sender: UISegmentedControl) {
+        segment = Segment.allValues[sender.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
             self.tableView.reloadData()
@@ -89,14 +89,14 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         toolbarSegmentedControl.tintColor = UIColor.whiteColor()
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        toolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
+        toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
     }
 
     func refreshNavigationItem() {
         navigationItem.titleView = toolbarSegmentedControl
         navigationItem.prompt = navigationItemPrompt
 
-        let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss")
+        let dismissItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
         navigationItem.leftBarButtonItems = [dismissItem]
 
         if let navigationController = delegate?.navigationControllerForViewController?(self) {
@@ -111,7 +111,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         navigationItem.rightBarButtonItems = []
     }
 
-    func dismiss() {
+    @objc private func dismiss(_: UIBarButtonItem) {
         clearNavigationItem()
 
         if let navigationController = delegate?.navigationControllerForViewController?(self) {

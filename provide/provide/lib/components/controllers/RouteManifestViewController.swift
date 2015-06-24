@@ -77,8 +77,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         barcodeScannerViewController.delegate = self
     }
 
-    func segmentChanged() {
-        segment = Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex]
+    @objc private func segmentChanged(sender: UISegmentedControl) {
+        segment = Segment.allValues[sender.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
             self.tableView.reloadData()
@@ -90,7 +90,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         toolbarSegmentedControl.tintColor = UIColor.whiteColor()
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        toolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
+        toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
     }
 
     private func dismissBarcodeScannerViewController() {
@@ -106,13 +106,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         navigationItem.prompt = "\(route.itemsToLoadCountRemaining) item(s) missing from manifest"
 
         if route.status == "in_progress" {
-            let completeItem = UIBarButtonItem.plainBarButtonItem(title: "Complete", target: self, action: "complete")
+            let completeItem = UIBarButtonItem.plainBarButtonItem(title: "Complete", target: self, action: "complete:")
             navigationItem.leftBarButtonItems = [completeItem]
         } else if route.itemsToLoadCountRemaining == 0 {
-            let startItem = UIBarButtonItem.plainBarButtonItem(title: "START", target: self, action: "start")
+            let startItem = UIBarButtonItem.plainBarButtonItem(title: "START", target: self, action: "start:")
             navigationItem.leftBarButtonItems = [startItem]
         } else {
-            let scanItem = UIBarButtonItem.plainBarButtonItem(title: "+ SCAN", target: self, action: "scan")
+            let scanItem = UIBarButtonItem.plainBarButtonItem(title: "+ SCAN", target: self, action: "scan:")
             navigationItem.leftBarButtonItems = [scanItem]
         }
     }
@@ -130,7 +130,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func scan() {
+    @objc private func scan(_: UIBarButtonItem) {
         clearNavigationItem()
 
         if isSimulator() { // HACK!!!
@@ -162,7 +162,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         )
     }
 
-    func start() {
+    @objc private func start(_: UIBarButtonItem) {
         clearNavigationItem()
         route.start(
             onSuccess: { statusCode, responseString in
@@ -177,7 +177,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         )
     }
 
-    func complete() {
+    @objc private func complete(_: UIBarButtonItem) {
         clearNavigationItem()
         route.complete(
             onSuccess: { statusCode, responseString in

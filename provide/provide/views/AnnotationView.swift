@@ -27,7 +27,7 @@ class AnnotationView: MKAnnotationView {
         backgroundColor = UIColor.clearColor()
     }
 
-    func gestureRecognized() {
+    @objc private func gestureRecognized(_: UIGestureRecognizer) {
         log("recognized")
     }
 
@@ -60,7 +60,7 @@ class AnnotationView: MKAnnotationView {
         }
 
         init(annotationView: AnnotationView) {
-            super.init(target: annotationView, action: "gestureRecognized")
+            super.init(target: annotationView, action: "gestureRecognized:")
             self.annotationView = annotationView
             delegate = self
         }

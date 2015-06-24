@@ -95,7 +95,7 @@ class CameraView: UIView {
         }
     }
 
-    func captureFrame() {
+    @objc func captureFrame(_: UIButton) {
         if isSimulator() {
             if let window = UIApplication.sharedApplication().keyWindow {
                 UIGraphicsBeginImageContextWithOptions(window.bounds.size, false, UIScreen.mainScreen().scale)
