@@ -112,8 +112,11 @@ func isRunningUnitTests() -> Bool {
 }
 
 func isSimulator() -> Bool {
-    let modelName = UIDevice.currentDevice().model
-    return modelName == "iPhone Simulator" || modelName == "iPad Simulator"
+    #if (arch(i386) || arch(x86_64)) && os(iOS)
+        return true
+    #else
+        return false
+    #endif
 }
 
 func prettyPrintedJson(uglyJsonStr: String?) -> String {
