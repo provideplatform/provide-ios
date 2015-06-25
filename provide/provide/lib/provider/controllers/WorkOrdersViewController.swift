@@ -18,7 +18,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
 
     // mapping-related callbacks
     optional func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation]
-    optional func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView
+    optional func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
     optional func mapViewForViewController(viewController: ViewController!) -> WorkOrderMapView!
     optional func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView, animated: Bool)
     optional func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController)
@@ -319,7 +319,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return annotations
     }
 
-    func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView {
+    func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView! {
         var annotationView: MKAnnotationView!
 
         if annotation is WorkOrder {
