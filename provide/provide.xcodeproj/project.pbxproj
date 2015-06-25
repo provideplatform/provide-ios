@@ -51,6 +51,8 @@
 		680B74AF1B36DDFA00181300 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AD1B36DDFA00181300 /* Crashlytics.framework */; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
+		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
+		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
 		687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */; };
 		687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5351B07EAD30048B692 /* NSDateExtensions.swift */; };
@@ -214,6 +216,8 @@
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
+		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKMapViewExtensions.swift; sourceTree = "<group>"; };
 		687CB5351B07EAD30048B692 /* NSDateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
@@ -426,6 +430,8 @@
 			isa = PBXGroup;
 			children = (
 				689608931B3A1F21008719B0 /* provideUITests.swift */,
+				687454391B3C014300C49B3F /* ProvideTestCase.swift */,
+				687454371B3C00DF00C49B3F /* RouteUITests.swift */,
 				6896089C1B3A1F93008719B0 /* Supporting Files */,
 			);
 			path = provideUITests;
@@ -1046,6 +1052,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				689608941B3A1F21008719B0 /* provideUITests.swift in Sources */,
+				6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */,
+				687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1595,6 +1603,7 @@
 				5C2A5A471B3B96F30053AABC /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = AppStore;
 		};
 		6896089B1B3A1F21008719B0 /* Build configuration list for PBXNativeTarget "provideUITests" */ = {
 			isa = XCConfigurationList;
