@@ -13,7 +13,7 @@ protocol ManifestViewControllerDelegate {
     optional func targetViewForViewController(viewController: ViewController) -> UIView
     optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
     optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-    optional func routeForViewController(viewController: ViewController) -> Route
+    optional func routeForViewController(viewController: ViewController) -> Route!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {

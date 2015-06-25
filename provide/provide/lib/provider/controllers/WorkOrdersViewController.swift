@@ -566,7 +566,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     // MARK: RouteManifestViewControllerDelegate
 
-    func routeForViewController(viewController: ViewController) -> Route {
+    func routeForViewController(viewController: ViewController) -> Route! {
         let routeService = RouteService.sharedService()
         var route = routeService.inProgressRoute
         if route == nil {
