@@ -40,6 +40,7 @@ extension Array {
             if let to = objectToCompare as? U {
                 if object == to {
                     index = idx
+                    break
                 }
             }
         }
