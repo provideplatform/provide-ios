@@ -10,7 +10,7 @@ import Foundation
 
 class WorkOrderProvider: Model {
 
-    var id: NSNumber!
+    var id = 0
     var providerRating: NSNumber!
     var provider: Provider!
 

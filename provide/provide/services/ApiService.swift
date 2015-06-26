@@ -156,7 +156,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("devices", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
-                KeyChainService.sharedService().deviceId = (mappingResult.firstObject as! Device).id.stringValue
+                KeyChainService.sharedService().deviceId = (mappingResult.firstObject as! Device).id.description
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: onError

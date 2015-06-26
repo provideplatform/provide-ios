@@ -10,7 +10,7 @@ import Foundation
 
 class Route: Model {
 
-    var id: NSNumber!
+    var id = 0
     var name: String!
     var legs = NSArray()
     var status: String!
@@ -150,17 +150,17 @@ class Route: Model {
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func load(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func loadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {

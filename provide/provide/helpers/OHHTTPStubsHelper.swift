@@ -35,7 +35,7 @@ class OHHTTPStubsHelper {
                     "id": Int(NSDate().timeIntervalSinceDate(NSDate().atMidnight)),
                     "body": text,
                     "recipient_id": Int(recipientId)!,
-                    "sender_id": currentUser().id.integerValue,
+                    "sender_id": currentUser().id,
                     "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
                     "recipient_name":"Kyle Thomas",
                     "sender_name": currentUser().name]

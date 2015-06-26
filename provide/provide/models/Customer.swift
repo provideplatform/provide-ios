@@ -10,7 +10,7 @@ import Foundation
 
 class Customer: Model {
 
-    var id: NSNumber!
+    var id = 0
     var name: String!
     var displayName: String!
     var profileImageUrl: String!

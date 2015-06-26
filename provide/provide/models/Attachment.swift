@@ -10,8 +10,8 @@ import Foundation
 
 class Attachment: Model {
 
-    var id: NSNumber!
-    var userId: NSNumber!
+    var id = 0
+    var userId = 0
     var key: String!
     var publicUrl: String!
     var mimeType: String!

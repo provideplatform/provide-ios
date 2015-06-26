@@ -10,7 +10,7 @@ import Foundation
 
 class Device: Model {
 
-    var id: NSNumber!
+    var id = 0
     var apnsDeviceId: String!
 
     override class func mapping() -> RKObjectMapping {

@@ -10,8 +10,8 @@ import Foundation
 
 class Provider: Model {
 
-    var id: NSNumber!
-    var userId: NSNumber!
+    var id = 0
+    var userId = 0
     var name: String!
     var contact: Contact!
     var services: NSSet!

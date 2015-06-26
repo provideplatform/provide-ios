@@ -10,7 +10,7 @@ import Foundation
 
 class Product: Model {
 
-    var id: NSNumber!
+    var id = 0
     var gtin: String!
     var data: NSDictionary!
 
