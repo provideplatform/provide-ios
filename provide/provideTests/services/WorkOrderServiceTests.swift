@@ -19,16 +19,7 @@ class WorkOrderServiceTests: XCTestCase {
             logInfo("\(request.URL!) stubbed by \(stub.name).")
         }
 
-        let stub = OHHTTPStubs.stubRequestsPassingTest(
-            { request in
-                request.URL!.path! == "/api/work_orders"
-            },
-            withStubResponse: { request in
-                let fixture = OHPathForFile("HTTPStubs/work_orders/work_orders.json", self.dynamicType)
-                return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
-            }
-        )
-        stub.name = "WorkOrderServiceTests"
+        stubRoute("GET", "/api/work_orders", withFile: "HTTPStubs/work_orders/work_orders.json", stubName: "WorkOrderServiceTests")
     }
 
     override func tearDown() {

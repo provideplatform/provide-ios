@@ -19,16 +19,7 @@ class OHHTTPStubsHelper {
 
     func stubMessagesNetworkRequests() {
 
-        // GET messages
-        OHHTTPStubs.stubRequestsPassingTest(
-            { request in
-                return request.URL!.path! == "/api/messages" && request.HTTPMethod == "GET"
-            },
-            withStubResponse: { request in
-                let fixture = OHPathForFile("HTTPStubs/messages/conversation.json", self.dynamicType)
-                return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
-            }
-        )
+        stubRoute("GET", "/api/messages", withFile: "HTTPStubs/messages/conversation.json")
 
         // POST messages
         OHHTTPStubs.stubRequestsPassingTest(
@@ -52,4 +43,17 @@ class OHHTTPStubsHelper {
             }
         )
     }
+}
+
+
+func stubRoute(httpMethod: String, _ path: String, withFile filePath: String, stubName: String? = nil)  {
+    OHHTTPStubs.stubRequestsPassingTest(
+        { request in
+            return request.URL!.path! == path && request.HTTPMethod == httpMethod
+        },
+        withStubResponse: { request in
+            let fixture = OHPathForFile(filePath, OHHTTPStubsHelper.self)
+            return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
+        }
+    ).name = stubName
 }

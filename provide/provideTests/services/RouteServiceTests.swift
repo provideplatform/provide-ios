@@ -18,16 +18,7 @@ class RouteServiceTests: XCTestCase {
             logInfo("\(request.URL!) stubbed by \(stub.name!).")
         }
 
-        let stub = OHHTTPStubs.stubRequestsPassingTest(
-            { request in
-                request.URL!.path! == "/api/routes"
-            },
-            withStubResponse: { request in
-                let fixture = OHPathForFile("HTTPStubs/routes/routes.json", self.dynamicType)
-                return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
-            }
-        )
-        stub.name = "RouteServiceTests"
+        stubRoute("GET", "/api/routes", withFile: "HTTPStubs/routes/routes.json", stubName: "RouteServiceTests")
     }
 
     override func tearDown() {

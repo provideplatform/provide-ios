@@ -19,16 +19,7 @@ class MessageServiceTests: XCTestCase {
             logInfo("\(request.URL!) stubbed by \(stub.name!).")
         }
 
-        let stub = OHHTTPStubs.stubRequestsPassingTest(
-            { request in
-                request.URL!.path! == "/api/messages"
-            },
-            withStubResponse: { request in
-                let fixture = OHPathForFile("HTTPStubs/messages/conversation.json", self.dynamicType)
-                return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
-            }
-        )
-        stub.name = "MessageServiceTests"
+        stubRoute("GET", "/api/messages", withFile: "HTTPStubs/messages/conversation.json", stubName: "MessageServiceTests")
     }
 
     override func tearDown() {
