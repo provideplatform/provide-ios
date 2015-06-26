@@ -126,7 +126,7 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -163,8 +163,8 @@ class ApiService: NSObject {
         )
     }
 
-    func deleteDeviceWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("devices/\(id)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
+    func deleteDeviceWithId(deviceId: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("devices/\(deviceId)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Remote notifications
@@ -200,7 +200,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchProviderAvailability(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchProviderAvailability(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -238,7 +238,7 @@ class ApiService: NSObject {
 
     // MARK: Work order API
 
-    func fetchWorkOrderWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
+    func fetchWorkOrderWithId(id: Int, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
@@ -256,7 +256,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkOrderWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func updateWorkOrderWithId(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
         realParams.removeObjectForKey("customer")
@@ -266,7 +266,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -296,7 +296,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateRouteWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func updateRouteWithId(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         let realParams = NSMutableDictionary(dictionary: params)
         realParams.removeObjectForKey("id")
 

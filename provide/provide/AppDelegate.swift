@@ -98,15 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let message = Message(string: (notificationValue as! NSDictionary).toJSON())
             NSNotificationCenter.defaultCenter().postNotificationName("NewMessageReceivedNotification", object: message)
         case .WorkOrder:
-            let workOrderId = notificationValue as! NSNumber
+            let workOrderId = notificationValue as! Int
             if let providerRemoved = userInfo["provider_removed"] as? Bool {
                 if providerRemoved {
                     log("provider removed from work order id \(workOrderId)")
                 }
             } else {
                 if WorkOrderService.sharedService().inProgressWorkOrder != nil {
-                    if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId.integerValue {
-                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId.description,
+                    if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId {
+                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId,
                             onSuccess: { statusCode, mappingResult in
                                 if let wo = mappingResult.firstObject as? WorkOrder {
                                     if wo.status == "canceled" {

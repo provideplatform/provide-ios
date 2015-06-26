@@ -141,7 +141,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             gtins.append(item.gtin)
         }
 
-        ApiService.sharedService().updateRouteWithId(route.id.description, params: ["gtins_loaded": gtins],
+        ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtins],
             onSuccess: { statusCode, responseString in
                 let itemsLoaded = NSMutableArray()
                 for product in self.route.itemsOrdered {

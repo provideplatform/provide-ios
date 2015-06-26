@@ -150,17 +150,17 @@ class Route: Model {
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
-        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func load(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
-        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateRouteWithId(id.description, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
     func loadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {

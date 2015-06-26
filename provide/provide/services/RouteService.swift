@@ -25,7 +25,7 @@ class RouteService: NSObject {
             var gtinsLoaded = route.gtinsLoaded
             gtinsLoaded.append(gtin)
 
-            ApiService.sharedService().updateRouteWithId(route.id.description, params: ["gtins_loaded": gtinsLoaded],
+            ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtinsLoaded],
                 onSuccess: { statusCode, mappingResult in
                     let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
                     itemsLoaded.addObject(route.itemForGtin(gtin)!)
@@ -50,7 +50,7 @@ class RouteService: NSObject {
                 }
             }
 
-            ApiService.sharedService().updateRouteWithId(route.id.description, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: onSuccess, onError: onError)
+            ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: onSuccess, onError: onError)
         }
     }
 
