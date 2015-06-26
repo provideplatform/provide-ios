@@ -27,21 +27,22 @@ class Contact: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "address1": "address1",
-            "address2": "address2",
-            "city": "city",
-            "state": "state",
-            "zip": "zip",
-            "email": "email",
-            "phone": "phone",
-            "fax": "fax",
-            "mobile": "mobile",
-            "time_zone_id": "timeZoneId",
-            "latitude": "latitude",
-            "longitude": "longitude"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "address1",
+            "address2",
+            "city",
+            "state",
+            "zip",
+            "email",
+            "phone",
+            "fax",
+            "mobile",
+            "time_zone_id",
+            "latitude",
+            "longitude",
+            ]
+        )
         return mapping
     }
 

@@ -16,9 +16,10 @@ class Directions: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "minutes": "minutes"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "minutes",
+            ]
+        )
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Route", toKeyPath: "routes", withMapping: Route.mapping()))
         return mapping
     }

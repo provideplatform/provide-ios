@@ -20,15 +20,16 @@ class Attachment: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "user_id": "userId",
-            "key": "key",
-            "url": "url",
-            "public_url": "publicUrl",
-            "mime_type": "mimeType",
-            "fields": "fields"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "user_id",
+            "key",
+            "url",
+            "public_url",
+            "mime_type",
+            "fields",
+            ]
+        )
         return mapping
     }
 }

@@ -16,10 +16,11 @@ class WorkOrderProvider: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "provider_rating": "providerRating"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "provider_rating",
+            ]
+        )
         mapping.addRelationshipMappingWithSourceKeyPath("provider", mapping: Provider.mapping())
         return mapping
     }

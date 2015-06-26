@@ -18,12 +18,13 @@ class Provider: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "user_id": "userId",
-            "name": "name",
-            "services": "services"
-            ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "user_id",
+            "name",
+            "services",
+            ]
+        )
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }

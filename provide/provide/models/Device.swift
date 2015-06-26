@@ -15,10 +15,11 @@ class Device: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "apns_device_id": "apnsDeviceId"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "apns_device_id",
+            ]
+        )
         return mapping
     }
 }

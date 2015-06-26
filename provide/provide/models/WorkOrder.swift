@@ -33,28 +33,34 @@ class WorkOrder: Model, MKAnnotation {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "company_id",
+            "customer_id",
+            "started_at",
+            "ended_at",
+            "duration",
+            "estimated_duration",
+            "status",
+            "provider_rating",
+            "customer_rating",
+            "components",
+            ]
+        )
+
         mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "company_id": "companyId",
-            "customer_id": "customerId",
             "description": "desc",
-            "started_at": "startedAt",
-            "ended_at": "endedAt",
-            "duration": "duration",
-            "estimated_duration": "estimatedDuration",
-            "status": "status",
-            "provider_rating": "providerRating",
-            "customer_rating": "customerRating",
-            "components": "components"
-            ])
+            ]
+        )
+
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_unloaded", toKeyPath: "itemsUnloaded", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
+        mapping.addRelationshipMappingWithSourceKeyPath("attachments", mapping: Attachment.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("items_ordered", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("items_delivered", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("items_rejected", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("items_unloaded", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("work_order_providers", mapping: WorkOrderProvider.mapping())
 
         return mapping
     }

@@ -21,13 +21,14 @@ class Route: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "status": "status",
-            "id": "id",
-            "name": "name",
-            ])
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
+        mapping.addAttributeMappingsFromArray([
+            "status",
+            "id",
+            "name",
+            ]
+        )
+        mapping.addRelationshipMappingWithSourceKeyPath("items_loaded", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("work_orders", mapping: WorkOrder.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
     }

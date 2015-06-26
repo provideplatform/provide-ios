@@ -16,11 +16,12 @@ class Product: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "gtin": "gtin",
-            "data": "data"
-            ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "gtin",
+            "data",
+            ]
+        )
         return mapping
     }
 

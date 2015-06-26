@@ -27,15 +27,21 @@ class Message: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
+
+        mapping.addAttributeMappingsFromArray([
+            "body",
+            "created_at",
+            "id",
+            "recipient_id",
+            "recipient_name",
+            "sender_name",
+            "sender_profile_image_url",
+            ]
+        )
+
+        // sender_id does not follow camel case convention
         mapping.addAttributeMappingsFromDictionary([
-            "body": "body",
-            "created_at": "createdAt",
-            "id": "id",
-            "recipient_id": "recipientId",
-            "recipient_name": "recipientName",
             "sender_id": "senderID",
-            "sender_name": "senderName",
-            "sender_profile_image_url": "senderProfileImageUrl",
             ]
         )
         return mapping

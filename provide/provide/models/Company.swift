@@ -16,10 +16,11 @@ class Company: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "name": "name"
-        ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "name",
+            ]
+        )
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }

@@ -17,11 +17,12 @@ class Token: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "uuid": "uuid",
-            "token": "token"
-            ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "uuid",
+            "token",
+            ]
+        )
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         return mapping
     }
