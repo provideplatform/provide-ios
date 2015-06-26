@@ -16,7 +16,7 @@ class WorkOrder: Model, MKAnnotation {
     var customerId = 0
     var customer: Customer!
     var desc: String!
-    var workOrderProviders = NSArray()
+    var workOrderProviders = [WorkOrderProvider]()
     var startedAt: String!
     var endedAt: String!
     var duration: NSNumber!
@@ -24,12 +24,12 @@ class WorkOrder: Model, MKAnnotation {
     var status: String!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
-    var attachments = NSArray()
-    var components = NSMutableArray()
-    var itemsOrdered = NSMutableArray()
-    var itemsDelivered = NSMutableArray()
-    var itemsRejected = NSMutableArray()
-    var itemsUnloaded = NSMutableArray()
+    // var attachments = [AnyObject]() // Unusud
+    var components = [[String: AnyObject]]()
+    var itemsOrdered = [Product]()
+    var itemsDelivered = [Product]()
+    var itemsRejected = [Product]()
+    var itemsUnloaded = [Product]()
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -84,14 +84,14 @@ class WorkOrder: Model, MKAnnotation {
 
     var currentComponentIdentifier: String! {
         var componentIdentifier: String!
-        for component in components.objectEnumerator().allObjects {
-            if let completed = component.objectForKey("completed") as? Bool {
+        for component in components {
+            if let completed = component["completed"] as? Bool {
                 if !completed {
-                    componentIdentifier = component.objectForKey("component") as! String
+                    componentIdentifier = component["component"] as! String
                     break
                 }
             } else {
-                componentIdentifier = component.objectForKey("component") as! String
+                componentIdentifier = component["component"] as! String
                 break
             }
         }
@@ -101,22 +101,22 @@ class WorkOrder: Model, MKAnnotation {
     var itemsOnTruck: [Product] {
         var itemsOnTruck = [Product]()
         for itemOrdered in itemsOrdered {
-            itemsOnTruck.append(itemOrdered as! Product)
+            itemsOnTruck.append(itemOrdered)
         }
 
-        let newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
+        var newItemsOnTruck = itemsOnTruck
 
         var gtinsUnloaded = [String]()
         for itemUnloaded in itemsUnloaded {
-            gtinsUnloaded.append((itemUnloaded as! Product).gtin)
+            gtinsUnloaded.append(itemUnloaded.gtin)
         }
 
         while gtinsUnloaded.count > 0 {
             let gtin = gtinsUnloaded.removeAtIndex(0)
 
             for (i, item) in newItemsOnTruck.enumerate() {
-                if gtin == (item as! Product).gtin {
-                    newItemsOnTruck.removeObjectAtIndex(i)
+                if gtin == item.gtin {
+                    newItemsOnTruck.removeAtIndex(i)
                     break
                 }
             }
@@ -124,7 +124,7 @@ class WorkOrder: Model, MKAnnotation {
 
         itemsOnTruck = [Product]()
         for item in newItemsOnTruck {
-            itemsOnTruck.append(item as! Product)
+            itemsOnTruck.append(item)
         }
 
         return itemsOnTruck
@@ -139,32 +139,26 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(item: Product) {
-        itemsRejected.addObject(item)
+        itemsRejected.append(item)
     }
 
     func approveItem(item: Product) {
-        let newItemsRejected = NSMutableArray(array: itemsRejected)
-
         for (i, rejectedItem) in itemsRejected.enumerate() {
-            if item.gtin == (rejectedItem as! Product).gtin {
-                newItemsRejected.removeObjectAtIndex(i)
-                itemsRejected = newItemsRejected
+            if item.gtin == rejectedItem.gtin {
+                itemsRejected.removeAtIndex(i)
                 break
             }
         }
     }
 
     func unloadItem(item: Product) {
-        itemsUnloaded.addObject(item)
+        itemsUnloaded.append(item)
     }
 
     func loadItem(item: Product) {
-        let newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
-
         for (i, unloadedItem) in itemsUnloaded.enumerate() {
-            if (unloadedItem as! Product).gtin == item.gtin {
-                newItemsUnloaded.removeObjectAtIndex(i)
-                itemsUnloaded = newItemsUnloaded
+            if unloadedItem.gtin == item.gtin {
+                itemsUnloaded.removeAtIndex(i)
                 break
             }
         }
@@ -181,7 +175,7 @@ class WorkOrder: Model, MKAnnotation {
     var gtinsDelivered: [String] {
         var gtinsDelivered = [String]()
         for product in itemsUnloaded {
-            gtinsDelivered.append((product as! Product).gtin)
+            gtinsDelivered.append(product.gtin)
         }
         return gtinsDelivered
     }
@@ -189,7 +183,7 @@ class WorkOrder: Model, MKAnnotation {
     func gtinRejectedCount(gtin: String) -> Int {
         var gtinRejectedCount = 0
         for product in itemsRejected {
-            if (product as! Product).gtin == gtin {
+            if product.gtin == gtin {
                 gtinRejectedCount += 1
             }
         }
@@ -199,7 +193,7 @@ class WorkOrder: Model, MKAnnotation {
     func gtinOrderedCount(gtin: String) -> Int {
         var gtinOrderedCount = 0
         for product in itemsOrdered {
-            if (product as! Product).gtin == gtin {
+            if product.gtin == gtin {
                 gtinOrderedCount += 1
             }
         }
@@ -209,7 +203,7 @@ class WorkOrder: Model, MKAnnotation {
     func gtinUnloadedCount(gtin: String) -> Int {
         var gtinUnloadedCount = 0
         for product in itemsUnloaded {
-            if (product as! Product).gtin == gtin {
+            if product.gtin == gtin {
                 gtinUnloadedCount += 1
             }
         }

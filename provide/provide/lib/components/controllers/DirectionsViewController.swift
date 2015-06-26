@@ -188,7 +188,7 @@ class DirectionsViewController: ViewController {
             }
 
             for leg in directions.selectedRoute.legs {
-                for step in [(leg as! RouteLeg).currentStep] {
+                for step in [leg.currentStep] {
                     for coordinate in step.shapeCoordinates {
                         let overlay = MKCircle(centerCoordinate: coordinate, radius: 5.0)
                         let identifier = step.identifier + "_\(coordinate.latitude),\(coordinate.longitude)"
@@ -385,7 +385,7 @@ class DirectionsViewController: ViewController {
         var routeLeg: RouteLeg!
         if let directions = directions {
             if let selectedRoute = directions.selectedRoute {
-                routeLeg = selectedRoute.legs[i] as! RouteLeg
+                routeLeg = selectedRoute.legs[i]
             }
         }
         return routeLeg
@@ -394,7 +394,7 @@ class DirectionsViewController: ViewController {
     func routeLegStepAtIndexPath(indexPath: NSIndexPath) -> RouteLegStep? {
         var routeLegStep: RouteLegStep!
         if let routeLeg = routeLegAtIndex(indexPath.section) {
-            routeLegStep = routeLeg.steps[indexPath.row] as! RouteLegStep
+            routeLegStep = routeLeg.steps[indexPath.row]
         }
         return routeLegStep
     }

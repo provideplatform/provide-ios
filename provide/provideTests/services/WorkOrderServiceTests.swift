@@ -46,7 +46,7 @@ class WorkOrderServiceTests: XCTestCase {
             XCTAssertEqual(workOrder.customer.contact.address1, "111 Summer Dr NE")
             XCTAssertEqual(workOrder.status, "scheduled")
 
-            let provider = (workOrder.workOrderProviders as! [WorkOrderProvider]).first!
+            let provider = workOrder.workOrderProviders.first!
             XCTAssertEqual(provider.provider.contact.address1, "123 Elm St")
         }
     }

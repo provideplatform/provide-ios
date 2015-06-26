@@ -419,9 +419,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderDeliveryConfirmedForViewController(viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            inProgressWorkOrder.components = NSMutableArray(array: inProgressWorkOrder.components)
             if inProgressWorkOrder.components.count > 0 {
-                inProgressWorkOrder.components.removeObjectAtIndex(0)
+                inProgressWorkOrder.components.removeAtIndex(0)
             }
         }
 
@@ -443,8 +442,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered
-        for product in itemsOrdered.objectEnumerator().allObjects {
-            products.append(product as! Product)
+        for product in itemsOrdered {
+            products.append(product)
         }
         return products
     }
@@ -456,8 +455,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         let itemsUnloaded = WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded
-        for product in itemsUnloaded.objectEnumerator().allObjects {
-            products.append(product as! Product)
+        for product in itemsUnloaded {
+            products.append(product)
         }
         return products
     }
@@ -465,8 +464,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected
-        for product in itemsRejected.objectEnumerator().allObjects {
-            products.append(product as! Product)
+        for product in itemsRejected {
+            products.append(product)
         }
         return products
     }
@@ -477,7 +476,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+        WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
         attemptSegueToValidWorkOrderContext()
 
         let params = [
@@ -506,7 +505,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+        WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
         attemptSegueToValidWorkOrderContext()
 
         WorkOrderService.sharedService().inProgressWorkOrder.scoreProvider(netPromoterScore,

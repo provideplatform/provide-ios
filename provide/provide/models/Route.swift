@@ -12,10 +12,10 @@ class Route: Model {
 
     var id = 0
     var name: String!
-    var legs = NSArray()
+    var legs = [RouteLeg]()
     var status: String!
-    var workOrders = NSArray()
-    var itemsLoaded = NSArray()
+    var workOrders = [WorkOrder]()
+    var itemsLoaded = [Product]()
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
 
@@ -36,10 +36,10 @@ class Route: Model {
     var overviewPolyline: MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
-            for step in (leg as! RouteLeg).steps {
-                let shapes = (step as! RouteLegStep).shape
+            for step in leg.steps {
+                let shapes = step.shape
                 for shape in shapes {
-                    let shapeCoords = (shape as! String).splitAtString(",")
+                    let shapeCoords = shape.splitAtString(",")
                     let latitude = Double(shapeCoords.0)!
                     let longitude = Double(shapeCoords.1)!
                     coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
@@ -53,7 +53,7 @@ class Route: Model {
     var currentLeg: RouteLeg! {
         var leg: RouteLeg!
         if legs.count > 0 {
-            leg = legs[currentLegIndex] as! RouteLeg
+            leg = legs[currentLegIndex]
         }
 
         return leg
@@ -67,7 +67,7 @@ class Route: Model {
         var gtinsLoaded = [String]()
 
         for product in itemsLoaded {
-            gtinsLoaded.append((product as! Product).gtin)
+            gtinsLoaded.append(product.gtin)
         }
 
         return gtinsLoaded
@@ -77,9 +77,9 @@ class Route: Model {
         var itemsNotLoaded = [Product]()
 
         for workOrder in Array((workOrders as Array).reverse()) {
-            let products = (workOrder as! WorkOrder).itemsOrdered
+            let products = workOrder.itemsOrdered
             for product in products {
-                itemsNotLoaded.append(product as! Product)
+                itemsNotLoaded.append(product)
             }
         }
 
@@ -91,9 +91,9 @@ class Route: Model {
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
         for workOrder in Array((workOrders as Array).reverse()) {
-            let products = (workOrder as! WorkOrder).itemsOrdered
+            let products = workOrder.itemsOrdered
             for product in products {
-                itemsDelivered.append(product as! Product)
+                itemsDelivered.append(product)
             }
         }
 
@@ -103,9 +103,9 @@ class Route: Model {
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
         for workOrder in Array((workOrders as Array).reverse()) {
-            let products = (workOrder as! WorkOrder).itemsOrdered
+            let products = workOrder.itemsOrdered
             for product in products {
-                itemsOrdered.append(product as! Product)
+                itemsOrdered.append(product)
             }
         }
 

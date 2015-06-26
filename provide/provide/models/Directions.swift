@@ -10,7 +10,7 @@ import Foundation
 
 class Directions: Model {
 
-    var routes = NSArray()
+    var routes = [Route]()
     var minutes: NSNumber!
     var selectedRouteIndex: Int!
 
@@ -30,7 +30,7 @@ class Directions: Model {
                 selectedRouteIndex = 0
             }
 
-            return routes[selectedRouteIndex] as! Route
+            return routes[selectedRouteIndex]
         }
         return nil
     }

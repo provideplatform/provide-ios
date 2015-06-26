@@ -27,11 +27,7 @@ class RouteService: NSObject {
 
             ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtinsLoaded],
                 onSuccess: { statusCode, mappingResult in
-                    let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
-                    itemsLoaded.addObject(route.itemForGtin(gtin)!)
-
-                    route.itemsLoaded = itemsLoaded as [AnyObject]
-
+                    route.itemsLoaded.append(route.itemForGtin(gtin)!)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: onError
@@ -41,14 +37,15 @@ class RouteService: NSObject {
 
     class func unloadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
         if route.gtinLoadedCount(gtin) > 0 {
+            var itemsLoaded = route.itemsLoaded
             for (i, product) in route.itemsLoaded.enumerate() {
-            let itemsLoaded = NSMutableArray(array: route.itemsLoaded)
-                if (product as! Product).gtin == gtin {
-                    itemsLoaded.removeObjectAtIndex(i)
-                    route.itemsLoaded = itemsLoaded as [AnyObject]
+                if product.gtin == gtin {
+                    itemsLoaded.removeAtIndex(i)
                     break
                 }
             }
+
+            route.itemsLoaded = itemsLoaded
 
             ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: onSuccess, onError: onError)
         }

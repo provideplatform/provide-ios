@@ -46,7 +46,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
         case .OnTruck:
             for product in route.itemsLoaded {
-                items.append(product as! Product)
+                items.append(product)
             }
         case .Required:
             items = route.itemsNotLoaded
@@ -143,11 +143,11 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
         ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtins],
             onSuccess: { statusCode, responseString in
-                let itemsLoaded = NSMutableArray()
+                var itemsLoaded = [Product]()
                 for product in self.route.itemsOrdered {
-                    itemsLoaded.addObject(product)
+                    itemsLoaded.append(product)
                 }
-                self.route.itemsLoaded = itemsLoaded as [AnyObject]
+                self.route.itemsLoaded = itemsLoaded
                 self.refreshNavigationItem()
                 self.tableView.reloadData()
             },

@@ -37,7 +37,7 @@ class WorkOrderService: NSObject {
     }
 
     func setWorkOrdersUsingRoute(route: Route) {
-        workOrders = route.workOrders as! [WorkOrder]
+        workOrders = route.workOrders
     }
 
     func fetch(page: Int = 1,

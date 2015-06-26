@@ -44,11 +44,11 @@ class RouteServiceTests: XCTestCase {
             let route = fetchedRoutes.first!
 
             XCTAssertEqual(route.id, 4)
-            XCTAssertEqual(route.itemsLoaded, NSArray())
+            XCTAssertEqual(route.itemsLoaded, [])
             XCTAssertEqual(route.status, "scheduled")
 
             // Test WorkOrder
-            let workOrder = (route.workOrders as! [WorkOrder]).first!
+            let workOrder = route.workOrders.first!
             XCTAssertEqual(workOrder.id, 10)
             XCTAssertEqual(workOrder.companyId, 1)
             XCTAssertEqual(workOrder.customerId, 7)
@@ -89,7 +89,7 @@ class RouteServiceTests: XCTestCase {
             XCTAssertEqual(workOrder.itemsOrdered.count, 6)
 
             // Test Product
-            let product = (workOrder.itemsOrdered as NSArray as! [Product]).first!
+            let product = workOrder.itemsOrdered.first!
             XCTAssertEqual(product.id, 4)
             XCTAssertEqual(product.gtin, "V000028020")
             XCTAssertEqual(product.name!, "test123124g")

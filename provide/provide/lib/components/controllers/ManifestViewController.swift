@@ -35,11 +35,11 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
             switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
             case .Delivered:
                 for product in route.itemsDelivered {
-                    items.append(product as Product)
+                    items.append(product)
                 }
             case .OnTruck:
                 for product in route.itemsLoaded {
-                    items.append(product as! Product)
+                    items.append(product)
                 }
             case .Rejected:
                 items = route.itemsNotLoaded
