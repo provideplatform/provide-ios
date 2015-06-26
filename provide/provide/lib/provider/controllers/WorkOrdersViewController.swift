@@ -442,10 +442,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
-            for product in itemsOrdered.objectEnumerator().allObjects {
-                products.append(product as! Product)
-            }
+        let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered
+        for product in itemsOrdered.objectEnumerator().allObjects {
+            products.append(product as! Product)
         }
         return products
     }
@@ -456,20 +455,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        if let itemsUnloaded = WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded {
-            for product in itemsUnloaded.objectEnumerator().allObjects {
-                products.append(product as! Product)
-            }
+        let itemsUnloaded = WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded
+        for product in itemsUnloaded.objectEnumerator().allObjects {
+            products.append(product as! Product)
         }
         return products
     }
 
     func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        if let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected {
-            for product in itemsRejected.objectEnumerator().allObjects {
-                products.append(product as! Product)
-            }
+        let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected
+        for product in itemsRejected.objectEnumerator().allObjects {
+            products.append(product as! Product)
         }
         return products
     }

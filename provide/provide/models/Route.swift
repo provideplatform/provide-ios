@@ -81,10 +81,9 @@ class Route: Model {
 
         if let workOrders = workOrders {
             for workOrder in Array((workOrders as Array).reverse()) {
-                if let products = (workOrder as! WorkOrder).itemsOrdered {
-                    for product in products {
-                        itemsNotLoaded.append(product as! Product)
-                    }
+                let products = (workOrder as! WorkOrder).itemsOrdered
+                for product in products {
+                    itemsNotLoaded.append(product as! Product)
                 }
             }
         }
@@ -100,10 +99,9 @@ class Route: Model {
         var itemsDelivered = [Product]()
         if let workOrders = workOrders {
             for workOrder in Array((workOrders as Array).reverse()) {
-                if let products = (workOrder as! WorkOrder).itemsOrdered {
-                    for product in products {
-                        itemsDelivered.append(product as! Product)
-                    }
+                let products = (workOrder as! WorkOrder).itemsOrdered
+                for product in products {
+                    itemsDelivered.append(product as! Product)
                 }
             }
         }
@@ -115,10 +113,9 @@ class Route: Model {
         var itemsOrdered = [Product]()
         if let workOrders = workOrders {
             for workOrder in Array((workOrders as Array).reverse()) {
-                if let products = (workOrder as! WorkOrder).itemsOrdered {
-                    for product in products {
-                        itemsOrdered.append(product as! Product)
-                    }
+                let products = (workOrder as! WorkOrder).itemsOrdered
+                for product in products {
+                    itemsOrdered.append(product as! Product)
                 }
             }
         }

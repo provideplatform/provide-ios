@@ -25,11 +25,11 @@ class WorkOrder: Model, MKAnnotation {
     var providerRating: NSNumber!
     var customerRating: NSNumber!
     var attachments: NSArray!
-    var components: NSMutableArray!
-    var itemsOrdered: NSMutableArray!
-    var itemsDelivered: NSMutableArray!
-    var itemsRejected: NSMutableArray!
-    var itemsUnloaded: NSMutableArray!
+    var components = NSMutableArray()
+    var itemsOrdered = NSMutableArray()
+    var itemsDelivered = NSMutableArray()
+    var itemsRejected = NSMutableArray()
+    var itemsUnloaded = NSMutableArray()
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -60,18 +60,11 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var canBeDelivered: Bool {
-        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
-        let itemsUnloadedCount = (itemsUnloaded != nil) ? itemsUnloaded.count : 0
-        let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
-
-        return !canBeRejected && itemsOrderedCount == itemsUnloadedCount + itemsRejectedCount
+        return !canBeRejected && itemsOrdered.count == itemsUnloaded.count + itemsRejected.count
     }
 
     var canBeRejected: Bool {
-        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
-        let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
-
-        return itemsOrderedCount == itemsRejectedCount
+        return itemsOrdered.count == itemsRejected.count
     }
 
     var contact: Contact {
@@ -100,10 +93,6 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var itemsOnTruck: [Product] {
-        if itemsUnloaded == nil {
-            itemsUnloaded = NSMutableArray()
-        }
-
         var itemsOnTruck = [Product]()
         for itemOrdered in itemsOrdered {
             itemsOnTruck.append(itemOrdered as! Product)
@@ -144,18 +133,10 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(item: Product) {
-        if itemsRejected == nil {
-            itemsRejected = NSMutableArray()
-        }
-
         itemsRejected.addObject(item)
     }
 
     func approveItem(item: Product) {
-        if itemsRejected == nil {
-            itemsRejected = NSMutableArray()
-        }
-
         let newItemsRejected = NSMutableArray(array: itemsRejected)
 
         for (i, rejectedItem) in itemsRejected.enumerate() {
@@ -168,18 +149,10 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func unloadItem(item: Product) {
-        if itemsUnloaded == nil {
-            itemsUnloaded = NSMutableArray()
-        }
-
         itemsUnloaded.addObject(item)
     }
 
     func loadItem(item: Product) {
-        if itemsUnloaded == nil {
-            itemsUnloaded = NSMutableArray()
-        }
-
         let newItemsUnloaded = NSMutableArray(array: itemsUnloaded)
 
         for (i, unloadedItem) in itemsUnloaded.enumerate() {
@@ -208,10 +181,6 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func gtinRejectedCount(gtin: String) -> Int {
-        if itemsRejected == nil {
-            itemsRejected = NSMutableArray()
-        }
-
         var gtinRejectedCount = 0
         for product in itemsRejected {
             if (product as! Product).gtin == gtin {
@@ -232,10 +201,6 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func gtinUnloadedCount(gtin: String) -> Int {
-        if itemsUnloaded == nil {
-            itemsUnloaded = NSMutableArray()
-        }
-
         var gtinUnloadedCount = 0
         for product in itemsUnloaded {
             if (product as! Product).gtin == gtin {
