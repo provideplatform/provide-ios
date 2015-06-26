@@ -51,12 +51,11 @@ class Route: Model {
     }
 
     var currentLeg: RouteLeg! {
-        var leg: RouteLeg!
         if legs.count > 0 {
-            leg = legs[currentLegIndex]
+            return legs[currentLegIndex]
+        } else {
+            return nil
         }
-
-        return leg
     }
 
     func canStart() -> Bool {
@@ -64,21 +63,14 @@ class Route: Model {
     }
 
     var gtinsLoaded: [String] {
-        var gtinsLoaded = [String]()
-
-        for product in itemsLoaded {
-            gtinsLoaded.append(product.gtin)
-        }
-
-        return gtinsLoaded
+        return itemsLoaded.map { $0.gtin }
     }
 
     var itemsNotLoaded: [Product] {
         var itemsNotLoaded = [Product]()
 
-        for workOrder in Array((workOrders as Array).reverse()) {
-            let products = workOrder.itemsOrdered
-            for product in products {
+        for workOrder in workOrders.reverse() {
+            for product in workOrder.itemsOrdered {
                 itemsNotLoaded.append(product)
             }
         }
@@ -90,9 +82,8 @@ class Route: Model {
 
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
-        for workOrder in Array((workOrders as Array).reverse()) {
-            let products = workOrder.itemsOrdered
-            for product in products {
+        for workOrder in workOrders.reverse() {
+            for product in workOrder.itemsOrdered {
                 itemsDelivered.append(product)
             }
         }
@@ -102,9 +93,8 @@ class Route: Model {
 
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
-        for workOrder in Array((workOrders as Array).reverse()) {
-            let products = workOrder.itemsOrdered
-            for product in products {
+        for workOrder in workOrders.reverse() {
+            for product in workOrder.itemsOrdered {
                 itemsOrdered.append(product)
             }
         }
@@ -117,23 +107,11 @@ class Route: Model {
     }
 
     func gtinOrderedCount(gtin: String) -> Int {
-        var gtinOrderedCount = 0
-        for product in itemsOrdered {
-            if product.gtin == gtin {
-                gtinOrderedCount += 1
-            }
-        }
-        return gtinOrderedCount
+        return itemsOrdered.filter { $0.gtin == gtin }.count
     }
 
     func gtinLoadedCount(gtin: String) -> Int {
-        var gtinLoadedCount = 0
-        for gtinLoaded in gtinsLoaded {
-            if gtin == gtinLoaded {
-                gtinLoadedCount += 1
-            }
-        }
-        return gtinLoadedCount
+        return gtinsLoaded.filter { $0 == gtin }.count
     }
 
     func itemForGtin(gtin: String) -> Product? {

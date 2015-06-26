@@ -81,7 +81,7 @@ class WorkOrderMapView: MapView {
     }
 
     override func removeAnnotations() {
-        var nonUserAnnotations = annotations as [MKAnnotation]
+        var nonUserAnnotations = annotations
         if userLocation.location != nil {
             nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation)!)
         }
@@ -146,8 +146,7 @@ class WorkOrderMapView: MapView {
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         var renderer: MKOverlayRenderer!
 
-        if overlay is MKPolyline {
-            let route = overlay as! MKPolyline
+        if let route = overlay as? MKPolyline {
             renderer = MKPolylineRenderer(polyline: route)
             (renderer as! MKPolylineRenderer).strokeColor = UIColor.blueColor()
             //(renderer as! MKPolylineRenderer).lineWidth = 3.0

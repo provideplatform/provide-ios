@@ -145,10 +145,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private var canAttemptSegueToInProgressRoute: Bool {
-        if let route = RouteService.sharedService().inProgressRoute {
-            return route.status == "in_progress"
-        }
-        return false
+        return RouteService.sharedService().inProgressRoute?.status == "in_progress"
     }
 
     // MARK: WorkOrder segue state interrogation
@@ -167,17 +164,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            return workOrder.status == "en_route" //&& mapView.userLocation != nil
-        }
-        return false
+        return WorkOrderService.sharedService().inProgressWorkOrder?.status == "en_route"
     }
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            return workOrder.status == "in_progress" //&& mapView.userLocation != nil
-        }
-        return false
+        return WorkOrderService.sharedService().inProgressWorkOrder?.status == "in_progress"
     }
 
     private var viewingDirections: Bool {

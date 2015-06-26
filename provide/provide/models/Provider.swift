@@ -30,18 +30,18 @@ class Provider: Model {
     }
 
     var firstName: String? {
-        var firstName: String?
         if let name = name {
-            firstName = name.splitAtString(" ").0
+            return name.splitAtString(" ").0
+        } else {
+            return nil
         }
-        return firstName
     }
 
     var lastName: String? {
-        var lastName: String?
         if let name = name {
-            lastName = name.splitAtString(" ").1
+            return name.splitAtString(" ").1
+        } else {
+            return nil
         }
-        return lastName
     }
 }

@@ -29,7 +29,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     }
 
     func removeAnnotations() {
-        var nonUserAnnotations = annotations as [MKAnnotation]
+        var nonUserAnnotations = annotations
         if userLocation.location != nil {
             nonUserAnnotations.removeObject(userLocation)
         }

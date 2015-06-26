@@ -136,18 +136,11 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private func simulateScanningAllItems() { // HACK!!! only for being able to fly thru demos on the simulator
-        var gtins = [String]()
-        for item in route.itemsOrdered {
-            gtins.append(item.gtin)
-        }
+        let gtins = route.itemsOrdered.map { $0.gtin }
 
         ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtins],
             onSuccess: { statusCode, responseString in
-                var itemsLoaded = [Product]()
-                for product in self.route.itemsOrdered {
-                    itemsLoaded.append(product)
-                }
-                self.route.itemsLoaded = itemsLoaded
+                self.route.itemsLoaded = self.route.itemsOrdered
                 self.refreshNavigationItem()
                 self.tableView.reloadData()
             },

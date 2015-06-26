@@ -59,8 +59,8 @@ class SignatureView: UIView {
         writing = false
     }
 
-    private func write(touches: Set<NSObject>) {
-        for touch in touches as! Set<UITouch> {
+    private func write(touches: Set<UITouch>) {
+        for touch in touches {
             let pt = touch.locationInView(touch.view)
             path.addLineToPoint(pt)
 

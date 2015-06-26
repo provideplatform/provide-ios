@@ -99,35 +99,13 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var itemsOnTruck: [Product] {
-        var itemsOnTruck = [Product]()
-        for itemOrdered in itemsOrdered {
-            itemsOnTruck.append(itemOrdered)
+        var remainingItemsOnTruck = itemsOrdered
+
+        for item in itemsUnloaded {
+            remainingItemsOnTruck.removeObject(item)
         }
 
-        var newItemsOnTruck = itemsOnTruck
-
-        var gtinsUnloaded = [String]()
-        for itemUnloaded in itemsUnloaded {
-            gtinsUnloaded.append(itemUnloaded.gtin)
-        }
-
-        while gtinsUnloaded.count > 0 {
-            let gtin = gtinsUnloaded.removeAtIndex(0)
-
-            for (i, item) in newItemsOnTruck.enumerate() {
-                if gtin == item.gtin {
-                    newItemsOnTruck.removeAtIndex(i)
-                    break
-                }
-            }
-        }
-
-        itemsOnTruck = [Product]()
-        for item in newItemsOnTruck {
-            itemsOnTruck.append(item)
-        }
-
-        return itemsOnTruck
+        return remainingItemsOnTruck
     }
 
     var regionIdentifier: String {
@@ -163,41 +141,19 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var gtinsDelivered: [String] {
-        var gtinsDelivered = [String]()
-        for product in itemsUnloaded {
-            gtinsDelivered.append(product.gtin)
-        }
-        return gtinsDelivered
+        return itemsUnloaded.map { $0.gtin }
     }
 
     func gtinRejectedCount(gtin: String) -> Int {
-        var gtinRejectedCount = 0
-        for product in itemsRejected {
-            if product.gtin == gtin {
-                gtinRejectedCount += 1
-            }
-        }
-        return gtinRejectedCount
+        return itemsRejected.filter { $0.gtin == gtin }.count
     }
 
     func gtinOrderedCount(gtin: String) -> Int {
-        var gtinOrderedCount = 0
-        for product in itemsOrdered {
-            if product.gtin == gtin {
-                gtinOrderedCount += 1
-            }
-        }
-        return gtinOrderedCount
+        return itemsOrdered.filter { $0.gtin == gtin }.count
     }
 
     func gtinUnloadedCount(gtin: String) -> Int {
-        var gtinUnloadedCount = 0
-        for product in itemsUnloaded {
-            if product.gtin == gtin {
-                gtinUnloadedCount += 1
-            }
-        }
-        return gtinUnloadedCount
+        return itemsUnloaded.filter { $0.gtin == gtin }.count
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {

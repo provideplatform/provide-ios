@@ -80,7 +80,7 @@ class DirectionsViewController: ViewController {
 
     func render() {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-            if mapView is WorkOrderMapView {
+            if let mapView = mapView as? WorkOrderMapView {
                 mapView.addAnnotation(WorkOrderService.sharedService().inProgressWorkOrder)
                 mapView.disableUserInteraction()
 
@@ -90,7 +90,7 @@ class DirectionsViewController: ViewController {
                                             pitch: CGFloat(defaultMapCameraPitch),
                                             animated: true)
 
-                (mapView as! WorkOrderMapView).directionsViewControllerDelegate = directionsViewControllerDelegate
+                mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
             }
         }
 
@@ -346,8 +346,8 @@ class DirectionsViewController: ViewController {
         unregisterMonitoredRegions()
 
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-            if mapView is WorkOrderMapView {
-                (mapView as! WorkOrderMapView).removeAnnotations()
+            if let mapView = mapView as? WorkOrderMapView {
+                mapView.removeAnnotations()
                 mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
             }
         }
