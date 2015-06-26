@@ -12,10 +12,10 @@ class Route: Model {
 
     var id: NSNumber!
     var name: String!
-    var legs: NSArray!
+    var legs = NSArray()
     var status: String!
-    var workOrders: NSArray!
-    var itemsLoaded: NSArray!
+    var workOrders = NSArray()
+    var itemsLoaded = NSArray()
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
 
@@ -36,13 +36,12 @@ class Route: Model {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
             for step in (leg as! RouteLeg).steps {
-                if let shapes = (step as! RouteLegStep).shape {
-                    for shape in shapes {
-                        let shapeCoords = (shape as! String).splitAtString(",")
-                        let latitude = Double(shapeCoords.0)!
-                        let longitude = Double(shapeCoords.1)!
-                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                    }
+                let shapes = (step as! RouteLegStep).shape
+                for shape in shapes {
+                    let shapeCoords = (shape as! String).splitAtString(",")
+                    let latitude = Double(shapeCoords.0)!
+                    let longitude = Double(shapeCoords.1)!
+                    coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                 }
             }
         }
@@ -52,11 +51,10 @@ class Route: Model {
 
     var currentLeg: RouteLeg! {
         var leg: RouteLeg!
-        if let legs = legs {
-            if legs.count > 0 {
-                leg = legs[currentLegIndex] as! RouteLeg
-            }
+        if legs.count > 0 {
+            leg = legs[currentLegIndex] as! RouteLeg
         }
+
         return leg
     }
 
@@ -67,10 +65,8 @@ class Route: Model {
     var gtinsLoaded: [String] {
         var gtinsLoaded = [String]()
 
-        if let products = itemsLoaded {
-            for product in products {
-                gtinsLoaded.append((product as! Product).gtin)
-            }
+        for product in itemsLoaded {
+            gtinsLoaded.append((product as! Product).gtin)
         }
 
         return gtinsLoaded
@@ -79,30 +75,24 @@ class Route: Model {
     var itemsNotLoaded: [Product] {
         var itemsNotLoaded = [Product]()
 
-        if let workOrders = workOrders {
-            for workOrder in Array((workOrders as Array).reverse()) {
-                let products = (workOrder as! WorkOrder).itemsOrdered
-                for product in products {
-                    itemsNotLoaded.append(product as! Product)
-                }
+        for workOrder in Array((workOrders as Array).reverse()) {
+            let products = (workOrder as! WorkOrder).itemsOrdered
+            for product in products {
+                itemsNotLoaded.append(product as! Product)
             }
         }
 
-        if itemsLoaded != nil {
-            itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
-        }
+        itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
 
         return itemsNotLoaded
     }
 
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
-        if let workOrders = workOrders {
-            for workOrder in Array((workOrders as Array).reverse()) {
-                let products = (workOrder as! WorkOrder).itemsOrdered
-                for product in products {
-                    itemsDelivered.append(product as! Product)
-                }
+        for workOrder in Array((workOrders as Array).reverse()) {
+            let products = (workOrder as! WorkOrder).itemsOrdered
+            for product in products {
+                itemsDelivered.append(product as! Product)
             }
         }
 
@@ -111,12 +101,10 @@ class Route: Model {
 
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
-        if let workOrders = workOrders {
-            for workOrder in Array((workOrders as Array).reverse()) {
-                let products = (workOrder as! WorkOrder).itemsOrdered
-                for product in products {
-                    itemsOrdered.append(product as! Product)
-                }
+        for workOrder in Array((workOrders as Array).reverse()) {
+            let products = (workOrder as! WorkOrder).itemsOrdered
+            for product in products {
+                itemsOrdered.append(product as! Product)
             }
         }
 
@@ -124,7 +112,7 @@ class Route: Model {
     }
 
     var itemsToLoadCountRemaining: Int {
-        return itemsOrdered.count - (itemsLoaded != nil ? itemsLoaded.count : 0)
+        return itemsOrdered.count - itemsLoaded.count
     }
 
     func gtinOrderedCount(gtin: String) -> Int {

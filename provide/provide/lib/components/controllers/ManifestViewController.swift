@@ -38,10 +38,8 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
                     items.append(product as Product)
                 }
             case .OnTruck:
-                if let itemsLoaded = route.itemsLoaded {
-                    for product in itemsLoaded {
-                        items.append(product as! Product)
-                    }
+                for product in route.itemsLoaded {
+                    items.append(product as! Product)
                 }
             case .Rejected:
                 items = route.itemsNotLoaded

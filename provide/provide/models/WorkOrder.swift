@@ -16,7 +16,7 @@ class WorkOrder: Model, MKAnnotation {
     var customerId: NSNumber!
     var customer: Customer!
     var desc: String!
-    var workOrderProviders: NSArray!
+    var workOrderProviders = NSArray()
     var startedAt: String!
     var endedAt: String!
     var duration: NSNumber!
@@ -24,7 +24,7 @@ class WorkOrder: Model, MKAnnotation {
     var status: String!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
-    var attachments: NSArray!
+    var attachments = NSArray()
     var components = NSMutableArray()
     var itemsOrdered = NSMutableArray()
     var itemsDelivered = NSMutableArray()

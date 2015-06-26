@@ -49,8 +49,8 @@ class RouteLegStep: Model {
     var instruction: String!
     var distanceInMeters: NSNumber!
     var duration: NSNumber!
-    var placeEquipment: NSArray!
-    var shape: NSArray!
+    var placeEquipment = NSArray()
+    var shape = NSArray()
     var direction: String!
     var maneuver: String!
     var time: String!
@@ -118,10 +118,6 @@ class RouteLegStep: Model {
     }
 
     var isFinished: Bool {
-        if shape == nil {
-            return false
-        }
-
         return currentShapeIndex == shape.count - 1
     }
 
@@ -146,13 +142,11 @@ class RouteLegStep: Model {
 
     var shapeCoordinates: [CLLocationCoordinate2D] {
         var coords = [CLLocationCoordinate2D]()
-        if let shape = shape {
-            for shapeString in shape {
-                let shapeCoords = (shapeString as! String).splitAtString(",")
-                let latitude = Double(shapeCoords.0)!
-                let longitude = Double(shapeCoords.1)!
-                coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-            }
+        for shapeString in shape {
+            let shapeCoords = (shapeString as! String).splitAtString(",")
+            let latitude = Double(shapeCoords.0)!
+            let longitude = Double(shapeCoords.1)!
+            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         }
 
         return coords

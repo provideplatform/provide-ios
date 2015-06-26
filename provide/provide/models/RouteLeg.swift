@@ -12,7 +12,7 @@ class RouteLeg: Model {
 
     var distanceInMeters: NSNumber!
     var duration: NSNumber!
-    var steps: NSArray!
+    var steps = NSArray()
 
     var currentStepIndex: Int = 0
 
@@ -60,20 +60,14 @@ class RouteLeg: Model {
     }
 
     var isFinished: Bool {
-        if steps == nil {
-            return false
-        }
-
         return currentStepIndex == steps.count - 1
     }
 
     var currentStep: RouteLegStep! {
         var step: RouteLegStep!
 
-        if let steps = steps {
-            if currentStepIndex <= steps.count - 1 {
-                step = steps[currentStepIndex] as! RouteLegStep
-            }
+        if currentStepIndex <= steps.count - 1 {
+            step = steps[currentStepIndex] as! RouteLegStep
         }
 
         return step
@@ -82,11 +76,9 @@ class RouteLeg: Model {
     var nextStep: RouteLegStep! {
         var step: RouteLegStep!
 
-        if let steps = steps {
-            let nextStepIndex = currentStepIndex + 1
-            if nextStepIndex <= steps.count - 1 {
-                step = steps[nextStepIndex] as! RouteLegStep
-            }
+        let nextStepIndex = currentStepIndex + 1
+        if nextStepIndex <= steps.count - 1 {
+            step = steps[nextStepIndex] as! RouteLegStep
         }
 
         return step

@@ -10,7 +10,7 @@ import Foundation
 
 class Directions: Model {
 
-    var routes: NSArray!
+    var routes = NSArray()
     var minutes: NSNumber!
     var selectedRouteIndex: Int!
 

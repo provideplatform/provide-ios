@@ -45,10 +45,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         var items = [Product]()
         switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
         case .OnTruck:
-            if let itemsLoaded = route.itemsLoaded {
-                for product in itemsLoaded {
-                    items.append(product as! Product)
-                }
+            for product in route.itemsLoaded {
+                items.append(product as! Product)
             }
         case .Required:
             items = route.itemsNotLoaded
