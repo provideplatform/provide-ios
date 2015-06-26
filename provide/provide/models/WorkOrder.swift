@@ -143,12 +143,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func approveItem(item: Product) {
-        for (i, rejectedItem) in itemsRejected.enumerate() {
-            if item.gtin == rejectedItem.gtin {
-                itemsRejected.removeAtIndex(i)
-                break
-            }
-        }
+        itemsRejected.removeObject(item)
     }
 
     func unloadItem(item: Product) {
@@ -156,12 +151,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func loadItem(item: Product) {
-        for (i, unloadedItem) in itemsUnloaded.enumerate() {
-            if unloadedItem.gtin == item.gtin {
-                itemsUnloaded.removeAtIndex(i)
-                break
-            }
-        }
+        itemsUnloaded.removeObject(item)
     }
 
     func canUnloadGtin(gtin: String) -> Bool {

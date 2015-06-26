@@ -49,3 +49,8 @@ class Product: Model {
         return data["sku"] as? String
     }
 }
+
+// MARK: - Equatable
+func == (lhs: Product, rhs: Product) -> Bool {
+    return lhs.gtin == rhs.gtin
+}
