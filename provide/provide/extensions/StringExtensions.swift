@@ -111,22 +111,6 @@ extension String {
         return test.evaluateWithObject(self)
     }
 
-    func isValidForPassword() -> Bool {
-        let validLength = 8 <= length
-        let noSpaces = !contains(" ")
-        let noCommas = !contains(",")
-        let hasNumber = containsOneOrMoreNumbers()
-        let hasUpper = containsOneOrMoreUppercaseLetters()
-        let hasLower = containsOneOrMoreLowercaseLetters()
-
-        return validLength && noSpaces && noCommas && hasNumber && hasUpper && hasLower
-    }
-
-    func isDigits() -> Bool {
-        let nonDigits = NSCharacterSet.decimalDigitCharacterSet().invertedSet
-        return rangeOfCharacterFromSet(nonDigits) == nil
-    }
-
     func stringByStrippingHTML() -> String {
         var range = NSMakeRange(0, 0)
         var str = NSString(string: self)

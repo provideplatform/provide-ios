@@ -14,11 +14,6 @@ extension NSDate {
         return NSDateFormatter(dateFormat: "yyyy-MM-dd HH:mm:ss a").stringFromDate(self)
     }
 
-    class func fromString(string: String) -> NSDate! {
-        let dateFormatter = NSDateFormatter(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZZ")
-        return dateFormatter.dateFromString(string)
-    }
-
     func format(dateFormat: String) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")

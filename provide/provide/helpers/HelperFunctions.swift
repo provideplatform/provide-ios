@@ -92,11 +92,6 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
     return fileAsString as! String
 }
 
-func pluralizedPhrase(count: Int, phrase: String, _ suffix: String? = nil) -> String {
-    let phrase = count == 1 ? "\(count) \(phrase)" : "\(count) \(phrase)s"
-    return suffix == nil ? phrase : "\(phrase) \(suffix!)"
-}
-
 func isRunningKIFTests() -> Bool {
     if let injectBundle = ENV("XCInjectBundle") {
         return injectBundle.lastPathComponent.hasSuffix("KIFTests.xctest")
@@ -127,10 +122,6 @@ func prettyPrintedJson(uglyJsonStr: String?) -> String {
     }
 
     return ""
-}
-
-func displayNameForProperty(propertyName: String) -> String {
-    return propertyName.stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString
 }
 
 func assertUnhandledSegue(segueIdentifier: String?) {
