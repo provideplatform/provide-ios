@@ -58,14 +58,14 @@ class ApiService: NSObject {
         return KeyChainService.sharedService().token != nil
     }
 
-    func login(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("tokens", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 let token = mappingResult.firstObject as! Token
                 self.headers["X-API-Authorization"] = token.authorizationHeaderString
                 KeyChainService.sharedService().token = token
-                KeyChainService.sharedService().email = params.objectForKey("email") as? String
+                KeyChainService.sharedService().email = params["email"]
 
                 AnalyticsService.sharedService().identify(token.user)
 
@@ -116,7 +116,7 @@ class ApiService: NSObject {
         )
     }
 
-    func updateUser(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func updateUser(params: [String: String], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(currentUser().id)", method: .PUT, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 204)
@@ -126,7 +126,7 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -134,12 +134,12 @@ class ApiService: NSObject {
 
                 self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
-                        let realParams = NSMutableDictionary(dictionary: params)
-                        realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
-                        realParams.setObject(mimeType, forKey: "mime_type")
+                        var realParams = params
+                        realParams["key"] = attachment!.fields["key"]!
+                        realParams["mime_type"] = mimeType
 
-                        let url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.setObject(url, forKey: "url")
+                        let url = attachment!.url + (attachment!.fields["key"] as! String)
+                        realParams["url"] = url
 
                         self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
@@ -152,7 +152,7 @@ class ApiService: NSObject {
 
     // MARK: Device API
 
-    func createDevice(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func createDevice(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("devices", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
@@ -196,11 +196,11 @@ class ApiService: NSObject {
 
     // MARK: Provider API
 
-    func fetchProviders(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchProviders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchProviderAvailability(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchProviderAvailability(id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -214,7 +214,7 @@ class ApiService: NSObject {
         let longitude = location.coordinate.longitude
         let latitude = location.coordinate.latitude
 
-        let params = ["latitude": latitude, "longitude": longitude, "checkin_at": checkinDate]
+        let params: [String: AnyObject] = ["latitude": latitude, "longitude": longitude, "checkin_at": checkinDate]
 
         checkin(params,
             onSuccess: { statusCode, mappingResult in
@@ -226,7 +226,7 @@ class ApiService: NSObject {
         )
     }
 
-    func checkin(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func checkin(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("checkins", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
@@ -242,31 +242,31 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchWorkOrders(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchWorkOrders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createWorkOrder(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        let realParams = NSMutableDictionary(dictionary: params)
-        realParams.removeObjectForKey("id")
-        realParams.removeObjectForKey("customer")
-        realParams.removeObjectForKey("companyId")
-        realParams.removeObjectForKey("customerId")
+    func createWorkOrder(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["customer"] = nil
+        realParams["companyId"] = nil
+        realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkOrderWithId(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        let realParams = NSMutableDictionary(dictionary: params)
-        realParams.removeObjectForKey("id")
-        realParams.removeObjectForKey("customer")
-        realParams.removeObjectForKey("companyId")
-        realParams.removeObjectForKey("customerId")
+    func updateWorkOrderWithId(id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["customer"] = nil
+        realParams["companyId"] = nil
+        realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
@@ -274,12 +274,12 @@ class ApiService: NSObject {
 
                 self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
-                        let realParams = NSMutableDictionary(dictionary: params)
-                        realParams.setObject(attachment!.fields.objectForKey("key")!, forKey: "key")
-                        realParams.setObject(mimeType, forKey: "mime_type")
+                        var realParams = params
+                        realParams["key"] =  attachment!.fields["key"]!
+                        realParams["mime_type"] = mimeType
 
-                        let url = attachment!.url + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.setObject(url, forKey: "url")
+                        let url = attachment!.url + (attachment!.fields["key"] as! String)
+                        realParams["url"] = url
 
                         self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
@@ -292,13 +292,13 @@ class ApiService: NSObject {
 
     // MARK: Route API
 
-    func fetchRoutes(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func fetchRoutes(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateRouteWithId(id: Int, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
-        let realParams = NSMutableDictionary(dictionary: params)
-        realParams.removeObjectForKey("id")
+    func updateRouteWithId(id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
 
         dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
@@ -335,17 +335,17 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("messages", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createMessage(params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func createMessage(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: S3
 
-    func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         let api = MKNetworkEngine(hostName: url.host)
         let path = NSString(string: url.path!)
 
-        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params as! [String : AnyObject], httpMethod: "POST", ssl: true)
+        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params, httpMethod: "POST", ssl: true)
         op.addData(data, forKey: "file", mimeType: mimeType, fileName: "filename")
 
         op.addCompletionHandler(
@@ -361,7 +361,7 @@ class ApiService: NSObject {
         api.enqueueOperation(op)
     }
 
-    private func dispatchApiOperationForPath(path: String, method: RKRequestMethod! = .GET, params: NSDictionary?, onSuccess: OnSuccess, onError: OnError) {
+    private func dispatchApiOperationForPath(path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, onSuccess: OnSuccess, onError: OnError) {
         dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -376,7 +376,7 @@ class ApiService: NSObject {
         return objectMappings[path]
     }
 
-    private func dispatchOperationForURL(baseURL: NSURL, path: String, method: RKRequestMethod = .GET, var params: NSDictionary!, onSuccess: OnSuccess, onError: OnError) {
+    private func dispatchOperationForURL(baseURL: NSURL, path: String, method: RKRequestMethod = .GET, var params: [String: AnyObject]!, onSuccess: OnSuccess, onError: OnError) {
         var responseMapping = objectMappingForPath(path)
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)
@@ -398,9 +398,8 @@ class ApiService: NSObject {
             }
 
             if [.POST, .PUT].contains(method) {
-                params = NSMutableDictionary(dictionary: params)
-                for key in params.allKeys {
-                    let value: AnyObject? = params.objectForKey(key)
+                for key in params.keys {
+                    let value: AnyObject? = params[key]
                     if value != nil && value!.isKindOfClass(NSArray) {
                         let newValue = NSMutableArray()
                         for item in (value as! NSArray) {
@@ -410,11 +409,11 @@ class ApiService: NSObject {
                                 newValue.addObject(item)
                             }
                         }
-                        (params as! NSMutableDictionary).setObject(newValue, forKey: key as! String)
+                        params[key] = newValue
                     }
                 }
 
-                request.HTTPBody = params?.toJSON().dataUsingEncoding(NSUTF8StringEncoding)
+                request.HTTPBody = params.toJSONString().dataUsingEncoding(NSUTF8StringEncoding)
             }
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {

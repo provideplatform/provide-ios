@@ -45,7 +45,7 @@ class RouteLegStep: Model {
     ]
 
     var identifier: String!
-    var position: NSDictionary!
+    var position: [String: AnyObject]!
     var instruction: String!
     var distanceInMeters: NSNumber!
     var duration: NSNumber!

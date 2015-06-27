@@ -99,7 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         case .Message:
-            let message = Message(string: (notificationValue as! NSDictionary).toJSON())
+            let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
+            let message = Message(string: jsonString)
             NSNotificationCenter.defaultCenter().postNotificationName("NewMessageReceivedNotification", object: message)
         case .WorkOrder:
             let workOrderId = notificationValue as! Int

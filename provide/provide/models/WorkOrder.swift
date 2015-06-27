@@ -198,7 +198,7 @@ class WorkOrder: Model, MKAnnotation {
         ApiService.sharedService().updateWorkOrderWithId(id, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func attach(image: UIImage, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+    func attach(image: UIImage, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.sharedService().addAttachment(data,

@@ -12,7 +12,7 @@ class Product: Model {
 
     var id = 0
     var gtin: String!
-    var data: NSDictionary!
+    var data: [String: AnyObject]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)

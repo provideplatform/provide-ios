@@ -59,19 +59,19 @@ class RouteService: NSObject {
         includeWorkOrders: Bool = true,
         onRoutesFetched: OnRoutesFetched)
     {
-        let params = NSMutableDictionary(dictionary: [
+        var params: [String: AnyObject] = [
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
             "include_work_orders": includeWorkOrders ? "true" : "false"
-            ])
+        ]
 
         if today {
             let today = NSDate()
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString
 
-            params.setObject("\(midnightToday)..\(midnightTomorrow)", forKey: "date_range")
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
         }
 
         ApiService.sharedService().fetchRoutes(params,

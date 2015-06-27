@@ -1,5 +1,5 @@
 //
-//  NSDictionaryExtensions.swift
+//  DictionaryExtensions.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension NSDictionary {
+extension Dictionary {
 
-    func toJSON() -> String {
-        let jsonData = encodeJSON(self as! [String: AnyObject])
+    func toJSONString() -> String {
+        let jsonData = encodeJSON(self as! AnyObject)
         return NSString(bytes: jsonData.bytes, length: jsonData.length, encoding: NSUTF8StringEncoding) as! String
     }
 

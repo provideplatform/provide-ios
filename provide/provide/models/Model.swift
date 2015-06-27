@@ -32,10 +32,10 @@ class Model: NSObject {
 
         for (key, var value) in dictionary {
             var camelCaseKey = key.snakeCaseToCamelCaseString()
-            if let dictValue = value as? NSDictionary {
+            if let dictValue = value as? [String: AnyObject] {
                 let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as! RKRelationshipMapping
                 let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
-                value = clazz.init(string: dictValue.toJSON())
+                value = clazz.init(string: dictValue.toJSONString())
             }
 
             if camelCaseKey == "senderId" {
@@ -63,7 +63,7 @@ class Model: NSObject {
     }
 
     func toJSONString(snakeCaseKeys: Bool = false) -> String {
-        return (toDictionary(false) as NSDictionary).toJSON()
+        return toDictionary(false).toJSONString()
     }
 
     override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {

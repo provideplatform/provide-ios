@@ -15,7 +15,7 @@ class Attachment: Model {
     var key: String!
     var publicUrl: String!
     var mimeType: String!
-    var fields: NSDictionary!
+    var fields: [String: AnyObject]!
     var url: String!
 
     override class func mapping() -> RKObjectMapping {

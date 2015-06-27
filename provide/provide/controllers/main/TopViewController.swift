@@ -39,7 +39,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         ApiService.sharedService().addAttachment(data,
             withMimeType: "image/jpg",
             toUserWithId: currentUser().id,
-            params: NSDictionary(dictionary: params),
+            params: params,
             onSuccess: { statusCode, responseString in
 
             },

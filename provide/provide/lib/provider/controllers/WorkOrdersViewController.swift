@@ -470,7 +470,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
         attemptSegueToValidWorkOrderContext()
 
-        let params = [
+        let params: [String: AnyObject] = [
             "latitude": LocationService.sharedService().currentLocation.coordinate.latitude,
             "longitude": LocationService.sharedService().currentLocation.coordinate.longitude,
             "tags": "signature, delivery",

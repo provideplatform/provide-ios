@@ -46,18 +46,18 @@ class WorkOrderService: NSObject {
         today: Bool = false,
         onWorkOrdersFetched: OnWorkOrdersFetched)
     {
-        let params = NSMutableDictionary(dictionary: [
+        var params: [String: AnyObject] = [
             "page": page,
             "rpp": rpp,
-            "status": status
-            ])
+            "status": status,
+        ]
 
         if today {
             let today = NSDate()
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString
 
-            params.setObject("\(midnightToday)..\(midnightTomorrow)", forKey: "date_range")
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
         }
 
         ApiService.sharedService().fetchWorkOrders(params,
