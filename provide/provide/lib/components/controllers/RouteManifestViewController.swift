@@ -44,8 +44,10 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     var delegate: RouteManifestViewControllerDelegate!
 
     private var mode: Mode {
-        if route.status == "unloading" {
-            return .Unloading
+        if let route = route {
+            if route.status == "unloading" {
+                return .Unloading
+            }
         }
         return .Loading
     }
@@ -87,7 +89,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 items = route.itemsNotLoaded
             }
         }
-
         return items
     }
 
@@ -199,7 +200,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
             if route.status == "unloading" {
                 if route.itemsLoaded.count == 0 {
-                    navigationItem.leftBarButtonItems = [completeItem]
+                    //navigationItem.leftBarButtonItems = [completeItem]
+                    complete()
                 } else {
                     navigationItem.leftBarButtonItems = [scanItem]
                 }
@@ -216,6 +218,14 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         navigationItem.prompt = navigationItemPrompt
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if mode == .Unloading && route.itemsLoaded.count == 0 {
+            complete()
+        }
     }
 
     func render() {
@@ -266,13 +276,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             for item in route.itemsLoaded {
                 route.unloadManifestItemByGtin(item.gtin, onSuccess: { (statusCode, mappingResult) -> () in
                     if self.route.itemsLoaded.count == 0 {
-                        self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
-                            self.refreshNavigationItem()
-                            self.delegate?.routeUpdated?(self.route, byViewController: self)
-                        }, onError: { (error, statusCode, responseString) -> () in
-                            self.refreshNavigationItem()
-                            self.delegate?.routeUpdated?(self.route, byViewController: self)
-                        })
+                        self.complete()
                     }
                 }, onError: { (error, statusCode, responseString) -> () in
 
@@ -296,19 +300,16 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         )
     }
 
-    @objc private func complete(_: UIBarButtonItem) {
-        clearNavigationItem()
-        route.complete(
-            onSuccess: { statusCode, responseString in
-                let navigationController = self.delegate?.navigationControllerForViewController?(self)
-                if navigationController != nil {
-                    self.delegate?.routeUpdated?(self.route, byViewController: self)
-                }
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
+    func complete() {
+        if self.route.itemsLoaded.count == 0 {
+            self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
+                self.refreshNavigationItem()
+                self.delegate?.routeUpdated?(self.route, byViewController: self)
+            }, onError: { (error, statusCode, responseString) -> () in
+                self.refreshNavigationItem()
+                self.delegate?.routeUpdated?(self.route, byViewController: self)
+            })
+        }
     }
 
     // MARK: BarcodeScannerViewControllerDelegate
@@ -350,13 +351,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                             onSuccess: { statusCode, responseString in
                                 self.processingCode = false
                                 if self.route.itemsLoaded.count == 0 {
-                                    self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
-                                        self.refreshNavigationItem()
-                                        self.delegate?.routeUpdated?(self.route, byViewController: self)
-                                    }, onError: { (error, statusCode, responseString) -> () in
-                                        self.refreshNavigationItem()
-                                        self.delegate?.routeUpdated?(self.route, byViewController: self)
-                                    })
+                                    self.complete()
                                 }
                             },
                             onError: { error, statusCode, responseString in
