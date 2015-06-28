@@ -123,6 +123,11 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     func render() {
         if let navigationController = delegate?.navigationControllerForViewController?(self) {
+            for viewController in navigationController.viewControllers {
+                if viewController.isKindOfClass(RouteManifestViewController) {
+                    return
+                }
+            }
             navigationController.pushViewController(self, animated: false)
         }
     }
