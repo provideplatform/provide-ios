@@ -17,7 +17,7 @@ class RouteUITests: ProvideTestCase {
     }
 
     func testRouteLoadingManifest() {
-        login()
+
 
     }
 }
