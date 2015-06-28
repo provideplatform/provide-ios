@@ -277,7 +277,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController) -> CGRect {
-        return view.frame
+        return CGRectMake(0.0, 0.0, view.frame.size.width, view.frame.size.height)
     }
 
     private func dismissBarcodeScannerViewController() {

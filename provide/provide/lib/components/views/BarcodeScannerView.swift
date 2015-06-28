@@ -24,8 +24,6 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     private var captureInput: AVCaptureInput!
     private var captureSession: AVCaptureSession!
 
-    @IBOutlet private weak var rectOfInterestView: UIView!
-
     private var capturePreviewLayer = AVCaptureVideoPreviewLayer()
     private let codeDetectionLayer = CALayer()
 
