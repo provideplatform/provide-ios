@@ -14,6 +14,7 @@ protocol DirectionsViewControllerDelegate {
     func isPresentingDirections() -> Bool
     func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
     func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView!
+    func navbarPromptForDirectionsViewController(viewController: ViewController!) -> String!
 
     optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
     optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
@@ -51,6 +52,14 @@ class DirectionsViewController: ViewController {
                 resolveCurrentStep()
                 refreshInstructions()
                 renderRouteOverview()
+
+                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+                    if let prompt =  directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
+                        navigationItem.prompt = prompt
+                    } else {
+                        navigationItem.prompt = nil
+                    }
+                }
             }
         }
     }
@@ -175,7 +184,7 @@ class DirectionsViewController: ViewController {
         let cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
         let cameraAltitude: Double = defaultMapCameraAltitude
 
-        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate) { workOrder, directions in
+        let callback: OnDrivingDirectionsFetched = { directions in
             self.directions = directions
 
             if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
@@ -246,6 +255,16 @@ class DirectionsViewController: ViewController {
                     }
                 }
             }
+        }
+
+        if let inProgressRoute = RouteService.sharedService().inProgressRoute {
+            if inProgressRoute.completedAllWorkOrders {
+                RouteService.sharedService().fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
+            } else {
+                WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
+            }
+        } else {
+            WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
         }
     }
 
@@ -350,6 +369,10 @@ class DirectionsViewController: ViewController {
                 mapView.removeAnnotations()
                 mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
             }
+        }
+
+        if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            navigationItem.prompt = nil
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,

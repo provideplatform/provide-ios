@@ -9,6 +9,7 @@
 import Foundation
 
 typealias OnRoutesFetched = (routes: [Route]) -> ()
+typealias OnWorkOrderDrivingDirectionsFetched = (workOrder: WorkOrder, directions: Directions) -> ()
 
 class RouteService: NSObject {
 
@@ -37,15 +38,14 @@ class RouteService: NSObject {
 
     class func unloadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
         if route.gtinLoadedCount(gtin) > 0 {
-            var itemsLoaded = route.itemsLoaded
             for (i, product) in route.itemsLoaded.enumerate() {
+                var itemsLoaded = [Product](route.itemsLoaded)
                 if product.gtin == gtin {
                     itemsLoaded.removeAtIndex(i)
+                    route.itemsLoaded = itemsLoaded
                     break
                 }
             }
-
-            route.itemsLoaded = itemsLoaded
 
             ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": route.gtinsLoaded], onSuccess: onSuccess, onError: onError)
         }
@@ -87,6 +87,34 @@ class RouteService: NSObject {
         )
     }
 
+    func fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: OnDrivingDirectionsFetched) {
+        if let route = inProgressRoute {
+            if let providerOriginAssignment = route.providerOriginAssignment {
+                if let origin = providerOriginAssignment.origin {
+                    DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: origin.coordinate) { directions in
+                        onDrivingDirectionsFetched(directions: directions)
+                    }
+                }
+            }
+        }
+    }
+
+    func setInProgressRouteOriginRegionMonitoringCallbacks(onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
+        if let route = inProgressRoute {
+            if let providerOriginAssignment = route.providerOriginAssignment {
+                if let origin = providerOriginAssignment.origin {
+                    LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+
+                    let overlay = MKCircle(centerCoordinate: origin.coordinate, radius: origin.regionMonitoringRadius)
+                    LocationService.sharedService().monitorRegionWithCircularOverlay(overlay,
+                        identifier: origin.regionIdentifier,
+                        onDidEnterRegion: onDidEnterRegion,
+                        onDidExitRegion: onDidExitRegion)
+                }
+            }
+        }
+    }
+
     var nextRoute: Route! {
         return routes.findFirst { $0.status == "scheduled" }
     }
@@ -97,5 +125,9 @@ class RouteService: NSObject {
 
     var loadingRoute: Route! {
         return routes.findFirst { $0.status == "loading" }
+    }
+
+    var unloadingRoute: Route! {
+        return routes.findFirst { $0.status == "unloading" }
     }
 }

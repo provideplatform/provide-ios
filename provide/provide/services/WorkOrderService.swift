@@ -10,7 +10,6 @@ import Foundation
 
 typealias OnWorkOrdersFetched = (workOrders: [WorkOrder]) -> ()
 typealias OnWorkOrderEtaFetched = (workOrder: WorkOrder, minutesEta: Int) -> ()
-typealias OnWorkOrderDrivingDirectionsFetched = (workOrder: WorkOrder, directions: Directions) -> ()
 
 class WorkOrderService: NSObject {
 
@@ -91,10 +90,10 @@ class WorkOrderService: NSObject {
         }
     }
 
-    func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onWorkOrderDrivingDirectionsFetched: OnWorkOrderDrivingDirectionsFetched) {
+    func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: OnDrivingDirectionsFetched) {
         if let workOrder = inProgressWorkOrder {
             DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { directions in
-                onWorkOrderDrivingDirectionsFetched(workOrder: workOrder, directions: directions)
+                onDrivingDirectionsFetched(directions: directions)
             }
         }
     }

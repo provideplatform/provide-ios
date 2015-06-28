@@ -18,6 +18,8 @@ class Route: Model {
     var itemsLoaded = [Product]()
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
+    var dispatcherOriginAssignment: NSDictionary!
+    var providerOriginAssignment: ProviderOriginAssignment!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -28,8 +30,9 @@ class Route: Model {
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("items_loaded", mapping: Product.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("legs", mapping: RouteLeg.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("provider_origin_assignment", mapping: WorkOrder.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("work_orders", mapping: WorkOrder.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
     }
 
@@ -60,6 +63,15 @@ class Route: Model {
 
     func canStart() -> Bool {
         return incompleteManifest == false
+    }
+
+    var completedAllWorkOrders: Bool {
+        for workOrder in workOrders {
+            if workOrder.status != "completed" {
+                return false
+            }
+        }
+        return true
     }
 
     var gtinsLoaded: [String] {
@@ -131,6 +143,10 @@ class Route: Model {
         return gtinsLoaded.filter { $0 == gtin }.count
     }
 
+    var itemsToUnloadCountRemaining: Int! {
+        return itemsLoaded.count
+    }
+
     func itemForGtin(gtin: String) -> Product? {
         for item in itemsOrdered {
             if item.gtin == gtin {
@@ -144,11 +160,6 @@ class Route: Model {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
-    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "completed"
-        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
-    }
-
     func load(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
         ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
@@ -159,7 +170,17 @@ class Route: Model {
         ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }
 
-    func loadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {
+    func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        status = "unloading"
+        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+    }
+
+    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        status = "pending_completion"
+        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+    }
+
+    func loadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
         RouteService.loadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
 

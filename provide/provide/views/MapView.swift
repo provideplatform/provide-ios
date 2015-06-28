@@ -22,7 +22,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     private var mapFullyRenderedOnce = false
     private var updatedUserLocationOnce = false
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         delegate = self

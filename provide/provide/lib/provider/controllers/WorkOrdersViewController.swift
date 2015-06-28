@@ -140,12 +140,23 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return RouteService.sharedService().loadingRoute != nil
     }
 
+    private var canAttemptSegueToUnloadingRoute: Bool {
+        return RouteService.sharedService().unloadingRoute != nil
+    }
+
     private var canAttemptSegueToNextRoute: Bool {
         return RouteService.sharedService().nextRoute != nil
     }
 
     private var canAttemptSegueToInProgressRoute: Bool {
         return RouteService.sharedService().inProgressRoute?.status == "in_progress"
+    }
+
+    private var canAttemptSegueToCompleteRoute: Bool {
+        if let route = RouteService.sharedService().inProgressRoute {
+            return route.status == "in_progress"  && route.completedAllWorkOrders
+        }
+        return false
     }
 
     // MARK: WorkOrder segue state interrogation
@@ -185,7 +196,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         let routeService = RouteService.sharedService()
 
         routeService.fetch(
-            status: "scheduled,loading,in_progress",
+            status: "scheduled,loading,in_progress,unloading",
             today: true,
             nextRouteOnly: true,
             onRoutesFetched: { routes in
@@ -213,8 +224,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func attemptSegueToValidRouteContext() {
         if canAttemptSegueToLoadingRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
+        } else if canAttemptSegueToUnloadingRoute {
+            performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else if canAttemptSegueToInProgressRoute {
-            attemptSegueToValidWorkOrderContext()
+            if canAttemptSegueToCompleteRoute {
+                performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
+            } else {
+                attemptSegueToValidWorkOrderContext()
+            }
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
@@ -254,24 +271,50 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         case "DirectionsViewControllerSegue":
             assert(segue.destinationViewController is DirectionsViewController)
 
-            if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
-                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
-                    {
-                        wo.arrive(
-                            onSuccess: { statusCode, responseString in
-                                self.nextWorkOrderContextShouldBeRewound()
-                                LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
-                                self.attemptSegueToValidWorkOrderContext()
-                            },
-                            onError: { error, statusCode, responseString in
+            if canAttemptSegueToCompleteRoute {
+                if let route = RouteService.sharedService().inProgressRoute {
+                    if let providerOriginAssignment = route.providerOriginAssignment {
+                        if let origin = providerOriginAssignment.origin {
+                            RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
+                                {
+                                    route.arrive(
+                                        onSuccess: { statusCode, responseString in
+                                            self.nextWorkOrderContextShouldBeRewound()
+                                            LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+                                            self.attemptSegueToValidWorkOrderContext()
+                                        },
+                                        onError: { error, statusCode, responseString in
 
-                            }
-                        )
-                    },
-                    onDidExitRegion: {
-
+                                        }
+                                    )
+                                },
+                                onDidExitRegion: {
+                                    
+                                }
+                            )
+                        }
                     }
-                )
+                }
+            } else {
+                if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
+                    WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
+                        {
+                            wo.arrive(
+                                onSuccess: { statusCode, responseString in
+                                    self.nextWorkOrderContextShouldBeRewound()
+                                    LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
+                                    self.attemptSegueToValidWorkOrderContext()
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        },
+                        onDidExitRegion: {
+                            
+                        }
+                    )
+                }
             }
 
             CheckinService.sharedService().enableNavigationAccuracy()
@@ -554,11 +597,32 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return WorkOrderService.sharedService().inProgressWorkOrder.coordinate
     }
 
+    func navbarPromptForDirectionsViewController(viewController: ViewController!) -> String! {
+        if canAttemptSegueToCompleteRoute {
+            if let providerOriginAssignment = RouteService.sharedService().inProgressRoute.providerOriginAssignment {
+                if let origin = providerOriginAssignment.origin {
+                    if let name = origin.contact.name {
+                        return "Return to \(name) to complete route"
+                    } else {
+                        return "Return to warehouse to complete route"
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
     // MARK: RouteManifestViewControllerDelegate
 
     func routeForViewController(viewController: ViewController) -> Route! {
         let routeService = RouteService.sharedService()
-        var route = routeService.inProgressRoute
+        var route: Route!
+        if canAttemptSegueToUnloadingRoute {
+            route = routeService.unloadingRoute
+        } else {
+            route = routeService.inProgressRoute
+        }
+
         if route == nil {
             route = routeService.nextRoute
         }

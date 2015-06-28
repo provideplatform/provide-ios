@@ -8,13 +8,13 @@
 
 extension Array {
 
-    func each(block: (T) -> Void) {
+    func each(block: (Element) -> Void) {
         for object in self {
             block(object)
         }
     }
 
-    func findFirst(conditionBlock: (T) -> Bool) -> T? {
+    func findFirst(conditionBlock: (Element) -> Bool) -> Element? {
         for object in self {
             if conditionBlock(object) {
                 return object
