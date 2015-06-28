@@ -30,6 +30,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private var barcodeScannerViewController: BarcodeScannerViewController!
 
+    private var acceptingCodes = false
+
     private var processingCode: Bool = false {
         didSet {
             if !processingCode {
@@ -131,6 +133,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         if isSimulator() { // HACK!!!
             simulateScanningAllItems()
         } else {
+            acceptingCodes = true
             presentViewController(barcodeScannerViewController, animated: true)
         }
     }
@@ -183,11 +186,9 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     // MARK: BarcodeScannerViewControllerDelegate
 
     func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
-        if !processingCode {
-            for object in metadataObjects {
-                if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
-                    processCode(machineReadableCodeObject)
-                }
+        if acceptingCodes {
+            if let machineReadableCodeObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
+                processCode(machineReadableCodeObject)
             }
         }
     }
@@ -198,6 +199,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 let value = code.stringValue
 
                 if route.isGtinRequired(value) {
+                    acceptingCodes = false
                     processingCode = true
 
                     route.loadManifestItemByGtin(value,

@@ -69,13 +69,22 @@ class Route: Model {
     var itemsNotLoaded: [Product] {
         var itemsNotLoaded = [Product]()
 
-        for workOrder in workOrders.reverse() {
-            for product in workOrder.itemsOrdered {
-                itemsNotLoaded.append(product)
-            }
+        var gtinsAccountedForCount = [String : Int]()
+        for gtin in gtinsOrdered {
+            gtinsAccountedForCount[gtin] = gtinOrderedCount(gtin) - gtinLoadedCount(gtin)
         }
 
-        itemsNotLoaded = itemsNotLoaded.filter { self.gtinsLoaded.indexOfObject($0.gtin) == nil }
+        for workOrder in (workOrders as Array).reverse() {
+            for product in workOrder.itemsOrdered {
+                let gtin = product.gtin
+                if let remainingToLoad = gtinsAccountedForCount[gtin] {
+                    if remainingToLoad > 0 {
+                        itemsNotLoaded.append(product)
+                        gtinsAccountedForCount[gtin] = remainingToLoad - 1
+                    }
+                }
+            }
+        }
 
         return itemsNotLoaded
     }
@@ -104,6 +113,14 @@ class Route: Model {
 
     var itemsToLoadCountRemaining: Int {
         return itemsOrdered.count - itemsLoaded.count
+    }
+
+    var gtinsOrdered: [String] {
+        var gtinsOrdered = [String]()
+        for product in itemsOrdered {
+            gtinsOrdered.append((product as Product).gtin)
+        }
+        return gtinsOrdered
     }
 
     func gtinOrderedCount(gtin: String) -> Int {
