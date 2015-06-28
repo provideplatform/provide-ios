@@ -76,6 +76,14 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             let metadataOutput = AVCaptureMetadataOutput()
             captureSession.addOutput(metadataOutput)
 
+            let overlayImageView = UIImageView(image: UIImage("scanner-overlay"))
+            overlayImageView.frame = CGRect(x: 25.0,
+                                            y: (rectOfInterest.height / 4.0) + 50.0,
+                                            width: rectOfInterest.width - 50.0,
+                                            height: rectOfInterest.height / 4.0)
+
+            layer.insertSublayer(overlayImageView.layer, above: capturePreviewLayer)
+
             metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataOutputQueue)
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
             metadataOutput.rectOfInterest = rectOfInterest
