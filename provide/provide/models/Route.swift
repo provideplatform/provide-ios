@@ -92,7 +92,7 @@ class Route: Model {
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
         for workOrder in workOrders.reverse() {
-            for product in workOrder.itemsOrdered {
+            for product in workOrder.itemsDelivered {
                 itemsDelivered.append(product)
             }
         }
