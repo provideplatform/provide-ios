@@ -162,32 +162,32 @@ class WorkOrder: Model, MKAnnotation {
 
     func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "abandoned"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "canceled"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "rejected"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
     func updateDeliveredItems(onSuccess onSuccess: OnSuccess, onError: OnError) {
@@ -211,6 +211,6 @@ class WorkOrder: Model, MKAnnotation {
 
     func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
         providerRating = netPromoterScore
-        ApiService.sharedService().updateWorkOrderWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id, params: ["provider_rating": providerRating], onSuccess: onSuccess, onError: onError)
     }
 }
