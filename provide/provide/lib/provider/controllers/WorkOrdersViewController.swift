@@ -95,22 +95,24 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
-                    WorkOrderService.sharedService().inProgressWorkOrder.reload(
-                        onSuccess: { statusCode, mappingResult in
-                            if let workOrder = mappingResult.firstObject as? WorkOrder {
-                                if workOrder.status != "en_route" {
-                                    self.updatingWorkOrderContext = true
-                                    self.loadRouteContext()
-                                } else {
-                                    log("not reloading context due to work order being routed to destination")
+                    if !self.canAttemptSegueToCompleteRoute {
+                        WorkOrderService.sharedService().inProgressWorkOrder.reload(
+                            onSuccess: { statusCode, mappingResult in
+                                if let workOrder = mappingResult.firstObject as? WorkOrder {
+                                    if workOrder.status != "en_route" {
+                                        self.updatingWorkOrderContext = true
+                                        self.loadRouteContext()
+                                    } else {
+                                        log("not reloading context due to work order being routed to destination")
+                                    }
                                 }
+                            },
+                            onError: { error, statusCode, responseString in
+                                self.updatingWorkOrderContext = true
+                                self.loadRouteContext()
                             }
-                        },
-                        onError: { error, statusCode, responseString in
-                            self.updatingWorkOrderContext = true
-                            self.loadRouteContext()
-                        }
-                    )
+                        )
+                    }
                 } else {
                     self.updatingWorkOrderContext = true
                     self.loadRouteContext()
