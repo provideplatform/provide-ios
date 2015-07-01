@@ -120,11 +120,28 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
 
+        setupMenuBarButtonItem()
+        setupMessagesBarButtonItem()
+    }
+
+    private func setupMenuBarButtonItem() {
+        let menuIconImage = FAKFontAwesome.naviconIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        let menuBarButtonItem = UIBarButtonItem(image: menuIconImage, style: .Plain, target: self, action: "menuButtonTapped:")
+        menuBarButtonItem.tintColor = UIColor.whiteColor()
+
+        navigationItem.leftBarButtonItem = menuBarButtonItem
+    }
+
+    private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
         let messagesBarButtonItem = UIBarButtonItem(image: messageIconImage, style: .Plain, target: self, action: "messageButtonTapped:")
         messagesBarButtonItem.tintColor = UIColor.whiteColor()
 
         navigationItem.rightBarButtonItem = messagesBarButtonItem
+    }
+
+    @objc private func menuButtonTapped(sender: UIBarButtonItem) {
+        slidingViewController().anchorTopViewToRightAnimated(true)
     }
 
     @objc private func messageButtonTapped(sender: UIBarButtonItem) {
