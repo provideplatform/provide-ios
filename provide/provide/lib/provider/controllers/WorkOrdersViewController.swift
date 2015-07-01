@@ -13,6 +13,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     // general UIKit callbacks
     optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
     optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(viewController: ViewController!)
     optional func targetViewForViewController(viewController: ViewController) -> UIView
     optional func slidingViewControllerForViewController(viewController: ViewController) -> ECSlidingViewController
 
@@ -120,6 +121,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
 
+        setupBarButtonItems()
+    }
+
+    private func setupBarButtonItems() {
         setupMenuBarButtonItem()
         setupMessagesBarButtonItem()
     }
@@ -254,7 +259,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(true) // FIXME -- show zero state
+            mapView.revealMap(force: true)
         }
     }
 
@@ -266,16 +271,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(true)
-
-            // FIXME -- the following needs to be done differently as to allow the dispatcher to close out routes:
-//            if canAttemptSegueToInProgressRoute {
-//                RouteService.sharedService().inProgressRoute.complete({ statusCode, responseString in
-//                    attemptSegueToValidRouteContext()
-//                },onError: { error, statusCode, responseString in
-//
-//                })
-//            }
+            mapView.revealMap(force: true)
         }
     }
 
@@ -600,6 +596,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem {
         return navigationItem
+    }
+
+    func navigationControllerNavBarButtonItemsShouldBeResetForViewController(viewController: ViewController!) {
+        setupBarButtonItems()
     }
 
     // MARK: DirectionsViewControllerDelegate

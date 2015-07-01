@@ -154,6 +154,8 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
             navigationItem.leftBarButtonItems = []
             navigationItem.rightBarButtonItems = []
         }
+
+        workOrdersViewControllerDelegate.navigationControllerNavBarButtonItemsShouldBeResetForViewController?(self)
     }
 
     // MARK: Actions
