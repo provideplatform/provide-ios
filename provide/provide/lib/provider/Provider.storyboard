@@ -26,6 +26,10 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
+        </mutableArray>
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
         </mutableArray>
         <mutableArray key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
@@ -244,6 +248,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wcI-Q1-Akd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-322" y="1503"/>
+        </scene>
+        <!--Zero State View Controller-->
+        <scene sceneID="e0P-zj-G8c">
+            <objects>
+                <viewController storyboardIdentifier="ZeroStateViewController" id="MG9-5I-Xvr" customClass="ZeroStateViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="x7r-Lf-Wbh"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pom-Rv-ecL"/>
+                    </layoutGuides>
+                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="i3Q-va-tU2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="pbm-gr-r7s">
+                                <rect key="frame" x="250" y="118" width="100" height="100"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Great Work" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjz-UE-UHe">
+                                <rect key="frame" x="186" y="279" width="227" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="227" id="8IJ-Wh-jpn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="32"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="86" y="384" width="227" height="32"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing scheduled at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zle-tZ-MII">
+                                <rect key="frame" x="159" y="372" width="282" height="22"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="pbm-gr-r7s" secondAttribute="centerY" constant="132" id="AET-ry-Oml"/>
+                            <constraint firstAttribute="centerY" secondItem="Vjz-UE-UHe" secondAttribute="centerY" constant="5" id="KfR-jm-Shz"/>
+                            <constraint firstAttribute="centerX" secondItem="pbm-gr-r7s" secondAttribute="centerX" id="ORw-Kd-JtY"/>
+                            <constraint firstItem="Vjz-UE-UHe" firstAttribute="centerY" secondItem="i3Q-va-tU2" secondAttribute="centerY" constant="-5" id="P5H-Nr-Q7N"/>
+                            <constraint firstAttribute="centerX" secondItem="Vjz-UE-UHe" secondAttribute="centerX" constant="0.5" id="PiJ-9A-GrI"/>
+                            <constraint firstAttribute="centerX" secondItem="Zle-tZ-MII" secondAttribute="centerX" id="Te3-Gn-wVR"/>
+                            <constraint firstItem="Vjz-UE-UHe" firstAttribute="top" secondItem="pbm-gr-r7s" secondAttribute="bottom" constant="61" id="fMK-5o-eRI"/>
+                            <constraint firstAttribute="centerY" secondItem="Zle-tZ-MII" secondAttribute="centerY" constant="-83.5" id="qze-Ne-I7U"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="pbm-gr-r7s" id="gm7-Xa-jh2"/>
+                        <outlet property="label" destination="Vjz-UE-UHe" id="Wqm-zF-Zji"/>
+                        <outlet property="messageLabel" destination="Zle-tZ-MII" id="xRw-P7-R8r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jt2-Ec-jPa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-322" y="2182"/>
         </scene>
         <!--Work Order Destination Confirmation View Controller-->
         <scene sceneID="FK1-ch-8aL">
@@ -603,6 +663,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="map-pin" width="100" height="100"/>
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>

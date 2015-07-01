@@ -80,6 +80,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
 
+    private var zeroStateViewController: ZeroStateViewController!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -122,6 +124,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
 
         setupBarButtonItems()
+        setupZeroStateView()
+    }
+
+    private func setupZeroStateView() {
+        zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
     }
 
     private func setupBarButtonItems() {
@@ -231,6 +238,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                         onWorkOrdersFetched: { workOrders in
                             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
+                            if workOrders.count == 0 {
+                                self.zeroStateViewController?.render(self.view)
+                            }
+
                             self.nextWorkOrderContextShouldBeRewound()
                             self.attemptSegueToValidWorkOrderContext()
                             self.updatingWorkOrderContext = false
@@ -259,7 +270,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(force: true)
+            mapView.revealMap(true)
+
+            zeroStateViewController?.render(self.view)
         }
     }
 
@@ -271,7 +284,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(force: true)
+            mapView.revealMap(true)
+
+            zeroStateViewController?.render(self.view)
         }
     }
 
@@ -280,6 +295,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {
             managedViewControllers.append(segue.destinationViewController as! ViewController)
+            zeroStateViewController?.dismiss()
         }
 
         switch segue.identifier! {
