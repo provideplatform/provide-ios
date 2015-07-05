@@ -74,6 +74,16 @@ class Route: Model {
         return true
     }
 
+    var disposedOfAllWorkOrders: Bool {
+        for workOrder in workOrders {
+            if workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned" {
+                return false
+            }
+        }
+
+        return true
+    }
+
     var gtinsLoaded: [String] {
         return itemsLoaded.map { $0.gtin }
     }

@@ -258,7 +258,7 @@ class DirectionsViewController: ViewController {
         }
 
         if let inProgressRoute = RouteService.sharedService().inProgressRoute {
-            if inProgressRoute.completedAllWorkOrders {
+            if inProgressRoute.disposedOfAllWorkOrders {
                 RouteService.sharedService().fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
             } else {
                 WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
