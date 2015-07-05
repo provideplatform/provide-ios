@@ -185,7 +185,16 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     private var canAttemptSegueToCompleteRoute: Bool {
         if let route = RouteService.sharedService().inProgressRoute {
-            return route.status == "in_progress"  && route.completedAllWorkOrders
+            if route.status == "in_progress" {
+                for workOrder in route.workOrders {
+                    if let status = (workOrder as! WorkOrder).status {
+                        if status != "completed" && status != "canceled" && status != "abandoned" {
+                            return false
+                        }
+                    }
+                }
+                return true
+            }
         }
         return false
     }
