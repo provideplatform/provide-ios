@@ -41,7 +41,11 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
             toUserWithId: currentUser().id,
             params: params,
             onSuccess: { statusCode, responseString in
+                ApiService.sharedService().fetchUser(onSuccess: { (statusCode, mappingResult) -> () in
+                    NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
+                }, onError: { (error, statusCode, responseString) -> () in
 
+                })
             },
             onError: { statusCode, responseString, error in
 

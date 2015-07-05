@@ -109,7 +109,10 @@ class ApiService: NSObject {
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let user = mappingResult.firstObject as! User
-                KeyChainService.sharedService().token?.user = user
+                if let token = KeyChainService.sharedService().token {
+                    token.user = user
+                    KeyChainService.sharedService().token = token
+                }
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: onError

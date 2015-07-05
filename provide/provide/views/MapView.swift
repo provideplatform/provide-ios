@@ -14,6 +14,7 @@ class MapView: MKMapView, MKMapViewDelegate {
     let userLocationAnnotationViewReuseIdentifier = "userLocationAnnotationViewReuseIdentifier"
 
     var requireUserLocationBeforeRevealing = false
+    var updateUserLocationAnnotation = true
 
     private var shouldReveal: Bool {
         return !requireUserLocationBeforeRevealing || (alpha == 0 && mapFullyRenderedOnce && updatedUserLocationOnce)
@@ -26,6 +27,14 @@ class MapView: MKMapView, MKMapViewDelegate {
         super.init(coder: aDecoder)
 
         delegate = self
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ProfileImageShouldRefresh") { _ in
+            self.updateUserLocationAnnotation = true
+            self.showsUserLocation = false
+            dispatch_after_delay(0.0) {
+                self.showsUserLocation = true
+            }
+        }
     }
 
     func removeAnnotations() {

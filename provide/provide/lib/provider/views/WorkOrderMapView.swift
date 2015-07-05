@@ -113,7 +113,9 @@ class WorkOrderMapView: MapView {
 
         if annotation is MKUserLocation {
             view = mapView.dequeueReusableAnnotationViewWithIdentifier(userLocationAnnotationViewReuseIdentifier)
-            if view == nil {
+            if view == nil || updateUserLocationAnnotation {
+                updateUserLocationAnnotation = false
+
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
                 view?.addSubview(userLocationImageView)
             }
