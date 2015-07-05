@@ -26,8 +26,8 @@ protocol DirectionsViewControllerDelegate {
 
 class DirectionsViewController: ViewController {
 
-    private let defaultMapCameraPitch = 75.0
-    private let defaultMapCameraAltitude = 200.0
+    private let defaultMapCameraPitch = 0.0 //65.0
+    private let defaultMapCameraAltitude = 500.0
 
     private let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
     private let defaultHeadingResolvedDurableCallbackKey = "directionsHeadingDurableCallback"
@@ -95,7 +95,7 @@ class DirectionsViewController: ViewController {
 
                 mapView.setCenterCoordinate(mapView.userLocation.coordinate,
                                             fromEyeCoordinate: mapView.userLocation.coordinate,
-                                            eyeAltitude: 0.0,
+                                            eyeAltitude: defaultMapCameraAltitude,
                                             pitch: CGFloat(defaultMapCameraPitch),
                                             animated: true)
 
@@ -135,23 +135,8 @@ class DirectionsViewController: ViewController {
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
-                    let cameraPitch: CGFloat = CGFloat(self.defaultMapCameraPitch)
-                    let cameraAltitude: Double = self.defaultMapCameraAltitude
-
-                    // var cameraHeading: Double = 0.0
-                    // if let heading = LocationService.sharedService().currentHeading {
-                    //     cameraHeading = heading.trueHeading
-                    // }
-
-                    if let directions = self.directions {
-                        if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-                            mapView.setCenterCoordinate(location.coordinate,
-                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
-                                eyeAltitude: cameraAltitude,
-                                heading: -1, // 360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
-                                pitch: cameraPitch,
-                                animated: false)
-                        }
+                    if let _ = self.directions {
+                        self.setCenterCoordinate(location)
                     }
 
                     if let lastRegionCrossing = self.lastRegionCrossing {
@@ -180,21 +165,38 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    private func fetchDrivingDirections(location: CLLocation) {
-        let cameraPitch: CGFloat = CGFloat(defaultMapCameraPitch)
-        let cameraAltitude: Double = defaultMapCameraAltitude
+    private func setCenterCoordinate(location: CLLocation) {
+        if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+            var sufficientDelta = false
+            if let lastLocation = LocationService.sharedService().currentLocation {
+                let lastCoordinate = lastLocation.coordinate
+                let region = CLCircularRegion(center: lastCoordinate, radius: 2.5, identifier: "sufficientDeltaRegionMonitor")
+                sufficientDelta = !region.containsCoordinate(location.coordinate)
+            } else {
+                sufficientDelta = true
+            }
 
+            if sufficientDelta {
+                let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(directions!.selectedRoute.currentLeg.currentStep.startCoordinate),
+                                                        MKMapPointForCoordinate(directions!.selectedRoute.currentLeg.currentStep.endCoordinate)) //MKMapPointForCoordinate(location.coordinate))
+
+                let cameraAltitude = distance / tan(M_PI*(15 / 180.0))
+
+                mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
+                    fromEyeCoordinate: directions!.selectedRoute.currentLeg.currentStep.endCoordinate,
+                    eyeAltitude: cameraAltitude,
+                    heading: self.calculateBearing(directions!.selectedRoute.currentLeg.currentStep.startCoordinate),
+                    pitch: CGFloat(defaultMapCameraPitch),
+                    animated: false)
+            }
+        }
+    }
+
+    private func fetchDrivingDirections(location: CLLocation!) {
         let callback: OnDrivingDirectionsFetched = { directions in
             self.directions = directions
 
-            if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-                mapView.setCenterCoordinate(location.coordinate,
-                    fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
-                    eyeAltitude: cameraAltitude,
-                    heading: -1, //360.0 * (1.0 - calculateBearing(self.directions.selectedRoute.currentLeg.currentStep.endCoordinate)),
-                    pitch: cameraPitch,
-                    animated: false)
-            }
+            self.setCenterCoordinate(location)
 
             for leg in directions.selectedRoute.legs {
                 for step in [leg.currentStep] {

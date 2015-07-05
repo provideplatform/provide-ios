@@ -149,7 +149,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     private func locationResolved(location: CLLocation) {
         log("Resolved current location: \(location)")
-        AnalyticsService.sharedService().track("Location resolved", properties: ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude])
+        //AnalyticsService.sharedService().track("Location resolved", properties: ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude])
 
         currentLocation = location
 

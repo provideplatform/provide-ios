@@ -148,7 +148,7 @@ class WorkOrderMapView: MapView {
 
         if let route = overlay as? MKPolyline {
             renderer = MKPolylineRenderer(polyline: route)
-            (renderer as! MKPolylineRenderer).strokeColor = UIColor.blueColor()
+            (renderer as! MKPolylineRenderer).strokeColor = Color.polylineStrokeColor()
             //(renderer as! MKPolylineRenderer).lineWidth = 3.0
         }
 

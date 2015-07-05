@@ -37,4 +37,8 @@ class Color {
     class func annotationViewBackgroundSelectedImageColor() -> UIColor {
         return UIColor(patternImage: annotationViewBackgroundImage()).colorWithAlphaComponent(1.0)
     }
+
+    class func polylineStrokeColor() -> UIColor {
+        return UIColor(red: 0.392, green: 0.706, blue: 0.820, alpha: 1.0)
+    }
 }
