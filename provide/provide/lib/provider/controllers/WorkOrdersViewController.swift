@@ -187,7 +187,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         if let route = RouteService.sharedService().inProgressRoute {
             if route.status == "in_progress" {
                 for workOrder in route.workOrders {
-                    if let status = (workOrder as! WorkOrder).status {
+                    if let status = workOrder.status {
                         if status != "completed" && status != "canceled" && status != "abandoned" {
                             return false
                         }
