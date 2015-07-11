@@ -182,16 +182,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     private var canAttemptSegueToCompleteRoute: Bool {
         if let route = RouteService.sharedService().inProgressRoute {
-            if route.status == "in_progress" {
-                for workOrder in route.workOrders {
-                    if let status = workOrder.status {
-                        if status != "completed" && status != "canceled" && status != "abandoned" {
-                            return false
-                        }
-                    }
-                }
-                return true
-            }
+            return route.disposedOfAllWorkOrders
         }
         return false
     }
@@ -208,15 +199,21 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private var canAttemptSegueToNextWorkOrder: Bool {
-        return WorkOrderService.sharedService().nextWorkOrder != nil //&& mapView.userLocation != nil //(mapView.userLocation != nil || LocationService.sharedService().currentLocation != nil)
+        return WorkOrderService.sharedService().nextWorkOrder != nil
     }
 
     private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        return WorkOrderService.sharedService().inProgressWorkOrder?.status == "en_route"
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "en_route"
+        }
+        return false
     }
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
-        return WorkOrderService.sharedService().inProgressWorkOrder?.status == "in_progress"
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "in_progress"
+        }
+        return false
     }
 
     private var viewingDirections: Bool {
@@ -260,6 +257,32 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 }
             }
         )
+    }
+
+    func attemptSegueToCompleteRoute() {
+        if let route = RouteService.sharedService().inProgressRoute {
+            if let providerOriginAssignment = route.providerOriginAssignment {
+                if let origin = providerOriginAssignment.origin {
+                    RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
+                        {
+                            route.arrive(
+                                onSuccess: { statusCode, responseString in
+                                    self.nextWorkOrderContextShouldBeRewound()
+                                    LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+                                    self.attemptSegueToValidWorkOrderContext()
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        },
+                        onDidExitRegion: {
+
+                        }
+                    )
+                }
+            }
+        }
     }
 
     func attemptSegueToValidRouteContext() {
@@ -309,29 +332,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             assert(segue.destinationViewController is DirectionsViewController)
 
             if canAttemptSegueToCompleteRoute {
-                if let route = RouteService.sharedService().inProgressRoute {
-                    if let providerOriginAssignment = route.providerOriginAssignment {
-                        if let origin = providerOriginAssignment.origin {
-                            RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
-                                {
-                                    route.arrive(
-                                        onSuccess: { statusCode, responseString in
-                                            self.nextWorkOrderContextShouldBeRewound()
-                                            LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
-                                            self.attemptSegueToValidWorkOrderContext()
-                                        },
-                                        onError: { error, statusCode, responseString in
-
-                                        }
-                                    )
-                                },
-                                onDidExitRegion: {
-                                    
-                                }
-                            )
-                        }
-                    }
-                }
+                attemptSegueToCompleteRoute()
             } else {
                 if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
                     WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
