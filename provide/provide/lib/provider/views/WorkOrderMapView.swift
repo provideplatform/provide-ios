@@ -188,6 +188,13 @@ class WorkOrderMapView: MapView {
                     }
                 }
             }
+        } else if viewingDirections {
+            mapView.setCenterCoordinate(location.coordinate,
+                fromEyeCoordinate: mapView.centerCoordinate,
+                eyeAltitude: mapView.camera.altitude,
+                heading: mapView.camera.heading,
+                pitch: mapView.camera.pitch,
+                animated: false)
         }
     }
 

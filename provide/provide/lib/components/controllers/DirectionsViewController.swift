@@ -164,7 +164,7 @@ class DirectionsViewController: ViewController {
     }
 
     private func setCenterCoordinate(location: CLLocation) {
-        if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+        if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             var sufficientDelta = false
             if let lastLocation = LocationService.sharedService().currentLocation {
                 let lastCoordinate = lastLocation.coordinate
@@ -175,15 +175,15 @@ class DirectionsViewController: ViewController {
             }
 
             if sufficientDelta {
-                let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(directions!.selectedRoute.currentLeg.currentStep.startCoordinate),
-                                                        MKMapPointForCoordinate(directions!.selectedRoute.currentLeg.currentStep.endCoordinate)) //MKMapPointForCoordinate(location.coordinate))
+                let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
+                                                        MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
 
                 let cameraAltitude = distance / tan(M_PI*(15 / 180.0))
 
                 mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
-                    fromEyeCoordinate: directions!.selectedRoute.currentLeg.currentStep.endCoordinate,
+                    fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                     eyeAltitude: cameraAltitude,
-                    heading: self.calculateBearing(directions!.selectedRoute.currentLeg.currentStep.startCoordinate),
+                    heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
                     pitch: CGFloat(defaultMapCameraPitch),
                     animated: false)
             }
@@ -398,8 +398,6 @@ class DirectionsViewController: ViewController {
 
                 CheckinService.sharedService().disableNavigationAccuracy()
                 LocationService.sharedService().disableNavigationAccuracy()
-
-                //clearNavigationItem()
             }
         )
     }
