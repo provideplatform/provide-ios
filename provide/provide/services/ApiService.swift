@@ -420,9 +420,13 @@ class ApiService: NSObject {
             }
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
+                let startDate = NSDate()
+
                 op.setCompletionBlockWithSuccess(
                     { operation, mappingResult in
-                        AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path, "statusCode": operation.HTTPRequestOperation.response.statusCode])
+                        AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path,
+                                                                                                      "statusCode": operation.HTTPRequestOperation.response.statusCode,
+                                                                                                      "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
 
                         onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode,
                                   mappingResult: mappingResult)
@@ -433,9 +437,13 @@ class ApiService: NSObject {
                         let statusCode = receivedResponse ? operation.HTTPRequestOperation.response.statusCode : -1
 
                         if receivedResponse {
-                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": responseString, "statusCode": statusCode])
+                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": responseString,
+                                                                                                       "statusCode": statusCode,
+                                                                                                       "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
                         } else if let err = error {
-                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription, "code": err.code])
+                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription,
+                                                                                                       "code": err.code,
+                                                                                                       "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
                         }
 
                         onError(error: error,
