@@ -554,32 +554,36 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
-        nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
-        attemptSegueToValidWorkOrderContext()
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
+            WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
+            attemptSegueToValidWorkOrderContext()
 
-        let params: [String: AnyObject] = [
-            "latitude": LocationService.sharedService().currentLocation.coordinate.latitude,
-            "longitude": LocationService.sharedService().currentLocation.coordinate.longitude,
-            "tags": "signature, delivery",
-            "public": false
-        ]
+            let location = LocationService.sharedService().currentLocation
 
-        WorkOrderService.sharedService().inProgressWorkOrder.attach(signature, params: params,
-            onSuccess: { statusCode, responseString in
-                WorkOrderService.sharedService().inProgressWorkOrder.updateDeliveredItems(
-                    onSuccess: { statusCode, responseString in
-                        log("updated delivered items!")
-                    },
-                    onError: { error, statusCode, responseString in
+            let params = [
+                "latitude": location.coordinate.latitude,
+                "longitude": location.coordinate.longitude,
+                "tags": "signature, delivery",
+                "public": false
+            ]
 
-                    }
-                )
-            },
-            onError: { error, statusCode, responseString in
+            workOrder.attach(signature, params: params,
+                onSuccess: { statusCode, responseString in
+                    workOrder.updateDeliveredItems(
+                        onSuccess: { statusCode, responseString in
+                            log("updated delivered items!")
+                        },
+                        onError: { error, statusCode, responseString in
 
-            }
-        )
+                        }
+                    )
+                },
+                onError: { error, statusCode, responseString in
+                    
+                }
+            )
+        }
     }
 
     func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
