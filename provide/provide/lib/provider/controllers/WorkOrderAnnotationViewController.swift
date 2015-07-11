@@ -35,6 +35,11 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     func render() {
         if let mapView = workOrdersViewControllerDelegate.mapViewForViewController?(nil) {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
+
+            if let delegate = workOrdersViewControllerDelegate {
+                delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(nil)
+            }
+
             mapView.addAnnotation(WorkOrderService.sharedService().nextWorkOrder)
         }
 
