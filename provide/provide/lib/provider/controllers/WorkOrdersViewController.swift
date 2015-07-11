@@ -95,7 +95,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
-                    if !self.canAttemptSegueToUnloadInProgressRoute {
+                    if !self.canAttemptSegueToUnloadInProgressRoute && !self.canAttemptSegueToUnloadingRoute {
                         WorkOrderService.sharedService().inProgressWorkOrder.reload(
                             onSuccess: { statusCode, mappingResult in
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
