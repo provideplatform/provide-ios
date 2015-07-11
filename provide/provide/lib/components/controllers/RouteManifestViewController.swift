@@ -250,36 +250,41 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private func simulateScanningAllItems() { // HACK!!! only for being able to fly thru demos on the simulator
-        switch mode {
-        case .Loading:
-            var gtins = [String]()
-            for item in route.itemsOrdered {
-                gtins.append(item.gtin)
-            }
-
-            ApiService.sharedService().updateRouteWithId(route.id, params: ["gtins_loaded": gtins],
-                onSuccess: { statusCode, responseString in
-                    var itemsLoaded = [Product]()
-                    for product in self.route.itemsOrdered {
-                        itemsLoaded.append(product)
-                    }
-                    self.route.itemsLoaded = itemsLoaded
-                    self.refreshNavigationItem()
-                    self.tableView.reloadData()
-                },
-                onError: { error, statusCode, responseString in
-
+        if let route = route {
+            switch mode {
+            case .Loading:
+                var gtins = [String]()
+                for item in route.itemsOrdered {
+                    gtins.append(item.gtin)
                 }
-            )
-        case .Unloading:
-            for item in route.itemsLoaded {
-                route.unloadManifestItemByGtin(item.gtin, onSuccess: { (statusCode, mappingResult) -> () in
-                    if self.route.itemsLoaded.count == 0 {
-                        self.complete()
-                    }
-                }, onError: { (error, statusCode, responseString) -> () in
 
-                })
+                ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
+                    onSuccess: { statusCode, responseString in
+                        let itemsLoaded = NSMutableArray()
+                        for product in route.itemsOrdered {
+                            itemsLoaded.addObject(product)
+                        }
+                        route.itemsLoaded = itemsLoaded as [AnyObject]
+                        self.refreshNavigationItem()
+                        self.tableView.reloadData()
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            case .Unloading:
+                for item in route.itemsLoaded {
+                    route.unloadManifestItemByGtin((item as! Product).gtin,
+                        onSuccess: { statusCode, mappingResult in
+                            if route.itemsLoaded.count == 0 {
+                                self.complete()
+                            }
+                        },
+                        onError: { (error, statusCode, responseString) -> () in
+                            
+                        }
+                    )
+                }
             }
         }
     }
@@ -300,6 +305,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     func complete() {
+<<<<<<< HEAD
         if self.route.itemsLoaded.count == 0 {
             self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
                 self.refreshNavigationItem()
@@ -308,6 +314,21 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 self.refreshNavigationItem()
                 self.delegate?.routeUpdated(self.route, byViewController: self)
             })
+=======
+        if let route = route {
+            if route.itemsLoaded.count == 0 {
+                route.complete(
+                    onSuccess: { statusCode, mappingResult in
+                        self.refreshNavigationItem()
+                        self.delegate?.routeUpdated?(route, byViewController: self)
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.refreshNavigationItem()
+                        self.delegate?.routeUpdated?(route, byViewController: self)
+                    }
+                )
+            }
+>>>>>>> 1fe4695... Fix crashlytics #22
         }
     }
 
@@ -326,37 +347,39 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             if code.type == AVMetadataObjectTypeEAN13Code || code.type == AVMetadataObjectTypeCode39Code {
                 let value = code.stringValue
 
-                switch mode {
-                case .Loading:
-                    if route.isGtinRequired(value) {
-                        acceptingCodes = false
-                        processingCode = true
+                if let route = route {
+                    switch mode {
+                    case .Loading:
+                        if route.isGtinRequired(value) {
+                            acceptingCodes = false
+                            processingCode = true
 
-                        route.loadManifestItemByGtin(value,
-                            onSuccess: { statusCode, responseString in
-                                self.processingCode = false
-                            },
-                            onError: { error, statusCode, responseString in
-                                self.processingCode = false
-                            }
-                        )
-                    }
-                case .Unloading:
-                    if route.gtinLoadedCount(value) > 0 {
-                        acceptingCodes = false
-                        processingCode = true
-
-                        route.unloadManifestItemByGtin(value,
-                            onSuccess: { statusCode, responseString in
-                                self.processingCode = false
-                                if self.route.itemsLoaded.count == 0 {
-                                    self.complete()
+                            route.loadManifestItemByGtin(value,
+                                onSuccess: { statusCode, responseString in
+                                    self.processingCode = false
+                                },
+                                onError: { error, statusCode, responseString in
+                                    self.processingCode = false
                                 }
-                            },
-                            onError: { error, statusCode, responseString in
-                                self.processingCode = false
-                            }
-                        )
+                            )
+                        }
+                    case .Unloading:
+                        if route.gtinLoadedCount(value) > 0 {
+                            acceptingCodes = false
+                            processingCode = true
+
+                            route.unloadManifestItemByGtin(value,
+                                onSuccess: { statusCode, responseString in
+                                    self.processingCode = false
+                                    if route.itemsLoaded.count == 0 {
+                                        self.complete()
+                                    }
+                                },
+                                onError: { error, statusCode, responseString in
+                                    self.processingCode = false
+                                }
+                            )
+                        }
                     }
                 }
             }
