@@ -83,6 +83,11 @@ extension MKMapView {
         heading: CLLocationDirection = 0,
         animated: Bool = true)
     {
+        let invalidCenterCoordinate = centerCoordinate.latitude == -180.0 && centerCoordinate.longitude == -180.0
+        if invalidCenterCoordinate {
+            return
+        }
+
         let camera = MKMapCamera(
             lookingAtCenterCoordinate: centerCoordinate,
             fromEyeCoordinate: fromEyeCoordinate,
