@@ -95,7 +95,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
-                    if !self.canAttemptSegueToCompleteRoute {
+                    if !self.canAttemptSegueToUnloadInProgressRoute {
                         WorkOrderService.sharedService().inProgressWorkOrder.reload(
                             onSuccess: { statusCode, mappingResult in
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
@@ -161,7 +161,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: Route segue state interrogation
 
     private var canAttemptSegueToValidRouteContext: Bool {
-        return canAttemptSegueToLoadingRoute || canAttemptSegueToInProgressRoute || canAttemptSegueToNextRoute
+        return canAttemptSegueToLoadingRoute || canAttemptSegueToInProgressRoute || canAttemptSegueToUnloadingRoute || canAttemptSegueToNextRoute
     }
 
     private var canAttemptSegueToLoadingRoute: Bool {
@@ -180,7 +180,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return RouteService.sharedService().inProgressRoute?.status == "in_progress"
     }
 
-    private var canAttemptSegueToCompleteRoute: Bool {
+    private var canAttemptSegueToUnloadInProgressRoute: Bool {
         if let route = RouteService.sharedService().inProgressRoute {
             return route.disposedOfAllWorkOrders
         }
@@ -260,7 +260,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func attemptSegueToCompleteRoute() {
-        if let route = RouteService.sharedService().inProgressRoute {
+        var routePendingCompletion: Route!
+        if canAttemptSegueToUnloadInProgressRoute {
+            routePendingCompletion = RouteService.sharedService().inProgressRoute
+        } else {
+            routePendingCompletion = RouteService.sharedService().unloadingRoute
+        }
+
+        if let route = routePendingCompletion {
             if let providerOriginAssignment = route.providerOriginAssignment {
                 if let origin = providerOriginAssignment.origin {
                     RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
@@ -291,7 +298,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToUnloadingRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else if canAttemptSegueToInProgressRoute {
-            if canAttemptSegueToCompleteRoute {
+            if canAttemptSegueToUnloadInProgressRoute || canAttemptSegueToUnloadingRoute {
                 performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
             } else {
                 attemptSegueToValidWorkOrderContext()
@@ -331,7 +338,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         case "DirectionsViewControllerSegue":
             assert(segue.destinationViewController is DirectionsViewController)
 
-            if canAttemptSegueToCompleteRoute {
+            if canAttemptSegueToUnloadInProgressRoute {
                 attemptSegueToCompleteRoute()
             } else {
                 if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
@@ -640,7 +647,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func navbarPromptForDirectionsViewController(viewController: ViewController!) -> String! {
-        if canAttemptSegueToCompleteRoute {
+        if canAttemptSegueToUnloadInProgressRoute {
             if let providerOriginAssignment = RouteService.sharedService().inProgressRoute.providerOriginAssignment {
                 if let origin = providerOriginAssignment.origin {
                     if let name = origin.contact.name {
