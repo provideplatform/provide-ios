@@ -79,7 +79,7 @@ class WorkOrder: Model, MKAnnotation {
 
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
-            customer.contact.longitude.doubleValue)
+                                          customer.contact.longitude.doubleValue)
     }
 
     var currentComponentIdentifier: String! {

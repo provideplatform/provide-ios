@@ -322,7 +322,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else {
             mapView.revealMap(true)
 
-            zeroStateViewController?.render(self.view)
+            attemptSegueToValidRouteContext()
         }
     }
 
