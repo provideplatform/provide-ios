@@ -175,17 +175,19 @@ class DirectionsViewController: ViewController {
             }
 
             if sufficientDelta {
-                let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
-                                                        MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
+                if let directions = directions {
+                    let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
+                        MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
 
-                let cameraAltitude = distance / tan(M_PI*(15 / 180.0))
+                    let cameraAltitude = distance / tan(M_PI*(15 / 180.0))
 
-                mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
-                    fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
-                    eyeAltitude: cameraAltitude,
-                    heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
-                    pitch: CGFloat(defaultMapCameraPitch),
-                    animated: false)
+                    mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
+                        fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
+                        eyeAltitude: cameraAltitude,
+                        heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
+                        pitch: CGFloat(defaultMapCameraPitch),
+                        animated: false)
+                }
             }
         }
     }
