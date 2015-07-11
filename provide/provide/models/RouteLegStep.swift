@@ -88,8 +88,11 @@ class RouteLegStep: Model {
         return nil
     }
 
-    var distance: CLLocationDistance {
-        return distanceInMeters.doubleValue
+    var distance: CLLocationDistance! {
+        if let distanceInMeters = distanceInMeters {
+            return distanceInMeters.doubleValue
+        }
+        return 0.0
     }
 
     var distanceInMiles: Double {
@@ -100,14 +103,17 @@ class RouteLegStep: Model {
         return distanceInMiles * 5820.0
     }
 
-    var remainingDistanceString: String {
-        let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
-        if distanceInMiles > 0.1 {
-            return String(format: "%.1f", distanceInMiles) + " mi"
-        } else {
-            let distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
-            return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
+    var remainingDistanceString: String! {
+        if let shape = shape {
+            let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
+            if distanceInMiles > 0.1 {
+                return String(format: "%.1f", distanceInMiles) + " mi"
+            } else {
+                let distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
+                return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
+            }
         }
+        return "0 ft"
     }
 
     var distanceString: String {
