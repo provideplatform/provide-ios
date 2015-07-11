@@ -897,6 +897,11 @@
 					68DFB07D1B07C5C4002A72E8 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = 4A8DZ57H2Y;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					68DFB0951B07C5C4002A72E8 = {
 						CreatedOnToolsVersion = 6.3.1;
