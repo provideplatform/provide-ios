@@ -117,11 +117,19 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(item: Product) {
-        itemsRejected.append(item)
+        itemsRejected.addObject(item)
     }
 
     func approveItem(item: Product) {
-        itemsRejected.removeObject(item)
+        let newItemsRejected = NSMutableArray(array: itemsRejected)
+
+        for (i, rejectedItem) in enumerate(itemsRejected) {
+            if (rejectedItem as! Product).gtin == item.gtin {
+                newItemsRejected.removeObjectAtIndex(i)
+                itemsRejected = newItemsRejected
+                break
+            }
+        }
     }
 
     func unloadItem(item: Product) {
@@ -145,7 +153,13 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func gtinRejectedCount(gtin: String) -> Int {
-        return itemsRejected.filter { $0.gtin == gtin }.count
+        var gtinRejectedCount = 0
+        for product in itemsRejected {
+            if (product as! Product).gtin == gtin {
+                gtinRejectedCount += 1
+            }
+        }
+        return gtinRejectedCount
     }
 
     func gtinOrderedCount(gtin: String) -> Int {
