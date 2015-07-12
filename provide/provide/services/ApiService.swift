@@ -400,23 +400,11 @@ class ApiService: NSObject {
                 request.setValue(value, forHTTPHeaderField: name)
             }
 
-<<<<<<< HEAD
-            if [.POST, .PUT].contains(method) {
-                for key in params.keys {
-                    let value: AnyObject? = params[key]
-=======
             var jsonParams: String!
             if let p = params {
-                jsonParams = params?.toJSON() // FIXME-- make sure content type is suitable for this operation
-            } else {
-                jsonParams = "{}"
-            }
-
-            if contains([.POST, .PUT], method) {
                 params = NSMutableDictionary(dictionary: params)
                 for key in params.allKeys {
                     let value: AnyObject? = params.objectForKey(key)
->>>>>>> d077516... Fix bugs relating to delivering and rejecting inventory items on packing slip
                     if value != nil && value!.isKindOfClass(NSArray) {
                         let newValue = NSMutableArray()
                         for item in (value as! NSArray) {
@@ -430,11 +418,14 @@ class ApiService: NSObject {
                     }
                 }
 
-<<<<<<< HEAD
                 request.HTTPBody = params.toJSONString().dataUsingEncoding(NSUTF8StringEncoding)
-=======
+                jsonParams = params?.toJSON() // FIXME-- make sure content type is suitable for this operation
+            } else {
+                jsonParams = "{}"
+            }
+
+            if contains([.POST, .PUT], method) {
                 request.HTTPBody = jsonParams!.dataUsingEncoding(NSUTF8StringEncoding)
->>>>>>> d077516... Fix bugs relating to delivering and rejecting inventory items on packing slip
             }
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
