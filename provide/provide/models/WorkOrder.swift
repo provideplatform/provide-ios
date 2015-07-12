@@ -71,7 +71,12 @@ class WorkOrder: Model, MKAnnotation {
         return itemsOrderedCount == itemsDeliveredCount + itemsRejectedCount
     }
 
-    var contact: Contact {
+    var canBeAbandoned: Bool {
+        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
+        return itemsOrderedCount == itemsOnTruck.count
+    }
+
+    var contact: Contact! {
         return customer.contact
     }
 

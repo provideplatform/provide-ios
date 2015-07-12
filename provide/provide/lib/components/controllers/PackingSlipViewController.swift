@@ -85,7 +85,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
         targetView.addSubview(view)
 
-        setupNavigationItem()
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+        }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
@@ -197,7 +199,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 }
 
                 dispatch_after_delay(0.0) {
-                    self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: !workOrder.canBeDelivered)
+                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
                 }
             }
         }
