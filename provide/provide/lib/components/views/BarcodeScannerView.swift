@@ -9,10 +9,9 @@
 import Foundation
 import AVFoundation
 
-@objc
 protocol BarcodeScannerViewDelegate {
-    optional func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
-    optional func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect
+    func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect
 }
 
 class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
@@ -59,7 +58,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             }
 
             var rectOfInterest = bounds
-            if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView?(self) {
+            if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView(self) {
                 if customRectOfInterest != CGRectZero {
                     rectOfInterest = customRectOfInterest
                 }
@@ -107,7 +106,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             self.showDetectedMetadataObjects(metadataObjects)
         }
 
-        delegate?.barcodeScannerView?(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
+        delegate?.barcodeScannerView(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
     }
 
     private func clearDetectedMetadataObjects() {
