@@ -8,12 +8,11 @@
 
 import UIKit
 
-@objc
 protocol ManifestViewControllerDelegate {
-    optional func targetViewForViewController(viewController: ViewController) -> UIView
-    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-    optional func routeForViewController(viewController: ViewController) -> Route!
+    func targetViewForViewController(viewController: ViewController) -> UIView
+    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    func routeForViewController(viewController: ViewController) -> Route!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -57,13 +56,13 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     private var route: Route! {
-        return delegate?.routeForViewController?(self)
+        return delegate?.routeForViewController(self)
     }
 
     private var segment: Segment!
 
     private var targetView: UIView! {
-        return delegate?.targetViewForViewController?(self)
+        return delegate?.targetViewForViewController(self)
     }
 
     override func viewDidLoad() {
@@ -96,7 +95,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
         navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
 
-        if let navigationController = delegate?.navigationControllerForViewController?(self) {
+        if let navigationController = delegate?.navigationControllerForViewController(self) {
             navigationController.setNavigationBarHidden(false, animated: true)
         }
     }
@@ -111,7 +110,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     @objc private func dismiss(_: UIBarButtonItem) {
         clearNavigationItem()
 
-        if let navigationController = delegate?.navigationControllerForViewController?(self) {
+        if let navigationController = delegate?.navigationControllerForViewController(self) {
             navigationController.popViewControllerAnimated(true)
         }
     }
