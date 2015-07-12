@@ -9,13 +9,12 @@
 import Foundation
 import AVFoundation
 
-@objc
 protocol RouteManifestViewControllerDelegate {
-    optional func targetViewForViewController(viewController: ViewController) -> UIView
-    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-    optional func routeForViewController(viewController: ViewController) -> Route!
-    optional func routeUpdated(route: Route, byViewController viewController: ViewController)
+    func targetViewForViewController(viewController: ViewController) -> UIView
+    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    func routeForViewController(viewController: ViewController) -> Route!
+    func routeUpdated(route: Route, byViewController viewController: ViewController)
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {
@@ -93,7 +92,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private var route: Route! {
-        return delegate?.routeForViewController?(self)
+        return delegate?.routeForViewController(self)
     }
 
     private var loadingSegment: LoadingSegment!
@@ -118,7 +117,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     private var targetView: UIView! {
-        return delegate?.targetViewForViewController?(self)
+        return delegate?.targetViewForViewController(self)
     }
 
     override func viewDidLoad() {
@@ -229,7 +228,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     func render() {
-        if let navigationController = delegate?.navigationControllerForViewController?(self) {
+        if let navigationController = delegate?.navigationControllerForViewController(self) {
             for viewController in navigationController.viewControllers {
                 if viewController.isKindOfClass(RouteManifestViewController) {
                     return
@@ -289,9 +288,9 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         clearNavigationItem()
         route.start(
             onSuccess: { statusCode, responseString in
-                let navigationController = self.delegate?.navigationControllerForViewController?(self)
+                let navigationController = self.delegate?.navigationControllerForViewController(self)
                 if navigationController != nil {
-                    self.delegate?.routeUpdated?(self.route, byViewController: self)
+                    self.delegate?.routeUpdated(self.route, byViewController: self)
                 }
             },
             onError: { error, statusCode, responseString in
@@ -304,10 +303,10 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         if self.route.itemsLoaded.count == 0 {
             self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
                 self.refreshNavigationItem()
-                self.delegate?.routeUpdated?(self.route, byViewController: self)
+                self.delegate?.routeUpdated(self.route, byViewController: self)
             }, onError: { (error, statusCode, responseString) -> () in
                 self.refreshNavigationItem()
-                self.delegate?.routeUpdated?(self.route, byViewController: self)
+                self.delegate?.routeUpdated(self.route, byViewController: self)
             })
         }
     }
