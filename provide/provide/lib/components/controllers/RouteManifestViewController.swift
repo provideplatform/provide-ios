@@ -152,7 +152,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         case .Loading:
             toolbarSegmentedControl = UISegmentedControl(items: loadingSegmentedControlItems)
             toolbarSegmentedControl.tintColor = UIColor.whiteColor()
-            toolbarSegmentedControl.selectedSegmentIndex = 0
+            toolbarSegmentedControl.selectedSegmentIndex = 1
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
             toolbarSegmentedControl.addTarget(self, action: "loadingSegmentChanged", forControlEvents: .ValueChanged)
         case .Unloading:
