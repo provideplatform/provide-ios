@@ -102,6 +102,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     override func unwind() {
         clearNavigationItem()
+        workOrdersViewControllerDelegate.navigationControllerNavBarButtonItemsShouldBeResetForViewController?(self)
 
         if let barcodeScannerViewController = barcodeScannerViewController {
             barcodeScannerViewController.stopScanner()
