@@ -571,7 +571,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             workOrder.attach(signature, params: params,
                 onSuccess: { statusCode, responseString in
-
+                    self.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
                     
@@ -581,37 +581,24 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
-        nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
-        attemptSegueToValidWorkOrderContext()
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
+            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            attemptSegueToValidWorkOrderContext()
 
-        WorkOrderService.sharedService().inProgressWorkOrder.scoreProvider(netPromoterScore,
-            onSuccess: { statusCode, responseString in
-                WorkOrderService.sharedService().inProgressWorkOrder.complete(
-                    onSuccess: { statusCode, responseString in
-                        log("net promoter score received")
-                        self.attemptSegueToValidWorkOrderContext()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
+            workOrder.scoreProvider(netPromoterScore,
+                onSuccess: { statusCode, responseString in
+                    self.attemptCompletionOfInProgressWorkOrder()
+                },
+                onError: { error, statusCode, responseString in
+                    
+                }
+            )
+        }
     }
 
     func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController) {
-        WorkOrderService.sharedService().inProgressWorkOrder.complete(
-            onSuccess: { statusCode, responseString in
-                self.attemptSegueToValidWorkOrderContext()
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
+        attemptCompletionOfInProgressWorkOrder()
     }
 
     func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController) {
@@ -689,5 +676,22 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             vc = UIStoryboard(componentIdentifier).instantiateInitialViewController() as! WorkOrderComponentViewController
         }
         return vc
+    }
+
+    private func attemptCompletionOfInProgressWorkOrder() {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if workOrder.components.count == 0 {
+                workOrder.complete(
+                    onSuccess: { statusCode, responseString in
+                        self.attemptSegueToValidWorkOrderContext()
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            } else {
+                // did not attempt to complete work order as there are outstanding components
+            }
+        }
     }
 }
