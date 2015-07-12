@@ -11,8 +11,8 @@ import AVFoundation
 
 @objc
 protocol BarcodeScannerViewControllerDelegate {
-    optional func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
-    optional func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController)
+    func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController)
     optional func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController) -> CGRect
 }
 
@@ -44,7 +44,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
     }
 
     @objc private func dismiss(_: UISwipeGestureRecognizer) {
-        delegate?.barcodeScannerViewControllerShouldBeDismissed?(self)
+        delegate?.barcodeScannerViewControllerShouldBeDismissed(self)
     }
 
     func stopScanner() {
@@ -54,7 +54,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
     // MARK: BarcodeScannerViewDelegate
 
     func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
-        delegate?.barcodeScannerViewController?(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
+        delegate?.barcodeScannerViewController(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
     }
 
     func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect {
