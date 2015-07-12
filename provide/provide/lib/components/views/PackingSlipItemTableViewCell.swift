@@ -49,14 +49,12 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         let leftUtilityButtons = NSMutableArray()
         let rightUtilityButtons = NSMutableArray()
 
-        if !workOrder.canUnloadGtin(product.gtin) && workOrder.canRejectGtin(product.gtin) {
+        if workOrder.canRejectGtin(product.gtin) {
             let i = rightUtilityButtons.count
             let redColor = UIColor(red: 1.1, green: 0.231, blue: 0.16, alpha: 1.0)
             rightUtilityButtons.sw_addUtilityButtonWithColor(redColor, title: "Reject")
-            rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
-        }
-
-        if workOrder.canUnloadGtin(product.gtin) {
+            rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
+        } else if workOrder.canUnloadGtin(product.gtin) {
             let i = rightUtilityButtons.count
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
             rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)

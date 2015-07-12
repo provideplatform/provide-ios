@@ -144,8 +144,8 @@ class WorkOrder: Model, MKAnnotation {
         return gtinOrderedCount(gtin) > gtinUnloadedCount(gtin)
     }
 
-    func canRejectGtin(gtin: String) -> Bool {
-        return gtinOrderedCount(gtin) > gtinRejectedCount(gtin)
+    func canRejectGtin(gtin: String!) -> Bool {
+        return gtinOrderedCount(gtin) > gtinUnloadedCount(gtin) + gtinRejectedCount(gtin)
     }
 
     var gtinsDelivered: [String] {
