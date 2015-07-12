@@ -152,7 +152,15 @@ class WorkOrder: Model, MKAnnotation {
         return itemsUnloaded.map { $0.gtin }
     }
 
-    func gtinRejectedCount(gtin: String) -> Int {
+    var gtinsRejected: [String] {
+        var gtinsRejected = [String]()
+        for product in itemsRejected {
+            gtinsRejected.append((product as! Product).gtin)
+        }
+        return gtinsRejected
+    }
+
+    func gtinRejectedCount(gtin: String!) -> Int {
         var gtinRejectedCount = 0
         for product in itemsRejected {
             if (product as! Product).gtin == gtin {
@@ -206,7 +214,8 @@ class WorkOrder: Model, MKAnnotation {
 
     func updateDeliveredItems(onSuccess onSuccess: OnSuccess, onError: OnError) {
         let params = [
-            "gtins_delivered": gtinsDelivered
+            "gtins_delivered": gtinsDelivered,
+            "gtins_rejected": gtinsRejected
         ]
 
         ApiService.sharedService().updateWorkOrderWithId(id, params: params, onSuccess: onSuccess, onError: onError)
