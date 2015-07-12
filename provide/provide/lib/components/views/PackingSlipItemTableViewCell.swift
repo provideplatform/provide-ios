@@ -8,10 +8,9 @@
 
 import Foundation
 
-@objc
 protocol PackingSlipItemTableViewCellDelegate {
-    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product)
-    optional func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product)
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product)
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product)
 }
 
 class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
@@ -81,12 +80,12 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         switch index {
         case 0:
             if !workOrder.canUnloadGtin(product.gtin) && workOrder.canRejectGtin(product.gtin) {
-                packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, didRejectProduct: product)
+                packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, didRejectProduct: product)
             } else {
-                packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, shouldAttemptToUnloadProduct: product)
+                packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadProduct: product)
             }
         case 1:
-            packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell?(self, shouldAttemptToUnloadProduct: product)
+            packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadProduct: product)
         default:
             break
         }
