@@ -9,15 +9,6 @@
 import Foundation
 import AVFoundation
 
-//@objc
-//protocol PackingSlipViewControllerDelegate {
-//
-//    optional func workOrderDeliveryConfirmedForViewController(packingSlipViewController: PackingSlipViewController!)
-//    optional func workOrderAbandonedForViewController(packingSlipViewController: PackingSlipViewController!)
-//    optional func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController!) -> [Product]!
-//
-//}
-
 class PackingSlipViewController: WorkOrderComponentViewController,
                                  UITableViewDataSource,
                                  UITableViewDelegate,

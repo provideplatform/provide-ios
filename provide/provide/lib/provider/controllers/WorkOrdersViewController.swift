@@ -24,9 +24,6 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     optional func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView, animated: Bool)
     optional func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController)
 
-//    // location service related callbacks
-//    optional func locationServiceDidUpdateUserLocation(coordinate: CLLocationCoordinate2D)
-
     // eta and driving directions callbacks
     optional func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber)
     optional func drivingEtaToNextWorkOrderForViewController(viewController: ViewController) -> NSNumber

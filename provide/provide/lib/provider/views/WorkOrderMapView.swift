@@ -206,30 +206,4 @@ class WorkOrderMapView: MapView {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
     }
-
-    //    // mapView:didAddAnnotationViews: is called after the annotation views have been added and positioned in the map.
-    //    // The delegate can implement this method to animate the adding of the annotations views.
-    //    // Use the current positions of the annotation views as the destinations of the animation.
-    //    optional func mapView(mapView: MKMapView!, didAddAnnotationViews views: [AnyObject]!)
-    //
-    //    // mapView:annotationView:calloutAccessoryControlTapped: is called when the user taps on left & right callout accessory UIControls.
-    //    optional func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, calloutAccessoryControlTapped control: UIControl!)
-    //
-    //    @availability(iOS, introduced=4.0)
-    //    optional func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!)
-    //    @availability(iOS, introduced=4.0)
-    //    optional func mapView(mapView: MKMapView!, didDeselectAnnotationView view: MKAnnotationView!)
-    //
-    //    @availability(iOS, introduced=4.0)
-    //
-    //    @availability(iOS, introduced=4.0)
-    //    optional func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState)
-    //
-    //    @availability(iOS, introduced=5.0)
-    //    optional func mapView(mapView: MKMapView!, didChangeUserTrackingMode mode: MKUserTrackingMode, animated: Bool)
-    //
-    //    @availability(iOS, introduced=7.0)
-
-    //    @availability(iOS, introduced=7.0)
-    //    optional func mapView(mapView: MKMapView!, didAddOverlayRenderers renderers: [AnyObject]!)
 }
