@@ -24,12 +24,11 @@ class WorkOrder: Model, MKAnnotation {
     var status: String!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
-    // var attachments = [AnyObject]() // Unusud
-    var components = [[String: AnyObject]]()
-    var itemsOrdered = [Product]()
-    var itemsDelivered = [Product]()
-    var itemsRejected = [Product]()
-    var itemsUnloaded = [Product]()
+    var attachments: NSArray!
+    var components: NSMutableArray!
+    var itemsOrdered: NSMutableArray!
+    var itemsDelivered: NSMutableArray!
+    var itemsRejected: NSMutableArray!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -55,22 +54,21 @@ class WorkOrder: Model, MKAnnotation {
 
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("attachments", mapping: Attachment.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("items_ordered", mapping: Product.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("items_delivered", mapping: Product.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("items_rejected", mapping: Product.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("items_unloaded", mapping: Product.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("work_order_providers", mapping: WorkOrderProvider.mapping())
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
     }
 
     var canBeDelivered: Bool {
-        return !canBeRejected && itemsOrdered.count == itemsUnloaded.count + itemsRejected.count
-    }
+        let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
+        let itemsDeliveredCount = (itemsDelivered != nil) ? itemsDelivered.count : 0
+        let itemsRejectedCount = (itemsRejected != nil) ? itemsRejected.count : 0
 
-    var canBeRejected: Bool {
-        return itemsOrdered.count == itemsRejected.count
+        return itemsOrderedCount == itemsDeliveredCount + itemsRejectedCount
     }
 
     var contact: Contact {
@@ -99,13 +97,40 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var itemsOnTruck: [Product] {
-        var remainingItemsOnTruck = itemsOrdered
-
-        for item in itemsUnloaded {
-            remainingItemsOnTruck.removeObject(item)
+        var itemsOnTruck = [Product]()
+        for itemOrdered in itemsOrdered {
+            itemsOnTruck.append(itemOrdered as! Product)
+        }
+        for itemRejected in itemsRejected {
+            itemsOnTruck.append(itemRejected as! Product)
         }
 
-        return remainingItemsOnTruck
+        let newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
+
+        for gtinDelivered in gtinsDelivered {
+            for (i, item) in enumerate(newItemsOnTruck) {
+                if gtinDelivered == (item as! Product).gtin {
+                    newItemsOnTruck.removeObjectAtIndex(i)
+                    break
+                }
+            }
+        }
+
+        for gtinRejected in gtinsRejected {
+            for (i, item) in enumerate(newItemsOnTruck) {
+                if gtinRejected == (item as! Product).gtin {
+                    newItemsOnTruck.removeObjectAtIndex(i)
+                    break
+                }
+            }
+        }
+
+        itemsOnTruck = [Product]()
+        for item in newItemsOnTruck {
+            itemsOnTruck.append(item as! Product)
+        }
+
+        return itemsOnTruck
     }
 
     var regionIdentifier: String {
@@ -117,39 +142,66 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(item: Product) {
-        itemsRejected.addObject(item)
-    }
-
-    func approveItem(item: Product) {
-        let newItemsRejected = NSMutableArray(array: itemsRejected)
-
-        for (i, rejectedItem) in enumerate(itemsRejected) {
-            if (rejectedItem as! Product).gtin == item.gtin {
-                newItemsRejected.removeObjectAtIndex(i)
-                itemsRejected = newItemsRejected
+        println("items delivered/rejected before rejectItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
+        let newItemsDelivered = NSMutableArray(array: itemsDelivered)
+        for (i, deliveredItem) in enumerate(itemsDelivered) {
+            if (deliveredItem as! Product).gtin == item.gtin {
+                newItemsDelivered.removeObjectAtIndex(i)
+                itemsDelivered = newItemsDelivered
                 break
             }
         }
+
+        item.rejected = true
+        itemsRejected.addObject(item)
+        println("items delivered/rejected after rejectItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
+        updateManifest()
     }
 
-    func unloadItem(item: Product) {
-        itemsUnloaded.append(item)
+    func deliverItem(item: Product) {
+        println("items delivered/rejected before deliverItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
+
+        if item.rejected {
+            let newItemsRejected = NSMutableArray(array: itemsRejected)
+            for (i, rejectedItem) in enumerate(itemsRejected) {
+                if (rejectedItem as! Product).gtin == item.gtin {
+                    newItemsRejected.removeObjectAtIndex(i)
+                    itemsRejected = newItemsRejected
+                    break
+                }
+            }
+
+            item.rejected = false
+        }
+
+        itemsDelivered.addObject(item)
+        println("items delivered/rejected after deliverItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
+
+        updateManifest()
     }
 
-    func loadItem(item: Product) {
-        itemsUnloaded.removeObject(item)
-    }
-
-    func canUnloadGtin(gtin: String) -> Bool {
-        return gtinOrderedCount(gtin) > gtinUnloadedCount(gtin)
+    func canUnloadGtin(gtin: String!) -> Bool {
+        return gtinOrderedCount(gtin) > gtinDeliveredCount(gtin)
     }
 
     func canRejectGtin(gtin: String!) -> Bool {
-        return gtinOrderedCount(gtin) > gtinUnloadedCount(gtin) + gtinRejectedCount(gtin)
+        return gtinDeliveredCount(gtin) > 0
+    }
+
+    var gtinsOrdered: [String] {
+        var gtinsOrdered = [String]()
+        for product in itemsOrdered {
+            gtinsOrdered.append((product as! Product).gtin)
+        }
+        return gtinsOrdered
     }
 
     var gtinsDelivered: [String] {
-        return itemsUnloaded.map { $0.gtin }
+        var gtinsDelivered = [String]()
+        for product in itemsDelivered {
+            gtinsDelivered.append((product as! Product).gtin)
+        }
+        return gtinsDelivered
     }
 
     var gtinsRejected: [String] {
@@ -160,22 +212,28 @@ class WorkOrder: Model, MKAnnotation {
         return gtinsRejected
     }
 
+    func gtinOrderedCount(gtin: String!) -> Int {
+        var gtinOrderedCount = 0
+        for gtinOrdered in gtinsOrdered {
+            gtinOrderedCount += 1
+        }
+        return gtinOrderedCount
+    }
+
     func gtinRejectedCount(gtin: String!) -> Int {
         var gtinRejectedCount = 0
-        for product in itemsRejected {
-            if (product as! Product).gtin == gtin {
-                gtinRejectedCount += 1
-            }
+        for gtinRejected in gtinsRejected {
+            gtinRejectedCount += 1
         }
         return gtinRejectedCount
     }
 
-    func gtinOrderedCount(gtin: String) -> Int {
-        return itemsOrdered.filter { $0.gtin == gtin }.count
-    }
-
-    func gtinUnloadedCount(gtin: String) -> Int {
-        return itemsUnloaded.filter { $0.gtin == gtin }.count
+    func gtinDeliveredCount(gtin: String!) -> Int {
+        var gtinDeliveredCount = 0
+        for gtinDelivered in gtinsDelivered {
+            gtinDeliveredCount += 1
+        }
+        return gtinDeliveredCount
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
@@ -212,7 +270,18 @@ class WorkOrder: Model, MKAnnotation {
         ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }
 
-    func updateDeliveredItems(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func updateManifest() {
+        updateManifest(
+            onSuccess: { statusCode, mappingResult in
+
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
+    }
+
+    func updateManifest(onSuccess: OnSuccess, onError: OnError) {
         let params = [
             "gtins_delivered": gtinsDelivered,
             "gtins_rejected": gtinsRejected

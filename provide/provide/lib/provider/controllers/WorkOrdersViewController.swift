@@ -533,9 +533,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        let itemsUnloaded = WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded
-        for product in itemsUnloaded {
-            products.append(product)
+        if let itemsDelivered = WorkOrderService.sharedService().inProgressWorkOrder.itemsDelivered {
+            for product in itemsDelivered.objectEnumerator().allObjects {
+                products.append(product as! Product)
+            }
         }
         return products
     }
@@ -549,8 +550,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return products
     }
 
-    func summaryLabelTextForSignatureViewController(viewController: SignatureViewController) -> String {
-        return "Received \(WorkOrderService.sharedService().inProgressWorkOrder.itemsUnloaded.count) item(s) in good condition"
+    func summaryLabelTextForSignatureViewController(viewController: SignatureViewController) -> String! {
+        return "Received \(WorkOrderService.sharedService().inProgressWorkOrder.itemsDelivered.count) item(s) in good condition"
     }
 
     func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
@@ -570,14 +571,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             workOrder.attach(signature, params: params,
                 onSuccess: { statusCode, responseString in
-                    workOrder.updateDeliveredItems(
-                        onSuccess: { statusCode, responseString in
-                            log("updated delivered items!")
-                        },
-                        onError: { error, statusCode, responseString in
 
-                        }
-                    )
                 },
                 onError: { error, statusCode, responseString in
                     

@@ -14,6 +14,8 @@ class Product: Model {
     var gtin: String!
     var data: [String: AnyObject]!
 
+    var rejected = false
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([

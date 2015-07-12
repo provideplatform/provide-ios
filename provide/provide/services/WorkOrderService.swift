@@ -23,7 +23,11 @@ class WorkOrderService: NSObject {
         return workOrders.findFirst { $0.status == "en_route" || $0.status == "in_progress" } // can be en_route or in_progress
     }
 
-    private var workOrders = [WorkOrder]()
+    private var workOrders = [WorkOrder]() {
+        didSet {
+            setRejectedItemFlags(workOrders)
+        }
+    }
 
     private static let sharedInstance = WorkOrderService()
 
@@ -37,6 +41,15 @@ class WorkOrderService: NSObject {
 
     func setWorkOrdersUsingRoute(route: Route) {
         workOrders = route.workOrders
+    }
+
+    private func setRejectedItemFlags(workOrders: [WorkOrder]) {
+        for workOrder in workOrders {
+            var itemsRejected = workOrder.itemsRejected
+            for itemRejected in itemsRejected {
+                (itemRejected as! Product).rejected = true
+            }
+        }
     }
 
     func fetch(page: Int = 1,
@@ -62,6 +75,8 @@ class WorkOrderService: NSObject {
         ApiService.sharedService().fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedWorkOrders = mappingResult.array() as! [WorkOrder]
+                self.setRejectedItemFlags(fetchedWorkOrders)
+
                 self.workOrders += fetchedWorkOrders
 
                 onWorkOrdersFetched(workOrders: fetchedWorkOrders)

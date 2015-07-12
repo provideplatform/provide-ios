@@ -400,9 +400,23 @@ class ApiService: NSObject {
                 request.setValue(value, forHTTPHeaderField: name)
             }
 
+<<<<<<< HEAD
             if [.POST, .PUT].contains(method) {
                 for key in params.keys {
                     let value: AnyObject? = params[key]
+=======
+            var jsonParams: String!
+            if let p = params {
+                jsonParams = params?.toJSON() // FIXME-- make sure content type is suitable for this operation
+            } else {
+                jsonParams = "{}"
+            }
+
+            if contains([.POST, .PUT], method) {
+                params = NSMutableDictionary(dictionary: params)
+                for key in params.allKeys {
+                    let value: AnyObject? = params.objectForKey(key)
+>>>>>>> d077516... Fix bugs relating to delivering and rejecting inventory items on packing slip
                     if value != nil && value!.isKindOfClass(NSArray) {
                         let newValue = NSMutableArray()
                         for item in (value as! NSArray) {
@@ -416,7 +430,11 @@ class ApiService: NSObject {
                     }
                 }
 
+<<<<<<< HEAD
                 request.HTTPBody = params.toJSONString().dataUsingEncoding(NSUTF8StringEncoding)
+=======
+                request.HTTPBody = jsonParams!.dataUsingEncoding(NSUTF8StringEncoding)
+>>>>>>> d077516... Fix bugs relating to delivering and rejecting inventory items on packing slip
             }
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
@@ -426,6 +444,7 @@ class ApiService: NSObject {
                     { operation, mappingResult in
                         AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path,
                                                                                                       "statusCode": operation.HTTPRequestOperation.response.statusCode,
+                                                                                                      "params": jsonParams,
                                                                                                       "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
 
                         onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode,
@@ -439,10 +458,12 @@ class ApiService: NSObject {
                         if receivedResponse {
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": responseString,
                                                                                                        "statusCode": statusCode,
+                                                                                                       "params": jsonParams,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
                         } else if let err = error {
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription,
                                                                                                        "code": err.code,
+                                                                                                       "params": jsonParams,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
                         }
 

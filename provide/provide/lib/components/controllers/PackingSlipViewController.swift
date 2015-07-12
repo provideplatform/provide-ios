@@ -27,6 +27,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     private var barcodeScannerViewController: BarcodeScannerViewController!
     private var productToUnload: Product!
+    private var productToUnloadWasRejected = false
 
     private var deliverItem: UIBarButtonItem!
     private var abandonItem: UIBarButtonItem!
@@ -170,11 +171,17 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     // MARK: PackingSlipItemTableViewCellDelegate
 
+    func segmentForPackingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell) -> PackingSlipViewController.Segment! {
+        if let packingSlipToolbarSegmentedControl = packingSlipToolbarSegmentedControl {
+            return Segment.allValues[packingSlipToolbarSegmentedControl.selectedSegmentIndex]
+        }
+        return nil
+    }
+
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
                 workOrder.rejectItem(rejectedProduct)
-                workOrder.loadItem(rejectedProduct)
 
                 packingSlipTableView.reloadData()
 
@@ -206,6 +213,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadRejectedProduct product: Product!) {
+        productToUnloadWasRejected = true
+        packingSlipItemTableViewCell(cell, shouldAttemptToUnloadProduct: product)
+    }
+
     // MARK: BarcodeScannerViewControllerDelegate
 
     func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
@@ -229,8 +241,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             if let product = productToUnload {
                 if product.gtin == gtin {
                     if workOrder.canUnloadGtin(gtin) {
-                        workOrder.approveItem(product)
-                        workOrder.unloadItem(product)
+                        workOrder.deliverItem(product)
 
                         dispatch_after_delay(0.0) {
                             self.packingSlipTableView.reloadData()
@@ -274,6 +285,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     private func dismissBarcodeScannerViewController() {
         productToUnload = nil
+        productToUnloadWasRejected = false
 
         dismissViewController(animated: true)
     }
