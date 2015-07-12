@@ -111,6 +111,21 @@ class Route: Model {
         return itemsNotLoaded
     }
 
+    var itemsOrdered: [Product] {
+        var itemsOrdered = [Product]()
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = (workOrder as! WorkOrder).itemsOrdered {
+                    for product in products {
+                        itemsOrdered.append(product as! Product)
+                    }
+                }
+            }
+        }
+
+        return itemsOrdered
+    }
+
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
         for workOrder in workOrders.reverse() {
@@ -122,15 +137,19 @@ class Route: Model {
         return itemsDelivered
     }
 
-    var itemsOrdered: [Product] {
-        var itemsOrdered = [Product]()
-        for workOrder in workOrders.reverse() {
-            for product in workOrder.itemsOrdered {
-                itemsOrdered.append(product)
+    var itemsRejected: [Product] {
+        var itemsRejected = [Product]()
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = (workOrder as! WorkOrder).itemsRejected {
+                    for product in products {
+                        itemsRejected.append(product as! Product)
+                    }
+                }
             }
         }
 
-        return itemsOrdered
+        return itemsRejected
     }
 
     var itemsToLoadCountRemaining: Int {

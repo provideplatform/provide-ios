@@ -41,7 +41,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
                     items.append(product)
                 }
             case .Rejected:
-                items = route.itemsNotLoaded
+                items = route.itemsRejected
             }
         }
         return items

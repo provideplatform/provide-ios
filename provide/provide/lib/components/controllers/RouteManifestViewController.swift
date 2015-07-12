@@ -75,14 +75,16 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 for product in route.itemsLoaded {
                     items.append(product)
                 }
-            case .Required:
-                items = route.itemsNotLoaded
-            }
-        case .Unloading:
-            switch UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
-            case .OnTruck:
-                for product in route.itemsLoaded {
-                    items.append(product)
+            case .Unloading:
+                switch UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
+                case .OnTruck:
+                    if let itemsLoaded = route.itemsLoaded {
+                        for product in itemsLoaded {
+                            items.append(product as! Product)
+                        }
+                    }
+                case .Delivered:
+                    items = route.itemsDelivered
                 }
             case .Delivered:
                 items = route.itemsNotLoaded
@@ -305,16 +307,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     func complete() {
-<<<<<<< HEAD
-        if self.route.itemsLoaded.count == 0 {
-            self.route.complete(onSuccess: { (statusCode, mappingResult) -> () in
-                self.refreshNavigationItem()
-                self.delegate?.routeUpdated(self.route, byViewController: self)
-            }, onError: { (error, statusCode, responseString) -> () in
-                self.refreshNavigationItem()
-                self.delegate?.routeUpdated(self.route, byViewController: self)
-            })
-=======
         if let route = route {
             if route.itemsLoaded.count == 0 {
                 route.complete(
@@ -328,7 +320,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                     }
                 )
             }
->>>>>>> 1fe4695... Fix crashlytics #22
         }
     }
 
