@@ -8,20 +8,15 @@
 
 import Foundation
 
-@objc
 protocol DirectionsViewControllerDelegate {
-
     func isPresentingDirections() -> Bool
     func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
     func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView!
     func navbarPromptForDirectionsViewController(viewController: ViewController!) -> String!
-
-    optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-
-    optional func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode
-
-    optional func targetViewForViewController(viewController: ViewController) -> UIView
+    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
+    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode
+    func targetViewForViewController(viewController: ViewController) -> UIView
 }
 
 class DirectionsViewController: ViewController {
@@ -53,7 +48,7 @@ class DirectionsViewController: ViewController {
                 refreshInstructions()
                 renderRouteOverview()
 
-                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {
                     if let prompt =  directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
                         navigationItem.prompt = prompt
                     } else {
@@ -75,8 +70,8 @@ class DirectionsViewController: ViewController {
 
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate!
 
-    private var targetView: UIView! {
-        return directionsViewControllerDelegate.targetViewForViewController?(self)
+    private var targetView: UIView {
+        return directionsViewControllerDelegate.targetViewForViewController(self)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -373,7 +368,7 @@ class DirectionsViewController: ViewController {
             }
         }
 
-        if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+        if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {
             navigationItem.prompt = nil
         }
 

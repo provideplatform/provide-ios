@@ -633,7 +633,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return viewingDirections
     }
 
-    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView {
+    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView! {
         return mapView
     }
 
