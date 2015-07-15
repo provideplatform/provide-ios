@@ -34,6 +34,11 @@ extension Array {
         return nil
     }
 
+    func toJSON() -> String! {
+        let jsonData = encodeJSON(self as! AnyObject)
+        return NSString(bytes: jsonData.bytes, length: jsonData.length, encoding: NSUTF8StringEncoding) as! String
+    }
+
     mutating func removeObject<U: Equatable>(object: U) {
         var index: Int?
         for (idx, objectToCompare) in self.enumerate() {
