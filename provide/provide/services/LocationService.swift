@@ -133,8 +133,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.count > 0 {
-            let location = locations.last!
-            if abs(location.timestamp.timeIntervalSinceNow) < 1.0 && location.horizontalAccuracy >= 0.0 && location.horizontalAccuracy <= 50.0 && location.verticalAccuracy <= 10.0 {
+            let location = locations.last as! CLLocation
+            if location.isAccurate {
                 locationResolved(location)
             }
         }
@@ -149,7 +149,6 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     private func locationResolved(location: CLLocation) {
         log("Resolved current location: \(location)")
-        //AnalyticsService.sharedService().track("Location resolved", properties: ["latitude": location.coordinate.latitude, "longitude": location.coordinate.longitude])
 
         currentLocation = location
 
@@ -201,7 +200,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if abs(newHeading.timestamp.timeIntervalSinceNow) < 5.0 && newHeading.headingAccuracy >= 0.0 {
+        if abs(newHeading.timestamp.timeIntervalSinceNow) < 1.0 && newHeading.headingAccuracy >= 0.0 {
             headingResolved(newHeading)
         }
     }
