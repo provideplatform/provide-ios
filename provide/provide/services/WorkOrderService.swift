@@ -56,7 +56,8 @@ class WorkOrderService: NSObject {
         rpp: Int = 10,
         status: String = "scheduled",
         today: Bool = false,
-        onWorkOrdersFetched: OnWorkOrdersFetched)
+        excludeRoutes: Bool = true,
+        onWorkOrdersFetched: OnWorkOrdersFetched!)
     {
         var params: [String: AnyObject] = [
             "page": page,
@@ -70,6 +71,10 @@ class WorkOrderService: NSObject {
             let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString
 
             params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
+        }
+
+        if excludeRoutes {
+            params.setObject("true", forKey: "exclude_routes")
         }
 
         ApiService.sharedService().fetchWorkOrders(params,
