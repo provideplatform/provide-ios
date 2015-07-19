@@ -184,16 +184,16 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 },
                 completion: nil
             )
-
-            UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseIn,
-                animations: {
-                    if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
-                    }
-                },
-                completion: nil
-            )
         }
+
+        UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseIn,
+            animations: {
+                if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                }
+            },
+            completion: nil
+        )
     }
 
     override func unwind() {
@@ -248,9 +248,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
                 abandonItem.enabled = abandomItemEnabled
 
+                navigationItem.prompt = "You have arrived"
                 navigationItem.leftBarButtonItems = [deliverItem]
                 navigationItem.rightBarButtonItems = [abandonItem]
             } else {
+                navigationItem.prompt = ""
                 navigationItem.leftBarButtonItems = []
                 navigationItem.rightBarButtonItems = []
 
