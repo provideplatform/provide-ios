@@ -320,8 +320,6 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(true)
-
             attemptSegueToValidRouteContext()
         }
     }
