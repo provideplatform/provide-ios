@@ -29,7 +29,7 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         }
     }
 
-    var product: Product! {
+    weak var product: Product! {
         didSet {
             nameLabel?.text = product.name
             mpnLabel?.text = product.gtin
@@ -108,7 +108,12 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         if let segment = packingSlipItemTableViewCellDelegate?.segmentForPackingSlipItemTableViewCell(self) {
             switch segment {
             case .OnTruck:
-                packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadProduct: product)
+                if product.rejected {
+                    packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadRejectedProduct: product)
+                } else {
+                    packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadProduct: product)
+                }
+
             case .Unloaded:
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, didRejectProduct: product)
             case .Rejected:

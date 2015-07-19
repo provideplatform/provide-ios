@@ -309,16 +309,14 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
-                workOrder.rejectItem(rejectedProduct)
-
-                dispatch_after_delay(0.0) {
-                    self.packingSlipTableView.reloadData()
-                }
-
                 if let route = RouteService.sharedService().inProgressRoute {
                     route.loadManifestItemByGtin(rejectedProduct.gtin,
                         onSuccess: { statusCode, responseString in
+                            workOrder.rejectItem(rejectedProduct)
 
+                            dispatch_after_delay(0.0) {
+                                self.packingSlipTableView.reloadData()
+                            }
                         },
                         onError: { error, statusCode, responseString in
 
@@ -382,29 +380,26 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     private func unloadItem(gtin: String) {
+        let productToUnloadWasRejected = self.productToUnloadWasRejected
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let product = productToUnload {
                 if product.gtin == gtin {
                     if workOrder.canUnloadGtin(gtin) {
-                        workOrder.deliverItem(product)
-
-                        dispatch_after_delay(0.0) {
-                            self.packingSlipTableView.reloadData()
-                        }
-
                         if let route = RouteService.sharedService().inProgressRoute {
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
+                                    product.rejected = productToUnloadWasRejected
+                                    workOrder.deliverItem(product)
 
+                                    dispatch_after_delay(0.0) {
+                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                        self.packingSlipTableView.reloadData()
+                                    }
                                 },
                                 onError: { error, statusCode, responseString in
 
                                 }
                             )
-                        }
-
-                        dispatch_after_delay(0.0) {
-                            self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: false)
                         }
 
                         dismissBarcodeScannerViewController()

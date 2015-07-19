@@ -110,7 +110,7 @@ class WorkOrder: Model, MKAnnotation {
             itemsOnTruck.append(itemRejected as! Product)
         }
 
-        let newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
+        var newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
 
         for gtinDelivered in gtinsDelivered {
             for (i, item) in enumerate(newItemsOnTruck) {
@@ -147,40 +147,31 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(item: Product) {
-        println("items delivered/rejected before rejectItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
-        let newItemsDelivered = NSMutableArray(array: itemsDelivered)
-        for (i, deliveredItem) in enumerate(itemsDelivered) {
-            if (deliveredItem as! Product).gtin == item.gtin {
-                newItemsDelivered.removeObjectAtIndex(i)
-                itemsDelivered = newItemsDelivered
-                break
-            }
+        var newItemsDelivered = [Product]()
+        for product in itemsDelivered.reverseObjectEnumerator().allObjects {
+            newItemsDelivered.append(product as! Product)
         }
+        newItemsDelivered.removeObject(item)
+        itemsDelivered = NSMutableArray(array: newItemsDelivered.reverse())
 
         item.rejected = true
         itemsRejected.addObject(item)
-        println("items delivered/rejected after rejectItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
+
         updateManifest()
     }
 
     func deliverItem(item: Product) {
-        println("items delivered/rejected before deliverItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
-
         if item.rejected {
-            let newItemsRejected = NSMutableArray(array: itemsRejected)
-            for (i, rejectedItem) in enumerate(itemsRejected) {
-                if (rejectedItem as! Product).gtin == item.gtin {
-                    newItemsRejected.removeObjectAtIndex(i)
-                    itemsRejected = newItemsRejected
-                    break
-                }
+            var newItemsRejected = [Product]()
+            for product in itemsRejected {
+                newItemsRejected.append(product as! Product)
             }
-
-            item.rejected = false
+            newItemsRejected.removeObject(item)
+            itemsRejected = NSMutableArray(array: newItemsRejected)
         }
 
+        item.rejected = false
         itemsDelivered.addObject(item)
-        println("items delivered/rejected after deliverItem(): \(itemsDelivered) ////////////////// \(itemsRejected)")
 
         updateManifest()
     }
