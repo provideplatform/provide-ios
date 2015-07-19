@@ -103,6 +103,14 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             session.stopRunning()
             captureSession = nil
         }
+
+        if NSThread.isMainThread() {
+            clearDetectedMetadataObjects()
+        } else {
+            dispatch_sync(dispatch_get_main_queue()) {
+                self.clearDetectedMetadataObjects()
+            }
+        }
     }
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate
@@ -117,7 +125,9 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     private func clearDetectedMetadataObjects() {
-        codeDetectionLayer.sublayers = nil
+        if let codeDetectionLayer = codeDetectionLayer {
+            codeDetectionLayer.sublayers = nil
+        }
     }
 
     private func showDetectedMetadataObjects(metadataObjects: [AnyObject]) {

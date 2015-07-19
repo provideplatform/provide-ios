@@ -89,11 +89,14 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
 
+            navigationController.pushViewController(self.cameraViewController, animated: true)
+
             if let barcodeScannerViewController = barcodeScannerViewController {
-                barcodeScannerViewController.stopScanner()
+                dispatch_after_delay(0.0) {
+                    barcodeScannerViewController.stopScanner()
+                }
             }
 
-            navigationController.pushViewController(cameraViewController, animated: true)
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                 animations: {
                     let offsetHeight =  UIApplication.sharedApplication().statusBarFrame.size.height
@@ -434,7 +437,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
                     self.barcodeScannerViewController.stopScanner()
                 }
-
             }
         } else {
             dismissViewController(animated: true)
