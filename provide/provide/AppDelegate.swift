@@ -108,6 +108,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if currentRoute.id == routeId {
                     log("received update for current route id \(routeId)")
                 }
+            } else {
+                if let nextRoute = RouteService.sharedService().nextRoute {
+                    if nextRoute.id == routeId {
+                        log("received update for next route id \(routeId)")
+                    }
+                }
+                NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
             }
         case .WorkOrder:
             let workOrderId = notificationValue as! Int
