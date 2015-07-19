@@ -59,8 +59,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         packingSlipToolbarSegmentedControl.tintColor = UIColor.whiteColor()
         packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
-
-//        packingSlipTableView.backgroundView = UIImageView(image: UIImage("navbar-background"))
         navigationItem.titleView = packingSlipToolbarSegmentedControl
 
         let cameraIconImage = FAKFontAwesome.cameraRetroIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
@@ -89,6 +87,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         if let navigationController = navigationController {
             if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                 setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+            }
+
+            if let barcodeScannerViewController = barcodeScannerViewController {
+                barcodeScannerViewController.stopScanner()
             }
 
             navigationController.pushViewController(cameraViewController, animated: true)
@@ -202,18 +204,29 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             barcodeScannerViewController.stopScanner()
         }
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                self.view.alpha = 0
-                self.view.frame = CGRect(
-                    x: 0.0,
-                    y: self.view.frame.origin.y + self.view.frame.height,
-                    width: self.view.frame.width,
-                    height: self.view.frame.height
-                )
-            },
-            completion: nil
-        )
+        if let navigationController = navigationController {
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    self.view.alpha = 0.0
+                    navigationController.view.alpha = 0.0
+                    navigationController.view.frame = self.hiddenNavigationControllerFrame
+                },
+                completion: nil
+            )
+        } else {
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    self.view.alpha = 0
+                    self.view.frame = CGRect(
+                        x: 0.0,
+                        y: self.view.frame.origin.y + self.view.frame.height,
+                        width: self.view.frame.width,
+                        height: self.view.frame.height
+                    )
+                },
+                completion: nil
+            )
+        }
     }
 
     // MARK: Navigation item
@@ -319,7 +332,22 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         if isSimulator() { // HACK!!!
             unloadItem(product.gtin)
         } else {
-            presentViewController(barcodeScannerViewController, animated: true)
+            if let cameraViewController = cameraViewController {
+                if cameraViewController.isRunning {
+                    cameraViewController.teardownBackCameraView()
+                }
+            }
+
+            if let barcodeScannerViewController = barcodeScannerViewController {
+                barcodeScannerViewController.setupBarcodeScannerView()
+            }
+
+            if let navigationController = navigationController {
+                barcodeScannerViewController.navigationItem.title = "SCAN \(product.name)"
+                navigationController.pushViewController(barcodeScannerViewController, animated: true)
+            } else {
+                presentViewController(barcodeScannerViewController, animated: true)
+            }
         }
     }
 
@@ -397,13 +425,24 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         productToUnload = nil
         productToUnloadWasRejected = false
 
-        dismissViewController(animated: true)
+        if let navigationController = navigationController {
+            dispatch_after_delay(0.0) {
+                navigationController.popViewControllerAnimated(true)
+
+                dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+                    self.barcodeScannerViewController.stopScanner()
+                }
+
+            }
+        } else {
+            dismissViewController(animated: true)
+        }
     }
 
     // MARK: CameraViewControllerDelegate
 
     func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!) {
-        self.cameraViewControllerCanceled(viewController)
+        cameraViewControllerCanceled(viewController)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             let location = LocationService.sharedService().currentLocation

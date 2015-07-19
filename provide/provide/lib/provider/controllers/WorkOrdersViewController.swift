@@ -441,14 +441,19 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return slidingViewController()
     }
 
+    private func popManagedNavigationController() -> UINavigationController! {
+        if let viewController = managedViewControllers.last as? UINavigationController {
+            return managedViewControllers.removeLast() as! UINavigationController
+        }
+        return nil
+    }
+
     func nextWorkOrderContextShouldBeRewound() {
         while managedViewControllers.count > 0 {
+            let managedNavigationController = popManagedNavigationController()
+
             let viewController = managedViewControllers.removeLast()
             unwindManagedViewController(viewController)
-
-            if let nextViewController = managedViewControllers.last as? UINavigationController {
-                managedViewControllers.removeLast()
-            }
         }
 
         assert(managedViewControllers.count == 0)

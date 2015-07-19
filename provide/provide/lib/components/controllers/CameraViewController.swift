@@ -39,6 +39,22 @@ class CameraViewController: ViewController, CameraViewDelegate {
         return nil
     }
 
+    var isRunning: Bool {
+        if let backCameraView = backCameraView {
+            if backCameraView.isRunning {
+                return true
+            }
+        }
+
+        if let frontCameraView = frontCameraView {
+            if frontCameraView.isRunning {
+                return true
+            }
+        }
+
+        return false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,6 +80,14 @@ class CameraViewController: ViewController, CameraViewDelegate {
         button.makeCircular()
 
         renderDefaultButtonAppearance()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+
+        if !isRunning {
+            setupBackCameraView()
+        }
     }
 
     func captureFrame() {
@@ -100,6 +124,14 @@ class CameraViewController: ViewController, CameraViewDelegate {
 
         view.bringSubviewToFront(frontCameraView)
         view.bringSubviewToFront(button)
+    }
+
+    func teardownBackCameraView() {
+        backCameraView?.stopCapture()
+    }
+
+    func teardownFrontCameraView() {
+        frontCameraView?.stopCapture()
     }
 
     func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!) {

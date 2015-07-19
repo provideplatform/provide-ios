@@ -33,6 +33,13 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         backgroundColor = UIColor.clearColor()
     }
 
+    var isRunning: Bool {
+        if let captureSession = captureSession {
+            return captureSession.running
+        }
+        return false
+    }
+
     func startScanner() {
         if captureSession != nil {
             return

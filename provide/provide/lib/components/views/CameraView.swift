@@ -52,6 +52,13 @@ class CameraView: UIView {
         backgroundColor = UIColor.clearColor()
     }
 
+    var isRunning: Bool {
+        if let captureSession = captureSession {
+            return captureSession.running
+        }
+        return false
+    }
+
     func startBackCameraCapture() {
         startCapture(backCamera)
     }
