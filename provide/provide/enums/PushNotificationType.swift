@@ -9,13 +9,14 @@
 enum PushNotificationType: String {
     case CheckIn = "checkin"
     case Message = "message"
+    case Route = "route_id"
     case WorkOrder = "work_order_id"
 
     var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [CheckIn, Message, WorkOrder]
+    static let allTypes = [CheckIn, Message, Route, WorkOrder]
 
     static func typeAndValueFromUserInfo(userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject) {
         for type in allTypes {
