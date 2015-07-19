@@ -221,10 +221,6 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         navigationItem.rightBarButtonItems = []
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     func render() {
         if mode == .Loading && route.status != "loading" {
             load()
