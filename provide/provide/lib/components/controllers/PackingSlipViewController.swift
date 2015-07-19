@@ -311,12 +311,14 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
                 workOrder.rejectItem(rejectedProduct)
 
-                packingSlipTableView.reloadData()
+                dispatch_after_delay(0.0) {
+                    self.packingSlipTableView.reloadData()
+                }
 
                 if let route = RouteService.sharedService().inProgressRoute {
                     route.loadManifestItemByGtin(rejectedProduct.gtin,
                         onSuccess: { statusCode, responseString in
-                            log("loaded manifest item by gtin...")
+
                         },
                         onError: { error, statusCode, responseString in
 
