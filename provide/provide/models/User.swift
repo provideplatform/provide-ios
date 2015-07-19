@@ -34,5 +34,11 @@ class User: Model {
 // MARK: - Functions
 
 func currentUser() -> User {
-    return KeyChainService.sharedService().token!.user
+    var user: User!
+    while user == nil {
+        if let token = KeyChainService.sharedService().token {
+            user = token.user
+        }
+    }
+    return user
 }
