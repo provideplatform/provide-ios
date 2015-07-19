@@ -27,7 +27,16 @@ class CameraView: UIView {
 
     private var stillCameraOutput: AVCaptureStillImageOutput!
 
-    private var frontCamera: AVCaptureDevice? {
+    private var backCamera: AVCaptureDevice! {
+        for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
+            if device.position == .Back {
+                return device as! AVCaptureDevice
+            }
+        }
+        return nil
+    }
+
+    private var frontCamera: AVCaptureDevice! {
         for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
             if device.position == .Front {
                 return device as? AVCaptureDevice
@@ -43,55 +52,67 @@ class CameraView: UIView {
         backgroundColor = UIColor.clearColor()
     }
 
-    func startCapture() {
+    func startBackCameraCapture() {
+        startCapture(backCamera)
+    }
+
+    func startFrontCameraCapture() {
+        startCapture(frontCamera)
+    }
+
+    func startCapture(device: AVCaptureDevice) {
         if captureSession != nil {
-            return
+            stopCapture()
         }
 
-        if let device = frontCamera {
-            do {
-                try device.lockForConfiguration()
-                if device.isFocusModeSupported(.ContinuousAutoFocus) {
-                    device.focusMode = .ContinuousAutoFocus
-                } else if device.isFocusModeSupported(.AutoFocus) {
-                    device.focusMode = .AutoFocus
-                }
+        var error: NSError?
 
-                device.unlockForConfiguration()
-            } catch let error as NSError {
-                logError(error)
+        if device.lockForConfiguration(&error) {
+            if device.isFocusModeSupported(.ContinuousAutoFocus) {
+                device.focusMode = .ContinuousAutoFocus
+            } else if device.isFocusModeSupported(.AutoFocus) {
+                device.focusMode = .AutoFocus
             }
 
-            let input: AVCaptureDeviceInput!
-            do {
-                input = try AVCaptureDeviceInput(device: device)
-            } catch let error as NSError {
-                logError(error)
-                input = nil
-            }
-
-            captureSession = AVCaptureSession()
-            captureSession.sessionPreset = AVCaptureSessionPresetHigh
-            captureSession.addInput(input)
-
-            capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            capturePreviewLayer.frame = bounds
-            capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            layer.addSublayer(capturePreviewLayer)
-
-            stillCameraOutput = AVCaptureStillImageOutput()
-            if captureSession.canAddOutput(stillCameraOutput) {
-                captureSession.addOutput(stillCameraOutput)
-            }
-
-            captureSession.startRunning()
+            device.unlockForConfiguration()
         }
+
+        if let error = error {
+            logError(error)
+        }
+
+        let input = AVCaptureDeviceInput(device: device, error: &error)
+
+        if let error = error {
+            logError(error)
+        }
+
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+        captureSession.addInput(input)
+
+        capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        capturePreviewLayer.frame = bounds
+        capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        layer.addSublayer(capturePreviewLayer)
+
+        stillCameraOutput = AVCaptureStillImageOutput()
+        if captureSession.canAddOutput(stillCameraOutput) {
+            captureSession.addOutput(stillCameraOutput)
+        }
+
+        captureSession.startRunning()
     }
 
     func stopCapture() {
         if let session = captureSession {
             session.stopRunning()
             captureSession = nil
+        }
+
+        if let previewLayer = capturePreviewLayer {
+            previewLayer.removeFromSuperlayer()
+            capturePreviewLayer = nil
         }
     }
 
@@ -112,7 +133,7 @@ class CameraView: UIView {
                 let connection = cameraOutput.connectionWithMediaType(AVMediaTypeVideo)
                 connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
 
-                self.stillCameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { imageDataSampleBuffer, error in
+                cameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { imageDataSampleBuffer, error in
                     if error == nil {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
 

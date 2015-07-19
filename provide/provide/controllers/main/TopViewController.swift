@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopViewController: ViewController, SelfieViewControllerDelegate {
+class TopViewController: ViewController, CameraViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
 
     // MARK: SelfieViewController
 
-    func selfieViewController(viewController: SelfieViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         navigationController?.popViewControllerAnimated(false)
 
         let data = UIImageJPEGRepresentation(image, 1.0)!
@@ -53,12 +53,12 @@ class TopViewController: ViewController, SelfieViewControllerDelegate {
         )
     }
 
-    func selfieViewControllerCanceled(viewController: SelfieViewController) {
+    func cameraViewControllerCanceled(viewController: CameraViewController) {
         navigationController?.popViewControllerAnimated(false)
     }
 
     private func initSelfieViewController() {
-        let selfieViewController = UIStoryboard("Selfie").instantiateInitialViewController() as! SelfieViewController
+        let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
         navigationController?.pushViewController(selfieViewController, animated: false)
