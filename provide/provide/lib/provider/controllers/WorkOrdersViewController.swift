@@ -651,7 +651,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func routeForViewController(viewController: ViewController) -> Route! {
         let routeService = RouteService.sharedService()
         var route: Route!
-        if canAttemptSegueToUnloadingRoute {
+        if canAttemptSegueToLoadingRoute {
+            route = routeService.loadingRoute
+        } else if canAttemptSegueToUnloadingRoute {
             route = routeService.unloadingRoute
         } else {
             route = routeService.inProgressRoute

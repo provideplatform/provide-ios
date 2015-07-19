@@ -224,7 +224,9 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        if mode == .Unloading && route.itemsLoaded.count == 0 {
+        if mode == .Loading && route.status != "loading" {
+            load()
+        } else if mode == .Unloading && route.itemsLoaded.count == 0 {
             complete()
         }
     }
@@ -304,6 +306,21 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
             }
         )
+    }
+
+    func load() {
+        if let route = route {
+            route.load(
+                onSuccess: { statusCode, mappingResult in
+                    self.refreshNavigationItem()
+                    self.delegate?.routeUpdated?(route, byViewController: self)
+                },
+                onError: { error, statusCode, responseString in
+                    self.refreshNavigationItem()
+                    self.delegate?.routeUpdated?(route, byViewController: self)
+                }
+            )
+        }
     }
 
     func complete() {
