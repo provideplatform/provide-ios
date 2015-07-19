@@ -40,18 +40,13 @@ extension Array {
     }
 
     mutating func removeObject<U: Equatable>(object: U) {
-        var index: Int?
-        for (idx, objectToCompare) in self.enumerate() {
+        for (index, objectToCompare) in enumerate(self) {
             if let to = objectToCompare as? U {
                 if object == to {
-                    index = idx
+                    removeAtIndex(index)
                     break
                 }
             }
-        }
-
-        if index != nil {
-            removeAtIndex(index!)
         }
     }
 }
