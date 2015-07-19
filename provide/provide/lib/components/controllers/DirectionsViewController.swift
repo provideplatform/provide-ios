@@ -207,8 +207,8 @@ class DirectionsViewController: ViewController {
                                 self.lastRegionCrossed = region
                                 self.lastRegionCrossing = NSDate()
 
-                                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
                                 self.regions.removeObject(region)
+                                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
 
                                 if let directions = self.directions {
                                     if let currentLeg = directions.selectedRoute.currentLeg {
@@ -268,8 +268,8 @@ class DirectionsViewController: ViewController {
     private func unregisterMonitoredRegions() {
         if let regions = regions {
             for region in regions {
-                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
                 self.regions.removeObject(region)
+                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
             }
         }
     }
