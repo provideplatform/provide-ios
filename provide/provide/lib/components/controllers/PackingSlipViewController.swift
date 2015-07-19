@@ -13,7 +13,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                  UITableViewDataSource,
                                  UITableViewDelegate,
                                  PackingSlipItemTableViewCellDelegate,
-                                 BarcodeScannerViewControllerDelegate {
+                                 BarcodeScannerViewControllerDelegate,
+                                 CameraViewControllerDelegate {
 
     enum Segment {
         case OnTruck, Unloaded, Rejected
@@ -21,9 +22,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         static let allValues = [Unloaded, OnTruck, Rejected]
     }
 
-    @IBOutlet private weak var packingSlipToolbarView: UIView!
-    @IBOutlet private weak var packingSlipToolbarSegmentedControl: UISegmentedControl!
+    private var packingSlipToolbarSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var packingSlipTableView: UITableView!
+
+    private var cameraViewController: CameraViewController!
 
     private var barcodeScannerViewController: BarcodeScannerViewController!
     private var productToUnload: Product!
@@ -45,21 +47,32 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
+    private var usingCamera = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = UIColor.clearColor()
 
-        packingSlipToolbarView.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(),
-                                                                                     rect: CGRect(x: 0.0, y: 0.0, width: view.frame.width, height: view.frame.height)).colorWithAlphaComponent(0.7)
-
+        packingSlipToolbarSegmentedControl = UISegmentedControl(items: ["UNLOADED", "ON TRUCK", "REJECTED"])
+        packingSlipToolbarSegmentedControl.selectedSegmentIndex = 1
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
+        packingSlipToolbarSegmentedControl.tintColor = UIColor.whiteColor()
+        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
 
-        packingSlipTableView.backgroundView = UIImageView(image: UIImage("navbar-background"))
+//        packingSlipTableView.backgroundView = UIImageView(image: UIImage("navbar-background"))
+        navigationItem.titleView = packingSlipToolbarSegmentedControl
+
+        let cameraIconImage = FAKFontAwesome.cameraRetroIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        let cameraBarButtonItem = UIBarButtonItem(image: cameraIconImage, style: .Plain, target: self, action: "cameraButtonTapped:")
+        cameraBarButtonItem.tintColor = UIColor.whiteColor()
+        navigationItem.rightBarButtonItem = cameraBarButtonItem
 
         barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
         barcodeScannerViewController.delegate = self
+
+        cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
+        cameraViewController.delegate = self
     }
 
     @objc private func segmentChanged(sender: UISegmentedControl) {
@@ -70,37 +83,115 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    override func render() {
-        let frame = CGRect(
+    func cameraButtonTapped(sender: UIButton) {
+        usingCamera = true
+
+        if let navigationController = navigationController {
+            if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+            }
+
+            navigationController.pushViewController(cameraViewController, animated: true)
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    let offsetHeight =  UIApplication.sharedApplication().statusBarFrame.size.height
+                    navigationController.view.frame = self.presentedViewFrame
+                    navigationController.navigationBar.frame.size.height += offsetHeight
+                    self.packingSlipTableView.frame.origin.y += offsetHeight
+                },
+                completion: nil
+            )
+        }
+    }
+
+    private var hiddenNavigationControllerFrame: CGRect {
+        return CGRect(
             x: 0.0,
             y: targetView.frame.height,
             width: targetView.frame.width,
-            height: view.frame.height
+            height: targetView.frame.height / 1.75
         )
+    }
+
+    private var renderedNavigationControllerFrame: CGRect {
+        return CGRect(
+            x: 0.0,
+            y: hiddenNavigationControllerFrame.origin.y - hiddenNavigationControllerFrame.height,
+            width: hiddenNavigationControllerFrame.width,
+            height: hiddenNavigationControllerFrame.height
+        )
+    }
+
+    private var presentedViewFrame: CGRect {
+        if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
+            return CGRect(
+                x: 0.0,
+                y: navigationController.view.frame.origin.y,
+                width: targetView.frame.width,
+                height: targetView.frame.height
+            )
+        }
+
+        return CGRect(
+            x: 0.0,
+            y: targetView.frame.origin.y,
+            width: targetView.frame.width,
+            height: targetView.frame.height
+        )
+    }
+
+    override func render() {
+        let frame = hiddenNavigationControllerFrame
 
         view.alpha = 0.0
         view.frame = frame
 
         view.addDropShadow(CGSizeMake(1.0, 1.0), radius: 2.5, opacity: 1.0)
 
-        targetView.addSubview(view)
+        if let navigationController = navigationController {
+            navigationController.view.alpha = 0.0
+            navigationController.view.frame = hiddenNavigationControllerFrame
+            targetView.addSubview(navigationController.view)
+            targetView.bringSubviewToFront(navigationController.view)
 
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    self.view.alpha = 1
+                    navigationController.view.alpha = 1
+                    navigationController.view.frame = CGRect(
+                        x: frame.origin.x,
+                        y: frame.origin.y - navigationController.view.frame.height,
+                        width: frame.width,
+                        height: frame.height
+                    )
+                },
+                completion: nil
+            )
+        } else {
+            targetView.addSubview(view)
+
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    self.view.alpha = 1
+                    self.view.frame = CGRect(
+                        x: frame.origin.x,
+                        y: frame.origin.y - self.view.frame.height,
+                        width: frame.width,
+                        height: frame.height
+                    )
+                },
+                completion: nil
+            )
+
+            UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseIn,
+                animations: {
+                    if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                    }
+                },
+                completion: nil
+            )
         }
-
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                self.view.alpha = 1
-                self.view.frame = CGRect(
-                    x: frame.origin.x,
-                    y: frame.origin.y - self.view.frame.height,
-                    width: frame.width,
-                    height: frame.height
-                )
-            },
-            completion: nil
-        )
     }
 
     override func unwind() {
@@ -129,14 +220,31 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     func setupNavigationItem(deliverItemEnabled: Bool = false, abandomItemEnabled: Bool = true) {
         if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
-            deliverItem = UIBarButtonItem.plainBarButtonItem(title: "DELIVER", target: self, action: "deliver:")
-            deliverItem.enabled = deliverItemEnabled
+            if !usingCamera {
+                if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
+                    navigationController.setNavigationBarHidden(false, animated: true)
+                }
 
-            abandonItem = UIBarButtonItem.plainBarButtonItem(title: "ABANDON", target: self, action: "abandon:")
-            abandonItem.enabled = abandomItemEnabled
+                deliverItem = UIBarButtonItem(title: "DELIVER", style: .Plain, target: self, action: "deliver:")
+                deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                deliverItem.enabled = deliverItemEnabled
 
-            navigationItem.leftBarButtonItem = deliverItem
-            navigationItem.rightBarButtonItem = abandonItem
+                abandonItem = UIBarButtonItem(title: "ABANDON", style: .Plain, target: self, action: "abandon:")
+                abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                abandonItem.enabled = abandomItemEnabled
+
+                navigationItem.leftBarButtonItems = [deliverItem]
+                navigationItem.rightBarButtonItems = [abandonItem]
+            } else {
+                navigationItem.leftBarButtonItems = []
+                navigationItem.rightBarButtonItems = []
+
+                if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
+                    navigationController.setNavigationBarHidden(true, animated: true)
+                }
+            }
         }
     }
 
@@ -290,5 +398,52 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         productToUnloadWasRejected = false
 
         dismissViewController(animated: true)
+    }
+
+    // MARK: CameraViewControllerDelegate
+
+    func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!) {
+        self.cameraViewControllerCanceled(viewController)
+
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            let location = LocationService.sharedService().currentLocation
+
+            let params = [
+                "latitude": location.coordinate.latitude,
+                "longitude": location.coordinate.longitude,
+                "tags": "photo, delivery",
+                "public": false
+            ]
+
+            workOrder.attach(image, params: params,
+                onSuccess: { (statusCode, mappingResult) -> () in
+                    // TODO: show success
+                },
+                onError: { (error, statusCode, responseString) -> () in
+
+                }
+            )
+        }
+    }
+
+    func cameraViewControllerCanceled(viewController: CameraViewController!) {
+        if let navigationController = navigationController {
+            navigationController.popViewControllerAnimated(true)
+            usingCamera = false
+
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    let offsetHeight = UIApplication.sharedApplication().statusBarFrame.size.height
+                    navigationController.view.frame = self.renderedNavigationControllerFrame
+                    navigationController.navigationBar.frame.size.height -= offsetHeight
+                    self.packingSlipTableView.frame.origin.y -= offsetHeight
+                },
+                completion: nil
+            )
+
+            if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+            }
+        }
     }
 }

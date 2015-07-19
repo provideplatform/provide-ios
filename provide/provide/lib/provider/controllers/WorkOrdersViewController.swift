@@ -31,13 +31,13 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     optional func drivingDirectionsToNextWorkOrderForViewController(viewController: ViewController) -> Directions!
 
     // next work order context and related segue callbacks
-    optional func managedViewControllersForViewController(viewController: ViewController!) -> [ViewController]
+    optional func managedViewControllersForViewController(viewController: UIViewController!) -> [UIViewController]
     optional func nextWorkOrderContextShouldBeRewound()
-    optional func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController)
-    optional func unwindManagedViewController(viewController: ViewController)
-    optional func confirmationRequiredForWorkOrderViewController(viewController: ViewController)
-    optional func confirmationCanceledForWorkOrderViewController(viewController: ViewController)
-    optional func confirmationReceivedForWorkOrderViewController(viewController: ViewController)
+    optional func nextWorkOrderContextShouldBeRewoundForViewController(viewController: UIViewController)
+    optional func unwindManagedViewController(viewController: UIViewController)
+    optional func confirmationRequiredForWorkOrderViewController(viewController: UIViewController)
+    optional func confirmationCanceledForWorkOrderViewController(viewController: UIViewController)
+    optional func confirmationReceivedForWorkOrderViewController(viewController: UIViewController)
 
     // in progress work order context and related segue callbacks
     // packing slip
@@ -72,7 +72,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         "WorkOrderDestinationConfirmationViewControllerSegue",
     ]
 
-    private var managedViewControllers = [ViewController]()
+    private var managedViewControllers = [UIViewController]()
     private var updatingWorkOrderContext = false
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
@@ -445,15 +445,19 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         while managedViewControllers.count > 0 {
             let viewController = managedViewControllers.removeLast()
             unwindManagedViewController(viewController)
+
+            if let nextViewController = managedViewControllers.last as? UINavigationController {
+                managedViewControllers.removeLast()
+            }
         }
 
         assert(managedViewControllers.count == 0)
     }
 
     func nextWorkOrderContextShouldBeRewoundForViewController(viewController: ViewController) {
-        if let i = managedViewControllers.indexOf(viewController) {
+        if let i = find(managedViewControllers, viewController) {
             if viewController is WorkOrderAnnotationViewController {
-                shouldRemoveMapAnnotationsForWorkOrderViewController(viewController)
+                shouldRemoveMapAnnotationsForWorkOrderViewController(viewController as! WorkOrderAnnotationViewController)
             } else {
                 unwindManagedViewController(viewController)
             }
@@ -673,7 +677,13 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController {
         var vc: WorkOrderComponentViewController!
         if let componentIdentifier = WorkOrderService.sharedService().inProgressWorkOrder.currentComponentIdentifier {
-            vc = UIStoryboard(componentIdentifier).instantiateInitialViewController() as! WorkOrderComponentViewController
+            let initialViewController: UIViewController = UIStoryboard(componentIdentifier).instantiateInitialViewController() as! UIViewController
+            if initialViewController.isKindOfClass(UINavigationController) {
+                managedViewControllers.append(initialViewController)
+                vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
+            } else {
+                vc = initialViewController as! WorkOrderComponentViewController
+            }
         }
         return vc
     }
