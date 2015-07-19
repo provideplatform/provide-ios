@@ -102,6 +102,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
             NSNotificationCenter.defaultCenter().postNotificationName("NewMessageReceivedNotification", object: message)
+        case .Route:
+            let routeId = notificationValue as! NSNumber
+            if let currentRoute = RouteService.sharedService().currentRoute {
+                if currentRoute.id == routeId {
+                    log("received update for current route id \(routeId)")
+                }
+            }
         case .WorkOrder:
             let workOrderId = notificationValue as! Int
             if let providerRemoved = userInfo["provider_removed"] as? Bool {
@@ -109,9 +116,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     log("provider removed from work order id \(workOrderId)")
                 }
             } else {
-                if WorkOrderService.sharedService().inProgressWorkOrder != nil {
-                    if WorkOrderService.sharedService().inProgressWorkOrder.id == workOrderId {
-                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId,
+                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    if inProgressWorkOrder.id == workOrderId.integerValue {
+                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue,
                             onSuccess: { statusCode, mappingResult in
                                 if let wo = mappingResult.firstObject as? WorkOrder {
                                     if wo.status == "canceled" {

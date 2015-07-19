@@ -115,6 +115,17 @@ class RouteService: NSObject {
         }
     }
 
+    var currentRoute: Route! {
+        if let route = loadingRoute {
+            return route
+        } else if let route = inProgressRoute {
+            return route
+        } else if let route = unloadingRoute {
+            return route
+        }
+        return nil
+    }
+
     var nextRoute: Route! {
         return routes.findFirst { $0.status == "scheduled" }
     }
