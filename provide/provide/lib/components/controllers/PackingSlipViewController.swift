@@ -307,25 +307,40 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
+        dispatch_after_delay(0.0) {
+            self.showHUD(inView: self.targetView)
+        }
+
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
                 if let route = RouteService.sharedService().inProgressRoute {
                     route.loadManifestItemByGtin(rejectedProduct.gtin,
                         onSuccess: { statusCode, responseString in
-                            workOrder.rejectItem(rejectedProduct)
+                            workOrder.rejectItem(rejectedProduct,
+                                onSuccess: { statusCode, mappingResult in
+                                    dispatch_after_delay(0.0) {
+                                        self.packingSlipTableView.reloadData()
 
-                            dispatch_after_delay(0.0) {
-                                self.packingSlipTableView.reloadData()
-                            }
+                                        self.hideHUD(inView: self.targetView)
+                                    }
+                                },
+                                onError: { error, statusCode, responseString in
+                                    dispatch_after_delay(0.0) {
+                                        self.packingSlipTableView.reloadData()
+                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+
+                                        self.hideHUD(inView: self.targetView)
+                                    }
+                                }
+                            )
                         },
                         onError: { error, statusCode, responseString in
-
+                            dispatch_after_delay(0.0) {
+                                self.packingSlipTableView.reloadData()
+                                self.hideHUD(inView: self.targetView)
+                            }
                         }
                     )
-                }
-
-                dispatch_after_delay(0.0) {
-                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
                 }
             }
         }
@@ -380,6 +395,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     private func unloadItem(gtin: String) {
+        dispatch_after_delay(0.0) {
+            self.showHUD(inView: self.targetView)
+        }
+
         let productToUnloadWasRejected = self.productToUnloadWasRejected
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let product = productToUnload {
@@ -389,12 +408,26 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
                                     product.rejected = productToUnloadWasRejected
-                                    workOrder.deliverItem(product)
+                                    workOrder.deliverItem(product,
+                                        onSuccess: { statusCode, mappingResult in
+                                            dispatch_after_delay(0.0) {
+                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.packingSlipTableView.reloadData()
 
-                                    dispatch_after_delay(0.0) {
-                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
-                                        self.packingSlipTableView.reloadData()
-                                    }
+                                                self.hideHUD(inView: self.targetView)
+                                            }
+                                        },
+                                        onError: { error, statusCode, responseString in
+                                            dispatch_after_delay(0.0) {
+                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.packingSlipTableView.reloadData()
+
+                                                self.hideHUD(inView: self.targetView)
+                                            }
+                                        }
+                                    )
+
+
                                 },
                                 onError: { error, statusCode, responseString in
 

@@ -146,7 +146,7 @@ class WorkOrder: Model, MKAnnotation {
         return 50.0
     }
 
-    func rejectItem(item: Product) {
+    func rejectItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
         var newItemsDelivered = [Product]()
         for product in itemsDelivered.reverseObjectEnumerator().allObjects {
             newItemsDelivered.append(product as! Product)
@@ -157,10 +157,10 @@ class WorkOrder: Model, MKAnnotation {
         item.rejected = true
         itemsRejected.addObject(item)
 
-        updateManifest()
+        updateManifest(onSuccess: onSuccess, onError: onError)
     }
 
-    func deliverItem(item: Product) {
+    func deliverItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
         if item.rejected {
             var newItemsRejected = [Product]()
             for product in itemsRejected {
@@ -173,7 +173,7 @@ class WorkOrder: Model, MKAnnotation {
         item.rejected = false
         itemsDelivered.addObject(item)
 
-        updateManifest()
+        updateManifest(onSuccess: onSuccess, onError: onError)
     }
 
     func canUnloadGtin(gtin: String!) -> Bool {
