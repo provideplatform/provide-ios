@@ -658,25 +658,17 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: RouteManifestViewControllerDelegate
 
     func routeForViewController(viewController: ViewController) -> Route! {
-        let routeService = RouteService.sharedService()
-        var route: Route!
-        if canAttemptSegueToLoadingRoute {
-            route = routeService.loadingRoute
-        } else if canAttemptSegueToUnloadingRoute {
-            route = routeService.unloadingRoute
-        } else {
-            route = routeService.inProgressRoute
+        if let currentRoute = RouteService.sharedService().currentRoute {
+            return currentRoute
         }
-
-        if route == nil {
-            route = routeService.nextRoute
-        }
-        return route
+        return RouteService.sharedService().nextRoute
     }
 
     func routeUpdated(route: Route, byViewController viewController: ViewController) {
-        navigationController?.popViewControllerAnimated(true)
-        attemptSegueToValidRouteContext()
+        dispatch_after_delay(0.0) {
+            self.navigationController?.popViewControllerAnimated(true)
+            self.attemptSegueToValidRouteContext()
+        }
     }
 
     // MARK: WorkOrderComponentViewControllerDelegate
