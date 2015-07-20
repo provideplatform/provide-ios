@@ -607,7 +607,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController) {
-        attemptCompletionOfInProgressWorkOrder()
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
+            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            attemptSegueToValidWorkOrderContext()
+        }
     }
 
     func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController) {
