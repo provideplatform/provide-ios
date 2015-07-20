@@ -23,7 +23,9 @@ extension UIViewController {
     // MARK: MBProgressHUD
 
     func showHUD() {
-        showHUD(inView: view)
+        dispatch_after_delay(0.0) {
+            self.showHUD(inView: self.view)
+        }
     }
 
     func showHUD(inView view: UIView) {
@@ -49,7 +51,9 @@ extension UIViewController {
     }
 
     func hideHUD() {
-        hideHUD(inView: view)
+        dispatch_after_delay(0.0) {
+            self.hideHUD(inView: self.view)
+        }
     }
 
     func hideHUD(inView view: UIView!) {
