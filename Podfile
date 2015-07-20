@@ -10,6 +10,7 @@ pod 'ECSlidingViewController'
 pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont.git'
 pod 'FontAwesomeKit', '~> 2.2.0'
 pod 'JSQMessagesViewController', '~> 7.1.0'
+pod 'MBProgressHUD', '~> 0.9.1'
 pod 'MKNetworkKit', :head
 pod 'OHHTTPStubs', '~> 4.0.2'
 pod 'Reachability'

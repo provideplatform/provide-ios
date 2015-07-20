@@ -15,6 +15,7 @@
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <FontAwesomeKit/FontAwesomeKit.h>
 #import <JSQMessagesViewController/JSQMessages.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 #import <MKNetworkKit/MKNetworkKit.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>
 #import <RestKit/RestKit.h>
