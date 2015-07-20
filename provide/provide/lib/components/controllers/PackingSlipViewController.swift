@@ -395,15 +395,15 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     private func unloadItem(gtin: String) {
-        dispatch_after_delay(0.0) {
-            self.showHUD(inView: self.targetView)
-        }
-
         let productToUnloadWasRejected = self.productToUnloadWasRejected
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let product = productToUnload {
                 if product.gtin == gtin {
                     if workOrder.canUnloadGtin(gtin) {
+                        dispatch_after_delay(0.0) {
+                            self.showHUD(inView: self.targetView)
+                        }
+
                         if let route = RouteService.sharedService().inProgressRoute {
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
