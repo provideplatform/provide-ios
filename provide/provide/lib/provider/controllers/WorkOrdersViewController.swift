@@ -306,9 +306,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
-            mapView.revealMap(true)
+            dispatch_after_delay(0.0) {
+                self.mapView.revealMap(force: true)
 
-            zeroStateViewController?.render(self.view)
+                self.zeroStateViewController?.render(self.view)
+            }
         }
     }
 
