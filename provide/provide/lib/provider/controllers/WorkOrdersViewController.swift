@@ -55,6 +55,10 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     // net promoter
     optional func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController)
     optional func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController)
+
+    // comments
+    optional func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String)
+    optional func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController)
 }
 
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
@@ -614,7 +618,31 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController) {
+    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
+            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            attemptSegueToValidWorkOrderContext()
+
+            workOrder.addComment(comment,
+                onSuccess: { statusCode, responseString in
+                    self.attemptCompletionOfInProgressWorkOrder()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
+    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            attemptCompletionOfInProgressWorkOrder()
+        }
+    }
+
+    func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController!) {
         mapView.removeAnnotations()
     }
 
@@ -696,6 +724,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             if workOrder.components.count == 0 {
                 workOrder.complete(
                     onSuccess: { statusCode, responseString in
+                        self.nextWorkOrderContextShouldBeRewound()
                         self.attemptSegueToValidWorkOrderContext()
                     },
                     onError: { error, statusCode, responseString in

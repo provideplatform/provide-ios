@@ -293,6 +293,18 @@ class ApiService: NSObject {
         )
     }
 
+    // MARK: Comments API
+
+    func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment],
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 201)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: onError
+        )
+    }
+
     // MARK: Route API
 
     func fetchRoutes(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {

@@ -297,6 +297,13 @@ class WorkOrder: Model, MKAnnotation {
             onError: onError)
     }
 
+    func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().addComment(comment,
+            toWorkOrderWithId: id.stringValue,
+            onSuccess: onSuccess,
+            onError: onError)
+    }
+
     func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
         providerRating = netPromoterScore
         ApiService.sharedService().updateWorkOrderWithId(id, params: ["provider_rating": providerRating], onSuccess: onSuccess, onError: onError)
