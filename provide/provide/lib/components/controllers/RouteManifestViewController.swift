@@ -258,6 +258,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                     gtins.append(item.gtin)
                 }
 
+                showHUD()
+
                 ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
                     onSuccess: { statusCode, responseString in
                         let itemsLoaded = NSMutableArray()
@@ -267,21 +269,27 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                         route.itemsLoaded = itemsLoaded as [AnyObject]
                         self.refreshNavigationItem()
                         self.tableView.reloadData()
+
+                        self.hideHUD()
                     },
                     onError: { error, statusCode, responseString in
-
+                        self.hideHUD()
                     }
                 )
             case .Unloading:
+                showHUD()
+
                 for item in route.itemsLoaded {
                     route.unloadManifestItemByGtin((item as! Product).gtin,
                         onSuccess: { statusCode, mappingResult in
+                            self.hideHUD()
+
                             if route.itemsLoaded.count == 0 {
                                 self.complete()
                             }
                         },
                         onError: { (error, statusCode, responseString) -> () in
-                            
+                            self.hideHUD()
                         }
                     )
                 }
@@ -291,27 +299,36 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     @objc private func start(_: UIBarButtonItem) {
         clearNavigationItem()
+
+        showHUD()
+
         route.start(
             onSuccess: { statusCode, responseString in
-                let navigationController = self.delegate?.navigationControllerForViewController(self)
+                self.hideHUD()
+
+                let navigationController = self.delegate?.navigationControllerForViewController?(self)
                 if navigationController != nil {
                     self.delegate?.routeUpdated(self.route, byViewController: self)
                 }
             },
             onError: { error, statusCode, responseString in
-
+                self.hideHUD()
             }
         )
     }
 
     func load() {
         if let route = route {
+            showHUD()
+
             route.load(
                 onSuccess: { statusCode, mappingResult in
                     self.refreshNavigationItem()
+                    self.hideHUD()
                 },
                 onError: { error, statusCode, responseString in
                     self.refreshNavigationItem()
+                    self.hideHUD()
                 }
             )
         }
@@ -320,13 +337,17 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     func complete() {
         if let route = route {
             if route.itemsLoaded.count == 0 {
+                showHUD()
+
                 route.complete(
                     onSuccess: { statusCode, mappingResult in
                         self.refreshNavigationItem()
+                        self.hideHUD()
                         self.delegate?.routeUpdated?(route, byViewController: self)
                     },
                     onError: { error, statusCode, responseString in
                         self.refreshNavigationItem()
+                        self.hideHUD()
                         self.delegate?.routeUpdated?(route, byViewController: self)
                     }
                 )
@@ -356,12 +377,16 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                             acceptingCodes = false
                             processingCode = true
 
+                            showHUD()
+
                             route.loadManifestItemByGtin(value,
                                 onSuccess: { statusCode, responseString in
                                     self.processingCode = false
+                                    self.hideHUD()
                                 },
                                 onError: { error, statusCode, responseString in
                                     self.processingCode = false
+                                    self.hideHUD()
                                 }
                             )
                         }
@@ -370,15 +395,19 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                             acceptingCodes = false
                             processingCode = true
 
+                            showHUD()
+
                             route.unloadManifestItemByGtin(value,
                                 onSuccess: { statusCode, responseString in
                                     self.processingCode = false
+                                    self.hideHUD()
                                     if route.itemsLoaded.count == 0 {
                                         self.complete()
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
                                     self.processingCode = false
+                                    self.hideHUD()
                                 }
                             )
                         }
