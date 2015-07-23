@@ -543,9 +543,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered
-        for product in itemsOrdered {
-            products.append(product)
+        if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
+            for product in itemsOrdered {
+                products.append(product)
+            }
         }
         return products
     }
@@ -557,8 +558,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
         if let itemsDelivered = WorkOrderService.sharedService().inProgressWorkOrder.itemsDelivered {
-            for product in itemsDelivered.objectEnumerator().allObjects {
-                products.append(product as! Product)
+            for product in itemsDelivered {
+                products.append(product)
             }
         }
         return products
@@ -566,9 +567,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
         var products = [Product]()
-        let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected
-        for product in itemsRejected {
-            products.append(product)
+        if let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected {
+            for product in itemsRejected {
+                products.append(product)
+            }
         }
         return products
     }

@@ -27,9 +27,9 @@ class WorkOrder: Model, MKAnnotation {
     var customerRating: NSNumber!
     var attachments: [Attachment]!
     var components: NSMutableArray!
-    var itemsOrdered: NSMutableArray!
-    var itemsDelivered: NSMutableArray!
-    var itemsRejected: NSMutableArray!
+    var itemsOrdered: [Product]!
+    var itemsDelivered: [Product]!
+    var itemsRejected: [Product]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -163,35 +163,28 @@ class WorkOrder: Model, MKAnnotation {
     var itemsOnTruck: [Product] {
         var itemsOnTruck = [Product]()
         for itemOrdered in itemsOrdered {
-            itemsOnTruck.append(itemOrdered as! Product)
+            itemsOnTruck.append(itemOrdered)
         }
         for itemRejected in itemsRejected {
-            itemsOnTruck.append(itemRejected as! Product)
+            itemsOnTruck.append(itemRejected)
         }
 
-        var newItemsOnTruck = NSMutableArray(array: itemsOnTruck)
-
-        for gtinDelivered in gtinsDelivered {
-            for (i, item) in enumerate(newItemsOnTruck) {
-                if gtinDelivered == (item as! Product).gtin {
-                    newItemsOnTruck.removeObjectAtIndex(i)
+        for (i, itemDelivered) in enumerate(itemsDelivered) {
+            for (x, itemOnTruck) in enumerate(itemsOnTruck) {
+                if itemOnTruck.gtin == itemDelivered.gtin {
+                    itemsOnTruck.removeAtIndex(x)
                     break
                 }
             }
         }
 
-        for gtinRejected in gtinsRejected {
-            for (i, item) in enumerate(newItemsOnTruck) {
-                if gtinRejected == (item as! Product).gtin {
-                    newItemsOnTruck.removeObjectAtIndex(i)
+        for (i, itemRejected) in enumerate(itemsRejected) {
+            for (x, itemOnTruck) in enumerate(itemsOnTruck) {
+                if itemOnTruck.gtin == itemRejected.gtin {
+                    itemsOnTruck.removeAtIndex(x)
                     break
                 }
             }
-        }
-
-        itemsOnTruck = [Product]()
-        for item in newItemsOnTruck {
-            itemsOnTruck.append(item as! Product)
         }
 
         return itemsOnTruck
@@ -217,32 +210,32 @@ class WorkOrder: Model, MKAnnotation {
         return 50.0
     }
 
-    func rejectItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
-        var newItemsDelivered = [Product]()
-        for product in itemsDelivered.reverseObjectEnumerator().allObjects {
-            newItemsDelivered.append(product as! Product)
+    func rejectItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
+        for (i, product) in enumerate(itemsDelivered) {
+            if item.gtin == product.gtin {
+                item = itemsDelivered.removeAtIndex(i)
+                break
+            }
         }
-        newItemsDelivered.removeObject(item)
-        itemsDelivered = NSMutableArray(array: newItemsDelivered.reverse())
 
         item.rejected = true
-        itemsRejected.addObject(item)
+        itemsRejected.append(item)
 
         updateManifest(onSuccess: onSuccess, onError: onError)
     }
 
-    func deliverItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
+    func deliverItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
         if item.rejected {
-            var newItemsRejected = [Product]()
-            for product in itemsRejected {
-                newItemsRejected.append(product as! Product)
+            for (i, product) in enumerate(itemsRejected) {
+                if item.gtin == product.gtin {
+                    item = itemsRejected.removeAtIndex(i)
+                    break
+                }
             }
-            newItemsRejected.removeObject(item)
-            itemsRejected = NSMutableArray(array: newItemsRejected)
         }
 
         item.rejected = false
-        itemsDelivered.addObject(item)
+        itemsDelivered.append(item)
 
         updateManifest(onSuccess: onSuccess, onError: onError)
     }
@@ -258,7 +251,7 @@ class WorkOrder: Model, MKAnnotation {
     var gtinsOrdered: [String] {
         var gtinsOrdered = [String]()
         for product in itemsOrdered {
-            gtinsOrdered.append((product as! Product).gtin)
+            gtinsOrdered.append(product.gtin)
         }
         return gtinsOrdered
     }
@@ -266,7 +259,7 @@ class WorkOrder: Model, MKAnnotation {
     var gtinsDelivered: [String] {
         var gtinsDelivered = [String]()
         for product in itemsDelivered {
-            gtinsDelivered.append((product as! Product).gtin)
+            gtinsDelivered.append(product.gtin)
         }
         return gtinsDelivered
     }
@@ -274,7 +267,7 @@ class WorkOrder: Model, MKAnnotation {
     var gtinsRejected: [String] {
         var gtinsRejected = [String]()
         for product in itemsRejected {
-            gtinsRejected.append((product as! Product).gtin)
+            gtinsRejected.append(product.gtin)
         }
         return gtinsRejected
     }
@@ -304,7 +297,15 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchWorkOrderWithId(id, onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().fetchWorkOrderWithId(id.stringValue,
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {
@@ -321,32 +322,80 @@ class WorkOrder: Model, MKAnnotation {
 
     func start(onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "abandoned"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "canceled"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "rejected"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func updateManifest() {
@@ -366,7 +415,15 @@ class WorkOrder: Model, MKAnnotation {
             "gtins_rejected": gtinsRejected
         ]
 
-        ApiService.sharedService().updateWorkOrderWithId(id, params: params, onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: params,
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func attach(image: UIImage, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
@@ -389,6 +446,14 @@ class WorkOrder: Model, MKAnnotation {
 
     func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
         providerRating = netPromoterScore
-        ApiService.sharedService().updateWorkOrderWithId(id, params: ["provider_rating": providerRating], onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["provider_rating": providerRating],
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 }

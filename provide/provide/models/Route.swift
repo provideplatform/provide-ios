@@ -117,7 +117,7 @@ class Route: Model {
                         let gtin = product.gtin
                         if let remainingToLoad = gtinsAccountedForCount[gtin] {
                             if remainingToLoad > 0 {
-                                itemsNotLoaded.append(product as! Product)
+                                itemsNotLoaded.append(product)
                                 gtinsAccountedForCount[gtin] = remainingToLoad - 1
                             }
                         }
@@ -135,7 +135,7 @@ class Route: Model {
             for workOrder in workOrders.reverse() {
                 if let products = workOrder.itemsOrdered {
                     for product in products {
-                        itemsOrdered.append(product as! Product)
+                        itemsOrdered.append(product)
                     }
                 }
             }
@@ -150,7 +150,7 @@ class Route: Model {
             for workOrder in workOrders.reverse() {
                 if let products = workOrder.itemsDelivered {
                     for product in products {
-                        itemsDelivered.append(product as! Product)
+                        itemsDelivered.append(product)
                     }
                 }
             }
@@ -165,7 +165,7 @@ class Route: Model {
             for workOrder in workOrders.reverse() {
                 if let products = workOrder.itemsRejected {
                     for product in products {
-                        itemsRejected.append(product as! Product)
+                        itemsRejected.append(product)
                     }
                 }
             }

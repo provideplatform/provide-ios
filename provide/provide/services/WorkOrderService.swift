@@ -47,9 +47,21 @@ class WorkOrderService: NSObject {
         for workOrder in workOrders {
             var itemsRejected = workOrder.itemsRejected
             for itemRejected in itemsRejected {
-                (itemRejected as! Product).rejected = true
+                itemRejected.rejected = true
             }
         }
+    }
+
+    func updateWorkOrder(workOrder: WorkOrder) {
+        var newWorkOrders = [WorkOrder]()
+        for wo in workOrders {
+            if wo.id == workOrder.id {
+                newWorkOrders.append(workOrder)
+            } else {
+                newWorkOrders.append(wo)
+            }
+        }
+        workOrders = newWorkOrders
     }
 
     func fetch(page: Int = 1,
