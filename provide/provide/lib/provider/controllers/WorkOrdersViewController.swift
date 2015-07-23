@@ -201,11 +201,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: WorkOrder segue state interrogation
 
     private var canAttemptSegueToValidWorkOrderContext: Bool {
-        for route in [RouteService.sharedService().inProgressRoute, RouteService.sharedService().nextRoute] {
-            if route != nil && !route.canStart() {
-                return false
-            }
+        if let loadingRoute = RouteService.sharedService().inProgressRoute {
+            return false
         }
+
         return canAttemptSegueToInProgressWorkOrder || canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToNextWorkOrder
     }
 
@@ -270,15 +269,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         )
     }
 
-    func attemptSegueToCompleteRoute() {
-        var routePendingCompletion: Route!
-        if canAttemptSegueToUnloadInProgressRoute {
-            routePendingCompletion = RouteService.sharedService().inProgressRoute
-        } else {
-            routePendingCompletion = RouteService.sharedService().unloadingRoute
-        }
-
-        if let route = routePendingCompletion {
+    private func attemptSegueToCompleteRoute() {
+        if let route = RouteService.sharedService().currentRoute {
             if let providerOriginAssignment = route.providerOriginAssignment {
                 if let origin = providerOriginAssignment.origin {
                     RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
@@ -308,12 +300,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else if canAttemptSegueToUnloadingRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
+        } else if canAttemptSegueToUnloadInProgressRoute {
+            performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
         } else if canAttemptSegueToInProgressRoute {
-            if canAttemptSegueToUnloadInProgressRoute || canAttemptSegueToUnloadingRoute {
-                performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
-            } else {
-                attemptSegueToValidWorkOrderContext()
-            }
+            attemptSegueToValidWorkOrderContext()
         } else if canAttemptSegueToNextRoute {
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
@@ -627,6 +617,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
             attemptSegueToValidWorkOrderContext()
+
+            attemptCompletionOfInProgressWorkOrder()
         }
     }
 
@@ -649,7 +641,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
             workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            attemptSegueToValidWorkOrderContext()
+
             attemptCompletionOfInProgressWorkOrder()
         }
     }
