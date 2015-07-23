@@ -53,6 +53,10 @@ class WorkOrderService: NSObject {
     }
 
     func updateWorkOrder(workOrder: WorkOrder) {
+        if let currentRoute = RouteService.sharedService().currentRoute {
+            currentRoute.updateWorkOrder(workOrder)
+        }
+
         var newWorkOrders = [WorkOrder]()
         for wo in workOrders {
             if wo.id == workOrder.id {

@@ -40,6 +40,18 @@ class Route: Model {
         return mapping
     }
 
+    func updateWorkOrder(workOrder: WorkOrder) {
+        var newWorkOrders = [WorkOrder]()
+        for wo in workOrders {
+            if wo.id == workOrder.id {
+                newWorkOrders.append(workOrder)
+            } else {
+                newWorkOrders.append(wo)
+            }
+        }
+        workOrders = newWorkOrders
+    }
+
     var overviewPolyline: MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
