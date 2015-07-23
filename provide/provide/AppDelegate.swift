@@ -51,7 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
         }
 
-        launchScreenViewController.view.removeFromSuperview()
+        UIView.animateWithDuration(0.25, delay: 0.1, options: .CurveEaseOut,
+            animations: {
+                self.launchScreenViewController.view.alpha = 0.0
+            },
+            completion: { complete in
+                self.launchScreenViewController.view.removeFromSuperview()
+                self.launchScreenViewController.view.alpha = 1.0
+            }
+        )
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
