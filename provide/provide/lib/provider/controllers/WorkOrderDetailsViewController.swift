@@ -71,7 +71,9 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             let statusCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NameValueTableViewCell
             let durationCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as! NameValueTableViewCell
 
-            durationCell.setName("DURATION", value: workOrder.humanReadableDuration)
+            if let duration = workOrder.humanReadableDuration {
+                durationCell.setName("DURATION", value: duration)
+            }
 
             UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
                 animations: {
