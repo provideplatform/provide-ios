@@ -26,7 +26,15 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet private weak var tableView: UITableView!
 
     private var refreshControl: UIRefreshControl!
-    
+
+    private var zeroStateViewController: ZeroStateViewController! {
+        didSet {
+            if route == nil {
+                refresh()
+            }
+        }
+    }
+
     var route: Route! {
         return delegate?.routeForViewController(self)
     }
@@ -39,6 +47,10 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         return dismissItem
     }
 
+    private func setupZeroStateView() {
+        zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +58,8 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
         refreshNavigationItem()
         setupPullToRefresh()
+
+        setupZeroStateView()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -76,15 +90,42 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func refresh() {
-        route?.reload(
-            onSuccess: { statusCode, mappingResult in
-                self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
-            },
-            onError: { error, statusCode, responseString in
-                self.refreshControl.endRefreshing()
+        if let route = route {
+            route.reload(
+                onSuccess: { statusCode, mappingResult in
+                    self.tableView.reloadData()
+
+                    UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                        animations: {
+                            self.tableView.alpha = 1.0
+                            self.zeroStateViewController.view.alpha = 0.0
+                        },
+                        completion: { complete in
+                            self.refreshControl.endRefreshing()
+                        }
+                    )
+                },
+                onError: { error, statusCode, responseString in
+                    self.refreshControl.endRefreshing()
+                }
+            )
+        } else {
+            zeroStateViewController?.render(view, animated: false)
+            zeroStateViewController?.setLabelText("No active route")
+            zeroStateViewController?.setMessage("")
+
+            if let tableView = tableView {
+                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                    animations: {
+                        tableView.alpha = 0.0
+                        self.zeroStateViewController.view.alpha = 1.0
+                    },
+                    completion: { complete in
+                        self.refreshControl.endRefreshing()
+                    }
+                )
             }
-        )
+        }
     }
 
     func refreshNavigationItem() {

@@ -40,7 +40,19 @@ class ZeroStateViewController: ViewController {
         view.bringSubviewToFront(messageLabel)
     }
 
+    func setLabelText(labelText: String) {
+        label.text = labelText
+    }
+
+    func setMessage(message: String) {
+        messageLabel.text = message
+    }
+
     func render(targetView: UIView) {
+        render(targetView, animated: true)
+    }
+
+    func render(targetView: UIView, animated: Bool) {
         if let superview = view.superview {
             if targetView == superview {
                 return
@@ -50,24 +62,34 @@ class ZeroStateViewController: ViewController {
         targetView.addSubview(view)
         targetView.bringSubviewToFront(view)
 
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut, animations: { () -> Void in
-            self.view.alpha = 1.0
-            self.view.frame.origin.y -= self.view.frame.height
-        },
-        completion: { (completed) -> Void in
+        if animated {
+            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
+                animations: {
+                    self.view.alpha = 1.0
+                    self.view.frame.origin.y -= self.view.frame.height
+                },
+                completion: { completed in
+                    
+                }
+            )
+        } else {
+            view.alpha = 1.0
+            view.frame.origin.y -= view.frame.height
+        }
 
-        })
     }
 
     func dismiss() {
-        if let _ = view.superview {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn, animations: { () -> Void in
-                self.view.alpha = 0.0
-                self.view.frame.origin.y += self.view.frame.height
-            },
-            completion: { (completed) -> Void in
-                self.view.removeFromSuperview()
-            })
+        if let superview = view.superview {
+            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                animations: {
+                    self.view.alpha = 0.0
+                    self.view.frame.origin.y += self.view.frame.height
+                },
+                completion: { completed in
+                    self.view.removeFromSuperview()
+                }
+            )
         }
     }
 }
