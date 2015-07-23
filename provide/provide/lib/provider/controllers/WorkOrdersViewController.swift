@@ -64,6 +64,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
+                                                RouteViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
                                                 ManifestViewControllerDelegate {
 
@@ -89,6 +90,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         navigationItem.hidesBackButton = true
 
         loadRouteContext()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteViewController) == false {
+                self.performSegueWithIdentifier("RouteViewControllerSegue", sender: self)
+            }
+        }
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
@@ -370,6 +377,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             LocationService.sharedService().enableNavigationAccuracy()
 
             (segue.destinationViewController as! DirectionsViewController).directionsViewControllerDelegate = self
+        case "RouteViewControllerSegue":
+            assert(segue.destinationViewController is RouteViewController)
+            (segue.destinationViewController as! RouteViewController).delegate = self
         case "ManifestViewControllerSegue":
             assert(segue.destinationViewController is ManifestViewController)
             (segue.destinationViewController as! ManifestViewController).delegate = self

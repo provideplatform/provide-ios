@@ -27,6 +27,9 @@ class MenuViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         switch reuseIdentifier {
+        case "RouteCell":
+            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
+            segueToInitialViewControllerInStoryboard(storyboardName)
         case "ManifestCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
