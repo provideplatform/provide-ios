@@ -17,6 +17,7 @@ class WorkOrder: Model, MKAnnotation {
     var customer: Customer!
     var desc: String!
     var workOrderProviders = [WorkOrderProvider]()
+    var scheduledStartAt: String!
     var startedAt: String!
     var endedAt: String!
     var duration: NSNumber!
@@ -24,7 +25,7 @@ class WorkOrder: Model, MKAnnotation {
     var status: String!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
-    var attachments: NSArray!
+    var attachments: [Attachment]!
     var components: NSMutableArray!
     var itemsOrdered: NSMutableArray!
     var itemsDelivered: NSMutableArray!
@@ -49,9 +50,16 @@ class WorkOrder: Model, MKAnnotation {
 
         mapping.addAttributeMappingsFromDictionary([
             "description": "desc",
-            ]
-        )
-
+            "scheduled_start_at": "scheduledStartAt",
+            "started_at": "startedAt",
+            "ended_at": "endedAt",
+            "duration": "duration",
+            "estimated_duration": "estimatedDuration",
+            "status": "status",
+            "provider_rating": "providerRating",
+            "customer_rating": "customerRating",
+            "components": "components"
+            ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
@@ -61,6 +69,57 @@ class WorkOrder: Model, MKAnnotation {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
+    }
+
+    var scheduledStartAtDate: NSDate! {
+        if let scheduledStartAt = scheduledStartAt {
+            return NSDate.fromString(scheduledStartAt)
+        }
+        return nil
+    }
+
+    var startedAtDate: NSDate! {
+        if let startedAt = startedAt {
+            return NSDate.fromString(startedAt)
+        }
+        return nil
+    }
+
+    var endedAtDate: NSDate! {
+        if let endedAt = endedAt {
+            return NSDate.fromString(endedAt)
+        }
+        return nil
+    }
+
+    var humanReadableDuration: String! {
+        if let startedAtDate = startedAtDate {
+            var seconds = 0.0
+
+            if let endedAtDate = endedAtDate {
+                seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)
+            } else {
+                seconds = NSDate().timeIntervalSinceDate(startedAtDate)
+            }
+
+            let hours = Int(floor(Double(seconds) / 3600.0))
+            seconds = Double(seconds) % 3600.0
+            let minutes = Int(floor(Double(seconds) / 60.0))
+            seconds = floor(Double(seconds) % 60.0)
+
+            let hoursString = hours >= 1 ? "\(hours):" : ""
+            let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
+            let secondsString = seconds < 10 ? "0\(Int(seconds))" : "\(Int(seconds))"
+            return "\(hoursString)\(minutesString):\(secondsString)"
+        }
+        return nil
+    }
+
+    var inventoryDisposition: String! {
+        if itemsDelivered != nil && itemsOrdered != nil {
+            return "\(itemsDelivered.count) of \(itemsOrdered.count) items delivered"
+        }
+        return nil
     }
 
     var canBeDelivered: Bool {
@@ -136,6 +195,18 @@ class WorkOrder: Model, MKAnnotation {
         }
 
         return itemsOnTruck
+    }
+
+    var imageCount: Int {
+        var imageCount = 0
+        if let attachments = attachments {
+            for attachment in attachments {
+                if attachment.mimeType == "image/png" || attachment.mimeType == "image/jpg" || attachment.mimeType == "image/jpeg" {
+                    imageCount++
+                }
+            }
+        }
+        return imageCount
     }
 
     var regionIdentifier: String {
@@ -236,7 +307,19 @@ class WorkOrder: Model, MKAnnotation {
         ApiService.sharedService().fetchWorkOrderWithId(id, onSuccess: onSuccess, onError: onError)
     }
 
-    func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchAttachments(forWorkOrderWithId: id.stringValue,
+            onSuccess: { statusCode, mappingResult in
+                self.attachments = mappingResult.array() as! [Attachment]
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func start(onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
         ApiService.sharedService().updateWorkOrderWithId(id, params: ["status": status], onSuccess: onSuccess, onError: onError)
     }

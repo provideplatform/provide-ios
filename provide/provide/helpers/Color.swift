@@ -45,4 +45,32 @@ class Color {
     class func polylineStrokeColor() -> UIColor {
         return UIColor(red: 0.392, green: 0.706, blue: 0.820, alpha: 1.0)
     }
+
+    class func scheduledStatusColor() -> UIColor {
+        return UIColor("#ffffff")
+    }
+
+    class func enRouteStatusColor() -> UIColor {
+        return UIColor("#ffffff")
+    }
+
+    class func inProgressStatusColor() -> UIColor {
+        return UIColor("#12620B")
+    }
+
+    class func canceledStatusColor() -> UIColor {
+        return UIColor("#fdc554")
+    }
+
+    class func abandonedStatusColor() -> UIColor {
+        return UIColor("#ff503f")
+    }
+
+    class func pendingCompletionStatusColor() -> UIColor {
+        return UIColor("#f89406")
+    }
+
+    class func completedStatusColor() -> UIColor {
+        return UIColor("#dff0d8")
+    }
 }

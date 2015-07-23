@@ -135,14 +135,14 @@ class ApiService: NSObject {
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
 
-                self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
+                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
                         var realParams = params
                         realParams["key"] = attachment!.fields["key"]!
                         realParams["mime_type"] = mimeType
 
-                        let url = attachment!.url + (attachment!.fields["key"] as! String)
-                        realParams["url"] = url
+                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                        realParams.setObject(url, forKey: "url")
 
                         self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
@@ -269,20 +269,24 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func fetchAttachments(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
 
-                self.uploadToS3(NSURL(attachment!.url)!, data: data, withMimeType: mimeType, params: attachment!.fields,
+                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: attachment!.fields,
                     onSuccess: { statusCode, mappingResult in
                         var realParams = params
                         realParams["key"] =  attachment!.fields["key"]!
                         realParams["mime_type"] = mimeType
 
-                        let url = attachment!.url + (attachment!.fields["key"] as! String)
-                        realParams["url"] = url
+                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                        realParams.setObject(url, forKey: "url")
 
                         self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },

@@ -23,6 +23,8 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         return delegate?.routeForViewController(self)
     }
 
+    private var selectedWorkOrder: WorkOrder!
+
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
@@ -33,6 +35,15 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
 
         refreshNavigationItem()
+
+        tableView.frame = view.bounds
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "WorkOrderDetailsViewControllerSegue" {
+            (segue.destinationViewController as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
+            selectedWorkOrder = nil
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -71,6 +82,15 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     }
 
     // MARK: UITableViewDelegate
+
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        selectedWorkOrder = route.workOrders[indexPath.row] as! WorkOrder
+        return indexPath
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     // MARK: UITableViewDataSource
 

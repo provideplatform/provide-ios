@@ -188,7 +188,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private var canAttemptSegueToInProgressRoute: Bool {
-        return RouteService.sharedService().inProgressRoute?.status == "in_progress"
+        return RouteService.sharedService().inProgressRoute != nil
     }
 
     private var canAttemptSegueToUnloadInProgressRoute: Bool {
