@@ -12,4 +12,12 @@ extension UIImage {
     convenience init!(_ imageName: String) {
         self.init(named: imageName)
     }
+
+    func resize(rect: CGRect) -> UIImage! {
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        drawInRect(rect)
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
 }
