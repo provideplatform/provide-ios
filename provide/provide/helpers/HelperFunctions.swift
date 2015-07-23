@@ -92,6 +92,15 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
     return fileAsString as! String
 }
 
+func windowBounds() -> CGRect {
+    return UIApplication.sharedApplication().keyWindow!.bounds
+}
+
+func pluralizedPhrase(count: Int, phrase: String, _ suffix: String? = nil) -> String {
+    let phrase = count == 1 ? "\(count) \(phrase)" : "\(count) \(phrase)s"
+    return suffix == nil ? phrase : "\(phrase) \(suffix!)"
+}
+
 func isRunningKIFTests() -> Bool {
     if let injectBundle = ENV("XCInjectBundle") {
         return injectBundle.lastPathComponent.hasSuffix("KIFTests.xctest")
