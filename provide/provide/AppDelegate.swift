@@ -15,12 +15,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private var launchScreenViewController: UIViewController!
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if !isSimulator() {
             Crashlytics.startWithAPIKey("0e160bf5b619e0ad44f93215d487d78bf8536287")
         }
 
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
+
+        launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
 
         RKLogConfigureFromEnvironment()
 
@@ -37,12 +41,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidEnterBackground(application: UIApplication) {
         AnalyticsService.sharedService().track("App Entered Background", properties: [:])
+
+        window!.addSubview(launchScreenViewController.view)
+        window!.bringSubviewToFront(launchScreenViewController.view)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
         if ApiService.hasCachedToken() {
             NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
         }
+
+        launchScreenViewController.view.removeFromSuperview()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
