@@ -68,7 +68,7 @@ class Route: Model {
     }
 
     func canStart() -> Bool {
-        return incompleteManifest == false
+        return status == "loading" && itemsLoaded.count == itemsOrdered.count
     }
 
     var completedAllWorkOrders: Bool {
@@ -86,7 +86,6 @@ class Route: Model {
                 return false
             }
         }
-
         return true
     }
 
@@ -111,7 +110,7 @@ class Route: Model {
         }
 
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
+            for workOrder in workOrders.reverse() {
                 if let products = workOrder.itemsOrdered {
                     for product in products {
                         let gtin = product.gtin
