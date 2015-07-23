@@ -143,8 +143,12 @@ class RouteLegStep: Model {
         return nil
     }
 
-    var currentShapeCoordinate: CLLocationCoordinate2D {
-        return shapeCoordinates[currentShapeIndex]
+    var currentShapeCoordinate: CLLocationCoordinate2D! {
+        let currentShapeIndex = self.currentShapeIndex
+        if currentShapeIndex < shapeCoordinates.count - 1 {
+            return shapeCoordinates[currentShapeIndex]
+        }
+        return nil
     }
 
     var shapeCoordinates: [CLLocationCoordinate2D] {

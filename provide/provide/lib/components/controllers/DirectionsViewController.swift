@@ -213,7 +213,11 @@ class DirectionsViewController: ViewController {
                                 if let directions = self.directions {
                                     if let currentLeg = directions.selectedRoute.currentLeg {
                                         if let currentStep = currentLeg.currentStep {
-                                            let identifier = currentStep.identifier + "_\(currentStep.currentShapeCoordinate.latitude),\(currentStep.currentShapeCoordinate.longitude)"
+                                            var identifier = ""
+                                            if let currentShapeCoordinate = currentStep.currentShapeCoordinate {
+                                                identifier = currentStep.identifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
+                                            }
+
                                             if self.lastRegionCrossed.identifier == identifier {
                                                 currentStep.currentShapeIndex += 1
 
