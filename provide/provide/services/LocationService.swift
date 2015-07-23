@@ -266,17 +266,12 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func unregisterRegionMonitor(identifier: String) {
-        var region: CLRegion!
-        for monitoredRegion in regions {
-            if monitoredRegion.identifier == identifier {
-                region = monitoredRegion
+        for region in regions {
+            if region.identifier == identifier {
+                geofenceCallbacks.removeValueForKey(region.identifier)
+                regions.removeObject(region)
                 break
             }
-        }
-
-        if region != nil {
-            geofenceCallbacks.removeValueForKey(region.identifier)
-            regions.removeObject(region)
         }
     }
 
