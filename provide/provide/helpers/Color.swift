@@ -19,7 +19,11 @@ class Color {
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
-        return UIImage("navbar-background")
+        return windowBounds().size.width > 414.0 ? UIImage("background-lg") : UIImage("background")
+    }
+
+    class func applicationDefaultNavigationBarBackgroundImage() -> UIImage {
+        return UIImage("bar-background")
     }
 
     class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {
