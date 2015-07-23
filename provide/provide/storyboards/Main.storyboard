@@ -531,7 +531,7 @@
                                                         <constraint firstAttribute="width" constant="242" id="UYJ-QK-Yhe"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -598,7 +598,7 @@
                                                         <constraint firstAttribute="width" constant="242" id="azB-Wl-pOf"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -669,7 +669,7 @@
                                                         <constraint firstAttribute="width" constant="242" id="pmA-7f-4e5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -735,7 +735,7 @@
                                                         <constraint firstAttribute="width" constant="242" id="nlx-vo-0TV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">

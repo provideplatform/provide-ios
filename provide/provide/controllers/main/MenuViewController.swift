@@ -13,7 +13,7 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.backgroundColor = Color.menuBackgroundColor()
+        tableView.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame)
 
         alignSections()
     }
