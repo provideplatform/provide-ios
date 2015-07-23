@@ -315,9 +315,13 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateRouteWithId(id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        var realParams = params
-        realParams["id"] = nil
+    func fetchRouteWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("routes/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateRouteWithId(id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
+        let realParams = NSMutableDictionary(dictionary: params)
+        realParams.removeObjectForKey("id")
 
         dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }

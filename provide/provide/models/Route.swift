@@ -189,7 +189,19 @@ class Route: Model {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
-    func load(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func reload(onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchRouteWithId(id.stringValue, params: ["include_work_orders": "true"],
+            onSuccess: { statusCode, mappingResult in
+                RouteService.sharedService().updateRoute(mappingResult.firstObject as! Route)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func load(onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
         ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
     }

@@ -51,6 +51,18 @@ class RouteService: NSObject {
         }
     }
 
+    func updateRoute(route: Route) {
+        var newRoutes = [Route]()
+        for r in routes {
+            if r.id == route.id {
+                newRoutes.append(route)
+            } else {
+                newRoutes.append(r)
+            }
+        }
+        self.routes = newRoutes
+    }
+
     func fetch(page: Int = 1,
         rpp: Int = 10,
         status: String = "scheduled",
