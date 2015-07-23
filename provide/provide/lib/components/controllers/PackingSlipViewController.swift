@@ -29,7 +29,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     private var barcodeScannerViewController: BarcodeScannerViewController!
     private var productToUnload: Product!
-    private var productToUnloadWasRejected = false
 
     private var deliverItem: UIBarButtonItem!
     private var abandonItem: UIBarButtonItem!
@@ -372,7 +371,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadRejectedProduct product: Product!) {
-        productToUnloadWasRejected = true
         packingSlipItemTableViewCell(cell, shouldAttemptToUnloadProduct: product)
     }
 
@@ -395,7 +393,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     private func unloadItem(gtin: String) {
-        let productToUnloadWasRejected = self.productToUnloadWasRejected
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let product = productToUnload {
                 if product.gtin == gtin {
@@ -407,7 +404,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         if let route = RouteService.sharedService().inProgressRoute {
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
-                                    product.rejected = productToUnloadWasRejected
                                     workOrder.deliverItem(product,
                                         onSuccess: { statusCode, mappingResult in
                                             dispatch_after_delay(0.0) {
@@ -458,7 +454,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     private func dismissBarcodeScannerViewController() {
         productToUnload = nil
-        productToUnloadWasRejected = false
 
         if let navigationController = navigationController {
             dispatch_after_delay(0.0) {
