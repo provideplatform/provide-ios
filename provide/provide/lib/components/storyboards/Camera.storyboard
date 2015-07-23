@@ -34,9 +34,7 @@
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="EzX-EJ-Ih4">
-                                        <variation key="widthClass=regular" constant="250"/>
-                                    </constraint>
+                                    <constraint firstAttribute="width" constant="100" id="EzX-EJ-Ih4"/>
                                     <constraint firstAttribute="height" constant="100" id="Fb5-2F-fkA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
@@ -64,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8YW-QE-skK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-53" y="1251"/>
+            <point key="canvasLocation" x="-53.25" y="1251"/>
         </scene>
         <!--Selfie View Controller-->
         <scene sceneID="oui-FE-GeW">
@@ -86,9 +84,7 @@
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="3mZ-2a-H8L">
-                                        <variation key="widthClass=regular" constant="250"/>
-                                    </constraint>
+                                    <constraint firstAttribute="width" constant="100" id="3mZ-2a-H8L"/>
                                     <constraint firstAttribute="height" constant="100" id="AaO-Nf-KLN"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
@@ -115,7 +111,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QBz-ZY-2CE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-53" y="1918"/>
+            <point key="canvasLocation" x="-53.25" y="1917.75"/>
         </scene>
     </scenes>
 </document>
