@@ -24,8 +24,8 @@ class RouteManifestItemTableViewCell: UITableViewCell {
                 gtinLabel?.text = gtin
             }
 
-            if let desc = product.desc {
-                sizeLabel?.text = desc
+            if let size = product.size {
+                sizeLabel?.text = size
             }
         }
     }
