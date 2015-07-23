@@ -65,37 +65,36 @@
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="4dX-yg-MPa">
-                                <rect key="frame" x="153" y="100" width="294" height="146"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
+                                <rect key="frame" x="125" y="83" width="350" height="174"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="294" id="GjK-ww-vAH"/>
-                                    <constraint firstAttribute="height" constant="146" id="YGl-2y-oEA"/>
+                                    <constraint firstAttribute="width" constant="350" id="QxN-jT-y7g"/>
+                                    <constraint firstAttribute="height" constant="174" id="qNu-3I-fcf"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="4dX-yg-MPa" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" id="9RK-46-I8A"/>
-                            <constraint firstItem="ewp-oP-mJb" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="634" id="AzN-je-Z1P"/>
+                            <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="63" id="599-P9-V97"/>
+                            <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
+                            <constraint firstAttribute="centerX" secondItem="Isk-bN-U1h" secondAttribute="centerX" id="EPJ-tF-YoC"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="Es4-5f-YDi"/>
-                            <constraint firstItem="4dX-yg-MPa" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="80" id="cvF-cw-YrV"/>
-                            <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="8" symbolic="YES" id="jyT-wL-GlT"/>
+                            <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" symbolic="YES" id="jyT-wL-GlT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="AzN-je-Z1P"/>
+                                <exclude reference="9gx-cj-4ES"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <include reference="AzN-je-Z1P"/>
                                 <exclude reference="jyT-wL-GlT"/>
+                                <include reference="9gx-cj-4ES"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mdI-xf-wyA"/>
                     <connections>
-                        <outlet property="logoImageView" destination="4dX-yg-MPa" id="VzT-jt-uNe"/>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="SlidingViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                     </connections>
