@@ -16,6 +16,10 @@ class Route: Model {
     var status: String!
     var workOrders = [WorkOrder]()
     var itemsLoaded = [Product]()
+    var status: String!
+    var legs: [RouteLeg]()
+    var workOrders: [WorkOrder]()
+    var itemsLoaded: [Product]()
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
     var dispatcherOriginAssignment: NSDictionary!
@@ -40,12 +44,13 @@ class Route: Model {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
             for step in leg.steps {
-                let shapes = step.shape
-                for shape in shapes {
-                    let shapeCoords = shape.splitAtString(",")
-                    let latitude = Double(shapeCoords.0)!
-                    let longitude = Double(shapeCoords.1)!
-                    coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                if let shapes = step.shape {
+                    for shape in shapes {
+                        let shapeCoords = (shape as! String).splitAtString(",")
+                        let latitude = (shapeCoords.0 as NSString).doubleValue
+                        let longitude = (shapeCoords.1 as NSString).doubleValue
+                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                    }
                 }
             }
         }
@@ -54,10 +59,11 @@ class Route: Model {
     }
 
     var currentLeg: RouteLeg! {
-        if legs.count > 0 {
-            return legs[currentLegIndex]
-        } else {
-            return nil
+        var leg: RouteLeg!
+        if let legs = legs {
+            if legs.count > 0 {
+                leg = legs[currentLegIndex]
+            }
         }
     }
 
@@ -85,7 +91,15 @@ class Route: Model {
     }
 
     var gtinsLoaded: [String] {
-        return itemsLoaded.map { $0.gtin }
+        var gtinsLoaded = [String]()
+
+        if let products = itemsLoaded {
+            for product in products {
+                gtinsLoaded.append(product.gtin)
+            }
+        }
+
+        return gtinsLoaded
     }
 
     var itemsNotLoaded: [Product] {
@@ -96,13 +110,17 @@ class Route: Model {
             gtinsAccountedForCount[gtin] = gtinOrderedCount(gtin) - gtinLoadedCount(gtin)
         }
 
-        for workOrder in (workOrders as Array).reverse() {
-            for product in workOrder.itemsOrdered {
-                let gtin = product.gtin
-                if let remainingToLoad = gtinsAccountedForCount[gtin] {
-                    if remainingToLoad > 0 {
-                        itemsNotLoaded.append(product)
-                        gtinsAccountedForCount[gtin] = remainingToLoad - 1
+        if let workOrders = workOrders {
+            for workOrder in (workOrders as Array).reverse() {
+                if let products = workOrder.itemsOrdered {
+                    for product in products {
+                        let gtin = product.gtin
+                        if let remainingToLoad = gtinsAccountedForCount[gtin] {
+                            if remainingToLoad > 0 {
+                                itemsNotLoaded.append(product as! Product)
+                                gtinsAccountedForCount[gtin] = remainingToLoad - 1
+                            }
+                        }
                     }
                 }
             }
@@ -114,8 +132,8 @@ class Route: Model {
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
-                if let products = (workOrder as! WorkOrder).itemsOrdered {
+            for workOrder in workOrders.reverse() {
+                if let products = workOrder.itemsOrdered {
                     for product in products {
                         itemsOrdered.append(product as! Product)
                     }
@@ -128,9 +146,13 @@ class Route: Model {
 
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
-        for workOrder in workOrders.reverse() {
-            for product in workOrder.itemsDelivered {
-                itemsDelivered.append(product)
+        if let workOrders = workOrders {
+            for workOrder in workOrders.reverse() {
+                if let products = workOrder.itemsDelivered {
+                    for product in products {
+                        itemsDelivered.append(product as! Product)
+                    }
+                }
             }
         }
 
@@ -140,8 +162,8 @@ class Route: Model {
     var itemsRejected: [Product] {
         var itemsRejected = [Product]()
         if let workOrders = workOrders {
-            for workOrder in (workOrders as Array).reverse() {
-                if let products = (workOrder as! WorkOrder).itemsRejected {
+            for workOrder in workOrders.reverse() {
+                if let products = workOrder.itemsRejected {
                     for product in products {
                         itemsRejected.append(product as! Product)
                     }
@@ -203,22 +225,54 @@ class Route: Model {
 
     func load(onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
-        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+            onSuccess: { statusCode, mappingResult in
+                RouteService.sharedService().updateRoute(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+            onSuccess: { statusCode, mappingResult in
+                RouteService.sharedService().updateRoute(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "unloading"
-        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+            onSuccess: { statusCode, mappingResult in
+                RouteService.sharedService().updateRoute(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "pending_completion"
-        ApiService.sharedService().updateRouteWithId(id, params: toDictionary(), onSuccess: onSuccess, onError: onError)
+        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+            onSuccess: { statusCode, mappingResult in
+                RouteService.sharedService().updateRoute(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func loadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {

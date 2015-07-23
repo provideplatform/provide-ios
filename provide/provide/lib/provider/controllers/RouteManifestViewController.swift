@@ -68,19 +68,25 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     private var items: [Product]! {
         var items = [Product]()
-        switch mode {
-        case .Loading:
-            switch LoadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
-            case .OnTruck:
-                for product in route.itemsLoaded {
-                    items.append(product)
+        if let route = route {
+            switch mode {
+            case .Loading:
+                switch LoadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
+                case .OnTruck:
+                    if let itemsLoaded = route.itemsLoaded {
+                        for product in itemsLoaded {
+                            items.append(product)
+                        }
+                    }
+                case .Required:
+                    items = route.itemsNotLoaded
                 }
             case .Unloading:
                 switch UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
                 case .OnTruck:
                     if let itemsLoaded = route.itemsLoaded {
                         for product in itemsLoaded {
-                            items.append(product as! Product)
+                            items.append(product)
                         }
                     }
                 case .Delivered:
@@ -262,11 +268,11 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
                 ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
                     onSuccess: { statusCode, responseString in
-                        let itemsLoaded = NSMutableArray()
+                        var itemsLoaded = [Product]()
                         for product in route.itemsOrdered {
-                            itemsLoaded.addObject(product)
+                            itemsLoaded.append(product)
                         }
-                        route.itemsLoaded = itemsLoaded as [AnyObject]
+                        route.itemsLoaded = itemsLoaded
                         self.refreshNavigationItem()
                         self.tableView.reloadData()
 
@@ -280,7 +286,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                 showHUD()
 
                 for item in route.itemsLoaded {
-                    route.unloadManifestItemByGtin((item as! Product).gtin,
+                    route.unloadManifestItemByGtin(item.gtin,
                         onSuccess: { statusCode, mappingResult in
                             self.hideHUD()
 

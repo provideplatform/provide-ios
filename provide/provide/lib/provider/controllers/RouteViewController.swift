@@ -15,10 +15,18 @@ protocol RouteViewControllerDelegate {
 
 class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var delegate: RouteViewControllerDelegate!
+    var delegate: RouteViewControllerDelegate! {
+        didSet {
+            if let delegate = delegate {
+                refresh()
+            }
+        }
+    }
 
     @IBOutlet private weak var tableView: UITableView!
 
+    private var refreshControl: UIRefreshControl!
+    
     var route: Route! {
         return delegate?.routeForViewController(self)
     }
@@ -34,9 +42,10 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshNavigationItem()
-
         tableView.frame = view.bounds
+
+        refreshNavigationItem()
+        setupPullToRefresh()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -56,6 +65,26 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
                 navigationItem.title = "(unnamed route)"
             }
         }
+    }
+
+    private func setupPullToRefresh() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
+
+        tableView.addSubview(refreshControl)
+        tableView.alwaysBounceVertical = true
+    }
+
+    func refresh() {
+        route?.reload(
+            onSuccess: { statusCode, mappingResult in
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            },
+            onError: { error, statusCode, responseString in
+                self.refreshControl.endRefreshing()
+            }
+        )
     }
 
     func refreshNavigationItem() {
@@ -84,7 +113,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        selectedWorkOrder = route.workOrders[indexPath.row] as! WorkOrder
+        selectedWorkOrder = route.workOrders[indexPath.row]
         return indexPath
     }
 
@@ -103,7 +132,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("workOrderTableViewCellReuseIdentifier") as! WorkOrderTableViewCell
-        cell.workOrder = route.workOrders[indexPath.row] as! WorkOrder
+        cell.workOrder = route.workOrders[indexPath.row]
         return cell
     }
 
