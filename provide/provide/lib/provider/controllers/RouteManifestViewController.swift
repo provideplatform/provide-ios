@@ -213,6 +213,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                     navigationItem.leftBarButtonItems = [scanItem]
                 }
             } else if route.itemsToLoadCountRemaining == 0 {
+                toolbarSegmentedControl.selectedSegmentIndex = 0
                 navigationItem.leftBarButtonItems = [startItem]
             } else {
                 navigationItem.leftBarButtonItems = [scanItem]
