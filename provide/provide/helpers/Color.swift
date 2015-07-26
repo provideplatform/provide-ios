@@ -55,11 +55,19 @@ class Color {
     }
 
     class func enRouteStatusColor() -> UIColor {
-        return UIColor("#ffffff")
+        return UIColor("#dff0d8")
+    }
+
+    class func loadingStatusColor() -> UIColor {
+        return UIColor("#dff0d8")
+    }
+
+    class func unloadingStatusColor() -> UIColor {
+        return UIColor("#dff0d8")
     }
 
     class func inProgressStatusColor() -> UIColor {
-        return UIColor("#12620B")
+        return UIColor("#dff0d8")
     }
 
     class func canceledStatusColor() -> UIColor {

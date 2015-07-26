@@ -25,7 +25,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     private var routes = [Route]() {
         didSet {
             collectionView?.reloadData()
-            collectionView?.layoutIfNeeded()
+            //collectionView?.layoutIfNeeded()
         }
     }
 
@@ -89,7 +89,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -123,6 +123,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
                 self.routes += fetchedRoutes
 
                 self.collectionView.reloadData()
+                self.collectionView.layoutIfNeeded()
                 self.refreshControl.endRefreshing()
             },
             onError: { error, statusCode, responseString in
@@ -166,7 +167,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         var inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
         var insetWidthOffset = inset.left + inset.right
         var insetHeightOffset = inset.top + inset.bottom
-        return CGSizeMake(view.frame.width - insetWidthOffset, 225.0)
+        return CGSizeMake(collectionView.frame.width - insetWidthOffset, 175.0)
     }
 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {

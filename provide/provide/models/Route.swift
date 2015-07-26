@@ -41,6 +41,13 @@ class Route: Model {
         return mapping
     }
 
+    var humanReadableStartAtTimestamp: String! {
+        if let startAtDate = startAtDate {
+            return "\(startAtDate.dayOfWeek), \(startAtDate.monthName) \(startAtDate.dayOfMonth) @ \(startAtDate.timeString!)"
+        }
+        return nil
+    }
+
     func updateWorkOrder(workOrder: WorkOrder) {
         var newWorkOrders = [WorkOrder]()
         for wo in workOrders {
@@ -258,6 +265,26 @@ class Route: Model {
             return "\(hoursString)\(minutesString):\(secondsString)"
         }
         return nil
+    }
+
+    var statusColor: UIColor {
+        if status == "scheduled" {
+            return Color.scheduledStatusColor()
+        } else if status == "loading" {
+            return Color.loadingStatusColor()
+        } else if status == "in_progress" {
+            return Color.inProgressStatusColor()
+        } else if status == "unloading" {
+            return Color.unloadingStatusColor()
+        } else if status == "canceled" {
+            return Color.canceledStatusColor()
+        } else if status == "completed" {
+            return Color.completedStatusColor()
+        } else if status == "pending_completion" {
+            return Color.pendingCompletionStatusColor()
+        }
+
+        return UIColor.clearColor()
     }
 
     func reload(onSuccess: OnSuccess, onError: OnError) {

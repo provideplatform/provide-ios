@@ -117,9 +117,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        println("\(mediaCollectionView.bounds)")
-        println("\(mediaCollectionView.delegate)")
-
         return mediaCollectionView
     }
 
@@ -136,6 +133,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         switch indexPath.row {
         case 0:
             cell.setName("STATUS", value: workOrder.status)
+            cell.backgroundView!.backgroundColor = workOrder.statusColor
         case 1:
             let scheduledStartAt = workOrder.scheduledStartAtDate == nil ? "--" : workOrder.scheduledStartAtDate.timeString!
             cell.setName("SCHEDULED START TIME", value: scheduledStartAt)

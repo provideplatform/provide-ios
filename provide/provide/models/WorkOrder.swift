@@ -115,6 +115,24 @@ class WorkOrder: Model, MKAnnotation {
         return nil
     }
 
+    var statusColor: UIColor {
+        if status == "scheduled" {
+            return Color.scheduledStatusColor()
+        } else if status == "en_route" {
+            return Color.enRouteStatusColor()
+        } else if status == "in_progress" {
+            return Color.inProgressStatusColor()
+        } else if status == "canceled" {
+            return Color.canceledStatusColor()
+        } else if status == "completed" {
+            return Color.completedStatusColor()
+        } else if status == "abandoned" {
+            return Color.abandonedStatusColor()
+        }
+
+        return UIColor.clearColor()
+    }
+
     var inventoryDisposition: String! {
         if itemsDelivered != nil && itemsOrdered != nil {
             return "\(itemsDelivered.count) of \(itemsOrdered.count) items delivered"

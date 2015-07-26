@@ -14,15 +14,27 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var mapView: MapView!
 
     @IBOutlet private weak var detailsContainerView: UIView!
+    @IBOutlet private weak var statusBackgroundView: UIView!
     @IBOutlet private weak var timestampLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
 
     private var gravatarImageView: RFGravatarImageView!
+
+    private var timer: NSTimer!
 
     var route: Route! {
         didSet {
             addBorder(1.0, color: UIColor.lightGrayColor())
             roundCorners(4.0)
-            
+
+            contentView.backgroundColor = UIColor.clearColor()
+            detailsContainerView.backgroundColor = UIColor.clearColor()
+
+            statusBackgroundView.backgroundColor = route.statusColor
+            statusBackgroundView.frame = bounds
+            statusBackgroundView.alpha = 0.9
+
             if let profileImageUrl = route.providerOriginAssignment.provider.profileImageUrl {
                 avatarImageView.sd_setImageWithURL(profileImageUrl, completed: { (image, error, imageCacheType, url) -> Void in
                     self.bringSubviewToFront(self.avatarImageView)
@@ -41,13 +53,36 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
                 }
             }
 
-            timestampLabel.text = "\(route.startAtDate.dayOfWeek), \(route.startAtDate.monthName) \(route.startAtDate.dayOfMonth) @ \(route.startAtDate.timeString!)"
-            timestampLabel.sizeToFit()
+            if let timestamp = route.humanReadableStartAtTimestamp {
+                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.sizeToFit()
+            }
+
+            if let duration = route.humanReadableDuration {
+                durationLabel.text = duration.uppercaseString
+                durationLabel.sizeToFit()
+            }
+
+            statusLabel.text = route.status.uppercaseString
+            statusLabel.sizeToFit()
+
+            if route.status == "loading" || route.status == "in_progress" || route.status == "unloading" {
+                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
+                timer.fire()
+            } else if route.status == "scheduled" {
+                durationLabel.text = route.startAtDate.timeString
+            }
         }
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
+        contentView.backgroundColor = UIColor.clearColor()
+        detailsContainerView.backgroundColor = UIColor.clearColor()
+
+        statusBackgroundView.backgroundColor = UIColor.clearColor()
+        statusBackgroundView.alpha = 0.9
 
         avatarImageView.image = nil
         avatarImageView.alpha = 0.0
@@ -56,5 +91,26 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
         gravatarImageView = nil
 
         timestampLabel.text = ""
+        durationLabel.text = ""
+        statusLabel.text = ""
+
+        timer?.invalidate()
+    }
+
+    func refresh() {
+        if let duration = route.humanReadableDuration {
+            durationLabel.text = duration.uppercaseString
+            durationLabel.sizeToFit()
+        }
+
+        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+            animations: {
+                let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
+                self.statusBackgroundView?.alpha = CGFloat(alpha)
+            },
+            completion: { complete in
+
+            }
+        )
     }
 }

@@ -27,37 +27,16 @@ class WorkOrderTableViewCell: UITableViewCell {
                 durationLabel.text = duration
             }
 
-            backgroundView?.backgroundColor = statusBackgroundColor
+            backgroundView?.backgroundColor = workOrder.statusColor
             backgroundView?.alpha = 0.9
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
-                backgroundView?.backgroundColor = Color.completedStatusColor()
                 timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
                 timer.fire()
             } else if workOrder.status == "scheduled" {
                 durationLabel.text = workOrder.scheduledStartAtDate.timeString
             }
         }
-    }
-
-    var statusBackgroundColor: UIColor {
-        let status = workOrder.status
-
-        if status == "scheduled" {
-            return Color.scheduledStatusColor()
-        } else if status == "en_route" {
-            return Color.enRouteStatusColor()
-        } else if status == "in_progress" {
-            return Color.inProgressStatusColor()
-        } else if status == "canceled" {
-            return Color.canceledStatusColor()
-        } else if status == "completed" {
-            return Color.completedStatusColor()
-        } else if status == "abandoned" {
-            return Color.abandonedStatusColor()
-        }
-
-        return UIColor.clearColor()
     }
 
     override func prepareForReuse() {
