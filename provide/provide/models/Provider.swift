@@ -14,17 +14,25 @@ class Provider: Model {
     var userId = 0
     var name: String!
     var contact: Contact!
+    var profileImageUrlString: String!
     var services: NSSet!
+
+    var profileImageUrl: NSURL! {
+        if let profileImageUrlString = profileImageUrlString {
+            return NSURL(string: profileImageUrlString)
+        }
+        return nil
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
-            "id",
-            "user_id",
-            "name",
-            "services",
-            ]
-        )
+        mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "user_id": "userId",
+            "name": "name",
+            "services": "services",
+            "profile_image_url": "profileImageUrlString"
+            ])
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }

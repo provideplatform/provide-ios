@@ -26,6 +26,10 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
 
+    var hour: Int {
+        return NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: self).hour
+    }
+
     var minutes: Int {
         return NSCalendar.currentCalendar().components(.Minute, fromDate: self).minute
     }
@@ -55,6 +59,10 @@ extension NSDate {
     var atMidnight: NSDate {
         let componentsWithoutTime = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: self)
         return NSCalendar.currentCalendar().dateFromComponents(componentsWithoutTime)!
+    }
+
+    var dayOfMonth: Int {
+        return NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self).day
     }
 
     var dayOfWeek: String {

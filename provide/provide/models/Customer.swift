@@ -13,18 +13,24 @@ class Customer: Model {
     var id = 0
     var name: String!
     var displayName: String!
-    var profileImageUrl: String!
+    var profileImageUrlString: String!
     var contact: Contact!
+
+    var profileImageUrl: NSURL! {
+        if let profileImageUrlString = profileImageUrlString {
+            return NSURL(string: profileImageUrlString)
+        }
+        return nil
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
-            "id",
-            "name",
-            "display_name",
-            "profile_image_url",
-            ]
-        )
+        mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "name": "name",
+            "display_name": "displayName",
+            "profile_image_url": "profileImageUrlString"
+        ])
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }

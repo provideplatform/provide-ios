@@ -17,6 +17,7 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -629,6 +630,73 @@
                                                     <exclude reference="UvX-X5-gey"/>
                                                     <exclude reference="WIE-za-gH4"/>
                                                     <include reference="x05-Dl-7tW"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryCell" id="Dgo-AV-OOP" userLabel="HistoryCell">
+                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dgo-AV-OOP" id="FVo-QC-4Pa">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HISTORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNb-Cl-Qty">
+                                                    <rect key="frame" x="58" y="12" width="242" height="21"/>
+                                                    <accessibility key="accessibilityConfiguration" label="dash_slider"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="242" id="NGf-t7-oc7"/>
+                                                        <constraint firstAttribute="width" constant="242" id="cmg-Xs-lUW"/>
+                                                        <constraint firstAttribute="width" constant="242" id="cq3-oL-fmi"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="cq3-oL-fmi"/>
+                                                            <exclude reference="NGf-t7-oc7"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="cq3-oL-fmi"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="NGf-t7-oc7"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WNb-Cl-Qty" firstAttribute="top" secondItem="FVo-QC-4Pa" secondAttribute="topMargin" constant="4" id="2lm-tu-qci"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="WNb-Cl-Qty" secondAttribute="bottom" constant="9" id="PtJ-uA-N6W"/>
+                                                <constraint firstItem="WNb-Cl-Qty" firstAttribute="top" secondItem="FVo-QC-4Pa" secondAttribute="topMargin" constant="4" id="Vgb-KA-AQo"/>
+                                                <constraint firstItem="WNb-Cl-Qty" firstAttribute="top" secondItem="FVo-QC-4Pa" secondAttribute="topMargin" constant="4" id="ZNV-AO-5tT"/>
+                                                <constraint firstItem="WNb-Cl-Qty" firstAttribute="leading" secondItem="FVo-QC-4Pa" secondAttribute="leadingMargin" constant="50" id="dii-2p-YXw"/>
+                                                <constraint firstItem="WNb-Cl-Qty" firstAttribute="leading" secondItem="FVo-QC-4Pa" secondAttribute="leadingMargin" constant="50" id="wyF-Fb-z0h"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="wyF-Fb-z0h"/>
+                                                    <exclude reference="Vgb-KA-AQo"/>
+                                                    <exclude reference="2lm-tu-qci"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="Vgb-KA-AQo"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <include reference="wyF-Fb-z0h"/>
+                                                    <exclude reference="PtJ-uA-N6W"/>
+                                                    <exclude reference="ZNV-AO-5tT"/>
+                                                    <include reference="2lm-tu-qci"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

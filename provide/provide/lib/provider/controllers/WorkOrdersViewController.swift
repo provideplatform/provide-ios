@@ -96,6 +96,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
 
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToHistoryStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteHistoryViewController) == false {
+                self.performSegueWithIdentifier("RouteHistoryViewControllerSegue", sender: self)
+            }
+        }
+
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
                 self.performSegueWithIdentifier("ManifestViewControllerSegue", sender: self)

@@ -14,9 +14,8 @@ class Route: Model {
     var name: String!
     var legs = [RouteLeg]()
     var status: String!
-    var workOrders = [WorkOrder]()
-    var itemsLoaded = [Product]()
-    var status: String!
+    var startAt: String!
+    var endAt: String!
     var legs: [RouteLeg]()
     var workOrders: [WorkOrder]()
     var itemsLoaded: [Product]()
@@ -27,16 +26,18 @@ class Route: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
-            "status",
-            "id",
-            "name",
-            ]
-        )
-        mapping.addRelationshipMappingWithSourceKeyPath("items_loaded", mapping: Product.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("legs", mapping: RouteLeg.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("provider_origin_assignment", mapping: WorkOrder.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("work_orders", mapping: WorkOrder.mapping())
+        mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "name": "name",
+            "status": "status",
+            "start_at": "startAt",
+            "end_at": "endAt"
+            ])
+
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", withMapping: ProviderOriginAssignment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
         return mapping
     }
 
@@ -220,6 +221,43 @@ class Route: Model {
 
     func isGtinRequired(gtin: String) -> Bool {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
+    }
+
+    var startAtDate: NSDate! {
+        if let startAt = startAt {
+            return NSDate.fromString(startAt)
+        }
+        return nil
+    }
+
+    var endAtDate: NSDate! {
+        if let endAt = endAt {
+            return NSDate.fromString(endAt)
+        }
+        return nil
+    }
+
+    var humanReadableDuration: String! {
+        if let startedAtDate = startAtDate {
+            var seconds = 0.0
+
+            if let endedAtDate = endAtDate {
+                seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)
+            } else {
+                seconds = NSDate().timeIntervalSinceDate(startedAtDate)
+            }
+
+            let hours = Int(floor(Double(seconds) / 3600.0))
+            seconds = Double(seconds) % 3600.0
+            let minutes = Int(floor(Double(seconds) / 60.0))
+            seconds = floor(Double(seconds) % 60.0)
+
+            let hoursString = hours >= 1 ? "\(hours):" : ""
+            let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
+            let secondsString = seconds < 10 ? "0\(Int(seconds))" : "\(Int(seconds))"
+            return "\(hoursString)\(minutesString):\(secondsString)"
+        }
+        return nil
     }
 
     func reload(onSuccess: OnSuccess, onError: OnError) {
