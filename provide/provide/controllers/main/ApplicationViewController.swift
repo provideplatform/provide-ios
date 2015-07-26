@@ -26,6 +26,7 @@ class ApplicationViewController: ViewController, UINavigationControllerDelegate,
 
         topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UINavigationController
         topViewController.delegate = self
+        topViewController.view.frame = view.bounds
         view.addSubview(topViewController.view)
 
         menuContainerView = MenuContainerView(frame: view.bounds)
