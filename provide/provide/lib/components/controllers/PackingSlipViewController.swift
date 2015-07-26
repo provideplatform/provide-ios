@@ -251,7 +251,14 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
                 abandonItem.enabled = abandomItemEnabled
 
-                navigationItem.prompt = "You have arrived"
+                var promptText = "You have arrived"
+                if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    if workOrder.itemsDelivered.count > 0 || workOrder.itemsRejected.count > 0 {
+                        promptText = "\(workOrder.itemsOrdered.count - workOrder.itemsDelivered.count - workOrder.itemsRejected.count) more item(s) to deliver"
+                    }
+                }
+
+                navigationItem.prompt = promptText
                 navigationItem.leftBarButtonItems = [deliverItem]
                 navigationItem.rightBarButtonItems = [abandonItem]
             } else {
@@ -327,7 +334,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                 onError: { error, statusCode, responseString in
                                     dispatch_after_delay(0.0) {
                                         self.packingSlipTableView.reloadData()
-                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
+                                                                 abandomItemEnabled: workOrder.canBeAbandoned)
 
                                         self.hideHUD(inView: self.targetView)
                                     }
@@ -423,8 +431,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                             }
                                         }
                                     )
-
-
                                 },
                                 onError: { error, statusCode, responseString in
 
