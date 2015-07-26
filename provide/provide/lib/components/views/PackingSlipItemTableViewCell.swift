@@ -66,6 +66,16 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         delegate = self
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        nameLabel?.text = ""
+        mpnLabel?.text = ""
+        priceLabel?.text = ""
+        skuLabel?.text = ""
+        descriptionLabel?.text = ""
+    }
+
     private func setupUtilityButtons() {
         let leftUtilityButtons = NSMutableArray()
         let rightUtilityButtons = NSMutableArray()

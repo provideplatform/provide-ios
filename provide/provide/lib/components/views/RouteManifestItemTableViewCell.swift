@@ -29,4 +29,12 @@ class RouteManifestItemTableViewCell: UITableViewCell {
             }
         }
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        nameLabel?.text = ""
+        gtinLabel?.text = ""
+        sizeLabel?.text = ""
+    }
 }
