@@ -92,8 +92,19 @@ class MenuContainerView: UIView {
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
 
-        touchesBeganTimestamp = NSDate()
+        if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
+            let navbarHeight = navigationController.navigationBar.frame.height
+            let touch = touches.first as! UITouch
+            if touch.locationInView(nil).y > navbarHeight {
+                touchesBegan(touches)
+            }
+        } else {
+            touchesBegan(touches)
+        }
+    }
 
+    private func touchesBegan(touches: Set<NSObject>) {
+        touchesBeganTimestamp = NSDate()
         applyTouches(touches)
     }
 
