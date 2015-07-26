@@ -14,6 +14,8 @@ class MenuContainerView: UIView {
 
     private var menuViewController: MenuViewController!
 
+    private var touchesBeganTimestamp: NSDate!
+
     private var menuViewControllerFrame: CGRect {
         return CGRect(x: menuViewFrameOffsetX,
                       y: 0.0,
@@ -26,7 +28,7 @@ class MenuContainerView: UIView {
     }
 
     private var exposedMenuViewPercentage: CGFloat {
-        return 0.025
+        return 0.05
     }
 
     private var closedMenuOffsetX: CGFloat {
@@ -86,13 +88,15 @@ class MenuContainerView: UIView {
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
 
-        for touch in touches {
-            dragMenu(touch as! UITouch)
-        }
+        touchesBeganTimestamp = NSDate()
+
+        applyTouches(touches)
     }
 
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
+
+        touchesBeganTimestamp = nil
 
         let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
         if percentage > 0.5 {
@@ -104,14 +108,30 @@ class MenuContainerView: UIView {
 
     override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
         super.touchesCancelled(touches, withEvent: event)
+
+        touchesBeganTimestamp = nil
     }
 
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesMoved(touches, withEvent: event)
 
+        var xOffset: CGFloat = 0.0
         for touch in touches {
-            dragMenu(touch as! UITouch)
+            xOffset = (touch as! UITouch).locationInView(nil).x - (touch as! UITouch).previousLocationInView(nil).x
         }
+
+        if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
+            if xOffset > 30.0 {
+                openMenu()
+            } else if xOffset < -30.0 {
+                closeMenu()
+            } else {
+                applyTouches(touches)
+            }
+        } else {
+            applyTouches(touches)
+        }
+
     }
 
     func openMenu() {
@@ -120,6 +140,12 @@ class MenuContainerView: UIView {
 
     func closeMenu() {
         dragMenu(closedMenuOffsetX)
+    }
+
+    private func applyTouches(touches: Set<NSObject>) {
+        for touch in touches {
+            dragMenu(touch as! UITouch)
+        }
     }
 
     private func dragMenu(touch: UITouch) {
