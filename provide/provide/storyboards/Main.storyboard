@@ -115,37 +115,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edt-IY-Bst">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <items>
-                                    <navigationItem id="06g-io-jmv">
-                                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="waQ-5x-aHc">
-                                            <connections>
-                                                <action selector="hamburgerPressed:" destination="R0e-aH-frg" id="wc8-s3-ntO"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQN-sP-dJb">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="R0e-aH-frg" id="eXj-p4-58n"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="pQN-sP-dJb" secondAttribute="trailing" constant="-16" id="2x6-my-cPe"/>
-                            <constraint firstItem="XtO-Ko-RR3" firstAttribute="top" secondItem="pQN-sP-dJb" secondAttribute="bottom" id="3er-QX-Y6j"/>
-                            <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leadingMargin" constant="-16" id="60W-Iq-PXk"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="edt-IY-Bst" secondAttribute="trailing" constant="-16" id="8NJ-H0-gly"/>
-                            <constraint firstItem="edt-IY-Bst" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leadingMargin" constant="-16" id="auo-zE-4Kb"/>
-                            <constraint firstItem="pQN-sP-dJb" firstAttribute="top" secondItem="OWi-1I-hZF" secondAttribute="bottom" constant="44" id="scO-G6-IRv"/>
-                            <constraint firstItem="edt-IY-Bst" firstAttribute="top" secondItem="OWi-1I-hZF" secondAttribute="bottom" id="uIX-Ct-Pjt"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="bottom" secondItem="XtO-Ko-RR3" secondAttribute="top" id="DIk-Uf-H0D"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leading" id="JQ5-2L-1gW"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="top" secondItem="eGZ-2h-M94" secondAttribute="top" id="Led-JP-EUz"/>
+                            <constraint firstAttribute="trailing" secondItem="pQN-sP-dJb" secondAttribute="trailing" id="RzC-7V-2dr"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="navigationBar" destination="edt-IY-Bst" id="YGO-eO-dT8"/>
+                        <outlet property="webView" destination="pQN-sP-dJb" id="W0e-FL-Glv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynb-gA-Nuj" userLabel="First Responder" sceneMemberID="firstResponder"/>

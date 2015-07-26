@@ -9,7 +9,8 @@
 import Foundation
 
 private let defaultEnvironment = Environment.Production
-private let productionHostSuffix = "provide.services"
+private let productionApiHostSuffix = "provide.services"
+private let productionMarketingHostSuffix = "provideapp.com"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment
 
@@ -18,12 +19,16 @@ enum Environment: String {
     case Production = "Production"
 
     var baseUrlString: String {
-        let scheme = useSSL ? "https" : "http"
-        return "\(scheme)://\(hostName)"
+        return apiBaseUrlString
     }
 
-    var hostName: String {
-        var hostName = productionHostSuffix
+    var apiBaseUrlString: String {
+        let scheme = apiUseSSL ? "https" : "http"
+        return "\(scheme)://\(apiHostname)"
+    }
+
+    var apiHostname: String {
+        var hostName = productionApiHostSuffix
         switch self {
         case .QA:
             hostName = "\(prefixString).\(hostName)"
@@ -34,11 +39,32 @@ enum Environment: String {
         return ENV("OVERRIDE_HOST") ?? hostName
     }
 
-    var prefixString: String {
-        return rawValue.lowercaseString
+    var apiUseSSL: Bool {
+        return apiHostname.hasSuffix(productionApiHostSuffix)
     }
 
-    var useSSL: Bool {
-        return hostName.hasSuffix(productionHostSuffix)
+    var marketingBaseUrlString: String {
+        let scheme = marketingUseSSL ? "https" : "http"
+        return "\(scheme)://\(marketingHostname)"
+    }
+
+    var marketingHostname: String {
+        var hostName = productionMarketingHostSuffix
+        switch self {
+        case .QA:
+            hostName = "\(prefixString).\(hostName)"
+        default:
+            break
+        }
+
+        return ENV("OVERRIDE_HOST") ?? hostName
+    }
+
+    var marketingUseSSL: Bool {
+        return marketingHostname.hasSuffix(productionMarketingHostSuffix)
+    }
+
+    var prefixString: String {
+        return rawValue.lowercaseString
     }
 }
