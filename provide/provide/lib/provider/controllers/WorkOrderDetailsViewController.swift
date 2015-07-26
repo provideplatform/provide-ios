@@ -22,6 +22,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             workOrder.reloadAttachments(
                 onSuccess: { statusCode, mappingResult in
                     self.mediaCollectionView.reloadData()
+                    //self.mediaCollectionView.layoutIfNeeded()
                 },
                 onError: { error, statusCode, responseString in
 
@@ -35,6 +36,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
             if let mediaCollectionView = mediaCollectionView {
                 mediaCollectionView.reloadData()
+                //mediaCollectionView.layoutIfNeeded()
             }
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
@@ -63,29 +65,40 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
 
         tableView.reloadData()
+        tableView.layoutIfNeeded()
+
         mediaCollectionView.reloadData()
+        mediaCollectionView.layoutIfNeeded()
     }
 
     func refreshInProgress() {
         if let tableView = tableView {
-            let statusCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! NameValueTableViewCell
-            let durationCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as! NameValueTableViewCell
+            var statusCell: NameValueTableViewCell!
+            var durationCell: NameValueTableViewCell!
 
-            if let duration = workOrder.humanReadableDuration {
-                durationCell.setName("DURATION", value: duration)
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
+                statusCell = cell
+
+                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                    animations: {
+                        statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
+
+                        let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
+                        statusCell.backgroundView!.alpha = CGFloat(alpha)
+                    },
+                    completion: { complete in
+
+                    }
+                )
             }
 
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
-                animations: {
-                    statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
+                durationCell = cell
 
-                    let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
-                    statusCell.backgroundView!.alpha = CGFloat(alpha)
-                },
-                completion: { complete in
-                    
+                if let duration = workOrder.humanReadableDuration {
+                    durationCell.setName("DURATION", value: duration)
                 }
-            )
+            }
         }
     }
 
@@ -104,6 +117,9 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        println("\(mediaCollectionView.bounds)")
+        println("\(mediaCollectionView.delegate)")
+
         return mediaCollectionView
     }
 

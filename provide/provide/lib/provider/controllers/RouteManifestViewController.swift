@@ -131,6 +131,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.frame = view.bounds
+
         initToolbarSegmentedControl()
 
         refreshNavigationItem()
