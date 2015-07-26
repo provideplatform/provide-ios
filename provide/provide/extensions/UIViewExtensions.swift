@@ -35,7 +35,7 @@ extension UIView {
         layer.shadowOpacity = Float(opacity)
         layer.shadowRadius = radius
         layer.shadowOffset = size
-        layer.shadowPath = UIBezierPath(rect:layer.bounds).CGPath
+        //layer.shadowPath = UIBezierPath(rect:layer.bounds).CGPath
     }
 
     func addGradient(startColor: UIColor, endColor: UIColor, horizontal: Bool = false) {
