@@ -287,7 +287,16 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                     self.attemptSegueToValidWorkOrderContext()
                                 },
                                 onError: { error, statusCode, responseString in
+                                    route.reload(
+                                        onSuccess: { statusCode, mappingResult in
+                                            self.nextWorkOrderContextShouldBeRewound()
+                                            LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+                                            self.attemptSegueToValidWorkOrderContext()
+                                        },
+                                        onError: { error, statusCode, responseString in
 
+                                        }
+                                    )
                                 }
                             )
                         },
