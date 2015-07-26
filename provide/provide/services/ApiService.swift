@@ -478,7 +478,12 @@ class ApiService: NSObject {
                                                                                                        "params": jsonParams,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
 
-                            op.start()
+                            self.dispatchOperationForURL(baseURL,
+                                                         path: path,
+                                                         method: method,
+                                                         params: params,
+                                                         onSuccess: onSuccess,
+                                                         onError: onError)
                         }
 
                         onError(error: error,
