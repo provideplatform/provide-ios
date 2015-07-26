@@ -120,18 +120,19 @@ class MenuContainerView: UIView {
             xOffset = (touch as! UITouch).locationInView(nil).x - (touch as! UITouch).previousLocationInView(nil).x
         }
 
-        if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
-            if xOffset > 30.0 {
-                openMenu()
-            } else if xOffset < -30.0 {
-                closeMenu()
+        if let touchesBeganTimestamp = touchesBeganTimestamp {
+            if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
+                if xOffset > 30.0 {
+                    openMenu()
+                } else if xOffset < -30.0 {
+                    closeMenu()
+                } else {
+                    applyTouches(touches)
+                }
             } else {
                 applyTouches(touches)
             }
-        } else {
-            applyTouches(touches)
         }
-
     }
 
     func openMenu() {
