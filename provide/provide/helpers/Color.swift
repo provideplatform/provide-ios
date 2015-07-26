@@ -46,6 +46,10 @@ class Color {
         return UIColor(red: 0.392, green: 0.706, blue: 0.820, alpha: 1.0)
     }
 
+    class func directionIndicatorBorderColor() -> UIColor {
+        return UIColor("#70d1f0")
+    }
+
     class func scheduledStatusColor() -> UIColor {
         return UIColor("#ffffff")
     }
