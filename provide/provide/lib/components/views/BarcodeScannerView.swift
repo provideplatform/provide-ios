@@ -107,7 +107,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         if NSThread.isMainThread() {
             clearDetectedMetadataObjects()
         } else {
-            dispatch_sync(dispatch_get_main_queue()) {
+            dispatch_after_delay(0.0) {
                 self.clearDetectedMetadataObjects()
             }
         }
@@ -116,7 +116,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     // MARK: AVCaptureMetadataOutputObjectsDelegate
 
     func captureOutput(captureOutput: AVCaptureOutput, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
-        dispatch_sync(dispatch_get_main_queue()) {
+        dispatch_after_delay(0.0) {
             self.clearDetectedMetadataObjects()
             self.showDetectedMetadataObjects(metadataObjects)
         }

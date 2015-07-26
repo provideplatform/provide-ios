@@ -91,9 +91,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             navigationController.pushViewController(self.cameraViewController, animated: true)
 
             if let barcodeScannerViewController = barcodeScannerViewController {
-                dispatch_after_delay(0.0) {
-                    barcodeScannerViewController.stopScanner()
-                }
+//                dispatch_after_delay(0.0) {
+//                    barcodeScannerViewController.stopScanner()
+//                }
+                barcodeScannerViewController.stopScanner()
             }
 
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
