@@ -16,13 +16,6 @@ class ApplicationViewController: ECSlidingViewController, UINavigationController
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
 
-    override var topViewController: UIViewController! {
-        didSet {
-            topViewController.view.addGestureRecognizer(panGesture)
-            topViewAnchoredGesture = .Panning | .Tapping
-        }
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
 
