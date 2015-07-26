@@ -160,7 +160,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
+        return UIEdgeInsetsMake(10.0, 5.0, 0.0, 5.0)
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
