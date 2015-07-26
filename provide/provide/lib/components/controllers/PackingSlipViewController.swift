@@ -474,20 +474,15 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         cameraViewControllerCanceled(viewController)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            var latitude: CLLocationDegrees!
-            var longitude: CLLocationDegrees!
-
-            if let location = LocationService.sharedService().currentLocation {
-                latitude = location.coordinate.latitude
-                longitude = location.coordinate.longitude
-            }
-
-            let params = [
-                "latitude": latitude,
-                "longitude": longitude,
+            var params = [
                 "tags": "photo, delivery",
                 "public": false
             ]
+
+            if let location = LocationService.sharedService().currentLocation {
+                params["latitude"] = location.coordinate.latitude
+                params["longitude"] = location.coordinate.longitude
+            }
 
             workOrder.attach(image, params: params,
                 onSuccess: { (statusCode, mappingResult) -> () in
