@@ -139,7 +139,7 @@ class MenuContainerView: UIView {
             if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
                 if xOffset > 15.0 {
                     openMenu()
-                } else if xOffset < -30.0 {
+                } else if xOffset < -15.0 {
                     closeMenu()
                 } else {
                     applyTouches(touches)
