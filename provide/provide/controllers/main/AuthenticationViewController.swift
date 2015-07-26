@@ -218,7 +218,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
-            (segue.destinationViewController as! ApplicationViewController).delegate = self
+            (segue.destinationViewController as! ApplicationViewController).applicationViewControllerDelegate = self
             break
         case "AuthenticationViewControllerUnwindSegue":
             if emailField.isFirstResponder() {

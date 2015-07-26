@@ -12,22 +12,29 @@ protocol ApplicationViewControllerDelegate {
     func dismissApplicationViewController(viewController: ApplicationViewController)
 }
 
-class ApplicationViewController: ViewController, UINavigationControllerDelegate, MenuViewControllerDelegate {
+class ApplicationViewController: ECSlidingViewController, UINavigationControllerDelegate, MenuViewControllerDelegate {
 
-    var delegate: ApplicationViewControllerDelegate!
+    var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
+
+    override var topViewController: UIViewController! {
+        didSet {
+            topViewController.view.addGestureRecognizer(panGesture)
+            topViewAnchoredGesture = .Panning | .Tapping
+        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UIViewController
+        (topViewController as! UINavigationController).delegate = self
+    }
 
     private var menuContainerView: MenuContainerView!
     private var menuViewController: MenuViewController!
 
-    private var topViewController: UINavigationController!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UINavigationController
-        topViewController.delegate = self
-        topViewController.view.frame = view.bounds
-        view.addSubview(topViewController.view)
 
         menuContainerView = MenuContainerView(frame: view.bounds)
         menuContainerView.setupMenuViewController(self)
@@ -37,13 +44,13 @@ class ApplicationViewController: ViewController, UINavigationControllerDelegate,
 
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         if viewController.isKindOfClass(TopViewController) {
-            delegate?.dismissApplicationViewController(self)
+            applicationViewControllerDelegate?.dismissApplicationViewController(self)
         }
     }
 
     // MARK: MenuViewControllerDelegate
 
     func navigationControllerForMenuViewController(menuViewController: MenuViewController) -> UINavigationController! {
-        return topViewController
+        return topViewController as! UINavigationController
     }
 }
