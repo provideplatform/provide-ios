@@ -467,15 +467,18 @@ class ApiService: NSObject {
                         let statusCode = receivedResponse ? operation.HTTPRequestOperation.response.statusCode : -1
 
                         if receivedResponse {
-                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": responseString,
+                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": path,
                                                                                                        "statusCode": statusCode,
                                                                                                        "params": jsonParams,
+                                                                                                       "responseString": responseString,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
                         } else if let err = error {
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription,
                                                                                                        "code": err.code,
                                                                                                        "params": jsonParams,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
+
+                            op.start()
                         }
 
                         onError(error: error,
