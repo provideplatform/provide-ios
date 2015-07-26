@@ -10,8 +10,6 @@
 
 // CocoaPods
 #import <Analytics/Analytics.h>
-#import <ECSlidingViewController/ECSlidingSegue.h>
-#import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <FontAwesomeKit/FontAwesomeKit.h>
 #import <JSQMessagesViewController/JSQMessages.h>
@@ -22,7 +20,6 @@
 #import <RFGravatarImageView/RFGravatarImageView.h>
 #import <SWTableViewCell/SWTableViewCell.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
-#import "UIViewController+ECSlidingViewController.h"
 
 // SDWebImage Workaround
 #undef __IPHONE_OS_VERSION_MIN_REQUIRED

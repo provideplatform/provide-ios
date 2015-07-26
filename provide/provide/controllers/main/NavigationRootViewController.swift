@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationRootViewController: ViewController {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
@@ -24,7 +24,7 @@ class NavigationRootViewController: ViewController {
 
         if ApiService.hasCachedToken() {
             dispatch_after_delay(0.0) {
-                self.performSegueWithIdentifier("SlidingViewControllerSegue", sender: self)
+                self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
                 dispatch_after_delay(0.5) {
                     self.signInButton.alpha = 1.0
                 }
@@ -36,10 +36,21 @@ class NavigationRootViewController: ViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
+        case "ApplicationViewControllerSegue":
+            (segue.destinationViewController as! ApplicationViewController).delegate = self
+            break
         case "AuthenticationViewControllerSegue":
             assert(segue.destinationViewController is AuthenticationViewController)
         default:
             break
+        }
+    }
+
+    // MARK: ApplicationViewControllerDelegate
+
+    func dismissApplicationViewController(viewController: ApplicationViewController) {
+        dismissViewController(animated: true) {
+
         }
     }
 }

@@ -53,7 +53,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
                 )
             },
             completion: { complete in
-                self.suspendTopViewGestureRecognizers()
+
             }
         )
     }
@@ -72,7 +72,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
                 )
             },
             completion: { complete in
-                self.enableSuspendedTopViewGestureRecognizers()
+
             }
         )
     }

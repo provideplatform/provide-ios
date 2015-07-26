@@ -22,10 +22,6 @@ class WorkOrderComponentViewController: ViewController {
 
     private var childViewController: WorkOrderComponentViewController!
 
-    private var slidingView: UIView! {
-        return workOrdersViewControllerDelegate?.slidingViewControllerForViewController?(self).topViewController.view
-    }
-
     private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
 
     var targetView: UIView! {
@@ -55,25 +51,6 @@ class WorkOrderComponentViewController: ViewController {
         }
 
         view.removeFromSuperview()
-    }
-
-    // MARK Gesture recognizers
-
-    func enableSuspendedTopViewGestureRecognizers() {
-        if let gestureRecognizers = suspendedTopViewGestureRecognizers {
-            for gestureRecognizer in gestureRecognizers {
-                slidingView.addGestureRecognizer(gestureRecognizer)
-            }
-        }
-    }
-
-    func suspendTopViewGestureRecognizers() {
-        suspendedTopViewGestureRecognizers = slidingView.gestureRecognizers!
-        if let gestureRecognizers = suspendedTopViewGestureRecognizers {
-            for gestureRecognizer in gestureRecognizers {
-                slidingView.removeGestureRecognizer(gestureRecognizer)
-            }
-        }
     }
 
     // MARK Navigation

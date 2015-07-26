@@ -47,7 +47,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
                 )
             },
             completion: { complete in
-                self.suspendTopViewGestureRecognizers()
+
             }
         )
     }
@@ -66,7 +66,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
                 )
             },
             completion: { complete in
-                self.enableSuspendedTopViewGestureRecognizers()
+
             }
         )
     }

@@ -14,8 +14,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     optional func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
     optional func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
     optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(viewController: ViewController!)
-    optional func targetViewForViewController(viewController: ViewController) -> UIView
-    optional func slidingViewControllerForViewController(viewController: ViewController) -> ECSlidingViewController
+    optional func targetViewForViewController(viewController: ViewController) -> UIView!
 
     // mapping-related callbacks
     optional func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation]
@@ -161,7 +160,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     @objc private func menuButtonTapped(sender: UIBarButtonItem) {
-        slidingViewController().anchorTopViewToRightAnimated(true)
+        NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
     }
 
     @objc private func messageButtonTapped(sender: UIBarButtonItem) {
@@ -441,10 +440,6 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func targetViewForViewController(viewController: ViewController) -> UIView {
         return view
-    }
-
-    func slidingViewControllerForViewController(viewController: ViewController) -> ECSlidingViewController {
-        return slidingViewController()
     }
 
     private func popManagedNavigationController() -> UINavigationController! {

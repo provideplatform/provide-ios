@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" id="mdI-xf-wyA"/>
                     <connections>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
-                        <segue destination="dY7-kw-4Fv" kind="presentation" identifier="SlidingViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
+                        <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -115,21 +115,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gub-Po-nw5">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="delegate" destination="R0e-aH-frg" id="vbf-Bn-LLa"/>
-                                </connections>
-                            </webView>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edt-IY-Bst">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edt-IY-Bst">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem id="06g-io-jmv">
-                                        <barButtonItem key="leftBarButtonItem" enabled="NO" image="hamburger" id="waQ-5x-aHc">
+                                        <barButtonItem key="leftBarButtonItem" enabled="NO" title="Item" id="waQ-5x-aHc">
                                             <connections>
                                                 <action selector="hamburgerPressed:" destination="R0e-aH-frg" id="wc8-s3-ntO"/>
                                             </connections>
@@ -137,17 +128,29 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQN-sP-dJb">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="pQN-sP-dJb" secondAttribute="trailing" constant="-16" id="2x6-my-cPe"/>
+                            <constraint firstItem="XtO-Ko-RR3" firstAttribute="top" secondItem="pQN-sP-dJb" secondAttribute="bottom" id="3er-QX-Y6j"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leadingMargin" constant="-16" id="60W-Iq-PXk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="edt-IY-Bst" secondAttribute="trailing" constant="-16" id="8NJ-H0-gly"/>
+                            <constraint firstItem="edt-IY-Bst" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leadingMargin" constant="-16" id="auo-zE-4Kb"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="top" secondItem="OWi-1I-hZF" secondAttribute="bottom" constant="44" id="scO-G6-IRv"/>
+                            <constraint firstItem="edt-IY-Bst" firstAttribute="top" secondItem="OWi-1I-hZF" secondAttribute="bottom" id="uIX-Ct-Pjt"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="navigationBar" destination="edt-IY-Bst" id="YGO-eO-dT8"/>
-                        <outlet property="webView" destination="Gub-Po-nw5" id="QPm-4o-dz8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynb-gA-Nuj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864" y="1251.75"/>
+            <point key="canvasLocation" x="-864" y="1079"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="CRL-d1-7mo">
@@ -491,7 +494,7 @@
                     <connections>
                         <outlet property="statusLabel" destination="ECB-p0-3tW" id="kgN-rm-dRD"/>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
-                        <segue destination="dY7-kw-4Fv" kind="presentation" identifier="SlidingViewControllerSegue" modalTransitionStyle="crossDissolve" id="flA-yQ-9Vg"/>
+                        <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="flA-yQ-9Vg"/>
                         <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="baH-vf-SLM"/>
                     </connections>
                 </viewController>
@@ -503,15 +506,10 @@
         <scene sceneID="d45-yO-che">
             <objects>
                 <tableViewController storyboardIdentifier="MenuViewController" id="cnk-1G-UCz" customClass="MenuViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="paT-No-aGs">
+                    <tableView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="paT-No-aGs" customClass="MenuTableView" customModule="provide" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.86307119290000001" green="0.86307119290000001" blue="0.86307119290000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="6QP-Ja-U7m">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <sections>
                             <tableViewSection id="AYa-RW-QBf">
                                 <cells>
@@ -602,8 +600,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="I5n-QS-H1Q"/>
                                                             <exclude reference="4Ah-1k-V01"/>
+                                                            <exclude reference="I5n-QS-H1Q"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
@@ -628,9 +626,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="x05-Dl-7tW"/>
                                                     <exclude reference="OOq-eo-2VE"/>
                                                     <exclude reference="RdF-aX-9q5"/>
+                                                    <exclude reference="x05-Dl-7tW"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -640,10 +638,10 @@
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <mask key="constraints">
+                                                    <include reference="OOq-eo-2VE"/>
+                                                    <exclude reference="UvX-X5-gey"/>
                                                     <exclude reference="WIE-za-gH4"/>
                                                     <include reference="x05-Dl-7tW"/>
-                                                    <exclude reference="UvX-X5-gey"/>
-                                                    <include reference="OOq-eo-2VE"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -785,10 +783,10 @@
             </objects>
             <point key="canvasLocation" x="-864" y="385.5"/>
         </scene>
-        <!--Sliding View Controller-->
+        <!--Application View Controller-->
         <scene sceneID="GcK-9v-0kR">
             <objects>
-                <viewController id="dY7-kw-4Fv" customClass="SlidingViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dY7-kw-4Fv" customClass="ApplicationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d4n-Gf-dzm"/>
                         <viewControllerLayoutGuide type="bottom" id="LBg-EW-qci"/>
@@ -798,9 +796,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="underLeftViewControllerStoryboardId" value="MenuViewController"/>
-                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O0d-YA-N7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -808,7 +803,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hamburger" width="20" height="20"/>
         <image name="home-logo" width="383" height="315"/>
     </resources>
     <inferredMetricsTieBreakers>

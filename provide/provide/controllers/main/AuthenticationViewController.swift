@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ApplicationViewControllerDelegate {
 
     private var emailField: UITextField!
     private var passwordField: UITextField!
@@ -119,7 +119,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     private func userWasAuthenticated() {
         if KeyChainService.sharedService().email != nil {
-            performSegueWithIdentifier("SlidingViewControllerSegue", sender: self)
+            performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
         }
     }
 
@@ -217,8 +217,9 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
-        case "SlidingViewControllerSegue":
-            break // let slidingViewController = segue.destinationViewController as! SlidingViewController
+        case "ApplicationViewControllerSegue":
+            (segue.destinationViewController as! ApplicationViewController).delegate = self
+            break
         case "AuthenticationViewControllerUnwindSegue":
             if emailField.isFirstResponder() {
                 emailField?.resignFirstResponder()
@@ -229,6 +230,14 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             }
         default:
             assertUnhandledSegue(segue.identifier)
+        }
+    }
+
+    // MARK: ApplicationViewControllerDelegate
+
+    func dismissApplicationViewController(viewController: ApplicationViewController) {
+        dismissViewController(animated: true) {
+
         }
     }
 }
