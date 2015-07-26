@@ -35,6 +35,10 @@ class MenuContainerView: UIView {
         return (frame.width * (1.0 - exposedMenuViewPercentage)) * -1.0
     }
 
+    private var gestureInProgress: Bool {
+        return touchesBeganTimestamp != nil
+    }
+
     private var isOpen: Bool {
         return frame.origin.x > closedMenuOffsetX
     }
@@ -122,7 +126,7 @@ class MenuContainerView: UIView {
 
         if let touchesBeganTimestamp = touchesBeganTimestamp {
             if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
-                if xOffset > 30.0 {
+                if xOffset > 15.0 {
                     openMenu()
                 } else if xOffset < -30.0 {
                     closeMenu()
@@ -171,7 +175,9 @@ class MenuContainerView: UIView {
                 self.backgroundView.alpha = 0.75 * percentage
             },
             completion: { complete in
-                UIApplication.sharedApplication().setStatusBarHidden(self.isOpen, withAnimation: .Slide)
+                if !self.gestureInProgress {
+                    UIApplication.sharedApplication().setStatusBarHidden(self.isOpen, withAnimation: .Slide)
+                }
 
                 if !self.isOpen {
                     self.backgroundView.superview!.sendSubviewToBack(self.backgroundView)
