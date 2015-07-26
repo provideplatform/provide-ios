@@ -276,34 +276,36 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     private func attemptSegueToCompleteRoute() {
         if let route = RouteService.sharedService().currentRoute {
-            if let providerOriginAssignment = route.providerOriginAssignment {
-                if let origin = providerOriginAssignment.origin {
-                    RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
-                        {
-                            route.arrive(
-                                onSuccess: { statusCode, responseString in
-                                    self.nextWorkOrderContextShouldBeRewound()
-                                    LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
-                                    self.attemptSegueToValidWorkOrderContext()
-                                },
-                                onError: { error, statusCode, responseString in
-                                    route.reload(
-                                        onSuccess: { statusCode, mappingResult in
-                                            self.nextWorkOrderContextShouldBeRewound()
-                                            LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
-                                            self.attemptSegueToValidWorkOrderContext()
-                                        },
-                                        onError: { error, statusCode, responseString in
+            if route == RouteService.sharedService().inProgressRoute {
+                if let providerOriginAssignment = route.providerOriginAssignment {
+                    if let origin = providerOriginAssignment.origin {
+                        RouteService.sharedService().setInProgressRouteOriginRegionMonitoringCallbacks(
+                            {
+                                route.arrive(
+                                    onSuccess: { statusCode, responseString in
+                                        self.nextWorkOrderContextShouldBeRewound()
+                                        LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+                                        self.attemptSegueToValidWorkOrderContext()
+                                    },
+                                    onError: { error, statusCode, responseString in
+                                        route.reload(
+                                            onSuccess: { statusCode, mappingResult in
+                                                self.nextWorkOrderContextShouldBeRewound()
+                                                LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
+                                                self.attemptSegueToValidWorkOrderContext()
+                                            },
+                                            onError: { error, statusCode, responseString in
 
-                                        }
-                                    )
-                                }
-                            )
-                        },
-                        onDidExitRegion: {
-
-                        }
-                    )
+                                            }
+                                        )
+                                    }
+                                )
+                            },
+                            onDidExitRegion: {
+                                
+                            }
+                        )
+                    }
                 }
             }
         }
