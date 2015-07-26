@@ -89,21 +89,20 @@ class MenuContainerView: UIView {
         }
     }
 
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
+            let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
+            if point.y <= navbarHeight {
+                return false
+            }
+        }
+
+        return super.pointInside(point, withEvent: event)
+    }
+
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesBegan(touches, withEvent: event)
 
-        if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
-            let navbarHeight = navigationController.navigationBar.frame.height
-            let touch = touches.first as! UITouch
-            if touch.locationInView(nil).y > navbarHeight {
-                touchesBegan(touches)
-            }
-        } else {
-            touchesBegan(touches)
-        }
-    }
-
-    private func touchesBegan(touches: Set<NSObject>) {
         touchesBeganTimestamp = NSDate()
         applyTouches(touches)
     }
@@ -111,14 +110,16 @@ class MenuContainerView: UIView {
     override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesEnded(touches, withEvent: event)
 
-        touchesBeganTimestamp = nil
-
-        let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
-        if percentage > 0.5 {
-            openMenu()
-        } else {
-            closeMenu()
+        if let touchesBeganTimestamp = touchesBeganTimestamp {
+            let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
+            if percentage > 0.5 {
+                openMenu()
+            } else {
+                closeMenu()
+            }
         }
+
+        touchesBeganTimestamp = nil
     }
 
     override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
@@ -130,13 +131,13 @@ class MenuContainerView: UIView {
     override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
         super.touchesMoved(touches, withEvent: event)
 
-        var xOffset: CGFloat = 0.0
-        for touch in touches {
-            xOffset = (touch as! UITouch).locationInView(nil).x - (touch as! UITouch).previousLocationInView(nil).x
-        }
-
         if let touchesBeganTimestamp = touchesBeganTimestamp {
             if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
+                var xOffset: CGFloat = 0.0
+                for touch in touches {
+                    xOffset = (touch as! UITouch).locationInView(nil).x - (touch as! UITouch).previousLocationInView(nil).x
+                }
+
                 if xOffset > 15.0 {
                     openMenu()
                 } else if xOffset < -15.0 {
