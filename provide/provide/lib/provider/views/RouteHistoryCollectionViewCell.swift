@@ -36,6 +36,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
             statusBackgroundView.alpha = 0.9
 
             if let profileImageUrl = route.providerOriginAssignment.provider.profileImageUrl {
+                avatarImageView.contentMode = .ScaleAspectFit
                 avatarImageView.sd_setImageWithURL(profileImageUrl, completed: { (image, error, imageCacheType, url) -> Void in
                     self.bringSubviewToFront(self.avatarImageView)
                     self.avatarImageView.makeCircular()
