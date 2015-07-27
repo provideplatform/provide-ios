@@ -31,25 +31,11 @@ class TopViewController: ViewController, CameraViewControllerDelegate {
     func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         navigationController?.popViewControllerAnimated(false)
 
-        let data = UIImageJPEGRepresentation(image, 1.0)!
+        ApiService.sharedService().setUserDefaultProfileImage(image,
+            onSuccess: { statusCode, mappingResult in
 
-        let params = [
-            "public": false,
-            "tags": ["profile_image", "default"]
-        ]
-
-        ApiService.sharedService().addAttachment(data,
-            withMimeType: "image/jpg",
-            toUserWithId: currentUser().id,
-            params: params,
-            onSuccess: { statusCode, responseString in
-                ApiService.sharedService().fetchUser(onSuccess: { (statusCode, mappingResult) -> () in
-                    NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
-                }, onError: { (error, statusCode, responseString) -> () in
-
-                })
             },
-            onError: { statusCode, responseString, error in
+            onError: { error, statusCode, responseString in
 
             }
         )

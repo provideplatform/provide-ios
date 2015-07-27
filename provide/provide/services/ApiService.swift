@@ -130,7 +130,37 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: Int, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func setUserDefaultProfileImage(image: UIImage, onSuccess: OnSuccess, onError: OnError) {
+        let params = [
+            "public": false,
+            "tags": ["profile_image", "default"]
+        ]
+
+        let data = UIImageJPEGRepresentation(image, 1.0)
+
+        ApiService.sharedService().addAttachment(data,
+            withMimeType: "image/jpg",
+            toUserWithId: currentUser().id.stringValue,
+            params: NSDictionary(dictionary: params),
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+
+                ApiService.sharedService().fetchUser(
+                    onSuccess: { statusCode, mappingResult in
+                        NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: NSDictionary, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
