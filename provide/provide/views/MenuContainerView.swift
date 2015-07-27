@@ -93,7 +93,7 @@ class MenuContainerView: UIView {
         if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
             let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
             if point.y <= navbarHeight {
-                return false
+                return menuViewController.view.pointInside(point, withEvent: event)
             }
         }
 
