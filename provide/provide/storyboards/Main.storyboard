@@ -507,30 +507,30 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-x5-mA1">
-                                    <rect key="frame" x="8" y="23" width="50" height="50"/>
+                                    <rect key="frame" x="8" y="8" width="65" height="65"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="50" id="Rbr-XQ-HRR"/>
-                                        <constraint firstAttribute="height" constant="50" id="eNk-cC-Mdg"/>
+                                        <constraint firstAttribute="width" constant="65" id="Rbr-XQ-HRR"/>
+                                        <constraint firstAttribute="height" constant="65" id="eNk-cC-Mdg"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
-                                    <rect key="frame" x="8" y="113" width="91" height="18"/>
-                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K47-UQ-7Pe">
-                                    <rect key="frame" x="0.0" y="62" width="67" height="30"/>
+                                    <rect key="frame" x="7" y="60" width="67" height="30"/>
                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                     <state key="normal" title="change">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
+                                    <rect key="frame" x="8" y="113" width="91" height="18"/>
+                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="QgJ-x5-mA1" firstAttribute="top" secondItem="6OQ-Ex-Qlu" secondAttribute="top" constant="23" id="EMg-aN-9zH"/>
+                                <constraint firstItem="QgJ-x5-mA1" firstAttribute="top" secondItem="6OQ-Ex-Qlu" secondAttribute="top" constant="8" id="EMg-aN-9zH"/>
                                 <constraint firstItem="hth-7D-Yty" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="JhL-3p-ZN0"/>
                                 <constraint firstItem="QgJ-x5-mA1" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="psU-18-sm7"/>
                                 <constraint firstAttribute="bottom" secondItem="hth-7D-Yty" secondAttribute="bottom" constant="34" id="rKY-jW-9me"/>
