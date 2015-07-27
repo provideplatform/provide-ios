@@ -12,15 +12,19 @@ protocol MenuViewControllerDelegate {
     func navigationControllerForMenuViewController(menuViewController: MenuViewController) -> UINavigationController!
 }
 
-class MenuViewController: UITableViewController {
+class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     var delegate: MenuViewControllerDelegate!
+
+    @IBOutlet private weak var menuHeaderView: MenuHeaderView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame)
 
+        menuHeaderView.delegate = self
+        
         alignSections()
     }
 
@@ -79,6 +83,16 @@ class MenuViewController: UITableViewController {
         } else {
             return nil
         }
+    }
+
+    // MARK: MenuHeaderViewDelegate
+
+    func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController! {
+        if let delegate = delegate {
+            return delegate.navigationControllerForMenuViewController(self)
+        }
+
+        return navigationController
     }
 
     // MARK: Private Methods

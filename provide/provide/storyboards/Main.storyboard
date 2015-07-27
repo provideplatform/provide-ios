@@ -18,6 +18,10 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
+        </mutableArray>
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -498,6 +502,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.86307119290000001" green="0.86307119290000001" blue="0.86307119290000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="6OQ-Ex-Qlu" customClass="MenuHeaderView" customModule="provide" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="165"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-x5-mA1">
+                                    <rect key="frame" x="8" y="23" width="50" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="50" id="Rbr-XQ-HRR"/>
+                                        <constraint firstAttribute="height" constant="50" id="eNk-cC-Mdg"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
+                                    <rect key="frame" x="8" y="113" width="91" height="18"/>
+                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K47-UQ-7Pe">
+                                    <rect key="frame" x="0.0" y="62" width="67" height="30"/>
+                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                    <state key="normal" title="change">
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="QgJ-x5-mA1" firstAttribute="top" secondItem="6OQ-Ex-Qlu" secondAttribute="top" constant="23" id="EMg-aN-9zH"/>
+                                <constraint firstItem="hth-7D-Yty" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="JhL-3p-ZN0"/>
+                                <constraint firstItem="QgJ-x5-mA1" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="psU-18-sm7"/>
+                                <constraint firstAttribute="bottom" secondItem="hth-7D-Yty" secondAttribute="bottom" constant="34" id="rKY-jW-9me"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="changeProfileImageButton" destination="K47-UQ-7Pe" id="tjs-qP-93E"/>
+                                <outlet property="nameLabel" destination="hth-7D-Yty" id="afJ-yu-VSW"/>
+                                <outlet property="profileImageView" destination="QgJ-x5-mA1" id="luv-7U-cxi"/>
+                            </connections>
+                        </view>
                         <sections>
                             <tableViewSection id="AYa-RW-QBf">
                                 <cells>
@@ -655,8 +698,8 @@
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="cq3-oL-fmi"/>
                                                             <exclude reference="NGf-t7-oc7"/>
+                                                            <exclude reference="cq3-oL-fmi"/>
                                                         </mask>
                                                     </variation>
                                                     <variation key="heightClass=regular-widthClass=compact">
@@ -681,9 +724,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="wyF-Fb-z0h"/>
-                                                    <exclude reference="Vgb-KA-AQo"/>
                                                     <exclude reference="2lm-tu-qci"/>
+                                                    <exclude reference="Vgb-KA-AQo"/>
+                                                    <exclude reference="wyF-Fb-z0h"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -693,10 +736,10 @@
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <mask key="constraints">
-                                                    <include reference="wyF-Fb-z0h"/>
+                                                    <include reference="2lm-tu-qci"/>
                                                     <exclude reference="PtJ-uA-N6W"/>
                                                     <exclude reference="ZNV-AO-5tT"/>
-                                                    <include reference="2lm-tu-qci"/>
+                                                    <include reference="wyF-Fb-z0h"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -831,12 +874,13 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="menuHeaderView" destination="6OQ-Ex-Qlu" id="zbs-Sl-3lu"/>
                         <outlet property="view" destination="paT-No-aGs" id="gER-JW-Deo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jnk-Ld-RbM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864" y="385.5"/>
+            <point key="canvasLocation" x="-864" y="385"/>
         </scene>
         <!--Application View Controller-->
         <scene sceneID="GcK-9v-0kR">
