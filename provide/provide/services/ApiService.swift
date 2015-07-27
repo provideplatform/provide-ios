@@ -79,18 +79,19 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        let token = KeyChainService.sharedService().token!
-        dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                self.localLogout()
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-                self.localLogout()
-            }
-        )
+    func logout(onSuccess: OnSuccess, onError: OnError) {
+        if let token = KeyChainService.sharedService().token {
+            dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.localLogout()
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    self.localLogout()
+                }
+            )
+        }
     }
 
     private func localLogout() {
