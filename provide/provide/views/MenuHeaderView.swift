@@ -150,4 +150,10 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
             }
         }
     }
+
+    // MARK: UINavigationControllerDelegate
+
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+    }
 }

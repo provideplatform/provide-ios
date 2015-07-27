@@ -9,11 +9,20 @@
 import UIKit
 
 class ImagePickerViewController: UIImagePickerController, UIImagePickerControllerDelegate {
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         sourceType = .SavedPhotosAlbum
         mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(.SavedPhotosAlbum)!
         allowsEditing = false
+    }
+
+    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+        return nil
+    }
+
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }
