@@ -12,7 +12,7 @@ protocol MenuHeaderViewDelegate {
     func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController!
 }
 
-class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegate {
+class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var delegate: MenuHeaderViewDelegate!
 
@@ -64,10 +64,20 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     // MARK: UIActionSheetDelegate
 
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 0 {
-            println("init photo library")
+        if buttonIndex == 2 {
+            initImagePickerViewController()
         } else if buttonIndex == 1 {
             initSelfieViewController()
+        }
+    }
+
+    private func initImagePickerViewController() {
+        var imagePickerViewController = ImagePickerViewController()
+        imagePickerViewController.delegate = self
+
+        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
+            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+            navigationController.presentViewController(imagePickerViewController, animated: true)
         }
     }
 
@@ -96,6 +106,14 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController!) -> Bool {
+        return true
+    }
+
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController!) -> Bool {
+        return true
+    }
+
     private func initSelfieViewController() {
         let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
@@ -103,6 +121,33 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             navigationController.pushViewController(selfieViewController, animated: false)
+        }
+    }
+
+    // MARK: UIImagePickerControllerDelegate
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
+            navigationController.dismissViewController(animated: true) {
+                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
+            }
+        }
+
+        ApiService.sharedService().setUserDefaultProfileImage(image,
+            onSuccess: { statusCode, mappingResult in
+
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
+    }
+
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
+            navigationController.dismissViewController(animated: true) {
+                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
+            }
         }
     }
 

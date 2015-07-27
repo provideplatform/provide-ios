@@ -8,9 +8,12 @@
 
 import UIKit
 
+@objc
 protocol CameraViewControllerDelegate {
     func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!)
     func cameraViewControllerCanceled(viewController: CameraViewController!)
+    optional func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController!) -> Bool
+    optional func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController!) -> Bool
 }
 
 class CameraViewController: ViewController, CameraViewDelegate {
@@ -142,6 +145,20 @@ class CameraViewController: ViewController, CameraViewDelegate {
 
     func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!) {
         delegate?.cameraViewController(self, didCaptureStillImage: image)
+    }
+
+    func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool {
+        if let outputFaceMetadata = delegate?.cameraViewControllerShouldOutputFaceMetadata?(self) {
+            return outputFaceMetadata
+        }
+        return false
+    }
+
+    func cameraViewShouldRenderFacialRecognition(cameraView: CameraView) -> Bool {
+        if let renderFacialRecognition = delegate?.cameraViewControllerShouldRenderFacialRecognition?(self) {
+            return renderFacialRecognition
+        }
+        return false
     }
 
     func dismiss() {

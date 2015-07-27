@@ -9,21 +9,26 @@
 import Foundation
 import AVFoundation
 
+@objc
 protocol CameraViewDelegate {
 
     func cameraView(cameraView: CameraView, didCaptureStillImage image: UIImage)
+    optional func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool
+    optional func cameraViewShouldRenderFacialRecognition(cameraView: CameraView) -> Bool
 }
 
-class CameraView: UIView {
+class CameraView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
     var delegate: CameraViewDelegate!
 
     private let avCameraOutputQueue = dispatch_queue_create("api.avCameraOutputQueue", nil)
+    private let avMetadataFaceOutputQueue = dispatch_queue_create("api.avMetadataFaceOutputQueue", nil)
 
     private var captureInput: AVCaptureInput!
     private var captureSession: AVCaptureSession!
 
     private var capturePreviewLayer = AVCaptureVideoPreviewLayer()
+    private let codeDetectionLayer = CALayer()
 
     private var stillCameraOutput: AVCaptureStillImageOutput!
 
@@ -43,6 +48,24 @@ class CameraView: UIView {
             }
         }
         return nil
+    }
+
+    private var outputFaceMetadata: Bool {
+        if let delegate = delegate {
+            if let outputFaceMetadata = delegate.cameraViewShouldOutputFaceMetadata?(self) {
+                return outputFaceMetadata
+            }
+        }
+        return false
+    }
+
+    private var renderFacialRecognition: Bool {
+        if let delegate = delegate {
+            if let renderFacialRecognition = delegate.cameraViewShouldRenderFacialRecognition?(self) {
+                return renderFacialRecognition
+            }
+        }
+        return false
     }
 
     override func awakeFromNib() {
@@ -108,6 +131,20 @@ class CameraView: UIView {
             captureSession.addOutput(stillCameraOutput)
         }
 
+        if outputFaceMetadata {
+            let metadataOutput = AVCaptureMetadataOutput()
+            captureSession.addOutput(metadataOutput)
+
+            metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataFaceOutputQueue)
+            metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
+            metadataOutput.rectOfInterest = bounds
+        }
+
+        if renderFacialRecognition {
+            codeDetectionLayer.frame = bounds
+            layer.insertSublayer(codeDetectionLayer, above: capturePreviewLayer)
+        }
+
         captureSession.startRunning()
     }
 
@@ -150,6 +187,41 @@ class CameraView: UIView {
                     } else {
                         logError("Error capturing still image \(error)")
                     }
+                }
+            }
+        }
+    }
+
+    // MARK: AVCaptureMetadataOutputObjectsDelegate
+
+    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+        if renderFacialRecognition {
+            dispatch_after_delay(0.0) {
+                self.clearDetectedMetadataObjects()
+                self.showDetectedMetadataObjects(metadataObjects)
+            }
+        }
+
+        // TODO-- set up-to-date rect for faces
+    }
+
+    private func clearDetectedMetadataObjects() {
+        if let codeDetectionLayer = codeDetectionLayer {
+            codeDetectionLayer.sublayers = nil
+        }
+    }
+
+    private func showDetectedMetadataObjects(metadataObjects: [AnyObject]!) {
+        for object in metadataObjects {
+            if let metadataFaceObject = object as? AVMetadataFaceObject {
+                if let detectedCode = capturePreviewLayer.transformedMetadataObjectForMetadataObject(metadataFaceObject) as? AVMetadataFaceObject {
+                    let shapeLayer = CAShapeLayer()
+                    shapeLayer.strokeColor = UIColor.greenColor().CGColor
+                    shapeLayer.fillColor = UIColor.clearColor().CGColor
+                    shapeLayer.lineWidth = 2.0
+                    shapeLayer.lineJoin = kCALineJoinRound
+                    shapeLayer.path = UIBezierPath(rect: detectedCode.bounds).CGPath
+                    codeDetectionLayer.addSublayer(shapeLayer)
                 }
             }
         }
