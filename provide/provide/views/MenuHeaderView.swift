@@ -150,14 +150,4 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
             }
         }
     }
-
-//    // Called when we cancel a view (eg. the user clicks the Home button). This is not called when the user clicks the cancel button.
-//    // If not defined in the delegate, we simulate a click in the cancel button
-//    optional func actionSheetCancel(actionSheet: UIActionSheet)
-//
-//    optional func willPresentActionSheet(actionSheet: UIActionSheet) // before animation and showing view
-//    optional func didPresentActionSheet(actionSheet: UIActionSheet) // after animation
-//
-//    optional func actionSheet(actionSheet: UIActionSheet, willDismissWithButtonIndex buttonIndex: Int) // before animation and hiding view
-//    optional func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) // after animation
 }
