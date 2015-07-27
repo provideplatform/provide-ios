@@ -13,6 +13,8 @@ class SelfieViewController: CameraViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupFrontCameraView()
+
         setupNavigationItem()
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)

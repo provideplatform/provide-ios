@@ -107,22 +107,28 @@ class CameraViewController: ViewController, CameraViewDelegate {
     func setupBackCameraView() {
         mode = .Back
 
-        backCameraView.frame = view.frame
-        backCameraView.delegate = self
-        backCameraView.startBackCameraCapture()
+        if let backCameraView = backCameraView {
+            backCameraView.frame = view.frame
+            backCameraView.delegate = self
+            backCameraView.startBackCameraCapture()
 
-        view.bringSubviewToFront(backCameraView)
+            view.bringSubviewToFront(backCameraView)
+        }
+
         view.bringSubviewToFront(button)
     }
 
     func setupFrontCameraView() {
         mode = .Front
 
-        frontCameraView.frame = view.frame
-        frontCameraView.delegate = self
-        frontCameraView.startFrontCameraCapture()
+        if let frontCameraView = frontCameraView {
+            frontCameraView.frame = view.frame
+            frontCameraView.delegate = self
+            frontCameraView.startFrontCameraCapture()
 
-        view.bringSubviewToFront(frontCameraView)
+            view.bringSubviewToFront(frontCameraView)
+        }
+
         view.bringSubviewToFront(button)
     }
 
