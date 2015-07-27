@@ -52,7 +52,8 @@ class KeyChainService {
             if let token = cachedToken {
                 return token
             } else if let tokenJsonString = self["token"] {
-                cachedToken = Token(string: tokenJsonString)
+                let json = migrateProfileImageUrl(tokenJsonString)
+                cachedToken = Token(string: json)
                 return cachedToken
             } else {
                 return nil
@@ -83,5 +84,22 @@ class KeyChainService {
         } else {
             return "\(CurrentEnvironment.prefixString)-\(key)"
         }
+    }
+
+    private func migrateProfileImageUrl(var tokenJsonString: String) -> String! {
+        var tokenDict = NSMutableDictionary(dictionary: tokenJsonString.toJSONObject())
+        if let user = tokenDict["user"] as? NSDictionary {
+            var newUser = NSMutableDictionary(dictionary: user)
+            if let profileImageUrlString = newUser["profileImageUrl"] as? String {
+                newUser.removeObjectForKey("profileImageUrl")
+                newUser.setObject(profileImageUrlString, forKey: "profileImageUrlString")
+                tokenDict["user"] = newUser
+
+                tokenJsonString = tokenDict.toJSON()
+                token = Token(string: tokenJsonString)
+                return tokenJsonString
+            }
+        }
+        return tokenJsonString
     }
 }

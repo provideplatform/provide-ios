@@ -13,8 +13,15 @@ class User: Model {
     var id = 0
     var name: String!
     var email: String!
-    var profileImageUrl: String?
+    var profileImageUrlString: String!
     var contact: Contact!
+
+    var profileImageUrl: NSURL! {
+        if let profileImageUrlString = profileImageUrlString {
+            return NSURL(string: profileImageUrlString)
+        }
+        return nil
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -29,7 +36,6 @@ class User: Model {
         return mapping
     }
 }
-
 
 // MARK: - Functions
 
