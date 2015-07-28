@@ -318,6 +318,14 @@ class Route: Model {
     }
 
     var humanReadableDuration: String! {
+        var startedAtDate: NSDate!
+
+        if let date = loadingStartedAtDate {
+            startedAtDate = date
+        } else if let date = self.startedAtDate {
+            startedAtDate = date
+        }
+
         if let startedAtDate = startedAtDate {
             var seconds = 0.0
 
