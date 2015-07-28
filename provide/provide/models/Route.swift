@@ -12,10 +12,15 @@ class Route: Model {
 
     var id = 0
     var name: String!
-    var legs = [RouteLeg]()
     var status: String!
-    var startAt: String!
-    var endAt: String!
+    var scheduledStartAt: String!
+    var scheduledEndAt: String!
+    var startedAt: String!
+    var endedAt: String!
+    var loadingStartedAt: String!
+    var loadingEndedAt: String!
+    var unloadingStartedAt: String!
+    var unloadingEndedAt: String!
     var legs: [RouteLeg]()
     var workOrders: [WorkOrder]()
     var itemsLoaded: [Product]()
@@ -29,9 +34,14 @@ class Route: Model {
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "name": "name",
-            "status": "status",
-            "start_at": "startAt",
-            "end_at": "endAt"
+            "scheduled_started_at": "scheduledStartAt",
+            "scheduled_end_at": "scheduledEndAt",
+            "started_at": "startedAt",
+            "ended_at": "endedAt",
+            "loading_start_at": "loadingStartedAt",
+            "loading_end_at": "loadingEndedAt",
+            "unloading_start_at": "unloadingStartedAt",
+            "unloading_end_at": "unloadingEndedAt",
             ])
 
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", withMapping: ProviderOriginAssignment.mapping()))
@@ -41,9 +51,30 @@ class Route: Model {
         return mapping
     }
 
-    var humanReadableStartAtTimestamp: String! {
-        if let startAtDate = startAtDate {
-            return "\(startAtDate.dayOfWeek), \(startAtDate.monthName) \(startAtDate.dayOfMonth) @ \(startAtDate.timeString!)"
+    var humanReadableStartedAtTimestamp: String! {
+        if let startedAtDate = startedAtDate {
+            return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"
+        }
+        return nil
+    }
+
+    var humanReadableEndedAtTimestamp: String! {
+        if let endedAtDate = endedAtDate {
+            return "\(endedAtDate.dayOfWeek), \(endedAtDate.monthName) \(endedAtDate.dayOfMonth) @ \(endedAtDate.timeString!)"
+        }
+        return nil
+    }
+
+    var humanReadableLoadingStartedAtTimestamp: String! {
+        if let loadingStartedAtDate = loadingStartedAtDate {
+            return "\(loadingStartedAtDate.dayOfWeek), \(loadingStartedAtDate.monthName) \(loadingStartedAtDate.dayOfMonth) @ \(loadingStartedAtDate.timeString!)"
+        }
+        return nil
+    }
+
+    var humanReadableUnloadingStartedAtTimestamp: String! {
+        if let unloadingStartedAtDate = unloadingStartedAtDate {
+            return "\(unloadingStartedAtDate.dayOfWeek), \(unloadingStartedAtDate.monthName) \(unloadingStartedAtDate.dayOfMonth) @ \(unloadingStartedAtDate.timeString!)"
         }
         return nil
     }
@@ -230,25 +261,67 @@ class Route: Model {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
-    var startAtDate: NSDate! {
-        if let startAt = startAt {
-            return NSDate.fromString(startAt)
+    var scheduledStartAtDate: NSDate! {
+        if let scheduledStartAt = scheduledStartAt {
+            return NSDate.fromString(scheduledStartAt)
         }
         return nil
     }
 
-    var endAtDate: NSDate! {
-        if let endAt = endAt {
-            return NSDate.fromString(endAt)
+    var scheduledEndAtDate: NSDate! {
+        if let scheduledEndAt = scheduledEndAt {
+            return NSDate.fromString(scheduledEndAt)
+        }
+        return nil
+    }
+
+    var startedAtDate: NSDate! {
+        if let startedAt = startedAt {
+            return NSDate.fromString(startedAt)
+        }
+        return nil
+    }
+
+    var endedAtDate: NSDate! {
+        if let endedAt = endedAt {
+            return NSDate.fromString(endedAt)
+        }
+        return nil
+    }
+
+    var loadingStartedAtDate: NSDate! {
+        if let loadingStartedAt = loadingStartedAt {
+            return NSDate.fromString(loadingStartedAt)
+        }
+        return nil
+    }
+
+    var loadingEndedAtDate: NSDate! {
+        if let loadingEndedAt = loadingEndedAt {
+            return NSDate.fromString(loadingEndedAt)
+        }
+        return nil
+    }
+
+    var unloadingStartedAtDate: NSDate! {
+        if let unloadingStartedAt = unloadingStartedAt {
+            return NSDate.fromString(unloadingStartedAt)
+        }
+        return nil
+    }
+
+    var unloadingEndedDate: NSDate! {
+        if let unloadingEndedAt = unloadingEndedAt {
+            return NSDate.fromString(unloadingEndedAt)
         }
         return nil
     }
 
     var humanReadableDuration: String! {
-        if let startedAtDate = startAtDate {
+        if let startedAtDate = startedAtDate {
             var seconds = 0.0
 
-            if let endedAtDate = endAtDate {
+            if let endedAtDate = endedAtDate {
                 seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)
             } else {
                 seconds = NSDate().timeIntervalSinceDate(startedAtDate)

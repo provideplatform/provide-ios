@@ -54,7 +54,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
                 }
             }
 
-            if let timestamp = route.humanReadableStartAtTimestamp {
+            if let timestamp = route.humanReadableStartedAtTimestamp {
                 timestampLabel.text = timestamp.uppercaseString
                 timestampLabel.sizeToFit()
             }
@@ -67,11 +67,11 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
             statusLabel.text = route.status.uppercaseString
             statusLabel.sizeToFit()
 
-            if route.status == "loading" || route.status == "in_progress" || route.status == "unloading" {
+            if route.status == "loading" || route.status == "in_progress" || route.status == "unloading" || route.status == "pending_completion" {
                 timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
                 timer.fire()
             } else if route.status == "scheduled" {
-                durationLabel.text = route.startAtDate.timeString
+                durationLabel.text = route.scheduledStartAtDate.timeString
             }
         }
     }

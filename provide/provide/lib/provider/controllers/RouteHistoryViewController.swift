@@ -113,7 +113,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             "page": page,
             "rpp": rpp,
             "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,canceled,abandoned",
-            "sort_start_at_desc": "true",
+            "sort_started_at_desc": "true",
             "include_work_orders": "true"
         ])
 
