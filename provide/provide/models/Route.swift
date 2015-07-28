@@ -38,10 +38,10 @@ class Route: Model {
             "scheduled_end_at": "scheduledEndAt",
             "started_at": "startedAt",
             "ended_at": "endedAt",
-            "loading_start_at": "loadingStartedAt",
-            "loading_end_at": "loadingEndedAt",
-            "unloading_start_at": "unloadingStartedAt",
-            "unloading_end_at": "unloadingEndedAt",
+            "loading_started_at": "loadingStartedAt",
+            "loading_ended_at": "loadingEndedAt",
+            "unloading_started_at": "unloadingStartedAt",
+            "unloading_ended_at": "unloadingEndedAt",
             ])
 
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", withMapping: ProviderOriginAssignment.mapping()))
