@@ -51,6 +51,20 @@ class Route: Model {
         return mapping
     }
 
+    var humanReadableScheduledStartAtTimestamp: String! {
+        if let scheduledStartAtDate = scheduledStartAtDate {
+            return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
+        }
+        return nil
+    }
+
+    var humanReadableScheduledEndAtTimestamp: String! {
+        if let scheduledEndAtDate = scheduledEndAtDate {
+            return "\(scheduledEndAtDate.dayOfWeek), \(scheduledEndAtDate.monthName) \(scheduledEndAtDate.dayOfMonth) @ \(scheduledEndAtDate.timeString!)"
+        }
+        return nil
+    }
+
     var humanReadableStartedAtTimestamp: String! {
         if let startedAtDate = startedAtDate {
             return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"

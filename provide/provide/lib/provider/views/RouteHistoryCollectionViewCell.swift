@@ -54,7 +54,13 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
                 }
             }
 
-            if let timestamp = route.humanReadableStartedAtTimestamp {
+            if let timestamp = route.humanReadableLoadingStartedAtTimestamp {
+                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.sizeToFit()
+            } else if let timestamp = route.humanReadableStartedAtTimestamp {
+                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.sizeToFit()
+            } else if let timestamp = route.humanReadableScheduledStartAtTimestamp {
                 timestampLabel.text = timestamp.uppercaseString
                 timestampLabel.sizeToFit()
             }
