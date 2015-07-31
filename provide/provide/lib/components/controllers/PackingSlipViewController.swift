@@ -14,7 +14,8 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                  UITableViewDelegate,
                                  PackingSlipItemTableViewCellDelegate,
                                  BarcodeScannerViewControllerDelegate,
-                                 CameraViewControllerDelegate {
+                                 CameraViewControllerDelegate,
+                                 CommentsViewControllerDelegate {
 
     enum Segment {
         case OnTruck, Unloaded, Rejected
@@ -107,6 +108,12 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 completion: nil
             )
         }
+    }
+
+    private var commentsViewController: CommentsViewController! {
+        var commentsViewController = (UIStoryboard("Comments").instantiateInitialViewController() as! UINavigationController).viewControllers.first as! CommentsViewController
+        commentsViewController.commentsViewControllerDelegate = self
+        return commentsViewController
     }
 
     private var hiddenNavigationControllerFrame: CGRect {
@@ -329,6 +336,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                         self.packingSlipTableView.reloadData()
 
                                         self.hideHUD(inView: self.targetView)
+
+                                        if let navigationController = self.navigationController {
+                                            navigationController.pushViewController(self.commentsViewController, animated: true)
+                                        }
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
@@ -521,5 +532,38 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
         }
+    }
+
+    // MARK: CommentsViewControllerDelegate
+
+    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
+        commentsViewControllerShouldBeDismissed(viewController)
+
+        self.showHUD(inView: self.targetView)
+
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            workOrder.addComment(comment,
+                onSuccess: { statusCode, responseString in
+                    self.hideHUD(inView: self.targetView)
+                },
+                onError: { error, statusCode, responseString in
+                    self.hideHUD(inView: self.targetView)
+                }
+            )
+        }
+    }
+
+    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
+        if let navigationController = self.navigationController {
+            navigationController.popViewControllerAnimated(true)
+        }
+    }
+
+    func promptForCommentsViewController(viewController: CommentsViewController) -> String! {
+        return nil
+    }
+
+    func titleForCommentsViewController(viewController: CommentsViewController) -> String! {
+        return "COMMENT ON REJECTION"
     }
 }

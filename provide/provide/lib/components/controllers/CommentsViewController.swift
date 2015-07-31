@@ -11,9 +11,13 @@ import UIKit
 protocol CommentsViewControllerDelegate {
     func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String)
     func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController)
+    func promptForCommentsViewController(viewController: CommentsViewController) -> String!
+    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
 }
 
 class CommentsViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
+
+    var commentsViewControllerDelegate: CommentsViewControllerDelegate!
 
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var textView: UITextView!
@@ -65,9 +69,9 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     func dismiss() {
         if textView.text.length > 0 {
-            workOrdersViewControllerDelegate.commentsViewController!(self, didSubmitComment: textView.text)
+            commentsViewControllerDelegate?.commentsViewController(self, didSubmitComment: textView.text)
         } else {
-            workOrdersViewControllerDelegate.commentsViewControllerShouldBeDismissed!(self)
+            commentsViewControllerDelegate?.commentsViewControllerShouldBeDismissed(self)
         }
     }
 
@@ -76,8 +80,8 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
     }
 
     func setupNavigationItem() {
-        navigationItem.prompt = "Anything worth mentioning?"
-        navigationItem.title = "COMMENTS"
+        navigationItem.prompt = commentsViewControllerDelegate?.promptForCommentsViewController(self)
+        navigationItem.title = commentsViewControllerDelegate?.titleForCommentsViewController(self)
         navigationItem.hidesBackButton = true
 
         navigationItem.leftBarButtonItems = []

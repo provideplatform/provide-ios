@@ -61,6 +61,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
 }
 
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
+                                                CommentsViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
                                                 RouteViewControllerDelegate,
@@ -395,6 +396,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             assert(segue.destinationViewController is WorkOrderComponentViewController)
             (segue.destinationViewController as! WorkOrderComponentViewController).delegate = self
             (segue.destinationViewController as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
+
+            if segue.destinationViewController.isKindOfClass(CommentsViewController) {
+                (segue.destinationViewController as! CommentsViewController).commentsViewControllerDelegate = self
+            }
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderDestinationHeaderViewController)
             (segue.destinationViewController as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
@@ -655,6 +660,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             attemptCompletionOfInProgressWorkOrder()
         }
+    }
+
+    func promptForCommentsViewController(viewController: CommentsViewController) -> String! {
+        return "Anything worth mentioning?"
+    }
+
+    func titleForCommentsViewController(viewController: CommentsViewController) -> String! {
+        return "COMMENTS"
     }
 
     func shouldRemoveMapAnnotationsForWorkOrderViewController(viewController: ViewController!) {
