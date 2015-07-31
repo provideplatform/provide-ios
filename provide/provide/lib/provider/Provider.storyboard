@@ -624,7 +624,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" text="duration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ih-jW-XIn">
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="252" text="duration" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ih-jW-XIn">
                                                     <rect key="frame" x="525" y="37" width="66" height="20.5"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -803,6 +803,7 @@
                                             <outlet property="statusBackgroundView" destination="yY1-pd-lSK" id="JWf-F4-b4f"/>
                                             <outlet property="statusLabel" destination="EW0-cE-hDa" id="Khe-EF-TFg"/>
                                             <outlet property="timestampLabel" destination="4mR-P0-bzu" id="Fa1-Xr-yfn"/>
+                                            <segue destination="PMr-3s-fSr" kind="show" identifier="RouteViewControllerSegue" id="UnJ-bf-DPz"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -1209,5 +1210,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fAd-Aq-llj"/>
+        <segue reference="UnJ-bf-DPz"/>
     </inferredMetricsTieBreakers>
 </document>

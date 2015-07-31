@@ -25,6 +25,9 @@ class WorkOrderTableViewCell: UITableViewCell {
 
             if let duration = workOrder.humanReadableDuration {
                 durationLabel.text = duration
+                durationLabel.alpha = 1.0
+            } else {
+                durationLabel.alpha = 0.0
             }
 
             backgroundView?.backgroundColor = workOrder.statusColor
@@ -35,6 +38,7 @@ class WorkOrderTableViewCell: UITableViewCell {
                 timer.fire()
             } else if workOrder.status == "scheduled" {
                 durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                durationLabel.alpha = 1.0
             }
         }
     }
@@ -47,6 +51,7 @@ class WorkOrderTableViewCell: UITableViewCell {
 
         customerLabel.text = ""
         durationLabel.text = ""
+        durationLabel.alpha = 0.0
         statusLabel.text = ""
         inventoryLabel.text = ""
 

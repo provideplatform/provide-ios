@@ -12,7 +12,7 @@ protocol RouteHistoryViewControllerDelegate {
     func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
 }
 
-class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, RouteViewControllerDelegate {
 
     private var page = 1
     private let rpp = 10
@@ -28,6 +28,8 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             //collectionView?.layoutIfNeeded()
         }
     }
+
+    private weak var selectedRoute: Route!
 
     private var zeroStateViewController: ZeroStateViewController!
 
@@ -84,6 +86,8 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        selectedRoute = nil
+
         collectionView.frame = view.bounds
     }
 
@@ -132,6 +136,12 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         )
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "RouteViewControllerSegue" {
+            (segue.destinationViewController as! RouteViewController).delegate = self
+        }
+    }
+
     func refreshNavigationItem() {
         navigationItem.title = "HISTORY"
         navigationItem.leftBarButtonItems = [dismissItem]
@@ -156,7 +166,6 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         }
     }
 
-
     // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -177,6 +186,16 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             lastRouteIndex = routeIndex
             refresh()
         }
+    }
+
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        selectedRoute = routeForRowAtIndexPath(indexPath)
+
+        return true
+    }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
     }
 
     // MARK: UICollectionViewDataSource
@@ -202,7 +221,17 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return numberOfSections
     }
-//
+
 //    // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+
+    // MARK: RouteViewControllerDelegate
+
+    func routeForViewController(viewController: ViewController!) -> Route! {
+        return selectedRoute
+    }
+
+    func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController! {
+        return navigationController
+    }
 }
