@@ -18,7 +18,6 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -606,73 +605,6 @@
                                                     <include reference="3Ld-Tm-CR9"/>
                                                     <exclude reference="VEU-pA-3gO"/>
                                                     <include reference="deh-Bn-hZv"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ManifestCell" id="ZaI-YI-lAh">
-                                        <rect key="frame" x="0.0" y="35" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZaI-YI-lAh" id="sys-0d-2yA">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MANIFEST" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D6X-eQ-OO8">
-                                                    <rect key="frame" x="58" y="12" width="242" height="21"/>
-                                                    <accessibility key="accessibilityConfiguration" label="dash_slider"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="242" id="4Ah-1k-V01"/>
-                                                        <constraint firstAttribute="width" constant="242" id="I5n-QS-H1Q"/>
-                                                        <constraint firstAttribute="width" constant="242" id="azB-Wl-pOf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="4Ah-1k-V01"/>
-                                                            <exclude reference="I5n-QS-H1Q"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <mask key="constraints">
-                                                            <include reference="4Ah-1k-V01"/>
-                                                        </mask>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular">
-                                                        <mask key="constraints">
-                                                            <include reference="I5n-QS-H1Q"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="D6X-eQ-OO8" firstAttribute="leading" secondItem="sys-0d-2yA" secondAttribute="leadingMargin" constant="50" id="OOq-eo-2VE"/>
-                                                <constraint firstItem="D6X-eQ-OO8" firstAttribute="top" secondItem="sys-0d-2yA" secondAttribute="topMargin" constant="4" id="RdF-aX-9q5"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="D6X-eQ-OO8" secondAttribute="bottom" constant="9" id="UvX-X5-gey"/>
-                                                <constraint firstItem="D6X-eQ-OO8" firstAttribute="top" secondItem="sys-0d-2yA" secondAttribute="topMargin" constant="4" id="WIE-za-gH4"/>
-                                                <constraint firstItem="D6X-eQ-OO8" firstAttribute="leading" secondItem="sys-0d-2yA" secondAttribute="leadingMargin" constant="50" id="p7b-vG-E40"/>
-                                                <constraint firstItem="D6X-eQ-OO8" firstAttribute="top" secondItem="sys-0d-2yA" secondAttribute="topMargin" constant="4" id="x05-Dl-7tW"/>
-                                            </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="OOq-eo-2VE"/>
-                                                    <exclude reference="RdF-aX-9q5"/>
-                                                    <exclude reference="x05-Dl-7tW"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="RdF-aX-9q5"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=regular">
-                                                <mask key="constraints">
-                                                    <include reference="OOq-eo-2VE"/>
-                                                    <exclude reference="UvX-X5-gey"/>
-                                                    <exclude reference="WIE-za-gH4"/>
-                                                    <include reference="x05-Dl-7tW"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

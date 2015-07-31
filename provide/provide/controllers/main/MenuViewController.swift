@@ -40,9 +40,6 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         case "RouteCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
-        case "ManifestCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
         case "HistoryCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
