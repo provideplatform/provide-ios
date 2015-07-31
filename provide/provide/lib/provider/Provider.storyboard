@@ -881,7 +881,7 @@
                                     <outlet property="mapView" destination="ZFY-9d-ckE" id="yWE-Ne-8VC"/>
                                 </connections>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nWP-Zu-OrV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="nWP-Zu-OrV">
                                 <rect key="frame" x="0.0" y="200" width="600" height="400"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -1017,7 +1017,7 @@
         <!--ManifestViewController-->
         <scene sceneID="512-Ue-hGv">
             <objects>
-                <viewController title="ManifestViewController" id="AiO-Uo-7Bj" customClass="ManifestViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ManifestViewController" title="ManifestViewController" id="AiO-Uo-7Bj" customClass="ManifestViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9MI-9Q-Ekq"/>
                         <viewControllerLayoutGuide type="bottom" id="iSN-Bf-B6m"/>
@@ -1208,6 +1208,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wkz-FA-Qls"/>
+        <segue reference="fAd-Aq-llj"/>
     </inferredMetricsTieBreakers>
 </document>

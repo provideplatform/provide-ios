@@ -13,9 +13,11 @@ class NameValueTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
 
-    func setName(name: String, value: String) {
+    func setName(name: String, value: String, valueFontSize: CGFloat = 17.0) {
         nameLabel.text = name
+
         valueLabel.text = value
+        valueLabel.font = valueLabel.font.fontWithSize(valueFontSize)
     }
 
     override func awakeFromNib() {

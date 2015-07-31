@@ -13,6 +13,8 @@ protocol ManifestViewControllerDelegate {
     func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
     func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
     func routeForViewController(viewController: ViewController) -> Route!
+    optional func navigationControllerBackItemTitleForManifestViewController(viewController: ViewController) -> String!
+    optional func workOrderForManifestViewController(viewController: ViewController) -> WorkOrder!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -33,30 +35,43 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         if let route = route {
             switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
             case .Delivered:
-                for product in route.itemsDelivered {
-                    items.append(product)
-                }
+                items = route.itemsDelivered
             case .OnTruck:
-                if let itemsLoaded = route.itemsLoaded {
-                    for product in itemsLoaded {
-                        items.append(product)
-                    }
-                }
+                items = route.itemsLoaded
             case .Rejected:
                 items = route.itemsRejected
+            }
+        } else if let workOrder = workOrder {
+            switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
+            case .Delivered:
+                items = workOrder.itemsDelivered
+            case .OnTruck:
+                items = workOrder.itemsOnTruck
+            case .Rejected:
+                items = workOrder.itemsRejected
             }
         }
         return items
     }
 
-    private var navigationItemPrompt: String {
-        var prompt = "No Active Route"
+    override var navigationController: UINavigationController! {
+        if let navigationController = delegate?.navigationControllerForViewController?(self) {
+            return navigationController
+        } else {
+            return super.navigationController
+        }
+    }
+
+    private var navigationItemPrompt: String! {
+        var prompt: String! = "No Active Route"
         if let route = route {
             if let name = route.name {
                 prompt = "Manifest for \(name)"
             } else {
                 prompt = "Manifest for (unnamed route)"
             }
+        } else if let workOrder = workOrder {
+            prompt = nil
         }
         return prompt
     }
@@ -65,7 +80,22 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         return delegate?.routeForViewController(self)
     }
 
+    private var workOrder: WorkOrder! {
+        return delegate?.workOrderForManifestViewController?(self)
+    }
+
     private var segment: Segment!
+
+    private var dismissItem: UIBarButtonItem! {
+        var title = "DISMISS"
+        if let backItemTitle = delegate?.navigationControllerBackItemTitleForManifestViewController?(self) {
+            title = backItemTitle
+        }
+
+        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
 
     private var targetView: UIView! {
         return delegate?.targetViewForViewController(self)
@@ -75,6 +105,10 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
 
         initToolbarSegmentedControl()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
 
         refreshNavigationItem()
     }
@@ -101,7 +135,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
         navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
 
-        if let navigationController = delegate?.navigationControllerForViewController(self) {
+        if let navigationController = navigationController {
             navigationController.setNavigationBarHidden(false, animated: true)
         }
     }
@@ -116,7 +150,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     @objc private func dismiss(_: UIBarButtonItem) {
         clearNavigationItem()
 
-        if let navigationController = delegate?.navigationControllerForViewController(self) {
+        if let navigationController = navigationController {
             navigationController.popViewControllerAnimated(true)
         }
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, ManifestViewControllerDelegate {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
@@ -22,7 +22,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
             workOrder.reloadAttachments(
                 onSuccess: { statusCode, mappingResult in
-                    self.mediaCollectionView.reloadData()
+                    self.mediaCollectionView?.reloadData()
                     //self.mediaCollectionView.layoutIfNeeded()
                 },
                 onError: { error, statusCode, responseString in
@@ -69,9 +69,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
         tableView.reloadData()
         tableView.layoutIfNeeded()
-
-        mediaCollectionView?.reloadData()
-        mediaCollectionView?.layoutIfNeeded()
     }
 
     func refreshInProgress() {
@@ -124,10 +121,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if let mediaCollectionView = mediaCollectionView {
-            return mediaCollectionView
-        }
-
         var cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier") as! UITableViewCell
         mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
         mediaCollectionView.delegate = self
@@ -166,12 +159,35 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
             cell.setName("DURATION", value: duration)
         case 5:
-            cell.setName("INVENTORY DISPOSITION", value: workOrder.inventoryDisposition)
+            cell.setName("INVENTORY DISPOSITION", value: workOrder.inventoryDisposition, valueFontSize: 13.0)
+            cell.accessoryType = .DisclosureIndicator
         default:
             break
         }
 
         return cell
+    }
+
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return indexPath.row == 5
+    }
+
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if indexPath.row == 5 {
+            return indexPath
+        }
+        return nil
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let navigationController = navigationController {
+            let manifestViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController") as! ManifestViewController
+            manifestViewController.delegate = self
+
+            navigationController.pushViewController(manifestViewController, animated: true)
+        }
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     //    optional func numberOfSectionsInTableView(tableView: UITableView) -> Int // Default is 1 if not implemented
@@ -237,4 +253,13 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
+    // MARK: ManifestViewControllerDelegate
+
+    func workOrderForManifestViewController(viewController: ViewController!) -> WorkOrder! {
+        return workOrder
+    }
+
+    func navigationControllerBackItemTitleForManifestViewController(viewController: ViewController!) -> String! {
+        return "BACK"
+    }
 }
