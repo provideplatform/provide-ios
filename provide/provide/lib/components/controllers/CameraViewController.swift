@@ -1,3 +1,4 @@
+
 //
 //  CameraViewController.swift
 //  provide
@@ -7,23 +8,27 @@
 //
 
 import UIKit
+import AVFoundation
 
-@objc
 protocol CameraViewControllerDelegate {
-    func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!)
-    func cameraViewControllerCanceled(viewController: CameraViewController!)
-    optional func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController!) -> Bool
-    optional func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController!) -> Bool
+    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage)
+    func cameraViewControllerCanceled(viewController: CameraViewController)
+
+    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage)
+    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL)
+    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL)
+
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool
+    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject)
 }
 
-class CameraViewController: ViewController, CameraViewDelegate {
-
-    enum ActiveCameraMode {
-        case Back, Front
-    }
+class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var delegate: CameraViewControllerDelegate!
-    var mode: ActiveCameraMode = .Back
+    var mode: ActiveDeviceCapturePosition = .Back
+    var outputMode: CameraOutputMode = .Video
 
     @IBOutlet private weak var backCameraView: CameraView!
     @IBOutlet private weak var frontCameraView: CameraView!
@@ -143,24 +148,6 @@ class CameraViewController: ViewController, CameraViewDelegate {
         frontCameraView?.stopCapture()
     }
 
-    func cameraView(cameraView: CameraView!, didCaptureStillImage image: UIImage!) {
-        delegate?.cameraViewController(self, didCaptureStillImage: image)
-    }
-
-    func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool {
-        if let outputFaceMetadata = delegate?.cameraViewControllerShouldOutputFaceMetadata?(self) {
-            return outputFaceMetadata
-        }
-        return false
-    }
-
-    func cameraViewShouldRenderFacialRecognition(cameraView: CameraView) -> Bool {
-        if let renderFacialRecognition = delegate?.cameraViewControllerShouldRenderFacialRecognition?(self) {
-            return renderFacialRecognition
-        }
-        return false
-    }
-
     func dismiss() {
         delegate?.cameraViewControllerCanceled(self)
     }
@@ -172,4 +159,54 @@ class CameraViewController: ViewController, CameraViewDelegate {
     func renderTappedButtonAppearance() {
         button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds)
     }
+
+    // MARK: CameraViewDelegate
+
+    func outputModeForCameraView(cameraView: CameraView) -> CameraOutputMode {
+        return outputMode
+    }
+
+    func cameraView(cameraView: CameraView, didCaptureStillImage image: UIImage) {
+        delegate?.cameraViewController(self, didCaptureStillImage: image)
+    }
+
+    func cameraView(cameraView: CameraView, didStartVideoCaptureAtURL fileURL: NSURL) {
+        delegate?.cameraViewController(self, didStartVideoCaptureAtURL: fileURL)
+    }
+
+    func cameraView(cameraView: CameraView, didFinishVideoCaptureAtURL fileURL: NSURL) {
+        delegate?.cameraViewController(self, didFinishVideoCaptureAtURL: fileURL)
+    }
+
+    func cameraView(cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel) {
+        println("average power: \(avgPower); peak hold: \(peakHold); channel: \(channel)")
+    }
+
+    func cameraView(cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject) {
+        delegate?.cameraViewControllerDidOutputFaceMetadata(self, metadataFaceObject: metadataFaceObject)
+    }
+
+    func cameraViewShouldEstablishAudioSession(cameraView: CameraView) -> Bool {
+        return false
+    }
+
+    func cameraViewShouldEstablishVideoSession(cameraView: CameraView) -> Bool {
+        return false
+    }
+
+    func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool {
+        if let outputFaceMetadata = delegate?.cameraViewControllerShouldOutputFaceMetadata(self) {
+            return outputFaceMetadata
+        }
+        return false
+    }
+
+    func cameraViewShouldRenderFacialRecognition(cameraView: CameraView) -> Bool {
+        if let renderFacialRecognition = delegate?.cameraViewControllerShouldRenderFacialRecognition(self) {
+            return renderFacialRecognition
+        }
+        return false
+    }
+
+
 }

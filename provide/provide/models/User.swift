@@ -35,6 +35,25 @@ class User: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
     }
+
+    func reload() {
+        reload(nil, onError: nil)
+    }
+
+    func reload(onSuccess: OnSuccess!, onError: OnError!) {
+        ApiService.sharedService().fetchUser(
+            onSuccess: { statusCode, mappingResult in
+                if let onSuccess = onSuccess {
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                }
+            },
+            onError: { error, statusCode, responseString in
+                if let onError = onError {
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            }
+        )
+    }
 }
 
 // MARK: - Functions

@@ -89,6 +89,10 @@ class MenuContainerView: UIView {
         }
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
         if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
             let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height

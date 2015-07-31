@@ -488,7 +488,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     // MARK: CameraViewControllerDelegate
 
-    func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!) {
+    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
+        return .Photo
+    }
+
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         cameraViewControllerCanceled(viewController)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
@@ -513,7 +517,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController!) {
+    func cameraViewControllerCanceled(viewController: CameraViewController) {
         if let navigationController = navigationController {
             navigationController.popViewControllerAnimated(true)
             usingCamera = false
@@ -532,6 +536,30 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
         }
+    }
+
+    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+
+    }
+
+    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+
+    }
+
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+
     }
 
     // MARK: CommentsViewControllerDelegate

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol MenuHeaderViewDelegate {
     func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController!
@@ -81,9 +82,13 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    // MARK: SelfieViewControllerDelegate
+    // MARK: CameraViewControllerDelegate
 
-    func cameraViewController(viewController: CameraViewController!, didCaptureStillImage image: UIImage!) {
+    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
+        return .Selfie
+    }
+
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
             navigationController.popViewControllerAnimated(false)
@@ -99,19 +104,35 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         )
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController!) {
+    func cameraViewControllerCanceled(viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
             navigationController.popViewControllerAnimated(false)
         }
     }
 
-    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController!) -> Bool {
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
         return true
     }
 
-    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController!) -> Bool {
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
         return true
+    }
+
+    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+
+    }
+
+    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+
     }
 
     private func initSelfieViewController() {

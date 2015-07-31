@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TopViewController: ViewController, CameraViewControllerDelegate {
+class TopViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,35 +20,5 @@ class TopViewController: ViewController, CameraViewControllerDelegate {
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)
-
-        if currentUser().profileImageUrl == nil {
-            initSelfieViewController()
-        }
-    }
-
-    // MARK: SelfieViewController
-
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
-        navigationController?.popViewControllerAnimated(false)
-
-        ApiService.sharedService().setUserDefaultProfileImage(image,
-            onSuccess: { statusCode, mappingResult in
-
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
-    }
-
-    func cameraViewControllerCanceled(viewController: CameraViewController) {
-        navigationController?.popViewControllerAnimated(false)
-    }
-
-    private func initSelfieViewController() {
-        let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
-        selfieViewController.delegate = self
-
-        navigationController?.pushViewController(selfieViewController, animated: false)
     }
 }
