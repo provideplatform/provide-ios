@@ -396,10 +396,6 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             assert(segue.destinationViewController is WorkOrderComponentViewController)
             (segue.destinationViewController as! WorkOrderComponentViewController).delegate = self
             (segue.destinationViewController as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
-
-            if segue.destinationViewController.isKindOfClass(CommentsViewController) {
-                (segue.destinationViewController as! CommentsViewController).commentsViewControllerDelegate = self
-            }
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderDestinationHeaderViewController)
             (segue.destinationViewController as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
@@ -740,6 +736,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             if initialViewController.isKindOfClass(UINavigationController) {
                 managedViewControllers.append(initialViewController)
                 vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
+
+                if vc.isKindOfClass(CommentsViewController) {
+                    (vc as! CommentsViewController).commentsViewControllerDelegate = self
+                }
             } else {
                 vc = initialViewController as! WorkOrderComponentViewController
             }

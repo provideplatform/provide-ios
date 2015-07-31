@@ -61,6 +61,10 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         setupNavigationItem()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -73,10 +77,6 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         } else {
             commentsViewControllerDelegate?.commentsViewControllerShouldBeDismissed(self)
         }
-    }
-
-    func save() {
-
     }
 
     func setupNavigationItem() {
