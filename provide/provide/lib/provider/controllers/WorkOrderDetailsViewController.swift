@@ -11,7 +11,8 @@ import UIKit
 class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private var mediaCollectionView: UICollectionView!
+    @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
+    private var mediaCollectionView: UICollectionView!
 
     private var timer: NSTimer!
 
@@ -34,9 +35,8 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 tableView.layoutIfNeeded()
             }
 
-            if let mediaCollectionView = mediaCollectionView {
-                mediaCollectionView.reloadData()
-                //mediaCollectionView.layoutIfNeeded()
+            if let headerView = headerView {
+                headerView.workOrder = workOrder
             }
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
@@ -58,7 +58,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         navigationItem.leftBarButtonItems = [dismissItem]
 
         tableView.frame = view.bounds
-        mediaCollectionView.removeFromSuperview()
+
+        headerView.frame.size.width = tableView.frame.width
+        headerView.addDropShadow()
+        headerView.workOrder = workOrder
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -67,8 +70,8 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         tableView.reloadData()
         tableView.layoutIfNeeded()
 
-        mediaCollectionView.reloadData()
-        mediaCollectionView.layoutIfNeeded()
+        mediaCollectionView?.reloadData()
+        mediaCollectionView?.layoutIfNeeded()
     }
 
     func refreshInProgress() {
@@ -113,11 +116,27 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return mediaCollectionView.bounds.height
+        return 200.0
+    }
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 44.0
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return mediaCollectionView
+        if let mediaCollectionView = mediaCollectionView {
+            return mediaCollectionView
+        }
+
+        var cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier") as! UITableViewCell
+        mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
+        mediaCollectionView.delegate = self
+        mediaCollectionView.dataSource = self
+        return cell
+    }
+
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
     }
 
     // MARK: UITableViewDataSource

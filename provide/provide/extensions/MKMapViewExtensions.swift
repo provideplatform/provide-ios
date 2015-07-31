@@ -67,7 +67,7 @@ extension MKMapView {
     // MARK: Set center coordinate and zoom
 
     func setCenterCoordinate(centerCoordinate: CLLocationCoordinate2D, var zoomLevel: UInt, animated: Bool) {
-        zoomLevel = max(zoomLevel, 28)
+        zoomLevel = min(zoomLevel, 28)
 
         let span = coordinateSpan(centerCoordinate, zoomLevel: Double(zoomLevel))
         let region = MKCoordinateRegionMake(centerCoordinate, span)

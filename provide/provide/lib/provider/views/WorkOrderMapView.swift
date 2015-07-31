@@ -116,13 +116,21 @@ class WorkOrderMapView: MapView {
             if view == nil || updateUserLocationAnnotation {
                 updateUserLocationAnnotation = false
 
+                let imageView = userLocationImageView
+
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
-                view?.addSubview(userLocationImageView)
+                view?.centerOffset = CGPointMake(0, (imageView.bounds.height / 2.0) * -1.0);
+                view?.addSubview(imageView)
             }
         } else {
             view = mapView.dequeueReusableAnnotationViewWithIdentifier(defaultAnnotationViewReuseIdentifier)
             if view == nil {
                 view = workOrdersViewControllerDelegate?.annotationViewForMapView?(mapView, annotation: annotation)
+
+                if view == nil && annotation is WorkOrder {
+                    let rect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
+                    view = WorkOrderPinAnnotationView(frame: rect)
+                }
             }
         }
 

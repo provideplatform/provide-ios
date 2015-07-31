@@ -340,6 +340,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
+    private func refreshAnnotations() {
+        shouldRemoveMapAnnotationsForWorkOrderViewController(nil)
+
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            mapView.addAnnotation(workOrder)
+        }
+    }
+
     // MARK Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -351,6 +359,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         switch segue.identifier! {
         case "DirectionsViewControllerSegue":
             assert(segue.destinationViewController is DirectionsViewController)
+
+            refreshAnnotations()
 
             if canAttemptSegueToUnloadInProgressRoute {
                 attemptSegueToCompleteRoute()
@@ -396,6 +406,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             assert(segue.destinationViewController is WorkOrderComponentViewController)
             (segue.destinationViewController as! WorkOrderComponentViewController).delegate = self
             (segue.destinationViewController as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
+
+            refreshAnnotations()
         case "WorkOrderDestinationHeaderViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderDestinationHeaderViewController)
             (segue.destinationViewController as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
@@ -410,8 +422,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: WorkOrdersViewControllerDelegate
 
     func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation] {
-        let annotations = [MKAnnotation]()
-
+        var annotations = [MKAnnotation]()
+        annotations.append(workOrder)
         return annotations
     }
 
