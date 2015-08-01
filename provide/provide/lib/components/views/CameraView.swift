@@ -201,11 +201,15 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     func startBackCameraCapture() {
-        startCapture(backCamera)
+        if let backCamera = backCamera {
+            startCapture(backCamera)
+        }
     }
 
     func startFrontCameraCapture() {
-        startCapture(frontCamera)
+        if let frontCamera = frontCamera {
+            startCapture(frontCamera)
+        }
     }
 
     func startCapture(device: AVCaptureDevice) {
