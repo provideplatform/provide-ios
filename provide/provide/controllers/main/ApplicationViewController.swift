@@ -14,7 +14,6 @@ protocol ApplicationViewControllerDelegate {
 }
 
 class ApplicationViewController: ECSlidingViewController,
-                                 UINavigationControllerDelegate,
                                  MenuViewControllerDelegate,
                                  CameraViewControllerDelegate {
 
@@ -23,8 +22,9 @@ class ApplicationViewController: ECSlidingViewController,
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
+
         topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UIViewController
-        (topViewController as! UINavigationController).delegate = self
     }
 
     private var menuContainerView: MenuContainerView!
@@ -75,14 +75,6 @@ class ApplicationViewController: ECSlidingViewController,
 
     func currentUserLoggedOut() {
         applicationViewControllerDelegate?.dismissApplicationViewController(self)
-    }
-
-    // MARK: UINavigationControllerDelegate
-
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        if viewController.isKindOfClass(TopViewController) {
-            applicationViewControllerDelegate?.dismissApplicationViewController(self)
-        }
     }
 
     // MARK: MenuViewControllerDelegate

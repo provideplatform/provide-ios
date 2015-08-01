@@ -50,7 +50,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
         case "LogoutCell":
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
-            delegate?.navigationControllerForMenuViewController(self).popToRootViewControllerAnimated(true)
+            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
 
             ApiService.sharedService().logout(
                 onSuccess: { statusCode, _ in
