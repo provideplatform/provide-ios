@@ -131,11 +131,11 @@ class ApplicationViewController: ECSlidingViewController,
     }
 
     func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
-        return true
+        return false
     }
 
     func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
-        return true
+        return false
     }
 
     private func initCameraViewController() {
