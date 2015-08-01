@@ -44,6 +44,10 @@ class ApplicationViewController: ECSlidingViewController,
         refreshCurrentUser()
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     private func refreshMenu() {
         if let menuContainerView = menuContainerView {
             menuContainerView.closeMenu()
@@ -73,7 +77,7 @@ class ApplicationViewController: ECSlidingViewController,
         )
     }
 
-    func currentUserLoggedOut() {
+    func currentUserLoggedOut() {        
         applicationViewControllerDelegate?.dismissApplicationViewController(self)
     }
 

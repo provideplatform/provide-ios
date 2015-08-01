@@ -43,7 +43,7 @@ class MenuContainerView: UIView {
         return frame.origin.x > closedMenuOffsetX
     }
 
-    func setupMenuViewController(delegate: MenuViewControllerDelegate) {
+    private func teardown() {
         if let superview = superview {
             removeFromSuperview()
         }
@@ -57,6 +57,10 @@ class MenuContainerView: UIView {
             menuViewController.view.removeFromSuperview()
             self.menuViewController = nil
         }
+    }
+
+    func setupMenuViewController(delegate: MenuViewControllerDelegate) {
+        teardown()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "openMenu", name: "MenuContainerShouldOpen")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeMenu", name: "MenuContainerShouldReset")
@@ -90,6 +94,8 @@ class MenuContainerView: UIView {
     }
 
     deinit {
+        teardown()
+
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
