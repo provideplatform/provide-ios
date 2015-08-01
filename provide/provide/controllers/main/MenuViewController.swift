@@ -100,13 +100,12 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         let rowHeight = tableView[0].bounds.height // height of first cell
         let totalCellHeight = CGFloat(totalCellCount) * 50.0
         let versionNumberHeight: CGFloat = 38
-        var tableHeaderViewHeight: CGFloat = 0.0
+        var tableHeaderViewHeight: CGFloat = 0
         if let tableHeaderView = tableView.tableHeaderView {
             tableHeaderViewHeight = tableHeaderView.bounds.height
-        } else {
-            tableHeaderViewHeight = UIApplication.sharedApplication().statusBarFrame.height
         }
-        let remainingSpace = view.bounds.height - (totalCellHeight + 20 + versionNumberHeight)
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
+        let remainingSpace = view.bounds.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
         tableView.sectionFooterHeight = remainingSpace
     }
 
