@@ -553,13 +553,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func workOrderItemsOrderedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
-        var products = [Product]()
-        if let itemsOrdered = WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered {
-            for product in itemsOrdered {
-                products.append(product)
-            }
-        }
-        return products
+        return WorkOrderService.sharedService().inProgressWorkOrder.itemsOrdered
     }
 
     func workOrderItemsOnTruckForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
@@ -567,23 +561,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func workOrderItemsUnloadedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
-        var products = [Product]()
-        if let itemsDelivered = WorkOrderService.sharedService().inProgressWorkOrder.itemsDelivered {
-            for product in itemsDelivered {
-                products.append(product)
-            }
-        }
-        return products
+        return WorkOrderService.sharedService().inProgressWorkOrder.itemsDelivered
     }
 
-    func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product] {
-        var products = [Product]()
-        if let itemsRejected = WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected {
-            for product in itemsRejected {
-                products.append(product)
-            }
-        }
-        return products
+    func workOrderItemsRejectedForViewController(packingSlipViewController: PackingSlipViewController) -> [Product]! {
+        return WorkOrderService.sharedService().inProgressWorkOrder.itemsRejected
     }
 
     func summaryLabelTextForSignatureViewController(viewController: SignatureViewController) -> String! {

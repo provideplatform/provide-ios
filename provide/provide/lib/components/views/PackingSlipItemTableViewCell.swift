@@ -29,22 +29,24 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         }
     }
 
-    weak var product: Product! {
+    var product: Product! {
         didSet {
-            nameLabel?.text = product.name
-            mpnLabel?.text = product.gtin
-            priceLabel?.text = product.desc // HACK!!! "\(product.price)"
-            skuLabel?.text = product.sku
+            if let product = product {
+                nameLabel?.text = product.name
+                mpnLabel?.text = product.gtin
+                priceLabel?.text = product.desc // HACK!!! "\(product.price)"
+                skuLabel?.text = product.sku
 
-            if product.rejected {
-                descriptionLabel?.text = "REJECTED"
-                descriptionLabel?.textColor = UIColor.redColor()
-            } else {
-                descriptionLabel?.text = ""
-                descriptionLabel?.textColor = UIColor.blackColor()
+                if product.rejected {
+                    descriptionLabel?.text = "REJECTED"
+                    descriptionLabel?.textColor = UIColor.redColor()
+                } else {
+                    descriptionLabel?.text = ""
+                    descriptionLabel?.textColor = UIColor.blackColor()
+                }
+                
+                setupUtilityButtons()
             }
-
-            setupUtilityButtons()
         }
     }
 
@@ -68,6 +70,8 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
+        product = nil
 
         nameLabel?.text = ""
         mpnLabel?.text = ""

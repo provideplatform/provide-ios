@@ -181,10 +181,8 @@ class WorkOrder: Model, MKAnnotation {
     var itemsOnTruck: [Product] {
         var itemsOnTruck = [Product]()
         for itemOrdered in itemsOrdered {
-            itemsOnTruck.append(itemOrdered)
-        }
-        for itemRejected in itemsRejected {
-            itemsOnTruck.append(itemRejected)
+            let product = Product(string: itemOrdered.toJSONString(snakeCaseKeys: true))
+            itemsOnTruck.append(product)
         }
 
         for (i, itemDelivered) in enumerate(itemsDelivered) {
@@ -194,6 +192,10 @@ class WorkOrder: Model, MKAnnotation {
                     break
                 }
             }
+        }
+
+        for itemRejected in itemsRejected {
+            itemsOnTruck.append(itemRejected)
         }
 
         for (i, itemRejected) in enumerate(itemsRejected) {
@@ -229,12 +231,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func rejectItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
-        for (i, product) in enumerate(itemsDelivered) {
-            if item.gtin == product.gtin {
-                item = itemsDelivered.removeAtIndex(i)
-                break
-            }
-        }
+        itemsDelivered.removeObject(item)
 
         item.rejected = true
         itemsRejected.append(item)
@@ -243,14 +240,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func deliverItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
-        if item.rejected {
-            for (i, product) in enumerate(itemsRejected) {
-                if item.gtin == product.gtin {
-                    item = itemsRejected.removeAtIndex(i)
-                    break
-                }
-            }
-        }
+        itemsRejected.removeObject(item)
 
         item.rejected = false
         itemsDelivered.append(item)

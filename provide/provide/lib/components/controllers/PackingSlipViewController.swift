@@ -92,9 +92,6 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             navigationController.pushViewController(self.cameraViewController, animated: true)
 
             if let barcodeScannerViewController = barcodeScannerViewController {
-//                dispatch_after_delay(0.0) {
-//                    barcodeScannerViewController.stopScanner()
-//                }
                 barcodeScannerViewController.stopScanner()
             }
 
@@ -321,9 +318,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
-        dispatch_after_delay(0.0) {
-            self.showHUD(inView: self.targetView)
-        }
+        self.showHUD(inView: self.targetView)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
@@ -332,32 +327,26 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         onSuccess: { statusCode, responseString in
                             workOrder.rejectItem(rejectedProduct,
                                 onSuccess: { statusCode, mappingResult in
-                                    dispatch_after_delay(0.0) {
-                                        self.packingSlipTableView.reloadData()
+                                    self.packingSlipTableView.reloadData()
 
-                                        self.hideHUD(inView: self.targetView)
+                                    self.hideHUD(inView: self.targetView)
 
-                                        if let navigationController = self.navigationController {
-                                            navigationController.pushViewController(self.commentsViewController, animated: true)
-                                        }
+                                    if let navigationController = self.navigationController {
+                                        navigationController.pushViewController(self.commentsViewController, animated: true)
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
-                                    dispatch_after_delay(0.0) {
-                                        self.packingSlipTableView.reloadData()
-                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
-                                                                 abandomItemEnabled: workOrder.canBeAbandoned)
+                                    self.packingSlipTableView.reloadData()
+                                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
+                                                             abandomItemEnabled: workOrder.canBeAbandoned)
 
-                                        self.hideHUD(inView: self.targetView)
-                                    }
+                                    self.hideHUD(inView: self.targetView)
                                 }
                             )
                         },
                         onError: { error, statusCode, responseString in
-                            dispatch_after_delay(0.0) {
-                                self.packingSlipTableView.reloadData()
-                                self.hideHUD(inView: self.targetView)
-                            }
+                            self.packingSlipTableView.reloadData()
+                            self.hideHUD(inView: self.targetView)
                         }
                     )
                 }
@@ -417,29 +406,23 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             if let product = productToUnload {
                 if product.gtin == gtin {
                     if workOrder.canUnloadGtin(gtin) {
-                        dispatch_after_delay(0.0) {
-                            self.showHUD(inView: self.targetView)
-                        }
+                        self.showHUD(inView: self.targetView)
 
                         if let route = RouteService.sharedService().inProgressRoute {
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
                                     workOrder.deliverItem(product,
                                         onSuccess: { statusCode, mappingResult in
-                                            dispatch_after_delay(0.0) {
-                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
-                                                self.packingSlipTableView.reloadData()
+                                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                            self.packingSlipTableView.reloadData()
 
-                                                self.hideHUD(inView: self.targetView)
-                                            }
+                                            self.hideHUD(inView: self.targetView)
                                         },
                                         onError: { error, statusCode, responseString in
-                                            dispatch_after_delay(0.0) {
-                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
-                                                self.packingSlipTableView.reloadData()
+                                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                            self.packingSlipTableView.reloadData()
 
-                                                self.hideHUD(inView: self.targetView)
-                                            }
+                                            self.hideHUD(inView: self.targetView)
                                         }
                                     )
                                 },
