@@ -164,22 +164,26 @@ class RouteLegStep: Model {
     }
 
     var startCoordinate: CLLocationCoordinate2D! {
-        if let startLocation = shape.first {
-            let startCoords = startLocation.splitAtString(",")
-            let latitude = Double(startCoords.0)!
-            let longitude = Double(startCoords.1)!
-            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        if let shape = shape {
+            if let startLocation = (shape as Array).first as? String {
+                let startCoords = startLocation.splitAtString(",")
+                let latitude = (startCoords.0 as NSString).doubleValue
+                let longitude = (startCoords.1 as NSString).doubleValue
+                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            }
         }
 
         return nil
     }
 
     var endCoordinate: CLLocationCoordinate2D! {
-        if let endLocation = shape.last {
-            let endCoords = endLocation.splitAtString(",")
-            let latitude = Double(endCoords.0)!
-            let longitude = Double(endCoords.1)!
-            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        if let shape = shape {
+            if let endLocation = (shape as Array).last as? String {
+                let endCoords = endLocation.splitAtString(",")
+                let latitude = (endCoords.0 as NSString).doubleValue
+                let longitude = (endCoords.1 as NSString).doubleValue
+                return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            }
         }
 
         return nil
