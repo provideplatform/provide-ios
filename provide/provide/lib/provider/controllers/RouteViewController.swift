@@ -93,20 +93,20 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         if let route = route {
             route.reload(
                 onSuccess: { statusCode, mappingResult in
-                    self.tableView.reloadData()
+                    self.tableView?.reloadData()
 
                     UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                         animations: {
-                            self.tableView.alpha = 1.0
-                            self.zeroStateViewController.view.alpha = 0.0
+                            self.tableView?.alpha = 1.0
+                            self.zeroStateViewController?.view.alpha = 0.0
                         },
                         completion: { complete in
-                            self.refreshControl.endRefreshing()
+                            self.refreshControl?.endRefreshing()
                         }
                     )
                 },
                 onError: { error, statusCode, responseString in
-                    self.refreshControl.endRefreshing()
+                    self.refreshControl?.endRefreshing()
                 }
             )
         } else {
@@ -118,10 +118,10 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
                 UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                     animations: {
                         tableView.alpha = 0.0
-                        self.zeroStateViewController.view.alpha = 1.0
+                        self.zeroStateViewController?.view.alpha = 1.0
                     },
                     completion: { complete in
-                        self.refreshControl.endRefreshing()
+                        self.refreshControl?.endRefreshing()
                     }
                 )
             }
