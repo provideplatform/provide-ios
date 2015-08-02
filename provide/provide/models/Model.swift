@@ -32,10 +32,13 @@ class Model: NSObject {
 
         for (key, var value) in dictionary {
             var camelCaseKey = key.snakeCaseToCamelCaseString()
-            if let dictValue = value as? [String: AnyObject] {
-                let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as! RKRelationshipMapping
-                let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
-                value = clazz.init(string: dictValue.toJSONString())
+            if value is NSDictionary {
+                if let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
+                    let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
+                    value = clazz(string: (value as! NSDictionary).toJSON())
+                } else {
+                    value = value as! NSDictionary
+                }
             }
 
             if camelCaseKey == "senderId" {
