@@ -8,10 +8,10 @@
 
 import UIKit
 
-class RouteHistoryCollectionViewCell: UICollectionViewCell {
+class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
     @IBOutlet private weak var avatarImageView: UIImageView!
-    @IBOutlet private weak var mapView: MapView!
+    @IBOutlet private weak var mapView: RouteMapView!
 
     @IBOutlet private weak var detailsContainerView: UIView!
     @IBOutlet private weak var statusBackgroundView: UIView!
@@ -30,6 +30,25 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
 
             contentView.backgroundColor = UIColor.clearColor()
             detailsContainerView.backgroundColor = UIColor.clearColor()
+
+            mapView.showsUserLocation = false
+            mapView.removeAnnotations()
+            mapView.removeOverlays()
+
+            if let checkinsPolyline = route.checkinsPolyline {
+                mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
+
+                let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
+                mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
+            }
+
+            if let workOrders = route.workOrders {
+                for workOrder in workOrders {
+                    mapView.addAnnotation(workOrder)
+                }
+            }
+
+            mapView.alpha = 1.0
 
             statusBackgroundView.backgroundColor = route.statusColor
             statusBackgroundView.frame = bounds
@@ -87,6 +106,10 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell {
 
         contentView.backgroundColor = UIColor.clearColor()
         detailsContainerView.backgroundColor = UIColor.clearColor()
+
+        mapView.alpha = 0.0
+        mapView.removeAnnotations()
+        mapView.removeOverlays()
 
         statusBackgroundView.backgroundColor = UIColor.clearColor()
         statusBackgroundView.alpha = 0.9

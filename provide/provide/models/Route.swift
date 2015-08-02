@@ -24,6 +24,7 @@ class Route: Model {
     var legs: [RouteLeg]()
     var workOrders: [WorkOrder]()
     var itemsLoaded: [Product]()
+    var checkinCoordinates: NSArray!
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
     var dispatcherOriginAssignment: NSDictionary!
@@ -42,6 +43,7 @@ class Route: Model {
             "loading_ended_at": "loadingEndedAt",
             "unloading_started_at": "unloadingStartedAt",
             "unloading_ended_at": "unloadingEndedAt",
+            "checkin_coordinates": "checkinCoordinates",
             ])
 
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", withMapping: ProviderOriginAssignment.mapping()))
@@ -103,6 +105,17 @@ class Route: Model {
             }
         }
         workOrders = newWorkOrders
+    }
+
+    var checkinsPolyline: MKPolyline {
+        var coords = [CLLocationCoordinate2D]()
+        for checkinCoordinate in checkinCoordinates {
+            let latitude = checkinCoordinate[0].doubleValue
+            let longitude = checkinCoordinate[1].doubleValue
+            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        }
+
+        return MKPolyline(coordinates: &coords, count: coords.count)
     }
 
     var overviewPolyline: MKPolyline {

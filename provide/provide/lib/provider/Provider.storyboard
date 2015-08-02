@@ -724,7 +724,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="175"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bE-ia-1sy" customClass="MapView" customModule="provide" customModuleProvider="target">
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bE-ia-1sy" customClass="RouteMapView" customModule="provide" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="125"/>
                                                 </mapView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vw3-iy-qdt" userLabel="Details Container View">

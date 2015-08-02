@@ -20,6 +20,8 @@ class WorkOrder: Model, MKAnnotation {
     var scheduledStartAt: String!
     var startedAt: String!
     var endedAt: String!
+    var abandonedAt: String!
+    var canceledAt: String!
     var duration: NSNumber!
     var estimatedDuration: NSNumber!
     var status: String!
@@ -53,6 +55,8 @@ class WorkOrder: Model, MKAnnotation {
             "scheduled_start_at": "scheduledStartAt",
             "started_at": "startedAt",
             "ended_at": "endedAt",
+            "abandoned_at": "abandonedAt",
+            "canceled_at": "canceledAt",
             "duration": "duration",
             "estimated_duration": "estimatedDuration",
             "status": "status",
@@ -92,9 +96,33 @@ class WorkOrder: Model, MKAnnotation {
         return nil
     }
 
+    var abandonedAtDate: NSDate! {
+        if let abandonedAt = abandonedAt {
+            return NSDate.fromString(abandonedAt)
+        }
+        return nil
+    }
+
+    var canceledAtDate: NSDate! {
+        if let canceledAt = canceledAt {
+            return NSDate.fromString(canceledAt)
+        }
+        return nil
+    }
+
     var humanReadableDuration: String! {
         if let startedAtDate = startedAtDate {
             var seconds = 0.0
+
+            var endedAtDate: NSDate!
+
+            if let date = self.endedAtDate {
+                endedAtDate = date
+            } else if let date = abandonedAtDate {
+                endedAtDate = date
+            } else if let date = canceledAtDate {
+                endedAtDate = date
+            }
 
             if let endedAtDate = endedAtDate {
                 seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)

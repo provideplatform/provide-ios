@@ -19,6 +19,8 @@ class WorkOrderTableViewCell: UITableViewCell {
 
     var workOrder: WorkOrder! {
         didSet {
+            timer?.invalidate()
+
             customerLabel.text = workOrder.customer.contact.name
             statusLabel.text = workOrder.status
             inventoryLabel.text = workOrder.inventoryDisposition
