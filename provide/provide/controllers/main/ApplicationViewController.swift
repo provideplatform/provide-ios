@@ -28,7 +28,6 @@ class ApplicationViewController: ECSlidingViewController,
     }
 
     private var menuContainerView: MenuContainerView!
-    private var menuViewController: MenuViewController!
 
     override var navigationController: UINavigationController! {
         if let navigationController = topViewController as? UINavigationController {
@@ -40,21 +39,36 @@ class ApplicationViewController: ECSlidingViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshMenu()
         refreshCurrentUser()
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        refreshMenu()
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        teardownMenu()
     }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
-    private func refreshMenu() {
+    func teardownMenu() {
         if let menuContainerView = menuContainerView {
             menuContainerView.closeMenu()
             menuContainerView.removeFromSuperview()
             self.menuContainerView = nil
         }
+    }
 
+    private func refreshMenu() {
+        teardownMenu()
+        
         menuContainerView = MenuContainerView(frame: view.bounds)
         menuContainerView.setupMenuViewController(self)
     }
@@ -77,7 +91,7 @@ class ApplicationViewController: ECSlidingViewController,
         )
     }
 
-    func currentUserLoggedOut() {        
+    func currentUserLoggedOut() {
         applicationViewControllerDelegate?.dismissApplicationViewController(self)
     }
 
