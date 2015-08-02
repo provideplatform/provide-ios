@@ -596,14 +596,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             WorkOrderService.sharedService().inProgressWorkOrder.components.removeAtIndex(0)
             attemptSegueToValidWorkOrderContext()
 
-            let location = LocationService.sharedService().currentLocation
-
-            let params = [
-                "latitude": location.coordinate.latitude,
-                "longitude": location.coordinate.longitude,
+            var params = [
                 "tags": "signature, delivery",
                 "public": false
             ]
+
+            if let location = LocationService.sharedService().currentLocation {
+                params["latitude"] = location.coordinate.latitude
+                params["longitude"] = location.coordinate.longitude
+            }
 
             workOrder.attach(signature, params: params,
                 onSuccess: { statusCode, responseString in
