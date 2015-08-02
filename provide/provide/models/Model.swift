@@ -66,7 +66,15 @@ class Model: NSObject {
         return toDictionary(false).toJSONString()
     }
 
-    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {
+    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+
+    }
+
+    override func valueForUndefinedKey(key: String) -> AnyObject? {
+        return nil
+    }
+
+    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String, error outError: NSErrorPointer) -> Bool {
         if ioValue.memory != nil {
             if ioValue.memory is NSNull {
                 ioValue.memory = nil
