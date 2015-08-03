@@ -89,7 +89,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
 
-            navigationController.pushViewController(self.cameraViewController, animated: true)
+            navigationController.pushViewController(self.cameraViewController, animated: false)
 
             if let barcodeScannerViewController = barcodeScannerViewController {
                 barcodeScannerViewController.stopScanner()
@@ -318,7 +318,9 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product) {
-        self.showHUD(inView: self.targetView)
+        dispatch_after_delay(0.0) {
+            self.showHUD(inView: self.targetView)
+        }
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.canRejectGtin(rejectedProduct.gtin) {
@@ -327,26 +329,32 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                         onSuccess: { statusCode, responseString in
                             workOrder.rejectItem(rejectedProduct,
                                 onSuccess: { statusCode, mappingResult in
-                                    self.packingSlipTableView.reloadData()
+                                    dispatch_after_delay(0.0) {
+                                        self.packingSlipTableView.reloadData()
 
-                                    self.hideHUD(inView: self.targetView)
+                                        self.hideHUD(inView: self.targetView)
 
-                                    if let navigationController = self.navigationController {
-                                        navigationController.pushViewController(self.commentsViewController, animated: true)
+                                        if let navigationController = self.navigationController {
+                                            navigationController.pushViewController(self.commentsViewController, animated: true)
+                                        }
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
-                                    self.packingSlipTableView.reloadData()
-                                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
-                                                             abandomItemEnabled: workOrder.canBeAbandoned)
+                                    dispatch_after_delay(0.0) {
+                                        self.packingSlipTableView.reloadData()
+                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
+                                                                 abandomItemEnabled: workOrder.canBeAbandoned)
 
-                                    self.hideHUD(inView: self.targetView)
+                                        self.hideHUD(inView: self.targetView)
+                                    }
                                 }
                             )
                         },
                         onError: { error, statusCode, responseString in
-                            self.packingSlipTableView.reloadData()
-                            self.hideHUD(inView: self.targetView)
+                            dispatch_after_delay(0.0) {
+                                self.packingSlipTableView.reloadData()
+                                self.hideHUD(inView: self.targetView)
+                            }
                         }
                     )
                 }
@@ -406,23 +414,29 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             if let product = productToUnload {
                 if product.gtin == gtin {
                     if workOrder.canUnloadGtin(gtin) {
-                        self.showHUD(inView: self.targetView)
+                        dispatch_after_delay(0.0) {
+                            self.showHUD(inView: self.targetView)
+                        }
 
                         if let route = RouteService.sharedService().inProgressRoute {
                             route.unloadManifestItemByGtin(product.gtin,
                                 onSuccess: { statusCode, responseString in
                                     workOrder.deliverItem(product,
                                         onSuccess: { statusCode, mappingResult in
-                                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
-                                            self.packingSlipTableView.reloadData()
+                                            dispatch_after_delay(0.0) {
+                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.packingSlipTableView.reloadData()
 
-                                            self.hideHUD(inView: self.targetView)
+                                                self.hideHUD(inView: self.targetView)
+                                            }
                                         },
                                         onError: { error, statusCode, responseString in
-                                            self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
-                                            self.packingSlipTableView.reloadData()
+                                            dispatch_after_delay(0.0) {
+                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.packingSlipTableView.reloadData()
 
-                                            self.hideHUD(inView: self.targetView)
+                                                self.hideHUD(inView: self.targetView)
+                                            }
                                         }
                                     )
                                 },
@@ -502,7 +516,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     func cameraViewControllerCanceled(viewController: CameraViewController) {
         if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
+            navigationController.popViewControllerAnimated(false)
             usingCamera = false
 
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
