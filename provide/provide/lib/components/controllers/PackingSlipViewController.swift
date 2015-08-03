@@ -489,9 +489,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         return .Photo
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
         cameraViewControllerCanceled(viewController)
+    }
 
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             var params = [
                 "tags": "photo, delivery",

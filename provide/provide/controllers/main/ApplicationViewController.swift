@@ -107,9 +107,11 @@ class ApplicationViewController: ECSlidingViewController,
         return .Selfie
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
         navigationController?.popViewControllerAnimated(false)
+    }
 
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         ApiService.sharedService().setUserDefaultProfileImage(image,
             onSuccess: { statusCode, mappingResult in
 

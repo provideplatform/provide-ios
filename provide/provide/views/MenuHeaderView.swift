@@ -88,12 +88,14 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         return .Selfie
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
             navigationController.popViewControllerAnimated(false)
         }
+    }
 
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         ApiService.sharedService().setUserDefaultProfileImage(image,
             onSuccess: { statusCode, mappingResult in
 

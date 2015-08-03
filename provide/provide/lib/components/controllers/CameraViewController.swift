@@ -12,8 +12,10 @@ import AVFoundation
 
 protocol CameraViewControllerDelegate {
     func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage)
     func cameraViewControllerCanceled(viewController: CameraViewController)
+
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController)
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage)
 
     func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage)
     func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL)
@@ -28,7 +30,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
     var delegate: CameraViewControllerDelegate!
     var mode: ActiveDeviceCapturePosition = .Back
-    var outputMode: CameraOutputMode = .Video
+    var outputMode: CameraOutputMode = .Photo
 
     @IBOutlet private weak var backCameraView: CameraView!
     @IBOutlet private weak var frontCameraView: CameraView!
@@ -80,7 +82,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     func setupCameraUI() {
         view.bringSubviewToFront(button)
 
-        button.addTarget(self, action: "captureFrame", forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: "capture", forControlEvents: .TouchUpInside)
         button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchCancel | .TouchDragExit)
         button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
 
@@ -96,10 +98,13 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         if !isRunning {
             setupBackCameraView()
         }
+
+        button.enabled = true
     }
 
-    func captureFrame() {
-        activeCameraView?.captureFrame()
+    func capture() {
+        button.enabled = false
+        activeCameraView?.capture()
     }
 
     func setupNavigationItem() {
@@ -164,6 +169,10 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
     func outputModeForCameraView(cameraView: CameraView) -> CameraOutputMode {
         return outputMode
+    }
+
+    func cameraViewBeganAsyncStillImageCapture(cameraView: CameraView) {
+        delegate?.cameraViewControllerDidBeginAsyncStillImageCapture(self)
     }
 
     func cameraView(cameraView: CameraView, didCaptureStillImage image: UIImage) {

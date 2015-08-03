@@ -29,6 +29,7 @@ protocol CameraViewDelegate {
     func cameraView(cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel)
     func cameraView(cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject)
 
+    func cameraViewBeganAsyncStillImageCapture(cameraView: CameraView)
     func cameraViewShouldEstablishAudioSession(cameraView: CameraView) -> Bool
     func cameraViewShouldEstablishVideoSession(cameraView: CameraView) -> Bool
     func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool
@@ -268,7 +269,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    func toggleCapture() {
+    func capture() {
         if let mode = delegate?.outputModeForCameraView(self) {
             switch mode {
             case .Audio:
@@ -277,6 +278,12 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 } else {
                     // audioFileOutput.stopRecording()
                 }
+                break
+            case .Photo:
+                captureFrame()
+                break
+            case .Selfie:
+                captureFrame()
                 break
             case .Video:
                 if recording == false {
@@ -292,16 +299,15 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                     captureSession.removeOutput(videoDataOutput)
                 }
                 break
-            case .Selfie:
-                captureFrame()
-                break
             default:
                 break
             }
         }
     }
 
-    func captureFrame() {
+    private func captureFrame() {
+        delegate?.cameraViewBeganAsyncStillImageCapture(self)
+
         if isSimulator() {
             if let window = UIApplication.sharedApplication().keyWindow {
                 UIGraphicsBeginImageContextWithOptions(window.bounds.size, false, UIScreen.mainScreen().scale)
