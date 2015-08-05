@@ -215,7 +215,9 @@ class DirectionsViewController: ViewController {
                                         if let currentStep = currentLeg.currentStep {
                                             var identifier = ""
                                             if let currentShapeCoordinate = currentStep.currentShapeCoordinate {
-                                                identifier = currentStep.identifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
+                                                if let currentStepIdentifier = currentStep.identifier {
+                                                    identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
+                                                }
                                             }
 
                                             if self.lastRegionCrossed.identifier == identifier {
