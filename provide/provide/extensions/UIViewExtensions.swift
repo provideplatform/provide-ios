@@ -55,4 +55,10 @@ extension UIView {
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
     }
+
+    func removeGestureRecognizers() {
+        for gestureRecognizer in gestureRecognizers as! [UIGestureRecognizer] {
+            removeGestureRecognizer(gestureRecognizer)
+        }
+    }
 }

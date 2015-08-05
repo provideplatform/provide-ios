@@ -50,6 +50,7 @@ class MenuContainerView: UIView {
 
         if let backgroundView = backgroundView {
             backgroundView.removeFromSuperview()
+            backgroundView.removeGestureRecognizers()
             self.backgroundView = nil
         }
 
