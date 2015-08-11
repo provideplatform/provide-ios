@@ -161,6 +161,8 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     }
 
     func dismiss() {
+        collectionView.delegate = nil
+
         clearNavigationItem()
 
         if let navigationController = navigationController {

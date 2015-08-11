@@ -144,6 +144,8 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func dismiss() {
+        tableView.delegate = nil
+        
         clearNavigationItem()
 
         if let navigationController = delegate?.navigationControllerForViewController(self) {
