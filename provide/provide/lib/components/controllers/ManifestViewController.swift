@@ -147,7 +147,9 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         navigationItem.rightBarButtonItems = []
     }
 
-    @objc private func dismiss(_: UIBarButtonItem) {
+    func dismiss() {
+        tableView.delegate = nil
+        
         clearNavigationItem()
 
         if let navigationController = navigationController {

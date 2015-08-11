@@ -313,12 +313,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
         route.start(
             onSuccess: { statusCode, responseString in
-                self.hideHUD()
-
-                let navigationController = self.delegate?.navigationControllerForViewController?(self)
-                if navigationController != nil {
-                    self.delegate?.routeUpdated(self.route, byViewController: self)
-                }
+                self.dismiss()
             },
             onError: { error, statusCode, responseString in
                 self.hideHUD()
@@ -350,18 +345,21 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
                 route.complete(
                     onSuccess: { statusCode, mappingResult in
-                        self.refreshNavigationItem()
-                        self.hideHUD()
-                        self.delegate?.routeUpdated?(route, byViewController: self)
+                        self.dismiss()
                     },
                     onError: { error, statusCode, responseString in
-                        self.refreshNavigationItem()
-                        self.hideHUD()
-                        self.delegate?.routeUpdated?(route, byViewController: self)
+                        self.dismiss()
                     }
                 )
             }
         }
+    }
+
+    private func dismiss() {
+        refreshNavigationItem()
+        hideHUD()
+        tableView.delegate = nil
+        delegate?.routeUpdated?(route, byViewController: self)
     }
 
     // MARK: BarcodeScannerViewControllerDelegate
