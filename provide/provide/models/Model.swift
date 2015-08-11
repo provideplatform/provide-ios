@@ -57,11 +57,24 @@ class Model: NSObject {
 
         for i in 0..<count {
             var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
-            let value: AnyObject! = valueForKey(key)
-            key = snakeKeys ? key.snakeCaseString() : key
-            dictionary[key] = value != nil && value is Model ? (value as! Model).toDictionary(snakeKeys) : value
-        }
+            var value: AnyObject! = valueForKey(key)
 
+            if value != nil {
+                if value is Model {
+                    value = (value as! Model).toDictionary(snakeKeys: snakeKeys)
+                } else if value is [Model] {
+                    var newValue = [[String : AnyObject]]()
+                    for val in value as! [Model] {
+                        newValue.append(val.toDictionary(snakeKeys: snakeKeys))
+                    }
+                    value = newValue
+                }
+            }
+
+            key = snakeKeys ? key.snakeCaseString() : key
+            dictionary[key] = value
+        }
+        
         return dictionary
     }
 
