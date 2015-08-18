@@ -82,7 +82,11 @@ class ApplicationViewController: ECSlidingViewController,
                 self.refreshMenu()
 
                 if currentUser().profileImageUrl == nil {
-                    self.initCameraViewController()
+                    AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { granted in
+                        if granted {
+                            self.initCameraViewController()
+                        }
+                    })
                 }
             },
             onError: { error, statusCode, responseString in
@@ -135,7 +139,9 @@ class ApplicationViewController: ECSlidingViewController,
     }
 
     func cameraViewControllerCanceled(viewController: CameraViewController) {
-        navigationController?.popViewControllerAnimated(false)
+        dispatch_after_delay(0.0) {
+            self.navigationController?.popViewControllerAnimated(false)
+        }
     }
 
     func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
