@@ -93,7 +93,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
             title = backItemTitle
         }
 
-        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss")
+        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -148,7 +148,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         navigationItem.rightBarButtonItems = []
     }
 
-    func dismiss() {
+    func dismiss(sender: UIBarButtonItem!) {
         tableView.delegate = nil
         
         clearNavigationItem()
