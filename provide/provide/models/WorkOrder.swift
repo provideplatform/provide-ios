@@ -35,43 +35,26 @@ class WorkOrder: Model, MKAnnotation {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
-            "id",
-            "company_id",
-            "customer_id",
-            "scheduled_start_at",
-            "started_at",
-            "ended_at",
-            "canceled_at",
-            "abandoned_at",
-            "duration",
-            "estimated_duration",
-            "status",
-            "provider_rating",
-            "customer_rating",
-            "components",
-            ]
-        )
-
         mapping.addAttributeMappingsFromDictionary([
+            "id": "id",
+            "company_id": "companyId",
+            "customer_id": "customerId",
             "description": "desc",
-//            "scheduled_start_at": "scheduledStartAt",
-//            "started_at": "startedAt",
-//            "ended_at": "endedAt",
-//            "abandoned_at": "abandonedAt",
-//            "canceled_at": "canceledAt",
-//            "duration": "duration",
-//            "estimated_duration": "estimatedDuration",
-//            "status": "status",
-//            "provider_rating": "providerRating",
-//            "customer_rating": "customerRating",
-//            "components": "components"
+            "scheduled_start_at": "scheduledStartAt",
+            "started_at": "startedAt",
+            "ended_at": "endedAt",
+            "abandoned_at": "abandonedAt",
+            "canceled_at": "canceledAt",
+            "duration": "duration",
+            "estimated_duration": "estimatedDuration",
+            "status": "status",
+            "provider_rating": "providerRating",
+            "customer_rating": "customerRating",
+            "components": "components"
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("attachments", mapping: Attachment.mapping())
-
-        //mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))

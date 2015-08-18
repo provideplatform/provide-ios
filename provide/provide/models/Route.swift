@@ -33,6 +33,7 @@ class Route: Model {
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
+            "status": "status",
             "id": "id",
             "name": "name",
             "scheduled_started_at": "scheduledStartAt",
