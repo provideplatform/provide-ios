@@ -110,7 +110,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
                 self.userWasAuthenticated()
             },
             onError: { error, statusCode, responseString in
-                logError("Failed to create API token")
+                logWarn("Failed to create API token")
                 self.showError("Authorization failed \(statusCode)")
                 self.showForm()
             }

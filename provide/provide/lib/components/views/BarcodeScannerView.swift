@@ -54,14 +54,10 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
                 logError(error)
             }
 
-            let input: AVCaptureDeviceInput!
-            do {
-                input = try AVCaptureDeviceInput(device: device)
-                captureSession = AVCaptureSession()
-                captureSession.sessionPreset = AVCaptureSessionPresetHigh
-                captureSession.addInput(input)
-            } catch let error as NSError {
-                logError(error)
+            let input = AVCaptureDeviceInput(device: device, error: &error)
+
+            if let error = error {
+                logWarn(error.localizedDescription)
             }
 
             var rectOfInterest = bounds

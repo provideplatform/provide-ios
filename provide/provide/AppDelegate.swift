@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AnalyticsService.sharedService().track("App Registered For Remote Notifications")
             },
             onError: { error, statusCode, responseString in
-                logError("Failed to set apn device token for authenticated user")
+                logWarn("Failed to set apn device token for authenticated user")
             }
         )
     }

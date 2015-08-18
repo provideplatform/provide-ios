@@ -231,13 +231,13 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
 
         if let error = error {
-            logError(error)
+            logWarn(error.localizedDescription)
         }
 
         let input = AVCaptureDeviceInput(device: device, error: &error)
 
         if let error = error {
-            logError(error)
+            logWarn(error.localizedDescription)
         }
 
         captureSession = AVCaptureSession()
@@ -333,7 +333,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                             self.delegate?.cameraView(self, didCaptureStillImage: image)
                         }
                     } else {
-                        logError("Error capturing still image \(error)")
+                        logWarn("Error capturing still image \(error)")
                     }
                 }
             }

@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     func showError(errorMessage: String) {
         updateStatus(errorMessage, showActivity: false, isError: true)
         AnalyticsService.sharedService().track("Showed User an Error", properties: ["errorMessage": errorMessage])
-        logError(errorMessage)
+        logWarn(errorMessage)
     }
 
     func updateStatus(text: String) {
