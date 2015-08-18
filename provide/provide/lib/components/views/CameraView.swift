@@ -29,6 +29,7 @@ protocol CameraViewDelegate {
     func cameraView(cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel)
     func cameraView(cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject)
 
+    func cameraViewCaptureSessionFailedToInitializeWithError(error: NSError)
     func cameraViewBeganAsyncStillImageCapture(cameraView: CameraView)
     func cameraViewShouldEstablishAudioSession(cameraView: CameraView) -> Bool
     func cameraViewShouldEstablishVideoSession(cameraView: CameraView) -> Bool
@@ -238,23 +239,24 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         if let error = error {
             logWarn(error.localizedDescription)
+            delegate?.cameraViewCaptureSessionFailedToInitializeWithError(error)
+        } else {
+            captureSession = AVCaptureSession()
+            captureSession.sessionPreset = AVCaptureSessionPresetHigh
+            captureSession.addInput(input)
+
+            capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            capturePreviewLayer.frame = bounds
+            capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            layer.addSublayer(capturePreviewLayer)
+
+            configureAudioSession()
+            configureFacialRecognition()
+            configurePhotoSession()
+            configureVideoSession()
+            
+            captureSession.startRunning()
         }
-
-        captureSession = AVCaptureSession()
-        captureSession.sessionPreset = AVCaptureSessionPresetHigh
-        captureSession.addInput(input)
-
-        capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        capturePreviewLayer.frame = bounds
-        capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-        layer.addSublayer(capturePreviewLayer)
-
-        configureAudioSession()
-        configureFacialRecognition()
-        configurePhotoSession()
-        configureVideoSession()
-
-        captureSession.startRunning()
     }
 
     func stopCapture() {

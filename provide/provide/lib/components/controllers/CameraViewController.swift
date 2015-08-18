@@ -171,6 +171,10 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         return outputMode
     }
 
+    func cameraViewCaptureSessionFailedToInitializeWithError(error: NSError) {
+        delegate?.cameraViewControllerCanceled(self)
+    }
+
     func cameraViewBeganAsyncStillImageCapture(cameraView: CameraView) {
         delegate?.cameraViewControllerDidBeginAsyncStillImageCapture(self)
     }
