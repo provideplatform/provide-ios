@@ -24,7 +24,7 @@ class ApplicationViewController: ECSlidingViewController,
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
 
-        topViewController = UIStoryboard("Application").instantiateInitialViewController() as! UIViewController
+        topViewController = UIStoryboard("Application").instantiateInitialViewController()! as UIViewController
     }
 
     private var menuContainerView: MenuContainerView!
@@ -75,7 +75,6 @@ class ApplicationViewController: ECSlidingViewController,
 
     func refreshCurrentUser() {
         let user = currentUser()
-        assert(user.id != nil)
 
         user.reload(
             { statusCode, mappingResult in

@@ -133,9 +133,10 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if locations.count > 0 {
-            let location = locations.last as! CLLocation
-            if location.isAccurate {
-                locationResolved(location)
+            if let location = locations.last {
+                if location.isAccurate {
+                    locationResolved(location)
+                }
             }
         }
     }

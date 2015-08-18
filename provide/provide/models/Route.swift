@@ -21,9 +21,9 @@ class Route: Model {
     var loadingEndedAt: String!
     var unloadingStartedAt: String!
     var unloadingEndedAt: String!
-    var legs: [RouteLeg]()
-    var workOrders: [WorkOrder]()
-    var itemsLoaded: [Product]()
+    var legs = [RouteLeg]()
+    var workOrders = [WorkOrder]()
+    var itemsLoaded = [Product]()
     var checkinCoordinates: NSArray!
     var incompleteManifest: NSNumber!
     var currentLegIndex = 0
@@ -107,15 +107,18 @@ class Route: Model {
         workOrders = newWorkOrders
     }
 
-    var checkinsPolyline: MKPolyline {
+    var checkinsPolyline: MKPolyline! {
         var coords = [CLLocationCoordinate2D]()
-        for checkinCoordinate in checkinCoordinates {
-            let latitude = checkinCoordinate[0].doubleValue
-            let longitude = checkinCoordinate[1].doubleValue
-            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        if let checkinCoordinates = checkinCoordinates {
+            for checkinCoordinate in checkinCoordinates {
+                let latitude = checkinCoordinate[0].doubleValue
+                let longitude = checkinCoordinate[1].doubleValue
+                coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            }
+            return MKPolyline(coordinates: &coords, count: coords.count)
         }
 
-        return MKPolyline(coordinates: &coords, count: coords.count)
+        return nil
     }
 
     var overviewPolyline: MKPolyline {
@@ -124,7 +127,7 @@ class Route: Model {
             for step in leg.steps {
                 if let shapes = step.shape {
                     for shape in shapes {
-                        let shapeCoords = (shape as! String).splitAtString(",")
+                        let shapeCoords = shape.splitAtString(",")
                         let latitude = (shapeCoords.0 as NSString).doubleValue
                         let longitude = (shapeCoords.1 as NSString).doubleValue
                         coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
@@ -138,11 +141,10 @@ class Route: Model {
 
     var currentLeg: RouteLeg! {
         var leg: RouteLeg!
-        if let legs = legs {
-            if legs.count > 0 {
-                leg = legs[currentLegIndex]
-            }
+        if legs.count > 0 {
+            leg = legs[currentLegIndex]
         }
+        return leg
     }
 
     func canStart() -> Bool {
@@ -170,10 +172,8 @@ class Route: Model {
     var gtinsLoaded: [String] {
         var gtinsLoaded = [String]()
 
-        if let products = itemsLoaded {
-            for product in products {
-                gtinsLoaded.append(product.gtin)
-            }
+        for product in itemsLoaded {
+            gtinsLoaded.append(product.gtin)
         }
 
         return gtinsLoaded
@@ -187,16 +187,14 @@ class Route: Model {
             gtinsAccountedForCount[gtin] = gtinOrderedCount(gtin) - gtinLoadedCount(gtin)
         }
 
-        if let workOrders = workOrders {
-            for workOrder in workOrders.reverse() {
-                if let products = workOrder.itemsOrdered {
-                    for product in products {
-                        let gtin = product.gtin
-                        if let remainingToLoad = gtinsAccountedForCount[gtin] {
-                            if remainingToLoad > 0 {
-                                itemsNotLoaded.append(product)
-                                gtinsAccountedForCount[gtin] = remainingToLoad - 1
-                            }
+        for workOrder in workOrders.reverse() {
+            if let products = workOrder.itemsOrdered {
+                for product in products {
+                    let gtin = product.gtin
+                    if let remainingToLoad = gtinsAccountedForCount[gtin] {
+                        if remainingToLoad > 0 {
+                            itemsNotLoaded.append(product)
+                            gtinsAccountedForCount[gtin] = remainingToLoad - 1
                         }
                     }
                 }
@@ -208,12 +206,10 @@ class Route: Model {
 
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
-        if let workOrders = workOrders {
-            for workOrder in workOrders.reverse() {
-                if let products = workOrder.itemsOrdered {
-                    for product in products {
-                        itemsOrdered.append(product)
-                    }
+        for workOrder in workOrders.reverse() {
+            if let products = workOrder.itemsOrdered {
+                for product in products {
+                    itemsOrdered.append(product)
                 }
             }
         }
@@ -223,12 +219,10 @@ class Route: Model {
 
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
-        if let workOrders = workOrders {
-            for workOrder in workOrders.reverse() {
-                if let products = workOrder.itemsDelivered {
-                    for product in products {
-                        itemsDelivered.append(product)
-                    }
+        for workOrder in workOrders.reverse() {
+            if let products = workOrder.itemsDelivered {
+                for product in products {
+                    itemsDelivered.append(product)
                 }
             }
         }
@@ -238,12 +232,10 @@ class Route: Model {
 
     var itemsRejected: [Product] {
         var itemsRejected = [Product]()
-        if let workOrders = workOrders {
-            for workOrder in workOrders.reverse() {
-                if let products = workOrder.itemsRejected {
-                    for product in products {
-                        itemsRejected.append(product)
-                    }
+        for workOrder in workOrders.reverse() {
+            if let products = workOrder.itemsRejected {
+                for product in products {
+                    itemsRejected.append(product)
                 }
             }
         }
@@ -396,7 +388,7 @@ class Route: Model {
     }
 
     func reload(onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchRouteWithId(id.stringValue, params: ["include_work_orders": "true"],
+        ApiService.sharedService().fetchRouteWithId(String(id), params: ["include_work_orders": "true"],
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(mappingResult.firstObject as! Route)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -409,7 +401,7 @@ class Route: Model {
 
     func load(onSuccess: OnSuccess, onError: OnError) {
         status = "loading"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+        ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -422,7 +414,7 @@ class Route: Model {
 
     func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+        ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -435,7 +427,7 @@ class Route: Model {
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "unloading"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+        ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -448,7 +440,7 @@ class Route: Model {
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "pending_completion"
-        ApiService.sharedService().updateRouteWithId(id.stringValue, params: toDictionary(),
+        ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)

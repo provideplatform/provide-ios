@@ -9,15 +9,15 @@
 import UIKit
 
 protocol RouteViewControllerDelegate {
-    func routeForViewController(viewController: ViewController!) -> Route!
-    func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
+    func routeForViewController(viewController: UIViewController) -> Route!
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
 }
 
 class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
     var delegate: RouteViewControllerDelegate! {
         didSet {
-            if let delegate = delegate {
+            if let _ = delegate {
                 refresh()
             }
         }
@@ -92,7 +92,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     func refresh() {
         if let route = route {
             route.reload(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     self.tableView?.reloadData()
 
                     UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
@@ -174,7 +174,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("workOrderTableViewCellReuseIdentifier") as! WorkOrderTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("workOrderTableViewCellReuseIdentifier") as! WorkOrderTableViewCell
         cell.workOrder = route.workOrders[indexPath.row]
         return cell
     }

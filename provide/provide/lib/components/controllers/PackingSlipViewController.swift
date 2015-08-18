@@ -86,7 +86,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
         if let navigationController = navigationController {
             if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
 
             navigationController.pushViewController(self.cameraViewController, animated: false)
@@ -108,7 +108,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     private var commentsViewController: CommentsViewController! {
-        var commentsViewController = (UIStoryboard("Comments").instantiateInitialViewController() as! UINavigationController).viewControllers.first as! CommentsViewController
+        let commentsViewController = (UIStoryboard("Comments").instantiateInitialViewController() as! UINavigationController).viewControllers.first as! CommentsViewController
         commentsViewController.commentsViewControllerDelegate = self
         return commentsViewController
     }
@@ -196,7 +196,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseIn,
             animations: {
                 if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                    self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
                 }
             },
             completion: nil
@@ -342,7 +342,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                 onError: { error, statusCode, responseString in
                                     dispatch_after_delay(0.0) {
                                         self.packingSlipTableView.reloadData()
-                                        self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered,
+                                        self.setupNavigationItem(workOrder.canBeDelivered,
                                                                  abandomItemEnabled: workOrder.canBeAbandoned)
 
                                         self.hideHUD(inView: self.targetView)
@@ -387,7 +387,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell!, shouldAttemptToUnloadRejectedProduct product: Product!) {
+    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadRejectedProduct product: Product) {
         packingSlipItemTableViewCell(cell, shouldAttemptToUnloadProduct: product)
     }
 
@@ -424,7 +424,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                     workOrder.deliverItem(product,
                                         onSuccess: { statusCode, mappingResult in
                                             dispatch_after_delay(0.0) {
-                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: false)
                                                 self.packingSlipTableView.reloadData()
 
                                                 self.hideHUD(inView: self.targetView)
@@ -432,7 +432,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                         },
                                         onError: { error, statusCode, responseString in
                                             dispatch_after_delay(0.0) {
-                                                self.setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: false)
+                                                self.setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: false)
                                                 self.packingSlipTableView.reloadData()
 
                                                 self.hideHUD(inView: self.targetView)
@@ -532,7 +532,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             )
 
             if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                setupNavigationItem(deliverItemEnabled: workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
+                setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
         }
     }

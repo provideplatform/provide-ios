@@ -50,7 +50,7 @@ class RouteLegStep: Model {
     var distanceInMeters: NSNumber!
     var duration: NSNumber!
     // var placeEquipment = [AnyObject]() // unused
-    var shape = [String]()
+    var shape: [String]!
     var direction: String!
     var maneuver: String!
     var time: String!
@@ -165,7 +165,11 @@ class RouteLegStep: Model {
 
     var startCoordinate: CLLocationCoordinate2D! {
         if let shape = shape {
-            if let startLocation = (shape as Array).first as? String {
+            if shape.count == 0 {
+                return nil
+            }
+
+            if let startLocation = shape.first {
                 let startCoords = startLocation.splitAtString(",")
                 let latitude = (startCoords.0 as NSString).doubleValue
                 let longitude = (startCoords.1 as NSString).doubleValue
@@ -178,7 +182,11 @@ class RouteLegStep: Model {
 
     var endCoordinate: CLLocationCoordinate2D! {
         if let shape = shape {
-            if let endLocation = (shape as Array).last as? String {
+            if shape.count == 0 {
+                return nil
+            }
+
+            if let endLocation = shape.last {
                 let endCoords = endLocation.splitAtString(",")
                 let latitude = (endCoords.0 as NSString).doubleValue
                 let longitude = (endCoords.1 as NSString).doubleValue

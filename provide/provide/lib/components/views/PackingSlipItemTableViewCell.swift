@@ -89,18 +89,16 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             case .OnTruck:
                 let i = rightUtilityButtons.count
                 rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
-                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
+                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
             case .Unloaded:
                 let i = rightUtilityButtons.count
                 let redColor = UIColor(red: 1.1, green: 0.231, blue: 0.16, alpha: 1.0)
                 rightUtilityButtons.sw_addUtilityButtonWithColor(redColor, title: "Reject")
-                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
+                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
             case .Rejected:
                 let i = rightUtilityButtons.count
                 rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
-                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints())
-            default:
-                break
+                rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
             }
         }
 
@@ -132,8 +130,6 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, didRejectProduct: product)
             case .Rejected:
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadRejectedProduct: product)
-            default:
-                break
             }
         }
     }

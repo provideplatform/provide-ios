@@ -66,22 +66,18 @@ class RouteLeg: Model {
 
     var currentStep: RouteLegStep! {
         var step: RouteLegStep!
-
-        if let steps = steps {
-            if currentStepIndex <= steps.count - 1 {
-                step = steps[currentStepIndex]
-            }
+        if currentStepIndex <= steps.count - 1 {
+            step = steps[currentStepIndex]
         }
+        return step
     }
 
     var nextStep: RouteLegStep! {
         var step: RouteLegStep!
-
-        if let steps = steps {
-            let nextStepIndex = currentStepIndex + 1
-            if nextStepIndex <= steps.count - 1 {
-                step = steps[nextStepIndex]
-            }
+        let nextStepIndex = currentStepIndex + 1
+        if nextStepIndex <= steps.count - 1 {
+            step = steps[nextStepIndex]
         }
+        return step
     }
 }

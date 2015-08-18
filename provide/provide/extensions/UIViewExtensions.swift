@@ -39,7 +39,7 @@ extension UIView {
     }
 
     func addGradient(startColor: UIColor, endColor: UIColor, horizontal: Bool = false) {
-        var gradient = CAGradientLayer()
+        let gradient = CAGradientLayer()
         gradient.frame = bounds
         gradient.colors = [startColor.CGColor, endColor.CGColor]
 
@@ -57,7 +57,7 @@ extension UIView {
     }
 
     func removeGestureRecognizers() {
-        for gestureRecognizer in gestureRecognizers as! [UIGestureRecognizer] {
+        for gestureRecognizer in gestureRecognizers! {
             removeGestureRecognizer(gestureRecognizer)
         }
     }

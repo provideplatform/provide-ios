@@ -43,10 +43,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             return backCameraView
         case .Front:
             return frontCameraView
-        default:
-            break
         }
-        return nil
     }
 
     var isRunning: Bool {
@@ -83,7 +80,8 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         view.bringSubviewToFront(button)
 
         button.addTarget(self, action: "capture", forControlEvents: .TouchUpInside)
-        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: .TouchUpInside | .TouchUpOutside | .TouchCancel | .TouchDragExit)
+        let events = UIControlEvents.TouchUpInside.union(.TouchUpOutside).union(.TouchCancel).union(.TouchDragExit)
+        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: events)
         button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
 
         button.addBorder(5.0, color: UIColor.whiteColor())
@@ -192,7 +190,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func cameraView(cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel) {
-        println("average power: \(avgPower); peak hold: \(peakHold); channel: \(channel)")
+        print("average power: \(avgPower); peak hold: \(peakHold); channel: \(channel)")
     }
 
     func cameraView(cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject) {

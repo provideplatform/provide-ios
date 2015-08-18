@@ -21,7 +21,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             navigationItem.title = workOrder.customer.contact.name
 
             workOrder.reloadAttachments(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     self.mediaCollectionView?.reloadData()
                     //self.mediaCollectionView.layoutIfNeeded()
                 },
@@ -121,7 +121,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
         mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
         mediaCollectionView.delegate = self
         mediaCollectionView.dataSource = self
@@ -139,7 +139,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
 
         switch indexPath.row {
@@ -241,7 +241,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! ImageCollectionViewCell
         cell.imageUrl = workOrder.attachments[indexPath.row].url
         return cell
     }
@@ -255,11 +255,11 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // MARK: ManifestViewControllerDelegate
 
-    func workOrderForManifestViewController(viewController: ViewController!) -> WorkOrder! {
+    func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
         return workOrder
     }
 
-    func navigationControllerBackItemTitleForManifestViewController(viewController: ViewController!) -> String! {
+    func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return "BACK"
     }
 }

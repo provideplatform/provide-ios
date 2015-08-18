@@ -141,8 +141,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             } else {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    if inProgressWorkOrder.id == workOrderId.integerValue {
-                        ApiService.sharedService().fetchWorkOrderWithId(workOrderId.stringValue,
+                    if inProgressWorkOrder.id == workOrderId {
+                        ApiService.sharedService().fetchWorkOrderWithId(String(workOrderId),
                             onSuccess: { statusCode, mappingResult in
                                 if let wo = mappingResult.firstObject as? WorkOrder {
                                     if wo.status == "canceled" {

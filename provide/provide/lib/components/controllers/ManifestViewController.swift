@@ -8,13 +8,14 @@
 
 import UIKit
 
+@objc
 protocol ManifestViewControllerDelegate {
-    func targetViewForViewController(viewController: ViewController) -> UIView
-    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-    func routeForViewController(viewController: ViewController) -> Route!
-    optional func navigationControllerBackItemTitleForManifestViewController(viewController: ViewController) -> String!
-    optional func workOrderForManifestViewController(viewController: ViewController) -> WorkOrder!
+    optional func targetViewForViewController(viewController: UIViewController) -> UIView
+    optional func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
+    optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
+    optional func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String!
+    optional func routeForViewController(viewController: UIViewController) -> Route!
+    optional func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -70,14 +71,14 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
             } else {
                 prompt = "Manifest for (unnamed route)"
             }
-        } else if let workOrder = workOrder {
+        } else if let _ = workOrder {
             prompt = nil
         }
         return prompt
     }
 
     private var route: Route! {
-        return delegate?.routeForViewController(self)
+        return delegate?.routeForViewController?(self)
     }
 
     private var workOrder: WorkOrder! {
@@ -98,7 +99,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     private var targetView: UIView! {
-        return delegate?.targetViewForViewController(self)
+        return delegate?.targetViewForViewController?(self)
     }
 
     override func viewDidLoad() {

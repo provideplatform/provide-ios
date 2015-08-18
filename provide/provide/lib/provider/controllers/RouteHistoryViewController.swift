@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RouteHistoryViewControllerDelegate {
-    func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController!
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
 }
 
 class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, RouteViewControllerDelegate {
@@ -113,7 +113,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             refreshControl.beginRefreshing()
         }
 
-        let params = NSMutableDictionary(dictionary: [
+        let params = [
             "page": page,
             "rpp": rpp,
             "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,canceled,abandoned",
@@ -121,9 +121,9 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             "include_work_orders": "true",
             "include_checkin_coordinates": "true",
             "douglas_peucker_tolerance": "1"
-        ])
+        ]
 
-        ApiService.sharedService().fetchRoutes(params,
+        ApiService.sharedService().fetchRoutes(params as! [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
                 let fetchedRoutes = mappingResult.array() as! [Route]
                 self.routes += fetchedRoutes
@@ -177,14 +177,14 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        var inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
-        var insetWidthOffset = inset.left + inset.right
-        var insetHeightOffset = inset.top + inset.bottom
+        let inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
+        let insetWidthOffset = inset.left + inset.right
+        _ = inset.top + inset.bottom
         return CGSizeMake(collectionView.frame.width - insetWidthOffset, 175.0)
     }
 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        var routeIndex = routeIndexAtIndexPath(indexPath)
+        let routeIndex = routeIndexAtIndexPath(indexPath)
         if routeIndex == routes.count - 1 && routeIndex > lastRouteIndex {
             page++
             lastRouteIndex = routeIndex
@@ -206,7 +206,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isColumnedLayout {
-            var routeIndex = routeIndexAtIndexPath(NSIndexPath(forRow: 1, inSection: section))
+            let routeIndex = routeIndexAtIndexPath(NSIndexPath(forRow: 1, inSection: section))
             if routeIndex > routes.count - 1 {
                 return 1
             }
@@ -217,7 +217,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("routeHistoryCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! RouteHistoryCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("routeHistoryCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! RouteHistoryCollectionViewCell
         cell.route = routeForRowAtIndexPath(indexPath)
         return cell
     }
@@ -231,11 +231,11 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
 
     // MARK: RouteViewControllerDelegate
 
-    func routeForViewController(viewController: ViewController!) -> Route! {
+    func routeForViewController(viewController: UIViewController) -> Route! {
         return selectedRoute
     }
 
-    func navigationControllerForViewController(viewController: ViewController!) -> UINavigationController! {
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
         return navigationController
     }
 }

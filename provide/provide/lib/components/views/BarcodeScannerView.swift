@@ -51,46 +51,46 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
                 device.focusMode = .ContinuousAutoFocus
                 device.unlockForConfiguration()
             } catch let error as NSError {
-                logError(error)
-            }
-
-            let input = AVCaptureDeviceInput(device: device, error: &error)
-
-            if let error = error {
                 logWarn(error.localizedDescription)
             }
 
-            var rectOfInterest = bounds
-            if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView(self) {
-                if customRectOfInterest != CGRectZero {
-                    rectOfInterest = customRectOfInterest
+            do {
+                var input = try AVCaptureDeviceInput(device: device)
+
+                var rectOfInterest = bounds
+                if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView(self) {
+                    if customRectOfInterest != CGRectZero {
+                        rectOfInterest = customRectOfInterest
+                    }
                 }
+
+                capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+                capturePreviewLayer.frame = rectOfInterest
+                capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+                layer.addSublayer(capturePreviewLayer)
+
+                codeDetectionLayer.frame = rectOfInterest
+                layer.insertSublayer(codeDetectionLayer, above: capturePreviewLayer)
+
+                let metadataOutput = AVCaptureMetadataOutput()
+                captureSession.addOutput(metadataOutput)
+
+                let overlayImageView = UIImageView(image: UIImage("scanner-overlay"))
+                overlayImageView.frame = CGRect(x: 25.0,
+                                                y: (rectOfInterest.height / 4.0) + 50.0,
+                                                width: rectOfInterest.width - 50.0,
+                                                height: rectOfInterest.height / 4.0)
+
+                layer.insertSublayer(overlayImageView.layer, above: capturePreviewLayer)
+
+                metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataOutputQueue)
+                metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
+                metadataOutput.rectOfInterest = rectOfInterest
+                
+                captureSession.startRunning()
+            } catch let error as NSError {
+                logWarn(error.localizedDescription)
             }
-
-            capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            capturePreviewLayer.frame = rectOfInterest
-            capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-            layer.addSublayer(capturePreviewLayer)
-
-            codeDetectionLayer.frame = rectOfInterest
-            layer.insertSublayer(codeDetectionLayer, above: capturePreviewLayer)
-
-            let metadataOutput = AVCaptureMetadataOutput()
-            captureSession.addOutput(metadataOutput)
-
-            let overlayImageView = UIImageView(image: UIImage("scanner-overlay"))
-            overlayImageView.frame = CGRect(x: 25.0,
-                                            y: (rectOfInterest.height / 4.0) + 50.0,
-                                            width: rectOfInterest.width - 50.0,
-                                            height: rectOfInterest.height / 4.0)
-
-            layer.insertSublayer(overlayImageView.layer, above: capturePreviewLayer)
-
-            metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataOutputQueue)
-            metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
-            metadataOutput.rectOfInterest = rectOfInterest
-
-            captureSession.startRunning()
         }
     }
 
@@ -121,9 +121,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     private func clearDetectedMetadataObjects() {
-        if let codeDetectionLayer = codeDetectionLayer {
-            codeDetectionLayer.sublayers = nil
-        }
+        codeDetectionLayer.sublayers = nil
     }
 
     private func showDetectedMetadataObjects(metadataObjects: [AnyObject]) {

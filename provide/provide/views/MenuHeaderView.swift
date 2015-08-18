@@ -53,7 +53,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     func changeProfileImage() {
-        var actionSheet = UIActionSheet(title: "Want to take a selfie or choose from your camera roll?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
+        let actionSheet = UIActionSheet(title: "Want to take a selfie or choose from your camera roll?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
         actionSheet.addButtonWithTitle("Selfie")
         actionSheet.addButtonWithTitle("Camera Roll")
 
@@ -73,7 +73,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     private func initImagePickerViewController() {
-        var imagePickerViewController = ImagePickerViewController()
+        let imagePickerViewController = ImagePickerViewController()
         imagePickerViewController.delegate = self
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {

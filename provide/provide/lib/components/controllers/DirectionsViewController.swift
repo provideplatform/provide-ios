@@ -12,11 +12,11 @@ protocol DirectionsViewControllerDelegate {
     func isPresentingDirections() -> Bool
     func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
     func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView!
-    func navbarPromptForDirectionsViewController(viewController: ViewController!) -> String!
-    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
+    func navbarPromptForDirectionsViewController(viewController: UIViewController) -> String!
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
+    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
     func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode
-    func targetViewForViewController(viewController: ViewController) -> UIView
+    func targetViewForViewController(viewController: UIViewController) -> UIView
 }
 
 class DirectionsViewController: ViewController {
@@ -418,8 +418,8 @@ class DirectionsViewController: ViewController {
     func routeLegStepAtIndexPath(indexPath: NSIndexPath) -> RouteLegStep! {
         var routeLegStep: RouteLegStep!
         if let routeLeg = routeLegAtIndex(indexPath.section) {
-            if let steps = routeLeg.steps {
-                routeLegStep = steps[indexPath.row]
+            if indexPath.row < routeLeg.steps.count {
+                routeLegStep = routeLeg.steps[indexPath.row]
             }
         }
         return routeLegStep

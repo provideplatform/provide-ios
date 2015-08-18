@@ -44,7 +44,7 @@ class MenuContainerView: UIView {
     }
 
     private func teardown() {
-        if let superview = superview {
+        if let _ = superview {
             removeFromSuperview()
         }
 
@@ -111,17 +111,17 @@ class MenuContainerView: UIView {
         return super.pointInside(point, withEvent: event)
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
 
         touchesBeganTimestamp = NSDate()
         applyTouches(touches)
     }
 
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
 
-        if let touchesBeganTimestamp = touchesBeganTimestamp {
+        if let _ = touchesBeganTimestamp {
             let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
             if percentage > 0.5 {
                 openMenu()
@@ -133,20 +133,20 @@ class MenuContainerView: UIView {
         touchesBeganTimestamp = nil
     }
 
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
 
         touchesBeganTimestamp = nil
     }
 
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesMoved(touches, withEvent: event)
 
         if let touchesBeganTimestamp = touchesBeganTimestamp {
             if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
                 var xOffset: CGFloat = 0.0
                 for touch in touches {
-                    xOffset = (touch as! UITouch).locationInView(nil).x - (touch as! UITouch).previousLocationInView(nil).x
+                    xOffset = touch.locationInView(nil).x - touch.previousLocationInView(nil).x
                 }
 
                 if xOffset > 15.0 {

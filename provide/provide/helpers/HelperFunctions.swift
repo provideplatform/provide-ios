@@ -28,7 +28,7 @@ func dispatch_async_global_queue(priority: Int, block: dispatch_block_t) {
 func log(message: String, _ fileName: String = __FILE__, _ functionName: String = __FUNCTION__, _ lineNumber: Int = __LINE__) {
     if CurrentBuildConfig == .Debug {
         let timestamp = logTimestampDateFormatter.stringFromDate(NSDate())
-        var fileAndMethod = "[\(timestamp)] [\(fileName.lastPathComponent.stringByDeletingPathExtension):\(lineNumber)] "
+        var fileAndMethod = "[\(timestamp)] [\(NSString(string: NSString(string: fileName).lastPathComponent).stringByDeletingPathExtension):\(lineNumber)] "
         fileAndMethod = fileAndMethod.replaceString("ViewController", withString: "VC")
         fileAndMethod = fileAndMethod.stringByPaddingToLength(38, withString: "-", startingAtIndex: 0)
         let logStatement = "\(fileAndMethod)--> \(message)"
@@ -74,8 +74,8 @@ private func envVarRawValue(envVarName: String) -> String? {
 }
 
 func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundle = NSBundle.mainBundle()) -> String {
-    let resourceName = fileName.stringByDeletingPathExtension
-    let type = fileName.pathExtension
+    let resourceName = NSString(string: fileName).stringByDeletingPathExtension
+    let type = NSString(string: fileName).pathExtension
     let filePath = bundle.pathForResource(resourceName, ofType: type, inDirectory:bundlePath)
     assert(filePath != nil, "File not found: \(resourceName).\(type)")
 
@@ -103,14 +103,14 @@ func pluralizedPhrase(count: Int, phrase: String, _ suffix: String? = nil) -> St
 
 func isRunningKIFTests() -> Bool {
     if let injectBundle = ENV("XCInjectBundle") {
-        return injectBundle.lastPathComponent.hasSuffix("KIFTests.xctest")
+        return NSString(string: injectBundle).lastPathComponent.hasSuffix("KIFTests.xctest")
     }
     return false
 }
 
 func isRunningUnitTests() -> Bool {
     if let injectBundle = ENV("XCInjectBundle") {
-        return injectBundle.lastPathComponent.hasSuffix("Tests.xctest")
+        return NSString(string: injectBundle).lastPathComponent.hasSuffix("Tests.xctest")
     }
     return false
 }
@@ -159,7 +159,7 @@ func classNameForObject(object: AnyObject) -> String {
     let objectName = NSStringFromClass(object.dynamicType)
 
     if let injectBundle = ENV("XCInjectBundle") {
-        let testBundleName = injectBundle.lastPathComponent.stringByDeletingPathExtension
+        let testBundleName = NSString(string: NSString(string: injectBundle).lastPathComponent).stringByDeletingPathExtension
         return objectName.replaceString("\(testBundleName).", withString: "")
     } else {
         return objectName.componentsSeparatedByString(".").last!

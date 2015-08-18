@@ -27,7 +27,7 @@ class WorkOrderPinAnnotationView: MKAnnotationView {
         centerOffset = CGPointMake(0, (rect.height / 2.0) * -1.0);
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
 }

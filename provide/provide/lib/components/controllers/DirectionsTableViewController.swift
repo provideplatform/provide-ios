@@ -23,11 +23,11 @@ class DirectionsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return directions.routes[section].count
+        return directions.routes[section].legs.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("directionsTableViewCellReuseIdentifier") as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("directionsTableViewCellReuseIdentifier")! as UITableViewCell
 
         return cell
     }

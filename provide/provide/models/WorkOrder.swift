@@ -39,8 +39,11 @@ class WorkOrder: Model, MKAnnotation {
             "id",
             "company_id",
             "customer_id",
+            "scheduled_start_at",
             "started_at",
             "ended_at",
+            "canceled_at",
+            "abandoned_at",
             "duration",
             "estimated_duration",
             "status",
@@ -52,21 +55,23 @@ class WorkOrder: Model, MKAnnotation {
 
         mapping.addAttributeMappingsFromDictionary([
             "description": "desc",
-            "scheduled_start_at": "scheduledStartAt",
-            "started_at": "startedAt",
-            "ended_at": "endedAt",
-            "abandoned_at": "abandonedAt",
-            "canceled_at": "canceledAt",
-            "duration": "duration",
-            "estimated_duration": "estimatedDuration",
-            "status": "status",
-            "provider_rating": "providerRating",
-            "customer_rating": "customerRating",
-            "components": "components"
+//            "scheduled_start_at": "scheduledStartAt",
+//            "started_at": "startedAt",
+//            "ended_at": "endedAt",
+//            "abandoned_at": "abandonedAt",
+//            "canceled_at": "canceledAt",
+//            "duration": "duration",
+//            "estimated_duration": "estimatedDuration",
+//            "status": "status",
+//            "provider_rating": "providerRating",
+//            "customer_rating": "customerRating",
+//            "components": "components"
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addRelationshipMappingWithSourceKeyPath("attachments", mapping: Attachment.mapping())
+
+        //mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
@@ -209,12 +214,12 @@ class WorkOrder: Model, MKAnnotation {
     var itemsOnTruck: [Product] {
         var itemsOnTruck = [Product]()
         for itemOrdered in itemsOrdered {
-            let product = Product(string: itemOrdered.toJSONString(snakeCaseKeys: true))
+            let product = Product(string: itemOrdered.toJSONString(true))
             itemsOnTruck.append(product)
         }
 
-        for (i, itemDelivered) in enumerate(itemsDelivered) {
-            for (x, itemOnTruck) in enumerate(itemsOnTruck) {
+        for (_, itemDelivered) in itemsDelivered.enumerate() {
+            for (x, itemOnTruck) in itemsOnTruck.enumerate() {
                 if itemOnTruck.gtin == itemDelivered.gtin {
                     itemsOnTruck.removeAtIndex(x)
                     break
@@ -226,8 +231,8 @@ class WorkOrder: Model, MKAnnotation {
             itemsOnTruck.append(itemRejected)
         }
 
-        for (i, itemRejected) in enumerate(itemsRejected) {
-            for (x, itemOnTruck) in enumerate(itemsOnTruck) {
+        for (_, itemRejected) in itemsRejected.enumerate() {
+            for (x, itemOnTruck) in itemsOnTruck.enumerate() {
                 if itemOnTruck.gtin == itemRejected.gtin {
                     itemsOnTruck.removeAtIndex(x)
                     break
@@ -258,22 +263,22 @@ class WorkOrder: Model, MKAnnotation {
         return 50.0
     }
 
-    func rejectItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
+    func rejectItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
         itemsDelivered.removeObject(item)
 
         item.rejected = true
         itemsRejected.append(item)
 
-        updateManifest(onSuccess: onSuccess, onError: onError)
+        updateManifest(onSuccess, onError: onError)
     }
 
-    func deliverItem(var item: Product, onSuccess: OnSuccess, onError: OnError) {
+    func deliverItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
         itemsRejected.removeObject(item)
 
         item.rejected = false
         itemsDelivered.append(item)
 
-        updateManifest(onSuccess: onSuccess, onError: onError)
+        updateManifest(onSuccess, onError: onError)
     }
 
     func canUnloadGtin(gtin: String!) -> Bool {
@@ -310,7 +315,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func gtinOrderedCount(gtin: String!) -> Int {
         var gtinOrderedCount = 0
-        for gtinOrdered in gtinsOrdered {
+        for _ in gtinsOrdered {
             gtinOrderedCount += 1
         }
         return gtinOrderedCount
@@ -318,7 +323,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func gtinRejectedCount(gtin: String!) -> Int {
         var gtinRejectedCount = 0
-        for gtinRejected in gtinsRejected {
+        for _ in gtinsRejected {
             gtinRejectedCount += 1
         }
         return gtinRejectedCount
@@ -326,14 +331,14 @@ class WorkOrder: Model, MKAnnotation {
 
     func gtinDeliveredCount(gtin: String!) -> Int {
         var gtinDeliveredCount = 0
-        for gtinDelivered in gtinsDelivered {
+        for _ in gtinsDelivered {
             gtinDeliveredCount += 1
         }
         return gtinDeliveredCount
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchWorkOrderWithId(id.stringValue,
+        ApiService.sharedService().fetchWorkOrderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -345,7 +350,7 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchAttachments(forWorkOrderWithId: id.stringValue,
+        ApiService.sharedService().fetchAttachments(forWorkOrderWithId: String(id),
             onSuccess: { statusCode, mappingResult in
                 self.attachments = mappingResult.array() as! [Attachment]
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -358,7 +363,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func start(onSuccess: OnSuccess, onError: OnError) {
         status = "en_route"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -371,7 +376,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "in_progress"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -384,7 +389,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "abandoned"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -397,7 +402,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "canceled"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -410,7 +415,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "rejected"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -423,7 +428,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         status = "completed"
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -436,7 +441,7 @@ class WorkOrder: Model, MKAnnotation {
 
     func updateManifest() {
         updateManifest(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
 
             },
             onError: { error, statusCode, responseString in
@@ -451,7 +456,7 @@ class WorkOrder: Model, MKAnnotation {
             "gtins_rejected": gtinsRejected
         ]
 
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: params,
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -467,7 +472,7 @@ class WorkOrder: Model, MKAnnotation {
 
         ApiService.sharedService().addAttachment(data,
             withMimeType: "image/jpg",
-            toWorkOrderWithId: id,
+            toWorkOrderWithId: String(id),
             params: params,
             onSuccess: onSuccess,
             onError: onError)
@@ -475,14 +480,14 @@ class WorkOrder: Model, MKAnnotation {
 
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().addComment(comment,
-            toWorkOrderWithId: id.stringValue,
+            toWorkOrderWithId: String(id),
             onSuccess: onSuccess,
             onError: onError)
     }
 
     func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
         providerRating = netPromoterScore
-        ApiService.sharedService().updateWorkOrderWithId(id.stringValue, params: ["provider_rating": providerRating],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)

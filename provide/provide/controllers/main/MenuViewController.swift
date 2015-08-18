@@ -53,7 +53,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
 
             ApiService.sharedService().logout(
-                onSuccess: { statusCode, _ in
+                { statusCode, _ in
                     assert(statusCode == 204)
                     log("Logout Successful")
                 },
@@ -97,7 +97,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     private func alignSections() {
         // Position the 2nd section to line up flush with the bottom of the view
         let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1)
-        let rowHeight = tableView[0].bounds.height // height of first cell
+        //let rowHeight = tableView[0].bounds.height // height of first cell
         let totalCellHeight = CGFloat(totalCellCount) * 50.0
         let versionNumberHeight: CGFloat = 38
         var tableHeaderViewHeight: CGFloat = 0
@@ -112,8 +112,8 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
         let storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc")
         if storyboardPath != nil {
-            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController() as! UIViewController
-            delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController, animated: true)
+            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()
+            delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController!, animated: true)
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("SegueTo\(storyboardName)Storyboard", object: self)
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")

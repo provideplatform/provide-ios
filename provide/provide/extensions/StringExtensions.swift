@@ -23,7 +23,7 @@ extension String {
     }
 
     func urlEncodedString() -> String {
-        return replaceString(" ", withString: "+").stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        return replaceString(" ", withString: "+").stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
     }
 
     func splitAtString(seperator: String) -> (String, String) {
@@ -33,14 +33,14 @@ extension String {
     }
 
     private func toJSONAnyObject() -> AnyObject! {
-        let data = dataUsingEncoding(NSUTF8StringEncoding)
-        var error: NSError?
-        let jsonObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error)
-        if let error = error {
-            logWarn("Error converting String to JSONObject : \(error.localizedDescription)")
+        do {
+            let data = dataUsingEncoding(NSUTF8StringEncoding)
+            let jsonObject: AnyObject? = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers)
+            return jsonObject
+        } catch let error as NSError {
+            logWarn(error.localizedDescription)
+            return nil
         }
-
-        return jsonObject
     }
 
     func toJSONArray() -> [AnyObject]! {

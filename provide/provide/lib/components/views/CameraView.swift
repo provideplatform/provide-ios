@@ -49,7 +49,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var captureInput: AVCaptureInput!
     private var captureSession: AVCaptureSession!
 
-    private var capturePreviewLayer = AVCaptureVideoPreviewLayer()
+    private var capturePreviewLayer: AVCaptureVideoPreviewLayer!
     private var codeDetectionLayer: CALayer!
 
     private var audioDataOutput: AVCaptureAudioDataOutput!
@@ -125,12 +125,16 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private func configureAudioSession() {
         if let delegate = delegate {
             if delegate.cameraViewShouldEstablishAudioSession(self) {
-                var input = AVCaptureDeviceInput.deviceInputWithDevice(mic, error: nil) as! AVCaptureInput
-                captureSession.addInput(input)
+                do {
+                    let input = try AVCaptureDeviceInput(device: mic)
+                    captureSession.addInput(input)
 
-                audioDataOutput = AVCaptureAudioDataOutput()
-                if captureSession.canAddOutput(audioDataOutput) {
-                    captureSession.addOutput(audioDataOutput)
+                    audioDataOutput = AVCaptureAudioDataOutput()
+                    if captureSession.canAddOutput(audioDataOutput) {
+                        captureSession.addOutput(audioDataOutput)
+                    }
+                } catch let error as NSError {
+                    logWarn(error.localizedDescription)
                 }
             }
         }
@@ -138,7 +142,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     private func configureFacialRecognition() {
         if outputFaceMetadata {
-            var metadataOutput = AVCaptureMetadataOutput()
+            let metadataOutput = AVCaptureMetadataOutput()
             captureSession.addOutput(metadataOutput)
 
             metadataOutput.setMetadataObjectsDelegate(self, queue: avMetadataOutputQueue)
@@ -163,7 +167,9 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if let delegate = delegate {
             if delegate.cameraViewShouldEstablishVideoSession(self) {
                 videoDataOutput = AVCaptureVideoDataOutput()
-                videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_32BGRA]
+                var settings = [NSObject: AnyObject]()
+                settings.updateValue(NSNumber(unsignedInt: kCVPixelFormatType_32BGRA), forKey: String(kCVPixelBufferPixelFormatTypeKey))
+                videoDataOutput.videoSettings = settings
                 videoDataOutput.alwaysDiscardsLateVideoFrames = true
                 videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
 
@@ -190,8 +196,8 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
 
         if audioDataOutput.connections.count > 0 {
-            var connection = audioDataOutput.connections[0] as! AVCaptureConnection
-            var channels = connection.audioChannels
+            let connection = audioDataOutput.connections[0] as! AVCaptureConnection
+            let channels = connection.audioChannels
 
             for channel in channels {
                 let avg = channel.averagePowerLevel
@@ -219,9 +225,9 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             stopCapture()
         }
 
-        var error: NSError?
-
-        if device.lockForConfiguration(&error) {
+        do {
+            try device.lockForConfiguration()
+            
             if device.isFocusModeSupported(.ContinuousAutoFocus) {
                 device.focusMode = .ContinuousAutoFocus
             } else if device.isFocusModeSupported(.AutoFocus) {
@@ -229,18 +235,14 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             }
 
             device.unlockForConfiguration()
-        }
-
-        if let error = error {
-            logWarn(error.localizedDescription)
-        }
-
-        let input = AVCaptureDeviceInput(device: device, error: &error)
-
-        if let error = error {
+        } catch let error as NSError {
             logWarn(error.localizedDescription)
             delegate?.cameraViewCaptureSessionFailedToInitializeWithError(error)
-        } else {
+        }
+
+        do {
+            let input = try AVCaptureDeviceInput(device: device)
+
             captureSession = AVCaptureSession()
             captureSession.sessionPreset = AVCaptureSessionPresetHigh
             captureSession.addInput(input)
@@ -254,8 +256,11 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             configureFacialRecognition()
             configurePhotoSession()
             configureVideoSession()
-            
+
             captureSession.startRunning()
+        } catch let error as NSError {
+            logWarn(error.localizedDescription)
+            delegate?.cameraViewCaptureSessionFailedToInitializeWithError(error)
         }
     }
 
@@ -265,8 +270,8 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             captureSession = nil
         }
 
-        if let previewLayer = capturePreviewLayer {
-            previewLayer.removeFromSuperlayer()
+        if let _ = capturePreviewLayer {
+            capturePreviewLayer.removeFromSuperlayer()
             capturePreviewLayer = nil
         }
     }
@@ -301,8 +306,6 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                     captureSession.removeOutput(videoDataOutput)
                 }
                 break
-            default:
-                break
             }
         }
     }
@@ -313,8 +316,8 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if isSimulator() {
             if let window = UIApplication.sharedApplication().keyWindow {
                 UIGraphicsBeginImageContextWithOptions(window.bounds.size, false, UIScreen.mainScreen().scale)
-                window.layer.renderInContext(UIGraphicsGetCurrentContext())
-                var image = UIGraphicsGetImageFromCurrentImageContext()
+                window.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+                let image = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 self.delegate?.cameraView(self, didCaptureStillImage: image)
             }
@@ -355,7 +358,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 }
 
                 var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-                var outputFileURL = NSURL(fileURLWithPath: "\(paths.first!)/\(NSDate().timeIntervalSince1970).m4v")
+                let outputFileURL = NSURL(fileURLWithPath: "\(paths.first!)/\(NSDate().timeIntervalSince1970).m4v")
                 videoFileOutput.startRecordingToOutputFileURL(outputFileURL, recordingDelegate: self)
                 break
             case .VideoSampleBuffer:
@@ -391,22 +394,22 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
-        var imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
         CVPixelBufferLockBaseAddress(imageBuffer, 0)
 
-        var baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+        let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
         let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
         let width = CVPixelBufferGetWidth(imageBuffer)
         let height = CVPixelBufferGetHeight(imageBuffer)
 
-        var colorSpace = CGColorSpaceCreateDeviceRGB()
-        var bitmapInfo = CGBitmapInfo(CGImageAlphaInfo.PremultipliedFirst.rawValue)
-        var context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, bitmapInfo)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()!
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue).rawValue
+        let context = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, bitmapInfo)
 
-        var quartzImage = CGBitmapContextCreateImage(context)
+        let quartzImage = CGBitmapContextCreateImage(context)!
         CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
         
-        let image = UIImage(CGImage: quartzImage)
+        _ = UIImage(CGImage: quartzImage)
     }
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate

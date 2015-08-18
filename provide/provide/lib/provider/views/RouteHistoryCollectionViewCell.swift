@@ -42,10 +42,8 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
                 mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
             }
 
-            if let workOrders = route.workOrders {
-                for workOrder in workOrders {
-                    mapView.addAnnotation(workOrder)
-                }
+            for workOrder in route.workOrders {
+                mapView.addAnnotation(workOrder)
             }
 
             mapView.alpha = 1.0

@@ -37,7 +37,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
 
             if let delegate = workOrdersViewControllerDelegate {
-                delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(nil)
+                delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
             }
 
             mapView.addAnnotation(WorkOrderService.sharedService().nextWorkOrder)

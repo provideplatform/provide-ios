@@ -35,7 +35,7 @@ class Model: NSObject {
             if value is NSDictionary {
                 if let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
                     let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
-                    value = clazz(string: (value as! NSDictionary).toJSON())
+                    value = clazz.init(string: (value as! NSDictionary).toJSON())
                 } else {
                     value = value as! NSDictionary
                 }
@@ -61,11 +61,11 @@ class Model: NSObject {
 
             if value != nil {
                 if value is Model {
-                    value = (value as! Model).toDictionary(snakeKeys: snakeKeys)
+                    value = (value as! Model).toDictionary(snakeKeys)
                 } else if value is [Model] {
                     var newValue = [[String : AnyObject]]()
                     for val in value as! [Model] {
-                        newValue.append(val.toDictionary(snakeKeys: snakeKeys))
+                        newValue.append(val.toDictionary(snakeKeys))
                     }
                     value = newValue
                 }
@@ -90,7 +90,7 @@ class Model: NSObject {
         return nil
     }
 
-    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String, error outError: NSErrorPointer) -> Bool {
+    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {
         if ioValue.memory != nil {
             if ioValue.memory is NSNull {
                 ioValue.memory = nil

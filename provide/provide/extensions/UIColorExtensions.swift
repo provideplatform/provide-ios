@@ -10,7 +10,7 @@ extension UIColor {
 
     convenience init(_ hexString: String) {
         var rgb: UInt32 = 0
-        var scanner = NSScanner(string: hexString)
+        let scanner = NSScanner(string: hexString)
         scanner.scanLocation = 1
         scanner.scanHexInt(&rgb)
 

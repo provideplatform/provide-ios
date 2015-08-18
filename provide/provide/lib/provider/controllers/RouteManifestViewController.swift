@@ -10,11 +10,11 @@ import Foundation
 import AVFoundation
 
 protocol RouteManifestViewControllerDelegate {
-    func targetViewForViewController(viewController: ViewController) -> UIView
-    func navigationControllerForViewController(viewController: ViewController) -> UINavigationController
-    func navigationControllerNavigationItemForViewController(viewController: ViewController) -> UINavigationItem
-    func routeForViewController(viewController: ViewController) -> Route!
-    func routeUpdated(route: Route, byViewController viewController: ViewController)
+    func targetViewForViewController(viewController: UIViewController) -> UIView
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
+    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
+    func routeForViewController(viewController: UIViewController) -> Route!
+    func routeUpdated(route: Route, byViewController viewController: UIViewController)
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {
@@ -73,10 +73,8 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             case .Loading:
                 switch LoadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
                 case .OnTruck:
-                    if let itemsLoaded = route.itemsLoaded {
-                        for product in itemsLoaded {
-                            items.append(product)
-                        }
+                    for product in route.itemsLoaded {
+                        items.append(product)
                     }
                 case .Required:
                     items = route.itemsNotLoaded
@@ -84,16 +82,12 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             case .Unloading:
                 switch UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
                 case .OnTruck:
-                    if let itemsLoaded = route.itemsLoaded {
-                        for product in itemsLoaded {
-                            items.append(product)
-                        }
+                    for product in route.itemsLoaded {
+                        items.append(product)
                     }
                 case .Delivered:
                     items = route.itemsDelivered
                 }
-            case .Delivered:
-                items = route.itemsNotLoaded
             }
         }
         return items
@@ -237,7 +231,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             complete()
         }
 
-        if let navigationController = delegate?.navigationControllerForViewController?(self) {
+        if let navigationController = delegate?.navigationControllerForViewController(self) {
             for viewController in navigationController.viewControllers {
                 if viewController.isKindOfClass(RouteManifestViewController) {
                     return
@@ -269,7 +263,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
                 showHUD()
 
-                ApiService.sharedService().updateRouteWithId(route.id.stringValue, params: ["gtins_loaded": gtins],
+                ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": gtins],
                     onSuccess: { statusCode, responseString in
                         var itemsLoaded = [Product]()
                         for product in route.itemsOrdered {
@@ -326,7 +320,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             showHUD()
 
             route.load(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     self.refreshNavigationItem()
                     self.hideHUD()
                 },
@@ -359,7 +353,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         refreshNavigationItem()
         hideHUD()
         tableView.delegate = nil
-        delegate?.routeUpdated?(route, byViewController: self)
+        delegate?.routeUpdated(route, byViewController: self)
     }
 
     // MARK: BarcodeScannerViewControllerDelegate

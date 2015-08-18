@@ -45,7 +45,7 @@ class WorkOrderService: NSObject {
 
     private func setRejectedItemFlags(workOrders: [WorkOrder]) {
         for workOrder in workOrders {
-            var itemsRejected = workOrder.itemsRejected
+            let itemsRejected = workOrder.itemsRejected
             for itemRejected in itemsRejected {
                 itemRejected.rejected = true
             }
@@ -90,7 +90,7 @@ class WorkOrderService: NSObject {
         }
 
         if excludeRoutes {
-            params.setObject("true", forKey: "exclude_routes")
+            params.updateValue("true", forKey: "exclude_routes")
         }
 
         ApiService.sharedService().fetchWorkOrders(params,

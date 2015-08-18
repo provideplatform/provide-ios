@@ -80,7 +80,7 @@ class ZeroStateViewController: ViewController {
     }
 
     func dismiss() {
-        if let superview = view.superview {
+        if let _ = view.superview {
             UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
                 animations: {
                     self.view.alpha = 0.0

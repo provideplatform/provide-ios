@@ -87,9 +87,9 @@ class KeyChainService {
     }
 
     private func migrateProfileImageUrl(var tokenJsonString: String) -> String! {
-        var tokenDict = NSMutableDictionary(dictionary: tokenJsonString.toJSONObject())
+        let tokenDict = NSMutableDictionary(dictionary: tokenJsonString.toJSONObject())
         if let user = tokenDict["user"] as? NSDictionary {
-            var newUser = NSMutableDictionary(dictionary: user)
+            let newUser = NSMutableDictionary(dictionary: user)
             if let profileImageUrlString = newUser["profileImageUrl"] as? String {
                 newUser.removeObjectForKey("profileImageUrl")
                 newUser.setObject(profileImageUrlString, forKey: "profileImageUrlString")

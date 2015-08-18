@@ -11,8 +11,8 @@ import UIKit
 @objc
 protocol WorkOrderComponentViewControllerDelegate {
     func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController
-    optional func mapViewForWorkOrderViewController(viewController: ViewController) -> MapView
-    optional func targetViewForViewController(viewController: ViewController) -> UIView
+    optional func mapViewForWorkOrderViewController(viewController: UIViewController) -> MapView
+    optional func targetViewForViewController(viewController: UIViewController) -> UIView
 }
 
 class WorkOrderComponentViewController: ViewController {

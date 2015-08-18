@@ -157,7 +157,7 @@ class SignatureView: UIView {
         let imageSize = bounds.size
 
         UIGraphicsBeginImageContext(imageSize)
-        let imageContext = UIGraphicsGetCurrentContext()
+        let imageContext = UIGraphicsGetCurrentContext()!
 
         layer.renderInContext(imageContext)
         let img = UIGraphicsGetImageFromCurrentImageContext()

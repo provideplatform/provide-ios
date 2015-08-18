@@ -37,7 +37,7 @@ class AnnotationView: MKAnnotationView {
     }
 
     override func removeGestureRecognizers() {
-        for recognizer in containerView.gestureRecognizers as! [UIGestureRecognizer] {
+        for recognizer in containerView.gestureRecognizers! {
             containerView.removeGestureRecognizer(recognizer)
         }
     }

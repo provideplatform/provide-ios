@@ -19,7 +19,7 @@ class NavigationBarButton: UIButton {
     }
 
     class func barButtonItemWithImage(image: UIImage, target: AnyObject?, action: String) -> UIBarButtonItem {
-        var button = NavigationBarButton.buttonWithType(.Custom) as! NavigationBarButton
+        let button = NavigationBarButton(type: .Custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
         button.setImage(image.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
         button.tintColor = UIColor.whiteColor()
@@ -28,40 +28,40 @@ class NavigationBarButton: UIButton {
         return UIBarButtonItem(customView: button)
     }
 
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
 
         selected = true
 
-        if shouldPassTouchToSuperview(touches.first as! UITouch) {
+        if shouldPassTouchToSuperview(touches.first!) {
             superview!.touchesBegan(touches, withEvent: event)
         }
     }
 
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
 
         selected = false
 
-        if shouldPassTouchToSuperview(touches.first as! UITouch) {
+        if shouldPassTouchToSuperview(touches.first!) {
             superview!.touchesEnded(touches, withEvent: event)
         }
     }
 
-    override func touchesCancelled(touches: Set<NSObject>!, withEvent event: UIEvent!) {
+    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
 
         selected = false
 
-        if shouldPassTouchToSuperview(touches.first as! UITouch) {
+        if shouldPassTouchToSuperview(touches.first!) {
             superview!.touchesCancelled(touches, withEvent: event)
         }
     }
 
-    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesMoved(touches, withEvent: event)
 
-        if shouldPassTouchToSuperview(touches.first as! UITouch) {
+        if shouldPassTouchToSuperview(touches.first!) {
             superview!.touchesMoved(touches, withEvent: event)
         }
     }

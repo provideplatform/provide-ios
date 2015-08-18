@@ -14,6 +14,16 @@ extension NSDate {
         return NSDateFormatter(dateFormat: "yyyy-MM-dd HH:mm:ss a").stringFromDate(self)
     }
 
+    class func fromString(string: String!) -> NSDate! {
+        let dateFormatter = NSDateFormatter(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZZ")
+        return dateFormatter.dateFromString(string)
+    }
+
+    class func monthNameForNumber(month: Int) -> String {
+        let dateFormatter = NSDateFormatter()
+        return (dateFormatter.monthSymbols as NSArray).objectAtIndex(month - 1) as! String
+    }
+
     func format(dateFormat: String) -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
@@ -27,7 +37,7 @@ extension NSDate {
     }
 
     var hour: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitHour, fromDate: self).hour
+        return NSCalendar.currentCalendar().components(.Hour, fromDate: self).hour
     }
 
     var minutes: Int {
@@ -57,12 +67,13 @@ extension NSDate {
     }
 
     var atMidnight: NSDate {
-        let componentsWithoutTime = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: self)
+        let components = NSCalendarUnit.Year.union(NSCalendarUnit.Month).union(NSCalendarUnit.Day)
+        let componentsWithoutTime = NSCalendar.currentCalendar().components(components, fromDate: self)
         return NSCalendar.currentCalendar().dateFromComponents(componentsWithoutTime)!
     }
 
     var dayOfMonth: Int {
-        return NSCalendar.currentCalendar().components(.CalendarUnitDay, fromDate: self).day
+        return NSCalendar.currentCalendar().components(.Day, fromDate: self).day
     }
 
     var dayOfWeek: String {
