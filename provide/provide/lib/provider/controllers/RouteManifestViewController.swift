@@ -14,7 +14,7 @@ protocol RouteManifestViewControllerDelegate {
     func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
     func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
     func routeForViewController(viewController: UIViewController) -> Route!
-    func routeUpdated(route: Route, byViewController viewController: UIViewController)
+    func routeUpdated(route: Route!, byViewController viewController: UIViewController)
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {
@@ -135,7 +135,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         barcodeScannerViewController.delegate = self
     }
 
-    func loadingSegmentChanged() {
+    func loadingSegmentChanged(_: UISegmentedControl) {
         loadingSegment = LoadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
@@ -143,7 +143,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func unloadingSegmentChanged() {
+    func unloadingSegmentChanged(_: UISegmentedControl) {
         unloadingSegment = UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
@@ -158,13 +158,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             toolbarSegmentedControl.tintColor = UIColor.whiteColor()
             toolbarSegmentedControl.selectedSegmentIndex = 1
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: "loadingSegmentChanged", forControlEvents: .ValueChanged)
+            toolbarSegmentedControl.addTarget(self, action: "loadingSegmentChanged:", forControlEvents: .ValueChanged)
         case .Unloading:
             toolbarSegmentedControl = UISegmentedControl(items: unloadingSegmentedControlItems)
             toolbarSegmentedControl.tintColor = UIColor.whiteColor()
             toolbarSegmentedControl.selectedSegmentIndex = 0
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: "unloadingSegmentChanged", forControlEvents: .ValueChanged)
+            toolbarSegmentedControl.addTarget(self, action: "unloadingSegmentChanged:", forControlEvents: .ValueChanged)
         }
     }
 

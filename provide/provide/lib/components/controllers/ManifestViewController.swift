@@ -114,7 +114,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         refreshNavigationItem()
     }
 
-    @objc private func segmentChanged(sender: UISegmentedControl) {
+    func segmentChanged(sender: UISegmentedControl) {
         segment = Segment.allValues[sender.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {

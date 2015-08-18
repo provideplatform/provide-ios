@@ -533,7 +533,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         nextWorkOrderContextShouldBeRewound()
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if inProgressWorkOrder.components.count > 0 {
-                inProgressWorkOrder.components.removeObjectAtIndex(0)
+                var components = inProgressWorkOrder.components
+                components = NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                inProgressWorkOrder.components = components
             }
         }
 
@@ -715,7 +717,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return RouteService.sharedService().nextRoute
     }
 
-    func routeUpdated(route: Route, byViewController viewController: UIViewController) {
+    func routeUpdated(route: Route!, byViewController viewController: UIViewController) {
         dispatch_after_delay(0.0) {
             self.navigationController?.popViewControllerAnimated(true)
             self.attemptSegueToValidRouteContext()
@@ -724,7 +726,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     // MARK: WorkOrderComponentViewControllerDelegate
 
-    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController {
+    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController! {
         var vc: WorkOrderComponentViewController!
         if let componentIdentifier = WorkOrderService.sharedService().inProgressWorkOrder.currentComponentIdentifier {
             let initialViewController: UIViewController = UIStoryboard(componentIdentifier).instantiateInitialViewController()!

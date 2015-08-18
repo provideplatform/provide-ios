@@ -83,7 +83,10 @@ class DirectionsViewController: ViewController {
     func render() {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
-                mapView.addAnnotation(WorkOrderService.sharedService().inProgressWorkOrder)
+                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    mapView.addAnnotation(inProgressWorkOrder)
+                }
+
                 mapView.disableUserInteraction()
 
                 mapView.setCenterCoordinate(mapView.userLocation.coordinate,

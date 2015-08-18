@@ -58,7 +58,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         packingSlipToolbarSegmentedControl.selectedSegmentIndex = 1
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         packingSlipToolbarSegmentedControl.tintColor = UIColor.whiteColor()
-        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged", forControlEvents: .ValueChanged)
+        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
         navigationItem.titleView = packingSlipToolbarSegmentedControl
 
         let cameraIconImage = FAKFontAwesome.cameraRetroIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
@@ -73,7 +73,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         cameraViewController.delegate = self
     }
 
-    @objc private func segmentChanged(sender: UISegmentedControl) {
+    func segmentChanged(sender: UISegmentedControl) {
         segment = Segment.allValues[sender.selectedSegmentIndex]
 
         dispatch_after_delay(0.0) {
