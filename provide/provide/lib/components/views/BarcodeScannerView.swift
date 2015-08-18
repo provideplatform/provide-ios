@@ -55,7 +55,11 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             }
 
             do {
-                var input = try AVCaptureDeviceInput(device: device)
+                let input = try AVCaptureDeviceInput(device: device)
+
+                captureSession = AVCaptureSession()
+                captureSession.sessionPreset = AVCaptureSessionPresetHigh
+                captureSession.addInput(input)
 
                 var rectOfInterest = bounds
                 if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView(self) {

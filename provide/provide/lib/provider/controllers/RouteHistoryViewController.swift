@@ -34,7 +34,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     private var zeroStateViewController: ZeroStateViewController!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -160,7 +160,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         navigationItem.rightBarButtonItems = []
     }
 
-    func dismiss() {
+    func dismiss(sender: UIBarButtonItem!) {
         collectionView.delegate = nil
 
         clearNavigationItem()

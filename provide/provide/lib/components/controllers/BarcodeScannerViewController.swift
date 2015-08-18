@@ -33,7 +33,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
             navigationController.navigationBar.tintColor = UIColor.whiteColor()
         }
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss:")
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
@@ -53,7 +53,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
 
     }
 
-    @objc private func dismiss(_: UISwipeGestureRecognizer) {
+    func dismiss(_: UISwipeGestureRecognizer) {
         delegate?.barcodeScannerViewControllerShouldBeDismissed(self)
     }
 

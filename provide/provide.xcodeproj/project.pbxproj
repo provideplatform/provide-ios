@@ -693,12 +693,12 @@
 		68B412B61B080D41009A4C05 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
-				68F536CB1B834A080007F480 /* ImagePickerViewController.swift */,
-				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
+				68F536CB1B834A080007F480 /* ImagePickerViewController.swift */,
 				68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */,
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,

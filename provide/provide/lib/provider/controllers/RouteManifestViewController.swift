@@ -101,19 +101,19 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     private var unloadingSegment: UnloadingSegment!
 
     private var completeItem: UIBarButtonItem! {
-        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .Plain, target: self, action: "complete")
+        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .Plain, target: self, action: "complete:")
         completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return completeItem
     }
 
     private var scanItem: UIBarButtonItem! {
-        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan")
+        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan:")
         scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return scanItem
     }
 
     private var startItem: UIBarButtonItem! {
-        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start")
+        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start:")
         startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return startItem
     }
@@ -204,7 +204,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             if route.status == "unloading" {
                 if route.itemsLoaded.count == 0 {
                     //navigationItem.leftBarButtonItems = [completeItem]
-                    complete()
+                    self.complete(nil)
                 } else {
                     navigationItem.leftBarButtonItems = [scanItem]
                 }
@@ -228,7 +228,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         if mode == .Loading && route.status != "loading" {
             load()
         } else if mode == .Unloading && route.itemsLoaded.count == 0 {
-            complete()
+            complete(nil)
         }
 
         if let navigationController = delegate?.navigationControllerForViewController(self) {
@@ -241,7 +241,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    @objc private func scan(_: UIBarButtonItem) {
+    func scan(sender: UIBarButtonItem!) {
         clearNavigationItem()
 
         if isSimulator() { // HACK!!!
@@ -288,7 +288,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                             self.hideHUD()
 
                             if route.itemsLoaded.count == 0 {
-                                self.complete()
+                                self.complete(nil)
                             }
                         },
                         onError: { (error, statusCode, responseString) -> () in
@@ -300,7 +300,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    @objc private func start(_: UIBarButtonItem) {
+    func start(sender: UIBarButtonItem!) {
         clearNavigationItem()
 
         showHUD()
@@ -332,7 +332,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func complete() {
+    func complete(sender: UIBarButtonItem!) {
         if let route = route {
             if route.itemsLoaded.count == 0 {
                 showHUD()
@@ -403,7 +403,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                                     self.processingCode = false
                                     self.hideHUD()
                                     if route.itemsLoaded.count == 0 {
-                                        self.complete()
+                                        self.complete(nil)
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
