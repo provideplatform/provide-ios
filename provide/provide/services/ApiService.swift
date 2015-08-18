@@ -444,6 +444,8 @@ class ApiService: NSObject {
             responseMapping = RKObjectMapping(forClass: nil)
         }
 
+        print("response mapping: \(responseMapping)")
+
         if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
             let urlComponents = NSURLComponents(URL: baseURL.URLByAppendingPathComponent(path), resolvingAgainstBaseURL: false)!
             if method == .GET && params.count > 0 {
@@ -453,6 +455,7 @@ class ApiService: NSObject {
             let request = NSMutableURLRequest(URL: urlComponents.URL!)
             request.HTTPMethod = RKStringFromRequestMethod(method)
             request.HTTPShouldHandleCookies = false
+            request.setValue("application/json", forHTTPHeaderField: "accept")
             request.setValue("application/json", forHTTPHeaderField: "content-type")
 
             for (name, value) in headers {
@@ -476,7 +479,6 @@ class ApiService: NSObject {
                     }
                 }
 
-                request.HTTPBody = params.toJSONString().dataUsingEncoding(NSUTF8StringEncoding)
                 jsonParams = NSDictionary(dictionary: params).toJSON() // FIXME-- make sure content type is suitable for this operation
             } else {
                 jsonParams = "{}"
