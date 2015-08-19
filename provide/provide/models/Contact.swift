@@ -29,6 +29,7 @@ class Contact: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([
             "id",
+            "name",
             "address1",
             "address2",
             "city",
