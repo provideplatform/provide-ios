@@ -334,7 +334,6 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
 
                         if let image = UIImage(data: imageData) {
-                            let data = UIImageJPEGRepresentation(image, 1.0)
                             self.delegate?.cameraView(self, didCaptureStillImage: image)
                         }
                     } else {
