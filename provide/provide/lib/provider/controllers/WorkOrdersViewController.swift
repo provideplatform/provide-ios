@@ -477,10 +477,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func nextWorkOrderContextShouldBeRewound() {
         while managedViewControllers.count > 0 {
-            if let managedNavigationController = popManagedNavigationController() {
-                logInfo("Popped managed navigation controller \(managedNavigationController)")
-            }
-
+            let managedNavigationController = popManagedNavigationController()
             let viewController = managedViewControllers.removeLast()
             unwindManagedViewController(viewController)
         }
