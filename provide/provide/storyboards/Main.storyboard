@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J41-78-tRE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
@@ -690,7 +690,7 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TERMS OF SERVICE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
                                                     <rect key="frame" x="58" y="12" width="242" height="21"/>
-                                                    <accessibility key="accessibilityConfiguration" label="logout_slider"/>
+                                                    <accessibility key="accessibilityConfiguration" label="tos_menu_item"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="242" id="IwO-eu-yf6"/>
                                                         <constraint firstAttribute="width" constant="242" id="arL-NF-cJF"/>
@@ -757,7 +757,7 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGOUT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAI-g6-nPe">
                                                     <rect key="frame" x="58" y="12" width="242" height="21"/>
-                                                    <accessibility key="accessibilityConfiguration" label="logout_slider"/>
+                                                    <accessibility key="accessibilityConfiguration" label=""/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="242" id="Zjn-s5-Aee"/>
                                                         <constraint firstAttribute="width" constant="242" id="nlx-vo-0TV"/>

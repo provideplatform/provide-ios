@@ -63,6 +63,8 @@ class MenuContainerView: UIView {
     func setupMenuViewController(delegate: MenuViewControllerDelegate) {
         teardown()
 
+        accessibilityIdentifier = "MenuContainerView"
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "openMenu", name: "MenuContainerShouldOpen")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeMenu", name: "MenuContainerShouldReset")
 

@@ -10,6 +10,7 @@ import Foundation
 import XCTest
 
 class ProvideTestCase: XCTestCase {
+
     override func setUp() {
         super.setUp()
 
@@ -30,26 +31,32 @@ class ProvideTestCase: XCTestCase {
 
     func login() {
         let app = XCUIApplication()
-        app.buttons["SIGN IN"].tap()
 
-        let emailTextField = app.tables.textFields["email"]
+        isLoggedIn = app.otherElements["MenuContainerView"].exists
+        if isLoggedIn {
+            logout()
+        }
+
+        app.buttons["SIGN IN"].tap()
+        
+        let tablesQuery = app.tables
+        let emailTextField = tablesQuery.textFields["email"]
         emailTextField.typeText("kyle@unmarkedconsulting.com")
 
         app.buttons["Next"].tap()
 
-        let xcuiSecureTextField = app.tables.textFields["_XCUI:Secure"]
-        xcuiSecureTextField.typeText("test123")
+        let passwordSecureTextField = tablesQuery.secureTextFields["password"]
+        passwordSecureTextField.typeText("test123")
 
         app.buttons["Go"].tap()
 
-        isLoggedIn = app.navigationBars["provide.WorkOrdersView"].exists
+        isLoggedIn = app.otherElements["MenuContainerView"].exists
     }
 
     func logout() {
         let app = XCUIApplication()
-        app.navigationBars["provide.WorkOrdersView"].swipeRight()
-
-        let logoutSliderStaticText = app.tables.childrenMatchingType(.Cell).elementAtIndex(2).staticTexts["logout_slider"]
-        logoutSliderStaticText.tap()
+        app.navigationBars["provide.WorkOrdersView"].childrenMatchingType(.Button).elementBoundByIndex(1).tap()
+        app.tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+        isLoggedIn = false
     }
 }
