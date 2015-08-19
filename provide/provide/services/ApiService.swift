@@ -88,6 +88,8 @@ class ApiService: NSObject {
     }
 
     func logout(onSuccess: OnSuccess, onError: OnError) {
+        unregisterForRemoteNotifications()
+        
         if let token = KeyChainService.sharedService().token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in
@@ -105,7 +107,6 @@ class ApiService: NSObject {
     private func localLogout() {
         CheckinService.sharedService().stop()
         LocationService.sharedService().stop()
-        unregisterForRemoteNotifications()
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
         AnalyticsService.sharedService().logout()
