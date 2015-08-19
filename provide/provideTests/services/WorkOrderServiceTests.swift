@@ -19,7 +19,7 @@ class WorkOrderServiceTests: XCTestCase {
             logInfo("\(request.URL!) stubbed by \(stub.name).")
         }
 
-        stubRoute("GET", "/api/work_orders", withFile: "HTTPStubs/work_orders/work_orders.json", stubName: "WorkOrderServiceTests")
+        stubRoute("GET", path: "/api/work_orders", withFile: "HTTPStubs/work_orders/work_orders.json", stubName: "WorkOrderServiceTests")
     }
 
     override func tearDown() {

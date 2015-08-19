@@ -19,7 +19,7 @@ class MessageServiceTests: XCTestCase {
             logInfo("\(request.URL!) stubbed by \(stub.name!).")
         }
 
-        stubRoute("GET", "/api/messages", withFile: "HTTPStubs/messages/conversation.json", stubName: "MessageServiceTests")
+        stubRoute("GET", path: "/api/messages", withFile: "HTTPStubs/messages/conversation.json", stubName: "MessageServiceTests")
     }
 
     override func tearDown() {

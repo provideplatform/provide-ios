@@ -12,7 +12,7 @@ pod 'FontAwesomeKit', '~> 2.2.0'
 pod 'JSQMessagesViewController', '~> 7.1.0'
 pod 'MBProgressHUD', '~> 0.9.1'
 pod 'MKNetworkKit', :head
-pod 'OHHTTPStubs', '~> 4.0.2'
+pod 'OHHTTPStubs', '~> 4.2.0'
 pod 'Reachability'
 pod 'RestKit', '0.24.1'
 pod 'RFGravatarImageView'

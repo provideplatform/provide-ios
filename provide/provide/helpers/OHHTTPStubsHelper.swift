@@ -10,16 +10,15 @@ import Foundation
 
 class OHHTTPStubsHelper {
 
-
     static let iso8601DateFormatter: NSDateFormatter = {
-        let dateFormatter = NSDateFormatter(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZZZZZ")
+        var dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
         return dateFormatter
     }()
 
     func stubMessagesNetworkRequests() {
-
-        stubRoute("GET", "/api/messages", withFile: "HTTPStubs/messages/conversation.json")
+        stubRoute("GET", path: "/api/messages", withFile: "HTTPStubs/messages/conversation.json")
 
         // POST messages
         OHHTTPStubs.stubRequestsPassingTest(
@@ -45,8 +44,7 @@ class OHHTTPStubsHelper {
     }
 }
 
-
-func stubRoute(httpMethod: String, _ path: String, withFile filePath: String, stubName: String? = nil)  {
+func stubRoute(httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil)  {
     OHHTTPStubs.stubRequestsPassingTest(
         { request in
             return request.URL!.path! == path && request.HTTPMethod == httpMethod
