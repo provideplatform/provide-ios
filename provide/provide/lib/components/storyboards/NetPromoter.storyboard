@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xBK-6R-TUa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xBK-6R-TUa">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
@@ -32,7 +32,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sQT-2O-ZL3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sQT-2O-ZL3">
                                 <rect key="frame" x="94" y="35" width="612" height="330"/>
                                 <subviews>
                                     <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2XS-OD-fB6">
@@ -44,7 +44,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="biO-uZ-FlO"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODk-ID-G93">
+                                    <button opaque="NO" tag="2000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODk-ID-G93">
                                         <rect key="frame" x="113" y="95" width="30" height="30"/>
                                         <state key="normal" title="2">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,7 +53,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="YEA-Wk-9iE"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="3000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-Fc-X76">
+                                    <button opaque="NO" tag="3000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bF-Fc-X76">
                                         <rect key="frame" x="163" y="95" width="30" height="30"/>
                                         <state key="normal" title="3">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -62,7 +62,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="ZFv-Je-cGd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="4000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jl-KR-VwE">
+                                    <button opaque="NO" tag="4000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jl-KR-VwE">
                                         <rect key="frame" x="213" y="95" width="30" height="30"/>
                                         <state key="normal" title="4">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -71,7 +71,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="17Y-zf-ro9"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="5000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHv-Pk-lJQ">
+                                    <button opaque="NO" tag="5000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHv-Pk-lJQ">
                                         <rect key="frame" x="263" y="95" width="30" height="30"/>
                                         <state key="normal" title="5">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,7 +80,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="3ro-tM-fuv"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="6000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZG-Fg-Slx">
+                                    <button opaque="NO" tag="6000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZG-Fg-Slx">
                                         <rect key="frame" x="313" y="95" width="30" height="30"/>
                                         <state key="normal" title="6">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,7 +89,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="6CA-Ra-hA2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="7000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfb-xR-oKL">
+                                    <button opaque="NO" tag="7000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cfb-xR-oKL">
                                         <rect key="frame" x="363" y="95" width="30" height="30"/>
                                         <state key="normal" title="7">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -98,7 +98,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="SQm-dp-Lvq"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="8000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1F-XS-9FA">
+                                    <button opaque="NO" tag="8000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v1F-XS-9FA">
                                         <rect key="frame" x="413" y="95" width="30" height="30"/>
                                         <state key="normal" title="8">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,7 +107,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="E8S-T9-aUB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="9000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO4-FB-XFL">
+                                    <button opaque="NO" tag="9000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZO4-FB-XFL">
                                         <rect key="frame" x="463" y="95" width="30" height="30"/>
                                         <state key="normal" title="9">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -116,7 +116,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="gW5-0n-S1u"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="10000" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv7-iV-XHu">
+                                    <button opaque="NO" tag="10000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sv7-iV-XHu">
                                         <rect key="frame" x="513" y="95" width="30" height="30"/>
                                         <state key="normal" title="10">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -125,7 +125,7 @@
                                             <action selector="rate:" destination="xBK-6R-TUa" eventType="touchUpInside" id="4i2-ni-mNf"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Not likely at all" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869-LA-duF">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not likely at all" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869-LA-duF">
                                         <rect key="frame" x="29" y="133" width="104" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="zNi-BJ-1kf"/>
@@ -134,13 +134,13 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Very likely" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwR-06-ZwC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Very likely" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwR-06-ZwC">
                                         <rect key="frame" x="490" y="133" width="76" height="21"/>
                                         <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xf9-nl-0XA">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xf9-nl-0XA">
                                         <rect key="frame" x="256" y="205" width="100" height="35"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="19"/>
                                         <state key="normal" title="NO THANKS">
@@ -173,22 +173,22 @@
                                     <constraint firstItem="Sv7-iV-XHu" firstAttribute="leading" secondItem="ZO4-FB-XFL" secondAttribute="trailing" constant="20" id="Ley-lU-Ooj"/>
                                     <constraint firstItem="1bF-Fc-X76" firstAttribute="baseline" secondItem="ODk-ID-G93" secondAttribute="baseline" id="Mtx-Cs-dfo"/>
                                     <constraint firstItem="VwR-06-ZwC" firstAttribute="baseline" secondItem="869-LA-duF" secondAttribute="baseline" id="R90-8s-ujo"/>
-                                    <constraint firstAttribute="trailing" secondItem="CC3-BZ-b3i" secondAttribute="trailing" constant="69" id="T4k-V9-TdV"/>
+                                    <constraint firstAttribute="trailing" secondItem="CC3-BZ-b3i" secondAttribute="trailing" constant="61" id="T4k-V9-TdV"/>
                                     <constraint firstItem="CC3-BZ-b3i" firstAttribute="top" secondItem="sQT-2O-ZL3" secondAttribute="topMargin" id="W90-tQ-PfS"/>
                                     <constraint firstItem="v1F-XS-9FA" firstAttribute="leading" secondItem="cfb-xR-oKL" secondAttribute="trailing" constant="20" id="eGo-ba-Dxi"/>
                                     <constraint firstItem="XZG-Fg-Slx" firstAttribute="leading" secondItem="wHv-Pk-lJQ" secondAttribute="trailing" constant="20" id="eeq-6Z-sJJ"/>
                                     <constraint firstItem="Sv7-iV-XHu" firstAttribute="centerX" secondItem="VwR-06-ZwC" secondAttribute="centerX" id="frv-T8-79X"/>
                                     <constraint firstItem="ZO4-FB-XFL" firstAttribute="baseline" secondItem="v1F-XS-9FA" secondAttribute="baseline" id="gvV-ty-eIO"/>
-                                    <constraint firstItem="ODk-ID-G93" firstAttribute="leading" secondItem="2XS-OD-fB6" secondAttribute="trailing" constant="21" id="hyr-Sp-i1a"/>
+                                    <constraint firstItem="ODk-ID-G93" firstAttribute="leading" secondItem="2XS-OD-fB6" secondAttribute="trailing" constant="13" id="hyr-Sp-i1a"/>
                                     <constraint firstItem="2XS-OD-fB6" firstAttribute="baseline" secondItem="ODk-ID-G93" secondAttribute="baseline" id="imj-jn-N96"/>
-                                    <constraint firstItem="869-LA-duF" firstAttribute="centerX" secondItem="2XS-OD-fB6" secondAttribute="centerX" id="jGn-J8-6wP"/>
+                                    <constraint firstItem="869-LA-duF" firstAttribute="centerX" secondItem="2XS-OD-fB6" secondAttribute="centerX" constant="-4" id="jGn-J8-6wP"/>
                                     <constraint firstItem="Xf9-nl-0XA" firstAttribute="centerX" secondItem="sQT-2O-ZL3" secondAttribute="centerX" id="nXI-Ru-knh"/>
                                     <constraint firstItem="CC3-BZ-b3i" firstAttribute="leading" secondItem="sQT-2O-ZL3" secondAttribute="leading" constant="79" id="oKC-la-FgF"/>
                                     <constraint firstAttribute="bottom" secondItem="Xf9-nl-0XA" secondAttribute="bottom" constant="90" id="ouz-UE-W26"/>
                                     <constraint firstItem="869-LA-duF" firstAttribute="top" secondItem="2XS-OD-fB6" secondAttribute="bottom" constant="8" symbolic="YES" id="rT6-Pp-AvL"/>
                                     <constraint firstItem="4Jl-KR-VwE" firstAttribute="leading" secondItem="1bF-Fc-X76" secondAttribute="trailing" constant="20" id="tAQ-fH-ETn"/>
                                     <constraint firstItem="Sv7-iV-XHu" firstAttribute="baseline" secondItem="ZO4-FB-XFL" secondAttribute="baseline" id="v7C-P9-gWp"/>
-                                    <constraint firstItem="Sv7-iV-XHu" firstAttribute="trailing" secondItem="CC3-BZ-b3i" secondAttribute="trailing" id="vvB-sV-tqN"/>
+                                    <constraint firstItem="Sv7-iV-XHu" firstAttribute="trailing" secondItem="CC3-BZ-b3i" secondAttribute="trailing" constant="-8" id="vvB-sV-tqN"/>
                                     <constraint firstAttribute="trailing" secondItem="VwR-06-ZwC" secondAttribute="trailing" constant="46" id="yjZ-GX-mm1"/>
                                     <constraint firstItem="1bF-Fc-X76" firstAttribute="leading" secondItem="ODk-ID-G93" secondAttribute="trailing" constant="20" id="yrQ-rM-97Y"/>
                                     <constraint firstItem="wHv-Pk-lJQ" firstAttribute="baseline" secondItem="4Jl-KR-VwE" secondAttribute="baseline" id="yx4-oO-1Rq"/>

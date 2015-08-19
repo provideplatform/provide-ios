@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLI-P7-Mie">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLI-P7-Mie">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
@@ -587,6 +587,12 @@
                             <constraint firstItem="0Rd-eg-YrZ" firstAttribute="bottom" secondItem="pmd-v4-ZWY" secondAttribute="top" id="pVe-Bu-DdJ"/>
                             <constraint firstAttribute="trailing" secondItem="0Rd-eg-YrZ" secondAttribute="trailing" id="qqI-DP-jCF"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="EbJ-81-oNZ"/>
+                                <exclude reference="Ifg-Qt-5Qg"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="0Rd-eg-YrZ" id="GTf-dK-jk5"/>
@@ -709,7 +715,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="P7E-ga-DhB">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="P7E-ga-DhB">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tJT-Jj-PSw">
@@ -819,10 +825,10 @@
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="P7E-ga-DhB" secondAttribute="centerY" id="3U7-bR-Oyx"/>
                             <constraint firstAttribute="centerX" secondItem="P7E-ga-DhB" secondAttribute="centerX" id="Afj-pA-HN4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="P7E-ga-DhB" secondAttribute="trailing" constant="-16" id="Vlh-Sx-3JF"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="P7E-ga-DhB" secondAttribute="trailing" constant="-20" id="Vlh-Sx-3JF"/>
                             <constraint firstItem="ZgO-bL-4fN" firstAttribute="top" secondItem="P7E-ga-DhB" secondAttribute="bottom" id="jGn-jo-Ewc"/>
                             <constraint firstItem="ZgO-bL-4fN" firstAttribute="top" secondItem="P7E-ga-DhB" secondAttribute="bottom" id="riO-3x-7wY"/>
-                            <constraint firstItem="P7E-ga-DhB" firstAttribute="leading" secondItem="U4Y-9M-WqD" secondAttribute="leadingMargin" constant="-16" id="sM9-AY-XcK"/>
+                            <constraint firstItem="P7E-ga-DhB" firstAttribute="leading" secondItem="U4Y-9M-WqD" secondAttribute="leadingMargin" constant="-20" id="sM9-AY-XcK"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1011,6 +1017,12 @@
                             <constraint firstItem="nWP-Zu-OrV" firstAttribute="top" secondItem="Vwr-47-3gS" secondAttribute="top" constant="200" id="iCY-BF-Pr6"/>
                             <constraint firstItem="8cB-hL-Nh4" firstAttribute="trailing" secondItem="nWP-Zu-OrV" secondAttribute="trailing" id="sEn-wi-qL9"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2om-99-Xob"/>
+                                <exclude reference="EZ1-Pe-jTE"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="headerView" destination="8cB-hL-Nh4" id="avy-3j-ERF"/>
@@ -1113,7 +1125,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Irn-Iz-Z5M">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Irn-Iz-Z5M">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UQr-0p-wzy">
@@ -1163,8 +1175,8 @@
                         <constraints>
                             <constraint firstItem="qRh-SS-Ufq" firstAttribute="top" secondItem="Irn-Iz-Z5M" secondAttribute="bottom" id="0eW-tC-mnV"/>
                             <constraint firstItem="Irn-Iz-Z5M" firstAttribute="top" secondItem="DEF-65-YAs" secondAttribute="bottom" constant="-20" id="95x-hQ-bzY"/>
-                            <constraint firstItem="Irn-Iz-Z5M" firstAttribute="leading" secondItem="ZZT-Rf-sNT" secondAttribute="leadingMargin" constant="-16" id="VW2-hh-gUY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Irn-Iz-Z5M" secondAttribute="trailing" constant="-16" id="tzo-HS-nj5"/>
+                            <constraint firstItem="Irn-Iz-Z5M" firstAttribute="leading" secondItem="ZZT-Rf-sNT" secondAttribute="leadingMargin" constant="-20" id="VW2-hh-gUY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Irn-Iz-Z5M" secondAttribute="trailing" constant="-20" id="tzo-HS-nj5"/>
                         </constraints>
                     </view>
                 </viewController>
