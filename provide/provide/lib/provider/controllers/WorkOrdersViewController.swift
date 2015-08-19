@@ -533,9 +533,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         nextWorkOrderContextShouldBeRewound()
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if inProgressWorkOrder.components.count > 0 {
-                var components = inProgressWorkOrder.components
-                components = NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
-                inProgressWorkOrder.components = components
+                //var components = inProgressWorkOrder.components
+//                components = NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                inProgressWorkOrder.components.removeObject(inProgressWorkOrder.components.firstObject!)
+                
             }
         }
 
