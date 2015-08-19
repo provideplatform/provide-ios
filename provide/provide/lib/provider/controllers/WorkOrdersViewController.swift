@@ -578,7 +578,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            WorkOrderService.sharedService().inProgressWorkOrder.components.removeObjectAtIndex(0)
+            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
             attemptSegueToValidWorkOrderContext()
 
             var params = [
