@@ -15,7 +15,11 @@ class ProvideTestCase: XCTestCase {
         super.setUp()
 
         continueAfterFailure = false
-        XCUIApplication().launch()
+
+        let app = XCUIApplication()
+        app.launch()
+
+        isLoggedIn = app.otherElements["MenuContainerView"].exists
     }
 
     override func tearDown() {
@@ -31,12 +35,6 @@ class ProvideTestCase: XCTestCase {
 
     func login() {
         let app = XCUIApplication()
-
-        isLoggedIn = app.otherElements["MenuContainerView"].exists
-        if isLoggedIn {
-            logout()
-        }
-
         app.buttons["SIGN IN"].tap()
         
         let tablesQuery = app.tables
@@ -55,8 +53,14 @@ class ProvideTestCase: XCTestCase {
 
     func logout() {
         let app = XCUIApplication()
-        app.navigationBars["provide.WorkOrdersView"].childrenMatchingType(.Button).elementBoundByIndex(1).tap()
-        app.tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+        let navbar = app.navigationBars["provide.WorkOrdersView"]
+        if navbar.exists {
+            navbar.childrenMatchingType(.Button).elementBoundByIndex(1).tap()
+            app.tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+        } else {
+//            app.otherElements["MenuContainerView"].swipeRight()
+            app.otherElements["MenuContainerView"].tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+        }
         isLoggedIn = false
     }
 }
