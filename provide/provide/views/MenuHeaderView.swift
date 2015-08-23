@@ -53,22 +53,24 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     func changeProfileImage() {
-        let actionSheet = UIActionSheet(title: "Want to take a selfie or choose from your camera roll?", delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil)
-        actionSheet.addButtonWithTitle("Selfie")
-        actionSheet.addButtonWithTitle("Camera Roll")
+        let alertController = UIAlertController(title: "Want to take a selfie or choose from your camera roll?", message: nil, preferredStyle: .ActionSheet)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+
+        let selfieAction = UIAlertAction(title: "Selfie", style: .Default) { action in
+            self.initSelfieViewController()
+        }
+
+        let cameraRollAction = UIAlertAction(title: "Camera Roll", style: .Default) { action in
+            self.initImagePickerViewController()
+        }
+        alertController.addAction(selfieAction)
+        alertController.addAction(cameraRollAction)
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            actionSheet.showInView(navigationController.view)
-        }
-    }
-
-    // MARK: UIActionSheetDelegate
-
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-        if buttonIndex == 2 {
-            initImagePickerViewController()
-        } else if buttonIndex == 1 {
-            initSelfieViewController()
+            navigationController.presentViewController(alertController, animated: true)
         }
     }
 
