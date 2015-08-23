@@ -17,11 +17,9 @@ class Provider: Model {
     var profileImageUrlString: String!
     var services: NSSet!
 
-    var profileImageUrl: NSURL! {
-        if let profileImageUrlString = profileImageUrlString {
-            return NSURL(string: profileImageUrlString)
-        }
-        return nil
+    var profileImageUrl: NSURL? {
+        guard let profileImageUrlString = profileImageUrlString else { return nil }
+        return NSURL(string: profileImageUrlString)
     }
 
     override class func mapping() -> RKObjectMapping {

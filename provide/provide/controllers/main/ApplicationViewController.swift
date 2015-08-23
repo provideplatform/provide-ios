@@ -24,7 +24,7 @@ class ApplicationViewController: ECSlidingViewController,
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
 
-        topViewController = UIStoryboard("Application").instantiateInitialViewController()! as UIViewController
+        topViewController = UIStoryboard("Application").instantiateInitialViewController()!
     }
 
     private var menuContainerView: MenuContainerView!
