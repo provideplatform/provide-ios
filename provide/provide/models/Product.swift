@@ -10,43 +10,49 @@ import Foundation
 
 class Product: Model {
 
-    var id: NSNumber!
+    var id = 0
     var gtin: String!
-    var data: NSDictionary!
+    var data: [String: AnyObject]!
 
     var rejected = false
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
-            "id": "id",
-            "gtin": "gtin",
-            "data": "data"
-            ])
+        mapping.addAttributeMappingsFromArray([
+            "id",
+            "gtin",
+            "data",
+            ]
+        )
         return mapping
     }
 
-    var name: String! {
-        return data != nil ? data["name"] as? String : nil
+    var name: String? {
+        return data["name"] as? String
     }
 
-    var desc: String! {
-        return data != nil ? data["description"] as? String : nil
+    var desc: String? {
+        return data["description"] as? String
     }
 
-    var mpn: String! {
-        return data != nil ? data["mpn"] as? String : nil
+    var mpn: String? {
+        return data["mpn"] as? String
     }
 
-    var price: Double! {
-        return data != nil ? data["price"] as? Double : nil
+    var price: Double? {
+        return data["price"] as? Double
     }
 
-    var size: String! {
-        return data != nil ? data["size"] as? String : nil
+    var size: String? {
+        return data["size"] as? String
     }
 
-    var sku: String! {
-        return data != nil ? data["sku"] as? String : nil
+    var sku: String? {
+        return data["sku"] as? String
     }
+}
+
+// MARK: - Equatable
+func == (lhs: Product, rhs: Product) -> Bool {
+    return lhs.gtin == rhs.gtin
 }
