@@ -104,7 +104,7 @@ class WorkOrder: Model, MKAnnotation {
 
             var endedAtDate: NSDate!
 
-            if let date = self.endedAtDate {
+            if let date = endedAtDate {
                 endedAtDate = date
             } else if let date = abandonedAtDate {
                 endedAtDate = date

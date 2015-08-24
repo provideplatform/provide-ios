@@ -342,7 +342,7 @@ class Route: Model {
 
         if let date = loadingStartedAtDate {
             startedAtDate = date
-        } else if let date = self.startedAtDate {
+        } else if let date = startedAtDate {
             startedAtDate = date
         }
 

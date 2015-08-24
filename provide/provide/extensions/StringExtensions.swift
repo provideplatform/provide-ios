@@ -74,7 +74,7 @@ extension String {
 
     func snakeCaseString() -> String {
         let pattern = try! NSRegularExpression(pattern: "([a-z])([A-Z])", options: [])
-        return pattern.stringByReplacingMatchesInString(self, options: [], range: NSMakeRange(0, self.characters.count), withTemplate: "$1_$2").lowercaseString
+        return pattern.stringByReplacingMatchesInString(self, options: [], range: NSMakeRange(0, characters.count), withTemplate: "$1_$2").lowercaseString
     }
 
     var containsNonASCIICharacters: Bool {

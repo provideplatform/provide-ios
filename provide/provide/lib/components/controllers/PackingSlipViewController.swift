@@ -89,7 +89,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                 setupNavigationItem(workOrder.canBeDelivered, abandomItemEnabled: workOrder.canBeAbandoned)
             }
 
-            navigationController.pushViewController(self.cameraViewController, animated: false)
+            navigationController.pushViewController(cameraViewController, animated: false)
 
             if let barcodeScannerViewController = barcodeScannerViewController {
                 barcodeScannerViewController.stopScanner()
@@ -566,7 +566,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
         commentsViewControllerShouldBeDismissed(viewController)
 
-        self.showHUD(inView: self.targetView)
+        showHUD(inView: self.targetView)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             workOrder.addComment(comment,
@@ -581,9 +581,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     }
 
     func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
-        if let navigationController = self.navigationController {
-            navigationController.popViewControllerAnimated(true)
-        }
+        navigationController?.popViewControllerAnimated(true)
     }
 
     func promptForCommentsViewController(viewController: CommentsViewController) -> String! {

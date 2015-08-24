@@ -204,7 +204,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             if route.status == "unloading" {
                 if route.itemsLoaded.count == 0 {
                     //navigationItem.leftBarButtonItems = [completeItem]
-                    self.complete(nil)
+                    complete(nil)
                 } else {
                     navigationItem.leftBarButtonItems = [scanItem]
                 }

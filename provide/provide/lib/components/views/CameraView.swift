@@ -319,7 +319,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 window.layer.renderInContext(UIGraphicsGetCurrentContext()!)
                 let image = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
-                self.delegate?.cameraView(self, didCaptureStillImage: image)
+                delegate?.cameraView(self, didCaptureStillImage: image)
             }
             return
         }

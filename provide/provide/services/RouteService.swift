@@ -68,7 +68,7 @@ class RouteService: NSObject {
                 newRoutes.append(r)
             }
         }
-        self.routes = newRoutes
+        routes = newRoutes
     }
 
     func fetch(page: Int = 1,
