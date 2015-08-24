@@ -321,72 +321,31 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func start(onSuccess: OnSuccess, onError: OnError) {
-        status = "en_route"
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
-            onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        updateWorkorderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "in_progress"
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
-            onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        updateWorkorderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
     }
 
     func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "abandoned"
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
-            onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        updateWorkorderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
     func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "canceled"
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
-            onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        updateWorkorderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
     func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "rejected"
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
-            onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        updateWorkorderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        status = "completed"
+        updateWorkorderWithStatus("completed", onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateWorkorderWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {
+        self.status = status
         ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
