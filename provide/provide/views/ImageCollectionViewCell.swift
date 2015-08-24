@@ -17,10 +17,10 @@ class ImageCollectionViewCell: UICollectionViewCell {
         didSet {
             if let imageUrl = imageUrl {
                 imageView.contentMode = .ScaleAspectFill
-                imageView.sd_setImageWithURL(imageUrl, completed: { (image, error, cacheType, url) -> Void in
+                imageView.sd_setImageWithURL(imageUrl) { image, error, cacheType, url in
                     self.imageView.alpha = 1.0
                     self.activityIndicatorView.stopAnimating()
-                })
+                }
             } else {
                 imageView.alpha = 0.0
                 imageView.image = nil

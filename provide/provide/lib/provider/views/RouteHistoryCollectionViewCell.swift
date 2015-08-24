@@ -54,12 +54,12 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
             if let profileImageUrl = route.providerOriginAssignment.provider.profileImageUrl {
                 avatarImageView.contentMode = .ScaleAspectFit
-                avatarImageView.sd_setImageWithURL(profileImageUrl, completed: { (image, error, imageCacheType, url) -> Void in
+                avatarImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
                     self.bringSubviewToFront(self.avatarImageView)
                     self.avatarImageView.makeCircular()
                     self.avatarImageView.alpha = 1.0
                     self.gravatarImageView?.alpha = 0.0
-                })
+                }
             } else {
                 let gravatarImageView = RFGravatarImageView(frame: avatarImageView.frame)
                 gravatarImageView.email = route.providerOriginAssignment.provider.contact.email

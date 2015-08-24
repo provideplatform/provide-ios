@@ -81,11 +81,11 @@ class ApplicationViewController: ECSlidingViewController,
                 self.refreshMenu()
 
                 if currentUser().profileImageUrl == nil {
-                    AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: { granted in
+                    AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
                         if granted {
                             self.initCameraViewController()
                         }
-                    })
+                    }
                 }
             },
             onError: { error, statusCode, responseString in

@@ -324,12 +324,12 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             return
         }
 
-        dispatch_async(avCameraOutputQueue) { () -> Void in
+        dispatch_async(avCameraOutputQueue) {
             if let cameraOutput = self.stillCameraOutput {
                 let connection = cameraOutput.connectionWithMediaType(AVMediaTypeVideo)
                 connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
 
-                self.stillCameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { (imageDataSampleBuffer, error) -> Void in
+                self.stillCameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { imageDataSampleBuffer, error in
                     if error == nil {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
 

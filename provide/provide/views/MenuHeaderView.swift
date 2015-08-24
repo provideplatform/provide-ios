@@ -40,11 +40,11 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         didSet {
             if let profileImageUrl = profileImageUrl {
                 profileImageView.contentMode = .ScaleAspectFit
-                profileImageView.sd_setImageWithURL(profileImageUrl, completed: { (image, error, imageCacheType, url) -> Void in
+                profileImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
                     self.bringSubviewToFront(self.profileImageView)
                     self.profileImageView.makeCircular()
                     self.profileImageView.alpha = 1.0
-                })
+                }
             } else {
                 profileImageView.image = nil
                 profileImageView.alpha = 0.0
