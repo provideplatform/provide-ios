@@ -273,51 +273,27 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     var gtinsOrdered: [String] {
-        var gtinsOrdered = [String]()
-        for product in itemsOrdered {
-            gtinsOrdered.append(product.gtin)
-        }
-        return gtinsOrdered
+        return itemsOrdered.map { $0.gtin }
     }
 
     var gtinsDelivered: [String] {
-        var gtinsDelivered = [String]()
-        for product in itemsDelivered {
-            gtinsDelivered.append(product.gtin)
-        }
-        return gtinsDelivered
+        return itemsDelivered.map { $0.gtin }
     }
 
     var gtinsRejected: [String] {
-        var gtinsRejected = [String]()
-        for product in itemsRejected {
-            gtinsRejected.append(product.gtin)
-        }
-        return gtinsRejected
+        return itemsRejected.map { $0.gtin }
     }
 
     func gtinOrderedCount(gtin: String!) -> Int {
-        var gtinOrderedCount = 0
-        for _ in gtinsOrdered {
-            gtinOrderedCount += 1
-        }
-        return gtinOrderedCount
+        return gtinsOrdered.count
     }
 
     func gtinRejectedCount(gtin: String!) -> Int {
-        var gtinRejectedCount = 0
-        for _ in gtinsRejected {
-            gtinRejectedCount += 1
-        }
-        return gtinRejectedCount
+        return gtinsRejected.count
     }
 
     func gtinDeliveredCount(gtin: String!) -> Int {
-        var gtinDeliveredCount = 0
-        for _ in gtinsDelivered {
-            gtinDeliveredCount += 1
-        }
-        return gtinDeliveredCount
+        return gtinsDelivered.count
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
