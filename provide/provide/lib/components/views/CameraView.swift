@@ -356,7 +356,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                     captureSession.addOutput(videoFileOutput)
                 }
 
-                var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+                let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
                 let outputFileURL = NSURL(fileURLWithPath: "\(paths.first!)/\(NSDate().timeIntervalSince1970).m4v")
                 videoFileOutput.startRecordingToOutputFileURL(outputFileURL, recordingDelegate: self)
                 break

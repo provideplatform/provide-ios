@@ -431,7 +431,7 @@ class ApiService: NSObject {
     private func objectMappingForPath(var path: String) -> RKObjectMapping? {
         let parts = path.characters.split("/").map { String($0) }
         if parts.count > 3 {
-            path = "/".join([parts[1], parts[3]])
+            path = [parts[1], parts[3]].joinWithSeparator("/")
             path = path.splitAtString("/").1
         } else {
             path = parts[1]
