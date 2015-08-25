@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "Roundabout-Right.png"
+      "filename" : "roundabout-right.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "Roundabout-Right@2x.png"
+      "filename" : "roundabout-right@2x.png",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "Roundabout-Right@3x.png"
+      "filename" : "roundabout-right@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
