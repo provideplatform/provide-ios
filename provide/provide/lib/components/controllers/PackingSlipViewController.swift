@@ -379,7 +379,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             }
 
             if let navigationController = navigationController {
-                barcodeScannerViewController.navigationItem.title = "SCAN \(product.name)"
+                if let productName = product.name {
+                    barcodeScannerViewController.navigationItem.title = "SCAN \(productName)"
+                } else {
+                    barcodeScannerViewController.navigationItem.title = "SCAN \(product.gtin)"
+                }
                 navigationController.pushViewController(barcodeScannerViewController, animated: true)
             } else {
                 presentViewController(barcodeScannerViewController, animated: true)
