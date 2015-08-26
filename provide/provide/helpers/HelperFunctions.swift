@@ -123,6 +123,14 @@ func isSimulator() -> Bool {
     #endif
 }
 
+func isIPad() -> Bool {
+    return UI_USER_INTERFACE_IDIOM() == .Pad
+}
+
+func isIPhone() -> Bool {
+    return UI_USER_INTERFACE_IDIOM() == .Phone
+}
+
 func prettyPrintedJson(uglyJsonStr: String?) -> String {
     if let uglyJsonString = uglyJsonStr {
         let uglyJson: AnyObject = try! NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
