@@ -67,7 +67,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
         setupNavigationItem()
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss:")
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
@@ -109,7 +109,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         navigationItem.title = "TAKE PHOTO"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "dismiss")
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "dismiss:")
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
 
         navigationItem.leftBarButtonItems = [cancelItem]
@@ -151,7 +151,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         frontCameraView?.stopCapture()
     }
 
-    func dismiss() {
+    func dismiss(sender: UIBarButtonItem) {
         delegate?.cameraViewControllerCanceled(self)
     }
 
