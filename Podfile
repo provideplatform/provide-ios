@@ -13,7 +13,7 @@ pod 'JSQMessagesViewController', '~> 7.1.0'
 pod 'MBProgressHUD', '~> 0.9.1'
 pod 'MKNetworkKit', :head
 pod 'OHHTTPStubs', '~> 4.2.0'
-pod 'R.swift', git: 'https://github.com/mac-cain13/R.swift.git', branch: 'develop'
+pod 'R.swift'
 pod 'Reachability'
 pod 'RestKit', '0.24.1'
 pod 'RFGravatarImageView'
