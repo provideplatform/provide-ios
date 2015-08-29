@@ -42,7 +42,6 @@ PODS:
   - OHHTTPStubs/NSURLSession (4.2.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.2.0)
-  - R.swift (0.9.0.beta.2)
   - Reachability (3.1.1)
   - RestKit (0.24.1):
     - RestKit/Core (= 0.24.1)
@@ -84,7 +83,6 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.1)
   - MKNetworkKit (HEAD)
   - OHHTTPStubs (~> 4.2.0)
-  - R.swift (from `https://github.com/mac-cain13/R.swift.git`, branch `develop`)
   - Reachability
   - RestKit (= 0.24.1)
   - RFGravatarImageView
@@ -95,9 +93,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   ELFixSecureTextFieldFont:
     :git: https://github.com/elegion/ELFixSecureTextFieldFont.git
-  R.swift:
-    :branch: develop
-    :git: https://github.com/mac-cain13/R.swift.git
   SWTableViewCell:
     :git: https://github.com/kthomas/SWTableViewCell.git
 
@@ -105,9 +100,6 @@ CHECKOUT OPTIONS:
   ELFixSecureTextFieldFont:
     :commit: bc0d5afecdfbae523ad3b6f855ea641fb980ef9e
     :git: https://github.com/elegion/ELFixSecureTextFieldFont.git
-  R.swift:
-    :commit: 4c37afdee12dd7257976e285bc6c9cc7349ed801
-    :git: https://github.com/mac-cain13/R.swift.git
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
     :git: https://github.com/kthomas/SWTableViewCell.git
@@ -124,7 +116,6 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
   OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249
-  R.swift: 7d681bc0783a14bf22bbf2e2d55cf5aa891fcfdc
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
