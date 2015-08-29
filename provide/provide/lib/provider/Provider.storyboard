@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLI-P7-Mie">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLI-P7-Mie">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1049,7 +1049,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="routeManifestTableViewCell" rowHeight="75" id="h1Y-AN-tmN" customClass="RouteManifestItemTableViewCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="manifestTableViewCell" rowHeight="75" id="h1Y-AN-tmN" customClass="RouteManifestItemTableViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Y-AN-tmN" id="1Gu-0G-tHd">
@@ -1112,114 +1112,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ct7-1I-SZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="421" y="1204"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="1Il-rd-RT3">
-            <objects>
-                <viewController storyboardIdentifier="AttachmentGalleryViewController" id="TQw-Eu-nfK" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="DEF-65-YAs"/>
-                        <viewControllerLayoutGuide type="bottom" id="qRh-SS-Ufq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZZT-Rf-sNT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Irn-Iz-Z5M">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UQr-0p-wzy">
-                                    <size key="itemSize" width="180" height="180"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCollectionViewCellReuseIdentifier" id="9O5-Wi-IoB" customClass="ImageCollectionViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="0.0" width="180" height="180"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0LG-sR-FlK">
-                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
-                                                </imageView>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="qEL-c1-TR1">
-                                                    <rect key="frame" x="80" y="80" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="0LG-sR-FlK" firstAttribute="top" secondItem="9O5-Wi-IoB" secondAttribute="top" id="471-Ku-HKn"/>
-                                            <constraint firstAttribute="bottom" secondItem="0LG-sR-FlK" secondAttribute="bottom" id="OGB-5x-rn0"/>
-                                            <constraint firstItem="qEL-c1-TR1" firstAttribute="centerY" secondItem="0LG-sR-FlK" secondAttribute="centerY" id="aP7-xi-ReC"/>
-                                            <constraint firstItem="0LG-sR-FlK" firstAttribute="centerX" secondItem="qEL-c1-TR1" secondAttribute="centerX" id="dbK-tv-LQZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="0LG-sR-FlK" secondAttribute="trailing" id="h7m-Fl-1bt"/>
-                                            <constraint firstItem="0LG-sR-FlK" firstAttribute="leading" secondItem="9O5-Wi-IoB" secondAttribute="leading" id="t0D-Sx-2Pq"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="activityIndicatorView" destination="qEL-c1-TR1" id="jwU-w8-ghd"/>
-                                            <outlet property="imageView" destination="0LG-sR-FlK" id="g8y-tZ-KZR"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="nU4-6y-OSt" id="Hzc-v4-BQY"/>
-                                    <outlet property="delegate" destination="nU4-6y-OSt" id="Ymy-0u-YQt"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="qRh-SS-Ufq" firstAttribute="top" secondItem="Irn-Iz-Z5M" secondAttribute="bottom" id="0eW-tC-mnV"/>
-                            <constraint firstItem="Irn-Iz-Z5M" firstAttribute="top" secondItem="DEF-65-YAs" secondAttribute="bottom" constant="-20" id="95x-hQ-bzY"/>
-                            <constraint firstItem="Irn-Iz-Z5M" firstAttribute="leading" secondItem="ZZT-Rf-sNT" secondAttribute="leadingMargin" constant="-20" id="VW2-hh-gUY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Irn-Iz-Z5M" secondAttribute="trailing" constant="-20" id="tzo-HS-nj5"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kwS-D5-TDb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1091" y="3340"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="PJk-by-Fmc">
-            <objects>
-                <viewController storyboardIdentifier="WorkOrderDetailsHeaderViewController" id="0Cw-PD-Xqq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WNC-I5-jhc"/>
-                        <viewControllerLayoutGuide type="bottom" id="Wo9-ue-gbV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="AYT-gX-ONE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73l-jk-tfa" customClass="WorkOrderDetailsHeaderView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hsV-nf-GcA">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpZ-la-Okr" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    </mapView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="gradientView" destination="hsV-nf-GcA" id="tFC-Bl-38G"/>
-                                    <outlet property="mapView" destination="cpZ-la-Okr" id="PeY-bm-UdH"/>
-                                </connections>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OcA-da-nnt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1741" y="3340"/>
         </scene>
     </scenes>
     <resources>
