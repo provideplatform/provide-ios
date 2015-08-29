@@ -70,6 +70,7 @@
 		681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */; };
 		681417481B845D900076BFBD /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
+		6845C04F1B91AE3D004C20B4 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845C04E1B91AE3D004C20B4 /* R.generated.swift */; settings = {ASSET_TAGS = (); }; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
@@ -249,6 +250,7 @@
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
+		6845C04E1B91AE3D004C20B4 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
@@ -778,12 +780,13 @@
 				68DFB0801B07C5C4002A72E8 /* provide */,
 				68DFB0991B07C5C4002A72E8 /* provideTests */,
 				689608921B3A1F21008719B0 /* provideUITests */,
+				E202B806A9E0508AFF60327D /* Frameworks */,
 				680B74AC1B36DDFA00181300 /* Fabric.framework */,
 				680B74AD1B36DDFA00181300 /* Crashlytics.framework */,
 				5C0049501B1BD9FF000ACE9D /* HTTPStubs */,
 				68DFB07F1B07C5C4002A72E8 /* Products */,
 				FFEF7100F5F8A41E6773C954 /* Pods */,
-				E202B806A9E0508AFF60327D /* Frameworks */,
+				6845C04E1B91AE3D004C20B4 /* R.generated.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -928,6 +931,7 @@
 			buildConfigurationList = 68DFB0A01B07C5C4002A72E8 /* Build configuration list for PBXNativeTarget "provide" */;
 			buildPhases = (
 				9E6EB53BB17DCF32736F4403 /* Check Pods Manifest.lock */,
+				6845C04A1B919E7D004C20B4 /* ShellScript */,
 				68DFB07A1B07C5C4002A72E8 /* Sources */,
 				68DFB07B1B07C5C4002A72E8 /* Frameworks */,
 				68DFB07C1B07C5C4002A72E8 /* Resources */,
@@ -1115,6 +1119,19 @@
 			shellPath = /bin/sh;
 			shellScript = "${SRCROOT}/../scripts/version-build.sh";
 		};
+		6845C04A1B919E7D004C20B4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
+		};
 		685C02791B36DD3500DA730A /* Run Fabric.framework Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1218,6 +1235,7 @@
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				681416ED1B8457870076BFBD /* Model.swift in Sources */,
 				68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */,
+				6845C04F1B91AE3D004C20B4 /* R.generated.swift in Sources */,
 				685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */,
 				5C4AF3A31B13AC0500423B71 /* UIStoryboardExtensions.swift in Sources */,
 				68F536F81B834A720007F480 /* RouteMapView.swift in Sources */,
