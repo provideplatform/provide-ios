@@ -82,6 +82,8 @@
 		68718DA61B94581A000202E3 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA41B94581A000202E3 /* PaymentViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		68718DA71B94581A000202E3 /* ProviderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA51B94581A000202E3 /* ProviderPickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		68718DA91B9458AD000202E3 /* PickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA81B9458AD000202E3 /* PickerCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		68718DAF1B947027000202E3 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718DAC1B947027000202E3 /* Consumer.storyboard */; settings = {ASSET_TAGS = (); }; };
+		68718DB11B947067000202E3 /* ConsumerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DB01B947067000202E3 /* ConsumerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
@@ -271,6 +273,8 @@
 		68718DA41B94581A000202E3 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		68718DA51B94581A000202E3 /* ProviderPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderPickerViewController.swift; sourceTree = "<group>"; };
 		68718DA81B9458AD000202E3 /* PickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		68718DAC1B947027000202E3 /* Consumer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Consumer.storyboard; sourceTree = "<group>"; };
+		68718DB01B947067000202E3 /* ConsumerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -478,6 +482,31 @@
 			path = extensions;
 			sourceTree = "<group>";
 		};
+		68718DAB1B947027000202E3 /* consumer */ = {
+			isa = PBXGroup;
+			children = (
+				68718DAD1B947027000202E3 /* controllers */,
+				68718DAE1B947027000202E3 /* views */,
+				68718DAC1B947027000202E3 /* Consumer.storyboard */,
+			);
+			path = consumer;
+			sourceTree = "<group>";
+		};
+		68718DAD1B947027000202E3 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				68718DB01B947067000202E3 /* ConsumerViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		68718DAE1B947027000202E3 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		687CB5321B07EAD30048B692 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +671,7 @@
 			isa = PBXGroup;
 			children = (
 				68B412B51B080D41009A4C05 /* components */,
+				68718DAB1B947027000202E3 /* consumer */,
 				68B412F01B08153D009A4C05 /* provider */,
 			);
 			path = lib;
@@ -1066,6 +1096,7 @@
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
+				68718DAF1B947027000202E3 /* Consumer.storyboard in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
@@ -1319,6 +1350,7 @@
 				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
 				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
+				68718DB11B947067000202E3 /* ConsumerViewController.swift in Sources */,
 				68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */,
 				68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
