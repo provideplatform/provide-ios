@@ -46,6 +46,14 @@ class Color {
         return UIColor(red: 0.392, green: 0.706, blue: 0.820, alpha: 1.0)
     }
 
+    class func confirmationGreenBackground() -> UIColor {
+        return UIColor(red: 0.369, green: 0.843, blue: 0.365, alpha: 1.00)
+    }
+
+    class func warningBackground() -> UIColor {
+        return UIColor(red: 0.737, green: 0.267, blue: 0.192, alpha: 1.00)
+    }
+
     class func directionIndicatorBorderColor() -> UIColor {
         return UIColor("#70d1f0")
     }
