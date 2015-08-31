@@ -75,7 +75,10 @@
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; settings = {ASSET_TAGS = (); }; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		68718DA21B945807000202E3 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718DA01B945807000202E3 /* Payment.storyboard */; settings = {ASSET_TAGS = (); }; };
+		68718DA31B945807000202E3 /* ProviderPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718DA11B945807000202E3 /* ProviderPicker.storyboard */; settings = {ASSET_TAGS = (); }; };
 		68718DA61B94581A000202E3 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA41B94581A000202E3 /* PaymentViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		68718DA71B94581A000202E3 /* ProviderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA51B94581A000202E3 /* ProviderPickerViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		68718DA91B9458AD000202E3 /* PickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA81B9458AD000202E3 /* PickerCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
@@ -258,7 +261,10 @@
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		68718DA01B945807000202E3 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
+		68718DA11B945807000202E3 /* ProviderPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderPicker.storyboard; sourceTree = "<group>"; };
 		68718DA41B94581A000202E3 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		68718DA51B94581A000202E3 /* ProviderPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderPickerViewController.swift; sourceTree = "<group>"; };
+		68718DA81B9458AD000202E3 /* PickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -595,6 +601,7 @@
 				68F5370F1B834A9A0007F480 /* MenuTableView.swift */,
 				68F537101B834A9A0007F480 /* NameValueTableViewCell.swift */,
 				68F537111B834A9A0007F480 /* NavigationBarButton.swift */,
+				68718DA81B9458AD000202E3 /* PickerCollectionViewCell.swift */,
 				68B978C51B084E0E00863E21 /* RoundedButton.swift */,
 			);
 			path = views;
@@ -659,6 +666,7 @@
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
 				68718DA41B94581A000202E3 /* PaymentViewController.swift */,
+				68718DA51B94581A000202E3 /* ProviderPickerViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -730,6 +738,7 @@
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
 				68718DA01B945807000202E3 /* Payment.storyboard */,
+				68718DA11B945807000202E3 /* ProviderPicker.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -1087,6 +1096,7 @@
 				68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */,
 				68F537331B8373BD0007F480 /* cottage.gpx in Resources */,
 				68718DA21B945807000202E3 /* Payment.storyboard in Resources */,
+				68718DA31B945807000202E3 /* ProviderPicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1230,7 @@
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				681416F31B8457870076BFBD /* RouteLeg.swift in Sources */,
 				682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */,
+				68718DA71B94581A000202E3 /* ProviderPickerViewController.swift in Sources */,
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				681416E61B8457870076BFBD /* Comment.swift in Sources */,
 				68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */,
@@ -1288,6 +1299,7 @@
 				68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
 				68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
+				68718DA91B9458AD000202E3 /* PickerCollectionViewCell.swift in Sources */,
 				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F5372D1B83554F0007F480 /* NSDictionaryExtensions.swift in Sources */,
