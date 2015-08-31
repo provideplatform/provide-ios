@@ -43,6 +43,7 @@ PODS:
   - OHHTTPStubs/NSURLSession (4.2.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.2.0)
+  - PDTSimpleCalendar (0.9.1)
   - Reachability (3.1.1)
   - RestKit (0.24.1):
     - RestKit/Core (= 0.24.1)
@@ -85,6 +86,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.1)
   - MKNetworkKit (HEAD)
   - OHHTTPStubs (~> 4.2.0)
+  - PDTSimpleCalendar
   - Reachability
   - RestKit (= 0.24.1)
   - RFGravatarImageView
@@ -119,6 +121,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
   OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249
+  PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920

@@ -19,6 +19,7 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MKNetworkKit/MKNetworkKit.h>
 #import <OHHTTPStubs/OHHTTPStubs.h>
+#import <PDTSimpleCalendar/PDTSimpleCalendar.h>
 #import <RestKit/RestKit.h>
 #import <RFGravatarImageView/RFGravatarImageView.h>
 #import <SWTableViewCell/SWTableViewCell.h>
