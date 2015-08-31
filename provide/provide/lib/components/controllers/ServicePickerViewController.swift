@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ServicePickerViewControllerDelegate {
-    func servicePickerViewController(viewController: ServicePickerViewController!, didSelectService service: Service)
+    func servicePickerViewController(viewController: ServicePickerViewController, didSelectService service: Service)
 }
 
 class ServicePickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
