@@ -10,6 +10,7 @@
 
 // CocoaPods
 #import <Analytics/Analytics.h>
+#import <CardIO/CardIO.h>
 #import <ECSlidingViewController/ECSlidingSegue.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>

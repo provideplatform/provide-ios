@@ -4,6 +4,7 @@ PODS:
     - TRVSDictionaryWithCaseInsensitivity (= 0.0.2)
   - Analytics/Segmentio (1.12.0):
     - Analytics/Core-iOS
+  - CardIO (5.1.1)
   - ECSlidingViewController (2.0.3)
   - ELFixSecureTextFieldFont (0.1.0)
   - FontAwesomeKit (2.2.0):
@@ -76,6 +77,7 @@ PODS:
 
 DEPENDENCIES:
   - Analytics/Segmentio (~> 1.12.0)
+  - CardIO
   - ECSlidingViewController (~> 2.0.3)
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
   - FontAwesomeKit (~> 2.2.0)
@@ -107,6 +109,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: cf8e418e16f0c9c7e5c3150d019a3c679d015018
   Analytics: b8cc04af04e4751109730fa852fa1b86341f50e4
+  CardIO: 2c3a8ef9b9add4bd664c83bb653b83b2f32d9d7f
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4

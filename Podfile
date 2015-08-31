@@ -6,6 +6,7 @@ inhibit_all_warnings!
 xcodeproj 'provide/provide.xcodeproj'
 
 pod 'Analytics/Segmentio', '~> 1.12.0'
+pod 'CardIO'
 pod 'ECSlidingViewController', '~> 2.0.3'
 pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont.git'
 pod 'FontAwesomeKit', '~> 2.2.0'
