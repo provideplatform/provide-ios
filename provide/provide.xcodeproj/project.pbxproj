@@ -72,6 +72,8 @@
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
+		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; settings = {ASSET_TAGS = (); }; };
+		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
@@ -251,6 +253,8 @@
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
+		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -639,6 +643,7 @@
 		68B412B61B080D41009A4C05 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */,
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
@@ -712,6 +717,7 @@
 		68B413231B083161009A4C05 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */,
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
@@ -1072,6 +1078,7 @@
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
+				68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */,
 				68F537331B8373BD0007F480 /* cottage.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1175,6 +1182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */,
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
 				687CB5531B07EAD30048B692 /* DictionaryExtensions.swift in Sources */,
 				68F537121B834A9A0007F480 /* ImageCollectionViewCell.swift in Sources */,
