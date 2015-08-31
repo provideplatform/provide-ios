@@ -74,6 +74,8 @@
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; settings = {ASSET_TAGS = (); }; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		68718DA21B945807000202E3 /* Payment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718DA01B945807000202E3 /* Payment.storyboard */; settings = {ASSET_TAGS = (); }; };
+		68718DA61B94581A000202E3 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718DA41B94581A000202E3 /* PaymentViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5331B07EAD30048B692 /* ArrayExtensions.swift */; };
@@ -255,6 +257,8 @@
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
+		68718DA01B945807000202E3 /* Payment.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Payment.storyboard; sourceTree = "<group>"; };
+		68718DA41B94581A000202E3 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687CB5331B07EAD30048B692 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
@@ -654,6 +658,7 @@
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
+				68718DA41B94581A000202E3 /* PaymentViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -724,6 +729,7 @@
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
+				68718DA01B945807000202E3 /* Payment.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -1080,6 +1086,7 @@
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */,
 				68F537331B8373BD0007F480 /* cottage.gpx in Resources */,
+				68718DA21B945807000202E3 /* Payment.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,6 +1211,7 @@
 				68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */,
 				68F537151B834A9A0007F480 /* MenuContainerView.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
+				68718DA61B94581A000202E3 /* PaymentViewController.swift in Sources */,
 				68F536EA1B834A5C0007F480 /* RouteViewController.swift in Sources */,
 				68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
