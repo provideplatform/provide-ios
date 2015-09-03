@@ -1,0 +1,136 @@
+[
+    {
+        "date": "2015-06-09",
+        "end_at": null,
+        "id": 4,
+        "incomplete_manifest": false,
+        "items_loaded": [],
+        "provider_origin_assignment": {
+            "end_date": null,
+            "id": 12,
+            "provider": {
+                "contact": {
+                    "address1": "4124 Amberwood Ct",
+                    "address2": null,
+                    "city": "Lexington",
+                    "email": "kyle@provide.services",
+                    "fax": null,
+                    "id": 3,
+                    "latitude": 38.0030708,
+                    "longitude": -84.5836792,
+                    "mobile": "8599673476",
+                    "name": "Kyle Thomas",
+                    "phone": "8599673476",
+                    "state": "KY",
+                    "time_zone_id": "Eastern Time (US & Canada)",
+                    "zip": "40513"
+                },
+                "id": 1,
+                "last_checkin": null,
+                "profile_image_url": "https://provide-development.s3.amazonaws.com/29c9558a-5798-4900-aabc-4993dce37817.jpg",
+                "user_id": 2
+            },
+            "start_date": null
+        },
+        "start_at": "2015-06-09T06:24:57Z",
+        "status": "scheduled",
+        "work_orders": [
+            {
+                "arrived_at": null,
+                "company_id": 1,
+                "components": [
+                    {
+                        "component": "PackingSlip"
+                    },
+                    {
+                        "component": "Signature"
+                    }
+                ],
+                "customer": {
+                    "contact": {
+                        "address1": "6891 Boyle Lodge",
+                        "address2": null,
+                        "city": "Lake Garret",
+                        "email": "ron@borer.biz",
+                        "fax": null,
+                        "id": 17,
+                        "latitude": null,
+                        "longitude": null,
+                        "mobile": "1-817-130-6064",
+                        "name": "Trisha Jacobson",
+                        "phone": "(597) 249-6748",
+                        "state": "Maryland",
+                        "time_zone_id": "America/Guatemala",
+                        "zip": "37003-1289"
+                    },
+                    "display_name": "Trisha Jacobson",
+                    "id": 7,
+                    "name": "Trisha Jacobson",
+                    "profile_image_url": null
+                },
+                "customer_id": 7,
+                "description": null,
+                "duration": null,
+                "ended_at": null,
+                "estimated_duration": 25,
+                "id": 10,
+                "items_delivered": [],
+                "items_ordered": [
+                    {
+                        "barcode_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAAB4AQAAAADp//CIAAAAP0lEQVR4nGP6jwIeMDGggoHnX8+9YuI7K0Tdd5bxvoZB4J5R/ih/lD/KH+UPDb7mZJ0zm9PW3NycdtZp8NUfAKsaHMOuwp32AAAAAElFTkSuQmCC",
+                        "data": {
+                            "name": "test123124g"
+                        },
+                        "gtin": "V000028020",
+                        "id": 4
+                    },
+                    {
+                        "barcode_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAAB4AQAAAADp//CIAAAAP0lEQVR4nGP6jwIeMDGggoHnX8+9YuI7K0Tdd5bxvoZB4J5R/ih/lD/KH+UPDb7mZJ0zm9PW3NycdtZp8NUfAKsaHMOuwp32AAAAAElFTkSuQmCC",
+                        "data": {
+                            "name": "test123124g"
+                        },
+                        "gtin": "V000028020",
+                        "id": 4
+                    },
+                    {
+                        "barcode_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAAB4AQAAAADp//CIAAAAP0lEQVR4nGP6jwIeMDGggoHnX8+9YuI7K0Tdd5bxvoZB4J5R/ih/lD/KH+UPDb7mZJ0zm9PW3NycdtZp8NUfAKsaHMOuwp32AAAAAElFTkSuQmCC",
+                        "data": {
+                            "name": "5455"
+                        },
+                        "gtin": "V000028022",
+                        "id": 2
+                    },
+                    {
+                        "barcode_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHMAAAB4AQAAAADp//CIAAAAP0lEQVR4nGP6jwIeMDGggoHnX8+9YuI7K0Tdd5bxvoZB4J5R/ih/lD/KH+UPDb7mZJ0zm9PW3NycdtZp8NUfAKsaHMOuwp32AAAAAElFTkSuQmCC",
+                        "data": {
+                            "name": "asdfasfasdfadsf"
+                        },
+                        "gtin": "V000028023",
+                        "id": 3
+                    },
+                    {
+                        "barcode_uri": null,
+                        "data": {
+                            "name": "test"
+                        },
+                        "gtin": "V000028024",
+                        "id": 13
+                    },
+                    {
+                        "barcode_uri": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK8AAAB4AQAAAACs0p9PAAAAWElEQVR4nGP6jw38Y2LACoau8G3v09Mmr52WukbNzysr3Hv2tMlbZwwqB44KjwqPCo8KjwqPCo8KjwpTUVh1q2lWbnDW7JBbm7ZNW7k1NSvXO2NQOZAKwgDtuiraMlyVxwAAAABJRU5ErkJggg==",
+                        "data": {
+                            "name": "test"
+                        },
+                        "gtin": "V000028025",
+                        "id": 14
+                    }
+                ],
+                "provider_rating": null,
+                "scheduled_start_at": "2015-06-09T00:52:30-06:00",
+                "started_at": null,
+                "status": "awaiting_schedule",
+                "work_order_providers": []
+            }
+        ]
+    }
+]
