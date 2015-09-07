@@ -21,7 +21,7 @@ PODS:
     - FontAwesomeKit/Core
   - FontAwesomeKit/Zocial (2.2.0):
     - FontAwesomeKit/Core
-  - ISO8601DateFormatterValueTransformer (0.6.0):
+  - ISO8601DateFormatterValueTransformer (0.6.1):
     - RKValueTransformers (~> 1.1.0)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
@@ -75,7 +75,7 @@ PODS:
   - UICKeyChainStore (2.0.6)
 
 DEPENDENCIES:
-  - Analytics/Segmentio (~> 1.12.0)
+  - Analytics/Segmentio (= 1.12.0)
   - ECSlidingViewController (~> 2.0.3)
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
   - FontAwesomeKit (~> 2.2.0)
@@ -110,7 +110,7 @@ SPEC CHECKSUMS:
   ECSlidingViewController: 6485c14f23b4487e9946535421ca8f111f86cc53
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FontAwesomeKit: 025fd4dd1017fe4e3f8d47b03e024deedbb33cd4
-  ISO8601DateFormatterValueTransformer: 3ac3a721381697cab4e792d8049ce2f2e9ad3036
+  ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

@@ -1,11 +1,12 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '8.1'
+platform :ios, '8.3'
 inhibit_all_warnings!
 
 xcodeproj 'provide/provide.xcodeproj'
+xcodeproj 'startrack/startrack.xcodeproj'
 
-pod 'Analytics/Segmentio', '~> 1.12.0'
+pod 'Analytics/Segmentio', '1.12.0'
 pod 'ECSlidingViewController', '~> 2.0.3'
 pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont.git'
 pod 'FontAwesomeKit', '~> 2.2.0'
