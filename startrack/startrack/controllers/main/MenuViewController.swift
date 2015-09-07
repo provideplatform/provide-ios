@@ -21,7 +21,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame)
+        tableView.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame) //applicationDefaultBackgroundImageColorapplicationDefaultBackgroundImageColor(view.frame)
 
         menuHeaderView.delegate = self
         
@@ -37,10 +37,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         switch reuseIdentifier {
-        case "RouteCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
-        case "HistoryCell":
+        case "ProductionsCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
         case "TermsOfServiceCell":

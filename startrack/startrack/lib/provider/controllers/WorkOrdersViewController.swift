@@ -64,13 +64,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                                 CommentsViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
-                                                RouteViewControllerDelegate,
-                                                RouteManifestViewControllerDelegate,
                                                 ManifestViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
-        "RouteManifestViewControllerSegue",
+        "ProductionsViewControllerSegue",
         "WorkOrderAnnotationViewControllerSegue",
         "WorkOrderComponentViewControllerSegue",
         "WorkOrderDestinationHeaderViewControllerSegue",
@@ -91,21 +89,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
         loadRouteContext()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteViewController) == false {
-                self.performSegueWithIdentifier("RouteViewControllerSegue", sender: self)
-            }
-        }
-
-        NSNotificationCenter.defaultCenter().addObserverForName("SegueToHistoryStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteHistoryViewController) == false {
-                self.performSegueWithIdentifier("RouteHistoryViewControllerSegue", sender: self)
-            }
-        }
-
-        NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
-                self.performSegueWithIdentifier("ManifestViewControllerSegue", sender: self)
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToProductionsStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(ProductionsViewController) == false {
+                self.performSegueWithIdentifier("ProductionsViewControllerSegue", sender: self)
             }
         }
 
@@ -390,15 +376,6 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             LocationService.sharedService().enableNavigationAccuracy()
 
             (segue.destinationViewController as! DirectionsViewController).directionsViewControllerDelegate = self
-        case "RouteViewControllerSegue":
-            assert(segue.destinationViewController is RouteViewController)
-            (segue.destinationViewController as! RouteViewController).delegate = self
-        case "ManifestViewControllerSegue":
-            assert(segue.destinationViewController is ManifestViewController)
-            (segue.destinationViewController as! ManifestViewController).delegate = self
-        case "RouteManifestViewControllerSegue":
-            assert(segue.destinationViewController is RouteManifestViewController)
-            (segue.destinationViewController as! RouteManifestViewController).delegate = self
         case "WorkOrderAnnotationViewControllerSegue":
             assert(segue.destinationViewController is WorkOrderAnnotationViewController)
             (segue.destinationViewController as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self

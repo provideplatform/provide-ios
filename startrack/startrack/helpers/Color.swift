@@ -15,7 +15,7 @@ class Color {
     }
 
     class func darkBlueBackground() -> UIColor {
-        return UIColor(red: 0.008, green: 0.067, blue: 0.231, alpha: 1.00)
+        return UIColor("#2388DB") //UIColor(red: 0.008, green: 0.067, blue: 0.231, alpha: 1.00)
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
@@ -27,7 +27,7 @@ class Color {
     }
 
     class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {
-        return UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
+        return UIColor("#2388DB") //UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
     }
 
     class func annotationViewBackgroundImage() -> UIImage {

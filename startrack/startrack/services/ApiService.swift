@@ -402,6 +402,12 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    // MARK: Productions API
+
+    func fetchProductions(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("productions", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: S3
 
     func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
