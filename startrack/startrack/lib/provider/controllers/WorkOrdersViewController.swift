@@ -87,7 +87,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
         navigationItem.hidesBackButton = true
 
-        loadRouteContext()
+        loadWorkOrderContext()
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToProductionsStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(ProductionsViewController) == false {
@@ -104,7 +104,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
                                     if workOrder.status != "en_route" {
                                         self.updatingWorkOrderContext = true
-                                        self.loadRouteContext()
+                                        self.loadWorkOrderContext()
                                     } else {
                                         log("not reloading context due to work order being routed to destination")
                                     }
@@ -112,13 +112,13 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                             },
                             onError: { error, statusCode, responseString in
                                 self.updatingWorkOrderContext = true
-                                self.loadRouteContext()
+                                self.loadWorkOrderContext()
                             }
                         )
                     }
                 } else {
                     self.updatingWorkOrderContext = true
-                    self.loadRouteContext()
+                    self.loadWorkOrderContext()
                 }
             }
         }
@@ -223,6 +223,26 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return false
     }
 
+    func loadWorkOrderContext() {
+        let workOrderService = WorkOrderService.sharedService()
+
+        workOrderService.fetch(
+            status: "scheduled,en_route,in_progress",
+            today: true,
+            onWorkOrdersFetched: { workOrders in
+                workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
+
+                if workOrders.count == 0 {
+                    self.zeroStateViewController?.render(self.view)
+                }
+
+                self.nextWorkOrderContextShouldBeRewound()
+                self.attemptSegueToValidWorkOrderContext()
+                self.updatingWorkOrderContext = false
+            }
+        )
+    }
+
     func loadRouteContext() {
         let workOrderService = WorkOrderService.sharedService()
         let routeService = RouteService.sharedService()
@@ -322,7 +342,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            attemptSegueToValidRouteContext()
+            print("DEAD END @ attemptSegueToValidRouteContext()")
+            //attemptSegueToValidRouteContext()
         }
     }
 
