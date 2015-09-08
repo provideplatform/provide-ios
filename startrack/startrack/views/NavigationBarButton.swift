@@ -22,7 +22,7 @@ class NavigationBarButton: UIButton {
         let button = NavigationBarButton(type: .Custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
         button.setImage(image.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        button.tintColor = UIColor.whiteColor()
+        button.tintColor = Color.darkBlueBackground()
         button.addTarget(target, action: Selector(action), forControlEvents: .TouchUpInside)
 
         return UIBarButtonItem(customView: button)

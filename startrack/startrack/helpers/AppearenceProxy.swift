@@ -17,14 +17,14 @@ class AppearenceProxy {
     class func navBarTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 20)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : Color.darkBlueBackground()
         ]
     }
 
     class func barButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : Color.darkBlueBackground()
         ]
     }
 

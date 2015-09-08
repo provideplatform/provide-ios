@@ -29,9 +29,16 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
 
     private var zeroStateViewController: ZeroStateViewController!
 
+    private var stopBarButtonItem: UIBarButtonItem! {
+        let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss")
+        stopBarButtonItem.tintColor = Color.darkBlueBackground()
+        return stopBarButtonItem
+    }
+
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        dismissItem.tintColor = Color.darkBlueBackground()
         return dismissItem
     }
 

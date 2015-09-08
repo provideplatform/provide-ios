@@ -139,12 +139,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
         let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: "menuButtonTapped:")
+        menuBarButtonItem.tintColor = Color.darkBlueBackground()
         navigationItem.leftBarButtonItem = menuBarButtonItem
     }
 
     private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
         let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
+        messagesBarButtonItem.tintColor = Color.darkBlueBackground()
         navigationItem.rightBarButtonItem = messagesBarButtonItem
     }
 

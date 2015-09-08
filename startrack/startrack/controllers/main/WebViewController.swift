@@ -14,7 +14,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
     private var stopBarButtonItem: UIBarButtonItem! {
         let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss")
-        stopBarButtonItem.tintColor = UIColor.whiteColor()
+        stopBarButtonItem.tintColor = Color.darkBlueBackground()
         return stopBarButtonItem
     }
 
