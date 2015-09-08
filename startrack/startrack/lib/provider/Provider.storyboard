@@ -879,7 +879,7 @@
                     <tabBarItem key="tabBarItem" title="Productions" id="4rK-d3-5NM"/>
                     <connections>
                         <outlet property="tableView" destination="3WP-IR-J4d" id="ZvG-gs-aZJ"/>
-                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="ProductionsViewControllerUnwindSegue" id="ziF-qf-pNT"/>
+                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="ProductionsViewControllerUnwindSegue" customClass="RenderComponentSegue" customModule="startrack" customModuleProvider="target" id="ziF-qf-pNT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LlU-Sw-qwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
