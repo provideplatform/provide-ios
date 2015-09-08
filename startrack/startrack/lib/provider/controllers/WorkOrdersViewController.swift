@@ -214,6 +214,13 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return false
     }
 
+    private var inProgressWorkOrderHasComponents: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "in_progress" && workOrder.components.count > 0
+        }
+        return false
+    }
+
     private var viewingDirections: Bool {
         for vc in managedViewControllers {
             if vc is DirectionsViewController {
@@ -338,11 +345,22 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         if canAttemptSegueToEnRouteWorkOrder {
             performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self)
         } else if canAttemptSegueToInProgressWorkOrder {
-            performSegueWithIdentifier("WorkOrderComponentViewControllerSegue", sender: self)
+            if !inProgressWorkOrderHasComponents {
+                if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    workOrder.cancel(
+                        onSuccess: { statusCode, mappingResult in
+                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                        }, onError: { error, statusCode, responseString in
+                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                        }
+                    )
+                }
+            } else {
+                performSegueWithIdentifier("WorkOrderComponentViewControllerSegue", sender: self)
+            }
         } else if canAttemptSegueToNextWorkOrder {
             performSegueWithIdentifier("WorkOrderAnnotationViewControllerSegue", sender: self)
         } else {
-            print("DEAD END @ attemptSegueToValidRouteContext()")
             //attemptSegueToValidRouteContext()
         }
     }
