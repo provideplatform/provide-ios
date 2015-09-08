@@ -17,10 +17,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         if let navigationController = navigationController {
-            let backgroundImage = Color.applicationDefaultNavigationBarBackgroundImage()
-            navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
+            //let backgroundImage = Color.applicationDefaultNavigationBarBackgroundImage()
+            //navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
 
-//            navigationController.navigationBar.backgroundColor = Color.darkBlueBackground()
+            navigationController.navigationBar.backgroundColor = Color.darkBlueBackground()
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
         }
     }

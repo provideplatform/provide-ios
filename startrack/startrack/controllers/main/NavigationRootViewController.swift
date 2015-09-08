@@ -16,7 +16,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame)
+        view.backgroundColor = Color.darkBlueBackground() //Color.applicationDefaultBackgroundImageColor(view.frame)
 
         signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
