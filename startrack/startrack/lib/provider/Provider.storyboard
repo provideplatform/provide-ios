@@ -734,7 +734,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fBy-NX-Djk" id="swn-T6-aKx">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Netflix Productions" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEB-pP-45b">
@@ -859,6 +859,7 @@
                     <tabBarItem key="tabBarItem" title="Productions" id="4rK-d3-5NM"/>
                     <connections>
                         <outlet property="tableView" destination="3WP-IR-J4d" id="ZvG-gs-aZJ"/>
+                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="ProductionsViewControllerUnwindSegue" id="ziF-qf-pNT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LlU-Sw-qwf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -871,7 +872,7 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fAd-Aq-llj"/>
+        <segue reference="ziF-qf-pNT"/>
         <segue reference="hLM-bt-3jd"/>
     </inferredMetricsTieBreakers>
 </document>
