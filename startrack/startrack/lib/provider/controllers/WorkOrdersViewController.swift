@@ -132,8 +132,16 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private func setupBarButtonItems() {
+        setupTitleView()
         setupMenuBarButtonItem()
         setupMessagesBarButtonItem()
+    }
+
+    private func setupTitleView() {
+        let starIconImage = FAKFontAwesome.spaceShuttleIconWithSize(40.0).imageWithSize(CGSize(width: 40.0, height: 40.0))
+        let titleView = UIImageView(image: starIconImage.imageWithRenderingMode(.AlwaysTemplate))
+        titleView.tintColor = Color.menuBackgroundColor()
+        navigationItem.titleView = titleView
     }
 
     private func setupMenuBarButtonItem() {

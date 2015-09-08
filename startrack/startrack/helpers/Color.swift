@@ -11,7 +11,7 @@ import UIKit
 class Color {
 
     class func menuBackgroundColor() -> UIColor {
-        return UIColor(red: 0.969, green: 0.965, blue: 0.949, alpha: 1.0)
+        return UIColor("#2388DB") //UIColor(red: 0.969, green: 0.965, blue: 0.949, alpha: 1.0)
     }
 
     class func darkBlueBackground() -> UIColor {
