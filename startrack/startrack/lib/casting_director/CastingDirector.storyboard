@@ -483,9 +483,11 @@
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="KaV-rc-VAH" secondAttribute="trailing" constant="25" id="7cg-kZ-7kh"/>
                                         <constraint firstItem="KaV-rc-VAH" firstAttribute="leading" secondItem="9R1-dC-xej" secondAttribute="leadingMargin" id="7mO-xw-2Sn"/>
-                                        <constraint firstItem="m5M-Pu-ZHb" firstAttribute="leading" secondItem="JX2-c7-HrQ" secondAttribute="trailing" constant="60" id="GE8-tM-XUr"/>
+                                        <constraint firstItem="m5M-Pu-ZHb" firstAttribute="leading" secondItem="JX2-c7-HrQ" secondAttribute="trailing" constant="60" id="GE8-tM-XUr">
+                                            <variation key="heightClass=regular-widthClass=compact" constant="44"/>
+                                        </constraint>
                                         <constraint firstItem="GPL-lP-F4W" firstAttribute="leading" secondItem="m5M-Pu-ZHb" secondAttribute="trailing" constant="25" id="Iqi-bL-Dfy">
-                                            <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                            <variation key="heightClass=regular-widthClass=compact" constant="24"/>
                                         </constraint>
                                         <constraint firstItem="m5M-Pu-ZHb" firstAttribute="leading" secondItem="JX2-c7-HrQ" secondAttribute="trailing" constant="39" id="JIh-La-mRF"/>
                                         <constraint firstItem="JX2-c7-HrQ" firstAttribute="leading" secondItem="9R1-dC-xej" secondAttribute="leadingMargin" constant="75" id="L5P-Kg-Ywg"/>
