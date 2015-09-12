@@ -64,15 +64,20 @@ class CastingProductionViewController: ViewController, PDTSimpleCalendarViewDele
     }
 
     private func presentCalendarViewController() {
+        PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
+        PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+
         calendarViewController = UIStoryboard("CastingDirector").instantiateViewControllerWithIdentifier("PDTSimpleCalendarViewController") as! PDTSimpleCalendarViewController
         calendarViewController.delegate = self
+
+        calendarViewController.weekdayHeaderEnabled = true
 
         if let minimumDate = minimumDateForCalendarViewController {
             calendarViewController.firstDate = minimumDate
         }
 
         if let maximumDate = maximumDateForCalendarViewController {
-            calendarViewController.lastDate = maximumDate
+            calendarViewController.lastDate = maximumDate.dateByAddingTimeInterval(100000)
         }
 
         //navigationController?.pushViewController(calendarViewController, animated: true)
