@@ -17,6 +17,10 @@ class Provider: Model {
     var profileImageUrlString: String!
     var services: NSSet!
 
+    var age: Int {
+        return 29 // FIXME
+    }
+
     var profileImageUrl: NSURL? {
         guard let profileImageUrlString = profileImageUrlString else { return nil }
         return NSURL(string: profileImageUrlString)

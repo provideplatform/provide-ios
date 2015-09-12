@@ -31,6 +31,11 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
 
+    var dateString: String {
+        let dateFormatter = NSDateFormatter(dateFormat: "yyyy-MM-dd")
+        return dateFormatter.stringFromDate(self)
+    }
+
     var timeString: String? {
         let dateFormatter = NSDateFormatter(dateFormat: "hh:mm a")
         return dateFormatter.stringFromDate(self)

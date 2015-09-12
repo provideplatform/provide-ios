@@ -20,6 +20,7 @@ class ApiService: NSObject {
 
     private let objectMappings = [
         "attachments": Attachment.mapping(),
+        "casting_demands": CastingDemand.mapping(),
         "companies": Company.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
@@ -27,7 +28,9 @@ class ApiService: NSObject {
         "products": Product.mapping(),
         "productions": Production.mapping(),
         "providers": Provider.mapping(),
+        "recommendations": Provider.mapping(),
         "routes": Route.mapping(),
+        "shooting_dates": ShootingDate.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
         "users": User.mapping(),
@@ -414,6 +417,18 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("productions", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchUniqueShootingDatesForProductionWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("productions/\(id)/shooting_dates", method: .GET, params: [String: AnyObject](), onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchCastingDemands(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("casting_demands", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchProviderRecommendationsForCastingDemandWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("casting_demands/\(id)/recommendations", method: .GET, params: [String: AnyObject](), onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: S3
 
     func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
@@ -456,8 +471,6 @@ class ApiService: NSObject {
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)
         }
-
-        print("response mapping: \(responseMapping)")
 
         if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
             let urlComponents = NSURLComponents(URL: baseURL.URLByAppendingPathComponent(path), resolvingAgainstBaseURL: false)!
