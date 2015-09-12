@@ -421,6 +421,9 @@
                                             <variation key="widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="92" y="10" width="0.0" height="21"/>
                                             </variation>
+                                            <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="83" y="15" width="23" height="21"/>
+                                            </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <exclude reference="QVm-MS-AK2"/>
@@ -445,6 +448,9 @@
                                             <variation key="widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="152" y="10" width="113" height="21"/>
                                             </variation>
+                                            <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="145" y="15" width="81" height="21"/>
+                                            </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <include reference="4Uo-Yx-kBG"/>
@@ -463,6 +469,9 @@
                                             <variation key="widthClass=compact" misplaced="YES">
                                                 <rect key="frame" x="290" y="10" width="102" height="21"/>
                                             </variation>
+                                            <variation key="heightClass=compact-widthClass=compact" misplaced="YES">
+                                                <rect key="frame" x="253" y="15" width="139" height="21"/>
+                                            </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
                                                 <mask key="constraints">
                                                     <exclude reference="U9i-zx-k4v"/>
@@ -475,7 +484,9 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="KaV-rc-VAH" secondAttribute="trailing" constant="25" id="7cg-kZ-7kh"/>
                                         <constraint firstItem="KaV-rc-VAH" firstAttribute="leading" secondItem="9R1-dC-xej" secondAttribute="leadingMargin" id="7mO-xw-2Sn"/>
                                         <constraint firstItem="m5M-Pu-ZHb" firstAttribute="leading" secondItem="JX2-c7-HrQ" secondAttribute="trailing" constant="60" id="GE8-tM-XUr"/>
-                                        <constraint firstItem="GPL-lP-F4W" firstAttribute="leading" secondItem="m5M-Pu-ZHb" secondAttribute="trailing" constant="25" id="Iqi-bL-Dfy"/>
+                                        <constraint firstItem="GPL-lP-F4W" firstAttribute="leading" secondItem="m5M-Pu-ZHb" secondAttribute="trailing" constant="25" id="Iqi-bL-Dfy">
+                                            <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                        </constraint>
                                         <constraint firstItem="m5M-Pu-ZHb" firstAttribute="leading" secondItem="JX2-c7-HrQ" secondAttribute="trailing" constant="39" id="JIh-La-mRF"/>
                                         <constraint firstItem="JX2-c7-HrQ" firstAttribute="leading" secondItem="9R1-dC-xej" secondAttribute="leadingMargin" constant="75" id="L5P-Kg-Ywg"/>
                                         <constraint firstItem="m5M-Pu-ZHb" firstAttribute="bottom" secondItem="JX2-c7-HrQ" secondAttribute="bottom" id="MPT-Z4-VPO"/>
@@ -584,7 +595,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hin-Fb-VND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2197" y="426"/>
+            <point key="canvasLocation" x="2196" y="426"/>
         </scene>
         <!--Casting Demand Recommendations-->
         <scene sceneID="nhf-LH-r0u">
