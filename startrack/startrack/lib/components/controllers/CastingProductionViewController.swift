@@ -77,10 +77,8 @@ class CastingProductionViewController: ViewController, PDTSimpleCalendarViewDele
         }
 
         if let maximumDate = maximumDateForCalendarViewController {
-            calendarViewController.lastDate = maximumDate.dateByAddingTimeInterval(100000)
+            calendarViewController.lastDate = maximumDate
         }
-
-        //navigationController?.pushViewController(calendarViewController, animated: true)
 
         calendarViewController.view.frame = containerView.frame
         containerView.addSubview(calendarViewController.view)

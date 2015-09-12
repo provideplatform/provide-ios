@@ -169,12 +169,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QVY-DE-N9q" firstAttribute="centerY" secondItem="87b-RI-07e" secondAttribute="centerY" id="Ln9-cl-aLh"/>
                             <constraint firstItem="QVY-DE-N9q" firstAttribute="leading" secondItem="87b-RI-07e" secondAttribute="leadingMargin" constant="-20" id="T4p-6A-DfB"/>
                             <constraint firstItem="QPQ-4G-sOQ" firstAttribute="top" secondItem="QVY-DE-N9q" secondAttribute="bottom" id="Xnm-H0-rpk"/>
                             <constraint firstItem="1LI-TQ-NTa" firstAttribute="centerX" secondItem="87b-RI-07e" secondAttribute="centerX" id="e5c-sS-bAn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QVY-DE-N9q" secondAttribute="trailing" constant="-20" id="fQ8-6r-S5P"/>
                             <constraint firstItem="1LI-TQ-NTa" firstAttribute="centerY" secondItem="87b-RI-07e" secondAttribute="centerY" id="r6h-Vk-dfV"/>
                             <constraint firstItem="QVY-DE-N9q" firstAttribute="top" secondItem="J23-EP-C8p" secondAttribute="bottom" constant="-20" id="sZF-6C-dWY"/>
+                            <constraint firstItem="QVY-DE-N9q" firstAttribute="centerX" secondItem="87b-RI-07e" secondAttribute="centerX" id="vrH-kU-D7v"/>
                         </constraints>
                     </view>
                     <connections>
