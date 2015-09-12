@@ -119,11 +119,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
         let params = [
             "page": page,
             "rpp": rpp,
-            "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,canceled,abandoned",
-            "sort_started_at_desc": "true",
-            "include_work_orders": "true"
-//            "include_checkin_coordinates": "true",
-//            "douglas_peucker_tolerance": "1"
+            "status": "scheduled,in_progress,completed,canceled",
         ]
 
         ApiService.sharedService().fetchProductions(params as! [String : AnyObject],
