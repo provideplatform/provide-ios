@@ -11,11 +11,13 @@ import Foundation
 class Production: Model {
 
     var id = 0
+    var name: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([
             "id",
+            "name",
             ]
         )
         return mapping

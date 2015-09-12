@@ -25,6 +25,7 @@ class ApiService: NSObject {
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
         "products": Product.mapping(),
+        "productions": Production.mapping(),
         "providers": Provider.mapping(),
         "routes": Route.mapping(),
         "tokens": Token.mapping(),

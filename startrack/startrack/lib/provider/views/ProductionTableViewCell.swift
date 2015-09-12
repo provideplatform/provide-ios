@@ -14,6 +14,7 @@ class ProductionTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var detailsContainerView: UIView!
     @IBOutlet private weak var statusBackgroundView: UIView!
+    @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
@@ -28,7 +29,9 @@ class ProductionTableViewCell: UITableViewCell {
             roundCorners(4.0)
 
             contentView.backgroundColor = UIColor.clearColor()
-            detailsContainerView.backgroundColor = UIColor.clearColor()
+            detailsContainerView?.backgroundColor = UIColor.clearColor()
+
+            nameLabel?.text = production.name
 
 //            statusBackgroundView.backgroundColor = production.statusColor
 //            statusBackgroundView.frame = bounds
@@ -85,20 +88,20 @@ class ProductionTableViewCell: UITableViewCell {
         super.prepareForReuse()
 
         contentView.backgroundColor = UIColor.clearColor()
-        detailsContainerView.backgroundColor = UIColor.clearColor()
+        detailsContainerView?.backgroundColor = UIColor.clearColor()
 
-        statusBackgroundView.backgroundColor = UIColor.clearColor()
-        statusBackgroundView.alpha = 0.9
+        statusBackgroundView?.backgroundColor = UIColor.clearColor()
+        statusBackgroundView?.alpha = 0.9
 
-        avatarImageView.image = nil
-        avatarImageView.alpha = 0.0
+        avatarImageView?.image = nil
+        avatarImageView?.alpha = 0.0
 
         gravatarImageView?.image = nil
         gravatarImageView = nil
 
-        timestampLabel.text = ""
-        durationLabel.text = ""
-        statusLabel.text = ""
+        timestampLabel?.text = ""
+        durationLabel?.text = ""
+        statusLabel?.text = ""
 
         timer?.invalidate()
     }
