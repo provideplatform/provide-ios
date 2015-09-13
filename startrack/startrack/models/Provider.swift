@@ -12,10 +12,16 @@ class Provider: Model {
 
     var id = 0
     var userId = 0
-    var name: String!
     var contact: Contact!
     var profileImageUrlString: String!
     var services: NSSet!
+
+    var name: String! {
+        if let name = contact?.name {
+            return  name
+        }
+        return nil
+    }
 
     var age: Int {
         return 29 // FIXME

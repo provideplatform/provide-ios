@@ -29,7 +29,7 @@ class CastingDemandRecommendationContainerView: UIView {
                 profileImageView.alpha = 0.0
             }
 
-            nameLabel.text = "\(provider.contact.name), \(provider.age)"
+            nameLabel.text = "\(provider.name), \(provider.age)"
             bioLabel.text = "Male, 6'3\", 210 lbs"
             affiliationsLabel.text = ""
         }
