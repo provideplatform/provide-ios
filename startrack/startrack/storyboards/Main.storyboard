@@ -68,19 +68,10 @@
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="startrack" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="125" y="83" width="350" height="174"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="350" id="QxN-jT-y7g"/>
-                                    <constraint firstAttribute="height" constant="174" id="qNu-3I-fcf"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="63" id="599-P9-V97"/>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
-                            <constraint firstAttribute="centerX" secondItem="Isk-bN-U1h" secondAttribute="centerX" id="EPJ-tF-YoC"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="Es4-5f-YDi"/>
                             <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="8" id="jyT-wL-GlT"/>
                         </constraints>
@@ -765,9 +756,6 @@
             <point key="canvasLocation" x="722" y="385"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="home-logo" width="383" height="315"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="pyb-Ej-lW7"/>
         <segue reference="qEh-KF-YoG"/>
