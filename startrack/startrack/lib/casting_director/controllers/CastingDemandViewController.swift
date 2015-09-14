@@ -83,6 +83,23 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
 
     func castingDemandRecommendationCollectionViewCell(cell: CastingDemandRecommendationCollectionViewCell, didApproveRecommendedProvider provider: Provider) {
         print("approved recommended provider \(provider)")
+        let params = [
+            "customer_id": String(castingDemand.shooting.location.id),
+            "work_order_providers": [["provider_id": provider.id]],
+            "scheduled_start_at": castingDemand.scheduledStartAt,
+            "estimated_duration": castingDemand.estimatedDuration,
+            "status": "scheduled",
+            "components": [["component": "QRCodeCheckin"]]
+        ]
+
+        ApiService.sharedService().createWorkOrder(params as! [String : AnyObject],
+            onSuccess: { (statusCode, mappingResult) -> () in
+                print("CREATED WORK ORDER \(mappingResult.firstObject as! WorkOrder)")
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
         showNextRecommendation()
     }
 
