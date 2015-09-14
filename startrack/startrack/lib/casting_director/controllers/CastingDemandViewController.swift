@@ -11,6 +11,7 @@ import UIKit
 class CastingDemandViewController: ViewController, CastingDemandRecommendationCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet private weak var recommendationsCollectionView: UICollectionView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     var castingDemand: CastingDemand! {
         didSet {
@@ -29,15 +30,18 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
     private var providers = [Provider]()
 
     private func fetchProviderRecommendations() {
+        activityIndicatorView?.startAnimating()
+
         castingDemand?.fetchProviderRecommendations(
             { statusCode, mappingResult in
                 for provider in mappingResult.array() as! [Provider] {
                     self.providers.append(provider)
                 }
                 self.recommendationsCollectionView.reloadData()
+                self.activityIndicatorView.stopAnimating()
             },
             onError: { error, statusCode, responseString in
-
+                self.activityIndicatorView.stopAnimating()
             }
         )
     }
@@ -58,6 +62,8 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        edgesForExtendedLayout = .None
 
         recommendationsCollectionView.registerClass(CastingDemandRecommendationCollectionViewHeader.self,
                                                     forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
@@ -84,6 +90,7 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
     func castingDemandRecommendationCollectionViewCell(cell: CastingDemandRecommendationCollectionViewCell, didApproveRecommendedProvider provider: Provider) {
         print("approved recommended provider \(provider)")
         let params = [
+            "casting_demand_id": String(castingDemand.id),
             "customer_id": String(castingDemand.shooting.location.id),
             "work_order_providers": [["provider_id": provider.id]],
             "scheduled_start_at": castingDemand.scheduledStartAt,

@@ -353,6 +353,7 @@
         <!--Casting Recommendations for Role-->
         <scene sceneID="x83-Wy-e5F">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hin-Fb-VND" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController title="Casting Recommendations for Role" extendedLayoutIncludesOpaqueBars="YES" id="R54-Gw-bQa" customClass="CastingDemandViewController" customModule="startrack" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DxP-jY-XSP"/>
@@ -362,6 +363,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Pu6-Ju-oln">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h6x-cz-KmN">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -373,18 +377,19 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="castingDemandRecommendationCollectionViewCellReuseIdentifier" id="rfx-ob-AcS" customClass="CastingDemandRecommendationCollectionViewCell" customModule="startrack" customModuleProvider="target">
-                                        <rect key="frame" x="110" y="85" width="380" height="360"/>
+                                        <rect key="frame" x="110" y="65" width="380" height="360"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="380" height="360"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <size key="customSize" width="380" height="360"/>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="castingDemandRecommendationCollectionViewHeaderReuseIdentifier" id="9R1-dC-xej" customClass="CastingDemandRecommendationCollectionViewHeader" customModule="startrack" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="20" width="600" height="65"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sparrer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KaV-rc-VAH">
@@ -579,23 +584,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="h6x-cz-KmN" secondAttribute="trailing" constant="-20" id="BXY-Uq-uqj"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="leading" secondItem="5cz-1F-WKk" secondAttribute="leading" id="N1y-q6-YUB"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="leading" secondItem="5cz-1F-WKk" secondAttribute="leadingMargin" constant="-20" id="cfm-hz-YKF"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="bottom" secondItem="HCw-qq-B20" secondAttribute="top" id="cko-2R-9xv"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="top" secondItem="DxP-jY-XSP" secondAttribute="bottom" constant="-20" id="eFo-FY-jto"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="centerX" secondItem="5cz-1F-WKk" secondAttribute="centerX" id="eaT-iJ-nWL"/>
-                            <constraint firstItem="HCw-qq-B20" firstAttribute="top" secondItem="h6x-cz-KmN" secondAttribute="bottom" id="hAr-j9-APi"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="centerY" secondItem="5cz-1F-WKk" secondAttribute="centerY" id="ij5-jE-b21"/>
-                            <constraint firstAttribute="trailing" secondItem="h6x-cz-KmN" secondAttribute="trailing" id="ocz-KA-hJk"/>
-                            <constraint firstItem="h6x-cz-KmN" firstAttribute="top" secondItem="5cz-1F-WKk" secondAttribute="top" id="wNw-N1-VtB"/>
+                            <constraint firstItem="h6x-cz-KmN" firstAttribute="leading" secondItem="5cz-1F-WKk" secondAttribute="leading" id="8P1-50-PAb"/>
+                            <constraint firstItem="Pu6-Ju-oln" firstAttribute="centerY" secondItem="h6x-cz-KmN" secondAttribute="centerY" id="QY8-U8-47W"/>
+                            <constraint firstItem="h6x-cz-KmN" firstAttribute="bottom" secondItem="HCw-qq-B20" secondAttribute="top" id="dF7-V6-mH4"/>
+                            <constraint firstItem="h6x-cz-KmN" firstAttribute="top" secondItem="5cz-1F-WKk" secondAttribute="top" id="kyi-2o-fdo"/>
+                            <constraint firstItem="h6x-cz-KmN" firstAttribute="centerX" secondItem="Pu6-Ju-oln" secondAttribute="centerX" id="nnU-og-O6e"/>
+                            <constraint firstAttribute="trailing" secondItem="h6x-cz-KmN" secondAttribute="trailing" id="tXx-Gz-s7I"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="Pu6-Ju-oln" id="5yj-ho-TMO"/>
                         <outlet property="recommendationsCollectionView" destination="h6x-cz-KmN" id="ydB-AO-ZMY"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hin-Fb-VND" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2196" y="426"/>
         </scene>
