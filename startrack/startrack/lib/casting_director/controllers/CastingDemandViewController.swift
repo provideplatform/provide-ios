@@ -29,13 +29,18 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
 
     private var providers = [Provider]()
 
+    private var pendingProvider: Provider!
+
     private func fetchProviderRecommendations() {
         activityIndicatorView?.startAnimating()
 
         castingDemand?.fetchProviderRecommendations(
             { statusCode, mappingResult in
                 for provider in mappingResult.array() as! [Provider] {
-                    self.providers.append(provider)
+                    let validRecommendation = self.pendingProvider == nil || self.pendingProvider.id != provider.id
+                    if validRecommendation {
+                        self.providers.append(provider)
+                    }
                 }
                 self.recommendationsCollectionView.reloadData()
                 self.activityIndicatorView.stopAnimating()
@@ -88,23 +93,27 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
     }
 
     func castingDemandRecommendationCollectionViewCell(cell: CastingDemandRecommendationCollectionViewCell, didApproveRecommendedProvider provider: Provider) {
-        print("approved recommended provider \(provider)")
         let params = [
             "casting_demand_id": String(castingDemand.id),
             "customer_id": String(castingDemand.shooting.location.id),
             "work_order_providers": [["provider_id": provider.id]],
             "scheduled_start_at": castingDemand.scheduledStartAt,
-            "estimated_duration": castingDemand.estimatedDuration * 60 * 60,
+            "estimated_duration": castingDemand.estimatedDuration * 60,
             "status": "scheduled",
             "components": [["component": "QRCodeCheckin"]]
         ]
 
+        pendingProvider = provider
+
         ApiService.sharedService().createWorkOrder(params as! [String : AnyObject],
             onSuccess: { (statusCode, mappingResult) -> () in
-                print("CREATED WORK ORDER \(mappingResult.firstObject as! WorkOrder)")
+                self.pendingProvider = nil
+
+                self.castingDemand.quantityRemaining--
+                self.recommendationsCollectionView.reloadData()
             },
             onError: { error, statusCode, responseString in
-
+                self.pendingProvider = nil
             }
         )
         showNextRecommendation()
