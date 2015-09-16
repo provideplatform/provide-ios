@@ -30,7 +30,14 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
         castingDemand?.fetchProviderRecommendations(
             { statusCode, mappingResult in
                 for provider in mappingResult.array() as! [Provider] {
-                    let validRecommendation = self.pendingProvider == nil || self.pendingProvider.id != provider.id
+                    var queuedRecommendation = false
+                    for queuedProvider in self.providers {
+                        queuedRecommendation = queuedProvider.id == provider.id
+                        if queuedRecommendation {
+                            break
+                        }
+                    }
+                    let validRecommendation = !queuedRecommendation && (self.pendingProvider == nil || self.pendingProvider.id != provider.id)
                     if validRecommendation {
                         self.providers.append(provider)
                     }
