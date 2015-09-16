@@ -97,7 +97,7 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
             "casting_demand_id": String(castingDemand.id),
             "customer_id": String(castingDemand.shooting.location.id),
             "work_order_providers": [["provider_id": provider.id]],
-            "scheduled_start_at": castingDemand.scheduledStartAt,
+            "scheduled_start_at": castingDemand.scheduledStartAtDate.utcString,
             "estimated_duration": castingDemand.estimatedDuration * 60,
             "status": "scheduled",
             "components": [["component": "QRCodeCheckin"]]
