@@ -122,7 +122,8 @@ class CastingProductionViewController: ViewController, PDTSimpleCalendarViewDele
     func queryParamsForCastingDemandsViewController(viewController: CastingDemandsViewController) -> [String : AnyObject] {
         return [
             "production_id": String(production.id),
-            "shooting_date": selectedDate.dateString
+            "shooting_date": selectedDate.dateString,
+            "unfilled": "true"
         ]
     }
 }
