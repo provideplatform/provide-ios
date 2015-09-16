@@ -16,13 +16,6 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
     var castingDemand: CastingDemand! {
         didSet {
             refreshNavigationItem()
-
-//            nameLabel?.text = castingDemand.actingRole.name
-//
-//            attributesLabel?.text = ""
-//            quantityLabel?.text = "Quantity: \(castingDemand.quantity)"
-//            rateLabel?.text = "Budget: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
-
             fetchProviderRecommendations()
         }
     }

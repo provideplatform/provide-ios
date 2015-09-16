@@ -106,7 +106,10 @@ class CastingProductionViewController: ViewController, PDTSimpleCalendarViewDele
     }
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
-        return production.allShootingDates.indexOf(date) != nil
+        if production.allShootingDates.indexOf(date) != nil {
+            return date.timeIntervalSinceDate(NSDate().atMidnight) >= 0
+        }
+        return false
     }
 
 //    - (BOOL)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller isEnabledDate:(NSDate *)date;
