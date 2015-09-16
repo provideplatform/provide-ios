@@ -58,4 +58,8 @@ class Contact: Model {
         address += "\n\(city), \(state) \(zip)"
         return address
     }
+
+    var firstName: String {
+        return name.splitAtString(" ").0
+    }
 }
