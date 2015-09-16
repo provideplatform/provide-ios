@@ -21,7 +21,7 @@ class CastingDemandRecommendationCollectionViewHeader: UICollectionReusableView 
 
             attributesLabel?.text = ""
             quantityLabel?.text = "Quantity: \(castingDemand.quantityRemaining)"
-            rateLabel?.text = "Budget: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
+            rateLabel?.text = "Rate: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
         }
     }
 }

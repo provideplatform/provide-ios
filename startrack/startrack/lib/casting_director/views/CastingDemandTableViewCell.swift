@@ -25,7 +25,7 @@ class CastingDemandTableViewCell: UITableViewCell {
 
             attributesLabel?.text = ""
             quantityLabel?.text = "Quantity: \(castingDemand.quantityRemaining)"
-            rateLabel?.text = "Budget: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
+            rateLabel?.text = "Rate: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
             locationLabel?.text = "@ \(castingDemand.shooting.location.name)"
             scheduledStartAtLabel?.text = castingDemand.scheduledStartAtDate.timeString
         }
