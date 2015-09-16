@@ -20,7 +20,7 @@ class CastingDemandRecommendationCollectionViewHeader: UICollectionReusableView 
             nameLabel?.text = castingDemand.actingRole.name
 
             attributesLabel?.text = ""
-            quantityLabel?.text = "Quantity: \(castingDemand.quantity)"
+            quantityLabel?.text = "Quantity: \(castingDemand.quantityRemaining)"
             rateLabel?.text = "Budget: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
         }
     }
