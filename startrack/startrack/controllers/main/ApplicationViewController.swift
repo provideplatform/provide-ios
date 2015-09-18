@@ -19,6 +19,14 @@ class ApplicationViewController: ECSlidingViewController,
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
 
+    private var providerStoryboard: UIStoryboard {
+        return UIStoryboard("Provider")
+    }
+
+    private var castingDirectorStoryboard: UIStoryboard {
+        return UIStoryboard("CastingDirector")
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -66,6 +74,16 @@ class ApplicationViewController: ECSlidingViewController,
         }
     }
 
+    private func setupTopViewController() {
+        let user = currentUser()
+        let topViewController = navigationController?.viewControllers[0] as! TopViewController
+        if user.providerIds.count > 0 {
+            topViewController.topStoryboard = providerStoryboard
+        } else if user.companyIds.count > 0 {
+            topViewController.topStoryboard = castingDirectorStoryboard
+        }
+    }
+
     private func refreshMenu() {
         teardownMenu()
         
@@ -78,6 +96,7 @@ class ApplicationViewController: ECSlidingViewController,
 
         user.reload(
             { statusCode, mappingResult in
+                self.setupTopViewController()
                 self.refreshMenu()
 
                 if currentUser().profileImageUrl == nil {

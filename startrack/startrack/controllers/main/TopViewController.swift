@@ -10,21 +10,18 @@ import UIKit
 
 class TopViewController: ViewController {
 
-    var providerStoryboard: UIStoryboard {
-        return UIStoryboard("Provider")
-    }
+    var topStoryboard: UIStoryboard! {
+        didSet {
+            let viewController = topStoryboard.instantiateInitialViewController()
+            viewController!.view.frame = view.bounds
 
-    var castingDirectorStoryboard: UIStoryboard {
-        return UIStoryboard("CastingDirector")
+            navigationController?.popToRootViewControllerAnimated(false)
+            navigationController?.pushViewController(viewController!, animated: false)
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let viewController = castingDirectorStoryboard.instantiateInitialViewController()
-        viewController!.view.frame = view.bounds
-
-        navigationController?.pushViewController(viewController!, animated: false)
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)

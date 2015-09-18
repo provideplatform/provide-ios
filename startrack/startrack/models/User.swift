@@ -15,6 +15,8 @@ class User: Model {
     var email: String!
     var profileImageUrlString: String!
     var contact: Contact!
+    var companyIds = [AnyObject]()
+    var providerIds = [AnyObject]()
 
     var profileImageUrl: NSURL! {
         if let profileImageUrlString = profileImageUrlString {
@@ -29,7 +31,9 @@ class User: Model {
             "id": "id",
             "name": "name",
             "email": "email",
-            "profile_image_url": "profileImageUrlString"
+            "profile_image_url": "profileImageUrlString",
+            "company_ids": "companyIds",
+            "provider_ids": "providerIds",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         return mapping
