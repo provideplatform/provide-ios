@@ -124,7 +124,6 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
             "components": [["component": "QRCodeCheckin"]]
         ]
 
-
         ApiService.sharedService().createWorkOrder(params as! [String : AnyObject],
             onSuccess: { (statusCode, mappingResult) -> () in
                 self.pendingProvider = nil

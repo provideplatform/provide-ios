@@ -23,8 +23,12 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var cancelButton: UIButton!
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+
     var workOrder: WorkOrder! {
         didSet {
+            activityIndicatorView?.stopAnimating()
+
             addBorder(1.0, color: UIColor.lightGrayColor())
             roundCorners(4.0)
 
@@ -36,10 +40,16 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
                 cancelButton.sizeToFit()
                 cancelButton.alpha = 1.0
                 cancelButton.enabled = true
+
+                statusLabel?.text = "CONFIRMED"
+                statusLabel?.alpha = 1.0
             } else {
                 confirmButton.sizeToFit()
                 confirmButton.alpha = 1.0
                 confirmButton.enabled = true
+
+                statusLabel?.text = ""
+                statusLabel?.alpha = 0.0
             }
         }
     }
@@ -74,19 +84,82 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
         locationLabel?.text = ""
         scheduledStartAtLabel?.text = ""
         statusLabel?.text = ""
+        statusLabel?.alpha = 0.0
 
-        confirmButton.alpha = 0.0
-        cancelButton.alpha = 0.0
+        disableActionButtons()
 
-        confirmButton.enabled = false
-        cancelButton.enabled = false
+        activityIndicatorView?.stopAnimating()
+    }
+
+    private func disableActionButtons() {
+        confirmButton?.alpha = 0.0
+        cancelButton?.alpha = 0.0
+
+        confirmButton?.enabled = false
+        cancelButton?.enabled = false
     }
 
     @IBAction func confirm(sender: UIButton) {
-        print("confirm")
+        disableActionButtons()
+        activityIndicatorView?.startAnimating()
+
+        let workOrderProviderParams = [
+            "id": workOrder.workOrderProviders.first!.id,
+            "provider_id": workOrder.workOrderProviders.first!.provider.id,
+            "confirmed_at": NSDate().utcString
+        ]
+
+        let params = [
+            "work_order_providers": [workOrderProviderParams],
+        ]
+
+        ApiService.sharedService().updateWorkOrderWithId(String(workOrder.id), params: params,
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self.workOrder)
+
+                self.activityIndicatorView?.stopAnimating()
+
+                self.statusLabel?.text = "CONFIRMED"
+                self.statusLabel?.alpha = 1.0
+
+                self.cancelButton.alpha = 1.0
+                self.cancelButton.enabled = true
+            },
+            onError: { error, statusCode, responseString in
+                self.activityIndicatorView?.stopAnimating()
+            }
+        )
     }
 
     @IBAction func cancel(sender: UIButton) {
-        print("cancel")
+        disableActionButtons()
+        activityIndicatorView?.startAnimating()
+
+        let workOrderProviderParams = [
+            "id": workOrder.workOrderProviders.first!.id,
+            "provider_id": workOrder.workOrderProviders.first!.provider.id,
+            "confirmed_at": NSNull()
+        ]
+
+        let params = [
+            "work_order_providers": [workOrderProviderParams],
+        ]
+
+        ApiService.sharedService().updateWorkOrderWithId(String(workOrder.id), params: params,
+            onSuccess: { statusCode, mappingResult in
+                WorkOrderService.sharedService().updateWorkOrder(self.workOrder)
+
+                self.activityIndicatorView?.stopAnimating()
+
+                self.statusLabel?.text = ""
+                self.statusLabel?.alpha = 0.0
+
+                self.confirmButton.alpha = 1.0
+                self.confirmButton.enabled = true
+            },
+            onError: { error, statusCode, responseString in
+                self.activityIndicatorView?.stopAnimating()
+            }
+        )
     }
 }
