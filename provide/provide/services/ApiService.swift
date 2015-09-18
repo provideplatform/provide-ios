@@ -33,6 +33,9 @@ class ApiService: NSObject {
         "messages": Message.mapping(),
     ]
 
+    private let initialBackoffTimeout: NSTimeInterval = 0.1
+    private var backoffTimeout: NSTimeInterval!
+
     private var headers = [String : String]()
 
     private static let sharedInstance = ApiService()
@@ -43,6 +46,8 @@ class ApiService: NSObject {
 
     override init() {
         super.init()
+
+        backoffTimeout = initialBackoffTimeout
 
         if let token = KeyChainService.sharedService().token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
@@ -508,6 +513,8 @@ class ApiService: NSObject {
                         let statusCode = receivedResponse ? operation.HTTPRequestOperation.response.statusCode : -1
 
                         if receivedResponse {
+                            self.backoffTimeout = self.initialBackoffTimeout
+
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["path": path,
                                                                                                        "statusCode": statusCode,
                                                                                                        "params": jsonParams,
@@ -519,12 +526,17 @@ class ApiService: NSObject {
                                                                                                        "params": jsonParams,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
 
-                            self.dispatchOperationForURL(baseURL,
-                                                         path: path,
-                                                         method: method,
-                                                         params: params,
-                                                         onSuccess: onSuccess,
-                                                         onError: onError)
+                            let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))
+                            dispatch_after(delay, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                                self.dispatchOperationForURL(baseURL,
+                                                             path: path,
+                                                             method: method,
+                                                             params: params,
+                                                             onSuccess: onSuccess,
+                                                             onError: onError)
+                            }
+
+                            self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
                         }
 
                         onError(error: error,
