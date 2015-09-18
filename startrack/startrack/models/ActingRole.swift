@@ -12,6 +12,7 @@ class ActingRole: Model {
 
     var id = 0
     var name: String!
+    var productionName: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -20,6 +21,9 @@ class ActingRole: Model {
             "name",
             ]
         )
+        mapping.addAttributeMappingsFromDictionary([
+            "production_name": "productionName",
+        ])
         return mapping
     }
 }

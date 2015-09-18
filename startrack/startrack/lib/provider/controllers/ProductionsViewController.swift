@@ -18,7 +18,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
 
     private var refreshControl: UIRefreshControl!
 
-    private var productions = [Production]() {
+    private var workOrders = [WorkOrder]() {
         didSet {
             tableView?.reloadData()
             //collectionView?.layoutIfNeeded()
@@ -26,6 +26,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     private weak var selectedProduction: Production!
+    private weak var selectedWorkOrder: WorkOrder!
 
     private var zeroStateViewController: ZeroStateViewController!
 
@@ -48,9 +49,9 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
 
     private var numberOfSections: Int {
         if isColumnedLayout {
-            return Int(ceil(Double(productions.count) / Double(numberOfItemsPerSection)))
+            return Int(ceil(Double(workOrders.count) / Double(numberOfItemsPerSection)))
         }
-        return productions.count
+        return workOrders.count
     }
 
     private var numberOfItemsPerSection: Int {
@@ -69,8 +70,8 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
         return indexPath.section
     }
 
-    private func productionForRowAtIndexPath(indexPath: NSIndexPath) -> Production {
-        return productions[productionIndexAtIndexPath(indexPath)]
+    private func productionForRowAtIndexPath(indexPath: NSIndexPath) -> WorkOrder {
+        return workOrders[productionIndexAtIndexPath(indexPath)]
     }
 
     private func setupZeroStateView() {
@@ -90,6 +91,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
         super.viewWillAppear(animated)
 
         selectedProduction = nil
+        selectedWorkOrder = nil
 
         tableView.frame = view.bounds
     }
@@ -105,37 +107,47 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     func reset() {
-        productions = [Production]()
+        workOrders = [WorkOrder]()
         page = 1
         lastProductionIndex = -1
         refresh()
     }
 
     func refresh() {
-        if page == 1 {
-            refreshControl.beginRefreshing()
+        WorkOrderService.sharedService().fetch(page, rpp: rpp, status: "scheduled,in_progress,completed,canceled", today: false, excludeRoutes: true) { (workOrders) -> () in
+            self.workOrders += workOrders
+
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+            self.refreshControl.endRefreshing()
         }
-
-        let params = [
-            "page": page,
-            "rpp": rpp,
-            "status": "scheduled,in_progress,completed,canceled",
-        ]
-
-        ApiService.sharedService().fetchProductions(params as! [String : AnyObject],
-            onSuccess: { statusCode, mappingResult in
-                let fetchedProductions = mappingResult.array() as! [Production]
-                self.productions += fetchedProductions
-
-                self.tableView.reloadData()
-                self.tableView.layoutIfNeeded()
-                self.refreshControl.endRefreshing()
-            },
-            onError: { error, statusCode, responseString in
-                // TODO
-            }
-        )
     }
+
+//    func refresh2() {
+//        if page == 1 {
+//            refreshControl.beginRefreshing()
+//        }
+//
+//        let params = [
+//            "page": page,
+//            "rpp": rpp,
+//            "status": "scheduled,in_progress,completed,canceled",
+//        ]
+//
+//        ApiService.sharedService().fetchProductions(params as! [String : AnyObject],
+//            onSuccess: { statusCode, mappingResult in
+//                let fetchedProductions = mappingResult.array() as! [Production]
+//                self.productions += fetchedProductions
+//
+//                self.tableView.reloadData()
+//                self.tableView.layoutIfNeeded()
+//                self.refreshControl.endRefreshing()
+//            },
+//            onError: { error, statusCode, responseString in
+//                // TODO
+//            }
+//        )
+//    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ProductionViewControllerSegue" {
@@ -173,7 +185,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let productionIndex = productionIndexAtIndexPath(indexPath)
-        if productionIndex == productions.count - 1 && productionIndex > lastProductionIndex {
+        if productionIndex == workOrders.count - 1 && productionIndex > lastProductionIndex {
             page++
             lastProductionIndex = productionIndex
             refresh()
@@ -189,7 +201,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isColumnedLayout {
             let productionIndex = productionIndexAtIndexPath(NSIndexPath(forRow: 1, inSection: section))
-            if productionIndex > productions.count - 1 {
+            if productionIndex > workOrders.count - 1 {
                 return 1
             }
             return 2
@@ -198,8 +210,8 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("productionTableViewCellReuseIdentifier") as! ProductionTableViewCell
-        cell.production = productionForRowAtIndexPath(indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("providerCastingDemandTableViewCellReuseIdentifier") as! ProviderCastingDemandTableViewCell
+        cell.workOrder = productionForRowAtIndexPath(indexPath)
         return cell
     }
 

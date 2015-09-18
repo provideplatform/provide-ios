@@ -750,7 +750,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="productionTableViewCellReuseIdentifier" id="fBy-NX-Djk" customClass="ProductionTableViewCell" customModule="startrack" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="providerCastingDemandTableViewCellReuseIdentifier" id="fBy-NX-Djk" customClass="ProviderCastingDemandTableViewCell" customModule="startrack" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fBy-NX-Djk" id="swn-T6-aKx">
@@ -858,6 +858,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="cancelButton" destination="Rl5-6s-R8w" id="wZ6-M9-rxl"/>
+                                            <outlet property="confirmButton" destination="TOQ-um-Ish" id="CVu-H2-0rB"/>
+                                            <outlet property="nameLabel" destination="6oj-Lw-F9h" id="GTY-Ks-uvf"/>
+                                            <outlet property="rateLabel" destination="ztm-Ue-yO4" id="T2r-mA-zHl"/>
+                                            <outlet property="roleLabel" destination="FRO-x3-YhK" id="Re1-eu-O6b"/>
+                                            <outlet property="scheduledStartAtLabel" destination="aTs-1d-PrN" id="thg-dQ-90W"/>
+                                            <outlet property="statusLabel" destination="oxk-68-NWv" id="hOi-PP-VFQ"/>
                                             <segue destination="PMr-3s-fSr" kind="show" identifier="ProductionViewControllerSegue" id="hLM-bt-3jd"/>
                                         </connections>
                                     </tableViewCell>

@@ -15,6 +15,7 @@ class WorkOrder: Model, MKAnnotation {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var castingDemand: CastingDemand!
     var desc: String!
     var workOrderProviders = [WorkOrderProvider]()
     var scheduledStartAt: String!
@@ -54,6 +55,7 @@ class WorkOrder: Model, MKAnnotation {
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("casting_demand", mapping: CastingDemand.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))

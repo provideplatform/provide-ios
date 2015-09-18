@@ -78,6 +78,7 @@
 		6855D6B81BA46921002BBA4D /* CastingDemandRecommendationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D6B71BA46921002BBA4D /* CastingDemandRecommendationCollectionViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6855D6BA1BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D6B91BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift */; settings = {ASSET_TAGS = (); }; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
+		686095171BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		6870E4621B9DD76500F0E757 /* ProductionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6870E4641B9DD8AE00F0E757 /* ProductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -253,6 +254,7 @@
 		6855D6B71BA46921002BBA4D /* CastingDemandRecommendationCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastingDemandRecommendationCollectionViewCell.swift; sourceTree = "<group>"; };
 		6855D6B91BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastingDemandRecommendationCollectionViewHeader.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
+		686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCastingDemandTableViewCell.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionsViewController.swift; sourceTree = "<group>"; };
 		6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionViewController.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 		68B412F71B08153D009A4C05 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */,
 				6870E4671B9DDD4400F0E757 /* ProductionTableViewCell.swift */,
 				68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */,
 				68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */,
@@ -1176,6 +1179,7 @@
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
+				686095171BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				681416E71B8457870076BFBD /* Company.swift in Sources */,
