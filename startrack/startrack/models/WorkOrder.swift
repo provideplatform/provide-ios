@@ -65,6 +65,15 @@ class WorkOrder: Model, MKAnnotation {
         return mapping
     }
 
+    var isConfirmed: Bool {
+        for workOrderProvider in workOrderProviders {
+            if !workOrderProvider.isConfirmed {
+                return false
+            }
+        }
+        return true
+    }
+
     var scheduledStartAtDate: NSDate! {
         if let scheduledStartAt = scheduledStartAt {
             return NSDate.fromString(scheduledStartAt)

@@ -810,12 +810,15 @@
                                                         <constraint firstAttribute="width" constant="117" id="QrA-sc-CzJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="ACCEPT ROLE"/>
+                                                    <state key="normal" title="ACCEPT"/>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <mask key="constraints">
                                                             <exclude reference="QrA-sc-CzJ"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="confirm:" destination="fBy-NX-Djk" eventType="touchUpInside" id="MDt-TA-rdF"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONFIRMED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxk-68-NWv">
                                                     <rect key="frame" x="495" y="37" width="98" height="21"/>
@@ -852,6 +855,9 @@
                                                             <exclude reference="igF-kJ-her"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="cancel:" destination="fBy-NX-Djk" eventType="touchUpInside" id="KCU-Dg-ri8"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gIo-sp-5Jc">
                                                     <rect key="frame" x="97" y="7" width="22" height="22"/>

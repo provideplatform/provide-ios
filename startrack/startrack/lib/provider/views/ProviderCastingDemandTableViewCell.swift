@@ -31,6 +31,16 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
             contentView.backgroundColor = UIColor.clearColor()
 
             castingDemand = workOrder.castingDemand
+
+            if workOrder.isConfirmed {
+                cancelButton.sizeToFit()
+                cancelButton.alpha = 1.0
+                cancelButton.enabled = true
+            } else {
+                confirmButton.sizeToFit()
+                confirmButton.alpha = 1.0
+                confirmButton.enabled = true
+            }
         }
     }
 
@@ -70,5 +80,13 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
 
         confirmButton.enabled = false
         cancelButton.enabled = false
+    }
+
+    @IBAction func confirm(sender: UIButton) {
+        print("confirm")
+    }
+
+    @IBAction func cancel(sender: UIButton) {
+        print("cancel")
     }
 }
