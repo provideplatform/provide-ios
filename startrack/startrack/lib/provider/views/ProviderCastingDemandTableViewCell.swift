@@ -39,7 +39,7 @@ class ProviderCastingDemandTableViewCell: UITableViewCell {
             nameLabel?.text = castingDemand.actingRole.productionName
 
             attributesLabel?.text = ""
-            roleLabel?.text = castingDemand.actingRole.name
+            roleLabel?.text = "Role: \(castingDemand.actingRole.name)"
             rateLabel?.text = "Rate: $\(castingDemand.rate) / \(castingDemand.estimatedDuration)"
             locationLabel?.text = "@ \(castingDemand.shooting.location.name)"
             scheduledStartAtLabel?.text = "\(castingDemand.scheduledStartAtDate.dateString) @ \(castingDemand.scheduledStartAtDate.timeString!)"
