@@ -224,6 +224,7 @@
                         <segue destination="AiO-Uo-7Bj" kind="show" identifier="ManifestViewControllerSegue" id="JeI-DH-1MQ"/>
                         <segue destination="PMr-3s-fSr" kind="show" identifier="ProductionViewControllerSegue" id="bV6-HV-hLp"/>
                         <segue destination="8lj-K2-jnv" kind="show" identifier="ProductionsViewControllerSegue" id="aVM-dB-0RQ"/>
+                        <segue destination="zpT-lR-fZh" kind="show" identifier="BarcodeScannerViewControllerSegue" id="Qsk-gD-NUG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -653,6 +654,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iRb-8W-Eq5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="421" y="2669"/>
+        </scene>
+        <!--Barcode Scanner View Controller-->
+        <scene sceneID="yMC-RD-aFA">
+            <objects>
+                <viewController id="zpT-lR-fZh" customClass="BarcodeScannerViewController" customModule="startrack" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yx9-zn-rgJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="5yB-sT-59m"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wjY-9d-qz2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kg4-QF-aXa" customClass="BarcodeScannerView" customModule="startrack" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kg4-QF-aXa" firstAttribute="top" secondItem="Yx9-zn-rgJ" secondAttribute="bottom" constant="-20" id="Aab-nb-DTf"/>
+                            <constraint firstItem="Kg4-QF-aXa" firstAttribute="leading" secondItem="wjY-9d-qz2" secondAttribute="leadingMargin" constant="-20" id="DxP-8v-aJ6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kg4-QF-aXa" secondAttribute="trailing" constant="-20" id="Vvc-Nd-uzz"/>
+                            <constraint firstItem="5yB-sT-59m" firstAttribute="top" secondItem="Kg4-QF-aXa" secondAttribute="bottom" id="XgM-37-edK"/>
+                            <constraint firstItem="Kg4-QF-aXa" firstAttribute="centerY" secondItem="wjY-9d-qz2" secondAttribute="centerY" id="gwP-Jr-mo1"/>
+                            <constraint firstItem="Kg4-QF-aXa" firstAttribute="centerX" secondItem="wjY-9d-qz2" secondAttribute="centerX" id="x1R-JY-fic"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barcodeScannerView" destination="Kg4-QF-aXa" id="beV-mv-dh1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DHS-9Y-Ghc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1054" y="2668"/>
         </scene>
         <!--ManifestViewController-->
         <scene sceneID="512-Ue-hGv">

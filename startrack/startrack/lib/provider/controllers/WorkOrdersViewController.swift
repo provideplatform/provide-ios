@@ -69,6 +69,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
+        "BarcodeScannerViewControllerSegue",
         "ProductionsViewControllerSegue",
         "WorkOrderAnnotationViewControllerSegue",
         "WorkOrderComponentViewControllerSegue",
@@ -93,6 +94,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToProductionsStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(ProductionsViewController) == false {
                 self.performSegueWithIdentifier("ProductionsViewControllerSegue", sender: self)
+            }
+        }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToBarcodeScannerStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(BarcodeScannerViewController) == false {
+                self.performSegueWithIdentifier("BarcodeScannerViewControllerSegue", sender: self)
             }
         }
 

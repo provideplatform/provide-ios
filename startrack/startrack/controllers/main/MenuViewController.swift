@@ -45,6 +45,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             webViewController.url = NSURL(string: "http://google.com") //NSURL("\(CurrentEnvironment.marketingBaseUrlString)/terms-of-service")
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
+        case "BarcodeScannerCell":
+            NSNotificationCenter.defaultCenter().postNotificationName("SegueToBarcodeScannerStoryboard", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
         case "LogoutCell":
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
@@ -79,6 +82,15 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
     }
 
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            if KeyChainService.sharedService().appMode == .CastingDirector {
+                return 2
+            }
+            return 1
+        }
+        return 2
+    }
     // MARK: MenuHeaderViewDelegate
 
     func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController! {

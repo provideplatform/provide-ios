@@ -855,5 +855,40 @@
             </objects>
             <point key="canvasLocation" x="2196" y="1093.5"/>
         </scene>
+        <!--Barcode Scanner View Controller-->
+        <scene sceneID="8ac-n0-nwg">
+            <objects>
+                <viewController storyboardIdentifier="BarcodeScannerViewController" id="lWT-Tu-Qx9" customClass="BarcodeScannerViewController" customModule="startrack" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tN9-XF-u1l"/>
+                        <viewControllerLayoutGuide type="bottom" id="REi-9U-X9U"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="PEi-nN-Bch">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzc-L7-VfD" customClass="BarcodeScannerView" customModule="startrack" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Uzc-L7-VfD" firstAttribute="centerX" secondItem="PEi-nN-Bch" secondAttribute="centerX" id="O1x-UA-lvR"/>
+                            <constraint firstItem="REi-9U-X9U" firstAttribute="top" secondItem="Uzc-L7-VfD" secondAttribute="bottom" id="UlB-lQ-nqG"/>
+                            <constraint firstItem="Uzc-L7-VfD" firstAttribute="centerY" secondItem="PEi-nN-Bch" secondAttribute="centerY" id="cKW-ZN-hJF"/>
+                            <constraint firstItem="Uzc-L7-VfD" firstAttribute="top" secondItem="tN9-XF-u1l" secondAttribute="bottom" constant="-20" id="i0w-AM-WmK"/>
+                            <constraint firstItem="Uzc-L7-VfD" firstAttribute="leading" secondItem="PEi-nN-Bch" secondAttribute="leadingMargin" constant="-20" id="sJv-zu-mdj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Uzc-L7-VfD" secondAttribute="trailing" constant="-20" id="ulV-LU-07Y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="barcodeScannerView" destination="Uzc-L7-VfD" id="dGE-FW-aed"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUr-9U-cgg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="276" y="1101"/>
+        </scene>
     </scenes>
 </document>

@@ -84,6 +84,13 @@ class CastingProductionsViewController: ViewController, UITableViewDelegate, UIT
         setupPullToRefresh()
 
         setupZeroStateView()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToBarcodeScannerStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(BarcodeScannerViewController) == false {
+                let barcodeScannerViewController = UIStoryboard("CastingDirector").instantiateViewControllerWithIdentifier("BarcodeScannerViewController")
+                self.navigationController!.pushViewController(barcodeScannerViewController, animated: true)
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
