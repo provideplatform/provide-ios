@@ -29,6 +29,18 @@ class KeyChainService {
         }
     }
 
+    var appMode: AppMode {
+        get {
+            if self["appMode"] == nil {
+                self["appMode"] = AppMode.Auto.rawValue
+            }
+            return AppMode(rawValue: self["appMode"]!)!
+        }
+        set {
+            self["appMode"] = newValue.rawValue
+        }
+    }
+
     var email: String? {
         get {
             return self["email"]

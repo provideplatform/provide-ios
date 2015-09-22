@@ -81,6 +81,7 @@
 		686095171BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		686095191BB13B5600E478BE /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686095181BB13B5600E478BE /* QRCodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6860951B1BB13B6800E478BE /* QRCode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6860951A1BB13B6800E478BE /* QRCode.storyboard */; settings = {ASSET_TAGS = (); }; };
+		6860951D1BB146AC00E478BE /* AppMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6860951C1BB146AC00E478BE /* AppMode.swift */; settings = {ASSET_TAGS = (); }; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		6870E4621B9DD76500F0E757 /* ProductionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6870E4641B9DD8AE00F0E757 /* ProductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -259,6 +260,7 @@
 		686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCastingDemandTableViewCell.swift; sourceTree = "<group>"; };
 		686095181BB13B5600E478BE /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		6860951A1BB13B6800E478BE /* QRCode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = QRCode.storyboard; sourceTree = "<group>"; };
+		6860951C1BB146AC00E478BE /* AppMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppMode.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionsViewController.swift; sourceTree = "<group>"; };
 		6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionViewController.swift; sourceTree = "<group>"; };
@@ -540,6 +542,7 @@
 		689B0CB91B07E0F1005694B7 /* enums */ = {
 			isa = PBXGroup;
 			children = (
+				6860951C1BB146AC00E478BE /* AppMode.swift */,
 				689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */,
 				689B0CBB1B07E0F1005694B7 /* Environment.swift */,
 				5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */,
@@ -1136,6 +1139,7 @@
 			files = (
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
 				687CB5531B07EAD30048B692 /* DictionaryExtensions.swift in Sources */,
+				6860951D1BB146AC00E478BE /* AppMode.swift in Sources */,
 				6870E4661B9DDCBA00F0E757 /* Production.swift in Sources */,
 				68F537121B834A9A0007F480 /* ImageCollectionViewCell.swift in Sources */,
 				687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */,

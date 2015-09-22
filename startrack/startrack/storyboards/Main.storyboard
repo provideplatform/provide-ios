@@ -17,6 +17,7 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -419,6 +420,84 @@
                                             <outlet property="textField" destination="0lo-59-hky" id="K4W-hF-gJc"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AppModeCell" id="1rH-MU-N2a" userLabel="AppModeCell" customClass="AuthenticationCell" customModule="startrack" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="137.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1rH-MU-N2a" id="Y0C-ih-8yp">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="as casting director?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f7-PM-dr1">
+                                                    <rect key="frame" x="15" y="11" width="133" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="133" id="1zv-09-hjL"/>
+                                                        <constraint firstAttribute="width" constant="76" id="fti-TY-F4I"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
+                                                    <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="fti-TY-F4I"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="fti-TY-F4I"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wgo-3T-a5r">
+                                                    <rect key="frame" x="163" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="appModeChanged:" destination="1rH-MU-N2a" eventType="valueChanged" id="cjg-Rx-btk"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wgo-3T-a5r" firstAttribute="leading" secondItem="5f7-PM-dr1" secondAttribute="trailing" constant="15" id="8GI-9g-1Fp"/>
+                                                <constraint firstItem="wgo-3T-a5r" firstAttribute="centerY" secondItem="Y0C-ih-8yp" secondAttribute="centerY" id="BXA-zt-bUv"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="leading" secondItem="Y0C-ih-8yp" secondAttribute="leadingMargin" constant="7" id="Huu-jZ-zKJ"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="centerY" secondItem="Y0C-ih-8yp" secondAttribute="centerY" id="Ki5-Zk-W7G"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="centerY" secondItem="Y0C-ih-8yp" secondAttribute="centerY" id="OVB-YB-TZf"/>
+                                                <constraint firstItem="wgo-3T-a5r" firstAttribute="centerY" secondItem="5f7-PM-dr1" secondAttribute="centerY" id="Rca-pQ-aH8"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="leading" secondItem="Y0C-ih-8yp" secondAttribute="leadingMargin" constant="-7" id="Wat-hv-b87">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="leading" secondItem="Y0C-ih-8yp" secondAttribute="leadingMargin" id="icL-jr-lnw"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="top" secondItem="Y0C-ih-8yp" secondAttribute="topMargin" constant="3" id="p2A-B9-Mgg"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="top" secondItem="Y0C-ih-8yp" secondAttribute="topMargin" constant="3" id="qrB-Nl-4Bt"/>
+                                                <constraint firstItem="5f7-PM-dr1" firstAttribute="top" secondItem="Y0C-ih-8yp" secondAttribute="topMargin" constant="3" id="v4e-sY-a58"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="Ki5-Zk-W7G"/>
+                                                    <exclude reference="OVB-YB-TZf"/>
+                                                    <exclude reference="Wat-hv-b87"/>
+                                                    <exclude reference="icL-jr-lnw"/>
+                                                    <exclude reference="p2A-B9-Mgg"/>
+                                                    <exclude reference="v4e-sY-a58"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="Ki5-Zk-W7G"/>
+                                                    <include reference="icL-jr-lnw"/>
+                                                    <include reference="p2A-B9-Mgg"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <include reference="OVB-YB-TZf"/>
+                                                    <include reference="Wat-hv-b87"/>
+                                                    <include reference="v4e-sY-a58"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="appModeSwitch" destination="wgo-3T-a5r" id="p1a-5A-wUs"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -757,7 +836,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pyb-Ej-lW7"/>
-        <segue reference="qEh-KF-YoG"/>
+        <segue reference="baH-vf-SLM"/>
+        <segue reference="flA-yQ-9Vg"/>
     </inferredMetricsTieBreakers>
 </document>

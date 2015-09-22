@@ -126,7 +126,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -137,6 +137,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             cell = emailCell(tableView)
         case 1:
             cell = passwordCell(tableView)
+        case 2:
+            cell = appModeCell(tableView)
         default:
             assertionFailure("Misconfigured table view form.")
         }
@@ -167,6 +169,10 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         passwordField.text = ""
         passwordField.fixSecureTextFieldFont()
         return cell
+    }
+
+    private func appModeCell(tableView: UITableView) -> AuthenticationCell {
+        return  tableView["AppModeCell"] as! AuthenticationCell
     }
 
     // MARK: UITableViewDelegate
@@ -244,4 +250,16 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
 class AuthenticationCell: UITableViewCell {
     @IBOutlet private weak var textField: UITextField!
+
+    @IBOutlet private weak var appModeSwitch: UISwitch! {
+        didSet {
+            if let appModeSwitch = appModeSwitch {
+                appModeSwitch.on = KeyChainService.sharedService().appMode == .CastingDirector
+            }
+        }
+    }
+
+    @IBAction func appModeChanged(sender: UISwitch) {
+        KeyChainService.sharedService().appMode = sender.on ? .CastingDirector : .Actor
+    }
 }

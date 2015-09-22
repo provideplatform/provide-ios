@@ -31,6 +31,7 @@ class ApplicationViewController: ECSlidingViewController,
         super.awakeFromNib()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshCurrentUser", name: "ApplicationShouldBeReloadedForAuthenticatedUser")
 
         topViewController = UIStoryboard("Application").instantiateInitialViewController()!
     }
@@ -76,12 +77,22 @@ class ApplicationViewController: ECSlidingViewController,
 
     private func setupTopViewController() {
         let user = currentUser()
+        let appMode = KeyChainService.sharedService().appMode
         let topViewController = navigationController?.viewControllers[0] as! TopViewController
-        if user.providerIds.count > 0 {
+
+        switch appMode {
+        case .Auto:
+            if user.providerIds.count > 0 || appMode == .Actor {
+                topViewController.topStoryboard = providerStoryboard
+            } else if user.companyIds.count > 0 || appMode == .CastingDirector {
+                topViewController.topStoryboard = castingDirectorStoryboard
+            }
+        case .Actor:
             topViewController.topStoryboard = providerStoryboard
-        } else if user.companyIds.count > 0 {
+        case .CastingDirector:
             topViewController.topStoryboard = castingDirectorStoryboard
         }
+
     }
 
     private func refreshMenu() {
