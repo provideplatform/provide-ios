@@ -21,10 +21,17 @@ extension UIImage {
     class func barCodeImageWithString(string: String, filterWithName filterName: String) -> UIImage! {
         let data = string.dataUsingEncoding(NSASCIIStringEncoding)
         if let filter = CIFilter(name: filterName) {
-            filter.setValue(data, forKey: "inputMessage")
-            return UIImage(CIImage: filter.outputImage!)
+            return barCodeImageWithData(data!, filter: filter)
         }
         return nil
+    }
+
+    class func barCodeImageWithData(data: NSData, filter: CIFilter) -> UIImage! {
+        filter.setValue(data, forKey: "inputMessage")
+        let context = CIContext(options: nil)
+        let outputImage = filter.outputImage!.imageByApplyingTransform(CGAffineTransformMakeScale(100.0, 100.0))
+        let cgImage = context.createCGImage(outputImage, fromRect: outputImage.extent)
+        return UIImage(CGImage: cgImage)
     }
 
     func resize(rect: CGRect) -> UIImage! {
