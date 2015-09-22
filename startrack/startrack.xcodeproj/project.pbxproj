@@ -79,6 +79,8 @@
 		6855D6BA1BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D6B91BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift */; settings = {ASSET_TAGS = (); }; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686095171BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		686095191BB13B5600E478BE /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686095181BB13B5600E478BE /* QRCodeViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6860951B1BB13B6800E478BE /* QRCode.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6860951A1BB13B6800E478BE /* QRCode.storyboard */; settings = {ASSET_TAGS = (); }; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		6870E4621B9DD76500F0E757 /* ProductionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		6870E4641B9DD8AE00F0E757 /* ProductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -255,6 +257,8 @@
 		6855D6B91BA46F9A002BBA4D /* CastingDemandRecommendationCollectionViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CastingDemandRecommendationCollectionViewHeader.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686095161BAC117B00E478BE /* ProviderCastingDemandTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCastingDemandTableViewCell.swift; sourceTree = "<group>"; };
+		686095181BB13B5600E478BE /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		6860951A1BB13B6800E478BE /* QRCode.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = QRCode.storyboard; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6870E4611B9DD76500F0E757 /* ProductionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionsViewController.swift; sourceTree = "<group>"; };
 		6870E4631B9DD8AE00F0E757 /* ProductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionViewController.swift; sourceTree = "<group>"; };
@@ -652,6 +656,7 @@
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
+				686095181BB13B5600E478BE /* QRCodeViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -720,6 +725,7 @@
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
+				6860951A1BB13B6800E478BE /* QRCode.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -998,6 +1004,7 @@
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
+				6860951B1BB13B6800E478BE /* QRCode.storyboard in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
@@ -1206,6 +1213,7 @@
 				68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
 				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
+				686095191BB13B5600E478BE /* QRCodeViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,

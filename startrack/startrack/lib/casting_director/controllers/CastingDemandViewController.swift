@@ -121,7 +121,7 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
             "scheduled_start_at": castingDemand.scheduledStartAtDate.utcString,
             "estimated_duration": castingDemand.estimatedDuration * 60,
             "status": "scheduled",
-            "components": [["component": "QRCodeCheckin"]]
+            "components": [["component": "QRCode"]]
         ]
 
         ApiService.sharedService().createWorkOrder(params as! [String : AnyObject],

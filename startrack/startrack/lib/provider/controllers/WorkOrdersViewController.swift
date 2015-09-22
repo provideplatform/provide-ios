@@ -63,6 +63,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
                                                 CommentsViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
+                                                QRCodeViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
                                                 ManifestViewControllerDelegate {
 
@@ -761,6 +762,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
                 if vc.isKindOfClass(CommentsViewController) {
                     (vc as! CommentsViewController).commentsViewControllerDelegate = self
+                } else if vc.isKindOfClass(QRCodeViewController) {
+                    (vc as! QRCodeViewController).qrCodeViewControllerDelegate = self
                 }
             } else {
                 vc = initialViewController as! WorkOrderComponentViewController
@@ -785,5 +788,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 // did not attempt to complete work order as there are outstanding components
             }
         }
+    }
+
+    // MARK: QRCodeViewControllerDelegate
+
+    func barcodeDataForBarcodeViewController(viewController: QRCodeViewController) -> String {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return String(workOrder.id)
+        }
+        return ""
     }
 }

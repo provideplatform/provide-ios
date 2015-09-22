@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ijp-5i-Jia">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Code View Controller-->
+        <scene sceneID="PEZ-LD-3cZ">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="b3V-gc-rNQ" customClass="QRCodeViewController" customModule="startrack" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WRZ-Et-IBc"/>
+                        <viewControllerLayoutGuide type="bottom" id="T0P-2G-hgZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HsO-Mv-Ri3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bUq-hu-hVc">
+                                <rect key="frame" x="40" y="71" width="521" height="521"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="T0P-2G-hgZ" firstAttribute="top" secondItem="bUq-hu-hVc" secondAttribute="bottom" constant="8" symbolic="YES" id="4bn-If-Ws8"/>
+                            <constraint firstItem="bUq-hu-hVc" firstAttribute="leading" secondItem="HsO-Mv-Ri3" secondAttribute="leadingMargin" constant="20" id="97Z-ii-TT7"/>
+                            <constraint firstItem="bUq-hu-hVc" firstAttribute="top" secondItem="WRZ-Et-IBc" secondAttribute="bottom" constant="7" id="J44-RJ-PHV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bUq-hu-hVc" secondAttribute="trailing" constant="19" id="OHj-Vf-ADI"/>
+                            <constraint firstItem="T0P-2G-hgZ" firstAttribute="top" secondItem="bUq-hu-hVc" secondAttribute="bottom" constant="8" id="SMP-G7-w5j"/>
+                            <constraint firstItem="bUq-hu-hVc" firstAttribute="top" secondItem="WRZ-Et-IBc" secondAttribute="bottom" constant="7" id="Up0-33-18t"/>
+                            <constraint firstItem="bUq-hu-hVc" firstAttribute="centerY" secondItem="HsO-Mv-Ri3" secondAttribute="centerY" id="nwY-mJ-HAl"/>
+                            <constraint firstItem="bUq-hu-hVc" firstAttribute="centerX" secondItem="HsO-Mv-Ri3" secondAttribute="centerX" id="rKt-CJ-vND"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Up0-33-18t"/>
+                                <exclude reference="nwY-mJ-HAl"/>
+                                <exclude reference="SMP-G7-w5j"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="oJl-wy-tfx"/>
+                    <connections>
+                        <outlet property="qrCodeImageView" destination="bUq-hu-hVc" id="Mrk-B4-s5g"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qQt-0Q-5uy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="908" y="617"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8vs-HO-Pxx">
+            <objects>
+                <navigationController id="ijp-5i-Jia" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kkv-KB-Fol">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="b3V-gc-rNQ" kind="relationship" relationship="rootViewController" id="Qdb-mG-P3x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KsJ-Al-O8T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="231" y="617"/>
+        </scene>
+    </scenes>
+</document>
