@@ -792,10 +792,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     // MARK: QRCodeViewControllerDelegate
 
-    func barcodeDataForBarcodeViewController(viewController: QRCodeViewController) -> String {
+    func barcodeDataForQRCodeViewController(viewController: QRCodeViewController) -> String {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             return String(workOrder.id)
         }
         return ""
+    }
+
+    func titleForQRCodeViewController(viewController: QRCodeViewController) -> String! {
+        return "CHECKIN"
+    }
+
+    func promptForQRCodeViewController(viewController: QRCodeViewController) -> String! {
+        return nil
     }
 }
