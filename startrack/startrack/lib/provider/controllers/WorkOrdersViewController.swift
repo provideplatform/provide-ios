@@ -800,7 +800,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func titleForQRCodeViewController(viewController: QRCodeViewController) -> String! {
-        return "CHECKIN"
+        return "YOU HAVE ARRIVED"
     }
 
     func promptForQRCodeViewController(viewController: QRCodeViewController) -> String! {
