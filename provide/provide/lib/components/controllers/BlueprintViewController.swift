@@ -19,6 +19,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+
     @IBOutlet private weak var scrollView: UIScrollView!
 
     private var imageView: UIImageView!
@@ -138,6 +140,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                     
                     self.scrollView.bringSubviewToFront(self.imageView)
                     // TODO: bring touch receiver overlay view to front
+
+                    self.activityIndicatorView.stopAnimating()
                 }
             }
         }

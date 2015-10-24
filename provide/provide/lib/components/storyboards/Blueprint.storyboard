@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Blueprint View Controller-->
@@ -24,18 +25,27 @@
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">
+                                <rect key="frame" x="282" y="281" width="37" height="37"/>
+                                <animations/>
+                            </activityIndicatorView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="1xs-tU-Dgb"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="282" id="DwJ-h4-8lp"/>
+                            <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="217" id="IAc-jd-Ian"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="Jzb-8R-OFX"/>
+                            <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="262" id="N8L-qi-08J"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="261" id="cu6-aP-rG7"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="dP6-Cf-sfi"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iI6-ey-gmN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                     </connections>
                 </viewController>
