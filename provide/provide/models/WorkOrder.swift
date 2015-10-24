@@ -15,6 +15,7 @@ class WorkOrder: Model, MKAnnotation {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var job: Job!
     var desc: String!
     var workOrderProviders = [WorkOrderProvider]()
     var scheduledStartAt: String!
@@ -50,10 +51,11 @@ class WorkOrder: Model, MKAnnotation {
             "status": "status",
             "provider_rating": "providerRating",
             "customer_rating": "customerRating",
-            "components": "components"
+            "components": "components",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
+        mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
@@ -61,6 +63,13 @@ class WorkOrder: Model, MKAnnotation {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
+    }
+
+    var blueprintImageUrl: NSURL! {
+        if let job = job {
+            return job.blueprintImageUrl
+        }
+        return nil
     }
 
     var scheduledStartAtDate: NSDate! {

@@ -66,7 +66,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                                 WorkOrderComponentViewControllerDelegate,
                                                 RouteViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
-                                                ManifestViewControllerDelegate {
+                                                ManifestViewControllerDelegate,
+                                                BlueprintViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
@@ -733,7 +734,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 managedViewControllers.append(initialViewController)
                 vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
 
-                if vc.isKindOfClass(CommentsViewController) {
+                if vc.isKindOfClass(BlueprintViewController) {
+                    (vc as! BlueprintViewController).blueprintViewControllerDelegate = self
+                } else if vc.isKindOfClass(CommentsViewController) {
                     (vc as! CommentsViewController).commentsViewControllerDelegate = self
                 }
             } else {

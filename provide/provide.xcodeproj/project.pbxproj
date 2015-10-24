@@ -70,6 +70,9 @@
 		681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */; };
 		681417481B845D900076BFBD /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
+		6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */; settings = {ASSET_TAGS = (); }; };
+		6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1691BDB59D700EF70F7 /* Job.swift */; settings = {ASSET_TAGS = (); }; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; settings = {ASSET_TAGS = (); }; };
@@ -251,6 +254,9 @@
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
+		6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Blueprint.storyboard; sourceTree = "<group>"; };
+		6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintViewController.swift; sourceTree = "<group>"; };
+		6840F1691BDB59D700EF70F7 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
@@ -645,6 +651,7 @@
 			children = (
 				68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */,
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
+				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
@@ -719,6 +726,7 @@
 			children = (
 				68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */,
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
+				6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
@@ -872,6 +880,7 @@
 				68F7305C1B07DE94001A21B0 /* Customer.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
+				6840F1691BDB59D700EF70F7 /* Job.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
 				682BE8B51B4039E600DDBC3D /* Origin.swift */,
@@ -1064,6 +1073,7 @@
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
+				6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */,
 				68B413411B08318C009A4C05 /* Provider.storyboard in Resources */,
 				5CA5D9E01B1A6ABB006C3328 /* Messages.storyboard in Resources */,
 				68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */,
@@ -1219,6 +1229,7 @@
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				681416F21B8457870076BFBD /* Route.swift in Sources */,
+				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				68F537251B834CA50007F480 /* CLLocationExtensions.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
@@ -1234,6 +1245,7 @@
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
+				6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */,
 				681416E71B8457870076BFBD /* Company.swift in Sources */,
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,

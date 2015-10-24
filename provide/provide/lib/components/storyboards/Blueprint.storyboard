@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--Blueprint View Controller-->
+        <scene sceneID="EWe-OH-uQ2">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="3Sa-Xv-qPf" customClass="BlueprintViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eBd-ka-U2j"/>
+                        <viewControllerLayoutGuide type="bottom" id="KSM-yJ-cc2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vsP-WQ-g9V">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="1xs-tU-Dgb"/>
+                            <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="Jzb-8R-OFX"/>
+                            <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="dP6-Cf-sfi"/>
+                            <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iI6-ey-gmN"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
+                    <connections>
+                        <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zgM-oB-JlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="770" y="1330"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="H20-Kq-Wvi">
+            <objects>
+                <navigationController id="sJ0-7U-x54" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ueY-wU-Axc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="3Sa-Xv-qPf" kind="relationship" relationship="rootViewController" id="nvC-xm-zop"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="260-2k-M2o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="77" y="1330"/>
+        </scene>
+    </scenes>
+</document>
