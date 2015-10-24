@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol BlueprintThumbnailOverlayViewDelegate {
+    func blueprintThumbnailOverlayView(view: BlueprintThumbnailOverlayView, navigatedToFrame frame: CGRect)
+}
+
 class BlueprintThumbnailOverlayView: UIView {
+
+    var delegate: BlueprintThumbnailOverlayViewDelegate!
 
     private var touchesBeganTimestamp: NSDate!
 
@@ -43,35 +49,36 @@ class BlueprintThumbnailOverlayView: UIView {
 
     private func applyTouches(touches: Set<NSObject>) {
         for touch in touches {
-            dragMenu(touch as! UITouch)
+            dragOverlay(touch as! UITouch)
         }
     }
 
-    private func dragMenu(touch: UITouch) {
+    private func dragOverlay(touch: UITouch) {
         let xOffset = touch.locationInView(nil).x - touch.previousLocationInView(nil).x
         let x = frame.origin.x + xOffset
 
         let yOffset = touch.locationInView(nil).y - touch.previousLocationInView(nil).y
         let y = frame.origin.y + yOffset
 
-        dragMenu(x, y: y)
+        dragOverlay(x, y: y)
     }
 
-    private func dragMenu(x: CGFloat, y: CGFloat) {
-        let outOfBounds = x < 0.0 || x >= superview!.frame.width - frame.width || y < 0.0 || y >= superview!.frame.height - frame.height
-        if outOfBounds {
-            touchesBeganTimestamp = nil
-            return
+    private func dragOverlay(var x: CGFloat, var y: CGFloat) {
+        if x < 0.0 {
+            x = 0.0
+        } else if x > superview!.frame.width - frame.width {
+            x = superview!.frame.width - frame.width
         }
 
-        UIView.animateWithDuration(0.0, delay: 0.0, options: .CurveLinear,
-            animations: {
-                self.frame.origin.x = x
-                self.frame.origin.y = y
-            },
-            completion: { complete in
-                print("viewfinder frame: \(self.frame)")
-            }
-        )
+        if y < 0.0 {
+            y = 0.0
+        } else if y > superview!.frame.height - frame.height {
+            y = superview!.frame.height - frame.height
+        }
+
+        frame.origin.x = x
+        frame.origin.y = y
+
+        delegate?.blueprintThumbnailOverlayView(self, navigatedToFrame: frame)
     }
 }

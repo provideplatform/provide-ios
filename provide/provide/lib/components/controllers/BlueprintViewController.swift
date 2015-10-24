@@ -15,7 +15,7 @@ protocol BlueprintViewControllerDelegate {
 //    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate {
+class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintThumbnailViewDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
@@ -23,7 +23,13 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     @IBOutlet private weak var scrollView: UIScrollView!
 
-    @IBOutlet private weak var thumbnailView: BlueprintThumbnailView!
+    @IBOutlet private weak var thumbnailView: BlueprintThumbnailView! {
+        didSet {
+            if let thumbnailView = thumbnailView {
+                thumbnailView.delegate = self
+            }
+        }
+    }
 
     private var imageView: UIImageView!
 
@@ -137,6 +143,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                     self.imageView.contentMode = .ScaleAspectFill
 
                     self.scrollView.contentSize = self.imageView.frame.size //size
+                    self.scrollView.scrollEnabled = false
 
                     self.scrollView.minimumZoomScale = 0.25
                     self.scrollView.maximumZoomScale = 1.0
@@ -149,6 +156,21 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 }
             }
         }
+    }
+
+    // MARK: BlueprintThumbnailViewDelegate
+
+    func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
+        let xScale = frame.origin.x / view.frame.width
+        let yScale = frame.origin.y / view.frame.height
+
+        let imageSize = scrollView.contentSize //imageView.image!.size
+        let visibleFrame = CGRect(x: imageSize.width * xScale,
+                                  y: imageSize.height * yScale,
+                                  width: scrollView.frame.width,
+                                  height: scrollView.frame.height)
+
+        scrollView.scrollRectToVisible(visibleFrame, animated: false)
     }
 
     // MARK: UIScrollViewDelegate
