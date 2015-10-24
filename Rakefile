@@ -1,4 +1,3 @@
-# utilities
 
 desc 'generate certificate signing request'
 task :csr do
