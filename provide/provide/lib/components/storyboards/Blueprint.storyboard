@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Blueprint View Controller-->
@@ -24,10 +26,10 @@
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
-                            <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="420" y="390" width="160" height="190"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sfg-wS-cBa">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sfg-wS-cBa">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                                         <animations/>
                                     </imageView>
@@ -39,8 +41,19 @@
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="620" y="590" width="160" height="190"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Sfg-wS-cBa" secondAttribute="bottom" id="0LA-kj-Hqw"/>
+                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="height" secondItem="rb1-cc-jsu" secondAttribute="height" id="HVN-Pk-IYe"/>
+                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="width" secondItem="rb1-cc-jsu" secondAttribute="height" multiplier="16:19" id="KV6-MK-FHS"/>
+                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="LrI-t9-taK"/>
+                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="width" secondItem="rb1-cc-jsu" secondAttribute="width" id="SFI-WK-Hgn"/>
+                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="qUx-IM-6eC"/>
+                                    <constraint firstAttribute="trailing" secondItem="Sfg-wS-cBa" secondAttribute="trailing" id="qpb-Lv-rw1"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <exclude reference="KV6-MK-FHS"/>
+                                    </mask>
                                 </variation>
                                 <connections>
                                     <outlet property="overlayView" destination="Jnn-Mr-5Ye" id="lcH-Pn-HMa"/>
@@ -57,10 +70,16 @@
                         <constraints>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" id="I5E-q1-sL8"/>
+                            <constraint firstAttribute="bottom" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="20" symbolic="YES" id="JSh-XC-uhQ"/>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
+                                <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
+                            </constraint>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="fqE-NL-QmJ"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="x2V-2a-s9R"/>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="trailing" secondItem="vsP-WQ-g9V" secondAttribute="trailingMargin" id="xOe-lN-9EQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>

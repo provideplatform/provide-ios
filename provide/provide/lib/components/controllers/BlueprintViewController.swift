@@ -27,6 +27,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         didSet {
             if let thumbnailView = thumbnailView {
                 thumbnailView.delegate = self
+                thumbnailView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.85)
+                thumbnailView.roundCorners(5.0)
             }
         }
     }
@@ -61,6 +63,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         setupNavigationItem()
 
         imageView = UIImageView()
+        imageView.alpha = 0.0
 
         scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
         scrollView.addSubview(imageView)
@@ -140,19 +143,23 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                     self.thumbnailView.blueprintImage = image
 
                     self.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-                    self.imageView.contentMode = .ScaleAspectFill
+                    self.imageView.contentMode = .ScaleToFill
 
-                    self.scrollView.contentSize = self.imageView.frame.size //size
+                    self.scrollView.contentSize = size
                     self.scrollView.scrollEnabled = false
 
-                    self.scrollView.minimumZoomScale = 0.25
-                    self.scrollView.maximumZoomScale = 1.0
-                    self.scrollView.zoomScale = 0.35
+                    //self.scrollView.minimumZoomScale = 0.25
+                    //self.scrollView.maximumZoomScale = 1.0
+                    //self.scrollView.zoomScale = 0.35
 
-                    self.scrollView.bringSubviewToFront(self.imageView)
                     // TODO: bring touch receiver overlay view to front
 
-                    self.activityIndicatorView.stopAnimating()
+                    UIView.animateWithDuration(0.1, animations: { () -> Void in
+                        self.scrollView.bringSubviewToFront(self.imageView)
+                        self.imageView.alpha = 1.0
+
+                        self.activityIndicatorView.stopAnimating()
+                    })
                 }
             }
         }
@@ -171,6 +178,12 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                                   height: scrollView.frame.height)
 
         scrollView.scrollRectToVisible(visibleFrame, animated: false)
+    }
+
+    func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
+        let height = CGFloat(400.0)
+        let width = CGFloat((imageView.image!.size.width / imageView.image!.size.height) * height)
+        return CGSize(width: width, height: height)
     }
 
     // MARK: UIScrollViewDelegate

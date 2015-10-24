@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintThumbnailViewDelegate {
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect)
+    func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize
 }
 
 class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
@@ -18,29 +19,39 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
 
     var blueprintImage: UIImage! {
         didSet {
-            thumbnailImageView.contentMode = .ScaleAspectFit
-            thumbnailImageView.image = blueprintImage
-
             let visibleSize = self.superview!.frame.size
 
+            var desiredSize = CGSize(width: 200.0, height: 215.0)
+            if let delegate = delegate {
+                desiredSize = delegate.sizeForBlueprintThumbnailView(self)
+            }
+
+            thumbnailImageView.frame = CGRect(x: 0.0,
+                                              y: 0.0,
+                                              width: desiredSize.width,
+                                              height: desiredSize.height)
+
+            thumbnailImageView.contentMode = .ScaleToFill
+            thumbnailImageView.image = blueprintImage
+
             dispatch_after_delay(0.0) {
-                self.frame = CGRect(x: visibleSize.width - 200.0 - 10.0,
-                                    y: visibleSize.height - 215.0 - 10.0,
-                                    width: 200.0,
-                                    height: 215.0)
+                self.frame = CGRect(x: visibleSize.width - desiredSize.width - 10.0,
+                                    y: visibleSize.height - desiredSize.height - 10.0,
+                                    width: desiredSize.width,
+                                    height: desiredSize.height)
 
                 if let _ = self.blueprintImage {
-                    let aspectRatio = CGFloat(visibleSize.width / visibleSize.height)
+                    let viewportAspectRatio = CGFloat(visibleSize.width / visibleSize.height)
                     let heightRatio = visibleSize.height / self.blueprintImage.size.height
 
-                    let height = self.frame.height * heightRatio
-                    let width = height * aspectRatio
+                    let viewportHeight = self.frame.height * heightRatio
+                    let viewportWidth = viewportHeight * viewportAspectRatio
 
                     dispatch_after_delay(0.0) {
                         self.overlayView.frame = CGRect(x: 0.0,
                                                         y: 0.0,
-                                                        width: width,
-                                                        height: height)
+                                                        width: viewportWidth,
+                                                        height: viewportHeight)
                     }
 
                     self.alpha = 1.0
