@@ -23,6 +23,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     @IBOutlet private weak var scrollView: UIScrollView!
 
+    @IBOutlet private weak var thumbnailView: BlueprintThumbnailView!
+
     private var imageView: UIImageView!
 
     private var workOrder: WorkOrder! {
@@ -129,15 +131,17 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) -> Void in
                     let size = CGSize(width: image.size.width, height: image.size.height)
 
+                    self.thumbnailView.blueprintImage = image
+
                     self.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
                     self.imageView.contentMode = .ScaleAspectFill
 
-                    self.scrollView.contentSize = size
+                    self.scrollView.contentSize = self.imageView.frame.size //size
 
-                    //            self.scrollView.minimumZoomScale = 0.25
-                    //            self.scrollView.maximumZoomScale = 1.0
-                    //            self.scrollView.zoomScale = 0.35
-                    
+                    self.scrollView.minimumZoomScale = 0.25
+                    self.scrollView.maximumZoomScale = 1.0
+                    self.scrollView.zoomScale = 0.35
+
                     self.scrollView.bringSubviewToFront(self.imageView)
                     // TODO: bring touch receiver overlay view to front
 
