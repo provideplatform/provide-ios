@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -29,10 +28,11 @@
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="420" y="390" width="160" height="190"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sfg-wS-cBa">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEn-8b-ru4">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                                         <animations/>
-                                    </imageView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Mr-5Ye" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
                                         <animations/>
@@ -42,22 +42,14 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Sfg-wS-cBa" secondAttribute="bottom" id="0LA-kj-Hqw"/>
-                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="height" secondItem="rb1-cc-jsu" secondAttribute="height" id="HVN-Pk-IYe"/>
-                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="width" secondItem="rb1-cc-jsu" secondAttribute="height" multiplier="16:19" id="KV6-MK-FHS"/>
-                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="LrI-t9-taK"/>
-                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="width" secondItem="rb1-cc-jsu" secondAttribute="width" id="SFI-WK-Hgn"/>
-                                    <constraint firstItem="Sfg-wS-cBa" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="qUx-IM-6eC"/>
-                                    <constraint firstAttribute="trailing" secondItem="Sfg-wS-cBa" secondAttribute="trailing" id="qpb-Lv-rw1"/>
+                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="B0L-3E-NCl"/>
+                                    <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="g9k-zl-Mty"/>
+                                    <constraint firstAttribute="bottom" secondItem="jEn-8b-ru4" secondAttribute="bottom" id="tVd-a4-Ark"/>
+                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="va3-Mh-MHi"/>
                                 </constraints>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <exclude reference="KV6-MK-FHS"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="overlayView" destination="Jnn-Mr-5Ye" id="lcH-Pn-HMa"/>
-                                    <outlet property="thumbnailImageView" destination="Sfg-wS-cBa" id="AKW-5q-t6i"/>
+                                    <outlet property="thumbnailImageBackgroundView" destination="jEn-8b-ru4" id="D6z-iJ-IYu"/>
                                 </connections>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">

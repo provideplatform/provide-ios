@@ -26,9 +26,8 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                 desiredSize = delegate.sizeForBlueprintThumbnailView(self)
             }
 
-            thumbnailImageView.contentMode = .ScaleAspectFit
-            thumbnailImageView.image = blueprintImage //.scaledToWidth(desiredSize.width)
-            thumbnailImageView.tintColor = UIColor.darkGrayColor()
+            let img = blueprintImage.scaledToWidth(desiredSize.width)
+            thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: img)
 
             dispatch_after_delay(0.0) {
                 self.frame = CGRect(x: visibleSize.width - desiredSize.width - 10.0,
@@ -58,7 +57,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
         }
     }
 
-    @IBOutlet private weak var thumbnailImageView: UIImageView!
+    @IBOutlet private weak var thumbnailImageBackgroundView: UIView!
 
     @IBOutlet private weak var overlayView: BlueprintThumbnailOverlayView! {
         didSet {
