@@ -20,4 +20,20 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return resizedImage
     }
+
+    func scaledToWidth(width: CGFloat) -> UIImage! {
+        let originalWidth = self.size.width
+        let scale = width / originalWidth
+        let height = self.size.height * scale
+        let width = originalWidth * scale
+
+        let rect = CGRect(x: 0.0, y: 0.0, width: width, height: height)
+        let size = rect.size
+
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        drawInRect(rect)
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
 }
