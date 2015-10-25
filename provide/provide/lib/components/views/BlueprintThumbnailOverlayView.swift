@@ -21,7 +21,7 @@ class BlueprintThumbnailOverlayView: UIView {
     private var gestureInProgress: Bool {
         return touchesBeganTimestamp != nil
     }
-    
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
 
@@ -47,37 +47,39 @@ class BlueprintThumbnailOverlayView: UIView {
         applyTouches(touches)
     }
 
-    private func applyTouches(touches: Set<NSObject>) {
+    private func applyTouches(touches: Set<UITouch>) {
+        var xOffset: CGFloat = 0
+        var yOffset: CGFloat = 0
+
         for touch in touches {
-            dragOverlay(touch as! UITouch)
+            xOffset += touch.locationInView(nil).x - touch.previousLocationInView(nil).x
+            yOffset += touch.locationInView(nil).y - touch.previousLocationInView(nil).y
+
+            dragOverlay(xOffset, yOffset: yOffset)
         }
     }
 
-    private func dragOverlay(touch: UITouch) {
-        let xOffset = touch.locationInView(nil).x - touch.previousLocationInView(nil).x
-        let x = frame.origin.x + xOffset
+    private func dragOverlay(xOffset: CGFloat, yOffset: CGFloat) {
+        var newFrame = CGRect(origin: frame.origin, size: frame.size)
+        newFrame.origin.x += xOffset
+        newFrame.origin.y += yOffset
 
-        let yOffset = touch.locationInView(nil).y - touch.previousLocationInView(nil).y
-        let y = frame.origin.y + yOffset
+        let x = newFrame.origin.x
+        let y = newFrame.origin.y
 
-        dragOverlay(x, y: y)
-    }
-
-    private func dragOverlay(var x: CGFloat, var y: CGFloat) {
         if x < 0.0 {
-            x = 0.0
+            newFrame.origin.x = 0.0
         } else if x > superview!.frame.width - frame.width {
-            x = superview!.frame.width - frame.width
+            newFrame.origin.x = superview!.frame.width - frame.width
         }
 
         if y < 0.0 {
-            y = 0.0
+            newFrame.origin.y = 0.0
         } else if y > superview!.frame.height - frame.height {
-            y = superview!.frame.height - frame.height
+            newFrame.origin.y = superview!.frame.height - frame.height
         }
 
-        frame.origin.x = x
-        frame.origin.y = y
+        frame = newFrame
 
         delegate?.blueprintThumbnailOverlayView(self, navigatedToFrame: frame)
     }
