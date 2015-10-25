@@ -35,6 +35,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     private var imageView: UIImageView!
 
+    private var enableScrolling = false {
+        didSet {
+            if let scrollView = scrollView {
+                scrollView.scrollEnabled = enableScrolling
+            }
+        }
+    }
+
     private var workOrder: WorkOrder! {
         return WorkOrderService.sharedService().inProgressWorkOrder
     }
@@ -66,7 +74,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         imageView.alpha = 0.0
 
         scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
-        scrollView.addSubview(imageView)
 
         loadBlueprint()
     }
@@ -147,12 +154,13 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
                     self.scrollView.contentSize = size
                     self.scrollView.scrollEnabled = false
+                    self.scrollView.addSubview(self.imageView)
+                    
+                    self.enableScrolling = false
 
                     //self.scrollView.minimumZoomScale = 0.25
                     //self.scrollView.maximumZoomScale = 1.0
                     //self.scrollView.zoomScale = 0.35
-
-                    // TODO: bring touch receiver overlay view to front
 
                     UIView.animateWithDuration(0.1, animations: { () -> Void in
                         self.scrollView.bringSubviewToFront(self.imageView)
@@ -168,28 +176,42 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     // MARK: BlueprintThumbnailViewDelegate
 
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
+        let reenableScrolling = enableScrolling
+        enableScrolling = false
+
         let xScale = frame.origin.x / view.frame.width
         let yScale = frame.origin.y / view.frame.height
 
-        let imageSize = scrollView.contentSize //imageView.image!.size
-        let visibleFrame = CGRect(x: imageSize.width * xScale,
-                                  y: imageSize.height * yScale,
+        let contentSize = scrollView.contentSize
+        let visibleFrame = CGRect(x: contentSize.width * xScale,
+                                  y: contentSize.height * yScale,
                                   width: scrollView.frame.width,
                                   height: scrollView.frame.height)
 
-        scrollView.scrollRectToVisible(visibleFrame, animated: false)
+        //scrollView.scrollRectToVisible(visibleFrame, animated: false)
+        scrollView.setContentOffset(visibleFrame.origin, animated: false)
+
+        if reenableScrolling {
+            enableScrolling = true
+        }
     }
 
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
-        let height = CGFloat(400.0)
-        let width = CGFloat((imageView.image!.size.width / imageView.image!.size.height) * height)
+        let imageSize = imageView.image!.size
+        let aspectRatio = CGFloat(imageSize.width / imageSize.height)
+        let height = CGFloat(imageSize.width > imageSize.height ? 225.0 : 375.0) // FIXME?? !!!! need to calculate this based on screen size & blueprint dimensions
+        let width = aspectRatio * height
         return CGSize(width: width, height: height)
     }
 
     // MARK: UIScrollViewDelegate
 
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewDidScroll(scrollView: UIScrollView) // any offset changes
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if enableScrolling {
+            thumbnailView.scrollViewDidScroll(scrollView)
+        }
+    }
+
 //    @available(iOS 3.2, *)
 //    optional public func scrollViewDidZoom(scrollView: UIScrollView) // any zoom scale changes
 //

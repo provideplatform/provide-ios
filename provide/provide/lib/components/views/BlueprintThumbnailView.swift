@@ -26,13 +26,9 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                 desiredSize = delegate.sizeForBlueprintThumbnailView(self)
             }
 
-            thumbnailImageView.frame = CGRect(x: 0.0,
-                                              y: 0.0,
-                                              width: desiredSize.width,
-                                              height: desiredSize.height)
-
-            thumbnailImageView.contentMode = .ScaleToFill
-            thumbnailImageView.image = blueprintImage
+            thumbnailImageView.contentMode = .ScaleAspectFit
+            thumbnailImageView.image = blueprintImage //.scaledToWidth(desiredSize.width)
+            thumbnailImageView.tintColor = UIColor.darkGrayColor()
 
             dispatch_after_delay(0.0) {
                 self.frame = CGRect(x: visibleSize.width - desiredSize.width - 10.0,
@@ -69,6 +65,20 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
             if let overlayView = overlayView {
                 overlayView.delegate = self
                 overlayView.addBorder(3.0, color: UIColor.blackColor())
+            }
+        }
+    }
+
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentSize.height > 0 && scrollView.contentSize.width > 0 {
+            let xScale = scrollView.contentOffset.x / scrollView.contentSize.width
+            let yScale = scrollView.contentOffset.y / scrollView.contentSize.height
+
+            if let overlayView = overlayView {
+                overlayView.frame = CGRect(x: frame.width * xScale,
+                                           y: frame.height * yScale,
+                                           width: overlayView.frame.size.width,
+                                           height: overlayView.frame.size.height)
             }
         }
     }
