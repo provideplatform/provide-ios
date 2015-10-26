@@ -45,7 +45,9 @@
                                     <constraint firstAttribute="bottom" secondItem="jEn-8b-ru4" secondAttribute="bottom" id="7yK-wS-3dE"/>
                                     <constraint firstItem="jEn-8b-ru4" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="B0L-3E-NCl"/>
                                     <constraint firstItem="jEn-8b-ru4" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="CXb-G9-Dot"/>
-                                    <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="Z23-Na-CJD"/>
+                                    <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="Z23-Na-CJD">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="80"/>
+                                    </constraint>
                                     <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="g9k-zl-Mty"/>
                                     <constraint firstAttribute="bottom" secondItem="jEn-8b-ru4" secondAttribute="bottom" id="tVd-a4-Ark"/>
                                     <constraint firstItem="jEn-8b-ru4" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="vSL-yN-3df"/>
@@ -84,20 +86,28 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="51" id="Aut-ds-ovb"/>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="Gtn-yo-pdm"/>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="51" id="Aut-ds-ovb">
+                                <variation key="heightClass=regular-widthClass=compact" constant="6"/>
+                            </constraint>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="Gtn-yo-pdm">
+                                <variation key="heightClass=regular-widthClass=compact" constant="536"/>
+                            </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" id="I5E-q1-sL8"/>
                             <constraint firstAttribute="bottom" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="20" symbolic="YES" id="JSh-XC-uhQ"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
                                 <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
                             </constraint>
-                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu">
+                                <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                            </constraint>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="fqE-NL-QmJ"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rb1-cc-jsu" secondAttribute="trailing" constant="-50" id="vm9-90-XXd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rb1-cc-jsu" secondAttribute="trailing" constant="-50" id="vm9-90-XXd">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-85"/>
+                            </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="x2V-2a-s9R"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="trailing" secondItem="vsP-WQ-g9V" secondAttribute="trailingMargin" id="xOe-lN-9EQ"/>
                         </constraints>
