@@ -29,7 +29,7 @@ class WorkOrder: Model, MKAnnotation {
     var providerRating: NSNumber!
     var customerRating: NSNumber!
     var attachments: [Attachment]!
-    var components: NSMutableArray!
+    var config: NSMutableDictionary!
     var itemsOrdered: [Product]!
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
@@ -40,6 +40,7 @@ class WorkOrder: Model, MKAnnotation {
             "id": "id",
             "company_id": "companyId",
             "customer_id": "customerId",
+            "config": "config",
             "description": "desc",
             "scheduled_start_at": "scheduledStartAt",
             "started_at": "startedAt",
@@ -51,7 +52,6 @@ class WorkOrder: Model, MKAnnotation {
             "status": "status",
             "provider_rating": "providerRating",
             "customer_rating": "customerRating",
-            "components": "components",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
@@ -185,6 +185,15 @@ class WorkOrder: Model, MKAnnotation {
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
                                           customer.contact.longitude.doubleValue)
+    }
+
+    var components: NSMutableArray {
+        if let config = config {
+            if let components = config["components"] as? NSMutableArray {
+                return components
+            }
+        }
+        return NSMutableArray()
     }
 
     var currentComponentIdentifier: String! {
@@ -327,6 +336,10 @@ class WorkOrder: Model, MKAnnotation {
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             }
         )
+    }
+
+    func setComponents(components: NSMutableArray) {
+        config.setObject(components, forKey: "components")
     }
 
     func start(onSuccess: OnSuccess, onError: OnError) {
