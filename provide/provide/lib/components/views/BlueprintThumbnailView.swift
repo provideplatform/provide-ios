@@ -28,7 +28,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
 
             dispatch_after_delay(0.0) {
                 self.frame = CGRect(x: visibleSize.width - desiredSize.width - 10.0,
-                                    y: visibleSize.height - desiredSize.height - 10.0,
+                                    y: visibleSize.height - desiredSize.height - 10.0 - 44.0,
                                     width: desiredSize.width,
                                     height: desiredSize.height)
 
@@ -54,7 +54,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                         self.overlayView.alpha = 1.0
                     }
 
-                    self.alpha = 1.0
+                    //self.alpha = 1.0
                 } else {
                     self.alpha = 0.0
                 }

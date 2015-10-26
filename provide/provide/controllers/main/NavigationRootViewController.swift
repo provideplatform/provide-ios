@@ -25,7 +25,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         if ApiService.hasCachedToken() {
             dispatch_after_delay(0.0) {
                 self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
-                dispatch_after_delay(0.5) {
+                dispatch_after_delay(1.0) {
                     self.signInButton.alpha = 1.0
                 }
             }

@@ -15,13 +15,15 @@ protocol BlueprintViewControllerDelegate {
 //    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintThumbnailViewDelegate {
+class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet private weak var scrollView: UIScrollView!
+
+    @IBOutlet private weak var toolbar: BlueprintToolbar!
 
     @IBOutlet private weak var thumbnailView: BlueprintThumbnailView! {
         didSet {
@@ -75,6 +77,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
         scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
+        toolbar.alpha = 0.0
+        toolbar.blueprintToolbarDelegate = self
+
+        hideToolbar()
         loadBlueprint()
     }
 
@@ -168,9 +174,33 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
                         self.activityIndicatorView.stopAnimating()
                     })
+
+                    self.showToolbar()
                 }
             }
         }
+    }
+
+    private func hideToolbar() {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                self.toolbar.alpha = 0.0
+                self.toolbar.frame.origin.y += self.toolbar.frame.size.height
+            }, completion: { completed in
+
+            }
+        )
+    }
+
+    private func showToolbar() {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                self.toolbar.alpha = 1.0
+                self.toolbar.frame.origin.y -= self.toolbar.frame.size.height
+            }, completion: { completed in
+
+            }
+        )
     }
 
     // MARK: BlueprintThumbnailViewDelegate
@@ -188,7 +218,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                                   width: scrollView.frame.width,
                                   height: scrollView.frame.height)
 
-        //scrollView.scrollRectToVisible(visibleFrame, animated: false)
         scrollView.setContentOffset(visibleFrame.origin, animated: false)
 
         if reenableScrolling {
@@ -199,9 +228,16 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
         let imageSize = imageView.image!.size
         let aspectRatio = CGFloat(imageSize.width / imageSize.height)
-        let height = CGFloat(imageSize.width > imageSize.height ? 225.0 : 375.0) // FIXME?? !!!! need to calculate this based on screen size & blueprint dimensions
+        let height = CGFloat(imageSize.width > imageSize.height ? 225.0 : 375.0)
         let width = aspectRatio * height
         return CGSize(width: width, height: height)
+    }
+
+    // MARK: BlueprintToolbarDelegate
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
+        let alpha = CGFloat(visible ? 1.0 : 0.0)
+        thumbnailView.alpha = alpha
     }
 
     // MARK: UIScrollViewDelegate

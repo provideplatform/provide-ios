@@ -25,8 +25,20 @@
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-F2-amm" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk"/>
+                                    <barButtonItem title="Navigator" id="F6Z-Yj-ebn"/>
+                                </items>
+                                <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="navigationButton" destination="F6Z-Yj-ebn" id="Wwg-bl-5N2"/>
+                                </connections>
+                            </toolbar>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="420" y="390" width="160" height="190"/>
+                                <rect key="frame" x="420" y="355" width="160" height="190"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEn-8b-ru4">
                                         <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
@@ -94,16 +106,19 @@
                             </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" id="I5E-q1-sL8"/>
-                            <constraint firstAttribute="bottom" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="20" symbolic="YES" id="JSh-XC-uhQ"/>
+                            <constraint firstAttribute="bottom" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="55" id="JSh-XC-uhQ"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
                                 <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
                             </constraint>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu">
                                 <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                             </constraint>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="fqE-NL-QmJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="YJZ-gU-i6b"/>
+                            <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="eRR-gR-7ev"/>
+                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="291" id="fqE-NL-QmJ"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="l5z-mT-eEf"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rb1-cc-jsu" secondAttribute="trailing" constant="-50" id="vm9-90-XXd">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-85"/>
@@ -137,6 +152,7 @@
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                         <outlet property="thumbnailView" destination="rb1-cc-jsu" id="srB-qs-bCZ"/>
+                        <outlet property="toolbar" destination="xRM-F2-amm" id="ppx-Z1-rkd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgM-oB-JlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
