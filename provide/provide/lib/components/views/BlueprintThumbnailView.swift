@@ -26,18 +26,21 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                 desiredSize = delegate.sizeForBlueprintThumbnailView(self)
             }
 
-            let img = blueprintImage.scaledToWidth(desiredSize.width)
-            thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: img)
-
             dispatch_after_delay(0.0) {
                 self.frame = CGRect(x: visibleSize.width - desiredSize.width - 10.0,
                                     y: visibleSize.height - desiredSize.height - 10.0,
                                     width: desiredSize.width,
                                     height: desiredSize.height)
 
-                if let _ = self.blueprintImage {
+                if let blueprintImage = self.blueprintImage {
+                    dispatch_after_delay(0.0) {
+                        let scaledImage = blueprintImage.scaledToWidth(desiredSize.width)
+                        self.thumbnailImageBackgroundView.frame.size = desiredSize
+                        self.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
+                    }
+
                     let viewportAspectRatio = CGFloat(visibleSize.width / visibleSize.height)
-                    let heightRatio = visibleSize.height / self.blueprintImage.size.height
+                    let heightRatio = visibleSize.height / blueprintImage.size.height
 
                     let viewportHeight = self.frame.height * heightRatio
                     let viewportWidth = viewportHeight * viewportAspectRatio
@@ -47,6 +50,8 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                                                         y: 0.0,
                                                         width: viewportWidth,
                                                         height: viewportHeight)
+
+                        self.overlayView.alpha = 1.0
                     }
 
                     self.alpha = 1.0
@@ -63,6 +68,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
         didSet {
             if let overlayView = overlayView {
                 overlayView.delegate = self
+                overlayView.alpha = 0.0
                 overlayView.addBorder(3.0, color: UIColor.blackColor())
             }
         }

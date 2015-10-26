@@ -27,7 +27,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         didSet {
             if let thumbnailView = thumbnailView {
                 thumbnailView.delegate = self
-                thumbnailView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.85)
+                thumbnailView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
                 thumbnailView.roundCorners(5.0)
             }
         }
