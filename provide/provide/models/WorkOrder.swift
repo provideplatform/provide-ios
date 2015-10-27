@@ -339,7 +339,9 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func setComponents(components: NSMutableArray) {
-        config.setObject(components, forKey: "components")
+        let mutableConfig = NSMutableDictionary(dictionary: config)
+        mutableConfig.setObject(components, forKey: "components")
+        config = mutableConfig
     }
 
     func start(onSuccess: OnSuccess, onError: OnError) {
