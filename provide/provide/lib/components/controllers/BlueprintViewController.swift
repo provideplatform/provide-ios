@@ -280,7 +280,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
-
+        hideToolbar()
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
@@ -293,6 +293,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         let height = size.height * scale
         imageView.frame.size = CGSize(width: width, height: height)
         scrollView.contentSize = CGSize(width: width, height: height)
+
+        showToolbar()
     }
 
 //
