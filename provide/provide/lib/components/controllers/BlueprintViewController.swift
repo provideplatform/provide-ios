@@ -164,9 +164,9 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                     
                     self.enableScrolling = false
 
-                    //self.scrollView.minimumZoomScale = 0.25
-                    //self.scrollView.maximumZoomScale = 1.0
-                    //self.scrollView.zoomScale = 0.35
+                    self.scrollView.minimumZoomScale = 0.25
+                    self.scrollView.maximumZoomScale = 1.0
+                    //self.scrollView.zoomScale = 0.4
 
                     UIView.animateWithDuration(0.1, animations: { () -> Void in
                         self.scrollView.bringSubviewToFront(self.imageView)
@@ -225,6 +225,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         }
     }
 
+    func blueprintThumbnailViewNavigationBegan(view: BlueprintThumbnailView) {
+        hideToolbar()
+    }
+
+    func blueprintThumbnailViewNavigationEnded(view: BlueprintThumbnailView) {
+        showToolbar()
+    }
+
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
         let imageSize = imageView.image!.size
         let aspectRatio = CGFloat(imageSize.width / imageSize.height)
@@ -248,9 +256,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         }
     }
 
-//    @available(iOS 3.2, *)
-//    optional public func scrollViewDidZoom(scrollView: UIScrollView) // any zoom scale changes
-//
 //    // called on start of dragging (may require some time and or distance to move)
 //    @available(iOS 2.0, *)
 //    optional public func scrollViewWillBeginDragging(scrollView: UIScrollView)
@@ -270,19 +275,25 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 //    optional public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
 //
 
-//    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-//
-//        return nil
-//    }
-//    @available(iOS 3.2, *)
-//    optional public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) // called before the scroll view begins zooming its content
-//    @available(iOS 2.0, *)
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
 
-//    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-//        let size = self.imageView.image!.size
-//        //self.imageView.frame.size = CGSize(width: size.width * scale, height: size.height * scale)
-//        //self.scrollView.contentSize = CGSize(width: size.width * scale, height: size.height * scale)
-//    }
+    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+
+    }
+
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        thumbnailView.scrollViewDidZoom(scrollView)
+    }
+
+    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        let size = imageView.image!.size
+        let width = size.width * scale
+        let height = size.height * scale
+        imageView.frame.size = CGSize(width: width, height: height)
+        scrollView.contentSize = CGSize(width: width, height: height)
+    }
 
 //
 //    @available(iOS 2.0, *)
