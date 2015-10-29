@@ -97,10 +97,10 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
             let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / scrollView.contentSize.height
 
             if let overlayView = overlayView {
-                overlayView.frame = CGRect(x: frame.width * xScale,
-                                           y: frame.height * yScale,
-                                           width: overlayView.frame.size.width,
-                                           height: overlayView.frame.size.height)
+                overlayView.frame = CGRect(x: max(0.0, min(frame.width - overlayView.frame.width, frame.width * xScale)),
+                                           y: max(0.0, min(frame.height - overlayView.frame.height, frame.height * yScale)),
+                                           width: overlayView.frame.width,
+                                           height: overlayView.frame.height)
             }
         }
     }
