@@ -162,11 +162,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                     self.scrollView.scrollEnabled = false
                     self.scrollView.addSubview(self.imageView)
                     
-                    self.enableScrolling = false
+                    self.enableScrolling = true
 
                     self.scrollView.minimumZoomScale = 0.25
                     self.scrollView.maximumZoomScale = 1.0
-                    //self.scrollView.zoomScale = 0.4
+                    self.scrollView.zoomScale = 0.4
 
                     UIView.animateWithDuration(0.1, animations: { () -> Void in
                         self.scrollView.bringSubviewToFront(self.imageView)
@@ -233,6 +233,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         showToolbar()
     }
 
+    func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat {
+        return 0.4
+    }
+
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
         let imageSize = imageView.image!.size
         let aspectRatio = CGFloat(imageSize.width / imageSize.height)
@@ -255,25 +259,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             thumbnailView.scrollViewDidScroll(scrollView)
         }
     }
-
-//    // called on start of dragging (may require some time and or distance to move)
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewWillBeginDragging(scrollView: UIScrollView)
-//    // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-//    @available(iOS 5.0, *)
-//    optional public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
-//    // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
-//
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewWillBeginDecelerating(scrollView: UIScrollView) // called on finger up as we are moving
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewDidEndDecelerating(scrollView: UIScrollView) // called when scroll view grinds to a halt
-//
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-//
 
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView

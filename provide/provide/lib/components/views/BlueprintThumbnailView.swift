@@ -12,6 +12,7 @@ protocol BlueprintThumbnailViewDelegate {
     func blueprintThumbnailViewNavigationBegan(view: BlueprintThumbnailView)
     func blueprintThumbnailViewNavigationEnded(view: BlueprintThumbnailView)
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect)
+    func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize
 }
 
@@ -34,7 +35,11 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                         self.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
                     }
 
-                    self.resizeOverlayView()
+                    var scale = CGFloat(1.0)
+                    if let delegate = self.delegate {
+                        scale = delegate.initialScaleForBlueprintThumbnailView(self)
+                    }
+                    self.resizeOverlayView(CGPointZero, scale: scale)
 
                     //self.alpha = 1.0
                 } else {
