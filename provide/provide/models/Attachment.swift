@@ -12,22 +12,22 @@ class Attachment: Model {
 
     var id = 0
     var userId = 0
+    var desc: String!
     var key: String!
-    var publicUrl: String!
+    var metadata: NSDictionary!
     var mimeType: String!
-    var fields: NSDictionary!
     var urlString: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "description": "desc",
             "user_id": "userId",
             "key": "key",
-            "url": "urlString",
-            "public_url": "publicUrl",
+            "metadata": "metadata",
             "mime_type": "mimeType",
-            "fields": "fields"
+            "url": "urlString",
         ])
         return mapping
     }
