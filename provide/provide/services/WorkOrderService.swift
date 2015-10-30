@@ -45,9 +45,10 @@ class WorkOrderService: NSObject {
 
     private func setRejectedItemFlags(workOrders: [WorkOrder]) {
         for workOrder in workOrders {
-            let itemsRejected = workOrder.itemsRejected
-            for itemRejected in itemsRejected {
-                itemRejected.rejected = true
+            if let itemsRejected = workOrder.itemsRejected {
+                for itemRejected in itemsRejected {
+                    itemRejected.rejected = true
+                }
             }
         }
     }
