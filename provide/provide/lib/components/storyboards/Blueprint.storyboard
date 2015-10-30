@@ -29,12 +29,14 @@
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
                                 <animations/>
                                 <items>
+                                    <barButtonItem title="Scale" id="dlS-QM-Xdl"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk"/>
                                     <barButtonItem title="Navigator" id="F6Z-Yj-ebn"/>
                                 </items>
                                 <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="navigationButton" destination="F6Z-Yj-ebn" id="Wwg-bl-5N2"/>
+                                    <outlet property="scaleButton" destination="dlS-QM-Xdl" id="85b-r0-9pj"/>
                                 </connections>
                             </toolbar>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">

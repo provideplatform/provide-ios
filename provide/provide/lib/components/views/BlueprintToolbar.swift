@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintToolbarDelegate {
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
 }
 
 class BlueprintToolbar: UIToolbar {
@@ -17,6 +18,7 @@ class BlueprintToolbar: UIToolbar {
     var blueprintToolbarDelegate: BlueprintToolbarDelegate!
 
     private var navigatorVisible = false
+    private var scaleVisible = false
 
     @IBOutlet private weak var navigationButton: UIBarButtonItem! {
         didSet {
@@ -27,8 +29,22 @@ class BlueprintToolbar: UIToolbar {
         }
     }
 
+    @IBOutlet private weak var scaleButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = scaleButton {
+                navigationButton.target = self
+                navigationButton.action = "toggleScaleVisibility:"
+            }
+        }
+    }
+
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
+    }
+
+    func toggleScaleVisibility(sender: UIBarButtonItem) {
+        scaleVisible = !scaleVisible
+        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetScaleVisibility: scaleVisible)
     }
 }
