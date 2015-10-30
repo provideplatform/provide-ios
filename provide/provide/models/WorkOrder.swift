@@ -111,7 +111,7 @@ class WorkOrder: Model, MKAnnotation {
         if let startedAtDate = startedAtDate {
             var seconds = 0.0
 
-            var endedAtDate: NSDate!
+            var endedAtDate = self.endedAtDate
 
             if let date = endedAtDate {
                 endedAtDate = date
