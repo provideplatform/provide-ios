@@ -13,6 +13,7 @@ class Attachment: Model {
     var id = 0
     var userId = 0
     var desc: String!
+    var fields: NSDictionary!
     var key: String!
     var metadata: NSDictionary!
     var mimeType: String!
@@ -24,6 +25,7 @@ class Attachment: Model {
             "id": "id",
             "description": "desc",
             "user_id": "userId",
+            "fields": "fields",
             "key": "key",
             "metadata": "metadata",
             "mime_type": "mimeType",

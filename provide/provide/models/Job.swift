@@ -13,6 +13,7 @@ class Job: Model {
     var id = 0
     var name: String!
     var blueprintImageUrlString: String!
+    var blueprintScale: Double!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -20,6 +21,7 @@ class Job: Model {
             "id": "id",
             "name": "name",
             "blueprint_image_url": "blueprintImageUrlString",
+            "blueprint_scale": "blueprintScale",
             ])
         return mapping
     }
