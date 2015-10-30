@@ -389,7 +389,7 @@ class Route: Model {
     }
 
     func reload(onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchRouteWithId(String(id), params: ["include_work_orders": "true"],
+        ApiService.sharedService().fetchRouteWithId(String(id), params: ["include_products": "true", "include_work_orders": "true"],
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(mappingResult.firstObject as! Route)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
