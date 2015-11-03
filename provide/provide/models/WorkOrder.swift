@@ -65,6 +65,12 @@ class WorkOrder: Model, MKAnnotation {
         return mapping
     }
 
+    private var pendingArrival = false
+
+    var canArrive: Bool {
+        return !pendingArrival
+    }
+
     var blueprintImageUrl: NSURL! {
         if let job = job {
             return job.blueprintImageUrl
@@ -349,7 +355,18 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        updateWorkorderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
+        self.pendingArrival = true
+
+        updateWorkorderWithStatus("in_progress",
+            onSuccess: { statusCode, mappingResult in
+                self.pendingArrival = false
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                self.pendingArrival = false
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {

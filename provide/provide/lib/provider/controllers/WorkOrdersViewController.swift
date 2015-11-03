@@ -369,16 +369,19 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
                     WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
                         {
-                            wo.arrive(
-                                onSuccess: { statusCode, responseString in
-                                    self.nextWorkOrderContextShouldBeRewound()
-                                    LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
-                                    self.attemptSegueToValidWorkOrderContext()
-                                },
-                                onError: { error, statusCode, responseString in
+                            if wo.canArrive {
+                                wo.arrive(
+                                    onSuccess: { statusCode, responseString in
+                                        self.nextWorkOrderContextShouldBeRewound()
+                                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
+                                        self.attemptSegueToValidWorkOrderContext()
+                                    },
+                                    onError: { error, statusCode, responseString in
 
-                                }
-                            )
+                                    }
+                                )
+                            }
+
                         },
                         onDidExitRegion: {
                             
