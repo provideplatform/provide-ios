@@ -537,7 +537,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if inProgressWorkOrder.components.count > 0 {
                 var components = inProgressWorkOrder.components
-                components = NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
                 inProgressWorkOrder.setComponents(components)
             }
         }
@@ -580,7 +580,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func signatureReceived(signature: UIImage, forWorkOrderViewController: ViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            if workOrder.components.count > 0 {
+                var components = workOrder.components
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                workOrder.setComponents(components)
+            }
             attemptSegueToValidWorkOrderContext()
 
             var params = [
@@ -607,7 +611,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func netPromoterScoreReceived(netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            if workOrder.components.count > 0 {
+                var components = workOrder.components
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                workOrder.setComponents(components)
+            }
             attemptSegueToValidWorkOrderContext()
 
             workOrder.scoreProvider(netPromoterScore,
@@ -624,7 +632,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func netPromoterScoreDeclinedForWorkOrderViewController(viewController: ViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            if workOrder.components.count > 0 {
+                var components = workOrder.components
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                workOrder.setComponents(components)
+            }
             attemptSegueToValidWorkOrderContext()
 
             attemptCompletionOfInProgressWorkOrder()
@@ -634,7 +646,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            if workOrder.components.count > 0 {
+                var components = workOrder.components
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                workOrder.setComponents(components)
+            }
             attemptSegueToValidWorkOrderContext()
 
             workOrder.addComment(comment,
@@ -651,7 +667,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
-            workOrder.components.removeObject(WorkOrderService.sharedService().inProgressWorkOrder.components.firstObject!) // FIXME!!!!
+            if workOrder.components.count > 0 {
+                var components = workOrder.components
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                workOrder.setComponents(components)
+            }
             attemptSegueToValidWorkOrderContext()
 
             attemptCompletionOfInProgressWorkOrder()
