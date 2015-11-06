@@ -36,14 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(application: UIApplication) {
-        // Nothing
+        window!.addSubview(launchScreenViewController.view)
+        window!.bringSubviewToFront(launchScreenViewController.view)
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
         AnalyticsService.sharedService().track("App Entered Background", properties: [:])
-
-        window!.addSubview(launchScreenViewController.view)
-        window!.bringSubviewToFront(launchScreenViewController.view)
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
