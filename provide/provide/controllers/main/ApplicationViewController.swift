@@ -81,9 +81,15 @@ class ApplicationViewController: ECSlidingViewController,
                 self.refreshMenu()
 
                 if currentUser().profileImageUrl == nil {
-                    AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
-                        if granted {
-                            self.initCameraViewController()
+                    let authorizationStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
+                    if authorizationStatus == .Authorized {
+                        self.initCameraViewController()
+                    } else if authorizationStatus == .NotDetermined {
+                        NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestMediaAuthorization")
+                        AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
+                            if granted {
+                                self.initCameraViewController()
+                            }
                         }
                     }
                 }

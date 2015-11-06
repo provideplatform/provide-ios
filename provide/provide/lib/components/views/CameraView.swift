@@ -225,9 +225,13 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             stopCapture()
         }
 
+        if AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .NotDetermined {
+            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestMediaAuthorization")
+        }
+
         do {
             try device.lockForConfiguration()
-            
+
             if device.isFocusModeSupported(.ContinuousAutoFocus) {
                 device.focusMode = .ContinuousAutoFocus
             } else if device.isFocusModeSupported(.AutoFocus) {

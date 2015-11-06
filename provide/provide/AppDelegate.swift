@@ -163,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setupLaunchScreenViewController() {
         launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
 
-        let notificationNames = ["ApplicationWillRegisterUserNotificationSettings", "ApplicationWillRequestLocationAuthorization"]
+        let notificationNames = ["ApplicationWillRegisterUserNotificationSettings", "ApplicationWillRequestLocationAuthorization", "ApplicationWillRequestMediaAuthorization"]
         for notificationName in notificationNames {
             NSNotificationCenter.defaultCenter().addObserverForName(notificationName) { _ in
                 self.suppressLaunchScreenViewController = true
