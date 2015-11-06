@@ -46,6 +46,6 @@
     </objects>
     <resources>
         <image name="background-lg" width="3100" height="2000"/>
-        <image name="home-logo" width="383" height="315"/>
+        <image name="home-logo" width="383" height="235"/>
     </resources>
 </document>
