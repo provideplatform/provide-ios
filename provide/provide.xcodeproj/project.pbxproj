@@ -175,6 +175,8 @@
 		68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A61B0861EF000D3ABA /* houston-3.gpx */; };
 		68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A71B0861EF000D3ABA /* houston-4.gpx */; };
 		68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
+		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
+		68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
@@ -364,6 +366,8 @@
 		68D218A61B0861EF000D3ABA /* houston-3.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-3.gpx"; sourceTree = "<group>"; };
 		68D218A71B0861EF000D3ABA /* houston-4.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-4.gpx"; sourceTree = "<group>"; };
 		68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-mfrm.gpx"; sourceTree = "<group>"; };
+		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
+		68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB0821B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -711,6 +715,7 @@
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
+				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
 			);
 			path = controllers;
@@ -725,6 +730,7 @@
 				68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */,
 				68F536F41B834A720007F480 /* WorkOrderTableViewCell.swift */,
 				68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */,
+				68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */,
 				68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */,
 			);
 			path = views;
@@ -1284,6 +1290,7 @@
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
 				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
+				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68F537181B834A9A0007F480 /* MenuHeaderView.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
@@ -1308,6 +1315,7 @@
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F5372D1B83554F0007F480 /* NSDictionaryExtensions.swift in Sources */,
 				68F536FE1B834A720007F480 /* WorkOrderPinAnnotationView.swift in Sources */,
+				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,
 				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
 				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,

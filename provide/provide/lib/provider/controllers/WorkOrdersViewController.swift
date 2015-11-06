@@ -98,9 +98,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("SegueToHistoryStoryboard") { sender in
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteHistoryStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(RouteHistoryViewController) == false {
                 self.performSegueWithIdentifier("RouteHistoryViewControllerSegue", sender: self)
+            }
+        }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToWorkOrderHistoryStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(WorkOrderHistoryViewController) == false {
+                self.performSegueWithIdentifier("WorkOrderHistoryViewControllerSegue", sender: self)
             }
         }
 

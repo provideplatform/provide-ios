@@ -146,6 +146,20 @@ class WorkOrder: Model, MKAnnotation {
         return nil
     }
 
+    var humanReadableScheduledStartAtTimestamp: String! {
+        if let scheduledStartAtDate = scheduledStartAtDate {
+            return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
+        }
+        return nil
+    }
+
+    var humanReadableStartedAtTimestamp: String! {
+        if let startedAtDate = startedAtDate {
+            return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"
+        }
+        return nil
+    }
+
     var statusColor: UIColor {
         if status == "scheduled" {
             return Color.scheduledStatusColor()

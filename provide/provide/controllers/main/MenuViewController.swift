@@ -18,13 +18,17 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     @IBOutlet private weak var menuHeaderView: MenuHeaderView!
 
+    private var lastSectionIndex: Int {
+        return tableView.numberOfSections - 1
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.backgroundColor = Color.applicationDefaultBackgroundImageColor(view.frame)
 
         menuHeaderView.delegate = self
-        
+
         alignSections()
     }
 
@@ -40,7 +44,10 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         case "RouteCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
-        case "HistoryCell":
+        case "RouteHistoryCell":
+            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
+            segueToInitialViewControllerInStoryboard(storyboardName)
+        case "WorkOrderHistoryCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
         case "TermsOfServiceCell":
@@ -75,7 +82,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     // MARK: UITableView DataSource Functions
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
+        if section == lastSectionIndex {
             return VersionHelper.fullVersion()
         } else {
             return nil
@@ -96,7 +103,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     private func alignSections() {
         // Position the 2nd section to line up flush with the bottom of the view
-        let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1)
+        let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1) + tableView.numberOfRowsInSection(2)
         //let rowHeight = tableView[0].bounds.height // height of first cell
         let totalCellHeight = CGFloat(totalCellCount) * 50.0
         let versionNumberHeight: CGFloat = 38
@@ -106,7 +113,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
         let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
         let remainingSpace = view.bounds.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
-        tableView.sectionFooterHeight = remainingSpace
+        tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
     }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
