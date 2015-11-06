@@ -219,6 +219,8 @@ class ApiService: NSObject {
 
     private func registerForRemoteNotifications() {
         if !isSimulator() {
+            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRegisterUserNotificationSettings")
+
             let notificationTypes: UIUserNotificationType = [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert]
             let settings = UIUserNotificationSettings(forTypes: notificationTypes, categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(settings)

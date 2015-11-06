@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private var launchScreenViewController: UIViewController!
 
+    private var suppressLaunchScreenViewController = false
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if !isSimulator() {
             Fabric.with([Crashlytics()])
@@ -24,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
 
-        launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
+        setupLaunchScreenViewController()
 
         RKLogConfigureFromEnvironment()
 
@@ -36,8 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(application: UIApplication) {
-        window!.addSubview(launchScreenViewController.view)
-        window!.bringSubviewToFront(launchScreenViewController.view)
+        renderLaunchScreenViewController()
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -49,19 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
         }
 
-        UIView.animateWithDuration(0.25, delay: 0.1, options: .CurveEaseOut,
-            animations: {
-                self.launchScreenViewController.view.alpha = 0.0
-            },
-            completion: { complete in
-                self.launchScreenViewController.view.removeFromSuperview()
-                self.launchScreenViewController.view.alpha = 1.0
-            }
-        )
+        dismissLaunchScreenViewController()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         AnalyticsService.sharedService().track("App Became Active", properties: [:])
+
+        dismissLaunchScreenViewController()
 
         if ApiService.hasCachedToken() {
             CheckinService.sharedService().checkin()
@@ -163,5 +158,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
+    }
+
+    private func setupLaunchScreenViewController() {
+        launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
+
+        let notificationNames = ["ApplicationWillRegisterUserNotificationSettings", "ApplicationWillRequestLocationAuthorization"]
+        for notificationName in notificationNames {
+            NSNotificationCenter.defaultCenter().addObserverForName(notificationName) { _ in
+                self.suppressLaunchScreenViewController = true
+            }
+        }
+    }
+
+    private func renderLaunchScreenViewController() {
+        if !suppressLaunchScreenViewController {
+            window!.addSubview(launchScreenViewController.view)
+            window!.bringSubviewToFront(launchScreenViewController.view)
+        }
+
+        suppressLaunchScreenViewController = false
+    }
+
+    private func dismissLaunchScreenViewController() {
+        if let _ = launchScreenViewController.view.superview {
+            UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseIn,
+                animations: {
+                    self.launchScreenViewController.view.alpha = 0.0
+                },
+                completion: { complete in
+                    self.launchScreenViewController.view.removeFromSuperview()
+                    self.launchScreenViewController.view.alpha = 1.0
+                }
+            )
+        }
     }
 }

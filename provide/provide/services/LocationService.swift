@@ -55,6 +55,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
             callback()
         } else {
+            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestLocationAuthorization")
             onManagerAuthorizedCallbacks.append(callback)
             requestAlwaysAuthorization()
         }
