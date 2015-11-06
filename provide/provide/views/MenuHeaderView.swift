@@ -17,6 +17,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     var delegate: MenuHeaderViewDelegate!
 
+    @IBOutlet private weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var changeProfileImageButton: UIButton!
@@ -31,6 +32,8 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         changeProfileImageButton.addTarget(self, action: "changeProfileImage", forControlEvents: .TouchUpInside)
 
+        profileImageActivityIndicatorView.stopAnimating()
+
         NSNotificationCenter.defaultCenter().addObserverForName("ProfileImageShouldRefresh") { _ in
             self.profileImageUrl = currentUser().profileImageUrl
         }
@@ -38,9 +41,14 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     var profileImageUrl: NSURL! {
         didSet {
+            bringSubviewToFront(profileImageActivityIndicatorView)
+            profileImageActivityIndicatorView.startAnimating()
+
             if let profileImageUrl = profileImageUrl {
                 profileImageView.contentMode = .ScaleAspectFit
                 profileImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
+                    self.profileImageActivityIndicatorView.stopAnimating()
+
                     self.bringSubviewToFront(self.profileImageView)
                     self.profileImageView.makeCircular()
                     self.profileImageView.alpha = 1.0
@@ -99,14 +107,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
-        ApiService.sharedService().setUserDefaultProfileImage(image,
-            onSuccess: { statusCode, mappingResult in
-
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
+        setUserDefaultProfileImage(image)
     }
 
     func cameraViewControllerCanceled(viewController: CameraViewController) {
@@ -150,14 +151,8 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    // MARK: UIImagePickerControllerDelegate
-
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
-        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(animated: true) {
-                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
-            }
-        }
+    private func setUserDefaultProfileImage(image: UIImage) {
+        profileImageUrl = nil
 
         ApiService.sharedService().setUserDefaultProfileImage(image,
             onSuccess: { statusCode, mappingResult in
@@ -167,6 +162,18 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
             }
         )
+    }
+
+    // MARK: UIImagePickerControllerDelegate
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
+            navigationController.dismissViewController(animated: true) {
+                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
+            }
+        }
+
+        setUserDefaultProfileImage(image)
     }
 
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
