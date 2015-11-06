@@ -252,6 +252,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         thumbnailView.alpha = alpha
     }
 
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
+        let cancel = !visible
+        print("should \(cancel ? "cancel" : "set") scale)")
+    }
+
     // MARK: UIScrollViewDelegate
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
