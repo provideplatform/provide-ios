@@ -56,14 +56,14 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
                 }
             }
 
-            mapView.showAnnotations(mapView.annotations, animated: false)
-
             if mapView.overlays.count > 0 {
-                var visibleRect = mapView.visibleMapRect
+                var visibleRect = mapView.overlays.first!.boundingMapRect
                 for overlay in mapView.overlays {
                     visibleRect = MKMapRectUnion(visibleRect, overlay.boundingMapRect)
                 }
                 mapView.setVisibleMapRect(visibleRect, animated: false)
+            } else if route.workOrders.count > 0 {
+                mapView.setCenterCoordinate(route.workOrders.first!.coordinate, zoomLevel: 12, animated: false)
             }
 
             mapView.alpha = 1.0
