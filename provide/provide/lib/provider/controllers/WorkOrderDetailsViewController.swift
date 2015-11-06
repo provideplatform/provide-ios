@@ -153,8 +153,13 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             let startedAt = workOrder.startedAtDate == nil ? "--" : workOrder.startedAtDate.timeString!
             cell.setName("STARTED AT", value: startedAt)
         case 3:
-            let endedAt = workOrder.endedAtDate == nil ? "--" : workOrder.endedAtDate.timeString!
-            cell.setName("ENDED AT", value: endedAt)
+            if let endedAt = workOrder.endedAtDate {
+                cell.setName("ENDED AT", value: endedAt.timeString!)
+            } else if let abandonedAt = workOrder.abandonedAtDate {
+                cell.setName("ABANDONED AT", value: abandonedAt.timeString!)
+            } else if let canceledAt = workOrder.canceledAtDate {
+                cell.setName("CANCELED AT", value: canceledAt.timeString!)
+            }
         case 4:
             let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
             cell.setName("DURATION", value: duration)
