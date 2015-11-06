@@ -84,7 +84,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "OVERRIDE_HOST"
-            value = "10.0.0.171:3000"
+            value = "10.0.0.2:3000"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
