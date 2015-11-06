@@ -116,7 +116,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         let params = [
             "page": page,
             "rpp": rpp,
-            "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned",
+            "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned,canceled",
             "sort_started_at_desc": "true",
             "include_products": "true",
             "include_work_orders": "true",

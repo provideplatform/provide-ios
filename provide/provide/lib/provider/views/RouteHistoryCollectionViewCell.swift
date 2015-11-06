@@ -35,15 +35,35 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
             mapView.removeAnnotations()
             mapView.removeOverlays()
 
-            if let checkinsPolyline = route.checkinsPolyline {
-                mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
-
-                let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
-                mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
+            for workOrder in route.workOrders {
+                mapView.addAnnotation(workOrder)
             }
 
             for workOrder in route.workOrders {
-                mapView.addAnnotation(workOrder)
+                for workOrderProvider in workOrder.workOrderProviders {
+                    if let checkinCoordinates = workOrderProvider.checkinCoordinates {
+                        var coords = [CLLocationCoordinate2D]()
+                        for checkinCoordinate in checkinCoordinates {
+                            let latitude = checkinCoordinate[0].doubleValue
+                            let longitude = checkinCoordinate[1].doubleValue
+                            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                        }
+                        if coords.count > 0 {
+                            let checkinsPolyline = MKPolyline(coordinates: &coords, count: coords.count)
+                            mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
+                        }
+                    }
+                }
+            }
+
+            mapView.showAnnotations(mapView.annotations, animated: false)
+
+            if mapView.overlays.count > 0 {
+                var visibleRect = mapView.visibleMapRect
+                for overlay in mapView.overlays {
+                    visibleRect = MKMapRectUnion(visibleRect, overlay.boundingMapRect)
+                }
+                mapView.setVisibleMapRect(visibleRect, animated: false)
             }
 
             mapView.alpha = 1.0
