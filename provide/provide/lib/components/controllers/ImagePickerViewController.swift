@@ -13,8 +13,8 @@ class ImagePickerViewController: UIImagePickerController, UIImagePickerControlle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sourceType = .SavedPhotosAlbum
-        mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(.SavedPhotosAlbum)!
+        sourceType = .PhotoLibrary
+        mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(.PhotoLibrary)!
         allowsEditing = false
     }
 
