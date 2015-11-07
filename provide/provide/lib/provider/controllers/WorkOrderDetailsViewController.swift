@@ -159,6 +159,12 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 cell.setName("ABANDONED AT", value: abandonedAt.timeString!)
             } else if let canceledAt = workOrder.canceledAtDate {
                 cell.setName("CANCELED AT", value: canceledAt.timeString!)
+            } else if let _ = workOrder.startedAtDate {
+                let providers = workOrder.workOrderProviders
+                if providers.count > 0 {
+                    cell.setName("OWNER", value: providers.first!.provider.contact.name)
+                    //cell.setName("CREW", )
+                }
             }
         case 4:
             let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
