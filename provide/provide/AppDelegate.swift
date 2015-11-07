@@ -138,6 +138,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         ApiService.sharedService().fetchWorkOrderWithId(String(workOrderId),
                             onSuccess: { statusCode, mappingResult in
                                 if let wo = mappingResult.firstObject as? WorkOrder {
+                                    WorkOrderService.sharedService().updateWorkOrder(wo)
+
                                     if wo.status == "canceled" {
                                         LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
                                         NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
