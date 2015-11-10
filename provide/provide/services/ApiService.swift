@@ -24,6 +24,7 @@ class ApiService: NSObject {
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
+        "jobs": Job.mapping(),
         "products": Product.mapping(),
         "providers": Provider.mapping(),
         "routes": Route.mapping(),
@@ -117,6 +118,12 @@ class ApiService: NSObject {
         AnalyticsService.sharedService().logout()
     }
 
+    // MARK: Attachments API
+
+    func updateAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: User API
 
     func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) {
@@ -196,6 +203,10 @@ class ApiService: NSObject {
             },
             onError: onError
         )
+    }
+
+    func updateAttachmentWithId(id: String, onUserWithId userId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Device API
@@ -344,6 +355,10 @@ class ApiService: NSObject {
         )
     }
 
+    func updateAttachmentWithId(id: String, onWorkOrderWithId workOrderId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("work_orders/\(workOrderId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Comments API
 
     func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) {
@@ -397,6 +412,22 @@ class ApiService: NSObject {
             },
             onError: onError
         )
+    }
+
+    // MARK: Jobs API
+
+    func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["customer"] = nil
+        realParams["companyId"] = nil
+        realParams["customerId"] = nil
+
+        dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateAttachmentWithId(id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("jobs/\(jobId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API

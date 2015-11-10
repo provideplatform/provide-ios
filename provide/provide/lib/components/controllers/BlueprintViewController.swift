@@ -9,10 +9,7 @@
 import UIKit
 
 protocol BlueprintViewControllerDelegate {
-//    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String)
-//    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController)
-//    func promptForCommentsViewController(viewController: CommentsViewController) -> String!
-//    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
+
 }
 
 class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
@@ -223,7 +220,17 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
         restoreCachedNavigationItem()
 
-        print("set scale of \(scale) pixels per foot")
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if let job = workOrder.job {
+                job.updateJobBlueprintScale(scale,
+                    onSuccess: { statusCode, mappingResult in
+                        print("set scale of \(scale) pixels per foot")
+                    }, onError: { error, statusCode, responseString in
+
+                    }
+                )
+            }
+        }
     }
 
     private func overrideNavigationItem(setScaleEnabled: Bool = false) {
