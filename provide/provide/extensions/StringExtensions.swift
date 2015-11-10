@@ -8,6 +8,11 @@
 
 import UIKit
 
+infix operator =~ { associativity right precedence 90 }
+func =~ (input: String, pattern: String) -> Bool {
+    return Regex(pattern).test(input)
+}
+
 extension String {
 
     var length: Int {
