@@ -649,6 +649,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
+    // MARK: CommentsViewControllerDelegate
+
     func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()

@@ -343,6 +343,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         scaleView.alpha = alpha
 
         if visible {
+            if scrollView.zoomScale < 0.9 {
+                scrollView.setZoomScale(0.9, animated: true)
+            }
+
             scaleView.attachGestureRecognizer()
         }
     }

@@ -110,9 +110,12 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
                 if secondPoint == nil {
                     secondPoint = point
                     instructionLabel.text = "Enter the measurement in feet to set scale"
-                    measurementTextField.becomeFirstResponder()
-                    delegate?.blueprintScaleViewCanSetBlueprintScale(self)
                     updateLineEndpoints()
+
+                    dispatch_after_delay(0.1) {
+                        self.measurementTextField.becomeFirstResponder()
+                        self.delegate?.blueprintScaleViewCanSetBlueprintScale(self)
+                    }
                 }
             } else {
                 firstPoint = point
