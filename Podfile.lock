@@ -27,21 +27,21 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - MBProgressHUD (0.9.1)
-  - MKNetworkKit (HEAD based on 0.87):
+  - MKNetworkKit (0.87):
     - Reachability (~> 3.1.0)
-  - OHHTTPStubs (4.2.0):
-    - OHHTTPStubs/Default (= 4.2.0)
-  - OHHTTPStubs/Core (4.2.0)
-  - OHHTTPStubs/Default (4.2.0):
+  - OHHTTPStubs (4.2.1):
+    - OHHTTPStubs/Default (= 4.2.1)
+  - OHHTTPStubs/Core (4.2.1)
+  - OHHTTPStubs/Default (4.2.1):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (4.2.0):
+  - OHHTTPStubs/JSON (4.2.1):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (4.2.0):
+  - OHHTTPStubs/NSURLSession (4.2.1):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (4.2.0)
+  - OHHTTPStubs/OHPathHelpers (4.2.1)
   - PDTSimpleCalendar (0.9.1)
   - Reachability (3.1.1)
   - RestKit (0.24.1):
@@ -66,14 +66,14 @@ PODS:
   - RFGravatarImageView (1.1):
     - SDWebImage (~> 3.7)
   - RKValueTransformers (1.1.2)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.1.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
-  - UICKeyChainStore (2.0.6)
+  - UICKeyChainStore (2.1.0)
 
 DEPENDENCIES:
   - Analytics/Segmentio (= 1.12.0)
@@ -82,7 +82,7 @@ DEPENDENCIES:
   - FontAwesomeKit (~> 2.2.0)
   - JSQMessagesViewController (~> 7.1.0)
   - MBProgressHUD (~> 0.9.1)
-  - MKNetworkKit (HEAD)
+  - MKNetworkKit (~> 0.87)
   - OHHTTPStubs (~> 4.2.0)
   - PDTSimpleCalendar
   - Reachability
@@ -117,17 +117,17 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MKNetworkKit: 60ad3c83b62183e40ba75ce772c9427c25b520de
-  OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249
+  OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
-  UICKeyChainStore: c5719c814e8bd69e74e4a0fc09daf8f4d6257a59
+  UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
 COCOAPODS: 0.38.2

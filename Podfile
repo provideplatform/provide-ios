@@ -12,7 +12,7 @@ pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureText
 pod 'FontAwesomeKit', '~> 2.2.0'
 pod 'JSQMessagesViewController', '~> 7.1.0'
 pod 'MBProgressHUD', '~> 0.9.1'
-pod 'MKNetworkKit', :head
+pod 'MKNetworkKit', '~> 0.87'
 pod 'OHHTTPStubs', '~> 4.2.0'
 pod 'PDTSimpleCalendar'
 pod 'Reachability'
