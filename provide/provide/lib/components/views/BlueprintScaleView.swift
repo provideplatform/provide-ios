@@ -205,7 +205,9 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        print("measurement replacement string: \(string) for character range: \(range)")
-        return true
+        if (string =~ "[.]") && textField.text!.contains(".") {
+            return false
+        }
+        return string.length == 0 || (string =~ "[0-9.]")
     }
 }
