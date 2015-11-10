@@ -214,6 +214,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         )
     }
 
+    func cancelSetScale(sender: UIBarButtonItem) {
+        scaleView.resignFirstResponder(false)
+        restoreCachedNavigationItem()
+    }
+
     func setScale(sender: UIBarButtonItem) {
         let scale = scaleView.scale
         scaleView.resignFirstResponder(false)
@@ -237,28 +242,33 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             cacheNavigationItem(navigationItem)
 
-            if setScaleEnabled {
-                if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
-                    navigationController.setNavigationBarHidden(false, animated: true)
-                }
-
-                let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
-                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-
-                navigationItem.leftBarButtonItems = []
-                navigationItem.rightBarButtonItems = [setScaleItem]
+            if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
+                navigationController.setNavigationBarHidden(false, animated: true)
             }
+
+            let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
+            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+
+            let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
+            setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            setScaleItem.enabled = setScaleEnabled
+
+            navigationItem.leftBarButtonItems = [cancelItem]
+            navigationItem.rightBarButtonItems = [setScaleItem]
         }
     }
 
     private func cacheNavigationItem(navigationItem: UINavigationItem) {
-        cachedNavigationItem = UINavigationItem()
-        cachedNavigationItem.leftBarButtonItems = navigationItem.leftBarButtonItems
-        cachedNavigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
-        cachedNavigationItem.title = navigationItem.title
-        cachedNavigationItem.titleView = navigationItem.titleView
-        cachedNavigationItem.prompt = navigationItem.prompt
+        if cachedNavigationItem == nil {
+            cachedNavigationItem = UINavigationItem()
+            cachedNavigationItem.leftBarButtonItems = navigationItem.leftBarButtonItems
+            cachedNavigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
+            cachedNavigationItem.title = navigationItem.title
+            cachedNavigationItem.titleView = navigationItem.titleView
+            cachedNavigationItem.prompt = navigationItem.prompt
+        }
     }
 
     private func restoreCachedNavigationItem() {
@@ -279,6 +289,18 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView! {
         return imageView
+    }
+
+    func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if let job = workOrder.job {
+                if let blueprintScale = job.blueprintScale {
+                    return blueprintScale
+                }
+            }
+        }
+
+        return 1.0
     }
 
     func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView) {
@@ -348,8 +370,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 scrollView.setZoomScale(0.9, animated: true)
             }
 
+            overrideNavigationItem(false) // FIXME: pass true when scaleView has both line endpoints drawn...
             scaleView.attachGestureRecognizer()
         } else {
+            restoreCachedNavigationItem()
             scaleView.resignFirstResponder(true)
         }
     }

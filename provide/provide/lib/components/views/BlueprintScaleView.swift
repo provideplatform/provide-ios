@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintScaleViewDelegate {
     func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView!
+    func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat
     func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView)
     func blueprintScaleViewDidReset(view: BlueprintScaleView)
 }
@@ -176,6 +177,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
                 }
                 
                 lineView.setPoints(firstPoint, endPoint: secondPoint)
+                populateMeasurementTextFieldFromCurrentScale()
             }
         }
     }
@@ -194,6 +196,16 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         if let lineView = lineView {
             if firstPoint != nil && secondPoint != nil {
                 lineView.setPoints(firstPoint, endPoint: secondPoint)
+                populateMeasurementTextFieldFromCurrentScale()
+            }
+        }
+    }
+
+    private func populateMeasurementTextFieldFromCurrentScale() {
+        if let currentScale = delegate?.blueprintScaleForBlueprintScaleView(self) {
+            if currentScale > 0.0 {
+                let rawDistance = Float(currentScale * distance)
+                measurementTextField.text = "\(ceilf(rawDistance * 100.0) / 100.0)"
             }
         }
     }
