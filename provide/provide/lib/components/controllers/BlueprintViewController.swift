@@ -15,15 +15,25 @@ protocol BlueprintViewControllerDelegate {
 //    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
+class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var scrollView: BlueprintScrollView!
 
     @IBOutlet private weak var toolbar: BlueprintToolbar!
+
+    @IBOutlet private weak var scaleView: BlueprintScaleView! {
+        didSet {
+            if let scaleView = scaleView {
+                scaleView.delegate = self
+                scaleView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
+                scaleView.roundCorners(5.0)
+            }
+        }
+    }
 
     @IBOutlet private weak var thumbnailView: BlueprintThumbnailView! {
         didSet {
@@ -74,6 +84,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
         imageView = UIImageView()
         imageView.alpha = 0.0
+        imageView.userInteractionEnabled = true
 
         scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
@@ -203,6 +214,16 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         )
     }
 
+    // MARK: BlueprintScaleViewDelegate
+
+    func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView! {
+        return imageView
+    }
+
+    func blueprintScaleViewDidReset(view: BlueprintScaleView) {
+        print("blueprint scale view did reset")
+    }
+
     // MARK: BlueprintThumbnailViewDelegate
 
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
@@ -253,8 +274,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
-        let cancel = !visible
-        print("should \(cancel ? "cancel" : "set") scale)")
+        let alpha = CGFloat(visible ? 1.0 : 0.0)
+        scaleView.alpha = alpha
+
+        if visible {
+            scaleView.attachGestureRecognizer()
+        }
+
+        //enableScrolling = !visible
     }
 
     // MARK: UIScrollViewDelegate

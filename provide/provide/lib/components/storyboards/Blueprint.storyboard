@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="BlueprintScrollView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <animations/>
                                 <connections>
@@ -39,6 +39,37 @@
                                     <outlet property="scaleButton" destination="dlS-QM-Xdl" id="85b-r0-9pj"/>
                                 </connections>
                             </toolbar>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAt-pi-biU" customClass="BlueprintScaleView" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="20" y="381" width="300" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap the location from which measuring began" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-cI-nlK">
+                                        <rect key="frame" x="25" y="8" width="250" height="21"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="10"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
+                                        <rect key="frame" x="114" y="50" width="73" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="lAt-pi-biU" id="Ixc-Na-jrq"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="k13-5W-Ppa"/>
+                                    <constraint firstAttribute="width" constant="300" id="r8I-9i-ef8"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="instructionLabel" destination="LZD-cI-nlK" id="Sjk-ji-r7t"/>
+                                    <outlet property="measurementTextField" destination="1PZ-LT-FVS" id="sAX-xu-5cf"/>
+                                </connections>
+                            </view>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="420" y="291" width="160" height="190"/>
                                 <subviews>
@@ -112,9 +143,11 @@
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
                                 <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
                             </constraint>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="lAt-pi-biU" secondAttribute="bottom" constant="55" id="QSp-eb-vBE"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu">
                                 <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                             </constraint>
+                            <constraint firstAttribute="leadingMargin" secondItem="lAt-pi-biU" secondAttribute="leading" id="UYh-qK-qHL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="YJZ-gU-i6b"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="eRR-gR-7ev"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="291" id="fqE-NL-QmJ"/>
@@ -153,6 +186,7 @@
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
+                        <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                         <outlet property="thumbnailView" destination="rb1-cc-jsu" id="srB-qs-bCZ"/>
                         <outlet property="toolbar" destination="xRM-F2-amm" id="ppx-Z1-rkd"/>
