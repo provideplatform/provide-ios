@@ -61,8 +61,6 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
     }
 
     private func dragVertex(xOffset: CGFloat, yOffset: CGFloat) {
-        print("vertex should drag using coordinate offset \(xOffset), \(yOffset)")
-
         if let view = view {
             var newFrame = CGRect(origin: view.frame.origin, size: view.frame.size)
             newFrame.origin.x += xOffset

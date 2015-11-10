@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol BlueprintPolygonVertexViewDelegate {
+    func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView)
+}
+
 class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
+
+    var delegate: BlueprintPolygonVertexViewDelegate!
 
     var image: UIImage?
 
@@ -37,7 +43,7 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     }
 
     func vertexMoved(gestureRecognizer: UIGestureRecognizer) {
-        print("VERTEX MOVED! \(gestureRecognizer)")
+        delegate?.blueprintPolygonVertexViewShouldRedrawVertices(self)
     }
     
     // MARK: UIGestureRecognizerDelegate

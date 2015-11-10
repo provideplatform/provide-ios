@@ -13,7 +13,7 @@ protocol BlueprintScaleViewDelegate {
     func blueprintScaleViewDidReset(view: BlueprintScaleView)
 }
 
-class BlueprintScaleView: UIView, UITextFieldDelegate {
+class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFieldDelegate {
 
     var delegate: BlueprintScaleViewDelegate! {
         didSet {
@@ -31,6 +31,8 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
 
     private var firstPointView: BlueprintPolygonVertexView!
     private var secondPointView: BlueprintPolygonVertexView!
+
+    private var lineView: BlueprintPolygonLineView!
 
     private var targetView: UIView! {
         if let superview = self.superview {
@@ -56,6 +58,8 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
         firstPoint = nil
         secondPoint = nil
 
+        removeGestureRecognizer()
+
         if let firstPointView = firstPointView {
             firstPointView.removeFromSuperview()
         }
@@ -64,7 +68,15 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
             secondPointView.removeFromSuperview()
         }
 
+        if let lineView = lineView {
+            lineView.removeFromSuperview()
+        }
+
         delegate?.blueprintScaleViewDidReset(self)
+    }
+
+    override func drawRect(rect: CGRect) {
+        super.drawRect(rect)
     }
 
     func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
@@ -90,6 +102,7 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
 
             if singlePoint {
                 firstPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(50.0))!)
+                firstPointView.delegate = self
                 firstPointView.frame.origin = CGPoint(x: firstPoint.x - (firstPointView.image!.size.width / 2.0),
                                                       y: firstPoint.y - (firstPointView.image!.size.height / 2.0))
 
@@ -97,6 +110,7 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
                 blueprintImageView.bringSubviewToFront(firstPointView)
             } else if canDrawLine {
                 secondPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(50.0))!)
+                secondPointView.delegate = self
                 secondPointView.frame.origin = CGPoint(x: secondPoint.x - (secondPointView.image!.size.width / 2.0),
                                                        y: secondPoint.y - (secondPointView.image!.size.height / 2.0))
 
@@ -111,16 +125,35 @@ class BlueprintScaleView: UIView, UITextFieldDelegate {
 
     private func redrawLineSegment() {
         if let blueprintImageView = delegate?.blueprintImageViewForBlueprintScaleView(self) {
-            let singlePoint = firstPoint != nil && secondPoint == nil
             let canDrawLine = firstPoint != nil && secondPoint != nil
+            if canDrawLine {
+                if lineView == nil {
+                    lineView = BlueprintPolygonLineView()
+                    blueprintImageView.addSubview(lineView)
+                    blueprintImageView.bringSubviewToFront(lineView)
 
-            print("draw scale line on scroll view \(blueprintImageView)")
-
-            if singlePoint {
-                // remove line
-            } else if canDrawLine {
-                // remove line and draw between both points
+                    blueprintImageView.bringSubviewToFront(firstPointView)
+                    blueprintImageView.bringSubviewToFront(secondPointView)
+                }
+                
+                lineView.setPoints(firstPoint, endPoint: secondPoint)
             }
+        }
+    }
+
+    // MARK: BlueprintPolygonVertexViewDelegate
+
+    func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) {
+        if view == firstPointView {
+            firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
+                                 y: view.frame.origin.y + (firstPointView.image!.size.width / 2.0))
+        } else if view == secondPointView {
+            secondPoint = CGPoint(x: view.frame.origin.x + (secondPointView.image!.size.width / 2.0),
+                                  y: view.frame.origin.y + (secondPointView.image!.size.width / 2.0))
+        }
+
+        if let lineView = lineView {
+            lineView.setPoints(firstPoint, endPoint: secondPoint)
         }
     }
 
