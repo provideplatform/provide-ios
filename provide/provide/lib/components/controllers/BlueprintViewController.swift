@@ -216,7 +216,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     func setScale(sender: UIBarButtonItem) {
         let scale = scaleView.scale
-        scaleView.resignFirstResponder()
+        scaleView.resignFirstResponder(false)
 
         restoreCachedNavigationItem()
 
@@ -291,7 +291,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     // MARK: BlueprintThumbnailViewDelegate
 
-    func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
+    func blueprintThumbnailView(
+        view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
         enableScrolling = false
 
@@ -348,6 +349,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             }
 
             scaleView.attachGestureRecognizer()
+        } else {
+            scaleView.resignFirstResponder(true)
         }
     }
 

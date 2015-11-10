@@ -70,7 +70,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    private func reset() {
+    private func reset(suppressDelegateNotification: Bool = false) {
         firstPoint = nil
         secondPoint = nil
 
@@ -94,11 +94,13 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
             lineView.removeFromSuperview()
         }
 
-        delegate?.blueprintScaleViewDidReset(self)
+        if !suppressDelegateNotification {
+            delegate?.blueprintScaleViewDidReset(self)
+        }
     }
 
-    override func resignFirstResponder() -> Bool {
-        reset()
+    func resignFirstResponder(suppressDelegateNotification: Bool = false) -> Bool {
+        reset(suppressDelegateNotification)
         return super.resignFirstResponder()
     }
 
@@ -157,8 +159,15 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         if let blueprintImageView = delegate?.blueprintImageViewForBlueprintScaleView(self) {
             let canDrawLine = firstPoint != nil && secondPoint != nil
             if canDrawLine {
+                var attachLineView = false
                 if lineView == nil {
                     lineView = BlueprintPolygonLineView()
+                    attachLineView = true
+                } else if lineView.superview == nil {
+                    attachLineView = true
+                }
+
+                if attachLineView {
                     blueprintImageView.addSubview(lineView)
                     blueprintImageView.bringSubviewToFront(lineView)
 
@@ -173,7 +182,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
     // MARK: BlueprintPolygonVertexViewDelegate
 
-    func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) {
+    func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         if view == firstPointView {
             firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
                                  y: view.frame.origin.y + (firstPointView.image!.size.width / 2.0))
