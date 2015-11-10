@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintScaleViewDelegate {
     func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView!
+    func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView)
     func blueprintScaleViewDidReset(view: BlueprintScaleView)
 }
 
@@ -19,8 +20,23 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         didSet {
             if let _ = delegate {
                 measurementTextField.text = ""
+                instructionLabel.text = "Tap the location from which measuring began"
             }
         }
+    }
+
+    var distance: CGFloat {
+        let xDistance = abs(secondPoint.x - firstPoint.x)
+        let yDistance = abs(secondPoint.y - firstPoint.y)
+        return sqrt((xDistance * xDistance) + (yDistance * yDistance))
+    }
+
+    var scale: CGFloat {
+        if let measurementText = measurementTextField.text {
+            let measuredDistance = CGFloat(Float(measurementText)!)
+            return distance / measuredDistance
+        }
+        return 0.0
     }
 
     @IBOutlet private weak var instructionLabel: UILabel!
@@ -60,6 +76,12 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
         removeGestureRecognizer()
 
+        if let measurementTextField = measurementTextField {
+            if measurementTextField.isFirstResponder() {
+                measurementTextField.resignFirstResponder()
+            }
+        }
+
         if let firstPointView = firstPointView {
             firstPointView.removeFromSuperview()
         }
@@ -75,8 +97,9 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         delegate?.blueprintScaleViewDidReset(self)
     }
 
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    override func resignFirstResponder() -> Bool {
+        reset()
+        return super.resignFirstResponder()
     }
 
     func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
@@ -86,10 +109,14 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
             if let _ = firstPoint {
                 if secondPoint == nil {
                     secondPoint = point
+                    instructionLabel.text = "Enter the measurement in feet to set scale"
+                    measurementTextField.becomeFirstResponder()
+                    delegate?.blueprintScaleViewCanSetBlueprintScale(self)
                     updateLineEndpoints()
                 }
             } else {
                 firstPoint = point
+                instructionLabel.text = "Tap the location at which measuring ended"
                 updateLineEndpoints()
             }
         }
@@ -153,7 +180,9 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
 
         if let lineView = lineView {
-            lineView.setPoints(firstPoint, endPoint: secondPoint)
+            if firstPoint != nil && secondPoint != nil {
+                lineView.setPoints(firstPoint, endPoint: secondPoint)
+            }
         }
     }
 

@@ -40,18 +40,24 @@
                                 </connections>
                             </toolbar>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAt-pi-biU" customClass="BlueprintScaleView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="20" y="381" width="300" height="100"/>
+                                <rect key="frame" x="151" y="8" width="298" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap the location from which measuring began" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-cI-nlK">
-                                        <rect key="frame" x="25" y="8" width="250" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the location from which measuring began" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-cI-nlK">
+                                        <rect key="frame" x="0.0" y="8" width="298" height="21"/>
                                         <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="10"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="VLn-KS-aF1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
-                                        <rect key="frame" x="114" y="50" width="73" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
+                                        <rect key="frame" x="112" y="50" width="73" height="30"/>
                                         <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="73" id="z7E-0k-4U8"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
@@ -62,8 +68,18 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="k13-5W-Ppa"/>
-                                    <constraint firstAttribute="width" constant="300" id="r8I-9i-ef8"/>
+                                    <constraint firstItem="LZD-cI-nlK" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" id="6t4-cg-2ZR"/>
+                                    <constraint firstAttribute="trailing" secondItem="LZD-cI-nlK" secondAttribute="trailing" id="L2O-Oj-A4z"/>
+                                    <constraint firstItem="LZD-cI-nlK" firstAttribute="top" secondItem="lAt-pi-biU" secondAttribute="topMargin" id="NRR-U0-IGk"/>
+                                    <constraint firstAttribute="trailing" secondItem="1PZ-LT-FVS" secondAttribute="trailing" constant="113" id="R3e-gt-jkT"/>
+                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="centerX" secondItem="LZD-cI-nlK" secondAttribute="centerX" id="Wz1-YG-5kO"/>
+                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="centerX" secondItem="lAt-pi-biU" secondAttribute="centerX" id="ZJM-yt-HIF"/>
+                                    <constraint firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" constant="20" id="cAM-FT-LXz"/>
+                                    <constraint firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" constant="20" id="cEq-rn-Yt8"/>
+                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" constant="112" id="eu7-yh-q3w"/>
+                                    <constraint firstAttribute="height" constant="100" id="fa2-eV-LaQ"/>
+                                    <constraint firstAttribute="width" constant="298" id="l7Z-p8-JRS"/>
+                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="top" secondItem="LZD-cI-nlK" secondAttribute="bottom" constant="21" id="v1Z-nv-amK"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="instructionLabel" destination="LZD-cI-nlK" id="Sjk-ji-r7t"/>
@@ -131,6 +147,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="51" id="Aut-ds-ovb">
                                 <variation key="heightClass=regular-widthClass=compact" constant="6"/>
                             </constraint>
@@ -143,13 +160,12 @@
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
                                 <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
                             </constraint>
-                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="lAt-pi-biU" secondAttribute="bottom" constant="55" id="QSp-eb-vBE"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu">
                                 <variation key="heightClass=regular-widthClass=compact" constant="10"/>
                             </constraint>
-                            <constraint firstAttribute="leadingMargin" secondItem="lAt-pi-biU" secondAttribute="leading" id="UYh-qK-qHL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="YJZ-gU-i6b"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="eRR-gR-7ev"/>
+                            <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
                             <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="291" id="fqE-NL-QmJ"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>

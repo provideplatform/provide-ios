@@ -43,8 +43,12 @@ class BlueprintToolbar: UIToolbar {
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
     }
 
-    func toggleScaleVisibility(sender: UIBarButtonItem) {
+    func toggleScaleVisibility() {
         scaleVisible = !scaleVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetScaleVisibility: scaleVisible)
+    }
+
+    func toggleScaleVisibility(sender: UIBarButtonItem) {
+        toggleScaleVisibility()
     }
 }

@@ -30,6 +30,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             if let scaleView = scaleView {
                 scaleView.delegate = self
                 scaleView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
+                scaleView.clipsToBounds = true
                 scaleView.roundCorners(5.0)
             }
         }
@@ -76,6 +77,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             height: hiddenNavigationControllerFrame.height
         )
     }
+
+    private var cachedNavigationItem: UINavigationItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -214,14 +217,69 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         )
     }
 
+    func setScale(sender: UIBarButtonItem) {
+        let scale = scaleView.scale
+        scaleView.resignFirstResponder()
+
+        restoreCachedNavigationItem()
+
+        print("set scale of \(scale) pixels per foot")
+    }
+
+    private func overrideNavigationItem(setScaleEnabled: Bool = false) {
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            cacheNavigationItem(navigationItem)
+
+            if setScaleEnabled {
+                if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
+                    navigationController.setNavigationBarHidden(false, animated: true)
+                }
+
+                let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
+                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+
+                navigationItem.leftBarButtonItems = []
+                navigationItem.rightBarButtonItems = [setScaleItem]
+            }
+        }
+    }
+
+    private func cacheNavigationItem(navigationItem: UINavigationItem) {
+        cachedNavigationItem = UINavigationItem()
+        cachedNavigationItem.leftBarButtonItems = navigationItem.leftBarButtonItems
+        cachedNavigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
+        cachedNavigationItem.title = navigationItem.title
+        cachedNavigationItem.titleView = navigationItem.titleView
+        cachedNavigationItem.prompt = navigationItem.prompt
+    }
+
+    private func restoreCachedNavigationItem() {
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            if let cachedNavigationItem = cachedNavigationItem {
+                navigationItem.leftBarButtonItems = cachedNavigationItem.leftBarButtonItems
+                navigationItem.rightBarButtonItems = cachedNavigationItem.rightBarButtonItems
+                navigationItem.title = cachedNavigationItem.title
+                navigationItem.titleView = cachedNavigationItem.titleView
+                navigationItem.prompt = cachedNavigationItem.prompt
+
+                self.cachedNavigationItem = nil
+            }
+        }
+    }
+
     // MARK: BlueprintScaleViewDelegate
 
     func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView! {
         return imageView
     }
 
+    func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView) {
+        overrideNavigationItem(true)
+    }
+
     func blueprintScaleViewDidReset(view: BlueprintScaleView) {
-        print("blueprint scale view did reset")
+        toolbar.toggleScaleVisibility()
     }
 
     // MARK: BlueprintThumbnailViewDelegate
@@ -280,8 +338,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         if visible {
             scaleView.attachGestureRecognizer()
         }
-
-        //enableScrolling = !visible
     }
 
     // MARK: UIScrollViewDelegate
