@@ -136,18 +136,18 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
             let canDrawLine = firstPoint != nil && secondPoint != nil
 
             if singlePoint {
-                firstPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(50.0))!)
+                firstPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
                 firstPointView.delegate = self
                 firstPointView.frame.origin = CGPoint(x: firstPoint.x - (firstPointView.image!.size.width / 2.0),
-                                                      y: firstPoint.y - (firstPointView.image!.size.height / 2.0))
+                                                      y: firstPoint.y - firstPointView.image!.size.height)
 
                 blueprintImageView.addSubview(firstPointView)
                 blueprintImageView.bringSubviewToFront(firstPointView)
             } else if canDrawLine {
-                secondPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(50.0))!)
+                secondPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
                 secondPointView.delegate = self
                 secondPointView.frame.origin = CGPoint(x: secondPoint.x - (secondPointView.image!.size.width / 2.0),
-                                                       y: secondPoint.y - (secondPointView.image!.size.height / 2.0))
+                                                       y: secondPoint.y - secondPointView.image!.size.height)
 
                 blueprintImageView.addSubview(secondPointView)
                 blueprintImageView.bringSubviewToFront(secondPointView)
@@ -189,10 +189,10 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         if view == firstPointView {
             firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
-                                 y: view.frame.origin.y + (firstPointView.image!.size.width / 2.0))
+                                 y: view.frame.origin.y + firstPointView.image!.size.height)
         } else if view == secondPointView {
             secondPoint = CGPoint(x: view.frame.origin.x + (secondPointView.image!.size.width / 2.0),
-                                  y: view.frame.origin.y + (secondPointView.image!.size.width / 2.0))
+                                  y: view.frame.origin.y + secondPointView.image!.size.height)
         }
 
         if let lineView = lineView {
