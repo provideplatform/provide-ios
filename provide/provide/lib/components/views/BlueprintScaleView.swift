@@ -34,10 +34,12 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
     var scale: CGFloat {
         if let measurementText = measurementTextField.text {
-            let measuredDistance = CGFloat(Float(measurementText)!)
-            return distance / measuredDistance
+            if measurementText.length > 0 {
+                let measuredDistance = CGFloat(Float(measurementText)!)
+                return distance / measuredDistance
+            }
         }
-        return 0.0
+        return 1.0
     }
 
     @IBOutlet private weak var instructionLabel: UILabel!
@@ -204,7 +206,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     private func populateMeasurementTextFieldFromCurrentScale() {
         if let currentScale = delegate?.blueprintScaleForBlueprintScaleView(self) {
             if currentScale > 0.0 {
-                let rawDistance = Float(currentScale * distance)
+                let rawDistance = Float(distance / currentScale)
                 measurementTextField.text = "\(ceilf(rawDistance * 100.0) / 100.0)"
             }
         }

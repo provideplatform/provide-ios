@@ -294,9 +294,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let job = workOrder.job {
-                if let blueprintScale = job.blueprintScale {
-                    return blueprintScale
-                }
+                return CGFloat(job.blueprintScale)
             }
         }
 

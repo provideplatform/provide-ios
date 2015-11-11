@@ -15,7 +15,7 @@ class Job: Model {
     var attachments: [Attachment]!
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
-    var blueprintScale: CGFloat!
+    var blueprintScale = 0.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
