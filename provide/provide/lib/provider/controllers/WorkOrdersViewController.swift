@@ -543,7 +543,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if inProgressWorkOrder.components.count > 0 {
                 var components = inProgressWorkOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 inProgressWorkOrder.setComponents(components)
             }
         }
@@ -588,7 +588,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -619,7 +619,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -640,7 +640,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -656,7 +656,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -677,7 +677,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 2)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarrayWithRange(NSMakeRange(1, components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
