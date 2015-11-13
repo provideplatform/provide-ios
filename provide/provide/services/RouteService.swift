@@ -76,6 +76,8 @@ class RouteService: NSObject {
         status: String = "scheduled",
         today: Bool = false,
         nextRouteOnly: Bool = false,
+        includeDispatcherOriginAssignment: Bool = true,
+        includeProviderOriginAssignment: Bool = true,
         includeProducts: Bool = true,
         includeWorkOrders: Bool = true,
         onRoutesFetched: OnRoutesFetched)
@@ -84,6 +86,8 @@ class RouteService: NSObject {
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
+            "include_dispatcher_origin_assignment": includeDispatcherOriginAssignment ? "true" : "false",
+            "include_provider_origin_assignment": includeProviderOriginAssignment ? "true" : "false",
             "include_products": includeProducts ? "true" : "false",
             "include_work_orders": includeWorkOrders ? "true" : "false",
         ]

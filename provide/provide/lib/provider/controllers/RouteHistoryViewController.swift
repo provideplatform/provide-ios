@@ -119,6 +119,8 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned,canceled",
             "sort_started_at_desc": "true",
             "include_products": "true",
+            "include_dispatcher_origin_assignment": "true",
+            "include_provider_origin_assignment": "true",
             "include_work_orders": "true",
             "include_checkin_coordinates": "true",
             "douglas_peucker_tolerance": "1"
