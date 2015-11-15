@@ -182,7 +182,11 @@ class ApiService: NSObject {
     }
 
     func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
+        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+        if let tags = params["tags"] {
+            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+        }
+        dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
@@ -332,7 +336,11 @@ class ApiService: NSObject {
     }
 
     func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: ["filename": "upload.\(mimeMappings[mimeType]!)"],
+        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+        if let tags = params["tags"] {
+            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+        }
+        dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
