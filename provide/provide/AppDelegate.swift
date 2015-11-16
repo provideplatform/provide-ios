@@ -100,6 +100,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
+        case .Attachment:
+            if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool {
+                if refreshProfileImage {
+                    if let token = KeyChainService.sharedService().token {
+                        if let user = token.user {
+                            user.reload(
+                                { statusCode, mappingResult in
+                                    NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
+                                },
+                                onError: { error, statusCode, responseString in
+                                    
+                                }
+                            )
+                        }
+                    }
+                }
+            }
         case .CheckIn:
             let checkin = notificationValue as! Bool
             if checkin {

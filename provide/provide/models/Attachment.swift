@@ -19,6 +19,8 @@ class Attachment: Model {
     var key: String!
     var metadata: NSDictionary!
     var mimeType: String!
+    var status: String!
+    var displayUrlString: String!
     var urlString: String!
 
     override class func mapping() -> RKObjectMapping {
@@ -33,12 +35,23 @@ class Attachment: Model {
             "key": "key",
             "metadata": "metadata",
             "mime_type": "mimeType",
+            "status": "status",
+            "display_url": "displayUrlString",
             "url": "urlString",
         ])
         return mapping
     }
 
     var url: NSURL! {
+        if let status = status {
+            if status == "pending" {
+                return nil
+            }
+        }
+
+        if let displayUrlString = displayUrlString {
+            return NSURL(string: displayUrlString)
+        }
         return NSURL(string: urlString)
     }
 

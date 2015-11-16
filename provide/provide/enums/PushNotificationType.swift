@@ -7,6 +7,7 @@
 //
 
 enum PushNotificationType: String {
+    case Attachment = "attachment_id"
     case CheckIn = "checkin"
     case Message = "message"
     case Route = "route_id"
@@ -16,7 +17,7 @@ enum PushNotificationType: String {
         return rawValue
     }
 
-    static let allTypes = [CheckIn, Message, Route, WorkOrder]
+    static let allTypes = [Attachment, CheckIn, Message, Route, WorkOrder]
 
     static func typeAndValueFromUserInfo(userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject) {
         for type in allTypes {
