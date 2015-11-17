@@ -35,4 +35,8 @@ class BlueprintPolygonLineView: UIView {
 
         sizeToFit()
     }
+
+    func moveEndpoint(point: CGPoint) {
+        setPoints(startPoint, endPoint: point)
+    }
 }

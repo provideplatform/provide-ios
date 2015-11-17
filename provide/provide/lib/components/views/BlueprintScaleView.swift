@@ -203,6 +203,10 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
     }
 
+    func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView) {
+        // no-op
+    }
+
     private func populateMeasurementTextFieldFromCurrentScale() {
         if let currentScale = delegate?.blueprintScaleForBlueprintScaleView(self) {
             if currentScale > 0.0 {

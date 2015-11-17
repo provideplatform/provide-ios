@@ -11,6 +11,7 @@ import UIKit
 protocol BlueprintToolbarDelegate {
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
+    func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
 }
 
 class BlueprintToolbar: UIToolbar {
@@ -38,6 +39,15 @@ class BlueprintToolbar: UIToolbar {
         }
     }
 
+    @IBOutlet private weak var createWorkOrderButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = createWorkOrderButton {
+                navigationButton.target = self
+                navigationButton.action = "createWorkOrder:"
+            }
+        }
+    }
+
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
@@ -50,5 +60,9 @@ class BlueprintToolbar: UIToolbar {
 
     func toggleScaleVisibility(sender: UIBarButtonItem) {
         toggleScaleVisibility()
+    }
+
+    func createWorkOrder(sender: UIBarButtonItem) {
+        blueprintToolbarDelegate?.newWorkOrderShouldBeCreatedByBlueprintToolbar(self)
     }
 }

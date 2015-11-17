@@ -23,6 +23,11 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abb-Tj-uxb" customClass="BlueprintPolygonView" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="180" y="204" width="240" height="128"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="BlueprintScrollView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <animations/>
@@ -35,11 +40,14 @@
                                 <animations/>
                                 <items>
                                     <barButtonItem title="Scale" id="dlS-QM-Xdl"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fAE-sK-LuL"/>
+                                    <barButtonItem title="+ Work Order" id="vpF-ec-lig"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk"/>
                                     <barButtonItem title="Navigator" id="F6Z-Yj-ebn"/>
                                 </items>
                                 <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
+                                    <outlet property="createWorkOrderButton" destination="vpF-ec-lig" id="y2k-88-5p7"/>
                                     <outlet property="navigationButton" destination="F6Z-Yj-ebn" id="Wwg-bl-5N2"/>
                                     <outlet property="scaleButton" destination="dlS-QM-Xdl" id="85b-r0-9pj"/>
                                 </connections>
@@ -207,6 +215,7 @@
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
+                        <outlet property="polygonView" destination="abb-Tj-uxb" id="CZx-9o-VWf"/>
                         <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                         <outlet property="thumbnailView" destination="rb1-cc-jsu" id="srB-qs-bCZ"/>

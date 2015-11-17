@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintPolygonVertexViewDelegate {
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView)
+    func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView)
 }
 
 class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
@@ -17,6 +18,9 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     var delegate: BlueprintPolygonVertexViewDelegate!
 
     var image: UIImage?
+
+    private var blueprintPolygonVertexViewGestureRecognizer: BlueprintPolygonVertexViewGestureRecognizer!
+    private var tapGestureRecognizer: UITapGestureRecognizer!
 
     init(image: UIImage) {
         super.init(frame: CGRect(x: 0.0,
@@ -37,15 +41,23 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupGestureRecognizers() {
-        let gestureRecognizer = BlueprintPolygonVertexViewGestureRecognizer(target: self, action: "vertexMoved:")
-        gestureRecognizer.delegate = self
-        addGestureRecognizer(gestureRecognizer)
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "vertexTapped:")
+        tapGestureRecognizer.delegate = self
+        addGestureRecognizer(tapGestureRecognizer)
+
+        blueprintPolygonVertexViewGestureRecognizer = BlueprintPolygonVertexViewGestureRecognizer(target: self, action: "vertexMoved:")
+        blueprintPolygonVertexViewGestureRecognizer.delegate = self
+        addGestureRecognizer(blueprintPolygonVertexViewGestureRecognizer)
     }
 
     func vertexMoved(gestureRecognizer: UIGestureRecognizer) {
         delegate?.blueprintPolygonVertexViewShouldRedrawVertices(self)
     }
-    
+
+    func vertexTapped(gestureRecognizer: UIGestureRecognizer) {
+        delegate?.blueprintPolygonVertexViewTapped(self)
+    }
+
     // MARK: UIGestureRecognizerDelegate
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
@@ -53,6 +65,7 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     }
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
+        return gestureRecognizer == self.blueprintPolygonVertexViewGestureRecognizer && otherGestureRecognizer == self.tapGestureRecognizer
+            || gestureRecognizer == self.tapGestureRecognizer && otherGestureRecognizer == self.blueprintPolygonVertexViewGestureRecognizer
     }
 }

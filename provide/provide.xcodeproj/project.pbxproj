@@ -186,6 +186,7 @@
 		68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C21BFB20A900DE7400 /* JobsViewController.swift */; };
 		68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */; };
 		68D843C71BFB47A200DE7400 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C61BFB47A200DE7400 /* JobViewController.swift */; };
+		68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
 		68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
@@ -388,6 +389,7 @@
 		68D843C21BFB20A900DE7400 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		68D843C61BFB47A200DE7400 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
+		68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonView.swift; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
 		68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -714,6 +716,7 @@
 			isa = PBXGroup;
 			children = (
 				6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */,
+				68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */,
 				6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */,
 				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
 				6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */,
@@ -1302,6 +1305,7 @@
 				5C4AF3A31B13AC0500423B71 /* UIStoryboardExtensions.swift in Sources */,
 				68F536F81B834A720007F480 /* RouteMapView.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
+				68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,

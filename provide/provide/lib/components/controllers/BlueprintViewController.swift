@@ -12,7 +12,7 @@ protocol BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
+class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate, BlueprintPolygonViewDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
@@ -39,6 +39,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 thumbnailView.delegate = self
                 thumbnailView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
                 thumbnailView.roundCorners(5.0)
+            }
+        }
+    }
+
+    @IBOutlet private weak var polygonView: BlueprintPolygonView! {
+        didSet {
+            if let polygonView = polygonView {
+                polygonView.delegate = self
             }
         }
     }
@@ -380,6 +388,26 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             restoreCachedNavigationItem()
             scaleView.resignFirstResponder(true)
         }
+    }
+
+    func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) {
+        print("create new work order!!!!")
+
+        polygonView.alpha = 1.0
+        polygonView.attachGestureRecognizer()
+    }
+
+    // MARK: BlueprintPolygonViewDelegate
+
+    func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView! {
+        return imageView
+    }
+
+    func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment! {
+        if let job = job {
+            return job.blueprint
+        }
+        return nil
     }
 
     // MARK: UIScrollViewDelegate

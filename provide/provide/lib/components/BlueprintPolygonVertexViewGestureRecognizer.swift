@@ -82,8 +82,6 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
             }
 
             view.frame = newFrame
-
-//            delegate?.blueprintThumbnailOverlayView(self, navigatedToFrame: view.frame)
         }
     }
 }
