@@ -176,7 +176,9 @@ class ApiService: NSObject {
 
                 ApiService.sharedService().fetchUser(
                     onSuccess: { statusCode, mappingResult in
-                        NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
+                        if !ApiService.isRegisteredForRemoteNotifications() {
+                            NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
+                        }
                     },
                     onError: { error, statusCode, responseString in
 
