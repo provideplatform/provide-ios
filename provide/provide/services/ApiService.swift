@@ -72,6 +72,14 @@ class ApiService: NSObject {
         return false
     }
 
+    class func isRegisteredForRemoteNotifications() -> Bool {
+        if let _ = KeyChainService.sharedService().deviceId {
+            return true
+        }
+
+        return false
+    }
+
     func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("tokens", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
