@@ -110,6 +110,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
 
+        NSNotificationCenter.defaultCenter().addObserverForName("SegueToJobsStoryboard") { sender in
+            if self.navigationController?.viewControllers.last?.isKindOfClass(JobsViewController) == false {
+                self.performSegueWithIdentifier("JobsViewControllerSegue", sender: self)
+            }
+        }
+
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
             if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
                 self.performSegueWithIdentifier("ManifestViewControllerSegue", sender: self)
@@ -708,6 +714,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(viewController: UIViewController) {
         setupBarButtonItems()
+    }
+
+    // MARK: BlueprintViewControllerDelegate
+
+    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.job
+        }
+        return nil
     }
 
     // MARK: DirectionsViewControllerDelegate

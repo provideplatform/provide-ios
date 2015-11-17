@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BlueprintViewControllerDelegate {
-
+    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
 }
 
 class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate {
@@ -41,6 +41,16 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 thumbnailView.roundCorners(5.0)
             }
         }
+    }
+
+    var job: Job! {
+        if let job = blueprintViewControllerDelegate?.jobForBlueprintViewController(self) {
+            return job
+        }
+        if let workOrder = workOrder {
+            return workOrder.job
+        }
+        return nil
     }
 
     private var imageView: UIImageView!
@@ -159,8 +169,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     private func loadBlueprint() {
-        if let workOrder = workOrder {
-            if let url = workOrder.blueprintImageUrl {
+        if let job = job {
+            if let url = job.blueprintImageUrl {
                 imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) -> Void in
                     let size = CGSize(width: image.size.width, height: image.size.height)
 
@@ -225,16 +235,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
         restoreCachedNavigationItem()
 
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            if let job = workOrder.job {
-                job.updateJobBlueprintScale(scale,
-                    onSuccess: { statusCode, mappingResult in
-                        print("set scale of \(scale) pixels per foot")
-                    }, onError: { error, statusCode, responseString in
+        if let job = job {
+            job.updateJobBlueprintScale(scale,
+                onSuccess: { statusCode, mappingResult in
+                    print("set scale of \(scale) pixels per foot")
+                }, onError: { error, statusCode, responseString in
 
-                    }
-                )
-            }
+                }
+            )
         }
     }
 
@@ -292,10 +300,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            if let job = workOrder.job {
-                return CGFloat(job.blueprintScale)
-            }
+        if let job = job {
+            return CGFloat(job.blueprintScale)
         }
 
         return 1.0

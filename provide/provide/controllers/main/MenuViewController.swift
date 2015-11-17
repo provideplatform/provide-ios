@@ -50,6 +50,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         case "WorkOrderHistoryCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
+        case "JobsCell":
+            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
+            segueToInitialViewControllerInStoryboard(storyboardName)
         case "LegalCell":
             let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
             webViewController.url = NSURL(string: "https://provide.services/#/legal")

@@ -434,6 +434,10 @@ class ApiService: NSObject {
 
     // MARK: Jobs API
 
+    func fetchJobs(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("jobs", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         var realParams = params
         realParams["id"] = nil

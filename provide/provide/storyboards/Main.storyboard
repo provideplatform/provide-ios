@@ -19,6 +19,7 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -712,18 +713,88 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WorkOrderHistoryCell" id="m4m-MR-7kG">
+                                        <rect key="frame" x="0.0" y="265" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m4m-MR-7kG" id="UhD-RZ-QoZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WORK ORDER HISTORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTX-dI-jVL">
+                                                    <rect key="frame" x="58" y="12" width="242" height="21"/>
+                                                    <animations/>
+                                                    <accessibility key="accessibilityConfiguration" label="tos_menu_item"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="242" id="JUb-yC-HuB"/>
+                                                        <constraint firstAttribute="width" constant="242" id="RhX-M5-0hN"/>
+                                                        <constraint firstAttribute="width" constant="242" id="seZ-Vr-PY0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JUb-yC-HuB"/>
+                                                            <exclude reference="seZ-Vr-PY0"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <include reference="seZ-Vr-PY0"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular-widthClass=regular">
+                                                        <mask key="constraints">
+                                                            <include reference="JUb-yC-HuB"/>
+                                                        </mask>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="cTX-dI-jVL" secondAttribute="bottom" constant="9" id="2g9-th-DVo"/>
+                                                <constraint firstItem="cTX-dI-jVL" firstAttribute="top" secondItem="UhD-RZ-QoZ" secondAttribute="topMargin" constant="4" id="6BG-a7-Yz0"/>
+                                                <constraint firstItem="cTX-dI-jVL" firstAttribute="leading" secondItem="UhD-RZ-QoZ" secondAttribute="leadingMargin" constant="50" id="6PL-LG-2So"/>
+                                                <constraint firstItem="cTX-dI-jVL" firstAttribute="leading" secondItem="UhD-RZ-QoZ" secondAttribute="leadingMargin" constant="50" id="KR8-nu-w22"/>
+                                                <constraint firstItem="cTX-dI-jVL" firstAttribute="top" secondItem="UhD-RZ-QoZ" secondAttribute="topMargin" constant="4" id="cwE-YN-UZE"/>
+                                                <constraint firstItem="cTX-dI-jVL" firstAttribute="top" secondItem="UhD-RZ-QoZ" secondAttribute="topMargin" constant="4" id="hZW-jg-5GO"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="KR8-nu-w22"/>
+                                                    <exclude reference="hZW-jg-5GO"/>
+                                                    <exclude reference="cwE-YN-UZE"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <include reference="hZW-jg-5GO"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <mask key="constraints">
+                                                    <exclude reference="6BG-a7-Yz0"/>
+                                                    <include reference="KR8-nu-w22"/>
+                                                    <exclude reference="2g9-th-DVo"/>
+                                                    <include reference="cwE-YN-UZE"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="TGA-Rl-jQ3">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WorkOrderHistoryCell" id="oGi-d1-paG" userLabel="WorkOrderHistory">
-                                        <rect key="frame" x="0.0" y="285" width="600" height="50"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="JobsCell" id="oGi-d1-paG">
+                                        <rect key="frame" x="0.0" y="335" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGi-d1-paG" id="Ljp-YN-v2Z">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WORK ORDER HISTORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOBS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
                                                     <rect key="frame" x="58" y="12" width="242" height="21"/>
                                                     <animations/>
                                                     <accessibility key="accessibilityConfiguration" label="tos_menu_item"/>
@@ -791,7 +862,7 @@
                             <tableViewSection id="WQ6-yA-ewC">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LegalCell" id="8LK-Vf-wii">
-                                        <rect key="frame" x="0.0" y="355" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="405" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8LK-Vf-wii" id="Eaz-dn-7CM">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
@@ -861,7 +932,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LogoutCell" id="1E3-lI-NLB">
-                                        <rect key="frame" x="0.0" y="405" width="600" height="50"/>
+                                        <rect key="frame" x="0.0" y="455" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1E3-lI-NLB" id="iQI-mg-N2B">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
