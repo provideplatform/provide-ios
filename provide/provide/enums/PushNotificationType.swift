@@ -8,23 +8,25 @@
 
 enum PushNotificationType: String {
     case Attachment = "attachment_id"
-    case CheckIn = "checkin"
+    case Checkin = "checkin"
     case Message = "message"
     case Route = "route_id"
+    case Unknown = ""
     case WorkOrder = "work_order_id"
 
     var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [Attachment, CheckIn, Message, Route, WorkOrder]
+    static let allTypes = [Attachment, Checkin, Message, Route, WorkOrder]
 
-    static func typeAndValueFromUserInfo(userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject) {
+    static func typeAndValueFromUserInfo(userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject!) {
         for type in allTypes {
             if let value: AnyObject = userInfo[type.rawValue] {
                 return (type, value)
             }
         }
-        fatalError("Existing notification type not found in userInfo: \(userInfo)")
+        logWarn("Existing notification type not found in userInfo: \(userInfo)")
+        return (Unknown, nil)
     }
 }
