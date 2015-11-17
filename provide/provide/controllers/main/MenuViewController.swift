@@ -50,9 +50,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         case "WorkOrderHistoryCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
-        case "TermsOfServiceCell":
+        case "LegalCell":
             let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-            webViewController.url = NSURL(string: "http://google.com") //NSURL("\(CurrentEnvironment.marketingBaseUrlString)/terms-of-service")
+            webViewController.url = NSURL(string: "https://provide.services/#/legal")
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
         case "LogoutCell":
