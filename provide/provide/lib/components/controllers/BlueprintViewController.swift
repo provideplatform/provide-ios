@@ -399,6 +399,13 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     // MARK: BlueprintPolygonViewDelegate
 
+    func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat! {
+        if let job = job {
+            return CGFloat(job.blueprintScale)
+        }
+        return nil
+    }
+
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView! {
         return imageView
     }

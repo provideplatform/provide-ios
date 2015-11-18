@@ -9,6 +9,7 @@
 import UIKit
 
 protocol BlueprintPolygonViewDelegate {
+    func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat!
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView!
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
 }
@@ -23,19 +24,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         }
     }
 
-//    var distance: CGFloat {
-//        let xDistance = abs(secondPoint.x - firstPoint.x)
-//        let yDistance = abs(secondPoint.y - firstPoint.y)
-//        return sqrt((xDistance * xDistance) + (yDistance * yDistance))
-//    }
-
     var scale: CGFloat {
-//        if let measurementText = measurementTextField.text {
-//            if measurementText.length > 0 {
-//                let measuredDistance = CGFloat(Float(measurementText)!)
-//                return distance / measuredDistance
-//            }
-//        }
+        if let blueprintScale = delegate?.blueprintScaleForBlueprintPolygonView(self) {
+            return blueprintScale
+        }
         return 1.0
     }
 
@@ -163,7 +155,9 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 blueprintImageView.addSubview(lineView)
                 blueprintImageView.bringSubviewToFront(lineView)
 
-                populateMeasurementFromCurrentScale()
+                if isClosed {
+                    populateMeasurementFromCurrentScale()
+                }
             }
         }
     }
@@ -198,9 +192,13 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 let nextPoint = points[nextPointIndex]
 
                 nextLineView.setPoints(points[index], endPoint: nextPoint)
-            } else if lineViews.count - 1 == lineViewIndex {
+            } else if isClosed && lineViews.count - 1 == lineViewIndex {
                 lineViews[0].setPoints(closePoint, endPoint: points[1])
             }
+        }
+
+        if isClosed {
+            populateMeasurementFromCurrentScale()
         }
     }
 
@@ -219,6 +217,18 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     }
 
     private func populateMeasurementFromCurrentScale() {
-        print("populate square footage!")
+        if !isClosed {
+            return
+        }
+
+        let mapPoints = UnsafeMutablePointer<MKMapPoint>.alloc(points.count)
+        var i = 0
+        for point in points {
+            mapPoints[i++] = MKMapPoint(x: Double(point.x), y: Double(point.y))
+        }
+        let polygon = MKPolygon(points: mapPoints, count: points.count)
+        let area = polygon.area / (scale * scale)
+
+        print("calculated area using MKPolygon: \(area)")
     }
 }
