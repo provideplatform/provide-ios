@@ -106,6 +106,7 @@
 		687CB5A31B07F6020048B692 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5911B07F6020048B692 /* RouteService.swift */; };
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
 		688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */; };
+		6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */; };
 		689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB11B07DFE3005694B7 /* ApiService.swift */; };
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
@@ -307,6 +308,7 @@
 		687CB5911B07F6020048B692 /* RouteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
 		688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintToolbar.swift; sourceTree = "<group>"; };
+		6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtensions.swift; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		689608951B3A1F21008719B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689B0CB11B07DFE3005694B7 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				68F537241B834CA50007F480 /* CLLocationExtensions.swift */,
 				687CB5371B07EAD30048B692 /* DictionaryExtensions.swift */,
 				687CB5341B07EAD30048B692 /* MKMapViewExtensions.swift */,
+				6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */,
 				687CB5351B07EAD30048B692 /* NSDateExtensions.swift */,
 				687CB5831B07ED490048B692 /* NSDateFormatterExtensions.swift */,
 				68F5372C1B83554F0007F480 /* NSDictionaryExtensions.swift */,
@@ -1283,6 +1286,7 @@
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				681416F31B8457870076BFBD /* RouteLeg.swift in Sources */,
 				682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */,
+				6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */,
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				681416E61B8457870076BFBD /* Comment.swift in Sources */,
 				68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */,
