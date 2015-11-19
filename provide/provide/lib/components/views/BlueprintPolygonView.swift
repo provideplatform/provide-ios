@@ -32,7 +32,15 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         return 1.0
     }
 
-    var area: CGFloat!
+    var area: CGFloat! {
+        didSet {
+            if let area = area {
+                if area != oldValue {
+                    self.area = abs(area)
+                }
+            }
+        }
+    }
 
     private var points = [CGPoint]()
 
