@@ -86,14 +86,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="hue-Wn-vTI" secondAttribute="bottom" id="8os-UO-81w"/>
-                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerY" secondItem="1Xa-Y1-UrB" secondAttribute="centerY" id="90g-3Y-m44"/>
-                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="270" id="IF8-4X-CvS"/>
-                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="270" id="NSM-Uz-WXJ"/>
-                            <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="Yvd-Y5-aoN" secondAttribute="bottom" constant="290" id="Yn6-ew-eQH"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerY" secondItem="1Xa-Y1-UrB" secondAttribute="centerY" id="PmL-gD-Gd8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hue-Wn-vTI" secondAttribute="trailing" constant="-20" id="e5f-7I-Fpr"/>
                             <constraint firstItem="hue-Wn-vTI" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="-20" id="fjN-fo-sD3"/>
-                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="kO8-R1-Aao"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Yvd-Y5-aoN" secondAttribute="trailing" constant="270" id="mxF-7W-vmM"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="whV-T7-gBq"/>
                             <constraint firstItem="hue-Wn-vTI" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="-20" id="y7J-OE-h84"/>
                         </constraints>
                     </view>
