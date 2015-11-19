@@ -15,7 +15,7 @@ protocol WorkOrderCreationViewControllerDelegate {
 
 }
 
-class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate {
+class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -104,7 +104,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
                     }
                 )
             case 2:
-                print("2")
+                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
+                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+
+                let calendarViewController = PDTSimpleCalendarViewController()
+                calendarViewController.delegate = self
+                calendarViewController.weekdayHeaderEnabled = true
+                calendarViewController.firstDate = NSDate()
+
+                viewController = calendarViewController
             case 3:
                 print("3")
             case 4:
@@ -148,5 +156,18 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         return workOrder.workOrderProviders.map({ $0.provider })
+    }
+
+    // MARK: PDTSimpleCalendarViewControllerDelegate
+
+    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
+        workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
+    }
+
+    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
+        if let scheduledStartAtDate = workOrder.scheduledStartAtDate {
+            return scheduledStartAtDate.atMidnight != date.atMidnight
+        }
+        return true
     }
 }
