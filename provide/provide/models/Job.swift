@@ -12,6 +12,8 @@ class Job: Model {
 
     var id = 0
     var name: String!
+    var companyId = 0
+    var company: Company!
     var customerId = 0
     var customer: Customer!
     var attachments: [Attachment]!
@@ -24,10 +26,12 @@ class Job: Model {
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "name": "name",
+            "company_id": "companyId",
             "customer_id": "customerId",
             "blueprint_image_url": "blueprintImageUrlString",
             "blueprint_scale": "blueprintScale",
             ])
+        mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))

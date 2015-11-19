@@ -342,6 +342,40 @@ class WorkOrder: Model {
         return gtinsDelivered.count
     }
 
+    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+
+        if id > 0 {
+            ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            params.removeValueForKey("id")
+            var workOrderProviders = [[String : AnyObject]]()
+            for provider in providers {
+                workOrderProviders.append(["provider_id": provider.id])
+            }
+            params.updateValue(workOrderProviders, forKey: "work_order_providers")
+
+            ApiService.sharedService().createWorkOrder(params,
+                onSuccess: { statusCode, mappingResult in
+                    //WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+
+    }
+
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchWorkOrderWithId(String(id),
             onSuccess: { statusCode, mappingResult in

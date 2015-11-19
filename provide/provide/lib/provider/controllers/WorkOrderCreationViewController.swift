@@ -21,8 +21,30 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     private var cancelItem: UIBarButtonItem! {
         let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancel:")
-        cancelItem.setTitleTextAttributes(AppearenceProxy.cancelBarButtonItemTitleTextAttributes(), forState: .Normal)
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return cancelItem
+    }
+
+    private var saveItem: UIBarButtonItem! {
+        let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
+        saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return saveItem
+    }
+
+    private var disabledSaveItem: UIBarButtonItem! {
+        let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
+        saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Normal)
+        saveItem.enabled = false
+        return saveItem
+    }
+
+    private var isValid: Bool {
+        if let workOrder = workOrder {
+            let validProviders = workOrder.providers.count > 0
+            let validDate = workOrder.scheduledStartAt != nil
+            return validProviders && validDate
+        }
+        return false
     }
 
     func cancel(sender: UIBarButtonItem!) {
@@ -42,10 +64,22 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         presentViewController(alertController, animated: true)
     }
 
+    func createWorkOrder(sender: UIBarButtonItem) {
+        workOrder.save(
+            onSuccess: { statusCode, mappingResult in
+
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.leftBarButtonItems = [cancelItem]
+        navigationItem.rightBarButtonItems = [disabledSaveItem]
 
         title = "CREATE WORK ORDER"
 
@@ -132,6 +166,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
+    private func refreshSaveButton() {
+        if isValid {
+            navigationItem.rightBarButtonItems = [saveItem]
+        } else {
+            navigationItem.rightBarButtonItems = [disabledSaveItem]
+        }
+    }
+
     // MARK: ProviderPickerViewControllerDelegate
 
     func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
@@ -141,13 +183,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
             workOrder.workOrderProviders.append(workOrderProvider)
         }
-
-        print("work order providers: \(workOrder.workOrderProviders)")
+        refreshSaveButton()
     }
 
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
         workOrder.removeProvider(provider)
-        print("work order providers: \(workOrder.workOrderProviders)")
+        refreshSaveButton()
     }
 
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
@@ -162,6 +203,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
         workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
+        workOrder.status = "scheduled"
+        refreshSaveButton()
     }
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
