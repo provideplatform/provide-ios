@@ -34,7 +34,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             bringSubviewToFront(addressLabel)
 
             mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
-            mapView.addAnnotation(workOrder)
+            mapView.addAnnotation(workOrder.annotation)
 
             dispatch_after_delay(0.0) {
                 var coordinate = self.workOrder.coordinate

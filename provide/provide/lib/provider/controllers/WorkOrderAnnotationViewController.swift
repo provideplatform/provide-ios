@@ -40,7 +40,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
                 delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
             }
 
-            mapView.addAnnotation(WorkOrderService.sharedService().nextWorkOrder)
+            mapView.addAnnotation(WorkOrderService.sharedService().nextWorkOrder.annotation)
         }
 
         (view as! WorkOrderAnnotationView).attachGestureRecognizers()

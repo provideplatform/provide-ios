@@ -36,7 +36,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
             mapView.removeOverlays()
 
             for workOrder in route.workOrders {
-                mapView.addAnnotation(workOrder)
+                mapView.addAnnotation(workOrder.annotation)
             }
 
             for workOrder in route.workOrders {

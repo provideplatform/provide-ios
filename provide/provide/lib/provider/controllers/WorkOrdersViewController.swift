@@ -357,7 +357,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         shouldRemoveMapAnnotationsForWorkOrderViewController(self)
 
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            mapView.addAnnotation(workOrder)
+            mapView.addAnnotation(workOrder.annotation)
         }
     }
 
@@ -439,14 +439,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func annotationsForMapView(mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation] {
         var annotations = [MKAnnotation]()
-        annotations.append(workOrder)
+        annotations.append(workOrder.annotation)
         return annotations
     }
 
     func annotationViewForMapView(mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView! {
         var annotationView: MKAnnotationView!
 
-        if annotation is WorkOrder {
+        if annotation is WorkOrder.Annotation {
             for vc in managedViewControllers {
                 if vc is WorkOrderAnnotationViewController {
                     annotationView = (vc as! WorkOrderAnnotationViewController).view as! WorkOrderAnnotationView

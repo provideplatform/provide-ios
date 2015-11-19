@@ -84,7 +84,7 @@ class DirectionsViewController: ViewController {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    mapView.addAnnotation(inProgressWorkOrder)
+                    mapView.addAnnotation(inProgressWorkOrder.annotation)
                 }
 
                 mapView.disableUserInteraction()

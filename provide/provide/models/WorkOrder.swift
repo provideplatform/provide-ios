@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WorkOrder: Model, MKAnnotation {
+class WorkOrder: Model {
 
     var id = 0
     var companyId = 0
@@ -63,6 +63,10 @@ class WorkOrder: Model, MKAnnotation {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
+    }
+
+    var annotation: Annotation {
+        return Annotation(workOrder: self)
     }
 
     private var pendingArrival = false
@@ -497,5 +501,26 @@ class WorkOrder: Model, MKAnnotation {
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             }
         )
+    }
+
+    class Annotation: NSObject, MKAnnotation {
+        private var workOrder: WorkOrder!
+
+        required init(workOrder: WorkOrder) {
+            self.workOrder = workOrder
+        }
+
+        @objc var coordinate: CLLocationCoordinate2D {
+            return workOrder.coordinate
+        }
+
+        // Title and subtitle for use by selection UI.
+        @objc var title: String? {
+            return nil //workOrder.title
+        }
+
+        @objc var subtitle: String? {
+            return nil //workOrder.subtitle
+        }
     }
 }

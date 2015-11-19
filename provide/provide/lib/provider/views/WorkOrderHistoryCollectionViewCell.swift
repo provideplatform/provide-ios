@@ -49,7 +49,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 }
             }
 
-            mapView.addAnnotation(workOrder)
+            mapView.addAnnotation(workOrder.annotation)
 
             mapView.alpha = 1.0
 
