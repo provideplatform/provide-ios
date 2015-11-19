@@ -276,6 +276,10 @@ class WorkOrder: Model, MKAnnotation {
         return imageCount
     }
 
+    var providers: [Provider] {
+        return workOrderProviders.map({ $0.provider })
+    }
+
     var regionIdentifier: String {
         return "work order \(id)"
     }
@@ -347,15 +351,39 @@ class WorkOrder: Model, MKAnnotation {
     }
 
     func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchAttachments(forWorkOrderWithId: String(id),
-            onSuccess: { statusCode, mappingResult in
-                self.attachments = mappingResult.array() as! [Attachment]
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+        if id > 0 {
+            ApiService.sharedService().fetchAttachments(forWorkOrderWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    self.attachments = mappingResult.array() as! [Attachment]
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
+    func hasProvider(provider: Provider) -> Bool {
+        for p in providers {
+            if p.id == provider.id {
+                return true
             }
-        )
+        }
+        return false
+    }
+
+    func removeProvider(provider: Provider) {
+        if hasProvider(provider) {
+            var i = -1
+            for p in providers {
+                i++
+                if p.id == provider.id {
+                    break
+                }
+            }
+            workOrderProviders.removeAtIndex(i)
+        }
     }
 
     func setComponents(components: NSMutableArray) {

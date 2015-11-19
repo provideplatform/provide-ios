@@ -18,7 +18,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     var workOrder: WorkOrder! {
         didSet {
-            navigationItem.title = workOrder.customer.contact.name
+            navigationItem.title = title == nil ? workOrder.customer.contact.name : title
 
             workOrder.reloadAttachments(
                 { statusCode, mappingResult in
@@ -170,7 +170,8 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
             cell.setName("DURATION", value: duration)
         case 5:
-            cell.setName("INVENTORY DISPOSITION", value: workOrder.inventoryDisposition, valueFontSize: 13.0)
+            let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
+            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
             cell.accessoryType = .DisclosureIndicator
         default:
             break

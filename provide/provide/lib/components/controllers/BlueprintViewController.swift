@@ -12,7 +12,7 @@ protocol BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate, BlueprintPolygonViewDelegate {
+class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate, BlueprintPolygonViewDelegate, WorkOrderCreationViewControllerDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
@@ -108,6 +108,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
         toolbar.alpha = 0.0
         toolbar.blueprintToolbarDelegate = self
+        toolbar.backgroundColor = UIColor.blackColor()
 
         hideToolbar()
         loadBlueprint()
@@ -206,6 +207,16 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
                     self.showToolbar()
                 }
+
+                loadAnnotations()
+            }
+        }
+    }
+
+    private func loadAnnotations() {
+        if let job = job {
+            if let blueprint = job.blueprint {
+                blueprint.fetchAnnotations()
             }
         }
     }
@@ -254,7 +265,32 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         }
     }
 
-    private func overrideNavigationItem(setScaleEnabled: Bool = false) {
+    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+        polygonView.resignFirstResponder(false)
+        restoreCachedNavigationItem()
+    }
+
+    func createWorkOrder(sender: UIBarButtonItem) {
+        let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
+
+        let workOrder = WorkOrder()
+        workOrder.customer = job!.customer
+        workOrder.customerId = job!.customerId
+        workOrder.status = "awaiting_schedule"
+        workOrder.itemsDelivered = [Product]()
+        workOrder.itemsOrdered = [Product]()
+        workOrder.itemsRejected = [Product]()
+
+        createWorkOrderViewController.workOrder = workOrder
+        createWorkOrderViewController.delegate = self
+
+        let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
+        navigationController.modalPresentationStyle = .FormSheet
+
+        presentViewController(navigationController, animated: true)
+    }
+
+    private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             cacheNavigationItem(navigationItem)
 
@@ -273,6 +309,28 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
             navigationItem.leftBarButtonItems = [cancelItem]
             navigationItem.rightBarButtonItems = [setScaleItem]
+        }
+    }
+
+    private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            cacheNavigationItem(navigationItem)
+
+            if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
+                navigationController.setNavigationBarHidden(false, animated: true)
+            }
+
+            let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
+            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+
+            let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
+            createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+            createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+            createWorkOrderItem.enabled = setCreateEnabled
+
+            navigationItem.leftBarButtonItems = [cancelItem]
+            navigationItem.rightBarButtonItems = [createWorkOrderItem]
         }
     }
 
@@ -316,7 +374,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView) {
-        overrideNavigationItem(true)
+        overrideNavigationItemForSettingScale(true)
     }
 
     func blueprintScaleViewDidReset(view: BlueprintScaleView) {
@@ -382,7 +440,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 scrollView.setZoomScale(0.9, animated: true)
             }
 
-            overrideNavigationItem(false) // FIXME: pass true when scaleView has both line endpoints drawn...
+            overrideNavigationItemForSettingScale(false) // FIXME: pass true when scaleView has both line endpoints drawn...
             scaleView.attachGestureRecognizer()
         } else {
             restoreCachedNavigationItem()
@@ -391,10 +449,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) {
-        print("create new work order!!!!")
-
         polygonView.alpha = 1.0
         polygonView.attachGestureRecognizer()
+
+        overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
     }
 
     // MARK: BlueprintPolygonViewDelegate
@@ -415,6 +473,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             return job.blueprint
         }
         return nil
+    }
+
+    func blueprintPolygonViewCanCreateNewWorkOrder(view: BlueprintPolygonView) {
+        overrideNavigationItemForCreatingWorkOrder(true)
     }
 
     // MARK: UIScrollViewDelegate
@@ -447,9 +509,9 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         showToolbar()
     }
 
-//
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool // return a yes if you want to scroll to the top. if not defined, assumes YES
-//    @available(iOS 2.0, *)
-//    optional public func scrollViewDidScrollToTop(scrollView: UIScrollView) // called when scrolling animation finished. may be called immediately if already at top
+    // MARK: WorkOrderCreationViewControllerDelegate
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
+        dismissViewController(animated: true)
+    }
 }

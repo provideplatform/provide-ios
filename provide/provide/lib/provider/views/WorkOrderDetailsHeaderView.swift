@@ -12,6 +12,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
     @IBOutlet private weak var gradientView: UIView!
+    @IBOutlet private weak var customerLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
 
     var workOrder: WorkOrder! {
@@ -24,6 +25,10 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             gradientView.alpha = 0.7
             bringSubviewToFront(gradientView)
 
+            customerLabel.text = workOrder.customer.displayName
+            customerLabel.sizeToFit()
+            bringSubviewToFront(customerLabel)
+            
             addressLabel.text = workOrder.customer.contact.address
             addressLabel.sizeToFit()
             bringSubviewToFront(addressLabel)

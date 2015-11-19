@@ -107,6 +107,10 @@
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
 		688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */; };
 		6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */; };
+		6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */; };
+		6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */; };
+		6893D60E1BFD59E000D562DF /* ProviderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */; };
+		6893D6101BFD5A2800D562DF /* PickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */; };
 		689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB11B07DFE3005694B7 /* ApiService.swift */; };
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
@@ -309,6 +313,10 @@
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
 		688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintToolbar.swift; sourceTree = "<group>"; };
 		6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtensions.swift; sourceTree = "<group>"; };
+		6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderCreationViewController.swift; sourceTree = "<group>"; };
+		6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderPicker.storyboard; sourceTree = "<group>"; };
+		6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderPickerViewController.swift; sourceTree = "<group>"; };
+		6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		689608951B3A1F21008719B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689B0CB11B07DFE3005694B7 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
@@ -709,6 +717,7 @@
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
+				6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -730,6 +739,7 @@
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
+				6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */,
 				68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */,
 				68B412D91B080E6D009A4C05 /* SignatureView.swift */,
 			);
@@ -757,6 +767,7 @@
 				68F536E21B834A5C0007F480 /* RouteViewController.swift */,
 				68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */,
 				68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */,
+				6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */,
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
@@ -793,6 +804,7 @@
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
+				6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -1126,6 +1138,7 @@
 				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */,
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
+				6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
@@ -1347,6 +1360,7 @@
 				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				68F537181B834A9A0007F480 /* MenuHeaderView.swift in Sources */,
+				6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
@@ -1364,7 +1378,9 @@
 				681416E81B8457870076BFBD /* Contact.swift in Sources */,
 				68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				681416EA1B8457870076BFBD /* Device.swift in Sources */,
+				6893D6101BFD5A2800D562DF /* PickerCollectionViewCell.swift in Sources */,
 				68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
+				6893D60E1BFD59E000D562DF /* ProviderPickerViewController.swift in Sources */,
 				68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
 				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,

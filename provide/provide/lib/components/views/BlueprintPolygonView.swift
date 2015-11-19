@@ -12,6 +12,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat!
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView!
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
+    func blueprintPolygonViewCanCreateNewWorkOrder(view: BlueprintPolygonView)
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -78,6 +79,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
         pointViews = [BlueprintPolygonVertexView]()
         lineViews = [BlueprintPolygonLineView]()
+
+        closePoint = nil
     }
 
     func resignFirstResponder(suppressDelegateNotification: Bool = false) -> Bool {
@@ -127,8 +130,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
             if isClosed {
                 closePoint = point
 
-                pointView.alpha = 1.0
+                pointView.alpha = 0.0
                 pointView.userInteractionEnabled = false
+
+                delegate?.blueprintPolygonViewCanCreateNewWorkOrder(self)
             }
 
             pointViews.append(pointView)

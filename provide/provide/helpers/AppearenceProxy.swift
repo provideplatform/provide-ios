@@ -21,6 +21,13 @@ class AppearenceProxy {
         ]
     }
 
+    class func cancelBarButtonItemTitleTextAttributes() -> [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.redColor()
+        ]
+    }
+
     class func barButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
