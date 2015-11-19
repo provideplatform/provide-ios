@@ -720,7 +720,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            return workOrder.job
+            if let job = workOrder.job {
+                if job.customer == nil {
+                    job.customer = workOrder.customer
+                }
+                return job
+            }
         }
         return nil
     }
