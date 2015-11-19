@@ -269,6 +269,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
 
         let workOrder = WorkOrder()
+        workOrder.company = job!.company
+        workOrder.companyId = job!.companyId
         workOrder.customer = job!.customer
         workOrder.customerId = job!.customerId
         workOrder.status = "awaiting_schedule"

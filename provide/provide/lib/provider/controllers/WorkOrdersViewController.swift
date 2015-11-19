@@ -721,8 +721,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let job = workOrder.job {
+                if job.company == nil {
+                    job.company = workOrder.company
+                    job.companyId = workOrder.companyId
+                }
+
                 if job.customer == nil {
                     job.customer = workOrder.customer
+                    job.customerId = workOrder.customerId
                 }
                 return job
             }
