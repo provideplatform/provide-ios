@@ -1521,11 +1521,12 @@
                                     <outlet property="mapView" destination="wY5-m4-Rak" id="E0T-9j-xhC"/>
                                 </connections>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jKQ-uA-gAt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jKQ-uA-gAt">
                                 <rect key="frame" x="0.0" y="150" width="600" height="450"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="Prr-Oq-zZU"/>
                                     <constraint firstAttribute="height" constant="392" id="or0-xh-e25"/>
                                 </constraints>
                                 <prototypes>
@@ -1648,24 +1649,16 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="jKQ-uA-gAt" secondAttribute="trailing" constant="-16" id="4MB-9C-lmU"/>
-                            <constraint firstItem="sjy-2p-2CP" firstAttribute="trailing" secondItem="jKQ-uA-gAt" secondAttribute="trailing" id="5hU-gk-aYS"/>
-                            <constraint firstItem="1S9-cU-Vdq" firstAttribute="top" secondItem="jKQ-uA-gAt" secondAttribute="bottom" id="Avy-VV-Max"/>
-                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="leading" secondItem="YT1-Hd-YqT" secondAttribute="leading" id="Bid-Iy-WZT"/>
-                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="YT1-Hd-YqT" secondAttribute="top" constant="150" id="IG8-LE-ymg"/>
-                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="leading" secondItem="YT1-Hd-YqT" secondAttribute="leadingMargin" constant="-16" id="Mhc-G1-si4"/>
-                            <constraint firstItem="sjy-2p-2CP" firstAttribute="leading" secondItem="jKQ-uA-gAt" secondAttribute="leading" id="PPr-D2-2uT"/>
-                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="sjy-2p-2CP" secondAttribute="bottom" id="Piq-3m-171"/>
-                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="UUg-K6-ogC" secondAttribute="bottom" constant="130" id="U93-vu-VaH"/>
+                            <constraint firstItem="sjy-2p-2CP" firstAttribute="leading" secondItem="YT1-Hd-YqT" secondAttribute="leadingMargin" constant="-20" id="2WC-r3-cvk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sjy-2p-2CP" secondAttribute="trailing" constant="-20" id="8ea-Hw-2GU"/>
+                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="sjy-2p-2CP" secondAttribute="bottom" id="LF6-Ar-g3Q"/>
+                            <constraint firstItem="sjy-2p-2CP" firstAttribute="top" secondItem="UUg-K6-ogC" secondAttribute="bottom" constant="-20" id="QOV-BD-ukh"/>
+                            <constraint firstItem="sjy-2p-2CP" firstAttribute="centerX" secondItem="YT1-Hd-YqT" secondAttribute="centerX" id="cl6-XM-x22"/>
                             <constraint firstItem="sjy-2p-2CP" firstAttribute="top" secondItem="YT1-Hd-YqT" secondAttribute="top" id="fqZ-Uy-kgB"/>
-                            <constraint firstAttribute="trailing" secondItem="jKQ-uA-gAt" secondAttribute="trailing" id="rSz-VV-h1I"/>
+                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="leading" secondItem="sjy-2p-2CP" secondAttribute="leading" id="nPd-lv-lF8"/>
+                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="bottom" secondItem="1S9-cU-Vdq" secondAttribute="top" id="nyQ-Zk-Xhj"/>
+                            <constraint firstItem="jKQ-uA-gAt" firstAttribute="trailing" secondItem="sjy-2p-2CP" secondAttribute="trailing" id="qH1-Rd-0bc"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="4MB-9C-lmU"/>
-                                <exclude reference="Mhc-G1-si4"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="headerView" destination="sjy-2p-2CP" id="av1-au-43z"/>
