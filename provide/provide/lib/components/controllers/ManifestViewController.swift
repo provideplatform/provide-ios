@@ -87,17 +87,6 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var segment: Segment!
 
-    private var dismissItem: UIBarButtonItem! {
-        var title = "DISMISS"
-        if let backItemTitle = delegate?.navigationControllerBackItemTitleForManifestViewController?(self) {
-            title = backItemTitle
-        }
-
-        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss:")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
     private var targetView: UIView! {
         return delegate?.targetViewForViewController?(self)
     }
@@ -111,7 +100,8 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        refreshNavigationItem()
+        navigationItem.titleView = toolbarSegmentedControl
+        navigationItem.prompt = navigationItemPrompt
     }
 
     func segmentChanged(sender: UISegmentedControl) {
@@ -128,34 +118,6 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
-    }
-
-    func refreshNavigationItem() {
-        navigationItem.titleView = toolbarSegmentedControl
-        navigationItem.prompt = navigationItemPrompt
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
-
-        if let navigationController = navigationController {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    func clearNavigationItem() {
-        navigationItem.hidesBackButton = true
-        navigationItem.prompt = navigationItemPrompt
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-    }
-
-    func dismiss(sender: UIBarButtonItem!) {
-        tableView.delegate = nil
-        
-        clearNavigationItem()
-
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
-        }
     }
 
     // MARK: UITableViewDelegate

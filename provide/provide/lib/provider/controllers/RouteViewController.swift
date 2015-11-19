@@ -8,20 +8,7 @@
 
 import UIKit
 
-protocol RouteViewControllerDelegate {
-    func routeForViewController(viewController: UIViewController) -> Route!
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
-}
-
 class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
-
-    var delegate: RouteViewControllerDelegate! {
-        didSet {
-            if let _ = delegate {
-                refresh()
-            }
-        }
-    }
 
     @IBOutlet private weak var tableView: UITableView!
 
@@ -36,16 +23,14 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     }
 
     var route: Route! {
-        return delegate?.routeForViewController(self)
+        didSet {
+            if let _ = route {
+                refresh()
+            }
+        }
     }
 
     private var selectedWorkOrder: WorkOrder!
-
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
 
     private func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
@@ -56,7 +41,6 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
         tableView.frame = view.bounds
 
-        refreshNavigationItem()
         setupPullToRefresh()
 
         setupZeroStateView()
@@ -128,30 +112,21 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 
-    func refreshNavigationItem() {
-        navigationItem.leftBarButtonItems = [dismissItem]
+//    func refreshNavigationItem() {
+//        if let navigationController = delegate?.navigationControllerForViewController(self) {
+//            navigationController.setNavigationBarHidden(false, animated: true)
+//        }
+//    }
 
-        if let navigationController = delegate?.navigationControllerForViewController(self) {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    func clearNavigationItem() {
-        navigationItem.hidesBackButton = true
-        navigationItem.prompt = nil
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-    }
-
-    func dismiss() {
-        tableView.delegate = nil
-        
-        clearNavigationItem()
-
-        if let navigationController = delegate?.navigationControllerForViewController(self) {
-            navigationController.popViewControllerAnimated(true)
-        }
-    }
+//    func dismiss() {
+//        tableView.delegate = nil
+//        
+//        clearNavigationItem()
+//
+//        if let navigationController = delegate?.navigationControllerForViewController(self) {
+//            navigationController.popViewControllerAnimated(true)
+//        }
+//    }
 
     // MARK: UITableViewDelegate
 

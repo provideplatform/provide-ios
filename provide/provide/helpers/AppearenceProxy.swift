@@ -11,7 +11,15 @@ import UIKit
 class AppearenceProxy {
 
     class func setup() {
-        UIBarButtonItem.appearance().setTitleTextAttributes(navBarTitleTextAttributes(), forState: .Normal)
+        UINavigationBar.appearance().tintColor = defaultBarTintColor()
+        UINavigationBar.appearance().titleTextAttributes = navBarTitleTextAttributes()
+
+        UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
+        UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
+    }
+
+    class func defaultBarTintColor() -> UIColor {
+        return UIColor.whiteColor()
     }
 
     class func navBarTitleTextAttributes() -> [String : AnyObject] {

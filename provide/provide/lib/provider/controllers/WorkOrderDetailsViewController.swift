@@ -46,16 +46,8 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "BACK", style: .Plain, target: self, action: "dismiss")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationItem.leftBarButtonItems = [dismissItem]
 
         tableView.frame = view.bounds
 
@@ -99,14 +91,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                     durationCell.setName("DURATION", value: duration)
                 }
             }
-        }
-    }
-
-    func dismiss() {
-        timer?.invalidate()
-
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
         }
     }
 
@@ -273,5 +257,9 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return "BACK"
+    }
+
+    deinit {
+        timer?.invalidate()
     }
 }

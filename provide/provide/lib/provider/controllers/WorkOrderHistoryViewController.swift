@@ -32,12 +32,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     private var zeroStateViewController: ZeroStateViewController!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
     private var isColumnedLayout: Bool {
         return view.frame.width > 414.0
     }
@@ -76,7 +70,8 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshNavigationItem()
+        navigationItem.title = "HISTORY"
+
         setupPullToRefresh()
 
         setupZeroStateView()
@@ -143,32 +138,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         }
     }
 
-    func refreshNavigationItem() {
-        navigationItem.title = "HISTORY"
-        navigationItem.leftBarButtonItems = [dismissItem]
-
-        if let navigationController = navigationController {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    func clearNavigationItem() {
-        navigationItem.hidesBackButton = true
-        navigationItem.prompt = nil
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-    }
-
-    func dismiss(sender: UIBarButtonItem!) {
-        collectionView.delegate = nil
-
-        clearNavigationItem()
-
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
-        }
-    }
-
     // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -230,5 +199,9 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
         return navigationController
+    }
+
+    deinit {
+        collectionView.delegate = nil
     }
 }

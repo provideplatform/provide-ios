@@ -8,11 +8,7 @@
 
 import UIKit
 
-protocol RouteHistoryViewControllerDelegate {
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
-}
-
-class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, RouteViewControllerDelegate {
+class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     private var page = 1
     private let rpp = 10
@@ -25,19 +21,12 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     private var routes = [Route]() {
         didSet {
             collectionView?.reloadData()
-            //collectionView?.layoutIfNeeded()
         }
     }
 
     private weak var selectedRoute: Route!
 
     private var zeroStateViewController: ZeroStateViewController!
-
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
 
     private var isColumnedLayout: Bool {
         return view.frame.width > 414.0
@@ -77,7 +66,8 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshNavigationItem()
+        navigationItem.title = "ROUTE HISTORY"
+
         setupPullToRefresh()
         
         setupZeroStateView()
@@ -143,34 +133,12 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "RouteViewControllerSegue" {
-            (segue.destinationViewController as! RouteViewController).delegate = self
+            (segue.destinationViewController as! RouteViewController).route = selectedRoute
         }
     }
 
-    func refreshNavigationItem() {
-        navigationItem.title = "HISTORY"
-        navigationItem.leftBarButtonItems = [dismissItem]
-
-        if let navigationController = navigationController {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
-    func clearNavigationItem() {
-        navigationItem.hidesBackButton = true
-        navigationItem.prompt = nil
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-    }
-
-    func dismiss(sender: UIBarButtonItem!) {
-        collectionView.delegate = nil
-
-        clearNavigationItem()
-
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
-        }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
     }
 
     // MARK: UICollectionViewDelegate
@@ -229,16 +197,10 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         return numberOfSections
     }
 
+    deinit {
+        collectionView.delegate = nil
+    }
+
 //    // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
-
-    // MARK: RouteViewControllerDelegate
-
-    func routeForViewController(viewController: UIViewController) -> Route! {
-        return selectedRoute
-    }
-
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
-        return navigationController
-    }
 }

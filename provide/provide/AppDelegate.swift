@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return keyPath.snakeCaseToCamelCaseString()
         }
 
+        AppearenceProxy.setup()
+
         return true
     }
 

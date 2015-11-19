@@ -24,16 +24,11 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        refreshNavigationItem()
+        navigationItem.title = "JOBS"
+
         setupPullToRefresh()
     }
 
@@ -45,15 +40,6 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
         }
     }
 
-    private func refreshNavigationItem() {
-        navigationItem.title = "JOBS"
-        navigationItem.leftBarButtonItems = [dismissItem]
-
-        if let navigationController = navigationController {
-            navigationController.setNavigationBarHidden(false, animated: true)
-        }
-    }
-
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
@@ -62,23 +48,6 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
         tableView.alwaysBounceVertical = true
 
         refresh()
-    }
-
-    private func clearNavigationItem() {
-        navigationItem.hidesBackButton = true
-        navigationItem.prompt = nil
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = []
-    }
-
-    func dismiss(sender: UIBarButtonItem!) {
-        tableView.delegate = nil
-
-        clearNavigationItem()
-
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
-        }
     }
 
     func reset() {

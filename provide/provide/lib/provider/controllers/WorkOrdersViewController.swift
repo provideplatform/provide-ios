@@ -64,7 +64,6 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                                 CommentsViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
-                                                RouteViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
                                                 ManifestViewControllerDelegate,
                                                 BlueprintViewControllerDelegate {
@@ -89,6 +88,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         super.viewDidLoad()
 
         navigationItem.hidesBackButton = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: nil, action: nil)
 
         loadRouteContext()
 
@@ -408,7 +408,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             (segue.destinationViewController as! DirectionsViewController).directionsViewControllerDelegate = self
         case "RouteViewControllerSegue":
             assert(segue.destinationViewController is RouteViewController)
-            (segue.destinationViewController as! RouteViewController).delegate = self
+            //(segue.destinationViewController as! RouteViewController).delegate = self
         case "ManifestViewControllerSegue":
             assert(segue.destinationViewController is ManifestViewController)
             (segue.destinationViewController as! ManifestViewController).delegate = self
