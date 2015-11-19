@@ -141,6 +141,10 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
         imageView.image = nil
         imageView.alpha = 0.0
+
+        gravatarImageView = nil
+
+        selected = false
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

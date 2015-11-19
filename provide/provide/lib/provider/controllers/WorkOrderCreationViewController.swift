@@ -9,7 +9,10 @@
 import UIKit
 
 protocol WorkOrderCreationViewControllerDelegate {
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
+
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate {
@@ -52,48 +55,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     // MARK: UITableViewDataSource
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        if let rowCount = delegate?.workOrderCreationViewController(self, tableView: tableView, numberOfRowsInSection: section) {
+            return rowCount
+        }
+        return super.tableView(tableView, numberOfRowsInSection: section)
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
-        cell.enableEdgeToEdgeDividers()
+        var cell: UITableViewCell!
 
-        switch indexPath.row {
-        case 0:
-            cell.setName("STATUS", value: workOrder.status)
-            cell.backgroundView!.backgroundColor = workOrder.statusColor
-        case 1:
-            let providers = "\(workOrder.workOrderProviders.count) assigned"
-            cell.setName("PROVIDERS", value: providers)
-            cell.accessoryType = .DisclosureIndicator
-        case 2:
-            cell.setName("SCHEDULED START TIME", value: "")
-            cell.accessoryType = .DisclosureIndicator
-        case 3:
-            if let endedAt = workOrder.endedAtDate {
-                cell.setName("ENDED AT", value: endedAt.timeString!)
-            } else if let abandonedAt = workOrder.abandonedAtDate {
-                cell.setName("ABANDONED AT", value: abandonedAt.timeString!)
-            } else if let canceledAt = workOrder.canceledAtDate {
-                cell.setName("CANCELED AT", value: canceledAt.timeString!)
-            } else if let _ = workOrder.startedAtDate {
-                let providers = workOrder.workOrderProviders
-                if providers.count > 0 {
-                    cell.setName("OWNER", value: providers.first!.provider.contact.name)
-                    //cell.setName("CREW", )
-                }
-            }
-        case 4:
-            let cost = workOrder.estimatedDuration == nil ? "--" : workOrder.humanReadableDuration!
-            cell.setName("ESTIMATED COST", value: cost)
-            cell.accessoryType = .DisclosureIndicator
-        case 5:
-            let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
-            cell.accessoryType = .DisclosureIndicator
-        default:
-            break
+        if let c = delegate?.workOrderCreationViewController(self, cellForTableView: tableView, atIndexPath: indexPath) {
+            cell = c
+        } else {
+            cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         }
 
         return cell
@@ -172,7 +146,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         return true
     }
 
-    func selectedProvidersForPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> [Provider] {
+    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         return workOrder.workOrderProviders.map({ $0.provider })
     }
 }

@@ -32,6 +32,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         return 1.0
     }
 
+    var area: CGFloat!
+
     private var points = [CGPoint]()
 
     private var pointViews = [BlueprintPolygonVertexView]()
@@ -231,9 +233,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         for point in points {
             mapPoints[i++] = MKMapPoint(x: Double(point.x), y: Double(point.y))
         }
-        let polygon = MKPolygon(points: mapPoints, count: points.count)
-        let area = polygon.area / (scale * scale)
 
-        print("calculated area using MKPolygon: \(area)")
+        let polygon = MKPolygon(points: mapPoints, count: points.count)
+        area = polygon.area / (scale * scale)
     }
 }

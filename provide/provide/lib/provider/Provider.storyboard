@@ -1654,12 +1654,10 @@
                             <constraint firstItem="jKQ-uA-gAt" firstAttribute="leading" secondItem="YT1-Hd-YqT" secondAttribute="leading" id="Bid-Iy-WZT"/>
                             <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="YT1-Hd-YqT" secondAttribute="top" constant="150" id="IG8-LE-ymg"/>
                             <constraint firstItem="jKQ-uA-gAt" firstAttribute="leading" secondItem="YT1-Hd-YqT" secondAttribute="leadingMargin" constant="-16" id="Mhc-G1-si4"/>
-                            <constraint firstItem="1S9-cU-Vdq" firstAttribute="top" secondItem="jKQ-uA-gAt" secondAttribute="bottom" id="OaX-n7-eYZ"/>
                             <constraint firstItem="sjy-2p-2CP" firstAttribute="leading" secondItem="jKQ-uA-gAt" secondAttribute="leading" id="PPr-D2-2uT"/>
                             <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="sjy-2p-2CP" secondAttribute="bottom" id="Piq-3m-171"/>
                             <constraint firstItem="jKQ-uA-gAt" firstAttribute="top" secondItem="UUg-K6-ogC" secondAttribute="bottom" constant="130" id="U93-vu-VaH"/>
                             <constraint firstItem="sjy-2p-2CP" firstAttribute="top" secondItem="YT1-Hd-YqT" secondAttribute="top" id="fqZ-Uy-kgB"/>
-                            <constraint firstItem="1S9-cU-Vdq" firstAttribute="top" secondItem="jKQ-uA-gAt" secondAttribute="bottom" id="q16-h6-Vvt"/>
                             <constraint firstAttribute="trailing" secondItem="jKQ-uA-gAt" secondAttribute="trailing" id="rSz-VV-h1I"/>
                         </constraints>
                         <variation key="default">

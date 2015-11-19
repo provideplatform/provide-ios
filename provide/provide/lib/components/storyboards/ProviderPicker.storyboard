@@ -23,6 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Yvd-Y5-aoN">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <animations/>
+                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hue-Wn-vTI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
@@ -82,12 +86,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="hue-Wn-vTI" secondAttribute="bottom" id="8os-UO-81w"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerY" secondItem="1Xa-Y1-UrB" secondAttribute="centerY" id="90g-3Y-m44"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="270" id="IF8-4X-CvS"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="270" id="NSM-Uz-WXJ"/>
+                            <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="Yvd-Y5-aoN" secondAttribute="bottom" constant="290" id="Yn6-ew-eQH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hue-Wn-vTI" secondAttribute="trailing" constant="-20" id="e5f-7I-Fpr"/>
                             <constraint firstItem="hue-Wn-vTI" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="-20" id="fjN-fo-sD3"/>
+                            <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="kO8-R1-Aao"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Yvd-Y5-aoN" secondAttribute="trailing" constant="270" id="mxF-7W-vmM"/>
                             <constraint firstItem="hue-Wn-vTI" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="-20" id="y7J-OE-h84"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="Yvd-Y5-aoN" id="rTz-d2-9Ue"/>
                         <outlet property="collectionView" destination="hue-Wn-vTI" id="tcd-N3-1j4"/>
                     </connections>
                 </viewController>

@@ -511,6 +511,74 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     // MARK: WorkOrderCreationViewControllerDelegate
 
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int! {
+        return 6
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+        let workOrder = viewController.workOrder
+
+        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+        cell.enableEdgeToEdgeDividers()
+
+        switch indexPath.row {
+        case 0:
+            cell.setName("STATUS", value: workOrder.status)
+            cell.backgroundView!.backgroundColor = workOrder.statusColor
+        case 1:
+            var specificProviders = ""
+            let detailDisplayCount = 3
+            var i = 0
+            for provider in workOrder.providers {
+                if i == detailDisplayCount {
+                    break
+                }
+                specificProviders += ", \(provider.contact.name)"
+                i++
+            }
+            let matches = Regex.match("^, ", input: specificProviders)
+            if matches.count > 0 {
+                let match = matches[0]
+                let range = Range<String.Index>(start: specificProviders.startIndex.advancedBy(match.range.length), end: specificProviders.endIndex)
+                specificProviders = specificProviders.substringWithRange(range)
+            }
+            var providers = "\(specificProviders)"
+            if workOrder.providers.count > detailDisplayCount {
+                providers += " and \(workOrder.providers.count - detailDisplayCount) other"
+                if workOrder.providers.count - detailDisplayCount > 1 {
+                    providers += "s"
+                }
+            } else if workOrder.providers.count == 0 {
+                providers += "No one"
+            }
+            providers += " assigned"
+            if workOrder.providers.count >= detailDisplayCount {
+                cell.setName("PROVIDERS", value: providers, valueFontSize: 13.0)
+            } else {
+                cell.setName("PROVIDERS", value: providers)
+            }
+            cell.accessoryType = .DisclosureIndicator
+        case 2:
+            cell.setName("SCHEDULED START TIME", value: "")
+            cell.accessoryType = .DisclosureIndicator
+        case 3:
+            cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
+            cell.accessoryType = .DisclosureIndicator
+        case 4:
+            let cost = workOrder.estimatedDuration == nil ? "--" : workOrder.humanReadableDuration!
+            cell.setName("ESTIMATED COST", value: cost)
+            cell.accessoryType = .DisclosureIndicator
+        case 5:
+            let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
+            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
+            cell.accessoryType = .DisclosureIndicator
+        default:
+            break
+        }
+
+        return cell
+    }
+
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
         dismissViewController(animated: true)
     }

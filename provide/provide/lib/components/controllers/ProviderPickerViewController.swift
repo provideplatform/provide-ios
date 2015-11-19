@@ -12,7 +12,7 @@ protocol ProviderPickerViewControllerDelegate {
     func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool
-    func selectedProvidersForPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> [Provider]
+    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
 }
 
 class ProviderPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -20,12 +20,14 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     var delegate: ProviderPickerViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
-                for provider in delegate.selectedProvidersForPickerViewControllerAllowsMultipleSelection(self) {
+                for provider in delegate.selectedProvidersForPickerViewController(self) {
                     selectedProviders.append(provider)
                 }
             }
         }
     }
+
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
@@ -35,8 +37,12 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    var providers: [Provider] = [Provider]() {
+    var providers: [Provider]! = [Provider]() {
         didSet {
+            if let _ = providers {
+                activityIndicatorView.stopAnimating()
+            }
+
             collectionView.reloadData()
         }
     }
@@ -45,6 +51,8 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        activityIndicatorView.startAnimating()
     }
 
     private func isSelected(provider: Provider) -> Bool {
@@ -65,10 +73,15 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
 
-        if providers.count >= indexPath.row {
+        if providers.count > indexPath.row - 1 {
             let provider = providers[indexPath.row]
 
             cell.selected = isSelected(provider)
+
+            if cell.selected {
+                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            }
+
             cell.name = provider.contact.name
 
             if let profileImageUrl = provider.profileImageUrl {
