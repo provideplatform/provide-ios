@@ -120,11 +120,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-
-    }
-
-    func dismiss() {
-
     }
 
     func setupNavigationItem() {
@@ -291,7 +286,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+        var navigationItem: UINavigationItem!
+        if let navItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            navigationItem = navItem
+        } else {
+            navigationItem = self.navigationItem
+        }
+
+        if let navigationItem = navigationItem {
             cacheNavigationItem(navigationItem)
 
             if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
@@ -313,7 +315,14 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+        var navigationItem: UINavigationItem!
+        if let navItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            navigationItem = navItem
+        } else {
+            navigationItem = self.navigationItem
+        }
+
+        if let navigationItem = navigationItem {
             cacheNavigationItem(navigationItem)
 
             if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
@@ -559,7 +568,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            cell.setName("SCHEDULED START TIME", value: "")
+            var scheduledStartTime = ""
+            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+                scheduledStartTime = humanReadableScheduledStartTime
+            }
+            cell.setName("SCHEDULED START TIME", value: scheduledStartTime)
             cell.accessoryType = .DisclosureIndicator
         case 3:
             cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
