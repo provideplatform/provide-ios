@@ -59,6 +59,25 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
         case "LogoutCell":
+            logout(selectedCell)
+        default:
+            break
+        }
+    }
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.enableEdgeToEdgeDividers()
+        cell.backgroundColor = UIColor.clearColor()
+    }
+
+    private func logout(sender: UITableViewCell) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to logout?", preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let logoutAction = UIAlertAction(title: "Logout", style: .Destructive) { action in
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
 
@@ -69,17 +88,19 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 },
                 onError: { error, _, _ in
                     logWarn("Logout attempt failed; " + error.localizedDescription)
-                    selectedCell.userInteractionEnabled = true
+                    sender.userInteractionEnabled = true
                 }
             )
-        default:
-            break
         }
-    }
 
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.enableEdgeToEdgeDividers()
-        cell.backgroundColor = UIColor.clearColor()
+        alertController.addAction(cancelAction)
+        alertController.addAction(logoutAction)
+
+        if let navigationController = self.navigationViewControllerForMenuHeaderView(self.menuHeaderView) {
+            navigationController.presentViewController(alertController, animated: true)
+        } else {
+            presentViewController(alertController, animated: true)
+        }
     }
 
     // MARK: UITableView DataSource Functions
