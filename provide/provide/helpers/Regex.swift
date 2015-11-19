@@ -10,6 +10,10 @@ import Foundation
 
 class Regex {
 
+    class func match(pattern: String, input: String) -> [NSTextCheckingResult] {
+        return Regex(pattern).match(input)
+    }
+
     let internalExpression: NSRegularExpression!
     let pattern: String
 
@@ -24,11 +28,15 @@ class Regex {
         }
     }
 
-    func test(input: String) -> Bool {
-        var matches = []
+    func match(input: String) -> [NSTextCheckingResult] {
+        var matches = [NSTextCheckingResult]()
         if let internalExpression = internalExpression {
             matches = internalExpression.matchesInString(input, options: .Anchored, range: NSMakeRange(0, input.length))
         }
-        return matches.count > 0
+        return matches
+    }
+
+    func test(input: String) -> Bool {
+        return match(input).count > 0
     }
 }
