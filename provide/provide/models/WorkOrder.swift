@@ -15,6 +15,7 @@ class WorkOrder: Model {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var jobId = 0
     var job: Job!
     var desc: String!
     var workOrderProviders = [WorkOrderProvider]()
@@ -40,6 +41,7 @@ class WorkOrder: Model {
             "id": "id",
             "company_id": "companyId",
             "customer_id": "customerId",
+            "job_id": "jobId",
             "config": "config",
             "description": "desc",
             "scheduled_start_at": "scheduledStartAt",

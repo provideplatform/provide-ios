@@ -273,6 +273,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         workOrder.companyId = job!.companyId
         workOrder.customer = job!.customer
         workOrder.customerId = job!.customerId
+        workOrder.job = job!
+        workOrder.jobId = job!.id
         workOrder.status = "awaiting_schedule"
         workOrder.itemsDelivered = [Product]()
         workOrder.itemsOrdered = [Product]()
