@@ -49,11 +49,13 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.frame = view.bounds
+        dispatch_after_delay(0.0) {
+            self.tableView.frame = self.view.bounds
 
-        headerView.frame.size.width = tableView.frame.width
-        headerView.addDropShadow()
-        headerView.workOrder = workOrder
+            self.headerView.frame.size.width = self.tableView.frame.width
+            self.headerView.addDropShadow()
+            self.headerView.workOrder = self.workOrder
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
