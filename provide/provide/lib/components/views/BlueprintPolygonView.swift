@@ -199,6 +199,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 blueprintImageView.addSubview(lineView)
                 blueprintImageView.bringSubviewToFront(lineView)
 
+                for pointView in pointViews {
+                    blueprintImageView.bringSubviewToFront(pointView)
+                }
+
                 if isClosed {
                     populateMeasurementFromCurrentScale()
                 }
