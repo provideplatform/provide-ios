@@ -347,6 +347,7 @@ class WorkOrder: Model {
 
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
+        params.removeValueForKey("job")
 
         if id > 0 {
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
