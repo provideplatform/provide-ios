@@ -108,7 +108,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
             var attemptPolygonCompletion = false
 
-            if points.count >= 2 {
+            if points.count > 2 {
                 let firstPoint = points.first!
 
                 let xDistance = abs(firstPoint.x - point.x)
