@@ -23,6 +23,8 @@ class Attachment: Model {
     var displayUrlString: String!
     var urlString: String!
 
+    var annotations = [Annotation]()
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
@@ -66,13 +68,27 @@ class Attachment: Model {
         )
     }
 
-    func fetchAnnotations() {
+    func createAnnotation(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().createAnnotationForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func fetchAnnotations(onSuccess: OnSuccess, onError: OnError) {
         let params: [String : AnyObject] = ["page": "1", "rpp": "100"]
         ApiService.sharedService().fetchAnnotationsForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { statusCode, mappingResult in
-
+                for annotation in mappingResult.array() as! [Annotation] {
+                    self.annotations.append(annotation)
+                }
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             }, onError: { error, statusCode, responseString in
-
+                onError(error: error, statusCode: statusCode, responseString: responseString)
             }
         )
     }
