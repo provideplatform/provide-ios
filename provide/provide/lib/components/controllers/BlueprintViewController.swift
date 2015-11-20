@@ -498,6 +498,18 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     // MARK: BlueprintPolygonViewDelegate
 
+    func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool {
+        if let workOrder = workOrder {
+            if let annotation = view.annotation {
+                if annotation.workOrderId == workOrder.id {
+                    return ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) > -1
+                }
+            }
+
+        }
+        return true
+    }
+
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat! {
         if let job = job {
             return CGFloat(job.blueprintScale)

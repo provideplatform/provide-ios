@@ -13,9 +13,12 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView!
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
     func blueprintPolygonViewDidClose(view: BlueprintPolygonView)
+    func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
+
+    var annotation: Annotation!
 
     var delegate: BlueprintPolygonViewDelegate! {
         didSet {
@@ -73,6 +76,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         super.init(frame: CGRectZero)
 
         self.delegate = delegate
+        self.annotation = annotation
 
         if let pts = annotation.polygon {
             for pt in pts {
@@ -203,6 +207,13 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     }
 
     // MARK: BlueprintPolygonVertexViewDelegate
+
+    func blueprintPolygonVertexViewShouldReceiveTouch(view: BlueprintPolygonVertexView) -> Bool {
+        if let delegate = delegate {
+             return delegate.blueprintPolygonViewCanBeResized(self)
+        }
+        return true
+    }
 
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         let index = pointViews.indexOf(view)!

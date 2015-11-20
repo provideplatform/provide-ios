@@ -9,6 +9,7 @@
 import UIKit
 
 protocol BlueprintPolygonVertexViewDelegate {
+    func blueprintPolygonVertexViewShouldReceiveTouch(view: BlueprintPolygonVertexView) -> Bool
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView)
     func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView)
 }
@@ -61,6 +62,9 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     // MARK: UIGestureRecognizerDelegate
 
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if let delegate = delegate {
+            return delegate.blueprintPolygonVertexViewShouldReceiveTouch(self)
+        }
         return true
     }
 

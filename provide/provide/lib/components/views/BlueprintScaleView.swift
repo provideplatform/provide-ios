@@ -186,6 +186,10 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
     // MARK: BlueprintPolygonVertexViewDelegate
 
+    func blueprintPolygonVertexViewShouldReceiveTouch(view: BlueprintPolygonVertexView) -> Bool {
+        return true
+    }
+
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         if view == firstPointView {
             firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
