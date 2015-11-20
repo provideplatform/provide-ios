@@ -534,6 +534,22 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         }
     }
 
+    func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor {
+        if let workOrder = workOrder {
+            if let annotation = view.annotation {
+                if annotation.workOrderId == workOrder.id {
+                    return workOrder.statusColor
+                }
+            }
+
+        }
+        return UIColor.clearColor()
+    }
+
+    func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat {
+        return 0.75
+    }
+
     // MARK: UIScrollViewDelegate
 
     func scrollViewDidScroll(scrollView: UIScrollView) {

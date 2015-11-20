@@ -14,6 +14,8 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
     func blueprintPolygonViewDidClose(view: BlueprintPolygonView)
     func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool
+    func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
+    func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -58,6 +60,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     private var pointViews = [BlueprintPolygonVertexView]()
 
     private var lineViews = [BlueprintPolygonLineView]()
+
+    private var overlayView: UIView!
 
     private var isClosed: Bool {
         return points.count > 2 && (closePoint != nil || points.first!.x == points.last!.x && points.first!.y == points.last!.y)
@@ -119,6 +123,11 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         pointViews = [BlueprintPolygonVertexView]()
         lineViews = [BlueprintPolygonLineView]()
 
+        if let overlayView = overlayView {
+            overlayView.removeFromSuperview()
+            self.overlayView = nil
+        }
+
         closePoint = nil
     }
 
@@ -173,6 +182,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 pointView.userInteractionEnabled = false
 
                 delegate?.blueprintPolygonViewDidClose(self)
+
+                drawOverlayView()
             }
 
             pointViews.append(pointView)
@@ -181,6 +192,45 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
             blueprintImageView.bringSubviewToFront(pointView)
 
             drawLineSegment()
+        }
+    }
+
+    private func drawOverlayView() {
+        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+            let overlayViewFrame = CGRectZero
+
+            if overlayView == nil {
+                overlayView = UIView(frame: overlayViewFrame)
+                overlayView.layer.addSublayer(CAShapeLayer())
+
+                blueprintImageView.addSubview(overlayView)
+                blueprintImageView.bringSubviewToFront(overlayView)
+            }
+
+            if points.count > 0 {
+                let path = UIBezierPath()
+
+                path.moveToPoint(points[0])
+                for point in points.dropFirst() {
+                    path.addLineToPoint(point)
+                }
+
+                path.closePath()
+
+                let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
+                layer.path = path.CGPath
+
+                if let delegate = delegate {
+                    layer.opacity = Float(delegate.blueprintPolygonView(self, opacityForOverlayView: overlayView))
+                    layer.fillColor = delegate.blueprintPolygonView(self, colorForOverlayView: overlayView).CGColor
+                } else {
+                    layer.opacity = 1.0
+                    layer.fillColor = UIColor.clearColor().CGColor
+                }
+
+                overlayView.sizeToFit()
+            }
+
         }
     }
 
@@ -251,6 +301,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 lineViews[0].setPoints(closePoint, endPoint: points[1])
             }
         }
+
+        drawOverlayView()
 
         if isClosed {
             populateMeasurementFromCurrentScale()
