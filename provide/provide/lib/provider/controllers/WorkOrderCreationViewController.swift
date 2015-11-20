@@ -11,6 +11,7 @@ import UIKit
 protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
 
 }
@@ -25,6 +26,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         return cancelItem
     }
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+
     private var saveItem: UIBarButtonItem! {
         let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
         saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
@@ -36,6 +43,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Normal)
         saveItem.enabled = false
         return saveItem
+    }
+
+    private var isDirty = false
+
+    private var isSaved: Bool {
+        if let workOrder = workOrder {
+            return workOrder.id > 0
+        }
+        return false
     }
 
     private var isValid: Bool {
@@ -64,10 +80,18 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         presentViewController(alertController, animated: true)
     }
 
+    func dismiss(sender: UIBarButtonItem!) {
+        delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
+    }
+
     func createWorkOrder(sender: UIBarButtonItem) {
         workOrder.save(
             onSuccess: { statusCode, mappingResult in
-
+                self.isDirty = false
+                self.refreshLeftBarButtonItems()
+                self.refreshRightBarButtonItems()
+                self.navigationItem.title = self.workOrder.customer.contact.name
+                self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
             onError: { error, statusCode, responseString in
 
@@ -166,8 +190,20 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
+    func refreshLeftBarButtonItems() {
+        if isSaved {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        } else {
+            navigationItem.leftBarButtonItems = [cancelItem]
+        }
+    }
+
+    func refreshRightBarButtonItems() {
+        refreshSaveButton()
+    }
+
     private func refreshSaveButton() {
-        if isValid {
+        if isValid && isDirty {
             navigationItem.rightBarButtonItems = [saveItem]
         } else {
             navigationItem.rightBarButtonItems = [disabledSaveItem]
@@ -182,13 +218,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
             workOrderProvider.provider = provider
 
             workOrder.workOrderProviders.append(workOrderProvider)
+            isDirty = true
         }
-        refreshSaveButton()
+        refreshRightBarButtonItems()
     }
 
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
         workOrder.removeProvider(provider)
-        refreshSaveButton()
+        isDirty = true
+        refreshRightBarButtonItems()
     }
 
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
@@ -203,8 +241,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
         workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        workOrder.status = "scheduled"
-        refreshSaveButton()
+        isDirty = true
+        refreshRightBarButtonItems()
     }
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {

@@ -626,6 +626,22 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         return cell
     }
 
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
+        if let job = job {
+            if let blueprint = job.blueprint {
+                let annotationParams = ["polygon": polygonView.polygon]
+                blueprint.createAnnotation(annotationParams,
+                    onSuccess: { statusCode, mappingResult in
+
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            }
+        }
+    }
+
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
         dismissViewController(animated: true)
     }
