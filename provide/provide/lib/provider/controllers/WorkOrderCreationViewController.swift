@@ -45,6 +45,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         return saveItem
     }
 
+    private var activityIndicatorView: UIActivityIndicatorView {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.startAnimating()
+        return activityIndicatorView
+    }
+
     private var isDirty = false
 
     private var isSaved: Bool {
@@ -85,12 +92,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     func createWorkOrder(sender: UIBarButtonItem) {
+        navigationItem.titleView = activityIndicatorView
+
         workOrder.save(
             onSuccess: { statusCode, mappingResult in
                 self.isDirty = false
                 self.refreshLeftBarButtonItems()
                 self.refreshRightBarButtonItems()
                 self.navigationItem.title = self.workOrder.customer.contact.name
+                self.navigationItem.titleView = nil
                 self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
             onError: { error, statusCode, responseString in
