@@ -11,6 +11,7 @@ import Foundation
 class Annotation: Model {
 
     var id = 0
+    var workOrderId = 0
     var text: String!
     var polygon: [[CGFloat]]!
     var circle: [[CGFloat]]!
@@ -19,6 +20,7 @@ class Annotation: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "work_order_id": "workOrderId",
             "text": "text",
             "polygon": "polygon",
             "circle": "circle",
