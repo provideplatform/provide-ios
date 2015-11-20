@@ -331,6 +331,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     }
 
     func updateAnnotation() {
+        timer = nil
+
         if let annotation = annotation {
             if let attachment = delegate?.blueprintForBlueprintPolygonView(self) {
                 annotation.polygon = polygon
