@@ -98,6 +98,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
             onSuccess: { statusCode, mappingResult in
                 self.isDirty = false
                 self.refreshUI()
+                self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
             onError: { error, statusCode, responseString in
 
@@ -110,7 +111,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         refreshRightBarButtonItems()
         navigationItem.title = self.workOrder.customer.contact.name
         navigationItem.titleView = nil
-        delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
     }
 
     override func viewDidLoad() {
