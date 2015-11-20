@@ -23,7 +23,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             workOrder.reloadAttachments(
                 { statusCode, mappingResult in
                     self.mediaCollectionView?.reloadData()
-                    //self.mediaCollectionView.layoutIfNeeded()
                 },
                 onError: { error, statusCode, responseString in
 
