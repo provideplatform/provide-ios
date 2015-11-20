@@ -9,7 +9,6 @@
 import Foundation
 
 class Annotation: Model {
-
     var id = 0
     var workOrderId = 0
     var workOrder: WorkOrder!
@@ -28,5 +27,17 @@ class Annotation: Model {
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order", toKeyPath: "workOrder", withMapping: WorkOrder.mapping()))
         return mapping
+    }
+
+    func updatePolygon(attachment: Attachment, onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().updateAnnotationWithId(String(id), forAttachmentWithId: String(attachment.id),
+            forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: ["polygon": polygon],
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 }

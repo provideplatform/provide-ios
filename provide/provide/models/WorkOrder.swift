@@ -382,7 +382,6 @@ class WorkOrder: Model {
                 }
             )
         }
-
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {

@@ -63,6 +63,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
     private var overlayView: UIView!
 
+    private var timer: NSTimer!
+
     private var isClosed: Bool {
         return points.count > 2 && (closePoint != nil || points.first!.x == points.last!.x && points.first!.y == points.last!.y)
     }
@@ -270,6 +272,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     }
 
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
+        cancelAnnotationUpdate()
+
         let index = pointViews.indexOf(view)!
         let lineViewIndex = isClosed && index == 0 ? lineViews.count - 1 : max(0, index - 1)
 
@@ -302,16 +306,43 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
             }
         }
 
-        drawOverlayView()
-
         if isClosed {
+            drawOverlayView()
             populateMeasurementFromCurrentScale()
+            scheduleAnnotationUpdate()
         }
     }
 
     func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView) {
         if pointViews.indexOf(view)! == 0 {
             completePolygon()
+        }
+    }
+
+    private func cancelAnnotationUpdate() {
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
+        }
+    }
+
+    private func scheduleAnnotationUpdate() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateAnnotation", userInfo: nil, repeats: false)
+    }
+
+    func updateAnnotation() {
+        if let annotation = annotation {
+            if let attachment = delegate?.blueprintForBlueprintPolygonView(self) {
+                annotation.polygon = polygon
+                annotation.updatePolygon(attachment,
+                    onSuccess: { statusCode, mappingResult in
+                        print("annotation saved!!!!")
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            }
         }
     }
 
