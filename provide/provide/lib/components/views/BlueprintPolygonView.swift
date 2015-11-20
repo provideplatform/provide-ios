@@ -17,6 +17,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
     func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
     func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
+    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect)
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -323,6 +324,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView) {
         if pointViews.indexOf(view)! == 0 {
             completePolygon()
+        }
+
+        if isClosed {
+            delegate?.blueprintPolygonView(self, didSelectOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox((overlayView.layer.sublayers!.first! as! CAShapeLayer).path))
         }
     }
 

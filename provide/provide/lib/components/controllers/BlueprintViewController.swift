@@ -564,6 +564,27 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         return textLayer
     }
 
+    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) {
+        if let annotation = view.annotation {
+            if let workOrder = annotation.workOrder {
+                let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
+                createWorkOrderViewController.workOrder = workOrder
+                createWorkOrderViewController.delegate = self
+                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
+
+                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
+                navigationController.modalPresentationStyle = .Popover
+
+                let popover = navigationController.popoverPresentationController
+                //popover.delegate = self
+                popover!.sourceView = overlayView
+                popover!.sourceRect = boundingBox
+                
+                presentViewController(navigationController, animated: true)
+            }
+        }
+    }
+
     // MARK: UIScrollViewDelegate
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -602,6 +623,18 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
         let workOrder = viewController.workOrder
+
+        var polygonView: BlueprintPolygonView!
+        for view in polygonViews {
+            if let annotation = view.annotation {
+                if let wo = annotation.workOrder {
+                    if wo.id == workOrder.id {
+                        polygonView = view
+                        break
+                    }
+                }
+            }
+        }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
@@ -654,7 +687,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
             cell.accessoryType = .DisclosureIndicator
         case 4:
-            let cost = workOrder.estimatedDuration == nil ? "--" : workOrder.humanReadableDuration!
+            let cost = workOrder.estimatedDuration == nil ? "--" : (workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!)
             cell.setName("ESTIMATED COST", value: cost)
             cell.accessoryType = .DisclosureIndicator
         case 5:

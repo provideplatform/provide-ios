@@ -97,11 +97,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         workOrder.save(
             onSuccess: { statusCode, mappingResult in
                 self.isDirty = false
-                self.refreshLeftBarButtonItems()
-                self.refreshRightBarButtonItems()
-                self.navigationItem.title = self.workOrder.customer.contact.name
-                self.navigationItem.titleView = nil
-                self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
+                self.refreshUI()
             },
             onError: { error, statusCode, responseString in
 
@@ -109,15 +105,25 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         )
     }
 
+    private func refreshUI() {
+        refreshLeftBarButtonItems()
+        refreshRightBarButtonItems()
+        navigationItem.title = self.workOrder.customer.contact.name
+        navigationItem.titleView = nil
+        delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItems = [cancelItem]
-        navigationItem.rightBarButtonItems = [disabledSaveItem]
+        //navigationItem.leftBarButtonItems = [cancelItem]
+        //navigationItem.rightBarButtonItems = [disabledSaveItem]
 
         title = "CREATE WORK ORDER"
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
+
+        refreshUI()
     }
 
     // MARK: UITableViewDataSource
