@@ -56,6 +56,8 @@ class Job: Model {
 
     func updateJobBlueprintScale(blueprintScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
         if let blueprint = blueprint {
+            self.blueprintScale = Double(blueprintScale)
+
             var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
             metadata["scale"] = blueprintScale
             blueprint.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
