@@ -365,9 +365,15 @@ class WorkOrder: Model {
             }
             params.updateValue(workOrderProviders, forKey: "work_order_providers")
 
+            if let _ = scheduledStartAt {
+                params.updateValue("scheduled", forKey: "status")
+            }
+
             ApiService.sharedService().createWorkOrder(params,
                 onSuccess: { statusCode, mappingResult in
-                    //WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                    let workOrder = mappingResult.firstObject as! WorkOrder
+                    self.id = workOrder.id
+                    self.status = workOrder.status
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
