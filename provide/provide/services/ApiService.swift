@@ -20,6 +20,7 @@ class ApiService: NSObject {
 
     private let objectMappings = [
         "attachments": Attachment.mapping(),
+        "annotations": Annotation.mapping(),
         "companies": Company.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
@@ -504,7 +505,10 @@ class ApiService: NSObject {
 
     private func objectMappingForPath(var path: String) -> RKObjectMapping? {
         let parts = path.characters.split("/").map { String($0) }
-        if parts.count > 3 {
+        if parts.count > 5 {
+            path = [parts[3], parts[5]].joinWithSeparator("/")
+            path = path.splitAtString("/").1
+        } else if parts.count > 3 {
             path = [parts[1], parts[3]].joinWithSeparator("/")
             path = path.splitAtString("/").1
         } else {
@@ -518,8 +522,6 @@ class ApiService: NSObject {
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)
         }
-
-        print("response mapping: \(responseMapping)")
 
         if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
             let urlComponents = NSURLComponents(URL: baseURL.URLByAppendingPathComponent(path), resolvingAgainstBaseURL: false)!
