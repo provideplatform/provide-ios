@@ -624,18 +624,23 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
         let workOrder = viewController.workOrder
 
-        var polygonView = self.polygonView
-        if polygonView == nil {
-            for view in polygonViews {
-                if let annotation = view.annotation {
-                    if let wo = annotation.workOrder {
-                        if wo.id == workOrder.id {
-                            polygonView = view
-                            break
-                        }
+        var polygonView: BlueprintPolygonView!
+        for view in polygonViews {
+            if let annotation = view.annotation {
+                if let wo = annotation.workOrder {
+                    if wo.id == workOrder.id {
+                        polygonView = view
+                        break
                     }
+                } else if annotation.workOrderId == workOrder.id {
+                    polygonView = view
+                    break
                 }
             }
+        }
+
+        if polygonView == nil {
+            polygonView = self.polygonView
         }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
