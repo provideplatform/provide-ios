@@ -641,10 +641,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
         if let job = job {
             if let blueprint = job.blueprint {
-                let annotationParams = ["polygon": polygonView.polygon]
+                let annotationParams: [String : AnyObject] = ["polygon": polygonView.polygon, "work_order_id": workOrder.id]
                 blueprint.createAnnotation(annotationParams,
                     onSuccess: { statusCode, mappingResult in
-
+                        self.polygonView.annotation = mappingResult.firstObject as! Annotation
                     },
                     onError: { error, statusCode, responseString in
 
