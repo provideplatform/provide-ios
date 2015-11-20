@@ -184,16 +184,12 @@ func decodeJSON(data: NSData) -> [String: AnyObject] {
 }
 
 func encodeJSON(input: AnyObject, options: NSJSONWritingOptions = []) -> NSData {
-    var error: NSError?
     let data: NSData?
     do {
         data = try NSJSONSerialization.dataWithJSONObject(input, options: options)
-    } catch let error1 as NSError {
-        error = error1
-        data = nil
-    }
-    if let error = error {
+    } catch let error as NSError {
         logError(error)
+        data = nil
     }
     return data!
 }
