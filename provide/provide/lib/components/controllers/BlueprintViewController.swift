@@ -548,6 +548,22 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         return 0.75
     }
 
+    func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer! {
+        let textLayer = CATextLayer()
+        textLayer.string = "\(view.area) ft²"
+        textLayer.font = UIFont(name: "Exo2-Regular", size: 16.0)
+        textLayer.foregroundColor = UIColor.blackColor().CGColor
+        textLayer.alignmentMode = "center"
+
+        //let size = (textLayer.string as! NSString).sizeWithAttributes([NSFontAttributeName : textLayer.font!])
+        textLayer.frame = CGRect(x: boundingBox.origin.x,
+                                 y: boundingBox.origin.y + (boundingBox.height / 2.0),
+                                 width: boundingBox.width,
+                                 height: boundingBox.height)
+
+        return textLayer
+    }
+
     // MARK: UIScrollViewDelegate
 
     func scrollViewDidScroll(scrollView: UIScrollView) {

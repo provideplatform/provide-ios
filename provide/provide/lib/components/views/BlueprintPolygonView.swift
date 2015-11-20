@@ -16,6 +16,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool
     func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
     func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
+    func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -185,6 +186,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
                 delegate?.blueprintPolygonViewDidClose(self)
 
+                populateMeasurementFromCurrentScale()
                 drawOverlayView()
             }
 
@@ -204,6 +206,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
             if overlayView == nil {
                 overlayView = UIView(frame: overlayViewFrame)
                 overlayView.layer.addSublayer(CAShapeLayer())
+                overlayView.layer.addSublayer(CALayer())
 
                 blueprintImageView.addSubview(overlayView)
                 blueprintImageView.bringSubviewToFront(overlayView)
@@ -228,6 +231,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 } else {
                     layer.opacity = 1.0
                     layer.fillColor = UIColor.clearColor().CGColor
+                }
+
+                if let sublayer = delegate?.blueprintPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox(layer.path)) {
+                    overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
                 }
 
                 overlayView.sizeToFit()
