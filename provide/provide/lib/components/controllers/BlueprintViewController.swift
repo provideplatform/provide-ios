@@ -51,6 +51,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         }
     }
 
+    private var polygonViews = [BlueprintPolygonView]()
+
     var job: Job! {
         if let job = blueprintViewControllerDelegate?.jobForBlueprintViewController(self) {
             return job
@@ -211,8 +213,34 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     private func loadAnnotations() {
         if let job = job {
             if let blueprint = job.blueprint {
-                blueprint.fetchAnnotations()
+                blueprint.fetchAnnotations(
+                    { statusCode, mappingResult in
+                        self.refreshAnnotations()
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
             }
+        }
+    }
+
+    private func removePolygonViews() {
+        for view in polygonViews {
+            view.removeFromSuperview()
+        }
+
+        polygonViews = [BlueprintPolygonView]()
+    }
+
+    private func refreshAnnotations() {
+        for annotation in job.blueprint.annotations {
+            let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+            self.polygonView.superview!.addSubview(polygonView)
+            polygonView.alpha = 1.0
+            polygonView.attachGestureRecognizer()
+
+            polygonViews.append(polygonView)
         }
     }
 
@@ -488,8 +516,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         return nil
     }
 
-    func blueprintPolygonViewCanCreateNewWorkOrder(view: BlueprintPolygonView) {
-        overrideNavigationItemForCreatingWorkOrder(true)
+    func blueprintPolygonViewDidClose(view: BlueprintPolygonView) {
+        if view == polygonView {
+            overrideNavigationItemForCreatingWorkOrder(true)
+        }
     }
 
     // MARK: UIScrollViewDelegate

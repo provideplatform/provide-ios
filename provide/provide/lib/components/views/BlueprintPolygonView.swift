@@ -12,7 +12,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat!
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView!
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
-    func blueprintPolygonViewCanCreateNewWorkOrder(view: BlueprintPolygonView)
+    func blueprintPolygonViewDidClose(view: BlueprintPolygonView)
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -42,6 +42,14 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         }
     }
 
+    var polygon: [[CGFloat]] {
+        var polygonPoints = [[CGFloat]]()
+        for point in points {
+            polygonPoints.append([point.x, point.y])
+        }
+        return polygonPoints
+    }
+
     private var points = [CGPoint]()
 
     private var pointViews = [BlueprintPolygonVertexView]()
@@ -59,6 +67,23 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
             return superview
         }
         return nil
+    }
+
+    required init(delegate: BlueprintPolygonViewDelegate, annotation: Annotation) {
+        super.init(frame: CGRectZero)
+
+        self.delegate = delegate
+
+        if let pts = annotation.polygon {
+            for pt in pts {
+                let point = CGPoint(x: pt[0], y: pt[1])
+                addPoint(point)
+            }
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     func attachGestureRecognizer() {
@@ -143,7 +168,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 pointView.alpha = 0.0
                 pointView.userInteractionEnabled = false
 
-                delegate?.blueprintPolygonViewCanCreateNewWorkOrder(self)
+                delegate?.blueprintPolygonViewDidClose(self)
             }
 
             pointViews.append(pointView)
