@@ -12,6 +12,7 @@ class Annotation: Model {
 
     var id = 0
     var workOrderId = 0
+    var workOrder: WorkOrder!
     var text: String!
     var polygon: [[CGFloat]]!
     var circle: [[CGFloat]]!
@@ -25,6 +26,7 @@ class Annotation: Model {
             "polygon": "polygon",
             "circle": "circle",
             ])
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order", toKeyPath: "workOrder", withMapping: WorkOrder.mapping()))
         return mapping
     }
 }

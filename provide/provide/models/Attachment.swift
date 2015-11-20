@@ -79,8 +79,7 @@ class Attachment: Model {
         )
     }
 
-    func fetchAnnotations(onSuccess: OnSuccess, onError: OnError) {
-        let params: [String : AnyObject] = ["page": "1", "rpp": "100"]
+    func fetchAnnotations(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchAnnotationsForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { statusCode, mappingResult in
                 for annotation in mappingResult.array() as! [Annotation] {

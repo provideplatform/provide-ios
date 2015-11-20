@@ -213,8 +213,9 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     private func loadAnnotations() {
         if let job = job {
             if let blueprint = job.blueprint {
-                blueprint.fetchAnnotations(
-                    { statusCode, mappingResult in
+                let params = ["page": "1", "rpp": "100"]
+                blueprint.fetchAnnotations(params,
+                    onSuccess: { statusCode, mappingResult in
                         self.refreshAnnotations()
                     },
                     onError: { error, statusCode, responseString in
@@ -535,13 +536,10 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     }
 
     func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor {
-        if let workOrder = workOrder {
-            if let annotation = view.annotation {
-                if annotation.workOrderId == workOrder.id {
-                    return workOrder.statusColor
-                }
+        if let annotation = view.annotation {
+            if let workOrder = annotation.workOrder {
+                return workOrder.statusColor
             }
-
         }
         return UIColor.clearColor()
     }
