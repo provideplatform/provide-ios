@@ -68,17 +68,6 @@ class Attachment: Model {
         )
     }
 
-    func createAnnotation(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().createAnnotationForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
-    }
-
     func fetchAnnotations(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchAnnotationsForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { statusCode, mappingResult in

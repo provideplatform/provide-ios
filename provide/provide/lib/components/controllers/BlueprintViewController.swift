@@ -624,13 +624,15 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
         let workOrder = viewController.workOrder
 
-        var polygonView: BlueprintPolygonView!
-        for view in polygonViews {
-            if let annotation = view.annotation {
-                if let wo = annotation.workOrder {
-                    if wo.id == workOrder.id {
-                        polygonView = view
-                        break
+        var polygonView = self.polygonView
+        if polygonView == nil {
+            for view in polygonViews {
+                if let annotation = view.annotation {
+                    if let wo = annotation.workOrder {
+                        if wo.id == workOrder.id {
+                            polygonView = view
+                            break
+                        }
                     }
                 }
             }
@@ -704,8 +706,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
         if let job = job {
             if let blueprint = job.blueprint {
-                let annotationParams: [String : AnyObject] = ["polygon": polygonView.polygon, "work_order_id": workOrder.id]
-                blueprint.createAnnotation(annotationParams,
+                let annotation = Annotation()
+                annotation.polygon = polygonView.polygon
+                annotation.workOrderId = workOrder.id
+                annotation.workOrder = workOrder
+                annotation.save(blueprint,
                     onSuccess: { statusCode, mappingResult in
                         self.polygonView.annotation = mappingResult.firstObject as! Annotation
                     },

@@ -29,15 +29,35 @@ class Annotation: Model {
         return mapping
     }
 
-    func updatePolygon(attachment: Attachment, onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().updateAnnotationWithId(String(id), forAttachmentWithId: String(attachment.id),
-            forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: ["polygon": polygon],
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+    func save(attachment: Attachment, onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+        params.removeValueForKey("id")
+        params.removeValueForKey("work_order")
+
+        if id > 0 {
+            ApiService.sharedService().updateAnnotationWithId(String(id), forAttachmentWithId: String(attachment.id),
+                forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            ApiService.sharedService().createAnnotationForAttachmentWithId(String(attachment.id),
+                forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    let annotation = mappingResult.firstObject as! Annotation
+                    self.id = annotation.id
+
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+
     }
 }

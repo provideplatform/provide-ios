@@ -348,7 +348,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         if let annotation = annotation {
             if let attachment = delegate?.blueprintForBlueprintPolygonView(self) {
                 annotation.polygon = polygon
-                annotation.updatePolygon(attachment,
+                annotation.save(attachment,
                     onSuccess: { statusCode, mappingResult in
                         print("annotation saved!!!!")
                     },
