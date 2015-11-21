@@ -58,6 +58,10 @@ class Color {
         return UIColor("#70d1f0")
     }
 
+    class func awaitingScheduleStatusColor() -> UIColor {
+        return UIColor("#ffffff").colorWithAlphaComponent(0.25)
+    }
+
     class func scheduledStatusColor() -> UIColor {
         return UIColor("#ffffff")
     }

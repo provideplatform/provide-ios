@@ -172,7 +172,9 @@ class WorkOrder: Model {
     }
 
     var statusColor: UIColor {
-        if status == "scheduled" {
+        if status == "awaiting_schedule" {
+            return Color.awaitingScheduleStatusColor()
+        } else if status == "scheduled" {
             return Color.scheduledStatusColor()
         } else if status == "en_route" {
             return Color.enRouteStatusColor()
