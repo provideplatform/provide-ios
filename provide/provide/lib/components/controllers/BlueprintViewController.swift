@@ -644,6 +644,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation) {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    (viewController as! WorkOrderCreationViewController).reloadTableView()
+                }
+            }
+        }
+    }
+
     // MARK: UIScrollViewDelegate
 
     func scrollViewDidScroll(scrollView: UIScrollView) {

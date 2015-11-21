@@ -18,6 +18,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
     func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
     func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
+    func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation)
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestureRecognizerDelegate {
@@ -332,8 +333,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         }
 
         if isClosed {
-            drawOverlayView()
             populateMeasurementFromCurrentScale()
+            drawOverlayView()
             scheduleAnnotationUpdate()
         }
     }
@@ -363,7 +364,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
                 annotation.polygon = polygon
                 annotation.save(attachment,
                     onSuccess: { statusCode, mappingResult in
-                        print("annotation saved!!!!")
+                        self.delegate?.blueprintPolygonView(self, didUpdateAnnotation: annotation)
                     },
                     onError: { error, statusCode, responseString in
 

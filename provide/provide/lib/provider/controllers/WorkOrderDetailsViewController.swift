@@ -66,6 +66,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         tableView.reloadData()
     }
 
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+
     func refreshInProgress() {
         if let tableView = tableView {
             var statusCell: NameValueTableViewCell!
