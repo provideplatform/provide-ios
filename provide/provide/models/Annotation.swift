@@ -30,11 +30,17 @@ class Annotation: Model {
     }
 
     func save(attachment: Attachment, onSuccess: OnSuccess, onError: OnError) {
-        var params = toDictionary()
-        params.removeValueForKey("id")
-        params.removeValueForKey("work_order")
-
         if id > 0 {
+            var params: [String : AnyObject] = [String : AnyObject]()
+            if let polygon = polygon {
+                params["polygon"] = polygon
+            }
+            if let circle = circle {
+                params["circle"] = circle
+            }
+            if let text = text {
+                params["text"] = text
+            }
             ApiService.sharedService().updateAnnotationWithId(String(id), forAttachmentWithId: String(attachment.id),
                 forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: params,
                 onSuccess: { statusCode, mappingResult in
@@ -45,11 +51,16 @@ class Annotation: Model {
                 }
             )
         } else {
+            var params = toDictionary()
+            params.removeValueForKey("id")
+            params.removeValueForKey("work_order")
+
             ApiService.sharedService().createAnnotationForAttachmentWithId(String(attachment.id),
                 forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: params,
                 onSuccess: { statusCode, mappingResult in
                     let annotation = mappingResult.firstObject as! Annotation
                     self.id = annotation.id
+                    attachment.annotations.append(self)
 
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },

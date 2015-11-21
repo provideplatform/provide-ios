@@ -274,16 +274,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
         }
         if polygonView == nil {
-//            let annotation = Annotation()
-//            annotation.workOrderId = workOrder.id
-//            annotation.workOrder = workOrder
-//
-//            polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-//            imageView.addSubview(polygonView)
-//            polygonView.alpha = 1.0
-//            polygonView.attachGestureRecognizer()
-//
-//            polygonViews.append(polygonView)
             polygonView = self.polygonView
         }
         return polygonView
@@ -299,12 +289,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func refreshAnnotations() {
         for annotation in job.blueprint.annotations {
-            let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-            imageView.addSubview(polygonView)
-            polygonView.alpha = 1.0
-            polygonView.attachGestureRecognizer()
+            if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
+                let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                imageView.addSubview(polygonView)
+                polygonView.alpha = 1.0
+                polygonView.attachGestureRecognizer()
 
-            polygonViews.append(polygonView)
+                polygonViews.append(polygonView)
+            }
         }
     }
 
@@ -353,6 +345,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+        dismissWorkOrderCreationPolygonView()
+    }
+
+    func dismissWorkOrderCreationPolygonView() {
         polygonView.resignFirstResponder(false)
         restoreCachedNavigationItem()
     }
@@ -776,9 +772,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 annotation.workOrder = workOrder
                 annotation.save(blueprint,
                     onSuccess: { statusCode, mappingResult in
-                        self.polygonView.annotation = mappingResult.firstObject as! Annotation
-                        print("FIXME!!!!!!!!!!!!!! Append the polygon view to the polygonViews array")
-                        print("\(self.polygonView)")
+                        self.refreshAnnotations()
+                        self.dismissWorkOrderCreationPolygonView()
                     },
                     onError: { error, statusCode, responseString in
 
