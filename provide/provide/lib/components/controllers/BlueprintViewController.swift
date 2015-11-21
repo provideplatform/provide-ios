@@ -12,7 +12,14 @@ protocol BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
 }
 
-class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDelegate, BlueprintScaleViewDelegate, BlueprintThumbnailViewDelegate, BlueprintToolbarDelegate, BlueprintPolygonViewDelegate, WorkOrderCreationViewControllerDelegate {
+class BlueprintViewController: WorkOrderComponentViewController,
+                               UIScrollViewDelegate,
+                               BlueprintScaleViewDelegate,
+                               BlueprintThumbnailViewDelegate,
+                               BlueprintToolbarDelegate,
+                               BlueprintPolygonViewDelegate,
+                               WorkOrderCreationViewControllerDelegate,
+                               UIPopoverPresentationControllerDelegate {
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
@@ -554,8 +561,6 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
         textLayer.font = UIFont(name: "Exo2-Regular", size: 16.0)
         textLayer.foregroundColor = UIColor.blackColor().CGColor
         textLayer.alignmentMode = "center"
-
-        //let size = (textLayer.string as! NSString).sizeWithAttributes([NSFontAttributeName : textLayer.font!])
         textLayer.frame = CGRect(x: boundingBox.origin.x,
                                  y: boundingBox.origin.y + (boundingBox.height / 2.0),
                                  width: boundingBox.width,
@@ -575,10 +580,11 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
                 let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
                 navigationController.modalPresentationStyle = .Popover
 
-                let popover = navigationController.popoverPresentationController
-                //popover.delegate = self
-                popover!.sourceView = overlayView
-                popover!.sourceRect = boundingBox
+                let popover = navigationController.popoverPresentationController!
+                popover.delegate = self
+                popover.sourceView = imageView
+                popover.sourceRect = boundingBox
+                popover.passthroughViews = [view]
                 
                 presentViewController(navigationController, animated: true)
             }
@@ -678,7 +684,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             }
             providers += " assigned"
             if workOrder.providers.count >= detailDisplayCount {
-                cell.setName("PROVIDERS", value: providers, valueFontSize: 13.0)
+                cell.setName("PROVIDERS", value: providers, valueFontSize: isIPad() ? 13.0 : 11.0)
             } else {
                 cell.setName("PROVIDERS", value: providers)
             }
@@ -688,7 +694,8 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
                 scheduledStartTime = humanReadableScheduledStartTime
             }
-            cell.setName("SCHEDULED START TIME", value: scheduledStartTime)
+
+            cell.setName(isIPad() ? "SCHEDULED START TIME" : "STARTING AT", value: scheduledStartTime)
             cell.accessoryType = .DisclosureIndicator
         case 3:
             cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
@@ -699,7 +706,7 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
             cell.accessoryType = .DisclosureIndicator
         case 5:
             let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
+            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
             cell.accessoryType = .DisclosureIndicator
         default:
             break
@@ -729,5 +736,19 @@ class BlueprintViewController: WorkOrderComponentViewController, UIScrollViewDel
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
         dismissViewController(animated: true)
+    }
+
+    // MARK: UIPopoverPresentationControllerDelegate
+
+    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return true
+    }
+
+    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+
+    }
+
+    func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
+
     }
 }

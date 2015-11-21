@@ -72,8 +72,16 @@ extension NSDate {
         return NSCalendar.currentCalendar().dateFromComponents(componentsWithoutTime)!
     }
 
+    var month: Int {
+        return NSCalendar.currentCalendar().components(.Month, fromDate: self).month
+    }
+
     var dayOfMonth: Int {
         return NSCalendar.currentCalendar().components(.Day, fromDate: self).day
+    }
+
+    var year: Int {
+        return NSCalendar.currentCalendar().components(.Year, fromDate: self).year
     }
 
     var dayOfWeek: String {

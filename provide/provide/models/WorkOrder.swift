@@ -155,7 +155,11 @@ class WorkOrder: Model {
 
     var humanReadableScheduledStartAtTimestamp: String! {
         if let scheduledStartAtDate = scheduledStartAtDate {
-            return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
+            if isIPad() {
+                return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
+            } else {
+                return "\(scheduledStartAtDate.month)/\(scheduledStartAtDate.dayOfMonth)/\(scheduledStartAtDate.year) @ \(scheduledStartAtDate.timeString!)"
+            }
         }
         return nil
     }
