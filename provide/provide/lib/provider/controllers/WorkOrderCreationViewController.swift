@@ -99,6 +99,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         workOrder.save(
             onSuccess: { statusCode, mappingResult in
                 self.isDirty = false
+                if statusCode == 201 {
+                    let wo = mappingResult.firstObject as! WorkOrder
+                    self.workOrder.status = wo.status
+                }
                 self.refreshUI()
                 self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
@@ -109,17 +113,39 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     private func refreshUI() {
+        refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
-        navigationItem.title = self.workOrder.customer.contact.name
+
+    }
+
+    private func refreshTitle() {
+        navigationItem.title = workOrder.customer.contact.name
         navigationItem.titleView = nil
+    }
+
+    private func refreshLeftBarButtonItems() {
+        if isSaved {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        } else {
+            navigationItem.leftBarButtonItems = [cancelItem]
+        }
+    }
+
+    private func refreshRightBarButtonItems() {
+        refreshSaveButton()
+    }
+
+    private func refreshSaveButton() {
+        if isValid && isDirty {
+            navigationItem.rightBarButtonItems = [saveItem]
+        } else {
+            navigationItem.rightBarButtonItems = [disabledSaveItem]
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //navigationItem.leftBarButtonItems = [cancelItem]
-        //navigationItem.rightBarButtonItems = [disabledSaveItem]
 
         title = "CREATE WORK ORDER"
 
@@ -222,26 +248,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    func refreshLeftBarButtonItems() {
-        if isSaved {
-            navigationItem.leftBarButtonItems = [dismissItem]
-        } else {
-            navigationItem.leftBarButtonItems = [cancelItem]
-        }
-    }
-
-    func refreshRightBarButtonItems() {
-        refreshSaveButton()
-    }
-
-    private func refreshSaveButton() {
-        if isValid && isDirty {
-            navigationItem.rightBarButtonItems = [saveItem]
-        } else {
-            navigationItem.rightBarButtonItems = [disabledSaveItem]
-        }
     }
 
     // MARK: ProviderPickerViewControllerDelegate
