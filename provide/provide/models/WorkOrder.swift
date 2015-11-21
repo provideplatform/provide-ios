@@ -352,11 +352,13 @@ class WorkOrder: Model {
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
         params.removeValueForKey("job")
+        params.removeValueForKey("id")
+
+        params.removeValueForKey("config")
 
         if id > 0 {
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -364,7 +366,6 @@ class WorkOrder: Model {
                 }
             )
         } else {
-            params.removeValueForKey("id")
             var workOrderProviders = [[String : AnyObject]]()
             for provider in providers {
                 workOrderProviders.append(["provider_id": provider.id])
@@ -380,6 +381,7 @@ class WorkOrder: Model {
                     let workOrder = mappingResult.firstObject as! WorkOrder
                     self.id = workOrder.id
                     self.status = workOrder.status
+                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in

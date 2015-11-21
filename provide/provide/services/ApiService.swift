@@ -349,6 +349,7 @@ class ApiService: NSObject {
     func updateWorkOrderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         var realParams = params
         realParams["id"] = nil
+        realParams["company"] = nil
         realParams["customer"] = nil
         realParams["companyId"] = nil
         realParams["customerId"] = nil
