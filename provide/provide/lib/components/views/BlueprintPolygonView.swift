@@ -17,7 +17,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
     func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
     func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
-    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect)
+    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
 }
 
 class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
@@ -140,8 +140,22 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
         return super.resignFirstResponder()
     }
 
+    func overlaySelected(gestureRecognizer: UITapGestureRecognizer) {
+        if isClosed {
+            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+                let point = gestureRecognizer.locationInView(blueprintImageView)
+                let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
+                let path = layer.path!
+                if CGPathContainsPoint(path, nil, point, true) {
+                    delegate?.blueprintPolygonView(self, didSelectOverlayView: overlayView, atPoint: point, inPath: path)
+                }
+            }
+        }
+    }
+
     func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
         if isClosed {
+            overlaySelected(gestureRecognizer)
             return
         }
 
@@ -176,6 +190,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
             let pointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
             pointView.delegate = self
+            pointView.alpha = delegate!.blueprintPolygonViewCanBeResized(self) ? 1.0 : 0.5
             pointView.frame.origin = CGPoint(x: point.x - (pointView.image!.size.width / 2.0),
                                              y: point.y - pointView.image!.size.height)
             
@@ -237,8 +252,6 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
                 if let sublayer = delegate?.blueprintPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox(layer.path)) {
                     overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
                 }
-
-                overlayView.sizeToFit()
             }
 
         }
@@ -324,10 +337,6 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
     func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView) {
         if pointViews.indexOf(view)! == 0 {
             completePolygon()
-        }
-
-        if isClosed {
-            delegate?.blueprintPolygonView(self, didSelectOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox((overlayView.layer.sublayers!.first! as! CAShapeLayer).path))
         }
     }
 

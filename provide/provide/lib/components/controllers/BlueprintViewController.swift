@@ -566,7 +566,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return textLayer
     }
 
-    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) {
+    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath) {
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
                 let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
@@ -580,7 +580,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 let popover = navigationController.popoverPresentationController!
                 popover.delegate = self
                 popover.sourceView = imageView
-                popover.sourceRect = boundingBox
+                popover.sourceRect = CGPathGetBoundingBox(path)
                 popover.passthroughViews = [view]
                 
                 presentViewController(navigationController, animated: true)
