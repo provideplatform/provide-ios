@@ -623,11 +623,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: WorkOrderCreationViewControllerDelegate
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int! {
-        return 6
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 44.0 : 200.0
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return section == 0 ? 6 : 1
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+        if indexPath.section > 0 {
+            return nil
+        }
+
         let workOrder = viewController.workOrder
 
         var polygonView: BlueprintPolygonView!
@@ -739,6 +751,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     // MARK: UIPopoverPresentationControllerDelegate
+
+//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+//        return .None
+//    }
 
     func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return true

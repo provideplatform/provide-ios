@@ -9,7 +9,9 @@
 import UIKit
 
 protocol WorkOrderCreationViewControllerDelegate {
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
@@ -124,6 +126,22 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
 
         refreshUI()
+    }
+
+    // MARK: UITableViewDelegate
+
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if let height = delegate?.workOrderCreationViewController(self, tableView: tableView, heightForRowAtIndexPath: indexPath) {
+            return height
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if let sectionCount = delegate?.workOrderCreationViewController(self, numberOfSectionsInTableView: tableView) {
+            return sectionCount
+        }
+        return super.numberOfSectionsInTableView(tableView)
     }
 
     // MARK: UITableViewDataSource

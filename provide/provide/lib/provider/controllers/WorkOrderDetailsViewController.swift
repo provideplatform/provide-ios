@@ -8,13 +8,12 @@
 
 import UIKit
 
+protocol WorkOrderDetailsViewControllerDelegate {
+    func workOrderDetailsViewController(viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
+    func workOrderDetailsViewController(viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+}
+
 class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, ManifestViewControllerDelegate {
-
-    @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
-    private var mediaCollectionView: UICollectionView!
-
-    private var timer: NSTimer!
 
     var workOrder: WorkOrder! {
         didSet {
@@ -31,7 +30,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
             if let tableView = tableView {
                 tableView.reloadData()
-                tableView.layoutIfNeeded()
             }
 
             if let headerView = headerView {
@@ -40,10 +38,17 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
                 timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
-                timer.fire()
             }
         }
     }
+
+    @IBOutlet private weak var tableView: UITableView!
+
+    @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
+
+    private var mediaCollectionView: UICollectionView!
+
+    private var timer: NSTimer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +64,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
 
         tableView.reloadData()
-        tableView.layoutIfNeeded()
     }
 
     func refreshInProgress() {
@@ -96,66 +100,80 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 200.0
+        return 0.0
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44.0
+        return indexPath.section == 0 ? 44.0 : 200.0
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
-        mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
-        mediaCollectionView.delegate = self
-        mediaCollectionView.dataSource = self
-        return cell
+        return nil
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return section == 0 ? 6 : 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
-        cell.enableEdgeToEdgeDividers()
+        var cell: UITableViewCell!
 
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            cell.setName("STATUS", value: workOrder.status)
-            cell.backgroundView!.backgroundColor = workOrder.statusColor
-        case 1:
-            let scheduledStartAt = workOrder.scheduledStartAtDate == nil ? "--" : workOrder.scheduledStartAtDate.timeString!
-            cell.setName("SCHEDULED START TIME", value: scheduledStartAt)
-        case 2:
-            let startedAt = workOrder.startedAtDate == nil ? "--" : workOrder.startedAtDate.timeString!
-            cell.setName("STARTED AT", value: startedAt)
-        case 3:
-            if let endedAt = workOrder.endedAtDate {
-                cell.setName("ENDED AT", value: endedAt.timeString!)
-            } else if let abandonedAt = workOrder.abandonedAtDate {
-                cell.setName("ABANDONED AT", value: abandonedAt.timeString!)
-            } else if let canceledAt = workOrder.canceledAtDate {
-                cell.setName("CANCELED AT", value: canceledAt.timeString!)
-            } else if let _ = workOrder.startedAtDate {
-                let providers = workOrder.workOrderProviders
-                if providers.count > 0 {
-                    cell.setName("OWNER", value: providers.first!.provider.contact.name)
-                    //cell.setName("CREW", )
+            let nameValueCell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+            nameValueCell.enableEdgeToEdgeDividers()
+
+            switch indexPath.row {
+            case 0:
+                nameValueCell.setName("STATUS", value: workOrder.status)
+                nameValueCell.backgroundView!.backgroundColor = workOrder.statusColor
+            case 1:
+                let scheduledStartAt = workOrder.scheduledStartAtDate == nil ? "--" : workOrder.scheduledStartAtDate.timeString!
+                nameValueCell.setName("SCHEDULED START TIME", value: scheduledStartAt)
+            case 2:
+                let startedAt = workOrder.startedAtDate == nil ? "--" : workOrder.startedAtDate.timeString!
+                nameValueCell.setName("STARTED AT", value: startedAt)
+            case 3:
+                if let endedAt = workOrder.endedAtDate {
+                    nameValueCell.setName("ENDED AT", value: endedAt.timeString!)
+                } else if let abandonedAt = workOrder.abandonedAtDate {
+                    nameValueCell.setName("ABANDONED AT", value: abandonedAt.timeString!)
+                } else if let canceledAt = workOrder.canceledAtDate {
+                    nameValueCell.setName("CANCELED AT", value: canceledAt.timeString!)
+                } else if let _ = workOrder.startedAtDate {
+                    let providers = workOrder.workOrderProviders
+                    if providers.count > 0 {
+                        nameValueCell.setName("OWNER", value: providers.first!.provider.contact.name)
+                    }
                 }
+            case 4:
+                let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
+                nameValueCell.setName("DURATION", value: duration)
+            case 5:
+                let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
+                nameValueCell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
+                nameValueCell.accessoryType = .DisclosureIndicator
+            default:
+                break
             }
-        case 4:
-            let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
-            cell.setName("DURATION", value: duration)
-        case 5:
-            let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
-            cell.accessoryType = .DisclosureIndicator
+
+            cell = nameValueCell
+        case 1:
+            switch indexPath.row {
+            case 0:
+                cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
+                mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
+                mediaCollectionView.delegate = self
+                mediaCollectionView.dataSource = self
+            default:
+                break
+            }
         default:
             break
         }
