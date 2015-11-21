@@ -104,6 +104,26 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var cachedNavigationItem: UINavigationItem!
 
+    private var loadingBlueprint = false {
+        didSet {
+            if !loadingBlueprint && !loadingAnnotations {
+                activityIndicatorView.stopAnimating()
+            } else if !activityIndicatorView.isAnimating() {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+
+    private var loadingAnnotations = false {
+        didSet {
+            if !loadingBlueprint && !loadingAnnotations {
+                activityIndicatorView.stopAnimating()
+            } else if !activityIndicatorView.isAnimating() {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -184,6 +204,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func loadBlueprint() {
         if let job = job {
             if let url = job.blueprintImageUrl {
+                loadingBlueprint = true
+
                 imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) -> Void in
                     let size = CGSize(width: image.size.width, height: image.size.height)
 
@@ -206,7 +228,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self.scrollView.bringSubviewToFront(self.imageView)
                         self.imageView.alpha = 1.0
 
-                        self.activityIndicatorView.stopAnimating()
+                        self.loadingBlueprint = false
                     })
 
                     self.showToolbar()
@@ -220,17 +242,51 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func loadAnnotations() {
         if let job = job {
             if let blueprint = job.blueprint {
-                let params = ["page": "1", "rpp": "100"]
+                loadingAnnotations = true
+                let rpp = max(100, job.blueprintAnnotationsCount)
+                let params = ["page": "1", "rpp": "\(rpp)"]
                 blueprint.fetchAnnotations(params,
                     onSuccess: { statusCode, mappingResult in
                         self.refreshAnnotations()
+                        self.loadingAnnotations = false
                     },
                     onError: { error, statusCode, responseString in
-
+                        self.loadingAnnotations = false
                     }
                 )
             }
         }
+    }
+
+    private func polygonViewForWorkOrder(workOrder: WorkOrder) -> BlueprintPolygonView! {
+        var polygonView: BlueprintPolygonView!
+        for view in polygonViews {
+            if let annotation = view.annotation {
+                if let wo = annotation.workOrder {
+                    if wo.id == workOrder.id {
+                        polygonView = view
+                        break
+                    }
+                } else if annotation.workOrderId == workOrder.id {
+                    polygonView = view
+                    break
+                }
+            }
+        }
+        if polygonView == nil {
+//            let annotation = Annotation()
+//            annotation.workOrderId = workOrder.id
+//            annotation.workOrder = workOrder
+//
+//            polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+//            imageView.addSubview(polygonView)
+//            polygonView.alpha = 1.0
+//            polygonView.attachGestureRecognizer()
+//
+//            polygonViews.append(polygonView)
+            polygonView = self.polygonView
+        }
+        return polygonView
     }
 
     private func removePolygonViews() {
@@ -244,7 +300,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func refreshAnnotations() {
         for annotation in job.blueprint.annotations {
             let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-            self.polygonView.superview!.addSubview(polygonView)
+            imageView.addSubview(polygonView)
             polygonView.alpha = 1.0
             polygonView.attachGestureRecognizer()
 
@@ -536,6 +592,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintPolygonViewDidClose(view: BlueprintPolygonView) {
         if view == polygonView {
             overrideNavigationItemForCreatingWorkOrder(true)
+
+            if view.annotation == nil {
+
+            }
         }
     }
 
@@ -639,24 +699,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         let workOrder = viewController.workOrder
 
-        var polygonView: BlueprintPolygonView!
-        for view in polygonViews {
-            if let annotation = view.annotation {
-                if let wo = annotation.workOrder {
-                    if wo.id == workOrder.id {
-                        polygonView = view
-                        break
-                    }
-                } else if annotation.workOrderId == workOrder.id {
-                    polygonView = view
-                    break
-                }
-            }
-        }
-
-        if polygonView == nil {
-            polygonView = self.polygonView
-        }
+        let polygonView = polygonViewForWorkOrder(workOrder)
 
         let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
@@ -734,6 +777,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 annotation.save(blueprint,
                     onSuccess: { statusCode, mappingResult in
                         self.polygonView.annotation = mappingResult.firstObject as! Annotation
+                        print("FIXME!!!!!!!!!!!!!! Append the polygon view to the polygonViews array")
+                        print("\(self.polygonView)")
                     },
                     onError: { error, statusCode, responseString in
 

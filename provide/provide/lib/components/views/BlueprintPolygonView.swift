@@ -20,7 +20,7 @@ protocol BlueprintPolygonViewDelegate {
     func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
 }
 
-class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
+class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestureRecognizerDelegate {
 
     var annotation: Annotation!
 
@@ -65,6 +65,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
     private var overlayView: UIView!
 
+    private var gestureRecognizer: UITapGestureRecognizer!
+
     private var timer: NSTimer!
 
     private var isClosed: Bool {
@@ -100,14 +102,16 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
     func attachGestureRecognizer() {
         if let targetView = targetView {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pointSelected:")
+            gestureRecognizer = UITapGestureRecognizer(target: self, action: "pointSelected:")
+            gestureRecognizer.delegate = self
             targetView.addGestureRecognizer(gestureRecognizer)
         }
     }
 
     private func removeGestureRecognizer() {
         if let targetView = targetView {
-            targetView.removeGestureRecognizers()
+            targetView.removeGestureRecognizer(gestureRecognizer)
+            gestureRecognizer = nil
         }
     }
 
@@ -390,5 +394,19 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate {
 
         let polygon = MKPolygon(points: mapPoints, count: points.count)
         area = polygon.area / (scale * scale)
+    }
+
+    // MARK: UIGestureRecognizerDelegate
+
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if isClosed {
+            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+                let point = gestureRecognizer.locationInView(blueprintImageView)
+                let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
+                let path = layer.path!
+                return CGPathContainsPoint(path, nil, point, true)
+            }
+        }
+        return true
     }
 }

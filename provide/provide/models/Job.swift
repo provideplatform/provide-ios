@@ -20,6 +20,7 @@ class Job: Model {
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
     var blueprintScale = 0.0
+    var blueprintAnnotationsCount = 0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -30,6 +31,7 @@ class Job: Model {
             "customer_id": "customerId",
             "blueprint_image_url": "blueprintImageUrlString",
             "blueprint_scale": "blueprintScale",
+            "blueprint_annotations_count": "blueprintAnnotationsCount",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
