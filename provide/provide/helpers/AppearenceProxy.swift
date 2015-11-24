@@ -16,6 +16,8 @@ class AppearenceProxy {
 
         UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
         UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
+
+        UIToolbar.appearance().tintColor = defaultBarTintColor()
     }
 
     class func defaultBarTintColor() -> UIColor {
