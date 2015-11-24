@@ -760,7 +760,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
             cell.accessoryType = .DisclosureIndicator
         case 4:
-            let cost = workOrder.estimatedDuration == nil ? "--" : (workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!)
+            let cost = "--" //workOrder.estimatedDuration == nil ? "--" : (workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!)
             cell.setName("ESTIMATED COST", value: cost)
             cell.accessoryType = .DisclosureIndicator
         case 5:
