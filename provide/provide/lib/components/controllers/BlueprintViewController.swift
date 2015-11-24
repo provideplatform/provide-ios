@@ -129,6 +129,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    private var newWorkOrderPending = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -237,6 +239,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self.imageView.alpha = 1.0
 
                         self.loadingBlueprint = false
+                        self.toolbar.reload()
                     })
 
                     self.showToolbar()
@@ -353,7 +356,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+        newWorkOrderPending = false
         dismissWorkOrderCreationPolygonView()
+        toolbar.reload()
     }
 
     func dismissWorkOrderCreationPolygonView() {
@@ -534,6 +539,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: BlueprintToolbarDelegate
 
+    func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment {
+        if let blueprint = job?.blueprint {
+            return blueprint
+        }
+        return Attachment()
+    }
+
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView.alpha = alpha
@@ -556,9 +568,22 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        if newWorkOrderPending {
+            return false
+        }
+
+        if let presentedViewController = presentedViewController {
+            return !(presentedViewController is WorkOrderCreationViewController)
+        }
+        return true
+    }
+
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) {
         polygonView.alpha = 1.0
         polygonView.attachGestureRecognizer()
+
+        newWorkOrderPending = true
 
         overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
     }
@@ -802,6 +827,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
+        newWorkOrderPending = false
+        toolbar.reload()
         dismissViewController(animated: true)
     }
 

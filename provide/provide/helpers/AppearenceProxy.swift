@@ -31,16 +31,30 @@ class AppearenceProxy {
         ]
     }
 
+    class func inProgressBarButtonItemTitleTextAttributes() -> [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
+            NSForegroundColorAttributeName : Color.inProgressStatusColor()
+        ]
+    }
+
     class func cancelBarButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.redColor()
+            NSForegroundColorAttributeName : Color.canceledStatusColor()
         ]
     }
 
     class func barButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ]
+    }
+
+    class func selectedButtonItemTitleTextAttributes() -> [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
             NSForegroundColorAttributeName : UIColor.whiteColor()
         ]
     }
