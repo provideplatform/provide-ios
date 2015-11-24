@@ -588,6 +588,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
     }
 
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
+        navigationController!.presentViewController(alertController, animated: true)
+    }
+
     // MARK: BlueprintPolygonViewDelegate
 
     func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool {

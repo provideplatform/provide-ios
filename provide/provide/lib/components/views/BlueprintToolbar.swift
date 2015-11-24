@@ -14,6 +14,7 @@ protocol BlueprintToolbarDelegate {
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController)
 }
 
 class BlueprintToolbar: UIToolbar {
@@ -22,6 +23,16 @@ class BlueprintToolbar: UIToolbar {
 
     private var navigatorVisible = false
     private var scaleVisible = false
+    private var scaleBeingEdited = false
+
+    private var isScaleSet: Bool {
+        if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
+            if let _ = blueprint.metadata["scale"] as? Float {
+                return true
+            }
+        }
+        return false
+    }
 
     @IBOutlet private weak var navigationButton: UIBarButtonItem! {
         didSet {
@@ -68,7 +79,6 @@ class BlueprintToolbar: UIToolbar {
         if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
             if let scale = blueprint.metadata["scale"] as? Float {
                 scaleButton.title = "Scale Set: 12“ == \(NSString(format: "%.03f px", scale))"
-                scaleButton.enabled = false
                 scaleButton.setTitleTextAttributes(AppearenceProxy.inProgressBarButtonItemTitleTextAttributes(), forState: .Normal)
             }
         }
@@ -82,7 +92,16 @@ class BlueprintToolbar: UIToolbar {
     }
 
     func toggleScaleVisibility() {
-        scaleVisible = !scaleVisible
+        if isScaleSet && !scaleBeingEdited {
+            promptForSetScaleVisibility()
+        } else {
+            makeScaleVisible(!scaleVisible)
+            scaleBeingEdited = false
+        }
+    }
+
+    func makeScaleVisible(scaleVisible: Bool) {
+        self.scaleVisible = scaleVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetScaleVisibility: scaleVisible)
 
         reload()
@@ -96,5 +115,22 @@ class BlueprintToolbar: UIToolbar {
         blueprintToolbarDelegate?.newWorkOrderShouldBeCreatedByBlueprintToolbar(self)
 
         reload()
+    }
+
+    func promptForSetScaleVisibility() {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Scale has already been set. Do you really want to set it again?", message: nil, preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let setScaleAction = UIAlertAction(title: "Set Scale", style: .Default) { action in
+            self.scaleBeingEdited = true
+            self.makeScaleVisible(true)
+        }
+
+        alertController.addAction(setScaleAction)
+
+        blueprintToolbarDelegate?.blueprintToolbar(self, shouldPresentAlertController: alertController)
     }
 }
