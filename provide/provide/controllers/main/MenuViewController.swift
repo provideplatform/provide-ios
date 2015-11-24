@@ -18,6 +18,8 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     @IBOutlet private weak var menuHeaderView: MenuHeaderView!
 
+    private var storyboardPaths = [String : AnyObject!]()
+
     private var lastSectionIndex: Int {
         return tableView.numberOfSections - 1
     }
@@ -141,13 +143,23 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
-        let storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc")
+        NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+
+        var storyboardPath: String!
+        if let _ = storyboardPaths.keys.indexOf(storyboardName) {
+            if storyboardPaths[storyboardName] != nil {
+                storyboardPath = storyboardPaths[storyboardName] as? String
+            }
+        } else {
+            storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc")
+            storyboardPaths.updateValue(storyboardPath, forKey: storyboardName)
+        }
+
         if storyboardPath != nil {
             let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()
             delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController!, animated: true)
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("SegueTo\(storyboardName)Storyboard", object: self)
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
         }
     }
 }
