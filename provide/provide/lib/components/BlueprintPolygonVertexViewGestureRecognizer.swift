@@ -71,14 +71,10 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
 
             if x < 0.0 {
                 newFrame.origin.x = 0.0
-            } else if x > view.superview!.frame.width - view.frame.width {
-                newFrame.origin.x = view.superview!.frame.width - view.frame.width
             }
 
             if y < 0.0 {
                 newFrame.origin.y = 0.0
-            } else if y > view.superview!.frame.height - view.frame.height {
-                newFrame.origin.y = view.superview!.frame.height - view.frame.height
             }
 
             view.frame = newFrame
