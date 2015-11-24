@@ -55,7 +55,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             segueToInitialViewControllerInStoryboard(storyboardName)
         case "LegalCell":
             let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-            webViewController.url = NSURL(string: "https://provide.services/#/legal")
+            webViewController.url = NSURL(string: "\(CurrentEnvironment.baseUrlString)/#/legal")
             NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
             delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
         case "LogoutCell":
