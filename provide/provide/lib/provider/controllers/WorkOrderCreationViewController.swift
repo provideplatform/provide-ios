@@ -103,7 +103,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     func camera(sender: UIBarButtonItem!) {
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
-        navigationController!.pushViewController(cameraViewController, animated: true)
+        
+        presentViewController(cameraViewController, animated: true)
     }
 
     func createWorkOrder(sender: UIBarButtonItem) {
@@ -335,7 +336,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     func cameraViewControllerCanceled(viewController: CameraViewController) {
-        navigationController!.popViewControllerAnimated(false)
+        dismissViewController(animated: false)
     }
 
     func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
