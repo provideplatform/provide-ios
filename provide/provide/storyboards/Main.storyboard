@@ -762,8 +762,8 @@
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="KR8-nu-w22"/>
-                                                    <exclude reference="hZW-jg-5GO"/>
                                                     <exclude reference="cwE-YN-UZE"/>
+                                                    <exclude reference="hZW-jg-5GO"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -773,9 +773,9 @@
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <mask key="constraints">
+                                                    <exclude reference="2g9-th-DVo"/>
                                                     <exclude reference="6BG-a7-Yz0"/>
                                                     <include reference="KR8-nu-w22"/>
-                                                    <exclude reference="2g9-th-DVo"/>
                                                     <include reference="cwE-YN-UZE"/>
                                                 </mask>
                                             </variation>

@@ -19,12 +19,12 @@ class MenuContainerView: UIView {
     private var menuViewControllerFrame: CGRect {
         return CGRect(x: menuViewFrameOffsetX,
                       y: 0.0,
-                      width: bounds.width * (isIPad() ? 0.5 : 0.66),
-                      height: bounds.height)
+                      width: frame.width * (isIPad() ? 0.5 : 0.66),
+                      height: frame.height)
     }
 
     private var menuViewFrameOffsetX: CGFloat {
-        return bounds.width * 0.25
+        return bounds.width * (1.0 - ((isIPad() ? 0.5 : 0.66) + exposedMenuViewPercentage))
     }
 
     private var exposedMenuViewPercentage: CGFloat {
@@ -69,6 +69,7 @@ class MenuContainerView: UIView {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeMenu", name: "MenuContainerShouldReset")
 
         addDropShadow(CGSize(width: 2.5, height: 2.0), radius: 10.0, opacity: 0.75)
+        layer.shadowOpacity = 0.0
 
         if let targetView = UIApplication.sharedApplication().keyWindow {
             backgroundView = UIView(frame: targetView.bounds)
@@ -186,6 +187,7 @@ class MenuContainerView: UIView {
 
     private func dragMenu(x: CGFloat) {
         let percentage = 1.0 + (x / frame.width)
+        layer.shadowOpacity = percentage == exposedMenuViewPercentage ? 0.0 : (Float(percentage - exposedMenuViewPercentage) * 2.0)
 
         if x > (menuViewFrameOffsetX * -1.0) {
             return

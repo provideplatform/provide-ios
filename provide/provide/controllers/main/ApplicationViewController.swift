@@ -68,9 +68,11 @@ class ApplicationViewController: ECSlidingViewController,
 
     private func refreshMenu() {
         teardownMenu()
-        
-        menuContainerView = MenuContainerView(frame: view.bounds)
-        menuContainerView.setupMenuViewController(self)
+
+        dispatch_after_delay(0.0) {
+            self.menuContainerView = MenuContainerView(frame: self.view.bounds)
+            self.menuContainerView.setupMenuViewController(self)
+        }
     }
 
     func refreshCurrentUser() {
