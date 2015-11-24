@@ -66,8 +66,8 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
                 if superview is BlueprintScrollView {
                     let zoomScale = (superview as! BlueprintScrollView).zoomScale
                     if zoomScale < 1.0 {
-                        xOffset = xOffset * (2.0 + 1.0 - zoomScale)
-                        yOffset = yOffset * (2.0 + 1.0 - zoomScale)
+                        xOffset = xOffset * (2.0 - zoomScale)
+                        yOffset = yOffset * (2.0 - zoomScale)
                     }
                 }
             }
