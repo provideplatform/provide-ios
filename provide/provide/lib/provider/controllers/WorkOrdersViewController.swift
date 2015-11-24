@@ -130,6 +130,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                             onSuccess: { statusCode, mappingResult in
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
                                     if workOrder.status != "en_route" {
+                                        self.refreshAnnotations()
                                         self.updatingWorkOrderContext = true
                                         self.loadRouteContext()
                                     } else {
@@ -138,12 +139,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                 }
                             },
                             onError: { error, statusCode, responseString in
+                                self.refreshAnnotations()
                                 self.updatingWorkOrderContext = true
                                 self.loadRouteContext()
                             }
                         )
                     }
                 } else {
+                    self.refreshAnnotations()
                     self.updatingWorkOrderContext = true
                     self.loadRouteContext()
                 }
