@@ -60,8 +60,18 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    private func dragVertex(xOffset: CGFloat, yOffset: CGFloat) {
+    private func dragVertex(var xOffset: CGFloat, var yOffset: CGFloat) {
         if let view = view {
+            if let superview = view.superview?.superview {
+                if superview is BlueprintScrollView {
+                    let zoomScale = (superview as! BlueprintScrollView).zoomScale
+                    if zoomScale < 1.0 {
+                        xOffset = xOffset * (2.0 + 1.0 - zoomScale)
+                        yOffset = yOffset * (2.0 + 1.0 - zoomScale)
+                    }
+                }
+            }
+
             var newFrame = CGRect(origin: view.frame.origin, size: view.frame.size)
             newFrame.origin.x += xOffset
             newFrame.origin.y += yOffset
