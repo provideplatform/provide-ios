@@ -484,8 +484,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: BlueprintThumbnailViewDelegate
 
-    func blueprintThumbnailView(
-        view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
+    func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
         enableScrolling = false
 
