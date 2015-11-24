@@ -19,7 +19,7 @@ class MenuContainerView: UIView {
     private var menuViewControllerFrame: CGRect {
         return CGRect(x: menuViewFrameOffsetX,
                       y: 0.0,
-                      width: bounds.width * 0.66,
+                      width: bounds.width * (isIPad() ? 0.5 : 0.66),
                       height: bounds.height)
     }
 
