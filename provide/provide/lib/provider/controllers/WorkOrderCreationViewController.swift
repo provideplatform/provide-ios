@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
@@ -18,7 +19,7 @@ protocol WorkOrderCreationViewControllerDelegate {
 
 }
 
-class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate {
+class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate, CameraViewControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -32,6 +33,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
+    }
+
+    private var cameraItem: UIBarButtonItem! {
+        let cameraItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "camera:")
+        cameraItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
+        return cameraItem
     }
 
     private var saveItem: UIBarButtonItem! {
@@ -93,6 +100,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
     }
 
+    func camera(sender: UIBarButtonItem!) {
+        let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
+        cameraViewController.delegate = self
+        navigationController!.pushViewController(cameraViewController, animated: true)
+    }
+
     func createWorkOrder(sender: UIBarButtonItem) {
         navigationItem.titleView = activityIndicatorView
 
@@ -116,7 +129,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
-
     }
 
     private func refreshTitle() {
@@ -133,14 +145,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     private func refreshRightBarButtonItems() {
-        refreshSaveButton()
-    }
-
-    private func refreshSaveButton() {
         if isValid && isDirty {
             navigationItem.rightBarButtonItems = [saveItem]
         } else {
             navigationItem.rightBarButtonItems = [disabledSaveItem]
+        }
+
+        if isSaved {
+            navigationItem.rightBarButtonItems!.append(cameraItem)
         }
     }
 
@@ -290,5 +302,63 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
             return scheduledStartAtDate.atMidnight != date.atMidnight
         }
         return true
+    }
+
+    // MARK: CameraViewControllerDelegate
+
+    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
+        return .Photo
+    }
+
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
+        cameraViewControllerCanceled(viewController)
+    }
+
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+        var params: [String : AnyObject] = [
+            "tags": ["photo"],
+        ]
+
+        if let location = LocationService.sharedService().currentLocation {
+            params["latitude"] = location.coordinate.latitude
+            params["longitude"] = location.coordinate.longitude
+        }
+
+        workOrder.attach(image, params: params,
+            onSuccess: { (statusCode, mappingResult) -> () in
+                self.reloadTableView()
+            },
+            onError: { (error, statusCode, responseString) -> () in
+
+            }
+        )
+    }
+
+    func cameraViewControllerCanceled(viewController: CameraViewController) {
+        navigationController!.popViewControllerAnimated(false)
+    }
+
+    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+
+    }
+
+    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+
+    }
+
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+
+    }
+    
+    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+        
     }
 }

@@ -526,12 +526,18 @@ class WorkOrder: Model {
     func attach(image: UIImage, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
-        ApiService.sharedService().addAttachment(data,
-            withMimeType: "image/jpg",
-            toWorkOrderWithId: String(id),
-            params: params,
-            onSuccess: onSuccess,
-            onError: onError)
+        ApiService.sharedService().addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params,
+            onSuccess: { statusCode, mappingResult in
+                if self.attachments == nil {
+                    self.attachments = [Attachment]()
+                }
+                self.attachments.append(mappingResult.firstObject as! Attachment)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
