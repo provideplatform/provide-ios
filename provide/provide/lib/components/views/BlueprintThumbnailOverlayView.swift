@@ -63,14 +63,6 @@ class BlueprintThumbnailOverlayView: UIView {
             xOffset += touch.locationInView(nil).x - touch.previousLocationInView(nil).x
             yOffset += touch.locationInView(nil).y - touch.previousLocationInView(nil).y
 
-            if abs(xOffset) < 10.0 {
-                xOffset = 0.0
-            }
-
-            if abs(yOffset) < 10.0 {
-                yOffset = 0.0
-            }
-
             dragOverlay(xOffset, yOffset: yOffset)
         }
     }
