@@ -600,7 +600,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             attemptSegueToValidWorkOrderContext()
 
             var params = [
-                "tags": "signature, delivery",
+                "tags": ["signature", "delivery"],
                 "public": false
             ]
 

@@ -500,7 +500,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
     func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             var params = [
-                "tags": "photo, delivery",
+                "tags": ["photo", "delivery"],
                 "public": false
             ]
 
