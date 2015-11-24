@@ -99,59 +99,6 @@
                                     <outlet property="measurementTextField" destination="1PZ-LT-FVS" id="sAX-xu-5cf"/>
                                 </connections>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb1-cc-jsu" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="420" y="291" width="160" height="190"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEn-8b-ru4">
-                                        <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
-                                        <animations/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jnn-Mr-5Ye" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
-                                        <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="jEn-8b-ru4" secondAttribute="bottom" id="7yK-wS-3dE"/>
-                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="B0L-3E-NCl"/>
-                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="leading" secondItem="rb1-cc-jsu" secondAttribute="leading" id="CXb-G9-Dot"/>
-                                    <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="Z23-Na-CJD">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="80"/>
-                                    </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="jEn-8b-ru4" secondAttribute="trailing" id="g9k-zl-Mty"/>
-                                    <constraint firstAttribute="bottom" secondItem="jEn-8b-ru4" secondAttribute="bottom" id="tVd-a4-Ark"/>
-                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="vSL-yN-3df"/>
-                                    <constraint firstItem="jEn-8b-ru4" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="top" id="va3-Mh-MHi"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="7yK-wS-3dE"/>
-                                        <exclude reference="CXb-G9-Dot"/>
-                                        <exclude reference="Z23-Na-CJD"/>
-                                        <exclude reference="vSL-yN-3df"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="7yK-wS-3dE"/>
-                                        <exclude reference="B0L-3E-NCl"/>
-                                        <include reference="CXb-G9-Dot"/>
-                                        <include reference="Z23-Na-CJD"/>
-                                        <exclude reference="g9k-zl-Mty"/>
-                                        <exclude reference="tVd-a4-Ark"/>
-                                        <include reference="vSL-yN-3df"/>
-                                        <exclude reference="va3-Mh-MHi"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <outlet property="overlayView" destination="Jnn-Mr-5Ye" id="lcH-Pn-HMa"/>
-                                    <outlet property="thumbnailImageBackgroundView" destination="jEn-8b-ru4" id="D6z-iJ-IYu"/>
-                                </connections>
-                            </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">
                                 <rect key="frame" x="282" y="249" width="37" height="37"/>
                                 <animations/>
@@ -161,55 +108,17 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="51" id="Aut-ds-ovb">
-                                <variation key="heightClass=regular-widthClass=compact" constant="6"/>
-                            </constraint>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="326" id="Gtn-yo-pdm">
-                                <variation key="heightClass=regular-widthClass=compact" constant="536"/>
-                            </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" id="I5E-q1-sL8"/>
-                            <constraint firstAttribute="bottom" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="55" id="JSh-XC-uhQ"/>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="420" id="MrA-Oe-NNN">
-                                <variation key="heightClass=regular-widthClass=regular" constant="451.5"/>
-                            </constraint>
-                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="rb1-cc-jsu" secondAttribute="bottom" constant="220" id="USK-2T-fKu">
-                                <variation key="heightClass=regular-widthClass=compact" constant="10"/>
-                            </constraint>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="YJZ-gU-i6b"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="eRR-gR-7ev"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="291" id="fqE-NL-QmJ"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="l5z-mT-eEf"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="rb1-cc-jsu" secondAttribute="trailing" constant="-50" id="vm9-90-XXd">
-                                <variation key="heightClass=regular-widthClass=compact" constant="-85"/>
-                            </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="x2V-2a-s9R"/>
-                            <constraint firstItem="rb1-cc-jsu" firstAttribute="trailing" secondItem="vsP-WQ-g9V" secondAttribute="trailingMargin" id="xOe-lN-9EQ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Aut-ds-ovb"/>
-                                <exclude reference="Gtn-yo-pdm"/>
-                                <exclude reference="vm9-90-XXd"/>
-                                <exclude reference="USK-2T-fKu"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="Aut-ds-ovb"/>
-                                <include reference="Gtn-yo-pdm"/>
-                                <exclude reference="JSh-XC-uhQ"/>
-                                <exclude reference="MrA-Oe-NNN"/>
-                                <exclude reference="fqE-NL-QmJ"/>
-                                <include reference="vm9-90-XXd"/>
-                                <exclude reference="xOe-lN-9EQ"/>
-                                <include reference="USK-2T-fKu"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
@@ -218,13 +127,52 @@
                         <outlet property="polygonView" destination="abb-Tj-uxb" id="CZx-9o-VWf"/>
                         <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
-                        <outlet property="thumbnailView" destination="rb1-cc-jsu" id="srB-qs-bCZ"/>
                         <outlet property="toolbar" destination="xRM-F2-amm" id="ppx-Z1-rkd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgM-oB-JlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="770" y="1330"/>
+        </scene>
+        <!--Blueprint Thumbnail View Controller-->
+        <scene sceneID="Peq-rL-8pv">
+            <objects>
+                <viewController storyboardIdentifier="BlueprintThumbnailViewController" id="LxS-KR-Lfd" customClass="BlueprintThumbnailViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UP7-qx-ttT"/>
+                        <viewControllerLayoutGuide type="bottom" id="EKC-DL-Paa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IXh-ML-zzU" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-39-ca5" userLabel="Thumbnail Image Background View">
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="overlayView" destination="7lt-JJ-eAg" id="IHD-af-N3G"/>
+                            <outlet property="thumbnailImageBackgroundView" destination="LYg-39-ca5" id="7sp-NM-BUj"/>
+                        </connections>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="160" height="190"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Clt-P9-hFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="990" y="1788"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="H20-Kq-Wvi">

@@ -197,6 +197,7 @@
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
+		68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
@@ -409,6 +410,7 @@
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
+		68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintThumbnailViewController.swift; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 			children = (
 				68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */,
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
+				68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */,
 				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
@@ -1372,6 +1375,7 @@
 				6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */,
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
+				68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */,
 				68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
 				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,

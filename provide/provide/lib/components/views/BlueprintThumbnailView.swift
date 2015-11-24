@@ -40,8 +40,6 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                         scale = delegate.initialScaleForBlueprintThumbnailView(self)
                     }
                     self.resizeOverlayView(CGPointZero, scale: scale)
-
-                    //self.alpha = 1.0
                 } else {
                     self.alpha = 0.0
                 }

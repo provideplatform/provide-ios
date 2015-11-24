@@ -23,6 +23,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     var blueprintViewControllerDelegate: BlueprintViewControllerDelegate!
 
+    private var blueprintThumbnailViewController: BlueprintThumbnailViewController! {
+        didSet {
+            if let _ = blueprintThumbnailViewController {
+                thumbnailView.delegate = self
+            }
+        }
+    }
+
+    private var thumbnailView: BlueprintThumbnailView! {
+        if let blueprintThumbnailViewController  = blueprintThumbnailViewController {
+            return blueprintThumbnailViewController.view as! BlueprintThumbnailView
+        }
+        return nil
+    }
+
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet private weak var scrollView: BlueprintScrollView!
@@ -36,16 +51,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 scaleView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
                 scaleView.clipsToBounds = true
                 scaleView.roundCorners(5.0)
-            }
-        }
-    }
-
-    @IBOutlet private weak var thumbnailView: BlueprintThumbnailView! {
-        didSet {
-            if let thumbnailView = thumbnailView {
-                thumbnailView.delegate = self
-                thumbnailView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
-                thumbnailView.roundCorners(5.0)
             }
         }
     }
@@ -128,6 +133,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
         super.viewDidLoad()
 
         setupNavigationItem()
+
+        blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
+        view.addSubview(blueprintThumbnailViewController.view)
 
         imageView = UIImageView()
         imageView.alpha = 0.0
@@ -482,7 +490,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         toolbar.toggleScaleVisibility()
     }
 
-    // MARK: BlueprintThumbnailViewDelegate
+    // MARK: BlueprintThumbnailViewControllerDelegate
 
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
