@@ -24,6 +24,9 @@
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
         </mutableArray>
+        <mutableArray key="Exo2-SemiBold.ttf">
+            <string>Exo2-SemiBold</string>
+        </mutableArray>
     </customFonts>
     <scenes>
         <!--Navigation Controller-->
@@ -108,6 +111,7 @@
                     <connections>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
+                        <segue destination="OYp-7G-woo" kind="show" identifier="PinInputViewControllerSegue" id="EM1-MG-mRJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1019,12 +1023,95 @@
             </objects>
             <point key="canvasLocation" x="722" y="385"/>
         </scene>
+        <!--Pin Input View Controller-->
+        <scene sceneID="BH5-FR-gBJ">
+            <objects>
+                <viewController storyboardIdentifier="PinInputViewController" id="OYp-7G-woo" customClass="PinInputViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4Om-Bk-VdT"/>
+                        <viewControllerLayoutGuide type="bottom" id="gMS-vV-EGl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O0R-jw-XEh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
+                                <rect key="frame" x="20" y="262" width="560" height="22"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
+                                <rect key="frame" x="0.0" y="304" width="600" height="296"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
+                                        </constraints>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
+                                        <rect key="frame" x="0.0" y="80" width="600" height="216"/>
+                                        <animations/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" red="0.24313725489999999" green="0.47450980390000003" blue="0.52549019610000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
+                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
+                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Poa-1c-d8E"/>
+                                    <constraint firstAttribute="height" constant="296" id="XdM-Xe-WSl"/>
+                                    <constraint firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="YAl-ZG-zhO"/>
+                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" id="g9S-sz-j8T"/>
+                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="viy-K7-gMd"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-VS-jtY">
+                                <rect key="frame" x="161" y="36" width="278" height="100"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="BHW-NU-P14"/>
+                                    <constraint firstAttribute="width" constant="278" id="pBw-Hw-cR2"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
+                            <constraint firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="XX3-kM-Tpn"/>
+                            <constraint firstAttribute="centerX" secondItem="wkv-VS-jtY" secondAttribute="centerX" id="Xnd-u8-ysr"/>
+                            <constraint firstItem="wkv-VS-jtY" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="16" id="YzP-O4-x66"/>
+                            <constraint firstAttribute="trailing" secondItem="ort-kP-aFj" secondAttribute="trailing" constant="20" id="c4b-Ek-81R"/>
+                            <constraint firstItem="gMS-vV-EGl" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="bottom" id="gQu-wr-lUD"/>
+                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" constant="20" id="tTg-hq-hfc"/>
+                            <constraint firstItem="Tld-W0-AeS" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="uTi-nI-p6v"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="ort-kP-aFj" id="Pzt-Pm-KAp"/>
+                        <outlet property="pinInputControl" destination="XkK-wc-C0A" id="Yzb-T6-1rn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-53" y="1079"/>
+        </scene>
     </scenes>
     <resources>
         <image name="home-logo" width="383" height="235"/>
+        <image name="map-pin" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pyb-Ej-lW7"/>
+        <segue reference="baH-vf-SLM"/>
         <segue reference="qEh-KF-YoG"/>
     </inferredMetricsTieBreakers>
 </document>

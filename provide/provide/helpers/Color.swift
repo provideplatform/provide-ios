@@ -30,6 +30,10 @@ class Color {
         return UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
     }
 
+    class func pinInputControlBoxBorderColor() -> UIColor {
+        return UIColor(red:0.58, green:0.72, blue:0.84, alpha:1.0)
+    }
+    
     class func annotationViewBackgroundImage() -> UIImage {
         return applicationDefaultBackgroundImage()
     }

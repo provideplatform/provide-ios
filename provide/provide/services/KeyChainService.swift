@@ -47,6 +47,15 @@ class KeyChainService {
         }
     }
 
+    var pin: String? {
+        get {
+            return self["pin"]
+        }
+        set {
+            self["pin"] = newValue
+        }
+    }
+
     var token: Token? {
         get {
             if let token = cachedToken {

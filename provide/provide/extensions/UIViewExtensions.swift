@@ -10,6 +10,10 @@ import UIKit
 
 extension UIView {
 
+    class func transitionWithView(view: UIView, duration: NSTimeInterval = 0.3, options: UIViewAnimationOptions = .TransitionCrossDissolve, animations: VoidBlock) {
+        transitionWithView(view, duration: duration, options: options, animations: animations, completion: nil)
+    }
+
     func enableTapToDismissKeyboard() {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "endEditing:"))
     }

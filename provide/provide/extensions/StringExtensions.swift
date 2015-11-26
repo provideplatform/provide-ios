@@ -108,6 +108,11 @@ extension String {
         return rangeOfCharacterFromSet(NSCharacterSet.lowercaseLetterCharacterSet()) != nil
     }
 
+    func isDigit() -> Bool {
+        let int = Int(self)
+        return (length == 1) && (int >= 0) && (int <= 9)
+    }
+
     func isValidForEmail() -> Bool {
         let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let test = NSPredicate(format:"SELF MATCHES %@", regex)
