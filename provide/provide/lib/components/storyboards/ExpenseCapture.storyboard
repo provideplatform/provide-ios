@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2bK-8o-7Fe">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Expense Capture View Controller-->
+        <scene sceneID="UeQ-vC-7ak">
+            <objects>
+                <viewController storyboardIdentifier="SelfieViewController" id="2bK-8o-7Fe" customClass="ExpenseCaptureViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yj3-pZ-5tj"/>
+                        <viewControllerLayoutGuide type="bottom" id="k10-sH-DBO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cLC-g7-8pt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doH-mn-Dod" userLabel="Back Camera View" customClass="CameraView" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="atU-Ze-dyu">
+                                <rect key="frame" x="250" y="492" width="100" height="100"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="1uC-z6-fkT"/>
+                                    <constraint firstAttribute="width" constant="100" id="V4U-ph-IdT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="atU-Ze-dyu" secondAttribute="centerX" id="0bW-dd-0Dh"/>
+                            <constraint firstItem="doH-mn-Dod" firstAttribute="leading" secondItem="cLC-g7-8pt" secondAttribute="leading" id="Foi-ew-bTc"/>
+                            <constraint firstItem="doH-mn-Dod" firstAttribute="top" secondItem="cLC-g7-8pt" secondAttribute="top" id="LNn-c3-FFZ"/>
+                            <constraint firstAttribute="trailing" secondItem="doH-mn-Dod" secondAttribute="trailing" id="PlS-sO-cOO"/>
+                            <constraint firstItem="k10-sH-DBO" firstAttribute="top" secondItem="atU-Ze-dyu" secondAttribute="bottom" constant="8" id="khf-od-97Y"/>
+                            <constraint firstItem="k10-sH-DBO" firstAttribute="top" secondItem="doH-mn-Dod" secondAttribute="bottom" id="yHA-Ot-9MX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backCameraView" destination="doH-mn-Dod" id="fdC-MJ-QcQ"/>
+                        <outlet property="button" destination="atU-Ze-dyu" id="PQB-Z5-GwI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q98-fO-hI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-53.25" y="1917.75"/>
+        </scene>
+    </scenes>
+</document>
