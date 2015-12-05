@@ -45,6 +45,17 @@ class NotificationService: NSObject {
                     LocationService.sharedService().background()
                 }
             }
+        case .Job:
+            let jobId = notificationValue as! NSNumber
+            if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                if inProgressWorkOrder.jobId == jobId {
+                    log("received update for current job id \(jobId)")
+                } else {
+                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                }
+            } else {
+                NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+            }
         case .Message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
