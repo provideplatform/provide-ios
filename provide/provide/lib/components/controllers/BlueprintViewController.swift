@@ -311,6 +311,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    private func refreshWorkOrderCreationView() {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    (viewController as! WorkOrderCreationViewController).reloadTableView()
+                }
+            }
+        }
+    }
+
     private func hideToolbar() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
@@ -681,14 +692,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation) {
-        if let presentedViewController = presentedViewController {
-            if presentedViewController is UINavigationController {
-                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
-                if viewController is WorkOrderCreationViewController {
-                    (viewController as! WorkOrderCreationViewController).reloadTableView()
-                }
-            }
-        }
+        refreshWorkOrderCreationView()
     }
 
     // MARK: UIScrollViewDelegate
@@ -749,7 +753,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         switch indexPath.row {
         case 0:
-            cell.setName("STATUS", value: workOrder.status)
+            var statusLabel = "\(workOrder.status)"
+            var scheduledStartTime = ""
+            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+                scheduledStartTime = humanReadableScheduledStartTime
+                statusLabel = "\(statusLabel) - \(scheduledStartTime)"
+            }
+
+            cell.setName("STATUS", value: statusLabel)
             cell.backgroundView!.backgroundColor = workOrder.statusColor
         case 1:
             var specificProviders = ""
@@ -785,23 +796,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            var scheduledStartTime = ""
-            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
-                scheduledStartTime = humanReadableScheduledStartTime
-            }
-
-            cell.setName(isIPad() ? "SCHEDULED START TIME" : "STARTING AT", value: scheduledStartTime)
+            cell.setName("ESTIMATED SQ FT", value: "\(polygonView.area) sq ft")
             cell.accessoryType = .DisclosureIndicator
         case 3:
-            cell.setName("ESTIMATED FT²", value: "\(polygonView.area) ft²")
-            cell.accessoryType = .DisclosureIndicator
-        case 4:
             let cost = "--" //workOrder.estimatedDuration == nil ? "--" : (workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!)
             cell.setName("ESTIMATED COST", value: cost)
             cell.accessoryType = .DisclosureIndicator
-        case 5:
+        case 4:
             let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
             cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
+            cell.accessoryType = .DisclosureIndicator
+        case 5:
+            let expensesDisposition = workOrder.expenses == nil ? "--" : workOrder.expensesDisposition
+            cell.setName("EXPENSES", value: expensesDisposition)
             cell.accessoryType = .DisclosureIndicator
         default:
             break
@@ -828,6 +835,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 )
             }
         }
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
+        refreshWorkOrderCreationView()
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {

@@ -15,11 +15,12 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
 
 }
 
-class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate, CameraViewControllerDelegate {
+class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate, CameraViewControllerDelegate, ExpenseCaptureViewControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -33,6 +34,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
+    }
+
+    private var expenseItem: UIBarButtonItem! {
+        let expenseItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "expense:")
+        expenseItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
+        return expenseItem
     }
 
     private var cameraItem: UIBarButtonItem! {
@@ -100,6 +107,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
     }
 
+    func expense(sender: UIBarButtonItem!) {
+        let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
+        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+        expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
+
+        presentViewController(expenseCaptureViewController, animated: true)
+    }
+
     func camera(sender: UIBarButtonItem!) {
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
@@ -154,6 +169,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
         if isSaved {
             navigationItem.rightBarButtonItems!.append(cameraItem)
+            navigationItem.rightBarButtonItems!.append(expenseItem)
         }
     }
 
@@ -369,5 +385,54 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
 
+    }
+
+    // MARK: ExpenseCaptureViewControllerDelegate
+
+    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
+        navigationItem.titleView = activityIndicatorView
+
+        var params: [String : AnyObject] = [
+            "tags": ["photo", "receipt"],
+        ]
+
+        if let location = LocationService.sharedService().currentLocation {
+            params["latitude"] = location.coordinate.latitude
+            params["longitude"] = location.coordinate.longitude
+        }
+
+        let amount = NSNull()
+        let description = texts.joinWithSeparator("\n")
+        let incurredAt = NSDate().format("yyyy-MM-dd'T'HH:mm:ssZZ")
+
+        let expenseParams: [String : AnyObject] = [
+            "amount": amount,
+            "description": description,
+            "incurred_at": incurredAt,
+        ]
+
+        ApiService.sharedService().createExpense(expenseParams, forExpensableType: "work_order",
+            withExpensableId: String(workOrder.id), onSuccess: { statusCode, mappingResult in
+                let expense = mappingResult.firstObject as! Expense
+                if self.workOrder.expenses == nil {
+                    self.workOrder.expenses = [Expense]()
+                }
+                self.workOrder.expenses.append(expense)
+                print("created expense \(expense)")
+                expense.attach(receipt, params: params,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        print("uploaded and attached receipt image to expense \(expense); recognized texts: \(texts)")
+                        self.refreshUI()
+                        self.delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        
+                    }
+                )
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
     }
 }

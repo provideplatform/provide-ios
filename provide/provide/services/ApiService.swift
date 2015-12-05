@@ -25,6 +25,7 @@ class ApiService: NSObject {
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
+        "expenses": Expense.mapping(),
         "jobs": Job.mapping(),
         "products": Product.mapping(),
         "providers": Provider.mapping(),
@@ -466,6 +467,40 @@ class ApiService: NSObject {
 
     func updateAttachmentWithId(id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("jobs/\(jobId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    // MARK: Expenses API
+
+    func createExpense(params: [String : AnyObject], forExpensableType expensableType: String, withExpensableId expensableId: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func addAttachment(data: NSData, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+        if let tags = params["tags"] {
+            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+        }
+        dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new", method: .GET, params: presignParams,
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 200)
+                let attachment = mappingResult.firstObject as? Attachment
+
+                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
+                    onSuccess: { statusCode, mappingResult in
+                        var realParams = params
+                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
+                        realParams.updateValue(mimeType, forKey: "mime_type")
+
+                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                        realParams.updateValue(url, forKey: "url")
+
+                        self.dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+                    },
+                    onError: onError
+                )
+            },
+            onError: onError
+        )
     }
 
     // MARK: - Messages API

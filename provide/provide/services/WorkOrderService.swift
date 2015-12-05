@@ -74,6 +74,7 @@ class WorkOrderService: NSObject {
         status: String = "scheduled",
         today: Bool = false,
         excludeRoutes: Bool = true,
+        includeExpenses: Bool = true,
         onWorkOrdersFetched: OnWorkOrdersFetched!)
     {
         var params: [String: AnyObject] = [
@@ -92,6 +93,10 @@ class WorkOrderService: NSObject {
 
         if excludeRoutes {
             params.updateValue("true", forKey: "exclude_routes")
+        }
+
+        if includeExpenses {
+            params.updateValue("true", forKey: "include_expenses")
         }
 
         ApiService.sharedService().fetchWorkOrders(params,

@@ -200,6 +200,23 @@ class WorkOrder: Model {
         return nil
     }
 
+    var expensesDisposition: String! {
+        if expenses != nil {
+            var expensesDisposition = "\(expenses.count) expenses"
+            var amount = 0.0
+            for expense in expenses {
+                if let amnt = expense.amount {
+                    amount += amnt
+                }
+            }
+            if amount > 0.0 {
+                expensesDisposition = "\(expensesDisposition) totaling $\(amount)"
+            }
+            return expensesDisposition
+        }
+        return nil
+    }
+
     var canBeDelivered: Bool {
         let itemsOrderedCount = (itemsOrdered != nil) ? itemsOrdered.count : 0
         let itemsDeliveredCount = (itemsDelivered != nil) ? itemsDelivered.count : 0
