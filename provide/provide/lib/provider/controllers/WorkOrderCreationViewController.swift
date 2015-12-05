@@ -355,11 +355,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         return false
     }
 
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
     func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
 
     }
     
     func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
         
+    }
+
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+
     }
 }

@@ -125,6 +125,10 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         return true
     }
 
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
     func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
 
     }
@@ -139,6 +143,10 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
 
+    }
+
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+        
     }
 
     private func initSelfieViewController() {

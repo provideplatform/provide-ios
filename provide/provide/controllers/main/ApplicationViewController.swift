@@ -159,8 +159,16 @@ class ApplicationViewController: ECSlidingViewController,
         return false
     }
 
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
     func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
         return false
+    }
+
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+        
     }
 
     private func initCameraViewController() {

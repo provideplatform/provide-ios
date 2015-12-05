@@ -557,6 +557,14 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         return false
     }
 
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+        
+    }
+
     func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
 
     }

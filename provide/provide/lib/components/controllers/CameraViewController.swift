@@ -22,8 +22,10 @@ protocol CameraViewControllerDelegate {
     func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL)
 
     func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool
     func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool
     func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject)
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!)
 }
 
 class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -77,17 +79,19 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func setupCameraUI() {
-        view.bringSubviewToFront(button)
+        if let button = button {
+            view.bringSubviewToFront(button)
 
-        button.addTarget(self, action: "capture", forControlEvents: .TouchUpInside)
-        let events = UIControlEvents.TouchUpInside.union(.TouchUpOutside).union(.TouchCancel).union(.TouchDragExit)
-        button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: events)
-        button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
+            button.addTarget(self, action: "capture", forControlEvents: .TouchUpInside)
+            let events = UIControlEvents.TouchUpInside.union(.TouchUpOutside).union(.TouchCancel).union(.TouchDragExit)
+            button.addTarget(self, action: "renderDefaultButtonAppearance", forControlEvents: events)
+            button.addTarget(self, action: "renderTappedButtonAppearance", forControlEvents: .TouchDown)
 
-        button.addBorder(5.0, color: UIColor.whiteColor())
-        button.makeCircular()
-
-        renderDefaultButtonAppearance()
+            button.addBorder(5.0, color: UIColor.whiteColor())
+            button.makeCircular()
+            
+            renderDefaultButtonAppearance()
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -97,11 +101,17 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             setupBackCameraView()
         }
 
-        button.enabled = true
+        button?.enabled = true
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        activeCameraView?.stopCapture()
     }
 
     func capture() {
-        button.enabled = false
+        button?.enabled = false
         activeCameraView?.capture()
     }
 
@@ -126,7 +136,9 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             view.bringSubviewToFront(backCameraView)
         }
 
-        view.bringSubviewToFront(button)
+        if let button = button {
+            view.bringSubviewToFront(button)
+        }
     }
 
     func setupFrontCameraView() {
@@ -140,7 +152,9 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             view.bringSubviewToFront(frontCameraView)
         }
 
-        view.bringSubviewToFront(button)
+        if let button = button {
+            view.bringSubviewToFront(button)
+        }
     }
 
     func teardownBackCameraView() {
@@ -166,6 +180,9 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     // MARK: CameraViewDelegate
 
     func outputModeForCameraView(cameraView: CameraView) -> CameraOutputMode {
+        if let delegate = delegate {
+            return delegate.outputModeForCameraViewController(self)
+        }
         return outputMode
     }
 
@@ -202,12 +219,19 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func cameraViewShouldEstablishVideoSession(cameraView: CameraView) -> Bool {
-        return false
+        return outputModeForCameraView(cameraView) == .VideoSampleBuffer
     }
 
     func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool {
         if let outputFaceMetadata = delegate?.cameraViewControllerShouldOutputFaceMetadata(self) {
             return outputFaceMetadata
+        }
+        return false
+    }
+
+    func cameraViewShouldOutputOCRMetadata(cameraView: CameraView) -> Bool {
+        if let outputOCRMetadata = delegate?.cameraViewControllerShouldOutputOCRMetadata(self) {
+            return outputOCRMetadata
         }
         return false
     }
@@ -219,5 +243,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         return false
     }
 
-
+    func cameraView(cameraView: CameraView, didRecognizeText text: String!) {
+        delegate?.cameraViewController(self, didRecognizeText: text)
+    }
 }

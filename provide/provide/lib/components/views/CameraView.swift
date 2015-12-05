@@ -28,16 +28,18 @@ protocol CameraViewDelegate {
     func cameraView(cameraView: CameraView, didFinishVideoCaptureAtURL fileURL: NSURL)
     func cameraView(cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel)
     func cameraView(cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject)
+    func cameraView(cameraView: CameraView, didRecognizeText text: String!)
 
     func cameraViewCaptureSessionFailedToInitializeWithError(error: NSError)
     func cameraViewBeganAsyncStillImageCapture(cameraView: CameraView)
     func cameraViewShouldEstablishAudioSession(cameraView: CameraView) -> Bool
     func cameraViewShouldEstablishVideoSession(cameraView: CameraView) -> Bool
     func cameraViewShouldOutputFaceMetadata(cameraView: CameraView) -> Bool
+    func cameraViewShouldOutputOCRMetadata(cameraView: CameraView) -> Bool
     func cameraViewShouldRenderFacialRecognition(cameraView: CameraView) -> Bool
 }
 
-class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, AVCaptureMetadataOutputObjectsDelegate {
+class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, AVCaptureMetadataOutputObjectsDelegate, G8TesseractDelegate {
 
     var delegate: CameraViewDelegate!
 
@@ -59,6 +61,9 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var videoFileOutput: AVCaptureMovieFileOutput!
 
     private var stillCameraOutput: AVCaptureStillImageOutput!
+
+    private var tesseract: G8Tesseract!
+    private var lastOCRTimestamp: NSDate!
 
     private var backCamera: AVCaptureDevice! {
         for device in AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo) {
@@ -94,6 +99,13 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var outputFaceMetadata: Bool {
         if let delegate = delegate {
             return delegate.cameraViewShouldOutputFaceMetadata(self)
+        }
+        return false
+    }
+
+    private var outputOCRMetadata: Bool {
+        if let delegate = delegate {
+            return delegate.cameraViewShouldOutputOCRMetadata(self)
         }
         return false
     }
@@ -172,6 +184,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 videoDataOutput.videoSettings = settings
                 videoDataOutput.alwaysDiscardsLateVideoFrames = true
                 videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
+
+                if outputOCRMetadata && captureSession.canAddOutput(videoDataOutput) {
+                    captureSession.addOutput(videoDataOutput)
+                }
 
                 videoFileOutput = AVCaptureMovieFileOutput()
             }
@@ -339,6 +355,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
                         if let image = UIImage(data: imageData) {
                             self.delegate?.cameraView(self, didCaptureStillImage: image)
+
+                            if self.outputOCRMetadata {
+                                self.ocrFrame(image)
+                            }
                         }
                     } else {
                         logWarn("Error capturing still image \(error)")
@@ -412,7 +432,11 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         let quartzImage = CGBitmapContextCreateImage(context)!
         CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
         
-        _ = UIImage(CGImage: quartzImage)
+        let frame = UIImage(CGImage: quartzImage)
+
+        if outputOCRMetadata {
+            ocrFrame(frame)
+        }
     }
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate
@@ -431,6 +455,16 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 self.showDetectedMetadataObjects(metadataObjects)
             }
         }
+    }
+
+    // MARK: G8TesseractDelegate
+
+    func progressImageRecognitionForTesseract(tesseract: G8Tesseract!) {
+        //print("tesseract progress: \(tesseract.progress)")
+    }
+
+    func shouldCancelImageRecognitionForTesseract(tesseract: G8Tesseract!) -> Bool {
+        return false
     }
 
     private func clearDetectedMetadataObjects() {
@@ -452,6 +486,47 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                     codeDetectionLayer.addSublayer(shapeLayer)
                 }
             }
+        }
+    }
+
+    private func ocrFrame(frame: UIImage) {
+        if let lastOCRTimestamp = lastOCRTimestamp {
+            if abs(lastOCRTimestamp.timeIntervalSinceNow) >= 2.0 {
+                dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+                    self.lastOCRTimestamp = NSDate()
+
+                    let tesseract = G8Tesseract(language: "eng")
+                    tesseract.delegate = self
+
+                    //            tesseract = G8Tesseract(language: "eng")
+                    //            tesseract.delegate = self
+                    //
+                    //            // Optionaly: You could specify engine to recognize with.
+                    //            // G8OCREngineModeTesseractOnly by default. It provides more features and faster
+                    //            // than Cube engine. See G8Constants.h for more information.
+                    //            //tesseract.engineMode = G8OCREngineModeTesseractOnly;
+                    //
+                    //            // This is wrapper for common Tesseract variable kG8ParamTesseditCharWhitelist:
+                    //            // [tesseract setVariableValue:@"0123456789" forKey:kG8ParamTesseditCharBlacklist];
+                    //            // See G8TesseractParameters.h for a complete list of Tesseract variables
+                    //
+                    //            // Optional: Limit the character set Tesseract should not try to recognize from
+                    //            //tesseract.charBlacklist = @"OoZzBbSs";
+
+                    tesseract.image = frame
+
+                    // TODO: find receipt rect and use -- tesseract.rect = CGRectMake(20, 20, 100, 100)
+
+                    tesseract.maximumRecognitionTime = 2.0
+                    tesseract.recognize()
+
+                    if self.outputOCRMetadata {
+                        self.delegate?.cameraView(self, didRecognizeText: tesseract.recognizedText)
+                    }
+                }
+            }
+        } else {
+            lastOCRTimestamp = NSDate()
         }
     }
 }
