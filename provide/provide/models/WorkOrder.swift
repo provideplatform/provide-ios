@@ -32,6 +32,7 @@ class WorkOrder: Model {
     var attachments: [Attachment]!
     var annotations: [provide.Annotation]!
     var config: NSMutableDictionary!
+    var expenses: [Expense]!
     var itemsOrdered: [Product]!
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
@@ -60,6 +61,7 @@ class WorkOrder: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
