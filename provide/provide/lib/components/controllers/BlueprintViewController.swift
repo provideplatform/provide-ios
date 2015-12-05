@@ -388,6 +388,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         workOrder.job = job!
         workOrder.jobId = job!.id
         workOrder.status = "awaiting_schedule"
+        workOrder.expenses = [Expense]()
         workOrder.itemsDelivered = [Product]()
         workOrder.itemsOrdered = [Product]()
         workOrder.itemsRejected = [Product]()
@@ -807,7 +808,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
             cell.accessoryType = .DisclosureIndicator
         case 5:
-            let expensesDisposition = workOrder.expenses == nil ? "--" : workOrder.expensesDisposition
+            let expensesDisposition = workOrder.expensesDisposition == nil ? "--" : workOrder.expensesDisposition
             cell.setName("EXPENSES", value: expensesDisposition)
             cell.accessoryType = .DisclosureIndicator
         default:

@@ -33,6 +33,8 @@ class WorkOrder: Model {
     var annotations: [provide.Annotation]!
     var config: NSMutableDictionary!
     var expenses: [Expense]!
+    var expensesCount = 0
+    var expensedAmount: Double!
     var itemsOrdered: [Product]!
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
@@ -56,6 +58,8 @@ class WorkOrder: Model {
             "status": "status",
             "provider_rating": "providerRating",
             "customer_rating": "customerRating",
+            "expenses_count": "expensesCount",
+            "expensed_amount": "expensedAmount",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
@@ -201,9 +205,9 @@ class WorkOrder: Model {
     }
 
     var expensesDisposition: String! {
+        var expensesDisposition = "\(expenses.count) expenses"
+        var amount = 0.0
         if expenses != nil {
-            var expensesDisposition = "\(expenses.count) expenses"
-            var amount = 0.0
             for expense in expenses {
                 if let amnt = expense.amount {
                     amount += amnt
@@ -212,9 +216,10 @@ class WorkOrder: Model {
             if amount > 0.0 {
                 expensesDisposition = "\(expensesDisposition) totaling $\(amount)"
             }
-            return expensesDisposition
+        } else if expensedAmount > 0.0 {
+            expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmount)"
         }
-        return nil
+        return expensesDisposition
     }
 
     var canBeDelivered: Bool {
