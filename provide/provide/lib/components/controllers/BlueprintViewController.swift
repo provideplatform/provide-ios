@@ -740,6 +740,56 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return section == 0 ? 6 : 1
     }
 
+    func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let navigationController = workOrderCreationViewController.navigationController {
+            var viewController: UIViewController!
+
+            switch indexPath.row {
+            case 0:
+                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
+                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+
+                let calendarViewController = PDTSimpleCalendarViewController()
+                calendarViewController.delegate = workOrderCreationViewController
+                calendarViewController.weekdayHeaderEnabled = true
+                calendarViewController.firstDate = NSDate()
+
+                viewController = calendarViewController
+            case 1:
+                viewController = UIStoryboard("ProviderPicker").instantiateInitialViewController()
+                (viewController as! ProviderPickerViewController).delegate = workOrderCreationViewController
+                ApiService.sharedService().fetchProviders([:],
+                    onSuccess: { statusCode, mappingResult in
+                        let providers = mappingResult.array() as! [Provider]
+                        (viewController as! ProviderPickerViewController).providers = providers
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            case 2:
+                print("open up the sq footage cost details editor!!!")
+            case 3:
+                print("open up the master cost model editor!!!")
+            case 4:
+                viewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController")
+                (viewController as! ManifestViewController).delegate = workOrderCreationViewController
+            case 5:
+                print("open up the expenses view controller!!!")
+//                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
+//                (viewController as! ExpensesViewController).delegate = workOrderCreationViewController
+            default:
+                break
+            }
+
+            if let vc = viewController {
+                navigationController.pushViewController(vc, animated: true)
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
         if indexPath.section > 0 {
             return nil
@@ -754,15 +804,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         switch indexPath.row {
         case 0:
-            var statusLabel = "\(workOrder.status)"
-            var scheduledStartTime = ""
+            var scheduledStartTime = "--"
             if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
                 scheduledStartTime = humanReadableScheduledStartTime
-                statusLabel = "\(statusLabel) - \(scheduledStartTime)"
             }
 
-            cell.setName("STATUS", value: statusLabel)
+            cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
             cell.backgroundView!.backgroundColor = workOrder.statusColor
+            cell.accessoryType = .DisclosureIndicator
         case 1:
             var specificProviders = ""
             let detailDisplayCount = 3

@@ -14,6 +14,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
@@ -232,51 +233,11 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationController = navigationController {
-            var viewController: UIViewController!
-
-            switch indexPath.row {
-            case 0:
-                print("0")
-            case 1:
-                viewController = UIStoryboard("ProviderPicker").instantiateInitialViewController()
-                (viewController as! ProviderPickerViewController).delegate = self
-                ApiService.sharedService().fetchProviders([:],
-                    onSuccess: { statusCode, mappingResult in
-                        let providers = mappingResult.array() as! [Provider]
-                        (viewController as! ProviderPickerViewController).providers = providers
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            case 2:
-                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
-                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-
-                let calendarViewController = PDTSimpleCalendarViewController()
-                calendarViewController.delegate = self
-                calendarViewController.weekdayHeaderEnabled = true
-                calendarViewController.firstDate = NSDate()
-
-                viewController = calendarViewController
-            case 3:
-                print("3")
-            case 4:
-                print("4")
-            case 5:
-                viewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController")
-                (viewController as! ManifestViewController).delegate = self
-            default:
-                break
-            }
-
-            if let vc = viewController {
-                navigationController.pushViewController(vc, animated: true)
-            }
+        if let delegate = delegate {
+            delegate.workOrderCreationViewController(self, tableView: tableView, didSelectRowAtIndexPath: indexPath)
+        } else {
+            super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
-
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     // MARK: ProviderPickerViewControllerDelegate

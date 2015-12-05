@@ -205,19 +205,11 @@ class WorkOrder: Model {
     }
 
     var expensesDisposition: String! {
-        var expensesDisposition = "\(expenses.count) expenses"
-        var amount = 0.0
-        if expenses != nil {
-            for expense in expenses {
-                if let amnt = expense.amount {
-                    amount += amnt
-                }
+        var expensesDisposition = "\(expensesCount) expenses"
+        if let expensedAmount = expensedAmount {
+            if expensedAmount > 0.0 {
+                expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmount)"
             }
-            if amount > 0.0 {
-                expensesDisposition = "\(expensesDisposition) totaling $\(amount)"
-            }
-        } else if expensedAmount > 0.0 {
-            expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmount)"
         }
         return expensesDisposition
     }
