@@ -202,6 +202,7 @@
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
 		68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */; };
 		68E329571C12CA1300DC297A /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329561C12CA1300DC297A /* Expense.swift */; };
+		68E329871C12F3EE00DC297A /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 68E329861C12F3EE00DC297A /* tessdata */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
@@ -419,6 +420,7 @@
 		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
 		68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintThumbnailViewController.swift; sourceTree = "<group>"; };
 		68E329561C12CA1300DC297A /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		68E329861C12F3EE00DC297A /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -922,6 +924,7 @@
 				68DFB08D1B07C5C4002A72E8 /* Images.xcassets */,
 				68B412381B07FC15009A4C05 /* fonts */,
 				68D2189D1B0861EF000D3ABA /* gpx */,
+				68E329861C12F3EE00DC297A /* tessdata */,
 				68DFB0811B07C5C4002A72E8 /* Supporting Files */,
 			);
 			path = provide;
@@ -1169,6 +1172,7 @@
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */,
 				68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
+				68E329871C12F3EE00DC297A /* tessdata in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,

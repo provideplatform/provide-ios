@@ -71,6 +71,7 @@ PODS:
   - SDWebImage/Core (3.7.3)
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
+  - TesseractOCRiOS (4.0.0)
   - TransitionKit (2.1.1)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - UICKeyChainStore (2.1.0)
@@ -90,6 +91,7 @@ DEPENDENCIES:
   - RFGravatarImageView
   - SDWebImage (~> 3.7.2)
   - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell.git`)
+  - TesseractOCRiOS (~> 4.0)
   - UICKeyChainStore
 
 EXTERNAL SOURCES:
@@ -126,6 +128,7 @@ SPEC CHECKSUMS:
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
   TransitionKit: 3a14b6acc7cf2d1dd3e454e24dbad1cfab9a1ef1
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432

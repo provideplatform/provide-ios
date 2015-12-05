@@ -22,6 +22,7 @@
 #import <RestKit/RestKit.h>
 #import <RFGravatarImageView/RFGravatarImageView.h>
 #import <SWTableViewCell/SWTableViewCell.h>
+#import <TesseractOCR/TesseractOCR.h>
 #import <UICKeyChainStore/UICKeyChainStore.h>
 #import "UIViewController+ECSlidingViewController.h"
 
