@@ -137,7 +137,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
                 self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
             onError: { error, statusCode, responseString in
-
+                self.refreshUI()
             }
         )
     }
@@ -372,28 +372,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
             "incurred_at": incurredAt,
         ]
 
-        ApiService.sharedService().createExpense(expenseParams, forExpensableType: "work_order",
-            withExpensableId: String(workOrder.id), onSuccess: { statusCode, mappingResult in
-                let expense = mappingResult.firstObject as! Expense
-                if self.workOrder.expenses == nil {
-                    self.workOrder.expenses = [Expense]()
-                }
-                self.workOrder.expenses.append(expense)
-                print("created expense \(expense)")
-                expense.attach(receipt, params: params,
-                    onSuccess: { (statusCode, mappingResult) -> () in
-                        print("uploaded and attached receipt image to expense \(expense); recognized texts: \(texts)")
-                        self.refreshUI()
-                        self.delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
-                    },
-                    onError: { (error, statusCode, responseString) -> () in
-                        
-                    }
-                )
+        workOrder.addExpense(expenseParams, receipt: receipt,
+            onSuccess: { statusCode, mappingResult in
+                self.refreshUI()
+                self.delegate?.workOrderCreationViewController(self, didCreateExpense: mappingResult.firstObject as! Expense)
             },
             onError: { error, statusCode, responseString in
 
             }
         )
+
     }
 }

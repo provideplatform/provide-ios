@@ -556,6 +556,37 @@ class WorkOrder: Model {
         )
     }
 
+    func addExpense(params: [String: AnyObject], receipt: UIImage!, onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().createExpense(params, forExpensableType: "work_order",
+            withExpensableId: String(self.id), onSuccess: { statusCode, mappingResult in
+                let expenseStatusCode = statusCode
+                let expenseMappingResult = mappingResult
+                let expense = mappingResult.firstObject as! Expense
+
+                if self.expenses == nil {
+                    self.expenses = [Expense]()
+                }
+                self.expenses.append(expense)
+
+                if let receipt = receipt {
+                    expense.attach(receipt, params: params,
+                        onSuccess: { (statusCode, mappingResult) -> () in
+                            onSuccess(statusCode: expenseStatusCode, mappingResult: expenseMappingResult)
+                        },
+                        onError: { (error, statusCode, responseString) -> () in
+                            onError(error: error, statusCode: statusCode, responseString: responseString)
+                        }
+                    )
+                } else {
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                }
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().addComment(comment,
             toWorkOrderWithId: String(id),
