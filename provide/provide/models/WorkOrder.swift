@@ -375,6 +375,16 @@ class WorkOrder: Model {
         params.removeValueForKey("config")
 
         if id > 0 {
+            var workOrderProviders = [[String : AnyObject]]()
+            for workOrderProvider in self.workOrderProviders {
+                var wop = ["provider_id": workOrderProvider.provider.id]
+                if workOrderProvider.id > 0 {
+                    wop.updateValue(workOrderProvider.id, forKey: "id")
+                }
+                workOrderProviders.append(wop)
+            }
+            params.updateValue(workOrderProviders, forKey: "work_order_providers")
+
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
