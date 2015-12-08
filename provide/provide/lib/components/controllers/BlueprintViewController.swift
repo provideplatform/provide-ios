@@ -788,9 +788,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 viewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController")
                 (viewController as! ManifestViewController).delegate = workOrderCreationViewController
             case 5:
-                print("open up the expenses view controller!!!")
-//                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
-//                (viewController as! ExpensesViewController).delegate = workOrderCreationViewController
+                viewController = UIStoryboard("Expenses").instantiateInitialViewController()
+                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
             default:
                 break
             }

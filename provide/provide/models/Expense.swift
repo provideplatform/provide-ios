@@ -32,6 +32,13 @@ class Expense: Model {
         return mapping
     }
 
+    var incurredAtDate: NSDate! {
+        if let incurredAtString = incurredAtString {
+            return NSDate.fromString(incurredAtString)
+        }
+        return nil
+    }
+
     func attach(image: UIImage, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
