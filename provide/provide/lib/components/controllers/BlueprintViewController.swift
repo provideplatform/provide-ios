@@ -870,7 +870,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.accessoryType = .DisclosureIndicator
         case 5:
             let expensesDisposition = workOrder.expensesDisposition == nil ? "--" : workOrder.expensesDisposition
-            cell.setName("EXPENSES", value: expensesDisposition)
+            cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
             cell.accessoryType = .DisclosureIndicator
         default:
             break

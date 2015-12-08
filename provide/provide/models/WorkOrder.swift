@@ -205,7 +205,7 @@ class WorkOrder: Model {
     }
 
     var expensesDisposition: String! {
-        var expensesDisposition = "\(expensesCount) expenses"
+        var expensesDisposition = "\(expensesCount) items"
         if let expensedAmount = expensedAmount {
             if expensedAmount > 0.0 {
                 expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmount)"
