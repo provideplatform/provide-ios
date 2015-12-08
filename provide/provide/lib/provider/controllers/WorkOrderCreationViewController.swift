@@ -132,9 +132,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
                 if statusCode == 201 {
                     let wo = mappingResult.firstObject as! WorkOrder
                     self.workOrder.status = wo.status
+                    self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
                 }
                 self.refreshUI()
-                self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
             },
             onError: { error, statusCode, responseString in
                 self.refreshUI()
