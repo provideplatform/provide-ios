@@ -597,7 +597,7 @@ class WorkOrder: Model {
                 if self.expenses == nil {
                     self.expenses = [Expense]()
                 }
-                self.expenses.append(expense)
+                self.expenses.insert(expense, atIndex: 0)
                 self.expensesCount += 1
                 if let amount = self.expensedAmount {
                     if let addedAmount = expense.amount {
