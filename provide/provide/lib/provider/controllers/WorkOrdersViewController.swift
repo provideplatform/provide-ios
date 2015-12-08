@@ -93,31 +93,31 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         loadRouteContext()
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteViewController) == false {
+            if !self.navigationControllerContains(RouteViewController) {
                 self.performSegueWithIdentifier("RouteViewControllerSegue", sender: self)
             }
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteHistoryStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(RouteHistoryViewController) == false {
+            if !self.navigationControllerContains(RouteHistoryViewController) {
                 self.performSegueWithIdentifier("RouteHistoryViewControllerSegue", sender: self)
             }
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToWorkOrderHistoryStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(WorkOrderHistoryViewController) == false {
+            if !self.navigationControllerContains(WorkOrderHistoryViewController) {
                 self.performSegueWithIdentifier("WorkOrderHistoryViewControllerSegue", sender: self)
             }
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToJobsStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(JobsViewController) == false {
+            if !self.navigationControllerContains(JobsViewController) {
                 self.performSegueWithIdentifier("JobsViewControllerSegue", sender: self)
             }
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToManifestStoryboard") { sender in
-            if self.navigationController?.viewControllers.last?.isKindOfClass(ManifestViewController) == false {
+            if !self.navigationControllerContains(ManifestViewController) {
                 self.performSegueWithIdentifier("ManifestViewControllerSegue", sender: self)
             }
         }
@@ -492,6 +492,15 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             return managedViewControllers.removeLast() as! UINavigationController
         }
         return nil
+    }
+
+    private func navigationControllerContains(clazz: AnyClass) -> Bool {
+        for viewController in (self.navigationController?.viewControllers)! {
+            if viewController.isKindOfClass(clazz) {
+                return true
+            }
+        }
+        return false
     }
 
     func nextWorkOrderContextShouldBeRewound() {

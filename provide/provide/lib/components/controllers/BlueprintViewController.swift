@@ -161,8 +161,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         super.viewDidAppear(animated)
     }
 
+    private var isManagedByWorkOrdersViewController: Bool {
+        return navigationController!.viewControllers.first!.isKindOfClass(WorkOrdersViewController)
+    }
+
     func setupNavigationItem() {
-        navigationItem.hidesBackButton = true
+        navigationItem.hidesBackButton = isManagedByWorkOrdersViewController
 
         navigationItem.leftBarButtonItems = []
         navigationItem.rightBarButtonItems = []
@@ -472,16 +476,25 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func restoreCachedNavigationItem() {
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
-            if let cachedNavigationItem = cachedNavigationItem {
+        if let cachedNavigationItem = cachedNavigationItem {
+            var navigationItem: UINavigationItem!
+            if let navItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+                navigationItem = navItem
+            } else {
+                navigationItem = self.navigationItem
+            }
+
+            setupNavigationItem()
+
+            if let navigationItem = navigationItem {
                 navigationItem.leftBarButtonItems = cachedNavigationItem.leftBarButtonItems
                 navigationItem.rightBarButtonItems = cachedNavigationItem.rightBarButtonItems
                 navigationItem.title = cachedNavigationItem.title
                 navigationItem.titleView = cachedNavigationItem.titleView
                 navigationItem.prompt = cachedNavigationItem.prompt
-
-                self.cachedNavigationItem = nil
             }
+
+            self.cachedNavigationItem = nil
         }
     }
 

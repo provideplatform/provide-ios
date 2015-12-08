@@ -27,11 +27,15 @@ class JobViewController: UIViewController, BlueprintViewControllerDelegate {
 
         blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
         blueprintViewController.blueprintViewControllerDelegate = self
+        blueprintViewController.navigationItem.title = job.name
 
-        dispatch_after_delay(0.0) {
-            self.blueprintViewController.view.bounds = self.view.frame
-            self.view.addSubview(self.blueprintViewController.view)
-        }
+        navigationController!.popViewControllerAnimated(false)
+        navigationController!.pushViewController(blueprintViewController, animated: false)
+
+//        dispatch_after_delay(0.0) {
+//            self.blueprintViewController.view.frame = self.view.frame
+//            self.view.addSubview(self.blueprintViewController.view)
+//        }
     }
 
     // MARK: BlueprintViewControllerDelegate
