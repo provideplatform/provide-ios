@@ -27,7 +27,7 @@ class ExpenseTableViewCell: UITableViewCell {
         dateLabel?.text = "\(expense.incurredAtDate.month) / \(expense.incurredAtDate.dayOfMonth) / \(expense.incurredAtDate.year)"
         timeLabel?.text = "\(expense.incurredAtDate.timeString!)"
         descriptionLabel?.text = expense.desc
-        amountLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
+        amountLabel?.text = "$\(expense.amount)"
     }
 
     override func prepareForReuse() {

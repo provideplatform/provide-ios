@@ -14,9 +14,7 @@ class ExpenseViewController: ViewController {
         didSet {
             if let expense = expense {
                 navigationItem.title = "\(expense.desc)"
-                if let amount = expense.amount {
-                    navigationItem.title = "\(navigationItem.title) - $\(amount)"
-                }
+                navigationItem.title = "\(navigationItem.title!) - $\(expense.amount)"
 
                 reload()
             }
@@ -52,7 +50,7 @@ class ExpenseViewController: ViewController {
         }
 
         descriptionLabel?.text = expense.desc
-        amountLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
+        amountLabel?.text = "$\(expense.amount)"
 
         imageView?.alpha = 0.0
         imageView?.contentMode = .ScaleAspectFit

@@ -453,9 +453,7 @@ class WorkOrder: Model {
                     self.expensesCount = self.expenses.count
                     self.expensedAmount = 0.0
                     for expense in self.expenses {
-                        if let amount = expense.amount {
-                            self.expensedAmount = self.expensedAmount + amount
-                        }
+                        self.expensedAmount = self.expensedAmount + expense.amount
                     }
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
@@ -600,9 +598,7 @@ class WorkOrder: Model {
         self.expenses.insert(expense, atIndex: 0)
         self.expensesCount += 1
         if let amount = self.expensedAmount {
-            if let addedAmount = expense.amount {
-                self.expensedAmount = amount + addedAmount
-            }
+            self.expensedAmount = amount + expense.amount
         }
     }
 

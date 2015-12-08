@@ -13,7 +13,7 @@ class Expense: Model {
     var id = 0
     var expensableId = 0
     var expensableType: String!
-    var amount: Double!
+    var amount = 0.0
     var desc: String!
     var attachments: [Attachment]!
     var incurredAtString: String!

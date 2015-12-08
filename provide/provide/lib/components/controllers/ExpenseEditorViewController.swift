@@ -40,7 +40,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
 
     private var valid: Bool {
         if let expense = expense {
-            return expense.amount != nil && expense.desc != nil && expense.incurredAtDate != nil
+            return expense.amount > 0.0 && expense.desc != nil && expense.incurredAtDate != nil
         }
         return false
     }
@@ -52,7 +52,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
 
         if let expense = expense {
             descriptionTextField?.text = expense.desc
-            amountTextField?.text = expense.amount != nil ? "\(expense.amount)" : ""
+            amountTextField?.text = "\(expense.amount)"
 
             if descriptionTextField?.text!.length == 0 {
                 descriptionTextField?.becomeFirstResponder()
