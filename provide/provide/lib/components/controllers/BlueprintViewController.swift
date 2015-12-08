@@ -658,7 +658,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer! {
         let textLayer = CATextLayer()
-        textLayer.string = "\(view.area) ft²"
+        textLayer.string = "\(view.area) sq ft"
         textLayer.font = UIFont(name: "Exo2-Regular", size: 16.0)
         textLayer.foregroundColor = UIColor.blackColor().CGColor
         textLayer.alignmentMode = "center"
