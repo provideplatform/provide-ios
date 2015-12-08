@@ -12,12 +12,20 @@ class NameValueTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     func setName(name: String, value: String, valueFontSize: CGFloat = 17.0) {
-        nameLabel.text = name
+        nameLabel?.text = name
 
-        valueLabel.text = value
-        valueLabel.font = valueLabel.font.fontWithSize(valueFontSize)
+        valueLabel?.text = value
+        valueLabel?.font = valueLabel?.font.fontWithSize(valueFontSize)
+
+        activityIndicatorView?.stopAnimating()
+    }
+
+    func showActivity() {
+        setName("", value: "")
+        activityIndicatorView?.startAnimating()
     }
 
     override func awakeFromNib() {
@@ -32,7 +40,8 @@ class NameValueTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        nameLabel.text = ""
-        valueLabel.text = ""
+        nameLabel?.text = ""
+        valueLabel?.text = ""
+        activityIndicatorView?.stopAnimating()
     }
 }

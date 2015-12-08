@@ -998,17 +998,25 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="A9U-n4-7yo">
+                                                    <rect key="frame" x="572" y="11" width="20" height="20"/>
+                                                    <animations/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <animations/>
                                             <constraints>
+                                                <constraint firstItem="A9U-n4-7yo" firstAttribute="top" secondItem="CJ0-77-5UH" secondAttribute="topMargin" constant="3" id="9rJ-r4-EAC"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="A9U-n4-7yo" secondAttribute="bottom" constant="4.5" id="BrS-y7-uoS"/>
                                                 <constraint firstItem="gOD-Iq-x0X" firstAttribute="trailing" secondItem="CJ0-77-5UH" secondAttribute="trailingMargin" id="KND-HL-Luj"/>
                                                 <constraint firstItem="gOD-Iq-x0X" firstAttribute="top" secondItem="CJ0-77-5UH" secondAttribute="topMargin" constant="3" id="bY4-qj-je8"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="A9U-n4-7yo" secondAttribute="trailing" id="dtb-O4-I7O"/>
                                                 <constraint firstItem="jJV-aD-SXh" firstAttribute="top" secondItem="CJ0-77-5UH" secondAttribute="topMargin" constant="3" id="qH4-bB-vqq"/>
                                                 <constraint firstItem="jJV-aD-SXh" firstAttribute="leading" secondItem="CJ0-77-5UH" secondAttribute="leadingMargin" id="vWr-tJ-poC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
+                                            <outlet property="activityIndicatorView" destination="A9U-n4-7yo" id="spk-6B-fuB"/>
                                             <outlet property="nameLabel" destination="jJV-aD-SXh" id="ZKg-ya-CX0"/>
                                             <outlet property="valueLabel" destination="gOD-Iq-x0X" id="AFB-c0-PNb"/>
                                         </connections>
@@ -1551,17 +1559,25 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZhS-1t-TbG">
+                                                    <rect key="frame" x="572" y="11" width="20" height="20"/>
+                                                    <animations/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="UR2-DP-jvb" firstAttribute="top" secondItem="7yP-J1-Fpb" secondAttribute="topMargin" constant="3" id="5VN-gG-HRp"/>
                                                 <constraint firstItem="UR2-DP-jvb" firstAttribute="trailing" secondItem="7yP-J1-Fpb" secondAttribute="trailingMargin" id="MAe-aZ-9Lp"/>
+                                                <constraint firstItem="ZhS-1t-TbG" firstAttribute="top" secondItem="7yP-J1-Fpb" secondAttribute="topMargin" constant="3" id="U47-Yd-oox"/>
                                                 <constraint firstItem="Mum-12-Jdn" firstAttribute="leading" secondItem="7yP-J1-Fpb" secondAttribute="leadingMargin" id="X6I-75-xGH"/>
                                                 <constraint firstItem="Mum-12-Jdn" firstAttribute="top" secondItem="7yP-J1-Fpb" secondAttribute="topMargin" constant="3" id="hq6-XO-KNn"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ZhS-1t-TbG" secondAttribute="trailing" id="iy8-4f-qZ9"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ZhS-1t-TbG" secondAttribute="bottom" constant="4.5" id="rPW-YB-HSg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
+                                            <outlet property="activityIndicatorView" destination="ZhS-1t-TbG" id="0aO-KT-K8p"/>
                                             <outlet property="nameLabel" destination="Mum-12-Jdn" id="MH4-w3-r57"/>
                                             <outlet property="valueLabel" destination="UR2-DP-jvb" id="meF-51-btq"/>
                                         </connections>

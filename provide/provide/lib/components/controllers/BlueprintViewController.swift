@@ -865,13 +865,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.setName("ESTIMATED COST", value: cost)
             cell.accessoryType = .DisclosureIndicator
         case 4:
-            let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-            cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
-            cell.accessoryType = .DisclosureIndicator
+            if let inventoryDisposition = workOrder.inventoryDisposition {
+                cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
+                cell.accessoryType = .DisclosureIndicator
+            } else {
+                cell.showActivity()
+            }
         case 5:
-            let expensesDisposition = workOrder.expensesDisposition == nil ? "--" : workOrder.expensesDisposition
-            cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
-            cell.accessoryType = .DisclosureIndicator
+            if let expensesDisposition = workOrder.expensesDisposition {
+                cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
+                cell.accessoryType = .DisclosureIndicator
+            } else {
+                cell.showActivity()
+            }
+
         default:
             break
         }

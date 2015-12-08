@@ -205,6 +205,10 @@ class WorkOrder: Model {
     }
 
     var expensesDisposition: String! {
+        if expenses == nil {
+            return nil
+        }
+
         var expensesDisposition = "\(expensesCount) items"
         if let expensedAmount = expensedAmount {
             if expensedAmount > 0.0 {
