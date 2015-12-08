@@ -577,6 +577,12 @@ class WorkOrder: Model {
                     self.expenses = [Expense]()
                 }
                 self.expenses.append(expense)
+                self.expensesCount += 1
+                if let amount = self.expensedAmount {
+                    if let addedAmount = expense.amount {
+                        self.expensedAmount = amount + addedAmount
+                    }
+                }
 
                 if let receipt = receipt {
                     expense.attach(receipt, params: params,
