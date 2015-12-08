@@ -900,6 +900,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    (viewController as! WorkOrderCreationViewController).workOrder.prependExpense(expense)
+                }
+            }
+        }
+
         refreshWorkOrderCreationView()
     }
 

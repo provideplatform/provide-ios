@@ -37,6 +37,15 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 }
             )
 
+            workOrder.reloadInventory(
+                { statusCode, mappingResult in
+                    self.reloadTableView()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+
             if let tableView = tableView {
                 tableView.reloadData()
             }

@@ -352,38 +352,22 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     // MARK: ExpenseCaptureViewControllerDelegate
+    
+    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model {
+        return workOrder
+    }
+
+    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController) {
+
+    }
 
     func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
         navigationItem.titleView = activityIndicatorView
-
-        var params: [String : AnyObject] = [
-            "tags": ["photo", "receipt"],
-        ]
-
-        if let location = LocationService.sharedService().currentLocation {
-            params["latitude"] = location.coordinate.latitude
-            params["longitude"] = location.coordinate.longitude
-        }
-
-        let amount = NSNull()
-        let description = texts.joinWithSeparator("\n")
-        let incurredAt = NSDate().format("yyyy-MM-dd'T'HH:mm:ssZZ")
-
-        let expenseParams: [String : AnyObject] = [
-            "amount": amount,
-            "description": description,
-            "incurred_at": incurredAt,
-        ]
-
-        workOrder.addExpense(expenseParams, receipt: receipt,
-            onSuccess: { statusCode, mappingResult in
-                self.refreshUI()
-                self.delegate?.workOrderCreationViewController(self, didCreateExpense: mappingResult.firstObject as! Expense)
-            },
-            onError: { error, statusCode, responseString in
-                self.refreshUI()
-            }
-        )
-
     }
+
+    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
+        refreshUI()
+        delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
+    }
+
 }

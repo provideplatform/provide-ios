@@ -209,6 +209,7 @@
 		68E3298B1C16E0B100DC297A /* Expenses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E3298A1C16E0B100DC297A /* Expenses.storyboard */; };
 		68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */; };
 		68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */; };
+		68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
@@ -433,6 +434,7 @@
 		68E3298A1C16E0B100DC297A /* Expenses.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Expenses.storyboard; sourceTree = "<group>"; };
 		68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseEditorViewController.swift; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -747,6 +749,7 @@
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
 				68E329881C16E08600DC297A /* ExpensesViewController.swift */,
+				68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */,
 				68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */,
 				68E3295C1C12ED5000DC297A /* ExpenseCaptureViewController.swift */,
 				68F536CB1B834A080007F480 /* ImagePickerViewController.swift */,
@@ -1361,6 +1364,7 @@
 				688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				68F537251B834CA50007F480 /* CLLocationExtensions.swift in Sources */,
+				68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
 				68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,

@@ -10,14 +10,32 @@ import UIKit
 import AVFoundation
 
 protocol ExpenseCaptureViewControllerDelegate {
+    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model
+    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController)
     func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!)
+    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense)
 }
 
-class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDelegate {
+class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDelegate, ExpenseEditorViewControllerDelegate {
 
     var expenseCaptureViewControllerDelegate: ExpenseCaptureViewControllerDelegate!
 
+    private var capturedReceipt: UIImage!
+
     private var recognizedTexts = [String]()
+
+    private var recognizedAmount: Double {
+        let recognizedText = recognizedTexts.joinWithSeparator("\n")
+        if recognizedText =~ "\\d+\\.\\d{2}" {
+            let matches = Regex.match("\\d+\\.\\d{2}", input: recognizedText)
+            if matches.count > 0 {
+                let match = matches[0]
+                let range = Range<String.Index>(start: recognizedText.startIndex.advancedBy(match.range.length), end: recognizedText.endIndex)
+                return Double(recognizedText.substringWithRange(range))!
+            }
+        }
+        return 0.0
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,8 +49,24 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
         setupNavigationItem()
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+    }
 
-        
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier! == "ExpenseEditorViewControllerSegue" {
+            (segue.destinationViewController as! ExpenseEditorViewController).delegate = self
+
+            let expense = Expense()
+            expense.incurredAtString = NSDate().format("yyyy-MM-dd'T'HH:mm:ssZZ")
+            expense.desc = recognizedTexts.joinWithSeparator("\n")
+            expense.amount = recognizedAmount
+            expense.attachments = [Attachment]()
+            expense.receiptImage = capturedReceipt
+            if let expensable = expenseCaptureViewControllerDelegate?.expensableForExpenseCaptureViewController(self) {
+                expense.expensableType = expensable.isKindOfClass(WorkOrder) ? "work_order" : (expensable.isKindOfClass(Job) ? "job" : nil)
+                expense.expensableId = expensable.isKindOfClass(WorkOrder) ? (expensable as! WorkOrder).id : (expensable.isKindOfClass(Job) ? (expensable as! Job).id : 0)
+            }
+            (segue.destinationViewController as! ExpenseEditorViewController).expense = expense
+        }
     }
 
     override func setupNavigationItem() {
@@ -60,7 +94,9 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
 
     func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         expenseCaptureViewControllerDelegate?.expenseCaptureViewController(self, didCaptureReceipt: image, recognizedTexts: recognizedTexts)
-        cameraViewControllerCanceled(self)
+        capturedReceipt = image
+
+        performSegueWithIdentifier("ExpenseEditorViewControllerSegue", sender: self)
     }
 
     func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
@@ -93,5 +129,23 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
 
     func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
         recognizedTexts.append(text)
+    }
+
+    // Mark: ExpenseEditorViewControllerDelegate
+
+    func expenseEditorViewControllerBeganCreatingExpense(viewController: ExpenseEditorViewController) {
+        cameraViewControllerCanceled(self)
+        expenseCaptureViewControllerDelegate?.expenseCaptureViewControllerBeganCreatingExpense(self)
+    }
+
+    func expenseEditorViewController(viewController: ExpenseEditorViewController, didCreateExpense expense: Expense) {
+        expenseCaptureViewControllerDelegate?.expenseCaptureViewController(self, didCreateExpense: expense)
+
+        capturedReceipt = nil
+        recognizedTexts = [String]()
+    }
+
+    func expenseEditorViewController(viewController: ExpenseEditorViewController, didFailToCreateExpenseWithStatusCode statusCode: Int) {
+        // TODO: Add appropriate delegation
     }
 }

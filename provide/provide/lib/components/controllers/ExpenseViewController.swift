@@ -26,7 +26,7 @@ class ExpenseViewController: ViewController {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var amountLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
 
     override func viewDidLoad() {
@@ -37,18 +37,35 @@ class ExpenseViewController: ViewController {
         }
     }
 
+    func hideLabels() {
+        descriptionLabel?.hidden = true
+        amountLabel?.hidden = true
+    }
+
     private func reload() {
-        dateLabel?.text = "\(expense.incurredAtDate.month) / \(expense.incurredAtDate.dayOfMonth) / \(expense.incurredAtDate.year)"
-        timeLabel?.text = "\(expense.incurredAtDate.timeString!)"
+        if let incurredAtDate = expense.incurredAtDate {
+            dateLabel?.text = "\(incurredAtDate.month) / \(incurredAtDate.dayOfMonth) / \(incurredAtDate.year)"
+            timeLabel?.text = "\(incurredAtDate.timeString!)"
+        } else {
+            dateLabel?.text = ""
+            timeLabel?.text = ""
+        }
+
         descriptionLabel?.text = expense.desc
-        priceLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
+        amountLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
 
         imageView?.alpha = 0.0
         imageView?.contentMode = .ScaleAspectFit
-        imageView?.sd_setImageWithURL(expense.attachments.first!.url, placeholderImage: nil,
-            completed: { image, error, imageCacheType, url in
-                self.imageView?.alpha = 1.0
-            }
-        )
+
+        if let attachment = expense.attachments?.first {
+            imageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil,
+                completed: { image, error, imageCacheType, url in
+                    self.imageView?.alpha = 1.0
+                }
+            )
+        } else if let receiptImage = expense.receiptImage {
+            imageView?.image = receiptImage
+            imageView?.alpha = 1.0
+        }
     }
 }

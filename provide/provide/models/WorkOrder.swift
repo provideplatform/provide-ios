@@ -466,6 +466,12 @@ class WorkOrder: Model {
         }
     }
 
+    func reloadInventory(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+
+        }
+    }
+
     func hasProvider(provider: Provider) -> Bool {
         for p in providers {
             if p.id == provider.id {
@@ -587,6 +593,19 @@ class WorkOrder: Model {
         )
     }
 
+    func prependExpense(expense: Expense) {
+        if self.expenses == nil {
+            self.expenses = [Expense]()
+        }
+        self.expenses.insert(expense, atIndex: 0)
+        self.expensesCount += 1
+        if let amount = self.expensedAmount {
+            if let addedAmount = expense.amount {
+                self.expensedAmount = amount + addedAmount
+            }
+        }
+    }
+
     func addExpense(params: [String: AnyObject], receipt: UIImage!, onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().createExpense(params, forExpensableType: "work_order",
             withExpensableId: String(self.id), onSuccess: { statusCode, mappingResult in
@@ -594,16 +613,7 @@ class WorkOrder: Model {
                 let expenseMappingResult = mappingResult
                 let expense = mappingResult.firstObject as! Expense
 
-                if self.expenses == nil {
-                    self.expenses = [Expense]()
-                }
-                self.expenses.insert(expense, atIndex: 0)
-                self.expensesCount += 1
-                if let amount = self.expensedAmount {
-                    if let addedAmount = expense.amount {
-                        self.expensedAmount = amount + addedAmount
-                    }
-                }
+                self.prependExpense(expense)
 
                 if let receipt = receipt {
                     expense.attach(receipt, params: params,

@@ -17,6 +17,7 @@ class Expense: Model {
     var desc: String!
     var attachments: [Attachment]!
     var incurredAtString: String!
+    var receiptImage: UIImage!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)

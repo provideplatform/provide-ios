@@ -40,7 +40,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XOR-4f-qxX" id="lOk-m3-bRz">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2/22/2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aF-2Y-ZVd">
@@ -163,7 +163,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAF-J3-Zs6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAF-J3-Zs6" userLabel="Amount Label">
                                 <rect key="frame" x="458" y="44" width="122" height="37"/>
                                 <animations/>
                                 <constraints>
@@ -205,10 +205,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="amountLabel" destination="SAF-J3-Zs6" id="7dt-Kh-1Kd"/>
                         <outlet property="dateLabel" destination="iuk-87-WVV" id="GLN-vt-PD1"/>
                         <outlet property="descriptionLabel" destination="hTi-wE-m7J" id="lEb-SY-rv3"/>
                         <outlet property="imageView" destination="1gz-rK-SlJ" id="l4T-g4-WUM"/>
-                        <outlet property="priceLabel" destination="SAF-J3-Zs6" id="gYL-25-mdi"/>
                         <outlet property="timeLabel" destination="vow-Bh-lbD" id="Gfh-fW-7Jr"/>
                     </connections>
                 </viewController>
