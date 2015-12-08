@@ -14,7 +14,16 @@ typealias OnWorkOrderEtaFetched = (workOrder: WorkOrder, minutesEta: Int) -> ()
 class WorkOrderService: NSObject {
 
     var nextWorkOrder: WorkOrder! {
-        return workOrders.findFirst { $0.status == "scheduled" }
+        for wo in workOrders {
+            if wo.status == "scheduled" {
+                for provider in wo.providers {
+                    if provider.userId == currentUser().id {
+                        return wo
+                    }
+                }
+            }
+        }
+        return nil
     }
 
     var nextWorkOrderDrivingEtaMinutes: Int!
