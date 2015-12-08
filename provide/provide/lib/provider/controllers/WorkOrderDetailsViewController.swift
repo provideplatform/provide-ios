@@ -28,6 +28,15 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 }
             )
 
+            workOrder.reloadExpenses(
+                { statusCode, mappingResult in
+                    self.reloadTableView()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+
             if let tableView = tableView {
                 tableView.reloadData()
             }

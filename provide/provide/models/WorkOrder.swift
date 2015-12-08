@@ -445,6 +445,27 @@ class WorkOrder: Model {
         }
     }
 
+    func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            ApiService.sharedService().fetchExpenses(forWorkOrderWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    self.expenses = mappingResult.array() as! [Expense]
+                    self.expensesCount = self.expenses.count
+                    self.expensedAmount = 0.0
+                    for expense in self.expenses {
+                        if let amount = expense.amount {
+                            self.expensedAmount = self.expensedAmount + amount
+                        }
+                    }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
     func hasProvider(provider: Provider) -> Bool {
         for p in providers {
             if p.id == provider.id {
