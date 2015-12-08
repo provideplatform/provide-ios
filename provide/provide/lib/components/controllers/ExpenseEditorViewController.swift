@@ -134,6 +134,13 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
         return true
     }
 
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == amountTextField {
+            textField.text = ""
+        }
+        return true
+    }
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == descriptionTextField {
             amountTextField.becomeFirstResponder()

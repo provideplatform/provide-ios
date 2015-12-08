@@ -57,7 +57,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9q-m7-DHL">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9q-m7-DHL" userLabel="Amount Label">
                                                     <rect key="frame" x="470" y="3" width="122" height="37"/>
                                                     <animations/>
                                                     <constraints>
@@ -96,9 +96,9 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
+                                            <outlet property="amountLabel" destination="n9q-m7-DHL" id="Cv2-Ua-Kb0"/>
                                             <outlet property="dateLabel" destination="7aF-2Y-ZVd" id="JxK-SY-ctd"/>
                                             <outlet property="descriptionLabel" destination="QkI-i1-7Y8" id="4UX-yC-9Cg"/>
-                                            <outlet property="priceLabel" destination="n9q-m7-DHL" id="RKa-ud-V35"/>
                                             <outlet property="timeLabel" destination="nR4-PU-fou" id="qFo-4j-z73"/>
                                             <segue destination="x07-gP-fJm" kind="show" identifier="ExpenseViewControllerSegue" id="dyV-iy-dik"/>
                                         </connections>

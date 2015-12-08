@@ -21,13 +21,13 @@ class ExpenseTableViewCell: UITableViewCell {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var amountLabel: UILabel!
 
     private func reload() {
         dateLabel?.text = "\(expense.incurredAtDate.month) / \(expense.incurredAtDate.dayOfMonth) / \(expense.incurredAtDate.year)"
         timeLabel?.text = "\(expense.incurredAtDate.timeString!)"
         descriptionLabel?.text = expense.desc
-        priceLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
+        amountLabel?.text = expense.amount != nil ? "$\(expense.amount)" : "--"
     }
 
     override func prepareForReuse() {
@@ -36,6 +36,6 @@ class ExpenseTableViewCell: UITableViewCell {
         dateLabel?.text = ""
         timeLabel?.text = ""
         descriptionLabel?.text = ""
-        priceLabel?.text = ""
+        amountLabel?.text = ""
     }
 }
