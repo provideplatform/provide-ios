@@ -177,7 +177,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     private func configureVideoSession() {
         if let delegate = delegate {
-            if delegate.cameraViewShouldEstablishVideoSession(self) {
+            if delegate.cameraViewShouldEstablishVideoSession(self) || outputOCRMetadata {
                 videoDataOutput = AVCaptureVideoDataOutput()
                 var settings = [NSObject: AnyObject]()
                 settings.updateValue(NSNumber(unsignedInt: kCVPixelFormatType_32BGRA), forKey: String(kCVPixelBufferPixelFormatTypeKey))
@@ -185,9 +185,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 videoDataOutput.alwaysDiscardsLateVideoFrames = true
                 videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
 
-                if outputOCRMetadata && captureSession.canAddOutput(videoDataOutput) {
-                    captureSession.addOutput(videoDataOutput)
-                }
+                captureSession.addOutput(videoDataOutput)
 
                 videoFileOutput = AVCaptureMovieFileOutput()
             }
