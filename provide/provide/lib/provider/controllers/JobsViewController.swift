@@ -66,6 +66,8 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             "page": page,
             "rpp": rpp,
             "status": "configuring,in_progress,pending_completion",
+            "include_customer": "true",
+            "include_expenses": "true",
         ]
 
         ApiService.sharedService().fetchJobs(params as! [String : AnyObject],
