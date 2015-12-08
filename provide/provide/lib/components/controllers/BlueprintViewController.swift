@@ -362,7 +362,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let job = job {
             job.updateJobBlueprintScale(scale,
                 onSuccess: { statusCode, mappingResult in
-                    print("set scale of \(scale) pixels per foot")
+                    self.toolbar.reload()
                 }, onError: { error, statusCode, responseString in
 
                 }
