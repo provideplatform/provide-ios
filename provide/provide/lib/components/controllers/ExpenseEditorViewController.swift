@@ -155,7 +155,10 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
         if textField == descriptionTextField {
             expense.desc = textField.text
         } else if textField == amountTextField {
-            expense.amount = Double(textField.text!)!
+            let text = textField.text!
+            if text.length > 0 {
+                expense.amount = Double(text)!
+            }
         }
     }
 }

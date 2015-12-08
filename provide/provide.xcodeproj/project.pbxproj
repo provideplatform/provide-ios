@@ -82,6 +82,8 @@
 		6845BB681BF2138E00AD3D79 /* BlueprintPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */; };
 		6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB691BF2863300AD3D79 /* Regex.swift */; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
+		685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1141C17529C0089EF94 /* JobProduct.swift */; };
+		685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1161C176A740089EF94 /* WorkOrderProduct.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
@@ -301,6 +303,8 @@
 		6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonLineView.swift; sourceTree = "<group>"; };
 		6845BB691BF2863300AD3D79 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
+		685DE1141C17529C0089EF94 /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
+		685DE1161C176A740089EF94 /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
@@ -1002,6 +1006,7 @@
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
 				68E329561C12CA1300DC297A /* Expense.swift */,
 				6840F1691BDB59D700EF70F7 /* Job.swift */,
+				685DE1141C17529C0089EF94 /* JobProduct.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
 				682BE8B51B4039E600DDBC3D /* Origin.swift */,
@@ -1014,6 +1019,7 @@
 				68F730661B07DE94001A21B0 /* Token.swift */,
 				68F730671B07DE94001A21B0 /* User.swift */,
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
+				685DE1161C176A740089EF94 /* WorkOrderProduct.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
 			);
 			path = models;
@@ -1361,6 +1367,7 @@
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				681416F21B8457870076BFBD /* Route.swift in Sources */,
 				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
+				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
 				688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				68F537251B834CA50007F480 /* CLLocationExtensions.swift in Sources */,
@@ -1451,6 +1458,7 @@
 				68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */,
 				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
 				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
+				685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */,
 				6845BB5D1BF1E46200AD3D79 /* BlueprintScaleView.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
 				68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */,

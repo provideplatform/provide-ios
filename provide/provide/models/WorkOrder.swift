@@ -38,6 +38,7 @@ class WorkOrder: Model {
     var itemsOrdered: [Product]!
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
+    var materials: [WorkOrderProduct]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -69,6 +70,7 @@ class WorkOrder: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: WorkOrderProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
@@ -197,8 +199,21 @@ class WorkOrder: Model {
         return UIColor.clearColor()
     }
 
+    var materialsCost: Double! {
+        if let materials = materials {
+            var cost = 0.0
+            for workOrderProduct in materials {
+                cost += workOrderProduct.quantity * workOrderProduct.price
+            }
+            return cost
+        }
+        return nil
+    }
+
     var inventoryDisposition: String! {
-        if itemsDelivered != nil && itemsOrdered != nil {
+        if let materialsCost = materialsCost {
+            return "$\(NSString(format: "%.02f", materialsCost))"
+        } else if itemsDelivered != nil && itemsOrdered != nil {
             return "\(itemsDelivered.count) of \(itemsOrdered.count) items delivered"
         }
         return nil
@@ -433,6 +448,20 @@ class WorkOrder: Model {
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             }
         )
+    }
+
+    func reloadJob(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 && jobId > 0 {
+            ApiService.sharedService().fetchJobWithId(String(jobId),
+                onSuccess: { statusCode, mappingResult in
+                    self.job = mappingResult.firstObject as! Job
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
     }
 
     func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {

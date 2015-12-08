@@ -71,6 +71,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     private var isDirty = false
 
+    private var reloadingJob = false
+
     private var isSaved: Bool {
         if let workOrder = workOrder {
             return workOrder.id > 0
@@ -349,6 +351,59 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
     func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
 
+    }
+
+    // MARK: ManifestViewControllerDelegate
+
+    override func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
+        return workOrder
+    }
+
+    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
+        return ["MATERIALS", "JOB MANIFEST"]
+    }
+
+    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
+        if segmentIndex == 0 {
+            // work order manifest
+            return workOrder.materials.map { $0.jobProduct.product }
+        } else if segmentIndex == 1 {
+            // job manifest
+            if let job = workOrder.job {
+                return job.materials.map { $0.product }
+            } else {
+                if !reloadingJob {
+                    dispatch_async_main_queue {
+                        (viewController as! ManifestViewController).showActivityIndicator()
+                    }
+
+                    reloadingJob = true
+
+                    workOrder.reloadJob(
+                        { (statusCode, mappingResult) -> () in
+                            self.refreshUI()
+                            (viewController as! ManifestViewController).reloadTableView()
+                            self.reloadingJob = false
+                        },
+                        onError: { (error, statusCode, responseString) -> () in
+                            self.refreshUI()
+                            (viewController as! ManifestViewController).reloadTableView()
+                            self.reloadingJob = false
+                        }
+                    )
+                }
+            }
+        }
+
+        return [Product]()
+    }
+
+//    func itemsForManifestViewController(viewController: UIViewController) -> [Product]! {
+//        return workOrder.materials.map { $0.jobProduct.product }
+//    }
+
+    override func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
+        return navigationItem.title
     }
 
     // MARK: ExpenseCaptureViewControllerDelegate

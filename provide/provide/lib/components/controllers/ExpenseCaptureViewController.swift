@@ -25,8 +25,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
     private var recognizedTexts = [String]()
 
     private var recognizedAmount: Double {
-        let recognizedText = recognizedTexts.joinWithSeparator("\n")
-        if recognizedText =~ "\\d+\\.\\d{2}" {
+        for recognizedText in recognizedTexts.reverse() {
             let matches = Regex.match("\\d+\\.\\d{2}", input: recognizedText)
             if matches.count > 0 {
                 let match = matches[0]

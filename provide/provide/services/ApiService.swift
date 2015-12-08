@@ -27,11 +27,13 @@ class ApiService: NSObject {
         "eta": Directions.mapping(),
         "expenses": Expense.mapping(),
         "jobs": Job.mapping(),
+        "job_products": JobProduct.mapping(),
         "products": Product.mapping(),
         "providers": Provider.mapping(),
         "routes": Route.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
+        "work_order_products": WorkOrderProduct.mapping(),
         "users": User.mapping(),
         "messages": Message.mapping(),
     ]
@@ -453,6 +455,10 @@ class ApiService: NSObject {
 
     func fetchJobs(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("jobs", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchJobWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
     func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {

@@ -1145,6 +1145,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TZC-Bv-pL4">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                                <animations/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pig-C6-YOM">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
@@ -1207,12 +1211,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pig-C6-YOM" firstAttribute="top" secondItem="h3c-9v-O2u" secondAttribute="top" id="8ge-Bg-duw"/>
+                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="centerY" secondItem="pig-C6-YOM" secondAttribute="centerY" id="eLk-bk-Z0P"/>
+                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="centerX" secondItem="pig-C6-YOM" secondAttribute="centerX" id="hsM-y7-QQ6"/>
                             <constraint firstAttribute="trailing" secondItem="pig-C6-YOM" secondAttribute="trailing" id="q7S-Zu-vBY"/>
                             <constraint firstItem="pig-C6-YOM" firstAttribute="bottom" secondItem="iSN-Bf-B6m" secondAttribute="top" id="rlC-Hb-CyO"/>
                             <constraint firstItem="pig-C6-YOM" firstAttribute="leading" secondItem="h3c-9v-O2u" secondAttribute="leading" id="uRk-Vq-fz9"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="TZC-Bv-pL4" id="W3d-Sc-TCq"/>
                         <outlet property="tableView" destination="pig-C6-YOM" id="75a-CG-nYX"/>
                     </connections>
                 </viewController>

@@ -31,7 +31,7 @@ class Regex {
     func match(input: String) -> [NSTextCheckingResult] {
         var matches = [NSTextCheckingResult]()
         if let internalExpression = internalExpression {
-            matches = internalExpression.matchesInString(input, options: .Anchored, range: NSMakeRange(0, input.length))
+            matches = internalExpression.matchesInString(input, options: .Anchored, range: NSMakeRange(0, input.startIndex.distanceTo(input.endIndex)))
         }
         return matches
     }

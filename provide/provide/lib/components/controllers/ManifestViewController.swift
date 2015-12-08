@@ -16,6 +16,9 @@ protocol ManifestViewControllerDelegate {
     optional func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String!
     optional func routeForViewController(viewController: UIViewController) -> Route!
     optional func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder!
+    optional func segmentsForManifestViewController(viewController: UIViewController) -> [String]!
+    optional func segmentForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> String
+    optional func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -30,8 +33,15 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var toolbarSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+
+    private var lastSelectedIndex = -1
 
     private var items: [Product] {
+        if let items = delegate?.itemsForManifestViewController?(self, forSegmentIndex: toolbarSegmentedControl.selectedSegmentIndex) {
+            return items
+        }
+
         var items = [Product]()
         if let route = route {
             switch Segment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
@@ -102,22 +112,54 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
         navigationItem.titleView = toolbarSegmentedControl
         navigationItem.prompt = navigationItemPrompt
+
+        tableView.reloadData()
     }
 
     func segmentChanged(sender: UISegmentedControl) {
-        segment = Segment.allValues[sender.selectedSegmentIndex]
+        if delegate == nil {
+            segment = Segment.allValues[sender.selectedSegmentIndex]
+        }
 
+        if lastSelectedIndex != sender.selectedSegmentIndex {
+            reloadTableView()
+        }
+
+        lastSelectedIndex = sender.selectedSegmentIndex
+    }
+
+    func showActivityIndicator() {
         dispatch_after_delay(0.0) {
-            self.tableView.reloadData()
+            self.tableView.alpha = 0.0
+            self.activityIndicatorView.startAnimating()
         }
     }
 
+    func hideActivityIndicator() {
+        dispatch_after_delay(0.0) {
+            self.activityIndicatorView.stopAnimating()
+            self.tableView.alpha = 1.0
+        }
+    }
+
+    func reloadTableView() {
+        tableView.reloadData()
+        hideActivityIndicator()
+    }
+
     private func initToolbarSegmentedControl() {
-        toolbarSegmentedControl = UISegmentedControl(items: ["DELIVERED", "ON TRUCK", "REJECTED"])
+        if let segments = delegate?.segmentsForManifestViewController?(self) {
+            toolbarSegmentedControl = UISegmentedControl(items: segments)
+        } else {
+            toolbarSegmentedControl = UISegmentedControl(items: ["DELIVERED", "ON TRUCK", "REJECTED"])
+        }
+
         toolbarSegmentedControl.tintColor = UIColor.whiteColor()
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
+
+        lastSelectedIndex = toolbarSegmentedControl.selectedSegmentIndex
     }
 
     // MARK: UITableViewDelegate
