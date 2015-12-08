@@ -293,6 +293,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+        navigationItem.titleView = activityIndicatorView
+
         var params: [String : AnyObject] = [
             "tags": ["photo"],
         ]
@@ -304,10 +306,11 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
 
         workOrder.attach(image, params: params,
             onSuccess: { (statusCode, mappingResult) -> () in
+                self.refreshUI()
                 self.reloadTableView()
             },
             onError: { (error, statusCode, responseString) -> () in
-
+                self.refreshUI()
             }
         )
     }
@@ -378,7 +381,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
                 self.delegate?.workOrderCreationViewController(self, didCreateExpense: mappingResult.firstObject as! Expense)
             },
             onError: { error, statusCode, responseString in
-
+                self.refreshUI()
             }
         )
 
