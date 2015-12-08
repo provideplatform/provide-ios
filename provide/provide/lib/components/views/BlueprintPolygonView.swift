@@ -111,8 +111,10 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
     private func removeGestureRecognizer() {
         if let targetView = targetView {
-            targetView.removeGestureRecognizer(gestureRecognizer)
-            gestureRecognizer = nil
+            if let gestureRecognizer = gestureRecognizer {
+                targetView.removeGestureRecognizer(gestureRecognizer)
+                self.gestureRecognizer = nil
+            }
         }
     }
 
