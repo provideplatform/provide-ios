@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobBlueprintsViewController: UIViewController {
+class JobBlueprintsViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

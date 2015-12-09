@@ -106,9 +106,11 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
         delegate = self
 
-        for viewController in viewControllers! {
-            if viewController.isKindOfClass(JobWizardViewController) {
-                (viewController as! JobWizardViewController).delegate = self
+        dispatch_after_delay(0.0) {
+            for viewController in self.viewControllers! {
+                if viewController.isKindOfClass(JobWizardViewController) {
+                    (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self
+                }
             }
         }
 
@@ -121,24 +123,31 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         let mapPin = UIImage("map-pin")!
         tabBar.selectionIndicatorImage = mapPin.scaledToWidth(mapPin.size.width / 2.8)
 
-        //setSelectionIndicatorImageViewFrame()
+        refreshSelectionIndicatorImageViewFrame()
         
         selectInitialTabBarItem()
     }
 
-//    private func setSelectionIndicatorImageViewFrame() {
-//        if let selectionIndicatorImage = tabBar.selectionIndicatorImage {
-//            for view in tabBar.subviews {
-//                for v in view.subviews {
-//                    if v.isKindOfClass(UIImageView) {
-//                        if (v as! UIImageView).image == selectionIndicatorImage {
-//                            v.frame = CGRectInset(v.frame, 0.0, -12.0)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+
+    private func refreshSelectionIndicatorImageViewFrame() {
+        if let selectionIndicatorImage = tabBar.selectionIndicatorImage {
+            for view in tabBar.subviews {
+                for v in view.subviews {
+                    if v.isKindOfClass(UIImageView) {
+                        if (v as! UIImageView).image == selectionIndicatorImage {
+                            //v.frame = CGRectInset(v.frame, 0.0, -12.0)
+                            view.sendSubviewToBack(v)
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private func selectInitialTabBarItem() {
         var item: UITabBarItem?
@@ -163,18 +172,31 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
     // MARK: UITabBarControllerDelegate
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if viewController.isKindOfClass(JobReviewViewController) {
-            if let job = job {
-                return ["canceled", "completed"].indexOf(job.status) > -1
+        if viewController.isKindOfClass(UINavigationController) {
+            if (viewController as! UINavigationController).viewControllers.count == 1 {
+                let rootViewController = (viewController as! UINavigationController).viewControllers.first!
+                if rootViewController.isKindOfClass(JobReviewViewController) {
+                    if let job = job {
+                        return ["canceled", "completed"].indexOf(job.status) > -1
+                    }
+                }
             }
         }
         return true
     }
 
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        // no-op
+        refreshSelectionIndicatorImageViewFrame()
 
-        //setSelectionIndicatorImageViewFrame()
+        if let navigationController = navigationController {
+            if viewController.isKindOfClass(UINavigationController) {
+                if (viewController as! UINavigationController).viewControllers.count == 1 {
+                    navigationController.setNavigationBarHidden(false, animated: false)
+                }
+            } else {
+                navigationController.setNavigationBarHidden(false, animated: false)
+            }
+        }
     }
 
     // MARK: JobWizardViewControllerDelegate

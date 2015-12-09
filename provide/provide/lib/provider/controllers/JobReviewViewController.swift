@@ -12,8 +12,8 @@ class JobReviewViewController: ViewController {
 
     weak var job: Job! {
         didSet {
-            if let job = job {
-                print("set job in job review view controller \(job)")
+            if let _ = job {
+
             }
         }
     }

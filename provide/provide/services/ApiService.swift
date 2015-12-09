@@ -477,6 +477,10 @@ class ApiService: NSObject {
 
     // MARK: Expenses API
 
+    func fetchExpenses(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("jobs/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     func fetchExpenses(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }

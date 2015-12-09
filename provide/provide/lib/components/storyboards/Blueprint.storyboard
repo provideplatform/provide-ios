@@ -194,7 +194,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKl-4p-cWc">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="0eb-JY-FJM" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="iY1-TW-6QC"/>
+                                    <segue destination="0eb-JY-FJM" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="g84-8w-f71"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IoZ-wz-IJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="3002"/>
+            <point key="canvasLocation" x="1537" y="3002"/>
         </scene>
         <!--ProviderPicker-->
         <scene sceneID="7Pe-KH-ocs">
@@ -220,7 +220,7 @@
                 <viewControllerPlaceholder storyboardName="ProviderPicker" id="0eb-JY-FJM" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WFE-8l-c1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1363.5" y="3002"/>
+            <point key="canvasLocation" x="2003.5" y="3002"/>
         </scene>
         <!--Inventory-->
         <scene sceneID="w0u-Bd-18X">
@@ -237,7 +237,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOu-Z0-uUd">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="4Hz-Hn-WdU" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="82p-pf-e8s"/>
+                                    <segue destination="4Hz-Hn-WdU" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="abT-c0-C1f"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -255,7 +255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQ1-QF-6at" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="3656"/>
+            <point key="canvasLocation" x="1537" y="3656"/>
         </scene>
         <!--ManifestViewController-->
         <scene sceneID="5LD-RU-F5P">
@@ -263,7 +263,7 @@
                 <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="ManifestViewController" id="4Hz-Hn-WdU" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6t-Uc-2li" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1341.5" y="3656"/>
+            <point key="canvasLocation" x="1981.5" y="3656"/>
         </scene>
         <!--Work Orders-->
         <scene sceneID="leN-oe-Djg">
@@ -280,7 +280,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNG-7N-JJO">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="g2v-xx-uUJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="yBm-hV-k8e"/>
+                                    <segue destination="g2v-xx-uUJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="zkk-O9-552"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -298,15 +298,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQv-Zp-XLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="4308"/>
+            <point key="canvasLocation" x="1537" y="4308"/>
         </scene>
-        <!--Blueprint-->
+        <!--BlueprintViewController-->
         <scene sceneID="6Ok-YB-UxO">
             <objects>
-                <viewControllerPlaceholder storyboardName="Blueprint" id="g2v-xx-uUJ" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Blueprint" referencedIdentifier="BlueprintViewController" id="g2v-xx-uUJ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9uX-Og-dgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1341.5" y="4308"/>
+            <point key="canvasLocation" x="1981" y="4308"/>
         </scene>
         <!--Manage Job-->
         <scene sceneID="HAh-2a-Een">
@@ -323,7 +323,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWu-tZ-epa">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="6Dh-PJ-BZJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="LGj-oo-46D"/>
+                                    <segue destination="6Dh-PJ-BZJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="Zzg-OO-LJh"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -341,7 +341,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5VV-gs-lYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="4975"/>
+            <point key="canvasLocation" x="1537" y="4975"/>
         </scene>
         <!--JobManagerViewController-->
         <scene sceneID="4wl-25-HPO">
@@ -349,7 +349,7 @@
                 <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobManagerViewController" id="6Dh-PJ-BZJ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dp-y7-xUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1410" y="4975"/>
+            <point key="canvasLocation" x="2050" y="4975"/>
         </scene>
         <!--Review-->
         <scene sceneID="PEo-3T-L6z">
@@ -366,7 +366,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBA-tX-SZU">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="bDs-WL-1md" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="SWo-L0-DbH"/>
+                                    <segue destination="bDs-WL-1md" kind="embed" id="PaK-dW-8wV"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -384,7 +384,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNZ-NX-A9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="5633"/>
+            <point key="canvasLocation" x="1537" y="5633"/>
         </scene>
         <!--JobReviewViewController-->
         <scene sceneID="ekG-XL-M6a">
@@ -392,7 +392,23 @@
                 <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobReviewViewController" id="bDs-WL-1md" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vC-bK-rC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1405" y="5633"/>
+            <point key="canvasLocation" x="2045" y="5633"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="NB8-Po-J36">
+            <objects>
+                <navigationController id="BJB-CY-aex" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="DcL-jj-0NN">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5IY-lV-dfy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IOW-sM-Q7z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="2341"/>
         </scene>
         <!--Blueprint-->
         <scene sceneID="BgE-UF-ah7">
@@ -409,7 +425,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcF-p2-UzA">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="oJj-18-wmj" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="I4W-hg-kzA"/>
+                                    <segue destination="oJj-18-wmj" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="r3K-t4-5jI"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -427,15 +443,17 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RPi-El-MXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="897" y="2341"/>
+            <point key="canvasLocation" x="1537" y="2341"/>
         </scene>
         <!--JobBlueprintsViewController-->
         <scene sceneID="9Fr-Sh-cg9">
             <objects>
-                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobBlueprintsViewController" id="oJj-18-wmj" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobBlueprintsViewController" id="oJj-18-wmj" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="UYk-Np-9SF"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zvk-lr-rC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1385.5" y="2341"/>
+            <point key="canvasLocation" x="2025.5" y="2341"/>
         </scene>
         <!--Job Wizard Tab Bar Controller-->
         <scene sceneID="ckW-xE-zUU">
@@ -447,17 +465,97 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="GmQ-PX-i6r" kind="relationship" relationship="viewControllers" id="OrQ-J3-tOc"/>
-                        <segue destination="fTq-l8-0L5" kind="relationship" relationship="viewControllers" id="yhQ-db-AGy"/>
-                        <segue destination="1TT-CG-Lgz" kind="relationship" relationship="viewControllers" id="BVp-0j-egM"/>
-                        <segue destination="iGp-k0-o4S" kind="relationship" relationship="viewControllers" id="OpO-Ww-L0v"/>
-                        <segue destination="ya6-FE-TpZ" kind="relationship" relationship="viewControllers" id="0cY-22-CcF"/>
-                        <segue destination="6RF-FJ-DAb" kind="relationship" relationship="viewControllers" id="2ht-YI-tN7"/>
+                        <segue destination="GmQ-PX-i6r" kind="relationship" relationship="viewControllers" id="Igs-Eo-bap"/>
+                        <segue destination="fTq-l8-0L5" kind="relationship" relationship="viewControllers" id="gr3-K6-XRr"/>
+                        <segue destination="1TT-CG-Lgz" kind="relationship" relationship="viewControllers" id="LU7-76-GeO"/>
+                        <segue destination="iGp-k0-o4S" kind="relationship" relationship="viewControllers" id="JTS-yS-fWo"/>
+                        <segue destination="ya6-FE-TpZ" kind="relationship" relationship="viewControllers" id="DMn-Fd-Cco"/>
+                        <segue destination="6RF-FJ-DAb" kind="relationship" relationship="viewControllers" id="AMG-RP-ycf"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kCp-dQ-Nh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="77" y="2341"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="kv6-FI-4yz">
+            <objects>
+                <navigationController id="Ey9-Lw-571" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="RbX-Uz-cWr">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="a5f-tx-j8K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B7B-27-PRo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="3002"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="y7M-sT-qCR">
+            <objects>
+                <navigationController id="qFr-Lq-HgU" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="gln-l7-qJR">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9na-9E-pMT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uXf-xd-Sdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="3672"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="gxK-Ip-BdO">
+            <objects>
+                <navigationController id="rNH-J2-H7M" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="CEx-VE-Ooz">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hd7-xW-CCh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tqz-lL-aKz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="4332"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="hJV-w1-TOt">
+            <objects>
+                <navigationController id="tVF-tu-ySE" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="0Bz-hC-rNd">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jt5-6b-7rC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gdo-sL-eHH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="4996"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="1oK-7u-3Ad">
+            <objects>
+                <navigationController id="b2t-Tm-P4I" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="W6u-q5-bV6">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fY8-tj-ddQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Dj-wR-3w0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="785" y="5660"/>
         </scene>
     </scenes>
     <resources>

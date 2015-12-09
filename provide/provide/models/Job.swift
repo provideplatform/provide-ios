@@ -102,6 +102,25 @@ class Job: Model {
         }
     }
 
+    func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            ApiService.sharedService().fetchExpenses(forJobWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    self.expenses = mappingResult.array() as! [Expense]
+                    self.expensesCount = self.expenses.count
+                    self.expensedAmount = 0.0
+                    for expense in self.expenses {
+                        self.expensedAmount = self.expensedAmount + expense.amount
+                    }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
     func addExpense(params: [String: AnyObject], receipt: UIImage!, onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().createExpense(params, forExpensableType: "job",
             withExpensableId: String(self.id), onSuccess: { statusCode, mappingResult in
@@ -123,6 +142,17 @@ class Job: Model {
                 } else {
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 }
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchJobWithId(String(id),
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in
                 onError(error: error, statusCode: statusCode, responseString: responseString)

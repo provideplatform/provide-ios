@@ -17,31 +17,33 @@ class JobDetailsHeaderView: UIView, MKMapViewDelegate {
 
     var job: Job! {
         didSet {
-            if let superview = superview {
-                frame.size.width = superview.bounds.width
-            }
+            if let job = job {
+                if let superview = superview {
+                    frame.size.width = superview.bounds.width
+                }
 
-            gradientView.backgroundColor = UIColor.blackColor()
-            gradientView.alpha = 0.7
-            bringSubviewToFront(gradientView)
+                gradientView.backgroundColor = UIColor.blackColor()
+                gradientView.alpha = 0.7
+                bringSubviewToFront(gradientView)
 
-            customerLabel.text = job.customer.displayName
-            customerLabel.sizeToFit()
-            bringSubviewToFront(customerLabel)
+                customerLabel.text = job.customer.displayName
+                customerLabel.sizeToFit()
+                bringSubviewToFront(customerLabel)
 
-            addressLabel.text = job.customer.contact.address
-            addressLabel.sizeToFit()
-            bringSubviewToFront(addressLabel)
+                addressLabel.text = job.customer.contact.address
+                addressLabel.sizeToFit()
+                bringSubviewToFront(addressLabel)
 
-            mapView.setCenterCoordinate(job.coordinate, zoomLevel: 12, animated: false)
-            mapView.addAnnotation(job.annotation)
+                mapView.setCenterCoordinate(job.coordinate, zoomLevel: 12, animated: false)
+                mapView.addAnnotation(job.annotation)
 
-            dispatch_after_delay(0.0) {
-                var coordinate = self.job.coordinate
-                coordinate.latitude += self.mapView.region.span.latitudeDelta * 0.1
-                coordinate.longitude += self.mapView.region.span.longitudeDelta * 0.4
-
-                self.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+                dispatch_after_delay(0.0) {
+                    var coordinate = self.job.coordinate
+                    coordinate.latitude += self.mapView.region.span.latitudeDelta * 0.1
+                    coordinate.longitude += self.mapView.region.span.longitudeDelta * 0.4
+                    
+                    self.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+                }
             }
         }
     }

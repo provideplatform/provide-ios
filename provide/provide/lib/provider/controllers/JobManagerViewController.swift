@@ -23,45 +23,47 @@ class JobManagerViewController: ViewController, PDTSimpleCalendarViewDelegate {
 
     weak var job: Job! {
         didSet {
-            navigationItem.title = title == nil ? job.name : title
+            if let job = job {
+                navigationItem.title = title == nil ? job.name : title
 
-//            job.reloadAttachments(
-//                { statusCode, mappingResult in
-//                    self.mediaCollectionView?.reloadData()
-//                },
-//                onError: { error, statusCode, responseString in
-//
-//                }
-//            )
-//
-//            job.reloadExpenses(
-//                { statusCode, mappingResult in
-//                    self.reloadTableView()
-//                },
-//                onError: { error, statusCode, responseString in
-//
-//                }
-//            )
-//
-//            job.reloadInventory(
-//                { statusCode, mappingResult in
-//                    self.reloadTableView()
-//                },
-//                onError: { error, statusCode, responseString in
-//
-//                }
-//            )
-
-            if let tableView = tableView {
-                tableView.reloadData()
-            }
-
-            if let headerView = headerView {
-                headerView.job = job
-            }
-
-            if job.status == "in_progress" || job.status == "en_route" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
+                //            job.reloadAttachments(
+                //                { statusCode, mappingResult in
+                //                    self.mediaCollectionView?.reloadData()
+                //                },
+                //                onError: { error, statusCode, responseString in
+                //
+                //                }
+                //            )
+                //
+                //            job.reloadExpenses(
+                //                { statusCode, mappingResult in
+                //                    self.reloadTableView()
+                //                },
+                //                onError: { error, statusCode, responseString in
+                //
+                //                }
+                //            )
+                //
+                //            job.reloadInventory(
+                //                { statusCode, mappingResult in
+                //                    self.reloadTableView()
+                //                },
+                //                onError: { error, statusCode, responseString in
+                //
+                //                }
+                //            )
+                
+                if let tableView = tableView {
+                    tableView.reloadData()
+                }
+                
+                if let headerView = headerView {
+                    headerView.job = job
+                }
+                
+                if job.status == "in_progress" || job.status == "en_route" {
+                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
+                }
             }
         }
     }

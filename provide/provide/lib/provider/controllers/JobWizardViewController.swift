@@ -12,59 +12,146 @@ protocol JobWizardViewControllerDelegate {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
 }
 
-class JobWizardViewController: UIViewController,
+class JobWizardViewController: ViewController,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
                                ManifestViewControllerDelegate,
                                ProviderPickerViewControllerDelegate,
                                PDTSimpleCalendarViewDelegate {
 
-    var delegate: JobWizardViewControllerDelegate!
+    var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate!
 
     var job: Job! {
-        if  let delegate = delegate {
-            return delegate.jobForJobWizardViewController(self)
+        if  let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
+            return jobWizardViewControllerDelegate.jobForJobWizardViewController(self)
         }
         return nil
+    }
+
+    private var reloadingJob = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        //delegate = self
+
+        refreshUI()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        let destinationViewController = segue.destinationViewController
+        let viewController = segue.destinationViewController
 
         if let identifier = segue.identifier {
             if identifier == "JobWizardViewControllerEmbedSegue" {
-                if destinationViewController.isKindOfClass(JobBlueprintsViewController) {
-                    //(destinationViewController as! JobBlueprintsViewController).delegate = self
+                
+                if viewController.isKindOfClass(JobBlueprintsViewController) {
+                    //(viewController as! JobBlueprintsViewController).delegate = self
 
-                } else if destinationViewController.isKindOfClass(ProviderPickerViewController) {
-                    (destinationViewController as! ProviderPickerViewController).delegate = self
+                } else if viewController.isKindOfClass(ProviderPickerViewController) {
+                    (viewController as! ProviderPickerViewController).delegate = self
 
-                } else if destinationViewController.isKindOfClass(ManifestViewController) {
-                    (destinationViewController as! ManifestViewController).delegate = self
+                } else if viewController.isKindOfClass(ManifestViewController) {
+                    (viewController as! ManifestViewController).delegate = self
 
-                } else if destinationViewController.isKindOfClass(UINavigationController) {
-                    if let rootViewController = (destinationViewController as! UINavigationController).viewControllers.first {
-                        if rootViewController.isKindOfClass(BlueprintViewController) {
-                            (rootViewController as! BlueprintViewController).blueprintViewControllerDelegate = self
-                        }
-                    }
+                } else if viewController.isKindOfClass(BlueprintViewController) {
+                    (viewController as! BlueprintViewController).blueprintViewControllerDelegate = self
 
-                } else if destinationViewController.isKindOfClass(JobManagerViewController) {
-                    (destinationViewController as! JobManagerViewController).job = job
+                } else if viewController.isKindOfClass(JobManagerViewController) {
+                    (viewController as! JobManagerViewController).job = job
 
-                } else if destinationViewController.isKindOfClass(JobReviewViewController) {
-                    (destinationViewController as! JobReviewViewController).job = job
+                } else if viewController.isKindOfClass(JobReviewViewController) {
+                    (viewController as! JobReviewViewController).job = job
                     
                 }
+                
+                refreshUI()
             }
         }
+
+
+    }
+
+    private func refreshUI() {
+//        if let navigationController = navigationController {
+//            if navigationController.viewControllers.count > 1 {
+//                navigationController.setNavigationBarHidden(true, animated: false)
+//            }
+//        }
+        refreshTitle()
+        refreshLeftBarButtonItems()
+        refreshRightBarButtonItems()
+    }
+
+    private func refreshTitle() {
+        if let job = job {
+            navigationItem.title = job.customer.contact.name
+            navigationItem.titleView = nil
+        }
+    }
+
+    private func refreshLeftBarButtonItems() {
+        navigationItem.leftBarButtonItems = []
+    }
+
+    private func refreshRightBarButtonItems() {
+        navigationItem.rightBarButtonItems = []
+    }
+
+    // MARK: UINavigationControllerDelegate
+
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+//        let isRootViewController = navigationController.viewControllers.count == 1 && navigationController.viewControllers.first! == viewController
+//        if isRootViewController {
+//            navigationController.setNavigationBarHidden(true, animated: false)
+//            if let navigationController = navigationController.navigationController {
+//                navigationController.setNavigationBarHidden(false, animated: false)
+//            }
+//        }
+
+//        if viewController.isKindOfClass(UINavigationController) {
+//            if let rootViewController = (viewController as! UINavigationController).viewControllers.first {
+//                if rootViewController.isKindOfClass(BlueprintViewController) {
+//                    navigationController.popViewControllerAnimated(false)
+//                    navigationController.pushViewController(rootViewController, animated: false)
+//                }
+//            }
+//
+//        }
+    }
+
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        if viewController.isKindOfClass(JobBlueprintsViewController) {
+            //(viewController as! JobBlueprintsViewController).delegate = self
+
+        } else if viewController.isKindOfClass(ProviderPickerViewController) {
+            (viewController as! ProviderPickerViewController).delegate = self
+
+        } else if viewController.isKindOfClass(ManifestViewController) {
+            (viewController as! ManifestViewController).delegate = self
+
+        } else if viewController.isKindOfClass(BlueprintViewController) {
+            (viewController as! BlueprintViewController).blueprintViewControllerDelegate = self
+
+        } else if viewController.isKindOfClass(JobManagerViewController) {
+            (viewController as! JobManagerViewController).job = job
+
+        } else if viewController.isKindOfClass(JobReviewViewController) {
+            (viewController as! JobReviewViewController).job = job
+
+        }
+
+        refreshUI()
     }
 
     // MARK: BlueprintViewControllerDelegate
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
+    }
+
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
     }
 
     // MARK: JobManagerViewControllerDelegate
@@ -140,7 +227,121 @@ class JobWizardViewController: UIViewController,
     }
 
     // MARK: ManifestViewControllerDelegate
-    // TODO- implement optional methods
+
+    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
+        if let navigationController = navigationController {
+            if let parentNavigationController = navigationController.navigationController {
+                return parentNavigationController
+            }
+            return navigationController
+        }
+        return nil
+    }
+
+    func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
+        return nil
+    }
+
+    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
+        return ["JOB MANIFEST"]
+    }
+
+    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
+        if segmentIndex == 0 {
+            // job manifest
+            if let job = job {
+                if let _ = job.materials {
+                    return job.materials.map { $0.product }
+                } else {
+                    reloadJobForManifestViewController(viewController as! ManifestViewController)
+                }
+            } else {
+                reloadJobForManifestViewController(viewController as! ManifestViewController)
+            }
+        } else if segmentIndex == 1 {
+
+        }
+
+        return [Product]()
+    }
+
+    private func reloadJobForManifestViewController(viewController: ManifestViewController) {
+        if !reloadingJob {
+            if let job = job {
+                dispatch_async_main_queue {
+                    viewController.showActivityIndicator()
+                }
+
+                reloadingJob = true
+
+                job.reloadExpenses(
+                    { (statusCode, mappingResult) -> () in
+                        self.refreshUI()
+                        viewController.reloadTableView()
+                        self.reloadingJob = false
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self.refreshUI()
+                        viewController.reloadTableView()
+                        self.reloadingJob = false
+                    }
+                )
+            }
+        }
+    }
+
+    // MARK: ManifestViewControllerDelegate
+
+//    override func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
+//        return workOrder
+//    }
+//
+//    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
+//        return ["MATERIALS", "JOB MANIFEST"]
+//    }
+//
+//    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
+//        if segmentIndex == 0 {
+//            // work order manifest
+//            return workOrder.materials.map { $0.jobProduct.product }
+//        } else if segmentIndex == 1 {
+//            // job manifest
+//            if let job = workOrder.job {
+//                if let _ = job.materials {
+//                    return job.materials.map { $0.product }
+//                } else {
+//                    reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
+//                }
+//            } else {
+//                reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
+//            }
+//        }
+//
+//        return [Product]()
+//    }
+//
+//    private func reloadWorkOrderJobForManifestViewController(viewController: ManifestViewController) {
+//        if !reloadingJob {
+//            dispatch_async_main_queue {
+//                viewController.showActivityIndicator()
+//            }
+//
+//            reloadingJob = true
+//
+//            workOrder.reloadJob(
+//                { (statusCode, mappingResult) -> () in
+//                    self.refreshUI()
+//                    viewController.reloadTableView()
+//                    self.reloadingJob = false
+//                },
+//                onError: { (error, statusCode, responseString) -> () in
+//                    self.refreshUI()
+//                    viewController.reloadTableView()
+//                    self.reloadingJob = false
+//                }
+//            )
+//        }
+//    }
 
     // MARK: ProviderPickerViewControllerDelegate
 

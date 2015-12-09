@@ -29,10 +29,23 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         static let allValues = [Delivered, OnTruck, Rejected]
     }
 
-    var delegate: ManifestViewControllerDelegate!
+    var delegate: ManifestViewControllerDelegate! {
+        didSet {
+            if let _ = delegate {
+                initToolbarSegmentedControl()
+                reloadTableView()
+            }
+        }
+    }
 
     private var toolbarSegmentedControl: UISegmentedControl!
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView! {
+        didSet {
+            if let _ = tableView {
+                reloadTableView()
+            }
+        }
+    }
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     private var lastSelectedIndex = -1
@@ -143,15 +156,32 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     func reloadTableView() {
-        tableView.reloadData()
-        hideActivityIndicator()
+        if let tableView = tableView {
+            tableView.reloadData()
+            hideActivityIndicator()
+        }
     }
 
     private func initToolbarSegmentedControl() {
-        if let segments = delegate?.segmentsForManifestViewController?(self) {
-            toolbarSegmentedControl = UISegmentedControl(items: segments)
+        if let toolbarSegmentedControl = toolbarSegmentedControl {
+            toolbarSegmentedControl.removeAllSegments()
+            
+            var segments = [String]()
+            if let segmentsForManifestViewController = delegate?.segmentsForManifestViewController?(self) {
+                segments = segmentsForManifestViewController
+            } else {
+                segments = ["DELIVERED", "ON TRUCK", "REJECTED"]
+            }
+
+            for segment in segments {
+                toolbarSegmentedControl.insertSegmentWithTitle(segment, atIndex: segments.indexOf(segment)!, animated: false)
+            }
         } else {
-            toolbarSegmentedControl = UISegmentedControl(items: ["DELIVERED", "ON TRUCK", "REJECTED"])
+            if let segments = delegate?.segmentsForManifestViewController?(self) {
+                toolbarSegmentedControl = UISegmentedControl(items: segments)
+            } else {
+                toolbarSegmentedControl = UISegmentedControl(items: ["DELIVERED", "ON TRUCK", "REJECTED"])
+            }
         }
 
         toolbarSegmentedControl.tintColor = UIColor.whiteColor()

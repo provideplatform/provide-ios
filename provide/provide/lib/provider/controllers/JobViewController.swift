@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobViewController: UIViewController, BlueprintViewControllerDelegate {
+class JobViewController: ViewController, BlueprintViewControllerDelegate {
 
     private var blueprintViewController: BlueprintViewController!
 
