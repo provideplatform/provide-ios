@@ -37,6 +37,10 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             if let sender = sender {
                 (segue.destinationViewController as! JobViewController).job = (sender as! JobTableViewCell).job
             }
+        } else if segue.identifier == "JobWizardTabBarControllerSegue" {
+            if let sender = sender {
+                (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
+            }
         }
     }
 
@@ -209,7 +213,9 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 //    optional public func tableView(tableView: UITableView, willDeselectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?
 //    // Called after the user changes the selection.
 //    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    }
+
 //    @available(iOS 3.0, *)
 //    optional public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)
 //

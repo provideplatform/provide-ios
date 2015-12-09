@@ -32,7 +32,9 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     @IBOutlet private weak var collectionView: UICollectionView! {
         didSet {
             if let collectionView = collectionView {
-                collectionView.allowsMultipleSelection = delegate.providerPickerViewControllerAllowsMultipleSelection(self)
+                if let delegate = delegate {
+                    collectionView.allowsMultipleSelection = delegate.providerPickerViewControllerAllowsMultipleSelection(self)
+                }
             }
         }
     }

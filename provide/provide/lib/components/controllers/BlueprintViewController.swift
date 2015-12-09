@@ -86,7 +86,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var workOrder: WorkOrder! {
-        return WorkOrderService.sharedService().inProgressWorkOrder
+        return nil //WorkOrderService.sharedService().inProgressWorkOrder
     }
 
     private var hiddenNavigationControllerFrame: CGRect {
@@ -108,6 +108,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var cachedNavigationItem: UINavigationItem!
+
+    private var loadedBlueprint = false
 
     private var loadingBlueprint = false {
         didSet {
@@ -247,6 +249,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     })
 
                     self.showToolbar()
+                    self.loadedBlueprint = true
                 }
 
                 loadAnnotations()
@@ -878,6 +881,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator
             } else {
+                cell.setName("EXPENSES", value: "")
                 cell.showActivity()
             }
 

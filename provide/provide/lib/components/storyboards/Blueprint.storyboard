@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -25,19 +25,16 @@
                         <subviews>
                             <view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abb-Tj-uxb" customClass="BlueprintPolygonView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="180" y="204" width="240" height="128"/>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="BlueprintScrollView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
-                                <animations/>
                                 <connections>
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-F2-amm" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
-                                <animations/>
                                 <items>
                                     <barButtonItem title="Scale" id="dlS-QM-Xdl"/>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fAE-sK-LuL"/>
@@ -57,7 +54,6 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the location from which measuring began" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-cI-nlK">
                                         <rect key="frame" x="0.0" y="8" width="298" height="21"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="VLn-KS-aF1"/>
                                         </constraints>
@@ -67,7 +63,6 @@
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
                                         <rect key="frame" x="112" y="50" width="73" height="30"/>
-                                        <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="73" id="z7E-0k-4U8"/>
                                         </constraints>
@@ -78,7 +73,6 @@
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="LZD-cI-nlK" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" id="6t4-cg-2ZR"/>
@@ -101,10 +95,8 @@
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">
                                 <rect key="frame" x="282" y="249" width="37" height="37"/>
-                                <animations/>
                             </activityIndicatorView>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
@@ -148,16 +140,13 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-39-ca5" userLabel="Thumbnail Image Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
-                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
-                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <connections>
                             <outlet property="overlayView" destination="7lt-JJ-eAg" id="IHD-af-N3G"/>
@@ -181,7 +170,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ueY-wU-Axc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="3Sa-Xv-qPf" kind="relationship" relationship="rootViewController" id="nvC-xm-zop"/>
@@ -190,6 +178,274 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="260-2k-M2o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="77" y="1330"/>
+        </scene>
+        <!--Team-->
+        <scene sceneID="PBA-Gv-MVt">
+            <objects>
+                <viewController id="fTq-l8-0L5" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wlM-GJ-a2j"/>
+                        <viewControllerLayoutGuide type="bottom" id="w80-NY-YOA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yhr-dI-pPG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKl-4p-cWc">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="0eb-JY-FJM" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="iY1-TW-6QC"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mKl-4p-cWc" firstAttribute="top" secondItem="Yhr-dI-pPG" secondAttribute="top" id="Utb-DF-1xm"/>
+                            <constraint firstItem="mKl-4p-cWc" firstAttribute="leading" secondItem="Yhr-dI-pPG" secondAttribute="leading" id="ZXY-mB-WsV"/>
+                            <constraint firstAttribute="bottom" secondItem="mKl-4p-cWc" secondAttribute="bottom" id="cve-7x-mAv"/>
+                            <constraint firstAttribute="trailing" secondItem="mKl-4p-cWc" secondAttribute="trailing" id="h5E-1e-6Rm"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Team" id="pF9-90-ELf"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IoZ-wz-IJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="3002"/>
+        </scene>
+        <!--ProviderPicker-->
+        <scene sceneID="7Pe-KH-ocs">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProviderPicker" id="0eb-JY-FJM" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WFE-8l-c1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1363.5" y="3002"/>
+        </scene>
+        <!--Inventory-->
+        <scene sceneID="w0u-Bd-18X">
+            <objects>
+                <viewController id="1TT-CG-Lgz" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AaM-e8-YPU"/>
+                        <viewControllerLayoutGuide type="bottom" id="g0A-Mt-onK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hsk-oh-IOW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOu-Z0-uUd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="4Hz-Hn-WdU" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="82p-pf-e8s"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="cOu-Z0-uUd" secondAttribute="trailing" id="4j9-kd-qMD"/>
+                            <constraint firstItem="cOu-Z0-uUd" firstAttribute="top" secondItem="hsk-oh-IOW" secondAttribute="top" id="VZo-ml-yT8"/>
+                            <constraint firstAttribute="bottom" secondItem="cOu-Z0-uUd" secondAttribute="bottom" id="l5a-FI-y35"/>
+                            <constraint firstItem="cOu-Z0-uUd" firstAttribute="leading" secondItem="hsk-oh-IOW" secondAttribute="leading" id="mKK-NR-NYF"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Inventory" id="jGD-6i-nrZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AQ1-QF-6at" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="3656"/>
+        </scene>
+        <!--ManifestViewController-->
+        <scene sceneID="5LD-RU-F5P">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="ManifestViewController" id="4Hz-Hn-WdU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A6t-Uc-2li" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1341.5" y="3656"/>
+        </scene>
+        <!--Work Orders-->
+        <scene sceneID="leN-oe-Djg">
+            <objects>
+                <viewController id="iGp-k0-o4S" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L0K-3M-Ish"/>
+                        <viewControllerLayoutGuide type="bottom" id="es0-uo-au9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yUj-HQ-dot">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNG-7N-JJO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="g2v-xx-uUJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="yBm-hV-k8e"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mNG-7N-JJO" firstAttribute="top" secondItem="yUj-HQ-dot" secondAttribute="top" id="ISj-gF-hkr"/>
+                            <constraint firstAttribute="trailing" secondItem="mNG-7N-JJO" secondAttribute="trailing" id="Iu1-f1-0WS"/>
+                            <constraint firstAttribute="bottom" secondItem="mNG-7N-JJO" secondAttribute="bottom" id="aB9-aP-QIv"/>
+                            <constraint firstItem="mNG-7N-JJO" firstAttribute="leading" secondItem="yUj-HQ-dot" secondAttribute="leading" id="e5R-WR-MD2"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Work Orders" id="zSk-2k-7VZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQv-Zp-XLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="4308"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="6Ok-YB-UxO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Blueprint" id="g2v-xx-uUJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9uX-Og-dgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1341.5" y="4308"/>
+        </scene>
+        <!--Manage Job-->
+        <scene sceneID="HAh-2a-Een">
+            <objects>
+                <viewController id="ya6-FE-TpZ" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PmN-BA-JBI"/>
+                        <viewControllerLayoutGuide type="bottom" id="19s-m5-Pr2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ea5-65-kKc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWu-tZ-epa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="6Dh-PJ-BZJ" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="LGj-oo-46D"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IWu-tZ-epa" firstAttribute="top" secondItem="Ea5-65-kKc" secondAttribute="top" id="Gvp-zh-4It"/>
+                            <constraint firstItem="IWu-tZ-epa" firstAttribute="leading" secondItem="Ea5-65-kKc" secondAttribute="leading" id="OFa-xc-Hmf"/>
+                            <constraint firstAttribute="bottom" secondItem="IWu-tZ-epa" secondAttribute="bottom" id="UE9-cW-e1q"/>
+                            <constraint firstAttribute="trailing" secondItem="IWu-tZ-epa" secondAttribute="trailing" id="YXz-ui-64B"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Manage Job" id="PoV-6w-vLj"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5VV-gs-lYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="4975"/>
+        </scene>
+        <!--JobManagerViewController-->
+        <scene sceneID="4wl-25-HPO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobManagerViewController" id="6Dh-PJ-BZJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6dp-y7-xUG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1410" y="4975"/>
+        </scene>
+        <!--Review & Complete-->
+        <scene sceneID="PEo-3T-L6z">
+            <objects>
+                <viewController id="6RF-FJ-DAb" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UMf-QO-7zR"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hmx-ox-0mW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Eqm-Gj-EOY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBA-tX-SZU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="bDs-WL-1md" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="SWo-L0-DbH"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="TBA-tX-SZU" secondAttribute="trailing" id="7dm-rb-6kp"/>
+                            <constraint firstItem="TBA-tX-SZU" firstAttribute="leading" secondItem="Eqm-Gj-EOY" secondAttribute="leading" id="Iyj-cs-RuS"/>
+                            <constraint firstItem="TBA-tX-SZU" firstAttribute="top" secondItem="Eqm-Gj-EOY" secondAttribute="top" id="mQn-R9-S9D"/>
+                            <constraint firstAttribute="bottom" secondItem="TBA-tX-SZU" secondAttribute="bottom" id="zhh-F9-hXw"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Review &amp; Complete" id="dWP-Lh-sXw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TNZ-NX-A9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="5633"/>
+        </scene>
+        <!--JobReviewViewController-->
+        <scene sceneID="ekG-XL-M6a">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobReviewViewController" id="bDs-WL-1md" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3vC-bK-rC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1405" y="5633"/>
+        </scene>
+        <!--Blueprint-->
+        <scene sceneID="BgE-UF-ah7">
+            <objects>
+                <viewController id="GmQ-PX-i6r" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GuY-Ia-O6w"/>
+                        <viewControllerLayoutGuide type="bottom" id="hhH-3D-qBQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tes-ji-2YR">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZcF-p2-UzA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="oJj-18-wmj" kind="embed" identifier="JobWizardViewControllerEmbedSegue" id="I4W-hg-kzA"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ZcF-p2-UzA" secondAttribute="trailing" id="8of-Nt-iED"/>
+                            <constraint firstItem="ZcF-p2-UzA" firstAttribute="top" secondItem="tes-ji-2YR" secondAttribute="top" id="Bl1-cg-A3i"/>
+                            <constraint firstAttribute="bottom" secondItem="ZcF-p2-UzA" secondAttribute="bottom" id="Kvk-pC-LH2"/>
+                            <constraint firstItem="ZcF-p2-UzA" firstAttribute="leading" secondItem="tes-ji-2YR" secondAttribute="leading" id="gkq-ba-xgx"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="Krs-oZ-DuU"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RPi-El-MXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="897" y="2341"/>
+        </scene>
+        <!--JobBlueprintsViewController-->
+        <scene sceneID="9Fr-Sh-cg9">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="JobBlueprintsViewController" id="oJj-18-wmj" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zvk-lr-rC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1385.5" y="2341"/>
+        </scene>
+        <!--Job Wizard Tab Bar Controller-->
+        <scene sceneID="ckW-xE-zUU">
+            <objects>
+                <tabBarController storyboardIdentifier="JobWizardTabBarController" id="V00-3x-ghh" customClass="JobWizardTabBarController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="b5O-PQ-IBv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="GmQ-PX-i6r" kind="relationship" relationship="viewControllers" id="OrQ-J3-tOc"/>
+                        <segue destination="fTq-l8-0L5" kind="relationship" relationship="viewControllers" id="yhQ-db-AGy"/>
+                        <segue destination="1TT-CG-Lgz" kind="relationship" relationship="viewControllers" id="BVp-0j-egM"/>
+                        <segue destination="iGp-k0-o4S" kind="relationship" relationship="viewControllers" id="OpO-Ww-L0v"/>
+                        <segue destination="ya6-FE-TpZ" kind="relationship" relationship="viewControllers" id="0cY-22-CcF"/>
+                        <segue destination="6RF-FJ-DAb" kind="relationship" relationship="viewControllers" id="2ht-YI-tN7"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kCp-dQ-Nh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="77" y="2341"/>
         </scene>
     </scenes>
 </document>
