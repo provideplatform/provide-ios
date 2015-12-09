@@ -396,6 +396,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         workOrder.itemsDelivered = [Product]()
         workOrder.itemsOrdered = [Product]()
         workOrder.itemsRejected = [Product]()
+        workOrder.materials = [WorkOrderProduct]()
 
         createWorkOrderViewController.workOrder = workOrder
         createWorkOrderViewController.delegate = self
