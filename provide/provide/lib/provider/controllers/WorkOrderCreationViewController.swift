@@ -370,32 +370,40 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         } else if segmentIndex == 1 {
             // job manifest
             if let job = workOrder.job {
-                return job.materials.map { $0.product }
-            } else {
-                if !reloadingJob {
-                    dispatch_async_main_queue {
-                        (viewController as! ManifestViewController).showActivityIndicator()
-                    }
-
-                    reloadingJob = true
-
-                    workOrder.reloadJob(
-                        { (statusCode, mappingResult) -> () in
-                            self.refreshUI()
-                            (viewController as! ManifestViewController).reloadTableView()
-                            self.reloadingJob = false
-                        },
-                        onError: { (error, statusCode, responseString) -> () in
-                            self.refreshUI()
-                            (viewController as! ManifestViewController).reloadTableView()
-                            self.reloadingJob = false
-                        }
-                    )
+                if let materials = job.materials {
+                    return job.materials.map { $0.product }
+                } else {
+                    reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
                 }
+            } else {
+                reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
             }
         }
 
         return [Product]()
+    }
+
+    private func reloadWorkOrderJobForManifestViewController(viewController: ManifestViewController) {
+        if !reloadingJob {
+            dispatch_async_main_queue {
+                viewController.showActivityIndicator()
+            }
+
+            reloadingJob = true
+
+            workOrder.reloadJob(
+                { (statusCode, mappingResult) -> () in
+                    self.refreshUI()
+                    viewController.reloadTableView()
+                    self.reloadingJob = false
+                },
+                onError: { (error, statusCode, responseString) -> () in
+                    self.refreshUI()
+                    viewController.reloadTableView()
+                    self.reloadingJob = false
+                }
+            )
+        }
     }
 
 //    func itemsForManifestViewController(viewController: UIViewController) -> [Product]! {
