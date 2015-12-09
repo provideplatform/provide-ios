@@ -69,22 +69,20 @@ class JobWizardViewController: UIViewController,
 
     // MARK: JobManagerViewControllerDelegate
 
-    // MARK: WorkOrderCreationViewControllerDelegate
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
+    func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
         return 1
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return indexPath.section == 0 ? 44.0 : 200.0
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : 1
     }
 
-    func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationController = workOrderCreationViewController.navigationController {
+    func jobManagerViewController(jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let navigationController = jobManagerViewController.navigationController {
             var viewController: UIViewController!
 
             switch indexPath.row {
@@ -93,7 +91,7 @@ class JobWizardViewController: UIViewController,
                 PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
 
                 let calendarViewController = PDTSimpleCalendarViewController()
-                calendarViewController.delegate = workOrderCreationViewController
+                calendarViewController.delegate = jobManagerViewController
                 calendarViewController.weekdayHeaderEnabled = true
                 calendarViewController.firstDate = NSDate()
 
@@ -176,18 +174,5 @@ class JobWizardViewController: UIViewController,
         return [Provider]()
     }
 
-    // MARK: PDTSimpleCalendarViewControllerDelegate
 
-    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
-        //        workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        //        isDirty = true
-        //        refreshRightBarButtonItems()
-    }
-
-    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
-        //        if let scheduledStartAtDate = workOrder.scheduledStartAtDate {
-        //            return scheduledStartAtDate.atMidnight != date.atMidnight
-        //        }
-        return true
-    }
 }

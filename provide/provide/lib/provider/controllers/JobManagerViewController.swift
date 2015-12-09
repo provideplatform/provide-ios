@@ -9,10 +9,17 @@
 import UIKit
 
 protocol JobManagerViewControllerDelegate {
-
+    func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
+    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    func jobManagerViewController(viewController: JobManagerViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func jobManagerViewController(viewController: JobManagerViewController, didCreateExpense expense: Expense)
 }
 
-class JobManagerViewController: ViewController {
+class JobManagerViewController: ViewController, PDTSimpleCalendarViewDelegate {
+
+    var delegate: JobManagerViewControllerDelegate!
 
     weak var job: Job! {
         didSet {
@@ -94,7 +101,7 @@ class JobManagerViewController: ViewController {
     func refreshInProgress() {
         if let tableView = tableView {
             var statusCell: NameValueTableViewCell!
-            var durationCell: NameValueTableViewCell!
+//            var durationCell: NameValueTableViewCell!
 
             if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
                 statusCell = cell
@@ -112,14 +119,14 @@ class JobManagerViewController: ViewController {
                 )
             }
 
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
-                durationCell = cell
-
+//            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
+//                durationCell = cell
+//
                 // FIXME
 //                if let duration = job.humanReadableDuration {
 //                    durationCell.setName("DURATION", value: duration)
 //                }
-            }
+//            }
         }
     }
 
@@ -130,7 +137,10 @@ class JobManagerViewController: ViewController {
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 44.0 : 200.0
+        if let delegate = delegate {
+            delegate.jobManagerViewController(self, tableView: tableView, heightForRowAtIndexPath: indexPath)
+        }
+        return 0.0
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -138,75 +148,26 @@ class JobManagerViewController: ViewController {
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1//2
+        if let delegate = delegate {
+            return delegate.jobManagerViewController(self, numberOfSectionsInTableView: tableView)
+        }
+        return 0
     }
 
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 6 : 1
+        if let delegate = delegate {
+            return delegate.jobManagerViewController(self, tableView: tableView, numberOfRowsInSection: section)
+        }
+        return 0
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
-
-        switch indexPath.section {
-        case 0:
-            let nameValueCell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
-            nameValueCell.enableEdgeToEdgeDividers()
-
-            switch indexPath.row {
-            case 0:
-                nameValueCell.setName("STATUS", value: job.status)
-                nameValueCell.backgroundView!.backgroundColor = job.statusColor
-            case 1:
-                let scheduledStartAt = "--" //job.scheduledStartAtDate == nil ? "--" : job.scheduledStartAtDate.timeString!
-                nameValueCell.setName("SCHEDULED START TIME", value: scheduledStartAt)
-            case 2:
-                let startedAt = "--" //job.startedAtDate == nil ? "--" : job.startedAtDate.timeString!
-                nameValueCell.setName("STARTED AT", value: startedAt)
-            case 3:
-//                if let endedAt = job.endedAtDate {
-//                    nameValueCell.setName("ENDED AT", value: endedAt.timeString!)
-//                } else if let abandonedAt = job.abandonedAtDate {
-//                    nameValueCell.setName("ABANDONED AT", value: abandonedAt.timeString!)
-//                } else if let canceledAt = job.canceledAtDate {
-//                    nameValueCell.setName("CANCELED AT", value: canceledAt.timeString!)
-//                } else if let _ = job.startedAtDate {
-//                    let providers = job.workOrderProviders
-//                    if providers.count > 0 {
-//                        nameValueCell.setName("OWNER", value: providers.first!.provider.contact.name)
-//                    }
-//                }
-                nameValueCell.setName("BS", value: "temporary")
-            case 4:
-                let duration = "--"//job.humanReadableDuration == nil ? "--" : job.humanReadableDuration!
-                nameValueCell.setName("DURATION", value: duration)
-                
-            case 5:
-                let inventoryDisposition = "--" //job.inventoryDisposition == nil ? "--" : job.inventoryDisposition
-                nameValueCell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
-                nameValueCell.accessoryType = .DisclosureIndicator
-            default:
-                break
-            }
-
-            cell = nameValueCell
-//        case 1:
-////            switch indexPath.row {
-////            case 0:
-////                //cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
-////                //mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
-//////                mediaCollectionView.delegate = self
-//////                mediaCollectionView.dataSource = self
-////            default:
-////                break
-////            }
-        default:
-            break
+        if let delegate = delegate {
+            delegate.jobManagerViewController(self, cellForTableView: tableView, atIndexPath: indexPath)
         }
-
-        return cell
+        return UITableViewCell()
     }
 
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -302,6 +263,21 @@ class JobManagerViewController: ViewController {
     
     func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return "BACK"
+    }
+
+    // MARK: PDTSimpleCalendarViewControllerDelegate
+
+    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
+        //        workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
+        //        isDirty = true
+        //        refreshRightBarButtonItems()
+    }
+
+    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
+        //        if let scheduledStartAtDate = workOrder.scheduledStartAtDate {
+        //            return scheduledStartAtDate.atMidnight != date.atMidnight
+        //        }
+        return true
     }
     
     deinit {

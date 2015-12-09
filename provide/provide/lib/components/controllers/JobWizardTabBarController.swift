@@ -26,14 +26,6 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
     // MARK: UITabBarControllerDelegate
 
-//    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-//        if let selectedIndex = tabBar.items?.indexOf(item) {
-//            if let viewController = viewControllers?[selectedIndex] {
-//                // no-op
-//            }
-//        }
-//    }
-
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         // no-op
     }
