@@ -370,7 +370,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         } else if segmentIndex == 1 {
             // job manifest
             if let job = workOrder.job {
-                if let materials = job.materials {
+                if let _ = job.materials {
                     return job.materials.map { $0.product }
                 } else {
                     reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
