@@ -12,7 +12,8 @@ protocol JobWizardViewControllerDelegate {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
 }
 
-class JobWizardViewController: ViewController,
+class JobWizardViewController: UINavigationController,
+                               UINavigationControllerDelegate,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
                                ManifestViewControllerDelegate,
@@ -33,7 +34,7 @@ class JobWizardViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //delegate = self
+        delegate = self
 
         refreshUI()
     }
@@ -104,9 +105,8 @@ class JobWizardViewController: ViewController,
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
 //        let isRootViewController = navigationController.viewControllers.count == 1 && navigationController.viewControllers.first! == viewController
 //        if isRootViewController {
-//            navigationController.setNavigationBarHidden(true, animated: false)
-//            if let navigationController = navigationController.navigationController {
-//                navigationController.setNavigationBarHidden(false, animated: false)
+//            if let parentNavigationController = navigationController.navigationController {
+//                parentNavigationController.setNavigationBarHidden(true, animated: false)
 //            }
 //        }
 
@@ -142,16 +142,19 @@ class JobWizardViewController: ViewController,
 
         }
 
+//        else if viewController.isKindOfClass(UINavigationController) {
+//            if let blueprintViewController = (viewController as! UINavigationController).viewControllers.first as? BlueprintViewController {
+//                blueprintViewController.blueprintViewControllerDelegate = self
+//            }
+//
+//        }
+
         refreshUI()
     }
 
     // MARK: BlueprintViewControllerDelegate
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
-    }
-
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
-        return navigationController
     }
 
     // MARK: JobManagerViewControllerDelegate

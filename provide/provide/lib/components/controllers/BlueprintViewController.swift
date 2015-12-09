@@ -480,24 +480,26 @@ class BlueprintViewController: WorkOrderComponentViewController,
             navigationItem = self.navigationItem
         }
 
-        if let navigationItem = navigationItem {
-            cacheNavigationItem(navigationItem)
+        for navItem in [navigationItem, self.navigationItem] {
+            if let navigationItem = navItem {
+                cacheNavigationItem(navigationItem)
 
-//            if let navigationController = navController {
-//                navigationController.setNavigationBarHidden(true, animated: false)
-//            }
+                if let navigationController = navController {
+                    navigationController.setNavigationBarHidden(true, animated: false)
+                }
 
-            let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
-            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
+                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-            let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
-            setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-            setScaleItem.enabled = setScaleEnabled
+                let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
+                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                setScaleItem.enabled = setScaleEnabled
 
-            navigationItem.leftBarButtonItems = [cancelItem]
-            navigationItem.rightBarButtonItems = [setScaleItem]
+                navigationItem.leftBarButtonItems = [cancelItem]
+                navigationItem.rightBarButtonItems = [setScaleItem]
+            }
         }
     }
 
@@ -509,25 +511,28 @@ class BlueprintViewController: WorkOrderComponentViewController,
             navigationItem = self.navigationItem
         }
 
-        if let navigationItem = navigationItem {
-            cacheNavigationItem(navigationItem)
+        for navItem in [navigationItem, self.navigationItem] {
+            if let navigationItem = navItem {
+                cacheNavigationItem(navigationItem)
 
-//            if let navigationController = navController {
-//                navigationController.setNavigationBarHidden(true, animated: false)
-//            }
+                if let navigationController = navController {
+                    navigationController.setNavigationBarHidden(true, animated: false)
+                }
 
-            let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
-            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
+                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-            let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
-            createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-            createWorkOrderItem.enabled = setCreateEnabled
+                let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
+                createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+                createWorkOrderItem.enabled = setCreateEnabled
 
-            navigationItem.leftBarButtonItems = [cancelItem]
-            navigationItem.rightBarButtonItems = [createWorkOrderItem]
+                navigationItem.leftBarButtonItems = [cancelItem]
+                navigationItem.rightBarButtonItems = [createWorkOrderItem]
+            }
         }
+
     }
 
     private func cacheNavigationItem(navigationItem: UINavigationItem) {
@@ -561,6 +566,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
 
             self.cachedNavigationItem = nil
+
+            if let navigationController = navController {
+                navigationController.setNavigationBarHidden(false, animated: false)
+            }
         }
     }
 
