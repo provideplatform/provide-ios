@@ -206,7 +206,9 @@
                             <constraint firstAttribute="trailing" secondItem="mKl-4p-cWc" secondAttribute="trailing" id="h5E-1e-6Rm"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Team" id="pF9-90-ELf"/>
+                    <tabBarItem key="tabBarItem" title="Team" id="pF9-90-ELf">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IoZ-wz-IJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -247,7 +249,9 @@
                             <constraint firstItem="cOu-Z0-uUd" firstAttribute="leading" secondItem="hsk-oh-IOW" secondAttribute="leading" id="mKK-NR-NYF"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Inventory" id="jGD-6i-nrZ"/>
+                    <tabBarItem key="tabBarItem" title="Inventory" id="jGD-6i-nrZ">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AQ1-QF-6at" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -288,7 +292,9 @@
                             <constraint firstItem="mNG-7N-JJO" firstAttribute="leading" secondItem="yUj-HQ-dot" secondAttribute="leading" id="e5R-WR-MD2"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Work Orders" id="zSk-2k-7VZ"/>
+                    <tabBarItem key="tabBarItem" title="Work Orders" id="zSk-2k-7VZ">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JQv-Zp-XLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -329,7 +335,9 @@
                             <constraint firstAttribute="trailing" secondItem="IWu-tZ-epa" secondAttribute="trailing" id="YXz-ui-64B"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Manage Job" id="PoV-6w-vLj"/>
+                    <tabBarItem key="tabBarItem" title="Manage Job" id="PoV-6w-vLj">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5VV-gs-lYW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -343,7 +351,7 @@
             </objects>
             <point key="canvasLocation" x="1410" y="4975"/>
         </scene>
-        <!--Review & Complete-->
+        <!--Review-->
         <scene sceneID="PEo-3T-L6z">
             <objects>
                 <viewController id="6RF-FJ-DAb" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
@@ -370,7 +378,9 @@
                             <constraint firstAttribute="bottom" secondItem="TBA-tX-SZU" secondAttribute="bottom" id="zhh-F9-hXw"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Review &amp; Complete" id="dWP-Lh-sXw"/>
+                    <tabBarItem key="tabBarItem" title="Review" id="dWP-Lh-sXw">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TNZ-NX-A9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -411,7 +421,9 @@
                             <constraint firstItem="ZcF-p2-UzA" firstAttribute="leading" secondItem="tes-ji-2YR" secondAttribute="leading" id="gkq-ba-xgx"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Blueprint" id="Krs-oZ-DuU"/>
+                    <tabBarItem key="tabBarItem" title="Blueprint" id="Krs-oZ-DuU">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RPi-El-MXV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -429,7 +441,7 @@
         <scene sceneID="ckW-xE-zUU">
             <objects>
                 <tabBarController storyboardIdentifier="JobWizardTabBarController" id="V00-3x-ghh" customClass="JobWizardTabBarController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="b5O-PQ-IBv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" selectionIndicatorImage="map-pin" itemPositioning="fill" id="b5O-PQ-IBv" customClass="JobWizardTabBar" customModule="provide" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -448,4 +460,7 @@
             <point key="canvasLocation" x="77" y="2341"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map-pin" width="100" height="100"/>
+    </resources>
 </document>

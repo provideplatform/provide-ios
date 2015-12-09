@@ -187,6 +187,7 @@
 		68B413411B08318C009A4C05 /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413401B08318C009A4C05 /* Provider.storyboard */; };
 		68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF611C1820C500B81BEB /* JobManagerViewController.swift */; };
 		68B730C31C18293F00549D95 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C61BFB47A200DE7400 /* JobViewController.swift */; };
+		68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730C41C184C7500549D95 /* JobWizardTabBar.swift */; };
 		68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C11B084DCF00863E21 /* VersionHelper.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
@@ -416,6 +417,7 @@
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
 		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
+		68B730C41C184C7500549D95 /* JobWizardTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardTabBar.swift; sourceTree = "<group>"; };
 		68B978C11B084DCF00863E21 /* VersionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionHelper.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
@@ -848,6 +850,7 @@
 			children = (
 				681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */,
 				68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */,
+				68B730C41C184C7500549D95 /* JobWizardTabBar.swift */,
 				68F536F01B834A720007F480 /* RouteHistoryCollectionViewCell.swift */,
 				68F536F11B834A720007F480 /* RouteMapView.swift */,
 				68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */,
@@ -1410,6 +1413,7 @@
 				681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
 				68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */,
+				68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,

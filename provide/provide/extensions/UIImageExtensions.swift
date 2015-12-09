@@ -13,6 +13,11 @@ extension UIImage {
         self.init(named: imageName)
     }
 
+    func crop(rect: CGRect) -> UIImage! {
+        let image = CGImageCreateWithImageInRect(CGImage, rect)!
+        return UIImage(CGImage: image)
+    }
+    
     func resize(rect: CGRect) -> UIImage! {
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         drawInRect(rect)
