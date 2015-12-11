@@ -39,47 +39,7 @@ class JobWizardViewController: UINavigationController,
         refreshUI()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-
-        let viewController = segue.destinationViewController
-
-        if let identifier = segue.identifier {
-            if identifier == "JobWizardViewControllerEmbedSegue" {
-                
-                if viewController.isKindOfClass(JobBlueprintsViewController) {
-                    //(viewController as! JobBlueprintsViewController).delegate = self
-
-                } else if viewController.isKindOfClass(ProviderPickerViewController) {
-                    (viewController as! ProviderPickerViewController).delegate = self
-
-                } else if viewController.isKindOfClass(ManifestViewController) {
-                    (viewController as! ManifestViewController).delegate = self
-
-                } else if viewController.isKindOfClass(BlueprintViewController) {
-                    (viewController as! BlueprintViewController).blueprintViewControllerDelegate = self
-
-                } else if viewController.isKindOfClass(JobManagerViewController) {
-                    (viewController as! JobManagerViewController).job = job
-
-                } else if viewController.isKindOfClass(JobReviewViewController) {
-                    (viewController as! JobReviewViewController).job = job
-                    
-                }
-                
-                refreshUI()
-            }
-        }
-
-
-    }
-
     private func refreshUI() {
-//        if let navigationController = navigationController {
-//            if navigationController.viewControllers.count > 1 {
-//                navigationController.setNavigationBarHidden(true, animated: false)
-//            }
-//        }
         refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
@@ -103,22 +63,7 @@ class JobWizardViewController: UINavigationController,
     // MARK: UINavigationControllerDelegate
 
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-//        let isRootViewController = navigationController.viewControllers.count == 1 && navigationController.viewControllers.first! == viewController
-//        if isRootViewController {
-//            if let parentNavigationController = navigationController.navigationController {
-//                parentNavigationController.setNavigationBarHidden(true, animated: false)
-//            }
-//        }
 
-//        if viewController.isKindOfClass(UINavigationController) {
-//            if let rootViewController = (viewController as! UINavigationController).viewControllers.first {
-//                if rootViewController.isKindOfClass(BlueprintViewController) {
-//                    navigationController.popViewControllerAnimated(false)
-//                    navigationController.pushViewController(rootViewController, animated: false)
-//                }
-//            }
-//
-//        }
     }
 
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
@@ -141,13 +86,6 @@ class JobWizardViewController: UINavigationController,
             (viewController as! JobReviewViewController).job = job
 
         }
-
-//        else if viewController.isKindOfClass(UINavigationController) {
-//            if let blueprintViewController = (viewController as! UINavigationController).viewControllers.first as? BlueprintViewController {
-//                blueprintViewController.blueprintViewControllerDelegate = self
-//            }
-//
-//        }
 
         refreshUI()
     }
@@ -231,22 +169,16 @@ class JobWizardViewController: UINavigationController,
 
     // MARK: ManifestViewControllerDelegate
 
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
-        if let navigationController = navigationController {
-            if let parentNavigationController = navigationController.navigationController {
-                return parentNavigationController
-            }
-            return navigationController
-        }
-        return nil
-    }
-
     func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
         return nil
     }
 
     func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
         return ["JOB MANIFEST"]
+    }
+
+    func jobForManifestViewController(viewController: UIViewController) -> Job! {
+        return job
     }
 
     func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
@@ -277,7 +209,7 @@ class JobWizardViewController: UINavigationController,
 
                 reloadingJob = true
 
-                job.reloadExpenses(
+                job.reloadMaterials(
                     { (statusCode, mappingResult) -> () in
                         self.refreshUI()
                         viewController.reloadTableView()
@@ -311,10 +243,19 @@ class JobWizardViewController: UINavigationController,
         return true
     }
 
+    func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool {
+        if let job = job {
+            return job.supervisors != nil
+        }
+        return false
+    }
+
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         if let job = job {
             if let supervisors = job.supervisors {
                 return supervisors
+            } else {
+                reloadJobForProviderPickerViewController(viewController)
             }
         }
         return [Provider]()
@@ -325,5 +266,26 @@ class JobWizardViewController: UINavigationController,
             return ["company_id": job.companyId]
         }
         return nil
+    }
+
+    private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
+        if !reloadingJob {
+            if let job = job {
+                reloadingJob = true
+
+                job.reloadSupervisors(
+                    { (statusCode, mappingResult) -> () in
+                        self.refreshUI()
+                        viewController.reloadCollectionView()
+                        self.reloadingJob = false
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self.refreshUI()
+                        viewController.reloadCollectionView()
+                        self.reloadingJob = false
+                    }
+                )
+            }
+        }
     }
 }

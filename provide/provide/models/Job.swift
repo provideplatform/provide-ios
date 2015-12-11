@@ -164,6 +164,21 @@ class Job: Model {
         }
     }
 
+    func reloadSupervisors(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            let params: [String : AnyObject] = ["include_supervisors": "true"]
+            ApiService.sharedService().fetchJobWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    self.supervisors = (mappingResult.firstObject as! Job).supervisors
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchJobWithId(String(id),
             onSuccess: { statusCode, mappingResult in
