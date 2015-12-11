@@ -85,6 +85,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return nil
     }
 
+    var workOrder: WorkOrder!
+
     private var imageView: UIImageView!
 
     private var enableScrolling = false {
@@ -93,10 +95,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 scrollView.scrollEnabled = enableScrolling
             }
         }
-    }
-
-    private var workOrder: WorkOrder! {
-        return nil //WorkOrderService.sharedService().inProgressWorkOrder
     }
 
     private var hiddenNavigationControllerFrame: CGRect {
@@ -143,54 +141,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var newWorkOrderPending = false
 
-    private var navController: UINavigationController! {
-        if let navigationController = navigationController {
+    override var navigationController: UINavigationController! {
+        if let navigationController = super.navigationController {
             if let parentNavigationController = navigationController.navigationController {
                 return parentNavigationController
             }
         }
-        return nil
+        return super.navigationController
     }
-
-    private var navControllerNavigationItem: UINavigationItem! {
-        if let _ = navController {
-            return navController!.navigationItem
-        }
-        return nil
-    }
-
-//    private var navController: UINavigationController! {
-//        var navController: UINavigationController!
-//        if let workOrdersViewControllerDelegate = workOrdersViewControllerDelegate {
-//            if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
-//                navController = navigationController
-//            }
-//        } else if let navigationController = blueprintViewControllerDelegate?.navigationControllerForBlueprintViewController?(self) {
-//            navController = navigationController
-//        } else if let navigationController = navigationController {
-//            navController = navigationController
-//        }
-//        return navController
-//    }
-//
-//    private var navControllerNavigationItem: UINavigationItem! {
-//        if let navigationController = navController {
-//            var navController = navigationController
-//            var lastNavController: UINavigationController! = navController
-//            var resolvedParentNavigationController = false
-//            while !resolvedParentNavigationController {
-//                navController = lastNavController
-//                if let nc = navController.navigationController {
-//                    lastNavController = nc
-//                } else {
-//                    lastNavController = nil
-//                }
-//                resolvedParentNavigationController = lastNavController == nil
-//            }
-//            return navController.navigationItem
-//        }
-//        return nil
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -223,7 +181,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var isManagedByWorkOrdersViewController: Bool {
-        if let navigationController = navController {
+        if let navigationController = navigationController {
             return navigationController.viewControllers.first!.isKindOfClass(WorkOrdersViewController)
         }
         return false
@@ -242,7 +200,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         view.alpha = 0.0
         view.frame = frame
 
-        if let navigationController = navController {
+        if let navigationController = navigationController {
             navigationController.view.alpha = 0.0
             navigationController.view.frame = hiddenNavigationControllerFrame
             targetView.addSubview(navigationController.view)
@@ -267,7 +225,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     override func unwind() {
         clearNavigationItem()
 
-        if let navigationController = navController {
+        if let navigationController = navigationController {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                 animations: {
                     self.view.alpha = 0.0
@@ -473,66 +431,35 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
-        var navigationItem: UINavigationItem!
-        if let navItem = navControllerNavigationItem {
-            navigationItem = navItem
-        } else {
-            navigationItem = self.navigationItem
-        }
+        cacheNavigationItem(navigationItem)
 
-        for navItem in [navigationItem, self.navigationItem] {
-            if let navigationItem = navItem {
-                cacheNavigationItem(navigationItem)
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-                if let navigationController = navController {
-                    navigationController.setNavigationBarHidden(true, animated: false)
-                }
+        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
+        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+        setScaleItem.enabled = setScaleEnabled
 
-                let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
-                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-
-                let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
-                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-                setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-                setScaleItem.enabled = setScaleEnabled
-
-                navigationItem.leftBarButtonItems = [cancelItem]
-                navigationItem.rightBarButtonItems = [setScaleItem]
-            }
-        }
+        navigationItem.leftBarButtonItems = [cancelItem]
+        navigationItem.rightBarButtonItems = [setScaleItem]
     }
 
     private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
-        var navigationItem: UINavigationItem!
-        if let navItem = navControllerNavigationItem {
-            navigationItem = navItem
-        } else {
-            navigationItem = self.navigationItem
-        }
+        cacheNavigationItem(navigationItem)
 
-        for navItem in [navigationItem, self.navigationItem] {
-            if let navigationItem = navItem {
-                cacheNavigationItem(navigationItem)
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-                if let navigationController = navController {
-                    navigationController.setNavigationBarHidden(true, animated: false)
-                }
+        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
+        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+        createWorkOrderItem.enabled = setCreateEnabled
 
-                let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
-                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-                cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-
-                let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
-                createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-                createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-                createWorkOrderItem.enabled = setCreateEnabled
-
-                navigationItem.leftBarButtonItems = [cancelItem]
-                navigationItem.rightBarButtonItems = [createWorkOrderItem]
-            }
-        }
-
+        navigationItem.leftBarButtonItems = [cancelItem]
+        navigationItem.rightBarButtonItems = [createWorkOrderItem]
     }
 
     private func cacheNavigationItem(navigationItem: UINavigationItem) {
@@ -549,27 +476,25 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func restoreCachedNavigationItem() {
         if let cachedNavigationItem = cachedNavigationItem {
             var navigationItem: UINavigationItem!
-            if let navController = navController {
-                navigationItem = navController.navigationItem
+            if let navigationController = navigationController {
+                navigationItem = navigationController.navigationItem
             } else {
                 navigationItem = self.navigationItem
             }
 
             setupNavigationItem()
 
-            if let navigationItem = navigationItem {
-                navigationItem.leftBarButtonItems = cachedNavigationItem.leftBarButtonItems
-                navigationItem.rightBarButtonItems = cachedNavigationItem.rightBarButtonItems
-                navigationItem.title = cachedNavigationItem.title
-                navigationItem.titleView = cachedNavigationItem.titleView
-                navigationItem.prompt = cachedNavigationItem.prompt
-            }
+            navigationItem.leftBarButtonItems = cachedNavigationItem.leftBarButtonItems
+            navigationItem.rightBarButtonItems = cachedNavigationItem.rightBarButtonItems
+            navigationItem.title = cachedNavigationItem.title
+            navigationItem.titleView = cachedNavigationItem.titleView
+            navigationItem.prompt = cachedNavigationItem.prompt
 
             self.cachedNavigationItem = nil
 
-            if let navigationController = navController {
-                navigationController.setNavigationBarHidden(false, animated: false)
-            }
+//            if let navigationController = navController {
+//                navigationController.setNavigationBarHidden(false, animated: false)
+//            }
         }
     }
 
@@ -945,6 +870,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator
             } else {
+                cell.setName("INVENTORY DISPOSITION", value: "")
                 cell.showActivity()
             }
         case 5:
