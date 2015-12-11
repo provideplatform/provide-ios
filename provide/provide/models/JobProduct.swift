@@ -15,6 +15,8 @@ class JobProduct: Model {
     var job: Job!
     var productId = 0
     var product: Product!
+    var initialQuantity = 0.0
+    var price = 0.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -22,6 +24,8 @@ class JobProduct: Model {
             "id": "id",
             "job_id": "jobId",
             "product_id": "productId",
+            "initial_quantity": "initialQuantity",
+            "price": "price",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("product", mapping: Product.mapping())
         return mapping
