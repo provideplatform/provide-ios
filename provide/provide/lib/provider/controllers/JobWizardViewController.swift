@@ -17,6 +17,7 @@ class JobWizardViewController: UINavigationController,
                                JobBlueprintsViewControllerDelegate,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
+                               JobInventoryViewControllerDelegate,
                                JobTeamViewControllerDelegate,
                                ManifestViewControllerDelegate,
                                PDTSimpleCalendarViewDelegate {
@@ -74,8 +75,8 @@ class JobWizardViewController: UINavigationController,
         } else if viewController.isKindOfClass(JobTeamViewContoller) {
             (viewController as! JobTeamViewContoller).delegate = self
 
-        } else if viewController.isKindOfClass(ManifestViewController) {
-            (viewController as! ManifestViewController).delegate = self
+        } else if viewController.isKindOfClass(JobInventoryViewContoller) {
+            (viewController as! JobInventoryViewContoller).delegate = self
 
         } else if viewController.isKindOfClass(BlueprintViewController) {
             (viewController as! BlueprintViewController).blueprintViewControllerDelegate = self
@@ -175,82 +176,10 @@ class JobWizardViewController: UINavigationController,
         viewController.job.prependExpense(expense)
     }
 
-    // MARK: ManifestViewControllerDelegate
+    // MARK: JobInventoryViewControllerDelegate
 
-    func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
-        return nil
-    }
-
-    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
-        return ["JOB MANIFEST"]
-    }
-
-    func jobForManifestViewController(viewController: UIViewController) -> Job! {
+    func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job! {
         return job
-    }
-
-    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
-        let manifestViewController = viewController as! ManifestViewController
-        return jobProductsForManifestViewController(manifestViewController, forSegmentIndex: segmentIndex).map({ $0.product })
-    }
-
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
-        let manifestViewController = viewController as! ManifestViewController
-        cell.jobProduct = jobProductsForManifestViewController(manifestViewController, forSegmentIndex: manifestViewController.selectedSegmentIndex)[indexPath.row]
-        return cell
-    }
-
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let manifestViewController = viewController as! ManifestViewController
-        let jobProduct = jobProductsForManifestViewController(manifestViewController, forSegmentIndex: manifestViewController.selectedSegmentIndex)[indexPath.row]
-        print("selected job product \(jobProduct)")
-    }
-
-    private func jobProductsForManifestViewController(viewController: ManifestViewController, forSegmentIndex segmentIndex: Int) -> [JobProduct] {
-        if segmentIndex > -1 {
-            // job manifest
-            if segmentIndex == 0 {
-                if let job = job {
-                    if let _ = job.materials {
-                        return job.materials
-                    } else {
-                        reloadJobForManifestViewController(viewController)
-                    }
-                } else {
-                    reloadJobForManifestViewController(viewController)
-                }
-            } else if segmentIndex == 1 {
-                // no-op
-            }
-        }
-
-        return [JobProduct]()
-    }
-
-    private func reloadJobForManifestViewController(viewController: ManifestViewController) {
-        if !reloadingJob {
-            if let job = job {
-                dispatch_async_main_queue {
-                    viewController.showActivityIndicator()
-                }
-
-                reloadingJob = true
-
-                job.reloadMaterials(
-                    { (statusCode, mappingResult) -> () in
-                        self.refreshUI()
-                        viewController.reloadTableView()
-                        self.reloadingJob = false
-                    },
-                    onError: { (error, statusCode, responseString) -> () in
-                        self.refreshUI()
-                        viewController.reloadTableView()
-                        self.reloadingJob = false
-                    }
-                )
-            }
-        }
     }
 
     // MARK: JobTeamViewControllerDelegate

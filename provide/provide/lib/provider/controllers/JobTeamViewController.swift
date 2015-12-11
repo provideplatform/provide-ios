@@ -35,21 +35,21 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
 
     private var reloadingSupervisors = false
 
+    private var queryResultsPickerViewController: ProviderPickerViewController!
     private var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
         return nil
     }
-    private var queryResultsPickerViewController: ProviderPickerViewController!
-
+    
+    private var supervisorsPickerViewController: ProviderPickerViewController!
     private var supervisorsPickerTableViewCell: UITableViewCell! {
         if let supervisorsPickerViewController = supervisorsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(supervisorsPickerViewController)
         }
         return nil
     }
-    private var supervisorsPickerViewController: ProviderPickerViewController!
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
@@ -90,7 +90,7 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if numberOfSectionsInTableView(tableView) == 1 {
+        if supervisorsPickerTableViewCell != nil && numberOfSectionsInTableView(tableView) == 1 {
             return supervisorsPickerTableViewCell
         }
         return super.tableView(tableView, cellForRowAtIndexPath: indexPath)

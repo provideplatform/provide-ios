@@ -194,6 +194,7 @@
 		68B730CF1C1AD74600549D95 /* Manifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B730CE1C1AD74600549D95 /* Manifest.storyboard */; };
 		68B730D11C1ADF4200549D95 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D01C1ADF4200549D95 /* DropboxSDK.framework */; };
 		68B730D31C1AE5F100549D95 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D21C1AE5F100549D95 /* DBChooser.framework */; };
+		68B730D51C1B4F0800549D95 /* JobInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */; };
 		68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C11B084DCF00863E21 /* VersionHelper.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
@@ -430,6 +431,7 @@
 		68B730CE1C1AD74600549D95 /* Manifest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Manifest.storyboard; sourceTree = "<group>"; };
 		68B730D01C1ADF4200549D95 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		68B730D21C1AE5F100549D95 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobInventoryViewController.swift; sourceTree = "<group>"; };
 		68B978C11B084DCF00863E21 /* VersionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionHelper.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 				68B978C91B085A6C00863E21 /* segues */,
 				681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */,
 				681EBF611C1820C500B81BEB /* JobManagerViewController.swift */,
+				68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */,
 				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
 				68D843C61BFB47A200DE7400 /* JobViewController.swift */,
 				681EBF651C18252D00B81BEB /* JobReviewViewController.swift */,
@@ -1493,6 +1496,7 @@
 				68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */,
 				68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,
+				68B730D51C1B4F0800549D95 /* JobInventoryViewController.swift in Sources */,
 				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				681EBF5E1C18136C00B81BEB /* JobBlueprintsViewController.swift in Sources */,
 				681416E81B8457870076BFBD /* Contact.swift in Sources */,
