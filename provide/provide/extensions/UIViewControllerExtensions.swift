@@ -76,4 +76,15 @@ extension UIViewController {
             hud.hide(true, afterDelay: 1.5)
         }
     }
+
+    // MARK: UIAlertController
+
+    func showToast(title: String, dismissAfter delay: NSTimeInterval = 1.5) {
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .Alert)
+        presentViewController(alertController, animated: true)
+
+        dispatch_after_delay(delay) {
+            self.dismissViewController(animated: true)
+        }
+    }
 }

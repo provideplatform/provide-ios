@@ -177,7 +177,6 @@
 		68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
 		68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
 		68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */; };
-		68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */; };
 		68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */; };
 		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
@@ -413,7 +412,6 @@
 		68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationView.swift; sourceTree = "<group>"; };
 		68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderMapView.swift; sourceTree = "<group>"; };
 		68B4130F1B081926009A4C05 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
-		68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertViewExtensions.swift; sourceTree = "<group>"; };
 		68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSNotificationCenterExtensions.swift; sourceTree = "<group>"; };
 		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
@@ -588,7 +586,6 @@
 				68B4131F1B081F2C009A4C05 /* NSNotificationCenterExtensions.swift */,
 				685D99FB1B19BE2900007920 /* NSURLExtensions.swift */,
 				687CB53D1B07EAD30048B692 /* StringExtensions.swift */,
-				68B4131B1B081DAB009A4C05 /* UIAlertViewExtensions.swift */,
 				5C910B061B3AD1D50089D9E1 /* UIBarButtonItem.swift */,
 				687CB53F1B07EAD30048B692 /* UIColorExtensions.swift */,
 				687CB5401B07EAD30048B692 /* UIImageExtensions.swift */,
@@ -1385,7 +1382,6 @@
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
-				68B4131C1B081DAB009A4C05 /* UIAlertViewExtensions.swift in Sources */,
 				6845BB621BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift in Sources */,
 				68F537151B834A9A0007F480 /* MenuContainerView.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,

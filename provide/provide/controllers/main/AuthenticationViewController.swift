@@ -89,7 +89,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     func submit(_: UIButton?) {
         let loginInvalid = emailField.text?.length == 0 || passwordField.text?.length == 0
         if loginInvalid {
-            UIAlertView.showToast("Please enter both email and password.")
+            showToast("Please enter both email and password.")
             return
         }
 
