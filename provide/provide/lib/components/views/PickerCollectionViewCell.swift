@@ -22,11 +22,12 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     var imageUrl: NSURL! {
         didSet {
-            removeGravatarImageView()
-
             if let imageUrl = imageUrl {
                 imageView.contentMode = .ScaleAspectFit
                 imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
+                    self.gravatarImageView?.alpha = 0.0
+
+                    self.contentView.bringSubviewToFront(self.imageView)
                     self.imageView.makeCircular()
                     self.imageView.alpha = 1.0
                 })
@@ -43,14 +44,10 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 imageView.image = nil
                 imageView.alpha = 0.0
 
-                removeGravatarImageView()
-
-                gravatarImageView = RFGravatarImageView(frame: imageView.frame)
                 gravatarImageView.email = gravatarEmail
                 gravatarImageView.size = UInt(gravatarImageView.frame.width)
                 gravatarImageView.load { error in
                     self.gravatarImageView.makeCircular()
-                    self.insertSubview(self.gravatarImageView, aboveSubview: self.imageView)
                     self.gravatarImageView.alpha = 1.0
                 }
             }
@@ -79,8 +76,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
         didSet {
             if let imageView = imageView {
                 defaultImageViewFrame = imageView.frame
-
                 contentView.sendSubviewToBack(imageView)
+
+                gravatarImageView = RFGravatarImageView(frame: defaultImageViewFrame)
             }
         }
     }
@@ -100,6 +98,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
     private var gravatarImageView: RFGravatarImageView! {
         didSet {
             if let gravatarImageView = gravatarImageView {
+                contentView.addSubview(gravatarImageView)
                 contentView.sendSubviewToBack(gravatarImageView)
             }
         }
@@ -127,13 +126,6 @@ class PickerCollectionViewCell: UICollectionViewCell {
         return nil
     }
 
-    private func removeGravatarImageView() {
-        if let gravatarImageView = gravatarImageView {
-            gravatarImageView.removeFromSuperview()
-            self.gravatarImageView = nil
-        }
-    }
-
     override func prepareForReuse() {
         super.prepareForReuse()
 
@@ -142,7 +134,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
         imageView.alpha = 0.0
 
-        gravatarImageView = nil
+        gravatarEmail = nil
+        gravatarImageView?.image = nil
+        gravatarImageView?.alpha = 0.0
 
         selected = false
     }

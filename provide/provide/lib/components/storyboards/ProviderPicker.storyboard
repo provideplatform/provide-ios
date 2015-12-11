@@ -14,7 +14,7 @@
         <!--Provider Picker View Controller-->
         <scene sceneID="Xtt-Qe-bGm">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" id="NHu-90-0AY" customClass="ProviderPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NHu-90-0AY" customClass="ProviderPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="N43-kR-R5N"/>
                         <viewControllerLayoutGuide type="bottom" id="LOi-NU-GzU"/>
