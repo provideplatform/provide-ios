@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics()])
         }
 
+        DBSession.setSharedSession(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
+
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
 
         setupLaunchScreenViewController()
@@ -65,6 +67,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func applicationWillTerminate(application: UIApplication) {
+        AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
+    }
+
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if DBSession.sharedSession().handleOpenURL(url) {
+            if DBSession.sharedSession().isLinked() {
+            }
+            return true
+        }
+        return false
+    }
+
     // MARK: Remote notifications
 
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
@@ -98,9 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         completionHandler(.NewData)
     }
 
-    func applicationWillTerminate(application: UIApplication) {
-        AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
-    }
+    // MARK: Privacy view controller
 
     private func setupLaunchScreenViewController() {
         launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
