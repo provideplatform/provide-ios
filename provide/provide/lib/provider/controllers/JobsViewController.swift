@@ -39,9 +39,6 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             }
         } else if segue.identifier == "JobWizardTabBarControllerSegue" {
             if let sender = sender {
-                if let navigationController = segue.sourceViewController.navigationController {
-                    navigationController.setNavigationBarHidden(true, animated: false)
-                }
                 (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
             }
         }
