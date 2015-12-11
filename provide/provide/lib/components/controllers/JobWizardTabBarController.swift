@@ -10,7 +10,13 @@ import UIKit
 
 class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate, JobWizardViewControllerDelegate {
 
-    var job: Job!
+    var job: Job! {
+        didSet {
+            if let job = job {
+                navigationItem.title = job.name
+            }
+        }
+    }
 
     private var setupBlueprintsTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
@@ -112,9 +118,19 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
                     (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self
                 }
             }
+
+            self.selectInitialTabBarItem()
         }
 
-        tabBar.frame.size.height = 60.0
+        setupTabBarAppearence()
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        navigationController?.popViewControllerAnimated(true)
+    }
+
+    private func setupTabBarAppearence() {
+        //tabBar.frame.size.height = 60.0
 
         var cropRect = tabBar.frame
         cropRect.origin.y = cropRect.size.height - tabBar.frame.height
@@ -124,14 +140,6 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         tabBar.selectionIndicatorImage = mapPin.scaledToWidth(mapPin.size.width / 2.8)
 
         refreshSelectionIndicatorImageViewFrame()
-        
-        selectInitialTabBarItem()
-    }
-
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
     private func refreshSelectionIndicatorImageViewFrame() {
@@ -172,11 +180,11 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
     // MARK: UITabBarControllerDelegate
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if viewController.isKindOfClass(UINavigationController) {
-            if (viewController as! UINavigationController).viewControllers.count == 1 {
-                let rootViewController = (viewController as! UINavigationController).viewControllers.first!
-                if rootViewController.isKindOfClass(JobReviewViewController) {
-                    if let job = job {
+        if let job = job {
+            if viewController.isKindOfClass(UINavigationController) {
+                if (viewController as! UINavigationController).viewControllers.count == 1 {
+                    let rootViewController = (viewController as! UINavigationController).viewControllers.first!
+                    if rootViewController.isKindOfClass(JobReviewViewController) {
                         return ["canceled", "completed"].indexOf(job.status) > -1
                     }
                 }
@@ -187,16 +195,6 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         refreshSelectionIndicatorImageViewFrame()
-
-        if let navigationController = navigationController {
-            if viewController.isKindOfClass(UINavigationController) {
-                if (viewController as! UINavigationController).viewControllers.count == 1 {
-                    navigationController.setNavigationBarHidden(false, animated: false)
-                }
-            } else {
-                navigationController.setNavigationBarHidden(false, animated: false)
-            }
-        }
     }
 
     // MARK: JobWizardViewControllerDelegate
