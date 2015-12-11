@@ -24,7 +24,7 @@ class MenuContainerView: UIView {
     }
 
     private var menuViewFrameOffsetX: CGFloat {
-        return bounds.width * (1.0 - ((isIPad() ? 0.5 : 0.66) + exposedMenuViewPercentage))
+        return frame.width * (1.0 - ((isIPad() ? 0.5 : 0.66) + exposedMenuViewPercentage))
     }
 
     private var exposedMenuViewPercentage: CGFloat {
@@ -43,6 +43,13 @@ class MenuContainerView: UIView {
         return frame.origin.x > closedMenuOffsetX
     }
 
+    private var targetView: UIView! {
+        if let targetView = UIApplication.sharedApplication().keyWindow {
+            return targetView
+        }
+        return nil
+    }
+
     private func teardown() {
         if let _ = superview {
             removeFromSuperview()
@@ -58,6 +65,17 @@ class MenuContainerView: UIView {
             menuViewController.view.removeFromSuperview()
             self.menuViewController = nil
         }
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    func redraw(size: CGSize) {
+        let open = isOpen
+        let delegate = menuViewController.delegate
+        setupMenuViewController(delegate)
+        if open {
+            openMenu()
+        }
     }
 
     func setupMenuViewController(delegate: MenuViewControllerDelegate) {
@@ -71,18 +89,13 @@ class MenuContainerView: UIView {
         addDropShadow(CGSize(width: 2.5, height: 2.0), radius: 10.0, opacity: 0.75)
         layer.shadowOpacity = 0.0
 
-        if let targetView = UIApplication.sharedApplication().keyWindow {
+        if let targetView = targetView {
             backgroundView = UIView(frame: targetView.bounds)
+            backgroundView.frame.size.height = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeMenu"))
             backgroundView.backgroundColor = UIColor.blackColor()
             backgroundView.alpha = 0.0
-
-            menuViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
-            menuViewController.delegate = delegate
-            menuViewController.view.frame = menuViewControllerFrame
-            addSubview(menuViewController.view)
-            bringSubviewToFront(menuViewController.view)
 
             frame = CGRect(x: 0.0,
                            y: 0.0,
@@ -93,6 +106,12 @@ class MenuContainerView: UIView {
             targetView.addSubview(backgroundView)
             targetView.bringSubviewToFront(backgroundView)
 
+            menuViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+            menuViewController.delegate = delegate
+            menuViewController.view.frame = menuViewControllerFrame
+            addSubview(menuViewController.view)
+            bringSubviewToFront(menuViewController.view)
+
             targetView.addSubview(self)
             targetView.bringSubviewToFront(self)
         }
@@ -100,8 +119,6 @@ class MenuContainerView: UIView {
 
     deinit {
         teardown()
-
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

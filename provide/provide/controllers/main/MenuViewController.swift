@@ -72,6 +72,21 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         cell.backgroundColor = UIColor.clearColor()
     }
 
+    func alignSections() {
+        // Position the 2nd section to line up flush with the bottom of the view
+        let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1) + tableView.numberOfRowsInSection(2)
+        //let rowHeight = tableView[0].bounds.height // height of first cell
+        let totalCellHeight = CGFloat(totalCellCount) * 50.0
+        let versionNumberHeight: CGFloat = 38
+        var tableHeaderViewHeight: CGFloat = 0
+        if let tableHeaderView = tableView.tableHeaderView {
+            tableHeaderViewHeight = tableHeaderView.bounds.height
+        }
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
+        let remainingSpace = view.bounds.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
+        tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
+    }
+
     private func logout(sender: UITableViewCell) {
         let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
         let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to logout?", preferredStyle: preferredStyle)
@@ -126,21 +141,6 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     // MARK: Private Methods
-
-    private func alignSections() {
-        // Position the 2nd section to line up flush with the bottom of the view
-        let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1) + tableView.numberOfRowsInSection(2)
-        //let rowHeight = tableView[0].bounds.height // height of first cell
-        let totalCellHeight = CGFloat(totalCellCount) * 50.0
-        let versionNumberHeight: CGFloat = 38
-        var tableHeaderViewHeight: CGFloat = 0
-        if let tableHeaderView = tableView.tableHeaderView {
-            tableHeaderViewHeight = tableHeaderView.bounds.height
-        }
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
-        let remainingSpace = view.bounds.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
-        tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
-    }
 
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
         NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")

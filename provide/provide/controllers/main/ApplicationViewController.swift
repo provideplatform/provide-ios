@@ -19,6 +19,15 @@ class ApplicationViewController: ECSlidingViewController,
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
 
+    private var menuContainerView: MenuContainerView!
+
+    override var navigationController: UINavigationController! {
+        if let navigationController = topViewController as? UINavigationController {
+            return navigationController
+        }
+        return super.navigationController
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -27,13 +36,12 @@ class ApplicationViewController: ECSlidingViewController,
         topViewController = UIStoryboard("Application").instantiateInitialViewController()!
     }
 
-    private var menuContainerView: MenuContainerView!
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
-    override var navigationController: UINavigationController! {
-        if let navigationController = topViewController as? UINavigationController {
-            return navigationController
+        dispatch_after_delay(0.0) {
+            self.menuContainerView?.redraw(size)
         }
-        return super.navigationController
     }
 
     override func viewDidLoad() {
