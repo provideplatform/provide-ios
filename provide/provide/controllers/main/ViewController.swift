@@ -15,13 +15,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let navigationController = navigationController {
-            let backgroundImage = Color.applicationDefaultNavigationBarBackgroundImage()
-
-            navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
-            navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
-        }
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
