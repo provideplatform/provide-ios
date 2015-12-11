@@ -14,11 +14,14 @@ protocol ManifestViewControllerDelegate {
     optional func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
     optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
     optional func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String!
+    optional func jobForManifestViewController(viewController: UIViewController) -> Job!
     optional func routeForViewController(viewController: UIViewController) -> Route!
     optional func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder!
     optional func segmentsForManifestViewController(viewController: UIViewController) -> [String]!
     optional func segmentForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> String
     optional func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]!
+    optional func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+    optional func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -32,13 +35,20 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     var delegate: ManifestViewControllerDelegate! {
         didSet {
             if let _ = delegate {
-                initToolbarSegmentedControl()
-                reloadTableView()
+                reload()
             }
         }
     }
 
+    var selectedSegmentIndex: Int {
+        if let toolbarSegmentedControl = toolbarSegmentedControl {
+            return toolbarSegmentedControl.selectedSegmentIndex
+        }
+        return -1
+    }
+
     private var toolbarSegmentedControl: UISegmentedControl!
+
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             if let _ = tableView {
@@ -78,14 +88,6 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         return items
     }
 
-    override var navigationController: UINavigationController! {
-        if let navigationController = delegate?.navigationControllerForViewController?(self) {
-            return navigationController
-        } else {
-            return super.navigationController
-        }
-    }
-
     private var navigationItemPrompt: String! {
         var prompt: String! = "No Active Route"
         if let route = route {
@@ -95,6 +97,8 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
                 prompt = "Manifest for (unnamed route)"
             }
         } else if let _ = workOrder {
+            prompt = nil
+        } else if let _ = job {
             prompt = nil
         }
         return prompt
@@ -106,6 +110,10 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var workOrder: WorkOrder! {
         return delegate?.workOrderForManifestViewController?(self)
+    }
+
+    private var job: Job! {
+        return delegate?.jobForManifestViewController?(self)
     }
 
     private var segment: Segment!
@@ -123,10 +131,16 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        reload()
+    }
+
+    private func reload() {
+        initToolbarSegmentedControl()
+
         navigationItem.titleView = toolbarSegmentedControl
         navigationItem.prompt = navigationItemPrompt
 
-        tableView.reloadData()
+        reloadTableView()
     }
 
     func segmentChanged(sender: UISegmentedControl) {
@@ -199,6 +213,10 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if let cell = delegate?.manifestViewController?(self, tableView: tableView, cellForRowAtIndexPath: indexPath) {
+            return cell
+        }
+
         let cell = tableView.dequeueReusableCellWithIdentifier("manifestTableViewCell") as! RouteManifestItemTableViewCell
         cell.product = items[indexPath.row]
         return cell
@@ -211,7 +229,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        log("selected loaded manifest item: \(items[indexPath.row])")
+        delegate?.manifestViewController?(self, tableView: tableView, didSelectRowAtIndexPath: indexPath)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
 }
