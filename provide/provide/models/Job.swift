@@ -149,6 +149,21 @@ class Job: Model {
         )
     }
 
+    func reloadMaterials(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            let params: [String : AnyObject] = ["include_products": "true"]
+            ApiService.sharedService().fetchJobWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    self.materials = (mappingResult.firstObject as! Job).materials
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchJobWithId(String(id),
             onSuccess: { statusCode, mappingResult in
