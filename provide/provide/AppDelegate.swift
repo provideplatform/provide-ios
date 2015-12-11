@@ -74,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
         if DBSession.sharedSession().handleOpenURL(url) {
             if DBSession.sharedSession().isLinked() {
+                AnalyticsService.sharedService().track("App Linked With Dropbox", properties: [:])
+                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationLinkedWithDropbox")
             }
             return true
         }
