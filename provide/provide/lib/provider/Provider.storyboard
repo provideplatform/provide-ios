@@ -21,12 +21,6 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -113,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7c-mL-nGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="34.5"/>
+            <point key="canvasLocation" x="298" y="229.5"/>
         </scene>
         <!--Work Order Annotation View Controller-->
         <scene sceneID="pCR-jE-I1i">
@@ -192,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="La7-jp-hhB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="368" y="219.5"/>
+            <point key="canvasLocation" x="258" y="350.5"/>
         </scene>
         <!--Work Orders View Controller-->
         <scene sceneID="7fp-wg-HwQ">
@@ -242,12 +236,12 @@
                         <segue destination="mb7-X8-f0h" kind="custom" identifier="WorkOrderDestinationHeaderViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="3Wt-Cm-qPJ"/>
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="MiJ-YI-L7r"/>
                         <segue destination="jXg-51-56R" kind="custom" identifier="WorkOrderComponentViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="pC3-sD-UC4"/>
-                        <segue destination="IBj-c7-kLC" kind="custom" identifier="RouteManifestViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="7WN-4i-lPl"/>
-                        <segue destination="AiO-Uo-7Bj" kind="show" identifier="ManifestViewControllerSegue" id="JeI-DH-1MQ"/>
                         <segue destination="PMr-3s-fSr" kind="show" identifier="RouteViewControllerSegue" id="bV6-HV-hLp"/>
                         <segue destination="4h2-gG-Dql" kind="show" identifier="RouteHistoryViewControllerSegue" id="Gdy-OB-JiS"/>
                         <segue destination="5kN-BO-clK" kind="show" identifier="WorkOrderHistoryViewControllerSegue" id="IPN-GS-dXv"/>
                         <segue destination="DDW-cG-1DK" kind="show" identifier="JobsViewControllerSegue" id="FEQ-pg-OxD"/>
+                        <segue destination="Kd9-B2-LIH" kind="show" identifier="ManifestViewControllerSegue" id="ryn-L2-FB8"/>
+                        <segue destination="x2h-ub-aEm" kind="custom" identifier="RouteManifestViewControllerSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="BUH-KB-N96"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -395,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TmO-dW-kMJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="421"/>
+            <point key="canvasLocation" x="298" y="488"/>
         </scene>
         <!--Directions View Controller-->
         <scene sceneID="hSa-W7-qkt">
@@ -521,98 +515,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V9H-3A-GPU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="692"/>
+            <point key="canvasLocation" x="345" y="692"/>
         </scene>
-        <!--Route Manifest View Controller-->
-        <scene sceneID="5pe-YW-78A">
+        <!--ManifestViewController-->
+        <scene sceneID="sVG-Ec-r7c">
             <objects>
-                <viewController id="IBj-c7-kLC" customClass="RouteManifestViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Vfz-OS-En0"/>
-                        <viewControllerLayoutGuide type="bottom" id="pmd-v4-ZWY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ahO-ZF-PnG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="0Rd-eg-YrZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="routeManifestTableViewCell" rowHeight="75" id="uIK-X5-rhP" customClass="RouteManifestItemTableViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uIK-X5-rhP" id="9nQ-Y6-zmV">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sealy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5y5-Ka-jNk">
-                                                    <rect key="frame" x="25" y="8" width="44" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0513044117394" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tF7-DV-jjX">
-                                                    <rect key="frame" x="25" y="37" width="97" height="17"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queen" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EU6-Xe-C5x">
-                                                    <rect key="frame" x="545" y="8" width="47" height="20"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="5y5-Ka-jNk" firstAttribute="leading" secondItem="9nQ-Y6-zmV" secondAttribute="leading" constant="25" id="4fW-5e-k5V"/>
-                                                <constraint firstItem="EU6-Xe-C5x" firstAttribute="top" secondItem="9nQ-Y6-zmV" secondAttribute="top" constant="8" id="QsY-KI-mgp"/>
-                                                <constraint firstItem="5y5-Ka-jNk" firstAttribute="top" secondItem="9nQ-Y6-zmV" secondAttribute="top" constant="8" id="X09-gc-j3Y"/>
-                                                <constraint firstItem="tF7-DV-jjX" firstAttribute="top" secondItem="9nQ-Y6-zmV" secondAttribute="top" constant="37" id="aJd-X5-gIW"/>
-                                                <constraint firstAttribute="trailing" secondItem="EU6-Xe-C5x" secondAttribute="trailing" constant="8" id="hp0-21-bmd"/>
-                                                <constraint firstItem="tF7-DV-jjX" firstAttribute="leading" secondItem="9nQ-Y6-zmV" secondAttribute="leading" constant="25" id="jKJ-JP-gux"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="gtinLabel" destination="tF7-DV-jjX" id="rec-td-SFl"/>
-                                            <outlet property="nameLabel" destination="5y5-Ka-jNk" id="V0m-Wx-FG8"/>
-                                            <outlet property="sizeLabel" destination="EU6-Xe-C5x" id="1xM-xF-nyF"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="IBj-c7-kLC" id="JXE-ze-TcQ"/>
-                                    <outlet property="delegate" destination="IBj-c7-kLC" id="ekH-Mc-sRY"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="0Rd-eg-YrZ" firstAttribute="top" secondItem="ahO-ZF-PnG" secondAttribute="top" id="6IM-ej-koT"/>
-                            <constraint firstItem="0Rd-eg-YrZ" firstAttribute="leading" secondItem="ahO-ZF-PnG" secondAttribute="leadingMargin" constant="-16" id="EbJ-81-oNZ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="0Rd-eg-YrZ" secondAttribute="trailing" constant="-16" id="Ifg-Qt-5Qg"/>
-                            <constraint firstItem="0Rd-eg-YrZ" firstAttribute="top" secondItem="Vfz-OS-En0" secondAttribute="bottom" constant="-20" id="NJn-gm-Wlh"/>
-                            <constraint firstItem="pmd-v4-ZWY" firstAttribute="top" secondItem="0Rd-eg-YrZ" secondAttribute="bottom" id="UBF-IE-WEl"/>
-                            <constraint firstItem="0Rd-eg-YrZ" firstAttribute="leading" secondItem="ahO-ZF-PnG" secondAttribute="leading" id="Zfp-gR-zuv"/>
-                            <constraint firstItem="0Rd-eg-YrZ" firstAttribute="bottom" secondItem="pmd-v4-ZWY" secondAttribute="top" id="pVe-Bu-DdJ"/>
-                            <constraint firstAttribute="trailing" secondItem="0Rd-eg-YrZ" secondAttribute="trailing" id="qqI-DP-jCF"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="EbJ-81-oNZ"/>
-                                <exclude reference="Ifg-Qt-5Qg"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="tableView" destination="0Rd-eg-YrZ" id="GTf-dK-jk5"/>
-                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="RouteManifestViewControllerUnwindSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="fAd-Aq-llj"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wkv-KQ-44v" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="Kd9-B2-LIH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tEq-aa-osw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421" y="2004"/>
+            <point key="canvasLocation" x="225.5" y="945"/>
+        </scene>
+        <!--ManifestViewController-->
+        <scene sceneID="wxY-eB-YZU">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="x2h-ub-aEm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ehD-yS-C7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="225.5" y="1017"/>
         </scene>
         <!--Route View Controller-->
         <scene sceneID="rOQ-z6-ul1">
@@ -1055,96 +974,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pRT-7d-sSY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1091" y="2669"/>
-        </scene>
-        <!--ManifestViewController-->
-        <scene sceneID="512-Ue-hGv">
-            <objects>
-                <viewController storyboardIdentifier="ManifestViewController" title="ManifestViewController" id="AiO-Uo-7Bj" customClass="ManifestViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9MI-9Q-Ekq"/>
-                        <viewControllerLayoutGuide type="bottom" id="iSN-Bf-B6m"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="h3c-9v-O2u">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TZC-Bv-pL4">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="pig-C6-YOM">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="manifestTableViewCell" rowHeight="75" id="h1Y-AN-tmN" customClass="RouteManifestItemTableViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h1Y-AN-tmN" id="1Gu-0G-tHd">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sealy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4l5-9f-MFJ">
-                                                    <rect key="frame" x="25" y="8" width="44" height="22"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0513044117394" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGV-h2-UJ6">
-                                                    <rect key="frame" x="25" y="37" width="97" height="17"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Queen" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cvu-Eh-OVg">
-                                                    <rect key="frame" x="545" y="8" width="47" height="20"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="4l5-9f-MFJ" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="8" id="52w-to-i50"/>
-                                                <constraint firstAttribute="trailing" secondItem="Cvu-Eh-OVg" secondAttribute="trailing" constant="8" id="Id2-vj-x4b"/>
-                                                <constraint firstItem="XGV-h2-UJ6" firstAttribute="leading" secondItem="1Gu-0G-tHd" secondAttribute="leading" constant="25" id="d5c-o2-gbv"/>
-                                                <constraint firstItem="XGV-h2-UJ6" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="37" id="jB4-If-CZG"/>
-                                                <constraint firstItem="4l5-9f-MFJ" firstAttribute="leading" secondItem="1Gu-0G-tHd" secondAttribute="leading" constant="25" id="s3S-8n-vxz"/>
-                                                <constraint firstItem="Cvu-Eh-OVg" firstAttribute="top" secondItem="1Gu-0G-tHd" secondAttribute="top" constant="8" id="s55-9a-Ed1"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="gtinLabel" destination="XGV-h2-UJ6" id="vAV-vB-vn1"/>
-                                            <outlet property="nameLabel" destination="4l5-9f-MFJ" id="8PV-4I-A0g"/>
-                                            <outlet property="sizeLabel" destination="Cvu-Eh-OVg" id="IEL-dc-e9L"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="AiO-Uo-7Bj" id="yKd-8I-ng9"/>
-                                    <outlet property="delegate" destination="AiO-Uo-7Bj" id="IPH-Z9-3IN"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="pig-C6-YOM" firstAttribute="top" secondItem="9MI-9Q-Ekq" secondAttribute="bottom" constant="-20" id="4WV-OU-XFc"/>
-                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="top" secondItem="9MI-9Q-Ekq" secondAttribute="bottom" constant="270" id="IxY-np-avC"/>
-                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="leading" secondItem="h3c-9v-O2u" secondAttribute="leadingMargin" constant="270" id="MSj-06-G9B"/>
-                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="centerX" secondItem="h3c-9v-O2u" secondAttribute="centerX" id="Rqi-G9-Cd6"/>
-                            <constraint firstItem="iSN-Bf-B6m" firstAttribute="top" secondItem="pig-C6-YOM" secondAttribute="bottom" id="UH9-B2-iIT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="TZC-Bv-pL4" secondAttribute="trailing" constant="270" id="ZV6-t4-kM9"/>
-                            <constraint firstItem="pig-C6-YOM" firstAttribute="leading" secondItem="h3c-9v-O2u" secondAttribute="leadingMargin" constant="-20" id="aJw-ru-BXr"/>
-                            <constraint firstItem="TZC-Bv-pL4" firstAttribute="centerY" secondItem="h3c-9v-O2u" secondAttribute="centerY" id="cLN-AY-Qnj"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pig-C6-YOM" secondAttribute="trailing" constant="-20" id="cYg-4V-6nc"/>
-                            <constraint firstItem="iSN-Bf-B6m" firstAttribute="top" secondItem="TZC-Bv-pL4" secondAttribute="bottom" constant="290" id="pop-Cg-Ji1"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="activityIndicatorView" destination="TZC-Bv-pL4" id="W3d-Sc-TCq"/>
-                        <outlet property="tableView" destination="pig-C6-YOM" id="75a-CG-nYX"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ct7-1I-SZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="421" y="1204"/>
         </scene>
         <!--Work Order History View Controller-->
         <scene sceneID="b06-9c-1BI">
@@ -1835,8 +1664,8 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="AbM-fQ-MfU"/>
+        <segue reference="bV6-HV-hLp"/>
         <segue reference="n89-ez-hnF"/>
-        <segue reference="fAd-Aq-llj"/>
-        <segue reference="UnJ-bf-DPz"/>
     </inferredMetricsTieBreakers>
 </document>

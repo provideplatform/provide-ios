@@ -32,6 +32,7 @@
         <scene sceneID="iNs-xf-kHR">
             <objects>
                 <tabBarController storyboardIdentifier="JobWizardTabBarController" id="ufM-R8-7az" customClass="JobWizardTabBarController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" selectionIndicatorImage="map-pin" itemPositioning="fill" id="IR6-UK-Df7" customClass="JobWizardTabBar" customModule="provide" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -168,7 +169,7 @@
         <!--ManifestViewController-->
         <scene sceneID="Kc3-PT-CTL">
             <objects>
-                <viewControllerPlaceholder storyboardName="Provider" referencedIdentifier="ManifestViewController" id="RXh-8S-bip" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="RXh-8S-bip" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wX1-td-YW3"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tak-JI-O6v" userLabel="First Responder" sceneMemberID="firstResponder"/>

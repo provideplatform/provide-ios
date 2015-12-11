@@ -785,7 +785,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             case 3:
                 print("open up the master cost model editor!!!")
             case 4:
-                viewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController")
+                viewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController")
                 (viewController as! ManifestViewController).delegate = workOrderCreationViewController
             case 5:
                 viewController = UIStoryboard("Expenses").instantiateInitialViewController()
