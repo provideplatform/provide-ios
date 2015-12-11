@@ -28,10 +28,10 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
                     for provider in delegate.providersForPickerViewController(self) {
                         providers.append(provider)
                     }
+                }
 
-                    for provider in delegate.selectedProvidersForPickerViewController(self) {
-                        selectedProviders.append(provider)
-                    }
+                for provider in delegate.selectedProvidersForPickerViewController(self) {
+                    selectedProviders.append(provider)
                 }
 
                 collectionView?.allowsMultipleSelection = delegate.providerPickerViewControllerAllowsMultipleSelection(self)
