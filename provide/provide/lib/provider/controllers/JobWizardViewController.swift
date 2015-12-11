@@ -293,76 +293,18 @@ class JobWizardViewController: UINavigationController,
         }
     }
 
-    // MARK: ManifestViewControllerDelegate
-
-//    override func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
-//        return workOrder
-//    }
-//
-//    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
-//        return ["MATERIALS", "JOB MANIFEST"]
-//    }
-//
-//    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
-//        if segmentIndex == 0 {
-//            // work order manifest
-//            return workOrder.materials.map { $0.jobProduct.product }
-//        } else if segmentIndex == 1 {
-//            // job manifest
-//            if let job = workOrder.job {
-//                if let _ = job.materials {
-//                    return job.materials.map { $0.product }
-//                } else {
-//                    reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
-//                }
-//            } else {
-//                reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
-//            }
-//        }
-//
-//        return [Product]()
-//    }
-//
-//    private func reloadWorkOrderJobForManifestViewController(viewController: ManifestViewController) {
-//        if !reloadingJob {
-//            dispatch_async_main_queue {
-//                viewController.showActivityIndicator()
-//            }
-//
-//            reloadingJob = true
-//
-//            workOrder.reloadJob(
-//                { (statusCode, mappingResult) -> () in
-//                    self.refreshUI()
-//                    viewController.reloadTableView()
-//                    self.reloadingJob = false
-//                },
-//                onError: { (error, statusCode, responseString) -> () in
-//                    self.refreshUI()
-//                    viewController.reloadTableView()
-//                    self.reloadingJob = false
-//                }
-//            )
-//        }
-//    }
-
     // MARK: ProviderPickerViewControllerDelegate
 
+    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+        return [Provider]()
+    }
+
     func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
-        //        if !workOrder.hasProvider(provider) {
-        //            let workOrderProvider = WorkOrderProvider()
-        //            workOrderProvider.provider = provider
-        //
-        //            workOrder.workOrderProviders.append(workOrderProvider)
-        //            isDirty = true
-        //        }
-        //        refreshRightBarButtonItems()
+
     }
 
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
-        //        workOrder.removeProvider(provider)
-        //        isDirty = true
-        //        refreshRightBarButtonItems()
+
     }
 
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
@@ -378,5 +320,10 @@ class JobWizardViewController: UINavigationController,
         return [Provider]()
     }
 
-
+    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+        if let job = job {
+            return ["company_id": job.companyId]
+        }
+        return nil
+    }
 }

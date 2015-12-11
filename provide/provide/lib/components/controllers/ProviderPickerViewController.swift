@@ -9,6 +9,7 @@
 import UIKit
 
 protocol ProviderPickerViewControllerDelegate {
+    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]!
     func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool
@@ -21,13 +22,19 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     var delegate: ProviderPickerViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
-                for provider in delegate.providersForPickerViewController(self) {
-                    providers.append(provider)
+                if let _ = delegate.queryParamsForProviderPickerViewController(self) {
+                    setupPullToRefresh()
+                } else {
+                    for provider in delegate.providersForPickerViewController(self) {
+                        providers.append(provider)
+                    }
+
+                    for provider in delegate.selectedProvidersForPickerViewController(self) {
+                        selectedProviders.append(provider)
+                    }
                 }
-                
-                for provider in delegate.selectedProvidersForPickerViewController(self) {
-                    selectedProviders.append(provider)
-                }
+
+                collectionView?.allowsMultipleSelection = delegate.providerPickerViewControllerAllowsMultipleSelection(self)
 
                 activityIndicatorView?.stopAnimating()
                 collectionView?.reloadData()
@@ -64,8 +71,6 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupPullToRefresh()
     }
 
     func showActivityIndicator() {
@@ -91,26 +96,26 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     func refresh() {
         if page == 1 {
-            refreshControl.beginRefreshing()
+            refreshControl?.beginRefreshing()
         }
 
-        let params: [String : AnyObject] = [
-            "page": page,
-            "rpp": rpp,
-        ]
+        if var params = delegate.queryParamsForProviderPickerViewController(self) {
+            params["page"] = page
+            params["rpp"] = rpp
 
-        ApiService.sharedService().fetchProviders(params,
-            onSuccess: { statusCode, mappingResult in
-                let fetchedProviders = mappingResult.array() as! [Provider]
-                self.providers += fetchedProviders
+            ApiService.sharedService().fetchProviders(params,
+                onSuccess: { statusCode, mappingResult in
+                    let fetchedProviders = mappingResult.array() as! [Provider]
+                    self.providers += fetchedProviders
 
-                self.collectionView.reloadData()
-                self.refreshControl.endRefreshing()
-            },
-            onError: { error, statusCode, responseString in
-                // TODO
-            }
-        )
+                    self.collectionView.reloadData()
+                    self.refreshControl.endRefreshing()
+                },
+                onError: { error, statusCode, responseString in
+                    // TODO
+                }
+            )
+        }
     }
 
     private func isSelected(provider: Provider) -> Bool {

@@ -266,11 +266,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        return workOrder.workOrderProviders.map({ $0.provider })
+        return [Provider]()
     }
 
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         return workOrder.workOrderProviders.map({ $0.provider })
+    }
+
+    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+        return nil
     }
 
     // MARK: PDTSimpleCalendarViewControllerDelegate
