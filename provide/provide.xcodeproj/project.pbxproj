@@ -188,6 +188,7 @@
 		68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF611C1820C500B81BEB /* JobManagerViewController.swift */; };
 		68B730C31C18293F00549D95 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C61BFB47A200DE7400 /* JobViewController.swift */; };
 		68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730C41C184C7500549D95 /* JobWizardTabBar.swift */; };
+		68B730C71C1AA7FC00549D95 /* JobWizard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */; };
 		68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C11B084DCF00863E21 /* VersionHelper.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
@@ -418,6 +419,7 @@
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
 		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		68B730C41C184C7500549D95 /* JobWizardTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardTabBar.swift; sourceTree = "<group>"; };
+		68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobWizard.storyboard; sourceTree = "<group>"; };
 		68B978C11B084DCF00863E21 /* VersionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionHelper.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 				68F536D91B834A330007F480 /* Comments.storyboard */,
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
+				68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */,
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
@@ -1212,6 +1215,7 @@
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
 				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
+				68B730C71C1AA7FC00549D95 /* JobWizard.storyboard in Resources */,
 				68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */,
 				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
 				68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */,
