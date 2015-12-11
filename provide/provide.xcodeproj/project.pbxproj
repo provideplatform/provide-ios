@@ -116,6 +116,7 @@
 		688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441561C06E3A10017D4AA /* PinInputViewController.swift */; };
 		6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441591C06E3E10017D4AA /* PinInputControl.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
+		6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */; };
 		688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */; };
 		6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */; };
 		6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */; };
@@ -351,6 +352,7 @@
 		688441561C06E3A10017D4AA /* PinInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputViewController.swift; sourceTree = "<group>"; };
 		688441591C06E3E10017D4AA /* PinInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputControl.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
+		6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTeamViewController.swift; sourceTree = "<group>"; };
 		688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintToolbar.swift; sourceTree = "<group>"; };
 		6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtensions.swift; sourceTree = "<group>"; };
 		6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderCreationViewController.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 				68B978C91B085A6C00863E21 /* segues */,
 				681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */,
 				681EBF611C1820C500B81BEB /* JobManagerViewController.swift */,
+				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
 				68D843C61BFB47A200DE7400 /* JobViewController.swift */,
 				681EBF651C18252D00B81BEB /* JobReviewViewController.swift */,
 				681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */,
@@ -1369,6 +1372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */,
+				6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */,
 				68B730CB1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift in Sources */,
 				6840F16C1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift in Sources */,
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
@@ -1724,7 +1728,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_PREFIX_HEADER = "${SRCROOT}/${PROJECT_NAME}/InfoPlist.h";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG -assert-config Debug";
@@ -1770,7 +1774,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_PREFIX_HEADER = "${SRCROOT}/${PROJECT_NAME}/InfoPlist.h";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-D AD_HOC -assert-config Release";
 				SDKROOT = iphoneos;
@@ -1916,7 +1920,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_PREFIX_HEADER = "${SRCROOT}/${PROJECT_NAME}/InfoPlist.h";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_SWIFT_FLAGS = "-D APP_STORE -assert-config Release";
 				SDKROOT = iphoneos;

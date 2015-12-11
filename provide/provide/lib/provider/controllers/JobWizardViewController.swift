@@ -17,8 +17,8 @@ class JobWizardViewController: UINavigationController,
                                JobBlueprintsViewControllerDelegate,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
+                               JobTeamViewControllerDelegate,
                                ManifestViewControllerDelegate,
-                               ProviderPickerViewControllerDelegate,
                                PDTSimpleCalendarViewDelegate {
 
     var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate!
@@ -71,8 +71,8 @@ class JobWizardViewController: UINavigationController,
         if viewController.isKindOfClass(JobBlueprintsViewController) {
             (viewController as! JobBlueprintsViewController).delegate = self
 
-        } else if viewController.isKindOfClass(ProviderPickerViewController) {
-            (viewController as! ProviderPickerViewController).delegate = self
+        } else if viewController.isKindOfClass(JobTeamViewContoller) {
+            (viewController as! JobTeamViewContoller).delegate = self
 
         } else if viewController.isKindOfClass(ManifestViewController) {
             (viewController as! ManifestViewController).delegate = self
@@ -253,67 +253,9 @@ class JobWizardViewController: UINavigationController,
         }
     }
 
-    // MARK: ProviderPickerViewControllerDelegate
+    // MARK: JobTeamViewControllerDelegate
 
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        return [Provider]()
-    }
-
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
-
-    }
-
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
-
-    }
-
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
-        return true
-    }
-
-    func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool {
-        if let job = job {
-            return job.supervisors != nil
-        }
-        return false
-    }
-
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        if let job = job {
-            if let supervisors = job.supervisors {
-                return supervisors
-            } else {
-                reloadJobForProviderPickerViewController(viewController)
-            }
-        }
-        return [Provider]()
-    }
-
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
-        if let job = job {
-            return ["company_id": job.companyId]
-        }
-        return nil
-    }
-
-    private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
-        if !reloadingJob {
-            if let job = job {
-                reloadingJob = true
-
-                job.reloadSupervisors(
-                    { (statusCode, mappingResult) -> () in
-                        self.refreshUI()
-                        viewController.reloadCollectionView()
-                        self.reloadingJob = false
-                    },
-                    onError: { (error, statusCode, responseString) -> () in
-                        self.refreshUI()
-                        viewController.reloadCollectionView()
-                        self.reloadingJob = false
-                    }
-                )
-            }
-        }
+    func jobForJobTeamViewController(viewController: JobTeamViewContoller) -> Job! {
+        return job
     }
 }

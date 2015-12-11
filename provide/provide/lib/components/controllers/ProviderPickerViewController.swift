@@ -61,6 +61,10 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     var providers = [Provider]() {
         didSet {
+            if providers.count == 0 {
+                selectedProviders = [Provider]()
+            }
+
             reloadCollectionView()
         }
     }

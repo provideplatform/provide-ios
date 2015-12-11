@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufM-R8-7az">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufM-R8-7az">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Blueprint-->
+        <!--Setup Blueprint-->
         <scene sceneID="DfW-Uj-JeL">
             <objects>
-                <navigationController id="Qmv-bo-xht" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Setup Blueprint" id="Qmv-bo-xht" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Blueprint" id="djs-Nf-6Xr">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4MI-ji-BvK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Mzg-Fz-fAk">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </toolbar>
                     <connections>
                         <segue destination="ito-mL-hLD" kind="relationship" relationship="rootViewController" id="YiW-4b-Nn6"/>
@@ -36,6 +39,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" selectionIndicatorImage="map-pin" itemPositioning="fill" id="IR6-UK-Df7" customClass="JobWizardTabBar" customModule="provide" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
@@ -51,35 +55,37 @@
             </objects>
             <point key="canvasLocation" x="-3971" y="637"/>
         </scene>
-        <!--Team-->
+        <!--Setup Team-->
         <scene sceneID="nxp-TM-0E3">
             <objects>
-                <navigationController id="erx-ez-fGP" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Setup Team" id="erx-ez-fGP" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Team" id="fZE-IT-3JX">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EPd-lL-dhE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <connections>
-                        <segue destination="bdQ-zd-V6p" kind="relationship" relationship="rootViewController" id="EB5-5G-Zkd"/>
+                        <segue destination="f6g-jD-clh" kind="relationship" relationship="rootViewController" id="Hrn-aB-gxK"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8kq-Xo-Jqx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3263" y="1298"/>
         </scene>
-        <!--Inventory-->
+        <!--Setup Inventory-->
         <scene sceneID="bYC-6C-Y1O">
             <objects>
-                <navigationController id="SZg-kh-43x" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Setup Inventory" id="SZg-kh-43x" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Inventory" id="2JO-iu-INJ">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7mW-10-Bfs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="RXh-8S-bip" kind="relationship" relationship="rootViewController" id="Ltk-ia-3FE"/>
@@ -89,16 +95,17 @@
             </objects>
             <point key="canvasLocation" x="-3263" y="1968"/>
         </scene>
-        <!--Work Orders-->
+        <!--Setup Work Orders-->
         <scene sceneID="MLN-FU-gdS">
             <objects>
-                <navigationController id="N8x-Qa-0zE" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Setup Work Orders" id="N8x-Qa-0zE" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Work Orders" id="3tW-6m-ZP1">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OXP-Og-8u9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="qHs-gw-xH6" kind="relationship" relationship="rootViewController" id="PIO-x1-o2q"/>
@@ -111,13 +118,14 @@
         <!--Manage Job-->
         <scene sceneID="C6V-pl-k7q">
             <objects>
-                <navigationController id="5bq-h2-E4S" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Manage Job" id="5bq-h2-E4S" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Manage Job" id="B3H-FD-9TC">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aDa-EP-46I">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="WZd-Z0-dkL" kind="relationship" relationship="rootViewController" id="lJ3-2S-yuk"/>
@@ -127,16 +135,17 @@
             </objects>
             <point key="canvasLocation" x="-3263" y="3292"/>
         </scene>
-        <!--Review-->
+        <!--Review & Complete-->
         <scene sceneID="8Kz-EO-ydh">
             <objects>
-                <navigationController id="74v-b4-QhA" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Review &amp; Complete" id="74v-b4-QhA" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Review" id="XmG-W6-RsV">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PPU-qB-yiB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <connections>
                         <segue destination="WIo-oq-T6u" kind="relationship" relationship="rootViewController" id="UAo-lj-9xu"/>
@@ -164,7 +173,108 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3xe-oy-uuc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2791.5" y="1298"/>
+            <point key="canvasLocation" x="-2125.5" y="1220"/>
+        </scene>
+        <!--ProviderPicker-->
+        <scene sceneID="bua-ZK-Sqv">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProviderPicker" id="pzU-u3-oOB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2HX-uv-aWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2125.5" y="1449"/>
+        </scene>
+        <!--Job Team View Contoller-->
+        <scene sceneID="UR3-Pp-kMd">
+            <objects>
+                <tableViewController id="f6g-jD-clh" customClass="JobTeamViewContoller" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="pWL-u5-6JN">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="9qR-ea-jWC">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="f6g-jD-clh" id="8Dp-yw-m0K"/>
+                            </connections>
+                        </searchBar>
+                        <sections>
+                            <tableViewSection headerTitle="Search Results" id="1ia-ma-Zvb">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="LPq-mV-2aF">
+                                        <rect key="frame" x="0.0" y="157.5" width="600" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPq-mV-2aF" id="iD3-tn-guu">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ome-25-KpD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <segue destination="bdQ-zd-V6p" kind="embed" identifier="QueryResultsProviderPickerEmbedSegue" id="SjR-94-vLL"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ome-25-KpD" secondAttribute="bottom" constant="-8.5" id="EYY-aS-sF4"/>
+                                                <constraint firstItem="ome-25-KpD" firstAttribute="centerX" secondItem="iD3-tn-guu" secondAttribute="centerX" id="G7O-V6-M98"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ome-25-KpD" secondAttribute="trailing" constant="-8" id="Kpp-KY-JhH"/>
+                                                <constraint firstItem="ome-25-KpD" firstAttribute="centerY" secondItem="iD3-tn-guu" secondAttribute="centerY" id="bS8-Uc-Nxy"/>
+                                                <constraint firstItem="ome-25-KpD" firstAttribute="leading" secondItem="iD3-tn-guu" secondAttribute="leadingMargin" constant="-8" id="fFa-OE-9Wc"/>
+                                                <constraint firstItem="ome-25-KpD" firstAttribute="top" secondItem="iD3-tn-guu" secondAttribute="topMargin" constant="-8" id="rO0-Sw-n5w"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Supervisors" id="NMZ-XK-26R" userLabel="Search Results">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="uEu-vs-Q9A">
+                                        <rect key="frame" x="0.0" y="407.5" width="600" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uEu-vs-Q9A" id="iDO-E9-BUX">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LFk-pI-pbN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <segue destination="pzU-u3-oOB" kind="embed" identifier="SupervisorsProviderPickerEmbedSegue" id="UZa-MI-c9z"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="LFk-pI-pbN" firstAttribute="centerX" secondItem="iDO-E9-BUX" secondAttribute="centerX" id="8Hw-Xq-IiE"/>
+                                                <constraint firstItem="LFk-pI-pbN" firstAttribute="centerY" secondItem="iDO-E9-BUX" secondAttribute="centerY" id="EWI-FY-e8i"/>
+                                                <constraint firstItem="LFk-pI-pbN" firstAttribute="leading" secondItem="iDO-E9-BUX" secondAttribute="leadingMargin" constant="-8" id="HO7-WJ-LHS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LFk-pI-pbN" secondAttribute="bottom" constant="-8.5" id="UtP-iC-ELo"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LFk-pI-pbN" secondAttribute="trailing" constant="-8" id="Uwk-JR-ZJv"/>
+                                                <constraint firstItem="LFk-pI-pbN" firstAttribute="top" secondItem="iDO-E9-BUX" secondAttribute="topMargin" constant="-8" id="d2i-2H-G9B"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="f6g-jD-clh" id="Mul-4N-aj1"/>
+                            <outlet property="delegate" destination="f6g-jD-clh" id="qrA-xC-Z44"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Dyg-BM-vh8"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xLE-5S-8c8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2602" y="1298"/>
         </scene>
         <!--ManifestViewController-->
         <scene sceneID="Kc3-PT-CTL">
@@ -203,6 +313,66 @@
                     <navigationItem key="navigationItem" id="0ak-0f-qJH"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaK-Qe-SA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewSection headerTitle="Supervisors" id="yKx-of-R2v">
+                    <cells>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="300" id="H9m-gH-QFz">
+                            <rect key="frame" x="0.0" y="49.5" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H9m-gH-QFz" id="zES-FU-Qeu">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4S9-r7-8lI">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <animations/>
+                                    </containerView>
+                                </subviews>
+                                <animations/>
+                            </tableViewCellContentView>
+                            <animations/>
+                        </tableViewCell>
+                    </cells>
+                </tableViewSection>
+                <tableViewSection headerTitle="Supervisors" id="lTO-hS-6ei">
+                    <cells>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="300" id="E7h-Pk-m82">
+                            <rect key="frame" x="0.0" y="49.5" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E7h-Pk-m82" id="peY-us-ozs">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="klM-rV-D51">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <animations/>
+                                    </containerView>
+                                </subviews>
+                                <animations/>
+                            </tableViewCellContentView>
+                            <animations/>
+                        </tableViewCell>
+                    </cells>
+                </tableViewSection>
+                <tableViewSection headerTitle="Supervisors" id="1o0-Oy-UyM">
+                    <cells>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="300" id="VR7-Nj-nCc">
+                            <rect key="frame" x="0.0" y="49.5" width="600" height="300"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VR7-Nj-nCc" id="tHI-K9-Lhp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="299.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lm7-OS-2fd">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <animations/>
+                                    </containerView>
+                                </subviews>
+                                <animations/>
+                            </tableViewCellContentView>
+                            <animations/>
+                        </tableViewCell>
+                    </cells>
+                </tableViewSection>
             </objects>
             <point key="canvasLocation" x="-2758" y="3956"/>
         </scene>
