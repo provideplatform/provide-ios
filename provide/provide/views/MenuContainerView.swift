@@ -73,6 +73,7 @@ class MenuContainerView: UIView {
 
         if let targetView = UIApplication.sharedApplication().keyWindow {
             backgroundView = UIView(frame: targetView.bounds)
+            backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeMenu"))
             backgroundView.backgroundColor = UIColor.blackColor()
             backgroundView.alpha = 0.0
