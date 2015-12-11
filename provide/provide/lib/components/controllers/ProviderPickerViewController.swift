@@ -12,6 +12,7 @@ protocol ProviderPickerViewControllerDelegate {
     func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
     func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
     func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool
+    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
 }
 
@@ -20,9 +21,16 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     var delegate: ProviderPickerViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
+                for provider in delegate.providersForPickerViewController(self) {
+                    providers.append(provider)
+                }
+                
                 for provider in delegate.selectedProvidersForPickerViewController(self) {
                     selectedProviders.append(provider)
                 }
+
+                activityIndicatorView?.stopAnimating()
+                collectionView?.reloadData()
             }
         }
     }
@@ -39,22 +47,70 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    var providers: [Provider]! = [Provider]() {
-        didSet {
-            if let _ = providers {
-                activityIndicatorView.stopAnimating()
-            }
+    private var refreshControl: UIRefreshControl!
 
-            collectionView.reloadData()
+    var providers = [Provider]() {
+        didSet {
+            activityIndicatorView?.stopAnimating()
+            collectionView?.reloadData()
         }
     }
 
     private var selectedProviders = [Provider]()
 
+    private var page = 1
+    private let rpp = 10
+    private var lastProviderIndex = -1
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityIndicatorView.startAnimating()
+        setupPullToRefresh()
+    }
+
+    func showActivityIndicator() {
+        activityIndicatorView?.startAnimating()
+    }
+
+    private func setupPullToRefresh() {
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+
+        collectionView.addSubview(refreshControl)
+        collectionView.alwaysBounceVertical = true
+
+        refresh()
+    }
+
+    func reset() {
+        providers = [Provider]()
+        page = 1
+        lastProviderIndex = -1
+        refresh()
+    }
+
+    func refresh() {
+        if page == 1 {
+            refreshControl.beginRefreshing()
+        }
+
+        let params: [String : AnyObject] = [
+            "page": page,
+            "rpp": rpp,
+        ]
+
+        ApiService.sharedService().fetchProviders(params,
+            onSuccess: { statusCode, mappingResult in
+                let fetchedProviders = mappingResult.array() as! [Provider]
+                self.providers += fetchedProviders
+
+                self.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
+            },
+            onError: { error, statusCode, responseString in
+                // TODO
+            }
+        )
     }
 
     private func isSelected(provider: Provider) -> Bool {
