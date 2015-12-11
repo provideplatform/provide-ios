@@ -14,8 +14,9 @@ typealias OnError = (error: NSError, statusCode: Int, responseString: String) ->
 class ApiService: NSObject {
 
     private let mimeMappings = [
+        "application/pdf": "pdf",
         "image/jpg": "jpg",
-        "video/mp4": "m4v"
+        "video/mp4": "m4v",
     ]
 
     private let objectMappings = [
@@ -473,6 +474,39 @@ class ApiService: NSObject {
         realParams["customerId"] = nil
 
         dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+    }
+
+    func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+        if let tags = params["tags"] {
+            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+        }
+        dispatchApiOperationForPath("jobs/\(id)/attachments/new", method: .GET, params: presignParams,
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 200)
+                let attachment = mappingResult.firstObject as? Attachment
+
+                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
+                    onSuccess: { statusCode, mappingResult in
+                        var realParams = params
+                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
+                        realParams.updateValue(mimeType, forKey: "mime_type")
+
+                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                        realParams.updateValue(url, forKey: "url")
+
+                        self.dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+                    },
+                    onError: onError
+                )
+            },
+            onError: onError
+        )
+    }
+
+    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        params["source_url"] = sourceUrl.absoluteString
+        dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func updateAttachmentWithId(id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {

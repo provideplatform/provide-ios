@@ -14,6 +14,7 @@ protocol JobWizardViewControllerDelegate {
 
 class JobWizardViewController: UINavigationController,
                                UINavigationControllerDelegate,
+                               JobBlueprintsViewControllerDelegate,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
                                ManifestViewControllerDelegate,
@@ -68,7 +69,7 @@ class JobWizardViewController: UINavigationController,
 
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         if viewController.isKindOfClass(JobBlueprintsViewController) {
-            //(viewController as! JobBlueprintsViewController).delegate = self
+            (viewController as! JobBlueprintsViewController).delegate = self
 
         } else if viewController.isKindOfClass(ProviderPickerViewController) {
             (viewController as! ProviderPickerViewController).delegate = self
@@ -90,7 +91,14 @@ class JobWizardViewController: UINavigationController,
         refreshUI()
     }
 
+    // MARK: JobBlueprintsViewControllerDelegate
+
+    func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job! {
+        return job
+    }
+
     // MARK: BlueprintViewControllerDelegate
+
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
     }

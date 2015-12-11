@@ -1631,11 +1631,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-4N-edL">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcH-4N-edL">
                                 <rect key="frame" x="47" y="141" width="42" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="tcY-CT-fTh"/>
-                                </constraints>
                                 <state key="normal" title="Button" image="dropbox"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wkH-e4-HjI">
@@ -1645,13 +1642,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hcH-4N-edL" firstAttribute="top" secondItem="AYJ-db-SBJ" secondAttribute="bottom" constant="121" id="DGR-9n-gue"/>
-                            <constraint firstItem="wkH-e4-HjI" firstAttribute="leading" secondItem="hcH-4N-edL" secondAttribute="trailing" constant="8" symbolic="YES" id="JMy-Be-jSz"/>
-                            <constraint firstItem="wkH-e4-HjI" firstAttribute="top" secondItem="hcH-4N-edL" secondAttribute="top" id="PY1-xM-UQ0"/>
-                            <constraint firstItem="hcH-4N-edL" firstAttribute="leading" secondItem="orP-7s-d85" secondAttribute="leadingMargin" constant="27" id="b8K-jg-F7W"/>
-                            <constraint firstItem="qC2-CQ-HSl" firstAttribute="top" secondItem="hcH-4N-edL" secondAttribute="bottom" constant="427" id="wCk-E3-nh8"/>
+                            <constraint firstItem="wkH-e4-HjI" firstAttribute="top" secondItem="AYJ-db-SBJ" secondAttribute="bottom" constant="121" id="M8I-iF-ofs"/>
+                            <constraint firstItem="wkH-e4-HjI" firstAttribute="leading" secondItem="orP-7s-d85" secondAttribute="leadingMargin" constant="77" id="oeP-DK-Oh9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="importFromDropboxIconButton" destination="hcH-4N-edL" id="XYj-u2-U0L"/>
+                        <outlet property="importFromDropboxTextButton" destination="wkH-e4-HjI" id="OdX-1U-yuk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CG7-hr-ybk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
