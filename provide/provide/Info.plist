@@ -61,7 +61,9 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>dbapi-1</string>
 		<string>dbapi-2</string>
+		<string>dbapi-3</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

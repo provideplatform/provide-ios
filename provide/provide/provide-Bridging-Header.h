@@ -10,6 +10,7 @@
 
 // CocoaPods
 #import <Analytics/Analytics.h>
+#import <DBChooser/DBChooser.h>
 #import <DropboxSDK/DropboxSDK.h>
 #import <ECSlidingViewController/ECSlidingSegue.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
