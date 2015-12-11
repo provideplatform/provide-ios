@@ -29,7 +29,16 @@ class WorkOrderService: NSObject {
     var nextWorkOrderDrivingEtaMinutes: Int!
 
     var inProgressWorkOrder: WorkOrder! {
-        return workOrders.findFirst { $0.status == "en_route" || $0.status == "in_progress" } // can be en_route or in_progress
+        for wo in workOrders {
+            if wo.status == "en_route" || wo.status == "in_progress" {
+                for provider in wo.providers {
+                    if provider.userId == currentUser().id {
+                        return wo
+                    }
+                }
+            }
+        }
+        return nil
     }
 
     private var workOrders = [WorkOrder]() {
