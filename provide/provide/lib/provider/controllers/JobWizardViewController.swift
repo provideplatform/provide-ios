@@ -182,22 +182,42 @@ class JobWizardViewController: UINavigationController,
     }
 
     func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
-        if segmentIndex == 0 {
-            // job manifest
-            if let job = job {
-                if let _ = job.materials {
-                    return job.materials.map { $0.product }
-                } else {
-                    reloadJobForManifestViewController(viewController as! ManifestViewController)
-                }
-            } else {
-                reloadJobForManifestViewController(viewController as! ManifestViewController)
-            }
-        } else if segmentIndex == 1 {
+        let manifestViewController = viewController as! ManifestViewController
+        return jobProductsForManifestViewController(manifestViewController, forSegmentIndex: segmentIndex).map({ $0.product })
+    }
 
+    func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+        let cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
+        let manifestViewController = viewController as! ManifestViewController
+        cell.jobProduct = jobProductsForManifestViewController(manifestViewController, forSegmentIndex: manifestViewController.selectedSegmentIndex)[indexPath.row]
+        return cell
+    }
+
+    func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let manifestViewController = viewController as! ManifestViewController
+        let jobProduct = jobProductsForManifestViewController(manifestViewController, forSegmentIndex: manifestViewController.selectedSegmentIndex)[indexPath.row]
+        print("selected job product \(jobProduct)")
+    }
+
+    private func jobProductsForManifestViewController(viewController: ManifestViewController, forSegmentIndex segmentIndex: Int) -> [JobProduct] {
+        if segmentIndex > -1 {
+            // job manifest
+            if segmentIndex == 0 {
+                if let job = job {
+                    if let _ = job.materials {
+                        return job.materials
+                    } else {
+                        reloadJobForManifestViewController(viewController)
+                    }
+                } else {
+                    reloadJobForManifestViewController(viewController)
+                }
+            } else if segmentIndex == 1 {
+                // no-op
+            }
         }
 
-        return [Product]()
+        return [JobProduct]()
     }
 
     private func reloadJobForManifestViewController(viewController: ManifestViewController) {
