@@ -265,6 +265,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         return true
     }
 
+    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+        return workOrder.workOrderProviders.map({ $0.provider })
+    }
+
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         return workOrder.workOrderProviders.map({ $0.provider })
     }
