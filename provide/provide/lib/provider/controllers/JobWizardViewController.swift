@@ -22,7 +22,15 @@ class JobWizardViewController: UINavigationController,
                                ManifestViewControllerDelegate,
                                PDTSimpleCalendarViewDelegate {
 
-    var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate!
+    var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate! {
+        didSet {
+            if let _ = jobWizardViewControllerDelegate {
+                if let pendingViewController = pendingViewController {
+                    setupViewController(pendingViewController)
+                }
+            }
+        }
+    }
 
     var job: Job! {
         if  let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
@@ -32,6 +40,8 @@ class JobWizardViewController: UINavigationController,
     }
 
     private var reloadingJob = false
+
+    private var pendingViewController: UIViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +79,14 @@ class JobWizardViewController: UINavigationController,
     }
 
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        if job == nil {
+            pendingViewController = viewController
+        } else {
+            setupViewController(viewController)
+        }
+    }
+
+    func setupViewController(viewController: UIViewController) {
         if viewController.isKindOfClass(JobBlueprintsViewController) {
             (viewController as! JobBlueprintsViewController).delegate = self
 
@@ -86,10 +104,12 @@ class JobWizardViewController: UINavigationController,
 
         } else if viewController.isKindOfClass(JobReviewViewController) {
             (viewController as! JobReviewViewController).job = job
-
+            
         }
-
+        
         refreshUI()
+
+        pendingViewController = nil
     }
 
     // MARK: JobBlueprintsViewControllerDelegate
