@@ -36,9 +36,11 @@ class JobBlueprintsViewController: ViewController {
 
     func importFromDropbox(sender: UIButton) {
         DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { results in
-            for result in results {
-                let sourceURL = (result as! DBChooserResult).link
-                self.importFromSourceURL(sourceURL)
+            if let results = results {
+                for result in results {
+                    let sourceURL = (result as! DBChooserResult).link
+                    self.importFromSourceURL(sourceURL)
+                }
             }
         }
     }
