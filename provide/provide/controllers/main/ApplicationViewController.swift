@@ -32,8 +32,14 @@ class ApplicationViewController: ECSlidingViewController,
         super.awakeFromNib()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
+    }
 
-        topViewController = UIStoryboard("Application").instantiateInitialViewController()!
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "ApplicationUINavigationControllerEmbedSegue" {
+            topViewController = segue.destinationViewController
+        }
     }
 
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {

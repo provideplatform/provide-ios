@@ -135,7 +135,6 @@
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
-		68B4120D1B07FB02009A4C05 /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412001B07FB02009A4C05 /* Application.storyboard */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -380,7 +379,6 @@
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		68B412001B07FB02009A4C05 /* Application.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Application.storyboard; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
 		68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -707,7 +705,6 @@
 			children = (
 				5CAC66201B1291620079A58E /* LaunchScreen.xib */,
 				68B412341B07FBEB009A4C05 /* Main.storyboard */,
-				68B412001B07FB02009A4C05 /* Application.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -1295,7 +1292,6 @@
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
 				68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */,
-				68B4120D1B07FB02009A4C05 /* Application.storyboard in Resources */,
 				68140D9E1C1C23E7008F7E3A /* WorkOrderCreation.storyboard in Resources */,
 				5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */,
 				68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */,
