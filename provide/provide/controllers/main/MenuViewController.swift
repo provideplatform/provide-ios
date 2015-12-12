@@ -142,6 +142,15 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: Private Methods
 
+    private func navigationControllerContains(clazz: AnyClass) -> Bool {
+        for viewController in (delegate?.navigationControllerForMenuViewController(self)?.viewControllers)! {
+            if viewController.isKindOfClass(clazz) {
+                return true
+            }
+        }
+        return false
+    }
+
     private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
         NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
 
@@ -156,8 +165,10 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
 
         if storyboardPath != nil {
-            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()
-            delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController!, animated: true)
+            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()!
+            if !navigationControllerContains(initialViewController.dynamicType) {
+                delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController, animated: true)
+            }
         } else {
             NSNotificationCenter.defaultCenter().postNotificationName("SegueTo\(storyboardName)Storyboard", object: self)
         }

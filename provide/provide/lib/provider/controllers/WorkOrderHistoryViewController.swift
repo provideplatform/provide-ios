@@ -202,6 +202,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     }
 
     deinit {
-        collectionView.delegate = nil
+        collectionView?.delegate = nil
     }
 }

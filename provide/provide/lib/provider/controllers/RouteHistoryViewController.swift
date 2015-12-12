@@ -198,7 +198,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     }
 
     deinit {
-        collectionView.delegate = nil
+        collectionView?.delegate = nil
     }
 
 //    // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
