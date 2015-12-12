@@ -300,30 +300,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-Jd-ohW" customClass="JobDetailsHeaderView" customModule="provide" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Li-Jd-ohW" customClass="JobDetailsHeaderView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SnI-lf-ZgS">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SnI-lf-ZgS">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1r-Ka-lv0" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1r-Ka-lv0" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                     </mapView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nrl-nD-rSa" userLabel="Customer Label">
                                         <rect key="frame" x="372" y="25" width="154" height="46"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="154" id="jWO-4o-tcF"/>
+                                            <constraint firstAttribute="width" constant="154" id="os6-tu-mDD"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRw-Sr-eVv">
-                                        <rect key="frame" x="372" y="66" width="154" height="19.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="154" id="0ba-UF-vci"/>
-                                        </constraints>
+                                        <rect key="frame" x="372" y="66" width="154" height="20"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -331,20 +328,21 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="SnI-lf-ZgS" secondAttribute="bottom" id="8x9-uw-MHV"/>
-                                    <constraint firstAttribute="trailing" secondItem="W1r-Ka-lv0" secondAttribute="trailing" id="B7a-VT-LaF"/>
-                                    <constraint firstItem="Nrl-nD-rSa" firstAttribute="leading" secondItem="VRw-Sr-eVv" secondAttribute="leading" id="Cc9-Y1-qtq"/>
-                                    <constraint firstItem="Nrl-nD-rSa" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" constant="25" id="Fh3-mu-T8v"/>
-                                    <constraint firstItem="W1r-Ka-lv0" firstAttribute="leading" secondItem="6Li-Jd-ohW" secondAttribute="leading" id="GdW-uP-Cpt"/>
-                                    <constraint firstItem="VRw-Sr-eVv" firstAttribute="top" secondItem="Nrl-nD-rSa" secondAttribute="bottom" constant="-5" id="Gpq-Xv-BIO"/>
-                                    <constraint firstAttribute="trailing" secondItem="VRw-Sr-eVv" secondAttribute="trailing" constant="74" id="MUj-PR-TkS"/>
-                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" id="NhQ-TW-Wpq"/>
-                                    <constraint firstAttribute="trailing" secondItem="SnI-lf-ZgS" secondAttribute="trailing" id="Y0M-Ov-mQ1"/>
-                                    <constraint firstItem="W1r-Ka-lv0" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" id="Zkv-nf-PMd"/>
-                                    <constraint firstAttribute="bottom" secondItem="W1r-Ka-lv0" secondAttribute="bottom" id="axO-lR-Jl0"/>
-                                    <constraint firstAttribute="trailing" secondItem="Nrl-nD-rSa" secondAttribute="trailing" constant="74" id="kLc-zH-vnx"/>
-                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="leading" secondItem="6Li-Jd-ohW" secondAttribute="leading" id="pRr-cg-oo2"/>
-                                    <constraint firstItem="VRw-Sr-eVv" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" constant="66" id="v3K-0I-Fc7"/>
+                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="bottom" secondItem="W1r-Ka-lv0" secondAttribute="bottom" id="GdB-kC-WJY"/>
+                                    <constraint firstAttribute="bottom" secondItem="W1r-Ka-lv0" secondAttribute="bottom" id="LsP-PY-h5V"/>
+                                    <constraint firstItem="Nrl-nD-rSa" firstAttribute="trailing" secondItem="VRw-Sr-eVv" secondAttribute="trailing" id="MVg-0p-2C5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Nrl-nD-rSa" secondAttribute="trailing" constant="74" id="N1a-w7-iWV"/>
+                                    <constraint firstAttribute="trailing" secondItem="SnI-lf-ZgS" secondAttribute="trailing" id="P1O-GN-NaS"/>
+                                    <constraint firstItem="Nrl-nD-rSa" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" constant="25" id="T2u-AV-esG"/>
+                                    <constraint firstItem="Nrl-nD-rSa" firstAttribute="leading" secondItem="VRw-Sr-eVv" secondAttribute="leading" id="ZDS-pa-gRJ"/>
+                                    <constraint firstItem="VRw-Sr-eVv" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" constant="66" id="cQY-Ya-yeV"/>
+                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="trailing" secondItem="W1r-Ka-lv0" secondAttribute="trailing" id="dLz-Rl-F6M"/>
+                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="leading" secondItem="W1r-Ka-lv0" secondAttribute="leading" id="msT-lI-cdt"/>
+                                    <constraint firstAttribute="bottom" secondItem="VRw-Sr-eVv" secondAttribute="bottom" constant="64" id="tVN-eY-n8p"/>
+                                    <constraint firstItem="W1r-Ka-lv0" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="top" id="tf8-9X-9zP"/>
+                                    <constraint firstAttribute="bottom" secondItem="Nrl-nD-rSa" secondAttribute="bottom" constant="79" id="uWC-ah-Rxo"/>
+                                    <constraint firstItem="SnI-lf-ZgS" firstAttribute="top" secondItem="W1r-Ka-lv0" secondAttribute="top" id="wIf-pX-7AV"/>
+                                    <constraint firstItem="W1r-Ka-lv0" firstAttribute="leading" secondItem="6Li-Jd-ohW" secondAttribute="leading" id="waR-0p-ZPL"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="addressLabel" destination="VRw-Sr-eVv" id="HgC-aE-XbX"/>
@@ -353,12 +351,12 @@
                                     <outlet property="mapView" destination="W1r-Ka-lv0" id="zwh-JP-eYg"/>
                                 </connections>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" misplaced="YES" alwaysBounceVertical="YES" scrollEnabled="NO" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gRp-U4-tLK">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="gRp-U4-tLK">
                                 <rect key="frame" x="0.0" y="150" width="600" height="450"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="392" id="nAx-ts-QMQ"/>
-                                    <constraint firstAttribute="height" constant="450" id="oGx-3Y-eFa"/>
+                                    <constraint firstAttribute="height" constant="450" id="phq-OS-hir"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameValueTableViewCellReuseIdentifier" id="YOY-2D-Rcx" customClass="NameValueTableViewCell" customModule="provide" customModuleProvider="target">
@@ -475,16 +473,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gRp-U4-tLK" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="bottom" id="0fz-GO-2Dk"/>
-                            <constraint firstItem="gRp-U4-tLK" firstAttribute="trailing" secondItem="6Li-Jd-ohW" secondAttribute="trailing" id="3Gg-nX-bPr"/>
                             <constraint firstItem="6Li-Jd-ohW" firstAttribute="top" secondItem="xKK-iy-G4g" secondAttribute="top" id="7Ia-9b-dLo"/>
-                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leadingMargin" constant="-20" id="8wA-vU-isK"/>
-                            <constraint firstItem="gRp-U4-tLK" firstAttribute="bottom" secondItem="R08-z2-Fgw" secondAttribute="top" id="9sa-Lw-eQp"/>
-                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="centerX" secondItem="xKK-iy-G4g" secondAttribute="centerX" id="FqM-Go-cGA"/>
-                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" constant="-20" id="Iw5-Xg-TDG"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6Li-Jd-ohW" secondAttribute="trailing" constant="-20" id="YeA-DR-yqu"/>
-                            <constraint firstItem="gRp-U4-tLK" firstAttribute="leading" secondItem="6Li-Jd-ohW" secondAttribute="leading" id="aPh-10-d8A"/>
+                            <constraint firstAttribute="bottom" secondItem="gRp-U4-tLK" secondAttribute="bottom" id="KfD-w4-Ax2"/>
+                            <constraint firstItem="gRp-U4-tLK" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" id="RBK-a9-dzj"/>
+                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="trailing" secondItem="gRp-U4-tLK" secondAttribute="trailing" id="WIA-RJ-Rz9"/>
+                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="top" secondItem="xKK-iy-G4g" secondAttribute="top" id="Ywj-sC-JBH"/>
+                            <constraint firstItem="6Li-Jd-ohW" firstAttribute="leading" secondItem="gRp-U4-tLK" secondAttribute="leading" id="aIC-4l-70S"/>
+                            <constraint firstItem="gRp-U4-tLK" firstAttribute="top" secondItem="6Li-Jd-ohW" secondAttribute="bottom" id="bOy-gs-Qzh"/>
+                            <constraint firstAttribute="trailing" secondItem="gRp-U4-tLK" secondAttribute="trailing" id="vft-mA-f7H"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="7Ia-9b-dLo"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="JB5-kG-YW4"/>
                     <connections>
@@ -531,14 +533,14 @@
                                 <rect key="frame" x="47" y="141" width="42" height="32"/>
                                 <state key="normal" title="Button" image="dropbox"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6M-E5-2EJ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6M-E5-2EJ">
                                 <rect key="frame" x="97" y="141" width="144" height="30"/>
                                 <state key="normal" title="Import from Dropbox"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="e6M-E5-2EJ" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" constant="121" id="8eZ-RJ-n0r"/>
+                            <constraint firstItem="e6M-E5-2EJ" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" constant="77" id="8eZ-RJ-n0r"/>
                             <constraint firstItem="e6M-E5-2EJ" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="77" id="Eeu-rH-Rlt"/>
                         </constraints>
                     </view>
