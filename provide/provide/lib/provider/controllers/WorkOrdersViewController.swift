@@ -33,7 +33,6 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
     optional func managedViewControllersForViewController(viewController: UIViewController!) -> [UIViewController]
     optional func nextWorkOrderContextShouldBeRewound()
     optional func nextWorkOrderContextShouldBeRewoundForViewController(viewController: UIViewController)
-    optional func unwindManagedViewController(viewController: UIViewController)
     optional func confirmationRequiredForWorkOrderViewController(viewController: UIViewController)
     optional func confirmationCanceledForWorkOrderViewController(viewController: UIViewController)
     optional func confirmationReceivedForWorkOrderViewController(viewController: UIViewController)
@@ -525,9 +524,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func unwindManagedViewController(viewController: UIViewController) {
+    private func unwindManagedViewController(viewController: UIViewController) {
         let segueIdentifier = ("\(NSStringFromClass((viewController as AnyObject).dynamicType))UnwindSegue" as String).splitAtString(".").1
-        viewController.performSegueWithIdentifier(segueIdentifier, sender: self)
+        let index = [
+            "DirectionsViewControllerUnwindSegue",
+            "WorkOrderAnnotationViewControllerUnwindSegue",
+            "WorkOrderDestinationHeaderViewControllerUnwindSegue",
+            "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
+            "WorkOrderComponentViewControllerUnwindSegue"
+            ].indexOfObject(segueIdentifier)
+        if let _ = index {
+            viewController.performSegueWithIdentifier(segueIdentifier, sender: self)
+        }
     }
 
     func confirmationRequiredForWorkOrderViewController(viewController: UIViewController) {

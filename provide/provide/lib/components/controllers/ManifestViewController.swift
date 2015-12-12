@@ -217,7 +217,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
             return cell
         }
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("manifestTableViewCell") as! RouteManifestItemTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("manifestTableViewCell") as! ManifestItemTableViewCell
         cell.product = items[indexPath.row]
         return cell
     }

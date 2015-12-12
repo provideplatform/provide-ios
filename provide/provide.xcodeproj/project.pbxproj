@@ -174,7 +174,7 @@
 		68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
 		68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
 		68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */; };
-		68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */; };
+		68B412E61B080E6D009A4C05 /* ManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */; };
 		68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D91B080E6D009A4C05 /* SignatureView.swift */; };
 		68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
 		68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
@@ -418,7 +418,7 @@
 		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsInstructionView.swift; sourceTree = "<group>"; };
 		68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipItemTableViewCell.swift; sourceTree = "<group>"; };
-		68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestItemTableViewCell.swift; sourceTree = "<group>"; };
+		68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestItemTableViewCell.swift; sourceTree = "<group>"; };
 		68B412D91B080E6D009A4C05 /* SignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
 		68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationViewController.swift; sourceTree = "<group>"; };
 		68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderComponentViewController.swift; sourceTree = "<group>"; };
@@ -838,9 +838,9 @@
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */,
+				68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */,
 				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
 				6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */,
-				68B412D81B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift */,
 				68B412D91B080E6D009A4C05 /* SignatureView.swift */,
 			);
 			path = views;
@@ -1502,7 +1502,7 @@
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
-				68B412E61B080E6D009A4C05 /* RouteManifestItemTableViewCell.swift in Sources */,
+				68B412E61B080E6D009A4C05 /* ManifestItemTableViewCell.swift in Sources */,
 				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,

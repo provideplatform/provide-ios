@@ -1,5 +1,5 @@
 //
-//  RouteManifestItemTableViewCell.swift
+//  ManifestItemTableViewCell.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class RouteManifestItemTableViewCell: UITableViewCell {
+class ManifestItemTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var gtinLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
