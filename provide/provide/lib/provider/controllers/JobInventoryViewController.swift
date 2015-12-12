@@ -56,7 +56,7 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Manage Inventory"
+        navigationItem.title = "Setup Inventory"
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

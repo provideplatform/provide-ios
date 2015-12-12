@@ -29,6 +29,8 @@ class JobBlueprintsViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Setup Blueprint"
+
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             importFromDropboxButton.addTarget(self, action: "importFromDropbox:", forControlEvents: .TouchUpInside)
         }

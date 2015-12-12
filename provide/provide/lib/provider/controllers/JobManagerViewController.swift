@@ -79,6 +79,8 @@ class JobManagerViewController: ViewController, PDTSimpleCalendarViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.title = "Manage Job"
+
         dispatch_after_delay(0.0) {
             self.headerView.frame.size.width = self.tableView.frame.width
             self.headerView.addDropShadow()

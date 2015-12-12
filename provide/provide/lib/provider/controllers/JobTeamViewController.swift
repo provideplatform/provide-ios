@@ -56,7 +56,7 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Manage Team"
+        navigationItem.title = "Setup Team"
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
