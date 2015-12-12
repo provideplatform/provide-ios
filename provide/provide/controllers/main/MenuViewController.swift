@@ -165,7 +165,10 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
 
         if storyboardPath != nil {
-            let initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()!
+            var initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()!
+            if initialViewController.isKindOfClass(UINavigationController) {
+                initialViewController = (initialViewController as! UINavigationController).viewControllers[0]
+            }
             if !navigationControllerContains(initialViewController.dynamicType) {
                 delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController, animated: true)
             }
