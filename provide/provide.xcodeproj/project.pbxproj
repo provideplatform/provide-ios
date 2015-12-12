@@ -162,7 +162,6 @@
 		68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412921B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift */; };
 		68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412931B0804BC009A4C05 /* MenuViewController.swift */; };
 		68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412941B0804BC009A4C05 /* NavigationRootViewController.swift */; };
-		68B412A71B0804BC009A4C05 /* SlidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412951B0804BC009A4C05 /* SlidingViewController.swift */; };
 		68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412961B0804BC009A4C05 /* TopViewController.swift */; };
 		68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412971B0804BC009A4C05 /* ViewController.swift */; };
 		68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
@@ -408,7 +407,6 @@
 		68B412921B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewControllerSegue.swift; sourceTree = "<group>"; };
 		68B412931B0804BC009A4C05 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		68B412941B0804BC009A4C05 /* NavigationRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRootViewController.swift; sourceTree = "<group>"; };
-		68B412951B0804BC009A4C05 /* SlidingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidingViewController.swift; sourceTree = "<group>"; };
 		68B412961B0804BC009A4C05 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		68B412971B0804BC009A4C05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
@@ -771,7 +769,6 @@
 				68B412921B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift */,
 				68B412931B0804BC009A4C05 /* MenuViewController.swift */,
 				68B412941B0804BC009A4C05 /* NavigationRootViewController.swift */,
-				68B412951B0804BC009A4C05 /* SlidingViewController.swift */,
 				68B412961B0804BC009A4C05 /* TopViewController.swift */,
 				68B412971B0804BC009A4C05 /* ViewController.swift */,
 				68F537051B834A880007F480 /* WebViewController.swift */,
@@ -1424,7 +1421,6 @@
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
-				68B412A71B0804BC009A4C05 /* SlidingViewController.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
 				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
