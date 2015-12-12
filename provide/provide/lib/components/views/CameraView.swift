@@ -1,4 +1,4 @@
-//
+ //
 //  CameraView.swift
 //  provide
 //
@@ -344,22 +344,25 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         dispatch_async(avCameraOutputQueue) {
             if let cameraOutput = self.stillCameraOutput {
-                let connection = cameraOutput.connectionWithMediaType(AVMediaTypeVideo)
-                connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
+                if let connection = cameraOutput.connectionWithMediaType(AVMediaTypeVideo) {
+                    if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue) {
+                        connection.videoOrientation = videoOrientation
+                    }
 
-                self.stillCameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { imageDataSampleBuffer, error in
-                    if error == nil {
-                        let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
+                    cameraOutput.captureStillImageAsynchronouslyFromConnection(connection) { imageDataSampleBuffer, error in
+                        if error == nil {
+                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
 
-                        if let image = UIImage(data: imageData) {
-                            self.delegate?.cameraView(self, didCaptureStillImage: image)
+                            if let image = UIImage(data: imageData) {
+                                self.delegate?.cameraView(self, didCaptureStillImage: image)
 
-                            if self.outputOCRMetadata {
-                                self.ocrFrame(image)
+                                if self.outputOCRMetadata {
+                                    self.ocrFrame(image)
+                                }
                             }
+                        } else {
+                            logWarn("Error capturing still image \(error)")
                         }
-                    } else {
-                        logWarn("Error capturing still image \(error)")
                     }
                 }
             }

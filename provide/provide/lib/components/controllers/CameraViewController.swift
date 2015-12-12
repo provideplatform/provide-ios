@@ -104,9 +104,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         button?.enabled = true
     }
 
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-
+    deinit {
         activeCameraView?.stopCapture()
     }
 
@@ -170,11 +168,15 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func renderDefaultButtonAppearance() {
-        button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).colorWithAlphaComponent(0.75)
+        if let button = button {
+            button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).colorWithAlphaComponent(0.75)
+        }
     }
 
     func renderTappedButtonAppearance() {
-        button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds)
+        if let button = button {
+            button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).colorWithAlphaComponent(0.75)
+        }
     }
 
     // MARK: CameraViewDelegate
