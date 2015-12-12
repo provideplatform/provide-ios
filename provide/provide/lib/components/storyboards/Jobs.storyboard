@@ -8,6 +8,7 @@
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -163,8 +164,41 @@
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="xhe-Is-0lb" id="LZd-V5-45i"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="CZA-Cz-kBu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="rED-nn-rqV">
+                                        <rect key="frame" x="0.0" y="379.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rED-nn-rqV" id="aZv-Nt-sAn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-tI-JKA">
+                                                    <rect key="frame" x="270" y="12" width="59" height="20.5"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="weA-nx-sO4">
+                                                    <rect key="frame" x="290" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="EHi-tI-JKA" firstAttribute="centerY" secondItem="aZv-Nt-sAn" secondAttribute="centerY" id="H52-5a-769"/>
+                                                <constraint firstItem="weA-nx-sO4" firstAttribute="centerY" secondItem="aZv-Nt-sAn" secondAttribute="centerY" id="ICl-9b-JSt"/>
+                                                <constraint firstItem="EHi-tI-JKA" firstAttribute="centerX" secondItem="aZv-Nt-sAn" secondAttribute="centerX" id="ObV-1M-5Nl"/>
+                                                <constraint firstItem="weA-nx-sO4" firstAttribute="centerX" secondItem="aZv-Nt-sAn" secondAttribute="centerX" id="rKh-lt-lrS"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -175,8 +209,15 @@
                             <outlet property="delegate" destination="xhe-Is-0lb" id="yKD-pj-qNk"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="nameTextField" destination="b5J-ux-BIa" id="sZv-qM-0Or"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GN-gx-E5L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="MBE-HB-7EI">
+                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </objects>
             <point key="canvasLocation" x="1137" y="4344"/>
         </scene>

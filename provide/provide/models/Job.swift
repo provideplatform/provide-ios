@@ -190,6 +190,34 @@ class Job: Model {
         )
     }
 
+    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+        params.removeValueForKey("id")
+
+        if id > 0 {
+            ApiService.sharedService().updateJobWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            ApiService.sharedService().createJob(params,
+                onSuccess: { statusCode, mappingResult in
+                    let job = mappingResult.firstObject as! Job
+                    self.id = job.id
+                    self.status = job.status
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
     func updateJobBlueprintScale(blueprintScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
         if let blueprint = blueprint {
             self.blueprintScale = Double(blueprintScale)

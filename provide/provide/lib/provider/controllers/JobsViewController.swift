@@ -25,6 +25,8 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 
     private var refreshControl: UIRefreshControl!
 
+    private var jobCreationViewController: JobCreationViewController!
+
     private var jobs = [Job]() {
         didSet {
             tableView?.reloadData()
@@ -49,8 +51,9 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
                 (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
-            (segue.destinationViewController as! JobCreationViewController).delegate = self
-            segue.destinationViewController.preferredContentSize = CGSizeMake(300, 400)
+            jobCreationViewController = segue.destinationViewController as! JobCreationViewController
+            jobCreationViewController.delegate = self
+            jobCreationViewController.preferredContentSize = CGSizeMake(300, 500)
         }
     }
 
@@ -63,13 +66,6 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 
         refresh()
     }
-
-//    func createJob(sender: UIBarButtonItem) {
-//        print("create job!!!!")
-//        //let job = Job()
-//
-//        //let createJobViewController = UIStoryboard("Jobs")
-//    }
 
     func reset() {
         jobs = [Job]()
@@ -289,5 +285,16 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 
     // MARK: JobCreationViewControllerDelegate
 
+    func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job) {
+        jobs.insert(job, atIndex: 0)
 
+        if let jobCreationViewController = jobCreationViewController {
+            jobCreationViewController.presentingViewController?.dismissViewController(animated: true)
+        }
+
+        // HACK
+        let jobCreationTableViewCell = JobTableViewCell(frame: CGRectZero)
+        jobCreationTableViewCell.job = job
+        performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: jobCreationTableViewCell)
+    }
 }

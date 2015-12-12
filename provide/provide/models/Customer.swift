@@ -11,6 +11,7 @@ import Foundation
 class Customer: Model {
 
     var id = 0
+    var companyId = 0
     var name: String!
     var displayName: String!
     var profileImageUrlString: String!
@@ -27,6 +28,7 @@ class Customer: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "company_id": "companyId",
             "name": "name",
             "display_name": "displayName",
             "profile_image_url": "profileImageUrlString"

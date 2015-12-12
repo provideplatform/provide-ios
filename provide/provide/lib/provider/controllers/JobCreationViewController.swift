@@ -9,10 +9,10 @@
 import UIKit
 
 protocol JobCreationViewControllerDelegate {
-
+    func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job)
 }
 
-class JobCreationViewController: UITableViewController, CustomerPickerViewControllerDelegate {
+class JobCreationViewController: UITableViewController, UITextFieldDelegate, CustomerPickerViewControllerDelegate {
 
     var delegate: JobCreationViewControllerDelegate!
 
@@ -23,6 +23,10 @@ class JobCreationViewController: UITableViewController, CustomerPickerViewContro
 
     private var customerPickerViewController: CustomerPickerViewController!
 
+    @IBOutlet private weak var nameTextField: UITextField!
+
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -32,6 +36,72 @@ class JobCreationViewController: UITableViewController, CustomerPickerViewContro
             customerPickerViewController = segue.destinationViewController as! CustomerPickerViewController
             customerPickerViewController.delegate = self
         }
+    }
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 2 {
+            let job = Job()
+            if let customer = customer {
+                job.customerId = customer.id
+                job.companyId = customer.companyId
+            }
+            job.name = nameTextField?.text
+
+            if job.customerId > 0 && job.name != nil && job.name.length > 0 {
+                for view in tableView.cellForRowAtIndexPath(indexPath)!.contentView.subviews {
+                    if view.isKindOfClass(UIActivityIndicatorView) {
+                        (view as! UIActivityIndicatorView).startAnimating()
+                    } else if view.isKindOfClass(UILabel) {
+                        view.alpha = 0.0
+                    }
+                }
+
+                job.save(
+                    onSuccess: { statusCode, mappingResult in
+                        if statusCode == 201 {
+                            job.reload(
+                                onSuccess: { statusCode, mappingResult in
+                                    self.activityIndicatorView?.stopAnimating()
+                                    self.delegate?.jobCreationViewController(self, didCreateJob: mappingResult.firstObject as! Job)
+                                },
+                                onError: { error, statusCode, responseString in
+                                    self.activityIndicatorView?.stopAnimating()
+                                }
+                            )
+                        }
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.activityIndicatorView?.stopAnimating()
+                    }
+                )
+            }
+        }
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if indexPath.section == 2 {
+            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
+        }
+        return indexPath
+    }
+
+    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 2 {
+            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+        }
+    }
+
+    // MARK: UITextFieldDelegate
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == nameTextField {
+            if let name = textField.text {
+                return name.length > 0
+            }
+        }
+        return false
     }
 
     // MARK: CustomerPickerViewControllerDelegate
