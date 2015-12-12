@@ -14,12 +14,7 @@ class ZeroStateViewController: ViewController {
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
 
-    private var backgroundSubview: UIView! {
-        let backgroundSubview = UIView(frame: view.bounds)
-        backgroundSubview.alpha = 0.65
-        backgroundSubview.backgroundColor = UIColor.blackColor()
-        return backgroundSubview
-    }
+    private var backgroundSubview: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +25,13 @@ class ZeroStateViewController: ViewController {
         view.alpha = 0.0
         view.frame.origin.y = view.frame.height
 
+        backgroundSubview = UIView(frame: view.bounds)
+        let size = max(backgroundSubview.frame.size.width, backgroundSubview.frame.size.height)
+        backgroundSubview.frame.size = CGSize(width: size, height: size)
+        backgroundSubview.alpha = 0.65
+        backgroundSubview.backgroundColor = UIColor.blackColor()
         view.addSubview(backgroundSubview)
         view.sendSubviewToBack(backgroundSubview)
-
-        //imageView.image = FAKFontAwesome.checkCircleOIconWithSize(imageView.bounds.width).imageWithSize(imageView.bounds.size)
 
         view.bringSubviewToFront(imageView)
         view.bringSubviewToFront(label)
