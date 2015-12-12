@@ -11,6 +11,7 @@ import UIKit
 @objc
 protocol BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
+    optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 }
 
@@ -601,6 +602,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let presentedViewController = presentedViewController {
             return !(presentedViewController is WorkOrderCreationViewController)
         }
+
+        if let newWorkOrderCanBeCreated = blueprintViewControllerDelegate?.newWorkOrderCanBeCreatedByBlueprintViewController?(self) {
+            return newWorkOrderCanBeCreated
+        }
+
         return true
     }
 

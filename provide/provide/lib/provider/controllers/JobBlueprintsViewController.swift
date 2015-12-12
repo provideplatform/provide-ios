@@ -12,12 +12,44 @@ protocol JobBlueprintsViewControllerDelegate {
     func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job!
 }
 
-class JobBlueprintsViewController: ViewController {
+class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelegate {
 
-    var delegate: JobBlueprintsViewControllerDelegate!
+    private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+
+    var delegate: JobBlueprintsViewControllerDelegate! {
+        didSet {
+            if let _ = delegate {
+                if let _ = job {
+                    self.blueprintActivityIndicatorView.startAnimating()
+                    blueprintPreviewImageView.contentMode = .ScaleAspectFit
+                    blueprintPreviewImageView?.sd_setImageWithURL(job.blueprintImageUrl, placeholderImage: nil,
+                        completed: { image, error, cacheType, url in
+                            self.blueprintPreviewImageView.alpha = 1.0
+                            self.blueprintActivityIndicatorView.stopAnimating()
+                            self.showDropbox()
+                        }
+                    )
+
+                    blueprintViewController?.blueprintViewControllerDelegate = self
+                }
+            }
+        }
+    }
+
+    @IBOutlet private weak var blueprintPreviewContainerView: UIView! {
+        didSet {
+            if let blueprintPreviewContainerView = blueprintPreviewContainerView {
+                blueprintPreviewContainerView.backgroundColor = blueprintPreviewBackgroundColor
+            }
+        }
+    }
+    @IBOutlet private weak var blueprintActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
 
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
+
+    private var blueprintViewController: BlueprintViewController!
 
     private var job: Job! {
         if let job = delegate?.jobForJobBlueprintsViewController(self) {
@@ -31,8 +63,33 @@ class JobBlueprintsViewController: ViewController {
 
         navigationItem.title = "Setup Blueprint"
 
+        blueprintPreviewImageView?.alpha = 0.0
+
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             importFromDropboxButton.addTarget(self, action: "importFromDropbox:", forControlEvents: .TouchUpInside)
+        }
+
+        hideDropbox()
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
+            blueprintViewController = segue.destinationViewController as! BlueprintViewController
+            blueprintViewController.blueprintViewControllerDelegate = self
+        }
+    }
+
+    private func showDropbox() {
+        for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
+            importFromDropboxButton.alpha = 1.0
+        }
+    }
+
+    private func hideDropbox() {
+        for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
+            importFromDropboxButton.alpha = 0.0
         }
     }
 
@@ -59,5 +116,15 @@ class JobBlueprintsViewController: ViewController {
                 }
             )
         }
+    }
+
+    // MARK: BlueprintViewControllerDelegate
+
+    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+        return job
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
     }
 }
