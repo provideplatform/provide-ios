@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wcd-9v-8Ce">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Jobs View Controller-->
+        <scene sceneID="3NR-2Q-bzC">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="l5K-LX-klj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="Wcd-9v-8Ce" customClass="JobsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YZU-tu-uaN"/>
+                        <viewControllerLayoutGuide type="bottom" id="H47-VE-eLc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Iv-Bv-fAE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1mX-0B-7Ri">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="jobsTableViewCellReuseIdentifier" id="vQd-Uz-u2J" customClass="JobTableViewCell" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vQd-Uz-u2J" id="bWy-Lh-OEI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
+                                                    <rect key="frame" x="21" y="39" width="263" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="263" id="cqv-on-KF1"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leadingMargin" constant="13" id="8dO-4T-IM0"/>
+                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="topMargin" constant="31" id="FUC-7l-Bes"/>
+                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="centerY" secondItem="bWy-Lh-OEI" secondAttribute="centerY" id="jjl-c4-4hq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
+                                            <segue destination="HbV-mu-6GN" kind="show" identifier="JobWizardTabBarControllerSegue" id="l9Y-AM-Vs2">
+                                                <nil key="action"/>
+                                            </segue>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Wcd-9v-8Ce" id="JcC-in-dgV"/>
+                                    <outlet property="delegate" destination="Wcd-9v-8Ce" id="RaQ-p9-KlV"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1mX-0B-7Ri" firstAttribute="bottom" secondItem="H47-VE-eLc" secondAttribute="top" id="FxB-Ej-aL5"/>
+                            <constraint firstItem="1mX-0B-7Ri" firstAttribute="leading" secondItem="8Iv-Bv-fAE" secondAttribute="leadingMargin" constant="-20" id="U1m-L7-KvI"/>
+                            <constraint firstItem="1mX-0B-7Ri" firstAttribute="centerX" secondItem="8Iv-Bv-fAE" secondAttribute="centerX" id="iTe-AT-64i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1mX-0B-7Ri" secondAttribute="trailing" constant="-20" id="q2d-BA-cXA"/>
+                            <constraint firstItem="1mX-0B-7Ri" firstAttribute="centerY" secondItem="8Iv-Bv-fAE" secondAttribute="centerY" id="u8l-ZY-aFH"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="1mX-0B-7Ri" id="YVa-LR-PNn"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="421" y="4684"/>
+        </scene>
+        <!--JobWizard-->
+        <scene sceneID="i7N-Hp-HZb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="JobWizard" id="HbV-mu-6GN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RwY-xa-zuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943.5" y="4684"/>
+        </scene>
+    </scenes>
+</document>

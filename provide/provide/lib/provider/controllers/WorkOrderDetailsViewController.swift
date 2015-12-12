@@ -220,7 +220,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let navigationController = navigationController {
-            let manifestViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ManifestViewController") as! ManifestViewController
+            let manifestViewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController") as! ManifestViewController
             manifestViewController.delegate = self
 
             navigationController.pushViewController(manifestViewController, animated: true)

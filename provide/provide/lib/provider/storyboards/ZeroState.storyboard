@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2C6-Av-ZrP">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Light.ttf">
+            <string>Exo2-Light</string>
+        </mutableArray>
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Zero State View Controller-->
+        <scene sceneID="0yL-c7-oWw">
+            <objects>
+                <viewController storyboardIdentifier="ZeroStateViewController" id="2C6-Av-ZrP" customClass="ZeroStateViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y3d-ET-nQy"/>
+                        <viewControllerLayoutGuide type="bottom" id="C3F-i6-ZjX"/>
+                    </layoutGuides>
+                    <view key="view" alpha="0.5" contentMode="scaleToFill" id="yQv-5g-8RX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="fLG-jc-FBX">
+                                <rect key="frame" x="250" y="118" width="100" height="100"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Great Work" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6E-6o-9gR">
+                                <rect key="frame" x="186" y="279" width="227" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="227" id="Mg7-rr-LtO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="32"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing scheduled at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGu-h8-V8l">
+                                <rect key="frame" x="159" y="372" width="281.5" height="22"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="K6E-6o-9gR" firstAttribute="centerY" secondItem="yQv-5g-8RX" secondAttribute="centerY" constant="-5" id="1ai-Sw-oRP"/>
+                            <constraint firstAttribute="centerY" secondItem="hGu-h8-V8l" secondAttribute="centerY" constant="-83.5" id="K8H-eO-aLr"/>
+                            <constraint firstAttribute="centerX" secondItem="hGu-h8-V8l" secondAttribute="centerX" id="OC5-hV-2sV"/>
+                            <constraint firstAttribute="centerX" secondItem="K6E-6o-9gR" secondAttribute="centerX" constant="0.5" id="OR9-65-pDe"/>
+                            <constraint firstAttribute="centerX" secondItem="fLG-jc-FBX" secondAttribute="centerX" id="QKX-N5-01V"/>
+                            <constraint firstAttribute="centerY" secondItem="fLG-jc-FBX" secondAttribute="centerY" constant="132" id="oRY-Ly-VXp"/>
+                            <constraint firstItem="K6E-6o-9gR" firstAttribute="top" secondItem="fLG-jc-FBX" secondAttribute="bottom" constant="61" id="qE1-Q5-BUY"/>
+                            <constraint firstAttribute="centerY" secondItem="K6E-6o-9gR" secondAttribute="centerY" constant="5" id="vxK-Gr-OlR"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="fLG-jc-FBX" id="G3E-Ba-e6L"/>
+                        <outlet property="label" destination="K6E-6o-9gR" id="I3x-P3-ay5"/>
+                        <outlet property="messageLabel" destination="hGu-h8-V8l" id="1y5-RJ-s52"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kIb-YW-LBH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-322" y="2182"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="map-pin" width="100" height="100"/>
+    </resources>
+</document>

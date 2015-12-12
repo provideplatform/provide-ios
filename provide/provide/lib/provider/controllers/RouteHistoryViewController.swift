@@ -60,7 +60,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     }
 
     private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
+        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     override func viewDidLoad() {

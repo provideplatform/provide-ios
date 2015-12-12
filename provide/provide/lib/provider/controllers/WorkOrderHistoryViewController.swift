@@ -64,7 +64,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     }
 
     private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
+        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     override func viewDidLoad() {

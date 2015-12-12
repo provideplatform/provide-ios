@@ -33,7 +33,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     private var selectedWorkOrder: WorkOrder!
 
     private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("ZeroStateViewController") as! ZeroStateViewController
+        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     override func viewDidLoad() {

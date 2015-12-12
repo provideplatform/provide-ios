@@ -48,6 +48,14 @@
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		680B74AE1B36DDFA00181300 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AC1B36DDFA00181300 /* Fabric.framework */; };
 		680B74AF1B36DDFA00181300 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AD1B36DDFA00181300 /* Crashlytics.framework */; };
+		68140D8E1C1C22BD008F7E3A /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */; };
+		68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */; };
+		68140D9E1C1C23E7008F7E3A /* WorkOrderCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */; };
+		68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
+		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
+		68140DA41C1C2550008F7E3A /* Route.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA31C1C2550008F7E3A /* Route.storyboard */; };
+		68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA51C1C259E008F7E3A /* ZeroState.storyboard */; };
+		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
 		681416E51B8457870076BFBD /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730591B07DE94001A21B0 /* Attachment.swift */; };
 		681416E61B8457870076BFBD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537281B8350AB0007F480 /* Comment.swift */; };
 		681416E71B8457870076BFBD /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305A1B07DE94001A21B0 /* Company.swift */; };
@@ -184,7 +192,6 @@
 		68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
 		68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B4132A1B083161009A4C05 /* Signature.storyboard */; };
-		68B413411B08318C009A4C05 /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413401B08318C009A4C05 /* Provider.storyboard */; };
 		68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF611C1820C500B81BEB /* JobManagerViewController.swift */; };
 		68B730C31C18293F00549D95 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C61BFB47A200DE7400 /* JobViewController.swift */; };
 		68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730C41C184C7500549D95 /* JobWizardTabBar.swift */; };
@@ -301,6 +308,14 @@
 		647A46D83EAFFF4D1036DA95 /* Pods.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.adhoc.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.adhoc.xcconfig"; sourceTree = "<group>"; };
 		680B74AC1B36DDFA00181300 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		680B74AD1B36DDFA00181300 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
+		68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RouteHistory.storyboard; sourceTree = "<group>"; };
+		68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderCreation.storyboard; sourceTree = "<group>"; };
+		68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderDetails.storyboard; sourceTree = "<group>"; };
+		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
+		68140DA31C1C2550008F7E3A /* Route.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Route.storyboard; sourceTree = "<group>"; };
+		68140DA51C1C259E008F7E3A /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
+		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobWizardTabBarController.swift; path = ../../components/controllers/JobWizardTabBarController.swift; sourceTree = "<group>"; };
 		681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardViewController.swift; sourceTree = "<group>"; };
 		681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobBlueprintsViewController.swift; sourceTree = "<group>"; };
@@ -423,7 +438,6 @@
 		68B413261B083161009A4C05 /* PackingSlip.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PackingSlip.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
 		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
-		68B413401B08318C009A4C05 /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		68B730C41C184C7500549D95 /* JobWizardTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardTabBar.swift; sourceTree = "<group>"; };
 		68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobWizard.storyboard; sourceTree = "<group>"; };
 		68B730C81C1ACD5F00549D95 /* JobProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobProductTableViewCell.swift; path = ../../components/views/JobProductTableViewCell.swift; sourceTree = "<group>"; };
@@ -572,6 +586,20 @@
 				5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		68140D9A1C1C23A5008F7E3A /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				68140DA71C1C28D9008F7E3A /* Provider.storyboard */,
+				68140DA31C1C2550008F7E3A /* Route.storyboard */,
+				68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */,
+				68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */,
+				68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */,
+				68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */,
+				68140DA51C1C259E008F7E3A /* ZeroState.storyboard */,
+			);
+			path = storyboards;
 			sourceTree = "<group>";
 		};
 		6845BB601BF1F4FD00AD3D79 /* gestures */ = {
@@ -829,7 +857,7 @@
 			children = (
 				68B412F11B08153D009A4C05 /* controllers */,
 				68B412F71B08153D009A4C05 /* views */,
-				68B413401B08318C009A4C05 /* Provider.storyboard */,
+				68140D9A1C1C23A5008F7E3A /* storyboards */,
 			);
 			path = provider;
 			sourceTree = "<group>";
@@ -892,6 +920,7 @@
 				68F536D91B834A330007F480 /* Comments.storyboard */,
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
+				68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */,
 				68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */,
 				68B730CE1C1AD74600549D95 /* Manifest.storyboard */,
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
@@ -1222,10 +1251,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */,
+				68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */,
 				68B730CF1C1AD74600549D95 /* Manifest.storyboard in Resources */,
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
+				68140DA41C1C2550008F7E3A /* Route.storyboard in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68E3298B1C16E0B100DC297A /* Expenses.storyboard in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
@@ -1243,19 +1274,22 @@
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
 				6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
+				68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
+				68140D8E1C1C22BD008F7E3A /* Jobs.storyboard in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68E3295B1C12ED3700DC297A /* ExpenseCapture.storyboard in Resources */,
 				6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */,
+				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
 				68E329871C12F3EE00DC297A /* tessdata in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
+				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */,
-				68B413411B08318C009A4C05 /* Provider.storyboard in Resources */,
 				5CA5D9E01B1A6ABB006C3328 /* Messages.storyboard in Resources */,
 				68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */,
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
@@ -1263,7 +1297,9 @@
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
+				68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */,
 				68B4120D1B07FB02009A4C05 /* Application.storyboard in Resources */,
+				68140D9E1C1C23E7008F7E3A /* WorkOrderCreation.storyboard in Resources */,
 				5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */,
 				68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */,
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
