@@ -446,13 +446,13 @@
             </objects>
             <point key="canvasLocation" x="225.5" y="837"/>
         </scene>
-        <!--ManifestViewController-->
+        <!--RouteManifestViewController-->
         <scene sceneID="wxY-eB-YZU">
             <objects>
-                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="x2h-ub-aEm" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="RouteManifestViewController" id="x2h-ub-aEm" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ehD-yS-C7r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225.5" y="877"/>
+            <point key="canvasLocation" x="243" y="877"/>
         </scene>
         <!--Jobs-->
         <scene sceneID="vTn-EP-q4n">
