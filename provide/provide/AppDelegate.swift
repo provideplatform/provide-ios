@@ -136,6 +136,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.suppressLaunchScreenViewController = true
             }
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidChangeStatusBarOrientationNotification) { notification in
+            dispatch_after_delay(0.0) {
+                self.launchScreenViewController.view.frame = self.window!.frame
+            }
+        }
     }
 
     private func renderLaunchScreenViewController() {
