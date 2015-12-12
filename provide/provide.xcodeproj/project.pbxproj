@@ -99,6 +99,9 @@
 		685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1141C17529C0089EF94 /* JobProduct.swift */; };
 		685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1161C176A740089EF94 /* WorkOrderProduct.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
+		686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */; };
+		686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */; };
+		686C1CB11C1C6F4300A31AFD /* CustomerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB01C1C6F4300A31AFD /* CustomerPickerViewController.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
@@ -341,6 +344,9 @@
 		685DE1141C17529C0089EF94 /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
 		685DE1161C176A740089EF94 /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobCreationViewController.swift; sourceTree = "<group>"; };
+		686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CustomerPicker.storyboard; sourceTree = "<group>"; };
+		686C1CB01C1C6F4300A31AFD /* CustomerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPickerViewController.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
@@ -804,6 +810,7 @@
 				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
+				686C1CB01C1C6F4300A31AFD /* CustomerPickerViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
 				68E329881C16E08600DC297A /* ExpensesViewController.swift */,
@@ -861,6 +868,7 @@
 			children = (
 				68B978C91B085A6C00863E21 /* segues */,
 				681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */,
+				686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */,
 				681EBF611C1820C500B81BEB /* JobManagerViewController.swift */,
 				68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */,
 				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
@@ -912,6 +920,7 @@
 				6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
+				686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */,
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
 				68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */,
@@ -1289,6 +1298,7 @@
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
+				686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */,
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
 				68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */,
@@ -1412,6 +1422,7 @@
 				68F537121B834A9A0007F480 /* ImageCollectionViewCell.swift in Sources */,
 				687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */,
 				681416F41B8457870076BFBD /* RouteLegStep.swift in Sources */,
+				686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */,
 				687CB59D1B07F6020048B692 /* LocationService.swift in Sources */,
 				681416EF1B8457870076BFBD /* Product.swift in Sources */,
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
@@ -1536,6 +1547,7 @@
 				68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
 				6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */,
+				686C1CB11C1C6F4300A31AFD /* CustomerPickerViewController.swift in Sources */,
 				681EBF5A1C18074C00B81BEB /* JobWizardTabBarController.swift in Sources */,
 				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,

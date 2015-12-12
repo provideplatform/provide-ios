@@ -288,6 +288,12 @@ class ApiService: NSObject {
         }
     }
 
+    // MARK: Customer API
+
+    func fetchCustomers(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Provider API
 
     func fetchProviders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {

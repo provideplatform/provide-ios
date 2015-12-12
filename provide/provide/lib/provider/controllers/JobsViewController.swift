@@ -8,8 +8,15 @@
 
 import UIKit
 
-class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
+class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, JobCreationViewControllerDelegate {
 
+    @IBOutlet private weak var addJobBarButtonItem: UIBarButtonItem! {
+        didSet {
+            if let addJobBarButtonItem = addJobBarButtonItem {
+                addJobBarButtonItem.tintColor = UIColor.whiteColor()
+            }
+        }
+    }
     @IBOutlet private weak var tableView: UITableView!
 
     private var page = 1
@@ -41,6 +48,9 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             if let sender = sender {
                 (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
             }
+        } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
+            (segue.destinationViewController as! JobCreationViewController).delegate = self
+            segue.destinationViewController.preferredContentSize = CGSizeMake(300, 400)
         }
     }
 
@@ -53,6 +63,13 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 
         refresh()
     }
+
+//    func createJob(sender: UIBarButtonItem) {
+//        print("create job!!!!")
+//        //let job = Job()
+//
+//        //let createJobViewController = UIStoryboard("Jobs")
+//    }
 
     func reset() {
         jobs = [Job]()
@@ -269,4 +286,8 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 //    optional public func tableView(tableView: UITableView, didUpdateFocusInContext context: UITableViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator)
 //    @available(iOS 9.0, *)
 //    optional public func indexPathForPreferredFocusedViewInTableView(tableView: UITableView) -> NSIndexPath?
+
+    // MARK: JobCreationViewControllerDelegate
+
+
 }

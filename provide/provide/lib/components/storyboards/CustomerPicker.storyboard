@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2DK-b4-1eZ">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Customer Picker View Controller-->
+        <scene sceneID="vGX-BF-seZ">
+            <objects>
+                <viewController id="2DK-b4-1eZ" customClass="CustomerPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="93s-GP-f2e"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Do-sc-qYi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sog-a3-MGx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QhY-bB-mks">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-JM-JjI">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="10" id="NwA-La-qfW">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PickerCollectionViewCell" id="M5p-sl-KgL" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="25" y="75" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFP-xr-dKz">
+                                                    <rect key="frame" x="73" y="65" width="25" height="25"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFF-T3-9S2" customClass="RFGravatarImageView">
+                                                    <rect key="frame" x="12" y="4" width="75" height="75"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Customer Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofn-Qe-EUu">
+                                                    <rect key="frame" x="0.0" y="79" width="100" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="imageView" destination="nFF-T3-9S2" id="4Pa-pE-4j8"/>
+                                            <outlet property="nameLabel" destination="ofn-Qe-EUu" id="rM2-DR-pXz"/>
+                                            <outlet property="selectedImageView" destination="SFP-xr-dKz" id="KNx-79-bcp"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderPickerCollectionViewHeader" id="rxd-zf-uQI">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="2DK-b4-1eZ" id="fEr-I9-pmV"/>
+                                    <outlet property="delegate" destination="2DK-b4-1eZ" id="6Es-sB-CrR"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QhY-bB-mks" firstAttribute="centerY" secondItem="Sog-a3-MGx" secondAttribute="centerY" id="9X6-9V-YUX"/>
+                            <constraint firstItem="QhY-bB-mks" firstAttribute="centerX" secondItem="Sog-a3-MGx" secondAttribute="centerX" id="Jsl-fd-8FN"/>
+                            <constraint firstItem="ee4-JM-JjI" firstAttribute="top" secondItem="93s-GP-f2e" secondAttribute="bottom" constant="-20" id="Ooe-bK-uiS"/>
+                            <constraint firstItem="4Do-sc-qYi" firstAttribute="top" secondItem="ee4-JM-JjI" secondAttribute="bottom" id="SJN-hp-oom"/>
+                            <constraint firstItem="ee4-JM-JjI" firstAttribute="leading" secondItem="Sog-a3-MGx" secondAttribute="leadingMargin" constant="-20" id="emE-PB-Boc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ee4-JM-JjI" secondAttribute="trailing" constant="-20" id="hhe-u6-6bO"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="QhY-bB-mks" id="N8w-Sw-asN"/>
+                        <outlet property="collectionView" destination="ee4-JM-JjI" id="3sL-OF-gpg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KNS-Ek-BcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="368" y="364"/>
+        </scene>
+    </scenes>
+</document>

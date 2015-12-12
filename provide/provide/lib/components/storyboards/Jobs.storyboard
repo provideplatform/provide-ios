@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Wcd-9v-8Ce">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ah6-6C-N46">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Jobs View Controller-->
         <scene sceneID="3NR-2Q-bzC">
@@ -23,7 +28,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="jobsTableViewCellReuseIdentifier" id="vQd-Uz-u2J" customClass="JobTableViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vQd-Uz-u2J" id="bWy-Lh-OEI">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
@@ -68,7 +73,17 @@
                             <constraint firstItem="1mX-0B-7Ri" firstAttribute="centerY" secondItem="8Iv-Bv-fAE" secondAttribute="centerY" id="u8l-ZY-aFH"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="GHF-eu-6iZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3kC-ry-I1H">
+                            <connections>
+                                <segue destination="xhe-Is-0lb" kind="popoverPresentation" identifier="JobCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="3kC-ry-I1H" id="3zb-Fp-ZiB">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addJobBarButtonItem" destination="3kC-ry-I1H" id="O2o-VN-WSm"/>
                         <outlet property="tableView" destination="1mX-0B-7Ri" id="YVa-LR-PNn"/>
                     </connections>
                 </viewController>
@@ -76,13 +91,102 @@
             </objects>
             <point key="canvasLocation" x="421" y="4684"/>
         </scene>
+        <!--CustomerPicker-->
+        <scene sceneID="7eY-ie-PQ0">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CustomerPicker" id="4oA-wk-YLk" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cbn-F3-hPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1609.5" y="4344"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jfq-TW-LNI">
+            <objects>
+                <navigationController id="Ah6-6C-N46" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="enc-oi-BPk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Wcd-9v-8Ce" kind="relationship" relationship="rootViewController" id="6aP-aJ-9cx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="orC-EY-MGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-300" y="4684"/>
+        </scene>
+        <!--Job Creation View Controller-->
+        <scene sceneID="nyX-XK-BpO">
+            <objects>
+                <tableViewController id="xhe-Is-0lb" customClass="JobCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GlK-Hv-eHg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection headerTitle="Customer" id="Kkh-dj-PyR">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="WSM-KL-NhL">
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WSM-KL-NhL" id="Xcs-QP-BuT">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esw-q0-ecy">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                                    <connections>
+                                                        <segue destination="4oA-wk-YLk" kind="embed" identifier="CustomerPickerViewControllerEmbedSegue" id="uc8-w4-cyl"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="esw-q0-ecy" secondAttribute="trailing" constant="-8" id="UM8-bM-uNX"/>
+                                                <constraint firstItem="esw-q0-ecy" firstAttribute="leading" secondItem="Xcs-QP-BuT" secondAttribute="leadingMargin" constant="-8" id="ouj-g2-yPU"/>
+                                                <constraint firstItem="esw-q0-ecy" firstAttribute="top" secondItem="Xcs-QP-BuT" secondAttribute="topMargin" constant="-8" id="xRx-52-EYJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="esw-q0-ecy" secondAttribute="bottom" constant="-8" id="z1y-pX-Dk3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Name" id="kid-kR-ccw">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Bpg-rT-KIQ">
+                                        <rect key="frame" x="0.0" y="299.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bpg-rT-KIQ" id="Sit-jT-hMu">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b5J-ux-BIa">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="xhe-Is-0lb" id="N4C-F7-V0O"/>
+                            <outlet property="delegate" destination="xhe-Is-0lb" id="yKD-pj-qNk"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1GN-gx-E5L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1137" y="4344"/>
+        </scene>
         <!--JobWizard-->
         <scene sceneID="i7N-Hp-HZb">
             <objects>
                 <viewControllerPlaceholder storyboardName="JobWizard" id="HbV-mu-6GN" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RwY-xa-zuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="943.5" y="4684"/>
+            <point key="canvasLocation" x="885" y="4708"/>
         </scene>
     </scenes>
 </document>
