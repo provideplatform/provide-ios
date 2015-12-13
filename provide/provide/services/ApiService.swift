@@ -64,6 +64,14 @@ class ApiService: NSObject {
         }
     }
 
+    var defaultCompanyId: Int! {
+        let defaultCompanyId = currentUser().defaultCompanyId
+        if defaultCompanyId > 0 {
+            return defaultCompanyId
+        }
+        return nil
+    }
+
     // MARK: Token API
 
     var hasCachedToken: Bool {

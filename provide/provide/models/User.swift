@@ -66,7 +66,7 @@ class User: Model {
 
     func reloadProviders(onSuccess: OnSuccess!, onError: OnError!) {
         let providerIdsQueryString = providerIds.map({ String($0) }).joinWithSeparator("|")
-        let params: [String : AnyObject] = ["id": providerIdsQueryString]
+        let params: [String : AnyObject] = ["id": providerIdsQueryString, "company_id": defaultCompanyId]
         ApiService.sharedService().fetchProviders(params,
             onSuccess: { statusCode, mappingResult in
                 self.providers = mappingResult.array() as! [Provider]

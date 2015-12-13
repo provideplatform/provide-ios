@@ -103,7 +103,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             refreshControl.beginRefreshing()
         }
 
-        let params = [
+        var params: [String : AnyObject] = [
             "page": page,
             "rpp": rpp,
             "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned,canceled",
@@ -116,7 +116,11 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
             "douglas_peucker_tolerance": "1"
         ]
 
-        ApiService.sharedService().fetchRoutes(params as! [String : AnyObject],
+        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+            params["company_id"] = defaultCompanyId
+        }
+
+        ApiService.sharedService().fetchRoutes(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedRoutes = mappingResult.array() as! [Route]
                 self.routes += fetchedRoutes

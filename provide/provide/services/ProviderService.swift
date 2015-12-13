@@ -25,10 +25,14 @@ class ProviderService: NSObject {
         rpp: Int = 10,
         onProvidersFetched: OnProvidersFetched)
     {
-        let params = [
+        var params = [
             "page": page,
             "rpp": rpp
         ]
+
+        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+            params["company_id"] = defaultCompanyId
+        }
 
         ApiService.sharedService().fetchProviders(params,
             onSuccess: { statusCode, mappingResult in

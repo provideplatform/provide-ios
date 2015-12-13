@@ -107,7 +107,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             refreshControl.beginRefreshing()
         }
 
-        let params = [
+        let params: [String : AnyObject] = [
             "page": page,
             "rpp": rpp,
             "status": "abandoned,canceled,scheduled,en_route,in_progress,paused,completed",
@@ -117,7 +117,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             "include_checkin_coordinates": "true",
         ]
 
-        ApiService.sharedService().fetchWorkOrders(params as! [String : AnyObject],
+        ApiService.sharedService().fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedWorkOrders = mappingResult.array() as! [WorkOrder]
                 self.workOrders += fetchedWorkOrders

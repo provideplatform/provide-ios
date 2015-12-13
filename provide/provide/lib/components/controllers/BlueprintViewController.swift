@@ -777,7 +777,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
             case 1:
                 viewController = UIStoryboard("ProviderPicker").instantiateInitialViewController()
                 (viewController as! ProviderPickerViewController).delegate = workOrderCreationViewController
-                ApiService.sharedService().fetchProviders([:],
+                var params = [String : AnyObject]()
+                if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+                    params["company_id"] = defaultCompanyId
+                }
+                ApiService.sharedService().fetchProviders(params,
                     onSuccess: { statusCode, mappingResult in
                         let providers = mappingResult.array() as! [Provider]
                         (viewController as! ProviderPickerViewController).providers = providers

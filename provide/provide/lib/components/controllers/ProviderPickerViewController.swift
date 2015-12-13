@@ -141,6 +141,10 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
             params["page"] = page
             params["rpp"] = rpp
 
+            if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+                params["company_id"] = defaultCompanyId
+            }
+
             ApiService.sharedService().fetchProviders(params,
                 onSuccess: { statusCode, mappingResult in
                     let fetchedProviders = mappingResult.array() as! [Provider]

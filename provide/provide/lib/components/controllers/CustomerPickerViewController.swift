@@ -141,6 +141,10 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
             params["page"] = page
             params["rpp"] = rpp
 
+            if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+                params["company_id"] = defaultCompanyId
+            }
+
             ApiService.sharedService().fetchCustomers(params,
                 onSuccess: { statusCode, mappingResult in
                     let fetchedCustomers = mappingResult.array() as! [Customer]

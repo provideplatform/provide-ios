@@ -100,6 +100,10 @@ class RouteService: NSObject {
             params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
         }
 
+        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+            params["company_id"] = defaultCompanyId
+        }
+
         ApiService.sharedService().fetchRoutes(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedRoutes = mappingResult.array() as! [Route]

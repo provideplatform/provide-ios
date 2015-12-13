@@ -138,7 +138,12 @@ class JobCreationViewController: UITableViewController, UITextFieldDelegate, Cus
         if viewController == customerPickerViewController {
             reloadingCustomers = true
 
-            ApiService.sharedService().fetchCustomers([:],
+            var params = [String : AnyObject]()
+            if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+                params["company_id"] = defaultCompanyId
+            }
+
+            ApiService.sharedService().fetchCustomers(params,
                 onSuccess: { statusCode, mappingResult in
                     viewController.customers = mappingResult.array() as! [Customer]
                     viewController.reloadCollectionView()
@@ -157,7 +162,7 @@ class JobCreationViewController: UITableViewController, UITextFieldDelegate, Cus
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).startAnimating()
             } else if view.isKindOfClass(UILabel) {
-                view.alpha = 1.0
+                view.alpha = 0.0
             }
         }
     }

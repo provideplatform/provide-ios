@@ -80,7 +80,7 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             refreshControl.beginRefreshing()
         }
 
-        let params = [
+        var params: [String : AnyObject] = [
             "page": page,
             "rpp": rpp,
             "status": "configuring,in_progress,pending_completion",
@@ -89,7 +89,11 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             "include_products": "true",
         ]
 
-        ApiService.sharedService().fetchJobs(params as! [String : AnyObject],
+        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+            params["company_id"] = defaultCompanyId
+        }
+
+        ApiService.sharedService().fetchJobs(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedJobs = mappingResult.array() as! [Job]
                 self.jobs += fetchedJobs
