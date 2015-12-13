@@ -20,7 +20,6 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -162,22 +161,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATUS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECB-p0-3tW">
-                                <rect key="frame" x="150" y="478" width="301" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="301" id="5xE-sM-5yE"/>
-                                    <constraint firstAttribute="height" constant="21" id="rFU-nR-WhZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="5xE-sM-5yE"/>
-                                        <exclude reference="rFU-nR-WhZ"/>
-                                    </mask>
-                                </variation>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nE0-hN-Fx2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -462,23 +445,13 @@
                         <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="nE0-hN-Fx2" firstAttribute="leading" secondItem="rQQ-e5-Ntm" secondAttribute="leading" id="4Tq-7f-W1r"/>
-                            <constraint firstItem="nE0-hN-Fx2" firstAttribute="centerX" secondItem="ECB-p0-3tW" secondAttribute="centerX" id="CRi-qx-zjF"/>
                             <constraint firstAttribute="trailing" secondItem="nE0-hN-Fx2" secondAttribute="trailing" id="JTC-oz-JRi"/>
-                            <constraint firstItem="ECB-p0-3tW" firstAttribute="top" secondItem="nE0-hN-Fx2" secondAttribute="bottom" constant="14" id="N7F-G4-yqw"/>
                             <constraint firstItem="nE0-hN-Fx2" firstAttribute="top" secondItem="rQQ-e5-Ntm" secondAttribute="top" id="XKC-iq-iwK"/>
-                            <constraint firstItem="ECB-p0-3tW" firstAttribute="top" secondItem="nE0-hN-Fx2" secondAttribute="bottom" constant="78" id="lt6-ja-pDG"/>
                             <constraint firstItem="1gT-5H-qin" firstAttribute="top" secondItem="nE0-hN-Fx2" secondAttribute="bottom" constant="8" symbolic="YES" id="ylf-y3-FGT"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="N7F-G4-yqw"/>
                                 <exclude reference="ylf-y3-FGT"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="N7F-G4-yqw"/>
-                                <exclude reference="lt6-ja-pDG"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
@@ -490,7 +463,6 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="zgg-rd-vWF"/>
                     <connections>
-                        <outlet property="statusLabel" destination="ECB-p0-3tW" id="kgN-rm-dRD"/>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="flA-yQ-9Vg"/>
                         <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="baH-vf-SLM"/>
@@ -1123,7 +1095,7 @@
         <image name="map-pin" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="flA-yQ-9Vg"/>
+        <segue reference="qEh-KF-YoG"/>
         <segue reference="baH-vf-SLM"/>
     </inferredMetricsTieBreakers>
 </document>
