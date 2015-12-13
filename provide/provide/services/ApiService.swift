@@ -94,8 +94,8 @@ class ApiService: NSObject {
         return false
     }
 
-    func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("tokens", method: .POST, params: params,
+    func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("tokens", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 let token = mappingResult.firstObject as! Token
@@ -115,11 +115,11 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(onSuccess: OnSuccess, onError: OnError) {
+    func logout(onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         unregisterForRemoteNotifications()
         
         if let token = KeyChainService.sharedService().token {
-            dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
+            return dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                     self.localLogout()
@@ -130,6 +130,7 @@ class ApiService: NSObject {
                 }
             )
         }
+        return nil
     }
 
     private func localLogout() {
@@ -142,28 +143,28 @@ class ApiService: NSObject {
 
     // MARK: Attachments API
 
-    func updateAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Annotations API
 
-    func fetchAnnotationsForAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchAnnotationsForAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createAnnotationForAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    func createAnnotationForAttachmentWithId(id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateAnnotationWithId(id: String, forAttachmentWithId attachmentId: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(attachmentId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAnnotationWithId(id: String, forAttachmentWithId attachmentId: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(attachmentId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: User API
 
-    func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],
+    func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let user = mappingResult.firstObject as! User
@@ -177,8 +178,8 @@ class ApiService: NSObject {
         )
     }
 
-    func updateUser(params: [String: String], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("users/\(currentUser().id)", method: .PUT, params: params,
+    func updateUser(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("users/\(currentUser().id)", method: .PUT, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 204)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -187,7 +188,7 @@ class ApiService: NSObject {
         )
     }
 
-    func setUserDefaultProfileImage(image: UIImage, onSuccess: OnSuccess, onError: OnError) {
+    func setUserDefaultProfileImage(image: UIImage, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         let params = [
             "public": false,
             "tags": ["profile_image", "default"]
@@ -195,7 +196,7 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        ApiService.sharedService().addAttachment(data!,
+        return ApiService.sharedService().addAttachment(data!,
             withMimeType: "image/jpg",
             toUserWithId: String(currentUser().id),
             params: params,
@@ -219,12 +220,12 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
         if let tags = params["tags"] {
             presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
         }
-        dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: presignParams,
+        return dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
@@ -247,14 +248,14 @@ class ApiService: NSObject {
         )
     }
 
-    func updateAttachmentWithId(id: String, onUserWithId userId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAttachmentWithId(id: String, onUserWithId userId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Device API
 
-    func createDevice(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("devices", method: .POST, params: params,
+    func createDevice(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("devices", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 KeyChainService.sharedService().deviceId = (mappingResult.firstObject as! Device).id.description
@@ -264,8 +265,8 @@ class ApiService: NSObject {
         )
     }
 
-    func deleteDeviceWithId(deviceId: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("devices/\(deviceId)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
+    func deleteDeviceWithId(deviceId: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("devices/\(deviceId)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Remote notifications
@@ -299,42 +300,42 @@ class ApiService: NSObject {
 
     // MARK: Customer API
 
-    func fetchCustomers(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchCustomers(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Provider API
 
-    func fetchProviders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchProviders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchProviderWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("providers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchProviderWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("providers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchProviderAvailability(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchProviderAvailability(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createProvider(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func createProvider(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
 
-        dispatchApiOperationForPath("providers", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("providers", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateProviderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func updateProviderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
         realParams["customerId"] = nil
 
-        dispatchApiOperationForPath("providers/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("providers/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Checkin API
 
-    func checkin(location: CLLocation) {
+    func checkin(location: CLLocation) -> RKObjectRequestOperation! {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         let checkinDate = dateFormatter.stringFromDate(location.timestamp)
@@ -344,7 +345,7 @@ class ApiService: NSObject {
 
         let params: [String: AnyObject] = ["latitude": latitude, "longitude": longitude, "checkin_at": checkinDate]
 
-        checkin(params,
+        return checkin(params,
             onSuccess: { statusCode, mappingResult in
 
             },
@@ -354,8 +355,8 @@ class ApiService: NSObject {
         )
     }
 
-    func checkin(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("checkins", method: .POST, params: params,
+    func checkin(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("checkins", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -366,25 +367,25 @@ class ApiService: NSObject {
 
     // MARK: Work order API
 
-    func fetchWorkOrderWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchWorkOrderWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchWorkOrders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchWorkOrders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createWorkOrder(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func createWorkOrder(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
         realParams["customer"] = nil
         realParams["companyId"] = nil
         realParams["customerId"] = nil
 
-        dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkOrderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func updateWorkOrderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
         realParams["company"] = nil
@@ -392,19 +393,19 @@ class ApiService: NSObject {
         realParams["companyId"] = nil
         realParams["customerId"] = nil
 
-        dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchAttachments(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchAttachments(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
         if let tags = params["tags"] {
             presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
         }
-        dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: presignParams,
+        return dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
@@ -427,14 +428,14 @@ class ApiService: NSObject {
         )
     }
 
-    func updateAttachmentWithId(id: String, onWorkOrderWithId workOrderId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(workOrderId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAttachmentWithId(id: String, onWorkOrderWithId workOrderId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(workOrderId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Comments API
 
-    func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment],
+    func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -445,27 +446,27 @@ class ApiService: NSObject {
 
     // MARK: Route API
 
-    func fetchRoutes(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchRoutes(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchRouteWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("routes/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchRouteWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("routes/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateRouteWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func updateRouteWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams.removeValueForKey("id")
 
-        dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Directions and Routing API
 
-    func getDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: OnSuccess, onError: OnError) {
+    func getDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         let params = ["from_latitude": coordinate.latitude, "from_longitude": coordinate.longitude, "to_latitude": toCoordinate.latitude, "to_longitude": toCoordinate.longitude]
 
-        dispatchApiOperationForPath("directions", method: .GET, params: params,
+        return dispatchApiOperationForPath("directions", method: .GET, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200 || statusCode == 304)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -474,10 +475,10 @@ class ApiService: NSObject {
         )
     }
 
-    func getDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: OnSuccess, onError: OnError) {
+    func getDrivingEtaFromCoordinate(coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         let params = ["from_latitude": coordinate.latitude, "from_longitude": coordinate.longitude, "to_latitude": toCoordinate.latitude, "to_longitude": toCoordinate.longitude]
 
-        dispatchApiOperationForPath("directions/eta", method: .GET, params: params,
+        return dispatchApiOperationForPath("directions/eta", method: .GET, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200 || statusCode == 304)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -488,42 +489,42 @@ class ApiService: NSObject {
 
     // MARK: Jobs API
 
-    func fetchJobs(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("jobs", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchJobs(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchJobWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchJobWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchJobWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchJobWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createJob(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func createJob(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
 //        realParams["companyId"] = nil
 
-        dispatchApiOperationForPath("jobs", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("jobs", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
         realParams["customer"] = nil
         realParams["companyId"] = nil
         realParams["customerId"] = nil
 
-        dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
         if let tags = params["tags"] {
             presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
         }
-        dispatchApiOperationForPath("jobs/\(id)/attachments/new", method: .GET, params: presignParams,
+        return dispatchApiOperationForPath("jobs/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
@@ -546,35 +547,35 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         params["source_url"] = sourceUrl.absoluteString
-        dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+        return dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateAttachmentWithId(id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("jobs/\(jobId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAttachmentWithId(id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(jobId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Expenses API
 
-    func fetchExpenses(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchExpenses(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchExpenses(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    func fetchExpenses(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func createExpense(params: [String : AnyObject], forExpensableType expensableType: String, withExpensableId expensableId: String, onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    func createExpense(params: [String : AnyObject], forExpensableType expensableType: String, withExpensableId expensableId: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addAttachment(data: NSData, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
         if let tags = params["tags"] {
             presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
         }
-        dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new", method: .GET, params: presignParams,
+        return dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new", method: .GET, params: presignParams,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let attachment = mappingResult.firstObject as? Attachment
@@ -599,12 +600,12 @@ class ApiService: NSObject {
 
     // MARK: - Messages API
 
-    func fetchMessages(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("messages", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func fetchMessages(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("messages", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func createMessage(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    func createMessage(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: S3
@@ -629,8 +630,12 @@ class ApiService: NSObject {
         api.enqueueOperation(op)
     }
 
-    private func dispatchApiOperationForPath(path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, onSuccess: OnSuccess, onError: OnError) {
-        dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
+    private func dispatchApiOperationForPath(path: String,
+                                             method: RKRequestMethod! = .GET,
+                                             params: [String: AnyObject]?,
+                                             onSuccess: OnSuccess,
+                                             onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     private func objectMappingForPath(var path: String) -> RKObjectMapping? {
@@ -647,7 +652,12 @@ class ApiService: NSObject {
         return objectMappings[path]
     }
 
-    private func dispatchOperationForURL(baseURL: NSURL, path: String, method: RKRequestMethod = .GET, var params: [String: AnyObject]!, onSuccess: OnSuccess, onError: OnError) {
+    private func dispatchOperationForURL(baseURL: NSURL,
+                                         path: String,
+                                         method: RKRequestMethod = .GET,
+                                         var params: [String: AnyObject]!,
+                                         onSuccess: OnSuccess,
+                                         onError: OnError) -> RKObjectRequestOperation! {
         var responseMapping = objectMappingForPath(path)
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)
@@ -747,7 +757,11 @@ class ApiService: NSObject {
                 )
 
                 op.start()
+                
+                return op
             }
         }
+
+        return nil
     }
 }
