@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
@@ -32,6 +32,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         } else {
             signInButton.alpha = 1.0
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in
+            self.performSegueWithIdentifier("PinInputViewControllerSegue", sender: self)
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -41,6 +45,9 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             break
         case "AuthenticationViewControllerSegue":
             assert(segue.destinationViewController is AuthenticationViewController)
+        case "PinInputViewControllerSegue":
+            assert(segue.destinationViewController is PinInputViewController)
+            (segue.destinationViewController as! PinInputViewController).delegate = self
         default:
             break
         }
@@ -52,5 +59,19 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         dismissViewController(animated: true) {
 
         }
+    }
+
+    // MARK: PinInputViewControllerDelegate
+
+    func pinInputViewControllerDidComplete(pinInputViewController: PinInputViewController) {
+        print("completed PIN input view controller \(pinInputViewController)")
+    }
+
+    func pinInputViewControllerDidExceedMaxAttempts(pinInputViewController: PinInputViewController) {
+
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
