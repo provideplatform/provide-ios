@@ -8,6 +8,8 @@
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -43,31 +45,75 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="jme-1k-4aZ">
+                            <tableViewSection headerTitle="Email Address" id="jme-1k-4aZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="tGV-JR-Qul">
-                                        <rect key="frame" x="0.0" y="129.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="143.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tGV-JR-Qul" id="VP2-fc-aq4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5GT-0s-AGN">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HsY-aN-IRm">
+                                                    <rect key="frame" x="8" y="7.5" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="l0f-GO-uOB" id="BEG-Y4-W90"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Mobile Number" id="9wM-Y2-n8n">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wOS-kG-fjA">
+                                        <rect key="frame" x="0.0" y="237.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wOS-kG-fjA" id="qFP-y0-DtR">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="neK-2Z-sWJ">
+                                                    <rect key="frame" x="8" y="7.5" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="l0f-GO-uOB" id="rW6-a9-bwk"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="FA8-e9-jvi">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="VEx-41-XYJ">
+                                        <rect key="frame" x="0.0" y="317.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VEx-41-XYJ" id="cRR-8t-2jP">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sak-nH-LQy">
                                                     <rect key="frame" x="270" y="12" width="59" height="20.5"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="5RW-4o-mkD">
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="27W-28-0Tt">
                                                     <rect key="frame" x="290" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="5RW-4o-mkD" firstAttribute="centerX" secondItem="VP2-fc-aq4" secondAttribute="centerX" id="h7C-dD-9jp"/>
-                                                <constraint firstItem="5RW-4o-mkD" firstAttribute="centerY" secondItem="VP2-fc-aq4" secondAttribute="centerY" id="pC7-Qu-rYl"/>
-                                                <constraint firstItem="5GT-0s-AGN" firstAttribute="centerY" secondItem="VP2-fc-aq4" secondAttribute="centerY" id="pP9-iC-B0B"/>
-                                                <constraint firstItem="5GT-0s-AGN" firstAttribute="centerX" secondItem="VP2-fc-aq4" secondAttribute="centerX" id="xO5-kM-hJY"/>
+                                                <constraint firstItem="27W-28-0Tt" firstAttribute="centerX" secondItem="cRR-8t-2jP" secondAttribute="centerX" id="2yU-or-N3i"/>
+                                                <constraint firstItem="sak-nH-LQy" firstAttribute="centerX" secondItem="cRR-8t-2jP" secondAttribute="centerX" id="FX4-ah-ef3"/>
+                                                <constraint firstItem="sak-nH-LQy" firstAttribute="centerY" secondItem="cRR-8t-2jP" secondAttribute="centerY" id="QUG-mv-sWV"/>
+                                                <constraint firstItem="27W-28-0Tt" firstAttribute="centerY" secondItem="cRR-8t-2jP" secondAttribute="centerY" id="XCp-0n-6RZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -80,6 +126,8 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="emailTextField" destination="HsY-aN-IRm" id="Mnh-XJ-D08"/>
+                        <outlet property="mobileNumberTextField" destination="neK-2Z-sWJ" id="MBn-cQ-Xkc"/>
                         <outlet property="nameTextField" destination="I91-vk-ISd" id="Nx9-ua-de5"/>
                     </connections>
                 </tableViewController>
