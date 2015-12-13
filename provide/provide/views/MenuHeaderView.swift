@@ -20,6 +20,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     @IBOutlet private weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var profileImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var companyLabel: UILabel!
     @IBOutlet private weak var changeProfileImageButton: UIButton!
 
     override func awakeFromNib() {
@@ -29,6 +30,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         profileImageUrl = currentUser().profileImageUrl
         nameLabel.text = currentUser().name
+        companyLabel.text = ""
 
         changeProfileImageButton.addTarget(self, action: "changeProfileImage", forControlEvents: .TouchUpInside)
 

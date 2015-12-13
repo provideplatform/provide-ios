@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J41-78-tRE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -7,6 +7,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Light.ttf">
+            <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
@@ -526,25 +527,34 @@
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                 </button>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fwU-Ao-MaF">
+                                    <rect key="frame" x="31" y="31" width="20" height="20"/>
+                                </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
-                                    <rect key="frame" x="8" y="113" width="91" height="18"/>
+                                    <rect key="frame" x="81" y="8" width="91" height="18"/>
                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fwU-Ao-MaF">
-                                    <rect key="frame" x="31" y="31" width="20" height="20"/>
-                                </activityIndicatorView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acme Inc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKg-uN-cvP">
+                                    <rect key="frame" x="81" y="31" width="61" height="18"/>
+                                    <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstItem="QgJ-x5-mA1" firstAttribute="top" secondItem="6OQ-Ex-Qlu" secondAttribute="top" constant="8" id="EMg-aN-9zH"/>
-                                <constraint firstItem="hth-7D-Yty" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="JhL-3p-ZN0"/>
+                                <constraint firstItem="IKg-uN-cvP" firstAttribute="leading" secondItem="QgJ-x5-mA1" secondAttribute="trailing" constant="8" id="VtQ-CF-7Rn"/>
+                                <constraint firstItem="hth-7D-Yty" firstAttribute="top" secondItem="QgJ-x5-mA1" secondAttribute="top" id="lbB-yq-UvL"/>
                                 <constraint firstItem="QgJ-x5-mA1" firstAttribute="leading" secondItem="6OQ-Ex-Qlu" secondAttribute="leading" constant="8" id="psU-18-sm7"/>
-                                <constraint firstAttribute="bottom" secondItem="hth-7D-Yty" secondAttribute="bottom" constant="34" id="rKY-jW-9me"/>
+                                <constraint firstItem="IKg-uN-cvP" firstAttribute="top" secondItem="hth-7D-Yty" secondAttribute="bottom" constant="5" id="va0-We-reX"/>
+                                <constraint firstItem="hth-7D-Yty" firstAttribute="leading" secondItem="QgJ-x5-mA1" secondAttribute="trailing" constant="8" symbolic="YES" id="zfE-V0-rRX"/>
                             </constraints>
                             <connections>
                                 <outlet property="changeProfileImageButton" destination="K47-UQ-7Pe" id="tjs-qP-93E"/>
+                                <outlet property="companyLabel" destination="IKg-uN-cvP" id="Oif-oy-bgS"/>
                                 <outlet property="nameLabel" destination="hth-7D-Yty" id="afJ-yu-VSW"/>
                                 <outlet property="profileImageActivityIndicatorView" destination="fwU-Ao-MaF" id="Ldi-9J-db0"/>
                                 <outlet property="profileImageView" destination="QgJ-x5-mA1" id="luv-7U-cxi"/>
