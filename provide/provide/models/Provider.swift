@@ -78,6 +78,8 @@ class Provider: Model {
                 }
             )
         } else {
+            params.removeValueForKey("user_id")
+
             ApiService.sharedService().createProvider(params,
                 onSuccess: { statusCode, mappingResult in
                     let provider = mappingResult.firstObject as! Provider

@@ -20,8 +20,6 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var mobileNumberTextField: UITextField!
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -53,49 +51,6 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
-    private func createProviderWithCompanyId(companyId: Int) {
-        let provider = Provider()
-        provider.companyId = companyId
-        provider.name = nameTextField?.text
-
-        let contact = Contact()
-        contact.name = nameTextField?.text
-        contact.email = emailTextField?.text
-        contact.mobile = mobileNumberTextField?.text
-        provider.contact = contact
-
-        let providerIsValid = provider.companyId > 0 && provider.name != nil && provider.name.length > 0 && contact.email != nil && contact.email.length > 0
-
-        if providerIsValid {
-            for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))!.contentView.subviews {
-                if view.isKindOfClass(UIActivityIndicatorView) {
-                    (view as! UIActivityIndicatorView).startAnimating()
-                } else if view.isKindOfClass(UILabel) {
-                    view.alpha = 0.0
-                }
-            }
-
-            provider.save(
-                onSuccess: { statusCode, mappingResult in
-                    if statusCode == 201 {
-                        provider.reload(
-                            onSuccess: { statusCode, mappingResult in
-                                self.activityIndicatorView?.stopAnimating()
-                                self.delegate?.providerCreationViewController(self, didCreateProvider: mappingResult.firstObject as! Provider)
-                            },
-                            onError: { error, statusCode, responseString in
-                                self.activityIndicatorView?.stopAnimating()
-                            }
-                        )
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    self.activityIndicatorView?.stopAnimating()
-                }
-            )
-        }
-    }
-
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if indexPath.section == 3 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
@@ -118,5 +73,62 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
             }
         }
         return false
+    }
+
+    private func createProviderWithCompanyId(companyId: Int) {
+        let provider = Provider()
+        provider.companyId = companyId
+        provider.name = nameTextField?.text
+
+        let contact = Contact()
+        contact.name = nameTextField?.text
+        contact.email = emailTextField?.text
+        contact.mobile = mobileNumberTextField?.text
+        provider.contact = contact
+
+        let providerIsValid = provider.companyId > 0 && provider.name != nil && provider.name.length > 0 && contact.email != nil && contact.email.length > 0
+
+        if providerIsValid {
+            showActivityIndicator()
+
+            provider.save(
+                onSuccess: { statusCode, mappingResult in
+                    if statusCode == 201 {
+                        provider.reload(
+                            onSuccess: { statusCode, mappingResult in
+                                self.hideActivityIndicator()
+                                self.delegate?.providerCreationViewController(self, didCreateProvider: mappingResult.firstObject as! Provider)
+                            },
+                            onError: { error, statusCode, responseString in
+                                self.hideActivityIndicator()
+                            }
+                        )
+                    }
+                },
+                onError: { error, statusCode, responseString in
+                    self.hideActivityIndicator()
+                }
+            )
+        }
+    }
+
+    private func showActivityIndicator() {
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).startAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 0.0
+            }
+        }
+    }
+
+    private func hideActivityIndicator() {
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).stopAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 1.0
+            }
+        }
     }
 }
