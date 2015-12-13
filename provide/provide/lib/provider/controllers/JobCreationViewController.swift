@@ -25,8 +25,6 @@ class JobCreationViewController: UITableViewController, UITextFieldDelegate, Cus
 
     @IBOutlet private weak var nameTextField: UITextField!
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -48,30 +46,24 @@ class JobCreationViewController: UITableViewController, UITextFieldDelegate, Cus
             job.name = nameTextField?.text
 
             if job.customerId > 0 && job.name != nil && job.name.length > 0 {
-                for view in tableView.cellForRowAtIndexPath(indexPath)!.contentView.subviews {
-                    if view.isKindOfClass(UIActivityIndicatorView) {
-                        (view as! UIActivityIndicatorView).startAnimating()
-                    } else if view.isKindOfClass(UILabel) {
-                        view.alpha = 0.0
-                    }
-                }
+                showActivityIndicator()
 
                 job.save(
                     onSuccess: { statusCode, mappingResult in
                         if statusCode == 201 {
                             job.reload(
                                 onSuccess: { statusCode, mappingResult in
-                                    self.activityIndicatorView?.stopAnimating()
+                                    self.hideActivityIndicator()
                                     self.delegate?.jobCreationViewController(self, didCreateJob: mappingResult.firstObject as! Job)
                                 },
                                 onError: { error, statusCode, responseString in
-                                    self.activityIndicatorView?.stopAnimating()
+                                    self.hideActivityIndicator()
                                 }
                             )
                         }
                     },
                     onError: { error, statusCode, responseString in
-                        self.activityIndicatorView?.stopAnimating()
+                        self.hideActivityIndicator()
                     }
                 )
             }
@@ -157,6 +149,26 @@ class JobCreationViewController: UITableViewController, UITextFieldDelegate, Cus
                     self.reloadingCustomers = false
                 }
             )
+        }
+    }
+
+    private func showActivityIndicator() {
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).startAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 1.0
+            }
+        }
+    }
+
+    private func hideActivityIndicator() {
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).stopAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 1.0
+            }
         }
     }
 }

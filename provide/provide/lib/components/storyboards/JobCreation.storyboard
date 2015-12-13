@@ -15,15 +15,14 @@
         <!--CustomerPicker-->
         <scene sceneID="hvE-oB-Voc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mKe-hS-J8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="CustomerPicker" id="nCE-5s-Buo" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mKe-hS-J8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1609.5" y="4344"/>
         </scene>
         <!--Job Creation View Controller-->
         <scene sceneID="fTn-YX-n40">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-KB-rML" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="dNb-js-DXL" customClass="JobCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="WeV-Tp-f3c">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -118,6 +117,7 @@
                         <outlet property="nameTextField" destination="GkG-IJ-Ybz" id="dQj-dV-4Re"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-KB-rML" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1137" y="4344"/>
         </scene>
