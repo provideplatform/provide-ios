@@ -19,7 +19,7 @@ class User: Model {
     var companyIds = [Int]()
     var providers: [Provider]!
     var providerIds = [Int]()
-    var defaultCompanyId: Int!
+    var defaultCompanyId = 0
 
     var profileImageUrl: NSURL! {
         if let profileImageUrlString = profileImageUrlString {
