@@ -11,6 +11,7 @@ import Foundation
 class Provider: Model {
 
     var id = 0
+    var companyId = 0
     var userId = 0
     var name: String!
     var contact: Contact!
@@ -26,6 +27,7 @@ class Provider: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "company_id": "companyId",
             "user_id": "userId",
             "name": "name",
             "services": "services",
@@ -48,6 +50,44 @@ class Provider: Model {
             return name.splitAtString(" ").1
         } else {
             return nil
+        }
+    }
+
+    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchProviderWithId(String(id),
+            onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+        params.removeValueForKey("id")
+
+        if id > 0 {
+            ApiService.sharedService().updateProviderWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            ApiService.sharedService().createProvider(params,
+                onSuccess: { statusCode, mappingResult in
+                    let provider = mappingResult.firstObject as! Provider
+                    self.id = provider.id
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
         }
     }
 }

@@ -158,6 +158,14 @@
             </objects>
             <point key="canvasLocation" x="-3263" y="3956"/>
         </scene>
+        <!--ProviderCreation-->
+        <scene sceneID="g4E-ME-l2S">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProviderCreation" id="9W9-By-CBL" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gp2-oQ-lPZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2118.5" y="1039"/>
+        </scene>
         <!--ProviderPicker-->
         <scene sceneID="PcN-Ul-sUb">
             <objects>
@@ -255,7 +263,15 @@
                             <outlet property="delegate" destination="f6g-jD-clh" id="qrA-xC-Z44"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Dyg-BM-vh8"/>
+                    <navigationItem key="navigationItem" id="Dyg-BM-vh8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zfi-Ok-zIQ">
+                            <connections>
+                                <segue destination="9W9-By-CBL" kind="popoverPresentation" identifier="JobCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="zfi-Ok-zIQ" id="0HD-F4-hFj">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLE-5S-8c8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -690,7 +706,9 @@
                             <outlet property="delegate" destination="Ag2-4X-Yu3" id="neJ-kM-GNI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="jbL-bG-7QZ"/>
+                    <navigationItem key="navigationItem" id="jbL-bG-7QZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="esF-YO-aoR"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DVj-GM-0GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -301,8 +301,27 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchProviderWithId(id: String, onSuccess: OnSuccess, onError: OnError) {
+        dispatchApiOperationForPath("providers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     func fetchProviderAvailability(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
         dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func createProvider(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
+
+        dispatchApiOperationForPath("providers", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateProviderWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["customerId"] = nil
+
+        dispatchApiOperationForPath("providers/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Checkin API
