@@ -88,6 +88,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 NSNotificationCenter.defaultCenter().postNotificationName("ApplicationLinkedWithDropbox")
             }
             return true
+        } else {
+            if url.scheme.lowercaseString == "provide" {
+                if !ApiService.sharedService().hasCachedToken {
+                    if url.host == "accept-invitation" {
+                        NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldPresentPinInputViewController")
+                    }
+                }
+            }
         }
         return false
     }
