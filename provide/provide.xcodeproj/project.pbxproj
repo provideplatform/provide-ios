@@ -102,6 +102,7 @@
 		686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */; };
 		686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */; };
 		686C1CB11C1C6F4300A31AFD /* CustomerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB01C1C6F4300A31AFD /* CustomerPickerViewController.swift */; };
+		686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
@@ -347,6 +348,7 @@
 		686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobCreationViewController.swift; sourceTree = "<group>"; };
 		686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CustomerPicker.storyboard; sourceTree = "<group>"; };
 		686C1CB01C1C6F4300A31AFD /* CustomerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPickerViewController.swift; sourceTree = "<group>"; };
+		686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobCreation.storyboard; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
@@ -924,6 +926,7 @@
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
 				68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */,
+				686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */,
 				68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */,
 				68B730CE1C1AD74600549D95 /* Manifest.storyboard */,
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
@@ -1298,6 +1301,7 @@
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
+				686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */,
 				686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */,
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,

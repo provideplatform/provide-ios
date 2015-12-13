@@ -5,12 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Exo2-Regular.ttf">
-            <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--Jobs View Controller-->
         <scene sceneID="3NR-2Q-bzC">
@@ -77,7 +71,7 @@
                     <navigationItem key="navigationItem" id="GHF-eu-6iZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3kC-ry-I1H">
                             <connections>
-                                <segue destination="xhe-Is-0lb" kind="popoverPresentation" identifier="JobCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="3kC-ry-I1H" id="3zb-Fp-ZiB">
+                                <segue destination="z6e-z4-1ra" kind="popoverPresentation" identifier="JobCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="3kC-ry-I1H" id="Y5z-3k-4dh">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
@@ -91,14 +85,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l5K-LX-klj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="421" y="4684"/>
-        </scene>
-        <!--CustomerPicker-->
-        <scene sceneID="7eY-ie-PQ0">
-            <objects>
-                <viewControllerPlaceholder storyboardName="CustomerPicker" id="4oA-wk-YLk" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cbn-F3-hPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1609.5" y="4344"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jfq-TW-LNI">
@@ -116,110 +102,13 @@
             </objects>
             <point key="canvasLocation" x="-300" y="4684"/>
         </scene>
-        <!--Job Creation View Controller-->
-        <scene sceneID="nyX-XK-BpO">
+        <!--JobCreation-->
+        <scene sceneID="x5G-Z7-Y4z">
             <objects>
-                <tableViewController id="xhe-Is-0lb" customClass="JobCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GlK-Hv-eHg">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <sections>
-                            <tableViewSection headerTitle="Customer" id="Kkh-dj-PyR">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="200" id="WSM-KL-NhL">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="200"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WSM-KL-NhL" id="Xcs-QP-BuT">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="esw-q0-ecy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
-                                                    <connections>
-                                                        <segue destination="4oA-wk-YLk" kind="embed" identifier="CustomerPickerViewControllerEmbedSegue" id="uc8-w4-cyl"/>
-                                                    </connections>
-                                                </containerView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="esw-q0-ecy" secondAttribute="trailing" constant="-8" id="UM8-bM-uNX"/>
-                                                <constraint firstItem="esw-q0-ecy" firstAttribute="leading" secondItem="Xcs-QP-BuT" secondAttribute="leadingMargin" constant="-8" id="ouj-g2-yPU"/>
-                                                <constraint firstItem="esw-q0-ecy" firstAttribute="top" secondItem="Xcs-QP-BuT" secondAttribute="topMargin" constant="-8" id="xRx-52-EYJ"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="esw-q0-ecy" secondAttribute="bottom" constant="-8" id="z1y-pX-Dk3"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Name" id="kid-kR-ccw">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Bpg-rT-KIQ">
-                                        <rect key="frame" x="0.0" y="299.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bpg-rT-KIQ" id="Sit-jT-hMu">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b5J-ux-BIa">
-                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="xhe-Is-0lb" id="LZd-V5-45i"/>
-                                                    </connections>
-                                                </textField>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="CZA-Cz-kBu">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="rED-nn-rqV">
-                                        <rect key="frame" x="0.0" y="379.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rED-nn-rqV" id="aZv-Nt-sAn">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-tI-JKA">
-                                                    <rect key="frame" x="270" y="12" width="59" height="20.5"/>
-                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="weA-nx-sO4">
-                                                    <rect key="frame" x="290" y="12" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="EHi-tI-JKA" firstAttribute="centerY" secondItem="aZv-Nt-sAn" secondAttribute="centerY" id="H52-5a-769"/>
-                                                <constraint firstItem="weA-nx-sO4" firstAttribute="centerY" secondItem="aZv-Nt-sAn" secondAttribute="centerY" id="ICl-9b-JSt"/>
-                                                <constraint firstItem="EHi-tI-JKA" firstAttribute="centerX" secondItem="aZv-Nt-sAn" secondAttribute="centerX" id="ObV-1M-5Nl"/>
-                                                <constraint firstItem="weA-nx-sO4" firstAttribute="centerX" secondItem="aZv-Nt-sAn" secondAttribute="centerX" id="rKh-lt-lrS"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
-                        <connections>
-                            <outlet property="dataSource" destination="xhe-Is-0lb" id="N4C-F7-V0O"/>
-                            <outlet property="delegate" destination="xhe-Is-0lb" id="yKD-pj-qNk"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="nameTextField" destination="b5J-ux-BIa" id="sZv-qM-0Or"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1GN-gx-E5L" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="MBE-HB-7EI">
-                    <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
+                <viewControllerPlaceholder storyboardName="JobCreation" id="z6e-z4-1ra" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ey8-1V-uDA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1137" y="4344"/>
+            <point key="canvasLocation" x="888" y="4425"/>
         </scene>
         <!--JobWizard-->
         <scene sceneID="i7N-Hp-HZb">
@@ -227,7 +116,7 @@
                 <viewControllerPlaceholder storyboardName="JobWizard" id="HbV-mu-6GN" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RwY-xa-zuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885" y="4708"/>
+            <point key="canvasLocation" x="883" y="4707"/>
         </scene>
     </scenes>
 </document>
