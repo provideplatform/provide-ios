@@ -8,7 +8,7 @@
 
 import UIKit
 
-class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, JobCreationViewControllerDelegate {
+class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, JobCreationViewControllerDelegate {
 
     @IBOutlet private weak var addJobBarButtonItem: UIBarButtonItem! {
         didSet {
@@ -53,7 +53,8 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
             jobCreationViewController = segue.destinationViewController as! JobCreationViewController
             jobCreationViewController.delegate = self
-            jobCreationViewController.preferredContentSize = CGSizeMake(300, 500)
+            jobCreationViewController.preferredContentSize = CGSizeMake(400, 500)
+            jobCreationViewController.popoverPresentationController!.delegate = self
         }
     }
 
@@ -100,6 +101,12 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
                 // TODO
             }
         )
+    }
+
+    // MARK: UIPopoverPresentationViewController
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 
     // MARK: UITableViewDataSource
