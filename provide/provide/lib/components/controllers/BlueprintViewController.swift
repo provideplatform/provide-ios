@@ -406,7 +406,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func createWorkOrder(sender: UIBarButtonItem) {
-        let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
+        let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
 
         let workOrder = WorkOrder()
         workOrder.company = job!.company
@@ -692,7 +692,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath) {
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                let createWorkOrderViewController = UIStoryboard("Provider").instantiateViewControllerWithIdentifier("WorkOrderCreationViewController") as! WorkOrderCreationViewController
+                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
                 createWorkOrderViewController.workOrder = workOrder
                 createWorkOrderViewController.delegate = self
                 createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
