@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
         }
 
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         dismissLaunchScreenViewController()
 
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             CheckinService.sharedService().checkin()
         }
     }
@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(NSDate().timeIntervalSince1970)"])
 
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             NotificationService.sharedService().dispatchRemoteNotification(userInfo as! [String : AnyObject])
         }
 

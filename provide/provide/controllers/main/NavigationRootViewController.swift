@@ -22,7 +22,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
         signInButton.alpha = 0.0
 
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             dispatch_after_delay(0.0) {
                 self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
                 dispatch_after_delay(1.0) {

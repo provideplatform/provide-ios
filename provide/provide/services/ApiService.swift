@@ -66,7 +66,7 @@ class ApiService: NSObject {
 
     // MARK: Token API
 
-    class func hasCachedToken() -> Bool {
+    var hasCachedToken: Bool {
         if let token = KeyChainService.sharedService().token {
             let hasCachedToken = token.user != nil
             if !hasCachedToken {
