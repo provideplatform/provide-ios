@@ -10,6 +10,7 @@ import Foundation
 
 typealias OnSuccess = (statusCode: Int, mappingResult: RKMappingResult!) -> ()
 typealias OnError = (error: NSError, statusCode: Int, responseString: String) -> ()
+typealias OnTotalResultsCount = (totalResultsCount: Int, error: NSError!) -> ()
 
 class ApiService: NSObject {
 
@@ -305,6 +306,10 @@ class ApiService: NSObject {
     }
 
     // MARK: Provider API
+
+    func countProviders(params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
+        return countTotalResultsForPath("providers", params: params, onTotalResultsCount: onTotalResultsCount)
+    }
 
     func fetchProviders(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
@@ -630,12 +635,53 @@ class ApiService: NSObject {
         api.enqueueOperation(op)
     }
 
+    // MARK: Private methods
+
+    private func countTotalResultsForPath(path: String, var params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation {
+        params["page"] = 1
+        params["rpp"] = 0
+
+        let op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false,
+            onSuccess: { statusCode, mappingResult in
+
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
+
+        op.setCompletionBlockWithSuccess(
+            { operation, mappingResult in
+                let headers = operation.HTTPRequestOperation.response.allHeaderFields
+                if let totalResultsCountString = headers["X-Total-Results-Count"] as? String {
+                    if let totalResultsCount = Int(totalResultsCountString) {
+                        onTotalResultsCount(totalResultsCount: totalResultsCount, error: nil)
+                    }
+                }
+            },
+            failure: { operation, error in
+                onTotalResultsCount(totalResultsCount: -1, error: error)
+            }
+        )
+
+        op.start()
+
+        return op
+    }
+
     private func dispatchApiOperationForPath(path: String,
                                              method: RKRequestMethod! = .GET,
                                              params: [String: AnyObject]?,
+                                             startOperation: Bool = true,
                                              onSuccess: OnSuccess,
                                              onError: OnError) -> RKObjectRequestOperation! {
-        return dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString), path: "api/\(path)", method: method, params: params, onSuccess: onSuccess, onError: onError)
+        return dispatchOperationForURL(NSURL(CurrentEnvironment.baseUrlString),
+                                       path: "api/\(path)",
+                                       method: method,
+                                       params: params,
+                                       startOperation: startOperation,
+                                       onSuccess: onSuccess,
+                                       onError: onError)
     }
 
     private func objectMappingForPath(var path: String) -> RKObjectMapping? {
@@ -656,6 +702,7 @@ class ApiService: NSObject {
                                          path: String,
                                          method: RKRequestMethod = .GET,
                                          var params: [String: AnyObject]!,
+                                         startOperation: Bool = true,
                                          onSuccess: OnSuccess,
                                          onError: OnError) -> RKObjectRequestOperation! {
         var responseMapping = objectMappingForPath(path)
@@ -756,7 +803,9 @@ class ApiService: NSObject {
                     }
                 )
 
-                op.start()
+                if startOperation {
+                    op.start()
+                }
                 
                 return op
             }
