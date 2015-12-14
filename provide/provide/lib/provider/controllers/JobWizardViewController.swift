@@ -139,28 +139,18 @@ class JobWizardViewController: UINavigationController,
     }
 
     func jobManagerViewController(jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationController = jobManagerViewController.navigationController {
-            var viewController: UIViewController!
-
-            switch indexPath.row {
-            case 0:
-                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
-                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-
-                let calendarViewController = PDTSimpleCalendarViewController()
-                calendarViewController.delegate = jobManagerViewController
-                calendarViewController.weekdayHeaderEnabled = true
-                calendarViewController.firstDate = NSDate()
-
-                viewController = calendarViewController
-            default:
-                break
-            }
-
-            if let vc = viewController {
-                navigationController.pushViewController(vc, animated: true)
-            }
-        }
+//        if let navigationController = jobManagerViewController.navigationController {
+//            var viewController: UIViewController!
+//
+//            switch indexPath.row {
+//            default:
+//                break
+//            }
+//
+//            if let vc = viewController {
+//                navigationController.pushViewController(vc, animated: true)
+//            }
+//        }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
