@@ -33,7 +33,7 @@
         <!--Comments View Controller-->
         <scene sceneID="fyQ-pX-TaE">
             <objects>
-                <viewController id="6RU-H7-EPa" customClass="CommentsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentsViewController" id="6RU-H7-EPa" customClass="CommentsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Miu-3P-pLm"/>
                         <viewControllerLayoutGuide type="bottom" id="slm-S8-cPf"/>
