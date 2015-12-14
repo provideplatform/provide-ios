@@ -544,7 +544,12 @@ class JobTeamViewController: UITableViewController,
         private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
             if shouldRemoveSupervisor {
                 let indexPath = supervisorsPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                jobTeamViewController?.removeSupervisor(jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row])
+                let supervisor = jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row]
+                if currentUser().id == supervisor.userId {
+                    jobTeamViewController.showToast("You can't remove yourself", dismissAfter: 2.0)
+                } else {
+                    jobTeamViewController?.removeSupervisor(supervisor)
+                }
             }
 
             super.touchesEnded(touches, withEvent: event)
