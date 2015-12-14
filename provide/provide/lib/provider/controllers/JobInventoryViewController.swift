@@ -297,6 +297,7 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Dra
             cell.name = product.name
 
             if let profileImageUrl = product.barcodeDataURL {
+                cell.rendersCircularImage = false
                 cell.imageUrl = profileImageUrl
             }
         }
