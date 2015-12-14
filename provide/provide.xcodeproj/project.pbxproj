@@ -239,6 +239,8 @@
 		68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */; };
 		68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */; };
 		68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */; };
+		68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */; };
+		68EF11371C1EFAC5003302D7 /* ProductPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
@@ -493,6 +495,8 @@
 		68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
 		68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseEditorViewController.swift; sourceTree = "<group>"; };
+		68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPickerViewController.swift; sourceTree = "<group>"; };
+		68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductPicker.storyboard; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -832,6 +836,7 @@
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
 				688441561C06E3A10017D4AA /* PinInputViewController.swift */,
+				68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */,
 				686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */,
 				6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
@@ -941,6 +946,7 @@
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
 				6884415B1C06F6810017D4AA /* PinInput.storyboard */,
+				68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */,
 				686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */,
 				6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
@@ -1303,6 +1309,7 @@
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
+				68EF11371C1EFAC5003302D7 /* ProductPicker.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
 				6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */,
 				5CA5D9E01B1A6ABB006C3328 /* Messages.storyboard in Resources */,
@@ -1473,6 +1480,7 @@
 				681416F21B8457870076BFBD /* Route.swift in Sources */,
 				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
 				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
+				68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */,
 				681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */,
 				688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,

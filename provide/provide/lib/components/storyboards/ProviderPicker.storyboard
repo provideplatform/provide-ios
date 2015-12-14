@@ -23,78 +23,76 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Yvd-Y5-aoN">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hue-Wn-vTI">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rzA-pk-ekE">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="10" id="v2Z-kE-62X">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cq4-hh-ZM6">
                                     <size key="itemSize" width="100" height="100"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PickerCollectionViewCell" id="FqN-jJ-J09" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="75" width="100" height="100"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PickerCollectionViewCell" id="qcu-gA-yY1" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyL-Ib-hN7" userLabel="Accessory Image View">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ko1-Uc-t4q" userLabel="Accessory Image View">
                                                     <rect key="frame" x="73" y="0.0" width="25" height="25"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9d-LQ-MjI">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dLi-tM-tbn">
                                                     <rect key="frame" x="73" y="65" width="25" height="25"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1a5-Wv-Ghj" customClass="RFGravatarImageView">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ks-fR-04m" customClass="RFGravatarImageView">
                                                     <rect key="frame" x="12" y="4" width="75" height="75"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Provider Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="54M-XM-etE">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Provider Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zsa-qP-6IS">
                                                     <rect key="frame" x="0.0" y="79" width="100" height="21"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w8Q-FM-q2O">
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="jGE-8c-JcJ">
                                                     <rect key="frame" x="40" y="40" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <outlet property="accessoryImageView" destination="GyL-Ib-hN7" id="ngR-lP-NsZ"/>
-                                            <outlet property="activityIndicatorView" destination="w8Q-FM-q2O" id="LBn-da-VUK"/>
-                                            <outlet property="imageView" destination="1a5-Wv-Ghj" id="DAd-ZO-eMS"/>
-                                            <outlet property="nameLabel" destination="54M-XM-etE" id="51G-N7-iRG"/>
-                                            <outlet property="selectedImageView" destination="P9d-LQ-MjI" id="4pr-9V-992"/>
+                                            <outlet property="accessoryImageView" destination="ko1-Uc-t4q" id="xZi-VW-Wk0"/>
+                                            <outlet property="activityIndicatorView" destination="jGE-8c-JcJ" id="iHj-dV-XwD"/>
+                                            <outlet property="imageView" destination="7ks-fR-04m" id="l9c-2S-rdI"/>
+                                            <outlet property="nameLabel" destination="Zsa-qP-6IS" id="oMm-Ba-MbR"/>
+                                            <outlet property="selectedImageView" destination="dLi-tM-tbn" id="TX7-dY-fzr"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProviderPickerCollectionViewHeader" id="yTu-uT-W1E">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionReusableView>
                                 <connections>
-                                    <outlet property="dataSource" destination="NHu-90-0AY" id="8eg-rH-m5g"/>
-                                    <outlet property="delegate" destination="NHu-90-0AY" id="4dn-Ln-2Wq"/>
+                                    <outlet property="dataSource" destination="NHu-90-0AY" id="R2i-tE-azc"/>
+                                    <outlet property="delegate" destination="NHu-90-0AY" id="euQ-Ub-xQo"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Yvd-Y5-aoN">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="hue-Wn-vTI" secondAttribute="bottom" id="8os-UO-81w"/>
+                            <constraint firstItem="rzA-pk-ekE" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="-20" id="4Sj-Zh-ybs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rzA-pk-ekE" secondAttribute="trailing" constant="-20" id="AgG-bP-7Cz"/>
+                            <constraint firstItem="rzA-pk-ekE" firstAttribute="centerY" secondItem="1Xa-Y1-UrB" secondAttribute="centerY" id="Kwc-MU-Yc5"/>
                             <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerY" secondItem="1Xa-Y1-UrB" secondAttribute="centerY" id="PmL-gD-Gd8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hue-Wn-vTI" secondAttribute="trailing" constant="-20" id="e5f-7I-Fpr"/>
-                            <constraint firstItem="hue-Wn-vTI" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="-20" id="fjN-fo-sD3"/>
+                            <constraint firstItem="LOi-NU-GzU" firstAttribute="top" secondItem="rzA-pk-ekE" secondAttribute="bottom" id="ati-Va-tsd"/>
+                            <constraint firstItem="rzA-pk-ekE" firstAttribute="leading" secondItem="1Xa-Y1-UrB" secondAttribute="leadingMargin" constant="-20" id="cxu-EI-FaF"/>
+                            <constraint firstItem="rzA-pk-ekE" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="fgt-fc-XFi"/>
                             <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="whV-T7-gBq"/>
-                            <constraint firstItem="hue-Wn-vTI" firstAttribute="top" secondItem="N43-kR-R5N" secondAttribute="bottom" constant="-20" id="y7J-OE-h84"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicatorView" destination="Yvd-Y5-aoN" id="rTz-d2-9Ue"/>
-                        <outlet property="collectionView" destination="hue-Wn-vTI" id="tcd-N3-1j4"/>
+                        <outlet property="collectionView" destination="rzA-pk-ekE" id="22k-of-uD6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yt2-IF-XGw" userLabel="First Responder" sceneMemberID="firstResponder"/>

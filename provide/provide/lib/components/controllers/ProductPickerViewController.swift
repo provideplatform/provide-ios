@@ -1,44 +1,44 @@
 //
-//  ProviderPickerViewController.swift
+//  ProductPickerViewController.swift
 //  provide
 //
-//  Created by Kyle Thomas on 11/18/15.
+//  Created by Kyle Thomas on 12/14/15.
 //  Copyright © 2015 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 @objc
-protocol ProviderPickerViewControllerDelegate {
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]!
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
-    optional func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection
-    optional func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool
-    optional func providerPickerViewController(viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+protocol ProductPickerViewControllerDelegate {
+    func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]!
+    func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product)
+    func productPickerViewController(viewController: ProductPickerViewController, didDeselectProduct: Product)
+    func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool
+    func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product]
+    func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product]
+    optional func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection
+    optional func productPickerViewControllerCanRenderResults(viewController: ProductPickerViewController) -> Bool
+    optional func productPickerViewController(viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
 }
 
-class ProviderPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ProductPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var delegate: ProviderPickerViewControllerDelegate! {
+    var delegate: ProductPickerViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
                 if oldValue == nil {
-                    if let _ = delegate.queryParamsForProviderPickerViewController(self) {
+                    if let _ = delegate.queryParamsForProductPickerViewController(self) {
                         reset()
                     } else {
-                        providers = [Provider]()
-                        for provider in delegate.providersForPickerViewController(self) {
-                            providers.append(provider)
+                        products = [Product]()
+                        for product in delegate.productsForPickerViewController(self) {
+                            products.append(product)
                         }
                     }
 
-                    selectedProviders = [Provider]()
-                    for provider in delegate.selectedProvidersForPickerViewController(self) {
-                        selectedProviders.append(provider)
+                    selectedProducts = [Product]()
+                    for product in delegate.selectedProductsForPickerViewController(self) {
+                        selectedProducts.append(product)
                     }
 
                     reloadCollectionView()
@@ -63,21 +63,21 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     private var refreshControl: UIRefreshControl!
 
-    var providers = [Provider]() {
+    var products = [Product]() {
         didSet {
-            if providers.count == 0 {
-                selectedProviders = [Provider]()
+            if products.count == 0 {
+                selectedProducts = [Product]()
             }
 
             reloadCollectionView()
         }
     }
 
-    private var selectedProviders = [Provider]()
+    private var selectedProducts = [Product]()
 
     private var page = 1
-    private let rpp = 10
-    private var lastProviderIndex = -1
+    private let rpp = 15
+    private var lastProductIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,16 +102,16 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
             collectionViewFlowLayout.itemSize = CGSize(width: 100.0, height: 100.0)
 
             var canRender = true
-            if let canRenderResults = delegate?.providerPickerViewControllerCanRenderResults?(self) {
+            if let canRenderResults = delegate?.productPickerViewControllerCanRenderResults?(self) {
                 canRender = canRenderResults
             }
 
             if canRender {
-                collectionView.allowsMultipleSelection = delegate.providerPickerViewControllerAllowsMultipleSelection(self)
+                collectionView.allowsMultipleSelection = delegate.productPickerViewControllerAllowsMultipleSelection(self)
 
-                selectedProviders = [Provider]()
-                for provider in delegate.selectedProvidersForPickerViewController(self) {
-                    selectedProviders.append(provider)
+                selectedProducts = [Product]()
+                for product in delegate.selectedProductsForPickerViewController(self) {
+                    selectedProducts.append(product)
                 }
 
                 activityIndicatorView?.stopAnimating()
@@ -140,9 +140,9 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
             //setupPullToRefresh()
         }
 
-        providers = [Provider]()
+        products = [Product]()
         page = 1
-        lastProviderIndex = -1
+        lastProductIndex = -1
         refresh()
     }
 
@@ -151,7 +151,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
             refreshControl?.beginRefreshing()
         }
 
-        if var params = delegate.queryParamsForProviderPickerViewController(self) {
+        if var params = delegate.queryParamsForProductPickerViewController(self) {
             params["page"] = page
             params["rpp"] = rpp
 
@@ -163,15 +163,16 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
                 inFlightRequestOperation.cancel()
             }
 
-            inFlightRequestOperation = ApiService.sharedService().fetchProviders(params,
+            inFlightRequestOperation = ApiService.sharedService().fetchProducts(params,
                 onSuccess: { statusCode, mappingResult in
                     self.inFlightRequestOperation = nil
-                    let fetchedProviders = mappingResult.array() as! [Provider]
+                    let fetchedProducts = mappingResult.array() as! [Product]
                     if self.page == 1 {
-                        self.providers = [Provider]()
+                        self.products = [Product]()
                     }
-                    self.providers += fetchedProviders
+                    self.products += fetchedProducts
 
+                    self.page++
                     self.reloadCollectionView()
                 },
                 onError: { error, statusCode, responseString in
@@ -181,9 +182,9 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    func isSelected(provider: Provider) -> Bool {
-        for p in selectedProviders {
-            if p.id == provider.id {
+    func isSelected(product: Product) -> Bool {
+        for p in selectedProducts {
+            if p.id == product.id {
                 return true
             }
         }
@@ -193,31 +194,29 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     // MARK - UICollectionViewDataSource
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return providers.count
+        return products.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if let cell = delegate?.providerPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
+        if let cell = delegate?.productPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
             return cell
         }
 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
 
-        if providers.count > indexPath.row - 1 {
-            let provider = providers[indexPath.row]
+        if products.count > indexPath.row - 1 {
+            let product = products[indexPath.row]
 
-            cell.selected = isSelected(provider)
+            cell.selected = isSelected(product)
 
             if cell.selected {
                 collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
             }
 
-            cell.name = provider.contact.name
+            cell.name = product.name
 
-            if let profileImageUrl = provider.profileImageUrl {
-                cell.imageUrl = profileImageUrl
-            } else {
-                cell.gravatarEmail = provider.contact.email
+            if let imageUrl = product.barcodeDataURL {
+                cell.imageUrl = imageUrl
             }
         }
 
@@ -225,19 +224,19 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let provider = providers[indexPath.row]
-        delegate?.providerPickerViewController(self, didSelectProvider: provider)
+        let product = products[indexPath.row]
+        delegate?.productPickerViewController(self, didSelectProduct: product)
     }
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let provider = providers[indexPath.row]
-        delegate?.providerPickerViewController(self, didDeselectProvider: provider)
+        let product = products[indexPath.row]
+        delegate?.productPickerViewController(self, didDeselectProduct: product)
     }
-
+    
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-
+    
     func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
