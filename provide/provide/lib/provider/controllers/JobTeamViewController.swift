@@ -484,6 +484,10 @@ class JobTeamViewController: UITableViewController,
                 return
             }
 
+            if jobTeamViewController.searchBar.isFirstResponder() {
+                jobTeamViewController.searchBar.resignFirstResponder()
+            }
+
             let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
             shouldAddSupervisor = !jobTeamViewController.addingSupervisor && CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
 

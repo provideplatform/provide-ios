@@ -453,6 +453,10 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Dra
                 return
             }
 
+            if jobInventoryViewController.searchBar.isFirstResponder() {
+                jobInventoryViewController.searchBar.resignFirstResponder()
+            }
+
             let jobProductsPickerCollectionViewFrame = jobProductsPickerCollectionView.superview!.convertRect(jobProductsPickerCollectionView.frame, toView: nil)
             shouldAddProduct = !jobInventoryViewController.addingJobProduct && CGRectIntersectsRect(initialView.frame, jobProductsPickerCollectionViewFrame)
 
