@@ -105,6 +105,7 @@
 		686C1CB31C1D0E3C00A31AFD /* ProviderCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */; };
 		686C1CB51C1D105000A31AFD /* ProviderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */; };
 		686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */; };
+		686C1CB91C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
@@ -353,6 +354,7 @@
 		686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderCreation.storyboard; sourceTree = "<group>"; };
 		686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCreationViewController.swift; sourceTree = "<group>"; };
 		686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobCreation.storyboard; sourceTree = "<group>"; };
+		686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewGestureRecognizer.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 			isa = PBXGroup;
 			children = (
 				6845BB611BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift */,
+				686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */,
 			);
 			name = gestures;
 			sourceTree = "<group>";
@@ -1517,6 +1520,7 @@
 				5C910B071B3AD1D50089D9E1 /* UIBarButtonItem.swift in Sources */,
 				681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */,
 				68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
+				686C1CB91C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift in Sources */,
 				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
