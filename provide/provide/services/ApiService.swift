@@ -449,6 +449,16 @@ class ApiService: NSObject {
         )
     }
 
+    // MARK: Products API
+
+    func countProducts(params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
+        return countTotalResultsForPath("products", params: params, onTotalResultsCount: onTotalResultsCount)
+    }
+
+    func fetchProducts(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("products", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Route API
 
     func fetchRoutes(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
