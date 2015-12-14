@@ -30,7 +30,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
                     self.gravatarImageView?.alpha = 0.0
 
                     self.contentView.bringSubviewToFront(self.imageView)
-                    self.imageView.makeCircular()
+                    if self.rendersCircularImage {
+                        self.imageView.makeCircular()
+                    }
                     self.imageView.alpha = 1.0
 
                     self.hideActivityIndicator()
@@ -53,7 +55,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 gravatarImageView.email = gravatarEmail
                 gravatarImageView.size = UInt(gravatarImageView.frame.width)
                 gravatarImageView.load { error in
-                    self.gravatarImageView.makeCircular()
+                    if self.rendersCircularImage {
+                        self.gravatarImageView.makeCircular()
+                    }
                     self.gravatarImageView.alpha = 1.0
                     self.hideActivityIndicator()
                 }
@@ -66,6 +70,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
             if let accessoryImage = accessoryImage {
                 accessoryImageView.image = accessoryImage
                 accessoryImageView.alpha = 1.0
+                contentView.bringSubviewToFront(accessoryImageView)
             } else {
                 accessoryImageView.alpha = 0.0
                 accessoryImageView.image = nil
@@ -78,6 +83,20 @@ class PickerCollectionViewCell: UICollectionViewCell {
             if let selectedImage = selectedImage {
                 selectedImageView.alpha = selected ? 1.0 : 0.0
                 selectedImageView.image = selectedImage
+            }
+        }
+    }
+
+    var rendersCircularImage = true {
+        didSet {
+            if let imageView = imageView {
+                if oldValue && !rendersCircularImage {
+                    imageView.layer.cornerRadius = frame.width * 2
+                    imageView.layer.masksToBounds = false
+                } else if !oldValue && rendersCircularImage {
+                    imageView.layer.cornerRadius = frame.width / 2
+                    imageView.layer.masksToBounds = true
+                }
             }
         }
     }
