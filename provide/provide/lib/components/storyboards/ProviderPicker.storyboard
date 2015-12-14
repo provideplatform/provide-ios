@@ -57,11 +57,15 @@
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w8Q-FM-q2O">
+                                                    <rect key="frame" x="40" y="40" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
                                             <outlet property="accessoryImageView" destination="GyL-Ib-hN7" id="ngR-lP-NsZ"/>
+                                            <outlet property="activityIndicatorView" destination="w8Q-FM-q2O" id="LBn-da-VUK"/>
                                             <outlet property="imageView" destination="1a5-Wv-Ghj" id="DAd-ZO-eMS"/>
                                             <outlet property="nameLabel" destination="54M-XM-etE" id="51G-N7-iRG"/>
                                             <outlet property="selectedImageView" destination="P9d-LQ-MjI" id="4pr-9V-992"/>

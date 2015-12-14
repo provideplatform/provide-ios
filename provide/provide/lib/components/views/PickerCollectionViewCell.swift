@@ -23,6 +23,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
     var imageUrl: NSURL! {
         didSet {
             if let imageUrl = imageUrl {
+                self.showActivityIndicator()
+
                 imageView.contentMode = .ScaleAspectFit
                 imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
                     self.gravatarImageView?.alpha = 0.0
@@ -30,6 +32,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
                     self.contentView.bringSubviewToFront(self.imageView)
                     self.imageView.makeCircular()
                     self.imageView.alpha = 1.0
+
+                    self.hideActivityIndicator()
                 })
             } else {
                 imageView.image = nil
@@ -41,6 +45,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
     var gravatarEmail: String! {
         didSet {
             if let gravatarEmail = gravatarEmail {
+                showActivityIndicator()
+
                 imageView.image = nil
                 imageView.alpha = 0.0
 
@@ -49,6 +55,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 gravatarImageView.load { error in
                     self.gravatarImageView.makeCircular()
                     self.gravatarImageView.alpha = 1.0
+                    self.hideActivityIndicator()
                 }
             }
         }
@@ -81,6 +88,14 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 selectedImageView.alpha = 1.0
             } else {
                 selectedImageView.alpha = 0.0
+            }
+        }
+    }
+
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView! {
+        didSet {
+            if let activityIndicatorView = activityIndicatorView {
+                bringSubviewToFront(activityIndicatorView)
             }
         }
     }
@@ -175,6 +190,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
         gravatarImageView?.image = nil
         gravatarImageView?.alpha = 0.0
 
+        showActivityIndicator()
+
         selected = false
     }
 
@@ -194,6 +211,23 @@ class PickerCollectionViewCell: UICollectionViewCell {
         super.touchesEnded(touches, withEvent: event)
 
         unhighlighted()
+    }
+
+    func setAccessoryImage(image: UIImage, tintColor: UIColor) {
+        accessoryImageView?.tintColor = tintColor
+        accessoryImage = image
+    }
+
+    func hideActivityIndicator() {
+        imageView?.alpha = 1.0
+        gravatarImageView?.alpha = 1.0
+        activityIndicatorView?.stopAnimating()
+    }
+
+    func showActivityIndicator() {
+        imageView?.alpha = 0.0
+        gravatarImageView?.alpha = 0.0
+        activityIndicatorView?.startAnimating()
     }
 
     private func unhighlighted() {
