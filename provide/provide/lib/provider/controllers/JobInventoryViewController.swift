@@ -118,6 +118,7 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Dra
 
             job?.removeJobProduct(jobProduct,
                 onSuccess: { (statusCode, mappingResult) -> () in
+                    self.jobProductsPickerViewController?.products = self.job.materials.map({ $0.product })
                     self.jobProductsPickerViewController?.reloadCollectionView()
                     self.removingJobProduct = false
                 },

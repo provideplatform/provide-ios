@@ -16,7 +16,7 @@ class JobProduct: Model {
     var productId = 0
     var product: Product!
     var initialQuantity = 0.0
-    var price = 0.0
+    var price = -1.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
