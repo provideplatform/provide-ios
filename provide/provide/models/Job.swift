@@ -284,18 +284,20 @@ class Job: Model {
         params.removeValueForKey("id")
 
         if id > 0 {
-            var jobProducts = [[String : AnyObject]]()
-            for jobProduct in materials {
-                var jp: [String : AnyObject] = ["job_id": id, "product_id": jobProduct.productId, "initial_quantity": jobProduct.initialQuantity]
-                if jobProduct.price > -1.0 {
-                    jp.updateValue(jobProduct.price, forKey: "price")
+            if let materials = materials {
+                var jobProducts = [[String : AnyObject]]()
+                for jobProduct in materials {
+                    var jp: [String : AnyObject] = ["job_id": id, "product_id": jobProduct.productId, "initial_quantity": jobProduct.initialQuantity]
+                    if jobProduct.price > -1.0 {
+                        jp.updateValue(jobProduct.price, forKey: "price")
+                    }
+                    if jobProduct.id > 0 {
+                        jp.updateValue(jobProduct.id, forKey: "id")
+                    }
+                    jobProducts.append(jp)
                 }
-                if jobProduct.id > 0 {
-                    jp.updateValue(jobProduct.id, forKey: "id")
-                }
-                jobProducts.append(jp)
+                params.updateValue(jobProducts, forKey: "materials")
             }
-            params.updateValue(jobProducts, forKey: "materials")
 
             ApiService.sharedService().updateJobWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
