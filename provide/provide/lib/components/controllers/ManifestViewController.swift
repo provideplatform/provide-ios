@@ -22,6 +22,7 @@ protocol ManifestViewControllerDelegate {
     optional func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]!
     optional func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell!
     optional func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    optional func queryParamsForManifestViewController(viewController: UIViewController) -> [String : AnyObject]!
 }
 
 class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -36,6 +37,14 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         didSet {
             if let _ = delegate {
                 reload()
+            }
+        }
+    }
+
+    var products: [Product]! {
+        didSet {
+            if let _ = products {
+                reloadTableView()
             }
         }
     }
@@ -60,8 +69,18 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
 
     private var lastSelectedIndex = -1
 
+    private var page = 1
+    private let rpp = 10
+    private var lastProductIndex = -1
+
+    private var refreshControl: UIRefreshControl!
+
+    private var inFlightRequestOperation: RKObjectRequestOperation!
+
     private var items: [Product] {
-        if let items = delegate?.itemsForManifestViewController?(self, forSegmentIndex: toolbarSegmentedControl.selectedSegmentIndex) {
+        if let products = products {
+            return products
+        } else if let items = delegate?.itemsForManifestViewController?(self, forSegmentIndex: toolbarSegmentedControl.selectedSegmentIndex) {
             return items
         }
 
@@ -134,6 +153,64 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         reload()
     }
 
+    private func setupPullToRefresh() {
+        activityIndicatorView?.stopAnimating()
+
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+
+        tableView.addSubview(refreshControl)
+        tableView.alwaysBounceVertical = true
+    }
+
+    func reset() {
+        if refreshControl == nil {
+            setupPullToRefresh()
+        }
+
+        products = [Product]()
+        page = 1
+        lastProductIndex = -1
+        refresh()
+    }
+
+    func refresh() {
+        if page == 1 {
+            refreshControl?.beginRefreshing()
+        }
+
+        if var params = delegate?.queryParamsForManifestViewController?(self) {
+            params["page"] = page
+            params["rpp"] = rpp
+
+            if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
+                params["company_id"] = defaultCompanyId
+            }
+
+            if let inFlightRequestOperation = inFlightRequestOperation {
+                inFlightRequestOperation.cancel()
+            }
+
+            inFlightRequestOperation = ApiService.sharedService().fetchProducts(params,
+                onSuccess: { statusCode, mappingResult in
+                    self.inFlightRequestOperation = nil
+                    let fetchedProducts = mappingResult.array() as! [Product]
+                    if self.page == 1 {
+                        self.products = [Product]()
+                    }
+                    for product in fetchedProducts {
+                        self.products.append(product)
+                    }
+
+                    self.reloadTableView()
+                },
+                onError: { error, statusCode, responseString in
+                    self.inFlightRequestOperation = nil
+                }
+            )
+        }
+    }
+
     private func reload() {
         initToolbarSegmentedControl()
 
@@ -172,6 +249,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     func reloadTableView() {
         if let tableView = tableView {
             tableView.reloadData()
+            refreshControl?.endRefreshing()
             hideActivityIndicator()
         }
     }

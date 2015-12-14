@@ -14,6 +14,8 @@ protocol JobInventoryViewControllerDelegate {
 
 class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, ManifestViewControllerDelegate {
 
+    let maximumSearchlessProductsCount = 25
+
     var delegate: JobInventoryViewControllerDelegate! {
         didSet {
             if let _ = delegate {
@@ -34,6 +36,17 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
     private var queryString: String!
 
     private var reloadingJobManifest = false
+    private var reloadingProductsCount = false
+
+    private var totalProductsCount = -1
+
+    private var showsAllProducts: Bool {
+        return totalProductsCount == -1 || totalProductsCount <= maximumSearchlessProductsCount
+    }
+
+    private var renderQueryResults: Bool {
+        return queryString != nil || showsAllProducts
+    }
 
     private var queryResultsManifestViewController: ManifestViewController!
     private var queryResultsManifestTableViewCell: UITableViewCell! {
@@ -57,6 +70,8 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
         super.viewDidLoad()
 
         navigationItem.title = "Setup Inventory"
+
+        searchBar?.placeholder = ""
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -86,7 +101,7 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
     // MARK: UITableViewDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return queryString != nil ? 2 : 1
+        return renderQueryResults ? 2 : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -99,11 +114,23 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if numberOfSectionsInTableView(tableView) == 1 {
             return "JOB MANIFEST"
+        } else {
+            if numberOfSectionsInTableView(tableView) == 2 && showsAllProducts {
+                if section == 0 {
+                    return "PRODUCTS"
+                } else if section == 1 {
+                    return "JOB MANIFEST"
+                }
+            }
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
 
     // MARK: UISearchBarDelegate
+
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return !showsAllProducts
+    }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
@@ -113,7 +140,7 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
             tableView.reloadData()
         } else {
             tableView.reloadData()
-            //queryResultsManifestViewController?.reset()
+            queryResultsManifestViewController?.reset()
         }
     }
 
@@ -149,6 +176,13 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
         print("selected job product \(jobProduct)")
     }
 
+    func queryParamsForManifestViewController(viewController: UIViewController) -> [String : AnyObject]! {
+        if viewController == queryResultsManifestViewController {
+            return ["company_id": job.companyId, "q": queryString != nil ? queryString : NSNull()]
+        }
+        return nil
+    }
+
     private func jobProductsForManifestViewController(viewController: ManifestViewController, forSegmentIndex segmentIndex: Int) -> [JobProduct] {
         if segmentIndex > -1 {
             // job manifest
@@ -179,6 +213,8 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
 
                 reloadingJobManifest = true
 
+                reloadProducts()
+
                 job.reloadMaterials(
                     { (statusCode, mappingResult) -> () in
                         viewController.reloadTableView()
@@ -190,6 +226,42 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Man
                     }
                 )
             }
+        }
+    }
+
+    private func reloadProducts() {
+        reloadingProductsCount = true
+
+        if let companyId = job?.companyId {
+            queryResultsManifestViewController?.products = [Product]()
+            queryResultsManifestViewController?.showActivityIndicator()
+            tableView.reloadData()
+
+            ApiService.sharedService().countProducts(["company_id": job.companyId],
+                onTotalResultsCount: { totalResultsCount, error in
+                    self.totalProductsCount = totalResultsCount
+                    if totalResultsCount > -1 {
+                        if totalResultsCount <= self.maximumSearchlessProductsCount {
+                            ApiService.sharedService().fetchProducts(["company_id": companyId, "page": 1, "rpp": totalResultsCount],
+                                onSuccess: { (statusCode, mappingResult) -> () in
+                                    self.queryResultsManifestViewController?.products = mappingResult.array() as! [Product]
+                                    self.tableView.reloadData()
+                                    self.searchBar.placeholder = "Showing all \(totalResultsCount) products"
+                                    self.reloadingProductsCount = false
+                                },
+                                onError: { (error, statusCode, responseString) -> () in
+                                    self.queryResultsManifestViewController?.products = [Product]()
+                                    self.tableView.reloadData()
+                                    self.reloadingProductsCount = false
+                            })
+                        } else {
+                            self.searchBar.placeholder = "Search \(totalResultsCount) products"
+                            self.tableView.reloadData()
+                            self.reloadingProductsCount = false
+                        }
+                    }
+                }
+            )
         }
     }
 }

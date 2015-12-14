@@ -638,10 +638,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="bcl-Nb-p6k">
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 192 products" id="bcl-Nb-p6k">
                             <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             <connections>
                                 <outlet property="delegate" destination="Ag2-4X-Yu3" id="fJq-9w-vLk"/>
                             </connections>
@@ -649,15 +649,15 @@
                         <sections>
                             <tableViewSection headerTitle="Search Results" id="RAm-Ae-qgD">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="pFs-6F-0f3">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="pFs-6F-0f3">
+                                        <rect key="frame" x="0.0" y="157.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pFs-6F-0f3" id="3OH-ei-alV">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGz-5n-mgu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
                                                     <connections>
                                                         <segue destination="RXh-8S-bip" kind="embed" identifier="QueryResultsManifestEmbedSegue" id="eGc-0D-q4k"/>
                                                     </connections>
@@ -677,15 +677,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Job Manifest" id="wPr-Am-2BI" userLabel="Search Results">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="OjD-ST-qjG">
-                                        <rect key="frame" x="0.0" y="407.5" width="600" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="OjD-ST-qjG">
+                                        <rect key="frame" x="0.0" y="332.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OjD-ST-qjG" id="nME-Rb-jf3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llt-cM-xUy">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
                                                     <connections>
                                                         <segue destination="L6Z-Ia-7FG" kind="embed" identifier="JobManifestEmbedSegue" id="Gr8-Ds-ivC"/>
                                                     </connections>
@@ -712,6 +712,9 @@
                     <navigationItem key="navigationItem" id="jbL-bG-7QZ">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="esF-YO-aoR"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="bcl-Nb-p6k" id="uLc-SI-w2Y"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DVj-GM-0GN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
