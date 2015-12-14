@@ -11,7 +11,7 @@ import Foundation
 @objc
 protocol DraggableViewGestureRecognizerDelegate {
     optional func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool
-    optional func draggableViewGestureRecognizerShouldAnimateResetView(gestureRecognizer: DraggableViewGestureRecognizer) -> Bool
+    optional func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool
 }
 
 class DraggableViewGestureRecognizer: UIGestureRecognizer {
@@ -22,6 +22,7 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
     internal var initialView: UIView!
     internal var initialSuperview: UIView!
     internal var initialFrame: CGRect!
+    internal var initialAlpha: CGFloat!
 
     private var superviewChanged: Bool {
         if let initialView = initialView {
@@ -40,6 +41,7 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
         initialView = nil
         initialSuperview = nil
         initialFrame = nil
+        initialAlpha = nil
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
@@ -58,6 +60,7 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
             initialView = view
         }
         initialFrame = initialView.frame
+        initialAlpha = initialView.alpha
 
         super.touchesBegan(touches, withEvent: event)
 
@@ -79,8 +82,8 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
             if shouldResetView {
                 var duration = 0.3
                 var delay = 0.1
-                if let shouldAnimate = draggableViewGestureRecognizerDelegate?.draggableViewGestureRecognizerShouldAnimateResetView?(self) {
-                    if shouldAnimate {
+                if let shouldAnimate = draggableViewGestureRecognizerDelegate?.draggableViewGestureRecognizer?(self, shouldAnimateResetView: initialView) {
+                    if !shouldAnimate {
                         duration = 0.0
                         delay = 0.0
                     }
@@ -88,6 +91,7 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
                 UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseOut,
                     animations: { Void in
                         self.initialView.frame = self.initialFrame
+                        self.initialView.alpha = self.initialAlpha
                     },
                     completion: { complete in
                         if self.superviewChanged {
@@ -95,6 +99,7 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
                             self.initialView.removeFromSuperview()
 
                             self.initialView.frame = window.convertRect(self.initialView.frame, toView: self.initialSuperview)
+                            self.initialView.alpha = self.initialAlpha
                             self.initialSuperview.addSubview(self.initialView)
                             self.initialSuperview.bringSubviewToFront(self.initialView)
                         }
