@@ -16,6 +16,7 @@ class JobTeamViewController: UITableViewController,
                              UIPopoverPresentationControllerDelegate,
                              UISearchBarDelegate,
                              ProviderPickerViewControllerDelegate,
+                             ProviderCreationViewControllerDelegate,
                              DraggableViewGestureRecognizerDelegate {
 
     let maximumSearchlessProvidersCount = 20
@@ -86,6 +87,7 @@ class JobTeamViewController: UITableViewController,
         if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
             segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
             segue.destinationViewController.popoverPresentationController!.delegate = self
+            (segue.destinationViewController as! ProviderCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self
@@ -357,6 +359,21 @@ class JobTeamViewController: UITableViewController,
 
     func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
         return .Horizontal
+    }
+
+    // MARK: ProviderCreationViewControllerDelegate
+
+    func providerCreationViewController(viewController: ProviderCreationViewController, didCreateProvider provider: Provider) {
+        viewController.presentingViewController?.dismissViewController(animated: true)
+
+        if totalProvidersCount > -1 {
+            totalProvidersCount++
+
+            if showsAllProviders {
+                queryResultsPickerViewController?.providers.append(provider)
+                queryResultsPickerViewController?.reloadCollectionView()
+            }
+        }
     }
 
     private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
