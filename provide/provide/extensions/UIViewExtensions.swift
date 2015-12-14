@@ -61,8 +61,10 @@ extension UIView {
     }
 
     func removeGestureRecognizers() {
-        for gestureRecognizer in gestureRecognizers! {
-            removeGestureRecognizer(gestureRecognizer)
+        if let gestureRecognizers = gestureRecognizers {
+            for gestureRecognizer in gestureRecognizers {
+                removeGestureRecognizer(gestureRecognizer)
+            }
         }
     }
 }
