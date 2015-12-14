@@ -102,13 +102,20 @@ class JobTeamViewController: UITableViewController,
 
         if !job.hasSupervisor(supervisor) {
             addingSupervisor = true
+
+            supervisorsPickerViewController?.providers.append(supervisor)
+            let indexPaths = [NSIndexPath(forRow: (supervisorsPickerViewController?.providers.count)! - 1, inSection: 0)]
+            supervisorsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
+            let cell = supervisorsPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+            cell.showActivityIndicator()
+
             job?.addSupervisor(supervisor,
                 onSuccess: { (statusCode, mappingResult) -> () in
-                    self.supervisorsPickerViewController?.providers.append(supervisor)
-                    self.supervisorsPickerViewController?.reloadCollectionView()
                     self.addingSupervisor = false
+                    cell.hideActivityIndicator()
                 },
                 onError: { (error, statusCode, responseString) -> () in
+                    self.supervisorsPickerViewController?.providers.removeObject(supervisor)
                     self.supervisorsPickerViewController?.reloadCollectionView()
                     self.addingSupervisor = false
                 }
@@ -123,13 +130,17 @@ class JobTeamViewController: UITableViewController,
 
         if job.hasSupervisor(supervisor) {
             removingSupervisor = true
+
+            let index = supervisorsPickerViewController?.providers.indexOfObject(supervisor)!
+            supervisorsPickerViewController?.providers.removeObject(supervisor)
+            supervisorsPickerViewController?.reloadCollectionView()
+
             job?.removeSupervisor(supervisor,
                 onSuccess: { (statusCode, mappingResult) -> () in
-                    self.supervisorsPickerViewController?.providers.removeObject(supervisor)
-                    self.supervisorsPickerViewController?.reloadCollectionView()
                     self.removingSupervisor = false
                 },
                 onError: { (error, statusCode, responseString) -> () in
+                    self.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
                     self.supervisorsPickerViewController?.reloadCollectionView()
                     self.removingSupervisor = false
                 }
@@ -204,12 +215,15 @@ class JobTeamViewController: UITableViewController,
     // MARK: DraggableViewGestureRecognizerDelegate
 
     func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+        if !draggableViewGestureRecognizer(gestureRecognizer, shouldAnimateResetView: view) {
+            view.alpha = 0.0
+        }
         return true
     }
 
-    func draggableViewGestureRecognizerShouldAnimateResetView(gestureRecognizer: DraggableViewGestureRecognizer) -> Bool {
+    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
         if gestureRecognizer.isKindOfClass(SupervisorPickerCollectionViewCellGestureRecognizer) {
-                return (gestureRecognizer as! SupervisorPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
+            return (gestureRecognizer as! SupervisorPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
             return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         }
@@ -419,7 +433,7 @@ class JobTeamViewController: UITableViewController,
         }
 
         var shouldAnimateViewReset: Bool {
-            return shouldAddSupervisor
+            return !shouldAddSupervisor
         }
 
         init(viewController: JobTeamViewController) {
@@ -464,7 +478,7 @@ class JobTeamViewController: UITableViewController,
             }
 
             let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldAddSupervisor = CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            shouldAddSupervisor = !jobTeamViewController.addingSupervisor && CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
 
             if shouldAddSupervisor {
                 supervisorsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
@@ -495,7 +509,7 @@ class JobTeamViewController: UITableViewController,
         }
 
         var shouldAnimateViewReset: Bool {
-            return shouldRemoveSupervisor
+            return !shouldRemoveSupervisor
         }
 
         init(viewController: JobTeamViewController) {
@@ -516,19 +530,24 @@ class JobTeamViewController: UITableViewController,
                         window.addSubview(initialView)
                         window.bringSubviewToFront(initialView)
                     }
-                } else if let initialView = oldValue {
+                } else if let _ = oldValue {
                     supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
-
-                    if shouldRemoveSupervisor {
-                        let indexPath = jobTeamViewController.supervisorsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        jobTeamViewController?.removeSupervisor(jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row])
-                    }
 
                     collectionView.scrollEnabled = true
                     collectionView = nil
+
                     shouldRemoveSupervisor = false
                 }
             }
+        }
+
+        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+            if shouldRemoveSupervisor {
+                let indexPath = supervisorsPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
+                jobTeamViewController?.removeSupervisor(jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row])
+            }
+
+            super.touchesEnded(touches, withEvent: event)
         }
 
         private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
@@ -539,10 +558,11 @@ class JobTeamViewController: UITableViewController,
             }
 
             let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldRemoveSupervisor = !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            shouldRemoveSupervisor = !jobTeamViewController.removingSupervisor && !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
 
             if shouldRemoveSupervisor {
-                (initialView as! PickerCollectionViewCell).accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+                let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                (initialView as! PickerCollectionViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
             } else {
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil
             }
