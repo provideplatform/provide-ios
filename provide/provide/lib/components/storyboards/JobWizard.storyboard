@@ -176,7 +176,7 @@
                 <viewControllerPlaceholder storyboardName="ProviderPicker" id="pzU-u3-oOB" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2HX-uv-aWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2125.5" y="1449"/>
+            <point key="canvasLocation" x="-2125.5" y="1398"/>
         </scene>
         <!--Job Team View Controller-->
         <scene sceneID="UR3-Pp-kMd">
@@ -197,7 +197,7 @@
                         <sections>
                             <tableViewSection headerTitle="Search Results" id="1ia-ma-Zvb">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="LPq-mV-2aF">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="LPq-mV-2aF">
                                         <rect key="frame" x="0.0" y="157.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LPq-mV-2aF" id="iD3-tn-guu">
@@ -225,7 +225,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Supervisors" id="NMZ-XK-26R" userLabel="Search Results">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="uEu-vs-Q9A">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="uEu-vs-Q9A">
                                         <rect key="frame" x="0.0" y="332.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uEu-vs-Q9A" id="iDO-E9-BUX">
@@ -274,23 +274,23 @@
             </objects>
             <point key="canvasLocation" x="-2602" y="1298"/>
         </scene>
-        <!--ManifestViewController-->
+        <!--ProductPicker-->
         <scene sceneID="Kc3-PT-CTL">
             <objects>
-                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="RXh-8S-bip" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ProductPicker" id="RXh-8S-bip" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="wX1-td-YW3"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tak-JI-O6v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2098.5" y="1886"/>
+            <point key="canvasLocation" x="-2127" y="1887"/>
         </scene>
-        <!--ManifestViewController-->
+        <!--ProductPicker-->
         <scene sceneID="te0-9P-OHP">
             <objects>
-                <viewControllerPlaceholder storyboardName="Manifest" referencedIdentifier="ManifestViewController" id="L6Z-Ia-7FG" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ProductPicker" id="L6Z-Ia-7FG" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IQW-oZ-Gkj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2098.5" y="2167"/>
+            <point key="canvasLocation" x="-2127" y="2062"/>
         </scene>
         <!--BlueprintViewController-->
         <scene sceneID="tOB-Ur-P1e">
@@ -454,7 +454,7 @@
         <scene sceneID="xnM-A6-K5o">
             <objects>
                 <tableViewController id="Ag2-4X-Yu3" customClass="JobInventoryViewContoller" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="QOX-j7-pVv">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="QOX-j7-pVv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -469,7 +469,7 @@
                         <sections>
                             <tableViewSection headerTitle="Search Results" id="RAm-Ae-qgD">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="pFs-6F-0f3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="pFs-6F-0f3">
                                         <rect key="frame" x="0.0" y="157.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pFs-6F-0f3" id="3OH-ei-alV">
@@ -479,7 +479,7 @@
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGz-5n-mgu">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
                                                     <connections>
-                                                        <segue destination="RXh-8S-bip" kind="embed" identifier="QueryResultsManifestEmbedSegue" id="eGc-0D-q4k"/>
+                                                        <segue destination="RXh-8S-bip" kind="embed" identifier="QueryResultsProductPickerEmbedSegue" id="eGc-0D-q4k"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>
@@ -497,7 +497,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Job Manifest" id="wPr-Am-2BI" userLabel="Search Results">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="OjD-ST-qjG">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="OjD-ST-qjG">
                                         <rect key="frame" x="0.0" y="332.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OjD-ST-qjG" id="nME-Rb-jf3">
@@ -507,7 +507,7 @@
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Llt-cM-xUy">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
                                                     <connections>
-                                                        <segue destination="L6Z-Ia-7FG" kind="embed" identifier="JobManifestEmbedSegue" id="Gr8-Ds-ivC"/>
+                                                        <segue destination="L6Z-Ia-7FG" kind="embed" identifier="JobProductsProductPickerEmbedSegue" id="Gr8-Ds-ivC"/>
                                                     </connections>
                                                 </containerView>
                                             </subviews>

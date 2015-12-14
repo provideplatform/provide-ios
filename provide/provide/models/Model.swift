@@ -74,6 +74,12 @@ class Model: NSObject {
             key = snakeKeys ? key.snakeCaseString() : key
             dictionary[key] = value
         }
+
+        if let id = dictionary["id"] as? Int {
+            if id == 0 {
+                dictionary.removeValueForKey("id")
+            }
+        }
         
         return dictionary
     }

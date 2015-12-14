@@ -196,6 +196,47 @@ class Job: Model {
         }
     }
 
+    func jobProductForProduct(product: Product) -> JobProduct! {
+        if let materials = materials {
+            for jobProduct in materials {
+                if jobProduct.productId == product.id {
+                    return jobProduct
+                }
+            }
+        }
+        return nil
+    }
+
+    func addJobProductForProduct(product: Product, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        if jobProductForProduct(product) == nil && materials != nil {
+            let jobProduct = JobProduct()
+            jobProduct.jobId = id
+            jobProduct.productId = product.id
+
+            if let initialQuantity = params["initialQuantity"] as? Double {
+                jobProduct.initialQuantity = initialQuantity
+            }
+
+            if let price = params["price"] as? Double {
+                jobProduct.price = price
+            }
+
+            materials.append(jobProduct)
+            save(onSuccess: onSuccess, onError: onError)
+        }
+    }
+
+    func removeJobProductForProduct(product: Product, onSuccess: OnSuccess, onError: OnError) {
+        if let jobProduct = jobProductForProduct(product) {
+            removeJobProduct(jobProduct, onSuccess: onSuccess, onError: onError)
+        }
+    }
+
+    func removeJobProduct(jobProduct: JobProduct, onSuccess: OnSuccess, onError: OnError) {
+        materials.removeObject(jobProduct)
+        save(onSuccess: onSuccess, onError: onError)
+    }
+
     func reloadSupervisors(onSuccess: OnSuccess, onError: OnError) {
         if id > 0 {
             let params: [String : AnyObject] = ["include_supervisors": "true"]
