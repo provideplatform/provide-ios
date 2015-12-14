@@ -12,7 +12,12 @@ protocol JobTeamViewControllerDelegate {
     func jobForJobTeamViewController(viewController: JobTeamViewContoller) -> Job!
 }
 
-class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, ProviderPickerViewControllerDelegate {
+class JobTeamViewContoller: UITableViewController,
+                            UIPopoverPresentationControllerDelegate,
+                            UISearchBarDelegate,
+                            ProviderPickerViewControllerDelegate {
+
+    let maximumSearchlessProvidersCount = 20
 
     var delegate: JobTeamViewControllerDelegate! {
         didSet {
@@ -34,6 +39,17 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
     private var queryString: String!
 
     private var reloadingSupervisors = false
+    private var reloadingProvidersCount = false
+
+    private var totalProvidersCount = -1
+
+    private var showsAllProviders: Bool {
+        return totalProvidersCount == -1 || totalProvidersCount <= maximumSearchlessProvidersCount
+    }
+
+    private var renderQueryResults: Bool {
+        return queryString != nil || showsAllProviders
+    }
 
     private var queryResultsPickerViewController: ProviderPickerViewController!
     private var queryResultsPickerTableViewCell: UITableViewCell! {
@@ -57,12 +73,17 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
         super.viewDidLoad()
 
         navigationItem.title = "Setup Team"
+
+        searchBar?.placeholder = ""
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
+        if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
+            segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
+            segue.destinationViewController.popoverPresentationController!.delegate = self
+        } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self
         } else if segue.identifier! == "SupervisorsProviderPickerEmbedSegue" {
@@ -86,7 +107,7 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
     // MARK: UITableViewDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return queryString != nil ? 2 : 1
+        return renderQueryResults ? 2 : 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -99,11 +120,29 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if numberOfSectionsInTableView(tableView) == 1 {
             return "SUPERVISORS"
+        } else {
+            if numberOfSectionsInTableView(tableView) == 2 && showsAllProviders {
+                if section == 0 {
+                    return "SERVICE PROVIDERS"
+                } else if section == 1 {
+                    return "SUPERVISORS"
+                }
+            }
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
 
+    // MARK: UIPopoverPresentationControllerDelegate
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+
     // MARK: UISearchBarDelegate
+
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return !showsAllProviders
+    }
 
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
@@ -126,7 +165,7 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
             } else {
                 reloadJobForProviderPickerViewController(viewController)
             }
-        } else if queryResultsPickerViewController != nil &&  viewController == queryResultsPickerViewController {
+        } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
 
         }
 
@@ -184,9 +223,15 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
         return nil
     }
 
+    func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
+        return .Horizontal
+    }
+
     private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
         if viewController == supervisorsPickerViewController && job != nil {
             reloadingSupervisors = true
+
+            reloadProviders()
 
             job?.reloadSupervisors(
                 { (statusCode, mappingResult) -> () in
@@ -197,6 +242,42 @@ class JobTeamViewContoller: UITableViewController, UISearchBarDelegate, Provider
                 onError: { (error, statusCode, responseString) -> () in
                     viewController.reloadCollectionView()
                     self.reloadingSupervisors = false
+                }
+            )
+        }
+    }
+
+    private func reloadProviders() {
+        reloadingProvidersCount = true
+
+        if let companyId = job?.companyId {
+            queryResultsPickerViewController?.providers = [Provider]()
+            queryResultsPickerViewController?.showActivityIndicator()
+            tableView.reloadData()
+
+            ApiService.sharedService().countProviders(["company_id": job.companyId],
+                onTotalResultsCount: { totalResultsCount, error in
+                    self.totalProvidersCount = totalResultsCount
+                    if totalResultsCount > -1 {
+                        if totalResultsCount <= self.maximumSearchlessProvidersCount {
+                            ApiService.sharedService().fetchProviders(["company_id": companyId, "page": 1, "rpp": totalResultsCount],
+                                onSuccess: { (statusCode, mappingResult) -> () in
+                                    self.queryResultsPickerViewController?.providers = mappingResult.array() as! [Provider]
+                                    self.tableView.reloadData()
+                                    self.searchBar.placeholder = "Showing all \(totalResultsCount) service providers"
+                                    self.reloadingProvidersCount = false
+                                },
+                                onError: { (error, statusCode, responseString) -> () in
+                                    self.queryResultsPickerViewController?.providers = [Provider]()
+                                    self.tableView.reloadData()
+                                    self.reloadingProvidersCount = false
+                            })
+                        } else {
+                            self.searchBar.placeholder = "Search \(totalResultsCount) service providers"
+                            self.tableView.reloadData()
+                            self.reloadingProvidersCount = false
+                        }
+                    }
                 }
             )
         }
