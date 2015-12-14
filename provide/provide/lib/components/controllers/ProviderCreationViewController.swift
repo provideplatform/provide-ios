@@ -109,6 +109,8 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
                     self.hideActivityIndicator()
                 }
             )
+        } else {
+            hideActivityIndicator()
         }
     }
 
