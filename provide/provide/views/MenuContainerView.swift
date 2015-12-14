@@ -212,7 +212,7 @@ class MenuContainerView: UIView {
         }
 
         backgroundView.superview!.bringSubviewToFront(backgroundView)
-        superview!.bringSubviewToFront(self)
+        superview?.bringSubviewToFront(self)
 
         UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseInOut,
             animations: {
