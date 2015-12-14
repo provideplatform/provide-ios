@@ -90,8 +90,8 @@ class JobWizardViewController: UINavigationController,
         if viewController.isKindOfClass(JobBlueprintsViewController) {
             (viewController as! JobBlueprintsViewController).delegate = self
 
-        } else if viewController.isKindOfClass(JobTeamViewContoller) {
-            (viewController as! JobTeamViewContoller).delegate = self
+        } else if viewController.isKindOfClass(JobTeamViewController) {
+            (viewController as! JobTeamViewController).delegate = self
 
         } else if viewController.isKindOfClass(JobInventoryViewContoller) {
             (viewController as! JobInventoryViewContoller).delegate = self
@@ -194,7 +194,7 @@ class JobWizardViewController: UINavigationController,
 
     // MARK: JobTeamViewControllerDelegate
 
-    func jobForJobTeamViewController(viewController: JobTeamViewContoller) -> Job! {
+    func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job! {
         return job
     }
 }

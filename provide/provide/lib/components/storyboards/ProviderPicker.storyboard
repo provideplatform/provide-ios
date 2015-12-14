@@ -43,6 +43,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GyL-Ib-hN7" userLabel="Accessory Image View">
+                                                    <rect key="frame" x="73" y="0.0" width="25" height="25"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P9d-LQ-MjI">
                                                     <rect key="frame" x="73" y="65" width="25" height="25"/>
                                                 </imageView>
@@ -58,6 +61,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="accessoryImageView" destination="GyL-Ib-hN7" id="ngR-lP-NsZ"/>
                                             <outlet property="imageView" destination="1a5-Wv-Ghj" id="DAd-ZO-eMS"/>
                                             <outlet property="nameLabel" destination="54M-XM-etE" id="51G-N7-iRG"/>
                                             <outlet property="selectedImageView" destination="P9d-LQ-MjI" id="4pr-9V-992"/>

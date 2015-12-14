@@ -11,6 +11,7 @@ import Foundation
 @objc
 protocol DraggableViewGestureRecognizerDelegate {
     optional func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool
+    optional func draggableViewGestureRecognizerShouldAnimateResetView(gestureRecognizer: DraggableViewGestureRecognizer) -> Bool
 }
 
 class DraggableViewGestureRecognizer: UIGestureRecognizer {
@@ -76,7 +77,15 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
 
         if let shouldResetView = draggableViewGestureRecognizerDelegate?.draggableViewGestureRecognizer?(self, shouldResetView: initialView) {
             if shouldResetView {
-                UIView.animateWithDuration(0.3, delay: 0.1, options: .CurveEaseOut,
+                var duration = 0.3
+                var delay = 0.1
+                if let shouldAnimate = draggableViewGestureRecognizerDelegate?.draggableViewGestureRecognizerShouldAnimateResetView?(self) {
+                    if shouldAnimate {
+                        duration = 0.0
+                        delay = 0.0
+                    }
+                }
+                UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseOut,
                     animations: { Void in
                         self.initialView.frame = self.initialFrame
                     },

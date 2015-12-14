@@ -178,10 +178,10 @@
             </objects>
             <point key="canvasLocation" x="-2125.5" y="1449"/>
         </scene>
-        <!--Job Team View Contoller-->
+        <!--Job Team View Controller-->
         <scene sceneID="UR3-Pp-kMd">
             <objects>
-                <tableViewController id="f6g-jD-clh" customClass="JobTeamViewContoller" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="f6g-jD-clh" customClass="JobTeamViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="pWL-u5-6JN">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

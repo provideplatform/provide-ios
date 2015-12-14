@@ -18,6 +18,7 @@ protocol ProviderPickerViewControllerDelegate {
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
     optional func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection
     optional func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool
+    optional func providerPickerViewController(viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
 }
 
 class ProviderPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -50,7 +51,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    @IBOutlet private weak var collectionView: UICollectionView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             if let _ = collectionView {
                 if let _ = delegate {
@@ -174,7 +175,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private func isSelected(provider: Provider) -> Bool {
+    func isSelected(provider: Provider) -> Bool {
         for p in selectedProviders {
             if p.id == provider.id {
                 return true
@@ -190,6 +191,10 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        if let cell = delegate?.providerPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
+            return cell
+        }
+
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
 
         if providers.count > indexPath.row - 1 {

@@ -91,6 +91,17 @@ class Job: Model {
         return UIColor.clearColor()
     }
 
+    func hasSupervisor(supervisor: Provider) -> Bool {
+        if let supervisors = supervisors {
+            for s in supervisors {
+                if s.id == supervisor.id {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     func prependExpense(expense: Expense) {
         if self.expenses == nil {
             self.expenses = [Expense]()
@@ -147,6 +158,27 @@ class Job: Model {
                 onError(error: error, statusCode: statusCode, responseString: responseString)
             }
         )
+    }
+
+    func addSupervisor(supervisor: Provider, onSuccess: OnSuccess, onError: OnError) {
+        if !hasSupervisor(supervisor) {
+            supervisors.append(supervisor)
+            save(onSuccess: onSuccess, onError: onError)
+        }
+    }
+    
+    func removeSupervisor(supervisor: Provider, onSuccess: OnSuccess, onError: OnError) {
+        if hasSupervisor(supervisor) {
+            var i = -1
+            for s in supervisors {
+                i++
+                if s.id == supervisor.id {
+                    break
+                }
+            }
+            supervisors.removeAtIndex(i)
+            save(onSuccess: onSuccess, onError: onError)
+        }
     }
 
     func reloadMaterials(onSuccess: OnSuccess, onError: OnError) {

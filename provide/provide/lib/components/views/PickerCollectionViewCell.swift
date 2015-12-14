@@ -54,6 +54,27 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    var accessoryImage: UIImage! {
+        didSet {
+            if let accessoryImage = accessoryImage {
+                accessoryImageView.image = accessoryImage
+                accessoryImageView.alpha = 1.0
+            } else {
+                accessoryImageView.alpha = 0.0
+                accessoryImageView.image = nil
+            }
+        }
+    }
+
+    var selectedImage: UIImage! {
+        didSet {
+            if let selectedImage = selectedImage {
+                selectedImageView.alpha = selected ? 1.0 : 0.0
+                selectedImageView.image = selectedImage
+            }
+        }
+    }
+
     override var selected: Bool {
         didSet {
             if selected {
@@ -83,11 +104,24 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    @IBOutlet private weak var accessoryImageView: UIImageView! {
+        didSet {
+            if let accessoryImageView = accessoryImageView {
+                accessoryImageView.contentMode = .ScaleAspectFit
+                accessoryImageView.image = nil
+                accessoryImageView.alpha = 0.0
+
+                contentView.bringSubviewToFront(accessoryImageView)
+            }
+        }
+    }
+
     @IBOutlet private weak var selectedImageView: UIImageView! {
         didSet {
             if let selectedImageView = selectedImageView {
                 selectedImageView.contentMode = .ScaleAspectFit
                 selectedImageView.image = UIImage(named: "map-pin")?.scaledToWidth(25.0)
+                selectedImageView.alpha = 0.0
 
                 contentView.bringSubviewToFront(selectedImageView)
                 contentView.bringSubviewToFront(nameLabel)
@@ -133,6 +167,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
         imageView.image = nil
         imageView.alpha = 0.0
+
+        accessoryImageView.alpha = 0.0
+        selectedImageView.alpha = 0.0
 
         gravatarEmail = nil
         gravatarImageView?.image = nil

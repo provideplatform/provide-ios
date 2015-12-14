@@ -9,13 +9,14 @@
 import UIKit
 
 protocol JobTeamViewControllerDelegate {
-    func jobForJobTeamViewController(viewController: JobTeamViewContoller) -> Job!
+    func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job!
 }
 
-class JobTeamViewContoller: UITableViewController,
-                            UIPopoverPresentationControllerDelegate,
-                            UISearchBarDelegate,
-                            ProviderPickerViewControllerDelegate {
+class JobTeamViewController: UITableViewController,
+                             UIPopoverPresentationControllerDelegate,
+                             UISearchBarDelegate,
+                             ProviderPickerViewControllerDelegate,
+                             DraggableViewGestureRecognizerDelegate {
 
     let maximumSearchlessProvidersCount = 20
 
@@ -40,6 +41,8 @@ class JobTeamViewContoller: UITableViewController,
 
     private var reloadingSupervisors = false
     private var reloadingProvidersCount = false
+    private var addingSupervisor = false
+    private var removingSupervisor = false
 
     private var totalProvidersCount = -1
 
@@ -89,6 +92,48 @@ class JobTeamViewContoller: UITableViewController,
         } else if segue.identifier! == "SupervisorsProviderPickerEmbedSegue" {
             supervisorsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
             supervisorsPickerViewController.delegate = self
+        }
+    }
+
+    func addSupervisor(supervisor: Provider) {
+        if job == nil {
+            return
+        }
+
+        if !job.hasSupervisor(supervisor) {
+            addingSupervisor = true
+            job?.addSupervisor(supervisor,
+                onSuccess: { (statusCode, mappingResult) -> () in
+                    self.supervisorsPickerViewController?.providers.append(supervisor)
+                    self.supervisorsPickerViewController?.reloadCollectionView()
+                    self.addingSupervisor = false
+                },
+                onError: { (error, statusCode, responseString) -> () in
+                    self.supervisorsPickerViewController?.reloadCollectionView()
+                    self.addingSupervisor = false
+                }
+            )
+        }
+    }
+
+    func removeSupervisor(supervisor: Provider) {
+        if job == nil {
+            return
+        }
+
+        if job.hasSupervisor(supervisor) {
+            removingSupervisor = true
+            job?.removeSupervisor(supervisor,
+                onSuccess: { (statusCode, mappingResult) -> () in
+                    self.supervisorsPickerViewController?.providers.removeObject(supervisor)
+                    self.supervisorsPickerViewController?.reloadCollectionView()
+                    self.removingSupervisor = false
+                },
+                onError: { (error, statusCode, responseString) -> () in
+                    self.supervisorsPickerViewController?.reloadCollectionView()
+                    self.removingSupervisor = false
+                }
+            )
         }
     }
 
@@ -154,6 +199,29 @@ class JobTeamViewContoller: UITableViewController,
             tableView.reloadData()
             queryResultsPickerViewController?.reset()
         }
+    }
+
+    // MARK: DraggableViewGestureRecognizerDelegate
+
+    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+        return true
+    }
+
+    func draggableViewGestureRecognizerShouldAnimateResetView(gestureRecognizer: DraggableViewGestureRecognizer) -> Bool {
+        if gestureRecognizer.isKindOfClass(SupervisorPickerCollectionViewCellGestureRecognizer) {
+                return (gestureRecognizer as! SupervisorPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
+        } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
+            return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
+        }
+        return true
+    }
+
+    func queryResultsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        // no-op
+    }
+
+    func supervisorsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        // no-op
     }
 
     // MARK: ProviderPickerViewControllerDelegate
@@ -223,6 +291,52 @@ class JobTeamViewContoller: UITableViewController,
         return nil
     }
 
+    func providerPickerViewController(viewController: ProviderPickerViewController,
+                                      collectionView: UICollectionView,
+                                      cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+        let providers = viewController.providers
+
+        if providers.count > indexPath.row - 1 {
+            let provider = providers[indexPath.row]
+
+            cell.selected = viewController.isSelected(provider)
+
+            if cell.selected {
+                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            }
+
+            cell.name = provider.contact.name
+
+            if let profileImageUrl = provider.profileImageUrl {
+                cell.imageUrl = profileImageUrl
+            } else {
+                cell.gravatarEmail = provider.contact.email
+            }
+        }
+
+        if let gestureRecognizers = cell.gestureRecognizers {
+            for gestureRecognizer in gestureRecognizers {
+                if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer)
+                    || gestureRecognizer.isKindOfClass(SupervisorPickerCollectionViewCellGestureRecognizer) {
+                    cell.removeGestureRecognizer(gestureRecognizer)
+                }
+            }
+        }
+
+        if viewController == supervisorsPickerViewController {
+            let gestureRecognizer = SupervisorPickerCollectionViewCellGestureRecognizer(viewController: self)
+            gestureRecognizer.draggableViewGestureRecognizerDelegate = self
+            cell.addGestureRecognizer(gestureRecognizer)
+        } else if viewController == queryResultsPickerViewController {
+            let gestureRecognizer = QueryResultsPickerCollectionViewCellGestureRecognizer(viewController: self)
+            gestureRecognizer.draggableViewGestureRecognizerDelegate = self
+            cell.addGestureRecognizer(gestureRecognizer)
+        }
+
+        return cell
+    }
+
     func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
         return .Horizontal
     }
@@ -271,7 +385,8 @@ class JobTeamViewContoller: UITableViewController,
                                     self.queryResultsPickerViewController?.providers = [Provider]()
                                     self.tableView.reloadData()
                                     self.reloadingProvidersCount = false
-                            })
+                                }
+                            )
                         } else {
                             self.searchBar.placeholder = "Search \(totalResultsCount) service providers"
                             self.tableView.reloadData()
@@ -280,6 +395,157 @@ class JobTeamViewContoller: UITableViewController,
                     }
                 }
             )
+        }
+    }
+
+    private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
+        private var collectionView: UICollectionView!
+
+        private var jobTeamViewController: JobTeamViewController!
+
+        private var supervisorsPickerCollectionView: UICollectionView! {
+            didSet {
+                if let supervisorsPickerCollectionView = supervisorsPickerCollectionView {
+                    initialSupervisorsPickerCollectionViewBackgroundColor = supervisorsPickerCollectionView.backgroundColor
+                }
+            }
+        }
+        private var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
+
+        private var shouldAddSupervisor = false
+
+        private var window: UIWindow! {
+            return UIApplication.sharedApplication().keyWindow!
+        }
+
+        var shouldAnimateViewReset: Bool {
+            return shouldAddSupervisor
+        }
+
+        init(viewController: JobTeamViewController) {
+            super.init(target: viewController, action: "queryResultsPickerCollectionViewCellGestureRecognized:")
+            jobTeamViewController = viewController
+            supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
+        }
+
+        override private var initialView: UIView! {
+            didSet {
+                if let initialView = initialView {
+                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                        collectionView = initialView.superview! as! UICollectionView
+                        collectionView.scrollEnabled = false
+
+                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+
+                        window.addSubview(initialView)
+                        window.bringSubviewToFront(initialView)
+                    }
+                } else if let initialView = oldValue {
+                    supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
+
+                    if shouldAddSupervisor {
+                        let indexPath = jobTeamViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
+                        jobTeamViewController?.addSupervisor(jobTeamViewController.queryResultsPickerViewController.providers[indexPath.row])
+                    }
+
+                    collectionView.scrollEnabled = true
+                    collectionView = nil
+
+                    shouldAddSupervisor = false
+                }
+            }
+        }
+
+        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+            super.drag(xOffset, yOffset: yOffset)
+
+            if initialView == nil || collectionView == nil {
+                return
+            }
+
+            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
+            shouldAddSupervisor = CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+
+            if shouldAddSupervisor {
+                supervisorsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
+            } else {
+                supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
+            }
+        }
+    }
+
+    private class SupervisorPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
+        private var collectionView: UICollectionView!
+
+        private var jobTeamViewController: JobTeamViewController!
+
+        private var supervisorsPickerCollectionView: UICollectionView! {
+            didSet {
+                if let supervisorsPickerCollectionView = supervisorsPickerCollectionView {
+                    initialSupervisorsPickerCollectionViewBackgroundColor = supervisorsPickerCollectionView.backgroundColor
+                }
+            }
+        }
+        private var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
+
+        private var shouldRemoveSupervisor = false
+
+        private var window: UIWindow! {
+            return UIApplication.sharedApplication().keyWindow!
+        }
+
+        var shouldAnimateViewReset: Bool {
+            return shouldRemoveSupervisor
+        }
+
+        init(viewController: JobTeamViewController) {
+            super.init(target: viewController, action: "supervisorsPickerCollectionViewCellGestureRecognized:")
+            jobTeamViewController = viewController
+            supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
+        }
+
+        override private var initialView: UIView! {
+            didSet {
+                if let initialView = initialView {
+                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                        collectionView = initialView.superview! as! UICollectionView
+                        collectionView.scrollEnabled = false
+
+                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+
+                        window.addSubview(initialView)
+                        window.bringSubviewToFront(initialView)
+                    }
+                } else if let initialView = oldValue {
+                    supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
+
+                    if shouldRemoveSupervisor {
+                        let indexPath = jobTeamViewController.supervisorsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
+                        jobTeamViewController?.removeSupervisor(jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row])
+                    }
+
+                    collectionView.scrollEnabled = true
+                    collectionView = nil
+                    shouldRemoveSupervisor = false
+                }
+            }
+        }
+
+        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+            super.drag(xOffset, yOffset: yOffset)
+
+            if initialView == nil || collectionView == nil {
+                return
+            }
+
+            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
+            shouldRemoveSupervisor = !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+
+            if shouldRemoveSupervisor {
+                (initialView as! PickerCollectionViewCell).accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+            } else {
+                (initialView as! PickerCollectionViewCell).accessoryImage = nil
+            }
         }
     }
 }
