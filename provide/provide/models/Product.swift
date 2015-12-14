@@ -12,6 +12,7 @@ class Product: Model {
 
     var id = 0
     var gtin: String!
+    var barcodeUri: String!
     var data: [String: AnyObject]!
 
     var rejected = false
@@ -21,6 +22,7 @@ class Product: Model {
         mapping.addAttributeMappingsFromArray([
             "id",
             "gtin",
+            "barcode_uri",
             "data",
             ]
         )
@@ -49,6 +51,20 @@ class Product: Model {
 
     var sku: String? {
         return data["sku"] as? String
+    }
+
+    var barcodeDataURL: NSURL! {
+        if let barcodeUri = barcodeUri {
+            return NSURL(string: barcodeUri)
+        }
+        return nil
+    }
+
+    var barcodeImage: UIImage! {
+        if let barcodeDataURL = barcodeDataURL {
+            return UIImage.imageFromDataURL(barcodeDataURL)
+        }
+        return nil
     }
 }
 
