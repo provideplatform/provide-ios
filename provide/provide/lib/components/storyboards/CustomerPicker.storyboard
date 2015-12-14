@@ -23,9 +23,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QhY-bB-mks">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
-                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-JM-JjI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -43,6 +40,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyX-64-2gh" userLabel="Accessory Image View">
+                                                    <rect key="frame" x="73" y="4" width="25" height="25"/>
+                                                </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFP-xr-dKz">
                                                     <rect key="frame" x="73" y="65" width="25" height="25"/>
                                                 </imageView>
@@ -54,10 +54,15 @@
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QhY-bB-mks">
+                                                    <rect key="frame" x="40" y="40" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="accessoryImageView" destination="gyX-64-2gh" id="DZB-mD-CkY"/>
+                                            <outlet property="activityIndicatorView" destination="QhY-bB-mks" id="0PH-Qk-TwF"/>
                                             <outlet property="imageView" destination="nFF-T3-9S2" id="4Pa-pE-4j8"/>
                                             <outlet property="nameLabel" destination="ofn-Qe-EUu" id="rM2-DR-pXz"/>
                                             <outlet property="selectedImageView" destination="SFP-xr-dKz" id="KNx-79-bcp"/>
@@ -73,11 +78,12 @@
                                     <outlet property="delegate" destination="2DK-b4-1eZ" id="6Es-sB-CrR"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ebm-EM-hJE">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QhY-bB-mks" firstAttribute="centerY" secondItem="Sog-a3-MGx" secondAttribute="centerY" id="9X6-9V-YUX"/>
-                            <constraint firstItem="QhY-bB-mks" firstAttribute="centerX" secondItem="Sog-a3-MGx" secondAttribute="centerX" id="Jsl-fd-8FN"/>
                             <constraint firstItem="ee4-JM-JjI" firstAttribute="top" secondItem="93s-GP-f2e" secondAttribute="bottom" constant="-20" id="Ooe-bK-uiS"/>
                             <constraint firstItem="4Do-sc-qYi" firstAttribute="top" secondItem="ee4-JM-JjI" secondAttribute="bottom" id="SJN-hp-oom"/>
                             <constraint firstItem="ee4-JM-JjI" firstAttribute="leading" secondItem="Sog-a3-MGx" secondAttribute="leadingMargin" constant="-20" id="emE-PB-Boc"/>
@@ -85,7 +91,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="QhY-bB-mks" id="N8w-Sw-asN"/>
+                        <outlet property="activityIndicatorView" destination="ebm-EM-hJE" id="MUm-xV-U5b"/>
                         <outlet property="collectionView" destination="ee4-JM-JjI" id="3sL-OF-gpg"/>
                     </connections>
                 </viewController>
