@@ -13,6 +13,13 @@ extension UIImage {
         self.init(named: imageName)
     }
 
+    class func imageFromDataURL(dataURL: NSURL) -> UIImage! {
+        if let data = NSData(contentsOfURL: dataURL) {
+            return UIImage(data: data)
+        }
+        return nil
+    }
+
     func crop(rect: CGRect) -> UIImage! {
         let image = CGImageCreateWithImageInRect(CGImage, rect)!
         return UIImage(CGImage: image)
