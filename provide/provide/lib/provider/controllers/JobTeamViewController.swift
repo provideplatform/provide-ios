@@ -132,11 +132,15 @@ class JobTeamViewController: UITableViewController,
             removingSupervisor = true
 
             let index = supervisorsPickerViewController?.providers.indexOfObject(supervisor)!
-            supervisorsPickerViewController?.providers.removeObject(supervisor)
+            supervisorsPickerViewController?.providers.removeAtIndex(index!)
             supervisorsPickerViewController?.reloadCollectionView()
 
             job?.removeSupervisor(supervisor,
                 onSuccess: { (statusCode, mappingResult) -> () in
+                    self.supervisorsPickerViewController?.reloadCollectionView()
+                    if self.job.supervisors.count == 0 {
+                        self.reloadSupervisors()
+                    }
                     self.removingSupervisor = false
                 },
                 onError: { (error, statusCode, responseString) -> () in
@@ -281,15 +285,15 @@ class JobTeamViewController: UITableViewController,
     }
 
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        if supervisorsPickerViewController != nil && viewController == supervisorsPickerViewController {
-            if let supervisors = job?.supervisors {
-                return supervisors
-            } else {
-                reloadJobForProviderPickerViewController(viewController)
-            }
-        } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
-
-        }
+//        if supervisorsPickerViewController != nil && viewController == supervisorsPickerViewController {
+//            if let supervisors = job?.supervisors {
+//                return supervisors
+//            } else {
+//                reloadJobForProviderPickerViewController(viewController)
+//            }
+//        } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
+//
+//        }
 
         return [Provider]()
     }
@@ -357,21 +361,8 @@ class JobTeamViewController: UITableViewController,
 
     private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
         if viewController == supervisorsPickerViewController && job != nil {
-            reloadingSupervisors = true
-
             reloadProviders()
-
-            job?.reloadSupervisors(
-                { (statusCode, mappingResult) -> () in
-                    viewController.providers = self.job.supervisors
-                    viewController.reloadCollectionView()
-                    self.reloadingSupervisors = false
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    viewController.reloadCollectionView()
-                    self.reloadingSupervisors = false
-                }
-            )
+            reloadSupervisors()
         }
     }
 
@@ -410,6 +401,22 @@ class JobTeamViewController: UITableViewController,
                 }
             )
         }
+    }
+
+    private func reloadSupervisors() {
+        reloadingSupervisors = true
+
+        job?.reloadSupervisors(
+            { (statusCode, mappingResult) -> () in
+                self.supervisorsPickerViewController.providers = self.job.supervisors
+                self.supervisorsPickerViewController.reloadCollectionView()
+                self.reloadingSupervisors = false
+            },
+            onError: { (error, statusCode, responseString) -> () in
+                self.supervisorsPickerViewController.reloadCollectionView()
+                self.reloadingSupervisors = false
+            }
+        )
     }
 
     private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
