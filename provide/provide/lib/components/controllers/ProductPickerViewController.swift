@@ -99,7 +99,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
 
             collectionViewFlowLayout.minimumInteritemSpacing = 0.0
             collectionViewFlowLayout.minimumLineSpacing = 0.0
-            collectionViewFlowLayout.itemSize = CGSize(width: 100.0, height: 100.0)
+            collectionViewFlowLayout.itemSize = CGSize(width: 150.0, height: 100.0)
 
             var canRender = true
             if let canRenderResults = delegate?.productPickerViewControllerCanRenderResults?(self) {
