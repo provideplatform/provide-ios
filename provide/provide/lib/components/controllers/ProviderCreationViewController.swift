@@ -22,6 +22,8 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        title = "ADD SERVICE PROVIDER"
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
