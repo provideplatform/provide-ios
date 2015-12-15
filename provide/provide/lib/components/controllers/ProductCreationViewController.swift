@@ -7,21 +7,39 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol ProductCreationViewControllerDelegate {
     func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product)
 }
 
-class ProductCreationViewController: UITableViewController, UITextFieldDelegate {
+class ProductCreationViewController: UITableViewController, UITextFieldDelegate, BarcodeScannerViewControllerDelegate {
 
     var delegate: ProductCreationViewControllerDelegate!
 
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var gtinTextField: UITextField!
-    @IBOutlet private weak var priceTextField: UITextField!
+    @IBOutlet weak var priceTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        title = "CREATE PRODUCT"
+
+        setupScanBarButtonItem()
+    }
+
+    private func setupScanBarButtonItem() {
+        let barcodeIconImage = FAKFontAwesome.barcodeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        let scanBarButtonItem = NavigationBarButton.barButtonItemWithImage(barcodeIconImage, target: self, action: "scanButtonTapped:")
+        navigationItem.rightBarButtonItem = scanBarButtonItem
+    }
+
+    func scanButtonTapped(sender: UIBarButtonItem) {
+        let barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
+        barcodeScannerViewController.delegate = self
+
+        presentViewController(barcodeScannerViewController, animated: true)
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -59,6 +77,16 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate 
             }
         }
         return false
+    }
+
+    // MARK: BarcodeScannerViewControllerDelegate
+
+    func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
+        print("saw barcode(s) \(metadataObjects)")
+    }
+
+    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController) {
+        dismissViewController(animated: false)
     }
 
     private func createProductWithCompanyId(companyId: Int) {

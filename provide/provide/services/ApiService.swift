@@ -541,9 +541,6 @@ class ApiService: NSObject {
     func updateJobWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var realParams = params
         realParams["id"] = nil
-        realParams["customer"] = nil
-        realParams["companyId"] = nil
-        realParams["customerId"] = nil
 
         return dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }

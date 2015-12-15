@@ -18,6 +18,7 @@ class JobInventoryViewContoller: UITableViewController,
                                  DraggableViewGestureRecognizerDelegate,
                                  ProductCreationViewControllerDelegate,
                                  ProductPickerViewControllerDelegate,
+                                 JobProductCreationViewControllerDelegate,
                                  ManifestViewControllerDelegate {
 
     let maximumSearchlessProductsCount = 25
@@ -88,7 +89,7 @@ class JobInventoryViewContoller: UITableViewController,
             return
         }
 
-        let jobProduct = job.jobProductForProduct(product)
+        var jobProduct = job.jobProductForProduct(product)
         if jobProduct == nil {
             addingJobProduct = true
 
@@ -104,6 +105,18 @@ class JobInventoryViewContoller: UITableViewController,
                 onSuccess: { (statusCode, mappingResult) -> () in
                     self.addingJobProduct = false
                     cell.hideActivityIndicator()
+
+                    jobProduct = self.job.jobProductForProduct(product)
+
+                    let jobProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("JobProductCreationViewController") as! JobProductCreationViewController
+                    jobProductCreationViewController.job = self.job
+                    jobProductCreationViewController.jobProduct = jobProduct
+                    jobProductCreationViewController.jobProductCreationViewControllerDelegate = self
+                    jobProductCreationViewController.modalPresentationStyle = .Popover
+                    jobProductCreationViewController.preferredContentSize = CGSizeMake(200, 400)
+                    jobProductCreationViewController.popoverPresentationController!.delegate = self
+                    jobProductCreationViewController.popoverPresentationController!.sourceView = cell
+                    self.presentViewController(jobProductCreationViewController, animated: true)
                 },
                 onError: { (error, statusCode, responseString) -> () in
                     self.jobProductsPickerViewController?.products.removeObject(product)
@@ -246,7 +259,7 @@ class JobInventoryViewContoller: UITableViewController,
     // MARK: ProductCreationViewControllerDelegate
 
     func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+        dismissViewController(animated: true)
 
         if totalProductsCount > -1 {
             totalProductsCount++
@@ -351,6 +364,14 @@ class JobInventoryViewContoller: UITableViewController,
         }
         
         return cell
+    }
+
+    // MARK: JobProductCreationViewControllerDelegate
+
+    func jobProductCreationViewController(viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct) {
+        viewController.presentingViewController?.dismissViewController(animated: true)
+
+        print("created job product \(jobProduct)")
     }
 
     private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {

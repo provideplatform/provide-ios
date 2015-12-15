@@ -84,6 +84,7 @@
 		681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */; };
 		681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF651C18252D00B81BEB /* JobReviewViewController.swift */; };
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
+		683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */; };
 		6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */; };
 		6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */; };
 		6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1691BDB59D700EF70F7 /* Job.swift */; };
@@ -337,6 +338,7 @@
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
+		683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProductCreationViewController.swift; sourceTree = "<group>"; };
 		6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Blueprint.storyboard; sourceTree = "<group>"; };
 		6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintViewController.swift; sourceTree = "<group>"; };
 		6840F1691BDB59D700EF70F7 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
@@ -893,6 +895,7 @@
 				68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */,
 				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
 				68D843C61BFB47A200DE7400 /* JobViewController.swift */,
+				683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */,
 				681EBF651C18252D00B81BEB /* JobReviewViewController.swift */,
 				681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */,
 				681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */,
@@ -1518,6 +1521,7 @@
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
+				683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */,
 				6845BB661BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift in Sources */,
 				68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */,
 				688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */,

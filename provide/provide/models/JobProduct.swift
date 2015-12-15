@@ -12,7 +12,6 @@ class JobProduct: Model {
 
     var id = 0
     var jobId = 0
-    var job: Job!
     var productId = 0
     var product: Product!
     var initialQuantity = 0.0
