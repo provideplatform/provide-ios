@@ -106,6 +106,8 @@
 		686C1CB51C1D105000A31AFD /* ProviderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */; };
 		686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */; };
 		686C1CB91C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */; };
+		686C1CBD1C1F93AC00A31AFD /* ProductCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */; };
+		686C1CBF1C1F96A300A31AFD /* ProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */; };
 		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
 		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
@@ -357,6 +359,8 @@
 		686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCreationViewController.swift; sourceTree = "<group>"; };
 		686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobCreation.storyboard; sourceTree = "<group>"; };
 		686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DraggableViewGestureRecognizer.swift; sourceTree = "<group>"; };
+		686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductCreation.storyboard; sourceTree = "<group>"; };
+		686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCreationViewController.swift; sourceTree = "<group>"; };
 		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
 		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
@@ -836,6 +840,7 @@
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
 				688441561C06E3A10017D4AA /* PinInputViewController.swift */,
+				686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */,
 				68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */,
 				686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */,
 				6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */,
@@ -946,6 +951,7 @@
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
 				6884415B1C06F6810017D4AA /* PinInput.storyboard */,
+				686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */,
 				68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */,
 				686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */,
 				6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */,
@@ -1295,6 +1301,7 @@
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
 				6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
+				686C1CBD1C1F93AC00A31AFD /* ProductCreation.storyboard in Resources */,
 				68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68140D8E1C1C22BD008F7E3A /* Jobs.storyboard in Resources */,
@@ -1461,6 +1468,7 @@
 				68F537151B834A9A0007F480 /* MenuContainerView.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68F536EA1B834A5C0007F480 /* RouteViewController.swift in Sources */,
+				686C1CBF1C1F96A300A31AFD /* ProductCreationViewController.swift in Sources */,
 				68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */,
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				681416F01B8457870076BFBD /* Provider.swift in Sources */,

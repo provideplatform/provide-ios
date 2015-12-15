@@ -11,6 +11,7 @@ import Foundation
 class Product: Model {
 
     var id = 0
+    var companyId = 0
     var gtin: String!
     var barcodeUri: String!
     var data: [String: AnyObject]!
@@ -21,6 +22,7 @@ class Product: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([
             "id",
+            "company_id",
             "gtin",
             "barcode_uri",
             "data",
@@ -65,6 +67,33 @@ class Product: Model {
             return UIImage.imageFromDataURL(barcodeDataURL)
         }
         return nil
+    }
+
+    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+        params.removeValueForKey("id")
+
+        if id > 0 {
+            ApiService.sharedService().updateProductWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            ApiService.sharedService().createProduct(params,
+                onSuccess: { statusCode, mappingResult in
+                    let product = mappingResult.firstObject as! Product
+                    self.id = product.id
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
     }
 }
 

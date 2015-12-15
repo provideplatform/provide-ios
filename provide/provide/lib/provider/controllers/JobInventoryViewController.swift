@@ -12,7 +12,13 @@ protocol JobInventoryViewControllerDelegate {
     func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job!
 }
 
-class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, DraggableViewGestureRecognizerDelegate, ProductPickerViewControllerDelegate, ManifestViewControllerDelegate {
+class JobInventoryViewContoller: UITableViewController,
+                                 UISearchBarDelegate,
+                                 UIPopoverPresentationControllerDelegate,
+                                 DraggableViewGestureRecognizerDelegate,
+                                 ProductCreationViewControllerDelegate,
+                                 ProductPickerViewControllerDelegate,
+                                 ManifestViewControllerDelegate {
 
     let maximumSearchlessProductsCount = 25
 
@@ -134,7 +140,11 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Dra
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "QueryResultsProductPickerEmbedSegue" {
+        if segue.identifier! == "ProductCreationViewControllerPopoverSegue" {
+            segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
+            segue.destinationViewController.popoverPresentationController!.delegate = self
+            ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProductCreationViewController).delegate = self
+        } else if segue.identifier! == "QueryResultsProductPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProductPickerViewController
             queryResultsPickerViewController.delegate = self
         } else if segue.identifier! == "JobProductsProductPickerEmbedSegue" {
@@ -231,6 +241,21 @@ class JobInventoryViewContoller: UITableViewController, UISearchBarDelegate, Dra
 
     func jobProductsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
         // no-op
+    }
+
+    // MARK: ProductCreationViewControllerDelegate
+
+    func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product) {
+        viewController.presentingViewController?.dismissViewController(animated: true)
+
+        if totalProductsCount > -1 {
+            totalProductsCount++
+
+            if showsAllProducts {
+                queryResultsPickerViewController?.products.append(product)
+                queryResultsPickerViewController?.reloadCollectionView()
+            }
+        }
     }
 
     // MARK: ProductPickerViewControllerDelegate

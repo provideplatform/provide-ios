@@ -87,7 +87,7 @@ class JobTeamViewController: UITableViewController,
         if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
             segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
             segue.destinationViewController.popoverPresentationController!.delegate = self
-            (segue.destinationViewController as! ProviderCreationViewController).delegate = self
+            ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self

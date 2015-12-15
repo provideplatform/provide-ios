@@ -261,7 +261,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="zfi-Ok-zIQ">
                             <connections>
                                 <segue destination="9W9-By-CBL" kind="popoverPresentation" identifier="ProviderCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="zfi-Ok-zIQ" id="0HD-F4-hFj">
-                                    <popoverArrowDirection key="popoverArrowDirection" left="YES"/>
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
@@ -273,6 +273,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xLE-5S-8c8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2602" y="1298"/>
+        </scene>
+        <!--ProductCreation-->
+        <scene sceneID="bOC-ol-SFl">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProductCreation" id="5iy-Ph-Xds" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H08-dH-O8c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2120" y="1710"/>
         </scene>
         <!--ProductPicker-->
         <scene sceneID="Kc3-PT-CTL">
@@ -530,7 +538,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="jbL-bG-7QZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="esF-YO-aoR"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="esF-YO-aoR">
+                            <connections>
+                                <segue destination="5iy-Ph-Xds" kind="popoverPresentation" identifier="ProductCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="esF-YO-aoR" id="GKH-8W-tvY">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="bcl-Nb-p6k" id="uLc-SI-w2Y"/>
