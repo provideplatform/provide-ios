@@ -16,7 +16,6 @@
         <!--Provider Creation View Controller-->
         <scene sceneID="Xy6-jT-aIq">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UAR-VJ-DlK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="l0f-GO-uOB" customClass="ProviderCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="1UB-8v-OuH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -132,6 +131,7 @@
                         <outlet property="nameTextField" destination="I91-vk-ISd" id="Nx9-ua-de5"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UAR-VJ-DlK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1053" y="4713"/>
         </scene>

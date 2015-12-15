@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2DK-b4-1eZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="n1R-ha-gUz">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -12,92 +12,92 @@
     </customFonts>
     <scenes>
         <!--Customer Picker View Controller-->
-        <scene sceneID="vGX-BF-seZ">
+        <scene sceneID="95Y-bY-IfQ">
             <objects>
-                <viewController id="2DK-b4-1eZ" customClass="CustomerPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="n1R-ha-gUz" customClass="CustomerPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="93s-GP-f2e"/>
-                        <viewControllerLayoutGuide type="bottom" id="4Do-sc-qYi"/>
+                        <viewControllerLayoutGuide type="top" id="6YA-aV-lWE"/>
+                        <viewControllerLayoutGuide type="bottom" id="OhC-xj-XPX"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Sog-a3-MGx">
+                    <view key="view" contentMode="scaleToFill" id="qaE-xi-AhV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" delaysContentTouches="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ee4-JM-JjI">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vUj-jJ-J1h">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="10" id="NwA-La-qfW">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="12l-ox-2li">
                                     <size key="itemSize" width="100" height="100"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="25" minY="25" maxX="25" maxY="25"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PickerCollectionViewCell" id="M5p-sl-KgL" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="75" width="100" height="100"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PickerCollectionViewCell" id="hIO-Cy-AoL" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gyX-64-2gh" userLabel="Accessory Image View">
-                                                    <rect key="frame" x="73" y="4" width="25" height="25"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nQt-PX-arg" userLabel="Accessory Image View">
+                                                    <rect key="frame" x="73" y="0.0" width="25" height="25"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFP-xr-dKz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bsN-AC-vu8">
                                                     <rect key="frame" x="73" y="65" width="25" height="25"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFF-T3-9S2" customClass="RFGravatarImageView">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9pw-Xh-s4c" customClass="RFGravatarImageView">
                                                     <rect key="frame" x="12" y="4" width="75" height="75"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Customer Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofn-Qe-EUu">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Customer Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OmR-U5-g8G">
                                                     <rect key="frame" x="0.0" y="79" width="100" height="21"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QhY-bB-mks">
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ZQY-yX-zSI">
                                                     <rect key="frame" x="40" y="40" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <outlet property="accessoryImageView" destination="gyX-64-2gh" id="DZB-mD-CkY"/>
-                                            <outlet property="activityIndicatorView" destination="QhY-bB-mks" id="0PH-Qk-TwF"/>
-                                            <outlet property="imageView" destination="nFF-T3-9S2" id="4Pa-pE-4j8"/>
-                                            <outlet property="nameLabel" destination="ofn-Qe-EUu" id="rM2-DR-pXz"/>
-                                            <outlet property="selectedImageView" destination="SFP-xr-dKz" id="KNx-79-bcp"/>
+                                            <outlet property="accessoryImageView" destination="nQt-PX-arg" id="yOe-kV-TU7"/>
+                                            <outlet property="activityIndicatorView" destination="ZQY-yX-zSI" id="xnP-Fr-6Nw"/>
+                                            <outlet property="imageView" destination="9pw-Xh-s4c" id="rVQ-bq-Mzp"/>
+                                            <outlet property="nameLabel" destination="OmR-U5-g8G" id="949-bl-Jf8"/>
+                                            <outlet property="selectedImageView" destination="bsN-AC-vu8" id="ndh-2u-WMi"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomerPickerCollectionViewHeader" id="rxd-zf-uQI">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionReusableView>
                                 <connections>
-                                    <outlet property="dataSource" destination="2DK-b4-1eZ" id="fEr-I9-pmV"/>
-                                    <outlet property="delegate" destination="2DK-b4-1eZ" id="6Es-sB-CrR"/>
+                                    <outlet property="dataSource" destination="n1R-ha-gUz" id="w9E-Tz-bk0"/>
+                                    <outlet property="delegate" destination="n1R-ha-gUz" id="jXQ-ps-ycD"/>
                                 </connections>
                             </collectionView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ebm-EM-hJE">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oZz-5M-qOF">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ee4-JM-JjI" firstAttribute="top" secondItem="93s-GP-f2e" secondAttribute="bottom" constant="-20" id="Ooe-bK-uiS"/>
-                            <constraint firstItem="4Do-sc-qYi" firstAttribute="top" secondItem="ee4-JM-JjI" secondAttribute="bottom" id="SJN-hp-oom"/>
-                            <constraint firstItem="ee4-JM-JjI" firstAttribute="leading" secondItem="Sog-a3-MGx" secondAttribute="leadingMargin" constant="-20" id="emE-PB-Boc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ee4-JM-JjI" secondAttribute="trailing" constant="-20" id="hhe-u6-6bO"/>
+                            <constraint firstItem="OhC-xj-XPX" firstAttribute="top" secondItem="vUj-jJ-J1h" secondAttribute="bottom" id="9ne-Dw-JSv"/>
+                            <constraint firstItem="oZz-5M-qOF" firstAttribute="centerX" secondItem="qaE-xi-AhV" secondAttribute="centerX" id="FYI-rK-Xlq"/>
+                            <constraint firstItem="vUj-jJ-J1h" firstAttribute="centerY" secondItem="qaE-xi-AhV" secondAttribute="centerY" id="H4q-2y-C6J"/>
+                            <constraint firstItem="vUj-jJ-J1h" firstAttribute="centerX" secondItem="qaE-xi-AhV" secondAttribute="centerX" id="JnY-gu-W5D"/>
+                            <constraint firstItem="vUj-jJ-J1h" firstAttribute="leading" secondItem="qaE-xi-AhV" secondAttribute="leadingMargin" constant="-20" id="Rqa-Hx-URT"/>
+                            <constraint firstItem="oZz-5M-qOF" firstAttribute="centerY" secondItem="qaE-xi-AhV" secondAttribute="centerY" id="dRh-yA-FEA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vUj-jJ-J1h" secondAttribute="trailing" constant="-20" id="fbK-S8-0gc"/>
+                            <constraint firstItem="vUj-jJ-J1h" firstAttribute="top" secondItem="6YA-aV-lWE" secondAttribute="bottom" constant="-20" id="rYH-lt-DWR"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="ebm-EM-hJE" id="MUm-xV-U5b"/>
-                        <outlet property="collectionView" destination="ee4-JM-JjI" id="3sL-OF-gpg"/>
+                        <outlet property="activityIndicatorView" destination="oZz-5M-qOF" id="rjQ-Oa-BcG"/>
+                        <outlet property="collectionView" destination="vUj-jJ-J1h" id="6i2-tr-wMU"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KNS-Ek-BcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P5o-6q-AZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="368" y="364"/>
+            <point key="canvasLocation" x="32" y="-97"/>
         </scene>
     </scenes>
 </document>

@@ -301,6 +301,10 @@ class ApiService: NSObject {
 
     // MARK: Customer API
 
+    func countCustomers(params: [String: AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
+        return countTotalResultsForPath("customers", params: params, onTotalResultsCount: onTotalResultsCount)
+    }
+
     func fetchCustomers(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }

@@ -51,10 +51,13 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
                 (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
-            jobCreationViewController = segue.destinationViewController as! JobCreationViewController
+            let navigationController = segue.destinationViewController as! UINavigationController
+            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 425)
+            navigationController.popoverPresentationController!.delegate = self
+
+            jobCreationViewController = navigationController.viewControllers.first! as! JobCreationViewController
             jobCreationViewController.delegate = self
-            jobCreationViewController.preferredContentSize = CGSizeMake(400, 500)
-            jobCreationViewController.popoverPresentationController!.delegate = self
+
         }
     }
 
