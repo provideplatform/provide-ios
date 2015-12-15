@@ -35,12 +35,52 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
     @IBOutlet private weak var blueprintActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var blueprintPreviewStatusLabel: UILabel! {
+        didSet {
+            if let blueprintPreviewStatusLabel = blueprintPreviewStatusLabel {
+                blueprintPreviewStatusLabel.text = ""
+                blueprintPreviewStatusLabel.alpha = 0.0
+            }
+        }
+    }
+
     @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
 
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
     private var blueprintViewController: BlueprintViewController!
+
+    private var reloadingBlueprint = false
+    private var reloadingJob = false
+    private var importedPdfAttachment: Attachment! {
+        didSet {
+            if let _ = importedPdfAttachment {
+                hideDropbox()
+                importStatus = "Processing your uploaded blueprint..."
+            }
+        }
+    }
+    private var importedPngAttachment: Attachment! {
+        didSet {
+            if let _ = importedPngAttachment {
+                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+            }
+        }
+    }
+    private var importStatus: String! {
+        didSet {
+            if let importStatus = importStatus {
+                blueprintActivityIndicatorView.startAnimating()
+                blueprintPreviewStatusLabel.text = importStatus
+                blueprintPreviewStatusLabel.alpha = 1.0
+                blueprintPreviewContainerView.bringSubviewToFront(blueprintPreviewStatusLabel)
+                blueprintPreviewContainerView.alpha = 1.0
+            } else {
+                blueprintPreviewStatusLabel.text = ""
+            }
+        }
+    }
 
     private var job: Job! {
         if let job = delegate?.jobForJobBlueprintsViewController(self) {
@@ -61,6 +101,30 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
 
         hideDropbox()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
+            if let userInfo = notification.userInfo {
+                let attachmentId = userInfo["attachment_id"] as? Int
+                let attachableType = userInfo["attachable_type"] as? String
+                let attachableId = userInfo["attachable_id"] as? Int
+
+                if attachmentId != nil && attachableType != nil && attachableId != nil {
+                    if let job = self.job {
+                        if attachableType == "job" && attachableId == job.id {
+                            if let importedPdfAttachment = self.importedPdfAttachment {
+                                if importedPdfAttachment.id == attachmentId {
+                                    // this update is for the existing attachment; no-op for now
+                                } else if let importedPngAttachment = self.importedPngAttachment {
+                                    if importedPngAttachment.id == attachmentId {
+                                        self.reloadJob()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -100,8 +164,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             let params: [String : AnyObject] = ["tags": ["blueprint"]]
             ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    let attachment = mappingResult.firstObject as! Attachment
-                    print("created attachment \(attachment)")
+                    self.importedPdfAttachment = mappingResult.firstObject as! Attachment
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -109,22 +172,50 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
 
+    private func reloadJob() {
+        if !reloadingJob {
+            if let job = job {
+                reloadingJob = true
+
+                job.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        self.loadBlueprint()
+                        self.reloadingJob = false
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.loadBlueprint()
+                        self.reloadingJob = false
+                    }
+                )
+            }
+        }
+    }
+
     private func loadBlueprint() {
-        if let blueprintImageUrl = job.blueprintImageUrl {
-            blueprintActivityIndicatorView.startAnimating()
-            blueprintPreviewContainerView.alpha = 1.0
-            blueprintPreviewImageView.contentMode = .ScaleAspectFit
-            blueprintPreviewImageView?.sd_setImageWithURL(blueprintImageUrl, placeholderImage: nil,
-                completed: { image, error, cacheType, url in
-                    self.blueprintPreviewImageView.alpha = 1.0
-                    self.blueprintActivityIndicatorView.stopAnimating()
-                    self.hideDropbox()
-                }
-            )
-        } else {
-            blueprintPreviewContainerView.alpha = 0.0
-            blueprintActivityIndicatorView.stopAnimating()
-            showDropbox()
+        if !reloadingBlueprint {
+            if let blueprintImageUrl = job.blueprintImageUrl {
+                reloadingBlueprint = true
+                importStatus = nil
+
+                blueprintActivityIndicatorView.startAnimating()
+                blueprintPreviewContainerView.alpha = 1.0
+                blueprintPreviewImageView.contentMode = .ScaleAspectFit
+                blueprintPreviewImageView?.sd_setImageWithURL(blueprintImageUrl, placeholderImage: nil,
+                    completed: { image, error, cacheType, url in
+                        self.blueprintPreviewImageView.alpha = 1.0
+                        self.blueprintPreviewStatusLabel.alpha = 0.0
+                        self.blueprintPreviewStatusLabel.text = ""
+                        self.blueprintActivityIndicatorView.stopAnimating()
+                        self.hideDropbox()
+                        self.reloadingBlueprint = false
+                    }
+                )
+            } else if importedPdfAttachment == nil {
+                blueprintPreviewContainerView.alpha = 0.0
+                blueprintActivityIndicatorView.stopAnimating()
+                showDropbox()
+                reloadingBlueprint = false
+            }
         }
     }
 
@@ -136,5 +227,9 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

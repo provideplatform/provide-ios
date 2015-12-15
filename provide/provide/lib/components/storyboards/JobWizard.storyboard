@@ -9,6 +9,7 @@
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -395,6 +396,12 @@
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mKD-Lc-3l5">
                                         <rect key="frame" x="262" y="191" width="37" height="37"/>
                                     </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TC-nX-DsW">
+                                        <rect key="frame" x="0.0" y="236" width="560" height="24"/>
+                                        <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2J-Ov-1wQ">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="418"/>
                                         <connections>
@@ -409,6 +416,7 @@
                                     <constraint firstItem="M2J-Ov-1wQ" firstAttribute="width" secondItem="BkC-j0-KT1" secondAttribute="height" multiplier="28:15" constant="-220.26666666666665" id="4cu-5H-kvR"/>
                                     <constraint firstItem="3j8-PF-pdv" firstAttribute="height" secondItem="BkC-j0-KT1" secondAttribute="height" id="6Md-rL-hV0"/>
                                     <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerY" secondItem="3j8-PF-pdv" secondAttribute="centerY" id="CGI-ur-YHu"/>
+                                    <constraint firstItem="9TC-nX-DsW" firstAttribute="top" secondItem="mKD-Lc-3l5" secondAttribute="bottom" constant="8" id="QbY-GQ-Lci"/>
                                     <constraint firstItem="M2J-Ov-1wQ" firstAttribute="width" secondItem="BkC-j0-KT1" secondAttribute="width" id="SOo-ha-1gW"/>
                                     <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerX" secondItem="BkC-j0-KT1" secondAttribute="centerX" id="SnM-U5-PHy"/>
                                     <constraint firstItem="3j8-PF-pdv" firstAttribute="width" secondItem="BkC-j0-KT1" secondAttribute="height" multiplier="28:15" constant="-220.26666666666665" id="TOn-dA-AFz"/>
@@ -416,6 +424,8 @@
                                     <constraint firstItem="M2J-Ov-1wQ" firstAttribute="height" secondItem="BkC-j0-KT1" secondAttribute="height" id="Yeh-Mr-SWw"/>
                                     <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerY" secondItem="BkC-j0-KT1" secondAttribute="centerY" id="YoD-dy-dXR"/>
                                     <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerX" secondItem="3j8-PF-pdv" secondAttribute="centerX" id="ZgN-Gm-YBv"/>
+                                    <constraint firstAttribute="trailing" secondItem="9TC-nX-DsW" secondAttribute="trailing" id="lSx-zI-pjt"/>
+                                    <constraint firstItem="9TC-nX-DsW" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="mRD-Pz-8xY"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -442,6 +452,7 @@
                         <outlet property="blueprintActivityIndicatorView" destination="mKD-Lc-3l5" id="4Ob-QE-kbu"/>
                         <outlet property="blueprintPreviewContainerView" destination="BkC-j0-KT1" id="Q3d-AN-QUj"/>
                         <outlet property="blueprintPreviewImageView" destination="3j8-PF-pdv" id="haP-Xf-KaS"/>
+                        <outlet property="blueprintPreviewStatusLabel" destination="9TC-nX-DsW" id="EGy-Ng-Cs3"/>
                         <outlet property="importFromDropboxIconButton" destination="7SP-l0-9g0" id="G9T-T7-k4v"/>
                         <outlet property="importFromDropboxTextButton" destination="e6M-E5-2EJ" id="ibg-0N-UKl"/>
                     </connections>
