@@ -64,10 +64,12 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate 
     private func createProductWithCompanyId(companyId: Int) {
         let product = Product()
         product.companyId = companyId
+        product.gtin = gtinTextField?.text
         product.data = [String : AnyObject]()
         product.data["name"] = nameTextField?.text
+        product.data["price"] = priceTextField?.text
 
-        let productIsValid = product.companyId > 0 && product.name != nil && product.name!.length > 0
+        let productIsValid = product.companyId > 0 && product.gtin != nil && product.gtin!.length > 0 && product.name != nil && product.name!.length > 0
 
         if productIsValid {
             showActivityIndicator()
