@@ -20,16 +20,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         didSet {
             if let _ = delegate {
                 if let _ = job {
-                    self.blueprintActivityIndicatorView.startAnimating()
-                    blueprintPreviewImageView.contentMode = .ScaleAspectFit
-                    blueprintPreviewImageView?.sd_setImageWithURL(job.blueprintImageUrl, placeholderImage: nil,
-                        completed: { image, error, cacheType, url in
-                            self.blueprintPreviewImageView.alpha = 1.0
-                            self.blueprintActivityIndicatorView.stopAnimating()
-                            self.showDropbox()
-                        }
-                    )
-
+                    loadBlueprint()
                     blueprintViewController?.blueprintViewControllerDelegate = self
                 }
             }
@@ -115,6 +106,25 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
                 }
             )
+        }
+    }
+
+    private func loadBlueprint() {
+        if let blueprintImageUrl = job.blueprintImageUrl {
+            blueprintActivityIndicatorView.startAnimating()
+            blueprintPreviewContainerView.alpha = 1.0
+            blueprintPreviewImageView.contentMode = .ScaleAspectFit
+            blueprintPreviewImageView?.sd_setImageWithURL(blueprintImageUrl, placeholderImage: nil,
+                completed: { image, error, cacheType, url in
+                    self.blueprintPreviewImageView.alpha = 1.0
+                    self.blueprintActivityIndicatorView.stopAnimating()
+                    self.hideDropbox()
+                }
+            )
+        } else {
+            blueprintPreviewContainerView.alpha = 0.0
+            blueprintActivityIndicatorView.stopAnimating()
+            showDropbox()
         }
     }
 
