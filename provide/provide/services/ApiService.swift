@@ -549,6 +549,10 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchAttachments(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
         if let tags = params["tags"] {
