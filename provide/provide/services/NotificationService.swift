@@ -37,6 +37,8 @@ class NotificationService: NSObject {
                     }
                 }
             }
+
+            NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
         case .Checkin:
             let checkin = notificationValue as! Bool
             if checkin {
