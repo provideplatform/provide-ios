@@ -254,6 +254,10 @@ class JobInventoryViewContoller: UITableViewController,
             if showsAllProducts {
                 queryResultsPickerViewController?.products.append(product)
                 queryResultsPickerViewController?.reloadCollectionView()
+
+                searchBar.placeholder = "Showing all \(totalProductsCount) products"
+            } else {
+                searchBar.placeholder = "Search \(totalProductsCount) products"
             }
         }
     }

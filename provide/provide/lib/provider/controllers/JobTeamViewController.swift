@@ -372,6 +372,10 @@ class JobTeamViewController: UITableViewController,
             if showsAllProviders {
                 queryResultsPickerViewController?.providers.append(provider)
                 queryResultsPickerViewController?.reloadCollectionView()
+
+                searchBar.placeholder = "Showing all \(totalProvidersCount) providers"
+            } else {
+                searchBar.placeholder = "Search \(totalProvidersCount) service providers"
             }
         }
     }
