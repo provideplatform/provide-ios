@@ -15,6 +15,18 @@ class Model: NSObject {
         return mapping
     }
 
+    internal var ivars: [String] {
+        var count: UInt32 = 0
+        let ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
+
+        var ivarStrings = [String]()
+        for i in 0..<count {
+            let key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
+            ivarStrings.append(key)
+        }
+        return ivarStrings
+    }
+
     override var description: String {
         return "\(toDictionary(false))"
     }
@@ -52,18 +64,16 @@ class Model: NSObject {
     func toDictionary(snakeKeys: Bool = true) -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
 
-        var count: UInt32 = 0
-        let ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
+        for ivar in ivars {
+            var key = ivar
+            var value: AnyObject = NSNull()
 
-        for i in 0..<count {
-            var key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
-            var value: AnyObject! = valueForKey(key)
-
-            if value != nil {
+            if let unwrappedValue = valueForKey(key) {
+                value = unwrappedValue
                 if value is Model {
                     value = (value as! Model).toDictionary(snakeKeys)
                 } else if value is [Model] {
-                    var newValue = [[String : AnyObject]]()
+                    var newValue = [AnyObject]()
                     for val in value as! [Model] {
                         newValue.append(val.toDictionary(snakeKeys))
                     }
@@ -80,7 +90,7 @@ class Model: NSObject {
                 dictionary.removeValueForKey("id")
             }
         }
-        
+
         return dictionary
     }
 

@@ -708,6 +708,7 @@ class ApiService: NSObject {
                                        path: "api/\(path)",
                                        method: method,
                                        params: params,
+                                       contentType: "application/json",
                                        startOperation: startOperation,
                                        onSuccess: onSuccess,
                                        onError: onError)
@@ -730,7 +731,8 @@ class ApiService: NSObject {
     private func dispatchOperationForURL(baseURL: NSURL,
                                          path: String,
                                          method: RKRequestMethod = .GET,
-                                         var params: [String: AnyObject]!,
+                                         params: [String : AnyObject]!,
+                                         contentType: String = "application/json",
                                          startOperation: Bool = true,
                                          onSuccess: OnSuccess,
                                          onError: OnError) -> RKObjectRequestOperation! {
@@ -749,7 +751,7 @@ class ApiService: NSObject {
             request.HTTPMethod = RKStringFromRequestMethod(method)
             request.HTTPShouldHandleCookies = false
             request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue("application/json", forHTTPHeaderField: "content-type")
+            request.setValue(contentType, forHTTPHeaderField: "content-type")
 
             for (name, value) in headers {
                 request.setValue(value, forHTTPHeaderField: name)
@@ -757,28 +759,17 @@ class ApiService: NSObject {
 
             var jsonParams: String!
             if let _ = params {
-                for key in params.keys {
-                    let value: AnyObject? = params[key]
-                    if value != nil && value!.isKindOfClass(NSArray) {
-                        let newValue = NSMutableArray()
-                        for item in (value as! NSArray) {
-                            if item.isKindOfClass(Model) {
-                                newValue.addObject((item as! Model).toDictionary())
-                            } else {
-                                newValue.addObject(item)
-                            }
-                        }
-                        params.updateValue(newValue, forKey: key)
-                    }
+                if contentType.lowercaseString == "application/json" {
+                    jsonParams = NSDictionary(dictionary: params).toJSON()
                 }
-
-                jsonParams = NSDictionary(dictionary: params).toJSON() // FIXME-- make sure content type is suitable for this operation
             } else {
                 jsonParams = "{}"
             }
 
             if [.POST, .PUT].contains(method) {
-                request.HTTPBody = jsonParams!.dataUsingEncoding(NSUTF8StringEncoding)
+                if let jsonParams = jsonParams {
+                    request.HTTPBody = jsonParams.dataUsingEncoding(NSUTF8StringEncoding)
+                }
             }
 
             if let op = RKObjectRequestOperation(request: request, responseDescriptors: [responseDescriptor]) {
