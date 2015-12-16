@@ -14,6 +14,13 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         didSet {
             if let job = job {
                 navigationItem.title = job.name
+
+                if job.status == "completed" || job.status == "canceled" {
+                    viewControllers?.removeAtIndex(4)
+
+                    let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
+                    viewControllers?.append(reviewNavigationController)
+                }
             }
         }
     }
@@ -55,7 +62,7 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
     private var reviewTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[5]
+            return items[4]
         }
         return nil
     }

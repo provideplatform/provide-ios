@@ -20,5 +20,7 @@ class JobReviewViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.title = "Review & Complete"
     }
 }
