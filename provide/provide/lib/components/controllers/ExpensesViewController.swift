@@ -31,6 +31,10 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
+    func reloadTableView() {
+        tableView?.reloadData()
+    }
+
     // MARK: UITableViewDelegate
 
     // Display customization

@@ -86,6 +86,8 @@
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
 		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
 		683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */; };
+		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
+		683AC1011C21FE4A00391A0B /* JobManagerHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */; };
 		683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */; };
 		6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */; };
 		6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */; };
@@ -342,6 +344,8 @@
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
 		683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCreationViewController.swift; sourceTree = "<group>"; };
+		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobManagerHeaderViewController.swift; sourceTree = "<group>"; };
 		683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProductCreationViewController.swift; sourceTree = "<group>"; };
 		6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Blueprint.storyboard; sourceTree = "<group>"; };
 		6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintViewController.swift; sourceTree = "<group>"; };
@@ -870,6 +874,7 @@
 				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
 				688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
+				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */,
 				68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */,
@@ -896,6 +901,7 @@
 				68B978C91B085A6C00863E21 /* segues */,
 				681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */,
 				686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */,
+				683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */,
 				681EBF611C1820C500B81BEB /* JobManagerViewController.swift */,
 				68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */,
 				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
@@ -1471,6 +1477,7 @@
 				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
 				687CB5841B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
 				681416EE1B8457870076BFBD /* Origin.swift in Sources */,
+				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
@@ -1553,6 +1560,7 @@
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
+				683AC1011C21FE4A00391A0B /* JobManagerHeaderViewController.swift in Sources */,
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,

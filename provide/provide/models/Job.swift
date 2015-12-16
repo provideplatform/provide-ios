@@ -16,6 +16,7 @@ class Job: Model {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var comments: [Comment]!
     var attachments: [Attachment]!
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
@@ -46,6 +47,7 @@ class Job: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
@@ -91,6 +93,18 @@ class Job: Model {
         return UIColor.clearColor()
     }
 
+    var humanReadableProfit: String! {
+        return nil
+    }
+
+    var humanReadableExpenses: String! {
+        return nil
+    }
+
+    var humanReadableLabor: String! {
+        return nil
+    }
+
     func hasSupervisor(supervisor: Provider) -> Bool {
         if let supervisors = supervisors {
             for s in supervisors {
@@ -110,6 +124,41 @@ class Job: Model {
         self.expensesCount += 1
         if let amount = self.expensedAmount {
             self.expensedAmount = amount + expense.amount
+        }
+    }
+
+    func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().addComment(comment, toJobWithId: String(id),
+            onSuccess: { (statusCode, mappingResult) -> () in
+                if self.comments == nil {
+                    self.comments = [Comment]()
+                }
+                self.comments.insert(mappingResult.firstObject as! Comment, atIndex: 0)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { (error, statusCode, responseString) -> () in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func reloadComments(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            ApiService.sharedService().fetchComments(forJobWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    if self.comments == nil {
+                        self.comments = [Comment]()
+                    }
+                    let fetchedComments = (mappingResult.array() as! [Comment]).reverse()
+                    for comment in fetchedComments {
+                        self.comments.append(comment)
+                    }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
         }
     }
 

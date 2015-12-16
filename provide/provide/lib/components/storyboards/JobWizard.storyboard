@@ -10,6 +10,15 @@
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+        </mutableArray>
+        <mutableArray key="Exo2-SemiBold.ttf">
+            <string>Exo2-SemiBold</string>
+            <string>Exo2-SemiBold</string>
+            <string>Exo2-SemiBold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -322,14 +331,220 @@
                     <view key="view" contentMode="scaleToFill" id="xKK-iy-G4g">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xD-8V-PlY">
+                                <rect key="frame" x="0.0" y="140" width="600" height="347"/>
+                                <connections>
+                                    <segue destination="HMI-ti-UEi" kind="embed" identifier="CommentsViewControllerEmbedSegue" id="f7n-3g-mGz"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="idt-Yi-rVi">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="102"/>
+                                <connections>
+                                    <segue destination="fkg-7R-1gp" kind="embed" identifier="JobManagerHeaderViewControllerEmbedSegue" id="19f-v9-hj0"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="0yu-F5-Bge"/>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="2T5-eg-QLD"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="bottom" secondItem="R08-z2-Fgw" secondAttribute="top" id="Bd1-oH-Rem"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="trailing" secondItem="idt-Yi-rVi" secondAttribute="trailing" id="PYu-sd-1Kq"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="xKK-iy-G4g" secondAttribute="top" constant="140" id="SQi-pH-SB4"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="trailing" secondItem="idt-Yi-rVi" secondAttribute="trailing" id="V8s-Eh-WMs"/>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" id="VG9-Z3-slU"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="idt-Yi-rVi" secondAttribute="bottom" constant="8" symbolic="YES" id="dn7-1f-Z1U"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" constant="400" id="glO-9n-bQD"/>
+                            <constraint firstAttribute="trailing" secondItem="6xD-8V-PlY" secondAttribute="trailing" id="iKk-rl-zDj"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="xKK-iy-G4g" secondAttribute="top" constant="118" id="lpq-uj-TPt"/>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="leading" secondItem="6xD-8V-PlY" secondAttribute="leading" id="oiK-a2-lNB"/>
+                            <constraint firstAttribute="bottom" secondItem="6xD-8V-PlY" secondAttribute="bottom" id="p58-80-JGw"/>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" id="rsT-0V-r54"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" constant="429" id="sH9-og-BLw"/>
+                            <constraint firstAttribute="trailing" secondItem="6xD-8V-PlY" secondAttribute="trailing" id="wOz-Wr-eDw"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="idt-Yi-rVi" secondAttribute="bottom" constant="38" id="xZg-sr-JTv"/>
+                            <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="zSp-pY-gNs"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="2T5-eg-QLD"/>
+                                <exclude reference="VG9-Z3-slU"/>
+                                <exclude reference="zSp-pY-gNs"/>
+                                <exclude reference="V8s-Eh-WMs"/>
+                                <exclude reference="dn7-1f-Z1U"/>
+                                <exclude reference="glO-9n-bQD"/>
+                                <exclude reference="lpq-uj-TPt"/>
+                                <exclude reference="p58-80-JGw"/>
+                                <exclude reference="sH9-og-BLw"/>
+                                <exclude reference="wOz-Wr-eDw"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="0yu-F5-Bge"/>
+                                <include reference="2T5-eg-QLD"/>
+                                <include reference="VG9-Z3-slU"/>
+                                <exclude reference="oiK-a2-lNB"/>
+                                <exclude reference="rsT-0V-r54"/>
+                                <exclude reference="Bd1-oH-Rem"/>
+                                <exclude reference="PYu-sd-1Kq"/>
+                                <exclude reference="SQi-pH-SB4"/>
+                                <include reference="V8s-Eh-WMs"/>
+                                <include reference="dn7-1f-Z1U"/>
+                                <include reference="glO-9n-bQD"/>
+                                <exclude reference="iKk-rl-zDj"/>
+                                <include reference="lpq-uj-TPt"/>
+                                <include reference="p58-80-JGw"/>
+                                <exclude reference="sH9-og-BLw"/>
+                                <include reference="wOz-Wr-eDw"/>
+                                <exclude reference="xZg-sr-JTv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="JB5-kG-YW4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C17-I9-IqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2602" y="3292"/>
+            <point key="canvasLocation" x="-2603.25" y="3291"/>
+        </scene>
+        <!--Job Manager Header View Controller-->
+        <scene sceneID="Swo-rh-cbD">
+            <objects>
+                <tableViewController id="fkg-7R-1gp" customClass="JobManagerHeaderViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="ae1-23-puJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="102"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection headerTitle="Contract Revenue: $2,149,000" id="9rJ-BE-lJu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fdu-hh-XG0">
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fdu-hh-XG0" id="auP-Kn-JuI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ola-wW-p6h">
+                                                    <rect key="frame" x="8" y="11" width="48" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$866,345" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FM-VK-RTy">
+                                                    <rect key="frame" x="64" y="11" width="68" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deS-XG-cyv">
+                                                    <rect key="frame" x="217" y="12" width="80" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$866,345" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-zS-faO">
+                                                    <rect key="frame" x="305" y="12" width="78" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tp4-zK-Fas">
+                                                    <rect key="frame" x="458" y="12" width="48" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,000,000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-uH-Mms">
+                                                    <rect key="frame" x="511" y="12" width="81" height="22"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7g-Jk-qku">
+                                                    <rect key="frame" x="378" y="8" width="49" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="49" id="oM6-Mq-mQy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="11"/>
+                                                    <state key="normal" title="DETAILS"/>
+                                                    <connections>
+                                                        <segue destination="Q3x-eq-BMm" kind="popoverPresentation" identifier="ExpensesViewControllerPopoverSegue" popoverAnchorView="u7g-Jk-qku" id="UbL-hO-NJG">
+                                                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                                                        </segue>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="5FM-VK-RTy" firstAttribute="leading" secondItem="ola-wW-p6h" secondAttribute="trailing" constant="8" id="4y1-lb-HyB"/>
+                                                <constraint firstItem="u7g-Jk-qku" firstAttribute="leading" secondItem="deS-XG-cyv" secondAttribute="trailing" constant="81" id="7MM-qf-KqI"/>
+                                                <constraint firstItem="ola-wW-p6h" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3" id="8E0-Sq-0iF"/>
+                                                <constraint firstItem="u7g-Jk-qku" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" id="8wk-3k-Rc0"/>
+                                                <constraint firstItem="uHj-zS-faO" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="9Ay-on-ZCJ"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="ola-wW-p6h" secondAttribute="leading" id="CCB-AF-AOB"/>
+                                                <constraint firstItem="Tp4-zK-Fas" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="CGG-Ue-GCV"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="deS-XG-cyv" secondAttribute="bottom" constant="2" id="CmA-8r-0P5"/>
+                                                <constraint firstItem="deS-XG-cyv" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="IJX-Cg-EEt"/>
+                                                <constraint firstItem="uHj-zS-faO" firstAttribute="leading" secondItem="deS-XG-cyv" secondAttribute="trailing" constant="8" id="JKz-qo-Yle"/>
+                                                <constraint firstItem="HEl-uH-Mms" firstAttribute="leading" secondItem="Tp4-zK-Fas" secondAttribute="trailing" constant="5" id="Ljv-Yb-hBw"/>
+                                                <constraint firstItem="u7g-Jk-qku" firstAttribute="leading" secondItem="uHj-zS-faO" secondAttribute="trailing" constant="-5" id="MdC-qU-Pg9"/>
+                                                <constraint firstItem="HEl-uH-Mms" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="Pfj-8Q-sxd"/>
+                                                <constraint firstItem="HEl-uH-Mms" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="QmG-5A-viM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ola-wW-p6h" secondAttribute="bottom" constant="3.5" id="W3G-dr-YNX"/>
+                                                <constraint firstItem="Tp4-zK-Fas" firstAttribute="leading" secondItem="u7g-Jk-qku" secondAttribute="trailing" constant="31" id="Wcv-zA-GHb"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="HEl-uH-Mms" secondAttribute="trailing" id="Xc1-rz-Ejj"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="5FM-VK-RTy" secondAttribute="bottom" constant="2.5" id="bQY-Pp-xa1"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HEl-uH-Mms" secondAttribute="bottom" constant="2" id="ban-tp-BDZ"/>
+                                                <constraint firstItem="5FM-VK-RTy" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3" id="cwn-k1-R19"/>
+                                                <constraint firstItem="u7g-Jk-qku" firstAttribute="centerY" secondItem="uHj-zS-faO" secondAttribute="centerY" id="hGr-v3-5US"/>
+                                                <constraint firstItem="deS-XG-cyv" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3.5" id="jb0-nT-mbU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Tp4-zK-Fas" secondAttribute="bottom" constant="2" id="jcu-Vi-TM5"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="uHj-zS-faO" secondAttribute="bottom" constant="2" id="kTb-CV-3h7"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="deS-XG-cyv" secondAttribute="bottom" constant="2" id="n9Y-NU-mWP"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="HEl-uH-Mms" secondAttribute="bottom" constant="2" id="oSt-ci-LAw"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ola-wW-p6h" secondAttribute="bottom" constant="3.5" id="t44-cX-vPu"/>
+                                                <constraint firstItem="ola-wW-p6h" firstAttribute="top" secondItem="auP-Kn-JuI" secondAttribute="topMargin" constant="3" id="vJD-kj-eWL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="fkg-7R-1gp" id="4bg-hO-1vy"/>
+                            <outlet property="delegate" destination="fkg-7R-1gp" id="9bR-e3-OHQ"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="expensesLabel" destination="deS-XG-cyv" id="xlY-Rk-aY2"/>
+                        <outlet property="expensesValueLabel" destination="uHj-zS-faO" id="Dwx-Sk-dnS"/>
+                        <outlet property="laborLabel" destination="Tp4-zK-Fas" id="2Fd-Av-L3O"/>
+                        <outlet property="laborValueLabel" destination="HEl-uH-Mms" id="9R3-hm-zTx"/>
+                        <outlet property="profitLabel" destination="ola-wW-p6h" id="7Ni-Sl-eaH"/>
+                        <outlet property="profitValueLabel" destination="5FM-VK-RTy" id="O2c-Yv-mSC"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jsJ-a4-AoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1917.75" y="3090.75"/>
+        </scene>
+        <!--Expenses-->
+        <scene sceneID="Aj7-dE-9m4">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Expenses" id="Q3x-eq-BMm" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JGA-f6-Wa2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1886" y="3297"/>
+        </scene>
+        <!--Comments-->
+        <scene sceneID="rk8-LG-rsX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Comments" id="HMI-ti-UEi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tuB-0v-GEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2137" y="3478"/>
         </scene>
         <!--Job Review View Controller-->
         <scene sceneID="3QV-n1-mYz">
@@ -370,6 +585,9 @@
                                 <rect key="frame" x="54" y="498" width="144" height="35"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
                                 <state key="normal" title="Import from Dropbox"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="54" y="698" width="141" height="35"/>
+                                </variation>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkC-j0-KT1">
                                 <rect key="frame" x="20" y="72" width="560" height="418"/>

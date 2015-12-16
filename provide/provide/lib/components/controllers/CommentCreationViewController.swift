@@ -8,11 +8,14 @@
 
 import UIKit
 
+@objc
 protocol CommentCreationViewControllerDelegate {
     func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String)
     func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController)
     func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String!
     func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String!
+    optional func saveItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem!
+    optional func dismissItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem!
 }
 
 class CommentCreationViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
@@ -29,6 +32,14 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
     }
 
     private var dismissItem: UIBarButtonItem! {
+        if textView.text.length > 0 {
+            if let dismissItem = commentCreationViewControllerDelegate?.saveItemForCommentCreationViewController?(self) {
+                return dismissItem
+            }
+        } else if let dismissItem = commentCreationViewControllerDelegate?.dismissItemForCommentCreationViewController?(self) {
+            return dismissItem
+        }
+
         let title = textView.text.length > 0 ? "DISMISS + SAVE" : "DISMISS"
         let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)

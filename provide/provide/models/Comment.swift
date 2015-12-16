@@ -13,6 +13,14 @@ class Comment: Model {
     var id: NSNumber!
     var body: String!
     var createdAt: String!
+    var user: User!
+
+    var createdAtDate: NSDate! {
+        if let createdAt = createdAt {
+            return NSDate.fromString(createdAt)
+        }
+        return nil
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -21,6 +29,7 @@ class Comment: Model {
             "body": "body",
             "created_at": "createdAt"
             ])
+        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         return mapping
     }
 }

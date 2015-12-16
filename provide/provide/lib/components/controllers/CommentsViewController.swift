@@ -9,129 +9,68 @@
 import UIKit
 
 protocol CommentsViewControllerDelegate {
-    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String)
-    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController)
-    func promptForCommentsViewController(viewController: CommentsViewController) -> String!
-    func titleForCommentsViewController(viewController: CommentsViewController) -> String!
+    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String)
+    func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment]
 }
 
-class CommentsViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
+class CommentsViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {
 
     var commentsViewControllerDelegate: CommentsViewControllerDelegate!
 
     @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet private weak var zeroStateLabel: UILabel!
 
-    private var comments = [Comment]() {
+    @IBOutlet private weak var addCommentBarButtonItem: UIBarButtonItem! {
         didSet {
-            collectionView.reloadData()
+            if let addCommentBarButtonItem = addCommentBarButtonItem {
+                let commentIconImage = FAKFontAwesome.commentIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                addCommentBarButtonItem.image = commentIconImage
+                addCommentBarButtonItem.tintColor = UIColor.blackColor()
+            }
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let title = textView.text.length > 0 ? "DISMISS + SAVE" : "DISMISS"
-        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: "dismiss")
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return dismissItem
-    }
-
-    private var hiddenNavigationControllerFrame: CGRect {
-        return CGRect(
-            x: 0.0,
-            y: targetView.frame.height,
-            width: targetView.frame.width,
-            height: targetView.frame.height / 1.333
-        )
-    }
-
-    private var renderedNavigationControllerFrame: CGRect {
-        return CGRect(
-            x: 0.0,
-            y: hiddenNavigationControllerFrame.origin.y - hiddenNavigationControllerFrame.height,
-            width: hiddenNavigationControllerFrame.width,
-            height: hiddenNavigationControllerFrame.height
-        )
+    private var comments: [Comment] {
+        if let comments = commentsViewControllerDelegate?.commentsForCommentsViewController(self) {
+            return comments
+        }
+        return [Comment]()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        textView.text = ""
+        title = "COMMENTS"
 
-        setupNavigationItem()
+        navigationItem.title = "COMMENTS"
+
+        if let navigationController = navigationController {
+            navigationController.setNavigationBarHidden(true, animated: false)
+        }
+
+        zeroStateLabel?.alpha = 0.0
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "CommentCreationViewControllerPopoverSegue" {
+            let commentCreationViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! CommentCreationViewController
+            commentCreationViewController.commentCreationViewControllerDelegate = self
+            commentCreationViewController.preferredContentSize = CGSize(width: 400, height: 200)
+            if let popoverPresentationController = commentCreationViewController.popoverPresentationController {
+                popoverPresentationController.permittedArrowDirections = [.Down]
+            }
+        }
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    func reloadCollectionView() {
+        collectionView?.reloadData()
 
-        textView.becomeFirstResponder()
-    }
-
-    func dismiss() {
-        if textView.text.length > 0 {
-            commentsViewControllerDelegate?.commentsViewController(self, didSubmitComment: textView.text)
+        if comments.count == 0 {
+            zeroStateLabel?.alpha = 1.0
         } else {
-            commentsViewControllerDelegate?.commentsViewControllerShouldBeDismissed(self)
-        }
-    }
-
-    func setupNavigationItem() {
-        navigationItem.prompt = commentsViewControllerDelegate?.promptForCommentsViewController(self)
-        navigationItem.title = commentsViewControllerDelegate?.titleForCommentsViewController(self)
-        navigationItem.hidesBackButton = true
-
-        navigationItem.leftBarButtonItems = []
-        navigationItem.rightBarButtonItems = [dismissItem]
-    }
-
-    override func render() {
-        let frame = hiddenNavigationControllerFrame
-
-        view.alpha = 0.0
-        view.frame = frame
-
-        if let navigationController = navigationController {
-            navigationController.view.alpha = 0.0
-            navigationController.view.frame = hiddenNavigationControllerFrame
-            targetView.addSubview(navigationController.view)
-            targetView.bringSubviewToFront(navigationController.view)
-
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                animations: {
-                    self.view.alpha = 1
-                    navigationController.view.alpha = 1
-                    navigationController.view.frame = CGRect(
-                        x: frame.origin.x,
-                        y: frame.origin.y - navigationController.view.frame.height,
-                        width: frame.width,
-                        height: frame.height
-                    )
-                },
-                completion: nil
-            )
-        }
-    }
-
-    override func unwind() {
-        clearNavigationItem()
-
-        if textView.isFirstResponder() {
-            textView.resignFirstResponder()
-        }
-
-        if let navigationController = navigationController {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                animations: {
-                    self.view.alpha = 0.0
-                    navigationController.view.alpha = 0.0
-                    navigationController.view.frame = self.hiddenNavigationControllerFrame
-                },
-                completion: nil
-            )
+            zeroStateLabel?.alpha = 0.0
         }
     }
 
@@ -165,8 +104,8 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("commentCollectionViewCellReuseIdentifier", forIndexPath: indexPath)
-
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("commentCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! CommentCollectionViewCell
+        cell.comment = comments[indexPath.row]
         return cell
     }
 
@@ -175,29 +114,38 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
     // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
-    // MARK: UITextFieldDelegate
+    // MARK: CommentCreationViewControllerDelegate
 
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        return true
-    }
-    
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
-        return true
+    func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String) {
+        commentsViewControllerDelegate?.commentsViewController(self, shouldCreateComment: comment)
+        commentCreationViewControllerShouldBeDismissed(viewController)
     }
 
-//    optional func textViewDidBeginEditing(textView: UITextView)
-//    optional func textViewDidEndEditing(textView: UITextView)
-
-//    optional func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool
-
-    func textViewDidChange(textView: UITextView) {
-        setupNavigationItem()
+    func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController) {
+        if let presentingViewController = viewController.presentingViewController {
+            presentingViewController.dismissViewController(animated: true)
+        }
     }
 
-//    optional func textViewDidChangeSelection(textView: UITextView)
-//
-//    @availability(iOS, introduced=7.0)
-//    optional func textView(textView: UITextView, shouldInteractWithURL URL: NSURL, inRange characterRange: NSRange) -> Bool
-//    @availability(iOS, introduced=7.0)
-//    optional func textView(textView: UITextView, shouldInteractWithTextAttachment textAttachment: NSTextAttachment, inRange characterRange: NSRange) -> Bool
+    func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
+        return nil
+    }
+
+    func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
+        return "ADD COMMENT"
+    }
+
+    func dismissItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem! {
+        let dismissIconImage = FAKFontAwesome.closeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+        let dismissItem = UIBarButtonItem(image: dismissIconImage, style: .Plain, target: viewController, action: "dismiss")
+        dismissItem.tintColor = UIColor.whiteColor()
+        return dismissItem
+    }
+
+    func saveItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem! {
+        let saveIconImage = FAKFontAwesome.saveIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+        let saveItem = UIBarButtonItem(image: saveIconImage, style: .Plain, target: viewController, action: "dismiss")
+        saveItem.tintColor = UIColor.whiteColor()
+        return saveItem
+    }
 }

@@ -60,7 +60,7 @@ protocol WorkOrdersViewControllerDelegate { // FIXME -- this is not named correc
 }
 
 class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
-                                                CommentsViewControllerDelegate,
+                                                CommentCreationViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
@@ -675,9 +675,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    // MARK: CommentsViewControllerDelegate
+    // MARK: CommentsCreationViewControllerDelegate
 
-    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
+    func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
@@ -698,7 +698,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
+    func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController) {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
@@ -712,11 +712,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         }
     }
 
-    func promptForCommentsViewController(viewController: CommentsViewController) -> String! {
+    func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
         return "Anything worth mentioning?"
     }
 
-    func titleForCommentsViewController(viewController: CommentsViewController) -> String! {
+    func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
         return "COMMENTS"
     }
 
@@ -814,7 +814,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 if vc.isKindOfClass(BlueprintViewController) {
                     (vc as! BlueprintViewController).blueprintViewControllerDelegate = self
                 } else if vc.isKindOfClass(CommentsViewController) {
-                    (vc as! CommentsViewController).commentsViewControllerDelegate = self
+                    (vc as! CommentCreationViewController).commentCreationViewControllerDelegate = self
                 }
             } else {
                 vc = initialViewController as! WorkOrderComponentViewController

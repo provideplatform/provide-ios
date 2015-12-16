@@ -23,6 +23,7 @@ class ApiService: NSObject {
     private let objectMappings = [
         "attachments": Attachment.mapping(),
         "annotations": Annotation.mapping(),
+        "comments": Comment.mapping(),
         "companies": Company.mapping(),
         "customers": Customer.mapping(),
         "devices": Device.mapping(),
@@ -442,6 +443,20 @@ class ApiService: NSObject {
     }
 
     // MARK: Comments API
+
+    func fetchComments(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
+    func addComment(comment: String, toJobWithId id: String!, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(id)/comments", method: .POST, params: ["body": comment],
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 201)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: onError
+        )
+    }
 
     func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment],
