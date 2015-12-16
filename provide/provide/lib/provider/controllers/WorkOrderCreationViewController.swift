@@ -38,9 +38,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
     }
 
     private var expenseItem: UIBarButtonItem! {
-        let expenseItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "expense:")
-        expenseItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
-        return expenseItem
+        let expenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+        let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage, target: self, action: "expense:")
+        expenseBarButtonItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
+        return expenseBarButtonItem
     }
 
     private var cameraItem: UIBarButtonItem! {
