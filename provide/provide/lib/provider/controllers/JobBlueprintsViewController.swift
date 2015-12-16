@@ -57,7 +57,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         didSet {
             if let _ = importedPdfAttachment {
                 hideDropbox()
-                importStatus = "Processing your uploaded blueprint..."
+                importStatus = "Importing your blueprint..."
             }
         }
     }
@@ -113,11 +113,12 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                         if attachableType == "job" && attachableId == job.id {
                             if let importedPdfAttachment = self.importedPdfAttachment {
                                 if importedPdfAttachment.id == attachmentId {
-                                    // this update is for the existing attachment; no-op for now
-                                } else if let importedPngAttachment = self.importedPngAttachment {
-                                    if importedPngAttachment.id == attachmentId {
-                                        self.reloadJob()
-                                    }
+                                    self.importStatus = "Processing your imported blueprint..."
+                                } else if self.importedPngAttachment == nil {
+                                    self.importedPngAttachment = Attachment()
+                                    self.importedPngAttachment.id = attachmentId!
+                                } else if self.importedPngAttachment.id == attachmentId {
+                                    self.reloadJob()
                                 }
                             }
                         }
@@ -207,6 +208,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                         self.blueprintPreviewStatusLabel.text = ""
                         self.blueprintActivityIndicatorView.stopAnimating()
                         self.hideDropbox()
+                        self.blueprintViewController.blueprintViewControllerDelegate = self
                         self.reloadingBlueprint = false
                     }
                 )

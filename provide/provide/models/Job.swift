@@ -271,6 +271,11 @@ class Job: Model {
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchJobWithId(String(id),
             onSuccess: { statusCode, mappingResult in
+                let job = mappingResult.firstObject as! Job
+                self.blueprints = job.blueprints
+                self.blueprintImageUrlString = job.blueprintImageUrlString
+                // TODO-- marshall the rest of the fields
+
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in
