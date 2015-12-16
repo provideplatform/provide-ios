@@ -8,7 +8,19 @@
 
 import UIKit
 
+protocol ExpensesViewControllerDelegate {
+
+}
+
 class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
+
+    var delegate: ExpensesViewControllerDelegate! {
+        didSet {
+            if let delegate = delegate {
+                
+            }
+        }
+    }
 
     var expenses = [Expense]() {
         didSet {

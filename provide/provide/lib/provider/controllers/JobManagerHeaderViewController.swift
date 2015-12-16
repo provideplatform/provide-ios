@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol JobManagerHeaderViewControllerDelegate {
+    func jobManagerHeaderViewController(viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate!
+}
+
 class JobManagerHeaderViewController: UITableViewController {
+
+    var jobManagerHeaderViewControllerDelegate: JobManagerHeaderViewControllerDelegate!
 
     var job: Job! {
         didSet {
@@ -26,6 +32,18 @@ class JobManagerHeaderViewController: UITableViewController {
                 if let humanReadableLabor = job.humanReadableLabor {
                     laborValueLabel?.text = humanReadableLabor
                 }
+
+                if let expenses = job.expenses {
+                    expensesViewController?.expenses = expenses
+                } else {
+                    reloadJobExpenses()
+                }
+
+                if let expensesViewController = expensesViewController {
+                    if let jobManagerHeaderViewControllerDelegate = jobManagerHeaderViewControllerDelegate {
+                        jobManagerHeaderViewControllerDelegate.jobManagerHeaderViewController(self, delegateForExpensesViewController: expensesViewController)
+                    }
+                }
             }
         }
     }
@@ -39,7 +57,15 @@ class JobManagerHeaderViewController: UITableViewController {
     @IBOutlet private weak var laborLabel: UILabel!
     @IBOutlet private weak var laborValueLabel: UILabel!
 
-    private var expensesViewController: ExpensesViewController!
+    private var expensesViewController: ExpensesViewController! {
+        didSet {
+            if let expensesViewController = expensesViewController {
+                if let jobManagerHeaderViewControllerDelegate = jobManagerHeaderViewControllerDelegate {
+                    jobManagerHeaderViewControllerDelegate.jobManagerHeaderViewController(self, delegateForExpensesViewController: expensesViewController)
+                }
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,11 +75,15 @@ class JobManagerHeaderViewController: UITableViewController {
         super.prepareForSegue(segue, sender: sender)
 
         if segue.identifier! == "ExpensesViewControllerPopoverSegue" {
-            expensesViewController = segue.destinationViewController as! ExpensesViewController
+            let navigationController = segue.destinationViewController as! UINavigationController
+            expensesViewController = navigationController.viewControllers.first! as! ExpensesViewController
             expensesViewController.expenses = job.expenses
-            expensesViewController.preferredContentSize = CGSize(width: 400, height: 300)
-            expensesViewController.popoverPresentationController!.permittedArrowDirections = [.Up]
-            //expensesViewController.delegate = self
+            navigationController.preferredContentSize = CGSize(width: 400, height: 300)
+            navigationController.popoverPresentationController!.permittedArrowDirections = [.Up]
+
+            if let expensesViewControllerDelegate = jobManagerHeaderViewControllerDelegate?.jobManagerHeaderViewController(self, delegateForExpensesViewController: expensesViewController) {
+                expensesViewController.delegate = expensesViewControllerDelegate
+            }
         }
     }
 

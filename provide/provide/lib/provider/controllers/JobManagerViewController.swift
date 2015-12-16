@@ -17,12 +17,13 @@ protocol JobManagerViewControllerDelegate {
     func jobManagerViewController(viewController: JobManagerViewController, didCreateExpense expense: Expense)
 }
 
-class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
+class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDelegate, CommentsViewControllerDelegate, ManifestViewControllerDelegate, ExpensesViewControllerDelegate, ExpenseCaptureViewControllerDelegate {
 
     var delegate: JobManagerViewControllerDelegate!
-
+    
     private var jobManagerHeaderViewController: JobManagerHeaderViewController!
     private var commentsViewController: CommentsViewController!
+    private var manifestViewController: ManifestViewController!
 
     weak var job: Job! {
         didSet {
@@ -31,32 +32,13 @@ class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
                     jobManagerHeaderViewController.job = job
                 }
 
-                //            job.reloadAttachments(
-                //                { statusCode, mappingResult in
-                //                    self.mediaCollectionView?.reloadData()
-                //                },
-                //                onError: { error, statusCode, responseString in
-                //
-                //                }
-                //            )
-                //
-                //            job.reloadExpenses(
-                //                { statusCode, mappingResult in
-                //                    self.reloadTableView()
-                //                },
-                //                onError: { error, statusCode, responseString in
-                //
-                //                }
-                //            )
-                //
-                //            job.reloadInventory(
-                //                { statusCode, mappingResult in
-                //                    self.reloadTableView()
-                //                },
-                //                onError: { error, statusCode, responseString in
-                //
-                //                }
-                //            )
+                if let manifestViewController = manifestViewController {
+                    if let materials = job.materials {
+                        manifestViewController.products = materials.map({ $0.product })
+                    } else {
+                        reloadJobManifest()
+                    }
+                }
                 
 //                if job.status == "in_progress" || job.status == "en_route" {
 //                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
@@ -71,6 +53,10 @@ class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
         super.viewDidLoad()
 
         navigationItem.title = "Manage Job"
+
+        if isIPad() {
+            navigationItem.rightBarButtonItems = []
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -78,9 +64,19 @@ class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
 
         if segue.identifier! == "JobManagerHeaderViewControllerEmbedSegue" {
             jobManagerHeaderViewController = segue.destinationViewController as! JobManagerHeaderViewController
+            jobManagerHeaderViewController.jobManagerHeaderViewControllerDelegate = self
         } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
             commentsViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! CommentsViewController
+            commentsViewController.title = "INVENTORY DISPOSITION"
             commentsViewController.commentsViewControllerDelegate = self
+        } else if segue.identifier! == "ManifestViewControllerEmbedSegue" {
+            manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
+            manifestViewController.title = "INVENTORY DISPOSITION"
+            manifestViewController.delegate = self
+        } else if segue.identifier! == "ManifestViewControllerShowSegue" {
+            manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
+            manifestViewController.title = "INVENTORY DISPOSITION"
+            manifestViewController.delegate = self
         }
     }
 
@@ -96,6 +92,12 @@ class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
 
     deinit {
         timer?.invalidate()
+    }
+
+    // MARK: JobManagerHeaderViewControllerDelegate
+
+    func jobManagerHeaderViewController(viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate! {
+        return self
     }
 
     // MARK: CommentsViewControllerDelegate
@@ -135,5 +137,80 @@ class JobManagerViewController: ViewController, CommentsViewControllerDelegate {
                 }
             )
         }
+    }
+
+    private func reloadJobManifest() {
+        if let job = job {
+            job.reloadMaterials(
+                { statusCode, mappingResult in
+                    self.manifestViewController.products = job.materials.map({ $0.product })
+                    self.manifestViewController.reload()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
+    // MARK: ManifestViewControllerDelegate
+
+    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
+        return ["INVENTORY DISPOSITION"]
+    }
+
+    func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+        let cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
+        cell.jobProduct = job.materials[indexPath.row]
+        return cell
+    }
+
+    func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("selected job product \(job.materials[indexPath.row])")
+    }
+
+    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem! {
+        let navigationItem = UINavigationItem()
+        navigationItem.title = segmentsForManifestViewController(viewController as! ManifestViewController)[0]
+        if let expenseItem = expenseItem {
+            navigationItem.rightBarButtonItems = [expenseItem]
+        }
+        return navigationItem
+    }
+
+    private var expenseItem: UIBarButtonItem! {
+        if let job = job {
+            let expenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+            let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage, target: self, action: "expense:")
+            expenseBarButtonItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(job.status) != nil
+            return expenseBarButtonItem
+        }
+        return nil
+    }
+
+    func expense(sender: UIBarButtonItem!) {
+        let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
+        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+        expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
+
+        presentViewController(expenseCaptureViewController, animated: true)
+    }
+
+    // MARK: ExpenseCaptureViewControllerDelegate
+
+    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
+
+    }
+
+    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model {
+        return job
+    }
+
+    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
+
+    }
+
+    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController) {
+
     }
 }

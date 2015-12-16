@@ -44,9 +44,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         navigationItem.title = "COMMENTS"
 
-        if let navigationController = navigationController {
-            navigationController.setNavigationBarHidden(true, animated: false)
-        }
+//        if let navigationController = navigationController {
+//            navigationController.setNavigationBarHidden(true, animated: false)
+//        }
 
         zeroStateLabel?.alpha = 0.0
     }

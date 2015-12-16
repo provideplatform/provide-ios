@@ -197,7 +197,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 214 service providers" id="9qR-ea-jWC">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="400" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done"/>
                             <connections>
@@ -344,16 +344,26 @@
                                     <segue destination="fkg-7R-1gp" kind="embed" identifier="JobManagerHeaderViewControllerEmbedSegue" id="19f-v9-hj0"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBV-IO-rZS">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <connections>
+                                    <segue destination="Lpk-Aw-sG4" kind="embed" identifier="ManifestViewControllerEmbedSegue" id="oJ3-QQ-8sI"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="0yu-F5-Bge"/>
                             <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="2T5-eg-QLD"/>
+                            <constraint firstItem="LBV-IO-rZS" firstAttribute="bottom" secondItem="6xD-8V-PlY" secondAttribute="bottom" id="6EQ-bz-FAv"/>
+                            <constraint firstItem="LBV-IO-rZS" firstAttribute="leading" secondItem="idt-Yi-rVi" secondAttribute="leading" id="6ZK-Qf-wzq"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="bottom" secondItem="R08-z2-Fgw" secondAttribute="top" id="Bd1-oH-Rem"/>
+                            <constraint firstItem="6xD-8V-PlY" firstAttribute="leading" secondItem="LBV-IO-rZS" secondAttribute="trailing" constant="8" symbolic="YES" id="K5M-4F-SgH"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="trailing" secondItem="idt-Yi-rVi" secondAttribute="trailing" id="PYu-sd-1Kq"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="xKK-iy-G4g" secondAttribute="top" constant="140" id="SQi-pH-SB4"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="trailing" secondItem="idt-Yi-rVi" secondAttribute="trailing" id="V8s-Eh-WMs"/>
                             <constraint firstItem="idt-Yi-rVi" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" id="VG9-Z3-slU"/>
+                            <constraint firstItem="LBV-IO-rZS" firstAttribute="top" secondItem="6xD-8V-PlY" secondAttribute="top" id="cvS-Lu-Ylh"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="top" secondItem="idt-Yi-rVi" secondAttribute="bottom" constant="8" symbolic="YES" id="dn7-1f-Z1U"/>
                             <constraint firstItem="6xD-8V-PlY" firstAttribute="leading" secondItem="xKK-iy-G4g" secondAttribute="leading" constant="400" id="glO-9n-bQD"/>
                             <constraint firstAttribute="trailing" secondItem="6xD-8V-PlY" secondAttribute="trailing" id="iKk-rl-zDj"/>
@@ -367,10 +377,17 @@
                             <constraint firstItem="idt-Yi-rVi" firstAttribute="top" secondItem="EdR-Vd-mnT" secondAttribute="bottom" id="zSp-pY-gNs"/>
                         </constraints>
                         <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="LBV-IO-rZS"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="2T5-eg-QLD"/>
                                 <exclude reference="VG9-Z3-slU"/>
                                 <exclude reference="zSp-pY-gNs"/>
+                                <exclude reference="6EQ-bz-FAv"/>
+                                <exclude reference="6ZK-Qf-wzq"/>
+                                <exclude reference="cvS-Lu-Ylh"/>
+                                <exclude reference="K5M-4F-SgH"/>
                                 <exclude reference="V8s-Eh-WMs"/>
                                 <exclude reference="dn7-1f-Z1U"/>
                                 <exclude reference="glO-9n-bQD"/>
@@ -381,13 +398,20 @@
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="LBV-IO-rZS"/>
+                            </mask>
                             <mask key="constraints">
                                 <exclude reference="0yu-F5-Bge"/>
                                 <include reference="2T5-eg-QLD"/>
                                 <include reference="VG9-Z3-slU"/>
                                 <exclude reference="oiK-a2-lNB"/>
                                 <exclude reference="rsT-0V-r54"/>
+                                <include reference="6EQ-bz-FAv"/>
+                                <include reference="6ZK-Qf-wzq"/>
+                                <include reference="cvS-Lu-Ylh"/>
                                 <exclude reference="Bd1-oH-Rem"/>
+                                <include reference="K5M-4F-SgH"/>
                                 <exclude reference="PYu-sd-1Kq"/>
                                 <exclude reference="SQi-pH-SB4"/>
                                 <include reference="V8s-Eh-WMs"/>
@@ -403,7 +427,13 @@
                         </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" id="JB5-kG-YW4"/>
+                    <navigationItem key="navigationItem" id="JB5-kG-YW4">
+                        <barButtonItem key="rightBarButtonItem" title="Inventory Disposition" id="VHP-vv-Z3t">
+                            <connections>
+                                <segue destination="Lpk-Aw-sG4" kind="show" identifier="ManifestViewControllerShowSegue" id="W1J-U6-URd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C17-I9-IqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -528,7 +558,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsJ-a4-AoW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1917.75" y="3090.75"/>
+            <point key="canvasLocation" x="-1886" y="3097"/>
         </scene>
         <!--Expenses-->
         <scene sceneID="Aj7-dE-9m4">
@@ -538,13 +568,21 @@
             </objects>
             <point key="canvasLocation" x="-1886" y="3297"/>
         </scene>
+        <!--Manifest-->
+        <scene sceneID="osC-0J-6IV">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Manifest" id="Lpk-Aw-sG4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hek-OG-pC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2143.5" y="3291"/>
+        </scene>
         <!--Comments-->
         <scene sceneID="rk8-LG-rsX">
             <objects>
                 <viewControllerPlaceholder storyboardName="Comments" id="HMI-ti-UEi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tuB-0v-GEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2137" y="3478"/>
+            <point key="canvasLocation" x="-2137" y="3479"/>
         </scene>
         <!--Job Review View Controller-->
         <scene sceneID="3QV-n1-mYz">
@@ -680,7 +718,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 192 products" id="bcl-Nb-p6k">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="64" width="400" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
                             <connections>
@@ -772,4 +810,7 @@
         <image name="dropbox" width="214" height="200"/>
         <image name="map-pin" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="oJ3-QQ-8sI"/>
+    </inferredMetricsTieBreakers>
 </document>

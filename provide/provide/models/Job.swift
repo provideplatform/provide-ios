@@ -94,15 +94,15 @@ class Job: Model {
     }
 
     var humanReadableProfit: String! {
-        return nil
+        return "$0.00"
     }
 
     var humanReadableExpenses: String! {
-        return nil
+        return "$0.00"
     }
 
     var humanReadableLabor: String! {
-        return nil
+        return "$0.00"
     }
 
     func hasSupervisor(supervisor: Provider) -> Bool {

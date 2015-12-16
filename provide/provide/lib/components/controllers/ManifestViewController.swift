@@ -41,6 +41,14 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
+    var expenseCaptureViewControllerDelegate: ExpenseCaptureViewControllerDelegate! {
+        didSet {
+            if let _ = expenseCaptureViewControllerDelegate {
+                reload()
+            }
+        }
+    }
+
     var products: [Product]! {
         didSet {
             if let _ = products {
@@ -108,7 +116,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
 
     private var navigationItemPrompt: String! {
-        var prompt: String! = "No Active Route"
+        var prompt: String! = nil //"No Active Route"
         if let route = route {
             if let name = route.name {
                 prompt = "Manifest for \(name)"
@@ -211,11 +219,19 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    private func reload() {
+    func reload() {
         initToolbarSegmentedControl()
 
-        navigationItem.titleView = toolbarSegmentedControl
-        navigationItem.prompt = navigationItemPrompt
+        if let navigationItem = delegate?.navigationControllerNavigationItemForViewController?(self) {
+            self.navigationItem.leftBarButtonItems = navigationItem.leftBarButtonItems
+            self.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
+            self.navigationItem.title = navigationItem.title
+            self.navigationItem.titleView = navigationItem.titleView
+            self.navigationItem.prompt = navigationItem.prompt
+        } else {
+            navigationItem.titleView = toolbarSegmentedControl
+            navigationItem.prompt = navigationItemPrompt
+        }
 
         reloadTableView()
     }
