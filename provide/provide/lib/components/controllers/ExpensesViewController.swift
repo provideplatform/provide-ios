@@ -8,8 +8,9 @@
 
 import UIKit
 
+@objc
 protocol ExpensesViewControllerDelegate {
-
+    optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
 }
 
 class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -17,7 +18,10 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
     var delegate: ExpensesViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
-                
+                if let navigationItem = delegate.navigationControllerNavigationItemForViewController?(self) {
+                    self.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
+                    self.navigationItem.title = navigationItem.title
+                }
             }
         }
     }
