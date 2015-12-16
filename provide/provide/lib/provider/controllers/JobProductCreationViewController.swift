@@ -51,6 +51,15 @@ class JobProductCreationViewController: ProductCreationViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
             if let job = job {
+                let jobProduct = job.jobProductForProduct(self.jobProduct.product)
+                if let quantity = quantityTextField?.text {
+                    jobProduct.initialQuantity = Double(quantity)!
+                }
+                if let price = priceTextField?.text {
+                    if price.length > 0 {
+                        jobProduct.price = Double(price)!
+                    }
+                }
                 job.save(
                     onSuccess: { statusCode, mappingResult in
                         self.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self, didUpdateJobProduct: self.jobProduct)

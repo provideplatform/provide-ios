@@ -17,7 +17,7 @@
         <scene sceneID="Xy6-jT-aIq">
             <objects>
                 <tableViewController id="l0f-GO-uOB" customClass="ProviderCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="1UB-8v-OuH">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="15" sectionFooterHeight="1" id="1UB-8v-OuH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,7 +47,7 @@
                             <tableViewSection headerTitle="Email Address" id="jme-1k-4aZ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="tGV-JR-Qul">
-                                        <rect key="frame" x="0.0" y="207.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="190.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tGV-JR-Qul" id="VP2-fc-aq4">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -69,7 +69,7 @@
                             <tableViewSection headerTitle="Mobile Number" id="9wM-Y2-n8n">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="wOS-kG-fjA">
-                                        <rect key="frame" x="0.0" y="301.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="267.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wOS-kG-fjA" id="qFP-y0-DtR">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -91,7 +91,7 @@
                             <tableViewSection id="FA8-e9-jvi">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="VEx-41-XYJ">
-                                        <rect key="frame" x="0.0" y="381.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="327.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VEx-41-XYJ" id="cRR-8t-2jP">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

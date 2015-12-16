@@ -14,7 +14,6 @@ protocol JobInventoryViewControllerDelegate {
 
 class JobInventoryViewContoller: UITableViewController,
                                  UISearchBarDelegate,
-                                 UIPopoverPresentationControllerDelegate,
                                  DraggableViewGestureRecognizerDelegate,
                                  ProductCreationViewControllerDelegate,
                                  ProductPickerViewControllerDelegate,
@@ -113,9 +112,10 @@ class JobInventoryViewContoller: UITableViewController,
                     jobProductCreationViewController.jobProduct = jobProduct
                     jobProductCreationViewController.jobProductCreationViewControllerDelegate = self
                     jobProductCreationViewController.modalPresentationStyle = .Popover
-                    jobProductCreationViewController.preferredContentSize = CGSizeMake(200, 400)
-                    jobProductCreationViewController.popoverPresentationController!.delegate = self
+                    jobProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
                     jobProductCreationViewController.popoverPresentationController!.sourceView = cell
+                    jobProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                    jobProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
                     self.presentViewController(jobProductCreationViewController, animated: true)
                 },
                 onError: { (error, statusCode, responseString) -> () in
@@ -155,7 +155,6 @@ class JobInventoryViewContoller: UITableViewController,
 
         if segue.identifier! == "ProductCreationViewControllerPopoverSegue" {
             segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
-            segue.destinationViewController.popoverPresentationController!.delegate = self
             ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProductCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProductPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProductPickerViewController
@@ -204,12 +203,6 @@ class JobInventoryViewContoller: UITableViewController,
             }
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
-    }
-
-    // MARK: UIPopoverPresentationControllerDelegate
-
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
     }
 
     // MARK: UISearchBarDelegate

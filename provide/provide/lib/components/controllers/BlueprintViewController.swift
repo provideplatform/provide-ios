@@ -704,6 +704,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 popover.delegate = self
                 popover.sourceView = imageView
                 popover.sourceRect = CGPathGetBoundingBox(path)
+                popover.canOverlapSourceViewRect = true
+                popover.permittedArrowDirections = [.Left, .Right]
                 popover.passthroughViews = [view]
                 
                 presentViewController(navigationController, animated: true)
