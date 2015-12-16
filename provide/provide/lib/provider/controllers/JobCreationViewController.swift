@@ -263,21 +263,25 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     }
 
     private func showActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
-                (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UILabel) {
-                view.alpha = 0.0
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) {
+            for view in cell.contentView.subviews {
+                if view.isKindOfClass(UIActivityIndicatorView) {
+                    (view as! UIActivityIndicatorView).startAnimating()
+                } else if view.isKindOfClass(UILabel) {
+                    view.alpha = 0.0
+                }
             }
         }
     }
 
     private func hideActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
-                (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UILabel) {
-                view.alpha = 1.0
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) {
+            for view in cell.contentView.subviews {
+                if view.isKindOfClass(UIActivityIndicatorView) {
+                    (view as! UIActivityIndicatorView).stopAnimating()
+                } else if view.isKindOfClass(UILabel) {
+                    view.alpha = 1.0
+                }
             }
         }
     }
