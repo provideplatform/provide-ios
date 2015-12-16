@@ -15,7 +15,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                  PackingSlipItemTableViewCellDelegate,
                                  BarcodeScannerViewControllerDelegate,
                                  CameraViewControllerDelegate,
-                                 CommentsViewControllerDelegate {
+                                 CommentCreationViewControllerDelegate {
 
     enum Segment {
         case OnTruck, Unloaded, Rejected
@@ -107,10 +107,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    private var commentsViewController: CommentsViewController! {
-        let commentsViewController = (UIStoryboard("Comments").instantiateInitialViewController() as! UINavigationController).viewControllers.first as! CommentsViewController
-        commentsViewController.commentsViewControllerDelegate = self
-        return commentsViewController
+    private var commentCreationViewController: CommentCreationViewController! {
+        let commentCreationViewController = (UIStoryboard("CommentCreation").instantiateInitialViewController() as! UINavigationController).viewControllers.first as! CommentCreationViewController
+        commentCreationViewController.commentCreationViewControllerDelegate = self
+        return commentCreationViewController
     }
 
     private var hiddenNavigationControllerFrame: CGRect {
@@ -335,7 +335,7 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                                         self.hideHUD(inView: self.targetView)
 
                                         if let navigationController = self.navigationController {
-                                            navigationController.pushViewController(self.commentsViewController, animated: true)
+                                            navigationController.pushViewController(self.commentCreationViewController, animated: true)
                                         }
                                     }
                                 },
@@ -573,10 +573,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
 
     }
 
-    // MARK: CommentsViewControllerDelegate
+    // MARK: CommentCreationViewControllerDelegate
 
-    func commentsViewController(viewController: CommentsViewController, didSubmitComment comment: String) {
-        commentsViewControllerShouldBeDismissed(viewController)
+    func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String) {
+        commentCreationViewControllerShouldBeDismissed(viewController)
 
         showHUD(inView: self.targetView)
 
@@ -592,15 +592,15 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         }
     }
 
-    func commentsViewControllerShouldBeDismissed(viewController: CommentsViewController) {
+    func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController) {
         navigationController?.popViewControllerAnimated(true)
     }
 
-    func promptForCommentsViewController(viewController: CommentsViewController) -> String! {
+    func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
         return nil
     }
 
-    func titleForCommentsViewController(viewController: CommentsViewController) -> String! {
+    func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
         return "COMMENT ON REJECTION"
     }
 }
