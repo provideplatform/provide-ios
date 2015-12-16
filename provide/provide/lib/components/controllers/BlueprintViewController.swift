@@ -90,6 +90,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var imageView: UIImageView!
 
+    private var initialToolbarFrame: CGRect!
+
     private var enableScrolling = false {
         didSet {
             if let scrollView = scrollView {
@@ -351,6 +353,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
+        initialToolbarFrame = toolbar.frame
+
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.toolbar.alpha = 0.0
@@ -365,7 +369,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
                 self.toolbar.alpha = 1.0
-                self.toolbar.frame.origin.y -= self.toolbar.frame.size.height
+                if let initialToolbarFrame = self.initialToolbarFrame {
+                    self.toolbar.frame = initialToolbarFrame
+                } else {
+                    self.toolbar.frame.origin.y -= self.toolbar.frame.size.height
+                }
+
             }, completion: { completed in
 
             }
