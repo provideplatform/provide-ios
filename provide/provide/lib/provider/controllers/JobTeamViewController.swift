@@ -440,6 +440,8 @@ class JobTeamViewController: UITableViewController,
         )
     }
 
+    // MARK: QueryResultsPickerCollectionViewCellGestureRecognizer
+
     private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
         private var collectionView: UICollectionView!
 
@@ -519,6 +521,8 @@ class JobTeamViewController: UITableViewController,
             }
         }
     }
+
+    // MARK: SupervisorPickerCollectionViewCellGestureRecognizer
 
     private class SupervisorPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
         private var collectionView: UICollectionView!
