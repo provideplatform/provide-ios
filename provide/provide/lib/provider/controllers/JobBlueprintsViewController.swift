@@ -103,7 +103,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         hideDropbox()
 
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
-            if let userInfo = notification.userInfo {
+            if let userInfo = notification.object {
                 let attachmentId = userInfo["attachment_id"] as? Int
                 let attachableType = userInfo["attachable_type"] as? String
                 let attachableId = userInfo["attachable_id"] as? Int
