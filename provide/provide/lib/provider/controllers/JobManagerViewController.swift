@@ -171,7 +171,12 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem! {
         let navigationItem = UINavigationItem()
-        navigationItem.title = segmentsForManifestViewController(viewController as! ManifestViewController)[0]
+        if viewController is ManifestViewController {
+            navigationItem.title = segmentsForManifestViewController(viewController as! ManifestViewController)[0]
+        } else if viewController is ExpensesViewController {
+            navigationItem.title = "EXPENSES"
+        }
+
         if let expenseItem = expenseItem {
             navigationItem.rightBarButtonItems = [expenseItem]
         }
