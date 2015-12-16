@@ -386,12 +386,16 @@ class WorkOrder: Model {
         return gtinsDelivered.count
     }
 
+    override func toDictionary(snakeKeys: Bool = true) -> [String : AnyObject] {
+        var dictionary = super.toDictionary(snakeKeys)
+        dictionary.removeValueForKey("config")
+        dictionary.removeValueForKey("id")
+        dictionary.removeValueForKey("job")
+        return dictionary
+    }
+
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
-        params.removeValueForKey("job")
-        params.removeValueForKey("id")
-
-        params.removeValueForKey("config")
 
         if id > 0 {
             var workOrderProviders = [[String : AnyObject]]()
