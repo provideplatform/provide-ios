@@ -13,6 +13,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
     var comment: Comment! {
         didSet {
             if let comment = comment {
+                nameLabel?.text = comment.user.name
                 bodyTextView?.text = comment.body
 
                 if let imageUrl = comment.user.profileImageUrl {
