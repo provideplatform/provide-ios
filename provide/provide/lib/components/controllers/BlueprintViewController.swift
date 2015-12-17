@@ -259,7 +259,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     
                     self.enableScrolling = true
 
-                    self.scrollView.minimumZoomScale = 0.25
+                    self.scrollView.minimumZoomScale = 0.2
                     self.scrollView.maximumZoomScale = 1.0
                     self.scrollView.zoomScale = 0.4
 
@@ -561,7 +561,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat {
-        return 0.4
+        return 0.2
     }
 
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
