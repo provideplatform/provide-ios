@@ -38,8 +38,11 @@ class User: Model {
                 }
             }
             return menuItems
+        } else {
+            var defaultMenuItems = [MenuItem]()
+            defaultMenuItems.append(MenuItem(item: ["label": "JOBS", "storyboard": "Jobs"]))
+            return defaultMenuItems
         }
-        return nil
     }
 
     override class func mapping() -> RKObjectMapping {
