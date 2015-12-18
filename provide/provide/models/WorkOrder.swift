@@ -327,7 +327,11 @@ class WorkOrder: Model {
     }
 
     var providers: [Provider] {
-        return workOrderProviders.map({ $0.provider })
+        var providers = [Provider]()
+        for workOrderProvider in workOrderProviders {
+            providers.append(workOrderProvider.provider)
+        }
+        return providers //workOrderProviders.map({ [unowned $0: workOrderProvider] in $0.provider })
     }
 
     var regionIdentifier: String {
