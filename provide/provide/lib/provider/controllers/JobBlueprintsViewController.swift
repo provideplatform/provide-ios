@@ -21,8 +21,16 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             if let _ = delegate {
                 if let _ = job {
                     if shouldLoadBlueprint {
+                        importInstructionsContainerView?.alpha = 0.0
                         loadBlueprint()
                         blueprintViewController?.blueprintViewControllerDelegate = self
+                    } else {
+                        importInstructionsContainerView?.alpha = 1.0
+                        importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
+                        importInstructionsLabel?.alpha = 1.0
+
+                        blueprintActivityIndicatorView?.stopAnimating()
+                        blueprintPreviewContainerView?.alpha = 0.0
                     }
                 }
             }
@@ -47,6 +55,9 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     }
 
     @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
+
+    @IBOutlet private weak var importInstructionsContainerView: UIView!
+    @IBOutlet private weak var importInstructionsLabel: UILabel!
 
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
@@ -105,6 +116,9 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         super.viewDidLoad()
 
         navigationItem.title = "Setup Blueprint"
+
+        importInstructionsLabel?.text = ""
+        importInstructionsContainerView?.alpha = 0.0
 
         blueprintPreviewImageView?.alpha = 0.0
 
@@ -228,6 +242,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                 blueprintPreviewContainerView.alpha = 0.0
                 blueprintActivityIndicatorView.stopAnimating()
                 showDropbox()
+                importInstructionsContainerView?.alpha = 1.0
                 reloadingBlueprint = false
             }
         }
