@@ -61,7 +61,7 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary(snakeKeys: Bool = true) -> [String : AnyObject] {
+    func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false) -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
 
         for ivar in ivars {
@@ -81,8 +81,10 @@ class Model: NSObject {
                 }
             }
 
-            key = snakeKeys ? key.snakeCaseString() : key
-            dictionary[key] = value
+            if !value.isKindOfClass(NSNull) || includeNils {
+                key = snakeKeys ? key.snakeCaseString() : key
+                dictionary[key] = value
+            }
         }
 
         if let id = dictionary["id"] as? Int {

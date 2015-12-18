@@ -386,7 +386,7 @@ class WorkOrder: Model {
         return gtinsDelivered.count
     }
 
-    override func toDictionary(snakeKeys: Bool = true) -> [String : AnyObject] {
+    override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = true) -> [String : AnyObject] {
         var dictionary = super.toDictionary(snakeKeys)
         dictionary.removeValueForKey("config")
         dictionary.removeValueForKey("id")
