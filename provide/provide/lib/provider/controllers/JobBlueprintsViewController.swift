@@ -84,6 +84,9 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     private var importStatus: String! {
         didSet {
             if let importStatus = importStatus {
+                view.sendSubviewToBack(importInstructionsContainerView)
+                importInstructionsContainerView.alpha = 0.0
+
                 blueprintActivityIndicatorView.startAnimating()
                 blueprintPreviewStatusLabel.text = importStatus
                 blueprintPreviewStatusLabel.alpha = 1.0
