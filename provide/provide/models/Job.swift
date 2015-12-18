@@ -333,6 +333,18 @@ class Job: Model {
         )
     }
 
+    func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().updateJobWithId(String(id), params: ["status": "canceled"],
+            onSuccess: { statusCode, mappingResult in
+                self.status = "canceled"
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
         params.removeValueForKey("id")

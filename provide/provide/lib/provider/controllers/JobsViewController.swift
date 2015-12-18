@@ -8,7 +8,12 @@
 
 import UIKit
 
-class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, JobCreationViewControllerDelegate {
+class JobsViewController: ViewController,
+                          UITableViewDelegate,
+                          UITableViewDataSource,
+                          UIPopoverPresentationControllerDelegate,
+                          JobCreationViewControllerDelegate,
+                          DraggableViewGestureRecognizerDelegate {
 
     @IBOutlet private weak var addJobBarButtonItem: UIBarButtonItem! {
         didSet {
@@ -17,7 +22,7 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
             }
         }
     }
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
 
     private var page = 1
     private let rpp = 10
@@ -26,6 +31,8 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
     private var refreshControl: UIRefreshControl!
 
     private var jobCreationViewController: JobCreationViewController!
+
+    private var cancellingJob = false
 
     private var jobs = [Job]() {
         didSet {
@@ -128,6 +135,19 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("jobsTableViewCellReuseIdentifier", forIndexPath: indexPath) as! JobTableViewCell
         cell.job = jobs[indexPath.row]
+
+//        if let gestureRecognizers = cell.containerView.gestureRecognizers {
+//            for gestureRecognizer in gestureRecognizers {
+//                if gestureRecognizer.isKindOfClass(JobTableViewCellGestureRecognizer) {
+//                    cell.containerView.removeGestureRecognizer(gestureRecognizer)
+//                }
+//            }
+//        }
+//
+//        let gestureRecognizer = JobTableViewCellGestureRecognizer(viewController: self)
+//        gestureRecognizer.draggableViewGestureRecognizerDelegate = self
+//        cell.containerView.addGestureRecognizer(gestureRecognizer)
+
         return cell
     }
 
@@ -143,7 +163,10 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 //
 //    // Individual rows can opt out of having the -editing property set for them. If not implemented, all rows are assumed to be editable.
 //    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
 //
 //    // Moving/reordering
 //
@@ -163,7 +186,48 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 //    // After a row has the minus or plus button invoked (based on the UITableViewCellEditingStyle for the cell), the dataSource must commit the change
 //    // Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
 //    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            cancelJobAtIndexPath(indexPath)
+        }
+    }
+
+    func cancelJobAtIndexPath(indexPath: NSIndexPath) {
+        let job = jobs[indexPath.row]
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? JobTableViewCell {
+            if ["canceled", "completed"].indexOf(job.status) == nil {
+                //cell.dismiss()
+                promptForJobCancellation(job, cell: cell)
+            }
+        }
+    }
+
+    func promptForJobCancellation(job: Job, cell: JobTableViewCell) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Are you sure you want to cancel this job?", message: nil, preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "No, Don't Cancel", style: .Cancel) { action in
+            cell.reset()
+        }
+        alertController.addAction(cancelAction)
+
+        let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .Destructive) { action in
+            job.cancel(
+                onSuccess: { statusCode, mappingResult in
+                    self.tableView?.beginUpdates()
+                    self.jobs.removeObject(job)
+                    self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
+                    self.tableView?.endUpdates()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+        alertController.addAction(setCancelJobAction)
+
+        presentViewController(alertController, animated: true)
+    }
 //
 //    // Data manipulation - reorder / moving support
 //
@@ -249,8 +313,9 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
 //    // Editing
 //
 //    // Allows customization of the editingStyle for a particular cell located at 'indexPath'. If not implemented, all editable cells will have UITableViewCellEditingStyleDelete set for them when the table has editing property set to YES.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
 //    @available(iOS 3.0, *)
 //    optional public func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String?
 //    @available(iOS 8.0, *)
@@ -310,5 +375,134 @@ class JobsViewController: ViewController, UITableViewDelegate, UITableViewDataSo
         let jobCreationTableViewCell = JobTableViewCell(frame: CGRectZero)
         jobCreationTableViewCell.job = job
         performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: jobCreationTableViewCell)
+    }
+
+    // MARK: DraggableViewGestureRecognizerDelegate
+
+    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+        return false
+    }
+
+    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+//        if gestureRecognizer.isKindOfClass(JobTableViewCell) {
+//            return (gestureRecognizer as! JobTableViewCellGestureRecognizer).shouldAnimateViewReset
+//        }
+        return false
+    }
+
+    func jobsTableViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        // no-op
+    }
+
+    private class JobTableViewCellGestureRecognizer: DraggableViewGestureRecognizer {
+
+        private var tableView: UITableView! {
+            return jobsViewController?.tableView
+        }
+
+        private var jobsViewController: JobsViewController!
+
+        private var initialBackgroundColor: UIColor!
+
+        private var shouldCancelJob = false
+
+//        private var window: UIWindow! {
+//            return UIApplication.sharedApplication().keyWindow!
+//        }
+
+//        var shouldAnimateViewReset: Bool {
+//            return !shouldCancelJob
+//        }
+
+        init(viewController: JobsViewController) {
+            super.init(target: viewController, action: "jobsTableViewCellGestureRecognized:")
+            jobsViewController = viewController
+        }
+
+        override private var initialView: UIView! {
+            didSet {
+                if let initialView = initialView {
+                    if initialView.superview!.isKindOfClass(JobTableViewCell) {
+//                        tableView = initialView.superview! as! UITableView
+//                        tableView?.scrollEnabled = false
+
+                        //initialView.frame = tableView.convertRect(initialView.frame, toView: nil)
+
+//                        window.addSubview(initialView)
+//                        window.bringSubviewToFront(initialView)
+                    }
+                } else if let _ = oldValue {
+                    //supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
+
+//                    tableView?.scrollEnabled = true
+//                    tableView = nil
+
+                    shouldCancelJob = false
+                }
+            }
+        }
+
+        private func dismissCell() {
+            if let tableViewCell = initialView.superview?.superview as? JobTableViewCell {
+                tableViewCell.dismiss()
+            }
+        }
+
+        private func restoreCell() {
+            if let tableViewCell = initialView.superview?.superview as? JobTableViewCell {
+                tableViewCell.reset()
+            }
+        }
+
+        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+            let cell = initialView.superview!.superview! as! JobTableViewCell
+            let indexPath = tableView.indexPathForCell(cell)!
+            let selected = abs(initialView.frame.origin.x) <= 5.0
+
+            if shouldCancelJob {
+                jobsViewController?.cancelJobAtIndexPath(indexPath)
+            } else {
+                restoreCell()
+            }
+
+            super.touchesEnded(touches, withEvent: event)
+
+            if selected {
+                dispatch_after_delay(0.0) { [weak self] in
+                    self!.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+                    self!.jobsViewController?.performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: cell)
+                    cell.setHighlighted(false, animated: true)
+                    cell.setSelected(false, animated: true)
+                }
+            }
+        }
+
+        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+            var newFrame = CGRect(origin: initialView.frame.origin, size: initialView.frame.size)
+            newFrame.origin.x += xOffset
+
+            initialView.frame = newFrame
+
+            if initialView == nil || tableView == nil {
+                return
+            }
+
+            //let tableViewFrame = tableView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
+            let cancelStrength = abs(initialView.frame.origin.x) / initialView.frame.width
+            let isCancelSwipeDirection = initialView.frame.origin.x < 0.0
+            shouldCancelJob = !jobsViewController.cancellingJob && cancelStrength >= 0.25 && isCancelSwipeDirection
+
+            if isCancelSwipeDirection {
+                initialView.backgroundColor = Color.abandonedStatusColor().colorWithAlphaComponent(cancelStrength / 0.75)
+            }
+
+            if shouldCancelJob {
+                //let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                //(initialView as! JobTableViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
+            } else {
+                //restoreCell()
+                //(initialView as! JobTableViewCell).accessoryImage = nil
+            }
+        }
     }
 }

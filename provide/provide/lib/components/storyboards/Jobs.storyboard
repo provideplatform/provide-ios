@@ -26,26 +26,40 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vQd-Uz-u2J" id="bWy-Lh-OEI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
-                                                    <rect key="frame" x="21" y="39" width="263" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="263" id="cqv-on-KF1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-7e-VIa" userLabel="Container View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="wal mart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
+                                                            <rect key="frame" x="8" y="0.0" width="66" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leadingMargin" constant="13" id="8dO-4T-IM0"/>
-                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="topMargin" constant="31" id="FUC-7l-Bes"/>
-                                                <constraint firstItem="uVm-fa-pZl" firstAttribute="centerY" secondItem="bWy-Lh-OEI" secondAttribute="centerY" id="jjl-c4-4hq"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leading" id="4iQ-O6-fV3"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="CS2-26-EM4"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="OfP-vG-v9e"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="bottom" secondItem="R8O-VO-LP2" secondAttribute="bottom" id="cGP-iy-2TB"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="leading" secondItem="R8O-VO-LP2" secondAttribute="leading" id="fNy-DK-RhN"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="R8O-VO-LP2" secondAttribute="top" id="sBg-tc-yDt"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="R8O-VO-LP2" secondAttribute="bottom" constant="-22.5" id="u22-ce-gHU"/>
+                                                <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="wRb-ik-7bX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="backgroundView" destination="R8O-VO-LP2" id="a8f-yB-QJn"/>
+                                            <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
                                             <segue destination="HbV-mu-6GN" kind="show" identifier="JobWizardTabBarControllerSegue" id="l9Y-AM-Vs2">
                                                 <nil key="action"/>
