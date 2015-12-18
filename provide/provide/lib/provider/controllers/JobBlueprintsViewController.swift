@@ -202,14 +202,14 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                 blueprintPreviewContainerView.alpha = 1.0
                 blueprintPreviewImageView.contentMode = .ScaleAspectFit
                 blueprintPreviewImageView?.sd_setImageWithURL(blueprintImageUrl, placeholderImage: nil,
-                    completed: { image, error, cacheType, url in
-                        self.blueprintPreviewImageView.alpha = 1.0
-                        self.blueprintPreviewStatusLabel.alpha = 0.0
-                        self.blueprintPreviewStatusLabel.text = ""
-                        self.blueprintActivityIndicatorView.stopAnimating()
-                        self.hideDropbox()
-                        self.blueprintViewController.blueprintViewControllerDelegate = self
-                        self.reloadingBlueprint = false
+                    completed: { [weak self] image, error, cacheType, url in
+                        self!.blueprintPreviewImageView.alpha = 1.0
+                        self!.blueprintPreviewStatusLabel.alpha = 0.0
+                        self!.blueprintPreviewStatusLabel.text = ""
+                        self!.blueprintActivityIndicatorView.stopAnimating()
+                        self!.hideDropbox()
+                        self!.blueprintViewController.blueprintViewControllerDelegate = self!
+                        self!.reloadingBlueprint = false
                     }
                 )
             } else if importedPdfAttachment == nil {

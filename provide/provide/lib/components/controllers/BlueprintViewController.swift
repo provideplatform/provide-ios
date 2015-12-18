@@ -175,6 +175,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         loadBlueprint()
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
@@ -253,34 +257,34 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if let url = job.blueprintImageUrl {
                 loadingBlueprint = true
 
-                imageView.sd_setImageWithURL(url) { (image, error, cacheType, url) -> Void in
+                imageView.sd_setImageWithURL(url) { [weak self] image, error, cacheType, url in
                     let size = CGSize(width: image.size.width, height: image.size.height)
 
-                    self.thumbnailView.blueprintImage = image
+                    self!.thumbnailView.blueprintImage = image
 
-                    self.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-                    self.imageView.contentMode = .ScaleToFill
+                    self!.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
+                    self!.imageView.contentMode = .ScaleToFill
 
-                    self.scrollView.contentSize = size
-                    self.scrollView.scrollEnabled = false
-                    self.scrollView.addSubview(self.imageView)
-                    
-                    self.enableScrolling = true
+                    self!.scrollView.contentSize = size
+                    self!.scrollView.scrollEnabled = false
+                    self!.scrollView.addSubview(self!.imageView)
 
-                    self.scrollView.minimumZoomScale = 0.2
-                    self.scrollView.maximumZoomScale = 1.0
-                    self.scrollView.zoomScale = 0.4
+                    self!.enableScrolling = true
+
+                    self!.scrollView.minimumZoomScale = 0.2
+                    self!.scrollView.maximumZoomScale = 1.0
+                    self!.scrollView.zoomScale = 0.4
 
                     UIView.animateWithDuration(0.1, animations: { () -> Void in
-                        self.scrollView.bringSubviewToFront(self.imageView)
-                        self.imageView.alpha = 1.0
+                        self!.scrollView.bringSubviewToFront(self!.imageView)
+                        self!.imageView.alpha = 1.0
 
-                        self.loadingBlueprint = false
-                        self.toolbar.reload()
+                        self!.loadingBlueprint = false
+                        self!.toolbar.reload()
                     })
 
-                    self.showToolbar()
-                    self.loadedBlueprint = true
+                    self!.showToolbar()
+                    self!.loadedBlueprint = true
                 }
 
                 loadAnnotations()
@@ -295,12 +299,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 let rpp = max(100, job.blueprintAnnotationsCount)
                 let params = ["page": "1", "rpp": "\(rpp)"]
                 blueprint.fetchAnnotations(params,
-                    onSuccess: { statusCode, mappingResult in
-                        self.refreshAnnotations()
-                        self.loadingAnnotations = false
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        self!.refreshAnnotations()
+                        self!.loadingAnnotations = false
                     },
-                    onError: { error, statusCode, responseString in
-                        self.loadingAnnotations = false
+                    onError: { [weak self] error, statusCode, responseString in
+                        self!.loadingAnnotations = false
                     }
                 )
             }
