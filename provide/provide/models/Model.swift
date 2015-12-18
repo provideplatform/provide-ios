@@ -24,6 +24,7 @@ class Model: NSObject {
             let key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
             ivarStrings.append(key)
         }
+        ivars.dealloc(Int(count))
         return ivarStrings
     }
 
