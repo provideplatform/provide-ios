@@ -138,16 +138,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-39-ca5" userLabel="Thumbnail Image Background View">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-39-ca5" userLabel="Thumbnail Image Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="leading" secondItem="7lt-JJ-eAg" secondAttribute="leading" placeholder="YES" id="A6v-da-bTE"/>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="leading" secondItem="IXh-ML-zzU" secondAttribute="leading" id="GZl-qn-Tcc"/>
+                            <constraint firstItem="EKC-DL-Paa" firstAttribute="top" secondItem="7lt-JJ-eAg" secondAttribute="bottom" constant="130" placeholder="YES" id="aqK-s4-88Q"/>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="top" secondItem="7lt-JJ-eAg" secondAttribute="top" placeholder="YES" id="cpm-0u-Xuz"/>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="height" secondItem="IXh-ML-zzU" secondAttribute="height" id="ems-bZ-YAO"/>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="top" secondItem="UP7-qx-ttT" secondAttribute="bottom" id="huZ-6o-fM1"/>
+                            <constraint firstItem="LYg-39-ca5" firstAttribute="width" secondItem="IXh-ML-zzU" secondAttribute="width" id="iGu-kM-IeU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7lt-JJ-eAg" secondAttribute="trailing" constant="48" placeholder="YES" id="jh8-cu-mTB"/>
+                        </constraints>
                         <connections>
                             <outlet property="overlayView" destination="7lt-JJ-eAg" id="IHD-af-N3G"/>
                             <outlet property="thumbnailImageBackgroundView" destination="LYg-39-ca5" id="7sp-NM-BUj"/>
