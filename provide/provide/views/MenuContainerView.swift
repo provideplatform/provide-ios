@@ -17,9 +17,16 @@ class MenuContainerView: UIView {
     private var touchesBeganTimestamp: NSDate!
 
     private var menuViewControllerFrame: CGRect {
+        var width = frame.width
+        if isIPad() {
+            width = width * 0.5
+        } else {
+            width = min(274.0, width * 0.66)
+        }
+
         return CGRect(x: menuViewFrameOffsetX,
                       y: 0.0,
-                      width: frame.width * (isIPad() ? 0.5 : 0.66),
+                      width: width,
                       height: frame.height)
     }
 
@@ -28,7 +35,7 @@ class MenuContainerView: UIView {
     }
 
     private var exposedMenuViewPercentage: CGFloat {
-        return 0.05
+        return 0.025
     }
 
     private var closedMenuOffsetX: CGFloat {
