@@ -10,6 +10,7 @@ import Foundation
 
 typealias OnSuccess = (statusCode: Int, mappingResult: RKMappingResult!) -> ()
 typealias OnError = (error: NSError, statusCode: Int, responseString: String) -> ()
+typealias OnURLFetched = (statusCode: Int, response: NSData) -> ()
 typealias OnTotalResultsCount = (totalResultsCount: Int, error: NSError!) -> ()
 
 class ApiService: NSObject {
@@ -141,6 +142,28 @@ class ApiService: NSObject {
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
         AnalyticsService.sharedService().logout()
+    }
+
+    // MARK: Fetch images
+
+    func fetchURL(url: NSURL, onURLFetched: OnURLFetched, onError: OnError) {
+        let api = MKNetworkEngine(hostName: url.host)
+        let path = NSString(string: url.path!)
+
+        let params = url.query != nil ? url.query!.toJSONObject() : [:]
+        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params, httpMethod: "GET", ssl: url.scheme == "https")
+
+        op.addCompletionHandler(
+            { completedOperation in
+                let statusCode = completedOperation.HTTPStatusCode
+                onURLFetched(statusCode: statusCode, response: completedOperation.responseData())
+            },
+            errorHandler: { completedOperation, error in
+                onError(error: error, statusCode: completedOperation.HTTPStatusCode, responseString: completedOperation.responseString())
+            }
+        )
+
+        api.enqueueOperation(op)
     }
 
     // MARK: Attachments API
