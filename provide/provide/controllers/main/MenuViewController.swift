@@ -73,8 +73,11 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     func alignSections() {
-        // Position the 2nd section to line up flush with the bottom of the view
-        let totalCellCount = tableView.numberOfRowsInSection(0) + tableView.numberOfRowsInSection(1) + tableView.numberOfRowsInSection(2)
+        var totalCellCount = 0
+        var i = 0
+        while i < tableView.numberOfSections {
+            totalCellCount += tableView.numberOfRowsInSection(i++)
+        }
         //let rowHeight = tableView[0].bounds.height // height of first cell
         let totalCellHeight = CGFloat(totalCellCount) * 50.0
         let versionNumberHeight: CGFloat = 38
