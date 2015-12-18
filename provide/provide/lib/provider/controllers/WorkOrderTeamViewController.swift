@@ -19,7 +19,7 @@ class WorkOrderTeamViewController: UITableViewController,
                                    ProviderCreationViewControllerDelegate,
                                    DraggableViewGestureRecognizerDelegate {
 
-    let maximumSearchlessProvidersCount = 20
+    let maximumSearchlessProvidersCount = 5
 
     var delegate: WorkOrderTeamViewControllerDelegate! {
         didSet {
@@ -46,6 +46,8 @@ class WorkOrderTeamViewController: UITableViewController,
     private var removingProvider = false
 
     private var totalProvidersCount = -1
+
+    private var popoverHeightOffset: CGFloat!
 
     private var showsAllProviders: Bool {
         return totalProvidersCount == -1 || totalProvidersCount <= maximumSearchlessProvidersCount
@@ -79,6 +81,42 @@ class WorkOrderTeamViewController: UITableViewController,
         navigationItem.title = "Setup Team"
 
         searchBar?.placeholder = ""
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow", name: UIKeyboardWillShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification)
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    func reloadQueryResultsPickerViewController() {
+        queryResultsPickerViewController?.reloadCollectionView()
+    }
+
+    func keyboardWillShow() {
+        if let _ = popoverPresentationController {
+            popoverHeightOffset = view.convertRect(view.frame, toView: nil).origin.y
+        }
+    }
+
+    func keyboardDidShow() {
+        if let _ = popoverPresentationController {
+            if let popoverHeightOffset = popoverHeightOffset {
+                self.popoverHeightOffset = popoverHeightOffset + view.convertRect(view.frame, toView: nil).origin.y
+            }
+        }
+    }
+
+    func keyboardDidHide() {
+
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -116,20 +154,22 @@ class WorkOrderTeamViewController: UITableViewController,
             providersPickerViewController?.providers.append(provider)
             let indexPaths = [NSIndexPath(forRow: (providersPickerViewController?.providers.count)! - 1, inSection: 0)]
             providersPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
-            let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
-            cell.showActivityIndicator()
+            if let _ = providersPickerViewController?.collectionView {
+                let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+                cell.showActivityIndicator()
 
-            workOrder?.addProvider(provider,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.addingProvider = false
-                    cell.hideActivityIndicator()
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.providersPickerViewController?.providers.removeObject(provider)
-                    self.providersPickerViewController?.reloadCollectionView()
-                    self.addingProvider = false
-                }
-            )
+                workOrder?.addProvider(provider,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        self.addingProvider = false
+                        cell.hideActivityIndicator()
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self.providersPickerViewController?.providers.removeObject(provider)
+                        self.providersPickerViewController?.reloadCollectionView()
+                        self.addingProvider = false
+                    }
+                )
+            }
         }
     }
 
@@ -295,16 +335,6 @@ class WorkOrderTeamViewController: UITableViewController,
     }
 
     func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        //        if providersPickerViewController != nil && viewController == providersPickerViewController {
-        //            if let supervisors = workOrder?.supervisors {
-        //                return supervisors
-        //            } else {
-        //                reloadWorkOrderForProviderPickerViewController(viewController)
-        //            }
-        //        } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
-        //
-        //        }
-
         return [Provider]()
     }
 
@@ -455,6 +485,7 @@ class WorkOrderTeamViewController: UITableViewController,
 
     private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
         private var collectionView: UICollectionView!
+        private var popoverHeightOffset:CGFloat = 0.0
 
         private var workOrderTeamViewController: WorkOrderTeamViewController!
 
@@ -491,6 +522,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         collectionView.scrollEnabled = false
 
                         initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        popoverHeightOffset = collectionView.convertRect(collectionView.frame, toView: nil).origin.y
 
                         window.addSubview(initialView)
                         window.bringSubviewToFront(initialView)
@@ -509,6 +541,11 @@ class WorkOrderTeamViewController: UITableViewController,
                     shouldAddProvider = false
                 }
             }
+        }
+
+        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+            initialFrame?.origin.y -= popoverHeightOffset - collectionView.convertRect(collectionView.frame, toView: nil).origin.y
+            super.touchesEnded(touches, withEvent: event)
         }
 
         private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
@@ -619,5 +656,9 @@ class WorkOrderTeamViewController: UITableViewController,
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil
             }
         }
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
