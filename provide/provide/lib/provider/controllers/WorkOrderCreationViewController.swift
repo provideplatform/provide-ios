@@ -21,7 +21,12 @@ protocol WorkOrderCreationViewControllerDelegate {
 
 }
 
-class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderPickerViewControllerDelegate, PDTSimpleCalendarViewDelegate, CameraViewControllerDelegate, ExpenseCaptureViewControllerDelegate {
+class WorkOrderCreationViewController: WorkOrderDetailsViewController,
+                                       ProviderPickerViewControllerDelegate,
+                                       PDTSimpleCalendarViewDelegate,
+                                       CameraViewControllerDelegate,
+                                       ExpenseCaptureViewControllerDelegate,
+                                       WorkOrderTeamViewControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -185,6 +190,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
 
         refreshUI()
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "WorkOrderTeamViewControllerEmbedSegue" {
+            (segue.destinationViewController as! WorkOrderTeamViewController).delegate = self
+        }
     }
 
     // MARK: UITableViewDelegate
@@ -487,4 +500,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController, ProviderP
         delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
     }
 
+    // MARK: WorkOrderTeamViewControllerDelegate
+
+    func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder! {
+        return workOrder
+    }
 }

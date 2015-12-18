@@ -214,6 +214,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="WgH-zJ-BVu" secondAttribute="trailing" constant="-20" id="nkx-pP-5cf"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="headerView" destination="WgH-zJ-BVu" id="sny-Cd-9A3"/>
                         <outlet property="tableView" destination="caq-8z-aq7" id="8pV-5D-BcP"/>
@@ -222,6 +223,112 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SA4-ey-GBe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1091" y="3340"/>
+        </scene>
+        <!--ProviderPicker-->
+        <scene sceneID="Mpb-PV-gJP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProviderPicker" id="fvI-hA-YmN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dMa-3J-SZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1566.5" y="3850"/>
+        </scene>
+        <!--Work Order Team View Controller-->
+        <scene sceneID="zxo-P2-qzO">
+            <objects>
+                <tableViewController storyboardIdentifier="WorkOrderTeamViewController" id="NsV-qQ-ADE" customClass="WorkOrderTeamViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="axJ-1x-zUm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 214 service providers" id="byI-st-j6I">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="NsV-qQ-ADE" id="t6j-lp-Xhx"/>
+                            </connections>
+                        </searchBar>
+                        <sections>
+                            <tableViewSection headerTitle="Search Results" id="1sf-jI-BiU">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="kwd-LN-IqO">
+                                        <rect key="frame" x="0.0" y="93.5" width="600" height="125"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kwd-LN-IqO" id="QMz-II-f7R">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u5O-hZ-E5n">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
+                                                    <connections>
+                                                        <segue destination="fvI-hA-YmN" kind="embed" identifier="QueryResultsProviderPickerEmbedSegue" id="3Ti-NV-jS6"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="u5O-hZ-E5n" firstAttribute="leading" secondItem="QMz-II-f7R" secondAttribute="leadingMargin" constant="-8" id="LBK-bZ-JP1"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="u5O-hZ-E5n" secondAttribute="trailing" constant="-8" id="MlN-Hk-4pb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="u5O-hZ-E5n" secondAttribute="bottom" constant="-8.5" id="N31-Xw-qfA"/>
+                                                <constraint firstItem="u5O-hZ-E5n" firstAttribute="top" secondItem="QMz-II-f7R" secondAttribute="topMargin" constant="-8" id="ZA4-7b-ryd"/>
+                                                <constraint firstItem="u5O-hZ-E5n" firstAttribute="centerX" secondItem="QMz-II-f7R" secondAttribute="centerX" id="aq6-FU-Wo0"/>
+                                                <constraint firstItem="u5O-hZ-E5n" firstAttribute="centerY" secondItem="QMz-II-f7R" secondAttribute="centerY" id="pVx-Ay-vOd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Service Providers" id="GjA-wq-DFB" userLabel="Search Results">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="Rze-bS-VQN">
+                                        <rect key="frame" x="0.0" y="268.5" width="600" height="125"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rze-bS-VQN" id="nH0-2i-hNh">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75d-ym-dDC">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
+                                                    <connections>
+                                                        <segue destination="DqG-Bc-nrr" kind="embed" identifier="ProviderPickerEmbedSegue" id="yEN-hM-2Ti"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="75d-ym-dDC" secondAttribute="bottom" constant="-8.5" id="5iF-io-thd"/>
+                                                <constraint firstItem="75d-ym-dDC" firstAttribute="centerY" secondItem="nH0-2i-hNh" secondAttribute="centerY" id="MSy-sK-xOC"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="75d-ym-dDC" secondAttribute="trailing" constant="-8" id="cD8-9n-UWt"/>
+                                                <constraint firstItem="75d-ym-dDC" firstAttribute="leading" secondItem="nH0-2i-hNh" secondAttribute="leadingMargin" constant="-8" id="liB-pb-ZSY"/>
+                                                <constraint firstItem="75d-ym-dDC" firstAttribute="top" secondItem="nH0-2i-hNh" secondAttribute="topMargin" constant="-8" id="vnk-3d-CK3"/>
+                                                <constraint firstItem="75d-ym-dDC" firstAttribute="centerX" secondItem="nH0-2i-hNh" secondAttribute="centerX" id="zfL-5l-XOR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="NsV-qQ-ADE" id="uOq-E9-bh5"/>
+                            <outlet property="delegate" destination="NsV-qQ-ADE" id="Ady-1x-qyB"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="aTq-J0-zy6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Uzn-nC-dJ1"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="byI-st-j6I" id="MaT-wH-hLv"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V0B-Pm-sra" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1091" y="4006"/>
+        </scene>
+        <!--ProviderPicker-->
+        <scene sceneID="hjX-Ir-K9b">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProviderPicker" id="DqG-Bc-nrr" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3vB-v6-d6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1566.5" y="4030"/>
         </scene>
     </scenes>
 </document>

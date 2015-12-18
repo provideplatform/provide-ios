@@ -276,6 +276,7 @@
 		68F537331B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537341B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537351B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
+		68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */; };
 		B6AF8C6637FD6FBF5B15C2AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C425DC105EC0EE6EF2DA44 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -554,6 +555,7 @@
 		68F730671B07DE94001A21B0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		68F730681B07DE94001A21B0 /* WorkOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrder.swift; sourceTree = "<group>"; };
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
+		68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderTeamViewController.swift; sourceTree = "<group>"; };
 		C1C425DC105EC0EE6EF2DA44 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6BCE7A9D383AD1B3C43363 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D97B413E731DE62D384B2EC6 /* Pods.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.appstore.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.appstore.xcconfig"; sourceTree = "<group>"; };
@@ -921,6 +923,7 @@
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
+				68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
 			);
 			path = controllers;
@@ -1476,6 +1479,7 @@
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
 				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
 				687CB5841B07ED490048B692 /* NSDateFormatterExtensions.swift in Sources */,
+				68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */,
 				681416EE1B8457870076BFBD /* Origin.swift in Sources */,
 				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,

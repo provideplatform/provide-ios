@@ -798,21 +798,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
                 viewController = calendarViewController
             case 1:
-                viewController = UIStoryboard("ProviderPicker").instantiateInitialViewController()
-                (viewController as! ProviderPickerViewController).delegate = workOrderCreationViewController
-                var params = [String : AnyObject]()
-                if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                    params["company_id"] = defaultCompanyId
-                }
-                ApiService.sharedService().fetchProviders(params,
-                    onSuccess: { statusCode, mappingResult in
-                        let providers = mappingResult.array() as! [Provider]
-                        (viewController as! ProviderPickerViewController).providers = providers
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
+                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
+                (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
             case 2:
                 print("open up the sq footage cost details editor!!!")
             case 3:

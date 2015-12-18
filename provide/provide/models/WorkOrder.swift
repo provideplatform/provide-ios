@@ -400,6 +400,22 @@ class WorkOrder: Model {
         return dictionary
     }
 
+    func addProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
+        if !hasProvider(provider) {
+            let workOrderProvider = WorkOrderProvider()
+            workOrderProvider.provider = provider
+            workOrderProviders.append(workOrderProvider)
+            save(onSuccess: onSuccess, onError: onError)
+        }
+    }
+
+    func removeProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
+        if hasProvider(provider) {
+            removeProvider(provider)
+            save(onSuccess: onSuccess, onError: onError)
+        }
+    }
+
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
 
