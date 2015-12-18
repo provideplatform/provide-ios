@@ -20,8 +20,10 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         didSet {
             if let _ = delegate {
                 if let _ = job {
-                    loadBlueprint()
-                    blueprintViewController?.blueprintViewControllerDelegate = self
+                    if shouldLoadBlueprint {
+                        loadBlueprint()
+                        blueprintViewController?.blueprintViewControllerDelegate = self
+                    }
                 }
             }
         }
@@ -87,6 +89,16 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             return job
         }
         return nil
+    }
+
+    private var shouldLoadBlueprint: Bool {
+        var loadBlueprint = true
+        if let blueprint = job?.blueprint {
+            if let _ = blueprint.metadata["scale"] as? Double {
+                loadBlueprint = false
+            }
+        }
+        return loadBlueprint
     }
 
     override func viewDidLoad() {
@@ -192,7 +204,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
 
-    private func loadBlueprint() {
+    private func loadBlueprint(force: Bool = false) {
         if !reloadingBlueprint {
             if let blueprintImageUrl = job.blueprintImageUrl {
                 reloadingBlueprint = true
