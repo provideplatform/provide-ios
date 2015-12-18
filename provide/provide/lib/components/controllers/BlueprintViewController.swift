@@ -175,6 +175,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
         loadBlueprint()
     }
 
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+
+        dispatch_after_delay(0.0) {
+            self.thumbnailView?.blueprintImage = self.imageView.image
+        }
+    }
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
