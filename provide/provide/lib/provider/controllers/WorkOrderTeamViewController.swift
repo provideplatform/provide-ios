@@ -19,7 +19,7 @@ class WorkOrderTeamViewController: UITableViewController,
                                    ProviderCreationViewControllerDelegate,
                                    DraggableViewGestureRecognizerDelegate {
 
-    let maximumSearchlessProvidersCount = 5
+    let maximumSearchlessProvidersCount = 20
 
     var delegate: WorkOrderTeamViewControllerDelegate! {
         didSet {
