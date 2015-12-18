@@ -34,41 +34,76 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         alignSections()
     }
 
-    // MARK: UITableView Delegate Functions
+    // MARK: UITableViewDataSource
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("menuTableViewCellReuseIdentifier") as! MenuTableViewCell
+
+        let menuItems = currentUser().menuItems
+        if menuItems != nil && indexPath.section == 0 {
+            cell.menuItem = menuItems[indexPath.row]
+        } else if indexPath.section == 1 {
+            var menuItem: MenuItem!
+            switch indexPath.row {
+            case 0:
+                menuItem = MenuItem(item: ["label": "SUPPORT", "url": "\(CurrentEnvironment.baseUrlString)/#/support"])
+            case 1:
+                menuItem = MenuItem(item: ["label": "LEGAL", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
+            case 2:
+                menuItem = MenuItem(item: ["label": "LOGOUT", "action": "logout"])
+            default:
+                break
+            }
+
+            if let menuItem = menuItem {
+                cell.menuItem = menuItem
+            }
+        }
+
+        return cell
+    }
+
+    // MARK: UITableViewDelegate
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedCell = tableView.cellForRowAtIndexPath(indexPath)!
-        let reuseIdentifier = selectedCell.reuseIdentifier ?? ""
+        //let reuseIdentifier = selectedCell.reuseIdentifier ?? ""
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
-        switch reuseIdentifier {
-        case "JobsCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
-        case "RouteCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
-        case "RouteHistoryCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
-        case "WorkOrderHistoryCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
-        case "SupportCell":
-            let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-            webViewController.url = NSURL(string: "\(CurrentEnvironment.baseUrlString)/#/support")
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
-            delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
-        case "LegalCell":
-            let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
-            webViewController.url = NSURL(string: "\(CurrentEnvironment.baseUrlString)/#/legal")
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
-            delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
-        case "LogoutCell":
-            logout(selectedCell)
+        if selectedCell.isKindOfClass(MenuTableViewCell) {
+            if let menuItem = (selectedCell as! MenuTableViewCell).menuItem {
+                if let selector = menuItem.selector {
+                    if respondsToSelector(selector) {
+                        performSelector(selector)
+                    }
+                } else if let storyboard = menuItem.storyboard {
+                    segueToInitialViewControllerInStoryboard(storyboard)
+                } else if let url = menuItem.url {
+                    let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+                    webViewController.url = url
+                    NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+                    delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
+                }
+            }
+        }
+    }
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            if let menuItems = currentUser().menuItems {
+                return menuItems.count
+            }
+            return 4
+        case 1:
+            return 3
         default:
-            break
+            return 0
         }
     }
 
@@ -95,7 +130,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
     }
 
-    private func logout(sender: UITableViewCell) {
+    func logout() {
         let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
         let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to logout?", preferredStyle: preferredStyle)
 
@@ -113,7 +148,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 },
                 onError: { error, _, _ in
                     logWarn("Logout attempt failed; " + error.localizedDescription)
-                    sender.userInteractionEnabled = true
+                    //sender.userInteractionEnabled = true
                 }
             )
         }

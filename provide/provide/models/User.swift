@@ -20,10 +20,24 @@ class User: Model {
     var providers: [Provider]!
     var providerIds = [Int]()
     var defaultCompanyId = 0
+    var menuItemsPreference: NSArray!
 
     var profileImageUrl: NSURL! {
         if let profileImageUrlString = profileImageUrlString {
             return NSURL(string: profileImageUrlString)
+        }
+        return nil
+    }
+
+    var menuItems: [MenuItem]! {
+        if let menuItemsPreference = menuItemsPreference {
+            var menuItems = [MenuItem]()
+            for menuItemPreference in menuItemsPreference {
+                if let item = menuItemPreference as? NSDictionary {
+                    menuItems.append(MenuItem(item: item as! [String : String]))
+                }
+            }
+            return menuItems
         }
         return nil
     }
@@ -38,6 +52,7 @@ class User: Model {
             "company_ids": "companyIds",
             "provider_ids": "providerIds",
             "default_company_id": "defaultCompanyId",
+            "menu_items": "menuItemsPreference",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", withMapping: Company.mapping()))
