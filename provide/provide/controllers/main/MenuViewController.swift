@@ -43,6 +43,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         switch reuseIdentifier {
+        case "JobsCell":
+            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
+            segueToInitialViewControllerInStoryboard(storyboardName)
         case "RouteCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
@@ -52,9 +55,11 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         case "WorkOrderHistoryCell":
             let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
             segueToInitialViewControllerInStoryboard(storyboardName)
-        case "JobsCell":
-            let storyboardName = reuseIdentifier.replaceString("Cell", withString: "")
-            segueToInitialViewControllerInStoryboard(storyboardName)
+        case "SupportCell":
+            let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+            webViewController.url = NSURL(string: "\(CurrentEnvironment.baseUrlString)/#/support")
+            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+            delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
         case "LegalCell":
             let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
             webViewController.url = NSURL(string: "\(CurrentEnvironment.baseUrlString)/#/legal")
