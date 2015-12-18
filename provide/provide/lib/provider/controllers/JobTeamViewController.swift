@@ -381,9 +381,11 @@ class JobTeamViewController: UITableViewController,
     }
 
     private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
-        if viewController == supervisorsPickerViewController && job != nil {
-            reloadProviders()
-            reloadSupervisors()
+        if let supervisorsPickerViewController = supervisorsPickerViewController {
+            if viewController == supervisorsPickerViewController && job != nil {
+                reloadProviders()
+                reloadSupervisors()
+            }
         }
     }
 

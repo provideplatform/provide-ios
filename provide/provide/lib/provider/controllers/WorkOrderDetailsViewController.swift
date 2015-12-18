@@ -85,7 +85,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func reloadTableView() {
-        tableView.reloadData()
+        tableView?.reloadData()
 
         if let mediaCollectionView = mediaCollectionView {
             mediaCollectionView.reloadData()
