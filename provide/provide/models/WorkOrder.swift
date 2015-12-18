@@ -25,6 +25,7 @@ class WorkOrder: Model {
     var abandonedAt: String!
     var canceledAt: String!
     var duration: NSNumber!
+    var estimatedCost: NSNumber!
     var estimatedDuration: NSNumber!
     var status: String!
     var providerRating: NSNumber!
@@ -55,6 +56,7 @@ class WorkOrder: Model {
             "abandoned_at": "abandonedAt",
             "canceled_at": "canceledAt",
             "duration": "duration",
+            "estimated_cost": "estimatedCost",
             "estimated_duration": "estimatedDuration",
             "status": "status",
             "provider_rating": "providerRating",
