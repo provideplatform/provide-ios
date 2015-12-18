@@ -275,13 +275,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     self!.scrollView.maximumZoomScale = 1.0
                     self!.scrollView.zoomScale = 0.4
 
-                    UIView.animateWithDuration(0.1, animations: { () -> Void in
-                        self!.scrollView.bringSubviewToFront(self!.imageView)
-                        self!.imageView.alpha = 1.0
+                    self!.scrollView.bringSubviewToFront(self!.imageView)
+                    self!.imageView.alpha = 1.0
 
-                        self!.loadingBlueprint = false
-                        self!.toolbar.reload()
-                    })
+                    self!.loadingBlueprint = false
+                    self!.toolbar.reload()
 
                     self!.showToolbar()
                     self!.loadedBlueprint = true
