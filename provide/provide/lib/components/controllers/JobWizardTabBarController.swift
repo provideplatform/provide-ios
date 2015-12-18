@@ -119,6 +119,8 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
         delegate = self
 
+        self.viewControllers!.insert(UIViewController(), atIndex: 0)
+
         dispatch_after_delay(0.0) {
             for viewController in self.viewControllers! {
                 if viewController.isKindOfClass(JobWizardViewController) {
@@ -180,7 +182,11 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         }
 
         if let item = item {
-            selectedIndex = tabBar.items!.indexOf(item)!
+            selectedIndex = tabBar.items!.indexOf(item)! + 1
+        }
+
+        dispatch_after_delay(0.0) {
+            self.viewControllers!.removeFirst()
         }
     }
 
