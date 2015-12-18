@@ -90,6 +90,7 @@
                             <constraint firstItem="Yvd-Y5-aoN" firstAttribute="centerX" secondItem="1Xa-Y1-UrB" secondAttribute="centerX" id="whV-T7-gBq"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="Yvd-Y5-aoN" id="rTz-d2-9Ue"/>
                         <outlet property="collectionView" destination="rzA-pk-ekE" id="22k-of-uD6"/>
