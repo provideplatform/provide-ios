@@ -112,7 +112,7 @@
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="x2V-2a-s9R"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
