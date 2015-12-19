@@ -12,6 +12,8 @@ protocol BlueprintToolbarDelegate {
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
+    func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
+    func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController)
@@ -44,7 +46,7 @@ class BlueprintToolbar: UIToolbar {
         }
     }
 
-    @IBOutlet private weak var scaleButton: UIBarButtonItem! {
+    @IBOutlet private var scaleButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = scaleButton {
                 navigationButton.target = self
@@ -54,7 +56,7 @@ class BlueprintToolbar: UIToolbar {
         }
     }
 
-    @IBOutlet private weak var createWorkOrderButton: UIBarButtonItem! {
+    @IBOutlet private var createWorkOrderButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = createWorkOrderButton {
                 navigationButton.target = self
@@ -65,13 +67,34 @@ class BlueprintToolbar: UIToolbar {
     }
 
     func reload() {
-        let scaleButtonTitleTextAttribute = scaleVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
-        scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
+        if let scaleCanBeSet = blueprintToolbarDelegate?.scaleCanBeSetByBlueprintToolbar(self) {
+            let scaleButtonTitleTextAttribute = scaleVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+            scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
+            let index = items!.indexOfObject(scaleButton)
+            if !scaleCanBeSet {
+                if let index = index {
+                    items!.removeAtIndex(index)
+                }
+            } else if index == nil {
+                items!.insert(scaleButton, atIndex: 0)
+            }
+        }
 
-        let workOrderVisible = blueprintToolbarDelegate.newWorkOrderCanBeCreatedByBlueprintToolbar(self)
-        let createWorkOrderButtonTitleTextAttribute = !workOrderVisible ? AppearenceProxy.barButtonItemDisabledTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+        let createWorkOrderButtonVisible = blueprintToolbarDelegate.newWorkOrderItemIsShownByBlueprintToolbar(self)
+        let createWorkOrderButtonEnabled = blueprintToolbarDelegate.newWorkOrderCanBeCreatedByBlueprintToolbar(self)
+        let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? AppearenceProxy.barButtonItemDisabledTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
         createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, forState: .Normal)
-        createWorkOrderButton.enabled = workOrderVisible
+        if createWorkOrderButtonVisible {
+            createWorkOrderButton.enabled = createWorkOrderButtonEnabled
+
+            if items!.indexOfObject(createWorkOrderButton) == nil {
+                items!.insert(createWorkOrderButton, atIndex: items!.indexOf(scaleButton) != nil ? 1 : 0)
+            }
+        } else {
+            if let index = items!.indexOfObject(createWorkOrderButton) {
+                items!.removeAtIndex(index)
+            }
+        }
 
         let navigationButtonTitleTextAttribute = navigatorVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)

@@ -11,6 +11,7 @@ import UIKit
 @objc
 protocol BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
+    optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 }
@@ -611,6 +612,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
             restoreCachedNavigationItem()
             scaleView.resignFirstResponder(true)
         }
+    }
+
+    func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController?(self) {
+            return canSetScale
+        }
+        return true
+    }
+
+    func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController?(self) {
+            return !canSetScale
+        }
+        return true
     }
 
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {

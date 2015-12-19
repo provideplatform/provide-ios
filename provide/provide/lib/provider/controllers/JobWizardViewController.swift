@@ -124,6 +124,10 @@ class JobWizardViewController: UINavigationController,
         return job
     }
 
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
     // MARK: JobManagerViewControllerDelegate
 
     func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {

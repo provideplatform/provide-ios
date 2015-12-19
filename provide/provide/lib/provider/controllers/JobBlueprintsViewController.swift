@@ -257,6 +257,10 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         return job
     }
 
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return shouldLoadBlueprint
+    }
+
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
     }
