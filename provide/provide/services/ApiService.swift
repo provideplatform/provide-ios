@@ -118,9 +118,22 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        unregisterForRemoteNotifications()
-        
+    func logout(onSuccess: OnSuccess, onError: OnError) {
+        if !isSimulator() {
+            unregisterForRemoteNotifications(
+                { (statusCode, mappingResult) -> () in
+                    self.deleteToken(onSuccess, onError: onError)
+                },
+                onError: { error, statusCode, responseString in
+                    self.deleteToken(onSuccess, onError: onError)
+                }
+            )
+        } else {
+            self.deleteToken(onSuccess, onError: onError)
+        }
+    }
+
+    private func deleteToken(onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         if let token = KeyChainService.sharedService().token {
             return dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in
@@ -133,6 +146,7 @@ class ApiService: NSObject {
                 }
             )
         }
+
         return nil
     }
 
@@ -306,17 +320,17 @@ class ApiService: NSObject {
         }
     }
 
-    private func unregisterForRemoteNotifications() {
+    private func unregisterForRemoteNotifications(onSuccess: OnSuccess, onError: OnError) {
         if !isSimulator() {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
 
             if let deviceId = KeyChainService.sharedService().deviceId {
                 ApiService.sharedService().deleteDeviceWithId(deviceId,
                     onSuccess: { statusCode, mappingResult in
-
+                        onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                     },
                     onError: { error, statusCode, responseString in
-
+                        onError(error: error, statusCode: statusCode, responseString: responseString)
                     }
                 )
             }
