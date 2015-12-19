@@ -156,7 +156,12 @@ class WorkOrderTeamViewController: UITableViewController,
             providersPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
             if let _ = providersPickerViewController?.collectionView {
                 let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
-                cell.showActivityIndicator()
+
+                if workOrder.id > 0 {
+                    cell.showActivityIndicator()
+                } else {
+                    addingProvider = false
+                }
 
                 workOrder?.addProvider(provider,
                     onSuccess: { (statusCode, mappingResult) -> () in
@@ -184,6 +189,10 @@ class WorkOrderTeamViewController: UITableViewController,
             let index = providersPickerViewController?.providers.indexOfObject(provider)!
             providersPickerViewController?.providers.removeAtIndex(index!)
             providersPickerViewController?.reloadCollectionView()
+
+            if workOrder.id == 0 {
+                removingProvider = false
+            }
 
             workOrder?.removeProvider(provider,
                 onSuccess: { (statusCode, mappingResult) -> () in
@@ -492,11 +501,11 @@ class WorkOrderTeamViewController: UITableViewController,
         private var providersPickerCollectionView: UICollectionView! {
             didSet {
                 if let providersPickerCollectionView = providersPickerCollectionView {
-                    initialprovidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
+                    initialProvidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialprovidersPickerCollectionViewBackgroundColor: UIColor!
+        private var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
 
         private var shouldAddProvider = false
 
@@ -528,7 +537,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         window.bringSubviewToFront(initialView)
                     }
                 } else if let initialView = oldValue {
-                    providersPickerCollectionView.backgroundColor = initialprovidersPickerCollectionViewBackgroundColor
+                    providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
 
                     if shouldAddProvider {
                         let indexPath = workOrderTeamViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
@@ -565,7 +574,7 @@ class WorkOrderTeamViewController: UITableViewController,
             if shouldAddProvider {
                 providersPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
             } else {
-                providersPickerCollectionView.backgroundColor = initialprovidersPickerCollectionViewBackgroundColor
+                providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
             }
         }
     }
@@ -580,11 +589,11 @@ class WorkOrderTeamViewController: UITableViewController,
         private var providersPickerCollectionView: UICollectionView! {
             didSet {
                 if let providersPickerCollectionView = providersPickerCollectionView {
-                    initialprovidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
+                    initialProvidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialprovidersPickerCollectionViewBackgroundColor: UIColor!
+        private var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
 
         private var shouldRemoveProvider = false
 
@@ -615,7 +624,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         window.bringSubviewToFront(initialView)
                     }
                 } else if let _ = oldValue {
-                    providersPickerCollectionView.backgroundColor = initialprovidersPickerCollectionViewBackgroundColor
+                    providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
 
                     collectionView.scrollEnabled = true
                     collectionView = nil

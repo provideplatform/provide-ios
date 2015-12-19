@@ -405,14 +405,18 @@ class WorkOrder: Model {
             let workOrderProvider = WorkOrderProvider()
             workOrderProvider.provider = provider
             workOrderProviders.append(workOrderProvider)
-            save(onSuccess: onSuccess, onError: onError)
+            if id > 0 {
+                save(onSuccess: onSuccess, onError: onError)
+            }
         }
     }
 
     func removeProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
         if hasProvider(provider) {
             removeProvider(provider)
-            save(onSuccess: onSuccess, onError: onError)
+            if id > 0 {
+                save(onSuccess: onSuccess, onError: onError)
+            }
         }
     }
 

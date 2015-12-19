@@ -22,7 +22,6 @@ protocol WorkOrderCreationViewControllerDelegate {
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
-                                       ProviderPickerViewControllerDelegate,
                                        PDTSimpleCalendarViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
@@ -192,6 +191,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         refreshUI()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        refreshUI()
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
@@ -254,41 +259,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         } else {
             super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
-    }
-
-    // MARK: ProviderPickerViewControllerDelegate
-
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
-        if !workOrder.hasProvider(provider) {
-            let workOrderProvider = WorkOrderProvider()
-            workOrderProvider.provider = provider
-
-            workOrder.workOrderProviders.append(workOrderProvider)
-            isDirty = true
-        }
-        refreshRightBarButtonItems()
-    }
-
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
-        workOrder.removeProvider(provider)
-        isDirty = true
-        refreshRightBarButtonItems()
-    }
-
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
-        return true
-    }
-
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        return [Provider]()
-    }
-
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
-        return workOrder.workOrderProviders.map({ $0.provider })
-    }
-
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
-        return nil
     }
 
     // MARK: PDTSimpleCalendarViewControllerDelegate
