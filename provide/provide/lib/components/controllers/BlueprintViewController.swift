@@ -576,11 +576,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
-        let imageSize = imageView.image!.size
-        let aspectRatio = CGFloat(imageSize.width / imageSize.height)
-        let height = CGFloat(imageSize.width > imageSize.height ? 225.0 : 375.0)
-        let width = aspectRatio * height
-        return CGSize(width: width, height: height)
+        if let imageView = imageView {
+            if let image = imageView.image {
+                let imageSize = image.size
+                let aspectRatio = CGFloat(imageSize.width / imageSize.height)
+                let height = CGFloat(imageSize.width > imageSize.height ? 225.0 : 375.0)
+                let width = aspectRatio * height
+                return CGSize(width: width, height: height)
+            }
+        }
+        return CGSizeZero
     }
 
     // MARK: BlueprintToolbarDelegate
