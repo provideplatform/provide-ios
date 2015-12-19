@@ -62,29 +62,31 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false) -> [String : AnyObject] {
+    func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
 
         for ivar in ivars {
             var key = ivar
             var value: AnyObject = NSNull()
 
-            if let unwrappedValue = valueForKey(key) {
-                value = unwrappedValue
-                if value is Model {
-                    value = (value as! Model).toDictionary(snakeKeys)
-                } else if value is [Model] {
-                    var newValue = [AnyObject]()
-                    for val in value as! [Model] {
-                        newValue.append(val.toDictionary(snakeKeys))
+            if ignoreKeys.indexOf(key) == nil {
+                if let unwrappedValue = valueForKey(key) {
+                    value = unwrappedValue
+                    if value is Model {
+                        value = (value as! Model).toDictionary(snakeKeys)
+                    } else if value is [Model] {
+                        var newValue = [AnyObject]()
+                        for val in value as! [Model] {
+                            newValue.append(val.toDictionary(snakeKeys))
+                        }
+                        value = newValue
                     }
-                    value = newValue
                 }
-            }
 
-            if !value.isKindOfClass(NSNull) || includeNils {
-                key = snakeKeys ? key.snakeCaseString() : key
-                dictionary[key] = value
+                if !value.isKindOfClass(NSNull) || includeNils {
+                    key = snakeKeys ? key.snakeCaseString() : key
+                    dictionary[key] = value
+                }
             }
         }
 

@@ -392,11 +392,10 @@ class WorkOrder: Model {
         return gtinsDelivered.count
     }
 
-    override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = true) -> [String : AnyObject] {
-        var dictionary = super.toDictionary(snakeKeys)
+    override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
+        var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValueForKey("config")
         dictionary.removeValueForKey("id")
-        dictionary.removeValueForKey("job")
         return dictionary
     }
 
@@ -436,7 +435,7 @@ class WorkOrder: Model {
 
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.reload(onSuccess: onSuccess, onError: onError)
                 },
                 onError: { error, statusCode, responseString in
                     onError(error: error, statusCode: statusCode, responseString: responseString)
@@ -458,7 +457,8 @@ class WorkOrder: Model {
                     let workOrder = mappingResult.firstObject as! WorkOrder
                     self.id = workOrder.id
                     self.status = workOrder.status
-                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                    self.workOrderProviders = workOrder.workOrderProviders
+                    WorkOrderService.sharedService().updateWorkOrder(workOrder)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -471,6 +471,9 @@ class WorkOrder: Model {
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchWorkOrderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
+                let workOrder = mappingResult.firstObject as! WorkOrder
+                self.status = workOrder.status
+                self.workOrderProviders = workOrder.workOrderProviders
                 WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },

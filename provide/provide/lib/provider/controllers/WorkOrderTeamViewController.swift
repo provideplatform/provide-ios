@@ -569,7 +569,7 @@ class WorkOrderTeamViewController: UITableViewController,
             }
 
             let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldAddProvider = !workOrderTeamViewController.addingProvider && CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            shouldAddProvider = !workOrderTeamViewController.addingProvider && !workOrderTeamViewController.removingProvider && CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
 
             if shouldAddProvider {
                 providersPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
@@ -656,7 +656,7 @@ class WorkOrderTeamViewController: UITableViewController,
             }
             
             let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldRemoveProvider = !workOrderTeamViewController.removingProvider && !CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            shouldRemoveProvider = !workOrderTeamViewController.addingProvider && !workOrderTeamViewController.removingProvider && !CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
             
             if shouldRemoveProvider {
                 let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
