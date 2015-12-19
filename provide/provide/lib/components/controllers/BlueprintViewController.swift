@@ -895,7 +895,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.accessoryType = .DisclosureIndicator
         case 3:
             let cost = workOrder.estimatedCost == nil ? "$0.00" : "$\(workOrder.estimatedCost)"
-            cell.setName("ESTIMATED COST", value: cost)
+            cell.setName("ESTIMATED COST", value: cost, valueFontSize: isIPad() ? 13.0 : 11.0)
             cell.accessoryType = .DisclosureIndicator
         case 4:
             if let _ = workOrder.materials {
