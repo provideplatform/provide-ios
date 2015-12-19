@@ -117,12 +117,6 @@ class JobsViewController: ViewController,
         )
     }
 
-    // MARK: UIPopoverPresentationViewController
-
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
-
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
