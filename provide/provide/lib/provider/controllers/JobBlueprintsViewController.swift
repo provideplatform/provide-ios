@@ -25,8 +25,16 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                         loadBlueprint()
                         blueprintViewController?.blueprintViewControllerDelegate = self
                     } else {
+                        importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
                         importInstructionsContainerView?.alpha = 1.0
-                        importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
+
+                        if job.blueprintImageUrl == nil {
+                            importInstructionsLabel?.text = "Import a blueprint for this job."
+                            showDropbox()
+                        } else {
+                            importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
+                        }
+
                         importInstructionsLabel?.alpha = 1.0
 
                         blueprintActivityIndicatorView?.stopAnimating()
@@ -105,14 +113,17 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         return nil
     }
 
-    private var shouldLoadBlueprint: Bool {
-        var loadBlueprint = true
+    private var hasBlueprintScale: Bool {
         if let blueprint = job?.blueprint {
             if let _ = blueprint.metadata["scale"] as? Double {
-                loadBlueprint = false
+                return true
             }
         }
-        return loadBlueprint
+        return false
+    }
+
+    private var shouldLoadBlueprint: Bool {
+        return !hasBlueprintScale && job?.blueprintImageUrl != nil
     }
 
     override func viewDidLoad() {
@@ -122,6 +133,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
         importInstructionsLabel?.text = ""
         importInstructionsContainerView?.alpha = 0.0
+        importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
 
         blueprintPreviewImageView?.alpha = 0.0
 
@@ -168,6 +180,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
     private func showDropbox() {
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
+            importFromDropboxButton.superview!.bringSubviewToFront(importFromDropboxButton)
             importFromDropboxButton.alpha = 1.0
         }
     }
