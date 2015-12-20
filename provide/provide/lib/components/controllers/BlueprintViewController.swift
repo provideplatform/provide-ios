@@ -727,7 +727,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer! {
         let textLayer = CATextLayer()
-        textLayer.string = "\(view.area) sq ft"
+        textLayer.string = "\(NSString(format: "%.03f", view.area)) sq ft"
         textLayer.font = UIFont(name: "Exo2-Regular", size: 16.0)
         textLayer.foregroundColor = UIColor.blackColor().CGColor
         textLayer.alignmentMode = "center"
@@ -910,7 +910,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            cell.setName("ESTIMATED SQ FT", value: "\(polygonView.area) sq ft")
+            cell.setName("ESTIMATED SQ FT", value: "\(NSString(format: "%.03f", polygonView.area)) sq ft")
             cell.accessoryType = .DisclosureIndicator
         case 3:
             let cost = workOrder.humanReadableEstimatedCost == nil ? "$0.00" : "\(workOrder.humanReadableEstimatedCost)"
