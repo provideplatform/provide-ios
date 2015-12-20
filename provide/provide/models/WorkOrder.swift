@@ -370,10 +370,14 @@ class WorkOrder: Model {
 
     var providers: [Provider] {
         var providers = [Provider]()
-        for workOrderProvider in workOrderProviders {
-            providers.append(workOrderProvider.provider)
+        if let workOrderProviders = workOrderProviders {
+            for workOrderProvider in workOrderProviders {
+                providers.append(workOrderProvider.provider)
+            }
+        } else {
+            workOrderProviders = [WorkOrderProvider]()
         }
-        return providers //workOrderProviders.map({ [unowned $0: workOrderProvider] in $0.provider })
+        return providers
     }
 
     var regionIdentifier: String {

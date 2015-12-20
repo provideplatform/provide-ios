@@ -254,7 +254,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 loadingBlueprint = true
 
                 ApiService.sharedService().fetchImage(url,
-                    onImageFetched: { [weak self] statusCode, image in
+                    onImageFetched: { statusCode, image in
                         dispatch_after_delay(0.0) { [weak self] in
                             self!.setBlueprintImage(image)
                         }
