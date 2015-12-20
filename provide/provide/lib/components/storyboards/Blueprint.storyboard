@@ -64,8 +64,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVN-KC-cuJ">
-                                        <rect key="frame" x="227" y="55" width="71" height="25"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVN-KC-cuJ">
+                                        <rect key="frame" x="219" y="55" width="71" height="25"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
                                         <state key="normal" title="SET SCALE">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -95,8 +95,11 @@
                                     <constraint firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" constant="20" id="cEq-rn-Yt8"/>
                                     <constraint firstItem="1PZ-LT-FVS" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" constant="112" id="eu7-yh-q3w"/>
                                     <constraint firstAttribute="height" constant="100" id="fa2-eV-LaQ"/>
+                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="top" secondItem="LZD-cI-nlK" secondAttribute="bottom" constant="26" id="isF-cF-wAg"/>
                                     <constraint firstAttribute="width" constant="298" id="l7Z-p8-JRS"/>
+                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="trailing" secondItem="lAt-pi-biU" secondAttribute="trailingMargin" id="rez-Lw-VEE"/>
                                     <constraint firstItem="1PZ-LT-FVS" firstAttribute="top" secondItem="LZD-cI-nlK" secondAttribute="bottom" constant="21" id="v1Z-nv-amK"/>
+                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" id="zi0-Bh-int"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="instructionLabel" destination="LZD-cI-nlK" id="Sjk-ji-r7t"/>

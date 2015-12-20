@@ -49,7 +49,6 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         didSet {
             if let saveButton = saveButton {
                 saveButton.hidden = true
-                saveButton.tintColor = UIColor.blackColor()
                 saveButton.addTarget(self, action: "setScale", forControlEvents: .TouchUpInside)
             }
         }
@@ -134,7 +133,6 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
                     dispatch_after_delay(0.1) {
                         self.measurementTextField.becomeFirstResponder()
                         self.delegate?.blueprintScaleViewCanSetBlueprintScale(self)
-                        self.saveButton?.hidden = false
                     }
                 }
             } else {
@@ -245,7 +243,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         if (string =~ "[.]") && textField.text!.contains(".") {
             return false
         }
-        saveButton?.hidden = textField.text!.length == 0
+        self.saveButton?.hidden = (string.length == 0 && textField.text!.length == 1) || textField.text!.length == 0
         return string.length == 0 || (string =~ "[0-9.]")
     }
 }
