@@ -19,6 +19,8 @@ class WorkOrderTeamViewController: UITableViewController,
                                    ProviderCreationViewControllerDelegate,
                                    DraggableViewGestureRecognizerDelegate {
 
+    private let workOrderProviderOperationQueue = dispatch_queue_create("api.workOrderProviderOperationQueue", DISPATCH_QUEUE_SERIAL)
+
     let maximumSearchlessProvidersCount = 20
 
     var delegate: WorkOrderTeamViewControllerDelegate! {
@@ -149,31 +151,35 @@ class WorkOrderTeamViewController: UITableViewController,
         }
 
         if !workOrder.hasProvider(provider) {
-            addingProvider = true
-
             providersPickerViewController?.providers.append(provider)
             let indexPaths = [NSIndexPath(forRow: (providersPickerViewController?.providers.count)! - 1, inSection: 0)]
             providersPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
             if let _ = providersPickerViewController?.collectionView {
-                let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+                let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as? PickerCollectionViewCell
 
                 if workOrder.id > 0 {
-                    cell.showActivityIndicator()
+                    cell?.showActivityIndicator()
                 } else {
                     addingProvider = false
                 }
 
-                workOrder?.addProvider(provider,
-                    onSuccess: { (statusCode, mappingResult) -> () in
-                        self.addingProvider = false
-                        cell.hideActivityIndicator()
-                    },
-                    onError: { (error, statusCode, responseString) -> () in
-                        self.providersPickerViewController?.providers.removeObject(provider)
-                        self.providersPickerViewController?.reloadCollectionView()
-                        self.addingProvider = false
-                    }
-                )
+                dispatch_async(workOrderProviderOperationQueue) { [weak self] in
+                    while self!.addingProvider { }
+
+                    self!.addingProvider = true
+
+                    self!.workOrder?.addProvider(provider,
+                        onSuccess: { (statusCode, mappingResult) -> () in
+                            self!.addingProvider = false
+                            cell?.hideActivityIndicator()
+                        },
+                        onError: { (error, statusCode, responseString) -> () in
+                            self!.providersPickerViewController?.providers.removeObject(provider)
+                            self!.providersPickerViewController?.reloadCollectionView()
+                            self!.addingProvider = false
+                        }
+                    )
+                }
             }
         }
     }
@@ -184,8 +190,6 @@ class WorkOrderTeamViewController: UITableViewController,
         }
 
         if workOrder.hasProvider(provider) {
-            removingProvider = true
-
             let index = providersPickerViewController?.providers.indexOfObject(provider)!
             providersPickerViewController?.providers.removeAtIndex(index!)
             providersPickerViewController?.reloadCollectionView()
@@ -194,20 +198,28 @@ class WorkOrderTeamViewController: UITableViewController,
                 removingProvider = false
             }
 
-            workOrder?.removeProvider(provider,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.providersPickerViewController?.reloadCollectionView()
-                    if self.workOrder.providers.count == 0 {
-                        self.reloadWorkOrderProviders()
+            dispatch_async(workOrderProviderOperationQueue) { [weak self] in
+                while self!.addingProvider { }
+
+                self!.removingProvider = true
+
+                self!.workOrder?.removeProvider(provider,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        self!.providersPickerViewController?.reloadCollectionView()
+                        if self!.workOrder.providers.count == 0 {
+                            self!.reloadWorkOrderProviders()
+                        }
+                        self!.removingProvider = false
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self!.providersPickerViewController?.providers.insert(provider, atIndex: index!)
+                        self!.providersPickerViewController?.reloadCollectionView()
+                        self!.removingProvider = false
                     }
-                    self.removingProvider = false
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.providersPickerViewController?.providers.insert(provider, atIndex: index!)
-                    self.providersPickerViewController?.reloadCollectionView()
-                    self.removingProvider = false
-                }
-            )
+                )
+            }
+
+
         }
     }
 
@@ -569,7 +581,7 @@ class WorkOrderTeamViewController: UITableViewController,
             }
 
             let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldAddProvider = !workOrderTeamViewController.addingProvider && !workOrderTeamViewController.removingProvider && CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            shouldAddProvider = CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
 
             if shouldAddProvider {
                 providersPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
@@ -656,7 +668,7 @@ class WorkOrderTeamViewController: UITableViewController,
             }
             
             let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldRemoveProvider = !workOrderTeamViewController.addingProvider && !workOrderTeamViewController.removingProvider && !CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            shouldRemoveProvider = !CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
             
             if shouldRemoveProvider {
                 let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)

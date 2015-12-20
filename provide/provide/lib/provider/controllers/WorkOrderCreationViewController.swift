@@ -101,8 +101,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         let cancelAction = UIAlertAction(title: "Don't Cancel", style: .Default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let discardAction = UIAlertAction(title: "Discard", style: .Destructive) { action in
-            self.delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: nil)
+        let discardAction = UIAlertAction(title: "Discard", style: .Destructive) { [weak self] action in
+            self!.delegate?.workOrderCreationViewController(self!, shouldBeDismissedWithWorkOrder: nil)
         }
 
         alertController.addAction(cancelAction)
@@ -112,6 +112,27 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     func dismiss(sender: UIBarButtonItem!) {
+        if isDirty {
+            let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+            let alertController = UIAlertController(title: "Are you sure you want to cancel and discard changes?", message: nil, preferredStyle: preferredStyle)
+
+            let cancelAction = UIAlertAction(title: "Don't Dismiss", style: .Default, handler: nil)
+            alertController.addAction(cancelAction)
+
+            let discardAction = UIAlertAction(title: "Yes, Discard Pending Changes", style: .Destructive) { [weak self] action in
+                self!.forceDismiss()
+            }
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(discardAction)
+            
+            presentViewController(alertController, animated: true)
+        } else {
+            forceDismiss()
+        }
+    }
+
+    private func forceDismiss() {
         delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
     }
 

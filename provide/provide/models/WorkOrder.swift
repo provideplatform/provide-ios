@@ -435,7 +435,7 @@ class WorkOrder: Model {
 
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    self.reload(onSuccess: onSuccess, onError: onError)
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
                     onError(error: error, statusCode: statusCode, responseString: responseString)
@@ -457,7 +457,6 @@ class WorkOrder: Model {
                     let workOrder = mappingResult.firstObject as! WorkOrder
                     self.id = workOrder.id
                     self.status = workOrder.status
-                    self.workOrderProviders = workOrder.workOrderProviders
                     WorkOrderService.sharedService().updateWorkOrder(workOrder)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },

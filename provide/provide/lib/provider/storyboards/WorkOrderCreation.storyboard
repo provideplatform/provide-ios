@@ -280,10 +280,10 @@
                             <tableViewSection headerTitle="Service Providers" id="GjA-wq-DFB" userLabel="Search Results">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="Rze-bS-VQN">
-                                        <rect key="frame" x="0.0" y="268.5" width="600" height="125"/>
+                                        <rect key="frame" x="0.0" y="269" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rze-bS-VQN" id="nH0-2i-hNh">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75d-ym-dDC">
