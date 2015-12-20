@@ -9,7 +9,7 @@
 import UIKit
 
 @objc
-protocol WorkOrderComponentViewControllerDelegate {
+protocol WorkOrderComponentViewControllerDelegate: NSObjectProtocol {
     func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController!
     optional func mapViewForWorkOrderViewController(viewController: UIViewController) -> MapView
     optional func targetViewForViewController(viewController: UIViewController) -> UIView
@@ -17,8 +17,8 @@ protocol WorkOrderComponentViewControllerDelegate {
 
 class WorkOrderComponentViewController: ViewController {
 
-    var delegate: WorkOrderComponentViewControllerDelegate!
-    var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
+    weak var delegate: WorkOrderComponentViewControllerDelegate!
+    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
     private var childViewController: WorkOrderComponentViewController!
 
