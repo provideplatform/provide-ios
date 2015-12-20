@@ -25,7 +25,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        PDTSimpleCalendarViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
-                                       WorkOrderTeamViewControllerDelegate {
+                                       WorkOrderTeamViewControllerDelegate,
+                                       WorkOrderInventoryViewControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -366,108 +367,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     }
 
-    // MARK: ManifestViewControllerDelegate
-
-    override func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
-        return workOrder
-    }
-
-    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
-        return ["MATERIALS", "JOB MANIFEST"]
-    }
-
-    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
-        let manifestViewController = viewController as! ManifestViewController
-
-        if segmentIndex == 0 {
-            return workOrderProductsForManifestViewController(manifestViewController).map({ $0.jobProduct.product })
-        } else if segmentIndex == 1 {
-            if let job = workOrder.job {
-                if let _ = job.materials {
-                    return jobProductsForManifestViewController(manifestViewController).map({ $0.product })
-                } else {
-                    reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
-                }
-            } else {
-                reloadWorkOrderJobForManifestViewController(viewController as! ManifestViewController)
-            }
-        }
-
-        return [Product]()
-    }
-
-    private func jobProductsForManifestViewController(viewController: ManifestViewController) -> [JobProduct] {
-        if let job = workOrder.job {
-            if let _ = job.materials {
-                return job.materials
-            }
-        }
-        return [JobProduct]()
-    }
-
-    private func workOrderProductsForManifestViewController(viewController: ManifestViewController) -> [WorkOrderProduct] {
-        if let workOrder = workOrder {
-            return workOrder.materials
-        }
-        return [WorkOrderProduct]()
-    }
-
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        var cell: UITableViewCell!
-        let manifestViewController = viewController as! ManifestViewController
-        let selectedSegmentIndex = manifestViewController.selectedSegmentIndex
-        if selectedSegmentIndex == 0 {
-            // work order materials
-            cell = tableView.dequeueReusableCellWithIdentifier("workOrderProductTableViewCell") as! WorkOrderProductTableViewCell
-            (cell as! WorkOrderProductTableViewCell).workOrderProduct = workOrderProductsForManifestViewController(manifestViewController)[indexPath.row]
-        } else if selectedSegmentIndex == 1 {
-            // job manifest
-            cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
-            (cell as! JobProductTableViewCell).jobProduct = jobProductsForManifestViewController(manifestViewController)[indexPath.row]
-        }
-        return cell
-    }
-
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let manifestViewController = viewController as! ManifestViewController
-        let selectedSegmentIndex = manifestViewController.selectedSegmentIndex
-        if selectedSegmentIndex == 0 {
-            let workOrderProduct = workOrderProductsForManifestViewController(manifestViewController)[indexPath.row]
-            print("selected work order product \(workOrderProduct)")
-        } else if selectedSegmentIndex == 1 {
-            let jobProduct = jobProductsForManifestViewController(manifestViewController)[indexPath.row]
-            print("selected job product \(jobProduct)")
-        }
-
-    }
-
-    private func reloadWorkOrderJobForManifestViewController(viewController: ManifestViewController) {
-        if !reloadingJob {
-            dispatch_async_main_queue {
-                viewController.showActivityIndicator()
-            }
-
-            reloadingJob = true
-
-            workOrder.reloadJob(
-                { (statusCode, mappingResult) -> () in
-                    self.refreshUI()
-                    viewController.reloadTableView()
-                    self.reloadingJob = false
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.refreshUI()
-                    viewController.reloadTableView()
-                    self.reloadingJob = false
-                }
-            )
-        }
-    }
-
-//    func itemsForManifestViewController(viewController: UIViewController) -> [Product]! {
-//        return workOrder.materials.map { $0.jobProduct.product }
-//    }
-
     override func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return navigationItem.title
     }
@@ -494,6 +393,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     // MARK: WorkOrderTeamViewControllerDelegate
 
     func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder! {
+        return workOrder
+    }
+
+    // MARK: WorkOrderInventoryViewControllerDelegate
+
+    func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder! {
         return workOrder
     }
 }

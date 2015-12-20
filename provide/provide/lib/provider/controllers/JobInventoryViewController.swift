@@ -285,9 +285,9 @@ class JobInventoryViewContoller: UITableViewController,
 
     func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]! {
         if let job = job {
-            if viewController == jobProductsPickerViewController {
+            if jobProductsPickerViewController != nil && viewController == jobProductsPickerViewController {
                 return ["job_id": job.id, "company_id": job.companyId]
-            } else if viewController == queryResultsPickerViewController {
+            } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
                 return ["company_id": job.companyId, "q": queryString != nil ? queryString : NSNull()]
             }
         }

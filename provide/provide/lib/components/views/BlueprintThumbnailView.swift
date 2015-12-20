@@ -131,10 +131,4 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     func blueprintThumbnailOverlayViewNavigationEnded(view: BlueprintThumbnailOverlayView) {
         delegate?.blueprintThumbnailViewNavigationEnded(self)
     }
-
-    deinit {
-        print("deinit blueprint thumbnail view!!!!")
-
-        blueprintImage = nil
-    }
 }

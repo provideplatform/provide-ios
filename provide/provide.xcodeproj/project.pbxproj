@@ -278,6 +278,7 @@
 		68F537331B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537341B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537351B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
+		68F846B71C26DC9E003C678B /* WorkOrderInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */; };
 		68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */; };
 		B6AF8C6637FD6FBF5B15C2AE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C425DC105EC0EE6EF2DA44 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -559,6 +560,7 @@
 		68F730671B07DE94001A21B0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		68F730681B07DE94001A21B0 /* WorkOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrder.swift; sourceTree = "<group>"; };
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
+		68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderInventoryViewController.swift; sourceTree = "<group>"; };
 		68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderTeamViewController.swift; sourceTree = "<group>"; };
 		C1C425DC105EC0EE6EF2DA44 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE6BCE7A9D383AD1B3C43363 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
+				68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */,
 				68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
 			);
@@ -1528,6 +1531,7 @@
 				68B730C31C18293F00549D95 /* JobViewController.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				68E329571C12CA1300DC297A /* Expense.swift in Sources */,
+				68F846B71C26DC9E003C678B /* WorkOrderInventoryViewController.swift in Sources */,
 				681416ED1B8457870076BFBD /* Model.swift in Sources */,
 				68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */,
 				68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */,

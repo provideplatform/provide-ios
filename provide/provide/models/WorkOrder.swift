@@ -392,6 +392,62 @@ class WorkOrder: Model {
         return gtinsDelivered.count
     }
 
+    func workOrderProductForJobProduct(jobProduct: JobProduct) -> WorkOrderProduct! {
+        for workOrderProduct in materials {
+            if workOrderProduct.jobProductId == jobProduct.id {
+                return workOrderProduct
+            }
+        }
+        return nil
+    }
+
+    func addWorkOrderProductForJobProduct(jobProduct: JobProduct, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        if workOrderProductForJobProduct(jobProduct) == nil && materials != nil {
+            let workOrderProduct = WorkOrderProduct()
+            workOrderProduct.workOrderId = id
+            workOrderProduct.jobProductId = jobProduct.id
+
+            if let quantity = params["quantity"] as? Double {
+                workOrderProduct.quantity = quantity
+            }
+
+            if let price = params["price"] as? Double {
+                workOrderProduct.price = price
+            }
+
+            materials.append(workOrderProduct)
+
+            save(onSuccess:
+                { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+//                    let saveMappingResult = mappingResult
+//                    self.reloadMaterials(
+//                        { statusCode, mappingResult in
+//                            onSuccess(statusCode: statusCode, mappingResult: saveMappingResult)
+//                        },
+//                        onError: { error, statusCode, responseString in
+//                            onError(error: error, statusCode: statusCode, responseString: responseString)
+//                        }
+//                    )
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
+    func removeWorkOrderProductForProduct(jobProduct: JobProduct, onSuccess: OnSuccess, onError: OnError) {
+        if let workOrderProduct = workOrderProductForJobProduct(jobProduct) {
+            removeWorkOrderProduct(workOrderProduct, onSuccess: onSuccess, onError: onError)
+        }
+    }
+
+    func removeWorkOrderProduct(workOrderProduct: WorkOrderProduct, onSuccess: OnSuccess, onError: OnError) {
+        materials.removeObject(workOrderProduct)
+        save(onSuccess: onSuccess, onError: onError)
+    }
+
     override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValueForKey("config")
@@ -433,6 +489,16 @@ class WorkOrder: Model {
             }
             params.updateValue(workOrderProviders, forKey: "work_order_providers")
 
+            var materials = [[String : AnyObject]]()
+            for workOrderProduct in self.materials {
+                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProduct.id, "quantity": workOrderProduct.quantity]
+                if workOrderProduct.id > 0 {
+                    wop.updateValue(workOrderProduct.id, forKey: "id")
+                }
+                materials.append(wop)
+            }
+            params.updateValue(materials, forKey: "materials")
+
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -447,6 +513,12 @@ class WorkOrder: Model {
                 workOrderProviders.append(["provider_id": provider.id])
             }
             params.updateValue(workOrderProviders, forKey: "work_order_providers")
+
+            var materials = [[String : AnyObject]]()
+            for workOrderProduct in self.materials {
+                materials.append(["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity])
+            }
+            params.updateValue(materials, forKey: "materials")
 
             if let _ = scheduledStartAt {
                 params.updateValue("scheduled", forKey: "status")

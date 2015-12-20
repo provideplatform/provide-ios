@@ -280,10 +280,10 @@
                             <tableViewSection headerTitle="Service Providers" id="GjA-wq-DFB" userLabel="Search Results">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="Rze-bS-VQN">
-                                        <rect key="frame" x="0.0" y="269" width="600" height="125"/>
+                                        <rect key="frame" x="0.0" y="268.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rze-bS-VQN" id="nH0-2i-hNh">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75d-ym-dDC">
@@ -329,6 +329,112 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3vB-v6-d6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1566.5" y="4030"/>
+        </scene>
+        <!--ProductPicker-->
+        <scene sceneID="aCm-Rm-rnS">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="52O-Rg-hCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ProductPicker" id="z8K-cR-gO6" sceneMemberID="viewController"/>
+            </objects>
+            <point key="canvasLocation" x="1566.5" y="4520"/>
+        </scene>
+        <!--Work Order Inventory View Controller-->
+        <scene sceneID="cGq-Sy-9rm">
+            <objects>
+                <tableViewController storyboardIdentifier="WorkOrderInventoryViewController" id="vFB-FD-Z6t" customClass="WorkOrderInventoryViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="xgL-Sl-gyC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 22 products" id="uKq-rn-klE">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="vFB-FD-Z6t" id="fzm-FI-qnM"/>
+                            </connections>
+                        </searchBar>
+                        <sections>
+                            <tableViewSection headerTitle="Search Results" id="vlv-06-GOy">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="JBJ-7W-ii8">
+                                        <rect key="frame" x="0.0" y="93.5" width="600" height="125"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JBJ-7W-ii8" id="Ra8-YQ-7T6">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HG-GJ-cpL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
+                                                    <connections>
+                                                        <segue destination="z8K-cR-gO6" kind="embed" identifier="QueryResultsProductPickerEmbedSegue" id="gcZ-ma-tSE"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="2HG-GJ-cpL" secondAttribute="trailing" constant="-8" id="MJm-K0-xPh"/>
+                                                <constraint firstItem="2HG-GJ-cpL" firstAttribute="top" secondItem="Ra8-YQ-7T6" secondAttribute="topMargin" constant="-8" id="TzX-dr-5IE"/>
+                                                <constraint firstItem="2HG-GJ-cpL" firstAttribute="centerX" secondItem="Ra8-YQ-7T6" secondAttribute="centerX" id="odd-d6-R9y"/>
+                                                <constraint firstItem="2HG-GJ-cpL" firstAttribute="leading" secondItem="Ra8-YQ-7T6" secondAttribute="leadingMargin" constant="-8" id="psk-Sm-Dza"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2HG-GJ-cpL" secondAttribute="bottom" constant="-8.5" id="u5G-FA-E0E"/>
+                                                <constraint firstItem="2HG-GJ-cpL" firstAttribute="centerY" secondItem="Ra8-YQ-7T6" secondAttribute="centerY" id="w9Z-yN-tQO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Service Providers" id="C2w-Qn-JsD" userLabel="Search Results">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="125" id="YeD-8V-Gqj">
+                                        <rect key="frame" x="0.0" y="268.5" width="600" height="125"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YeD-8V-Gqj" id="t7g-AF-Urv">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fUV-R6-WBi">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="125"/>
+                                                    <connections>
+                                                        <segue destination="4gl-eN-KJJ" kind="embed" identifier="ProductPickerEmbedSegue" id="Ote-IV-wRB"/>
+                                                    </connections>
+                                                </containerView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="fUV-R6-WBi" secondAttribute="bottom" constant="-8.5" id="7iN-6i-bY5"/>
+                                                <constraint firstItem="fUV-R6-WBi" firstAttribute="leading" secondItem="t7g-AF-Urv" secondAttribute="leadingMargin" constant="-8" id="DBV-zi-nh5"/>
+                                                <constraint firstItem="fUV-R6-WBi" firstAttribute="centerX" secondItem="t7g-AF-Urv" secondAttribute="centerX" id="Eec-3H-BtG"/>
+                                                <constraint firstItem="fUV-R6-WBi" firstAttribute="centerY" secondItem="t7g-AF-Urv" secondAttribute="centerY" id="G3C-vv-S9A"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fUV-R6-WBi" secondAttribute="trailing" constant="-8" id="lZq-Qu-Iy3"/>
+                                                <constraint firstItem="fUV-R6-WBi" firstAttribute="top" secondItem="t7g-AF-Urv" secondAttribute="topMargin" constant="-8" id="m4N-GU-Uem"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vFB-FD-Z6t" id="xS6-Rz-Xgh"/>
+                            <outlet property="delegate" destination="vFB-FD-Z6t" id="Rd8-B4-u29"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="uo3-uF-XZI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zxJ-WN-WaK"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="uKq-rn-klE" id="M8x-II-K0U"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GpV-yo-UBR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1091" y="4676"/>
+        </scene>
+        <!--ProductPicker-->
+        <scene sceneID="emK-XF-gn3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ProductPicker" id="4gl-eN-KJJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ErA-B7-UlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1565" y="4700"/>
         </scene>
     </scenes>
 </document>

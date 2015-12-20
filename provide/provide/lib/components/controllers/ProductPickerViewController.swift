@@ -89,6 +89,10 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         activityIndicatorView?.startAnimating()
     }
 
+    func hideActivityIndicator() {
+        activityIndicatorView?.stopAnimating()
+    }
+
     func reloadCollectionView() {
         if let collectionView = collectionView {
             let collectionViewFlowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout

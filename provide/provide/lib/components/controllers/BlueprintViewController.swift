@@ -139,8 +139,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         setupNavigationItem()
 
         let blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
-        self.thumbnailView = blueprintThumbnailViewController.thumbnailView
-        self.thumbnailView.delegate = self
+        thumbnailView = blueprintThumbnailViewController.thumbnailView
+        thumbnailView.delegate = self
         view.addSubview(thumbnailView)
 
         imageView = UIImageView()
@@ -834,8 +834,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
             case 3:
                 print("open up the master cost model editor!!!")
             case 4:
-                viewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController")
-                (viewController as! ManifestViewController).delegate = workOrderCreationViewController
+//                viewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController")
+//                (viewController as! ManifestViewController).delegate = workOrderCreationViewController
+
+                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
+                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
             case 5:
                 viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
                 (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
@@ -996,6 +999,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     deinit {
-        print("hello blueprint byeee")
+        thumbnailView?.removeFromSuperview()
     }
 }
