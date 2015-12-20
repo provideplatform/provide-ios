@@ -16,7 +16,7 @@ class WorkOrderInventoryViewController: UITableViewController,
                                         UISearchBarDelegate,
                                         DraggableViewGestureRecognizerDelegate,
                                         ProductPickerViewControllerDelegate,
-                                        ManifestViewControllerDelegate {
+                                        WorkOrderProductCreationViewControllerDelegate {
 
     private let workOrderProductOperationQueue = dispatch_queue_create("api.workOrderProductOperationQueue", DISPATCH_QUEUE_SERIAL)
 
@@ -109,18 +109,18 @@ class WorkOrderInventoryViewController: UITableViewController,
 
                         workOrderProduct = self!.workOrder.workOrderProductForJobProduct(jobProduct)
 
-//                        let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
-//                        workOrderProductCreationViewController.workOrder = self!.workOrder
-//                        workOrderProductCreationViewController.workOrderProduct = workOrderProduct
-//                        workOrderProductCreationViewController.workOrderProductCreationViewControllerDelegate = self!
-//                        workOrderProductCreationViewController.modalPresentationStyle = .Popover
-//                        workOrderProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
-//                        workOrderProductCreationViewController.popoverPresentationController!.sourceView = cell
-//                        workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-//                        workOrderProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-//                        self!.presentViewController(workOrderProductCreationViewController, animated: true) {
-//                            self!.addingWorkOrderProduct = false
-//                        }
+                        let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
+                        workOrderProductCreationViewController.workOrder = self!.workOrder
+                        workOrderProductCreationViewController.workOrderProduct = workOrderProduct
+                        workOrderProductCreationViewController.workOrderProductCreationViewControllerDelegate = self!
+                        workOrderProductCreationViewController.modalPresentationStyle = .Popover
+                        workOrderProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
+                        workOrderProductCreationViewController.popoverPresentationController!.sourceView = cell
+                        workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                        workOrderProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+                        self!.presentViewController(workOrderProductCreationViewController, animated: true) {
+                            self!.addingWorkOrderProduct = false
+                        }
                     },
                     onError: { [weak self] error, statusCode, responseString in
                         self!.workOrderProductsPickerViewController?.products.removeObject(jobProduct.product)
@@ -398,11 +398,9 @@ class WorkOrderInventoryViewController: UITableViewController,
 
     // MARK: WorkOrderProductCreationViewControllerDelegate
 
-//    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
-//        viewController.presentingViewController?.dismissViewController(animated: true)
-//
-//        print("created workOrder product \(workOrderProduct)")
-//    }
+    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
+        viewController.presentingViewController?.dismissViewController(animated: true)
+    }
 
     private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
