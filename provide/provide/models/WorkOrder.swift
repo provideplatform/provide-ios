@@ -133,13 +133,8 @@ class WorkOrder: Model {
     var humanReadableEstimatedCost: String! {
         if let estimatedCost = estimatedCost {
             return "$\(NSString(format: "%.02f", estimatedCost))"
-        } else {
-            var estimatedCost = estimatedProvidersCost + materialsCost
-            if let expensedAmount = expensedAmount {
-                estimatedCost += expensedAmount
-            }
-            return "$\(NSString(format: "%.02f", estimatedCost))"
         }
+        return nil
     }
 
     var humanReadableDuration: String! {

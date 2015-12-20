@@ -19,6 +19,15 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         didSet {
             navigationItem.title = title == nil ? workOrder.customer.contact.name : title
 
+            workOrder.reload(
+                onSuccess: { statusCode, mappingResult in
+                    self.reloadTableView()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+
             workOrder.reloadAttachments(
                 { statusCode, mappingResult in
                     self.mediaCollectionView?.reloadData()
