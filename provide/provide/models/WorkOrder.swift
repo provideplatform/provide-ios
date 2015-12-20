@@ -537,6 +537,7 @@ class WorkOrder: Model {
             onSuccess: { statusCode, mappingResult in
                 let workOrder = mappingResult.firstObject as! WorkOrder
                 self.status = workOrder.status
+                self.estimatedCost = workOrder.estimatedCost
                 self.workOrderProviders = workOrder.workOrderProviders
                 WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
