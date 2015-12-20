@@ -6,6 +6,9 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
         <mutableArray key="HelveticaNeueLights.ttc">
             <string>HelveticaNeue-Light</string>
         </mutableArray>
@@ -61,6 +64,13 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVN-KC-cuJ">
+                                        <rect key="frame" x="227" y="55" width="71" height="25"/>
+                                        <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
+                                        <state key="normal" title="SET SCALE">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
                                         <rect key="frame" x="112" y="50" width="73" height="30"/>
                                         <constraints>
@@ -91,6 +101,7 @@
                                 <connections>
                                     <outlet property="instructionLabel" destination="LZD-cI-nlK" id="Sjk-ji-r7t"/>
                                     <outlet property="measurementTextField" destination="1PZ-LT-FVS" id="sAX-xu-5cf"/>
+                                    <outlet property="saveButton" destination="jVN-KC-cuJ" id="SRe-jV-pyv"/>
                                 </connections>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">

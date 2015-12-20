@@ -397,7 +397,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         restoreCachedNavigationItem()
     }
 
-    func setScale(sender: UIBarButtonItem) {
+    func setScale(sender: UIBarButtonItem!) {
         let scale = scaleView.scale
         scaleView.resignFirstResponder(false)
 
@@ -539,6 +539,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintScaleViewDidReset(view: BlueprintScaleView) {
         toolbar.toggleScaleVisibility()
+    }
+
+    func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat) {
+        setScale(nil)
     }
 
     // MARK: BlueprintThumbnailViewControllerDelegate

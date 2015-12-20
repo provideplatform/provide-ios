@@ -12,6 +12,7 @@ protocol BlueprintScaleViewDelegate {
     func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView!
     func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat
     func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView)
+    func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat)
     func blueprintScaleViewDidReset(view: BlueprintScaleView)
 }
 
@@ -44,6 +45,15 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
     @IBOutlet private weak var instructionLabel: UILabel!
     @IBOutlet private weak var measurementTextField: UITextField!
+    @IBOutlet private weak var saveButton: UIButton! {
+        didSet {
+            if let saveButton = saveButton {
+                saveButton.hidden = true
+                saveButton.tintColor = UIColor.blackColor()
+                saveButton.addTarget(self, action: "setScale", forControlEvents: .TouchUpInside)
+            }
+        }
+    }
 
     private var firstPoint: CGPoint!
     private var secondPoint: CGPoint!
@@ -58,6 +68,10 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
             return superview
         }
         return nil
+    }
+
+    func setScale() {
+        delegate?.blueprintScaleView(self, didSetScale: scale)
     }
 
     func attachGestureRecognizer() {
@@ -120,6 +134,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
                     dispatch_after_delay(0.1) {
                         self.measurementTextField.becomeFirstResponder()
                         self.delegate?.blueprintScaleViewCanSetBlueprintScale(self)
+                        self.saveButton?.hidden = false
                     }
                 }
             } else {
@@ -230,6 +245,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         if (string =~ "[.]") && textField.text!.contains(".") {
             return false
         }
+        saveButton?.hidden = textField.text!.length == 0
         return string.length == 0 || (string =~ "[0-9.]")
     }
 }
