@@ -538,7 +538,7 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchWorkOrderWithId(String(id),
+        ApiService.sharedService().fetchWorkOrderWithId(String(id), params: ["include_estimated_cost": "true"],
             onSuccess: { statusCode, mappingResult in
                 let workOrder = mappingResult.firstObject as! WorkOrder
                 self.status = workOrder.status
