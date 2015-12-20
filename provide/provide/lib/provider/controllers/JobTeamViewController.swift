@@ -19,6 +19,8 @@ class JobTeamViewController: UITableViewController,
                              ProviderCreationViewControllerDelegate,
                              DraggableViewGestureRecognizerDelegate {
 
+    private let jobSupervisorOperationQueue = dispatch_queue_create("api.jobSupervisorOperationQueue", DISPATCH_QUEUE_SERIAL)
+
     let maximumSearchlessProvidersCount = 20
 
     weak var delegate: JobTeamViewControllerDelegate! {
@@ -103,25 +105,29 @@ class JobTeamViewController: UITableViewController,
         }
 
         if !job.hasSupervisor(supervisor) {
-            addingSupervisor = true
-
             supervisorsPickerViewController?.providers.append(supervisor)
             let indexPaths = [NSIndexPath(forRow: (supervisorsPickerViewController?.providers.count)! - 1, inSection: 0)]
             supervisorsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
             let cell = supervisorsPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
             cell.showActivityIndicator()
 
-            job?.addSupervisor(supervisor,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.addingSupervisor = false
-                    cell.hideActivityIndicator()
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.supervisorsPickerViewController?.providers.removeObject(supervisor)
-                    self.supervisorsPickerViewController?.reloadCollectionView()
-                    self.addingSupervisor = false
-                }
-            )
+            dispatch_async(jobSupervisorOperationQueue) { [weak self] in
+                while self!.addingSupervisor { }
+
+                self!.addingSupervisor = true
+
+                self!.job?.addSupervisor(supervisor,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        self!.addingSupervisor = false
+                        cell.hideActivityIndicator()
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self!.supervisorsPickerViewController?.providers.removeObject(supervisor)
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        self!.addingSupervisor = false
+                    }
+                )
+            }
         }
     }
 
@@ -131,26 +137,32 @@ class JobTeamViewController: UITableViewController,
         }
 
         if job.hasSupervisor(supervisor) {
-            removingSupervisor = true
-
             let index = supervisorsPickerViewController?.providers.indexOfObject(supervisor)!
             supervisorsPickerViewController?.providers.removeAtIndex(index!)
             supervisorsPickerViewController?.reloadCollectionView()
 
-            job?.removeSupervisor(supervisor,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.supervisorsPickerViewController?.reloadCollectionView()
-                    if self.job.supervisors.count == 0 {
-                        self.reloadSupervisors()
+            dispatch_async(jobSupervisorOperationQueue) { [weak self] in
+                while self!.removingSupervisor { }
+
+                self!.removingSupervisor = true
+
+                self!.job?.removeSupervisor(supervisor,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        if self!.job.supervisors.count == 0 {
+                            self!.reloadSupervisors()
+                        }
+                        self!.removingSupervisor = false
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self!.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        self!.removingSupervisor = false
                     }
-                    self.removingSupervisor = false
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
-                    self.supervisorsPickerViewController?.reloadCollectionView()
-                    self.removingSupervisor = false
-                }
-            )
+                )
+            }
+
+
         }
     }
 
@@ -514,7 +526,7 @@ class JobTeamViewController: UITableViewController,
             }
 
             let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldAddSupervisor = !jobTeamViewController.addingSupervisor && CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            shouldAddSupervisor = CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
 
             if shouldAddSupervisor {
                 supervisorsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
@@ -601,7 +613,7 @@ class JobTeamViewController: UITableViewController,
             }
 
             let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldRemoveSupervisor = !jobTeamViewController.removingSupervisor && !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            shouldRemoveSupervisor = !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
 
             if shouldRemoveSupervisor {
                 let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
