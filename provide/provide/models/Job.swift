@@ -68,7 +68,9 @@ class Job: Model {
     var blueprint: Attachment! {
         if let blueprints = blueprints {
             if blueprints.count > 0 {
-                return blueprints.filter({ $0.mimeType == "image/png" }).first!
+                if let blueprint = blueprints.filter({ $0.mimeType == "image/png" }).first {
+                    return blueprint
+                }
             }
         }
         return nil
