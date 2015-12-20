@@ -25,7 +25,7 @@ class WorkOrder: Model {
     var abandonedAt: String!
     var canceledAt: String!
     var duration: NSNumber!
-    var estimatedCost: NSNumber!
+    var estimatedCost = -1.0
     var estimatedDuration: NSNumber!
     var status: String!
     var providerRating: NSNumber!
@@ -131,7 +131,7 @@ class WorkOrder: Model {
     }
 
     var humanReadableEstimatedCost: String! {
-        if let estimatedCost = estimatedCost {
+        if estimatedCost > -1.0 {
             return "$\(NSString(format: "%.02f", estimatedCost))"
         }
         return nil
