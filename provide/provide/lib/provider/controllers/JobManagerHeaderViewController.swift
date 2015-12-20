@@ -9,14 +9,14 @@
 import UIKit
 
 @objc
-protocol JobManagerHeaderViewControllerDelegate {
+protocol JobManagerHeaderViewControllerDelegate: NSObjectProtocol {
     func jobManagerHeaderViewController(viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate!
     optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
 }
 
 class JobManagerHeaderViewController: UITableViewController, ExpensesViewControllerDelegate {
 
-    var jobManagerHeaderViewControllerDelegate: JobManagerHeaderViewControllerDelegate!
+    weak var jobManagerHeaderViewControllerDelegate: JobManagerHeaderViewControllerDelegate!
 
     var job: Job! {
         didSet {

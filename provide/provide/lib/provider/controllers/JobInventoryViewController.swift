@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol JobInventoryViewControllerDelegate {
+protocol JobInventoryViewControllerDelegate: NSObjectProtocol {
     func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job!
 }
 
@@ -22,7 +22,7 @@ class JobInventoryViewContoller: UITableViewController,
 
     let maximumSearchlessProductsCount = 25
 
-    var delegate: JobInventoryViewControllerDelegate! {
+    weak var delegate: JobInventoryViewControllerDelegate! {
         didSet {
             if let _ = delegate {
                 if let jobProductsPickerViewController = jobProductsPickerViewController {

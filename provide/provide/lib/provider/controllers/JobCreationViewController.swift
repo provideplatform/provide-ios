@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol JobCreationViewControllerDelegate {
+protocol JobCreationViewControllerDelegate: NSObjectProtocol {
     func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job)
 }
 
@@ -16,7 +16,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
     let maximumSearchlessCustomersCount = 10
 
-    var delegate: JobCreationViewControllerDelegate! {
+    weak var delegate: JobCreationViewControllerDelegate! {
         didSet {
             if let _ = delegate {
                 if let customerPickerViewController = customerPickerViewController {

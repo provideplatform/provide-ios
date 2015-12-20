@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol JobManagerViewControllerDelegate {
+protocol JobManagerViewControllerDelegate: NSObjectProtocol {
     func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
     func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
@@ -19,7 +19,7 @@ protocol JobManagerViewControllerDelegate {
 
 class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDelegate, CommentsViewControllerDelegate, ManifestViewControllerDelegate, ExpensesViewControllerDelegate, ExpenseCaptureViewControllerDelegate {
 
-    var delegate: JobManagerViewControllerDelegate!
+    weak var delegate: JobManagerViewControllerDelegate!
     
     private var jobManagerHeaderViewController: JobManagerHeaderViewController!
     private var commentsViewController: CommentsViewController!

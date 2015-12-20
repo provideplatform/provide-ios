@@ -65,11 +65,13 @@ class Job: Model {
         return nil
     }
 
-    var blueprint: Attachment! {
+    weak var blueprint: Attachment! {
         if let blueprints = blueprints {
             if blueprints.count > 0 {
-                if let blueprint = blueprints.filter({ $0.mimeType == "image/png" }).first {
-                    return blueprint
+                for blueprint in blueprints {
+                    if blueprint.mimeType == "image/png" {
+                        return blueprint
+                    }
                 }
             }
         }

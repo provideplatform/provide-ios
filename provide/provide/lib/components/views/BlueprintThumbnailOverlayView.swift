@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintThumbnailOverlayViewDelegate {
+protocol BlueprintThumbnailOverlayViewDelegate: NSObjectProtocol {
     func blueprintThumbnailOverlayViewNavigationBegan(view: BlueprintThumbnailOverlayView)
     func blueprintThumbnailOverlayViewNavigationEnded(view: BlueprintThumbnailOverlayView)
     func blueprintThumbnailOverlayView(view: BlueprintThumbnailOverlayView, navigatedToFrame frame: CGRect)
@@ -16,7 +16,7 @@ protocol BlueprintThumbnailOverlayViewDelegate {
 
 class BlueprintThumbnailOverlayView: UIView {
 
-    var delegate: BlueprintThumbnailOverlayViewDelegate!
+    weak var delegate: BlueprintThumbnailOverlayViewDelegate!
 
     private var touchesBeganTimestamp: NSDate!
 

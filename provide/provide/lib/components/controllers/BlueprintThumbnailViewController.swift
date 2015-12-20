@@ -10,15 +10,15 @@ import UIKit
 
 class BlueprintThumbnailViewController: ViewController {
 
-    private var thumbnailView: BlueprintThumbnailView {
-        return view as! BlueprintThumbnailView
+    weak var thumbnailView: BlueprintThumbnailView! {
+        return view as? BlueprintThumbnailView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        thumbnailView.backgroundColor = UIColor.whiteColor()
-        thumbnailView.roundCorners(5.0)
-        thumbnailView.alpha = 0.0
+        thumbnailView!.backgroundColor = UIColor.whiteColor()
+        thumbnailView!.roundCorners(5.0)
+        thumbnailView!.alpha = 0.0
     }
 }

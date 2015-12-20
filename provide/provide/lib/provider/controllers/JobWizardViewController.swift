@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol JobWizardViewControllerDelegate {
+protocol JobWizardViewControllerDelegate: NSObjectProtocol {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
 }
 
@@ -22,7 +22,7 @@ class JobWizardViewController: UINavigationController,
                                ManifestViewControllerDelegate,
                                PDTSimpleCalendarViewDelegate {
 
-    var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate! {
+    weak var jobWizardViewControllerDelegate: JobWizardViewControllerDelegate? {
         didSet {
             if let _ = jobWizardViewControllerDelegate {
                 if let pendingViewController = pendingViewController {
@@ -32,7 +32,7 @@ class JobWizardViewController: UINavigationController,
         }
     }
 
-    var job: Job! {
+    weak var job: Job! {
         if  let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
             return jobWizardViewControllerDelegate.jobForJobWizardViewController(self)
         }
@@ -41,7 +41,7 @@ class JobWizardViewController: UINavigationController,
 
     private var reloadingJob = false
 
-    private var pendingViewController: UIViewController!
+    private weak var pendingViewController: UIViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +106,7 @@ class JobWizardViewController: UINavigationController,
             (viewController as! JobReviewViewController).job = job
             
         }
-        
+
         refreshUI()
 
         pendingViewController = nil
@@ -200,5 +200,14 @@ class JobWizardViewController: UINavigationController,
 
     func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job! {
         return job
+    }
+
+    deinit {
+        print("Deinitialized job wizard view controller w/ nav stack: \(self.viewControllers)")
+
+        let viewController = viewControllers.first
+        if let blueprintViewController = viewController as? BlueprintViewController {
+            blueprintViewController.teardown()
+        }
     }
 }

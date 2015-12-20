@@ -9,7 +9,7 @@
 import UIKit
 
 @objc
-protocol BlueprintViewControllerDelegate {
+protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
     optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
@@ -25,7 +25,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                WorkOrderCreationViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
 
-    var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
+    weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
             if let _ = blueprintViewControllerDelegate {
                 if !loadedBlueprint && scrollView != nil {
@@ -35,20 +35,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    private var blueprintThumbnailViewController: BlueprintThumbnailViewController! {
-        didSet {
-            if let _ = blueprintThumbnailViewController {
-                thumbnailView.delegate = self
-            }
-        }
-    }
+    private var thumbnailView: BlueprintThumbnailView!
 
-    private var thumbnailView: BlueprintThumbnailView! {
-        if let blueprintThumbnailViewController  = blueprintThumbnailViewController {
-            return blueprintThumbnailViewController.view as! BlueprintThumbnailView
-        }
-        return nil
-    }
+    private var imageView: UIImageView!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
@@ -77,7 +66,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var polygonViews = [BlueprintPolygonView]()
 
-    var job: Job! {
+    weak var job: Job! {
         if let job = blueprintViewControllerDelegate?.jobForBlueprintViewController(self) {
             return job
         }
@@ -88,8 +77,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     var workOrder: WorkOrder!
-
-    private var imageView: UIImageView!
 
     private var initialToolbarFrame: CGRect!
 
@@ -107,15 +94,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             y: targetView.frame.height,
             width: targetView.frame.width,
             height: targetView.frame.height // / 1.333
-        )
-    }
-
-    private var renderedNavigationControllerFrame: CGRect {
-        return CGRect(
-            x: 0.0,
-            y: hiddenNavigationControllerFrame.origin.y - hiddenNavigationControllerFrame.height,
-            width: hiddenNavigationControllerFrame.width,
-            height: hiddenNavigationControllerFrame.height
         )
     }
 
@@ -159,14 +137,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         setupNavigationItem()
 
-        blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
-        view.addSubview(blueprintThumbnailViewController.view)
+        let blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
+        self.thumbnailView = blueprintThumbnailViewController.thumbnailView
+        self.thumbnailView.delegate = self
+        view.addSubview(thumbnailView)
 
         imageView = UIImageView()
         imageView.alpha = 0.0
         imageView.userInteractionEnabled = true
+        imageView.contentMode = .ScaleToFill
 
         scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+        scrollView.addSubview(imageView)
+        scrollView.bringSubviewToFront(imageView)
 
         toolbar.alpha = 0.0
         toolbar.blueprintToolbarDelegate = self
@@ -176,6 +159,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         loadBlueprint()
     }
 
+    func teardown() {
+        imageView?.removeFromSuperview()
+        imageView?.image = nil
+        thumbnailView?.blueprintImage = nil
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -183,8 +172,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
-        dispatch_after_delay(0.0) {
-            self.thumbnailView?.blueprintImage = self.imageView.image
+        dispatch_after_delay(0.0) { [weak self] in
+            self!.thumbnailView?.blueprintImage = self!.imageView.image
         }
     }
 
@@ -223,8 +212,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
             targetView.bringSubviewToFront(navigationController.view)
 
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                animations: {
-                    self.view.alpha = 1
+                animations: { [weak self] in
+                    self!.view.alpha = 1
                     navigationController.view.alpha = 1
                     navigationController.view.frame = CGRect(
                         x: frame.origin.x,
@@ -243,10 +232,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let navigationController = navigationController {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                animations: {
-                    self.view.alpha = 0.0
+                animations: { [weak self] in
+                    self!.view.alpha = 0.0
                     navigationController.view.alpha = 0.0
-                    navigationController.view.frame = self.hiddenNavigationControllerFrame
+                    navigationController.view.frame = self!.hiddenNavigationControllerFrame
                 },
                 completion: nil
             )
@@ -258,33 +247,108 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if let url = job.blueprintImageUrl {
                 loadingBlueprint = true
 
-                imageView.sd_setImageWithURL(url) { [weak self] image, error, cacheType, url in
-                    let size = CGSize(width: image.size.width, height: image.size.height)
+                ApiService.sharedService().fetchImage(url,
+                    onImageFetched: { [weak self] statusCode, image in
+                        dispatch_after_delay(0.0) { [weak self] in
+//                            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+//                            let outputFileURL = NSURL(fileURLWithPath: "\(paths.first!)/\(NSDate().timeIntervalSince1970).png")
+//                            dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+//                                response.writeToURL(outputFileURL, atomically: true)
+//                            }
+//
+//                            dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+//                                while !NSFileManager.defaultManager().fileExistsAtPath(outputFileURL.path!) {
+//                                    NSThread.sleepForTimeInterval(0.1)
+//                                }
+//
+//                                dispatch_after_delay(0.0) {
+//                                    let image = UIImage(contentsOfFile: outputFileURL.path!)!
+//                                    //NSFileManager.defaultManager().removeItemAtPath(outputFileURL.absoluteString)
+//                                    let size = CGSize(width: image.size.width, height: image.size.height)
+//
+//                                    self!.imageView!.image = image
+//                                    self!.imageView!.frame = CGRect(origin: CGPointZero, size: size)
+//
+//                                    self!.thumbnailView?.blueprintImage = image
+//
+//                                    self!.scrollView.contentSize = size
+//                                    self!.scrollView.scrollEnabled = false
+//
+//                                    self!.enableScrolling = true
+//
+//                                    self!.scrollView.minimumZoomScale = 0.2
+//                                    self!.scrollView.maximumZoomScale = 1.0
+//                                    self!.scrollView.zoomScale = 0.4
+//
+//                                    self!.imageView.alpha = 1.0
+//
+//                                    self!.loadingBlueprint = false
+//                                    self!.toolbar.reload()
+//                                    
+//                                    self!.showToolbar()
+//                                    self!.loadedBlueprint = true
+//                                }
+//                            }
 
-                    self!.thumbnailView.blueprintImage = image
+//                            let dataProvider = CGDataProviderCreateWithCFData(response)
+//                            let imageRef = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, .RenderingIntentDefault)!
 
-                    self!.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-                    self!.imageView.contentMode = .ScaleToFill
+                            let size = CGSize(width: image.size.width, height: image.size.height)
 
-                    self!.scrollView.contentSize = size
-                    self!.scrollView.scrollEnabled = false
-                    self!.scrollView.addSubview(self!.imageView)
+                            self!.imageView!.image = image
+                            self!.imageView!.frame = CGRect(origin: CGPointZero, size: size)
 
-                    self!.enableScrolling = true
+                            self!.thumbnailView?.blueprintImage = image
 
-                    self!.scrollView.minimumZoomScale = 0.2
-                    self!.scrollView.maximumZoomScale = 1.0
-                    self!.scrollView.zoomScale = 0.4
+                            self!.scrollView.contentSize = size
+                            self!.scrollView.scrollEnabled = false
 
-                    self!.scrollView.bringSubviewToFront(self!.imageView)
-                    self!.imageView.alpha = 1.0
+                            self!.enableScrolling = true
 
-                    self!.loadingBlueprint = false
-                    self!.toolbar.reload()
+                            self!.scrollView.minimumZoomScale = 0.2
+                            self!.scrollView.maximumZoomScale = 1.0
+                            self!.scrollView.zoomScale = 0.4
 
-                    self!.showToolbar()
-                    self!.loadedBlueprint = true
-                }
+                            self!.imageView.alpha = 1.0
+
+                            self!.loadingBlueprint = false
+                            self!.toolbar.reload()
+
+                            self!.showToolbar()
+                            self!.loadedBlueprint = true
+                        }
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+//                imageView.sd_setImageWithURL(url) { [weak self] image, error, cacheType, url in
+//                    let size = CGSize(width: image.size.width, height: image.size.height)
+//
+//                    self!.thumbnailView.blueprintImage = image
+//
+//                    self!.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
+//                    self!.imageView.contentMode = .ScaleToFill
+//
+//                    self!.scrollView.contentSize = size
+//                    self!.scrollView.scrollEnabled = false
+//                    self!.scrollView.addSubview(self!.imageView)
+//
+//                    self!.enableScrolling = true
+//
+//                    self!.scrollView.minimumZoomScale = 0.2
+//                    self!.scrollView.maximumZoomScale = 1.0
+//                    self!.scrollView.zoomScale = 0.4
+//
+//                    self!.scrollView.bringSubviewToFront(self!.imageView)
+//                    self!.imageView.alpha = 1.0
+//
+//                    self!.loadingBlueprint = false
+//                    self!.toolbar.reload()
+//
+//                    self!.showToolbar()
+//                    self!.loadedBlueprint = true
+//                }
 
                 loadAnnotations()
             }
@@ -364,12 +428,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
-        initialToolbarFrame = toolbar.frame
+        dispatch_after_delay(0.0) { [weak self] in
+            self!.initialToolbarFrame = self!.toolbar.frame
+        }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                self.toolbar.alpha = 0.0
-                self.toolbar.frame.origin.y += self.toolbar.frame.size.height
+            animations: { [weak self] in
+                self!.toolbar.alpha = 0.0
+                self!.toolbar.frame.origin.y += self!.toolbar.frame.size.height
             }, completion: { completed in
 
             }
@@ -378,14 +444,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func showToolbar() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                self.toolbar.alpha = 1.0
-                if let initialToolbarFrame = self.initialToolbarFrame {
-                    self.toolbar.frame = initialToolbarFrame
+            animations: { [weak self] in
+                self!.toolbar.alpha = 1.0
+                if let initialToolbarFrame = self!.initialToolbarFrame {
+                    self!.toolbar.frame = initialToolbarFrame
                 } else {
-                    self.toolbar.frame.origin.y -= self.toolbar.frame.size.height
+                    self!.toolbar.frame.origin.y -= self!.toolbar.frame.size.height
                 }
-
             }, completion: { completed in
 
             }
@@ -405,8 +470,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let job = job {
             job.updateJobBlueprintScale(scale,
-                onSuccess: { statusCode, mappingResult in
-                    self.toolbar.reload()
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.toolbar.reload()
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -603,7 +668,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
-        thumbnailView.alpha = alpha
+        thumbnailView?.alpha = alpha
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
@@ -764,7 +829,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if enableScrolling {
-            thumbnailView.scrollViewDidScroll(scrollView)
+            thumbnailView?.scrollViewDidScroll(scrollView)
         }
     }
 
@@ -777,7 +842,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        thumbnailView.scrollViewDidZoom(scrollView)
+        thumbnailView?.scrollViewDidZoom(scrollView)
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
@@ -939,9 +1004,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 annotation.workOrderId = workOrder.id
                 annotation.workOrder = workOrder
                 annotation.save(blueprint,
-                    onSuccess: { statusCode, mappingResult in
-                        self.refreshAnnotations()
-                        self.dismissWorkOrderCreationPolygonView()
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        self!.refreshAnnotations()
+                        self!.dismissWorkOrderCreationPolygonView()
                     },
                     onError: { error, statusCode, responseString in
 
@@ -986,5 +1051,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
 
+    }
+
+    deinit {
+        print("hello blueprint byeee")
     }
 }

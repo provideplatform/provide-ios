@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol JobTeamViewControllerDelegate {
+protocol JobTeamViewControllerDelegate: NSObjectProtocol {
     func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job!
 }
 
@@ -21,7 +21,7 @@ class JobTeamViewController: UITableViewController,
 
     let maximumSearchlessProvidersCount = 20
 
-    var delegate: JobTeamViewControllerDelegate! {
+    weak var delegate: JobTeamViewControllerDelegate! {
         didSet {
             if let _ = delegate {
                 if let supervisorsPickerViewController = supervisorsPickerViewController {

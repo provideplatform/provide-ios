@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintToolbarDelegate {
+protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
@@ -21,7 +21,7 @@ protocol BlueprintToolbarDelegate {
 
 class BlueprintToolbar: UIToolbar {
 
-    var blueprintToolbarDelegate: BlueprintToolbarDelegate!
+    weak var blueprintToolbarDelegate: BlueprintToolbarDelegate!
 
     private var navigatorVisible = false
     private var scaleVisible = false

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintThumbnailViewDelegate {
+protocol BlueprintThumbnailViewDelegate: NSObjectProtocol {
     func blueprintThumbnailViewNavigationBegan(view: BlueprintThumbnailView)
     func blueprintThumbnailViewNavigationEnded(view: BlueprintThumbnailView)
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect)
@@ -18,30 +18,28 @@ protocol BlueprintThumbnailViewDelegate {
 
 class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
 
-    var delegate: BlueprintThumbnailViewDelegate!
+    weak var delegate: BlueprintThumbnailViewDelegate!
 
-    var blueprintImage: UIImage! {
+    weak var blueprintImage: UIImage! {
         didSet {
-            dispatch_after_delay(0.0) {
-                self.frame = CGRect(x: self.visibleSize.width - self.desiredSize.width - 10.0,
-                                    y: self.visibleSize.height - self.desiredSize.height - 10.0 - 44.0,
-                                    width: self.desiredSize.width,
-                                    height: self.desiredSize.height)
+            dispatch_after_delay(0.0) { [weak self, weak bluePrintImage = self.blueprintImage] in
+                self!.frame = CGRect(x: self!.visibleSize.width - self!.desiredSize.width - 10.0,
+                                     y: self!.visibleSize.height - self!.desiredSize.height - 10.0 - 44.0,
+                                     width: self!.desiredSize.width,
+                                     height: self!.desiredSize.height)
 
-                if let blueprintImage = self.blueprintImage {
-                    dispatch_after_delay(0.0) {
-                        let scaledImage = blueprintImage.scaledToWidth(self.desiredSize.width)
-                        self.thumbnailImageBackgroundView.frame.size = self.desiredSize
-                        self.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
-                    }
+                if let bluePrintImage = bluePrintImage {
+                    let scaledImage = bluePrintImage.scaledToWidth(self!.desiredSize.width)
+                    self!.thumbnailImageBackgroundView.frame.size = self!.desiredSize
+                    self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
 
                     var scale = CGFloat(1.0)
-                    if let delegate = self.delegate {
-                        scale = delegate.initialScaleForBlueprintThumbnailView(self)
+                    if let delegate = self!.delegate {
+                        scale = delegate.initialScaleForBlueprintThumbnailView(self!)
                     }
-                    self.resizeOverlayView(CGPointZero, scale: scale)
+                    self!.resizeOverlayView(CGPointZero, scale: scale)
                 } else {
-                    self.alpha = 0.0
+                    self!.alpha = 0.0
                 }
             }
         }
@@ -79,18 +77,20 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     }
 
     private func resizeOverlayView(origin: CGPoint = CGPointZero, scale: CGFloat = 1.0) {
-        let heightRatio = visibleSize.height / (blueprintImage.size.height * scale)
+        if let blueprintImage = blueprintImage {
+            let heightRatio = visibleSize.height / (blueprintImage.size.height * scale)
 
-        let viewportHeight = frame.height * heightRatio
-        let viewportWidth = viewportHeight * viewportAspectRatio
+            let viewportHeight = frame.height * heightRatio
+            let viewportWidth = viewportHeight * viewportAspectRatio
 
-        dispatch_after_delay(0.0) {
-            self.overlayView.frame = CGRect(x: origin.x,
-                                            y: origin.y,
-                                            width: viewportWidth,
-                                            height: viewportHeight)
+            dispatch_after_delay(0.0) { [weak self] in
+                self!.overlayView.frame = CGRect(x: origin.x,
+                                                 y: origin.y,
+                                                 width: viewportWidth,
+                                                 height: viewportHeight)
 
-            self.overlayView.alpha = 1.0
+                self!.overlayView.alpha = 1.0
+            }
         }
     }
 
@@ -130,5 +130,11 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
 
     func blueprintThumbnailOverlayViewNavigationEnded(view: BlueprintThumbnailOverlayView) {
         delegate?.blueprintThumbnailViewNavigationEnded(self)
+    }
+
+    deinit {
+        print("deinit blueprint thumbnail view!!!!")
+
+        blueprintImage = nil
     }
 }

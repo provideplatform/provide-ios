@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintPolygonVertexViewDelegate {
+protocol BlueprintPolygonVertexViewDelegate: NSObjectProtocol {
     func blueprintPolygonVertexViewShouldReceiveTouch(view: BlueprintPolygonVertexView) -> Bool
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView)
     func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView)
@@ -16,7 +16,7 @@ protocol BlueprintPolygonVertexViewDelegate {
 
 class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
 
-    var delegate: BlueprintPolygonVertexViewDelegate!
+    weak var delegate: BlueprintPolygonVertexViewDelegate!
 
     var image: UIImage?
 

@@ -10,7 +10,7 @@ import UIKit
 
 class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate, JobWizardViewControllerDelegate {
 
-    var job: Job! {
+    weak var job: Job! {
         didSet {
             if let job = job {
                 navigationItem.title = job.name
@@ -122,17 +122,21 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
         delegate = self
 
-        dispatch_after_delay(0.0) {
-            for viewController in self.viewControllers! {
+        dispatch_after_delay(0.0) { [weak self] in
+            for viewController in self!.viewControllers! {
                 if viewController.isKindOfClass(JobWizardViewController) {
-                    (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self
+                    (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self!
                 }
             }
 
-            self.selectInitialTabBarItem()
+            self!.selectInitialTabBarItem()
         }
 
         setupTabBarAppearence()
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -211,5 +215,9 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
 
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job! {
         return job
+    }
+
+    deinit {
+        print("DEINITIALIZE JobWizardTabBarController")
     }
 }

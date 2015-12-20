@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintPolygonViewDelegate {
+protocol BlueprintPolygonViewDelegate: NSObjectProtocol {
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat!
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView!
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
@@ -25,7 +25,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
     var annotation: Annotation!
 
-    var delegate: BlueprintPolygonViewDelegate! {
+    weak var delegate: BlueprintPolygonViewDelegate! {
         didSet {
             if let _ = delegate {
 

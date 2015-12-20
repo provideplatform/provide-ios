@@ -9,14 +9,14 @@
 import UIKit
 
 @objc
-protocol JobProductCreationViewControllerDelegate {
+protocol JobProductCreationViewControllerDelegate: NSObjectProtocol {
     optional func jobProductForJobProductCreationViewController(viewController: JobProductCreationViewController) -> JobProduct!
     func jobProductCreationViewController(viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct)
 }
 
 class JobProductCreationViewController: ProductCreationViewController {
 
-    var jobProductCreationViewControllerDelegate: JobProductCreationViewControllerDelegate! {
+    weak var jobProductCreationViewControllerDelegate: JobProductCreationViewControllerDelegate! {
         didSet {
             if let jobProductCreationViewControllerDelegate = jobProductCreationViewControllerDelegate {
                 if jobProduct == nil {

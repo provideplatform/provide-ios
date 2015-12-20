@@ -30,7 +30,7 @@ class JobsViewController: ViewController,
 
     private var refreshControl: UIRefreshControl!
 
-    private var jobCreationViewController: JobCreationViewController!
+    private weak var jobCreationViewController: JobCreationViewController!
 
     private var cancellingJob = false
 
@@ -104,12 +104,12 @@ class JobsViewController: ViewController,
         }
 
         ApiService.sharedService().fetchJobs(params,
-            onSuccess: { statusCode, mappingResult in
+            onSuccess: { [weak self] statusCode, mappingResult in
                 let fetchedJobs = mappingResult.array() as! [Job]
-                self.jobs += fetchedJobs
+                self!.jobs += fetchedJobs
 
-                self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
+                self!.tableView.reloadData()
+                self!.refreshControl.endRefreshing()
             },
             onError: { error, statusCode, responseString in
                 // TODO
@@ -207,11 +207,11 @@ class JobsViewController: ViewController,
 
         let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .Destructive) { action in
             job.cancel(
-                onSuccess: { statusCode, mappingResult in
-                    self.tableView?.beginUpdates()
-                    self.jobs.removeObject(job)
-                    self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
-                    self.tableView?.endUpdates()
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.tableView?.beginUpdates()
+                    self!.jobs.removeObject(job)
+                    self!.tableView?.deleteRowsAtIndexPaths([self!.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
+                    self!.tableView?.endUpdates()
                 },
                 onError: { error, statusCode, responseString in
 
@@ -390,11 +390,11 @@ class JobsViewController: ViewController,
 
     private class JobTableViewCellGestureRecognizer: DraggableViewGestureRecognizer {
 
-        private var tableView: UITableView! {
+        private weak var tableView: UITableView! {
             return jobsViewController?.tableView
         }
 
-        private var jobsViewController: JobsViewController!
+        private weak var jobsViewController: JobsViewController!
 
         private var initialBackgroundColor: UIColor!
 
@@ -498,5 +498,9 @@ class JobsViewController: ViewController,
                 //(initialView as! JobTableViewCell).accessoryImage = nil
             }
         }
+    }
+
+    deinit {
+        print("deinitialized jobs view controller")
     }
 }
