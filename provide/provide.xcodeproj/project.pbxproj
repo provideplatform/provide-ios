@@ -871,10 +871,10 @@
 		68B412BE1B080D42009A4C05 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
 				6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */,
 				68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */,
 				6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */,
-				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
 				6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */,
 				6845BB631BF1F60200AD3D79 /* BlueprintScrollView.swift */,
 				6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */,
