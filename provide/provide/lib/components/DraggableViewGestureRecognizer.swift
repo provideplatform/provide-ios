@@ -89,22 +89,22 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
                     }
                 }
                 UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseOut,
-                    animations: { Void in
-                        self.initialView.frame = self.initialFrame
-                        self.initialView.alpha = self.initialAlpha
+                    animations: { [weak self] in
+                        self!.initialView.frame = self!.initialFrame
+                        self!.initialView.alpha = self!.initialAlpha
                     },
-                    completion: { complete in
-                        if self.superviewChanged {
+                    completion: { [weak self] complete in
+                        if self!.superviewChanged {
                             let window = UIApplication.sharedApplication().keyWindow!
-                            self.initialView.removeFromSuperview()
+                            self!.initialView.removeFromSuperview()
 
-                            self.initialView.frame = window.convertRect(self.initialView.frame, toView: self.initialSuperview)
-                            self.initialView.alpha = self.initialAlpha
-                            self.initialSuperview.addSubview(self.initialView)
-                            self.initialSuperview.bringSubviewToFront(self.initialView)
+                            self!.initialView.frame = window.convertRect(self!.initialView.frame, toView: self!.initialSuperview)
+                            self!.initialView.alpha = self!.initialAlpha
+                            self!.initialSuperview.addSubview(self!.initialView)
+                            self!.initialSuperview.bringSubviewToFront(self!.initialView)
                         }
 
-                        self.cleanup()
+                        self!.cleanup()
                     }
                 )
             } else {
