@@ -923,7 +923,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.accessoryType = .DisclosureIndicator
             } else {
                 cell.setName("MATERIALS", value: "")
-                cell.showActivity()
+                cell.showActivity(false)
             }
         case 5:
             if let expensesDisposition = workOrder.expensesDisposition {
@@ -931,7 +931,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.accessoryType = .DisclosureIndicator
             } else {
                 cell.setName("EXPENSES", value: "")
-                cell.showActivity()
+                cell.showActivity(false)
             }
 
         default:

@@ -23,8 +23,9 @@ class NameValueTableViewCell: UITableViewCell {
         activityIndicatorView?.stopAnimating()
     }
 
-    func showActivity() {
-        setName("", value: "")
+    func showActivity(resetName: Bool = true) {
+        let name = resetName ? "" : nameLabel?.text
+        setName(name!, value: "")
         activityIndicatorView?.startAnimating()
     }
 
