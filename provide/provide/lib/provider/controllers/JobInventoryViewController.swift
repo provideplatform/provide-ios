@@ -20,6 +20,8 @@ class JobInventoryViewContoller: UITableViewController,
                                  JobProductCreationViewControllerDelegate,
                                  ManifestViewControllerDelegate {
 
+    private let jobProductOperationQueue = dispatch_queue_create("api.jobProductOperationQueue", DISPATCH_QUEUE_SERIAL)
+
     let maximumSearchlessProductsCount = 25
 
     weak var delegate: JobInventoryViewControllerDelegate! {
@@ -90,8 +92,6 @@ class JobInventoryViewContoller: UITableViewController,
 
         var jobProduct = job.jobProductForProduct(product)
         if jobProduct == nil {
-            addingJobProduct = true
-
             jobProductsPickerViewController?.products.append(product)
             let indexPaths = [NSIndexPath(forRow: (jobProductsPickerViewController?.products.count)! - 1, inSection: 0)]
             jobProductsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
@@ -100,30 +100,39 @@ class JobInventoryViewContoller: UITableViewController,
 
             let params: [String : AnyObject] = [:]
 
-            job?.addJobProductForProduct(product, params: params,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.addingJobProduct = false
-                    cell.hideActivityIndicator()
+            dispatch_async(jobProductOperationQueue) { [weak self] in
+                while self!.addingJobProduct { }
 
-                    jobProduct = self.job.jobProductForProduct(product)
+                self!.addingJobProduct = true
 
-                    let jobProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("JobProductCreationViewController") as! JobProductCreationViewController
-                    jobProductCreationViewController.job = self.job
-                    jobProductCreationViewController.jobProduct = jobProduct
-                    jobProductCreationViewController.jobProductCreationViewControllerDelegate = self
-                    jobProductCreationViewController.modalPresentationStyle = .Popover
-                    jobProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
-                    jobProductCreationViewController.popoverPresentationController!.sourceView = cell
-                    jobProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-                    jobProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                    self.presentViewController(jobProductCreationViewController, animated: true)
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.jobProductsPickerViewController?.products.removeObject(product)
-                    self.jobProductsPickerViewController?.reloadCollectionView()
-                    self.addingJobProduct = false
-                }
-            )
+                self!.job?.addJobProductForProduct(product, params: params,
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        cell.hideActivityIndicator()
+
+                        jobProduct = self!.job.jobProductForProduct(product)
+
+                        let jobProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("JobProductCreationViewController") as! JobProductCreationViewController
+                        jobProductCreationViewController.job = self!.job
+                        jobProductCreationViewController.jobProduct = jobProduct
+                        jobProductCreationViewController.jobProductCreationViewControllerDelegate = self!
+                        jobProductCreationViewController.modalPresentationStyle = .Popover
+                        jobProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
+                        jobProductCreationViewController.popoverPresentationController!.sourceView = cell
+                        jobProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                        jobProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+                        self!.presentViewController(jobProductCreationViewController, animated: true) {
+                            self!.addingJobProduct = false
+                        }
+                    },
+                    onError: { [weak self] error, statusCode, responseString in
+                        self!.jobProductsPickerViewController?.products.removeObject(product)
+                        self!.jobProductsPickerViewController?.reloadCollectionView()
+                        self!.addingJobProduct = false
+                    }
+                )
+            }
+
+
         }
     }
 
@@ -133,20 +142,24 @@ class JobInventoryViewContoller: UITableViewController,
         }
 
         if let jobProduct = job.jobProductForProduct(product) {
-            removingJobProduct = true
+            dispatch_async(jobProductOperationQueue) { [weak self] in
+                while self!.removingJobProduct { }
 
-            job?.removeJobProduct(jobProduct,
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    self.jobProductsPickerViewController?.products = self.job.materials.map({ $0.product })
-                    self.jobProductsPickerViewController?.reloadCollectionView()
-                    self.removingJobProduct = false
-                },
-                onError: { (error, statusCode, responseString) -> () in
-                    self.jobProductsPickerViewController?.products.append(product)
-                    self.jobProductsPickerViewController?.reloadCollectionView()
-                    self.removingJobProduct = false
-                }
-            )
+                self!.removingJobProduct = true
+
+                self!.job?.removeJobProduct(jobProduct,
+                    onSuccess: { (statusCode, mappingResult) -> () in
+                        self!.jobProductsPickerViewController?.products = self!.job.materials.map({ $0.product })
+                        self!.jobProductsPickerViewController?.reloadCollectionView()
+                        self!.removingJobProduct = false
+                    },
+                    onError: { (error, statusCode, responseString) -> () in
+                        self!.jobProductsPickerViewController?.products.append(product)
+                        self!.jobProductsPickerViewController?.reloadCollectionView()
+                        self!.removingJobProduct = false
+                    }
+                )
+            }
         }
     }
 

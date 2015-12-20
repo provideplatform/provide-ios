@@ -32,13 +32,7 @@ class JobProductCreationViewController: ProductCreationViewController {
 
     var jobProduct: JobProduct! {
         didSet {
-            if let jobProduct = jobProduct {
-                quantityTextField?.text = "\(jobProduct.initialQuantity)"
-
-                if jobProduct.price > -1.0 {
-                    priceTextField?.text = "$\(jobProduct.price)"
-                }
-            }
+            populateTextFields()
         }
     }
 
@@ -46,23 +40,51 @@ class JobProductCreationViewController: ProductCreationViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        populateTextFields()
+    }
+
+    private func populateTextFields() {
+        if let jobProduct = jobProduct {
+            if jobProduct.initialQuantity == 0.0 {
+                dispatch_after_delay(0.0) { [weak self] in
+                    self!.quantityTextField?.becomeFirstResponder()
+                }
+            } else {
+                quantityTextField?.text = "\(jobProduct.initialQuantity)"
+            }
+
+
+            if jobProduct.price > -1.0 {
+                priceTextField?.text = "\(jobProduct.price)"
+            } else if let price = jobProduct.product.price {
+                if price > -1.0 {
+                    priceTextField?.text = "\(price)"
+                }
+            }
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
             if let job = job {
                 let jobProduct = job.jobProductForProduct(self.jobProduct.product)
-                if let quantity = quantityTextField?.text {
-                    jobProduct.initialQuantity = Double(quantity)!
-                }
-                if let price = priceTextField?.text {
-                    if price.length > 0 {
-                        jobProduct.price = Double(price)!
+                if let quantityString = quantityTextField?.text {
+                    if let quantity = Double(quantityString) {
+                        jobProduct.initialQuantity = quantity
                     }
                 }
+                if let priceString = priceTextField?.text {
+                    if priceString.length > 0 {
+                        if let price = Double(priceString) {
+                            jobProduct.price = price
+                        }
+                    }
+                }
+
                 job.save(
-                    onSuccess: { statusCode, mappingResult in
-                        self.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self, didUpdateJobProduct: self.jobProduct)
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        self!.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self!, didUpdateJobProduct: self!.jobProduct)
                     },
                     onError: { error, statusCode, responseString in
 
