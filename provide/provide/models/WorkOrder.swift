@@ -780,13 +780,16 @@ class WorkOrder: Model {
     }
 
     func prependExpense(expense: Expense) {
-        if self.expenses == nil {
-            self.expenses = [Expense]()
+        if expenses == nil {
+            expenses = [Expense]()
         }
-        self.expenses.insert(expense, atIndex: 0)
-        self.expensesCount += 1
-        if let amount = self.expensedAmount {
-            self.expensedAmount = amount + expense.amount
+        expenses.insert(expense, atIndex: 0)
+        expensesCount += 1
+        if let amount = expensedAmount {
+            expensedAmount = amount + expense.amount
+            if estimatedCost > -1.0 {
+                estimatedCost += expense.amount
+            }
         }
     }
 

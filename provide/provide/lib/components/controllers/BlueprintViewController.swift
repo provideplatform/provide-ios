@@ -972,6 +972,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
                 if viewController is WorkOrderCreationViewController {
                     (viewController as! WorkOrderCreationViewController).workOrder.prependExpense(expense)
+                    (viewController as! WorkOrderCreationViewController).reloadTableView()
                 }
             }
         }
