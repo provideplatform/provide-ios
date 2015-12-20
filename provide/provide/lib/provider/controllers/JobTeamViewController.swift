@@ -161,8 +161,6 @@ class JobTeamViewController: UITableViewController,
                     }
                 )
             }
-
-
         }
     }
 
@@ -439,19 +437,23 @@ class JobTeamViewController: UITableViewController,
     }
 
     private func reloadSupervisors() {
-        reloadingSupervisors = true
+        dispatch_async(jobSupervisorOperationQueue) { [weak self] in
+            while self!.reloadingSupervisors { }
 
-        job?.reloadSupervisors(
-            { (statusCode, mappingResult) -> () in
-                self.supervisorsPickerViewController.providers = self.job.supervisors
-                self.supervisorsPickerViewController.reloadCollectionView()
-                self.reloadingSupervisors = false
-            },
-            onError: { (error, statusCode, responseString) -> () in
-                self.supervisorsPickerViewController.reloadCollectionView()
-                self.reloadingSupervisors = false
-            }
-        )
+            self!.reloadingSupervisors = true
+
+            self!.job?.reloadSupervisors(
+                { [weak self] statusCode, mappingResult in
+                    self!.supervisorsPickerViewController.providers = self!.job.supervisors
+                    self!.supervisorsPickerViewController.reloadCollectionView()
+                    self!.reloadingSupervisors = false
+                },
+                onError: { [weak self] error, statusCode, responseString in
+                    self!.supervisorsPickerViewController.reloadCollectionView()
+                    self!.reloadingSupervisors = false
+                }
+            )
+        }
     }
 
     // MARK: QueryResultsPickerCollectionViewCellGestureRecognizer
