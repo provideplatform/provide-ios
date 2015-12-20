@@ -368,8 +368,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
-        dispatch_after_delay(0.0) { [weak self] in
-            self!.initialToolbarFrame = self!.toolbar.frame
+        if initialToolbarFrame == nil {
+            dispatch_after_delay(0.0) { [weak self] in
+                self!.initialToolbarFrame = self!.toolbar.frame
+            }
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
