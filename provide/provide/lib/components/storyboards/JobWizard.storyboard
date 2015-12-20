@@ -612,11 +612,11 @@
                         <viewControllerLayoutGuide type="bottom" id="af3-yC-5et"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fWz-MA-QiB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkC-j0-KT1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3j8-PF-pdv">
                                         <rect key="frame" x="20" y="72" width="560" height="418"/>
@@ -634,7 +634,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2J-Ov-1wQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                         <connections>
                                             <segue destination="Vn8-Nz-9DZ" kind="embed" identifier="BlueprintViewControllerEmbedSegue" id="oz4-ws-F4S"/>
                                         </connections>
@@ -657,7 +657,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OO-pg-gjT">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats! Your blueprint is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
                                         <rect key="frame" x="102" y="164" width="394" height="22"/>
@@ -709,6 +709,7 @@
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="xfJ-Sb-Rgh"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="bF4-gi-Caa"/>
                     <connections>
                         <outlet property="blueprintActivityIndicatorView" destination="mKD-Lc-3l5" id="4Ob-QE-kbu"/>
