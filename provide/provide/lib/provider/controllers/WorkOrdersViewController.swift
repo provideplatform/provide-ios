@@ -756,6 +756,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return nil
     }
 
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        return nil
+    }
+
     // MARK: DirectionsViewControllerDelegate
 
     func isPresentingDirections() -> Bool {

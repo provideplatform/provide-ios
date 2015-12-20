@@ -217,6 +217,26 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         return job
     }
 
+    func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage! {
+        if viewController.isKindOfClass(UINavigationController) {
+            let rootViewController = (viewController as UINavigationController).viewControllers.first!
+            if let _ = rootViewController as? BlueprintViewController {
+                if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
+                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                        return jobBlueprintsViewController.teardownBlueprintViewController()
+                    }
+                }
+            } else if let _ = rootViewController as? JobBlueprintsViewController {
+                if let blueprintViewControllerIndex = tabBar.items!.indexOf(setupWorkOrdersTabBarItem) {
+                    if let blueprintViewController = (viewControllers![blueprintViewControllerIndex] as! UINavigationController).viewControllers.first! as? BlueprintViewController {
+                        return blueprintViewController.teardown()
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
     deinit {
         print("DEINITIALIZE JobWizardTabBarController")
     }

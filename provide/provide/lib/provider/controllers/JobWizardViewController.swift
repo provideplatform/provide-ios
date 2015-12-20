@@ -10,6 +10,7 @@ import UIKit
 
 protocol JobWizardViewControllerDelegate: NSObjectProtocol {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
+    func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
 }
 
 class JobWizardViewController: UINavigationController,
@@ -35,6 +36,15 @@ class JobWizardViewController: UINavigationController,
     weak var job: Job! {
         if  let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
             return jobWizardViewControllerDelegate.jobForJobWizardViewController(self)
+        }
+        return nil
+    }
+
+    weak var cachedBlueprintImage: UIImage! {
+        if let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
+            if let cachedBlueprintImage = jobWizardViewControllerDelegate.blueprintImageForJobWizardViewController(self) {
+                return cachedBlueprintImage
+            }
         }
         return nil
     }
@@ -116,6 +126,10 @@ class JobWizardViewController: UINavigationController,
 
     func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job! {
         return job
+    }
+
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        return cachedBlueprintImage
     }
 
     // MARK: BlueprintViewControllerDelegate
@@ -206,7 +220,9 @@ class JobWizardViewController: UINavigationController,
         print("Deinitialized job wizard view controller w/ nav stack: \(self.viewControllers)")
 
         let viewController = viewControllers.first
-        if let blueprintViewController = viewController as? BlueprintViewController {
+        if let jobBlueprintsViewController = viewController as? JobBlueprintsViewController {
+            jobBlueprintsViewController.teardown()
+        } else if let blueprintViewController = viewController as? BlueprintViewController {
             blueprintViewController.teardown()
         }
     }

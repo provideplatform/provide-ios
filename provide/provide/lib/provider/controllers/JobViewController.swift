@@ -43,4 +43,8 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
     }
+
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        return nil
+    }
 }

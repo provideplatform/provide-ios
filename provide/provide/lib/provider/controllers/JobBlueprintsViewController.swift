@@ -136,6 +136,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
 
         blueprintPreviewImageView?.alpha = 0.0
+        blueprintPreviewImageView?.contentMode = .ScaleAspectFit
 
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             importFromDropboxButton.addTarget(self, action: "importFromDropbox:", forControlEvents: .TouchUpInside)
@@ -143,23 +144,23 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
         hideDropbox()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { [weak self] notification in
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
             if let userInfo = notification.object {
                 let attachmentId = userInfo["attachment_id"] as? Int
                 let attachableType = userInfo["attachable_type"] as? String
                 let attachableId = userInfo["attachable_id"] as? Int
 
                 if attachmentId != nil && attachableType != nil && attachableId != nil {
-                    if let job = self!.job {
+                    if let job = self.job {
                         if attachableType == "job" && attachableId == job.id {
-                            if let importedPdfAttachment = self!.importedPdfAttachment {
+                            if let importedPdfAttachment = self.importedPdfAttachment {
                                 if importedPdfAttachment.id == attachmentId {
-                                    self!.importStatus = "Processing your imported blueprint..."
-                                } else if self!.importedPngAttachment == nil {
-                                    self!.importedPngAttachment = Attachment()
-                                    self!.importedPngAttachment.id = attachmentId!
-                                } else if self!.importedPngAttachment.id == attachmentId {
-                                    self!.reloadJob()
+                                    self.importStatus = "Processing your imported blueprint..."
+                                } else if self.importedPngAttachment == nil {
+                                    self.importedPngAttachment = Attachment()
+                                    self.importedPngAttachment.id = attachmentId!
+                                } else if self.importedPngAttachment.id == attachmentId {
+                                    self.reloadJob()
                                 }
                             }
                         }
@@ -169,12 +170,21 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
 
+    func teardown() -> UIImage? {
+        blueprintPreviewImageView?.image = nil
+        return teardownBlueprintViewController()
+    }
+
+    func teardownBlueprintViewController() -> UIImage? {
+        return blueprintViewController?.teardown()
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
         if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
-            blueprintViewController.blueprintViewControllerDelegate = self
+            //blueprintViewController.blueprintViewControllerDelegate = self
         }
     }
 
@@ -236,34 +246,18 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
     private func loadBlueprint(force: Bool = false) {
         if !reloadingBlueprint {
-            if let blueprintImageUrl = job.blueprintImageUrl {
+            if let image = blueprintImageForBlueprintViewController(blueprintViewController) {
+                setBlueprintImage(image)
+            } else if let blueprintImageUrl = job.blueprintImageUrl {
                 reloadingBlueprint = true
                 importStatus = nil
 
                 blueprintActivityIndicatorView.startAnimating()
                 blueprintPreviewContainerView.alpha = 1.0
-                blueprintPreviewImageView.contentMode = .ScaleAspectFit
-//                blueprintPreviewImageView?.sd_setImageWithURL(blueprintImageUrl, placeholderImage: nil,
-//                    completed: { [weak self] image, error, cacheType, url in
-//                        self!.blueprintPreviewImageView.alpha = 1.0
-//                        self!.blueprintPreviewStatusLabel.alpha = 0.0
-//                        self!.blueprintPreviewStatusLabel.text = ""
-//                        self!.blueprintActivityIndicatorView.stopAnimating()
-//                        self!.hideDropbox()
-//                        self!.blueprintViewController.blueprintViewControllerDelegate = self!
-//                        self!.reloadingBlueprint = false
-//                    }
-//                )
 
-                ApiService.sharedService().fetchURL(blueprintImageUrl,
-                    onURLFetched: { [weak self, weak blueprintViewController = self.blueprintViewController!] statusCode, response  in
-                        self!.blueprintPreviewImageView.alpha = 1.0
-                        self!.blueprintPreviewStatusLabel.alpha = 0.0
-                        self!.blueprintPreviewStatusLabel.text = ""
-                        self!.blueprintActivityIndicatorView.stopAnimating()
-                        self!.hideDropbox()
-                        blueprintViewController!.blueprintViewControllerDelegate = self!
-                        self!.reloadingBlueprint = false
+                ApiService.sharedService().fetchImage(blueprintImageUrl,
+                    onImageFetched: { [weak self] statusCode, image  in
+                        self!.setBlueprintImage(image)
                     },
                     onError: { error, statusCode, responseString in
                         
@@ -279,10 +273,31 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
 
+    func setBlueprintImage(image: UIImage) {
+        blueprintPreviewImageView.image = image
+        blueprintPreviewImageView.alpha = 1.0
+
+        blueprintPreviewStatusLabel.alpha = 0.0
+        blueprintPreviewStatusLabel.text = ""
+
+        blueprintActivityIndicatorView.stopAnimating()
+        hideDropbox()
+
+        blueprintViewController!.blueprintViewControllerDelegate = self
+        reloadingBlueprint = false
+    }
+
     // MARK: BlueprintViewControllerDelegate
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
+    }
+
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        if let image = blueprintPreviewImageView?.image {
+            return image
+        }
+        return nil
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {

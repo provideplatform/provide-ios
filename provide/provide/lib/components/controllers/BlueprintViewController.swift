@@ -11,6 +11,7 @@ import UIKit
 @objc
 protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
     optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
@@ -159,10 +160,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         loadBlueprint()
     }
 
-    func teardown() {
-        imageView?.removeFromSuperview()
+    func teardown() -> UIImage? {
+        let image = imageView?.image
         imageView?.image = nil
         thumbnailView?.blueprintImage = nil
+        loadedBlueprint = false
+        return image
     }
 
     override func didReceiveMemoryWarning() {
@@ -244,115 +247,52 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func loadBlueprint() {
         if let job = job {
-            if let url = job.blueprintImageUrl {
+            if let image = blueprintViewControllerDelegate?.blueprintImageForBlueprintViewController(self) {
+                setBlueprintImage(image)
+                loadAnnotations()
+            } else if let url = job.blueprintImageUrl {
                 loadingBlueprint = true
 
                 ApiService.sharedService().fetchImage(url,
                     onImageFetched: { [weak self] statusCode, image in
                         dispatch_after_delay(0.0) { [weak self] in
-//                            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-//                            let outputFileURL = NSURL(fileURLWithPath: "\(paths.first!)/\(NSDate().timeIntervalSince1970).png")
-//                            dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
-//                                response.writeToURL(outputFileURL, atomically: true)
-//                            }
-//
-//                            dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
-//                                while !NSFileManager.defaultManager().fileExistsAtPath(outputFileURL.path!) {
-//                                    NSThread.sleepForTimeInterval(0.1)
-//                                }
-//
-//                                dispatch_after_delay(0.0) {
-//                                    let image = UIImage(contentsOfFile: outputFileURL.path!)!
-//                                    //NSFileManager.defaultManager().removeItemAtPath(outputFileURL.absoluteString)
-//                                    let size = CGSize(width: image.size.width, height: image.size.height)
-//
-//                                    self!.imageView!.image = image
-//                                    self!.imageView!.frame = CGRect(origin: CGPointZero, size: size)
-//
-//                                    self!.thumbnailView?.blueprintImage = image
-//
-//                                    self!.scrollView.contentSize = size
-//                                    self!.scrollView.scrollEnabled = false
-//
-//                                    self!.enableScrolling = true
-//
-//                                    self!.scrollView.minimumZoomScale = 0.2
-//                                    self!.scrollView.maximumZoomScale = 1.0
-//                                    self!.scrollView.zoomScale = 0.4
-//
-//                                    self!.imageView.alpha = 1.0
-//
-//                                    self!.loadingBlueprint = false
-//                                    self!.toolbar.reload()
-//                                    
-//                                    self!.showToolbar()
-//                                    self!.loadedBlueprint = true
-//                                }
-//                            }
-
-//                            let dataProvider = CGDataProviderCreateWithCFData(response)
-//                            let imageRef = CGImageCreateWithPNGDataProvider(dataProvider, nil, false, .RenderingIntentDefault)!
-
-                            let size = CGSize(width: image.size.width, height: image.size.height)
-
-                            self!.imageView!.image = image
-                            self!.imageView!.frame = CGRect(origin: CGPointZero, size: size)
-
-                            self!.thumbnailView?.blueprintImage = image
-
-                            self!.scrollView.contentSize = size
-                            self!.scrollView.scrollEnabled = false
-
-                            self!.enableScrolling = true
-
-                            self!.scrollView.minimumZoomScale = 0.2
-                            self!.scrollView.maximumZoomScale = 1.0
-                            self!.scrollView.zoomScale = 0.4
-
-                            self!.imageView.alpha = 1.0
-
-                            self!.loadingBlueprint = false
-                            self!.toolbar.reload()
-
-                            self!.showToolbar()
-                            self!.loadedBlueprint = true
+                            self!.setBlueprintImage(image)
                         }
                     },
                     onError: { error, statusCode, responseString in
 
                     }
                 )
-//                imageView.sd_setImageWithURL(url) { [weak self] image, error, cacheType, url in
-//                    let size = CGSize(width: image.size.width, height: image.size.height)
-//
-//                    self!.thumbnailView.blueprintImage = image
-//
-//                    self!.imageView.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-//                    self!.imageView.contentMode = .ScaleToFill
-//
-//                    self!.scrollView.contentSize = size
-//                    self!.scrollView.scrollEnabled = false
-//                    self!.scrollView.addSubview(self!.imageView)
-//
-//                    self!.enableScrolling = true
-//
-//                    self!.scrollView.minimumZoomScale = 0.2
-//                    self!.scrollView.maximumZoomScale = 1.0
-//                    self!.scrollView.zoomScale = 0.4
-//
-//                    self!.scrollView.bringSubviewToFront(self!.imageView)
-//                    self!.imageView.alpha = 1.0
-//
-//                    self!.loadingBlueprint = false
-//                    self!.toolbar.reload()
-//
-//                    self!.showToolbar()
-//                    self!.loadedBlueprint = true
-//                }
 
                 loadAnnotations()
             }
         }
+    }
+
+    private func setBlueprintImage(image: UIImage) {
+        let size = CGSize(width: image.size.width, height: image.size.height)
+
+        imageView!.image = image
+        imageView!.frame = CGRect(origin: CGPointZero, size: size)
+
+        thumbnailView?.blueprintImage = image
+
+        scrollView.contentSize = size
+        scrollView.scrollEnabled = false
+
+        enableScrolling = true
+
+        scrollView.minimumZoomScale = 0.2
+        scrollView.maximumZoomScale = 1.0
+        scrollView.zoomScale = 0.4
+
+        imageView.alpha = 1.0
+
+        loadingBlueprint = false
+        toolbar.reload()
+
+        showToolbar()
+        loadedBlueprint = true
     }
 
     private func loadAnnotations() {
