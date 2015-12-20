@@ -70,17 +70,20 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
     private var isEditMode: Bool {
         if let _ = job {
             let hasBlueprint = job.blueprints?.count > 0
+            let hasScale = hasBlueprint && job.blueprints?.first!.metadata["scale"] != nil
             let hasSupervisor = job.supervisors?.count > 0
             let hasInventory = job.materials?.count > 0
             let hasWorkOrders = job.workOrdersCount > 0
-            return (hasBlueprint && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring"
+            return (hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring"
         }
         return false
     }
 
     private var shouldRenderBlueprintSetup: Bool {
         if let job = job {
-            return !isEditMode && job.blueprints.count == 0
+            let hasBlueprint = job.blueprints?.count > 0
+            let hasScale = hasBlueprint && job.blueprints?.first!.metadata["scale"] != nil
+            return !isEditMode && !hasBlueprint || !hasScale
         }
         return false
     }
