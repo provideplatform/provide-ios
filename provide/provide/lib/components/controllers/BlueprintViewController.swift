@@ -916,10 +916,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         case 4:
             if let _ = workOrder.materials {
                 let inventoryDisposition = workOrder.inventoryDisposition
-                cell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
+                cell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator
             } else {
-                cell.setName("INVENTORY DISPOSITION", value: "")
+                cell.setName("MATERIALS", value: "")
                 cell.showActivity()
             }
         case 5:

@@ -67,15 +67,14 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
             jobManagerHeaderViewController.jobManagerHeaderViewControllerDelegate = self
         } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
             commentsViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! CommentsViewController
-            commentsViewController.title = "INVENTORY DISPOSITION"
             commentsViewController.commentsViewControllerDelegate = self
         } else if segue.identifier! == "ManifestViewControllerEmbedSegue" {
             manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
-            manifestViewController.title = "INVENTORY DISPOSITION"
+            manifestViewController.title = "MATERIALS"
             manifestViewController.delegate = self
         } else if segue.identifier! == "ManifestViewControllerShowSegue" {
             manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
-            manifestViewController.title = "INVENTORY DISPOSITION"
+            manifestViewController.title = "MATERIALS"
             manifestViewController.delegate = self
         }
     }
@@ -156,7 +155,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
     // MARK: ManifestViewControllerDelegate
 
     func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
-        return ["INVENTORY DISPOSITION"]
+        return ["MATERIALS"]
     }
 
     func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {

@@ -183,7 +183,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 nameValueCell.setName("DURATION", value: duration)
             case 5:
                 let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-                nameValueCell.setName("INVENTORY DISPOSITION", value: inventoryDisposition, valueFontSize: 13.0)
+                nameValueCell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: 13.0)
                 nameValueCell.accessoryType = .DisclosureIndicator
             default:
                 break

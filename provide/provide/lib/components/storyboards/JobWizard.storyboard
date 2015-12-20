@@ -428,7 +428,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="JB5-kG-YW4">
-                        <barButtonItem key="rightBarButtonItem" title="Inventory Disposition" id="VHP-vv-Z3t">
+                        <barButtonItem key="rightBarButtonItem" title="Materials" id="VHP-vv-Z3t">
                             <connections>
                                 <segue destination="Lpk-Aw-sG4" kind="show" identifier="ManifestViewControllerShowSegue" id="W1J-U6-URd"/>
                             </connections>
