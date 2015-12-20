@@ -913,7 +913,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.setName("ESTIMATED SQ FT", value: "\(polygonView.area) sq ft")
             cell.accessoryType = .DisclosureIndicator
         case 3:
-            let cost = workOrder.estimatedCost == nil ? "$0.00" : "$\(workOrder.estimatedCost)"
+            let cost = workOrder.humanReadableEstimatedCost == nil ? "$0.00" : "\(workOrder.humanReadableEstimatedCost)"
             cell.setName("ESTIMATED COST", value: cost, valueFontSize: isIPad() ? 13.0 : 11.0)
             cell.accessoryType = .DisclosureIndicator
         case 4:

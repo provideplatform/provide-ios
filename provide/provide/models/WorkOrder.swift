@@ -18,7 +18,7 @@ class WorkOrder: Model {
     var jobId = 0
     var job: Job!
     var desc: String!
-    var workOrderProviders = [WorkOrderProvider]()
+    var workOrderProviders: [WorkOrderProvider]!
     var scheduledStartAt: String!
     var startedAt: String!
     var endedAt: String!
@@ -130,6 +130,18 @@ class WorkOrder: Model {
         return nil
     }
 
+    var humanReadableEstimatedCost: String! {
+        if let estimatedCost = estimatedCost {
+            return "$\(NSString(format: "%.02f", estimatedCost))"
+        } else {
+            var estimatedCost = estimatedProvidersCost + materialsCost
+            if let expensedAmount = expensedAmount {
+                estimatedCost += expensedAmount
+            }
+            return "$\(NSString(format: "%.02f", estimatedCost))"
+        }
+    }
+
     var humanReadableDuration: String! {
         if let startedAtDate = startedAtDate {
             var seconds = 0.0
@@ -205,7 +217,8 @@ class WorkOrder: Model {
         if let materials = materials {
             var cost = 0.0
             for workOrderProduct in materials {
-                cost += workOrderProduct.quantity * workOrderProduct.price
+                let price = workOrderProduct.price > 0.0 ? workOrderProduct.price : (workOrderProduct.jobProduct != nil ? workOrderProduct.jobProduct.price : 0.0)
+                cost += workOrderProduct.quantity * price
             }
             return cost
         }
@@ -219,6 +232,40 @@ class WorkOrder: Model {
             return "\(itemsDelivered.count) of \(itemsOrdered.count) items delivered"
         }
         return nil
+    }
+
+    var estimatedProvidersCost: Double {
+        var estimatedCost = 0.0
+        if let workOrderProviders = workOrderProviders {
+            for workOrderProvider in workOrderProviders {
+                if workOrderProvider.estimatedCost > -1.0 {
+                    estimatedCost += workOrderProvider.estimatedCost
+                }
+            }
+        }
+        return estimatedCost
+    }
+
+    var estimatedProvidersDuration: Double {
+        var estimatedDuration = 0.0
+        if let workOrderProviders = workOrderProviders {
+            for workOrderProvider in workOrderProviders {
+                if workOrderProvider.estimatedCost > -1.0 {
+                    estimatedDuration += (workOrderProvider.estimatedDuration / 3600.0)
+                }
+            }
+        }
+        return estimatedDuration
+    }
+
+    var providersCostDisposition: String! {
+        let estimatedCost = estimatedProvidersCost
+        let estimatedDuration = estimatedProvidersDuration
+        var providersCostDisposition = "\(NSString(format: "%.02f", estimatedDuration)) hours"
+        if estimatedCost > 0.0 {
+            providersCostDisposition = "\(providersCostDisposition) totaling $\(NSString(format: "%.02f", estimatedCost))"
+        }
+        return providersCostDisposition
     }
 
     var expensesDisposition: String! {
@@ -436,6 +483,9 @@ class WorkOrder: Model {
             var materials = [[String : AnyObject]]()
             for workOrderProduct in self.materials {
                 var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity]
+                if workOrderProduct.price > 0.0 {
+                    wop.updateValue(workOrderProduct.price, forKey: "price")
+                }
                 if workOrderProduct.id > 0 {
                     wop.updateValue(workOrderProduct.id, forKey: "id")
                 }
@@ -460,7 +510,11 @@ class WorkOrder: Model {
 
             var materials = [[String : AnyObject]]()
             for workOrderProduct in self.materials {
-                materials.append(["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity])
+                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity]
+                if workOrderProduct.price > 0.0 {
+                    wop.updateValue(workOrderProduct.price, forKey: "price")
+                }
+                materials.append(wop)
             }
             params.updateValue(materials, forKey: "materials")
 

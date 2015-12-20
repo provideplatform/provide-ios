@@ -14,6 +14,9 @@ class WorkOrderProvider: Model {
     var providerRating: NSNumber!
     var provider: Provider!
     var checkinCoordinates: NSArray!
+    var hourlyRate = -1.0
+    var estimatedDuration = -1.0
+    var duration = -1.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -21,10 +24,21 @@ class WorkOrderProvider: Model {
             "id",
             "provider_rating",
             "checkin_coordinates",
+            "hourly_rate",
+            "estimated_duration",
+            "estimated_cost",
+            "duration",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("provider", mapping: Provider.mapping())
         return mapping
+    }
+
+    var estimatedCost: Double {
+        if hourlyRate > -1.0 && estimatedDuration > -1.0 {
+            return hourlyRate * (estimatedDuration / 3600.0)
+        }
+        return -1.0
     }
 
     var checkinsPolyline: MKPolyline! {
