@@ -9,14 +9,14 @@
 import Foundation
 import AVFoundation
 
-protocol BarcodeScannerViewDelegate {
+protocol BarcodeScannerViewDelegate: NSObjectProtocol {
     func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
     func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect
 }
 
 class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
-    var delegate: BarcodeScannerViewDelegate!
+    weak var delegate: BarcodeScannerViewDelegate!
 
     private let avMetadataOutputQueue = dispatch_queue_create("api.avMetadataOutputQueue", nil)
 
