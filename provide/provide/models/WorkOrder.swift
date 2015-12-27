@@ -456,6 +456,26 @@ class WorkOrder: Model {
         }
     }
 
+    func updateWorkOrderProvider(workOrderProvider: WorkOrderProvider, onSuccess: OnSuccess, onError: OnError) {
+        if let provider = workOrderProvider.provider {
+            if hasProvider(provider) {
+                var index: Int?
+                for wop in workOrderProviders {
+                    if wop.id == workOrderProvider.id || wop.provider.id == workOrderProvider.provider.id {
+                        index = workOrderProviders.indexOfObject(wop)
+                    }
+                }
+                if let index = index {
+                    self.workOrderProviders.replaceRange(index...index, with: [workOrderProvider])
+
+                    if id > 0 {
+                        save(onSuccess: onSuccess, onError: onError)
+                    }
+                }
+            }
+        }
+    }
+
     func removeProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
         if hasProvider(provider) {
             removeProvider(provider)
@@ -472,6 +492,12 @@ class WorkOrder: Model {
             var workOrderProviders = [[String : AnyObject]]()
             for workOrderProvider in self.workOrderProviders {
                 var wop = ["provider_id": workOrderProvider.provider.id]
+                if workOrderProvider.estimatedDuration > -1.0 {
+                    wop.updateValue(Int(workOrderProvider.estimatedDuration), forKey: "estimated_duration")
+                }
+                if workOrderProvider.hourlyRate > -1.0 {
+                    wop.updateValue(Int(workOrderProvider.hourlyRate), forKey: "hourly_rate")
+                }
                 if workOrderProvider.id > 0 {
                     wop.updateValue(workOrderProvider.id, forKey: "id")
                 }

@@ -17,7 +17,8 @@ class WorkOrderTeamViewController: UITableViewController,
                                    UISearchBarDelegate,
                                    ProviderPickerViewControllerDelegate,
                                    ProviderCreationViewControllerDelegate,
-                                   DraggableViewGestureRecognizerDelegate {
+                                   DraggableViewGestureRecognizerDelegate,
+                                   WorkOrderProviderCreationViewControllerDelegate {
 
     private let workOrderProviderOperationQueue = dispatch_queue_create("api.workOrderProviderOperationQueue", DISPATCH_QUEUE_SERIAL)
 
@@ -170,8 +171,31 @@ class WorkOrderTeamViewController: UITableViewController,
 
                     self!.workOrder?.addProvider(provider,
                         onSuccess: { (statusCode, mappingResult) -> () in
-                            self!.addingProvider = false
+//                            self!.addingProvider = false
                             cell?.hideActivityIndicator()
+
+                            var workOrderProvider: WorkOrderProvider?
+                            for wop in self!.workOrder.workOrderProviders {
+                                if wop.provider.id == provider.id {
+                                    workOrderProvider = wop
+                                    break
+                                }
+                            }
+
+                            if let workOrderProvider = workOrderProvider {
+                                let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
+                                workOrderProviderCreationViewController.workOrder = self!.workOrder
+                                workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
+                                workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
+                                workOrderProviderCreationViewController.modalPresentationStyle = .Popover
+                                workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
+                                workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
+                                workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                                workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+                                self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
+                                    self!.addingProvider = false
+                                }
+                            }
                         },
                         onError: { (error, statusCode, responseString) -> () in
                             self!.providersPickerViewController?.providers.removeObject(provider)
@@ -677,6 +701,12 @@ class WorkOrderTeamViewController: UITableViewController,
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil
             }
         }
+    }
+
+    // MARK: WorkOrderProviderCreationViewControllerDelegate
+
+    func workOrderProviderCreationViewController(viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider) {
+        viewController.presentingViewController?.dismissViewController(animated: true)
     }
 
     deinit {
