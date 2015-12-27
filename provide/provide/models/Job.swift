@@ -17,6 +17,7 @@ class Job: Model {
     var customerId = 0
     var customer: Customer!
     var comments: [Comment]!
+    var contractRevenue = -1.0
     var attachments: [Attachment]!
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
@@ -27,7 +28,9 @@ class Job: Model {
     var expensesCount = 0
     var expensedAmount: Double!
     var materials: [JobProduct]!
+    var quotedPricePerSqFt = -1.0
     var supervisors: [Provider]!
+    var totalSqFt = -1.0
     var workOrdersCount = 0
 
     override class func mapping() -> RKObjectMapping {
@@ -37,10 +40,13 @@ class Job: Model {
             "name": "name",
             "company_id": "companyId",
             "customer_id": "customerId",
+            "contract_revenue": "contractRevenue",
             "status": "status",
             "blueprint_image_url": "blueprintImageUrlString",
             "blueprint_scale": "blueprintScale",
             "blueprint_annotations_count": "blueprintAnnotationsCount",
+            "quoted_price_per_sq_ft": "quotedPricePerSqFt",
+            "total_sq_ft": "totalSqFt",
             "work_orders_count": "workOrdersCount",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
@@ -95,6 +101,13 @@ class Job: Model {
         }
 
         return UIColor.clearColor()
+    }
+
+    var humanReadableContractRevenue: String! {
+        if contractRevenue > -1.0 {
+            return "$\(NSString(format: "%.02f", contractRevenue))"
+        }
+        return nil
     }
 
     var humanReadableProfit: String! {

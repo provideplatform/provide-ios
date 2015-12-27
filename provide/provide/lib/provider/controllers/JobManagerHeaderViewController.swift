@@ -104,11 +104,22 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-
     func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem! {
         if let navigationItem = jobManagerHeaderViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             return navigationItem
         }
         return nil
+    }
+
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var title: String?
+        if section == 0 {
+            if let humanReadableContractRevenue = job.humanReadableContractRevenue {
+                title = "CONTRACT REVENUE: \(humanReadableContractRevenue)"
+            } else {
+                title = "CONTRACT REVENUE: --"
+            }
+        }
+        return title
     }
 }
