@@ -62,22 +62,7 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
-            if let workOrderProvider = workOrderProvider {
-                if let estimatedDuration = estimatedDuration {
-                    workOrderProvider.estimatedDuration = estimatedDuration
-                }
-
-                showActivityIndicator()
-
-                workOrder.updateWorkOrderProvider(workOrderProvider,
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.workOrderProviderCreationViewControllerDelegate?.workOrderProviderCreationViewController(self!, didUpdateWorkOrderProvider: workOrderProvider)
-                    },
-                    onError: { [weak self] error, statusCode, responseString in
-                        self!.hideActivityIndicator()
-                    }
-                )
-            }
+            saveWorkOrderProvider()
         }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -93,6 +78,25 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 2 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+        }
+    }
+
+    private func saveWorkOrderProvider() {
+        if let workOrderProvider = workOrderProvider {
+            if let estimatedDuration = estimatedDuration {
+                workOrderProvider.estimatedDuration = estimatedDuration
+            }
+
+            showActivityIndicator()
+
+            workOrder.updateWorkOrderProvider(workOrderProvider,
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.workOrderProviderCreationViewControllerDelegate?.workOrderProviderCreationViewController(self!, didUpdateWorkOrderProvider: workOrderProvider)
+                },
+                onError: { [weak self] error, statusCode, responseString in
+                    self!.hideActivityIndicator()
+                }
+            )
         }
     }
 
@@ -119,6 +123,11 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
     // MARK: UITextFieldDelegate
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        saveWorkOrderProvider()
         return true
     }
 
