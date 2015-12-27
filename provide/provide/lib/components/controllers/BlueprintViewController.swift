@@ -176,7 +176,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
         dispatch_after_delay(0.0) { [weak self] in
-            self?.thumbnailView?.blueprintImage = self?.imageView.image
+            self!.thumbnailView?.blueprintImage = self!.imageView.image
         }
     }
 
@@ -216,7 +216,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                 animations: { [weak self] in
-                    self?.view.alpha = 1
+                    self!.view.alpha = 1
                     navigationController.view.alpha = 1
                     navigationController.view.frame = CGRect(
                         x: frame.origin.x,
@@ -236,11 +236,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let navigationController = navigationController {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                 animations: { [weak self] in
-                    if let s = self {
-                        s.view.alpha = 0.0
-                        navigationController.view.alpha = 0.0
-                        navigationController.view.frame = s.hiddenNavigationControllerFrame
-                    }
+                    self!.view.alpha = 0.0
+                    navigationController.view.alpha = 0.0
+                    navigationController.view.frame = self!.hiddenNavigationControllerFrame
                 },
                 completion: nil
             )
@@ -258,7 +256,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 ApiService.sharedService().fetchImage(url,
                     onImageFetched: { statusCode, image in
                         dispatch_after_delay(0.0) { [weak self] in
-                            self?.setBlueprintImage(image)
+                            self!.setBlueprintImage(image)
                         }
                     },
                     onError: { error, statusCode, responseString in
@@ -305,11 +303,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 let params = ["page": "1", "rpp": "\(rpp)"]
                 blueprint.fetchAnnotations(params,
                     onSuccess: { [weak self] statusCode, mappingResult in
-                        self?.refreshAnnotations()
-                        self?.loadingAnnotations = false
+                        self!.refreshAnnotations()
+                        self!.loadingAnnotations = false
                     },
                     onError: { [weak self] error, statusCode, responseString in
-                        self?.loadingAnnotations = false
+                        self!.loadingAnnotations = false
                     }
                 )
             }
@@ -372,16 +370,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func hideToolbar() {
         if initialToolbarFrame == nil {
             dispatch_after_delay(0.0) { [weak self] in
-                self?.initialToolbarFrame = self?.toolbar.frame
+                self!.initialToolbarFrame = self!.toolbar.frame
             }
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: { [weak self] in
-                if let toolbar = self?.toolbar {
-                    toolbar.alpha = 0.0
-                    toolbar.frame.origin.y += toolbar.frame.size.height
-                }
+                self!.toolbar.alpha = 0.0
+                self!.toolbar.frame.origin.y += self!.toolbar.frame.size.height
             }, completion: { completed in
 
             }
@@ -391,13 +387,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func showToolbar() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: { [weak self] in
-                if let toolbar = self?.toolbar {
-                    toolbar.alpha = 1.0
-                    if let initialToolbarFrame = self?.initialToolbarFrame {
-                        toolbar.frame = initialToolbarFrame
-                    } else {
-                        toolbar.frame.origin.y -= toolbar.frame.size.height
-                    }
+                self!.toolbar.alpha = 1.0
+                if let initialToolbarFrame = self!.initialToolbarFrame {
+                    self!.toolbar.frame = initialToolbarFrame
+                } else {
+                    self!.toolbar.frame.origin.y -= self!.toolbar.frame.size.height
                 }
             }, completion: { completed in
 
@@ -419,7 +413,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let job = job {
             job.updateJobBlueprintScale(scale,
                 onSuccess: { [weak self] statusCode, mappingResult in
-                    self?.toolbar.reload()
+                    self!.toolbar.reload()
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -961,8 +955,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 annotation.workOrder = workOrder
                 annotation.save(blueprint,
                     onSuccess: { [weak self] statusCode, mappingResult in
-                        self?.refreshAnnotations()
-                        self?.dismissWorkOrderCreationPolygonView()
+                        self!.refreshAnnotations()
+                        self!.dismissWorkOrderCreationPolygonView()
                     },
                     onError: { error, statusCode, responseString in
 

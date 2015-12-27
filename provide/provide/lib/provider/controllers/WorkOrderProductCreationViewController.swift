@@ -48,7 +48,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         if let workOrderProduct = workOrderProduct {
             if workOrderProduct.quantity == 0.0 {
                 dispatch_after_delay(0.0) { [weak self] in
-                    self?.quantityTextField?.becomeFirstResponder()
+                    self!.quantityTextField?.becomeFirstResponder()
                 }
             } else {
                 quantityTextField?.text = "\(workOrderProduct.quantity)"
@@ -81,9 +81,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
 
                 workOrder.save(
                     onSuccess: { [weak self] statusCode, mappingResult in
-                        if let s = self {
-                            s.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(s, didUpdateWorkOrderProduct: s.workOrderProduct)
-                        }
+                        self!.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self!, didUpdateWorkOrderProduct: self!.workOrderProduct)
                     },
                     onError: { error, statusCode, responseString in
 

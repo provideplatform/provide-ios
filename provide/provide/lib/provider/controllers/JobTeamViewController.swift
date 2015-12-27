@@ -112,19 +112,19 @@ class JobTeamViewController: UITableViewController,
             cell.showActivityIndicator()
 
             dispatch_async(jobSupervisorOperationQueue) { [weak self] in
-                while ((self?.addingSupervisor) != nil) { }
+                while self!.addingSupervisor { }
 
-                self?.addingSupervisor = true
+                self!.addingSupervisor = true
 
-                self?.job?.addSupervisor(supervisor,
+                self!.job?.addSupervisor(supervisor,
                     onSuccess: { (statusCode, mappingResult) -> () in
-                        self?.addingSupervisor = false
+                        self!.addingSupervisor = false
                         cell.hideActivityIndicator()
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self?.supervisorsPickerViewController?.providers.removeObject(supervisor)
-                        self?.supervisorsPickerViewController?.reloadCollectionView()
-                        self?.addingSupervisor = false
+                        self!.supervisorsPickerViewController?.providers.removeObject(supervisor)
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        self!.addingSupervisor = false
                     }
                 )
             }
@@ -142,22 +142,22 @@ class JobTeamViewController: UITableViewController,
             supervisorsPickerViewController?.reloadCollectionView()
 
             dispatch_async(jobSupervisorOperationQueue) { [weak self] in
-                while ((self?.removingSupervisor) != nil) { }
+                while self!.removingSupervisor { }
 
-                self?.removingSupervisor = true
+                self!.removingSupervisor = true
 
-                self?.job?.removeSupervisor(supervisor,
+                self!.job?.removeSupervisor(supervisor,
                     onSuccess: { (statusCode, mappingResult) -> () in
-                        self?.supervisorsPickerViewController?.reloadCollectionView()
-                        if self?.job.supervisors.count == 0 {
-                            self?.reloadSupervisors()
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        if self!.job.supervisors.count == 0 {
+                            self!.reloadSupervisors()
                         }
-                        self?.removingSupervisor = false
+                        self!.removingSupervisor = false
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self?.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
-                        self?.supervisorsPickerViewController?.reloadCollectionView()
-                        self?.removingSupervisor = false
+                        self!.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
+                        self!.supervisorsPickerViewController?.reloadCollectionView()
+                        self!.removingSupervisor = false
                     }
                 )
             }
@@ -438,21 +438,19 @@ class JobTeamViewController: UITableViewController,
 
     private func reloadSupervisors() {
         dispatch_async(jobSupervisorOperationQueue) { [weak self] in
-            while ((self?.reloadingSupervisors) != nil) { }
+            while self!.reloadingSupervisors { }
 
-            self?.reloadingSupervisors = true
+            self!.reloadingSupervisors = true
 
-            self?.job?.reloadSupervisors(
+            self!.job?.reloadSupervisors(
                 { [weak self] statusCode, mappingResult in
-                    if let s = self {
-                        s.supervisorsPickerViewController.providers = s.job.supervisors
-                        s.supervisorsPickerViewController.reloadCollectionView()
-                        s.reloadingSupervisors = false
-                    }
+                    self!.supervisorsPickerViewController.providers = self!.job.supervisors
+                    self!.supervisorsPickerViewController.reloadCollectionView()
+                    self!.reloadingSupervisors = false
                 },
                 onError: { [weak self] error, statusCode, responseString in
-                    self?.supervisorsPickerViewController.reloadCollectionView()
-                    self?.reloadingSupervisors = false
+                    self!.supervisorsPickerViewController.reloadCollectionView()
+                    self!.reloadingSupervisors = false
                 }
             )
         }

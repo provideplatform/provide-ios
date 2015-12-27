@@ -103,9 +103,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         alertController.addAction(cancelAction)
 
         let discardAction = UIAlertAction(title: "Discard", style: .Destructive) { [weak self] action in
-            if let s = self {
-                s.delegate?.workOrderCreationViewController(s, shouldBeDismissedWithWorkOrder: nil)
-            }
+            self!.delegate?.workOrderCreationViewController(self!, shouldBeDismissedWithWorkOrder: nil)
         }
 
         alertController.addAction(cancelAction)
@@ -123,7 +121,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             alertController.addAction(cancelAction)
 
             let discardAction = UIAlertAction(title: "Yes, Discard Pending Changes", style: .Destructive) { [weak self] action in
-                self?.forceDismiss()
+                self!.forceDismiss()
             }
 
             alertController.addAction(cancelAction)

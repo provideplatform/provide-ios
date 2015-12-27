@@ -90,26 +90,21 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
                 }
                 UIView.animateWithDuration(duration, delay: delay, options: .CurveEaseOut,
                     animations: { [weak self] in
-                        if let s = self {
-                            s.initialView.frame = s.initialFrame
-                            s.initialView.alpha = s.initialAlpha
-                        }
-
+                        self!.initialView.frame = self!.initialFrame
+                        self!.initialView.alpha = self!.initialAlpha
                     },
                     completion: { [weak self] complete in
-                        if let s = self {
-                            if s.superviewChanged {
-                                let window = UIApplication.sharedApplication().keyWindow!
-                                s.initialView.removeFromSuperview()
+                        if self!.superviewChanged {
+                            let window = UIApplication.sharedApplication().keyWindow!
+                            self!.initialView.removeFromSuperview()
 
-                                s.initialView.frame = window.convertRect(s.initialView.frame, toView: s.initialSuperview)
-                                s.initialView.alpha = s.initialAlpha
-                                s.initialSuperview.addSubview(s.initialView)
-                                s.initialSuperview.bringSubviewToFront(s.initialView)
-                            }
-                            
-                            s.cleanup()
+                            self!.initialView.frame = window.convertRect(self!.initialView.frame, toView: self!.initialSuperview)
+                            self!.initialView.alpha = self!.initialAlpha
+                            self!.initialSuperview.addSubview(self!.initialView)
+                            self!.initialSuperview.bringSubviewToFront(self!.initialView)
                         }
+
+                        self!.cleanup()
                     }
                 )
             } else {

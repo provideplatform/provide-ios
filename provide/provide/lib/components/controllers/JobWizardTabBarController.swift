@@ -123,15 +123,13 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
         delegate = self
 
         dispatch_after_delay(0.0) { [weak self] in
-            if let s = self {
-                for viewController in s.viewControllers! {
-                    if viewController.isKindOfClass(JobWizardViewController) {
-                        (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = s
-                    }
+            for viewController in self!.viewControllers! {
+                if viewController.isKindOfClass(JobWizardViewController) {
+                    (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self!
                 }
-
-                s.selectInitialTabBarItem()
             }
+
+            self!.selectInitialTabBarItem()
         }
 
         setupTabBarAppearence()

@@ -164,19 +164,19 @@ class WorkOrderTeamViewController: UITableViewController,
                 }
 
                 dispatch_async(workOrderProviderOperationQueue) { [weak self] in
-                    while ((self?.addingProvider) != nil) { }
+                    while self!.addingProvider { }
 
-                    self?.addingProvider = true
+                    self!.addingProvider = true
 
-                    self?.workOrder?.addProvider(provider,
+                    self!.workOrder?.addProvider(provider,
                         onSuccess: { (statusCode, mappingResult) -> () in
-                            self?.addingProvider = false
+                            self!.addingProvider = false
                             cell?.hideActivityIndicator()
                         },
                         onError: { (error, statusCode, responseString) -> () in
-                            self?.providersPickerViewController?.providers.removeObject(provider)
-                            self?.providersPickerViewController?.reloadCollectionView()
-                            self?.addingProvider = false
+                            self!.providersPickerViewController?.providers.removeObject(provider)
+                            self!.providersPickerViewController?.reloadCollectionView()
+                            self!.addingProvider = false
                         }
                     )
                 }
@@ -199,22 +199,22 @@ class WorkOrderTeamViewController: UITableViewController,
             }
 
             dispatch_async(workOrderProviderOperationQueue) { [weak self] in
-                while ((self?.addingProvider) != nil) { }
+                while self!.addingProvider { }
 
-                self?.removingProvider = true
+                self!.removingProvider = true
 
-                self?.workOrder?.removeProvider(provider,
+                self!.workOrder?.removeProvider(provider,
                     onSuccess: { (statusCode, mappingResult) -> () in
-                        self?.providersPickerViewController?.reloadCollectionView()
-                        if self?.workOrder.providers.count == 0 {
-                            self?.reloadWorkOrderProviders()
+                        self!.providersPickerViewController?.reloadCollectionView()
+                        if self!.workOrder.providers.count == 0 {
+                            self!.reloadWorkOrderProviders()
                         }
-                        self?.removingProvider = false
+                        self!.removingProvider = false
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self?.providersPickerViewController?.providers.insert(provider, atIndex: index!)
-                        self?.providersPickerViewController?.reloadCollectionView()
-                        self?.removingProvider = false
+                        self!.providersPickerViewController?.providers.insert(provider, atIndex: index!)
+                        self!.providersPickerViewController?.reloadCollectionView()
+                        self!.removingProvider = false
                     }
                 )
             }
