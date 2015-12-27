@@ -158,7 +158,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         toolbar.barTintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
 
         hideToolbar()
-        loadBlueprint()
+        //loadBlueprint()
     }
 
     func teardown() -> UIImage? {
@@ -345,14 +345,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func refreshAnnotations() {
-        for annotation in job.blueprint.annotations {
-            if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
-                let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-                imageView.addSubview(polygonView)
-                polygonView.alpha = 1.0
-                polygonView.attachGestureRecognizer()
+        if let job = job {
+            if let blueprint = job.blueprint {
+                for annotation in blueprint.annotations {
+                    if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
+                        let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                        imageView.addSubview(polygonView)
+                        polygonView.alpha = 1.0
+                        polygonView.attachGestureRecognizer()
 
-                polygonViews.append(polygonView)
+                        polygonViews.append(polygonView)
+                    }
+                }
             }
         }
     }

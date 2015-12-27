@@ -55,7 +55,36 @@ class JobsViewController: ViewController,
             }
         } else if segue.identifier == "JobWizardTabBarControllerSegue" {
             if let sender = sender {
-                (segue.destinationViewController as! JobWizardTabBarController).job = (sender as! JobTableViewCell).job
+                let job = (sender as! JobTableViewCell).job
+
+                let cacheAge = job.timeIntervalSinceLastRefreshDate()
+                if cacheAge >= 0.0 {
+                    if cacheAge > 60.0 {
+                        job.reload(
+                            onSuccess: { statusCode, mappingResult in
+                                if let job = mappingResult.firstObject as? Job {
+                                    var index: Int?
+                                    for j in self.jobs {
+                                        if j.id == job.id {
+                                            index = self.jobs.indexOfObject(j)
+                                        }
+                                    }
+
+                                    if let index = index {
+                                        self.jobs.replaceRange(index...index, with: [job])
+                                    }
+
+                                    (segue.destinationViewController as! JobWizardTabBarController).job = job
+                                }
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    } else {
+                        (segue.destinationViewController as! JobWizardTabBarController).job = job
+                    }
+                }
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController

@@ -28,6 +28,15 @@ class Model: NSObject {
         return ivarStrings
     }
 
+    internal var lastRefreshDate: NSDate!
+
+    func timeIntervalSinceLastRefreshDate() -> NSTimeInterval {
+        if let lastRefreshDate = lastRefreshDate {
+            return abs(lastRefreshDate.timeIntervalSinceNow)
+        }
+        return -1.0
+    }
+
     override var description: String {
         return "\(toDictionary(false))"
     }
@@ -118,6 +127,7 @@ class Model: NSObject {
                 return
             }
         }
+        lastRefreshDate = NSDate()
         try super.validateValue(ioValue, forKeyPath: inKeyPath)
     }
 }

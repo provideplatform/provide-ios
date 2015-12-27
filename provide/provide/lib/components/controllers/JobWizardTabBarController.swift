@@ -23,6 +23,12 @@ class JobWizardTabBarController: UITabBarController,
                     let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
                     viewControllers?.append(reviewNavigationController)
                 }
+
+                if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
+                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                        jobBlueprintsViewController.refresh()
+                    }
+                }
             }
         }
     }

@@ -108,6 +108,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         return !hasBlueprintScale && job?.blueprintImageUrl != nil
     }
 
+    private var viewLoaded = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -150,6 +152,12 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                 }
             }
         }
+
+        if job != nil && delegate != nil {
+            refresh()
+        }
+
+        viewLoaded = true
     }
 
     func teardown() -> UIImage? {
@@ -166,13 +174,17 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             importInstructionsContainerView?.alpha = 0.0
             loadBlueprint()
             blueprintViewController?.blueprintViewControllerDelegate = self
-        } else if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-            if job.blueprintImageUrl == nil {
-                renderInstruction("Import a blueprint for this job.")
-                showDropbox()
+        } else if let job = job {
+            if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
+                if job.blueprintImageUrl == nil {
+                    renderInstruction("Import a blueprint for this job.")
+                    showDropbox()
+                }
+            } else if job.blueprintImageUrl != nil {
+                renderInstruction("Congrats! Your blueprint is configured properly.")
             }
-        } else if job.blueprintImageUrl != nil {
-            renderInstruction("Congrats! Your blueprint is configured properly.")
+        } else {
+            renderInstruction("Loading job")
         }
     }
 
