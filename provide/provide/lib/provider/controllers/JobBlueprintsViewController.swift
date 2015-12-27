@@ -20,26 +20,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         didSet {
             if let _ = delegate {
                 if let _ = job {
-                    if shouldLoadBlueprint {
-                        importInstructionsContainerView?.alpha = 0.0
-                        loadBlueprint()
-                        blueprintViewController?.blueprintViewControllerDelegate = self
-                    } else if importedPdfAttachment == nil {
-                        importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
-                        importInstructionsContainerView?.alpha = 1.0
-
-                        if job.blueprintImageUrl == nil {
-                            importInstructionsLabel?.text = "Import a blueprint for this job."
-                            showDropbox()
-                        } else {
-                            importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
-                        }
-
-                        importInstructionsLabel?.alpha = 1.0
-
-                        blueprintActivityIndicatorView?.stopAnimating()
-                        blueprintPreviewContainerView?.alpha = 0.0
-                    }
+                    refresh()
                 }
             }
         }
@@ -241,6 +222,29 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                     }
                 )
             }
+        }
+    }
+
+    private func refresh() {
+        if shouldLoadBlueprint {
+            importInstructionsContainerView?.alpha = 0.0
+            loadBlueprint()
+            blueprintViewController?.blueprintViewControllerDelegate = self
+        } else {
+            importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
+            importInstructionsContainerView?.alpha = 1.0
+
+            if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
+                importInstructionsLabel?.text = "Import a blueprint for this job."
+                showDropbox()
+            } else {
+                importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
+            }
+
+            importInstructionsLabel?.alpha = 1.0
+
+            blueprintActivityIndicatorView?.stopAnimating()
+            blueprintPreviewContainerView?.alpha = 0.0
         }
     }
 
