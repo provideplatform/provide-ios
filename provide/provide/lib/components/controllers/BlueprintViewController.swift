@@ -927,6 +927,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             } else {
                 cell.setName("ESTIMATED COST", value: "$0.00", valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.hideActivity()
+                cell.accessoryType = .DetailButton
             }
 
         case 4:
