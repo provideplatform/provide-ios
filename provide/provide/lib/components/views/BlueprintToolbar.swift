@@ -81,7 +81,7 @@ class BlueprintToolbar: UIToolbar {
         }
 
         if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
-            if let scale = blueprint.metadata["scale"] as? Float {
+            if let scale = blueprint.metadata?["scale"] as? Float {
                 scaleButton.title = "Scale Set: 12“ == \(NSString(format: "%.03f px", scale))"
                 scaleButton.setTitleTextAttributes(AppearenceProxy.inProgressBarButtonItemTitleTextAttributes(), forState: .Normal)
             }

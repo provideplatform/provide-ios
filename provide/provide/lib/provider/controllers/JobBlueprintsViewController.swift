@@ -230,21 +230,34 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             importInstructionsContainerView?.alpha = 0.0
             loadBlueprint()
             blueprintViewController?.blueprintViewControllerDelegate = self
+        } else if importedPdfAttachment == nil {
+            if job.blueprintImageUrl == nil {
+                renderInstruction("Import a blueprint for this job.")
+                showDropbox()
+            } else {
+                renderInstruction("Congrats! Your blueprint is configured properly.")
+            }
         } else {
+            renderInstruction("Congrats! Your blueprint is configured properly.")
+        }
+    }
+
+    private func renderInstruction(message: String!) {
+        if let message = message {
+            importInstructionsLabel?.text = message
+            importInstructionsLabel?.alpha = 1.0
+
             importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
             importInstructionsContainerView?.alpha = 1.0
 
-            if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-                importInstructionsLabel?.text = "Import a blueprint for this job."
-                showDropbox()
-            } else {
-                importInstructionsLabel?.text = "Congrats! Your blueprint is configured properly."
-            }
-
-            importInstructionsLabel?.alpha = 1.0
-
             blueprintActivityIndicatorView?.stopAnimating()
             blueprintPreviewContainerView?.alpha = 0.0
+        } else if job.blueprintImageUrl != nil {
+            blueprintActivityIndicatorView?.stopAnimating()
+            blueprintPreviewContainerView?.alpha = 0.0
+        } else {
+            blueprintActivityIndicatorView?.startAnimating()
+            blueprintPreviewContainerView?.alpha = 1.0
         }
     }
 
