@@ -10,6 +10,7 @@ import UIKit
 
 protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
     func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job!
+    func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController)
 }
 
 class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelegate {
@@ -321,6 +322,10 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             return image
         }
         return nil
+    }
+
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+        delegate?.jobBlueprintsViewController(self, didSetScaleForBlueprintViewController: viewController)
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {

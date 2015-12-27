@@ -133,7 +133,7 @@ class JobWizardViewController: UINavigationController,
         return cachedBlueprintImage
     }
 
-    func scaleWasSetForJobBlueprintsViewController(viewController: JobBlueprintsViewController, blueprintViewController: BlueprintViewController) {
+    func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
         jobWizardViewControllerDelegate?.jobWizardViewController(self, didSetScaleForBlueprintViewController: blueprintViewController)
     }
 
