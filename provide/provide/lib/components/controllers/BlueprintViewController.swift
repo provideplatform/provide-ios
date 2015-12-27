@@ -925,8 +925,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("ESTIMATED COST", value: humanReadableEstimatedCost, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator
             } else {
-                cell.setName("ESTIMATED COST", value: "")
-                cell.showActivity(false)
+                cell.setName("ESTIMATED COST", value: "$0.00", valueFontSize: isIPad() ? 13.0 : 11.0)
+                cell.hideActivity()
             }
 
         case 4:

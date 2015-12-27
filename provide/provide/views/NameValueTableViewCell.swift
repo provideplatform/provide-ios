@@ -14,19 +14,25 @@ class NameValueTableViewCell: UITableViewCell {
     @IBOutlet private weak var valueLabel: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    func setName(name: String, value: String, valueFontSize: CGFloat = 17.0) {
+    func setName(name: String, value: String, valueFontSize: CGFloat = 17.0, showActivity: Bool = false) {
         nameLabel?.text = name
 
         valueLabel?.text = value
         valueLabel?.font = valueLabel?.font.fontWithSize(valueFontSize)
 
-        activityIndicatorView?.stopAnimating()
+        if !showActivity {
+            hideActivity()
+        }
     }
 
     func showActivity(resetName: Bool = true) {
         let name = resetName ? "" : nameLabel?.text
         setName(name!, value: "")
         activityIndicatorView?.startAnimating()
+    }
+
+    func hideActivity() {
+        activityIndicatorView?.stopAnimating()
     }
 
     override func awakeFromNib() {
