@@ -71,6 +71,13 @@ class Job: Model {
         return nil
     }
 
+    var hasPendingBlueprint: Bool {
+        if let blueprint = blueprint {
+            return blueprint.status == "pending"
+        }
+        return false
+    }
+
     weak var blueprint: Attachment! {
         if let blueprints = blueprints {
             if blueprints.count > 0 {

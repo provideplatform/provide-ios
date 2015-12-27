@@ -146,6 +146,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                                 } else if self.importedPngAttachment.id == attachmentId {
                                     self.reloadJob()
                                 }
+                            } else {
+                                self.refresh()
                             }
                         }
                     }
@@ -176,9 +178,20 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             blueprintViewController?.blueprintViewControllerDelegate = self
         } else if let job = job {
             if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-                if job.blueprintImageUrl == nil {
-                    renderInstruction("Import a blueprint for this job.")
-                    showDropbox()
+                if job.blueprintImageUrl == nil && importedPngAttachment == nil {
+                    job.reload(
+                        onSuccess: { [weak self] statusCode, mappingResult in
+                            if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
+                                self?.renderInstruction("Import a blueprint for this job.")
+                                self?.showDropbox()
+                            } else if job.hasPendingBlueprint {
+                                self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+                            }
+                        },
+                        onError: { error, statusCode, responseString in
+
+                        }
+                    )
                 }
             } else if job.blueprintImageUrl != nil {
                 renderInstruction("Congrats! Your blueprint is configured properly.")
