@@ -242,7 +242,6 @@ class JobWizardTabBarController: UITabBarController,
     func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
         if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
             if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
-                assert(viewController == jobBlueprintsViewController)
                 jobBlueprintsViewController.refresh()
             }
         }
