@@ -49,6 +49,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     @IBOutlet private weak var searchBar: UISearchBar!
 
     @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var quotedPricePerSqFtTextField: UITextField!
+    @IBOutlet private weak var totalSqFtTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +78,12 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
             job.companyId = customer.companyId
         }
         job.name = nameTextField?.text
+        if let quotedPricePerSqFt = Double(quotedPricePerSqFtTextField.text!) {
+            job.quotedPricePerSqFt = quotedPricePerSqFt
+        }
+        if let totalSqFt = Double(totalSqFtTextField.text!) {
+            job.totalSqFt = totalSqFt
+        }
 
         if job.customerId > 0 && job.name != nil && job.name.length > 0 {
             showActivityIndicator()
@@ -149,11 +157,33 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == nameTextField {
             if let name = textField.text {
-                textField.resignFirstResponder()
-                dispatch_after_delay(0.0) {
-                    self.createJob()
+                if name.length > 0 {
+                    textField.resignFirstResponder()
+                    if quotedPricePerSqFtTextField.canBecomeFirstResponder() {
+                        quotedPricePerSqFtTextField.becomeFirstResponder()
+                    }
+                    return true
                 }
-                return name.length > 0
+            }
+        } else if textField == quotedPricePerSqFtTextField {
+            if let quotedPricePerSqFt = Double(textField.text!) {
+                if quotedPricePerSqFt > 0.0 {
+                    textField.resignFirstResponder()
+                    if totalSqFtTextField.canBecomeFirstResponder() {
+                        totalSqFtTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
+            }
+        } else if textField == totalSqFtTextField {
+            if let totalSqFt = Double(textField.text!) {
+                if totalSqFt > 0.0 {
+                    textField.resignFirstResponder()
+                    dispatch_after_delay(0.0) {
+                        self.createJob()
+                    }
+                    return true
+                }
             }
         }
         return false
@@ -263,7 +293,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     }
 
     private func showActivityIndicator() {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) {
+        let section = tableView.numberOfSections - 1
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) {
             for view in cell.contentView.subviews {
                 if view.isKindOfClass(UIActivityIndicatorView) {
                     (view as! UIActivityIndicatorView).startAnimating()
@@ -275,7 +306,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     }
 
     private func hideActivityIndicator() {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) {
+        let section = tableView.numberOfSections - 1
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) {
             for view in cell.contentView.subviews {
                 if view.isKindOfClass(UIActivityIndicatorView) {
                     (view as! UIActivityIndicatorView).stopAnimating()

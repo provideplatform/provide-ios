@@ -9,6 +9,8 @@
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -75,9 +77,53 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GkG-IJ-Ybz">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="dNb-js-DXL" id="XbV-yC-g5N"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Quoted Price Per Sq Ft" id="vpF-eI-w5j">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Fn4-kG-rHY">
+                                        <rect key="frame" x="0.0" y="392.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fn4-kG-rHY" id="lAR-mf-hws">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LIy-8v-YVl">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="dNb-js-DXL" id="Qyg-JV-hg2"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Total Sq Ft" id="UwA-qE-fwj">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="PEe-vS-ewk">
+                                        <rect key="frame" x="0.0" y="469.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PEe-vS-ewk" id="Psq-gK-cqI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cig-Gc-6zf">
+                                                    <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="dNb-js-DXL" id="VwI-Xk-Z2p"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -88,7 +134,7 @@
                             <tableViewSection id="1cW-8Y-0Us">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lLD-6o-PDC">
-                                        <rect key="frame" x="0.0" y="375.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="529.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLD-6o-PDC" id="uY1-kY-8yD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -124,7 +170,9 @@
                     <navigationItem key="navigationItem" id="1n2-mf-of7"/>
                     <connections>
                         <outlet property="nameTextField" destination="GkG-IJ-Ybz" id="dQj-dV-4Re"/>
+                        <outlet property="quotedPricePerSqFtTextField" destination="LIy-8v-YVl" id="ef7-HA-tQE"/>
                         <outlet property="searchBar" destination="tMf-bH-FGZ" id="le4-Ah-dEo"/>
+                        <outlet property="totalSqFtTextField" destination="Cig-Gc-6zf" id="SJ3-jM-bp3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-KB-rML" userLabel="First Responder" sceneMemberID="firstResponder"/>
