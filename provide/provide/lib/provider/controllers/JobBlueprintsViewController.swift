@@ -24,7 +24,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                         importInstructionsContainerView?.alpha = 0.0
                         loadBlueprint()
                         blueprintViewController?.blueprintViewControllerDelegate = self
-                    } else {
+                    } else if importedPdfAttachment == nil {
                         importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
                         importInstructionsContainerView?.alpha = 1.0
 
