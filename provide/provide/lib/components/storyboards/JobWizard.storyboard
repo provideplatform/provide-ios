@@ -660,10 +660,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats! Your blueprint is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
-                                        <rect key="frame" x="102" y="164" width="394" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="394" id="GqL-9B-Fuj"/>
-                                        </constraints>
+                                        <rect key="frame" x="104" y="164" width="394" height="22"/>
                                         <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -671,8 +668,8 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SP-l0-9g0">
                                         <rect key="frame" x="210" y="285" width="26" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="26" id="UDI-2b-YyR"/>
-                                            <constraint firstAttribute="height" constant="20" id="VPd-9z-jc1"/>
+                                            <constraint firstAttribute="width" constant="26" id="qx4-i7-5zM"/>
+                                            <constraint firstAttribute="height" constant="20" id="r0k-OW-5WV"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="dropbox"/>
                                     </button>
@@ -687,13 +684,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="e6M-E5-2EJ" firstAttribute="top" secondItem="OJa-Sm-IZJ" secondAttribute="bottom" constant="91" id="9el-Rt-17s"/>
-                                    <constraint firstItem="OJa-Sm-IZJ" firstAttribute="top" secondItem="2OO-pg-gjT" secondAttribute="top" constant="164" id="Cep-e1-gJL"/>
-                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="centerY" secondItem="e6M-E5-2EJ" secondAttribute="centerY" id="Izm-xr-5VG"/>
-                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="top" secondItem="OJa-Sm-IZJ" secondAttribute="bottom" constant="99" id="UAt-6T-oY0"/>
-                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="leading" secondItem="2OO-pg-gjT" secondAttribute="leading" constant="210" id="UL9-uK-ysX"/>
-                                    <constraint firstItem="e6M-E5-2EJ" firstAttribute="leading" secondItem="7SP-l0-9g0" secondAttribute="trailing" constant="8" symbolic="YES" id="idH-K7-l4s"/>
-                                    <constraint firstItem="OJa-Sm-IZJ" firstAttribute="leading" secondItem="2OO-pg-gjT" secondAttribute="leading" constant="102" id="yo3-Ds-l0s"/>
+                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="centerY" secondItem="e6M-E5-2EJ" secondAttribute="centerY" id="8XX-lr-CbX"/>
+                                    <constraint firstItem="OJa-Sm-IZJ" firstAttribute="top" secondItem="2OO-pg-gjT" secondAttribute="top" constant="164" id="8qW-t9-4mE"/>
+                                    <constraint firstItem="OJa-Sm-IZJ" firstAttribute="centerX" secondItem="2OO-pg-gjT" secondAttribute="centerX" constant="1" id="CoH-D2-a4r"/>
+                                    <constraint firstItem="e6M-E5-2EJ" firstAttribute="centerX" secondItem="2OO-pg-gjT" secondAttribute="centerX" constant="16" id="LMF-n4-L9V"/>
+                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="top" secondItem="OJa-Sm-IZJ" secondAttribute="bottom" constant="99" id="h9J-x5-kw7"/>
+                                    <constraint firstItem="7SP-l0-9g0" firstAttribute="top" secondItem="e6M-E5-2EJ" secondAttribute="bottom" constant="-27" id="nXU-Sr-cKi"/>
+                                    <constraint firstItem="e6M-E5-2EJ" firstAttribute="leading" secondItem="7SP-l0-9g0" secondAttribute="trailing" constant="8" symbolic="YES" id="tuL-x1-cEK"/>
                                 </constraints>
                             </view>
                         </subviews>
