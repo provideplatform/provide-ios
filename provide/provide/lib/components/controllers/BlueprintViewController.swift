@@ -923,7 +923,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         case 3:
             if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
                 cell.setName("ESTIMATED COST", value: humanReadableEstimatedCost, valueFontSize: isIPad() ? 13.0 : 11.0)
-                cell.accessoryType = .DisclosureIndicator
+                //cell.accessoryType = .DisclosureIndicator
+                cell.accessoryType = .DetailButton
             } else {
                 cell.setName("ESTIMATED COST", value: "$0.00", valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.hideActivity()
