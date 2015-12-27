@@ -183,6 +183,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     }
 
     func importFromDropbox(sender: UIButton) {
+        renderInstruction(nil)
+
         DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { [weak self] results in
             if let results = results {
                 for result in results {
@@ -230,14 +232,12 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             importInstructionsContainerView?.alpha = 0.0
             loadBlueprint()
             blueprintViewController?.blueprintViewControllerDelegate = self
-        } else if importedPdfAttachment == nil {
+        } else if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
             if job.blueprintImageUrl == nil {
                 renderInstruction("Import a blueprint for this job.")
                 showDropbox()
-            } else {
-                renderInstruction("Congrats! Your blueprint is configured properly.")
             }
-        } else {
+        } else if job.blueprintImageUrl != nil {
             renderInstruction("Congrats! Your blueprint is configured properly.")
         }
     }
@@ -256,6 +256,12 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             blueprintActivityIndicatorView?.stopAnimating()
             blueprintPreviewContainerView?.alpha = 0.0
         } else {
+            importInstructionsLabel?.text = ""
+            importInstructionsLabel?.alpha = 0.0
+
+            importInstructionsContainerView?.alpha = 0.0
+            importInstructionsContainerView?.superview?.sendSubviewToBack(importInstructionsContainerView)
+
             blueprintActivityIndicatorView?.startAnimating()
             blueprintPreviewContainerView?.alpha = 1.0
         }
