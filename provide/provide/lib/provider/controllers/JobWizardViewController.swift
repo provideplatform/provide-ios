@@ -11,6 +11,7 @@ import UIKit
 protocol JobWizardViewControllerDelegate: NSObjectProtocol {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
     func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController: BlueprintViewController)
 }
 
 class JobWizardViewController: UINavigationController,
@@ -130,6 +131,10 @@ class JobWizardViewController: UINavigationController,
 
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
         return cachedBlueprintImage
+    }
+
+    func scaleWasSetForJobBlueprintsViewController(viewController: JobBlueprintsViewController, blueprintViewController: BlueprintViewController) {
+        jobWizardViewControllerDelegate?.jobWizardViewController(self, didSetScaleForBlueprintViewController: blueprintViewController)
     }
 
     // MARK: BlueprintViewControllerDelegate

@@ -160,6 +160,21 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         return blueprintViewController?.teardown()
     }
 
+    func refresh() {
+        if shouldLoadBlueprint {
+            importInstructionsContainerView?.alpha = 0.0
+            loadBlueprint()
+            blueprintViewController?.blueprintViewControllerDelegate = self
+        } else if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
+            if job.blueprintImageUrl == nil {
+                renderInstruction("Import a blueprint for this job.")
+                showDropbox()
+            }
+        } else if job.blueprintImageUrl != nil {
+            renderInstruction("Congrats! Your blueprint is configured properly.")
+        }
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
@@ -224,21 +239,6 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                     }
                 )
             }
-        }
-    }
-
-    private func refresh() {
-        if shouldLoadBlueprint {
-            importInstructionsContainerView?.alpha = 0.0
-            loadBlueprint()
-            blueprintViewController?.blueprintViewControllerDelegate = self
-        } else if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-            if job.blueprintImageUrl == nil {
-                renderInstruction("Import a blueprint for this job.")
-                showDropbox()
-            }
-        } else if job.blueprintImageUrl != nil {
-            renderInstruction("Congrats! Your blueprint is configured properly.")
         }
     }
 

@@ -13,6 +13,7 @@ protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
     optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+    optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 }
@@ -414,6 +415,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             job.updateJobBlueprintScale(scale,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     self!.toolbar.reload()
+                    self!.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController?(self!)
                 }, onError: { error, statusCode, responseString in
 
                 }

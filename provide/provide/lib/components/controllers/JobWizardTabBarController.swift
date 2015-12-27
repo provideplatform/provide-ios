@@ -8,7 +8,9 @@
 
 import UIKit
 
-class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate, JobWizardViewControllerDelegate {
+class JobWizardTabBarController: UITabBarController,
+                                 UITabBarControllerDelegate,
+                                 JobWizardViewControllerDelegate {
 
     weak var job: Job! {
         didSet {
@@ -235,6 +237,15 @@ class JobWizardTabBarController: UITabBarController, UITabBarControllerDelegate,
             }
         }
         return nil
+    }
+
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
+        if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
+            if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                assert(viewController == jobBlueprintsViewController)
+                jobBlueprintsViewController.refresh()
+            }
+        }
     }
 
     deinit {
