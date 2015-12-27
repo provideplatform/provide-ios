@@ -104,12 +104,12 @@ class JobsViewController: ViewController,
         }
 
         ApiService.sharedService().fetchJobs(params,
-            onSuccess: { [weak self] statusCode, mappingResult in
+            onSuccess: { statusCode, mappingResult in
                 let fetchedJobs = mappingResult.array() as! [Job]
-                self!.jobs += fetchedJobs
+                self.jobs += fetchedJobs
 
-                self!.tableView.reloadData()
-                self!.refreshControl.endRefreshing()
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
             },
             onError: { error, statusCode, responseString in
                 // TODO
