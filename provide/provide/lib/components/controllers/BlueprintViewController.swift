@@ -158,6 +158,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         toolbar.barTintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
 
         hideToolbar()
+
+        activityIndicatorView.startAnimating()
         //loadBlueprint()
     }
 
