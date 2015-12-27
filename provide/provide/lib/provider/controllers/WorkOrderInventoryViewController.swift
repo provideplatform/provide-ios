@@ -99,33 +99,35 @@ class WorkOrderInventoryViewController: UITableViewController,
             let params: [String : AnyObject] = [:]
 
             dispatch_async(workOrderProductOperationQueue) { [weak self] in
-                while self!.addingWorkOrderProduct { }
+                while ((self?.addingWorkOrderProduct) != nil) { }
 
-                self!.addingWorkOrderProduct = true
+                self?.addingWorkOrderProduct = true
 
-                self!.workOrder?.addWorkOrderProductForJobProduct(jobProduct, params: params,
+                self?.workOrder?.addWorkOrderProductForJobProduct(jobProduct, params: params,
                     onSuccess: { [weak self] statusCode, mappingResult in
-                        cell.hideActivityIndicator()
+                        if let s = self {
+                            cell.hideActivityIndicator()
 
-                        workOrderProduct = self!.workOrder.workOrderProductForJobProduct(jobProduct)
+                            workOrderProduct = s.workOrder.workOrderProductForJobProduct(jobProduct)
 
-                        let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
-                        workOrderProductCreationViewController.workOrder = self!.workOrder
-                        workOrderProductCreationViewController.workOrderProduct = workOrderProduct
-                        workOrderProductCreationViewController.workOrderProductCreationViewControllerDelegate = self!
-                        workOrderProductCreationViewController.modalPresentationStyle = .Popover
-                        workOrderProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
-                        workOrderProductCreationViewController.popoverPresentationController!.sourceView = cell
-                        workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-                        workOrderProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                        self!.presentViewController(workOrderProductCreationViewController, animated: true) {
-                            self!.addingWorkOrderProduct = false
+                            let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
+                            workOrderProductCreationViewController.workOrder = s.workOrder
+                            workOrderProductCreationViewController.workOrderProduct = workOrderProduct
+                            workOrderProductCreationViewController.workOrderProductCreationViewControllerDelegate = s
+                            workOrderProductCreationViewController.modalPresentationStyle = .Popover
+                            workOrderProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
+                            workOrderProductCreationViewController.popoverPresentationController!.sourceView = cell
+                            workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                            workOrderProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+                            s.presentViewController(workOrderProductCreationViewController, animated: true) {
+                                s.addingWorkOrderProduct = false
+                            }
                         }
                     },
                     onError: { [weak self] error, statusCode, responseString in
-                        self!.workOrderProductsPickerViewController?.products.removeObject(jobProduct.product)
-                        self!.workOrderProductsPickerViewController?.reloadCollectionView()
-                        self!.addingWorkOrderProduct = false
+                        self?.workOrderProductsPickerViewController?.products.removeObject(jobProduct.product)
+                        self?.workOrderProductsPickerViewController?.reloadCollectionView()
+                        self?.addingWorkOrderProduct = false
                     }
                 )
             }
@@ -139,20 +141,22 @@ class WorkOrderInventoryViewController: UITableViewController,
 
         if let workOrderProduct = workOrder.workOrderProductForJobProduct(jobProduct) {
             dispatch_async(workOrderProductOperationQueue) { [weak self] in
-                while self!.removingWorkOrderProduct { }
+                while ((self?.removingWorkOrderProduct) != nil) { }
 
-                self!.removingWorkOrderProduct = true
+                self?.removingWorkOrderProduct = true
 
-                self!.workOrder?.removeWorkOrderProduct(workOrderProduct,
+                self?.workOrder?.removeWorkOrderProduct(workOrderProduct,
                     onSuccess: { (statusCode, mappingResult) -> () in
-                        self!.workOrderProductsPickerViewController?.products = self!.workOrder.materials.map({ $0.jobProduct.product })
-                        self!.workOrderProductsPickerViewController?.reloadCollectionView()
-                        self!.removingWorkOrderProduct = false
+                        if let s = self {
+                            s.workOrderProductsPickerViewController?.products = s.workOrder.materials.map({ $0.jobProduct.product })
+                            s.workOrderProductsPickerViewController?.reloadCollectionView()
+                            s.removingWorkOrderProduct = false
+                        }
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self!.workOrderProductsPickerViewController?.products.append(jobProduct.product)
-                        self!.workOrderProductsPickerViewController?.reloadCollectionView()
-                        self!.removingWorkOrderProduct = false
+                        self?.workOrderProductsPickerViewController?.products.append(jobProduct.product)
+                        self?.workOrderProductsPickerViewController?.reloadCollectionView()
+                        self?.removingWorkOrderProduct = false
                     }
                 )
             }
@@ -313,7 +317,7 @@ class WorkOrderInventoryViewController: UITableViewController,
             } else if workOrder?.jobId > 0 {
                 workOrder.reloadJob(
                     { [weak self] statusCode, mappingResult in
-                        self!.reloadJobProductsForPickerViewController(viewController)
+                        self?.reloadJobProductsForPickerViewController(viewController)
                     },
                     onError: { error, statusCode, responseString in
 

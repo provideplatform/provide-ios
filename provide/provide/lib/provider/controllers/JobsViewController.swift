@@ -106,10 +106,10 @@ class JobsViewController: ViewController,
         ApiService.sharedService().fetchJobs(params,
             onSuccess: { [weak self] statusCode, mappingResult in
                 let fetchedJobs = mappingResult.array() as! [Job]
-                self!.jobs += fetchedJobs
+                self?.jobs += fetchedJobs
 
-                self!.tableView.reloadData()
-                self!.refreshControl.endRefreshing()
+                self?.tableView.reloadData()
+                self?.refreshControl.endRefreshing()
             },
             onError: { error, statusCode, responseString in
                 // TODO
@@ -208,10 +208,12 @@ class JobsViewController: ViewController,
         let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .Destructive) { action in
             job.cancel(
                 onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.tableView?.beginUpdates()
-                    self!.jobs.removeObject(job)
-                    self!.tableView?.deleteRowsAtIndexPaths([self!.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
-                    self!.tableView?.endUpdates()
+                    if let s = self {
+                        s.tableView?.beginUpdates()
+                        s.jobs.removeObject(job)
+                        s.tableView?.deleteRowsAtIndexPaths([s.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
+                        s.tableView?.endUpdates()
+                    }
                 },
                 onError: { error, statusCode, responseString in
 
@@ -463,8 +465,8 @@ class JobsViewController: ViewController,
 
             if selected {
                 dispatch_after_delay(0.0) { [weak self] in
-                    self!.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                    self!.jobsViewController?.performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: cell)
+                    self?.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+                    self?.jobsViewController?.performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: cell)
                     cell.setHighlighted(false, animated: true)
                     cell.setSelected(false, animated: true)
                 }

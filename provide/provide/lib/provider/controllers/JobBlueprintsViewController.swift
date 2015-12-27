@@ -206,7 +206,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
-                    self!.importFromSourceURL(sourceURL)
+                    self?.importFromSourceURL(sourceURL)
                 }
             }
         }
@@ -217,7 +217,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
             let params: [String : AnyObject] = ["tags": ["blueprint"]]
             ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
                 onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.importedPdfAttachment = mappingResult.firstObject as! Attachment
+                    self?.importedPdfAttachment = mappingResult.firstObject as! Attachment
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -232,12 +232,12 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
                 job.reload(
                     onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.loadBlueprint()
-                        self!.reloadingJob = false
+                        self?.loadBlueprint()
+                        self?.reloadingJob = false
                     },
                     onError: { [weak self] error, statusCode, responseString in
-                        self!.loadBlueprint()
-                        self!.reloadingJob = false
+                        self?.loadBlueprint()
+                        self?.reloadingJob = false
                     }
                 )
             }
@@ -257,7 +257,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
                 ApiService.sharedService().fetchImage(blueprintImageUrl,
                     onImageFetched: { [weak self] statusCode, image  in
-                        self!.setBlueprintImage(image)
+                        self?.setBlueprintImage(image)
                     },
                     onError: { error, statusCode, responseString in
                         

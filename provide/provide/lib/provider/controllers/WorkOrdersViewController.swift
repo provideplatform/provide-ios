@@ -129,18 +129,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                             onSuccess: { [weak self] statusCode, mappingResult in
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
                                     if workOrder.status != "en_route" {
-                                        self!.refreshAnnotations()
-                                        self!.updatingWorkOrderContext = true
-                                        self!.loadRouteContext()
+                                        self?.refreshAnnotations()
+                                        self?.updatingWorkOrderContext = true
+                                        self?.loadRouteContext()
                                     } else {
                                         log("not reloading context due to work order being routed to destination")
                                     }
                                 }
                             },
                             onError: { [weak self] error, statusCode, responseString in
-                                self!.refreshAnnotations()
-                                self!.updatingWorkOrderContext = true
-                                self!.loadRouteContext()
+                                self?.refreshAnnotations()
+                                self?.updatingWorkOrderContext = true
+                                self?.loadRouteContext()
                             }
                         )
                     }
@@ -268,19 +268,21 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                         onWorkOrdersFetched: { [weak self] workOrders in
                             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
-                            if workOrders.count == 0 {
-                                self!.zeroStateViewController?.render(self!.view)
-                            }
+                            if let s = self {
+                                if workOrders.count == 0 {
+                                    s.zeroStateViewController?.render(s.view)
+                                }
 
-                            self!.nextWorkOrderContextShouldBeRewound()
-                            self!.attemptSegueToValidWorkOrderContext()
-                            self!.updatingWorkOrderContext = false
+                                s.nextWorkOrderContextShouldBeRewound()
+                                s.attemptSegueToValidWorkOrderContext()
+                                s.updatingWorkOrderContext = false
+                            }
                         }
                     )
                 } else if routes.count > 0 {
                     workOrderService.setWorkOrdersUsingRoute(routes[0])
-                    self!.attemptSegueToValidRouteContext()
-                    self!.updatingWorkOrderContext = false
+                    self?.attemptSegueToValidRouteContext()
+                    self?.updatingWorkOrderContext = false
                 }
             }
         )
@@ -295,16 +297,16 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                             {
                                 route.arrive(
                                     onSuccess: { [weak self] statusCode, responseString in
-                                        self!.nextWorkOrderContextShouldBeRewound()
+                                        self?.nextWorkOrderContextShouldBeRewound()
                                         LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
-                                        self!.attemptSegueToValidWorkOrderContext()
+                                        self?.attemptSegueToValidWorkOrderContext()
                                     },
                                     onError: { [weak self] error, statusCode, responseString in
                                         route.reload(
                                             { statusCode, mappingResult in
-                                                self!.nextWorkOrderContextShouldBeRewound()
+                                                self?.nextWorkOrderContextShouldBeRewound()
                                                 LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
-                                                self!.attemptSegueToValidWorkOrderContext()
+                                                self?.attemptSegueToValidWorkOrderContext()
                                             },
                                             onError: { error, statusCode, responseString in
 
@@ -336,9 +338,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             performSegueWithIdentifier("RouteManifestViewControllerSegue", sender: self)
         } else {
             dispatch_after_delay(0.0) { [weak self] in
-                self!.mapView.revealMap(true)
+                if let s = self {
+                    s.mapView.revealMap(true)
 
-                self!.zeroStateViewController?.render(self!.view)
+                    s.zeroStateViewController?.render(s.view)
+                }
             }
         }
     }
@@ -386,9 +390,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                             if wo.canArrive {
                                 wo.arrive(
                                     onSuccess: { [weak self] statusCode, responseString in
-                                        self!.nextWorkOrderContextShouldBeRewound()
+                                        self?.nextWorkOrderContextShouldBeRewound()
                                         LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
-                                        self!.attemptSegueToValidWorkOrderContext()
+                                        self?.attemptSegueToValidWorkOrderContext()
                                     },
                                     onError: { error, statusCode, responseString in
 
@@ -553,8 +557,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             if let workOrder = WorkOrderService.sharedService().nextWorkOrder {
                 workOrder.start(
                     { [weak self] statusCode, responseString in
-                        self!.nextWorkOrderContextShouldBeRewound()
-                        self!.performSegueWithIdentifier("DirectionsViewControllerSegue", sender: self!)
+                        if let s = self {
+                            s.nextWorkOrderContextShouldBeRewound()
+                            s.performSegueWithIdentifier("DirectionsViewControllerSegue", sender: s)
+                        }
                     },
                     onError: { error, statusCode, responseString in
 
@@ -581,7 +587,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.sharedService().inProgressWorkOrder.abandon(
             onSuccess: { [weak self] statusCode, responseString in
-                self!.attemptSegueToValidWorkOrderContext()
+                self?.attemptSegueToValidWorkOrderContext()
             },
             onError: { error, statusCode, responseString in
 
@@ -631,7 +637,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             workOrder.attach(signature, params: params,
                 onSuccess: { [weak self] statusCode, responseString in
-                    self!.attemptCompletionOfInProgressWorkOrder()
+                    self?.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
                     
@@ -652,7 +658,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             workOrder.scoreProvider(netPromoterScore,
                 onSuccess: { [weak self] statusCode, responseString in
-                    self!.attemptCompletionOfInProgressWorkOrder()
+                    self?.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
                     
@@ -689,7 +695,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
             workOrder.addComment(comment,
                 onSuccess: { [weak self] statusCode, responseString in
-                    self!.attemptCompletionOfInProgressWorkOrder()
+                    self?.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
 
@@ -800,8 +806,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     func routeUpdated(route: Route!, byViewController viewController: UIViewController) {
         dispatch_after_delay(0.0) { [weak self] in
-            self!.navigationController?.popViewControllerAnimated(true)
-            self!.attemptSegueToValidRouteContext()
+            self?.navigationController?.popViewControllerAnimated(true)
+            self?.attemptSegueToValidRouteContext()
         }
     }
 
@@ -832,8 +838,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             if workOrder.components.count == 0 {
                 workOrder.complete(
                     onSuccess: { [weak self] statusCode, responseString in
-                        self!.nextWorkOrderContextShouldBeRewound()
-                        self!.attemptSegueToValidWorkOrderContext()
+                        self?.nextWorkOrderContextShouldBeRewound()
+                        self?.attemptSegueToValidWorkOrderContext()
                     },
                     onError: { error, statusCode, responseString in
 

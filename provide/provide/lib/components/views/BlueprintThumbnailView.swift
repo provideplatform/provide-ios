@@ -23,23 +23,25 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     weak var blueprintImage: UIImage! {
         didSet {
             dispatch_after_delay(0.0) { [weak self, weak bluePrintImage = self.blueprintImage] in
-                self!.frame = CGRect(x: self!.visibleSize.width - self!.desiredSize.width - 10.0,
-                                     y: self!.visibleSize.height - self!.desiredSize.height - 10.0 - 44.0,
-                                     width: self!.desiredSize.width,
-                                     height: self!.desiredSize.height)
+                if let s = self {
+                    s.frame = CGRect(x: s.visibleSize.width - s.desiredSize.width - 10.0,
+                        y: s.visibleSize.height - s.desiredSize.height - 10.0 - 44.0,
+                        width: s.desiredSize.width,
+                        height: s.desiredSize.height)
 
-                if let bluePrintImage = bluePrintImage {
-                    let scaledImage = bluePrintImage.scaledToWidth(self!.desiredSize.width)
-                    self!.thumbnailImageBackgroundView.frame.size = self!.desiredSize
-                    self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
+                    if let bluePrintImage = bluePrintImage {
+                        let scaledImage = bluePrintImage.scaledToWidth(s.desiredSize.width)
+                        s.thumbnailImageBackgroundView.frame.size = s.desiredSize
+                        s.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
 
-                    var scale = CGFloat(1.0)
-                    if let delegate = self!.delegate {
-                        scale = delegate.initialScaleForBlueprintThumbnailView(self!)
+                        var scale = CGFloat(1.0)
+                        if let delegate = s.delegate {
+                            scale = delegate.initialScaleForBlueprintThumbnailView(s)
+                        }
+                        s.resizeOverlayView(CGPointZero, scale: scale)
+                    } else {
+                        s.alpha = 0.0
                     }
-                    self!.resizeOverlayView(CGPointZero, scale: scale)
-                } else {
-                    self!.alpha = 0.0
                 }
             }
         }
@@ -84,12 +86,12 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
             let viewportWidth = viewportHeight * viewportAspectRatio
 
             dispatch_after_delay(0.0) { [weak self] in
-                self!.overlayView.frame = CGRect(x: origin.x,
+                self?.overlayView.frame = CGRect(x: origin.x,
                                                  y: origin.y,
                                                  width: viewportWidth,
                                                  height: viewportHeight)
 
-                self!.overlayView.alpha = 1.0
+                self?.overlayView.alpha = 1.0
             }
         }
     }
