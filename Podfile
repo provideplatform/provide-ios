@@ -4,7 +4,7 @@ platform :ios, '8.3'
 inhibit_all_warnings!
 
 xcodeproj 'provide/provide.xcodeproj'
-xcodeproj 'startrack/startrack.xcodeproj'
+#xcodeproj 'startrack/startrack.xcodeproj'
 
 pod 'Analytics/Segmentio', '1.12.0'
 pod 'ECSlidingViewController', '~> 2.0.3'
