@@ -39,6 +39,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return workOrder.status == "in_progress"
     }
 
+    @IBOutlet private weak var previewImageView: UIImageView!
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var estimatedSqFtLabel: UILabel!
@@ -59,6 +60,12 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         refreshUtilityButtons()
 
         if let workOrder = workOrder {
+            previewImageView?.contentMode = .ScaleAspectFit
+            previewImageView?.image = nil
+            if let previewImage = workOrder.previewImage {
+                previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
+            }
+
             typeLabel?.text = workOrder.desc == nil ? workOrder.customer.name : workOrder.desc
             timestampLabel?.text = workOrder.humanReadableScheduledStartAtTimestamp
 

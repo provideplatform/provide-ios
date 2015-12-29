@@ -450,6 +450,7 @@ class WorkOrder: Model {
     override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValueForKey("config")
+        dictionary.removeValueForKey("preview_image")
         dictionary.removeValueForKey("id")
         return dictionary
     }

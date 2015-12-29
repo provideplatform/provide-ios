@@ -586,7 +586,7 @@
         <scene sceneID="Muv-9P-DEk">
             <objects>
                 <tableViewController id="2MU-2C-ZVU" customClass="WorkOrderDetailsHeaderTableViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="125" sectionHeaderHeight="1" sectionFooterHeight="28" id="3D5-bd-hte">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="150" sectionHeaderHeight="1" sectionFooterHeight="1" id="3D5-bd-hte">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -595,12 +595,24 @@
                                 <rect key="frame" x="0.0" y="1" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qD-vh-C8v" id="d2J-7H-nYv">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-Bv-4kT">
                                             <rect key="frame" x="8" y="11" width="150" height="128"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vSK-Ha-7dL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="128"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="vSK-Ha-7dL" firstAttribute="centerY" secondItem="gbT-Bv-4kT" secondAttribute="centerY" id="1ES-6C-Ok0"/>
+                                                <constraint firstItem="vSK-Ha-7dL" firstAttribute="width" secondItem="gbT-Bv-4kT" secondAttribute="height" multiplier="75:64" id="ZDM-ep-VQe"/>
+                                                <constraint firstItem="vSK-Ha-7dL" firstAttribute="width" secondItem="gbT-Bv-4kT" secondAttribute="width" id="juy-oG-Kqo"/>
+                                                <constraint firstItem="vSK-Ha-7dL" firstAttribute="centerX" secondItem="gbT-Bv-4kT" secondAttribute="centerX" id="ne9-x2-NUm"/>
+                                                <constraint firstItem="vSK-Ha-7dL" firstAttribute="height" secondItem="gbT-Bv-4kT" secondAttribute="height" id="nnl-5V-V5X"/>
+                                            </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flooring" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlJ-A2-3Lf" userLabel="Type Label">
                                             <rect key="frame" x="166" y="11" width="341" height="20"/>
@@ -668,6 +680,7 @@
                                 <connections>
                                     <outlet property="estimatedCostLabel" destination="biE-Iz-2eh" id="Kwe-IE-93X"/>
                                     <outlet property="estimatedSqFtLabel" destination="AVG-tK-uHT" id="oCQ-bL-7Bf"/>
+                                    <outlet property="previewImageView" destination="vSK-Ha-7dL" id="2iU-Ie-rlm"/>
                                     <outlet property="timestampLabel" destination="IHS-cp-2F6" id="LaJ-VJ-MgB"/>
                                     <outlet property="typeLabel" destination="PlJ-A2-3Lf" id="gkE-1j-gcS"/>
                                 </connections>

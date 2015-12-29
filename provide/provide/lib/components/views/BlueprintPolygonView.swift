@@ -58,6 +58,13 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         return polygonPoints
     }
 
+    var overlayViewImage: UIImage! {
+        if let overlayView = overlayView {
+            return overlayView.toImage()
+        }
+        return nil
+    }
+
     private var points = [CGPoint]()
 
     private var pointViews = [BlueprintPolygonVertexView]()
