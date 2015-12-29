@@ -61,6 +61,9 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     @IBOutlet private weak var estimatedSqFtLabel: UILabel!
     @IBOutlet private weak var estimatedCostLabel: UILabel!
 
+    @IBOutlet private weak var estimatedSqFtActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var estimatedCostActivityIndicatorView: UIActivityIndicatorView!
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
@@ -70,6 +73,19 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         delegate = self
 
         refreshUtilityButtons()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        typeLabel?.text = ""
+        timestampLabel?.text = ""
+
+        estimatedSqFtLabel?.text = ""
+        estimatedSqFtActivityIndicatorView?.startAnimating()
+
+        estimatedCostLabel?.text = ""
+        estimatedCostActivityIndicatorView?.startAnimating()
     }
 
     private func refresh() {
@@ -87,14 +103,14 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
             if let humanReadableEstimatedSqFt = workOrder.humanReadableEstimatedSqFt {
                 estimatedSqFtLabel?.text = humanReadableEstimatedSqFt
-            } else {
-                estimatedSqFtLabel?.text = "(sq footage unknown)"
+                estimatedSqFtActivityIndicatorView?.stopAnimating()
+                estimatedSqFtLabel?.hidden = false
             }
 
             if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
                 estimatedCostLabel?.text = "\(humanReadableEstimatedCost) (estimate)"
-            } else {
-                estimatedCostLabel?.text = "(cost estimate unknown)"
+                estimatedCostActivityIndicatorView?.stopAnimating()
+                estimatedCostLabel?.hidden = false
             }
 
             typeLabel.sizeToFit()

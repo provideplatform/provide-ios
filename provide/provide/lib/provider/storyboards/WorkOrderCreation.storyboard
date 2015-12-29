@@ -633,7 +633,7 @@
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="145.34 sq ft" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-tK-uHT">
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="145.34 sq ft" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-tK-uHT">
                                             <rect key="frame" x="166" y="39" width="154" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="154" id="HYC-rd-6Yv"/>
@@ -642,7 +642,7 @@
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$31,000 cost (estimate)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-Iz-2eh">
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$31,000 cost (estimate)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-Iz-2eh">
                                             <rect key="frame" x="166" y="67" width="170" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="HcM-5G-ipv"/>
@@ -651,31 +651,50 @@
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Pwl-Km-uiA">
+                                            <rect key="frame" x="166" y="39" width="20" height="20"/>
+                                        </activityIndicatorView>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="PiM-eT-Yyp">
+                                            <rect key="frame" x="166" y="67" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="Pwl-Km-uiA" firstAttribute="baseline" secondItem="AVG-tK-uHT" secondAttribute="baseline" id="1OU-su-0sa"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="biE-Iz-2eh" secondAttribute="bottom" constant="54.5" id="3rG-RV-Gd3"/>
                                         <constraint firstItem="AVG-tK-uHT" firstAttribute="leading" secondItem="biE-Iz-2eh" secondAttribute="leading" id="4p8-wC-LIE"/>
                                         <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" symbolic="YES" id="8ht-3h-eQV"/>
                                         <constraint firstItem="PlJ-A2-3Lf" firstAttribute="firstBaseline" secondItem="IHS-cp-2F6" secondAttribute="firstBaseline" id="BhD-ij-TNt"/>
                                         <constraint firstItem="IHS-cp-2F6" firstAttribute="trailing" secondItem="PlJ-A2-3Lf" secondAttribute="trailing" constant="85" id="Biv-9e-pSt"/>
                                         <constraint firstItem="biE-Iz-2eh" firstAttribute="top" secondItem="AVG-tK-uHT" secondAttribute="bottom" constant="8" symbolic="YES" id="FyG-eU-rMM"/>
+                                        <constraint firstItem="Pwl-Km-uiA" firstAttribute="leading" secondItem="AVG-tK-uHT" secondAttribute="leading" id="MwE-IU-Yvb"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="top" id="QkC-bD-kUz"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="centerY" secondItem="d2J-7H-nYv" secondAttribute="centerY" id="RNe-EM-L1E"/>
+                                        <constraint firstItem="Pwl-Km-uiA" firstAttribute="leading" secondItem="PiM-eT-Yyp" secondAttribute="leading" id="T0m-YP-Xxf"/>
                                         <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="gbT-Bv-4kT" secondAttribute="trailing" constant="8" symbolic="YES" id="Uwv-iz-HVZ"/>
+                                        <constraint firstItem="PiM-eT-Yyp" firstAttribute="top" secondItem="Pwl-Km-uiA" secondAttribute="bottom" constant="8" symbolic="YES" id="YM1-kc-tnu"/>
+                                        <constraint firstItem="Pwl-Km-uiA" firstAttribute="bottom" secondItem="AVG-tK-uHT" secondAttribute="bottom" id="beY-tE-7cq"/>
+                                        <constraint firstItem="PiM-eT-Yyp" firstAttribute="bottom" secondItem="biE-Iz-2eh" secondAttribute="bottom" id="cbj-fu-nlM"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="d2J-7H-nYv" secondAttribute="topMargin" constant="3" id="eaa-IQ-xuD"/>
+                                        <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="Pwl-Km-uiA" secondAttribute="bottom" constant="-48" id="hpM-7l-y6E"/>
                                         <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" id="kCT-Qy-uas"/>
+                                        <constraint firstItem="Pwl-Km-uiA" firstAttribute="top" secondItem="AVG-tK-uHT" secondAttribute="top" id="qPu-rw-KqU"/>
+                                        <constraint firstItem="PiM-eT-Yyp" firstAttribute="top" secondItem="gbT-Bv-4kT" secondAttribute="bottom" constant="-72" id="uTW-gK-IiS"/>
                                         <constraint firstItem="PlJ-A2-3Lf" firstAttribute="trailing" secondItem="d2J-7H-nYv" secondAttribute="trailingMargin" constant="-85" id="uum-se-SjF"/>
+                                        <constraint firstItem="PiM-eT-Yyp" firstAttribute="top" secondItem="biE-Iz-2eh" secondAttribute="top" id="w5w-nv-45r"/>
                                         <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="AVG-tK-uHT" secondAttribute="leading" id="wcn-Ws-Kxs"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="leading" secondItem="d2J-7H-nYv" secondAttribute="leadingMargin" id="ytU-cg-4A1"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="kCT-Qy-uas"/>
+                                            <exclude reference="1OU-su-0sa"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="estimatedCostActivityIndicatorView" destination="PiM-eT-Yyp" id="LzS-5p-pfl"/>
                                     <outlet property="estimatedCostLabel" destination="biE-Iz-2eh" id="Kwe-IE-93X"/>
+                                    <outlet property="estimatedSqFtActivityIndicatorView" destination="Pwl-Km-uiA" id="gVV-pd-Pb1"/>
                                     <outlet property="estimatedSqFtLabel" destination="AVG-tK-uHT" id="oCQ-bL-7Bf"/>
                                     <outlet property="previewImageView" destination="vSK-Ha-7dL" id="2iU-Ie-rlm"/>
                                     <outlet property="timestampLabel" destination="IHS-cp-2F6" id="LaJ-VJ-MgB"/>
