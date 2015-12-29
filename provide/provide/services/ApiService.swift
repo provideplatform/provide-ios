@@ -90,14 +90,6 @@ class ApiService: NSObject {
         return false
     }
 
-    class func isRegisteredForRemoteNotifications() -> Bool {
-        if let _ = KeyChainService.sharedService().deviceId {
-            return true
-        }
-
-        return false
-    }
-
     func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("tokens", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
@@ -265,7 +257,7 @@ class ApiService: NSObject {
 
                 ApiService.sharedService().fetchUser(
                     onSuccess: { statusCode, mappingResult in
-                        if !ApiService.isRegisteredForRemoteNotifications() {
+                        if !UIApplication.sharedApplication().isRegisteredForRemoteNotifications() {
                             NSNotificationCenter.defaultCenter().postNotificationName("ProfileImageShouldRefresh")
                         }
                     },
@@ -318,7 +310,6 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("devices", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
-                KeyChainService.sharedService().deviceId = (mappingResult.firstObject as! Device).id.description
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: onError
@@ -331,7 +322,7 @@ class ApiService: NSObject {
 
     // MARK: Remote notifications
 
-    private func registerForRemoteNotifications() {
+    func registerForRemoteNotifications() {
         if !isSimulator() {
             NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRegisterUserNotificationSettings")
 
@@ -341,20 +332,9 @@ class ApiService: NSObject {
         }
     }
 
-    private func unregisterForRemoteNotifications(onSuccess: OnSuccess, onError: OnError) {
+    func unregisterForRemoteNotifications(onSuccess: OnSuccess, onError: OnError) {
         if !isSimulator() {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
-
-            if let deviceId = KeyChainService.sharedService().deviceId {
-                ApiService.sharedService().deleteDeviceWithId(deviceId,
-                    onSuccess: { statusCode, mappingResult in
-                        onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                    },
-                    onError: { error, statusCode, responseString in
-                        onError(error: error, statusCode: statusCode, responseString: responseString)
-                    }
-                )
-            }
         }
     }
 

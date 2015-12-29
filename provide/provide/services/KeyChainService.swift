@@ -38,15 +38,6 @@ class KeyChainService {
         }
     }
 
-    var deviceId: String? {
-        get {
-            return self["deviceId"]
-        }
-        set {
-            self["deviceId"] = newValue
-        }
-    }
-
     var pin: String? {
         get {
             return self["pin"]

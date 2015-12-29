@@ -38,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AppearenceProxy.setup()
 
+        if ApiService.sharedService().hasCachedToken {
+            ApiService.sharedService().registerForRemoteNotifications()
+        }
+
         return true
     }
 
@@ -112,7 +116,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 AnalyticsService.sharedService().track("App Registered For Remote Notifications")
             },
             onError: { error, statusCode, responseString in
-                logWarn("Failed to set apn device token for authenticated user")
+                if statusCode == 409 {
+                    AnalyticsService.sharedService().track("App Registered For Remote Notifications")
+                } else {
+                    logWarn("Failed to set apn device token for authenticated user; status code: \(statusCode)")
+                }
             }
         )
     }
