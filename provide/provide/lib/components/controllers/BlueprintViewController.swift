@@ -824,7 +824,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 6 : 1
+        return section == 0 ? 4 : 1
     }
 
     func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -846,16 +846,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
                 (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
             case 2:
-                print("open up the sq footage cost details editor!!!")
-            case 3:
-                print("open up the master cost model editor!!!")
-            case 4:
-//                viewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController")
-//                (viewController as! ManifestViewController).delegate = workOrderCreationViewController
-
                 viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
                 (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
-            case 5:
+            case 3:
                 viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
                 (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
             default:
@@ -876,8 +869,38 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
 
         let workOrder = viewController.workOrder
-
         let polygonView = polygonViewForWorkOrder(workOrder)
+
+        if workOrder.previewImage == nil { // FIXME!!! This has to get moved
+            if let blueprintPolygonView = polygonView {
+                if let overlayViewBoundingBox = blueprintPolygonView.overlayViewBoundingBox {
+                    if let blueprintImageView = imageView {
+                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                        let previewView = UIImageView(image: previewImage)
+                        if let annotation = blueprintPolygonView.annotation {
+                            let polygonView = BlueprintPolygonView(annotation: annotation)
+                            previewView.addSubview(polygonView)
+                            previewView.bringSubviewToFront(polygonView)
+                            polygonView.alpha = 1.0
+                            if let sublayers = polygonView.layer.sublayers {
+                                for sublayer in sublayers {
+                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                }
+                            }
+
+                            workOrder.previewImage = previewView.toImage()
+                        }
+                    }
+                }
+            }
+        }
+
+        if workOrder.humanReadableEstimatedSqFt == nil {
+            if let blueprintPolygonView = polygonView {
+                workOrder.estimatedSqFt = Double(blueprintPolygonView.area)
+            }
+        }
 
         let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
@@ -926,42 +949,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            if let overlayViewBoundingBox = polygonView.overlayViewBoundingBox {
-                if let blueprintImageView = imageView {
-                    let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
-                    let previewView = UIImageView(image: previewImage)
-                    if let blueprintPolygonView = polygonView {
-                        if let annotation = blueprintPolygonView.annotation {
-                            let polygonView = BlueprintPolygonView(annotation: annotation)
-                            previewView.addSubview(polygonView)
-                            previewView.bringSubviewToFront(polygonView)
-                            polygonView.alpha = 1.0
-                            if let sublayers = polygonView.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
-                                }
-                            }
-
-                            workOrder.previewImage = previewView.toImage()
-                        }
-                    }
-                }
-            }
-            workOrder.estimatedSqFt = Double(polygonView.area)
-            cell.setName("ESTIMATED SQ FT", value: workOrder.humanReadableEstimatedSqFt)
-            cell.accessoryType = .DisclosureIndicator
-        case 3:
-            if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
-                cell.setName("ESTIMATED COST", value: humanReadableEstimatedCost, valueFontSize: isIPad() ? 13.0 : 11.0)
-                //cell.accessoryType = .DisclosureIndicator
-                cell.accessoryType = .DetailButton
-            } else {
-                cell.setName("ESTIMATED COST", value: "$0.00", valueFontSize: isIPad() ? 13.0 : 11.0)
-                cell.hideActivity()
-                cell.accessoryType = .DetailButton
-            }
-        case 4:
             if let _ = workOrder.materials {
                 let inventoryDisposition = workOrder.inventoryDisposition
                 cell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
@@ -970,7 +957,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("MATERIALS", value: "")
                 cell.showActivity(false)
             }
-        case 5:
+        case 3:
             if let expensesDisposition = workOrder.expensesDisposition {
                 cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator
