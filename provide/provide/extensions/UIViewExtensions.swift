@@ -87,7 +87,7 @@ extension UIView {
                 }
             }
         }
-        UIGraphicsBeginImageContextWithOptions(viewBounds.size, opaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(viewBounds.size, false, 0.0)
         if let context = UIGraphicsGetCurrentContext() {
             layer.renderInContext(context)
             image = UIGraphicsGetImageFromCurrentImageContext()
