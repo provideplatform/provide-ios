@@ -424,14 +424,23 @@ class WorkOrder: Model {
     }
 
     var gtinsOrdered: [String] {
+        if itemsOrdered == nil {
+            return [String]()
+        }
         return itemsOrdered.map { $0.gtin }
     }
 
     var gtinsDelivered: [String] {
+        if itemsDelivered == nil {
+            return [String]()
+        }
         return itemsDelivered.map { $0.gtin }
     }
 
     var gtinsRejected: [String] {
+        if itemsRejected == nil {
+            return [String]()
+        }
         return itemsRejected.map { $0.gtin }
     }
 

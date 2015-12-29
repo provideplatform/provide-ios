@@ -90,11 +90,11 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
             showActivityIndicator()
 
             workOrder.updateWorkOrderProvider(workOrderProvider,
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.workOrderProviderCreationViewControllerDelegate?.workOrderProviderCreationViewController(self!, didUpdateWorkOrderProvider: workOrderProvider)
+                onSuccess: { statusCode, mappingResult in
+                    self.workOrderProviderCreationViewControllerDelegate?.workOrderProviderCreationViewController(self, didUpdateWorkOrderProvider: workOrderProvider)
                 },
-                onError: { [weak self] error, statusCode, responseString in
-                    self!.hideActivityIndicator()
+                onError: { error, statusCode, responseString in
+                    self.hideActivityIndicator()
                 }
             )
         }
