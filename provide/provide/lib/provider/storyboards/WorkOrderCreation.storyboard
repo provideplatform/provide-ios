@@ -598,18 +598,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-Bv-4kT">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-Bv-4kT">
                                             <rect key="frame" x="8" y="11" width="150" height="128"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vSK-Ha-7dL">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="128"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="vSK-Ha-7dL" firstAttribute="centerY" secondItem="gbT-Bv-4kT" secondAttribute="centerY" id="1ES-6C-Ok0"/>
+                                                <constraint firstAttribute="height" constant="128" id="4dp-kO-6uL"/>
                                                 <constraint firstItem="vSK-Ha-7dL" firstAttribute="width" secondItem="gbT-Bv-4kT" secondAttribute="height" multiplier="75:64" id="ZDM-ep-VQe"/>
                                                 <constraint firstItem="vSK-Ha-7dL" firstAttribute="width" secondItem="gbT-Bv-4kT" secondAttribute="width" id="juy-oG-Kqo"/>
+                                                <constraint firstAttribute="width" constant="150" id="nXf-4b-vdg"/>
                                                 <constraint firstItem="vSK-Ha-7dL" firstAttribute="centerX" secondItem="gbT-Bv-4kT" secondAttribute="centerX" id="ne9-x2-NUm"/>
                                                 <constraint firstItem="vSK-Ha-7dL" firstAttribute="height" secondItem="gbT-Bv-4kT" secondAttribute="height" id="nnl-5V-V5X"/>
                                             </constraints>

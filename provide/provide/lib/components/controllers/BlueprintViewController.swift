@@ -918,7 +918,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            workOrder.previewImage = polygonView.overlayViewImage
+            workOrder.previewImage = polygonView.previewImage
             workOrder.estimatedSqFt = Double(polygonView.area)
             cell.setName("ESTIMATED SQ FT", value: workOrder.humanReadableEstimatedSqFt)
             cell.accessoryType = .DisclosureIndicator

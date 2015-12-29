@@ -14,6 +14,17 @@ protocol BlueprintScrollViewDelegate {
 
 class BlueprintScrollView: UIScrollView, UIGestureRecognizerDelegate {
 
+    var blueprintImageView: UIImageView! {
+        var blueprintImageView: UIImageView!
+        for subview in subviews {
+            if subview.isKindOfClass(UIImageView) {
+                blueprintImageView = subview as! UIImageView
+                break
+            }
+        }
+        return blueprintImageView
+    }
+
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         let point = gestureRecognizer.locationInView(self)
         if let view = hitTest(point, withEvent: nil) {

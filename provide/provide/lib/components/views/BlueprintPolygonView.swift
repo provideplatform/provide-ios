@@ -58,9 +58,25 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         return polygonPoints
     }
 
-    var overlayViewImage: UIImage! {
+    var previewImage: UIImage! {
+        if let overlayViewBoundingBox = overlayViewBoundingBox {
+            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+                if let superview = blueprintImageView.superview {
+                    let dx = overlayViewBoundingBox.width / 2.0
+                    let dy = overlayViewBoundingBox.height / 2.0
+                    let cropRect = CGRectInset(overlayViewBoundingBox, -dx, -dy)
+                    return superview.toImage().crop(cropRect)
+                }
+            }
+        }
+        return nil
+    }
+
+    private var overlayViewBoundingBox: CGRect! {
         if let overlayView = overlayView {
-            return overlayView.toImage()
+            if let layer = overlayView.layer.sublayers!.first as? CAShapeLayer {
+                return CGPathGetPathBoundingBox(layer.path)
+            }
         }
         return nil
     }
@@ -278,7 +294,6 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
                     overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
                 }
             }
-
         }
     }
 
