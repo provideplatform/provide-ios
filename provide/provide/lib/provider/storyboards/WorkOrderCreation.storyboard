@@ -622,7 +622,6 @@
                                                 <constraint firstAttribute="width" constant="341" id="KV7-UV-GA2"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="17"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ends at 5pm today" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHS-cp-2F6">
@@ -632,7 +631,6 @@
                                                 <constraint firstAttribute="width" constant="154" id="xK8-cI-1O9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="145.34 sq ft" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-tK-uHT">
@@ -642,7 +640,6 @@
                                                 <constraint firstAttribute="height" constant="20" id="Imk-VX-Cp7"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$31,000 cost (estimate)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-Iz-2eh">
@@ -652,11 +649,9 @@
                                                 <constraint firstAttribute="width" constant="170" id="a2l-cA-mrn"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.46666666670000001" green="0.69411764710000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="biE-Iz-2eh" secondAttribute="bottom" constant="54.5" id="3rG-RV-Gd3"/>
                                         <constraint firstItem="AVG-tK-uHT" firstAttribute="leading" secondItem="biE-Iz-2eh" secondAttribute="leading" id="4p8-wC-LIE"/>

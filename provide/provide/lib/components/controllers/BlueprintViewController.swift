@@ -920,9 +920,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             providers += " assigned"
             if workOrder.providers.count >= detailDisplayCount {
-                cell.setName("PROVIDERS", value: providers, valueFontSize: isIPad() ? 13.0 : 11.0)
+                cell.setName("CREW", value: providers, valueFontSize: isIPad() ? 13.0 : 11.0)
             } else {
-                cell.setName("PROVIDERS", value: providers)
+                cell.setName("CREW", value: providers)
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
@@ -936,18 +936,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
                             previewView.addSubview(polygonView)
                             previewView.bringSubviewToFront(polygonView)
                             polygonView.alpha = 1.0
-
-                            print("layer position \(polygonView.layer.position)")
                             if let sublayers = polygonView.layer.sublayers {
                                 for sublayer in sublayers {
-                                    print("sublayer position \(sublayer.position)")
                                     sublayer.position.x -= overlayViewBoundingBox.origin.x
                                     sublayer.position.y -= overlayViewBoundingBox.origin.y
                                 }
                             }
 
-                            //previewView.subviews.first!.bounds = previewView.frame
-                            workOrder.previewImage = previewView.toImage() //view.previewImage
+                            workOrder.previewImage = previewView.toImage()
                         }
                     }
                 }

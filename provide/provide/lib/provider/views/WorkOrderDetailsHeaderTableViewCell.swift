@@ -47,7 +47,15 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return showsCancelButton
     }
 
-    @IBOutlet private weak var previewImageView: UIImageView!
+    @IBOutlet private weak var previewImageView: UIImageView! {
+        didSet {
+            if let previewImageView = previewImageView {
+                previewImageView.superview?.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+                previewImageView.superview?.roundCorners(2.0)
+            }
+        }
+    }
+
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var estimatedSqFtLabel: UILabel!
@@ -57,7 +65,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         super.init(coder: aDecoder)
 
         backgroundColor = UIColor.clearColor()
-        contentView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+        contentView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.1)
 
         delegate = self
 
@@ -113,7 +121,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
 
         setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
-        setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 90.0)
+        setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 120.0)
     }
 
     // MARK: SWTableViewCellDelegate
