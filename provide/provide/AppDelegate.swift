@@ -28,8 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
 
-        setupLaunchScreenViewController()
-
         RKLogConfigureFromEnvironment()
 
         RKEntityMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
@@ -64,7 +62,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         AnalyticsService.sharedService().track("App Became Active", properties: [:])
 
-        dismissLaunchScreenViewController()
+        if launchScreenViewController == nil {
+            setupLaunchScreenViewController()
+        } else {
+            dismissLaunchScreenViewController()
+        }
 
         if ApiService.sharedService().hasCachedToken {
             CheckinService.sharedService().checkin()
