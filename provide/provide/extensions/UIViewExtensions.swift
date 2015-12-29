@@ -68,10 +68,30 @@ extension UIView {
         }
     }
 
-    func toImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, 0.0)
-        layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
+    func toImage() -> UIImage! {
+        var image: UIImage!
+        var viewBounds = bounds
+        if viewBounds.size == CGSizeZero {
+            if layer.isKindOfClass(CAShapeLayer) {
+                let path = (layer as! CAShapeLayer).path
+                viewBounds = CGPathGetPathBoundingBox(path)
+            } else {
+                if let sublayers = layer.sublayers {
+                    for sublayer in sublayers {
+                        if sublayer.isKindOfClass(CAShapeLayer) {
+                            let path = (sublayer as! CAShapeLayer).path
+                            viewBounds = CGPathGetPathBoundingBox(path)
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        UIGraphicsBeginImageContextWithOptions(viewBounds.size, opaque, 0.0)
+        if let context = UIGraphicsGetCurrentContext() {
+            layer.renderInContext(context)
+            image = UIGraphicsGetImageFromCurrentImageContext()
+        }
         UIGraphicsEndImageContext()
         return image
     }

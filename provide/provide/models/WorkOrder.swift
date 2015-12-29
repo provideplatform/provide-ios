@@ -29,6 +29,7 @@ class WorkOrder: Model {
     var estimatedDuration: NSNumber!
     var estimatedSqFt = -1.0
     var status: String!
+    var previewImage: UIImage!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
     var attachments: [Attachment]!
