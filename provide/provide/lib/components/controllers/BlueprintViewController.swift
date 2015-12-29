@@ -700,7 +700,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView! {
-        return imageView
+        if let index = polygonViews.indexOfObject(view) {
+            if let _ = polygonViews[index].delegate {
+                return imageView
+            } else {
+                return nil
+            }
+        } else {
+            return imageView
+        }
     }
 
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment! {
@@ -918,7 +926,22 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            workOrder.previewImage = polygonView.previewImage
+            if let overlayViewBoundingBox = polygonView.overlayViewBoundingBox {
+                if let blueprintImageView = imageView {
+                    let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                    let previewView = UIImageView(image: previewImage)
+                    if let blueprintPolygonView = polygonView {
+                        if let annotation = blueprintPolygonView.annotation {
+                            let polygonView = BlueprintPolygonView(annotation: annotation)
+                            previewView.addSubview(polygonView)
+                            polygonView.alpha = 1.0
+                            previewView.bringSubviewToFront(polygonView)
+                        }
+
+                        workOrder.previewImage = previewView.toImage() //view.previewImage
+                    }
+                }
+            }
             workOrder.estimatedSqFt = Double(polygonView.area)
             cell.setName("ESTIMATED SQ FT", value: workOrder.humanReadableEstimatedSqFt)
             cell.accessoryType = .DisclosureIndicator

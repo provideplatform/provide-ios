@@ -60,25 +60,53 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
     var previewImage: UIImage! {
         if let overlayViewBoundingBox = overlayViewBoundingBox {
-            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
-                if let superview = blueprintImageView.superview {
-                    let dx = overlayViewBoundingBox.width / 2.0
-                    let dy = overlayViewBoundingBox.height / 2.0
-                    let cropRect = CGRectInset(overlayViewBoundingBox, -dx, -dy)
-                    return superview.toImage().crop(cropRect)
-                }
+            if let blueprintImageView = blueprintImageView {
+                return blueprintImageView.image!.crop(overlayViewBoundingBox)
+
+//                if let superview = blueprintImageView.superview as? BlueprintScrollView {
+//                    let dx = overlayViewBoundingBox.width / 2.0
+//                    let dy = overlayViewBoundingBox.height / 2.0
+//                    let translatedRect = superview.convertRect(cropRect, toView: superview.superview)
+//                    print("translated rect: \(translatedRect)")
+//
+//
+//
+//                    let image = superview.toImage()
+//                    print("captured image size: \(image.size)")
+//                    let croppedImage = image.crop(translatedRect)
+//                    print("cropped image size: \(croppedImage.size)")
+//
+//                    return croppedImage
+//                }
             }
         }
         return nil
     }
 
-    private var overlayViewBoundingBox: CGRect! {
+    var overlayViewPreviewImage: UIImage! {
+        if let overlayViewBoundingBox = overlayViewBoundingBox {
+            if let blueprintImageView = blueprintImageView {
+                return blueprintImageView.image!.crop(overlayViewBoundingBox)
+            }
+        }
+        return nil
+    }
+
+    var overlayViewBoundingBox: CGRect! {
         if let overlayView = overlayView {
             if let layer = overlayView.layer.sublayers!.first as? CAShapeLayer {
                 return CGPathGetPathBoundingBox(layer.path)
             }
         }
         return nil
+    }
+
+    private var blueprintImageView: UIImageView! {
+        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+            return blueprintImageView
+        } else {
+            return nil
+        }
     }
 
     private var points = [CGPoint]()
@@ -106,6 +134,19 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         return nil
     }
 
+    required init(annotation: Annotation) {
+        super.init(frame: CGRectZero)
+
+        self.annotation = annotation
+
+        if let pts = annotation.polygon {
+            for pt in pts {
+                let point = CGPoint(x: pt[0], y: pt[1])
+                addPoint(point)
+            }
+        }
+    }
+
     required init(delegate: BlueprintPolygonViewDelegate, annotation: Annotation) {
         super.init(frame: CGRectZero)
 
@@ -125,6 +166,9 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
     }
 
     func attachGestureRecognizer() {
+        if blueprintImageView == nil {
+            return
+        }
         if let targetView = targetView {
             gestureRecognizer = UITapGestureRecognizer(target: self, action: "pointSelected:")
             gestureRecognizer.delegate = self
@@ -172,7 +216,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
     func overlaySelected(gestureRecognizer: UITapGestureRecognizer) {
         if isClosed {
-            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+            if let blueprintImageView = blueprintImageView {
                 let point = gestureRecognizer.locationInView(blueprintImageView)
                 let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
                 let path = layer.path!
@@ -189,7 +233,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
             return
         }
 
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+        if let blueprintImageView = blueprintImageView {
             let point = gestureRecognizer.locationInView(blueprintImageView)
 
             var attemptPolygonCompletion = false
@@ -226,99 +270,100 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
     }
 
     private func addPoint(point: CGPoint) {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
-            points.append(point)
+        let pointSuperview = blueprintImageView != nil ? blueprintImageView : self
 
-            let pointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
-            pointView.delegate = self
-            pointView.alpha = delegate!.blueprintPolygonViewCanBeResized(self) ? 1.0 : 0.5
-            pointView.frame.origin = CGPoint(x: point.x - (pointView.image!.size.width / 2.0),
-                                             y: point.y - pointView.image!.size.height)
-            
+        points.append(point)
+
+        let pointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
+        pointView.delegate = self
+        pointView.alpha = delegate != nil ? (delegate!.blueprintPolygonViewCanBeResized(self) ? 1.0 : 0.5) : 0.5
+        pointView.frame.origin = CGPoint(x: point.x - (pointView.image!.size.width / 2.0),
+            y: point.y - pointView.image!.size.height)
+
+        if isClosed {
+            closePoint = point
+
+            pointView.alpha = 0.0
+            pointView.userInteractionEnabled = false
+
+            delegate?.blueprintPolygonViewDidClose(self)
+
+            populateMeasurementFromCurrentScale()
+            drawOverlayView(pointSuperview)
+        }
+
+        pointViews.append(pointView)
+
+        pointSuperview.addSubview(pointView)
+        pointSuperview.bringSubviewToFront(pointView)
+
+        drawLineSegment(pointSuperview)
+    }
+
+    private func drawOverlayView(view: UIView) {
+        //            let overlayViewFrame = CGRectZero
+
+        if overlayView == nil {
+            overlayView = UIView(frame: CGRectZero)
+            overlayView.layer.addSublayer(CAShapeLayer())
+            overlayView.layer.addSublayer(CALayer())
+
+            view.addSubview(overlayView)
+            view.bringSubviewToFront(overlayView)
+        } else {
+            overlayView.frame = CGRect(x: 0.0,
+                                       y: 0.0,
+                                       width: overlayViewBoundingBox.width,
+                                       height: overlayViewBoundingBox.height)
+        }
+
+        if points.count > 0 {
+            let path = UIBezierPath()
+
+            path.moveToPoint(points[0])
+            for point in points.dropFirst() {
+                path.addLineToPoint(point)
+            }
+
+            path.closePath()
+
+            let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
+            layer.path = path.CGPath
+
+            if let delegate = delegate {
+                layer.opacity = Float(delegate.blueprintPolygonView(self, opacityForOverlayView: overlayView))
+                layer.fillColor = delegate.blueprintPolygonView(self, colorForOverlayView: overlayView).CGColor
+            } else {
+                layer.opacity = 1.0
+                layer.fillColor = UIColor.clearColor().CGColor
+            }
+
+            if let sublayer = delegate?.blueprintPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox(layer.path)) {
+                overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
+            }
+        }
+    }
+
+    private func drawLineSegment(view: UIView) {
+        let canDrawLine = points.count > 1
+
+        if canDrawLine {
+            let startPoint = points[points.count - 2]
+            let endPoint = points[points.count - 1]
+
+            let lineView = BlueprintPolygonLineView()
+            lineView.setPoints(startPoint, endPoint: endPoint)
+            lineViews.append(lineView)
+
+            view.addSubview(lineView)
+            view.bringSubviewToFront(lineView)
+
+            for pointView in pointViews {
+                view.bringSubviewToFront(pointView)
+            }
+
             if isClosed {
-                closePoint = point
-
-                pointView.alpha = 0.0
-                pointView.userInteractionEnabled = false
-
-                delegate?.blueprintPolygonViewDidClose(self)
-
                 populateMeasurementFromCurrentScale()
-                drawOverlayView()
-            }
-
-            pointViews.append(pointView)
-
-            blueprintImageView.addSubview(pointView)
-            blueprintImageView.bringSubviewToFront(pointView)
-
-            drawLineSegment()
-        }
-    }
-
-    private func drawOverlayView() {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
-            let overlayViewFrame = CGRectZero
-
-            if overlayView == nil {
-                overlayView = UIView(frame: overlayViewFrame)
-                overlayView.layer.addSublayer(CAShapeLayer())
-                overlayView.layer.addSublayer(CALayer())
-
-                blueprintImageView.addSubview(overlayView)
-                blueprintImageView.bringSubviewToFront(overlayView)
-            }
-
-            if points.count > 0 {
-                let path = UIBezierPath()
-
-                path.moveToPoint(points[0])
-                for point in points.dropFirst() {
-                    path.addLineToPoint(point)
-                }
-
-                path.closePath()
-
-                let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
-                layer.path = path.CGPath
-
-                if let delegate = delegate {
-                    layer.opacity = Float(delegate.blueprintPolygonView(self, opacityForOverlayView: overlayView))
-                    layer.fillColor = delegate.blueprintPolygonView(self, colorForOverlayView: overlayView).CGColor
-                } else {
-                    layer.opacity = 1.0
-                    layer.fillColor = UIColor.clearColor().CGColor
-                }
-
-                if let sublayer = delegate?.blueprintPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox(layer.path)) {
-                    overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
-                }
-            }
-        }
-    }
-
-    private func drawLineSegment() {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
-            let canDrawLine = points.count > 1
-
-            if canDrawLine {
-                let startPoint = points[points.count - 2]
-                let endPoint = points[points.count - 1]
-
-                let lineView = BlueprintPolygonLineView()
-                lineView.setPoints(startPoint, endPoint: endPoint)
-                lineViews.append(lineView)
-
-                blueprintImageView.addSubview(lineView)
-                blueprintImageView.bringSubviewToFront(lineView)
-
-                for pointView in pointViews {
-                    blueprintImageView.bringSubviewToFront(pointView)
-                }
-
-                if isClosed {
-                    populateMeasurementFromCurrentScale()
-                }
             }
         }
     }
@@ -333,6 +378,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
     }
 
     func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
+        let pointSuperview = blueprintImageView != nil ? blueprintImageView : self
+
         cancelAnnotationUpdate()
 
         let index = pointViews.indexOf(view)!
@@ -369,7 +416,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
         if isClosed {
             populateMeasurementFromCurrentScale()
-            drawOverlayView()
+            drawOverlayView(pointSuperview)
             scheduleAnnotationUpdate()
         }
     }
@@ -436,7 +483,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if isClosed {
-            if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
+            if let blueprintImageView = blueprintImageView {
                 let point = gestureRecognizer.locationInView(blueprintImageView)
                 let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
                 let path = layer.path!
