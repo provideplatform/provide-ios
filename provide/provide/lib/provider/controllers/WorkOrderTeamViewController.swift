@@ -341,8 +341,8 @@ class WorkOrderTeamViewController: UITableViewController,
 
     func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         if providersPickerViewController != nil && viewController == providersPickerViewController {
-            if let providers = workOrder?.providers {
-                return providers
+            if let workOrder = workOrder {
+                return workOrder.providers
             } else {
                 reloadWorkOrderForProviderPickerViewController(viewController)
             }
