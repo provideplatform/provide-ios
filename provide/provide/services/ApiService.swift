@@ -113,17 +113,10 @@ class ApiService: NSObject {
 
     func logout(onSuccess: OnSuccess, onError: OnError) {
         if !isSimulator() {
-            unregisterForRemoteNotifications(
-                { (statusCode, mappingResult) -> () in
-                    self.deleteToken(onSuccess, onError: onError)
-                },
-                onError: { error, statusCode, responseString in
-                    self.deleteToken(onSuccess, onError: onError)
-                }
-            )
-        } else {
-            self.deleteToken(onSuccess, onError: onError)
+            unregisterForRemoteNotifications()
         }
+
+        deleteToken(onSuccess, onError: onError)
     }
 
     private func deleteToken(onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -332,7 +325,7 @@ class ApiService: NSObject {
         }
     }
 
-    func unregisterForRemoteNotifications(onSuccess: OnSuccess, onError: OnError) {
+    func unregisterForRemoteNotifications() {
         if !isSimulator() {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }

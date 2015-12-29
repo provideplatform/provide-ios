@@ -232,17 +232,6 @@ class ApiService: NSObject {
     private func unregisterForRemoteNotifications() {
         if !isSimulator() {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
-
-            if let deviceId = KeyChainService.sharedService().deviceId {
-                ApiService.sharedService().deleteDeviceWithId(deviceId,
-                    onSuccess: { statusCode, mappingResult in
-
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            }
         }
     }
 

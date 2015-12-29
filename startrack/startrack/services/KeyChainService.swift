@@ -50,15 +50,6 @@ class KeyChainService {
         }
     }
 
-    var deviceId: String? {
-        get {
-            return self["deviceId"]
-        }
-        set {
-            self["deviceId"] = newValue
-        }
-    }
-
     var token: Token? {
         get {
             if let token = cachedToken {
