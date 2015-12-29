@@ -63,6 +63,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                 headerView.workOrder = workOrder
             }
 
+            if let headerTableViewController = headerTableViewController {
+                headerTableViewController.workOrder = workOrder
+            }
+
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
                 timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
             }
@@ -72,6 +76,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     @IBOutlet private weak var tableView: UITableView!
 
     @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
+    @IBOutlet private weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
 
     private var mediaCollectionView: UICollectionView!
 
@@ -84,6 +89,19 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             self.headerView.frame.size.width = self.tableView.frame.width
             self.headerView.addDropShadow()
             self.headerView.workOrder = self.workOrder
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "WorkOrderDetailsHeaderTableViewControllerEmbedSegue" {
+            if let workOrderDetailsHeaderTableViewController = segue.destinationViewController as? WorkOrderDetailsHeaderTableViewController {
+                headerTableViewController = workOrderDetailsHeaderTableViewController
+                if let workOrder = workOrder {
+                    headerTableViewController.workOrder = workOrder
+                }
+            }
         }
     }
 
