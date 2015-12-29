@@ -345,7 +345,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         alertController.addAction(cancelAction)
 
         let completeAction = UIAlertAction(title: "Yes, Complete Work Order", style: .Destructive) { action in
-            self.workOrder.cancel(
+            self.workOrder.complete(
                 onSuccess: { statusCode, mappingResult in
                     viewController.tableView.reloadData()
                     self.delegate?.workOrderCreationViewController(self, didCompleteWorkOrder: workOrder)
