@@ -21,8 +21,10 @@ extension UIImage {
     }
 
     func crop(rect: CGRect) -> UIImage! {
-        let image = CGImageCreateWithImageInRect(CGImage, rect)!
-        return UIImage(CGImage: image)
+        if let image = CGImageCreateWithImageInRect(CGImage, rect) {
+            return UIImage(CGImage: image)
+        }
+        return nil
     }
     
     func resize(rect: CGRect) -> UIImage! {
