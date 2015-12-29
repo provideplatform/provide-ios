@@ -9,6 +9,7 @@
 import UIKit
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
 }
@@ -29,7 +30,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return !showsCompleteButton && workOrder.status != "completed" && workOrder.status != "canceled"
+        return !showsCompleteButton && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned"
     }
 
     private var showsCompleteButton: Bool {
@@ -37,6 +38,13 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             return false
         }
         return workOrder.status == "in_progress"
+    }
+
+    private var showsStartButton: Bool {
+        if workOrder == nil {
+            return false
+        }
+        return showsCancelButton
     }
 
     @IBOutlet private weak var previewImageView: UIImageView!
@@ -96,6 +104,10 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Complete")
         }
 
+        if showsStartButton {
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.inProgressStatusColor(), title: "Start")
+        }
+
         if showsCancelButton {
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Cancel")
         }
@@ -112,10 +124,16 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
         if index == 0 {
-            if showsCancelButton {
+            if showsStartButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldStartWorkOrder: workOrder)
+            } else if showsCancelButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCancelWorkOrder: workOrder)
             } else if showsCompleteButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCompleteWorkOrder: workOrder)
+            }
+        } else if index == 1 {
+            if showsStartButton && showsCancelButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCancelWorkOrder: workOrder)
             }
         }
     }
