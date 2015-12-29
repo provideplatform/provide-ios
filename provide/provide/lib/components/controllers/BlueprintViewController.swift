@@ -934,11 +934,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         if let annotation = blueprintPolygonView.annotation {
                             let polygonView = BlueprintPolygonView(annotation: annotation)
                             previewView.addSubview(polygonView)
-                            polygonView.alpha = 1.0
                             previewView.bringSubviewToFront(polygonView)
-                        }
+                            polygonView.alpha = 1.0
 
-                        workOrder.previewImage = previewView.toImage() //view.previewImage
+                            print("layer position \(polygonView.layer.position)")
+                            if let sublayers = polygonView.layer.sublayers {
+                                for sublayer in sublayers {
+                                    print("sublayer position \(sublayer.position)")
+                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                }
+                            }
+
+                            //previewView.subviews.first!.bounds = previewView.frame
+                            workOrder.previewImage = previewView.toImage() //view.previewImage
+                        }
                     }
                 }
             }
