@@ -918,7 +918,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
             cell.accessoryType = .DisclosureIndicator
         case 2:
-            cell.setName("ESTIMATED SQ FT", value: "\(NSString(format: "%.03f", polygonView.area)) sq ft")
+            workOrder.estimatedSqFt = Double(polygonView.area)
+            cell.setName("ESTIMATED SQ FT", value: workOrder.humanReadableEstimatedSqFt)
             cell.accessoryType = .DisclosureIndicator
         case 3:
             if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
@@ -930,7 +931,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.hideActivity()
                 cell.accessoryType = .DetailButton
             }
-
         case 4:
             if let _ = workOrder.materials {
                 let inventoryDisposition = workOrder.inventoryDisposition
@@ -974,6 +974,27 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 )
             }
         }
+    }
+
+    private func refreshPolygonViewForWorkOrder(workOrder: WorkOrder) {
+        if let polygonView = polygonViewForWorkOrder(workOrder) {
+            polygonView.redraw()
+        }
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPolygonViewForWorkOrder(workOrder)
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {

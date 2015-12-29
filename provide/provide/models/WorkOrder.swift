@@ -27,6 +27,7 @@ class WorkOrder: Model {
     var duration: NSNumber!
     var estimatedCost = -1.0
     var estimatedDuration: NSNumber!
+    var estimatedSqFt = -1.0
     var status: String!
     var providerRating: NSNumber!
     var customerRating: NSNumber!
@@ -133,6 +134,13 @@ class WorkOrder: Model {
     var humanReadableEstimatedCost: String! {
         if estimatedCost > -1.0 {
             return "$\(NSString(format: "%.02f", estimatedCost))"
+        }
+        return nil
+    }
+
+    var humanReadableEstimatedSqFt: String! {
+        if estimatedSqFt > -1.0 {
+            return "\(NSString(format: "%.03f", estimatedSqFt)) sq ft"
         }
         return nil
     }

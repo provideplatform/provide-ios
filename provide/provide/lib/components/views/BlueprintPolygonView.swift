@@ -191,6 +191,17 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         }
     }
 
+    func redraw() {
+        reset()
+        if let pts = annotation.polygon {
+            for pt in pts {
+                let point = CGPoint(x: pt[0], y: pt[1])
+                addPoint(point)
+            }
+        }
+        attachGestureRecognizer()
+    }
+
     private func addPoint(point: CGPoint) {
         if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPolygonView(self) {
             points.append(point)

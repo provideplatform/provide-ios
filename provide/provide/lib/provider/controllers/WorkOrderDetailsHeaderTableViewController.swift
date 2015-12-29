@@ -8,19 +8,31 @@
 
 import UIKit
 
-class WorkOrderDetailsHeaderTableViewController: UITableViewController {
+protocol WorkOrderDetailsHeaderTableViewControllerDelegate {
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder)
+}
+
+class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrderDetailsHeaderTableViewCellDelegate {
+
+    var workOrderDetailsHeaderTableViewControllerDelegate: WorkOrderDetailsHeaderTableViewControllerDelegate!
 
     weak var workOrder: WorkOrder! {
         didSet {
             if let _ = workOrder {
-                tableView.reloadData()
+                reloadTableView()
             }
         }
     }
 
+    func reloadTableView() {
+        tableView.reloadData()
+    }
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        print("selected cell \(cell)")
+        //let cell = tableView.cellForRowAtIndexPath(indexPath)
+
+        // no-op
     }
 
     // MARK: UITableViewDataSource
@@ -31,7 +43,18 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("workOrderDetailsHeaderTableViewCellReuseIdentifier") as! WorkOrderDetailsHeaderTableViewCell
+        cell.workOrderDetailsHeaderTableViewCellDelegate = self
         cell.workOrder = workOrder
         return cell
+    }
+
+    // MARK: WorkOrderDetailsHeaderTableViewCellDelegate
+
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder) {
+        workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldCancelWorkOrder: workOrder)
+    }
+
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder) {
+        workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldCompleteWorkOrder: workOrder)
     }
 }

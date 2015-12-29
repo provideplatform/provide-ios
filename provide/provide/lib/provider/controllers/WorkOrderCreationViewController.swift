@@ -16,9 +16,11 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
-
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
@@ -281,6 +283,83 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         } else {
             super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
         }
+    }
+
+    // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Are you sure you want to start this work order?", message: "This cannot be undone.", preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Don't Start", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let startAction = UIAlertAction(title: "Yes, Manually Start Work Order", style: .Destructive) { action in
+            self.workOrder.arrive(
+                onSuccess: { statusCode, mappingResult in
+                    viewController.tableView.reloadData()
+                    self.delegate?.workOrderCreationViewController(self, didStartWorkOrder: workOrder)
+                },
+                onError: { error, statusCode, responseString in
+                    viewController.tableView.reloadData()
+                }
+            )
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(startAction)
+
+        presentViewController(alertController, animated: true)
+    }
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Are you sure you want to cancel this work order?", message: "This cannot be undone.", preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Don't Cancel", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let cancelWorkOrderAction = UIAlertAction(title: "Yes, Cancel Work Order", style: .Destructive) { action in
+            self.workOrder.cancel(
+                onSuccess: { statusCode, mappingResult in
+                    viewController.tableView.reloadData()
+                    self.delegate?.workOrderCreationViewController(self, didCancelWorkOrder: workOrder)
+                },
+                onError: { error, statusCode, responseString in
+                    viewController.tableView.reloadData()
+                }
+            )
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(cancelWorkOrderAction)
+
+        presentViewController(alertController, animated: true)
+    }
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Are you sure you want to complete this work order?", message: nil, preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Don't Complete", style: .Default, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let completeAction = UIAlertAction(title: "Yes, Complete Work Order", style: .Destructive) { action in
+            self.workOrder.cancel(
+                onSuccess: { statusCode, mappingResult in
+                    viewController.tableView.reloadData()
+                    self.delegate?.workOrderCreationViewController(self, didCompleteWorkOrder: workOrder)
+                },
+                onError: { error, statusCode, responseString in
+                    viewController.tableView.reloadData()
+                }
+            )
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(completeAction)
+
+        presentViewController(alertController, animated: true)
     }
 
     // MARK: PDTSimpleCalendarViewControllerDelegate

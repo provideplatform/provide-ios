@@ -13,7 +13,13 @@ protocol WorkOrderDetailsViewControllerDelegate {
     func workOrderDetailsViewController(viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
 }
 
-class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, ManifestViewControllerDelegate {
+class WorkOrderDetailsViewController: ViewController,
+                                      UITableViewDelegate,
+                                      UITableViewDataSource,
+                                      UICollectionViewDelegate,
+                                      UICollectionViewDataSource,
+                                      WorkOrderDetailsHeaderTableViewControllerDelegate,
+                                      ManifestViewControllerDelegate {
 
     var workOrder: WorkOrder! {
         didSet {
@@ -64,6 +70,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             }
 
             if let headerTableViewController = headerTableViewController {
+                headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
                 headerTableViewController.workOrder = workOrder
             }
 
@@ -99,6 +106,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             if let workOrderDetailsHeaderTableViewController = segue.destinationViewController as? WorkOrderDetailsHeaderTableViewController {
                 headerTableViewController = workOrderDetailsHeaderTableViewController
                 if let workOrder = workOrder {
+                    headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
                     headerTableViewController.workOrder = workOrder
                 }
             }
@@ -113,6 +121,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     func reloadTableView() {
         tableView?.reloadData()
+
+        if let headerTableViewController = headerTableViewController {
+            headerTableViewController.reloadTableView()
+        }
 
         if let mediaCollectionView = mediaCollectionView {
             mediaCollectionView.reloadData()
@@ -318,6 +330,20 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+
+    // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
+
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
+
+    }
+
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
+
+    }
+
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
+
+    }
 
     // MARK: ManifestViewControllerDelegate
 

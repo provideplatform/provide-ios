@@ -582,101 +582,104 @@
             </objects>
             <point key="canvasLocation" x="1091" y="5329"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Work Order Details Header Table View Controller-->
         <scene sceneID="Muv-9P-DEk">
             <objects>
-                <tableViewController id="2MU-2C-ZVU" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="125" sectionHeaderHeight="1" sectionFooterHeight="28" id="3D5-bd-hte">
+                <tableViewController id="2MU-2C-ZVU" customClass="WorkOrderDetailsHeaderTableViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="125" sectionHeaderHeight="1" sectionFooterHeight="28" id="3D5-bd-hte">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <sections>
-                            <tableViewSection id="Vtx-30-iUa">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="workOrderDetailsHeaderTableViewCellReuseIdentifier" rowHeight="150" id="5qD-vh-C8v" customClass="WorkOrderDetailsHeaderTableViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qD-vh-C8v" id="d2J-7H-nYv">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-Bv-4kT">
-                                                    <rect key="frame" x="8" y="11" width="150" height="128"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flooring" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlJ-A2-3Lf" userLabel="Customer Label">
-                                                    <rect key="frame" x="166" y="11" width="341" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="341" id="KV7-UV-GA2"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="17"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="145.34 sq ft" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-tK-uHT">
-                                                    <rect key="frame" x="166" y="39" width="154" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="154" id="HYC-rd-6Yv"/>
-                                                        <constraint firstAttribute="height" constant="20" id="Imk-VX-Cp7"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$31,000 cost (estimate)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-Iz-2eh">
-                                                    <rect key="frame" x="166" y="67" width="170" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="HcM-5G-ipv"/>
-                                                        <constraint firstAttribute="width" constant="170" id="a2l-cA-mrn"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ends at 5pm today" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHS-cp-2F6">
-                                                    <rect key="frame" x="438" y="12" width="154" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="EoS-z6-AyT"/>
-                                                        <constraint firstAttribute="width" constant="154" id="xK8-cI-1O9"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.46666666670000001" green="0.69411764710000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="workOrderDetailsHeaderTableViewCellReuseIdentifier" rowHeight="150" id="5qD-vh-C8v" customClass="WorkOrderDetailsHeaderTableViewCell" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1" width="600" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5qD-vh-C8v" id="d2J-7H-nYv">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gbT-Bv-4kT">
+                                            <rect key="frame" x="8" y="11" width="150" height="128"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flooring" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlJ-A2-3Lf" userLabel="Type Label">
+                                            <rect key="frame" x="166" y="11" width="341" height="20"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="biE-Iz-2eh" secondAttribute="bottom" constant="54.5" id="3rG-RV-Gd3"/>
-                                                <constraint firstItem="AVG-tK-uHT" firstAttribute="leading" secondItem="biE-Iz-2eh" secondAttribute="leading" id="4p8-wC-LIE"/>
-                                                <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" symbolic="YES" id="8ht-3h-eQV"/>
-                                                <constraint firstItem="PlJ-A2-3Lf" firstAttribute="firstBaseline" secondItem="IHS-cp-2F6" secondAttribute="firstBaseline" id="BhD-ij-TNt"/>
-                                                <constraint firstItem="IHS-cp-2F6" firstAttribute="trailing" secondItem="PlJ-A2-3Lf" secondAttribute="trailing" constant="85" id="Biv-9e-pSt"/>
-                                                <constraint firstItem="biE-Iz-2eh" firstAttribute="top" secondItem="AVG-tK-uHT" secondAttribute="bottom" constant="8" symbolic="YES" id="FyG-eU-rMM"/>
-                                                <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="top" id="QkC-bD-kUz"/>
-                                                <constraint firstItem="gbT-Bv-4kT" firstAttribute="centerY" secondItem="d2J-7H-nYv" secondAttribute="centerY" id="RNe-EM-L1E"/>
-                                                <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="gbT-Bv-4kT" secondAttribute="trailing" constant="8" symbolic="YES" id="Uwv-iz-HVZ"/>
-                                                <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="d2J-7H-nYv" secondAttribute="topMargin" constant="3" id="eaa-IQ-xuD"/>
-                                                <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" id="kCT-Qy-uas"/>
-                                                <constraint firstItem="PlJ-A2-3Lf" firstAttribute="trailing" secondItem="d2J-7H-nYv" secondAttribute="trailingMargin" constant="-85" id="uum-se-SjF"/>
-                                                <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="AVG-tK-uHT" secondAttribute="leading" id="wcn-Ws-Kxs"/>
-                                                <constraint firstItem="gbT-Bv-4kT" firstAttribute="leading" secondItem="d2J-7H-nYv" secondAttribute="leadingMargin" id="ytU-cg-4A1"/>
+                                                <constraint firstAttribute="width" constant="341" id="KV7-UV-GA2"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="kCT-Qy-uas"/>
-                                                </mask>
-                                            </variation>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                                            <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ends at 5pm today" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHS-cp-2F6">
+                                            <rect key="frame" x="438" y="12" width="154" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="EoS-z6-AyT"/>
+                                                <constraint firstAttribute="width" constant="154" id="xK8-cI-1O9"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="145.34 sq ft" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVG-tK-uHT">
+                                            <rect key="frame" x="166" y="39" width="154" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="154" id="HYC-rd-6Yv"/>
+                                                <constraint firstAttribute="height" constant="20" id="Imk-VX-Cp7"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$31,000 cost (estimate)" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biE-Iz-2eh">
+                                            <rect key="frame" x="166" y="67" width="170" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="20" id="HcM-5G-ipv"/>
+                                                <constraint firstAttribute="width" constant="170" id="a2l-cA-mrn"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.46666666670000001" green="0.69411764710000001" blue="0.85490196080000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="biE-Iz-2eh" secondAttribute="bottom" constant="54.5" id="3rG-RV-Gd3"/>
+                                        <constraint firstItem="AVG-tK-uHT" firstAttribute="leading" secondItem="biE-Iz-2eh" secondAttribute="leading" id="4p8-wC-LIE"/>
+                                        <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" symbolic="YES" id="8ht-3h-eQV"/>
+                                        <constraint firstItem="PlJ-A2-3Lf" firstAttribute="firstBaseline" secondItem="IHS-cp-2F6" secondAttribute="firstBaseline" id="BhD-ij-TNt"/>
+                                        <constraint firstItem="IHS-cp-2F6" firstAttribute="trailing" secondItem="PlJ-A2-3Lf" secondAttribute="trailing" constant="85" id="Biv-9e-pSt"/>
+                                        <constraint firstItem="biE-Iz-2eh" firstAttribute="top" secondItem="AVG-tK-uHT" secondAttribute="bottom" constant="8" symbolic="YES" id="FyG-eU-rMM"/>
+                                        <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="top" id="QkC-bD-kUz"/>
+                                        <constraint firstItem="gbT-Bv-4kT" firstAttribute="centerY" secondItem="d2J-7H-nYv" secondAttribute="centerY" id="RNe-EM-L1E"/>
+                                        <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="gbT-Bv-4kT" secondAttribute="trailing" constant="8" symbolic="YES" id="Uwv-iz-HVZ"/>
+                                        <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="d2J-7H-nYv" secondAttribute="topMargin" constant="3" id="eaa-IQ-xuD"/>
+                                        <constraint firstItem="AVG-tK-uHT" firstAttribute="top" secondItem="PlJ-A2-3Lf" secondAttribute="bottom" constant="8" id="kCT-Qy-uas"/>
+                                        <constraint firstItem="PlJ-A2-3Lf" firstAttribute="trailing" secondItem="d2J-7H-nYv" secondAttribute="trailingMargin" constant="-85" id="uum-se-SjF"/>
+                                        <constraint firstItem="PlJ-A2-3Lf" firstAttribute="leading" secondItem="AVG-tK-uHT" secondAttribute="leading" id="wcn-Ws-Kxs"/>
+                                        <constraint firstItem="gbT-Bv-4kT" firstAttribute="leading" secondItem="d2J-7H-nYv" secondAttribute="leadingMargin" id="ytU-cg-4A1"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="kCT-Qy-uas"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="estimatedCostLabel" destination="biE-Iz-2eh" id="Kwe-IE-93X"/>
+                                    <outlet property="estimatedSqFtLabel" destination="AVG-tK-uHT" id="oCQ-bL-7Bf"/>
+                                    <outlet property="timestampLabel" destination="IHS-cp-2F6" id="LaJ-VJ-MgB"/>
+                                    <outlet property="typeLabel" destination="PlJ-A2-3Lf" id="gkE-1j-gcS"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="2MU-2C-ZVU" id="4rk-Oi-veT"/>
                             <outlet property="delegate" destination="2MU-2C-ZVU" id="pby-Aw-6gk"/>
                         </connections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jgl-hd-e0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -535,7 +535,7 @@
 		68F536E01B834A5C0007F480 /* RouteHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteHistoryViewController.swift; sourceTree = "<group>"; };
 		68F536E11B834A5C0007F480 /* RouteManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestViewController.swift; sourceTree = "<group>"; };
 		68F536E21B834A5C0007F480 /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
-		68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkOrderDetailsViewController.swift; path = ../controllers/WorkOrderDetailsViewController.swift; sourceTree = "<group>"; };
+		68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsViewController.swift; sourceTree = "<group>"; };
 		68F536F01B834A720007F480 /* RouteHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		68F536F11B834A720007F480 /* RouteMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderView.swift; sourceTree = "<group>"; };
@@ -939,6 +939,7 @@
 				6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */,
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
+				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
 				6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
 				68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */,
@@ -965,7 +966,6 @@
 				68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */,
 				68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */,
 				6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */,
-				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
 				68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */,
 				68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */,
 			);
