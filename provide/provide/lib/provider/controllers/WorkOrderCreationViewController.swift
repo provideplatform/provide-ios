@@ -483,6 +483,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
-        reloadTableView()
+        workOrder?.reload(
+            onSuccess: { statusCode, mappingResult in
+                self.reloadTableView()
+            },
+            onError: { error, statusCode, responseString in
+                self.reloadTableView()
+            }
+        )
     }
 }
