@@ -33,9 +33,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-dc-JDf">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1e-dc-JDf">
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="VYW-o8-gVP"/>
+                                    <constraint firstAttribute="width" constant="100" id="mpr-Mb-LBO"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,6 +55,7 @@
                             <constraint firstItem="RkD-7d-K81" firstAttribute="top" secondItem="9V0-qJ-GIn" secondAttribute="bottom" id="A93-dl-dDz"/>
                             <constraint firstItem="srG-RH-DHs" firstAttribute="width" secondItem="v33-AB-uzP" secondAttribute="height" multiplier="1:1" id="AI4-ek-WsX"/>
                             <constraint firstItem="9V0-qJ-GIn" firstAttribute="height" secondItem="v33-AB-uzP" secondAttribute="height" id="Edb-iX-r3v"/>
+                            <constraint firstItem="RkD-7d-K81" firstAttribute="top" secondItem="H1e-dc-JDf" secondAttribute="bottom" constant="8" id="FF1-kw-GQ1"/>
                             <constraint firstItem="9V0-qJ-GIn" firstAttribute="width" secondItem="v33-AB-uzP" secondAttribute="width" id="RoK-8W-m23"/>
                             <constraint firstItem="RkD-7d-K81" firstAttribute="top" secondItem="srG-RH-DHs" secondAttribute="bottom" id="VQW-gm-zmh"/>
                             <constraint firstItem="9V0-qJ-GIn" firstAttribute="width" secondItem="v33-AB-uzP" secondAttribute="height" multiplier="1:1" id="cwq-Gn-Gvn"/>
@@ -58,6 +63,7 @@
                             <constraint firstItem="srG-RH-DHs" firstAttribute="leading" secondItem="v33-AB-uzP" secondAttribute="leadingMargin" constant="-20" id="fpf-BF-O23"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9V0-qJ-GIn" secondAttribute="trailing" constant="-20" id="mLb-gQ-Ih2"/>
                             <constraint firstItem="9V0-qJ-GIn" firstAttribute="top" secondItem="5ea-S2-b6D" secondAttribute="bottom" constant="-20" id="uF5-f9-BFh"/>
+                            <constraint firstItem="H1e-dc-JDf" firstAttribute="centerX" secondItem="v33-AB-uzP" secondAttribute="centerX" id="v8c-ZM-SAo"/>
                             <constraint firstItem="srG-RH-DHs" firstAttribute="width" secondItem="v33-AB-uzP" secondAttribute="width" id="ySW-7Y-lYB"/>
                         </constraints>
                     </view>
@@ -87,9 +93,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-Mb-Gwh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWG-Mb-Gwh">
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="5ju-eR-rC9"/>
+                                    <constraint firstAttribute="height" constant="100" id="74P-RQ-RlN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -102,7 +112,9 @@
                             <constraint firstItem="5A3-I4-grx" firstAttribute="top" secondItem="7BP-Yg-Lmg" secondAttribute="bottom" constant="-20" id="9OM-im-Doo"/>
                             <constraint firstItem="5A3-I4-grx" firstAttribute="leading" secondItem="04y-t8-yPx" secondAttribute="leadingMargin" constant="-20" id="FcI-jC-PaB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5A3-I4-grx" secondAttribute="trailing" constant="-20" id="Rin-2Y-bLy"/>
+                            <constraint firstItem="KWG-Mb-Gwh" firstAttribute="centerX" secondItem="04y-t8-yPx" secondAttribute="centerX" id="d1I-2f-QQp"/>
                             <constraint firstItem="0Gi-j0-NOS" firstAttribute="top" secondItem="5A3-I4-grx" secondAttribute="bottom" id="nUK-Hw-S0E"/>
+                            <constraint firstItem="0Gi-j0-NOS" firstAttribute="top" secondItem="KWG-Mb-Gwh" secondAttribute="bottom" constant="8" id="xhg-7v-erY"/>
                         </constraints>
                     </view>
                     <connections>
