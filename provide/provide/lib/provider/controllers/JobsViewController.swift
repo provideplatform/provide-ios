@@ -56,34 +56,41 @@ class JobsViewController: ViewController,
             }
         } else if segue.identifier == "JobWizardTabBarControllerSegue" {
             if let sender = sender {
-                let job = (sender as! JobTableViewCell).job
+                var job: Job!
+                if sender.isKindOfClass(JobTableViewCell) {
+                    job = (sender as! JobTableViewCell).job
+                } else if sender.isKindOfClass(Job) {
+                    job = sender as! Job
+                }
 
-                let cacheAge = job.timeIntervalSinceLastRefreshDate()
-                if cacheAge >= 0.0 {
-                    if cacheAge > 60.0 {
-                        job.reload(
-                            onSuccess: { statusCode, mappingResult in
-                                if let job = mappingResult.firstObject as? Job {
-                                    var index: Int?
-                                    for j in self.jobs {
-                                        if j.id == job.id {
-                                            index = self.jobs.indexOfObject(j)
+                if let job = job {
+                    let cacheAge = job.timeIntervalSinceLastRefreshDate()
+                    if cacheAge >= 0.0 {
+                        if cacheAge > 60.0 {
+                            job.reload(
+                                onSuccess: { statusCode, mappingResult in
+                                    if let job = mappingResult.firstObject as? Job {
+                                        var index: Int?
+                                        for j in self.jobs {
+                                            if j.id == job.id {
+                                                index = self.jobs.indexOfObject(j)
+                                            }
                                         }
-                                    }
 
-                                    if let index = index {
-                                        self.jobs.replaceRange(index...index, with: [job])
-                                    }
+                                        if let index = index {
+                                            self.jobs.replaceRange(index...index, with: [job])
+                                        }
 
-                                    (segue.destinationViewController as! JobWizardTabBarController).job = job
+                                        (segue.destinationViewController as! JobWizardTabBarController).job = job
+                                    }
+                                },
+                                onError: { error, statusCode, responseString in
+
                                 }
-                            },
-                            onError: { error, statusCode, responseString in
-
-                            }
-                        )
-                    } else {
-                        (segue.destinationViewController as! JobWizardTabBarController).job = job
+                            )
+                        } else {
+                            (segue.destinationViewController as! JobWizardTabBarController).job = job
+                        }
                     }
                 }
             }
@@ -222,10 +229,7 @@ class JobsViewController: ViewController,
             jobCreationViewController.presentingViewController?.dismissViewController(animated: true)
         }
 
-        // HACK
-        let jobCreationTableViewCell = JobTableViewCell(coder: NSCoder())
-        jobCreationTableViewCell!.job = job
-        performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: jobCreationTableViewCell)
+        performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: job)
     }
 
     // MARK: JobTableViewCellDelegate
