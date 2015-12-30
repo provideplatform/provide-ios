@@ -115,7 +115,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
     }
 
     func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
-        return true
+        return false
     }
 
     func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
