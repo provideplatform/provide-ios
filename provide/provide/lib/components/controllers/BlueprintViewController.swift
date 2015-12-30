@@ -985,6 +985,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     onSuccess: { [weak self] statusCode, mappingResult in
                         self!.refreshAnnotations()
                         self!.dismissWorkOrderCreationPolygonView()
+                        viewController.reloadTableView()
                     },
                     onError: { error, statusCode, responseString in
 

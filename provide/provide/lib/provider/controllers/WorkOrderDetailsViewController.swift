@@ -61,8 +61,8 @@ class WorkOrderDetailsViewController: ViewController,
                 }
             )
 
-            if let tableView = tableView {
-                tableView.reloadData()
+            if let _ = tableView {
+                reloadTableView()
             }
 
             if let headerView = headerView {

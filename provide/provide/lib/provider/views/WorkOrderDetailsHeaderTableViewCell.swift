@@ -113,6 +113,15 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 estimatedCostLabel?.hidden = false
             } else if workOrder.id == 0 {
                 estimatedCostActivityIndicatorView?.stopAnimating()
+            } else {
+                workOrder.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        self.refresh()
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.refresh()
+                    }
+                )
             }
 
             typeLabel.sizeToFit()
