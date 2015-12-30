@@ -824,7 +824,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 4 : 1
+        let isNewRecord = viewController.workOrder == nil || viewController.workOrder.id == 0
+        return section == 0 ? (isNewRecord ? 2 : 4) : 1
     }
 
     func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

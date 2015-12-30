@@ -163,6 +163,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 if statusCode == 201 {
                     let wo = mappingResult.firstObject as! WorkOrder
                     self.workOrder.status = wo.status
+                    self.reloadTableView()
                     self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
                 }
                 self.refreshUI()

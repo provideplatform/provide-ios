@@ -190,7 +190,7 @@ class JobsViewController: ViewController,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     self!.tableView?.beginUpdates()
                     self!.jobs.removeObject(job)
-                    self!.tableView?.deleteRowsAtIndexPaths([self!.tableView.indexPathForCell(cell)!], withRowAnimation: .Fade)
+                    self!.tableView?.deleteRowsAtIndexPaths([self!.tableView.indexPathForCell(cell)!], withRowAnimation: .Left)
                     self!.tableView?.endUpdates()
                 },
                 onError: { error, statusCode, responseString in

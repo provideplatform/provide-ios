@@ -111,6 +111,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 estimatedCostLabel?.text = "\(humanReadableEstimatedCost) (estimate)"
                 estimatedCostActivityIndicatorView?.stopAnimating()
                 estimatedCostLabel?.hidden = false
+            } else if workOrder.id == 0 {
+                estimatedCostActivityIndicatorView?.stopAnimating()
             }
 
             typeLabel.sizeToFit()
