@@ -481,4 +481,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder! {
         return workOrder
     }
+
+    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
+        reloadTableView()
+    }
 }
