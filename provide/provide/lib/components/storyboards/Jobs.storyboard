@@ -3,8 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-SemiBold.ttf">
+            <string>Exo2-SemiBold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Jobs View Controller-->
         <scene sceneID="3NR-2Q-bzC">
@@ -29,36 +35,45 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-7e-VIa" userLabel="Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="114"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="wal mart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
-                                                            <rect key="frame" x="8" y="0.0" width="66" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
+                                                            <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                                            <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="topMargin" id="7Jt-QZ-LL6"/>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leadingMargin" id="URj-Gl-J1y"/>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="trailing" secondItem="pa7-7e-VIa" secondAttribute="trailingMargin" id="mde-7Y-NEj"/>
+                                                        <constraint firstAttribute="bottom" secondItem="uVm-fa-pZl" secondAttribute="bottom" constant="71" id="oIP-rD-q8d"/>
+                                                    </constraints>
+                                                </view>
+                                                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leading" id="4iQ-O6-fV3"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="CS2-26-EM4"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="OfP-vG-v9e"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="bottom" secondItem="R8O-VO-LP2" secondAttribute="bottom" id="cGP-iy-2TB"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="leading" secondItem="R8O-VO-LP2" secondAttribute="leading" id="fNy-DK-RhN"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="R8O-VO-LP2" secondAttribute="top" id="sBg-tc-yDt"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="R8O-VO-LP2" secondAttribute="bottom" constant="-22.5" id="u22-ce-gHU"/>
-                                                <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="wRb-ik-7bX"/>
+                                                <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="18t-dA-jKR"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="3eK-pO-RMI"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="height" secondItem="bWy-Lh-OEI" secondAttribute="height" id="4aA-OD-hqX"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leading" id="Dlc-0V-fIR"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leading" id="G1W-Mz-rnp"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="width" secondItem="bWy-Lh-OEI" secondAttribute="width" id="H5a-6I-HqB"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="centerY" secondItem="bWy-Lh-OEI" secondAttribute="centerY" id="Ldf-5r-nZU"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="width" secondItem="bWy-Lh-OEI" secondAttribute="height" multiplier="200:33" id="QeQ-aA-idy"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="R8O-VO-LP2" secondAttribute="top" id="T9K-PH-vm5"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="bottom" secondItem="pa7-7e-VIa" secondAttribute="bottom" id="uL8-o4-WDk"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="wg4-Fl-jkr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="backgroundView" destination="R8O-VO-LP2" id="a8f-yB-QJn"/>
+                                            <outlet property="backgroundContainerView" destination="R8O-VO-LP2" id="RKf-1o-hAJ"/>
                                             <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
                                             <segue destination="HbV-mu-6GN" kind="show" identifier="JobWizardTabBarControllerSegue" id="l9Y-AM-Vs2">
