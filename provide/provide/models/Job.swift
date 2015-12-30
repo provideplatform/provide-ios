@@ -32,7 +32,14 @@ class Job: Model {
     var supervisors: [Provider]!
     var totalSqFt = -1.0
     var workOrdersCount = 0
-    var wizardMode = false
+    var wizardMode: NSNumber!
+
+    var isWizardMode: Bool {
+        if let wizardMode = wizardMode {
+            return wizardMode.boolValue
+        }
+        return false
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)

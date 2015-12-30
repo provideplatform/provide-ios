@@ -82,7 +82,7 @@ class JobWizardTabBarController: UITabBarController,
             let hasSupervisor = job.supervisors?.count > 0
             let hasInventory = job.materials?.count > 0
             let hasWorkOrders = job.workOrdersCount > 0
-            return !job.wizardMode && ((hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring")
+            return !job.isWizardMode && ((hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring")
         }
         return false
     }
