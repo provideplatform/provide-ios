@@ -38,8 +38,8 @@
                                 <rect key="frame" x="250" y="492" width="100" height="100"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="1uC-z6-fkT"/>
-                                    <constraint firstAttribute="width" constant="100" id="V4U-ph-IdT"/>
+                                    <constraint firstAttribute="width" constant="100" id="T8B-sY-5Gy"/>
+                                    <constraint firstAttribute="height" constant="100" id="U6d-AW-8Ht"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
                                 <state key="normal">
@@ -50,11 +50,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="atU-Ze-dyu" secondAttribute="centerX" id="0bW-dd-0Dh"/>
+                            <constraint firstItem="k10-sH-DBO" firstAttribute="top" secondItem="atU-Ze-dyu" secondAttribute="bottom" constant="8" id="Cee-eZ-sa4"/>
                             <constraint firstItem="doH-mn-Dod" firstAttribute="leading" secondItem="cLC-g7-8pt" secondAttribute="leading" id="Foi-ew-bTc"/>
                             <constraint firstItem="doH-mn-Dod" firstAttribute="top" secondItem="cLC-g7-8pt" secondAttribute="top" id="LNn-c3-FFZ"/>
+                            <constraint firstItem="atU-Ze-dyu" firstAttribute="centerX" secondItem="cLC-g7-8pt" secondAttribute="centerX" id="MYB-A4-siO"/>
                             <constraint firstAttribute="trailing" secondItem="doH-mn-Dod" secondAttribute="trailing" id="PlS-sO-cOO"/>
-                            <constraint firstItem="k10-sH-DBO" firstAttribute="top" secondItem="atU-Ze-dyu" secondAttribute="bottom" constant="8" id="khf-od-97Y"/>
                             <constraint firstItem="k10-sH-DBO" firstAttribute="top" secondItem="doH-mn-Dod" secondAttribute="bottom" id="yHA-Ot-9MX"/>
                         </constraints>
                     </view>

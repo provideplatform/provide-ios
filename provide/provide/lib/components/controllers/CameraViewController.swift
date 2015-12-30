@@ -191,7 +191,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
         dispatch_after_delay(0.0) {
-            self.button?.frame.origin.y = size.height - 8.0 - self.button.frame.height
+            self.button?.frame.origin.y = self.view.frame.height - 8.0 - self.button.frame.height
             self.activeCameraView?.setCapturePreviewOrientationWithDeviceOrientation(UIDevice.currentDevice().orientation, size: size)
         }
     }
