@@ -32,6 +32,7 @@ class Job: Model {
     var supervisors: [Provider]!
     var totalSqFt = -1.0
     var workOrdersCount = 0
+    var wizardMode = false
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -48,6 +49,7 @@ class Job: Model {
             "quoted_price_per_sq_ft": "quotedPricePerSqFt",
             "total_sq_ft": "totalSqFt",
             "work_orders_count": "workOrdersCount",
+            "wizard_mode": "wizardMode",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
