@@ -54,6 +54,8 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var capturePreviewLayer: AVCaptureVideoPreviewLayer!
     private var codeDetectionLayer: CALayer!
 
+    private var capturePreviewOrientation: AVCaptureVideoOrientation!
+
     private var audioDataOutput: AVCaptureAudioDataOutput!
     private var audioLevelsPollingTimer: NSTimer!
 
@@ -201,6 +203,25 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if let timer = audioLevelsPollingTimer {
             timer.invalidate()
             audioLevelsPollingTimer = nil
+        }
+    }
+
+    func setCapturePreviewOrientationWithDeviceOrientation(deviceOrientation: UIDeviceOrientation, size: CGSize) {
+        if  let capturePreviewLayer = capturePreviewLayer {
+            capturePreviewLayer.frame.size = size
+            
+            if let connection = capturePreviewLayer.connection {
+                switch (deviceOrientation) {
+                case .Portrait:
+                    connection.videoOrientation = .Portrait
+                case .LandscapeRight:
+                    connection.videoOrientation = .LandscapeLeft
+                case .LandscapeLeft:
+                    connection.videoOrientation = .LandscapeRight
+                default:
+                    connection.videoOrientation = .Portrait
+                }
+            }
         }
     }
 

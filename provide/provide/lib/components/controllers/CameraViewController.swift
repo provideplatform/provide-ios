@@ -131,6 +131,8 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             backCameraView.delegate = self
             backCameraView.startBackCameraCapture()
 
+            backCameraView.setCapturePreviewOrientationWithDeviceOrientation(UIDevice.currentDevice().orientation, size: view.frame.size)
+
             view.bringSubviewToFront(backCameraView)
         }
 
@@ -146,6 +148,8 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             frontCameraView.frame = view.frame
             frontCameraView.delegate = self
             frontCameraView.startFrontCameraCapture()
+
+            frontCameraView.setCapturePreviewOrientationWithDeviceOrientation(UIDevice.currentDevice().orientation, size: view.frame.size)
 
             view.bringSubviewToFront(frontCameraView)
         }
@@ -176,6 +180,14 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     func renderTappedButtonAppearance() {
         if let button = button {
             button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).colorWithAlphaComponent(0.75)
+        }
+    }
+
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+
+        dispatch_after_delay(0.0) {
+            self.activeCameraView?.setCapturePreviewOrientationWithDeviceOrientation(UIDevice.currentDevice().orientation, size: size)
         }
     }
 
