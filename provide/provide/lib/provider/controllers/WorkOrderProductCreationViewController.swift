@@ -12,7 +12,6 @@ import UIKit
 protocol WorkOrderProductCreationViewControllerDelegate: NSObjectProtocol {
     optional func workOrderProductForWorkOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController) -> WorkOrderProduct!
     func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
-    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct)
 }
 
 class WorkOrderProductCreationViewController: ProductCreationViewController {

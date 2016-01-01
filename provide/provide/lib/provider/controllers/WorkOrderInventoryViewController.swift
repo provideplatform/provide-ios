@@ -150,6 +150,7 @@ class WorkOrderInventoryViewController: UITableViewController,
                         self!.workOrderProductsPickerViewController?.products = self!.workOrder.materials.map({ $0.jobProduct.product })
                         self!.workOrderProductsPickerViewController?.reloadCollectionView()
                         self!.removingWorkOrderProduct = false
+                        self!.delegate?.workOrderInventoryViewController(self!, didRemoveWorkOrderProduct: workOrderProduct)
                     },
                     onError: { (error, statusCode, responseString) -> () in
                         self!.workOrderProductsPickerViewController?.products.append(jobProduct.product)
@@ -403,10 +404,6 @@ class WorkOrderInventoryViewController: UITableViewController,
     func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
         viewController.presentingViewController?.dismissViewController(animated: true)
         delegate?.workOrderInventoryViewController(self, didUpdateWorkOrderProduct: workOrderProduct)
-    }
-
-    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct) {
-        delegate?.workOrderInventoryViewController(self, didRemoveWorkOrderProduct: workOrderProduct)
     }
 
     private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {
