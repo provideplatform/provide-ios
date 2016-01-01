@@ -510,12 +510,12 @@ class WorkOrder: Model {
         if id > 0 {
             var workOrderProviders = [[String : AnyObject]]()
             for workOrderProvider in self.workOrderProviders {
-                var wop = ["provider_id": workOrderProvider.provider.id]
+                var wop: [String : AnyObject] = ["provider_id": workOrderProvider.provider.id]
                 if workOrderProvider.estimatedDuration > -1.0 {
-                    wop.updateValue(Int(workOrderProvider.estimatedDuration), forKey: "estimated_duration")
+                    wop.updateValue(workOrderProvider.estimatedDuration, forKey: "estimated_duration")
                 }
                 if workOrderProvider.hourlyRate > -1.0 {
-                    wop.updateValue(Int(workOrderProvider.hourlyRate), forKey: "hourly_rate")
+                    wop.updateValue(workOrderProvider.hourlyRate, forKey: "hourly_rate")
                 }
                 if workOrderProvider.id > 0 {
                     wop.updateValue(workOrderProvider.id, forKey: "id")

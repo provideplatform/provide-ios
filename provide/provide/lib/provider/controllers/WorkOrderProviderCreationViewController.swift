@@ -33,6 +33,15 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
 
     @IBOutlet private weak var rateTextField: UITextField!
 
+    private var hourlyRate: Double! {
+        if let rateTextField = rateTextField {
+            if let rate = Double(rateTextField.text!) {
+                return rate
+            }
+        }
+        return nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,6 +94,9 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
         if let workOrderProvider = workOrderProvider {
             if let estimatedDuration = estimatedDuration {
                 workOrderProvider.estimatedDuration = estimatedDuration
+            }
+            if let hourlyRate = hourlyRate {
+                workOrderProvider.hourlyRate = hourlyRate
             }
 
             showActivityIndicator()
