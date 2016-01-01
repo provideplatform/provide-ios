@@ -376,8 +376,10 @@ class JobInventoryViewContoller: UITableViewController,
 
     func jobProductCreationViewController(viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct) {
         viewController.presentingViewController?.dismissViewController(animated: true)
+    }
 
-        print("created job product \(jobProduct)")
+    func jobProductCreationViewController(viewController: JobProductCreationViewController, didRemoveJobProduct jobProduct: JobProduct) {
+        jobProductsPickerViewController.reloadCollectionView()
     }
 
     private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {
