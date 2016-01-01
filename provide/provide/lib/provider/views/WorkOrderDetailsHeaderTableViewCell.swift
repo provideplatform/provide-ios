@@ -98,8 +98,17 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
             }
 
-            typeLabel?.text = workOrder.desc == nil ? workOrder.customer.name : workOrder.desc
-            timestampLabel?.text = workOrder.humanReadableScheduledStartAtTimestamp
+            typeLabel?.text = workOrder.desc == nil ? workOrder.humanReadableScheduledStartAtTimestamp : workOrder.desc
+            typeLabel?.sizeToFit()
+
+            if workOrder.desc != nil {
+                timestampLabel?.text = workOrder.humanReadableScheduledStartAtTimestamp
+                timestampLabel?.sizeToFit()
+                timestampLabel?.alpha = 1.0
+            } else {
+                timestampLabel?.text = ""
+                timestampLabel?.alpha = 0.0
+            }
 
             if let humanReadableEstimatedSqFt = workOrder.humanReadableEstimatedSqFt {
                 estimatedSqFtLabel?.text = humanReadableEstimatedSqFt
