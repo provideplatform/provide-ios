@@ -341,7 +341,7 @@ class JobTeamViewController: UITableViewController,
             if let profileImageUrl = provider.profileImageUrl {
                 cell.imageUrl = profileImageUrl
             } else {
-                cell.gravatarEmail = provider.contact.email
+                cell.renderInitials()
             }
         }
 

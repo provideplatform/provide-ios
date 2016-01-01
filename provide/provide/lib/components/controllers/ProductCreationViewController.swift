@@ -119,7 +119,8 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     }
 
     private func showActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3))!.contentView.subviews {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).startAnimating()
             } else if view.isKindOfClass(UILabel) {
@@ -129,7 +130,8 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     }
 
     private func hideActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 3))!.contentView.subviews {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).stopAnimating()
             } else if view.isKindOfClass(UILabel) {

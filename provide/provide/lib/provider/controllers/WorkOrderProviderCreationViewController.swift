@@ -113,7 +113,8 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
     }
 
     private func showActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).startAnimating()
             } else if view.isKindOfClass(UILabel) {
@@ -123,7 +124,8 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
     }
 
     private func hideActivityIndicator() {
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))!.contentView.subviews {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).stopAnimating()
             } else if view.isKindOfClass(UILabel) {

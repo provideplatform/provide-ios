@@ -20,10 +20,29 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
+    private var firstName: String? {
+        if let name = name {
+            return name.splitAtString(" ", assertedComponentsCount: nil).0
+        } else {
+            return nil
+        }
+    }
+
+    private var lastName: String? {
+        if let name = name {
+            return name.splitAtString(" ", assertedComponentsCount: nil).1
+        } else {
+            return nil
+        }
+    }
+
     var imageUrl: NSURL! {
         didSet {
             if let imageUrl = imageUrl {
                 self.showActivityIndicator()
+
+                initialsLabel?.text = ""
+                initialsLabel?.alpha = 0.0
 
                 imageView.contentMode = .ScaleAspectFit
                 imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
@@ -52,6 +71,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 imageView.image = nil
                 imageView.alpha = 0.0
 
+                initialsLabel?.text = ""
+                initialsLabel?.alpha = 0.0
+
                 gravatarImageView.email = gravatarEmail
                 gravatarImageView.size = UInt(gravatarImageView.frame.width)
                 gravatarImageView.load { error in
@@ -63,6 +85,20 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
+    }
+
+    private var initials: String! {
+        if let _ = name {
+            var initials = ""
+            if let firstName = firstName {
+                initials = "\(firstName.substringToIndex(firstName.startIndex.advancedBy(1)))"
+            }
+            if let lastName = lastName {
+                initials = "\(initials)\(lastName.substringFromIndex(lastName.startIndex).substringToIndex(lastName.startIndex.advancedBy(1)))"
+            }
+            return initials
+        }
+        return nil
     }
 
     var accessoryImage: UIImage! {
@@ -123,6 +159,14 @@ class PickerCollectionViewCell: UICollectionViewCell {
         didSet {
             if let nameLabel = nameLabel {
                 defaultFont = nameLabel.font
+            }
+        }
+    }
+
+    @IBOutlet private weak var initialsLabel: UILabel! {
+        didSet {
+            if  let initialsLabel = initialsLabel {
+                initialsLabel.makeCircular()
             }
         }
     }
@@ -209,6 +253,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
         gravatarImageView?.image = nil
         gravatarImageView?.alpha = 0.0
 
+        initialsLabel?.text = ""
+        initialsLabel?.alpha = 0.0
+
         showActivityIndicator()
 
         selected = false
@@ -240,11 +287,26 @@ class PickerCollectionViewCell: UICollectionViewCell {
     func hideActivityIndicator() {
         imageView?.alpha = 1.0
         gravatarImageView?.alpha = 1.0
+        initialsLabel?.alpha = 1.0
         activityIndicatorView?.stopAnimating()
+    }
+
+    func renderInitials() {
+        if let initials = initials {
+            initialsLabel?.text = initials
+            initialsLabel?.textColor = UIColor.whiteColor()
+            initialsLabel?.backgroundColor = Color.annotationViewBackgroundImageColor().colorWithAlphaComponent(0.8)
+            initialsLabel?.alpha = 1.0
+
+            contentView.bringSubviewToFront(initialsLabel)
+
+            hideActivityIndicator()
+        }
     }
 
     func showActivityIndicator() {
         imageView?.alpha = 0.0
+        initialsLabel?.alpha = 0.0
         gravatarImageView?.alpha = 0.0
         activityIndicatorView?.startAnimating()
     }

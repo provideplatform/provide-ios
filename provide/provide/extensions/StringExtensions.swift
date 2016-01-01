@@ -31,9 +31,21 @@ extension String {
         return replaceString(" ", withString: "+").stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
     }
 
-    func splitAtString(seperator: String) -> (String, String) {
-        let components = componentsSeparatedByString(seperator)
-        assert(components.count == 2, "This method can only return a tuple containing 2 values")
+    func splitAtString(seperator: String, assertedComponentsCount: Int! = 2) -> (String, String) {
+        var components = componentsSeparatedByString(seperator)
+        if let assertedComponentsCount = assertedComponentsCount {
+            if assertedComponentsCount == 2 {
+                assert(components.count == assertedComponentsCount, "This method can only return a tuple containing 2 values")
+            } else {
+                assert(components.count == assertedComponentsCount, "This method expected to find \(assertedComponentsCount) and return a tuple containing 2 values")
+                var i = 1
+                var aggregateComponent = components[i++]
+                while i < components.count - 1 {
+                    aggregateComponent = "\(aggregateComponent)\(seperator)\(components[i++])"
+                }
+                components[1] = aggregateComponent
+            }
+        }
         return (components[0], components[1])
     }
 
