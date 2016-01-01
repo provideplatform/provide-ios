@@ -298,7 +298,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
             initialsLabel?.backgroundColor = Color.annotationViewBackgroundImageColor().colorWithAlphaComponent(0.8)
             initialsLabel?.alpha = 1.0
 
-            contentView.bringSubviewToFront(initialsLabel)
+            if let initialsLabel = initialsLabel {
+                contentView.bringSubviewToFront(initialsLabel)
+            }
 
             hideActivityIndicator()
         }
