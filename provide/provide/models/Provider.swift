@@ -23,6 +23,22 @@ class Provider: Model {
         return NSURL(string: profileImageUrlString)
     }
 
+    var initialsLabel: UILabel! {
+        if let _ = name {
+            let initialsLabel = UILabel()
+            initialsLabel.text = ""
+            if let firstName = self.firstName {
+                initialsLabel.text = "\(firstName.substringToIndex(firstName.startIndex))"
+            }
+            if let lastName = self.firstName {
+                initialsLabel.text = "\(initialsLabel.text)\(lastName.substringToIndex(lastName.startIndex))"
+            }
+            initialsLabel.sizeToFit()
+            return initialsLabel
+        }
+        return nil
+    }
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
