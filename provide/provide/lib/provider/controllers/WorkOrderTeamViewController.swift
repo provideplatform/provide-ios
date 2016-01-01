@@ -10,6 +10,8 @@ import UIKit
 
 protocol WorkOrderTeamViewControllerDelegate {
     func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder!
+    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
+    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider provider: Provider)
 }
 
 class WorkOrderTeamViewController: UITableViewController,
@@ -234,6 +236,7 @@ class WorkOrderTeamViewController: UITableViewController,
                             self!.reloadWorkOrderProviders()
                         }
                         self!.removingProvider = false
+                        self!.delegate?.workOrderTeamViewController(self!, didRemoveProvider: provider)
                     },
                     onError: { (error, statusCode, responseString) -> () in
                         self!.providersPickerViewController?.providers.insert(provider, atIndex: index!)
@@ -707,6 +710,7 @@ class WorkOrderTeamViewController: UITableViewController,
 
     func workOrderProviderCreationViewController(viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider) {
         viewController.presentingViewController?.dismissViewController(animated: true)
+        delegate?.workOrderTeamViewController(self, didUpdateWorkOrderProvider: workOrderProvider)
     }
 
     deinit {

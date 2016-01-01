@@ -146,6 +146,6 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
     // MARK: DurationPickerViewDelegate
 
     func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
-        estimatedDuration = Double(duration)
+        estimatedDuration = Double(duration) * 60.0 // convert to seconds
     }
 }

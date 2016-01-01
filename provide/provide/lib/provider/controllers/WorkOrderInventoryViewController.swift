@@ -11,6 +11,7 @@ import UIKit
 protocol WorkOrderInventoryViewControllerDelegate: NSObjectProtocol {
     func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder!
     func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
+    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct)
 }
 
 class WorkOrderInventoryViewController: UITableViewController,
@@ -402,6 +403,10 @@ class WorkOrderInventoryViewController: UITableViewController,
     func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
         viewController.presentingViewController?.dismissViewController(animated: true)
         delegate?.workOrderInventoryViewController(self, didUpdateWorkOrderProduct: workOrderProduct)
+    }
+
+    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct) {
+        delegate?.workOrderInventoryViewController(self, didRemoveWorkOrderProduct: workOrderProduct)
     }
 
     private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {

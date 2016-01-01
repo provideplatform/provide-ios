@@ -476,13 +476,46 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return workOrder
     }
 
+    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider: WorkOrderProvider) {
+        workOrder?.reload(
+            onSuccess: { statusCode, mappingResult in
+                self.reloadTableView()
+            },
+            onError: { error, statusCode, responseString in
+                self.reloadTableView()
+            }
+        )
+    }
+
+    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider: Provider) {
+        workOrder?.reload(
+            onSuccess: { statusCode, mappingResult in
+                self.reloadTableView()
+            },
+            onError: { error, statusCode, responseString in
+                self.reloadTableView()
+            }
+        )
+    }
+
     // MARK: WorkOrderInventoryViewControllerDelegate
 
     func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder! {
         return workOrder
     }
 
-    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
+    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct: WorkOrderProduct) {
+        workOrder?.reload(
+            onSuccess: { statusCode, mappingResult in
+                self.reloadTableView()
+            },
+            onError: { error, statusCode, responseString in
+                self.reloadTableView()
+            }
+        )
+    }
+
+    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct: WorkOrderProduct) {
         workOrder?.reload(
             onSuccess: { statusCode, mappingResult in
                 self.reloadTableView()
