@@ -280,7 +280,8 @@ class WorkOrder: Model {
         var expensesDisposition = "\(expensesCount) items"
         if let expensedAmount = expensedAmount {
             if expensedAmount > 0.0 {
-                expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmount)"
+                let expensedAmountString = NSString(format: "%.02f", expensedAmount)
+                expensesDisposition = "\(expensesDisposition) totaling $\(expensedAmountString)"
             }
         }
         return expensesDisposition
