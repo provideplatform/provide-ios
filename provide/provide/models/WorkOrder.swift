@@ -583,7 +583,11 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchWorkOrderWithId(String(id), params: ["include_estimated_cost": "true"],
+        reload(["include_estimated_cost": "true"], onSuccess: onSuccess, onError: onError)
+    }
+
+    func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
                 let workOrder = mappingResult.firstObject as! WorkOrder
                 self.status = workOrder.status
