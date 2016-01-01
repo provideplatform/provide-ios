@@ -65,6 +65,10 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
     }
 
     func save(sender: UIBarButtonItem) {
+        save()
+    }
+
+    func save() {
         if descriptionTextField.isFirstResponder() {
             descriptionTextField.resignFirstResponder()
         } else if amountTextField.isFirstResponder() {
@@ -146,7 +150,12 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
             amountTextField.becomeFirstResponder()
             return false
         } else if textField == amountTextField {
-            return true
+            if let _ = Double(amountTextField.text!) {
+                amountTextField.resignFirstResponder()
+                save()
+            } else {
+                return false
+            }
         }
         return true
     }

@@ -146,5 +146,8 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
 
     func expenseEditorViewController(viewController: ExpenseEditorViewController, didFailToCreateExpenseWithStatusCode statusCode: Int) {
         // TODO: Add appropriate delegation
+
+        capturedReceipt = nil
+        recognizedTexts = [String]()
     }
 }

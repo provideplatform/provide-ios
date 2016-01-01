@@ -61,7 +61,7 @@
                     <connections>
                         <outlet property="backCameraView" destination="doH-mn-Dod" id="fdC-MJ-QcQ"/>
                         <outlet property="button" destination="atU-Ze-dyu" id="PQB-Z5-GwI"/>
-                        <segue destination="J3F-IJ-zSN" kind="show" identifier="ExpenseEditorViewControllerSegue" id="YH9-gO-RJD"/>
+                        <segue destination="J3F-IJ-zSN" kind="showDetail" identifier="ExpenseEditorViewControllerSegue" action="showViewController:sender:" id="YH9-gO-RJD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q98-fO-hI6" userLabel="First Responder" sceneMemberID="firstResponder"/>
