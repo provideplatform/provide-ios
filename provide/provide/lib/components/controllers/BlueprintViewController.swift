@@ -30,7 +30,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
             if let _ = blueprintViewControllerDelegate {
-                if !loadedBlueprint && scrollView != nil {
+                if !loadedBlueprint && !loadingBlueprint && scrollView != nil {
                     loadBlueprint()
                 }
             }
@@ -160,7 +160,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         hideToolbar()
 
         activityIndicatorView.startAnimating()
-        //loadBlueprint()
+
+        if blueprintViewControllerDelegate != nil && !loadedBlueprint && !loadingBlueprint && scrollView != nil {
+            loadBlueprint()
+        }
     }
 
     func teardown() -> UIImage? {
