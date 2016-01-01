@@ -172,14 +172,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func dismissLaunchScreenViewController() {
-        if let _ = launchScreenViewController.view.superview {
+        if let _ = launchScreenViewController?.view.superview {
             UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseIn,
                 animations: {
-                    self.launchScreenViewController.view.alpha = 0.0
+                    self.launchScreenViewController?.view.alpha = 0.0
                 },
                 completion: { complete in
-                    self.launchScreenViewController.view.removeFromSuperview()
-                    self.launchScreenViewController.view.alpha = 1.0
+                    self.launchScreenViewController?.view.removeFromSuperview()
+                    self.launchScreenViewController?.view.alpha = 1.0
                 }
             )
         }
