@@ -824,13 +824,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        let size = imageView.image!.size
-        let width = size.width * scale
-        let height = size.height * scale
-        imageView.frame.size = CGSize(width: width, height: height)
-        scrollView.contentSize = CGSize(width: width, height: height)
+        if let imageView = imageView {
+            let size = imageView.image!.size
+            let width = size.width * scale
+            let height = size.height * scale
+            imageView.frame.size = CGSize(width: width, height: height)
+            scrollView.contentSize = CGSize(width: width, height: height)
 
-        showToolbar()
+            showToolbar()
+        }
     }
 
     // MARK: WorkOrderCreationViewControllerDelegate
