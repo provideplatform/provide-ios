@@ -164,6 +164,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if blueprintViewControllerDelegate != nil && !loadedBlueprint && !loadingBlueprint && scrollView != nil {
             loadBlueprint()
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if let blueprint = self.job?.blueprint {
+                    for annotation in blueprint.annotations {
+                        if workOrder.id == annotation.workOrderId {
+                            annotation.workOrder = workOrder
+
+                            if let polygonView = self.polygonViewForWorkOrder(annotation.workOrder) {
+                                polygonView.annotation = annotation
+                                polygonView.redraw()
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func teardown() -> UIImage? {

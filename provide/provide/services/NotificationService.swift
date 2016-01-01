@@ -94,6 +94,8 @@ class NotificationService: NSObject {
                                         LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
                                         NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
                                     }
+
+                                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: wo)
                                 }
                             },
                             onError: { error, statusCode, responseString in

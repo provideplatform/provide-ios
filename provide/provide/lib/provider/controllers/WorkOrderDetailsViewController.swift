@@ -97,6 +97,15 @@ class WorkOrderDetailsViewController: ViewController,
             self.headerView.addDropShadow()
             self.headerView.workOrder = self.workOrder
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if workOrder.id == self.workOrder.id {
+                    self.workOrder = workOrder
+                    self.reloadTableView()
+                }
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
