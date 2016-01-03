@@ -385,6 +385,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         let cell = calendarViewController.selectedDateCell
 
         let durationPickerViewController = UIViewController()
+        durationPickerViewController.view.backgroundColor = UIColor.clearColor()
         durationPickerViewController.view.frame.size = CGSize(width: 300.0, height: 100.0)
         durationPickerViewController.modalPresentationStyle = .Popover
         durationPickerViewController.preferredContentSize = durationPickerViewController.view.frame.size
@@ -426,7 +427,25 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
         workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        print("SET SCHEDULED START AT: \(workOrder.scheduledStartAt)")
+
+        if let presentedViewController = presentedViewController {
+            if let presentingViewController = presentedViewController.presentingViewController as? UINavigationController {
+                presentingViewController.dismissViewController(animated: true)
+                presentingViewController.popToRootViewControllerAnimated(true)
+            }
+        }
+    }
+
+    func durationPickerViewInteractionStarted(view: DurationPickerView) {
+
+    }
+
+    func durationPickerViewInteractionEnded(view: DurationPickerView) {
+
+    }
+
+    func durationPickerViewInteractionContinued(view: DurationPickerView) {
+
     }
 
     // MARK: CameraViewControllerDelegate
