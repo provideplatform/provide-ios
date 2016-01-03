@@ -8,22 +8,28 @@
 
 import UIKit
 
-class QuickbooksViewController: ViewController {
+class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
     var company: Company! {
         didSet {
             if let company = company {
                 if !company.isIntegratedWithQuickbooks {
                     performSegueWithIdentifier("QuickbooksAuthorizationViewControllerSegue", sender: self)
+                } else {
+                    reload()
                 }
             }
         }
     }
 
+    @IBOutlet private weak var instructionLabel: UILabel!
+    
     private var authorizationWebViewController: WebViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        instructionLabel.alpha = 0.0
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -39,8 +45,31 @@ class QuickbooksViewController: ViewController {
 
             if ApiService.sharedService().hasCachedToken {
                 let token = KeyChainService.sharedService().token!
+                authorizationWebViewController.webViewControllerDelegate = self
                 authorizationWebViewController.url = NSURL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/quickbooks/authenticate?company_id=\(company.id)&x-api-authorization=\(token.authorizationHeaderString.splitAtString(" ").1)")
             }
         }
+    }
+
+    func reload() {
+        instructionLabel.text = "Congrats! Quickbooks is integrated!"
+        instructionLabel.alpha = 1.0
+    }
+
+    // MARK: WebViewControllerDelegate
+
+    func webViewController(viewController: WebViewController, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if let url = request.URL {
+            if let fragment = url.fragment {
+                if fragment == "/quickbooks/success" {
+                    navigationController?.popViewControllerAnimated(true)
+                    reload()
+                    dispatch_after_delay(2.5) {
+                        self.presentingViewController?.dismissViewController(animated: true)
+                    }
+                }
+            }
+        }
+        return true
     }
 }

@@ -3,7 +3,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Quickbooks View Controller-->
         <scene sceneID="qTw-1t-r2u">
@@ -16,10 +22,25 @@
                     <view key="view" contentMode="scaleToFill" id="RtJ-J2-ylx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xfU-aZ-gVl">
+                                <rect key="frame" x="114" y="160" width="373" height="22"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="xfU-aZ-gVl" firstAttribute="top" secondItem="Rjk-Rz-LXU" secondAttribute="bottom" constant="96" id="AE3-Vm-Q6D"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xfU-aZ-gVl" secondAttribute="trailing" constant="93" id="H5s-MB-OPF"/>
+                            <constraint firstItem="xfU-aZ-gVl" firstAttribute="leading" secondItem="RtJ-J2-ylx" secondAttribute="leadingMargin" constant="94" id="HCp-7Q-rvl"/>
+                            <constraint firstItem="xfU-aZ-gVl" firstAttribute="centerX" secondItem="RtJ-J2-ylx" secondAttribute="centerX" id="dLj-r8-33L"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4yB-72-jBa"/>
                     <connections>
+                        <outlet property="instructionLabel" destination="xfU-aZ-gVl" id="DaC-wY-mUc"/>
                         <segue destination="4P1-5e-bGO" kind="show" identifier="QuickbooksAuthorizationViewControllerSegue" animates="NO" id="2yW-7I-nN9"/>
                     </connections>
                 </viewController>
