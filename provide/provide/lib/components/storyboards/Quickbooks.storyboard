@@ -8,6 +8,7 @@
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -29,17 +30,31 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uI8-4s-L2r">
+                                <rect key="frame" x="240" y="241" width="120" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="87w-Sv-lRX"/>
+                                    <constraint firstAttribute="width" constant="120" id="Aro-nL-bnP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="18"/>
+                                <state key="normal" title="DISCONNECT">
+                                    <color key="titleColor" red="0.80392163989999998" green="0.34117648010000001" blue="0.2196078598" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="uI8-4s-L2r" firstAttribute="centerX" secondItem="xfU-aZ-gVl" secondAttribute="centerX" id="1vd-CS-0UH"/>
                             <constraint firstItem="xfU-aZ-gVl" firstAttribute="top" secondItem="Rjk-Rz-LXU" secondAttribute="bottom" constant="96" id="AE3-Vm-Q6D"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xfU-aZ-gVl" secondAttribute="trailing" constant="93" id="H5s-MB-OPF"/>
                             <constraint firstItem="xfU-aZ-gVl" firstAttribute="leading" secondItem="RtJ-J2-ylx" secondAttribute="leadingMargin" constant="94" id="HCp-7Q-rvl"/>
+                            <constraint firstItem="uI8-4s-L2r" firstAttribute="top" secondItem="xfU-aZ-gVl" secondAttribute="bottom" constant="59" id="b9w-W1-8cC"/>
                             <constraint firstItem="xfU-aZ-gVl" firstAttribute="centerX" secondItem="RtJ-J2-ylx" secondAttribute="centerX" id="dLj-r8-33L"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4yB-72-jBa"/>
                     <connections>
+                        <outlet property="disconnectButton" destination="uI8-4s-L2r" id="6Pf-gq-O66"/>
                         <outlet property="instructionLabel" destination="xfU-aZ-gVl" id="d3m-0g-KUU"/>
                         <segue destination="4P1-5e-bGO" kind="show" identifier="QuickbooksAuthorizationViewControllerSegue" animates="NO" id="2yW-7I-nN9"/>
                     </connections>

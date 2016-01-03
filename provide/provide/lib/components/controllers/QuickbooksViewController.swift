@@ -21,7 +21,8 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
     }
 
     @IBOutlet private weak var instructionLabel: UILabel!
-    
+    @IBOutlet private weak var disconnectButton: UIButton!
+
     private var authorizationWebViewController: WebViewController!
 
     private var viewLoaded = false
@@ -30,6 +31,9 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         super.viewDidLoad()
 
         instructionLabel?.alpha = 0.0
+
+        disconnectButton.addTarget(self, action: "disconnect:", forControlEvents: .TouchUpInside)
+        disconnectButton.alpha = 0.0
 
         viewLoaded = true
 
@@ -63,6 +67,14 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         } else {
             instructionLabel?.text = "Congrats! Quickbooks is integrated!"
             instructionLabel?.alpha = 1.0
+
+            disconnectButton?.alpha = 1.0
+        }
+    }
+
+    func disconnect(sender: UIButton) {
+        if company.isIntegratedWithQuickbooks {
+
         }
     }
 
