@@ -71,15 +71,16 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 imageView.image = nil
                 imageView.alpha = 0.0
 
-                initialsLabel?.text = ""
-                initialsLabel?.alpha = 0.0
+                renderInitials()
 
+                gravatarImageView.defaultGravatar = .GravatarBlank
                 gravatarImageView.email = gravatarEmail
                 gravatarImageView.size = UInt(gravatarImageView.frame.width)
                 gravatarImageView.load { error in
                     if self.rendersCircularImage {
                         self.gravatarImageView.makeCircular()
                     }
+                    self.contentView.bringSubviewToFront(self.gravatarImageView)
                     self.gravatarImageView.alpha = 1.0
                     self.hideActivityIndicator()
                 }
