@@ -83,4 +83,25 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         }
         return true
     }
+
+    func webViewControllerDismissed(viewController: WebViewController) {
+        promptForCancellationOfQuickbooksIntegration()
+    }
+
+    private func promptForCancellationOfQuickbooksIntegration() {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "You did not connect your account with Quickbooks. Do you want to continue without Quickbooks integration?",
+                                                message: "You can always manage your integrations from the company profile.",
+                                                preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Yes, Continue Without Quickbooks", style: .Cancel) { action in
+            self.presentingViewController?.dismissViewController(animated: true)
+        }
+        alertController.addAction(cancelAction)
+
+        let setScaleAction = UIAlertAction(title: "Integrate With Quickbooks", style: .Default, handler: nil)
+        alertController.addAction(setScaleAction)
+
+        presentViewController(alertController, animated: true)
+    }
 }
