@@ -129,7 +129,7 @@ class DurationPickerView: UIPickerView,
             values = self.values
         }
         if row <= values.count - 1 {
-            let duration = values[component]
+            let duration = values[row]
             durationPickerViewDelegate.durationPickerView(self, didPickDuration: duration)
         }
     }
