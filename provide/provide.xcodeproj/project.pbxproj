@@ -234,6 +234,7 @@
 		68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
 		68D6BF911C39040500EC9C37 /* Quickbooks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */; };
 		68D6BF931C39041C00EC9C37 /* QuickbooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */; };
+		68D6BF951C39651D00EC9C37 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */; };
 		68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843BE1BF7F99700DE7400 /* Annotation.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C21BFB20A900DE7400 /* JobsViewController.swift */; };
@@ -503,6 +504,7 @@
 		68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-mfrm.gpx"; sourceTree = "<group>"; };
 		68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Quickbooks.storyboard; sourceTree = "<group>"; };
 		68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbooksViewController.swift; sourceTree = "<group>"; };
+		68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		68D843BE1BF7F99700DE7400 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68D843C21BFB20A900DE7400 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
@@ -858,6 +860,7 @@
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */,
 				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
+				68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
 				683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
@@ -1571,6 +1574,7 @@
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				688952C31C1FFC61006AEFDF /* CustomerPickerViewController.swift in Sources */,
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
+				68D6BF951C39651D00EC9C37 /* CalendarViewController.swift in Sources */,
 				6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */,
 				681416E71B8457870076BFBD /* Company.swift in Sources */,
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,

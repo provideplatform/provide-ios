@@ -859,7 +859,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
                 PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
 
-                let calendarViewController = PDTSimpleCalendarViewController()
+                let calendarViewController = CalendarViewController()
                 calendarViewController.delegate = workOrderCreationViewController
                 calendarViewController.weekdayHeaderEnabled = true
                 calendarViewController.firstDate = NSDate()

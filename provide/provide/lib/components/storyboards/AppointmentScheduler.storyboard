@@ -224,10 +224,10 @@
             </objects>
             <point key="canvasLocation" x="435" y="486"/>
         </scene>
-        <!--Simple Calendar View Controller-->
+        <!--Calendar View Controller-->
         <scene sceneID="09E-fU-faB">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="obl-1C-HHf" customClass="PDTSimpleCalendarViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="obl-1C-HHf" customClass="CalendarViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1pe-zs-NQh"/>
                         <viewControllerLayoutGuide type="bottom" id="aOd-KM-Sj2"/>

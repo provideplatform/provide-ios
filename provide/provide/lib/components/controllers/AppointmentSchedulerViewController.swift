@@ -43,7 +43,7 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
 
     private var offeredAppointmentDate: NSDate!
 
-    private var calendarViewController: PDTSimpleCalendarViewController!
+    private var calendarViewController: CalendarViewController!
 
     @IBOutlet private var containerView: UIView!
     @IBOutlet private var confirmationView: UIView!
@@ -95,7 +95,7 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "CalendarViewControllerEmbedSegue":
-            calendarViewController = segue.destinationViewController as! PDTSimpleCalendarViewController
+            calendarViewController = segue.destinationViewController as! CalendarViewController
             calendarViewController.delegate = self
 
             if let minimumDate = delegate?.minimumDateForAppointmentSchedulerViewController?(self) {

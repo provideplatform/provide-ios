@@ -25,6 +25,7 @@ protocol WorkOrderCreationViewControllerDelegate {
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        PDTSimpleCalendarViewDelegate,
+                                       DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
                                        WorkOrderTeamViewControllerDelegate,
@@ -369,6 +370,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
         isDirty = true
         refreshRightBarButtonItems()
+        renderDurationPickerInViewController(controller)
     }
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
@@ -376,6 +378,55 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             return scheduledStartAtDate.atMidnight != date.atMidnight
         }
         return true
+    }
+
+    private func renderDurationPickerInViewController(viewController: UIViewController) {
+        let calendarViewController = viewController as! CalendarViewController
+        let cell = calendarViewController.selectedDateCell
+
+        let durationPickerViewController = UIViewController()
+        durationPickerViewController.view.frame.size = CGSize(width: 300.0, height: 100.0)
+        durationPickerViewController.modalPresentationStyle = .Popover
+        durationPickerViewController.preferredContentSize = durationPickerViewController.view.frame.size
+        durationPickerViewController.popoverPresentationController?.sourceView = cell
+        durationPickerViewController.popoverPresentationController?.permittedArrowDirections = [.Left, .Right]
+
+        let durationPickerView = DurationPickerView()
+        durationPickerView.durationPickerViewDelegate = self
+        durationPickerView.frame = durationPickerViewController.view.bounds
+        durationPickerViewController.view.addSubview(durationPickerView)
+
+        viewController.presentViewController(durationPickerViewController, animated: true)
+    }
+
+    // MARK: DurationPickerViewDelegate
+
+    func componentsForDurationPickerView(view: DurationPickerView) -> [CGFloat] {
+        var values = [CGFloat]()
+        var value: CGFloat = 0.0
+        while value < 86400.0 {
+            values.append(value)
+            value += 900.0 // 15 minutes
+        }
+        return values
+    }
+
+    func componentTitlesForDurationPickerView(view: DurationPickerView) -> [String] {
+        var titles = [String]()
+        for value in componentsForDurationPickerView(view) {
+            let date = NSDate().atMidnight.dateByAddingTimeInterval(NSTimeInterval(value))
+            titles.append(date.timeString!)
+        }
+        return titles
+    }
+
+    func durationPickerView(view: DurationPickerView, widthForComponent component: Int) -> CGFloat {
+        return 300.0
+    }
+
+    func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
+        workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
+        print("SET SCHEDULED START AT: \(workOrder.scheduledStartAt)")
     }
 
     // MARK: CameraViewControllerDelegate

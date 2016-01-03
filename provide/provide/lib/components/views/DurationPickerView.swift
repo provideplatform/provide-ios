@@ -32,6 +32,14 @@ class DurationPickerView: UIPickerView,
     private var values = [CGFloat]()
     private var valueTitles = [String]()
 
+    private var selectedDuration: CGFloat! {
+        didSet {
+            if let selectedDuration = selectedDuration {
+                durationPickerViewDelegate?.durationPickerView(self, didPickDuration: selectedDuration)
+            }
+        }
+    }
+
     private var valuesCount: Int {
         var values: [CGFloat]!
         if let vals = durationPickerViewDelegate?.componentsForDurationPickerView?(self) {
@@ -138,8 +146,7 @@ class DurationPickerView: UIPickerView,
             values = self.values
         }
         if row <= values.count - 1 {
-            let duration = values[row]
-            durationPickerViewDelegate.durationPickerView(self, didPickDuration: duration)
+            selectedDuration = values[row]
         }
     }
 }
