@@ -71,6 +71,15 @@ class DurationPickerView: UIPickerView,
         reloadAllComponents()
     }
 
+    override func reloadAllComponents() {
+        super.reloadAllComponents()
+
+        dispatch_after_delay(0.0) {
+            let row = self.selectedRowInComponent(0)
+            self.pickerView(self, didSelectRow: row, inComponent: 0)
+        }
+    }
+
     func selectRowWithValue(value: CGFloat, animated: Bool = false) {
         if let index = values.indexOf(value) {
             selectRow(index, inComponent: 0, animated: animated)
