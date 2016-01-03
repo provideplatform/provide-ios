@@ -307,7 +307,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         scrollView.minimumZoomScale = 0.2
         scrollView.maximumZoomScale = 1.0
-        scrollView.zoomScale = 0.4
+        scrollView.zoomScale = 0.2
 
         imageView.alpha = 1.0
 
