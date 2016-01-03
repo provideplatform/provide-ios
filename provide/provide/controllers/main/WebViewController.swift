@@ -13,6 +13,7 @@ protocol WebViewControllerDelegate {
     optional func webViewController(viewController: WebViewController, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool
     optional func webViewController(viewController: WebViewController, webViewDidFinishLoad webView: UIWebView)
     optional func webViewController(viewController: WebViewController, webViewDidFailWithError error: NSError)
+    optional func webViewControllerDismissed(viewController: WebViewController)
 }
 
 class WebViewController: ViewController, UIWebViewDelegate {
@@ -62,8 +63,12 @@ class WebViewController: ViewController, UIWebViewDelegate {
     }
 
     func dismiss() {
-        if let navigationController = navigationController {
-            navigationController.popViewControllerAnimated(true)
+        if let fn = webViewControllerDelegate?.webViewControllerDismissed {
+            fn(self)
+        } else {
+            if let navigationController = navigationController {
+                navigationController.popViewControllerAnimated(true)
+            }
         }
     }
 
