@@ -40,7 +40,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="4yB-72-jBa"/>
                     <connections>
-                        <outlet property="instructionLabel" destination="xfU-aZ-gVl" id="DaC-wY-mUc"/>
+                        <outlet property="instructionLabel" destination="xfU-aZ-gVl" id="d3m-0g-KUU"/>
                         <segue destination="4P1-5e-bGO" kind="show" identifier="QuickbooksAuthorizationViewControllerSegue" animates="NO" id="2yW-7I-nN9"/>
                     </connections>
                 </viewController>

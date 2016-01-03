@@ -12,10 +12,8 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
     var company: Company! {
         didSet {
-            if let company = company {
-                if !company.isIntegratedWithQuickbooks {
-                    performSegueWithIdentifier("QuickbooksAuthorizationViewControllerSegue", sender: self)
-                } else {
+            if let _ = company {
+                if viewLoaded {
                     reload()
                 }
             }
@@ -26,10 +24,18 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
     
     private var authorizationWebViewController: WebViewController!
 
+    private var viewLoaded = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        instructionLabel.alpha = 0.0
+        instructionLabel?.alpha = 0.0
+
+        viewLoaded = true
+
+        if let _ = company {
+            reload()
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -52,8 +58,12 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
     }
 
     func reload() {
-        instructionLabel.text = "Congrats! Quickbooks is integrated!"
-        instructionLabel.alpha = 1.0
+        if !company.isIntegratedWithQuickbooks {
+            performSegueWithIdentifier("QuickbooksAuthorizationViewControllerSegue", sender: self)
+        } else {
+            instructionLabel?.text = "Congrats! Quickbooks is integrated!"
+            instructionLabel?.alpha = 1.0
+        }
     }
 
     // MARK: WebViewControllerDelegate
@@ -63,6 +73,7 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
             if let fragment = url.fragment {
                 if fragment == "/quickbooks/success" {
                     navigationController?.popViewControllerAnimated(true)
+                    company.hasQuickbooksIntegration = NSNumber(bool: true)
                     reload()
                     dispatch_after_delay(2.5) {
                         self.presentingViewController?.dismissViewController(animated: true)
