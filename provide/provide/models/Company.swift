@@ -13,12 +13,21 @@ class Company: Model {
     var id = 0
     var name: String!
     var contact: Contact!
+    var hasQuickbooksIntegration: NSNumber!
+
+    var isIntegratedWithQuickbooks: Bool {
+        if let hasQuickbooksIntegration = hasQuickbooksIntegration {
+            return hasQuickbooksIntegration.boolValue
+        }
+        return false
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([
             "id",
             "name",
+            "has_quickbooks_integration",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())

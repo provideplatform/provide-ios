@@ -89,6 +89,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: nil, action: nil)
 
+        loadCompaniesContext()
+
         loadRouteContext()
 
         NSNotificationCenter.defaultCenter().addObserverForName("SegueToRouteStoryboard") { [weak self] sender in
@@ -250,6 +252,35 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
         return false
+    }
+
+    func loadCompaniesContext() {
+        let user = currentUser()
+        user.reloadCompanies(
+            { statusCode, mappingResult in
+                var company: Company!
+                let companies = mappingResult.array() as! [Company]
+                if companies.count == 1 {
+                    company = companies.first!
+                } else {
+                    for c in companies {
+                        if user.defaultCompanyId > 0 && c.id == user.defaultCompanyId {
+                            company = c
+                            break
+                        }
+                    }
+                }
+
+                if let company = company {
+                    if !company.isIntegratedWithQuickbooks {
+                        self.performSegueWithIdentifier("QuickbooksViewControllerSegue", sender: company)
+                    }
+                }
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
     }
 
     func loadRouteContext() {
@@ -414,6 +445,14 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         case "ManifestViewControllerSegue":
             assert(segue.destinationViewController is ManifestViewController)
             (segue.destinationViewController as! ManifestViewController).delegate = self
+        case "QuickbooksViewControllerSegue":
+            assert(segue.destinationViewController is UINavigationController)
+            let quickbooksViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! QuickbooksViewController
+            if let sender = sender {
+                if sender.isKindOfClass(Company) {
+                    quickbooksViewController.company = sender as! Company
+                }
+            }
         case "RouteManifestViewControllerSegue":
             assert(segue.destinationViewController is RouteManifestViewController)
             (segue.destinationViewController as! RouteManifestViewController).delegate = self

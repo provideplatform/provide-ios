@@ -206,6 +206,12 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(attachmentId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    // MARK: Company API
+
+    func fetchCompanies(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("companies", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: User API
 
     func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {

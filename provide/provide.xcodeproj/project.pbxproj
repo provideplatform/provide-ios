@@ -232,6 +232,8 @@
 		68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A61B0861EF000D3ABA /* houston-3.gpx */; };
 		68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A71B0861EF000D3ABA /* houston-4.gpx */; };
 		68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
+		68D6BF911C39040500EC9C37 /* Quickbooks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */; };
+		68D6BF931C39041C00EC9C37 /* QuickbooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */; };
 		68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843BE1BF7F99700DE7400 /* Annotation.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C21BFB20A900DE7400 /* JobsViewController.swift */; };
@@ -499,6 +501,8 @@
 		68D218A61B0861EF000D3ABA /* houston-3.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-3.gpx"; sourceTree = "<group>"; };
 		68D218A71B0861EF000D3ABA /* houston-4.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-4.gpx"; sourceTree = "<group>"; };
 		68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-mfrm.gpx"; sourceTree = "<group>"; };
+		68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Quickbooks.storyboard; sourceTree = "<group>"; };
+		68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbooksViewController.swift; sourceTree = "<group>"; };
 		68D843BE1BF7F99700DE7400 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68D843C21BFB20A900DE7400 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
@@ -874,6 +878,7 @@
 				68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */,
 				686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */,
 				6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */,
+				68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
 				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
 			);
@@ -996,6 +1001,7 @@
 				68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */,
 				686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */,
 				6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */,
+				68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
 				68B4132A1B083161009A4C05 /* Signature.storyboard */,
 			);
@@ -1351,6 +1357,7 @@
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				68E3295B1C12ED3700DC297A /* ExpenseCapture.storyboard in Resources */,
 				6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */,
+				68D6BF911C39040500EC9C37 /* Quickbooks.storyboard in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */,
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
@@ -1519,6 +1526,7 @@
 				687CB5471B07EAD30048B692 /* ArrayExtensions.swift in Sources */,
 				681416F01B8457870076BFBD /* Provider.swift in Sources */,
 				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
+				68D6BF931C39041C00EC9C37 /* QuickbooksViewController.swift in Sources */,
 				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
 				681416F31B8457870076BFBD /* RouteLeg.swift in Sources */,
 				682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */,

@@ -28,7 +28,14 @@ class WebViewController: ViewController, UIWebViewDelegate {
         }
     }
 
-    var url: NSURL!
+    var url: NSURL! {
+        didSet {
+            if let url = url {
+                let request = NSURLRequest(URL: url)
+                webView?.loadRequest(request)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

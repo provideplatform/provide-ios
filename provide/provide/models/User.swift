@@ -82,6 +82,24 @@ class User: Model {
         )
     }
 
+    func reloadCompanies(onSuccess: OnSuccess!, onError: OnError!) {
+        let companyIdsQueryString = companyIds.map({ String($0) }).joinWithSeparator("|")
+        let params: [String : AnyObject] = ["id": companyIdsQueryString]
+        ApiService.sharedService().fetchCompanies(params,
+            onSuccess: { statusCode, mappingResult in
+                self.companies = mappingResult.array() as! [Company]
+                if let onSuccess = onSuccess {
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                }
+            },
+            onError: { error, statusCode, responseString in
+                if let onError = onError {
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            }
+        )
+    }
+
     func reloadProviders(onSuccess: OnSuccess!, onError: OnError!) {
         let providerIdsQueryString = providerIds.map({ String($0) }).joinWithSeparator("|")
         let params: [String : AnyObject] = ["id": providerIdsQueryString, "company_id": defaultCompanyId]
