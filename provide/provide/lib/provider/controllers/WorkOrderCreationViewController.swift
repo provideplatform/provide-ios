@@ -156,6 +156,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     func createWorkOrder(sender: UIBarButtonItem) {
+        createWorkOrder()
+    }
+
+    func createWorkOrder() {
         navigationItem.titleView = activityIndicatorView
 
         workOrder.save(
@@ -428,6 +432,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
         workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
         reloadTableView()
+        createWorkOrder()
 
         if let presentedViewController = presentedViewController {
             if let presentingViewController = presentedViewController.presentingViewController as? UINavigationController {
