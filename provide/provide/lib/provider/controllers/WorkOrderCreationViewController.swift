@@ -432,7 +432,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
         workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
         reloadTableView()
-        createWorkOrder()
+
+        if workOrder.id == 0 {
+            createWorkOrder()
+        }
 
         if let presentedViewController = presentedViewController {
             if let presentingViewController = presentedViewController.presentingViewController as? UINavigationController {
