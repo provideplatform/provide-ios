@@ -91,9 +91,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     private var isValid: Bool {
         if let workOrder = workOrder {
-            let validProviders = workOrder.providers.count > 0
             let validDate = workOrder.scheduledStartAt != nil
-            return validProviders && validDate
+            return validDate
         }
         return false
     }
@@ -435,6 +434,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
         if workOrder.id == 0 {
             createWorkOrder()
+        } else {
+            refreshUI()
         }
 
         if let presentedViewController = presentedViewController {
