@@ -232,6 +232,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                     let sourceURL = (result as! DBChooserResult).link
                     self!.importFromSourceURL(sourceURL)
                 }
+            } else {
+                self!.refresh()
             }
         }
     }
