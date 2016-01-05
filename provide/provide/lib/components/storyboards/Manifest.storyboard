@@ -100,13 +100,17 @@
                                             <outlet property="sizeLabel" destination="GAV-sg-a6k" id="h6f-Kl-DTr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="jobProductTableViewCell" rowHeight="75" id="Ebd-MT-IUl" customClass="JobProductTableViewCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="jobProductTableViewCell" rowHeight="75" id="Ebd-MT-IUl" customClass="JobProductTableViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="97" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ebd-MT-IUl" id="E5f-yx-xWx">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-XC-fB0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#35 red; 15 gauge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EMi-21-kk9">
                                                     <rect key="frame" x="25" y="8" width="141" height="22"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
@@ -138,8 +142,12 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="5wV-N5-wty" secondAttribute="bottom" constant="10.5" id="W0M-Ie-yZE"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="5wV-N5-wty" secondAttribute="trailing" id="Xdc-AL-Lm5"/>
                                                 <constraint firstItem="EMi-21-kk9" firstAttribute="top" secondItem="E5f-yx-xWx" secondAttribute="top" constant="8" id="b3H-7e-gER"/>
+                                                <constraint firstItem="Hde-XC-fB0" firstAttribute="top" secondItem="E5f-yx-xWx" secondAttribute="topMargin" constant="-8" id="b8u-pw-36c"/>
                                                 <constraint firstItem="m44-iY-7S1" firstAttribute="top" secondItem="E5f-yx-xWx" secondAttribute="top" constant="8" id="h8s-SC-5Sn"/>
+                                                <constraint firstItem="Hde-XC-fB0" firstAttribute="leading" secondItem="E5f-yx-xWx" secondAttribute="leadingMargin" constant="-8" id="kMA-R3-24M"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Hde-XC-fB0" secondAttribute="bottom" constant="-8.5" id="rVV-zi-G1p"/>
                                                 <constraint firstAttribute="trailing" secondItem="m44-iY-7S1" secondAttribute="trailing" constant="8" id="waL-0l-EVi"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Hde-XC-fB0" secondAttribute="trailing" constant="-8" id="xNt-Ce-osH"/>
                                                 <constraint firstItem="Jct-pe-eqb" firstAttribute="top" secondItem="E5f-yx-xWx" secondAttribute="top" constant="37" id="yC8-cE-9sK"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -148,6 +156,7 @@
                                             <outlet property="nameLabel" destination="EMi-21-kk9" id="7rA-b3-oTP"/>
                                             <outlet property="priceLabel" destination="5wV-N5-wty" id="NWw-5t-iEW"/>
                                             <outlet property="quantityLabel" destination="m44-iY-7S1" id="r3Q-tI-BCH"/>
+                                            <outlet property="statusBackgroundView" destination="Hde-XC-fB0" id="Ha8-O5-NuG"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="workOrderProductTableViewCell" rowHeight="75" id="MkE-AC-A4a" customClass="WorkOrderProductTableViewCell" customModule="provide" customModuleProvider="target">

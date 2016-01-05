@@ -160,6 +160,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
         let cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
+        cell.enableEdgeToEdgeDividers()
         cell.jobProduct = job.materials[indexPath.row]
         return cell
     }
