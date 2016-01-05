@@ -81,6 +81,10 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        dispatch_after_delay(0.0) {
+            self.manifestViewController.reloadTableView()
+        }
     }
 
     // MARK: ManifestViewControllerDelegate
