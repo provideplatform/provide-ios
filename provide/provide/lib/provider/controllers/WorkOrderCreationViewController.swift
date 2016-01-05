@@ -588,6 +588,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         workOrder?.reload(
             onSuccess: { statusCode, mappingResult in
                 self.reloadTableView()
+
+                if self.workOrder.jobId > 0 {
+                    if let job = JobService.sharedService().jobWithId(self.workOrder.jobId) {
+                        job.reloadMaterials(
+                            { statusCode, mappingResult in
+
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    }
+                }
             },
             onError: { error, statusCode, responseString in
                 self.reloadTableView()
@@ -599,6 +612,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         workOrder?.reload(["include_estimated_cost": "true", "include_expenses": "true"],
             onSuccess: { statusCode, mappingResult in
                 self.reloadTableView()
+
+                if self.workOrder.jobId > 0 {
+                    if let job = JobService.sharedService().jobWithId(self.workOrder.jobId) {
+                        job.reloadMaterials(
+                            { statusCode, mappingResult in
+
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    }
+                }
             },
             onError: { error, statusCode, responseString in
                 self.reloadTableView()
