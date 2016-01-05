@@ -92,6 +92,32 @@ func stringFromFile(fileName: String, bundlePath: String? = nil, bundle: NSBundl
     return fileAsString as! String
 }
 
+func totalDeviceMemoryInGigabytes() -> CGFloat {
+    return CGFloat(NSProcessInfo.processInfo().physicalMemory) / 1073741824.0
+}
+
+//func totalMemory() -> UInt32 { // total device memory in bytes
+//    var hostPort: mach_port_t
+//    var hostSize: UInt32
+//    var pageSize: vm_size_t
+//    var vmStat: Int32
+//
+//    hostPort = mach_host_self()
+//    hostSize = UInt32(sizeof(vm_statistics_data_t) / sizeof(integer_t))
+//    host_page_size(hostPort, &pageSize)
+//
+//    if host_statistics(hostPort, HOST_VM_INFO, &vmStat, &hostSize) != KERN_SUCCESS {
+//        logWarn("Failed to fetch VM statistics")
+//    }
+//
+//    let memoryUsed = (vmStat.active_count + vmStat.inactive_count + vmStat.wire_count) * UInt32(pageSize)
+//    let memoryFree = vmStat.free_count * UInt32(pageSize)
+//    let memoryTotal = memoryUsed + memoryFree
+//    log("used: \(memoryUsed) free: \(memoryFree) total: \(memoryTotal)")
+//
+//    return memoryTotal
+//}
+
 func windowBounds() -> CGRect {
     return UIApplication.sharedApplication().keyWindow!.bounds
 }
