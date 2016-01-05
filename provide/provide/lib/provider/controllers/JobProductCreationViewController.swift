@@ -72,6 +72,7 @@ class JobProductCreationViewController: ProductCreationViewController {
                 if let quantityString = quantityTextField?.text {
                     if let quantity = Double(quantityString) {
                         jobProduct.initialQuantity = quantity
+                        jobProduct.remainingQuantity = quantity
                     }
                 }
                 if let priceString = priceTextField?.text {
