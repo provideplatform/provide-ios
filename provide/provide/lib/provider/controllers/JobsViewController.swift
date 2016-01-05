@@ -126,31 +126,17 @@ class JobsViewController: ViewController,
             refreshControl.beginRefreshing()
         }
 
-        var params: [String : AnyObject] = [
-            "page": page,
-            "rpp": rpp,
-            "status": "configuring,in_progress,pending_completion",
-            "include_customer": "true",
-            "include_expenses": "true",
-            "include_products": "true",
-        ]
-
-        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
+        JobService.sharedService().fetch(page,
+                                         rpp: rpp,
+                                         companyId: ApiService.sharedService().defaultCompanyId,
+                                         status: "configuring,in_progress,pending_completion",
+                                         includeCustomer: true,
+                                         includeExpenses: true,
+                                         includeProducts: true) { jobs in
+            self.jobs += jobs
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
         }
-
-        ApiService.sharedService().fetchJobs(params,
-            onSuccess: { statusCode, mappingResult in
-                let fetchedJobs = mappingResult.array() as! [Job]
-                self.jobs += fetchedJobs
-
-                self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
-            },
-            onError: { error, statusCode, responseString in
-                // TODO
-            }
-        )
     }
 
     // MARK: UITableViewDataSource

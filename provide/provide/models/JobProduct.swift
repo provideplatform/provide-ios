@@ -15,6 +15,7 @@ class JobProduct: Model {
     var productId = 0
     var product: Product!
     var initialQuantity = 0.0
+    var remainingQuantity = 0.0
     var price = -1.0
 
     override class func mapping() -> RKObjectMapping {
@@ -24,9 +25,33 @@ class JobProduct: Model {
             "job_id": "jobId",
             "product_id": "productId",
             "initial_quantity": "initialQuantity",
+            "remaining_quantity": "remainingQuantity",
             "price": "price",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("product", mapping: Product.mapping())
         return mapping
+    }
+
+    var percentageRemaining: CGFloat {
+        var percentageRemaining: CGFloat = 0.0
+        if remainingQuantity > 0.0 {
+            percentageRemaining = CGFloat(remainingQuantity) / CGFloat(initialQuantity)
+        }
+        return percentageRemaining
+    }
+
+    var statusColor: UIColor! {
+        var statusColor = UIColor.clearColor()
+        if remainingQuantity > 0.0 {
+            let percentage = percentageRemaining
+            if percentage <= 0.33 {
+                statusColor = Color.abandonedStatusColor()
+            } else if percentage <= 0.66 {
+                statusColor = Color.canceledStatusColor()
+            } else {
+                statusColor = Color.completedStatusColor()
+            }
+        }
+        return statusColor
     }
 }

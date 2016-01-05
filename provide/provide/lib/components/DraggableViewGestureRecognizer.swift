@@ -53,6 +53,11 @@ class DraggableViewGestureRecognizer: UIGestureRecognizer {
                     initialSuperview = initialSuperview.superview!
                 }
                 initialView = superview
+            } else if superview.superview!.isKindOfClass(UICollectionViewCell) {
+                while !initialSuperview.isKindOfClass(UICollectionView) {
+                    initialSuperview = initialSuperview.superview!
+                }
+                initialView = superview.superview!
             } else {
                 initialView = view
             }

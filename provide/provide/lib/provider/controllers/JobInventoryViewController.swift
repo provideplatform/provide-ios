@@ -108,6 +108,7 @@ class JobInventoryViewContoller: UITableViewController,
                 self!.job?.addJobProductForProduct(product, params: params,
                     onSuccess: { [weak self] statusCode, mappingResult in
                         cell.hideActivityIndicator()
+                        self!.jobProductsPickerViewController?.reloadCollectionView()
 
                         jobProduct = self!.job.jobProductForProduct(product)
 
@@ -131,8 +132,6 @@ class JobInventoryViewContoller: UITableViewController,
                     }
                 )
             }
-
-
         }
     }
 
@@ -330,23 +329,48 @@ class JobInventoryViewContoller: UITableViewController,
     }
 
     func productPickerViewController(viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
-        let products = viewController.products
+        var cell: PickerCollectionViewCell!
 
-        if products.count > indexPath.row - 1 {
-            let product = products[indexPath.row]
+        if viewController == queryResultsPickerViewController {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+            let products = viewController.products
 
-            cell.selected = viewController.isSelected(product)
+            if products.count > indexPath.row - 1 {
+                let product = products[indexPath.row]
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                cell.selected = viewController.isSelected(product)
+
+                if cell.selected {
+                    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                }
+
+                cell.name = product.name
+
+                if let profileImageUrl = product.barcodeDataURL {
+                    cell.rendersCircularImage = false
+                    cell.imageUrl = profileImageUrl
+                }
             }
+        } else if viewController == jobProductsPickerViewController {
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("JobProductPickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+            let products = viewController.products
 
-            cell.name = product.name
+            if products.count > indexPath.row - 1 {
+                let product = products[indexPath.row]
 
-            if let profileImageUrl = product.barcodeDataURL {
-                cell.rendersCircularImage = false
-                cell.imageUrl = profileImageUrl
+                cell.selected = viewController.isSelected(product)
+
+                if cell.selected {
+                    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                }
+
+                cell.name = product.name
+                (cell as! JobProductPickerCollectionViewCell).jobProduct = job.jobProductForProduct(product)
+
+                if let profileImageUrl = product.barcodeDataURL {
+                    cell.rendersCircularImage = false
+                    cell.imageUrl = profileImageUrl
+                }
             }
         }
 
@@ -376,6 +400,7 @@ class JobInventoryViewContoller: UITableViewController,
 
     func jobProductCreationViewController(viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct) {
         viewController.presentingViewController?.dismissViewController(animated: true)
+        jobProductsPickerViewController.reloadCollectionView()
     }
 
     func jobProductCreationViewController(viewController: JobProductCreationViewController, didRemoveJobProduct jobProduct: JobProduct) {
@@ -576,7 +601,7 @@ class JobInventoryViewContoller: UITableViewController,
                         jobInventoryViewController?.removeJobProduct(jobInventoryViewController.jobProductsPickerViewController.products[indexPath.row])
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView?.scrollEnabled = true
                     collectionView = nil
 
                     shouldRemoveJobProduct = false

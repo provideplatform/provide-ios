@@ -148,7 +148,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView! {
+    @IBOutlet internal weak var activityIndicatorView: UIActivityIndicatorView! {
         didSet {
             if let activityIndicatorView = activityIndicatorView {
                 bringSubviewToFront(activityIndicatorView)
@@ -156,7 +156,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var nameLabel: UILabel! {
+    @IBOutlet internal weak var nameLabel: UILabel! {
         didSet {
             if let nameLabel = nameLabel {
                 defaultFont = nameLabel.font
@@ -164,7 +164,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var initialsLabel: UILabel! {
+    @IBOutlet internal weak var initialsLabel: UILabel! {
         didSet {
             if  let initialsLabel = initialsLabel {
                 initialsLabel.makeCircular()
@@ -172,7 +172,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var imageView: UIImageView! {
+    @IBOutlet internal weak var imageView: UIImageView! {
         didSet {
             if let imageView = imageView {
                 defaultImageViewFrame = imageView.frame
@@ -183,7 +183,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var accessoryImageView: UIImageView! {
+    @IBOutlet internal weak var accessoryImageView: UIImageView! {
         didSet {
             if let accessoryImageView = accessoryImageView {
                 accessoryImageView.contentMode = .ScaleAspectFit
@@ -195,7 +195,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var selectedImageView: UIImageView! {
+    @IBOutlet internal weak var selectedImageView: UIImageView! {
         didSet {
             if let selectedImageView = selectedImageView {
                 selectedImageView.contentMode = .ScaleAspectFit
@@ -208,7 +208,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var gravatarImageView: RFGravatarImageView! {
+    internal var gravatarImageView: RFGravatarImageView! {
         didSet {
             if let gravatarImageView = gravatarImageView {
                 contentView.addSubview(gravatarImageView)
@@ -217,10 +217,10 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var defaultFont: UIFont!
-    private var defaultImageViewFrame: CGRect!
+    internal var defaultFont: UIFont!
+    internal var defaultImageViewFrame: CGRect!
 
-    private var highlightedFont: UIFont! {
+    internal var highlightedFont: UIFont! {
         if let defaultFont = defaultFont {
             let name = defaultFont.fontName.splitAtString("-").0
             return UIFont(name: "\(name)-Bold", size: defaultFont.pointSize)
@@ -228,7 +228,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         return nil
     }
 
-    private var highlightedImageViewFrame: CGRect! {
+    internal var highlightedImageViewFrame: CGRect! {
         if let defaultImageViewFrame = defaultImageViewFrame {
             let offsetFrame = defaultImageViewFrame.offsetBy(dx: -2.5, dy: -2.5)
             return CGRect(x: offsetFrame.origin.x,

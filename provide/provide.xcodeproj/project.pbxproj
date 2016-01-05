@@ -245,6 +245,9 @@
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
+		68E2180E1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */; };
+		68E218101C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */; };
+		68E218121C3BB663007CEF03 /* JobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E218111C3BB663007CEF03 /* JobService.swift */; };
 		68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */; };
 		68E329571C12CA1300DC297A /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329561C12CA1300DC297A /* Expense.swift */; };
 		68E3295B1C12ED3700DC297A /* ExpenseCapture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */; };
@@ -520,6 +523,9 @@
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
+		68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobProductPickerCollectionViewCell.swift; path = ../../components/views/JobProductPickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProductPickerCollectionViewCell.swift; sourceTree = "<group>"; };
+		68E218111C3BB663007CEF03 /* JobService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobService.swift; sourceTree = "<group>"; };
 		68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintThumbnailViewController.swift; sourceTree = "<group>"; };
 		68E329561C12CA1300DC297A /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExpenseCapture.storyboard; sourceTree = "<group>"; };
@@ -736,6 +742,7 @@
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
 				687CB58C1B07F6020048B692 /* CheckinService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
+				68E218111C3BB663007CEF03 /* JobService.swift */,
 				689B0CB51B07E0A7005694B7 /* KeyChainService.swift */,
 				687CB58F1B07F6020048B692 /* LocationService.swift */,
 				68D843C01BFAA73800DE7400 /* NotificationService.swift */,
@@ -963,6 +970,7 @@
 			isa = PBXGroup;
 			children = (
 				681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */,
+				68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */,
 				68B730C81C1ACD5F00549D95 /* JobProductTableViewCell.swift */,
 				68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */,
 				68B730C41C184C7500549D95 /* JobWizardTabBar.swift */,
@@ -976,6 +984,7 @@
 				6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */,
 				68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */,
 				68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */,
+				68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1510,6 +1519,7 @@
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
+				68E218121C3BB663007CEF03 /* JobService.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
 				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
@@ -1618,6 +1628,7 @@
 				68F537181B834A9A0007F480 /* MenuHeaderView.swift in Sources */,
 				6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
+				68E2180E1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift in Sources */,
 				68E329891C16E08600DC297A /* ExpensesViewController.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
@@ -1641,6 +1652,7 @@
 				681416EA1B8457870076BFBD /* Device.swift in Sources */,
 				6893D6101BFD5A2800D562DF /* PickerCollectionViewCell.swift in Sources */,
 				68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
+				68E218101C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift in Sources */,
 				6893D60E1BFD59E000D562DF /* ProviderPickerViewController.swift in Sources */,
 				68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,

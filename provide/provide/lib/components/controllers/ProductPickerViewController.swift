@@ -93,6 +93,24 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         activityIndicatorView?.stopAnimating()
     }
 
+    func setCollectionViewMinimumInteritemSpacing(spacing: CGFloat) {
+        if  let collectionView = collectionView {
+            if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                flowLayout.minimumInteritemSpacing = spacing
+                reloadCollectionView()
+            }
+        }
+    }
+
+    func setCollectionViewMinimumLineSpacing(spacing: CGFloat) {
+        if  let collectionView = collectionView {
+            if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+                flowLayout.minimumLineSpacing = spacing
+                reloadCollectionView()
+            }
+        }
+    }
+
     func reloadCollectionView() {
         if let collectionView = collectionView {
             let collectionViewFlowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -101,8 +119,6 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
                 collectionViewFlowLayout.scrollDirection = scrollDirection
             }
 
-            collectionViewFlowLayout.minimumInteritemSpacing = 0.0
-            collectionViewFlowLayout.minimumLineSpacing = 0.0
             collectionViewFlowLayout.itemSize = CGSize(width: 150.0, height: 100.0)
 
             var canRender = true
@@ -195,7 +211,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         return false
     }
 
-    // MARK - UICollectionViewDataSource
+    // MARK: UICollectionViewDataSource
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
@@ -226,6 +242,8 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
 
         return cell
     }
+
+    // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let product = products[indexPath.row]
