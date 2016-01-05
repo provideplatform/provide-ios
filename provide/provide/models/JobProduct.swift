@@ -15,7 +15,7 @@ class JobProduct: Model {
     var productId = 0
     var product: Product!
     var initialQuantity = 0.0
-    var remainingQuantity = -1.0
+    var remainingQuantity = 0.0
     var price = -1.0
 
     override class func mapping() -> RKObjectMapping {
@@ -33,9 +33,6 @@ class JobProduct: Model {
     }
 
     var percentageRemaining: CGFloat {
-        if remainingQuantity == -1.0 {
-            remainingQuantity = initialQuantity
-        }
         var percentageRemaining: CGFloat = 0.0
         if remainingQuantity > 0.0 {
             percentageRemaining = CGFloat(remainingQuantity) / CGFloat(initialQuantity)
