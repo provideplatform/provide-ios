@@ -70,12 +70,6 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
 
     override func setAccessoryImage(image: UIImage, tintColor: UIColor) {
         super.setAccessoryImage(image, tintColor: tintColor)
-
-//        statusBackgroundView.frame = CGRect(x: 0.0,
-//            y: 0.0,
-//            width: contentView.bounds.width * jobProduct.percentageRemaining,
-//            height: contentView.bounds.height)
-
     }
 
     private func resetStatusBackgroundView() {
@@ -88,9 +82,8 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
     }
 
     private func renderStatusBackgroundView() {
-        //resetStatusBackgroundView()
-
         dispatch_after_delay(0.0) {
+            self.resetStatusBackgroundView()
             self.statusBackgroundView.backgroundColor = self.jobProduct.statusColor
 
             UIView.animateWithDuration(0.4, delay: 0.15, options: .CurveEaseInOut,
