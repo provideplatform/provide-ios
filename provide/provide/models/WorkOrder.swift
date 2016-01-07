@@ -378,6 +378,16 @@ class WorkOrder: Model {
         return imageCount
     }
 
+    var isCurrentUserProvider: Bool {
+        let user = currentUser()
+        for provider in providers {
+            if provider.userId == user.id {
+                return true
+            }
+        }
+        return false
+    }
+
     var providers: [Provider] {
         var providers = [Provider]()
         if let workOrderProviders = workOrderProviders {

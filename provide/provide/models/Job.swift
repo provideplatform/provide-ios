@@ -87,6 +87,20 @@ class Job: Model {
         return false
     }
 
+    var isCurrentUserSupervisor: Bool {
+        if supervisors == nil {
+            return false
+        }
+
+        let user = currentUser()
+        for supervisor in supervisors {
+            if supervisor.userId == user.id {
+                return true
+            }
+        }
+        return false
+    }
+
     weak var blueprint: Attachment! {
         if let blueprints = blueprints {
             if blueprints.count > 0 {
