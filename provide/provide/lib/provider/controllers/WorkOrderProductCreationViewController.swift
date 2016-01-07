@@ -79,12 +79,14 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
                     }
                 }
 
+                showActivityIndicator()
+
                 workOrder.save(
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self!, didUpdateWorkOrderProduct: self!.workOrderProduct)
+                    onSuccess: { statusCode, mappingResult in
+                        self.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self, didUpdateWorkOrderProduct: self.workOrderProduct)
                     },
                     onError: { error, statusCode, responseString in
-
+                        self.hideActivityIndicator()
                     }
                 )
             }
@@ -119,5 +121,26 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         }
         return false
     }
-    
+
+    private func showActivityIndicator() {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).startAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 0.0
+            }
+        }
+    }
+
+    private func hideActivityIndicator() {
+        let section = tableView.numberOfSections - 1
+        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
+            if view.isKindOfClass(UIActivityIndicatorView) {
+                (view as! UIActivityIndicatorView).stopAnimating()
+            } else if view.isKindOfClass(UILabel) {
+                view.alpha = 1.0
+            }
+        }
+    }
 }
