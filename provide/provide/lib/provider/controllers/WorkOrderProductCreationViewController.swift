@@ -68,7 +68,13 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
                 let workOrderProduct = workOrder.workOrderProductForJobProduct(self.workOrderProduct.jobProduct)
                 if let quantityString = quantityTextField?.text {
                     if let quantity = Double(quantityString) {
-                        workOrderProduct.quantity = quantity
+                        if quantity <= self.workOrderProduct.jobProduct.remainingQuantity {
+                            workOrderProduct.quantity = quantity
+                        } else {
+                            quantityTextField?.text = ""
+                            showToast("Quantity cannot exceed \(self.workOrderProduct.jobProduct.remainingQuantity)")
+                            return
+                        }
                     }
                 }
                 if let priceString = priceTextField?.text {
