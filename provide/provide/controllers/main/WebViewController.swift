@@ -20,7 +20,18 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
     var webViewControllerDelegate: WebViewControllerDelegate!
 
-    @IBOutlet private weak var webView: UIWebView!
+    @IBOutlet private weak var webView: UIWebView! {
+        didSet {
+            if let webView = webView {
+                if let url = url {
+                    let request = NSURLRequest(URL: url)
+                    webView.loadRequest(request)
+                } else if let html = html {
+                    webView.loadHTMLString(html, baseURL: NSURL(string: CurrentEnvironment.baseUrlString))
+                }
+            }
+        }
+    }
 
     private var stopBarButtonItem: UIBarButtonItem! {
         let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss")
@@ -32,8 +43,8 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
     var html: String! {
         didSet {
-            if let webView = webView {
-                webView.loadHTMLString(html, baseURL: NSURL(string: CurrentEnvironment.baseUrlString))
+            if let html = html {
+                webView?.loadHTMLString(html, baseURL: NSURL(string: CurrentEnvironment.baseUrlString))
             }
         }
     }
@@ -77,13 +88,6 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         hud.labelText = loadingText
-
-        if url != nil {
-            let request = NSURLRequest(URL: url)
-            webView.loadRequest(request)
-        } else if html != nil {
-            webView.loadHTMLString(html, baseURL: nil)
-        }
     }
 
     // MARK: UIWebViewDelegate
@@ -92,7 +96,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
         if let shouldStartLoad = webViewControllerDelegate?.webViewController?(self, shouldStartLoadWithRequest: request, navigationType: navigationType) {
             return shouldStartLoad
         }
-        return false
+        return true
     }
 
     func webViewDidFinishLoad(webView: UIWebView) {
