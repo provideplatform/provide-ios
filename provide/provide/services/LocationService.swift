@@ -16,6 +16,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     let defaultAccuracy = kCLLocationAccuracyBest
     let defaultDistanceFilter = kCLDistanceFilterNone
 
+    private let regionMonitorModificationQueue = dispatch_queue_create("api.regionMonitorModificationQueue", DISPATCH_QUEUE_SERIAL)
+
     var currentHeading: CLHeading!
     var currentLocation: CLLocation!
 
@@ -264,11 +266,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func unregisterRegionMonitor(identifier: String) {
-        for region in regions {
-            if region.identifier == identifier {
-                geofenceCallbacks.removeValueForKey(region.identifier)
-                regions.removeObject(region)
-                break
+        dispatch_async(regionMonitorModificationQueue) {
+            for region in self.regions {
+                if region.identifier == identifier {
+                    self.geofenceCallbacks.removeValueForKey(region.identifier)
+                    self.regions.removeObject(region)
+                    break
+                }
             }
         }
     }
