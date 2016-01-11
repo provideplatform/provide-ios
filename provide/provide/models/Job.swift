@@ -326,6 +326,7 @@ class Job: Model {
                     self.expensesCount = job.expensesCount
                     self.expensedAmount = job.expensedAmount
 
+                    self.materials = job.materials
                     self.materialsCost = job.materialsCost
                     self.materialsCostPercentageOfRevenue = job.materialsCostPercentageOfRevenue
                     self.materialsCostPerSqFt = job.materialsCostPerSqFt

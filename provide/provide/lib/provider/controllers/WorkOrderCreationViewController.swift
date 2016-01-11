@@ -29,7 +29,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
                                        WorkOrderTeamViewControllerDelegate,
-                                       WorkOrderInventoryViewControllerDelegate {
+                                       WorkOrderInventoryViewControllerDelegate,
+                                       UIPopoverPresentationControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
@@ -394,6 +395,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         durationPickerViewController.preferredContentSize = durationPickerViewController.view.frame.size
         durationPickerViewController.popoverPresentationController?.sourceView = cell
         durationPickerViewController.popoverPresentationController?.permittedArrowDirections = [.Left, .Right]
+        durationPickerViewController.popoverPresentationController?.delegate = self
 
         let durationPickerView = DurationPickerView()
         durationPickerView.durationPickerViewDelegate = self
@@ -630,5 +632,11 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 self.reloadTableView()
             }
         )
+    }
+
+    // MARK: UIPopoverPresentationControllerDelegate
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 }

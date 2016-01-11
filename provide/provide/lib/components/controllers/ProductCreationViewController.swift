@@ -22,12 +22,32 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     @IBOutlet weak var priceTextField: UITextField!
     @IBOutlet weak var unitOfMeasureTextField: UITextField!
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "CREATE PRODUCT"
 
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
+
         setupScanBarButtonItem()
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                navigationController.presentingViewController?.dismissViewController(animated: true)
+            }
+        }
     }
 
     private func setupScanBarButtonItem() {

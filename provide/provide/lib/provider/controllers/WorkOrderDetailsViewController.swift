@@ -92,10 +92,16 @@ class WorkOrderDetailsViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dispatch_after_delay(0.0) {
-            self.headerView.frame.size.width = self.tableView.frame.width
-            self.headerView.addDropShadow()
-            self.headerView.workOrder = self.workOrder
+        if let workOrder = workOrder {
+            if workOrder.jobId == 0 {
+                dispatch_after_delay(0.0) {
+                    self.headerView.frame.size.width = self.tableView.frame.width
+                    self.headerView.addDropShadow()
+                    self.headerView.workOrder = self.workOrder
+                }
+            } else {
+                headerView.hidden = true
+            }
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in

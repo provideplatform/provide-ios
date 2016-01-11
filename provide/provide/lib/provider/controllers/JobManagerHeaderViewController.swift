@@ -14,7 +14,7 @@ protocol JobManagerHeaderViewControllerDelegate: NSObjectProtocol {
     optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
 }
 
-class JobManagerHeaderViewController: UITableViewController, ExpensesViewControllerDelegate {
+class JobManagerHeaderViewController: UITableViewController, ExpensesViewControllerDelegate, UIPopoverPresentationControllerDelegate {
 
     weak var jobManagerHeaderViewControllerDelegate: JobManagerHeaderViewControllerDelegate!
 
@@ -146,6 +146,7 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
             expensesViewController.expenses = job.expenses
             navigationController.preferredContentSize = CGSize(width: 400, height: 300)
             navigationController.popoverPresentationController!.permittedArrowDirections = [.Up]
+            navigationController.popoverPresentationController!.delegate = self
 
             if let expensesViewControllerDelegate = jobManagerHeaderViewControllerDelegate?.jobManagerHeaderViewController(self, delegateForExpensesViewController: expensesViewController) {
                 expensesViewController.delegate = expensesViewControllerDelegate
@@ -160,8 +161,6 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
                     if let expensesViewController = self.expensesViewController {
                         expensesViewController.expenses = job.expenses
                     }
-
-//                    self.tableView.reloadData()
 
                     self.renderFinancials()
                 },
@@ -207,5 +206,11 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
             return isIPad() ? (job.isCurrentUserCompanyAdmin ? 2 : (job.isCurrentUserSupervisor ? 1 : 0)) : 0
         }
         return 0
+    }
+
+    // MARK: UIPopoverPresentationControllerDelegate
+
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
 }

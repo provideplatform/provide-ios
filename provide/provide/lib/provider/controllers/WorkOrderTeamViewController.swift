@@ -292,9 +292,9 @@ class WorkOrderTeamViewController: UITableViewController,
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
+//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+//        return .None
+//    }
 
     // MARK: UISearchBarDelegate
 

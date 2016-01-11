@@ -20,10 +20,30 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet private weak var emailTextField: UITextField!
     @IBOutlet private weak var mobileNumberTextField: UITextField!
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "ADD SERVICE PROVIDER"
+
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                navigationController.presentingViewController?.dismissViewController(animated: true)
+            }
+        }
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

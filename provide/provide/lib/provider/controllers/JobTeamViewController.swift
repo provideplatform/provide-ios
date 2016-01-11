@@ -87,8 +87,10 @@ class JobTeamViewController: UITableViewController,
         super.prepareForSegue(segue, sender: sender)
 
         if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
-            segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
-            segue.destinationViewController.popoverPresentationController!.delegate = self
+            if !isIPad() {
+                segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
+                segue.destinationViewController.popoverPresentationController!.delegate = self
+            }
             ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
             queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
@@ -206,9 +208,9 @@ class JobTeamViewController: UITableViewController,
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
+//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+//        return .None
+//    }
 
     // MARK: UISearchBarDelegate
 

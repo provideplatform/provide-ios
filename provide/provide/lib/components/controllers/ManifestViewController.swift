@@ -69,7 +69,9 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet private weak var tableView: UITableView! {
         didSet {
             if let _ = tableView {
-                reloadTableView()
+                if products != nil || delegate != nil {
+                    reloadTableView()
+                }
             }
         }
     }
@@ -86,10 +88,10 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
     private var inFlightRequestOperation: RKObjectRequestOperation!
 
     private var items: [Product] {
-        if let products = products {
-            return products
-        } else if let items = delegate?.itemsForManifestViewController?(self, forSegmentIndex: toolbarSegmentedControl.selectedSegmentIndex) {
+        if let items = delegate?.itemsForManifestViewController?(self, forSegmentIndex: toolbarSegmentedControl.selectedSegmentIndex) {
             return items
+        } else if let products = products {
+            return products
         }
 
         var items = [Product]()

@@ -33,17 +33,37 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBOutlet private weak var tableView: UITableView!
-    
+
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "EXPENSES"
+
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier! == "ExpenseViewControllerSegue" {
             let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
             (segue.destinationViewController as! ExpenseViewController).expense = expenses[indexPath.row]
+        }
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                navigationController.presentingViewController?.dismissViewController(animated: true)
+            }
         }
     }
 

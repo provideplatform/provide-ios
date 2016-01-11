@@ -49,6 +49,12 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     private var timer: NSTimer!
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,6 +62,22 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
         if isIPad() {
             navigationItem.rightBarButtonItems = []
+        }
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController.isKindOfClass(UINavigationController) {
+                let navigationController = presentedViewController as! UINavigationController
+                if navigationController.viewControllers.count > 1 {
+                    navigationController.popViewControllerAnimated(true)
+                } else {
+                    navigationController.presentingViewController?.dismissViewController(animated: true)
+                }
+            } else {
+                dismissViewController(animated: true)
+
+            }
         }
     }
 
@@ -88,6 +110,13 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
     }
 
     // MARK: ManifestViewControllerDelegate
+
+    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
+        if segmentIndex == 0 {
+            return job?.materials?.map({ $0.product })
+        }
+        return [Product]()
+    }
     
     func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
         return nil //workOrder
@@ -181,6 +210,10 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
             navigationItem.title = "EXPENSES"
         }
 
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
+
         if let expenseItem = expenseItem {
             navigationItem.rightBarButtonItems = [expenseItem]
         }
@@ -191,7 +224,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         if let job = job {
             let expenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
             let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage, target: self, action: "expense:")
-            expenseBarButtonItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(job.status) != nil
+            expenseBarButtonItem.enabled = ["configuring", "in_progress"].indexOfObject(job.status) != nil
             return expenseBarButtonItem
         }
         return nil
