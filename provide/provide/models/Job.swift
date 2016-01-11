@@ -18,6 +18,7 @@ class Job: Model {
     var customer: Customer!
     var comments: [Comment]!
     var contractRevenue = -1.0
+    var cost = -1.0
     var attachments: [Attachment]!
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
@@ -26,17 +27,17 @@ class Job: Model {
     var status: String!
     var expenses: [Expense]!
     var expensesCount = 0
-    var expensedAmount: Double!
-    var laborCost: Double!
-    var laborCostPerSqFt: Double!
-    var laborCostPercentageOfRevenue: Double!
-    var materialsCost: Double!
-    var materialsCostPerSqFt: Double!
-    var materialsCostPercentageOfRevenue: Double!
+    var expensedAmount = -1.0
+    var laborCost = -1.0
+    var laborCostPerSqFt = -1.0
+    var laborCostPercentageOfRevenue = -1.0
+    var materialsCost = -1.0
+    var materialsCostPerSqFt = -1.0
+    var materialsCostPercentageOfRevenue = -1.0
     var materials: [JobProduct]!
-    var profit: Double!
-    var profitMargin: Double!
-    var profitPerSqFt: Double!
+    var profit: NSNumber!
+    var profitMargin: NSNumber!
+    var profitPerSqFt: NSNumber!
     var quotedPricePerSqFt = -1.0
     var supervisors: [Provider]!
     var totalSqFt = -1.0
@@ -66,6 +67,7 @@ class Job: Model {
             "total_sq_ft": "totalSqFt",
             "work_orders_count": "workOrdersCount",
             "wizard_mode": "wizardMode",
+            "cost": "cost",
             "labor_cost": "laborCost",
             "labor_cost_per_sq_ft": "laborCostPerSqFt",
             "labor_cost_percentage_of_revenue": "laborCostPercentageOfRevenue",
@@ -101,6 +103,16 @@ class Job: Model {
     var hasPendingBlueprint: Bool {
         if let blueprint = blueprint {
             return blueprint.status == "pending"
+        }
+        return false
+    }
+
+    var isCurrentUserCompanyAdmin: Bool {
+        let user = currentUser()
+        for companyId in user.companyIds {
+            if self.companyId == companyId {
+                return true
+            }
         }
         return false
     }
@@ -158,16 +170,81 @@ class Job: Model {
         return nil
     }
 
+    var humanReadableCost: String! {
+        if cost > -1.0 {
+            return "$\(NSString(format: "%.02f", cost))"
+        }
+        return nil
+    }
+
     var humanReadableProfit: String! {
-        return "$0.00"
+        if let profit = profit {
+            return "$\(NSString(format: "%.02f", profit.doubleValue))"
+        }
+        return nil
+    }
+
+    var humanReadableProfitMargin: String! {
+        if let profitMargin = profitMargin {
+            return "\(NSString(format: "%.0f", profitMargin.doubleValue * 100.0))%"
+        }
+        return nil
+    }
+
+    var humanReadableProfitPerSqFt: String! {
+        if let profitPerSqFt = profitPerSqFt {
+            return "$\(NSString(format: "%.02f", profitPerSqFt.doubleValue))"
+        }
+        return nil
     }
 
     var humanReadableExpenses: String! {
-        return "$0.00"
+        if expensedAmount > -1.0 {
+            return "$\(NSString(format: "%.02f", expensedAmount))"
+        }
+        return nil
     }
 
-    var humanReadableLabor: String! {
-        return "$0.00"
+    var humanReadableLaborCost: String! {
+        if laborCost > -1.0 {
+            return "$\(NSString(format: "%.02f", laborCost))"
+        }
+        return nil
+    }
+
+    var humanReadableLaborCostPerSqFt: String! {
+        if laborCostPerSqFt > -1.0 {
+            return "$\(NSString(format: "%.02f", laborCostPerSqFt))"
+        }
+        return nil
+    }
+
+    var humanReadableLaborCostPercentageOfRevenue: String! {
+        if laborCostPercentageOfRevenue > -1.0 {
+            return "\(NSString(format: "%.0f", laborCostPercentageOfRevenue * 100.0))%"
+        }
+        return nil
+    }
+
+    var humanReadableMaterialsCost: String! {
+        if materialsCost > -1.0 {
+            return "$\(NSString(format: "%.02f", materialsCost))"
+        }
+        return nil
+    }
+
+    var humanReadableMaterialsCostPerSqFt: String! {
+        if materialsCostPerSqFt > -1.0 {
+            return "$\(NSString(format: "%.02f", materialsCostPerSqFt))"
+        }
+        return nil
+    }
+
+    var humanReadableMaterialsCostPercentageOfRevenue: String! {
+        if materialsCostPercentageOfRevenue > -1.0 {
+            return "\(NSString(format: "%.0f", materialsCostPercentageOfRevenue * 100.0))%"
+        }
+        return nil
     }
 
     func hasSupervisor(supervisor: Provider) -> Bool {
@@ -182,14 +259,18 @@ class Job: Model {
     }
 
     func prependExpense(expense: Expense) {
-        if self.expenses == nil {
-            self.expenses = [Expense]()
+        if expenses == nil {
+            expenses = [Expense]()
+
+            if expensedAmount == -1.0 {
+                expensedAmount = 0.0
+            }
         }
-        self.expenses.insert(expense, atIndex: 0)
-        self.expensesCount += 1
-        if let amount = self.expensedAmount {
-            self.expensedAmount = amount + expense.amount
-        }
+
+        expenses.insert(expense, atIndex: 0)
+
+        expensesCount += 1
+        expensedAmount += expense.amount
     }
 
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
@@ -218,6 +299,45 @@ class Job: Model {
                     for comment in fetchedComments {
                         self.comments.append(comment)
                     }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
+    func reloadFinancials(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            let params: [String : AnyObject] = [
+                "include_expenses": "true",
+                "include_products": "true",
+            ]
+
+            reload(params,
+                onSuccess: { statusCode, mappingResult in
+                    let job = mappingResult.firstObject as! Job
+
+                    self.contractRevenue = job.contractRevenue
+                    self.cost = job.cost
+
+                    self.expenses = job.expenses
+                    self.expensesCount = job.expensesCount
+                    self.expensedAmount = job.expensedAmount
+
+                    self.materialsCost = job.materialsCost
+                    self.materialsCostPercentageOfRevenue = job.materialsCostPercentageOfRevenue
+                    self.materialsCostPerSqFt = job.materialsCostPerSqFt
+
+                    self.laborCost = job.laborCost
+                    self.laborCostPercentageOfRevenue = job.laborCostPercentageOfRevenue
+                    self.laborCostPerSqFt = job.laborCostPerSqFt
+
+                    self.profit = job.profit
+                    self.profitPerSqFt = job.profitPerSqFt
+                    self.profitMargin = job.profitMargin
+
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -383,7 +503,11 @@ class Job: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchJobWithId(String(id),
+        reload([String : AnyObject](), onSuccess: onSuccess, onError: onError)
+    }
+
+    func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchJobWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
                 let job = mappingResult.firstObject as! Job
                 self.blueprints = job.blueprints

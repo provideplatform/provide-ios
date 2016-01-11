@@ -20,34 +20,8 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
 
     var job: Job! {
         didSet {
-            if let job = job {
-                reloadJobExpenses()
-
-                let cell = tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
-
-                if isIPad() {
-                    if let humanReadableProfit = job.humanReadableProfit {
-                        profitValueLabel?.text = humanReadableProfit
-                    }
-
-                    if let humanReadableExpenses = job.humanReadableExpenses {
-                        expensesValueLabel?.text = humanReadableExpenses
-                    }
-
-                    if let humanReadableLabor = job.humanReadableLabor {
-                        laborValueLabel?.text = humanReadableLabor
-                    }
-
-                    cell.contentView.alpha = 1.0
-                } else {
-                    cell.contentView.alpha = 0.0
-                }
-
-                if let expenses = job.expenses {
-                    expensesViewController?.expenses = expenses
-                } else {
-                    reloadJobExpenses()
-                }
+            if let _ = job {
+                reloadJobFinancials()
 
                 if let expensesViewController = expensesViewController {
                     if let jobManagerHeaderViewControllerDelegate = jobManagerHeaderViewControllerDelegate {
@@ -61,11 +35,34 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
     @IBOutlet private weak var profitLabel: UILabel!
     @IBOutlet private weak var profitValueLabel: UILabel!
 
+    @IBOutlet private weak var profitPerSqFtLabel: UILabel!
+    @IBOutlet private weak var profitPerSqFtValueLabel: UILabel!
+
+    @IBOutlet private weak var profitMarginLabel: UILabel!
+    @IBOutlet private weak var profitMarginValueLabel: UILabel!
+
+    @IBOutlet private weak var profitMarginButton: UIButton!
+
     @IBOutlet private weak var expensesLabel: UILabel!
     @IBOutlet private weak var expensesValueLabel: UILabel!
 
     @IBOutlet private weak var laborLabel: UILabel!
     @IBOutlet private weak var laborValueLabel: UILabel!
+
+    @IBOutlet private weak var laborCostPerSqFtLabel: UILabel!
+    @IBOutlet private weak var laborCostPerSqFtValueLabel: UILabel!
+
+    @IBOutlet private weak var laborCostPercentageOfRevenueLabel: UILabel!
+    @IBOutlet private weak var laborCostPercentageOfRevenueValueLabel: UILabel!
+
+    @IBOutlet private weak var materialsCostLabel: UILabel!
+    @IBOutlet private weak var materialsCostValueLabel: UILabel!
+
+    @IBOutlet private weak var materialsCostPercentageOfRevenueLabel: UILabel!
+    @IBOutlet private weak var materialsCostPercentageOfRevenueValueLabel: UILabel!
+
+    @IBOutlet private weak var materialsCostPerSqFtLabel: UILabel!
+    @IBOutlet private weak var materialsCostPerSqFtValueLabel: UILabel!
 
     private var expensesViewController: ExpensesViewController! {
         didSet {
@@ -77,8 +74,67 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
+    private func renderFinancials() {
+        if tableView.numberOfRowsInSection(0) > 0 {
+            if isIPad() {
+                // profit
+
+                if let humanReadableProfit = job.humanReadableProfit {
+                    profitValueLabel?.text = humanReadableProfit
+                }
+
+                if let humanReadableProfitMargin = job.humanReadableProfitMargin {
+                    profitMarginValueLabel?.text = humanReadableProfitMargin
+                    profitMarginButton?.setTitle(humanReadableProfitMargin, forState: .Normal)
+                }
+
+                if let humanReadableProfitPerSqFt = job.humanReadableProfitPerSqFt {
+                    profitPerSqFtValueLabel?.text = humanReadableProfitPerSqFt
+                }
+
+                // job expenses
+
+                if let humanReadableCost = job.humanReadableCost {
+                    expensesValueLabel?.text = humanReadableCost
+                }
+
+                // labor
+
+                if let humanReadableLaborCost = job.humanReadableLaborCost {
+                    laborValueLabel?.text = humanReadableLaborCost
+                }
+
+                if let humanReadableLaborCostPerSqFt = job.humanReadableLaborCostPerSqFt {
+                    laborCostPerSqFtValueLabel?.text = humanReadableLaborCostPerSqFt
+                }
+
+                if let humanReadableLaborCostPercentageOfRevenue = job.humanReadableLaborCostPercentageOfRevenue {
+                    laborCostPercentageOfRevenueValueLabel?.text = humanReadableLaborCostPercentageOfRevenue
+                }
+
+                // materials
+
+                if let humanReadableMaterialsCost = job.humanReadableMaterialsCost {
+                    materialsCostValueLabel?.text = humanReadableMaterialsCost
+                }
+
+                if let humanReadableMaterialsCostPerSqFt = job.humanReadableMaterialsCostPerSqFt {
+                    materialsCostPerSqFtValueLabel?.text = humanReadableMaterialsCostPerSqFt
+                }
+
+                if let humanReadableMaterialsCostPercentageOfRevenue = job.humanReadableMaterialsCostPercentageOfRevenue {
+                    materialsCostPercentageOfRevenueValueLabel?.text = humanReadableMaterialsCostPercentageOfRevenue
+                }
+            }
+
+            tableView.alpha = 1.0
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.alpha = 0.0
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -97,13 +153,17 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-    private func reloadJobExpenses() {
+    private func reloadJobFinancials() {
         if let job = job {
-            job.reloadExpenses(
+            job.reloadFinancials(
                 { statusCode, mappingResult in
                     if let expensesViewController = self.expensesViewController {
                         expensesViewController.expenses = job.expenses
                     }
+
+//                    self.tableView.reloadData()
+
+                    self.renderFinancials()
                 },
                 onError: { error, statusCode, responseString in
 
@@ -119,6 +179,10 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         return nil
     }
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return job != nil && isIPad() ? 1 : 0
+    }
+
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title: String?
         if section == 0 {
@@ -131,9 +195,16 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         return title
     }
 
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 28.0
+        }
+        return 0.0
+    }
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return isIPad() ? 1 : 0
+            return isIPad() ? (job.isCurrentUserCompanyAdmin ? 2 : (job.isCurrentUserSupervisor ? 1 : 0)) : 0
         }
         return 0
     }
