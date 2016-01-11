@@ -20,6 +20,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var gtinTextField: UITextField!
     @IBOutlet weak var priceTextField: UITextField!
+    @IBOutlet weak var unitOfMeasureTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             let user = currentUser()
             if user.defaultCompanyId > 0 {
                 createProductWithCompanyId(user.defaultCompanyId)
@@ -56,14 +57,14 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     }
 
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
         }
         return indexPath
     }
 
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
         }
     }
@@ -96,6 +97,12 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
         product.data = [String : AnyObject]()
         product.data["name"] = nameTextField?.text
         product.data["price"] = priceTextField?.text
+
+        if let unitOfMeasure = unitOfMeasureTextField?.text {
+            if unitOfMeasure.length > 0 {
+                product.data["unit_of_measure"] = unitOfMeasure
+            }
+        }
 
         let productIsValid = product.companyId > 0 && product.gtin != nil && product.gtin!.length > 0 && product.name != nil && product.name!.length > 0
 

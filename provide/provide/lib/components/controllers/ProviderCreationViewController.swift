@@ -27,7 +27,7 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             let user = currentUser()
             if user.defaultCompanyId > 0 {
                 createProviderWithCompanyId(user.defaultCompanyId)
@@ -54,14 +54,14 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
     }
 
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
         }
         return indexPath
     }
 
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 3 {
+        if indexPath.section == tableView.numberOfSections - 1 {
             tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
         }
     }
