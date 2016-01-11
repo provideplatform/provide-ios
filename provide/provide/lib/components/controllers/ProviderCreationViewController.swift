@@ -109,6 +109,20 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
                 },
                 onError: { error, statusCode, responseString in
                     self.hideActivityIndicator()
+
+                    if statusCode == 422 {
+                        if let response = responseString.toJSONObject() {
+                            if let errorsIndex = response.indexForKey("errors") {
+                                if let errors = response[errorsIndex].1 as? [String : [String]] {
+                                    for key in errors.keys.generate() {
+                                        for value in errors[key]! {
+                                            self.showToast("\(key) \(value)")
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             )
         } else {
