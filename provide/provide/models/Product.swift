@@ -55,6 +55,10 @@ class Product: Model {
         return data["sku"] as? String
     }
 
+    var unitOfMeasure: String? {
+        return data["unit_of_measure"] as? String
+    }
+
     var barcodeDataURL: NSURL! {
         if let barcodeUri = barcodeUri {
             return NSURL(string: barcodeUri)
