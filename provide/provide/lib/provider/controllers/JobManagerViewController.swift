@@ -232,11 +232,13 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
     }
 
     func expense(sender: UIBarButtonItem!) {
-        let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
-        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
-        expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
+        if let navigationController = presentedViewController as? UINavigationController {
+            let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
+            expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+            expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
 
-        presentViewController(expenseCaptureViewController, animated: true)
+            navigationController.presentViewController(expenseCaptureViewController, animated: true)
+        }
     }
 
     // MARK: ExpenseCaptureViewControllerDelegate
@@ -250,10 +252,12 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
     }
 
     func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
-
+        if let jobManagerHeaderViewController = jobManagerHeaderViewController {
+            jobManagerHeaderViewController.reloadJobFinancials()
+        }
     }
 
     func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController) {
-
+        dismissViewController(animated: true)
     }
 }

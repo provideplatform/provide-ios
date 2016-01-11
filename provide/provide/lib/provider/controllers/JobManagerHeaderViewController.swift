@@ -156,7 +156,7 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-    private func reloadJobFinancials() {
+    func reloadJobFinancials() {
         if let job = job {
             job.reloadFinancials(
                 { statusCode, mappingResult in
