@@ -145,68 +145,68 @@
                         <viewControllerLayoutGuide type="bottom" id="e7K-Ad-BPc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="H44-Qc-4dc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2/22/2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuk-87-WVV">
-                                <rect key="frame" x="20" y="44" width="136" height="37"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:32 pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vow-Bh-lbD">
+                                <rect key="frame" x="20" y="27" width="136" height="19"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="136" id="mf5-Xl-vab"/>
+                                    <constraint firstAttribute="height" constant="19" id="9T4-Ye-d1S"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10:32 pm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vow-Bh-lbD">
-                                <rect key="frame" x="20" y="71" width="136" height="19"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTi-wE-m7J">
-                                <rect key="frame" x="164" y="44" width="286" height="37"/>
-                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" misplaced="YES" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAF-J3-Zs6" userLabel="Amount Label">
-                                <rect key="frame" x="458" y="44" width="122" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="122" id="UyT-j7-69s"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-rK-SlJ">
-                                <rect key="frame" x="20" y="98" width="560" height="377"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="560" id="Xge-YX-qLK"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1gz-rK-SlJ">
+                                <rect key="frame" x="20" y="54" width="560" height="377"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2/22/2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iuk-87-WVV">
+                                <rect key="frame" x="20" y="0.0" width="136" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="136" id="3dA-py-WlG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTi-wE-m7J">
+                                <rect key="frame" x="164" y="0.0" width="286" height="37"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="$235.22" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAF-J3-Zs6" userLabel="Amount Label">
+                                <rect key="frame" x="458" y="0.0" width="122" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="122" id="JlQ-J5-Mdf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="centerX" secondItem="H44-Qc-4dc" secondAttribute="centerX" id="5Ld-ZR-t3N"/>
-                            <constraint firstItem="iuk-87-WVV" firstAttribute="leading" secondItem="H44-Qc-4dc" secondAttribute="leadingMargin" id="6nv-vo-Bke"/>
-                            <constraint firstItem="hTi-wE-m7J" firstAttribute="leading" secondItem="iuk-87-WVV" secondAttribute="trailing" constant="8" symbolic="YES" id="AIM-fF-8RN"/>
-                            <constraint firstItem="iuk-87-WVV" firstAttribute="baseline" secondItem="hTi-wE-m7J" secondAttribute="baseline" id="ANh-sQ-BsW"/>
-                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="top" secondItem="iuk-87-WVV" secondAttribute="bottom" constant="17" id="FPM-G0-qjl"/>
-                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="leading" secondItem="hTi-wE-m7J" secondAttribute="trailing" constant="8" symbolic="YES" id="Hw4-Oe-Tpw"/>
-                            <constraint firstItem="e7K-Ad-BPc" firstAttribute="top" secondItem="vow-Bh-lbD" secondAttribute="bottom" constant="510" id="NRY-NC-nxs"/>
-                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="baseline" secondItem="hTi-wE-m7J" secondAttribute="baseline" id="NbZ-VW-al0"/>
-                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="trailing" secondItem="H44-Qc-4dc" secondAttribute="trailingMargin" id="Uej-KO-99A"/>
-                            <constraint firstItem="e7K-Ad-BPc" firstAttribute="top" secondItem="1gz-rK-SlJ" secondAttribute="bottom" constant="125" id="V9M-hu-ww6"/>
-                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="leading" secondItem="iuk-87-WVV" secondAttribute="leading" id="Y8B-cM-d8J"/>
-                            <constraint firstItem="hTi-wE-m7J" firstAttribute="firstBaseline" secondItem="iuk-87-WVV" secondAttribute="firstBaseline" id="Ybn-eu-8Hl"/>
-                            <constraint firstItem="vow-Bh-lbD" firstAttribute="leading" secondItem="iuk-87-WVV" secondAttribute="leading" id="amS-aF-ljA"/>
-                            <constraint firstItem="iuk-87-WVV" firstAttribute="top" secondItem="TcU-A0-X0r" secondAttribute="bottom" constant="24" id="an8-DN-ilO"/>
-                            <constraint firstItem="e7K-Ad-BPc" firstAttribute="top" secondItem="SAF-J3-Zs6" secondAttribute="bottom" constant="519" id="bSm-gy-a6w"/>
-                            <constraint firstItem="hTi-wE-m7J" firstAttribute="leading" secondItem="vow-Bh-lbD" secondAttribute="trailing" constant="8" symbolic="YES" id="lHC-hy-fmT"/>
-                            <constraint firstItem="vow-Bh-lbD" firstAttribute="top" secondItem="TcU-A0-X0r" secondAttribute="bottom" constant="51" id="nJv-OA-dxB"/>
-                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="firstBaseline" secondItem="hTi-wE-m7J" secondAttribute="firstBaseline" id="pug-vO-Jsf"/>
+                            <constraint firstItem="vow-Bh-lbD" firstAttribute="top" secondItem="TcU-A0-X0r" secondAttribute="bottom" constant="27" id="4rN-hj-dk3"/>
+                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="trailing" secondItem="1gz-rK-SlJ" secondAttribute="trailing" id="7DN-K5-80Z"/>
+                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="top" secondItem="iuk-87-WVV" secondAttribute="bottom" constant="17" id="CbC-3w-1Hs"/>
+                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="leading" secondItem="hTi-wE-m7J" secondAttribute="trailing" constant="8" symbolic="YES" id="Cfe-a6-9h0"/>
+                            <constraint firstItem="vow-Bh-lbD" firstAttribute="leading" secondItem="1gz-rK-SlJ" secondAttribute="leading" id="ERb-ya-SN8"/>
+                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="leading" secondItem="H44-Qc-4dc" secondAttribute="leadingMargin" id="IlG-03-za4"/>
+                            <constraint firstItem="hTi-wE-m7J" firstAttribute="firstBaseline" secondItem="SAF-J3-Zs6" secondAttribute="firstBaseline" id="O3q-ea-jJV"/>
+                            <constraint firstItem="hTi-wE-m7J" firstAttribute="baseline" secondItem="iuk-87-WVV" secondAttribute="baseline" id="Q8d-Id-5Yy"/>
+                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="top" secondItem="vow-Bh-lbD" secondAttribute="bottom" constant="8" symbolic="YES" id="WlH-Cs-n0q"/>
+                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="baseline" secondItem="hTi-wE-m7J" secondAttribute="baseline" id="XHH-FO-iiq"/>
+                            <constraint firstItem="SAF-J3-Zs6" firstAttribute="top" secondItem="TcU-A0-X0r" secondAttribute="bottom" id="bpv-ps-Ouu"/>
+                            <constraint firstItem="hTi-wE-m7J" firstAttribute="leading" secondItem="vow-Bh-lbD" secondAttribute="trailing" constant="8" symbolic="YES" id="eGp-k1-7iz"/>
+                            <constraint firstItem="e7K-Ad-BPc" firstAttribute="top" secondItem="1gz-rK-SlJ" secondAttribute="bottom" constant="105" id="eX2-Q6-yLJ"/>
+                            <constraint firstItem="vow-Bh-lbD" firstAttribute="leading" secondItem="iuk-87-WVV" secondAttribute="leading" id="fyu-dG-nqL"/>
+                            <constraint firstItem="iuk-87-WVV" firstAttribute="firstBaseline" secondItem="hTi-wE-m7J" secondAttribute="firstBaseline" id="kTq-Di-UTt"/>
+                            <constraint firstItem="1gz-rK-SlJ" firstAttribute="trailing" secondItem="H44-Qc-4dc" secondAttribute="trailingMargin" id="wKx-YN-o4r"/>
+                            <constraint firstItem="hTi-wE-m7J" firstAttribute="leading" secondItem="iuk-87-WVV" secondAttribute="trailing" constant="8" symbolic="YES" id="xhE-4v-Fna"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="amountLabel" destination="SAF-J3-Zs6" id="7dt-Kh-1Kd"/>
                         <outlet property="dateLabel" destination="iuk-87-WVV" id="GLN-vt-PD1"/>

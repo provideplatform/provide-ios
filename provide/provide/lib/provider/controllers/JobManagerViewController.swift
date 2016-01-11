@@ -208,15 +208,16 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
             navigationItem.title = segmentsForManifestViewController(viewController as! ManifestViewController)[0]
         } else if viewController is ExpensesViewController {
             navigationItem.title = "EXPENSES"
+
+            if let expenseItem = expenseItem {
+                navigationItem.rightBarButtonItems = [expenseItem]
+            }
         }
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
         }
 
-        if let expenseItem = expenseItem {
-            navigationItem.rightBarButtonItems = [expenseItem]
-        }
         return navigationItem
     }
 

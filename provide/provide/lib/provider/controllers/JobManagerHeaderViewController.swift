@@ -75,6 +75,8 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
     }
 
     private func renderFinancials() {
+        tableView.reloadData()
+
         if tableView.numberOfRowsInSection(0) > 0 {
             if isIPad() {
                 // profit

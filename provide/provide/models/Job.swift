@@ -313,11 +313,14 @@ class Job: Model {
             let params: [String : AnyObject] = [
                 "include_expenses": "true",
                 "include_products": "true",
+                "include_supervisors": "true",
             ]
 
             reload(params,
                 onSuccess: { statusCode, mappingResult in
                     let job = mappingResult.firstObject as! Job
+
+                    self.supervisors = job.supervisors
 
                     self.contractRevenue = job.contractRevenue
                     self.cost = job.cost
