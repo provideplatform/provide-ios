@@ -34,11 +34,12 @@ class JobProductTableViewCell: UITableViewCell {
                     gtinLabel?.text = gtin
                 }
 
-                let remainingQuantityString = NSString(format: "%.03f", jobProduct.remainingQuantity) as String
-                let unitOfMeasureString = product.unitOfMeasure != nil ? " \(product.unitOfMeasure)" : ""
-                let quantityString = "\(remainingQuantityString)\(unitOfMeasureString)"
+                var remainingQuantityString = NSString(format: "%.03f", jobProduct.remainingQuantity) as String
+                if let unitOfMeasure = product.unitOfMeasure {
+                    remainingQuantityString = "\(remainingQuantityString) \(unitOfMeasure)"
+                }
 
-                quantityLabel?.text = "\(quantityString) remaining"
+                quantityLabel?.text = "\(remainingQuantityString) remaining"
                 quantityLabel?.sizeToFit()
 
                 priceLabel?.text = "" //NSString(format: "$%.02f", jobProduct.price) as String

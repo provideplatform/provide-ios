@@ -20,7 +20,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var firstName: String? {
+    internal var firstName: String? {
         if let name = name {
             if name.componentsSeparatedByString(" ").count > 1 {
                 return name.splitAtString(" ", assertedComponentsCount: nil).0
@@ -32,7 +32,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var lastName: String? {
+    internal var lastName: String? {
         if let name = name {
             if name.componentsSeparatedByString(" ").count > 1 {
                 return name.splitAtString(" ", assertedComponentsCount: nil).1
@@ -96,7 +96,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var initials: String! {
+    internal var initials: String! {
         if let _ = name {
             var initials = ""
             if let firstName = firstName {

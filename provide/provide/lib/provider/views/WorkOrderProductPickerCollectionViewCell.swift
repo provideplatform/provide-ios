@@ -14,6 +14,18 @@ class WorkOrderProductPickerCollectionViewCell: JobProductPickerCollectionViewCe
         didSet {
             if let workOrderProduct = workOrderProduct {
                 jobProduct = workOrderProduct.jobProduct
+
+                if let product = jobProduct.product {
+                    var quantityString = NSString(format: "%.03f", workOrderProduct.quantity) as String
+                    if let unitOfMeasure = product.unitOfMeasure {
+                        quantityString = "\(quantityString) \(unitOfMeasure)"
+                    }
+
+                    quantityLabel?.text = "\(quantityString) budgeted"
+                    quantityLabel?.sizeToFit()
+                } else {
+                    quantityLabel?.text = ""
+                }
             }
         }
     }

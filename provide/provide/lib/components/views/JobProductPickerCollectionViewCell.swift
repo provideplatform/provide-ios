@@ -48,7 +48,7 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var quantityLabel: UILabel! {
+    @IBOutlet internal weak var quantityLabel: UILabel! {
         didSet {
             if let quantityLabel = quantityLabel {
                 quantityLabel.text = ""
@@ -56,7 +56,7 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var priceLabel: UILabel! {
+    @IBOutlet internal weak var priceLabel: UILabel! {
         didSet {
             if let priceLabel = priceLabel {
                 priceLabel.text = ""
@@ -64,7 +64,7 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var statusBackgroundView: UIView! {
+    @IBOutlet internal weak var statusBackgroundView: UIView! {
         didSet {
             if let _ = statusBackgroundView {
                 resetStatusBackgroundView()
