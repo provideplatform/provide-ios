@@ -23,16 +23,24 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
             if let job = job {
                 reloadJobExpenses()
 
-                if let humanReadableProfit = job.humanReadableProfit {
-                    profitValueLabel?.text = humanReadableProfit
-                }
+                let cell = tableView(tableView, cellForRowAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
 
-                if let humanReadableExpenses = job.humanReadableExpenses {
-                    expensesValueLabel?.text = humanReadableExpenses
-                }
+                if isIPad() {
+                    if let humanReadableProfit = job.humanReadableProfit {
+                        profitValueLabel?.text = humanReadableProfit
+                    }
 
-                if let humanReadableLabor = job.humanReadableLabor {
-                    laborValueLabel?.text = humanReadableLabor
+                    if let humanReadableExpenses = job.humanReadableExpenses {
+                        expensesValueLabel?.text = humanReadableExpenses
+                    }
+
+                    if let humanReadableLabor = job.humanReadableLabor {
+                        laborValueLabel?.text = humanReadableLabor
+                    }
+
+                    cell.contentView.alpha = 1.0
+                } else {
+                    cell.contentView.alpha = 0.0
                 }
 
                 if let expenses = job.expenses {
@@ -121,5 +129,12 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
             }
         }
         return title
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return isIPad() ? 1 : 0
+        }
+        return 0
     }
 }

@@ -27,7 +27,16 @@ class Job: Model {
     var expenses: [Expense]!
     var expensesCount = 0
     var expensedAmount: Double!
+    var laborCost: Double!
+    var laborCostPerSqFt: Double!
+    var laborCostPercentageOfRevenue: Double!
+    var materialsCost: Double!
+    var materialsCostPerSqFt: Double!
+    var materialsCostPercentageOfRevenue: Double!
     var materials: [JobProduct]!
+    var profit: Double!
+    var profitMargin: Double!
+    var profitPerSqFt: Double!
     var quotedPricePerSqFt = -1.0
     var supervisors: [Provider]!
     var totalSqFt = -1.0
@@ -57,6 +66,15 @@ class Job: Model {
             "total_sq_ft": "totalSqFt",
             "work_orders_count": "workOrdersCount",
             "wizard_mode": "wizardMode",
+            "labor_cost": "laborCost",
+            "labor_cost_per_sq_ft": "laborCostPerSqFt",
+            "labor_cost_percentage_of_revenue": "laborCostPercentageOfRevenue",
+            "materials_cost": "materialsCost",
+            "materials_cost_per_sq_ft": "materialsCostPerSqFt",
+            "materials_cost_percentage_of_revenue": "materialsCostPercentageOfRevenue",
+            "profit": "profit",
+            "profit_margin": "profitMargin",
+            "profit_per_sq_ft": "profitPerSqFt",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
