@@ -22,7 +22,11 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     private var firstName: String? {
         if let name = name {
-            return name.splitAtString(" ", assertedComponentsCount: nil).0
+            if name.componentsSeparatedByString(" ").count > 1 {
+                return name.splitAtString(" ", assertedComponentsCount: nil).0
+            } else {
+                return name
+            }
         } else {
             return nil
         }
@@ -30,7 +34,11 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     private var lastName: String? {
         if let name = name {
-            return name.splitAtString(" ", assertedComponentsCount: nil).1
+            if name.componentsSeparatedByString(" ").count > 1 {
+                return name.splitAtString(" ", assertedComponentsCount: nil).1
+            } else {
+                return nil
+            }
         } else {
             return nil
         }
