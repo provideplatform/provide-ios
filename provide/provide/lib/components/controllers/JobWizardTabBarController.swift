@@ -10,12 +10,15 @@ import UIKit
 
 class JobWizardTabBarController: UITabBarController,
                                  UITabBarControllerDelegate,
-                                 JobWizardViewControllerDelegate {
+                                 JobWizardViewControllerDelegate,
+                                 TaskListViewControllerDelegate {
 
     weak var job: Job! {
         didSet {
             if let job = job {
                 navigationItem.title = job.name
+
+                navigationItem.rightBarButtonItems = [taskListItem]
 
                 if job.status == "completed" || job.status == "canceled" {
                     viewControllers?.removeAtIndex(4)
@@ -125,6 +128,13 @@ class JobWizardTabBarController: UITabBarController,
         return isEditMode
     }
 
+    private var taskListItem: UIBarButtonItem! {
+        let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
+        taskListItem.tintColor = UIColor.whiteColor()
+        return taskListItem
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -145,6 +155,17 @@ class JobWizardTabBarController: UITabBarController,
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+
+    func showTaskList(sender: UIBarButtonItem) {
+        let taskListNavigationController = UIStoryboard("TaskList").instantiateInitialViewController() as! UINavigationController
+        (taskListNavigationController.viewControllers.first! as! TaskListViewController).taskListViewControllerDelegate = self
+        taskListNavigationController.modalPresentationStyle = .Popover
+        taskListNavigationController.preferredContentSize = CGSizeMake(300, 250)
+        taskListNavigationController.popoverPresentationController!.barButtonItem = sender
+        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.Right]
+        taskListNavigationController.popoverPresentationController!.canOverlapSourceViewRect = false
+        presentViewController(taskListNavigationController, animated: true)
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -251,6 +272,12 @@ class JobWizardTabBarController: UITabBarController,
                 jobBlueprintsViewController.refresh()
             }
         }
+    }
+
+    // MARK: TaskListViewControllerDelegate
+
+    func jobForTaskListViewController(viewController: TaskListViewController) -> Job! {
+        return job
     }
 
     deinit {

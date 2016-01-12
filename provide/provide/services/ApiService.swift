@@ -37,6 +37,7 @@ class ApiService: NSObject {
         "products": Product.mapping(),
         "providers": Provider.mapping(),
         "routes": Route.mapping(),
+        "tasks": Task.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
         "work_order_products": WorkOrderProduct.mapping(),
@@ -410,6 +411,36 @@ class ApiService: NSObject {
             },
             onError: onError
         )
+    }
+
+    // MARK: Task API
+
+    func fetchTaskWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("tasks/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchTaskWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("tasks/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchTasks(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("tasks", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func createTask(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["userId"] = nil
+
+        return dispatchApiOperationForPath("tasks", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateTaskWithId(id: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var realParams = params
+        realParams["id"] = nil
+        realParams["userId"] = nil
+
+        return dispatchApiOperationForPath("tasks/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Work order API
