@@ -54,6 +54,7 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
         cell.enableEdgeToEdgeDividers()
         
         if indexPath.section == 0 && indexPath.row == 0 {
+            cell.task = Task()
             return cell
         }
 
