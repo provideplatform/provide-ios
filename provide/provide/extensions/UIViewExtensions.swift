@@ -14,7 +14,16 @@ extension UIView {
         transitionWithView(view, duration: duration, options: options, animations: animations, completion: nil)
     }
 
+    func disableTapToDismissKeyboard() {
+        if let gestureRecognizers = gestureRecognizers {
+            for gestureRecognizer in gestureRecognizers {
+                (gestureRecognizer as UIGestureRecognizer).removeTarget(self, action: "endEditing:")
+            }
+        }
+    }
+
     func enableTapToDismissKeyboard() {
+        disableTapToDismissKeyboard()
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: "endEditing:"))
     }
 
