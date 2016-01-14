@@ -177,7 +177,7 @@ class JobsViewController: ViewController,
                     onSuccess: { statusCode, mappingResult in
                         self.tableView?.beginUpdates()
                         self.jobs.removeObject(job)
-                        self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+                        self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Middle)
                         self.tableView?.endUpdates()
                     },
                     onError: { error, statusCode, responseString in
