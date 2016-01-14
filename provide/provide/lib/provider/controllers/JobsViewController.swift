@@ -67,7 +67,7 @@ class JobsViewController: ViewController,
                     let cacheAge = job.timeIntervalSinceLastRefreshDate()
                     if cacheAge >= 0.0 {
                         if cacheAge > 60.0 {
-                            job.reload(
+                            job.reload(["include_supervisors": "true"],
                                 onSuccess: { statusCode, mappingResult in
                                     if let job = mappingResult.firstObject as? Job {
                                         var index: Int?
