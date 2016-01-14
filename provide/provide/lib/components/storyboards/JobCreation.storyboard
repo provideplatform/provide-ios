@@ -27,11 +27,11 @@
             <objects>
                 <tableViewController id="dNb-js-DXL" customClass="JobCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="15" sectionFooterHeight="1" id="WeV-Tp-f3c">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search 91 customers" id="tMf-bH-FGZ">
-                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done"/>
                             <connections>
@@ -42,7 +42,7 @@
                             <tableViewSection headerTitle="Customer" id="chG-NQ-G8M">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="125" id="0IE-qE-rhE">
-                                        <rect key="frame" x="0.0" y="157.5" width="600" height="125"/>
+                                        <rect key="frame" x="0.0" y="93.5" width="600" height="125"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0IE-qE-rhE" id="d9S-pM-tXC">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="124.5"/>
@@ -68,7 +68,7 @@
                             <tableViewSection headerTitle="Name" id="7dc-Sf-zIj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="oco-Zf-jiw">
-                                        <rect key="frame" x="0.0" y="315.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="251.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oco-Zf-jiw" id="een-28-8qZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -90,7 +90,7 @@
                             <tableViewSection headerTitle="Quoted Price Per Sq Ft" id="vpF-eI-w5j">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Fn4-kG-rHY">
-                                        <rect key="frame" x="0.0" y="392.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="328.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fn4-kG-rHY" id="lAR-mf-hws">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -112,7 +112,7 @@
                             <tableViewSection headerTitle="Total Sq Ft" id="UwA-qE-fwj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="PEe-vS-ewk">
-                                        <rect key="frame" x="0.0" y="469.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="405.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PEe-vS-ewk" id="Psq-gK-cqI">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -134,7 +134,7 @@
                             <tableViewSection id="1cW-8Y-0Us">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lLD-6o-PDC">
-                                        <rect key="frame" x="0.0" y="529.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="465.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLD-6o-PDC" id="uY1-kY-8yD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -175,6 +175,7 @@
                             <outlet property="delegate" destination="dNb-js-DXL" id="TCC-2u-Y0o"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="1n2-mf-of7"/>
                     <connections>
                         <outlet property="createButton" destination="lIO-r8-tMc" id="Dj6-iB-FWg"/>

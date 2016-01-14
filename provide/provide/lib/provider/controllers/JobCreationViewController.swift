@@ -215,19 +215,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         }
 
         if let cell = cell {
-            let indexPath = tableView.indexPathForCell(cell)
-            let rect = tableView.convertRect(tableView.rectForSection(indexPath!.section), toView: nil)
-            dispatch_after_delay(0.0) {
-                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                    animations: {
-                        let offset = self.navigationController != nil ? self.navigationController!.navigationBar.frame.height : 0.0
-                        self.tableView.frame.origin.y -= (rect.origin.y - offset - 20.0)
-                    },
-                    completion: { (complete) -> Void in
-
-                    }
-                )
-            }
+            let indexPath = tableView.indexPathForCell(cell)!
+            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
     }
 
@@ -266,6 +255,9 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
             if let totalSqFt = Double(textField.text!) {
                 if totalSqFt > 0.0 {
                     textField.resignFirstResponder()
+                    dispatch_after_delay(0.0) {
+                        self.createJob()
+                    }
                     return true
                 }
             }
@@ -289,7 +281,6 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         if searchBar.isFirstResponder() {
             searchBar.resignFirstResponder()
             if nameTextField.canBecomeFirstResponder() {
-
                 UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                     animations: { Void in
                         self.tableView.contentOffset = CGPoint(x: 0.0, y: self.customerPickerViewController.view.frame.height * 1.5)
@@ -384,6 +375,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
                     (view as! UIActivityIndicatorView).startAnimating()
                 } else if view.isKindOfClass(UIButton) {
                     view.alpha = 0.0
+                    (view as! UIButton).enabled = false
                 }
             }
         }
@@ -397,6 +389,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
                     (view as! UIActivityIndicatorView).stopAnimating()
                 } else if view.isKindOfClass(UIButton) {
                     view.alpha = 1.0
+                    (view as! UIButton).enabled = true
                 }
             }
         }

@@ -96,7 +96,7 @@ class JobsViewController: ViewController,
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 425)
+            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 550)
             navigationController.popoverPresentationController!.delegate = self
 
             jobCreationViewController = navigationController.viewControllers.first! as! JobCreationViewController
@@ -172,17 +172,19 @@ class JobsViewController: ViewController,
         alertController.addAction(cancelAction)
 
         let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .Destructive) { action in
-            job.cancel(
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.tableView?.beginUpdates()
-                    self!.jobs.removeObject(job)
-                    self!.tableView?.deleteRowsAtIndexPaths([self!.tableView.indexPathForCell(cell)!], withRowAnimation: .Left)
-                    self!.tableView?.endUpdates()
-                },
-                onError: { error, statusCode, responseString in
-
-                }
-            )
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                job.cancel(
+                    onSuccess: { statusCode, mappingResult in
+                        self.tableView?.beginUpdates()
+                        self.jobs.removeObject(job)
+                        self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Automatic)
+                        self.tableView?.endUpdates()
+                    },
+                    onError: { error, statusCode, responseString in
+                        
+                    }
+                )
+            }
         }
         alertController.addAction(setCancelJobAction)
 
