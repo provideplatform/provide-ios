@@ -53,6 +53,15 @@ class WorkOrderService: NSObject {
         return sharedInstance
     }
 
+    func workOrderWithId(id: Int) -> WorkOrder! {
+        for workOrder in workOrders {
+            if workOrder.id == id {
+                return workOrder
+            }
+        }
+        return nil
+    }
+
     func setWorkOrders(workOrders: [WorkOrder]) {
         self.workOrders = workOrders
     }
