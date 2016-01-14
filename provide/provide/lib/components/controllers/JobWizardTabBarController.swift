@@ -32,6 +32,17 @@ class JobWizardTabBarController: UITabBarController,
                         jobBlueprintsViewController.refresh()
                     }
                 }
+
+                if job.supervisors == nil {
+                    job.reloadSupervisors(
+                        { statusCode, mappingResult in
+
+                        },
+                        onError: { error, statusCode, responseString in
+
+                        }
+                    )
+                }
             }
         }
     }
