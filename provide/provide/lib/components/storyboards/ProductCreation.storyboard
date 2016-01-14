@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Regular.ttf">
@@ -142,22 +143,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CREATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rif-kg-8e7">
-                                                    <rect key="frame" x="270" y="12" width="59" height="20.5"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gBw-qC-YgN">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="CREATE">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Nwq-pC-jds">
                                                     <rect key="frame" x="290" y="12" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gBw-qC-YgN" secondAttribute="bottom" constant="-8" id="GfR-M2-goK"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="height" secondItem="vrn-uo-pKN" secondAttribute="height" id="KQQ-RU-E6v"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="top" secondItem="vrn-uo-pKN" secondAttribute="topMargin" constant="-8" id="R1t-Nk-YDj"/>
                                                 <constraint firstItem="Nwq-pC-jds" firstAttribute="centerY" secondItem="vrn-uo-pKN" secondAttribute="centerY" id="TRO-05-MgH"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="centerY" secondItem="vrn-uo-pKN" secondAttribute="centerY" id="YUb-Pw-VUq"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gBw-qC-YgN" secondAttribute="trailing" constant="-8" id="YmU-V5-alw"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="centerX" secondItem="vrn-uo-pKN" secondAttribute="centerX" id="gcR-WM-xgB"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="width" secondItem="vrn-uo-pKN" secondAttribute="width" id="iKQ-cF-SFs"/>
                                                 <constraint firstItem="Nwq-pC-jds" firstAttribute="centerX" secondItem="vrn-uo-pKN" secondAttribute="centerX" id="ink-58-q88"/>
-                                                <constraint firstItem="rif-kg-8e7" firstAttribute="centerY" secondItem="vrn-uo-pKN" secondAttribute="centerY" id="mrS-Nz-CxV"/>
-                                                <constraint firstItem="rif-kg-8e7" firstAttribute="centerX" secondItem="vrn-uo-pKN" secondAttribute="centerX" id="xWW-ct-ZGy"/>
+                                                <constraint firstItem="gBw-qC-YgN" firstAttribute="leading" secondItem="vrn-uo-pKN" secondAttribute="leadingMargin" constant="-8" id="yCq-uT-cGf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -174,6 +183,7 @@
                         <outlet property="gtinTextField" destination="Q0c-Wh-aB9" id="eCg-A2-LyS"/>
                         <outlet property="nameTextField" destination="eQ0-L0-8A9" id="7k4-bO-o10"/>
                         <outlet property="priceTextField" destination="XK8-Fe-1DF" id="FHq-ha-3sf"/>
+                        <outlet property="saveButton" destination="gBw-qC-YgN" id="FCh-xS-T04"/>
                         <outlet property="unitOfMeasureTextField" destination="EWe-we-hs2" id="oeD-i3-VKU"/>
                     </connections>
                 </tableViewController>
@@ -243,22 +253,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-DO-Q8y">
-                                                    <rect key="frame" x="290" y="12" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALLOCATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T5B-Q0-fMJ">
-                                                    <rect key="frame" x="261" y="11" width="78" height="21"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWm-TN-sgE">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="ALLOCATE">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-DO-Q8y">
+                                                    <rect key="frame" x="290" y="12.5" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="centerX" secondItem="Bp4-PC-T45" secondAttribute="centerX" id="0yg-fH-Srw"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="VWm-TN-sgE" secondAttribute="bottom" constant="-8" id="2jH-EL-Uxr"/>
                                                 <constraint firstItem="lhD-DO-Q8y" firstAttribute="centerY" secondItem="Bp4-PC-T45" secondAttribute="centerY" id="4HM-08-L3R"/>
-                                                <constraint firstItem="T5B-Q0-fMJ" firstAttribute="centerY" secondItem="Bp4-PC-T45" secondAttribute="centerY" id="Bec-es-iPk"/>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="centerY" secondItem="Bp4-PC-T45" secondAttribute="centerY" id="NZB-Uo-H0p"/>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="width" secondItem="Bp4-PC-T45" secondAttribute="width" id="SPN-UJ-Que"/>
                                                 <constraint firstItem="lhD-DO-Q8y" firstAttribute="centerX" secondItem="Bp4-PC-T45" secondAttribute="centerX" id="eY3-m2-X2n"/>
-                                                <constraint firstItem="T5B-Q0-fMJ" firstAttribute="centerX" secondItem="Bp4-PC-T45" secondAttribute="centerX" id="ybj-ns-Hfx"/>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="leading" secondItem="Bp4-PC-T45" secondAttribute="leadingMargin" constant="-8" id="fgb-Nz-V0V"/>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="top" secondItem="Bp4-PC-T45" secondAttribute="topMargin" constant="-8" id="paU-Ag-bXW"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="VWm-TN-sgE" secondAttribute="trailing" constant="-8" id="q4y-pw-zKA"/>
+                                                <constraint firstItem="VWm-TN-sgE" firstAttribute="height" secondItem="Bp4-PC-T45" secondAttribute="height" id="zNb-oT-PFl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -274,6 +292,7 @@
                     <connections>
                         <outlet property="priceTextField" destination="FCf-Dd-ctA" id="Mm8-rX-wDa"/>
                         <outlet property="quantityTextField" destination="fOX-cj-qUg" id="2zc-IR-8Ia"/>
+                        <outlet property="saveButton" destination="VWm-TN-sgE" id="bM6-5O-OWM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fqv-U7-LBf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,21 +361,29 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fTF-I3-BDA">
-                                                    <rect key="frame" x="290" y="12" width="20" height="20"/>
-                                                </activityIndicatorView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALLOCATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgf-k7-OiP">
-                                                    <rect key="frame" x="261" y="11" width="78" height="21"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TB1-7m-H11">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="ALLOCATE">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fTF-I3-BDA">
+                                                    <rect key="frame" x="290" y="12.5" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstItem="qgf-k7-OiP" firstAttribute="centerY" secondItem="WA6-Xo-HNm" secondAttribute="centerY" id="DI1-XF-dv1"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="width" secondItem="WA6-Xo-HNm" secondAttribute="width" id="0Q4-BK-uCW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="TB1-7m-H11" secondAttribute="bottom" constant="-8" id="1uK-uh-ZGl"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="centerY" secondItem="WA6-Xo-HNm" secondAttribute="centerY" id="BlN-UO-Gii"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="TB1-7m-H11" secondAttribute="trailing" constant="-8" id="Dcm-Pg-5SS"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="centerX" secondItem="WA6-Xo-HNm" secondAttribute="centerX" id="I3u-Sc-uHf"/>
                                                 <constraint firstItem="fTF-I3-BDA" firstAttribute="centerX" secondItem="WA6-Xo-HNm" secondAttribute="centerX" id="S4W-hj-8vW"/>
-                                                <constraint firstItem="qgf-k7-OiP" firstAttribute="centerX" secondItem="WA6-Xo-HNm" secondAttribute="centerX" id="S6b-1b-5Pp"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="top" secondItem="WA6-Xo-HNm" secondAttribute="topMargin" constant="-8" id="Xgy-qm-Lup"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="leading" secondItem="WA6-Xo-HNm" secondAttribute="leadingMargin" constant="-8" id="dFl-wF-9cK"/>
+                                                <constraint firstItem="TB1-7m-H11" firstAttribute="height" secondItem="WA6-Xo-HNm" secondAttribute="height" id="ioz-5p-nwV"/>
                                                 <constraint firstItem="fTF-I3-BDA" firstAttribute="centerY" secondItem="WA6-Xo-HNm" secondAttribute="centerY" id="pTB-cY-4h0"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -373,6 +400,7 @@
                     <connections>
                         <outlet property="priceTextField" destination="BT9-Mk-Jsw" id="HTc-N0-BsY"/>
                         <outlet property="quantityTextField" destination="k6N-8H-dQa" id="k42-HB-B6O"/>
+                        <outlet property="saveButton" destination="TB1-7m-H11" id="QFy-Mh-gkp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vHx-kl-mOV" userLabel="First Responder" sceneMemberID="firstResponder"/>

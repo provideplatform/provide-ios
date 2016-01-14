@@ -44,6 +44,47 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         populateTextFields()
     }
 
+    override func save() {
+        tableView.endEditing(true)
+
+        if let workOrder = workOrder {
+            let workOrderProduct = workOrder.workOrderProductForJobProduct(self.workOrderProduct.jobProduct)
+            if let quantityString = quantityTextField?.text {
+                if let quantity = Double(quantityString) {
+                    if quantity <= self.workOrderProduct.jobProduct.remainingQuantity {
+                        workOrderProduct.quantity = quantity
+                    } else {
+                        quantityTextField?.text = ""
+                        showToast("Quantity cannot exceed \(self.workOrderProduct.jobProduct.remainingQuantity)")
+                        return
+                    }
+                }
+            }
+            if let priceString = priceTextField?.text {
+                if priceString.length > 0 {
+                    if let price = Double(priceString) {
+                        workOrderProduct.price = price
+                    }
+                }
+            }
+
+            showActivityIndicator()
+
+            workOrder.save(
+                onSuccess: { statusCode, mappingResult in
+                    self.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self, didUpdateWorkOrderProduct: self.workOrderProduct)
+                },
+                onError: { error, statusCode, responseString in
+                    self.hideActivityIndicator()
+                }
+            )
+        }
+    }
+
+    override func save(sender: UIButton) {
+        save()
+    }
+
     private func populateTextFields() {
         if let workOrderProduct = workOrderProduct {
             if workOrderProduct.quantity == 0.0 {
@@ -63,55 +104,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            if let workOrder = workOrder {
-                let workOrderProduct = workOrder.workOrderProductForJobProduct(self.workOrderProduct.jobProduct)
-                if let quantityString = quantityTextField?.text {
-                    if let quantity = Double(quantityString) {
-                        if quantity <= self.workOrderProduct.jobProduct.remainingQuantity {
-                            workOrderProduct.quantity = quantity
-                        } else {
-                            quantityTextField?.text = ""
-                            showToast("Quantity cannot exceed \(self.workOrderProduct.jobProduct.remainingQuantity)")
-                            return
-                        }
-                    }
-                }
-                if let priceString = priceTextField?.text {
-                    if priceString.length > 0 {
-                        if let price = Double(priceString) {
-                            workOrderProduct.price = price
-                        }
-                    }
-                }
-
-                showActivityIndicator()
-
-                workOrder.save(
-                    onSuccess: { statusCode, mappingResult in
-                        self.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self, didUpdateWorkOrderProduct: self.workOrderProduct)
-                    },
-                    onError: { error, statusCode, responseString in
-                        self.hideActivityIndicator()
-                    }
-                )
-            }
-        }
-
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
-        }
-        return indexPath
-    }
-
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
-        }
     }
 
     // MARK: UITextFieldDelegate
@@ -119,34 +112,25 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
     override func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == quantityTextField {
             if let quantity = textField.text {
-                return quantity ~= "\\d+"
+                if quantity =~ "\\d+" {
+                    textField.resignFirstResponder()
+                    if priceTextField.canBecomeFirstResponder() {
+                        priceTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
             }
-        } else {
-            // TODO-- validate price
-            return true
+        } else if textField == priceTextField {
+            if let price = Double(textField.text!) {
+                if price >= 0.0 {
+                    textField.resignFirstResponder()
+                    dispatch_after_delay(0.0) {
+                        self.save()
+                    }
+                    return true
+                }
+            }
         }
         return false
-    }
-
-    private func showActivityIndicator() {
-        let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
-                (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UILabel) {
-                view.alpha = 0.0
-            }
-        }
-    }
-
-    private func hideActivityIndicator() {
-        let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
-                (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UILabel) {
-                view.alpha = 1.0
-            }
-        }
     }
 }

@@ -19,8 +19,10 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
 
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var gtinTextField: UITextField!
-    @IBOutlet weak var priceTextField: UITextField!
-    @IBOutlet weak var unitOfMeasureTextField: UITextField!
+    @IBOutlet internal weak var priceTextField: UITextField!
+    @IBOutlet internal weak var unitOfMeasureTextField: UITextField!
+
+    @IBOutlet internal weak var saveButton: UIButton!
 
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
@@ -37,7 +39,24 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             navigationItem.leftBarButtonItems = [dismissItem]
         }
 
+        saveButton.addTarget(self, action: "save:", forControlEvents: .TouchUpInside)
+
         setupScanBarButtonItem()
+    }
+
+    internal func save() {
+        tableView.endEditing(true)
+
+        let user = currentUser()
+        if user.defaultCompanyId > 0 {
+            createProductWithCompanyId(user.defaultCompanyId)
+        } else {
+            print("WARNING: this user is associated with multiple companies as a provider so cannot attempt creation without user input")
+        }
+    }
+
+    internal func save(sender: UIButton) {
+        save()
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -64,15 +83,6 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            let user = currentUser()
-            if user.defaultCompanyId > 0 {
-                createProductWithCompanyId(user.defaultCompanyId)
-            } else {
-                print("WARNING: this user is associated with multiple companies as a provider so cannot attempt creation without user input")
-            }
-        }
-
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -94,7 +104,43 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == nameTextField {
             if let name = textField.text {
-                return name.length > 0
+                if name.length > 0 {
+                    textField.resignFirstResponder()
+                    if gtinTextField.canBecomeFirstResponder() {
+                        gtinTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
+            }
+        } else if textField == gtinTextField {
+            if let gtin = textField.text {
+                if gtin.length > 0 {
+                    textField.resignFirstResponder()
+                    if priceTextField.canBecomeFirstResponder() {
+                        priceTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
+            }
+        } else if textField == priceTextField {
+            if let price = Double(textField.text!) {
+                if price > 0.0 {
+                    textField.resignFirstResponder()
+                    if unitOfMeasureTextField.canBecomeFirstResponder() {
+                        unitOfMeasureTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
+            }
+        } else if textField == unitOfMeasureTextField {
+            if let unitOfMeasure = textField.text {
+                if unitOfMeasure.length > 0 {
+                    textField.resignFirstResponder()
+                    dispatch_after_delay(0.0) {
+                        self.save()
+                    }
+                    return true
+                }
             }
         }
         return false
@@ -145,24 +191,26 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
         }
     }
 
-    private func showActivityIndicator() {
+    internal func showActivityIndicator() {
         let section = tableView.numberOfSections - 1
         for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKindOfClass(UIButton) {
                 view.alpha = 0.0
+                (view as! UIButton).enabled = false
             }
         }
     }
 
-    private func hideActivityIndicator() {
+    internal func hideActivityIndicator() {
         let section = tableView.numberOfSections - 1
         for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
             if view.isKindOfClass(UIActivityIndicatorView) {
                 (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKindOfClass(UIButton) {
                 view.alpha = 1.0
+                (view as! UIButton).enabled = true
             }
         }
     }

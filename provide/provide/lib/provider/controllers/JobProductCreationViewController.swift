@@ -44,6 +44,36 @@ class JobProductCreationViewController: ProductCreationViewController {
         populateTextFields()
     }
 
+    override func save() {
+        tableView.endEditing(true)
+
+        if let job = job {
+            let jobProduct = job.jobProductForProduct(self.jobProduct.product)
+            if let quantityString = quantityTextField?.text {
+                if let quantity = Double(quantityString) {
+                    jobProduct.initialQuantity = quantity
+                    jobProduct.remainingQuantity = quantity
+                }
+            }
+            if let priceString = priceTextField?.text {
+                if priceString.length > 0 {
+                    if let price = Double(priceString) {
+                        jobProduct.price = price
+                    }
+                }
+            }
+
+            job.save(
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self!, didUpdateJobProduct: self!.jobProduct)
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
     private func populateTextFields() {
         if let jobProduct = jobProduct {
             if jobProduct.initialQuantity == 0.0 {
@@ -53,7 +83,6 @@ class JobProductCreationViewController: ProductCreationViewController {
             } else {
                 quantityTextField?.text = "\(jobProduct.initialQuantity)"
             }
-
 
             if jobProduct.price > -1.0 {
                 priceTextField?.text = "\(jobProduct.price)"
@@ -66,48 +95,7 @@ class JobProductCreationViewController: ProductCreationViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 2 {
-            if let job = job {
-                let jobProduct = job.jobProductForProduct(self.jobProduct.product)
-                if let quantityString = quantityTextField?.text {
-                    if let quantity = Double(quantityString) {
-                        jobProduct.initialQuantity = quantity
-                        jobProduct.remainingQuantity = quantity
-                    }
-                }
-                if let priceString = priceTextField?.text {
-                    if priceString.length > 0 {
-                        if let price = Double(priceString) {
-                            jobProduct.price = price
-                        }
-                    }
-                }
-
-                job.save(
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self!, didUpdateJobProduct: self!.jobProduct)
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            }
-        }
-
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == 2 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
-        }
-        return indexPath
-    }
-
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 2 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
-        }
     }
 
     // MARK: UITextFieldDelegate
@@ -115,13 +103,25 @@ class JobProductCreationViewController: ProductCreationViewController {
     override func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == quantityTextField {
             if let quantity = textField.text {
-                return quantity ~= "\\d+"
+                if quantity =~ "\\d+" {
+                    textField.resignFirstResponder()
+                    if priceTextField.canBecomeFirstResponder() {
+                        priceTextField.becomeFirstResponder()
+                    }
+                    return true
+                }
             }
-        } else {
-            // TODO-- validate price
-            return true
+        } else if textField == priceTextField {
+            if let price = Double(textField.text!) {
+                if price >= 0.0 {
+                    textField.resignFirstResponder()
+                    dispatch_after_delay(0.0) {
+                        self.save()
+                    }
+                    return true
+                }
+            }
         }
         return false
     }
-
 }
