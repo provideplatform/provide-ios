@@ -28,6 +28,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
+                                       TaskListViewControllerDelegate,
                                        WorkOrderTeamViewControllerDelegate,
                                        WorkOrderInventoryViewControllerDelegate,
                                        UIPopoverPresentationControllerDelegate {
@@ -63,6 +64,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
         saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return saveItem
+    }
+
+    private var taskListItem: UIBarButtonItem! {
+        let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
+        taskListItem.tintColor = UIColor.whiteColor()
+        return taskListItem
     }
 
     private var disabledSaveItem: UIBarButtonItem! {
@@ -208,7 +216,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         if isSaved {
             navigationItem.rightBarButtonItems!.append(cameraItem)
             navigationItem.rightBarButtonItems!.append(expenseItem)
+            navigationItem.rightBarButtonItems!.append(taskListItem)
         }
+    }
+
+    func showTaskList(sender: UIBarButtonItem) {
+        let taskListNavigationController = UIStoryboard("TaskList").instantiateInitialViewController() as! UINavigationController
+        (taskListNavigationController.viewControllers.first! as! TaskListViewController).taskListViewControllerDelegate = self
+        taskListNavigationController.modalPresentationStyle = .Popover
+        taskListNavigationController.preferredContentSize = CGSizeMake(300, 250)
+        taskListNavigationController.popoverPresentationController!.barButtonItem = sender
+        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.Right]
+        taskListNavigationController.popoverPresentationController!.canOverlapSourceViewRect = false
+        presentViewController(taskListNavigationController, animated: true)
     }
 
     override func viewDidLoad() {
@@ -550,6 +570,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
         refreshUI()
         delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
+    }
+
+    // MARK: TaskListViewControllerDelegate
+
+    func workOrderForTaskListViewController(viewController: TaskListViewController) -> WorkOrder! {
+        return workOrder
     }
 
     // MARK: WorkOrderTeamViewControllerDelegate
