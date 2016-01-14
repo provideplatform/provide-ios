@@ -90,12 +90,10 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         dispatch_async(taskOperationQueue) {
             self.task.save(
                 onSuccess: { statusCode, mappingResult in
-                    //let task = mappingResult.firstObject as! Task
-
-                    self.prepareForReuse()
+                    let task = mappingResult.firstObject as! Task
 
                     if isNewTask {
-                        self.delegate?.taskListTableViewCell(self, didCreateTask: self.task)
+                        self.delegate?.taskListTableViewCell(self, didCreateTask: task)
                     } else {
                         self.delegate?.taskListTableViewCell(self, didUpdateTask: self.task)
                     }
