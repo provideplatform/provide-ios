@@ -34,10 +34,30 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
         }
     }
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return dismissItem
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "TASKS"
+
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                navigationController.presentingViewController?.dismissViewController(animated: true)
+            }
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
