@@ -173,6 +173,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                 return false
             }
         }
+        textField.resignFirstResponder()
         saveTask()
         return true
     }
@@ -201,7 +202,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         self.provider = provider
 
         if let queryString = providerQueryString {
-            nameTextField.text = nameTextField.text!.replaceString(queryString, withString: "\(provider.contact.name) ")
+            nameTextField.text = nameTextField.text!.replaceString("@\(queryString)", withString: "@\(provider.contact.name) ")
             providerQueryString = nil
 
             hideNameInputAccessoryView()
