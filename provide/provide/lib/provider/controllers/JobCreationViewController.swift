@@ -96,6 +96,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     }
 
     func createJob(sender: UIButton) {
+        tableView.endEditing(true)
         createJob()
     }
 
