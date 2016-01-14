@@ -27,6 +27,15 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
     private var providerQueryString: String!
     private var provider: Provider!
 
+    private var usesStaticProvidersList: Bool {
+        if let _ = delegate?.jobForTaskListTableViewCell?(self) {
+            return true
+        } else if let _ = delegate?.workOrderForTaskListTableViewCell?(self) {
+            return true
+        }
+        return false
+    }
+
     var task: Task! {
         didSet {
             if let task = task {
@@ -132,23 +141,29 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         if let text = textField.text {
             let string = NSString(string: text)
             if string.containsString("@") {
-                let range = string.rangeOfString("@")
-                let startIndex = range.location + 1
-                if startIndex <= string.length - 1 {
-                    var query: String!
-                    let components = string.substringFromIndex(startIndex).componentsSeparatedByString(" ")
-                    if components.count == 1 {
-                        query = "\(components[0])"
-                    } else if components.count >= 2 {
-                        query = "\(components[0]) \(components[1])"
-                    }
-                    if let query = query {
-                        showNameInputAccessoryView()
-                        providerQueryString = query
-                        providerSearchViewController.query(query)
-                    }
+                if usesStaticProvidersList {
+                    showNameInputAccessoryView()
+                    providerQueryString = ""
+                    providerSearchViewController.query("")
                 } else {
-                    hideNameInputAccessoryView()
+                    let range = string.rangeOfString("@")
+                    let startIndex = range.location + 1
+                    if startIndex <= string.length - 1 {
+                        var query: String!
+                        let components = string.substringFromIndex(startIndex).componentsSeparatedByString(" ")
+                        if components.count == 1 {
+                            query = "\(components[0])"
+                        } else if components.count >= 2 {
+                            query = "\(components[0]) \(components[1])"
+                        }
+                        if let query = query {
+                            showNameInputAccessoryView()
+                            providerQueryString = query
+                            providerSearchViewController.query(query)
+                        }
+                    } else {
+                        hideNameInputAccessoryView()
+                    }
                 }
             } else {
                 hideNameInputAccessoryView()
@@ -199,11 +214,21 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                 },
                 onError: { error, statusCode, responseString in
                     
-            })
+                }
+            )
         }
     }
 
     // MARK: ProviderSearchViewControllerDelegate
+
+    func providersForProviderSearchViewController(viewController: ProviderSearchViewController) -> [Provider]! {
+        if let job = delegate?.jobForTaskListTableViewCell?(self) {
+            return job.supervisors
+        } else if let workOrder = delegate?.workOrderForTaskListTableViewCell?(self) {
+            return workOrder.providers
+        }
+        return nil
+    }
 
     func providerSearchViewController(viewController: ProviderSearchViewController, didSelectProvider provider: Provider) {
         self.provider = provider

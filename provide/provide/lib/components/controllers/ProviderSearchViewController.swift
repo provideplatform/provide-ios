@@ -8,15 +8,24 @@
 
 import UIKit
 
+@objc
 protocol ProviderSearchViewControllerDelegate {
     func providerSearchViewController(viewController: ProviderSearchViewController, didSelectProvider provider: Provider)
+    optional func providersForProviderSearchViewController(viewController: ProviderSearchViewController) -> [Provider]!
 }
 
 class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, ProviderPickerViewControllerDelegate {
 
-    let maximumSearchlessProvidersCount = 20
-
-    var providerSearchViewControllerDelegate: ProviderSearchViewControllerDelegate!
+    var providerSearchViewControllerDelegate: ProviderSearchViewControllerDelegate! {
+        didSet {
+            if let providerSearchViewControllerDelegate = providerSearchViewControllerDelegate {
+                if let providers = providerSearchViewControllerDelegate.providersForProviderSearchViewController?(self) {
+                    maximumSearchlessProvidersCount = providers.count
+                    tableView?.reloadData()
+                }
+            }
+        }
+    }
 
     @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
@@ -33,6 +42,7 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
     private var addingProvider = false
     private var removingProvider = false
 
+    private var maximumSearchlessProvidersCount = 20
     private var totalProvidersCount = -1
 
     private var isInputAccessory = false {
@@ -110,7 +120,13 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
 
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
-            queryResultsPickerViewController?.providers = [Provider]()
+
+            if let providers = providerSearchViewControllerDelegate?.providersForProviderSearchViewController?(self) {
+                queryResultsPickerViewController?.providers = providers
+            } else {
+                queryResultsPickerViewController?.providers = [Provider]()
+            }
+
             tableView.reloadData()
         } else {
             tableView.reloadData()
@@ -143,7 +159,9 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
 
     func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
-
+            if let providers = providerSearchViewControllerDelegate?.providersForProviderSearchViewController?(self) {
+                return providers
+            }
         }
 
         return [Provider]()
@@ -173,11 +191,18 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
     }
 
     func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+        if let providers = providerSearchViewControllerDelegate?.providersForProviderSearchViewController?(self) {
+            viewController.providers = providers
+            return nil
+        }
+
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             if viewController == queryResultsPickerViewController {
                 let user = currentUser()
                 let defaultCompanyId = user.defaultCompanyId
-                return ["company_id": defaultCompanyId > 0 ? defaultCompanyId : NSNull(), "q": queryString != nil ? queryString : NSNull()]
+                if let queryString = queryString {
+                    return ["company_id": defaultCompanyId > 0 ? defaultCompanyId : NSNull(), "q": queryString]
+                }
             }
         }
         return nil
