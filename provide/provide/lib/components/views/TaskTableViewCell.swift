@@ -62,8 +62,6 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         checkboxView?.alpha = 0.0
 
         nameTextField?.text = ""
-
-        task = Task()
     }
 
     private func saveTask() {

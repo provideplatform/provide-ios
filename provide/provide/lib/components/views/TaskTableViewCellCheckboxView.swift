@@ -75,7 +75,9 @@ class TaskTableViewCellCheckboxView: UIView {
             alpha = 1.0
         }
 
-        if let _ = task.completedAt {
+        let completed = task.completedAt != nil || (task.status != nil && task.status == "completed")
+
+        if completed {
             checkIconImageView?.alpha = 1.0
         } else {
             checkIconImageView?.alpha = 0.0
