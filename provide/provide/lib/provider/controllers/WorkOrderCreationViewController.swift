@@ -574,6 +574,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: TaskListViewControllerDelegate
 
+    func jobForTaskListViewController(viewController: TaskListViewController) -> Job! {
+        if workOrder.jobId > 0 {
+            return JobService.sharedService().jobWithId(workOrder.jobId)
+        }
+        return nil
+    }
+
     func workOrderForTaskListViewController(viewController: TaskListViewController) -> WorkOrder! {
         return workOrder
     }
