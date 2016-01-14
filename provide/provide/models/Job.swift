@@ -516,6 +516,10 @@ class Job: Model {
                 let job = mappingResult.firstObject as! Job
                 self.blueprints = job.blueprints
                 self.blueprintImageUrlString = job.blueprintImageUrlString
+
+                if let supervisors = job.supervisors {
+                    self.supervisors = supervisors
+                }
                 // TODO-- marshall the rest of the fields
 
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
