@@ -158,6 +158,13 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
     // MARK: UITextFieldDelegate
 
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if task.id > 0 {
+            return currentUser().id == task.userId
+        }
+        return true
+    }
+
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
             if NSString(string: text).containsString("@") {
