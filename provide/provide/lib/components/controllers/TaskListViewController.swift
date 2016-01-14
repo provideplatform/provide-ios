@@ -120,6 +120,7 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
 
         if let job = taskListViewControllerDelegate?.jobForTaskListViewController?(self) {
             params["job_id"] = String(job.id)
+            params["exclude_work_orders"] = "true"
         }
 
         if let workOrder = taskListViewControllerDelegate?.workOrderForTaskListViewController?(self) {
