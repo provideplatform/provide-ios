@@ -54,6 +54,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                 providerSearchViewController.setInputAccessoryMode()
 
                 showNameInputAccessoryView()
+                hideNameInputAccessoryView()
 
                 nameTextField.addTarget(self, action: "textFieldChanged:", forControlEvents: .EditingChanged)
             }
@@ -142,10 +143,15 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                         query = "\(components[0]) \(components[1])"
                     }
                     if let query = query {
+                        showNameInputAccessoryView()
                         providerQueryString = query
                         providerSearchViewController.query(query)
                     }
+                } else {
+                    hideNameInputAccessoryView()
                 }
+            } else {
+                hideNameInputAccessoryView()
             }
         }
     }
@@ -203,15 +209,20 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
     }
 
     private func hideNameInputAccessoryView() {
-        nameTextField.inputAccessoryView!.alpha = 0.0
-        nameTextField.inputAccessoryView!.hidden = true
-        nameTextField.layoutIfNeeded()
+        if let inputAccessoryView = nameTextField.inputAccessoryView {
+            inputAccessoryView.alpha = 0.0
+            inputAccessoryView.hidden = true
+            nameTextField.layoutIfNeeded()
+        }
     }
 
     private func showNameInputAccessoryView() {
-        nameTextField.inputAccessoryView = providerSearchViewController.view
-        nameTextField.inputAccessoryView!.frame.size.height = 120.0
-        nameTextField.inputAccessoryView!.autoresizingMask = .None
+        if nameTextField.inputAccessoryView == nil {
+            nameTextField.inputAccessoryView = providerSearchViewController.view
+            nameTextField.inputAccessoryView!.frame.size.height = 120.0
+            nameTextField.inputAccessoryView!.autoresizingMask = .None
+        }
+
         nameTextField.inputAccessoryView!.hidden = false
         nameTextField.inputAccessoryView!.alpha = 1.0
 
