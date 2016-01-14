@@ -52,6 +52,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     @IBOutlet private weak var quotedPricePerSqFtTextField: UITextField!
     @IBOutlet private weak var totalSqFtTextField: UITextField!
 
+    @IBOutlet private weak var createButton: UIButton!
+
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
@@ -64,6 +66,8 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         title = "CREATE JOB"
 
         searchBar?.placeholder = ""
+
+        createButton.addTarget(self, action: "createJob:", forControlEvents: .TouchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
@@ -91,6 +95,10 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         }
     }
 
+    func createJob(sender: UIButton) {
+        createJob()
+    }
+
     private func createJob() {
         let job = Job()
         if let customer = customer {
@@ -113,7 +121,6 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
                     if statusCode == 201 {
                         job.reload(
                             onSuccess: { statusCode, mappingResult in
-                                self.hideActivityIndicator()
                                 self.delegate?.jobCreationViewController(self, didCreateJob: mappingResult.firstObject as! Job)
                             },
                             onError: { error, statusCode, responseString in
@@ -130,16 +137,12 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            createJob()
-        }
-
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
+            //tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
 
             if nameTextField.isFirstResponder() {
                 nameTextField.resignFirstResponder()
@@ -150,7 +153,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
     override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+            //tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
         }
     }
 
@@ -172,7 +175,71 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         }
     }
 
+    func enableTapToDismissKeyboard() {
+        disableTapToDismissKeyboard()
+        tableView.enableTapToDismissKeyboard()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "resetTableViewFrame")
+        tableView.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    func disableTapToDismissKeyboard() {
+        tableView.disableTapToDismissKeyboard()
+        tableView.removeGestureRecognizers()
+    }
+
+    func resetTableViewFrame() {
+        tableView.endEditing(true)
+        
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                self.tableView.frame.origin.y = 0.0
+            },
+            completion: { (complete) -> Void in
+
+            }
+        )
+    }
+
     // MARK: UITextFieldDelegate
+
+    func textFieldDidBeginEditing(textField: UITextField) {
+        enableTapToDismissKeyboard()
+
+        var view: UIView! = textField
+        var cell: UITableViewCell!
+        while cell == nil {
+            view = view.superview!
+            if view.isKindOfClass(UITableViewCell) {
+                cell = view as! UITableViewCell
+            }
+        }
+
+        if let cell = cell {
+            let indexPath = tableView.indexPathForCell(cell)
+            let rect = tableView.convertRect(tableView.rectForSection(indexPath!.section), toView: nil)
+            dispatch_after_delay(0.0) {
+                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                    animations: {
+                        let offset = self.navigationController != nil ? self.navigationController!.navigationBar.frame.height : 0.0
+                        self.tableView.frame.origin.y -= (rect.origin.y - offset - 20.0)
+                    },
+                    completion: { (complete) -> Void in
+
+                    }
+                )
+            }
+        }
+    }
+
+    func textFieldDidEndEditing(textField: UITextField) {
+        dispatch_after_delay(0.0) {
+            let hasFirstResponder = self.quotedPricePerSqFtTextField.isFirstResponder() || self.totalSqFtTextField.isFirstResponder()
+            if textField == self.nameTextField && !hasFirstResponder {
+                self.disableTapToDismissKeyboard()
+                self.resetTableViewFrame()
+            }
+        }
+    }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == nameTextField {
@@ -199,9 +266,6 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
             if let totalSqFt = Double(textField.text!) {
                 if totalSqFt > 0.0 {
                     textField.resignFirstResponder()
-                    dispatch_after_delay(0.0) {
-                        self.createJob()
-                    }
                     return true
                 }
             }
@@ -318,7 +382,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
             for view in cell.contentView.subviews {
                 if view.isKindOfClass(UIActivityIndicatorView) {
                     (view as! UIActivityIndicatorView).startAnimating()
-                } else if view.isKindOfClass(UILabel) {
+                } else if view.isKindOfClass(UIButton) {
                     view.alpha = 0.0
                 }
             }
@@ -331,7 +395,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
             for view in cell.contentView.subviews {
                 if view.isKindOfClass(UIActivityIndicatorView) {
                     (view as! UIActivityIndicatorView).stopAnimating()
-                } else if view.isKindOfClass(UILabel) {
+                } else if view.isKindOfClass(UIButton) {
                     view.alpha = 1.0
                 }
             }
