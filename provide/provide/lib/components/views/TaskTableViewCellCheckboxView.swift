@@ -40,7 +40,7 @@ class TaskTableViewCellCheckboxView: UIView {
     }
 
     private func setupFrame() {
-        bounds = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
+        bounds = CGRect(x: 0.0, y: 0.0, width: 25.0, height: 25.0)
         backgroundColor = UIColor.clearColor()
 
         roundCorners(2.0)

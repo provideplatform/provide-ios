@@ -45,15 +45,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NP3-Ky-WCx" customClass="TaskTableViewCellCheckboxView" customModule="provide" customModuleProvider="target">
-                                            <rect key="frame" x="562" y="7" width="30" height="30"/>
+                                            <rect key="frame" x="567" y="10" width="25" height="25"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4T-DG-Q67">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="ThR-eu-eAW"/>
+                                                <constraint firstAttribute="width" constant="25" id="ThR-eu-eAW"/>
                                             </constraints>
                                             <connections>
                                                 <outlet property="checkIconImageView" destination="v4T-DG-Q67" id="JEd-sp-5rD"/>
@@ -69,12 +69,12 @@
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="NP3-Ky-WCx" firstAttribute="top" secondItem="ZcS-4S-xRM" secondAttribute="topMargin" constant="-1" id="1vJ-4A-ceQ"/>
+                                        <constraint firstItem="NP3-Ky-WCx" firstAttribute="top" secondItem="ZcS-4S-xRM" secondAttribute="topMargin" constant="2" id="1vJ-4A-ceQ"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="ooa-2T-mnM" secondAttribute="leading" id="2Wu-Av-BDl"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="ooa-2T-mnM" secondAttribute="trailing" id="DfF-8Q-oBt"/>
                                         <constraint firstItem="ooa-2T-mnM" firstAttribute="top" secondItem="ZcS-4S-xRM" secondAttribute="topMargin" constant="-1" id="Jo3-3q-TKQ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="ooa-2T-mnM" secondAttribute="bottom" constant="-1.5" id="aRK-CD-Fcg"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="NP3-Ky-WCx" secondAttribute="bottom" constant="-1.5" id="bFd-Ds-oya"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="NP3-Ky-WCx" secondAttribute="bottom" constant="0.5" id="bFd-Ds-oya"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="NP3-Ky-WCx" secondAttribute="trailing" id="jdq-UR-P3r"/>
                                     </constraints>
                                 </tableViewCellContentView>
