@@ -32,13 +32,13 @@
             <objects>
                 <tableViewController id="RgA-zi-YSw" customClass="TaskListViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0bO-0V-fj0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="taskListTableViewCellReuseIdentifier" id="thH-SM-c6D" customClass="TaskListTableViewCell" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="thH-SM-c6D" id="ZcS-4S-xRM">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -89,6 +89,7 @@
                             <outlet property="delegate" destination="RgA-zi-YSw" id="eSf-EV-aNI"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="yMO-wQ-mn1"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5P5-ej-swj" userLabel="First Responder" sceneMemberID="firstResponder"/>
