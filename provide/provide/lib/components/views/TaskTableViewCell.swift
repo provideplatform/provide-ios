@@ -16,11 +16,16 @@ protocol TaskListTableViewCellDelegate {
     optional func workOrderForTaskListTableViewCell(tableViewCell: TaskListTableViewCell) -> WorkOrder!
 }
 
-class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableViewCellCheckboxViewDelegate {
+class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableViewCellCheckboxViewDelegate, ProviderSearchViewControllerDelegate {
 
     private let taskOperationQueue = dispatch_queue_create("taskOperationQueue", DISPATCH_QUEUE_SERIAL)
 
     var delegate: TaskListTableViewCellDelegate!
+
+    private var providerSearchViewController: ProviderSearchViewController!
+
+    private var providerQueryString: String!
+    private var provider: Provider!
 
     var task: Task! {
         didSet {
@@ -29,12 +34,32 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
                 if task.id > 0 {
                     nameTextField?.text = task.name
+
+                    if task.providerId > 0 {
+                        let provider = Provider()
+                        provider.id = task.providerId
+
+                        self.provider = provider
+                    }
                 }
             }
         }
     }
 
-    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet private weak var nameTextField: UITextField! {
+        didSet {
+            if let nameTextField = nameTextField {
+                providerSearchViewController = UIStoryboard("ProviderSearch").instantiateInitialViewController() as! ProviderSearchViewController
+                providerSearchViewController.providerSearchViewControllerDelegate = self
+                providerSearchViewController.setInputAccessoryMode()
+
+                showNameInputAccessoryView()
+
+                nameTextField.addTarget(self, action: "textFieldChanged:", forControlEvents: .EditingChanged)
+            }
+        }
+    }
+
     @IBOutlet private weak var checkboxView: TaskTableViewCellCheckboxView! {
         didSet {
             if let checkboxView = checkboxView {
@@ -45,8 +70,6 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
             }
         }
     }
-
-    private var provider: Provider!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,7 +88,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
     }
 
     private func saveTask() {
-        task.name = nameTextField.text
+        task.name = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
             task.companyId = defaultCompanyId
@@ -90,9 +113,8 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         dispatch_async(taskOperationQueue) {
             self.task.save(
                 onSuccess: { statusCode, mappingResult in
-                    let task = mappingResult.firstObject as! Task
-
                     if isNewTask {
+                        let task = mappingResult.firstObject as! Task
                         self.delegate?.taskListTableViewCell(self, didCreateTask: task)
                     } else {
                         self.delegate?.taskListTableViewCell(self, didUpdateTask: self.task)
@@ -105,7 +127,39 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         }
     }
 
+    func textFieldChanged(textField: UITextField) {
+        if let text = textField.text {
+            let string = NSString(string: text)
+            if string.containsString("@") {
+                let range = string.rangeOfString("@")
+                let startIndex = range.location + 1
+                if startIndex <= string.length - 1 {
+                    var query: String!
+                    let components = string.substringFromIndex(startIndex).componentsSeparatedByString(" ")
+                    if components.count == 1 {
+                        query = "\(components[0])"
+                    } else if components.count >= 2 {
+                        query = "\(components[0]) \(components[1])"
+                    }
+                    if let query = query {
+                        providerQueryString = query
+                        providerSearchViewController.query(query)
+                    }
+                }
+            }
+        }
+    }
+
     // MARK: UITextFieldDelegate
+
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text {
+            if NSString(string: text).containsString("@") {
+                return string != "@"
+            }
+        }
+        return true
+    }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == nameTextField {
@@ -133,5 +187,34 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                     
             })
         }
+    }
+
+    // MARK: ProviderSearchViewControllerDelegate
+
+    func providerSearchViewController(viewController: ProviderSearchViewController, didSelectProvider provider: Provider) {
+        self.provider = provider
+
+        if let queryString = providerQueryString {
+            nameTextField.text = nameTextField.text!.replaceString(queryString, withString: "\(provider.contact.name) ")
+            providerQueryString = nil
+
+            hideNameInputAccessoryView()
+        }
+    }
+
+    private func hideNameInputAccessoryView() {
+        nameTextField.inputAccessoryView!.alpha = 0.0
+        nameTextField.inputAccessoryView!.hidden = true
+        nameTextField.layoutIfNeeded()
+    }
+
+    private func showNameInputAccessoryView() {
+        nameTextField.inputAccessoryView = providerSearchViewController.view
+        nameTextField.inputAccessoryView!.frame.size.height = 120.0
+        nameTextField.inputAccessoryView!.autoresizingMask = .None
+        nameTextField.inputAccessoryView!.hidden = false
+        nameTextField.inputAccessoryView!.alpha = 1.0
+
+        nameTextField.layoutIfNeeded()
     }
 }
