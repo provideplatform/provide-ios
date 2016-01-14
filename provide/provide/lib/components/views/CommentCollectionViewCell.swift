@@ -35,7 +35,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 } else if secondsOld < 86400 {
                     timestampLabel?.text = "\(NSString(format: "%.0f", ceil(secondsOld / 60.0 / 60.0))) hours ago"
                 } else {
-                    var timestamp = "\(comment.createdAtDate.dayOfWeek), \(comment.createdAtDate.month) \(comment.createdAtDate.dayOfMonth)"
+                    var timestamp = "\(comment.createdAtDate.dayOfWeek), \(comment.createdAtDate.monthName) \(comment.createdAtDate.dayOfMonth), \(comment.createdAtDate.year)"
                     if let timeString = comment.createdAtDate.timeString {
                         timestamp = "\(timestamp) at \(timeString)"
                     }
