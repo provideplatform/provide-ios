@@ -307,8 +307,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
                 blueprintPreviewContainerView.alpha = 1.0
 
                 ApiService.sharedService().fetchImage(blueprintImageUrl,
-                    onImageFetched: { [weak self] statusCode, image  in
-                        self!.setBlueprintImage(image)
+                    onImageFetched: { statusCode, image  in
+                        self.setBlueprintImage(image)
                     },
                     onError: { error, statusCode, responseString in
                         
