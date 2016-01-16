@@ -120,6 +120,16 @@ class ApiService: NSObject {
         deleteToken(onSuccess, onError: onError)
     }
 
+    private func forceLogout() {
+        if !isSimulator() {
+            unregisterForRemoteNotifications()
+        }
+
+        localLogout()
+
+        NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
+    }
+
     private func deleteToken(onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         if let token = KeyChainService.sharedService().token {
             return dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
@@ -143,6 +153,8 @@ class ApiService: NSObject {
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
         AnalyticsService.sharedService().logout()
+
+        backoffTimeout = nil
     }
 
     // MARK: Fetch images
@@ -885,6 +897,12 @@ class ApiService: NSObject {
                                                                                                        "params": jsonParams,
                                                                                                        "responseString": responseString,
                                                                                                        "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
+
+                            if statusCode == 401 {
+                                if baseURL.absoluteString == CurrentEnvironment.baseUrlString {
+                                    self.forceLogout()
+                                }
+                            }
                         } else if let err = error {
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription,
                                                                                                        "code": err.code,
