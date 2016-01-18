@@ -110,7 +110,13 @@ class JobBlueprintsViewController: ViewController,
     }
 
     private var shouldLoadBlueprint: Bool {
-        return !hasBlueprintScale && job?.blueprintImageUrl != nil
+        if let job = job {
+            if job.blueprintImageUrl == nil {
+                return false
+            }
+            return !hasBlueprintScale || job.isResidential
+        }
+        return false
     }
 
     private var viewLoaded = false
