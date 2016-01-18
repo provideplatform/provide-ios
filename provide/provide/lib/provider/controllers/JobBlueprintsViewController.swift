@@ -214,7 +214,9 @@ class JobBlueprintsViewController: ViewController,
                     renderInstruction("Congrats! Your blueprint is configured properly.")
                 }
             } else if job.isResidential {
-                renderFloorplans()
+                if job.blueprintImageUrl == nil {
+                    renderFloorplans()
+                }
             }
         } else {
             renderInstruction("Loading job")
