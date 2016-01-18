@@ -140,6 +140,7 @@
 		687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5901B07F6020048B692 /* ProviderService.swift */; };
 		687CB5A31B07F6020048B692 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5911B07F6020048B692 /* RouteService.swift */; };
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
+		687ECC6E1C4CB80A00FD5C4C /* Floorplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */; };
 		688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441561C06E3A10017D4AA /* PinInputViewController.swift */; };
 		6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441591C06E3E10017D4AA /* PinInputControl.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
@@ -420,6 +421,7 @@
 		687CB5901B07F6020048B692 /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
 		687CB5911B07F6020048B692 /* RouteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
+		687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floorplan.swift; sourceTree = "<group>"; };
 		688441561C06E3A10017D4AA /* PinInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputViewController.swift; sourceTree = "<group>"; };
 		688441591C06E3E10017D4AA /* PinInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputControl.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
@@ -1187,6 +1189,7 @@
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
 				68E329561C12CA1300DC297A /* Expense.swift */,
+				687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */,
 				6840F1691BDB59D700EF70F7 /* Job.swift */,
 				685DE1141C17529C0089EF94 /* JobProduct.swift */,
 				687B650D1C2431800088E539 /* MenuItem.swift */,
@@ -1657,6 +1660,7 @@
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
 				68E2180E1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift in Sources */,
 				68E329891C16E08600DC297A /* ExpensesViewController.swift in Sources */,
+				687ECC6E1C4CB80A00FD5C4C /* Floorplan.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
 				68F48F7C1C446A09005F9AB1 /* Task.swift in Sources */,
