@@ -65,10 +65,31 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Type" id="hKe-of-6eX">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="CFa-bv-H7N">
+                                        <rect key="frame" x="0.0" y="251.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CFa-bv-H7N" id="klS-ri-k6T">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="WuX-tZ-4fJ">
+                                                    <rect key="frame" x="8" y="8" width="215" height="29"/>
+                                                    <segments>
+                                                        <segment title="Commercial"/>
+                                                        <segment title="Residential"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle="Name" id="7dc-Sf-zIj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="oco-Zf-jiw">
-                                        <rect key="frame" x="0.0" y="251.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="328.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oco-Zf-jiw" id="een-28-8qZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -90,7 +111,7 @@
                             <tableViewSection headerTitle="Quoted Price Per Sq Ft" id="vpF-eI-w5j">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="Fn4-kG-rHY">
-                                        <rect key="frame" x="0.0" y="328.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="405.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fn4-kG-rHY" id="lAR-mf-hws">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -112,7 +133,7 @@
                             <tableViewSection headerTitle="Total Sq Ft" id="UwA-qE-fwj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="PEe-vS-ewk">
-                                        <rect key="frame" x="0.0" y="405.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="482.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PEe-vS-ewk" id="Psq-gK-cqI">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -134,7 +155,7 @@
                             <tableViewSection id="1cW-8Y-0Us">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lLD-6o-PDC">
-                                        <rect key="frame" x="0.0" y="465.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="542.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLD-6o-PDC" id="uY1-kY-8yD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -179,10 +200,17 @@
                     <navigationItem key="navigationItem" id="1n2-mf-of7"/>
                     <connections>
                         <outlet property="createButton" destination="lIO-r8-tMc" id="Dj6-iB-FWg"/>
+                        <outlet property="createButtonTableViewCell" destination="lLD-6o-PDC" id="3P3-zo-zPL"/>
+                        <outlet property="customerTableViewCell" destination="0IE-qE-rhE" id="zwY-ch-ZrJ"/>
+                        <outlet property="nameTableViewCell" destination="oco-Zf-jiw" id="Emg-re-YdR"/>
                         <outlet property="nameTextField" destination="GkG-IJ-Ybz" id="dQj-dV-4Re"/>
+                        <outlet property="quotedPricePerSqFtTableViewCell" destination="Fn4-kG-rHY" id="KDY-Gu-rJE"/>
                         <outlet property="quotedPricePerSqFtTextField" destination="LIy-8v-YVl" id="ef7-HA-tQE"/>
                         <outlet property="searchBar" destination="tMf-bH-FGZ" id="le4-Ah-dEo"/>
+                        <outlet property="totalSqFtTableViewCell" destination="PEe-vS-ewk" id="WB3-dv-2W8"/>
                         <outlet property="totalSqFtTextField" destination="Cig-Gc-6zf" id="SJ3-jM-bp3"/>
+                        <outlet property="typeSegmentedControl" destination="WuX-tZ-4fJ" id="4nK-6K-r9S"/>
+                        <outlet property="typeTableViewCell" destination="CFa-bv-H7N" id="IUp-xs-vtG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-KB-rML" userLabel="First Responder" sceneMemberID="firstResponder"/>

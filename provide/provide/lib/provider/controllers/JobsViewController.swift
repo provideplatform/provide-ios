@@ -96,7 +96,7 @@ class JobsViewController: ViewController,
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 550)
+            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 650)
             navigationController.popoverPresentationController!.delegate = self
 
             jobCreationViewController = navigationController.viewControllers.first! as! JobCreationViewController

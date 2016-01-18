@@ -12,7 +12,10 @@ protocol JobCreationViewControllerDelegate: NSObjectProtocol {
     func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job)
 }
 
-class JobCreationViewController: UITableViewController, UISearchBarDelegate, UITextFieldDelegate, CustomerPickerViewControllerDelegate {
+class JobCreationViewController: UITableViewController,
+                                 UISearchBarDelegate,
+                                 UITextFieldDelegate,
+                                 CustomerPickerViewControllerDelegate {
 
     let maximumSearchlessCustomersCount = 10
 
@@ -48,11 +51,19 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
+    @IBOutlet private weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var quotedPricePerSqFtTextField: UITextField!
     @IBOutlet private weak var totalSqFtTextField: UITextField!
 
     @IBOutlet private weak var createButton: UIButton!
+
+    @IBOutlet private weak var customerTableViewCell: UITableViewCell!
+    @IBOutlet private weak var typeTableViewCell: UITableViewCell!
+    @IBOutlet private weak var nameTableViewCell: UITableViewCell!
+    @IBOutlet private weak var quotedPricePerSqFtTableViewCell: UITableViewCell!
+    @IBOutlet private weak var totalSqFtTableViewCell: UITableViewCell!
+    @IBOutlet private weak var createButtonTableViewCell: UITableViewCell!
 
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
@@ -67,11 +78,23 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
         searchBar?.placeholder = ""
 
+        typeSegmentedControl.addTarget(self, action: "typeChanged:", forControlEvents: .ValueChanged)
+
         createButton.addTarget(self, action: "createJob:", forControlEvents: .TouchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
         }
+    }
+
+    func typeChanged(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            print("job type is commercial")
+        } else if sender.selectedSegmentIndex == 1 {
+            print("job type is residential")
+        }
+
+        tableView.reloadData()
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -102,6 +125,7 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
     private func createJob() {
         let job = Job()
+        job.type = typeSegmentedControl.selectedSegmentIndex == 0 ? "commercial" : (typeSegmentedControl.selectedSegmentIndex == 1 ? "residential" : nil)
         if let customer = customer {
             job.customerId = customer.id
             job.companyId = customer.companyId
@@ -143,8 +167,6 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
 
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         if indexPath.section == tableView.numberOfSections - 1 {
-            //tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
-
             if nameTextField.isFirstResponder() {
                 nameTextField.resignFirstResponder()
             }
@@ -152,10 +174,64 @@ class JobCreationViewController: UITableViewController, UISearchBarDelegate, UIT
         return indexPath
     }
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            //tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == numberOfSectionsInTableView(tableView) - 1 {
+            return nil
         }
+
+        if section == 0 {
+            return "CUSTOMER"
+        } else if section == 1 {
+            return "TYPE"
+        } else if section == 2 {
+            return "NAME"
+        }
+
+        if typeSegmentedControl.selectedSegmentIndex == 0 {
+            if section == 3 {
+                return "QUOTED PRICE PER SQ FT"
+            } else if section == 4 {
+                return "TOTAL SQ FT"
+            }
+        }
+
+        return nil
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == numberOfSectionsInTableView(tableView) - 1 {
+            return createButtonTableViewCell
+        }
+
+        if indexPath.section == 0 {
+            return customerTableViewCell
+        } else if indexPath.section == 1 {
+            return typeTableViewCell
+        } else if indexPath.section == 2 {
+            return nameTableViewCell
+        }
+
+        if typeSegmentedControl.selectedSegmentIndex == 0 {
+            if indexPath.section == 3 {
+                return quotedPricePerSqFtTableViewCell
+            } else if indexPath.section == 4 {
+                return totalSqFtTableViewCell
+            }
+        }
+
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            return cell
+        }
+
+        return UITableViewCell()
+    }
+
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if typeSegmentedControl.selectedSegmentIndex == 1 || typeSegmentedControl.selectedSegmentIndex == -1 {
+            return 4
+        }
+
+        return 6
     }
 
     // MARK: UISearchBarDelegate

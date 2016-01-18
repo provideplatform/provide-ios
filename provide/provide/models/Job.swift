@@ -40,6 +40,7 @@ class Job: Model {
     var profitPerSqFt: NSNumber!
     var quotedPricePerSqFt = -1.0
     var supervisors: [Provider]!
+    var type: String!
     var totalSqFt = -1.0
     var workOrdersCount = 0
     var wizardMode: NSNumber!
@@ -77,6 +78,7 @@ class Job: Model {
             "profit": "profit",
             "profit_margin": "profitMargin",
             "profit_per_sq_ft": "profitPerSqFt",
+            "type": "type",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
@@ -103,6 +105,20 @@ class Job: Model {
     var hasPendingBlueprint: Bool {
         if let blueprint = blueprint {
             return blueprint.status == "pending"
+        }
+        return false
+    }
+
+    var isCommercial: Bool {
+        if let type = type {
+            return type == "commercial"
+        }
+        return false
+    }
+
+    var isResidential: Bool {
+        if let type = type {
+            return type == "residential"
         }
         return false
     }
