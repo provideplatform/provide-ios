@@ -424,9 +424,7 @@ class JobBlueprintsViewController: ViewController,
     func floorplansViewController(viewController: FloorplansViewController, didSelectFloorplan floorplan: Floorplan) {
         floorplansContainerView.removeFromSuperview()
 
-        renderInstruction("Using floorplan \(floorplan.name)...")
-        blueprintActivityIndicatorView?.startAnimating()
-        blueprintPreviewContainerView?.alpha = 1.0
+        importStatus = "Using floorplan \(floorplan.name)..."
 
         if job.floorplans == nil {
             job.floorplans = [Floorplan]()
