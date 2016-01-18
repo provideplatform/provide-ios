@@ -24,6 +24,7 @@ class Job: Model {
     var blueprintImageUrlString: String!
     var blueprintScale = 0.0
     var blueprintAnnotationsCount = 0
+    var floorplans: [Floorplan]!
     var status: String!
     var expenses: [Expense]!
     var expensesCount = 0
@@ -86,6 +87,7 @@ class Job: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", withMapping: Floorplan.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
         return mapping
@@ -533,6 +535,10 @@ class Job: Model {
                 self.blueprints = job.blueprints
                 self.blueprintImageUrlString = job.blueprintImageUrlString
 
+                if let floorplans = job.floorplans {
+                    self.floorplans = floorplans
+                }
+
                 if let supervisors = job.supervisors {
                     self.supervisors = supervisors
                 }
@@ -563,6 +569,14 @@ class Job: Model {
         params.removeValueForKey("id")
 
         if id > 0 {
+            if let floorplans = floorplans {
+                var floorplanIds = [Int]()
+                for floorplan in floorplans {
+                    floorplanIds.append(floorplan.id)
+                }
+                params.updateValue(floorplanIds, forKey: "floorplan_ids")
+            }
+
             if let materials = materials {
                 var jobProducts = [[String : AnyObject]]()
                 for jobProduct in materials {

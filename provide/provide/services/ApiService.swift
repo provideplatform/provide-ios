@@ -32,6 +32,7 @@ class ApiService: NSObject {
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
         "expenses": Expense.mapping(),
+        "floorplans": Floorplan.mapping(),
         "jobs": Job.mapping(),
         "job_products": JobProduct.mapping(),
         "products": Product.mapping(),

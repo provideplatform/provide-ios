@@ -13,7 +13,9 @@ protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
     func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController)
 }
 
-class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelegate {
+class JobBlueprintsViewController: ViewController,
+                                   BlueprintViewControllerDelegate,
+                                   FloorplansViewControllerDelegate {
 
     private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
@@ -46,6 +48,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
     @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
 
+    @IBOutlet private weak var floorplansContainerView: UIView!
+
     @IBOutlet private weak var importInstructionsContainerView: UIView!
     @IBOutlet private weak var importInstructionsLabel: UILabel!
 
@@ -53,6 +57,7 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
     private weak var blueprintViewController: BlueprintViewController!
+    private weak var floorplansViewController: FloorplansViewController!
 
     private var reloadingBlueprint = false
     private var reloadingJob = false
@@ -113,11 +118,14 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Setup Blueprint"
+        navigationItem.title = "SETUP BLUEPRINT"
 
         importInstructionsLabel?.text = ""
         importInstructionsContainerView?.alpha = 0.0
         importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
+
+        floorplansContainerView?.alpha = 0.0
+        floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
 
         blueprintPreviewImageView?.alpha = 0.0
         blueprintPreviewImageView?.contentMode = .ScaleAspectFit
@@ -172,29 +180,39 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
     }
 
     func refresh() {
+//        if job.isCommercial {
+//            navigationItem.title = "SETUP BLUEPRINT"
+//        } else if job.isResidential {
+//            navigationItem.title = "SETUP FLOORPLAN"
+//        }
+
         if shouldLoadBlueprint {
             importInstructionsContainerView?.alpha = 0.0
             loadBlueprint()
             blueprintViewController?.blueprintViewControllerDelegate = self
         } else if let job = job {
-            if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-                if job.blueprintImageUrl == nil && importedPngAttachment == nil {
-                    job.reload(
-                        onSuccess: { [weak self] statusCode, mappingResult in
-                            if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
-                                self?.renderInstruction("Import a blueprint for this job.")
-                                self?.showDropbox()
-                            } else if job.hasPendingBlueprint {
-                                self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-                            }
-                        },
-                        onError: { error, statusCode, responseString in
+            if job.isCommercial {
+                if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
+                    if job.blueprintImageUrl == nil && importedPngAttachment == nil {
+                        job.reload(
+                            onSuccess: { [weak self] statusCode, mappingResult in
+                                if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
+                                    self?.renderInstruction("Import a blueprint for this job.")
+                                    self?.showDropbox()
+                                } else if job.hasPendingBlueprint {
+                                    self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+                                }
+                            },
+                            onError: { error, statusCode, responseString in
 
-                        }
-                    )
+                            }
+                        )
+                    }
+                } else if job.blueprintImageUrl != nil {
+                    renderInstruction("Congrats! Your blueprint is configured properly.")
                 }
-            } else if job.blueprintImageUrl != nil {
-                renderInstruction("Congrats! Your blueprint is configured properly.")
+            } else if job.isResidential {
+                renderFloorplans()
             }
         } else {
             renderInstruction("Loading job")
@@ -207,6 +225,9 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
             //blueprintViewController.blueprintViewControllerDelegate = self
+        } else if segue.identifier! == "FloorplansViewControllerEmbedSegue" {
+            floorplansViewController = segue.destinationViewController as! FloorplansViewController
+            floorplansViewController.delegate = self
         }
     }
 
@@ -270,6 +291,15 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
         }
     }
 
+    private func renderFloorplans() {
+        renderInstruction(nil)
+
+        floorplansViewController.reset()
+
+        floorplansContainerView?.alpha = 1.0
+        floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
+    }
+
     private func renderInstruction(message: String!) {
         if let message = message {
             importInstructionsLabel?.text = message
@@ -277,6 +307,8 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
             importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
             importInstructionsContainerView?.alpha = 1.0
+
+            floorplansContainerView?.alpha = 0.0
 
             blueprintActivityIndicatorView?.stopAnimating()
             blueprintPreviewContainerView?.alpha = 0.0
@@ -361,6 +393,45 @@ class JobBlueprintsViewController: ViewController, BlueprintViewControllerDelega
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    // MARK: FloorplansViewControllerDelegate
+
+    func customerIdForFloorplansViewController(viewController: FloorplansViewController) -> Int {
+        if let job = job {
+            return job.customerId
+        }
+        return 0
+    }
+
+    func floorplansViewController(viewController: FloorplansViewController, didSelectFloorplan floorplan: Floorplan) {
+        floorplansContainerView.removeFromSuperview()
+
+        renderInstruction("Using floorplan \(floorplan.name)...")
+        blueprintActivityIndicatorView?.startAnimating()
+        blueprintPreviewContainerView?.alpha = 1.0
+
+        if job.floorplans == nil {
+            job.floorplans = [Floorplan]()
+        }
+
+        job.floorplans.append(floorplan)
+
+        job.save(
+            onSuccess: { statusCode, mappingResult in
+                self.job.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        self.refresh()
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
     }
 
     deinit {

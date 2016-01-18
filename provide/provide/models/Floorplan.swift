@@ -19,12 +19,13 @@ class Floorplan: Model {
     var blueprintImageUrlString: String!
     var blueprintScale = 0.0
     var blueprintAnnotationsCount = 0
-    var totalSqFt = -1
+    var totalSqFt = -1.0
     var numberOfBedrooms = -1
     var numberOfBathrooms = -1
     var garageSize = -1
     var basePrice = -1.0
     var desc: String!
+    var profileImageUrlString: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -42,10 +43,18 @@ class Floorplan: Model {
             "garage_size": "garageSize",
             "base_price": "basePrice",
             "description": "desc",
+            "profile_image_url": "profileImageUrlString",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
         return mapping
+    }
+
+    var profileImageUrl: NSURL! {
+        if let profileImageUrlString = profileImageUrlString {
+            return NSURL(string: profileImageUrlString)
+        }
+        return nil
     }
 
     var blueprintImageUrl: NSURL! {
@@ -73,5 +82,32 @@ class Floorplan: Model {
             }
         }
         return nil
+    }
+
+    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        var params = toDictionary()
+        params.removeValueForKey("id")
+
+        if id > 0 {
+            ApiService.sharedService().updateFloorplanWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        } else {
+            ApiService.sharedService().createFloorplan(params,
+                onSuccess: { statusCode, mappingResult in
+                    let floorplan = mappingResult.firstObject as! Floorplan
+                    self.id = floorplan.id
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
     }
 }

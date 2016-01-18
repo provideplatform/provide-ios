@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -753,6 +754,12 @@
                                     <constraint firstItem="M2J-Ov-1wQ" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="vtQ-7A-mkQ"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2k-0L-gVr">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                                <connections>
+                                    <segue destination="IJu-fh-FSq" kind="embed" identifier="FloorplansViewControllerEmbedSegue" id="9Dt-62-q5K"/>
+                                </connections>
+                            </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OO-pg-gjT">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
@@ -793,14 +800,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="0j8-kU-PwZ"/>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="812-8N-FHq"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leading" id="8R2-Ek-AaO"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="GaY-Ya-p8G"/>
                             <constraint firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="Pit-5c-Z1a"/>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="height" multiplier="600:487" id="QAt-4g-BRN"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="QIw-Ag-o2e"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="fWz-MA-QiB" secondAttribute="top" id="TTy-PY-Gcn"/>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="gfz-5V-tWw"/>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="width" id="kIU-Ru-gUT"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="2OO-pg-gjT" secondAttribute="top" id="ocU-wk-RAe"/>
                             <constraint firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="vor-pe-s7e"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="xfJ-Sb-Rgh"/>
+                            <constraint firstItem="x2k-0L-gVr" firstAttribute="height" secondItem="2OO-pg-gjT" secondAttribute="height" id="zxi-eS-q4H"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -810,6 +823,7 @@
                         <outlet property="blueprintPreviewContainerView" destination="BkC-j0-KT1" id="Q3d-AN-QUj"/>
                         <outlet property="blueprintPreviewImageView" destination="3j8-PF-pdv" id="haP-Xf-KaS"/>
                         <outlet property="blueprintPreviewStatusLabel" destination="9TC-nX-DsW" id="EGy-Ng-Cs3"/>
+                        <outlet property="floorplansContainerView" destination="x2k-0L-gVr" id="6Lq-Ox-nEW"/>
                         <outlet property="importFromDropboxIconButton" destination="7SP-l0-9g0" id="G9T-T7-k4v"/>
                         <outlet property="importFromDropboxTextButton" destination="e6M-E5-2EJ" id="ibg-0N-UKl"/>
                         <outlet property="importInstructionsContainerView" destination="2OO-pg-gjT" id="Hsy-hE-pnc"/>
@@ -826,7 +840,15 @@
                 <viewControllerPlaceholder storyboardName="Blueprint" referencedIdentifier="BlueprintViewController" id="Vn8-Nz-9DZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fyR-5B-nLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2132" y="637"/>
+            <point key="canvasLocation" x="-2097" y="612"/>
+        </scene>
+        <!--FloorplansViewController-->
+        <scene sceneID="1Ob-Re-ErP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Floorplans" referencedIdentifier="FloorplansViewController" id="IJu-fh-FSq" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P8c-Dh-P0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2093" y="662"/>
         </scene>
         <!--Job Inventory View Contoller-->
         <scene sceneID="xnM-A6-K5o">
