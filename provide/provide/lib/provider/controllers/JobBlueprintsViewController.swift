@@ -191,6 +191,13 @@ class JobBlueprintsViewController: ViewController,
 //        } else if job.isResidential {
 //            navigationItem.title = "SETUP FLOORPLAN"
 //        }
+        if let job = job {
+            if job.isCommercial {
+                if let _ = floorplansContainerView.superview {
+                    floorplansContainerView.removeFromSuperview()
+                }
+            }
+        }
 
         if shouldLoadBlueprint {
             importInstructionsContainerView?.alpha = 0.0
