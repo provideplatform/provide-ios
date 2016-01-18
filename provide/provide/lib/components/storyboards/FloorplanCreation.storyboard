@@ -24,7 +24,7 @@
         <!--Floorplan Creation View Controller-->
         <scene sceneID="Dt1-Zj-Rga">
             <objects>
-                <tableViewController id="a1K-OM-ww6" customClass="FloorplanCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FloorplanCreationViewController" id="a1K-OM-ww6" customClass="FloorplanCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="15" sectionFooterHeight="1" id="tKa-vS-rBx">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ruA-nD-vvI">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="dzo-oD-dfU">
+            <objects>
+                <navigationController id="ruA-nD-vvI" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xuj-Fy-HH7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="a10-ur-O1n" kind="relationship" relationship="rootViewController" id="gc6-ck-3Mg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hk8-mx-WeH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-177" y="497"/>
+        </scene>
+        <!--Floorplan View Controller-->
+        <scene sceneID="Ork-df-Ton">
+            <objects>
+                <viewController storyboardIdentifier="FloorplanViewController" id="a10-ur-O1n" customClass="FloorplanViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="suz-tD-pg9"/>
+                        <viewControllerLayoutGuide type="bottom" id="IHU-s7-JFl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nUw-WP-na9">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DzC-fM-pjD">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <connections>
+                                    <segue destination="3VR-zH-mJX" kind="embed" identifier="FloorplanCreationViewControllerEmbedSegue" id="BPv-z1-dtW"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="leading" secondItem="nUw-WP-na9" secondAttribute="leadingMargin" constant="-20" id="5Jq-5q-H4Y"/>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="centerY" secondItem="nUw-WP-na9" secondAttribute="centerY" id="A7i-Ox-lJ3"/>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="top" secondItem="suz-tD-pg9" secondAttribute="bottom" constant="-64" id="EGz-21-q55"/>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="top" secondItem="suz-tD-pg9" secondAttribute="bottom" id="El9-rY-QRQ"/>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="centerX" secondItem="nUw-WP-na9" secondAttribute="centerX" id="Fk2-tR-lJz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DzC-fM-pjD" secondAttribute="trailing" constant="-20" id="MlM-Zu-XMN"/>
+                            <constraint firstItem="DzC-fM-pjD" firstAttribute="bottom" secondItem="IHU-s7-JFl" secondAttribute="top" id="Rzr-m9-hgl"/>
+                            <constraint firstItem="IHU-s7-JFl" firstAttribute="top" secondItem="DzC-fM-pjD" secondAttribute="bottom" id="jPo-Wp-mcs"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="A7i-Ox-lJ3"/>
+                                <exclude reference="EGz-21-q55"/>
+                                <exclude reference="jPo-Wp-mcs"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="fjx-In-UHh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kQI-fl-wOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="490" y="497"/>
+        </scene>
+        <!--FloorplanCreationViewController-->
+        <scene sceneID="39F-Ow-UBy">
+            <objects>
+                <viewControllerPlaceholder storyboardName="FloorplanCreation" referencedIdentifier="FloorplanCreationViewController" id="3VR-zH-mJX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e7i-EH-2qa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976" y="497"/>
+        </scene>
+    </scenes>
+</document>

@@ -147,6 +147,8 @@
 		687ECC761C4CBA5000FD5C4C /* FloorplanCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC751C4CBA5000FD5C4C /* FloorplanCreationViewController.swift */; };
 		687ECC781C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC771C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift */; };
 		687ECC7A1C4CBFBD00FD5C4C /* FloorplanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */; };
+		687ECC7C1C4D5E6C00FD5C4C /* FloorplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC7B1C4D5E6C00FD5C4C /* FloorplanViewController.swift */; };
+		687ECC7E1C4D5F4200FD5C4C /* Floorplan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687ECC7D1C4D5F4200FD5C4C /* Floorplan.storyboard */; };
 		688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441561C06E3A10017D4AA /* PinInputViewController.swift */; };
 		6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441591C06E3E10017D4AA /* PinInputControl.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
@@ -434,6 +436,8 @@
 		687ECC751C4CBA5000FD5C4C /* FloorplanCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanCreationViewController.swift; sourceTree = "<group>"; };
 		687ECC771C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanCollectionViewCell.swift; sourceTree = "<group>"; };
 		687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanService.swift; sourceTree = "<group>"; };
+		687ECC7B1C4D5E6C00FD5C4C /* FloorplanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanViewController.swift; sourceTree = "<group>"; };
+		687ECC7D1C4D5F4200FD5C4C /* Floorplan.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Floorplan.storyboard; sourceTree = "<group>"; };
 		688441561C06E3A10017D4AA /* PinInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputViewController.swift; sourceTree = "<group>"; };
 		688441591C06E3E10017D4AA /* PinInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputControl.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
@@ -968,6 +972,7 @@
 			children = (
 				68B978C91B085A6C00863E21 /* segues */,
 				687ECC751C4CBA5000FD5C4C /* FloorplanCreationViewController.swift */,
+				687ECC7B1C4D5E6C00FD5C4C /* FloorplanViewController.swift */,
 				687ECC6F1C4CB9B700FD5C4C /* FloorplansViewController.swift */,
 				681EBF5D1C18136C00B81BEB /* JobBlueprintsViewController.swift */,
 				686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */,
@@ -1037,6 +1042,7 @@
 				686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */,
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
+				687ECC7D1C4D5F4200FD5C4C /* Floorplan.storyboard */,
 				687ECC711C4CB9F700FD5C4C /* Floorplans.storyboard */,
 				687ECC731C4CBA2C00FD5C4C /* FloorplanCreation.storyboard */,
 				68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */,
@@ -1395,6 +1401,7 @@
 				68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
+				687ECC7E1C4D5F4200FD5C4C /* Floorplan.storyboard in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
 				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
 				68B730C71C1AA7FC00549D95 /* JobWizard.storyboard in Resources */,
@@ -1729,6 +1736,7 @@
 				6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
 				68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */,
+				687ECC7C1C4D5E6C00FD5C4C /* FloorplanViewController.swift in Sources */,
 				68B730C91C1ACD5F00549D95 /* JobProductTableViewCell.swift in Sources */,
 				68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,

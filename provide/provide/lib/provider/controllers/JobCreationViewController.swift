@@ -339,7 +339,10 @@ class JobCreationViewController: UITableViewController,
     // MARK: CustomerPickerViewControllerDelegate
 
     func queryParamsForCustomerPickerViewController(viewController: CustomerPickerViewController) -> [String : AnyObject]! {
-        var params = ["q": queryString != nil ? queryString : NSNull()]
+        var params = [String : AnyObject]()
+        if let queryString = queryString {
+            params["q"] = queryString
+        }
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
             params["company_id"] = defaultCompanyId
         }

@@ -8,8 +8,11 @@
 
 import UIKit
 
+@objc
 protocol FloorplanCreationViewControllerDelegate: NSObjectProtocol {
+    optional func floorplanForFloorplanCreationViewController(viewController: FloorplanCreationViewController) -> Floorplan!
     func floorplanCreationViewController(viewController: FloorplanCreationViewController, didCreateFloorplan floorplan: Floorplan)
+    func floorplanCreationViewController(viewController: FloorplanCreationViewController, didUpdateFloorplan floorplan: Floorplan)
 }
 
 class FloorplanCreationViewController: UITableViewController,
@@ -21,8 +24,18 @@ class FloorplanCreationViewController: UITableViewController,
 
     weak var delegate: FloorplanCreationViewControllerDelegate! {
         didSet {
-            if let _ = delegate {
-                if let customerPickerViewController = customerPickerViewController {
+            if let delegate = delegate {
+                if let floorplan = delegate.floorplanForFloorplanCreationViewController?(self) {
+                    nameTextField?.text = floorplan.name
+
+                    if floorplan.totalSqFt > 0.0 {
+                        totalSqFtTextField?.text = "\(floorplan.totalSqFt)"
+                    } else {
+                        totalSqFtTextField?.text = ""
+                    }
+
+                    createButton?.setTitle("SAVE", forState: .Normal)
+                } else if let customerPickerViewController = customerPickerViewController {
                     reloadCustomersForCustomerPickerViewController(customerPickerViewController)
                 }
             }
@@ -69,10 +82,15 @@ class FloorplanCreationViewController: UITableViewController,
 
         searchBar?.placeholder = ""
 
-        createButton.addTarget(self, action: "createFloorplan:", forControlEvents: .TouchUpInside)
+        createButton.addTarget(self, action: "saveFloorplan:", forControlEvents: .TouchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
+        }
+
+        // HACK
+        if let delegate = delegate {
+            self.delegate = delegate
         }
     }
 
@@ -92,22 +110,29 @@ class FloorplanCreationViewController: UITableViewController,
             customerPickerViewController.delegate = self
 
             if let _ = delegate {
-                reloadCustomersForCustomerPickerViewController(customerPickerViewController)
+                if delegate.floorplanForFloorplanCreationViewController?(self) == nil {
+                    reloadCustomersForCustomerPickerViewController(customerPickerViewController)
+                }
             }
         }
     }
 
-    func createJob(sender: UIButton) {
+    func saveFloorplan(sender: UIButton) {
         tableView.endEditing(true)
-        createFloorplan()
+        saveFloorplan()
     }
 
-    private func createFloorplan() {
-        let floorplan = Floorplan()
-        if let customer = customer {
-            floorplan.customerId = customer.id
-            floorplan.companyId = customer.companyId
+    internal func saveFloorplan() {
+        var floorplan = Floorplan()
+        if let fp = delegate?.floorplanForFloorplanCreationViewController?(self) {
+            floorplan = fp
+        } else {
+            if let customer = customer {
+                floorplan.customerId = customer.id
+                floorplan.companyId = customer.companyId
+            }
         }
+
         floorplan.name = nameTextField?.text
 
         if let totalSqFt = Double(totalSqFtTextField.text!) {
@@ -121,6 +146,9 @@ class FloorplanCreationViewController: UITableViewController,
                 onSuccess: { statusCode, mappingResult in
                     if statusCode == 201 {
                         self.delegate?.floorplanCreationViewController(self, didCreateFloorplan: mappingResult.firstObject as! Floorplan)
+                    } else if statusCode == 204 {
+                        self.hideActivityIndicator()
+                        self.delegate?.floorplanCreationViewController(self, didUpdateFloorplan: floorplan)
                     }
                 },
                 onError: { error, statusCode, responseString in
@@ -232,7 +260,7 @@ class FloorplanCreationViewController: UITableViewController,
                 if totalSqFt > 0.0 {
                     textField.resignFirstResponder()
                     dispatch_after_delay(0.0) {
-                        self.createFloorplan()
+                        self.saveFloorplan()
                     }
                     return true
                 }
@@ -244,10 +272,17 @@ class FloorplanCreationViewController: UITableViewController,
     // MARK: CustomerPickerViewControllerDelegate
 
     func queryParamsForCustomerPickerViewController(viewController: CustomerPickerViewController) -> [String : AnyObject]! {
-        var params = ["q": queryString != nil ? queryString : NSNull()]
+        var params = [String : AnyObject]()
+        if let queryString = queryString {
+            params["q"] = queryString
+        }
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
             params["company_id"] = defaultCompanyId
         }
+        if let floorplan = delegate?.floorplanForFloorplanCreationViewController?(self) {
+            params["customer_id"] = floorplan.customerId
+        }
+
         return params
     }
 

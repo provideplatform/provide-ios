@@ -59,9 +59,12 @@ class FloorplansViewController: ViewController,
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "FloorplanViewControllerSegue" {
-//            if let sender = sender {
-//                (segue.destinationViewController as! FloorplanViewController).floorplan = (sender as! FloorplanCollectionViewCell).floorplan
-//            }
+            if let sender = sender {
+                //let navigationController = segue.destinationViewController as! UINavigationController
+                //let floorplanViewController = navigationController.viewControllers.first! as! FloorplanViewController
+                let floorplanViewController = segue.destinationViewController as! FloorplanViewController
+                floorplanViewController.floorplan = (sender as! FloorplanCollectionViewCell).floorplan
+            }
         } else if segue.identifier == "FloorplanCreationViewControllerPopoverSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
             navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 650)
@@ -125,6 +128,7 @@ class FloorplansViewController: ViewController,
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let floorplan = floorplans[indexPath.row]
         delegate?.floorplansViewController?(self, didSelectFloorplan: floorplan)
+        performSegueWithIdentifier("FloorplanViewControllerSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
     }
 
     // MARK: UICollectionViewDataSource
@@ -155,5 +159,9 @@ class FloorplansViewController: ViewController,
 
     func floorplanCreationViewController(viewController: FloorplanCreationViewController, didCreateFloorplan floorplan: Floorplan) {
         print("created floorplan \(floorplan)")
+    }
+
+    func floorplanCreationViewController(viewController: FloorplanCreationViewController, didUpdateFloorplan floorplan: Floorplan) {
+        // no-op
     }
 }

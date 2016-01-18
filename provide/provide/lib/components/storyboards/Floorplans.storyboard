@@ -91,6 +91,7 @@
                     <connections>
                         <outlet property="addFloorplanBarButtonItem" destination="98G-7G-mqK" id="yBI-U2-E3X"/>
                         <outlet property="collectionView" destination="AMF-8l-vaA" id="gSv-jU-qIE"/>
+                        <segue destination="xhH-cW-MEx" kind="show" identifier="FloorplanViewControllerSegue" id="kli-tn-zMJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDS-IF-106" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -120,6 +121,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lAo-kV-MoB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="905.5" y="4432"/>
+        </scene>
+        <!--FloorplanViewController-->
+        <scene sceneID="Ll1-1l-QHf">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Floorplan" referencedIdentifier="FloorplanViewController" id="xhH-cW-MEx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sBr-5g-yUf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="879.5" y="4708"/>
         </scene>
     </scenes>
 </document>

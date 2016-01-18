@@ -163,21 +163,38 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                 inFlightRequestOperation.cancel()
             }
 
-            inFlightRequestOperation = ApiService.sharedService().fetchCustomers(params,
-                onSuccess: { statusCode, mappingResult in
-                    self.inFlightRequestOperation = nil
-                    let fetchedCustomers = mappingResult.array() as! [Customer]
-                    if self.page == 1 {
-                        self.customers = [Customer]()
-                    }
-                    self.customers += fetchedCustomers
+            if let customerId = params["customer_id"] as? Int {
+                inFlightRequestOperation = ApiService.sharedService().fetchCustomerWithId(String(customerId),
+                    onSuccess: { statusCode, mappingResult in
+                        self.inFlightRequestOperation = nil
+                        let fetchedCustomer = mappingResult.firstObject as! Customer
+                        self.customers = [fetchedCustomer]
 
-                    self.reloadCollectionView()
-                },
-                onError: { error, statusCode, responseString in
-                    self.inFlightRequestOperation = nil
-                }
-            )
+                        self.reloadCollectionView()
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.inFlightRequestOperation = nil
+                    }
+                )
+            } else {
+                inFlightRequestOperation = ApiService.sharedService().fetchCustomers(params,
+                    onSuccess: { statusCode, mappingResult in
+                        self.inFlightRequestOperation = nil
+                        let fetchedCustomers = mappingResult.array() as! [Customer]
+                        if self.page == 1 {
+                            self.customers = [Customer]()
+                        }
+                        self.customers += fetchedCustomers
+
+                        self.reloadCollectionView()
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.inFlightRequestOperation = nil
+                    }
+                )
+            }
+
+
         }
     }
 

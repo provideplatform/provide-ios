@@ -361,6 +361,10 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchCustomerWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("customers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Provider API
 
     func countProviders(params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
