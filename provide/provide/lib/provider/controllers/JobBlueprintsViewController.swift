@@ -191,7 +191,9 @@ class JobBlueprintsViewController: ViewController,
             loadBlueprint()
             blueprintViewController?.blueprintViewControllerDelegate = self
         } else if let job = job {
-            if job.isCommercial {
+            if job.hasPendingBlueprint {
+                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+            } else if job.isCommercial {
                 if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
                     if job.blueprintImageUrl == nil && importedPngAttachment == nil {
                         job.reload(
