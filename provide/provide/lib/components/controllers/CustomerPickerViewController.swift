@@ -91,6 +91,10 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         activityIndicatorView?.startAnimating()
     }
 
+    func hideActivityIndicator() {
+        activityIndicatorView?.stopAnimating()
+    }
+
     func reloadCollectionView() {
         if let collectionView = collectionView {
             let collectionViewFlowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
@@ -166,6 +170,8 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
             }
 
             if let customerId = params["customer_id"] as? Int {
+                showActivityIndicator()
+
                 inFlightRequestOperation = ApiService.sharedService().fetchCustomerWithId(String(customerId),
                     onSuccess: { statusCode, mappingResult in
                         self.inFlightRequestOperation = nil
@@ -179,6 +185,8 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                     }
                 )
             } else if let _ = params["q"] as? String {
+                showActivityIndicator()
+                
                 inFlightRequestOperation = ApiService.sharedService().fetchCustomers(params,
                     onSuccess: { statusCode, mappingResult in
                         self.inFlightRequestOperation = nil

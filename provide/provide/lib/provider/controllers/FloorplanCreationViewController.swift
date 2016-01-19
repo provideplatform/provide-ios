@@ -371,6 +371,7 @@ class FloorplanCreationViewController: UITableViewController,
                                 self.tableView.reloadData()
                                 self.reloadingCustomersCount = false
                                 self.reloadingCustomers = false
+                                self.customerPickerViewController?.hideActivityIndicator()
                             }
                         }
                     }
