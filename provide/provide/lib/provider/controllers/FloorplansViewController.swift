@@ -127,8 +127,11 @@ class FloorplansViewController: ViewController,
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let floorplan = floorplans[indexPath.row]
-        delegate?.floorplansViewController?(self, didSelectFloorplan: floorplan)
-        performSegueWithIdentifier("FloorplanViewControllerSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
+        if let fn = delegate?.floorplansViewController {
+            fn(self, didSelectFloorplan: floorplan)
+        } else {
+            performSegueWithIdentifier("FloorplanViewControllerSegue", sender: collectionView.cellForItemAtIndexPath(indexPath))
+        }
     }
 
     // MARK: UICollectionViewDataSource
