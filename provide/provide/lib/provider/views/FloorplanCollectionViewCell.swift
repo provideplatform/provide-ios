@@ -18,6 +18,8 @@ class FloorplanCollectionViewCell: UICollectionViewCell {
                     self.imageView.alpha = 1.0
                     self.activityIndicatorView.stopAnimating()
                 }
+            } else {
+                imageView.image = nil
             }
 
             nameLabel.text = floorplan.name
