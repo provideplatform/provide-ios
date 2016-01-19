@@ -82,7 +82,9 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityIndicatorView?.startAnimating()
+        if let _ = inFlightRequestOperation {
+            activityIndicatorView?.startAnimating()
+        }
     }
 
     func showActivityIndicator() {
@@ -176,7 +178,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                         self.inFlightRequestOperation = nil
                     }
                 )
-            } else {
+            } else if let _ = params["q"] as? String {
                 inFlightRequestOperation = ApiService.sharedService().fetchCustomers(params,
                     onSuccess: { statusCode, mappingResult in
                         self.inFlightRequestOperation = nil
@@ -193,8 +195,6 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                     }
                 )
             }
-
-
         }
     }
 
