@@ -16,9 +16,9 @@ protocol FloorplanCreationViewControllerDelegate: NSObjectProtocol {
 }
 
 class FloorplanCreationViewController: UITableViewController,
-                                               UISearchBarDelegate,
-                                               UITextFieldDelegate,
-                                               CustomerPickerViewControllerDelegate {
+                                       UISearchBarDelegate,
+                                       UITextFieldDelegate,
+                                       CustomerPickerViewControllerDelegate {
 
     let maximumSearchlessCustomersCount = 10
 
@@ -134,6 +134,7 @@ class FloorplanCreationViewController: UITableViewController,
         }
 
         floorplan.name = nameTextField?.text
+        navigationItem.title = floorplan.name
 
         if let totalSqFt = Double(totalSqFtTextField.text!) {
             floorplan.totalSqFt = totalSqFt

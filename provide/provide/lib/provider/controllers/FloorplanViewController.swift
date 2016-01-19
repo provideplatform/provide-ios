@@ -44,6 +44,6 @@ class FloorplanViewController: ViewController, FloorplanCreationViewControllerDe
     }
 
     func floorplanCreationViewController(viewController: FloorplanCreationViewController, didUpdateFloorplan floorplan: Floorplan) {
-        print("updated floorplan \(floorplan)")
+        navigationItem.title = floorplan.name
     }
 }
