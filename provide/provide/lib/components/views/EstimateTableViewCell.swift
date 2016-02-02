@@ -18,19 +18,36 @@ class EstimateTableViewCell: UITableViewCell {
         }
     }
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var amountLabel: UILabel!
 
     private func reload() {
-        dateLabel?.text = "" //"\(expense.incurredAtDate.month) / \(expense.incurredAtDate.dayOfMonth) / \(expense.incurredAtDate.year)"
+        if estimate.id == 0 {
+            activityIndicatorView?.startAnimating()
+        } else {
+            activityIndicatorView?.stopAnimating()
+        }
+
+        if let createdAt = estimate.createdAt {
+            dateLabel?.text = "\(createdAt.monthName) \(createdAt.dayOfMonth), \(createdAt.year)"
+        } else {
+            dateLabel?.text = ""
+        }
+
         if let amount = estimate.amount {
             amountLabel?.text = "$\(amount)"
+        } else if let humanReadableTotalSqFt = estimate.humanReadableTotalSqFt {
+            amountLabel?.text = humanReadableTotalSqFt
+        } else {
+            amountLabel?.text = "--"
         }
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        activityIndicatorView?.stopAnimating()
         dateLabel?.text = ""
         amountLabel?.text = ""
     }

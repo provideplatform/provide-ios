@@ -763,9 +763,9 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2w6-E1-TLh">
-                                <rect key="frame" x="0.0" y="247" width="600" height="240"/>
+                                <rect key="frame" x="0.0" y="114" width="600" height="373"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="wzh-vE-XAp"/>
+                                    <constraint firstAttribute="height" constant="373" id="wzh-vE-XAp"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="i1Z-VQ-x6k" kind="embed" identifier="EstimatesViewControllerEmbedSegue" id="euf-50-ulr"/>

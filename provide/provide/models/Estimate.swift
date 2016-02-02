@@ -11,24 +11,54 @@ import Foundation
 class Estimate: Model {
 
     var id = 0
-    var quotedPricePerSqFt = -1.0
-    var totalSqFt = -1.0
+    var userId = 0
+    var jobId = 0
+    var quotedPricePerSqFt: Double!
+    var totalSqFt: Double!
+    var attachments: [Attachment]!
+    var createdAtString: String!
+    var updatedAtString: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "user_id": "userId",
+            "job_id": "jobId",
             "quoted_price_per_sq_ft": "quotedPricePerSqFt",
             "total_sq_ft": "totalSqFt",
+            "created_at": "createdAtString",
+            "updated_at": "updatedAtString",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         return mapping
     }
 
     var amount: Double! {
-        if quotedPricePerSqFt == -1.0 || totalSqFt == -1.0 {
+        if quotedPricePerSqFt == nil || totalSqFt == nil {
             return nil
         }
         return quotedPricePerSqFt * totalSqFt
+    }
+
+    var createdAt: NSDate! {
+        if let createdAtString = createdAtString {
+            return NSDate.fromString(createdAtString)
+        }
+        return nil
+    }
+
+    var humanReadableTotalSqFt: String! {
+        if totalSqFt != nil {
+            return "\(NSString(format: "%.03f", totalSqFt)) sq ft"
+        }
+        return nil
+    }
+
+    var updatedAt: NSDate! {
+        if let updatedAtString = updatedAtString {
+            return NSDate.fromString(updatedAtString)
+        }
+        return nil
     }
 }

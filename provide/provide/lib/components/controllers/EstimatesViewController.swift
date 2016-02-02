@@ -31,6 +31,9 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     var estimates = [Estimate]() {
         didSet {
             tableView?.reloadData()
+
+            refreshControl?.endRefreshing()
+            refreshControl?.removeFromSuperview()
         }
     }
 
@@ -47,6 +50,8 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet private weak var tableView: UITableView!
 
+    private var refreshControl: UIRefreshControl!
+
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
@@ -61,6 +66,19 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
         }
+
+        setupPullToRefresh()
+    }
+
+    private func setupPullToRefresh() {
+        refreshControl?.removeFromSuperview()
+
+        refreshControl = UIRefreshControl()
+
+        tableView.addSubview(refreshControl)
+        tableView.alwaysBounceVertical = true
+
+        refreshControl.beginRefreshing()
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -71,6 +89,10 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     }
 
     func addEstimate(sender: UIBarButtonItem) {
+        estimates.append(Estimate())
+        reloadTableView()
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: estimates.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+
         if let job = delegate?.jobForEstimatesViewController?(self) {
             let params = [String : AnyObject]()
             job.addEstimate(params, forBlueprint: job.blueprint,

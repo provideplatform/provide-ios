@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="i1T-fT-y0f">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="estimateTableViewCellReuseIdentifier" id="4cm-U3-8R2" userLabel="estimateTableViewCellReuseIdentifier" customClass="EstimateTableViewCell" customModule="provide" customModuleProvider="target">
@@ -56,20 +56,30 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hoZ-IV-i0T">
+                                                    <rect key="frame" x="290" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="hoZ-IV-i0T" secondAttribute="trailing" constant="282" id="0uo-az-jfs"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="AMK-th-ZLV" secondAttribute="bottom" constant="12.5" id="47T-cB-hMx"/>
+                                                <constraint firstItem="hoZ-IV-i0T" firstAttribute="centerY" secondItem="nm8-bn-hqt" secondAttribute="centerY" id="CJu-Dm-y2A"/>
+                                                <constraint firstItem="hoZ-IV-i0T" firstAttribute="centerX" secondItem="nm8-bn-hqt" secondAttribute="centerX" id="HeK-YV-D5S"/>
                                                 <constraint firstItem="AMK-th-ZLV" firstAttribute="leading" secondItem="nm8-bn-hqt" secondAttribute="leadingMargin" id="Xer-bx-z09"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="trailing" secondItem="nm8-bn-hqt" secondAttribute="trailingMargin" id="eey-1g-Skq"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="centerY" secondItem="nm8-bn-hqt" secondAttribute="centerY" id="pGF-Nh-xJv"/>
+                                                <constraint firstItem="hoZ-IV-i0T" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="4" id="pe8-yl-D0v"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="-5" id="rvb-Ux-GSI"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="hoZ-IV-i0T" secondAttribute="bottom" constant="3.5" id="tJE-Bs-h6f"/>
                                                 <constraint firstItem="AMK-th-ZLV" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="top" id="uwy-1p-eyU"/>
+                                                <constraint firstItem="hoZ-IV-i0T" firstAttribute="leading" secondItem="nm8-bn-hqt" secondAttribute="leadingMargin" constant="282" id="wv6-aB-ha9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="activityIndicatorView" destination="hoZ-IV-i0T" id="Wlw-J5-Ys4"/>
                                             <outlet property="amountLabel" destination="Sc5-du-gPE" id="aNL-MK-2p4"/>
                                             <outlet property="dateLabel" destination="AMK-th-ZLV" id="lqA-AS-EkB"/>
-                                            <segue destination="0T2-YR-vqh" kind="show" identifier="ExpenseViewControllerSegue" id="HZI-00-Kwm">
+                                            <segue destination="0T2-YR-vqh" kind="show" identifier="EstimateViewControllerSegue" id="HZI-00-Kwm">
                                                 <nil key="action"/>
                                             </segue>
                                         </connections>
@@ -83,7 +93,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="i1T-fT-y0f" firstAttribute="bottom" secondItem="S4s-ai-C4P" secondAttribute="top" id="4Ol-xl-bkn"/>
+                            <constraint firstItem="i1T-fT-y0f" firstAttribute="bottom" secondItem="S4s-ai-C4P" secondAttribute="top" constant="44" id="4Ol-xl-bkn"/>
                             <constraint firstItem="i1T-fT-y0f" firstAttribute="top" secondItem="iyV-FC-9eH" secondAttribute="top" id="QRE-fW-ik1"/>
                             <constraint firstItem="i1T-fT-y0f" firstAttribute="leading" secondItem="iyV-FC-9eH" secondAttribute="leading" id="hDF-WY-XKf"/>
                             <constraint firstAttribute="trailing" secondItem="i1T-fT-y0f" secondAttribute="trailing" id="p2z-2M-elk"/>
@@ -116,7 +126,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nmc-HR-zYD">
-                                <rect key="frame" x="20" y="54" width="560" height="333"/>
+                                <rect key="frame" x="20" y="54" width="560" height="430"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2/22/2022" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmx-WY-zXh">
                                 <rect key="frame" x="20" y="0.0" width="136" height="37"/>
@@ -137,24 +147,35 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YaZ-M1-Ad6">
+                                <rect key="frame" x="290" y="258" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jV1-bl-Tr2" firstAttribute="trailing" secondItem="nmc-HR-zYD" secondAttribute="trailing" id="2Xa-as-Heb"/>
                             <constraint firstItem="lmx-WY-zXh" firstAttribute="baseline" secondItem="jV1-bl-Tr2" secondAttribute="baseline" id="BIf-0R-jyX"/>
-                            <constraint firstItem="URN-1x-4ZC" firstAttribute="top" secondItem="nmc-HR-zYD" secondAttribute="bottom" constant="105" id="J5G-BN-lu8"/>
+                            <constraint firstItem="URN-1x-4ZC" firstAttribute="top" secondItem="nmc-HR-zYD" secondAttribute="bottom" constant="8" id="J5G-BN-lu8"/>
+                            <constraint firstItem="URN-1x-4ZC" firstAttribute="top" secondItem="YaZ-M1-Ad6" secondAttribute="bottom" constant="214" id="RzM-ze-So3"/>
+                            <constraint firstItem="YaZ-M1-Ad6" firstAttribute="top" secondItem="uLw-ao-SHx" secondAttribute="bottom" constant="258" id="XAH-VF-lq5"/>
+                            <constraint firstItem="YaZ-M1-Ad6" firstAttribute="centerY" secondItem="axC-Pc-orC" secondAttribute="centerY" id="Y9u-8w-6zk"/>
                             <constraint firstItem="lmx-WY-zXh" firstAttribute="firstBaseline" secondItem="jV1-bl-Tr2" secondAttribute="firstBaseline" id="Yfe-Bq-N0d"/>
                             <constraint firstItem="nmc-HR-zYD" firstAttribute="trailing" secondItem="axC-Pc-orC" secondAttribute="trailingMargin" id="ez1-2M-CeK"/>
                             <constraint firstItem="nmc-HR-zYD" firstAttribute="top" secondItem="lmx-WY-zXh" secondAttribute="bottom" constant="17" id="fn1-M1-QrY"/>
+                            <constraint firstItem="YaZ-M1-Ad6" firstAttribute="leading" secondItem="axC-Pc-orC" secondAttribute="leadingMargin" constant="270" id="lAz-Lo-pKg"/>
                             <constraint firstItem="nmc-HR-zYD" firstAttribute="leading" secondItem="axC-Pc-orC" secondAttribute="leadingMargin" id="pZS-uE-SGq"/>
                             <constraint firstItem="jV1-bl-Tr2" firstAttribute="top" secondItem="uLw-ao-SHx" secondAttribute="bottom" id="sz0-IQ-Ade"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="YaZ-M1-Ad6" secondAttribute="trailing" constant="270" id="u52-g5-i8x"/>
+                            <constraint firstItem="YaZ-M1-Ad6" firstAttribute="centerX" secondItem="axC-Pc-orC" secondAttribute="centerX" id="ySW-qZ-zmZ"/>
                             <constraint firstItem="lmx-WY-zXh" firstAttribute="leading" secondItem="nmc-HR-zYD" secondAttribute="leading" id="zPD-9P-e7h"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="YaZ-M1-Ad6" id="8Bc-wB-Kvp"/>
                         <outlet property="amountLabel" destination="jV1-bl-Tr2" id="u3c-ma-kXc"/>
                         <outlet property="dateLabel" destination="lmx-WY-zXh" id="uUu-Qh-dbg"/>
+                        <outlet property="imageView" destination="nmc-HR-zYD" id="NDh-9x-gXS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkY-EW-R3J" userLabel="First Responder" sceneMemberID="firstResponder"/>

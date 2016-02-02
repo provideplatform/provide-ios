@@ -20,8 +20,10 @@ class EstimateViewController: ViewController {
         }
     }
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var amountLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +38,39 @@ class EstimateViewController: ViewController {
     }
 
     private func reload() {
-        dateLabel?.text = ""
+        activityIndicatorView?.startAnimating()
+
+        if let createdAt = estimate.createdAt {
+            dateLabel?.text = "\(createdAt.monthName) \(createdAt.dayOfMonth), \(createdAt.year)"
+        } else {
+            dateLabel?.text = ""
+        }
+
         if let amount = estimate.amount {
             amountLabel?.text = "$\(amount)"
+        } else if let humanReadableTotalSqFt = estimate.humanReadableTotalSqFt {
+            amountLabel?.text = humanReadableTotalSqFt
         } else {
             amountLabel?.text = ""
+        }
+
+        if estimate.jobId > 0 {
+            if estimate.attachments.count > 0 {
+                let attachment = estimate.attachments.first!
+                imageView?.contentMode = .ScaleAspectFit
+                imageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil, completed: { (image, error, cacheType, url) -> Void in
+                    self.imageView?.alpha = 1.0
+                    self.activityIndicatorView?.stopAnimating()
+                })
+            } else {
+                imageView?.alpha = 0.0
+                imageView?.image = nil
+                activityIndicatorView?.stopAnimating()
+            }
+        } else {
+            imageView?.alpha = 0.0
+            imageView?.image = nil
+            activityIndicatorView?.stopAnimating()
         }
     }
 }
