@@ -63,16 +63,20 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="hoZ-IV-i0T" secondAttribute="trailing" constant="282" id="0uo-az-jfs"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="AMK-th-ZLV" secondAttribute="bottom" constant="12.5" id="47T-cB-hMx"/>
+                                                <constraint firstItem="AMK-th-ZLV" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="-8" id="Bzf-o6-Ige"/>
                                                 <constraint firstItem="hoZ-IV-i0T" firstAttribute="centerY" secondItem="nm8-bn-hqt" secondAttribute="centerY" id="CJu-Dm-y2A"/>
                                                 <constraint firstItem="hoZ-IV-i0T" firstAttribute="centerX" secondItem="nm8-bn-hqt" secondAttribute="centerX" id="HeK-YV-D5S"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="AMK-th-ZLV" secondAttribute="leading" id="SXr-Qi-s5g"/>
                                                 <constraint firstItem="AMK-th-ZLV" firstAttribute="leading" secondItem="nm8-bn-hqt" secondAttribute="leadingMargin" id="Xer-bx-z09"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="trailing" secondItem="nm8-bn-hqt" secondAttribute="trailingMargin" id="eey-1g-Skq"/>
+                                                <constraint firstItem="Sc5-du-gPE" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="-5" id="ioM-X0-wSL"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="centerY" secondItem="nm8-bn-hqt" secondAttribute="centerY" id="pGF-Nh-xJv"/>
                                                 <constraint firstItem="hoZ-IV-i0T" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="4" id="pe8-yl-D0v"/>
                                                 <constraint firstItem="Sc5-du-gPE" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="topMargin" constant="-5" id="rvb-Ux-GSI"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hoZ-IV-i0T" secondAttribute="bottom" constant="3.5" id="tJE-Bs-h6f"/>
                                                 <constraint firstItem="AMK-th-ZLV" firstAttribute="top" secondItem="nm8-bn-hqt" secondAttribute="top" id="uwy-1p-eyU"/>
                                                 <constraint firstItem="hoZ-IV-i0T" firstAttribute="leading" secondItem="nm8-bn-hqt" secondAttribute="leadingMargin" constant="282" id="wv6-aB-ha9"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Sc5-du-gPE" secondAttribute="trailing" id="yK4-9P-dYy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
