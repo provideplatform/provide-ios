@@ -160,6 +160,7 @@
 		688C2B511C60B12D009D5FF5 /* EstimatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B501C60B12D009D5FF5 /* EstimatesViewController.swift */; };
 		688C2B531C60B1CB009D5FF5 /* EstimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B521C60B1CB009D5FF5 /* EstimateViewController.swift */; };
 		688C2B551C60B27E009D5FF5 /* EstimateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B541C60B27E009D5FF5 /* EstimateTableViewCell.swift */; };
+		688C2B571C60FEAF009D5FF5 /* JobStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */; };
 		6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */; };
 		6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */; };
 		6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */; };
@@ -454,6 +455,7 @@
 		688C2B501C60B12D009D5FF5 /* EstimatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatesViewController.swift; sourceTree = "<group>"; };
 		688C2B521C60B1CB009D5FF5 /* EstimateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateViewController.swift; sourceTree = "<group>"; };
 		688C2B541C60B27E009D5FF5 /* EstimateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateTableViewCell.swift; sourceTree = "<group>"; };
+		688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobStatementViewController.swift; sourceTree = "<group>"; };
 		6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtensions.swift; sourceTree = "<group>"; };
 		6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderCreationViewController.swift; sourceTree = "<group>"; };
 		6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderPicker.storyboard; sourceTree = "<group>"; };
@@ -996,6 +998,7 @@
 				68D843C61BFB47A200DE7400 /* JobViewController.swift */,
 				683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */,
 				681EBF651C18252D00B81BEB /* JobReviewViewController.swift */,
+				688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */,
 				681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */,
 				681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */,
 				68D843C21BFB20A900DE7400 /* JobsViewController.swift */,
@@ -1655,6 +1658,7 @@
 				68F536F81B834A720007F480 /* RouteMapView.swift in Sources */,
 				681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
+				688C2B571C60FEAF009D5FF5 /* JobStatementViewController.swift in Sources */,
 				68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */,
 				68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,

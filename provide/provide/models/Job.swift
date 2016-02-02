@@ -47,11 +47,61 @@ class Job: Model {
     var type: String!
     var totalSqFt: Double!
     var workOrdersCount = 0
+    var workOrders: [WorkOrder]!
     var wizardMode: NSNumber!
+    var tasks: [Task]!
 
     var isWizardMode: Bool {
         if let wizardMode = wizardMode {
             return wizardMode.boolValue
+        }
+        return false
+    }
+
+    var isEditMode: Bool {
+        let hasBlueprint = blueprints?.count > 0
+        let hasScale = hasBlueprint && blueprints?.first!.metadata["scale"] != nil
+        let hasSupervisor = supervisors?.count > 0
+        let hasInventory = materials?.count > 0
+        let hasWorkOrders = workOrdersCount > 0
+        return !isWizardMode && ((hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || status != "configuring")
+    }
+
+    var isReviewMode: Bool {
+        if let status = status {
+            return ["pending_completion", "completed"].indexOfObject(status) != nil
+        }
+        return false
+    }
+
+    var canTransitionToInProgressStatus: Bool {
+        if let status = status {
+            return status == "configuring"
+        }
+        return false
+    }
+
+    var canTransitionToReviewAndCompleteStatus: Bool {
+        if let status = status {
+            if let _ = ["in_progress"].indexOfObject(status) {
+                if let tasks = tasks {
+                    for task in tasks {
+                        if task.completedAt == nil {
+                            return false
+                        }
+                    }
+                }
+
+                if let workOrders = workOrders {
+                    for workOrder in workOrders {
+                        if !workOrder.isCompleted {
+                            return false
+                        }
+                    }
+                }
+
+                return true
+            }
         }
         return false
     }
@@ -93,6 +143,7 @@ class Job: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", withMapping: Floorplan.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
         return mapping
     }
 
@@ -692,6 +743,19 @@ class Job: Model {
             metadata["scale"] = blueprintScale
             blueprint.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
         }
+    }
+
+    func updateJobWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {
+        self.status = status
+        ApiService.sharedService().updateJobWithId(String(id), params: ["status": status],
+            onSuccess: { statusCode, mappingResult in
+                JobService.sharedService().updateJob(self)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     class Annotation: NSObject, MKAnnotation {

@@ -42,6 +42,7 @@ class WorkOrder: Model {
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
     var materials: [WorkOrderProduct]!
+    var tasks: [Task]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -75,6 +76,7 @@ class WorkOrder: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: WorkOrderProduct.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
         return mapping
@@ -376,6 +378,13 @@ class WorkOrder: Model {
             }
         }
         return imageCount
+    }
+
+    var isCompleted: Bool {
+        if let status = status {
+            return status == "completed"
+        }
+        return false
     }
 
     var isCurrentUserProvider: Bool {

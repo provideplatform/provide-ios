@@ -27,23 +27,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     weak var job: Job! {
         didSet {
-            if let job = job {
-                if let jobManagerHeaderViewController = jobManagerHeaderViewController {
-                    jobManagerHeaderViewController.job = job
-                }
-
-                if let manifestViewController = manifestViewController {
-                    if let materials = job.materials {
-                        manifestViewController.products = materials.map({ $0.product })
-                    } else {
-                        reloadJobManifest()
-                    }
-                }
-                
-//                if job.status == "in_progress" || job.status == "en_route" {
-//                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
-//                }
-            }
+            reload()
         }
     }
 
@@ -55,14 +39,61 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         return dismissItem
     }
 
+    private var startItem: UIBarButtonItem! {
+        let startItem = UIBarButtonItem(title: "START JOB", style: .Plain, target: self, action: "start:")
+        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return startItem
+    }
+
+    private var reviewAndCompleteItem: UIBarButtonItem! {
+        let reviewAndCompleteItem = UIBarButtonItem(title: "REVIEW & COMPLETE", style: .Plain, target: self, action: "reviewAndComplete:")
+        reviewAndCompleteItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        return reviewAndCompleteItem
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Manage Job"
+        navigationItem.title = "MANAGE JOB"
 
         if isIPad() {
             navigationItem.rightBarButtonItems = []
         }
+    }
+
+    func start(sender: UIBarButtonItem) {
+        job.updateJobWithStatus("in_progress",
+            onSuccess: { statusCode, mappingResult in
+                self.reload()
+            },
+            onError: { error, statusCode, responseString in
+
+            }
+        )
+    }
+
+    func reviewAndComplete(sender: UIBarButtonItem) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let alertController = UIAlertController(title: "Are you sure you want to mark this job as ready for review?", message: nil, preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let reviewAndCompleteAction = UIAlertAction(title: "Yes, Review & Complete Job", style: .Default) { action in
+            self.job.updateJobWithStatus("pending_completion",
+                onSuccess: { statusCode, mappingResult in
+                    self.reload()
+                    let userInfo: [String : AnyObject] = ["jobId": self.job.id]
+                    NSNotificationCenter.defaultCenter().postNotificationName("JobDidTransitionToPendingCompletion", object: self.job, userInfo: nil)
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+        alertController.addAction(reviewAndCompleteAction)
+
+        presentViewController(alertController, animated: true)
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -155,6 +186,36 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
                 }
             )
+        }
+    }
+
+    private func reload() {
+        if let job = job {
+            if let jobManagerHeaderViewController = jobManagerHeaderViewController {
+                jobManagerHeaderViewController.job = job
+            }
+
+            if let manifestViewController = manifestViewController {
+                if let materials = job.materials {
+                    manifestViewController.products = materials.map({ $0.product })
+                } else {
+                    reloadJobManifest()
+                }
+            }
+
+            navigationItem.prompt = job.status
+
+            if job.canTransitionToInProgressStatus {
+                navigationItem.rightBarButtonItems = [startItem]
+            } else if job.canTransitionToReviewAndCompleteStatus {
+                navigationItem.rightBarButtonItems = [reviewAndCompleteItem]
+            } else {
+                navigationItem.rightBarButtonItems = []
+            }
+
+            //                if job.status == "in_progress" || job.status == "en_route" {
+            //                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
+            //                }
         }
     }
 

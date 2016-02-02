@@ -15,34 +15,39 @@ class JobWizardTabBarController: UITabBarController,
 
     weak var job: Job! {
         didSet {
-            if let job = job {
-                navigationItem.title = job.name
+            refresh()
+        }
+    }
 
-                navigationItem.rightBarButtonItems = [taskListItem]
+    private func refresh() {
+        if let job = job {
+            navigationItem.title = job.name
+            //navigationItem.prompt = job.status
 
-                if job.status == "completed" || job.status == "canceled" {
-                    viewControllers?.removeAtIndex(4)
+            navigationItem.rightBarButtonItems = [taskListItem]
 
-                    let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
-                    viewControllers?.append(reviewNavigationController)
+            if job.status == "pending_completion" || job.status == "completed" || job.status == "canceled" {
+                viewControllers?.removeAtIndex(4)
+
+                let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
+                viewControllers?.append(reviewNavigationController)
+            }
+
+            if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
+                if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                    jobBlueprintsViewController.refresh()
                 }
+            }
 
-                if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
-                        jobBlueprintsViewController.refresh()
+            if job.supervisors == nil {
+                job.reloadSupervisors(
+                    { statusCode, mappingResult in
+
+                    },
+                    onError: { error, statusCode, responseString in
+
                     }
-                }
-
-                if job.supervisors == nil {
-                    job.reloadSupervisors(
-                        { statusCode, mappingResult in
-
-                        },
-                        onError: { error, statusCode, responseString in
-
-                        }
-                    )
-                }
+                )
             }
         }
     }
@@ -139,6 +144,13 @@ class JobWizardTabBarController: UITabBarController,
         return isEditMode
     }
 
+    private var shouldRenderReviewAndComplete: Bool {
+        if let job = job {
+            return job.isReviewMode
+        }
+        return false
+    }
+
     private var taskListItem: UIBarButtonItem! {
         let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
         let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
@@ -162,6 +174,23 @@ class JobWizardTabBarController: UITabBarController,
         }
 
         setupTabBarAppearence()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("JobDidTransitionToPendingCompletion") { notification in
+            if let job = self.job {
+                if let changedJob = notification.object {
+                    if job.id == changedJob.id {
+                        self.job = changedJob as! Job
+                        self.selectInitialTabBarItem()
+                        if let reviewNavigationController = self.viewControllers!.last! as? UINavigationController {
+                            let rootViewController = reviewNavigationController.viewControllers.first!
+                            if rootViewController.isKindOfClass(JobReviewViewController) {
+                                (rootViewController as! JobReviewViewController).job = self.job
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -214,7 +243,9 @@ class JobWizardTabBarController: UITabBarController,
     private func selectInitialTabBarItem() {
         var item: UITabBarItem?
 
-        if shouldRenderManageJob {
+        if shouldRenderReviewAndComplete {
+            item = reviewTabBarItem
+        } else if shouldRenderManageJob {
             item = manageJobTabBarItem
         } else if shouldRenderBlueprintSetup {
             item = setupBlueprintsTabBarItem
@@ -239,7 +270,11 @@ class JobWizardTabBarController: UITabBarController,
                 if (viewController as! UINavigationController).viewControllers.count == 1 {
                     let rootViewController = (viewController as! UINavigationController).viewControllers.first!
                     if rootViewController.isKindOfClass(JobReviewViewController) {
-                        return ["canceled", "completed"].indexOf(job.status) > -1
+                        let shouldSelectViewController = ["pending_completion", "canceled", "completed"].indexOf(job.status) != nil
+                        if shouldSelectViewController {
+                            (rootViewController as! JobReviewViewController).job = job
+                        }
+                        return shouldSelectViewController
                     }
                 }
             }
@@ -292,6 +327,7 @@ class JobWizardTabBarController: UITabBarController,
     }
 
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         logInfo("Deinitialize JobWizardTabBarController")
     }
 }
