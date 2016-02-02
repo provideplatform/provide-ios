@@ -68,6 +68,43 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
         }
 
         setupPullToRefresh()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
+            if let userInfo = notification.object {
+                let attachmentId = userInfo["attachment_id"] as? Int
+                let attachableType = userInfo["attachable_type"] as? String
+                let attachableId = userInfo["attachable_id"] as? Int
+
+                if attachmentId != nil && attachableType != nil && attachableId != nil {
+                    if attachableType == "estimate" {
+                        for estimate in self.estimates {
+                            if estimate.id == attachableId {
+                                estimate.reload([:],
+                                    onSuccess: { statusCode, mappingResult in
+                                        var index: Int?
+                                        for e in self.estimates {
+                                            if e.id == estimate.id {
+                                                index = self.estimates.indexOfObject(e)
+                                            }
+                                        }
+                                        if let index = index {
+                                            self.estimates.replaceRange(index...index, with: [mappingResult.firstObject as! Estimate])
+                                            self.reloadTableView()
+                                            dispatch_after_delay(0.0) {
+                                                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.estimates.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+                                            }
+                                        }
+                                    },
+                                    onError: { error, statusCode, responseString in
+
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private func setupPullToRefresh() {
@@ -89,7 +126,8 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     }
 
     func addEstimate(sender: UIBarButtonItem) {
-        estimates.append(Estimate())
+        let newEstimate = Estimate()
+        estimates.append(newEstimate)
         reloadTableView()
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: estimates.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
 
@@ -100,8 +138,16 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
                     let estimate = mappingResult.firstObject as! Estimate
                     self.delegate?.estimatesViewController?(self, didCreateEstimate: estimate)
 
+                    newEstimate.id = estimate.id
+                    newEstimate.userId = estimate.userId
+                    newEstimate.jobId = estimate.jobId
+                    newEstimate.createdAtString = estimate.createdAtString
+                    newEstimate.updatedAtString = estimate.updatedAtString
+                    newEstimate.totalSqFt = estimate.totalSqFt
+                    newEstimate.quotedPricePerSqFt = estimate.quotedPricePerSqFt
+                    newEstimate.attachments = estimate.attachments
+
                     dispatch_after_delay(0.0) {
-                        self.estimates = job.estimates
                         self.reloadTableView()
                     }
                 },
@@ -302,4 +348,8 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     //
     //    @available(iOS 2.0, *)
     //    optional public func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

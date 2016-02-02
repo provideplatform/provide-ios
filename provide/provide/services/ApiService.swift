@@ -770,6 +770,10 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("jobs/\(id)/estimates", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchEstimateWithId(id: String, forJobWithId jobId: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     func createEstimate(params: [String : AnyObject], forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("jobs/\(id)/estimates", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }

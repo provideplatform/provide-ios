@@ -61,4 +61,23 @@ class Estimate: Model {
         }
         return nil
     }
+
+    func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        if jobId > 0 {
+            ApiService.sharedService().fetchEstimateWithId(String(id), forJobWithId: String(jobId),
+                onSuccess: { statusCode, mappingResult in
+                    let estimate = mappingResult.firstObject as! Estimate
+                    self.jobId = estimate.jobId
+                    self.quotedPricePerSqFt = estimate.quotedPricePerSqFt
+                    self.totalSqFt = estimate.totalSqFt
+                    self.attachments = estimate.attachments
+                    self.updatedAtString = estimate.updatedAtString
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
 }

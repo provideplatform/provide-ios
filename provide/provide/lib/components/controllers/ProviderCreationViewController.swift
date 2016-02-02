@@ -117,7 +117,7 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
                 onSuccess: { statusCode, mappingResult in
                     if statusCode == 201 {
                         provider.reload(
-                            onSuccess: { statusCode, mappingResult in
+                            { statusCode, mappingResult in
                                 self.hideActivityIndicator()
                                 self.delegate?.providerCreationViewController(self, didCreateProvider: mappingResult.firstObject as! Provider)
                             },

@@ -31,6 +31,29 @@ class EstimateViewController: ViewController {
         if let _ = estimate {
             reload()
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
+            if let userInfo = notification.object {
+                let attachmentId = userInfo["attachment_id"] as? Int
+                let attachableType = userInfo["attachable_type"] as? String
+                let attachableId = userInfo["attachable_id"] as? Int
+
+                if attachmentId != nil && attachableType != nil && attachableId != nil {
+                    if attachableType == "estimate" {
+                        if self.estimate.id == attachableId {
+                            self.estimate.reload([:],
+                                onSuccess: { statusCode, mappingResult in
+                                    self.reload()
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     func hideLabels() {
@@ -72,5 +95,9 @@ class EstimateViewController: ViewController {
             imageView?.image = nil
             activityIndicatorView?.stopAnimating()
         }
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

@@ -69,7 +69,7 @@ class Provider: Model {
         }
     }
 
-    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func reload(onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchProviderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
