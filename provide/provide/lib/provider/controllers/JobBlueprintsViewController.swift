@@ -15,6 +15,7 @@ protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
 
 class JobBlueprintsViewController: ViewController,
                                    BlueprintViewControllerDelegate,
+                                   EstimatesViewControllerDelegate,
                                    FloorplansViewControllerDelegate {
 
     private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
@@ -48,6 +49,7 @@ class JobBlueprintsViewController: ViewController,
 
     @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
 
+    @IBOutlet private weak var estimatesContainerView: UIView!
     @IBOutlet private weak var floorplansContainerView: UIView!
 
     @IBOutlet private weak var importInstructionsContainerView: UIView!
@@ -57,10 +59,12 @@ class JobBlueprintsViewController: ViewController,
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
     private weak var blueprintViewController: BlueprintViewController!
+    private weak var estimatesViewController: EstimatesViewController!
     private weak var floorplansViewController: FloorplansViewController!
 
     private var reloadingBlueprint = false
     private var reloadingJob = false
+    private var reloadingEstimates = false
     private var importedPdfAttachment: Attachment! {
         didSet {
             if let _ = importedPdfAttachment {
@@ -129,6 +133,9 @@ class JobBlueprintsViewController: ViewController,
         importInstructionsLabel?.text = ""
         importInstructionsContainerView?.alpha = 0.0
         importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
+
+        estimatesContainerView?.alpha = 0.0
+        estimatesContainerView?.superview?.bringSubviewToFront(estimatesContainerView)
 
         floorplansContainerView?.alpha = 0.0
         floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
@@ -225,6 +232,8 @@ class JobBlueprintsViewController: ViewController,
                     }
                 } else if job.blueprintImageUrl != nil {
                     renderInstruction("Congrats! Your blueprint is configured properly.")
+                    estimatesContainerView?.alpha = 1.0
+                    reloadEstimates()
                 }
             } else if job.isResidential {
                 if job.blueprintImageUrl == nil {
@@ -242,6 +251,9 @@ class JobBlueprintsViewController: ViewController,
         if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
             //blueprintViewController.blueprintViewControllerDelegate = self
+        } else if segue.identifier! == "EstimatesViewControllerEmbedSegue" {
+            estimatesViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! EstimatesViewController
+            estimatesViewController.delegate = self
         } else if segue.identifier! == "FloorplansViewControllerEmbedSegue" {
             floorplansViewController = segue.destinationViewController as! FloorplansViewController
             floorplansViewController.delegate = self
@@ -295,13 +307,37 @@ class JobBlueprintsViewController: ViewController,
                 reloadingJob = true
 
                 job.reload(
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.loadBlueprint()
-                        self!.reloadingJob = false
+                    onSuccess: { statusCode, mappingResult in
+                        self.loadBlueprint()
+                        self.reloadingJob = false
                     },
-                    onError: { [weak self] error, statusCode, responseString in
-                        self!.loadBlueprint()
-                        self!.reloadingJob = false
+                    onError: { error, statusCode, responseString in
+                        self.loadBlueprint()
+                        self.reloadingJob = false
+                    }
+                )
+            }
+        }
+    }
+
+    private func reloadEstimates() {
+        if !reloadingEstimates {
+            if let job = job {
+                reloadingEstimates = true
+
+                job.reloadEstimates(
+                    { statusCode, mappingResult in
+                        if let estimatesViewController = self.estimatesViewController {
+                            self.estimatesContainerView?.alpha = 1.0
+                            self.estimatesContainerView?.superview?.bringSubviewToFront(self.estimatesContainerView)
+
+                            estimatesViewController.estimates = mappingResult.array() as! [Estimate]
+                        }
+                        self.reloadingEstimates = false
+                    },
+                    onError: { error, statusCode, responseString in
+                        // TODO: set estimates on estimates controller
+                        self.reloadingEstimates = false
                     }
                 )
             }
@@ -410,6 +446,12 @@ class JobBlueprintsViewController: ViewController,
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    // MARK: EstimatesViewControllerDelegate
+
+    func jobForEstimatesViewController(viewController: EstimatesViewController) -> Job! {
+        return job
     }
 
     // MARK: FloorplansViewControllerDelegate

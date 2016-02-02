@@ -155,6 +155,11 @@
 		6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */; };
 		688952C31C1FFC61006AEFDF /* CustomerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */; };
 		688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */; };
+		688C2B4D1C60A95F009D5FF5 /* Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B4C1C60A95F009D5FF5 /* Estimate.swift */; };
+		688C2B4F1C60B107009D5FF5 /* Estimates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688C2B4E1C60B107009D5FF5 /* Estimates.storyboard */; };
+		688C2B511C60B12D009D5FF5 /* EstimatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B501C60B12D009D5FF5 /* EstimatesViewController.swift */; };
+		688C2B531C60B1CB009D5FF5 /* EstimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B521C60B1CB009D5FF5 /* EstimateViewController.swift */; };
+		688C2B551C60B27E009D5FF5 /* EstimateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B541C60B27E009D5FF5 /* EstimateTableViewCell.swift */; };
 		6893D6061BFD0DA000D562DF /* MKPolygonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */; };
 		6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */; };
 		6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */; };
@@ -444,6 +449,11 @@
 		6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTeamViewController.swift; sourceTree = "<group>"; };
 		688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPickerViewController.swift; sourceTree = "<group>"; };
 		688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintToolbar.swift; sourceTree = "<group>"; };
+		688C2B4C1C60A95F009D5FF5 /* Estimate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Estimate.swift; sourceTree = "<group>"; };
+		688C2B4E1C60B107009D5FF5 /* Estimates.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Estimates.storyboard; sourceTree = "<group>"; };
+		688C2B501C60B12D009D5FF5 /* EstimatesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimatesViewController.swift; sourceTree = "<group>"; };
+		688C2B521C60B1CB009D5FF5 /* EstimateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateViewController.swift; sourceTree = "<group>"; };
+		688C2B541C60B27E009D5FF5 /* EstimateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateTableViewCell.swift; sourceTree = "<group>"; };
 		6893D6051BFD0DA000D562DF /* MKPolygonExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKPolygonExtensions.swift; sourceTree = "<group>"; };
 		6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderCreationViewController.swift; sourceTree = "<group>"; };
 		6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderPicker.storyboard; sourceTree = "<group>"; };
@@ -907,6 +917,8 @@
 				688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
+				688C2B501C60B12D009D5FF5 /* EstimatesViewController.swift */,
+				688C2B521C60B1CB009D5FF5 /* EstimateViewController.swift */,
 				68E329881C16E08600DC297A /* ExpensesViewController.swift */,
 				68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */,
 				68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */,
@@ -946,6 +958,7 @@
 				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				6816FD351C2FDEE4005A18BB /* DurationPickerView.swift */,
+				688C2B541C60B27E009D5FF5 /* EstimateTableViewCell.swift */,
 				68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */,
 				68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */,
 				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
@@ -1040,6 +1053,7 @@
 				683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
 				686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */,
+				688C2B4E1C60B107009D5FF5 /* Estimates.storyboard */,
 				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
 				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
 				687ECC7D1C4D5F4200FD5C4C /* Floorplan.storyboard */,
@@ -1212,6 +1226,7 @@
 				68F7305C1B07DE94001A21B0 /* Customer.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
+				688C2B4C1C60A95F009D5FF5 /* Estimate.swift */,
 				68E329561C12CA1300DC297A /* Expense.swift */,
 				687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */,
 				6840F1691BDB59D700EF70F7 /* Job.swift */,
@@ -1412,6 +1427,7 @@
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
 				6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
+				688C2B4F1C60B107009D5FF5 /* Estimates.storyboard in Resources */,
 				686C1CBD1C1F93AC00A31AFD /* ProductCreation.storyboard in Resources */,
 				68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
@@ -1563,6 +1579,7 @@
 				6840F16C1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift in Sources */,
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
 				687CB5531B07EAD30048B692 /* DictionaryExtensions.swift in Sources */,
+				688C2B551C60B27E009D5FF5 /* EstimateTableViewCell.swift in Sources */,
 				68F48F7E1C446F1A005F9AB1 /* TaskTableViewCell.swift in Sources */,
 				68F537121B834A9A0007F480 /* ImageCollectionViewCell.swift in Sources */,
 				687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */,
@@ -1654,8 +1671,10 @@
 				6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
 				683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */,
 				6845BB661BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift in Sources */,
+				688C2B4D1C60A95F009D5FF5 /* Estimate.swift in Sources */,
 				68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */,
 				688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */,
+				688C2B531C60B1CB009D5FF5 /* EstimateViewController.swift in Sources */,
 				68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */,
 				68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
@@ -1721,6 +1740,7 @@
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
 				6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */,
 				681EBF5A1C18074C00B81BEB /* JobWizardTabBarController.swift in Sources */,
+				688C2B511C60B12D009D5FF5 /* EstimatesViewController.swift in Sources */,
 				686C1CB51C1D105000A31AFD /* ProviderCreationViewController.swift in Sources */,
 				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,

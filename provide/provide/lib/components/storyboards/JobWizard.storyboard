@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufM-R8-7az">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufM-R8-7az">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -9,6 +9,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
@@ -693,6 +694,13 @@
                     <view key="view" contentMode="scaleToFill" id="qZd-5O-Vdc">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ue-3b-iYy">
+                                <rect key="frame" x="263" y="445" width="74" height="30"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
+                                <state key="normal" title="Complete"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="zeC-Av-Wuw"/>
@@ -754,6 +762,15 @@
                                     <constraint firstItem="M2J-Ov-1wQ" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="vtQ-7A-mkQ"/>
                                 </constraints>
                             </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2w6-E1-TLh">
+                                <rect key="frame" x="0.0" y="247" width="600" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="wzh-vE-XAp"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="i1Z-VQ-x6k" kind="embed" identifier="EstimatesViewControllerEmbedSegue" id="euf-50-ulr"/>
+                                </connections>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x2k-0L-gVr">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <connections>
@@ -804,13 +821,16 @@
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="812-8N-FHq"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leading" id="8R2-Ek-AaO"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="GaY-Ya-p8G"/>
+                            <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="2w6-E1-TLh" secondAttribute="bottom" id="Mbr-HI-5zH"/>
                             <constraint firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="Pit-5c-Z1a"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="height" multiplier="600:487" id="QAt-4g-BRN"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="QIw-Ag-o2e"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="fWz-MA-QiB" secondAttribute="top" id="TTy-PY-Gcn"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="gfz-5V-tWw"/>
+                            <constraint firstItem="2w6-E1-TLh" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="gg0-jo-AQM"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="width" id="kIU-Ru-gUT"/>
                             <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="2OO-pg-gjT" secondAttribute="top" id="ocU-wk-RAe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2w6-E1-TLh" secondAttribute="trailing" constant="-20" id="sSy-qe-gHc"/>
                             <constraint firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="vor-pe-s7e"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="xfJ-Sb-Rgh"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="height" secondItem="2OO-pg-gjT" secondAttribute="height" id="zxi-eS-q4H"/>
@@ -823,6 +843,7 @@
                         <outlet property="blueprintPreviewContainerView" destination="BkC-j0-KT1" id="Q3d-AN-QUj"/>
                         <outlet property="blueprintPreviewImageView" destination="3j8-PF-pdv" id="haP-Xf-KaS"/>
                         <outlet property="blueprintPreviewStatusLabel" destination="9TC-nX-DsW" id="EGy-Ng-Cs3"/>
+                        <outlet property="estimatesContainerView" destination="2w6-E1-TLh" id="Vy5-2Y-frB"/>
                         <outlet property="floorplansContainerView" destination="x2k-0L-gVr" id="6Lq-Ox-nEW"/>
                         <outlet property="importFromDropboxIconButton" destination="7SP-l0-9g0" id="G9T-T7-k4v"/>
                         <outlet property="importFromDropboxTextButton" destination="e6M-E5-2EJ" id="ibg-0N-UKl"/>
@@ -849,6 +870,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P8c-Dh-P0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2093" y="662"/>
+        </scene>
+        <!--Estimates-->
+        <scene sceneID="sgO-T2-veC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Estimates" id="i1Z-VQ-x6k" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLl-zy-TmY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2140" y="709"/>
         </scene>
         <!--Job Inventory View Contoller-->
         <scene sceneID="xnM-A6-K5o">

@@ -26,6 +26,9 @@ class Job: Model {
     var blueprintAnnotationsCount = 0
     var floorplans: [Floorplan]!
     var status: String!
+    var estimates: [Estimate]!
+    var estimatesCount = 0
+    var estimatedAmount = -1.0
     var expenses: [Expense]!
     var expensesCount = 0
     var expensedAmount = -1.0
@@ -276,6 +279,23 @@ class Job: Model {
         return false
     }
 
+    func prependEstimate(estimate: Estimate) {
+        if estimates == nil {
+            estimates = [Estimate]()
+
+            if estimatedAmount == -1.0 {
+                estimatedAmount = 0.0
+            }
+        }
+
+        estimates.insert(estimate, atIndex: 0)
+
+        estimatesCount += 1
+        if let amount = estimate.amount {
+            estimatedAmount += amount
+        }
+    }
+
     func prependExpense(expense: Expense) {
         if expenses == nil {
             expenses = [Expense]()
@@ -367,6 +387,55 @@ class Job: Model {
                 }
             )
         }
+    }
+
+    func reloadEstimates(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            ApiService.sharedService().fetchEstimates(forJobWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    self.estimates = mappingResult.array() as! [Estimate]
+                    self.estimatesCount = self.estimates.count
+                    self.estimatedAmount = 0.0
+                    for estimate in self.estimates {
+                        if let amount = estimate.amount {
+                            self.estimatedAmount = self.estimatedAmount + amount
+                        }
+                    }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
+    }
+
+    func addEstimate(params: [String: AnyObject], forBlueprint blueprint: Attachment!, onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().createEstimate(params, forJobWithId: String(self.id),
+            onSuccess: { statusCode, mappingResult in
+                let estimateStatusCode = statusCode
+                let estimateMappingResult = mappingResult
+                let estimate = mappingResult.firstObject as! Estimate
+
+                self.prependEstimate(estimate)
+
+                if let blueprint = blueprint {
+                    ApiService.sharedService().addAttachmentFromSourceUrl(blueprint.url, toEstimateWithId: String(estimate.id),
+                        forJobWithId: String(self.id), params: params, onSuccess: { statusCode, mappingResult in
+                            onSuccess(statusCode: estimateStatusCode, mappingResult: estimateMappingResult)
+                        },
+                        onError: { error, statusCode, responseString in
+                            onError(error: error, statusCode: statusCode, responseString: responseString)
+                        }
+                    )
+                } else {
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                }
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
