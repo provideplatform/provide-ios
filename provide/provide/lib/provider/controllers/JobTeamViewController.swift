@@ -446,12 +446,12 @@ class JobTeamViewController: UITableViewController,
 
             self.job?.reloadSupervisors(
                 { statusCode, mappingResult in
-                    self.supervisorsPickerViewController.providers = self.job.supervisors
-                    self.supervisorsPickerViewController.reloadCollectionView()
+                    self.supervisorsPickerViewController?.providers = self.job.supervisors
+                    self.supervisorsPickerViewController?.reloadCollectionView()
                     self.reloadingSupervisors = false
                 },
                 onError: { error, statusCode, responseString in
-                    self.supervisorsPickerViewController.reloadCollectionView()
+                    self.supervisorsPickerViewController?.reloadCollectionView()
                     self.reloadingSupervisors = false
                 }
             )
