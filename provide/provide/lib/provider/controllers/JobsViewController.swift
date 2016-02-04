@@ -175,10 +175,12 @@ class JobsViewController: ViewController,
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 job.cancel(
                     onSuccess: { statusCode, mappingResult in
-                        self.tableView?.beginUpdates()
-                        self.jobs.removeObject(job)
-                        self.tableView?.deleteRowsAtIndexPaths([self.tableView.indexPathForCell(cell)!], withRowAnimation: .Middle)
-                        self.tableView?.endUpdates()
+                        if let indexPath = self.tableView.indexPathForCell(cell) {
+                            self.tableView?.beginUpdates()
+                            self.jobs.removeObject(job)
+                            self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+                            self.tableView?.endUpdates()
+                        }
                     },
                     onError: { error, statusCode, responseString in
                         
