@@ -471,8 +471,9 @@ class Job: Model {
                 self.prependEstimate(estimate)
 
                 if let blueprint = blueprint {
+                    let blueprintParams = ["metadata": blueprint.metadata, "description": blueprint.desc, "tags": blueprint.tags]
                     ApiService.sharedService().addAttachmentFromSourceUrl(blueprint.url, toEstimateWithId: String(estimate.id),
-                        forJobWithId: String(self.id), params: params, onSuccess: { statusCode, mappingResult in
+                        forJobWithId: String(self.id), params: blueprintParams, onSuccess: { statusCode, mappingResult in
                             onSuccess(statusCode: estimateStatusCode, mappingResult: estimateMappingResult)
                         },
                         onError: { error, statusCode, responseString in

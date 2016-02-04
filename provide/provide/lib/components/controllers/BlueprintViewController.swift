@@ -12,6 +12,7 @@ import UIKit
 protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
+    optional func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate!
     optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
@@ -68,12 +69,51 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var polygonViews = [BlueprintPolygonView]()
 
+    var blueprint: Attachment! {
+        if let job = job {
+            return job.blueprint
+        } else if let estimate = estimate {
+            return estimate.blueprint
+        }
+        return nil
+    }
+
+    var blueprintImageUrl: NSURL! {
+        if let blueprint = blueprint {
+            return blueprint.url
+        }
+        return nil
+    }
+
+    var blueprintAnnotationsCount: Int {
+        if let blueprint = blueprint {
+            return blueprint.annotations.count
+        }
+        return 0
+    }
+
+    var blueprintScale: Float! {
+        if let metadata = blueprint?.metadata {
+            if let scale = metadata["scale"] as? Double {
+                return Float(scale)
+            }
+        }
+        return nil
+    }
+
     weak var job: Job! {
         if let job = blueprintViewControllerDelegate?.jobForBlueprintViewController(self) {
             return job
         }
         if let workOrder = workOrder {
             return workOrder.job
+        }
+        return nil
+    }
+
+    weak var estimate: Estimate! {
+        if let estimate = blueprintViewControllerDelegate?.estimateForBlueprintViewController?(self) {
+            return estimate
         }
         return nil
     }
@@ -167,7 +207,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
-                if let blueprint = self.job?.blueprint {
+                if let blueprint = self.blueprint {
                     for annotation in blueprint.annotations {
                         if workOrder.id == annotation.workOrderId {
                             annotation.workOrder = workOrder
@@ -269,26 +309,24 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func loadBlueprint() {
-        if let job = job {
-            if let image = blueprintViewControllerDelegate?.blueprintImageForBlueprintViewController(self) {
-                setBlueprintImage(image)
-                loadAnnotations()
-            } else if let url = job.blueprintImageUrl {
-                loadingBlueprint = true
+        if let image = blueprintViewControllerDelegate?.blueprintImageForBlueprintViewController(self) {
+            setBlueprintImage(image)
+            loadAnnotations()
+        } else if let url = blueprintImageUrl {
+            loadingBlueprint = true
 
-                ApiService.sharedService().fetchImage(url,
-                    onImageFetched: { statusCode, image in
-                        dispatch_after_delay(0.0) { [weak self] in
-                            self!.setBlueprintImage(image)
-                        }
-                    },
-                    onError: { error, statusCode, responseString in
-
+            ApiService.sharedService().fetchImage(url,
+                onImageFetched: { statusCode, image in
+                    dispatch_after_delay(0.0) { [weak self] in
+                        self!.setBlueprintImage(image)
                     }
-                )
+                },
+                onError: { error, statusCode, responseString in
 
-                loadAnnotations()
-            }
+                }
+            )
+
+            loadAnnotations()
         }
     }
 
@@ -319,21 +357,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func loadAnnotations() {
-        if let job = job {
-            if let blueprint = job.blueprint {
-                loadingAnnotations = true
-                let rpp = max(100, job.blueprintAnnotationsCount)
-                let params = ["page": "1", "rpp": "\(rpp)"]
-                blueprint.fetchAnnotations(params,
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.refreshAnnotations()
-                        self!.loadingAnnotations = false
-                    },
-                    onError: { [weak self] error, statusCode, responseString in
-                        self!.loadingAnnotations = false
-                    }
-                )
-            }
+        if let blueprint = blueprint {
+            loadingAnnotations = true
+            let rpp = max(100, blueprintAnnotationsCount)
+            let params = ["page": "1", "rpp": "\(rpp)"]
+            blueprint.fetchAnnotations(params,
+                onSuccess: { statusCode, mappingResult in
+                    self.refreshAnnotations()
+                    self.loadingAnnotations = false
+                },
+                onError: { error, statusCode, responseString in
+                    self.loadingAnnotations = false
+                }
+            )
         }
     }
 
@@ -367,17 +403,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func refreshAnnotations() {
-        if let job = job {
-            if let blueprint = job.blueprint {
-                for annotation in blueprint.annotations {
-                    if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
-                        let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-                        imageView.addSubview(polygonView)
-                        polygonView.alpha = 1.0
-                        polygonView.attachGestureRecognizer()
+        if let blueprint = blueprint {
+            for annotation in blueprint.annotations {
+                if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
+                    let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                    imageView.addSubview(polygonView)
+                    polygonView.alpha = 1.0
+                    polygonView.attachGestureRecognizer()
 
-                        polygonViews.append(polygonView)
-                    }
+                    polygonViews.append(polygonView)
                 }
             }
         }
@@ -437,11 +471,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         restoreCachedNavigationItem()
 
-        if let job = job {
-            job.updateJobBlueprintScale(scale,
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.toolbar.reload()
-                    self!.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController?(self!)
+        if let blueprint = blueprint {
+            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
+            metadata["scale"] = scale
+            blueprint.updateAttachment(["metadata": metadata],
+                onSuccess: { statusCode, mappingResult in
+                    self.toolbar.reload()
+                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController?(self)
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -561,8 +597,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat {
-        if let job = job {
-            return CGFloat(job.blueprintScale)
+        if let blueprintScale = blueprintScale {
+            return CGFloat(blueprintScale)
         }
 
         return 1.0
@@ -630,7 +666,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: BlueprintToolbarDelegate
 
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment {
-        if let blueprint = job?.blueprint {
+        if let blueprint = blueprint {
             return blueprint
         }
         return Attachment()
@@ -713,8 +749,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat! {
-        if let job = job {
-            return CGFloat(job.blueprintScale)
+        if let blueprintScale = blueprintScale {
+            return CGFloat(blueprintScale)
         }
         return nil
     }
@@ -732,10 +768,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment! {
-        if let job = job {
-            return job.blueprint
-        }
-        return nil
+        return blueprint
     }
 
     func blueprintPolygonViewDidClose(view: BlueprintPolygonView) {
@@ -997,23 +1030,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
-        if let job = job {
-            if let blueprint = job.blueprint {
-                let annotation = Annotation()
-                annotation.polygon = polygonView.polygon
-                annotation.workOrderId = workOrder.id
-                annotation.workOrder = workOrder
-                annotation.save(blueprint,
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        self!.refreshAnnotations()
-                        self!.dismissWorkOrderCreationPolygonView()
-                        viewController.reloadTableView()
-                    },
-                    onError: { error, statusCode, responseString in
+        if let blueprint = blueprint {
+            let annotation = Annotation()
+            annotation.polygon = polygonView.polygon
+            annotation.workOrderId = workOrder.id
+            annotation.workOrder = workOrder
+            annotation.save(blueprint,
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.refreshAnnotations()
+                    self!.dismissWorkOrderCreationPolygonView()
+                    viewController.reloadTableView()
+                },
+                onError: { error, statusCode, responseString in
 
-                    }
-                )
-            }
+                }
+            )
         }
     }
 

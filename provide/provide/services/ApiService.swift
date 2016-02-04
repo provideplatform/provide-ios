@@ -811,6 +811,10 @@ class ApiService: NSObject {
         )
     }
 
+    func updateAttachmentWithId(id: String, forEstimateWithId estimateId: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(estimateId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Expenses API
 
     func fetchExpenses(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {

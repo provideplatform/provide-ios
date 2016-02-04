@@ -112,7 +112,11 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
     // BlueprintViewControllerDelegate
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
-        return nil //JobService.sharedService().jobWithId(estimate.jobId)
+        return nil
+    }
+
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
+        return estimate
     }
 
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {

@@ -79,7 +79,7 @@ class Estimate: Model {
     var blueprints: [Attachment] {
         var blueprints = [Attachment]()
         for attachment in attachments {
-            if attachment.tags.indexOf("blueprint") != nil {
+            if attachment.hasTag("blueprint") {
                 blueprints.append(attachment)
             }
         }

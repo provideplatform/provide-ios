@@ -83,7 +83,6 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
             self.job.updateJobWithStatus("pending_completion",
                 onSuccess: { statusCode, mappingResult in
                     self.reload()
-                    let userInfo: [String : AnyObject] = ["jobId": self.job.id]
                     NSNotificationCenter.defaultCenter().postNotificationName("JobDidTransitionToPendingCompletion", object: self.job, userInfo: nil)
                 },
                 onError: { error, statusCode, responseString in
