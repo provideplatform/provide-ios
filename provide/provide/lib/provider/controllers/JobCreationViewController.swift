@@ -126,10 +126,10 @@ class JobCreationViewController: UITableViewController,
         }
         job.name = nameTextField?.text
         if let quotedPricePerSqFt = Double(quotedPricePerSqFtTextField.text!) {
-            job.quotedPricePerSqFt = quotedPricePerSqFt
+            job.quotedPricePerSqFt = NSNumber(double: quotedPricePerSqFt)
         }
         if let totalSqFt = Double(totalSqFtTextField.text!) {
-            job.totalSqFt = totalSqFt
+            job.totalSqFt = NSNumber(double: totalSqFt)
         }
 
         if job.customerId > 0 && job.name != nil && job.name.length > 0 {

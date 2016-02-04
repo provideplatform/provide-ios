@@ -17,8 +17,8 @@ class Job: Model {
     var customerId = 0
     var customer: Customer!
     var comments: [Comment]!
-    var contractRevenue: Double!
-    var cost: Double!
+    var contractRevenue: NSNumber!
+    var cost: NSNumber!
     var attachments: [Attachment]!
     var blueprints: [Attachment]!
     var blueprintImageUrlString: String!
@@ -28,24 +28,24 @@ class Job: Model {
     var status: String!
     var estimates: [Estimate]!
     var estimatesCount = 0
-    var estimatedAmount: Double!
+    var estimatedAmount: NSNumber!
     var expenses: [Expense]!
     var expensesCount = 0
-    var expensedAmount: Double!
-    var laborCost: Double!
-    var laborCostPerSqFt: Double!
-    var laborCostPercentageOfRevenue: Double!
-    var materialsCost: Double!
-    var materialsCostPerSqFt: Double!
-    var materialsCostPercentageOfRevenue: Double!
+    var expensedAmount: NSNumber!
+    var laborCost: NSNumber!
+    var laborCostPerSqFt: NSNumber!
+    var laborCostPercentageOfRevenue: NSNumber!
+    var materialsCost: NSNumber!
+    var materialsCostPerSqFt: NSNumber!
+    var materialsCostPercentageOfRevenue: NSNumber!
     var materials: [JobProduct]!
-    var profit: Double!
-    var profitMargin: Double!
-    var profitPerSqFt: Double!
-    var quotedPricePerSqFt: Double!
+    var profit: NSNumber!
+    var profitMargin: NSNumber!
+    var profitPerSqFt: NSNumber!
+    var quotedPricePerSqFt: NSNumber!
     var supervisors: [Provider]!
     var type: String!
-    var totalSqFt: Double!
+    var totalSqFt: NSNumber!
     var workOrdersCount = 0
     var workOrders: [WorkOrder]!
     var wizardMode: NSNumber!
@@ -237,84 +237,84 @@ class Job: Model {
 
     var humanReadableContractRevenue: String! {
         if contractRevenue != nil {
-            return "$\(NSString(format: "%.02f", contractRevenue))"
+            return "$\(NSString(format: "%.02f", contractRevenue.doubleValue))"
         }
         return nil
     }
 
     var humanReadableCost: String! {
         if cost != nil {
-            return "$\(NSString(format: "%.02f", cost))"
+            return "$\(NSString(format: "%.02f", cost.doubleValue))"
         }
         return nil
     }
 
     var humanReadableProfit: String! {
         if let profit = profit {
-            return "$\(NSString(format: "%.02f", profit))"
+            return "$\(NSString(format: "%.02f", profit.doubleValue))"
         }
         return nil
     }
 
     var humanReadableProfitMargin: String! {
         if let profitMargin = profitMargin {
-            return "\(NSString(format: "%.0f", profitMargin * 100.0))%"
+            return "\(NSString(format: "%.0f", profitMargin.doubleValue * 100.0))%"
         }
         return nil
     }
 
     var humanReadableProfitPerSqFt: String! {
         if let profitPerSqFt = profitPerSqFt {
-            return "$\(NSString(format: "%.02f", profitPerSqFt))"
+            return "$\(NSString(format: "%.02f", profitPerSqFt.doubleValue))"
         }
         return nil
     }
 
     var humanReadableExpenses: String! {
         if expensedAmount != nil {
-            return "$\(NSString(format: "%.02f", expensedAmount))"
+            return "$\(NSString(format: "%.02f", expensedAmount.doubleValue))"
         }
         return nil
     }
 
     var humanReadableLaborCost: String! {
         if laborCost != nil {
-            return "$\(NSString(format: "%.02f", laborCost))"
+            return "$\(NSString(format: "%.02f", laborCost.doubleValue))"
         }
         return nil
     }
 
     var humanReadableLaborCostPerSqFt: String! {
         if laborCostPerSqFt != nil {
-            return "$\(NSString(format: "%.02f", laborCostPerSqFt))"
+            return "$\(NSString(format: "%.02f", laborCostPerSqFt.doubleValue))"
         }
         return nil
     }
 
     var humanReadableLaborCostPercentageOfRevenue: String! {
         if laborCostPercentageOfRevenue != nil {
-            return "\(NSString(format: "%.0f", laborCostPercentageOfRevenue * 100.0))%"
+            return "\(NSString(format: "%.0f", laborCostPercentageOfRevenue.doubleValue * 100.0))%"
         }
         return nil
     }
 
     var humanReadableMaterialsCost: String! {
         if materialsCost != nil {
-            return "$\(NSString(format: "%.02f", materialsCost))"
+            return "$\(NSString(format: "%.02f", materialsCost.doubleValue))"
         }
         return nil
     }
 
     var humanReadableMaterialsCostPerSqFt: String! {
         if materialsCostPerSqFt != nil {
-            return "$\(NSString(format: "%.02f", materialsCostPerSqFt))"
+            return "$\(NSString(format: "%.02f", materialsCostPerSqFt.doubleValue))"
         }
         return nil
     }
 
     var humanReadableMaterialsCostPercentageOfRevenue: String! {
         if materialsCostPercentageOfRevenue != nil {
-            return "\(NSString(format: "%.0f", materialsCostPercentageOfRevenue * 100.0))%"
+            return "\(NSString(format: "%.0f", materialsCostPercentageOfRevenue.doubleValue * 100.0))%"
         }
         return nil
     }
@@ -334,7 +334,7 @@ class Job: Model {
         if estimates == nil {
             estimates = [Estimate]()
 
-            if estimatedAmount == -1.0 {
+            if estimatedAmount == nil {
                 estimatedAmount = 0.0
             }
         }
@@ -343,7 +343,7 @@ class Job: Model {
 
         estimatesCount += 1
         if let amount = estimate.amount {
-            estimatedAmount! += amount
+            estimatedAmount = estimatedAmount.doubleValue + amount
         }
     }
 
@@ -351,7 +351,7 @@ class Job: Model {
         if expenses == nil {
             expenses = [Expense]()
 
-            if expensedAmount == -1.0 {
+            if expensedAmount == nil {
                 expensedAmount = 0.0
             }
         }
@@ -359,7 +359,7 @@ class Job: Model {
         expenses.insert(expense, atIndex: 0)
 
         expensesCount += 1
-        expensedAmount! += expense.amount
+        expensedAmount = expensedAmount.doubleValue + expense.amount
     }
 
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
@@ -449,7 +449,7 @@ class Job: Model {
                     self.estimatedAmount = 0.0
                     for estimate in self.estimates {
                         if let amount = estimate.amount {
-                            self.estimatedAmount = self.estimatedAmount + amount
+                            self.estimatedAmount = self.estimatedAmount.doubleValue + amount
                         }
                     }
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
@@ -498,7 +498,7 @@ class Job: Model {
                     self.expensesCount = self.expenses.count
                     self.expensedAmount = 0.0
                     for expense in self.expenses {
-                        self.expensedAmount = self.expensedAmount + expense.amount
+                        self.expensedAmount = self.expensedAmount.doubleValue + expense.amount
                     }
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
