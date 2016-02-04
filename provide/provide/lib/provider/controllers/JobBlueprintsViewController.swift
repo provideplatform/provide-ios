@@ -454,6 +454,14 @@ class JobBlueprintsViewController: ViewController,
         return job
     }
 
+    func estimatesViewController(viewController: EstimatesViewController, didCreateEstimate estimate: Estimate) {
+        if let index = viewController.estimates.indexOf(estimate) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            let cell = viewController.tableView.cellForRowAtIndexPath(indexPath)
+            viewController.performSegueWithIdentifier("EstimateViewControllerSegue", sender: cell)
+        }
+    }
+
     // MARK: FloorplansViewControllerDelegate
 
     func customerIdForFloorplansViewController(viewController: FloorplansViewController) -> Int {

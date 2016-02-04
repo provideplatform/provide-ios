@@ -48,7 +48,7 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
 
     private var refreshControl: UIRefreshControl!
 
@@ -126,6 +126,8 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     }
 
     func addEstimate(sender: UIBarButtonItem) {
+        tableView.allowsSelection = false
+
         let newEstimate = Estimate()
         estimates.append(newEstimate)
         reloadTableView()
@@ -136,7 +138,6 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
             job.addEstimate(params, forBlueprint: job.blueprint,
                 onSuccess: { statusCode, mappingResult in
                     let estimate = mappingResult.firstObject as! Estimate
-                    self.delegate?.estimatesViewController?(self, didCreateEstimate: estimate)
 
                     newEstimate.id = estimate.id
                     newEstimate.userId = estimate.userId
@@ -147,12 +148,15 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
                     newEstimate.quotedPricePerSqFt = estimate.quotedPricePerSqFt
                     newEstimate.attachments = estimate.attachments
 
+                    self.delegate?.estimatesViewController?(self, didCreateEstimate: newEstimate)
+
                     dispatch_after_delay(0.0) {
                         self.reloadTableView()
+                        self.tableView.allowsSelection = true
                     }
                 },
                 onError: { error, statusCode, responseString in
-
+                    self.tableView.allowsSelection = true
                 }
             )
         }
@@ -175,6 +179,10 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     // MARK: UITableViewDelegate
 
     // Display customization
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     //    @available(iOS 2.0, *)
     //    optional public func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EstimateViewController: ViewController {
+class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
 
     var estimate: Estimate! {
         didSet {
@@ -19,6 +19,8 @@ class EstimateViewController: ViewController {
             }
         }
     }
+
+    @IBOutlet private weak var editBarButtonItem: UIBarButtonItem!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var dateLabel: UILabel!
@@ -31,6 +33,8 @@ class EstimateViewController: ViewController {
         if let _ = estimate {
             reload()
         }
+
+        activityIndicatorView?.startAnimating()
 
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
             if let userInfo = notification.object {
@@ -53,6 +57,14 @@ class EstimateViewController: ViewController {
                     }
                 }
             }
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: self)
+
+        if segue.identifier! == "BlueprintViewControllerSegue" {
+            (segue.destinationViewController as! BlueprintViewController).blueprintViewControllerDelegate = self
         }
     }
 
@@ -96,6 +108,21 @@ class EstimateViewController: ViewController {
             activityIndicatorView?.stopAnimating()
         }
     }
+
+    // BlueprintViewControllerDelegate
+
+    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+        return nil //JobService.sharedService().jobWithId(estimate.jobId)
+    }
+
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        return imageView.image
+    }
+
+//    optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+//    optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
+//    optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+//    optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

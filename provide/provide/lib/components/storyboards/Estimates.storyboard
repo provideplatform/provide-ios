@@ -175,16 +175,33 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="zk7-7A-4rA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="7bN-Eq-82o">
+                            <connections>
+                                <segue destination="WXY-Lc-eIO" kind="show" identifier="BlueprintViewControllerSegue" id="mhG-KX-Hfk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="YaZ-M1-Ad6" id="8Bc-wB-Kvp"/>
                         <outlet property="amountLabel" destination="jV1-bl-Tr2" id="u3c-ma-kXc"/>
                         <outlet property="dateLabel" destination="lmx-WY-zXh" id="uUu-Qh-dbg"/>
+                        <outlet property="editBarButtonItem" destination="7bN-Eq-82o" id="GkV-hN-h4a"/>
                         <outlet property="imageView" destination="nmc-HR-zYD" id="NDh-9x-gXS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qkY-EW-R3J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="532" y="436"/>
+        </scene>
+        <!--BlueprintViewController-->
+        <scene sceneID="wMf-1m-4sP">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Blueprint" referencedIdentifier="BlueprintViewController" id="WXY-Lc-eIO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SiY-pF-GVC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1037" y="183"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T8i-42-2yX">

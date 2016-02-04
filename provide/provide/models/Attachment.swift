@@ -20,6 +20,7 @@ class Attachment: Model {
     var metadata: NSDictionary!
     var mimeType: String!
     var status: String!
+    var tags: [String]!
     var displayUrlString: String!
     var urlString: String!
 
@@ -38,6 +39,7 @@ class Attachment: Model {
             "metadata": "metadata",
             "mime_type": "mimeType",
             "status": "status",
+            "tags": "tags,",
             "display_url": "displayUrlString",
             "url": "urlString",
         ])
@@ -55,6 +57,13 @@ class Attachment: Model {
             return NSURL(string: displayUrlString)
         }
         return NSURL(string: urlString)
+    }
+
+    func hasTag(tag: String) -> Bool {
+        if let tags = tags {
+            return tags.indexOf(tag) != nil
+        }
+        return false
     }
 
     func updateAttachment(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {

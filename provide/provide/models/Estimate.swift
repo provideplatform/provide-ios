@@ -62,6 +62,41 @@ class Estimate: Model {
         return nil
     }
 
+    var blueprintImageUrl: NSURL! {
+        if let blueprintImageUrlString = blueprint?.urlString {
+            return NSURL(string: blueprintImageUrlString)
+        }
+        return nil
+    }
+
+    var hasPendingBlueprint: Bool {
+        if let blueprint = blueprint {
+            return blueprint.status == "pending"
+        }
+        return false
+    }
+
+    var blueprints: [Attachment] {
+        var blueprints = [Attachment]()
+        for attachment in attachments {
+            if attachment.tags.indexOf("blueprint") != nil {
+                blueprints.append(attachment)
+            }
+        }
+        return blueprints
+    }
+
+    weak var blueprint: Attachment! {
+        if blueprints.count > 0 {
+            for blueprint in blueprints {
+                if blueprint.mimeType == "image/png" {
+                    return blueprint
+                }
+            }
+        }
+        return nil
+    }
+
     func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
         if jobId > 0 {
             ApiService.sharedService().fetchEstimateWithId(String(id), forJobWithId: String(jobId),
