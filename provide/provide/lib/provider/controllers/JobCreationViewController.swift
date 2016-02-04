@@ -286,8 +286,9 @@ class JobCreationViewController: UITableViewController,
         }
 
         if let cell = cell {
-            let indexPath = tableView.indexPathForCell(cell)!
-            self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            if let indexPath = tableView.indexPathForCell(cell) {
+                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            }
         }
     }
 
