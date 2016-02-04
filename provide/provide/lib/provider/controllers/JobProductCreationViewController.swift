@@ -64,8 +64,8 @@ class JobProductCreationViewController: ProductCreationViewController {
             }
 
             job.save(
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self!, didUpdateJobProduct: self!.jobProduct)
+                onSuccess: { statusCode, mappingResult in
+                    self.jobProductCreationViewControllerDelegate?.jobProductCreationViewController(self, didUpdateJobProduct: self.jobProduct)
                 },
                 onError: { error, statusCode, responseString in
 
