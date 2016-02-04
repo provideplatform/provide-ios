@@ -16,6 +16,7 @@ protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
     optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+    optional func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
     optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 }
 

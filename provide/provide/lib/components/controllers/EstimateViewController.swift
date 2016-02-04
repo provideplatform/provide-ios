@@ -123,6 +123,18 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         return imageView.image
     }
 
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return true
+    }
+
 //    optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
 //    optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
 //    optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool

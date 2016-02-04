@@ -26,8 +26,15 @@ class JobWizardTabBarController: UITabBarController,
 
             navigationItem.rightBarButtonItems = [taskListItem]
 
+            if job.isResidential {
+                viewControllers?.removeAtIndex(2)
+                viewControllers?.removeAtIndex(1)
+            }
+
             if job.status == "pending_completion" || job.status == "completed" || job.status == "canceled" {
-                viewControllers?.removeAtIndex(4)
+                if let count = viewControllers?.count {
+                    viewControllers?.removeAtIndex(count - 1)
+                }
 
                 let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
                 viewControllers?.append(reviewNavigationController)
@@ -61,35 +68,50 @@ class JobWizardTabBarController: UITabBarController,
 
     private var setupTeamTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[1]
+            let index = job.isCommercial ? 1 : -1
+            if index != -1 {
+                return items[index]
+            }
         }
         return nil
     }
 
     private var setupInventoryTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[2]
+            let index = job.isCommercial ? 2 : -1
+            if index != -1 {
+                return items[index]
+            }
         }
         return nil
     }
 
     private var setupWorkOrdersTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[3]
+            let index = job.isCommercial ? 3 : (job.isResidential ? 1 : -1)
+            if index != -1 {
+                return items[index]
+            }
         }
         return nil
     }
 
     private var manageJobTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[4]
+            let index = job.isCommercial ? 4 : (job.isResidential ? 2 : -1)
+            if index != -1 {
+                return items[index]
+            }
         }
         return nil
     }
 
     private var reviewTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            return items[4]
+            let index = job.isCommercial ? 4 : (job.isResidential ? 2 : -1)
+            if index != -1 {
+                return items[index]
+            }
         }
         return nil
     }
