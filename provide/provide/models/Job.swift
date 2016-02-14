@@ -25,6 +25,7 @@ class Job: Model {
     var blueprintScale = 0.0
     var blueprintAnnotationsCount = 0
     var floorplans: [Floorplan]!
+    var floorplanJobs: [FloorplanJob]!
     var status: String!
     var estimates: [Estimate]!
     var estimatesCount = 0
@@ -141,6 +142,7 @@ class Job: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", withMapping: Floorplan.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplan_jobs", toKeyPath: "floorplanJobs", withMapping: FloorplanJob.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))

@@ -14,9 +14,17 @@ class Product: Model {
     var companyId = 0
     var gtin: String!
     var barcodeUri: String!
+    var imageUrlString: String!
     var data: [String: AnyObject]!
 
     var rejected = false
+
+    var imageUrl: NSURL! {
+        if let imageUrlString = imageUrlString {
+            return NSURL(imageUrlString)
+        }
+        return nil
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -28,6 +36,9 @@ class Product: Model {
             "data",
             ]
         )
+        mapping.addAttributeMappingsFromDictionary([
+            "image_url": "imageUrlString"
+            ])
         return mapping
     }
 
@@ -49,6 +60,14 @@ class Product: Model {
 
     var size: String? {
         return data["size"] as? String
+    }
+
+    var style: String? {
+        return data["style"] as? String
+    }
+
+    var color: String? {
+        return data["color"] as? String
     }
 
     var sku: String? {
