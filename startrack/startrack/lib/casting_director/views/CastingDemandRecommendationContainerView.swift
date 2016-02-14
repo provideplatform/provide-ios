@@ -170,7 +170,7 @@ class CastingDemandRecommendationContainerView: UIView {
                 self.frame.origin.x += self.frame.width * -1.0
             },
             completion: { complete in
-                self.delegate?.castingDemandRecommendationContainerView(self, didRejectRecommendedProvider: provider)
+                self.delegate?.castingDemandRecommendationContainerView(self, didRejectRecommendedProvider: self.provider)
             }
         )
     }
@@ -181,7 +181,7 @@ class CastingDemandRecommendationContainerView: UIView {
                 self.frame.origin.x += self.frame.width
             },
             completion: { complete in
-                self.delegate?.castingDemandRecommendationContainerView(self, didApproveRecommendedProvider: provider)
+                self.delegate?.castingDemandRecommendationContainerView(self, didApproveRecommendedProvider: self.provider)
             }
         )
     }

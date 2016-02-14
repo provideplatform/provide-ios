@@ -24,14 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
 
-        launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
-
         RKLogConfigureFromEnvironment()
 
         RKEntityMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
             return keyPath.snakeCaseToCamelCaseString()
         }
 
+        AppearenceProxy.setup()
+
+        if ApiService.sharedService().hasCachedToken {
+            ApiService.sharedService().registerForRemoteNotifications()
+        }
+        
         return true
     }
 
@@ -47,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
         }
 
@@ -65,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(application: UIApplication) {
         AnalyticsService.sharedService().track("App Became Active", properties: [:])
 
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             CheckinService.sharedService().checkin()
         }
     }
@@ -96,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(NSDate().timeIntervalSince1970)"])
 
-        if ApiService.hasCachedToken() {
+        if ApiService.sharedService().hasCachedToken {
             handleRemoteNotification(userInfo as! [String: AnyObject])
         }
 
