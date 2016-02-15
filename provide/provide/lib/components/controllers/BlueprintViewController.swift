@@ -344,10 +344,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         enableScrolling = true
 
-        scrollView.minimumZoomScale = 0.2
-        scrollView.maximumZoomScale = 1.0
-        scrollView.zoomScale = 0.2
+        if let job = job {
+            if job.isResidential {
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            } else if job.isCommercial {
+                scrollView.minimumZoomScale = 0.2
+                scrollView.maximumZoomScale = 1.0
 
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            }
+        }
+        
         imageView.alpha = 1.0
 
         loadingBlueprint = false
@@ -648,7 +655,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat {
-        return 0.2
+        return scrollView.minimumZoomScale
     }
 
     func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {

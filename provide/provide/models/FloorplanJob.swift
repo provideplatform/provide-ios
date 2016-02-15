@@ -11,6 +11,8 @@ import Foundation
 class FloorplanJob: Model {
 
     var id = 0
+    var floorplanId = 0
+    var jobId = 0
     var floorplan: Floorplan!
     var job: Job!
 
@@ -18,10 +20,12 @@ class FloorplanJob: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromArray([
             "id",
+            "floorplan_id",
+            "job_id",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("floorplan", mapping: Floorplan.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
+        //mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
         return mapping
     }
 }
