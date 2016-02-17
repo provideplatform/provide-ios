@@ -53,8 +53,6 @@ class JobCreationViewController: UITableViewController,
 
     @IBOutlet private weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var nameTextField: UITextField!
-    @IBOutlet private weak var quotedPricePerSqFtTextField: UITextField!
-    @IBOutlet private weak var totalSqFtTextField: UITextField!
 
     @IBOutlet private weak var createButton: UIButton!
 
@@ -125,12 +123,6 @@ class JobCreationViewController: UITableViewController,
             job.companyId = customer.companyId
         }
         job.name = nameTextField?.text
-        if let quotedPricePerSqFt = Double(quotedPricePerSqFtTextField.text!) {
-            job.quotedPricePerSqFt = NSNumber(double: quotedPricePerSqFt)
-        }
-        if let totalSqFt = Double(totalSqFtTextField.text!) {
-            job.totalSqFt = NSNumber(double: totalSqFt)
-        }
 
         if job.customerId > 0 && job.name != nil && job.name.length > 0 {
             showActivityIndicator()
@@ -221,11 +213,7 @@ class JobCreationViewController: UITableViewController,
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if typeSegmentedControl.selectedSegmentIndex == 1 || typeSegmentedControl.selectedSegmentIndex == -1 {
-            return 4
-        }
-
-        return 6
+        return 4
     }
 
     // MARK: UISearchBarDelegate
@@ -293,13 +281,7 @@ class JobCreationViewController: UITableViewController,
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
-        dispatch_after_delay(0.0) {
-            let hasFirstResponder = self.quotedPricePerSqFtTextField.isFirstResponder() || self.totalSqFtTextField.isFirstResponder()
-            if textField == self.nameTextField && !hasFirstResponder {
-                self.disableTapToDismissKeyboard()
-                self.resetTableViewFrame()
-            }
-        }
+
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -307,29 +289,6 @@ class JobCreationViewController: UITableViewController,
             if let name = textField.text {
                 if name.length > 0 {
                     textField.resignFirstResponder()
-                    if quotedPricePerSqFtTextField.canBecomeFirstResponder() {
-                        quotedPricePerSqFtTextField.becomeFirstResponder()
-                    }
-                    return true
-                }
-            }
-        } else if textField == quotedPricePerSqFtTextField {
-            if let quotedPricePerSqFt = Double(textField.text!) {
-                if quotedPricePerSqFt > 0.0 {
-                    textField.resignFirstResponder()
-                    if totalSqFtTextField.canBecomeFirstResponder() {
-                        totalSqFtTextField.becomeFirstResponder()
-                    }
-                    return true
-                }
-            }
-        } else if textField == totalSqFtTextField {
-            if let totalSqFt = Double(textField.text!) {
-                if totalSqFt > 0.0 {
-                    textField.resignFirstResponder()
-                    dispatch_after_delay(0.0) {
-                        self.createJob()
-                    }
                     return true
                 }
             }
@@ -356,7 +315,7 @@ class JobCreationViewController: UITableViewController,
         if searchBar.isFirstResponder() {
             searchBar.resignFirstResponder()
             if nameTextField.canBecomeFirstResponder() {
-                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseOut,
                     animations: { Void in
                         self.tableView.contentOffset = CGPoint(x: 0.0, y: self.customerPickerViewController.view.frame.height * 1.5)
                     },
