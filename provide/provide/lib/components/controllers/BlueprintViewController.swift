@@ -381,7 +381,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func polygonViewForWorkOrder(workOrder: WorkOrder) -> BlueprintPolygonView! {
+    private func polygonViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPolygonView! {
         var polygonView: BlueprintPolygonView!
         for view in polygonViews {
             if let annotation = view.annotation {
@@ -390,7 +390,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         polygonView = view
                         break
                     }
-                } else if annotation.workOrderId == workOrder.id {
+                } else if annotation.workOrderId == workOrder?.id {
                     polygonView = view
                     break
                 }
@@ -413,7 +413,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func refreshAnnotations() {
         if let blueprint = blueprint {
             for annotation in blueprint.annotations {
-                if polygonView == polygonViewForWorkOrder(annotation.workOrder) {
+                let annotationWorkOrder = annotation.workOrderId > 0 ? annotation.workOrder : nil
+                if polygonView == polygonViewForWorkOrder(annotationWorkOrder) {
                     let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
                     imageView.addSubview(polygonView)
                     polygonView.alpha = 1.0
@@ -750,10 +751,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool {
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                return ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
+                return ["awaiting_schedule", "scheduled"].indexOfObject(workOrder.status) != nil
             }
         }
-        return true
+        return false
     }
 
     func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat! {
@@ -836,6 +837,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 popover.passthroughViews = [view]
                 
                 presentViewController(navigationController, animated: true)
+            } else {
+                if job.isResidential {
+                    print("is residential...")
+                }
             }
         }
     }

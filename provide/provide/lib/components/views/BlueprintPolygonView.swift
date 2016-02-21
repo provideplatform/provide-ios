@@ -276,7 +276,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
 
         let pointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
         pointView.delegate = self
-        pointView.alpha = delegate != nil ? (delegate!.blueprintPolygonViewCanBeResized(self) ? 1.0 : 0.5) : 0.5
+        pointView.alpha = delegate != nil ? (delegate!.blueprintPolygonViewCanBeResized(self) ? 1.0 : 0.0) : 0.0
         pointView.frame.origin = CGPoint(x: point.x - (pointView.image!.size.width / 2.0),
                                          y: point.y - pointView.image!.size.height)
 
