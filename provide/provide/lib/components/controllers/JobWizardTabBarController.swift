@@ -132,7 +132,22 @@ class JobWizardTabBarController: UITabBarController,
         if let job = job {
             let hasBlueprint = job.blueprints?.count > 0
             let hasScale = hasBlueprint && job.blueprints?.first!.metadata["scale"] != nil
-            return !isEditMode && !hasBlueprint || !hasScale
+            if isEditMode {
+                return false
+            }
+            if !hasBlueprint {
+                return true
+            }
+            if job.isCommercial {
+                return !hasScale
+            } else if job.isResidential {
+//                for annotation in job.blueprint.annotations {
+//                    if annotation.workOrderId == 0 {
+//                        return true
+//                    }
+//                }
+                return job.status == "configuring"
+            }
         }
         return false
     }
@@ -157,7 +172,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var shouldRenderWorkOrderSetup: Bool {
         if let job = job {
-            return !isEditMode && job.workOrdersCount == 0
+            return !isEditMode && !shouldRenderBlueprintSetup && job.workOrdersCount == 0
         }
         return false
     }
