@@ -235,7 +235,9 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
 
             cell.name = product.name
 
-            if let imageUrl = product.barcodeDataURL {
+            if let imageUrl = product.imageUrl {
+                cell.imageUrl = imageUrl
+            } else if let imageUrl = product.barcodeDataURL {
                 cell.imageUrl = imageUrl
             }
         }

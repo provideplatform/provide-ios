@@ -371,7 +371,9 @@ class WorkOrderInventoryViewController: UITableViewController,
 
             cell.name = product.name
 
-            if let profileImageUrl = product.barcodeDataURL {
+            if let imageUrl = product.imageUrl {
+                cell.imageUrl = imageUrl
+            } else if let profileImageUrl = product.barcodeDataURL {
                 cell.rendersCircularImage = false
                 cell.imageUrl = profileImageUrl
             }
