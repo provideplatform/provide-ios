@@ -799,6 +799,34 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return nil
     }
 
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+        return .WorkOrders
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
+        return nil
+    }
+
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return true
+    }
+
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
+    }
+
     // MARK: DirectionsViewControllerDelegate
 
     func isPresentingDirections() -> Bool {

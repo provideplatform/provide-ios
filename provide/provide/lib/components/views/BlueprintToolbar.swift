@@ -16,6 +16,7 @@ protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
+    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController)
 }
 

@@ -209,7 +209,6 @@ class JobBlueprintsViewController: ViewController,
         if shouldLoadBlueprint {
             importInstructionsContainerView?.alpha = 0.0
             loadBlueprint()
-            blueprintViewController?.blueprintViewControllerDelegate = self
         } else if let job = job {
             if job.hasPendingBlueprint {
                 importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
@@ -394,6 +393,7 @@ class JobBlueprintsViewController: ViewController,
                 ApiService.sharedService().fetchImage(blueprintImageUrl,
                     onImageFetched: { statusCode, image  in
                         self.setBlueprintImage(image)
+                        self.blueprintViewController?.blueprintViewControllerDelegate = self
                     },
                     onError: { error, statusCode, responseString in
                         
@@ -429,6 +429,10 @@ class JobBlueprintsViewController: ViewController,
         return job
     }
 
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+        return .Setup
+    }
+
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
         if let image = blueprintPreviewImageView?.image {
             return image
@@ -445,6 +449,18 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
+    }
+
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
+        return nil
+    }
+
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
     }
 

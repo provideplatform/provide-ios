@@ -320,7 +320,9 @@ class JobWizardTabBarController: UITabBarController,
             if let _ = rootViewController as? BlueprintViewController {
                 if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
                     if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
-                        return jobBlueprintsViewController.teardownBlueprintViewController()
+                        if let blueprintImage = jobBlueprintsViewController.teardownBlueprintViewController() {
+                            return blueprintImage
+                        }
                     }
                 }
             } else if let _ = rootViewController as? JobBlueprintsViewController {

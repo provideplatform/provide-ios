@@ -129,15 +129,15 @@ class JobWizardViewController: UINavigationController,
         return job
     }
 
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
-        return cachedBlueprintImage
-    }
-
     func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
         jobWizardViewControllerDelegate?.jobWizardViewController(self, didSetScaleForBlueprintViewController: blueprintViewController)
     }
 
     // MARK: BlueprintViewControllerDelegate
+
+    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+        return cachedBlueprintImage
+    }
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return job
@@ -145,6 +145,30 @@ class JobWizardViewController: UINavigationController,
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
+    }
+
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+        return .WorkOrders
+    }
+
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
+        return nil
     }
 
     // MARK: JobManagerViewControllerDelegate

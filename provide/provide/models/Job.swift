@@ -592,7 +592,7 @@ class Job: Model {
             jobProduct.jobId = id
             jobProduct.productId = product.id
 
-            if let initialQuantity = params["initialQuantity"] as? Double {
+            if let initialQuantity = params["initial_quantity"] as? Double {
                 jobProduct.initialQuantity = initialQuantity
             }
 

@@ -602,7 +602,7 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        reload(["include_estimated_cost": "true"], onSuccess: onSuccess, onError: onError)
+        reload(["include_estimated_cost": "true", "include_job": "false"], onSuccess: onSuccess, onError: onError)
     }
 
     func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
@@ -725,15 +725,6 @@ class WorkOrder: Model {
             save(onSuccess:
                 { statusCode, mappingResult in
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                    //                    let saveMappingResult = mappingResult
-                    //                    self.reloadMaterials(
-                    //                        { statusCode, mappingResult in
-                    //                            onSuccess(statusCode: statusCode, mappingResult: saveMappingResult)
-                    //                        },
-                    //                        onError: { error, statusCode, responseString in
-                    //                            onError(error: error, statusCode: statusCode, responseString: responseString)
-                    //                        }
-                    //                    )
                 },
                 onError: { error, statusCode, responseString in
                     onError(error: error, statusCode: statusCode, responseString: responseString)

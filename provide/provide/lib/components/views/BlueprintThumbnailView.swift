@@ -33,11 +33,10 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                     self!.thumbnailImageBackgroundView.frame.size = self!.desiredSize
                     self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
 
-                    var scale = CGFloat(1.0)
                     if let delegate = self!.delegate {
-                        scale = delegate.initialScaleForBlueprintThumbnailView(self!)
+                        let scale = delegate.initialScaleForBlueprintThumbnailView(self!)
+                        self!.resizeOverlayView(CGPointZero, scale: scale)
                     }
-                    self!.resizeOverlayView(CGPointZero, scale: scale)
                 } else {
                     self!.alpha = 0.0
                 }

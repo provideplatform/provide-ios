@@ -8,16 +8,16 @@
 
 import UIKit
 
-@objc
 protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
-    optional func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate!
-    optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
-    optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    optional func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode!
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate!
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
 }
 
 class BlueprintViewController: WorkOrderComponentViewController,
@@ -26,17 +26,36 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                BlueprintThumbnailViewDelegate,
                                BlueprintToolbarDelegate,
                                BlueprintPolygonViewDelegate,
+                               ProductPickerViewControllerDelegate,
                                WorkOrderCreationViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
+
+    enum Mode {
+        case Setup, WorkOrders
+        static let allValues = [Setup, WorkOrders]
+    }
 
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
             if let _ = blueprintViewControllerDelegate {
                 if !loadedBlueprint && !loadingBlueprint && scrollView != nil {
                     loadBlueprint()
+                } else if loadedBlueprint {
+                    dispatch_after_delay(0.0) {
+                        self.scrollViewDidScroll(self.scrollView)
+                    }
                 }
             }
         }
+    }
+
+    private var mode: Mode {
+        if let blueprintViewControllerDelegate = blueprintViewControllerDelegate {
+            if let mode = blueprintViewControllerDelegate.modeForBlueprintViewController(self) {
+                return mode
+            }
+        }
+        return .Setup
     }
 
     private var thumbnailView: BlueprintThumbnailView!
@@ -69,6 +88,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var polygonViews = [BlueprintPolygonView]()
+
+    private var selectedPolygonView: BlueprintPolygonView!
 
     var blueprint: Attachment! {
         if let job = job {
@@ -113,7 +134,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     weak var estimate: Estimate! {
-        if let estimate = blueprintViewControllerDelegate?.estimateForBlueprintViewController?(self) {
+        if let estimate = blueprintViewControllerDelegate?.estimateForBlueprintViewController(self) {
             return estimate
         }
         return nil
@@ -246,6 +267,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        setZoomLevel()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -320,18 +343,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 onImageFetched: { statusCode, image in
                     dispatch_after_delay(0.0) { [weak self] in
                         self!.setBlueprintImage(image)
+                        self!.loadAnnotations()
                     }
                 },
                 onError: { error, statusCode, responseString in
 
                 }
             )
-
-            loadAnnotations()
         }
     }
 
     private func setBlueprintImage(image: UIImage) {
+        if let _ = imageView.image {
+            return
+        }
+
         let size = CGSize(width: image.size.width, height: image.size.height)
 
         imageView!.image = image
@@ -339,21 +365,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         thumbnailView?.blueprintImage = image
 
-        scrollView.contentSize = size
         scrollView.scrollEnabled = false
+        scrollView.contentSize = size
 
         enableScrolling = true
 
-        if let job = job {
-            if job.isResidential {
-                scrollView.zoomScale = scrollView.minimumZoomScale
-            } else if job.isCommercial {
-                scrollView.minimumZoomScale = 0.2
-                scrollView.maximumZoomScale = 1.0
-
-                scrollView.zoomScale = scrollView.minimumZoomScale
-            }
-        }
+        setZoomLevel()
         
         imageView.alpha = 1.0
 
@@ -364,15 +381,29 @@ class BlueprintViewController: WorkOrderComponentViewController,
         loadedBlueprint = true
     }
 
+    private func setZoomLevel() {
+        if let job = job {
+            if job.isResidential {
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            } else if job.isCommercial {
+                scrollView.minimumZoomScale = 0.2
+                scrollView.maximumZoomScale = 1.0
+
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            }
+        }
+    }
+
     private func loadAnnotations() {
         if let blueprint = blueprint {
             loadingAnnotations = true
+            blueprint.annotations = [Annotation]()
             let rpp = max(100, blueprintAnnotationsCount)
             let params = ["page": "1", "rpp": "\(rpp)"]
             blueprint.fetchAnnotations(params,
                 onSuccess: { statusCode, mappingResult in
-                    self.refreshAnnotations()
                     self.loadingAnnotations = false
+                    self.refreshAnnotations()
                 },
                 onError: { error, statusCode, responseString in
                     self.loadingAnnotations = false
@@ -386,7 +417,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         for view in polygonViews {
             if let annotation = view.annotation {
                 if let wo = annotation.workOrder {
-                    if wo.id == workOrder.id {
+                    if wo.id == workOrder?.id {
                         polygonView = view
                         break
                     }
@@ -486,7 +517,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             blueprint.updateAttachment(["metadata": metadata],
                 onSuccess: { statusCode, mappingResult in
                     self.toolbar.reload()
-                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController?(self)
+                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController(self)
                 }, onError: { error, statusCode, responseString in
 
                 }
@@ -704,14 +735,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController?(self) {
+        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
             return canSetScale
         }
         return true
     }
 
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController?(self) {
+        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
             return !canSetScale
         }
         return true
@@ -726,7 +757,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             return !(presentedViewController is WorkOrderCreationViewController)
         }
 
-        if let newWorkOrderCanBeCreated = blueprintViewControllerDelegate?.newWorkOrderCanBeCreatedByBlueprintViewController?(self) {
+        if let newWorkOrderCanBeCreated = blueprintViewControllerDelegate?.newWorkOrderCanBeCreatedByBlueprintViewController(self) {
             return newWorkOrderCanBeCreated
         }
 
@@ -740,6 +771,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         newWorkOrderPending = true
 
         overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
+    }
+
+    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return job.isResidential
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
@@ -818,6 +853,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath) {
+        selectedPolygonView = view
+
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
                 let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
@@ -839,7 +876,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 presentViewController(navigationController, animated: true)
             } else {
                 if job.isResidential {
-                    print("is residential...")
+                    let productPickerViewController = UIStoryboard("ProductPicker").instantiateInitialViewController() as! ProductPickerViewController
+                    productPickerViewController.title = "SELECT PRODUCT FOR \(view.area) sq ft"
+                    productPickerViewController.delegate = self
+                    productPickerViewController.preferredContentSize = CGSizeMake(500, 200)
+
+                    let navigationController = UINavigationController(rootViewController: productPickerViewController)
+                    navigationController.modalPresentationStyle = .Popover
+
+                    let popover = navigationController.popoverPresentationController!
+                    popover.delegate = self
+                    popover.sourceView = imageView
+                    popover.sourceRect = CGPathGetBoundingBox(path)
+                    popover.canOverlapSourceViewRect = true
+                    popover.permittedArrowDirections = [.Left, .Right]
+                    popover.passthroughViews = [view]
+
+                    presentViewController(navigationController, animated: true)
                 }
             }
         }
@@ -879,6 +932,123 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             showToolbar()
         }
+    }
+
+    // MARK: ProductPickerViewControllerDelegate
+
+    func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+        return [Product]()
+    }
+
+    func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]! {
+        return [String : AnyObject]()
+    }
+
+    func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product) {
+        if let presentingViewController = viewController.presentingViewController {
+            presentingViewController.dismissViewController(animated: true)
+
+            let workOrder = WorkOrder()
+            workOrder.companyId = job.companyId
+            workOrder.customer = job.customer
+            workOrder.customerId = job.customerId
+            workOrder.jobId = job.id
+            workOrder.status = "awaiting_schedule"
+            workOrder.materials = [WorkOrderProduct]()
+            workOrder.expenses = [Expense]()
+            workOrder.itemsDelivered = [Product]()
+            workOrder.itemsOrdered = [Product]()
+            workOrder.itemsRejected = [Product]()
+
+            job.reloadMaterials(
+                { statusCode, mappingResult in
+                    workOrder.save(
+                        onSuccess: { statusCode, mappingResult in
+                            let annotation = self.selectedPolygonView.annotation
+                            annotation.workOrder = workOrder
+                            annotation.workOrderId = workOrder.id
+                            annotation.save(self.blueprint,
+                                onSuccess: { statusCode, mappingResult in
+                                    var jobProduct = self.job.jobProductForProduct(product)
+                                    if jobProduct != nil {
+                                        jobProduct.initialQuantity += Double(self.selectedPolygonView.scale)
+                                        self.job.save(
+                                            onSuccess: { statusCode, mappingResult in
+                                                jobProduct = self.job.materials.last!
+                                                let workOrderProductParams = ["quantity": self.selectedPolygonView.scale]
+                                                workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
+                                                    onSuccess: { statusCode, mappingResult in
+                                                        self.selectedPolygonView.redraw()
+                                                        self.selectedPolygonView = nil
+
+                                                        // TODO: show work order popover?
+                                                    },
+                                                    onError: { error, statusCode, responseString in
+                                                        print(responseString)
+                                                    }
+                                                )
+                                            },
+                                            onError: { error, statusCode, responseString -> () in
+                                                print(responseString)
+                                            }
+                                        )
+                                    } else {
+                                        let jobProductParams = ["initial_quantity": Double(self.selectedPolygonView.scale)]
+                                        self.job.addJobProductForProduct(product, params: jobProductParams,
+                                            onSuccess: { statusCode, mappingResult in
+                                                jobProduct = self.job.materials.last!
+                                                let workOrderProductParams = ["quantity": self.selectedPolygonView.scale]
+                                                workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
+                                                    onSuccess: { statusCode, mappingResult in
+                                                        self.selectedPolygonView.redraw()
+                                                        self.selectedPolygonView = nil
+
+                                                        // TODO: show work order popover?
+                                                    },
+                                                    onError: { error, statusCode, responseString in
+                                                        print(responseString)
+                                                    }
+                                                )
+                                            },
+                                            onError: { error, statusCode, responseString -> () in
+                                                print(responseString)
+                                            }
+                                        )
+                                    }
+                                },
+                                onError: { error, statusCode, responseString in
+                                    print(responseString)
+                                }
+                            )
+                        },
+                        onError: { error, statusCode, responseString -> () in
+                            print(responseString)
+                        }
+                    )
+                },
+                onError: { error, statusCode, responseString in
+                    print(responseString)
+                }
+            )
+        } else {
+            selectedPolygonView = nil
+        }
+    }
+
+    func productPickerViewController(viewController: ProductPickerViewController, didDeselectProduct: Product) {
+
+    }
+
+    func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool {
+        return true
+    }
+
+    func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+        return [Product]()
+    }
+
+    func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
+        return .Horizontal
     }
 
     // MARK: WorkOrderCreationViewControllerDelegate
@@ -1100,6 +1270,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         newWorkOrderPending = false
         toolbar.reload()
         dismissViewController(animated: true)
+        selectedPolygonView = nil
     }
 
     // MARK: UIPopoverPresentationControllerDelegate

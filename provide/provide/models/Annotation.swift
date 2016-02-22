@@ -41,6 +41,9 @@ class Annotation: Model {
             if let text = text {
                 params["text"] = text
             }
+            if workOrderId > 0 {
+                params["work_order_id"] = workOrderId
+            }
             ApiService.sharedService().updateAnnotationWithId(String(id), forAttachmentWithId: String(attachment.id),
                 forAttachableType: attachment.attachableType, withAttachableId: String(attachment.attachableId), params: params,
                 onSuccess: { statusCode, mappingResult in

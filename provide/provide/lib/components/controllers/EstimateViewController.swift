@@ -119,12 +119,20 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         return estimate
     }
 
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+        return .Setup
+    }
+
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
         return imageView.image
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+        
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
@@ -135,10 +143,9 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         return true
     }
 
-//    optional func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-//    optional func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
-//    optional func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-//    optional func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
+    }
 
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)

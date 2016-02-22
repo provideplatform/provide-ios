@@ -47,4 +47,32 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
         return nil
     }
+
+    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+        return .Setup
+    }
+
+    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
+        return nil
+    }
+
+    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
+    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+    
+    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+        return navigationController
+    }
 }
