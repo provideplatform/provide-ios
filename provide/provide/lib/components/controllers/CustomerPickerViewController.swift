@@ -242,7 +242,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
             if let profileImageUrl = customer.profileImageUrl {
                 cell.imageUrl = profileImageUrl
             } else {
-                cell.gravatarEmail = customer.contact.email
+                cell.renderInitials()
             }
         }
 

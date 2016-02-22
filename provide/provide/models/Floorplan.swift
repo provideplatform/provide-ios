@@ -20,11 +20,14 @@ class Floorplan: Model {
     var blueprintScale = 0.0
     var blueprintAnnotationsCount = 0
     var backsplashProductOptions: [Product]!
+    var flooringProductOptions: [Product]!
     var totalSqFt = -1.0
     var numberOfBedrooms = -1
     var numberOfBathrooms = -1
     var garageSize = -1
     var basePrice = -1.0
+    var backsplashPartialLf = -1.0
+    var backsplashFullLf = -1.0
     var desc: String!
     var profileImageUrlString: String!
 
@@ -43,12 +46,15 @@ class Floorplan: Model {
             "number_of_bathrooms": "numberOfBathrooms",
             "garage_size": "garageSize",
             "base_price": "basePrice",
+            "backsplash_partial_lf": "backsplashPartialLf",
+            "backsplash_full_lf": "backsplashFullLf",
             "description": "desc",
             "profile_image_url": "profileImageUrlString",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "backsplash_product_options", toKeyPath: "backsplashProductOptions", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "flooring_product_options", toKeyPath: "flooringProductOptions", withMapping: Product.mapping()))
         return mapping
     }
 
@@ -69,6 +75,13 @@ class Floorplan: Model {
     var hasPendingBlueprint: Bool {
         if let blueprint = blueprint {
             return blueprint.status == "pending"
+        }
+        return false
+    }
+
+    var requiresBacksplashInstallation: Bool {
+        if let backsplashProductOptions = backsplashProductOptions {
+            return backsplashProductOptions.count > 0 && backsplashPartialLf != -1.0 && backsplashFullLf != -1.0
         }
         return false
     }

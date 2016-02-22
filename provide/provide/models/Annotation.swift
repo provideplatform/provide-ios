@@ -15,6 +15,7 @@ class Annotation: Model {
     var text: String!
     var polygon: [[CGFloat]]!
     var circle: [[CGFloat]]!
+    var metadata: NSDictionary!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -24,6 +25,7 @@ class Annotation: Model {
             "text": "text",
             "polygon": "polygon",
             "circle": "circle",
+            "metadata": "metadata",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order", toKeyPath: "workOrder", withMapping: WorkOrder.mapping()))
         return mapping

@@ -199,6 +199,8 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
                     self.inFlightRequestOperation = nil
                 }
             )
+        } else {
+            activityIndicatorView?.stopAnimating()
         }
     }
 

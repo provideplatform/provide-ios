@@ -142,6 +142,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     var workOrder: WorkOrder!
 
+    private var backsplashProductPickerViewController: ProductPickerViewController!
+
     private var initialToolbarFrame: CGRect!
 
     private var enableScrolling = false {
@@ -877,7 +879,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
             } else {
                 if job.isResidential {
                     let productPickerViewController = UIStoryboard("ProductPicker").instantiateInitialViewController() as! ProductPickerViewController
-                    productPickerViewController.title = "SELECT PRODUCT FOR \(view.area) sq ft"
+                    productPickerViewController.title = "SELECT PRODUCT"
+                    if let roomName = annotation.metadata["name"] as? String {
+                        productPickerViewController.title = "\(productPickerViewController.title) FOR \(roomName)"
+                    }
                     productPickerViewController.delegate = self
                     productPickerViewController.preferredContentSize = CGSizeMake(500, 200)
 
@@ -937,11 +942,31 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: ProductPickerViewControllerDelegate
 
     func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+        if let job = job {
+            if job.isResidential {
+                if let floorplan = job.floorplans.first {
+                    if let backsplashProductPickerViewController = backsplashProductPickerViewController {
+                        if viewController == backsplashProductPickerViewController {
+                            return floorplan.backsplashProductOptions
+                        } else {
+                            return floorplan.flooringProductOptions
+                        }
+                    } else {
+                        return floorplan.flooringProductOptions
+                    }
+                }
+            }
+        }
+
         return [Product]()
     }
 
+    func productPickerViewControllerCanRenderResults(viewController: ProductPickerViewController) -> Bool {
+        return true
+    }
+
     func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]! {
-        return [String : AnyObject]()
+        return nil
     }
 
     func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product) {
@@ -971,42 +996,97 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                 onSuccess: { statusCode, mappingResult in
                                     var jobProduct = self.job.jobProductForProduct(product)
                                     if jobProduct != nil {
-                                        jobProduct.initialQuantity += Double(self.selectedPolygonView.scale)
+                                        jobProduct.initialQuantity += Double(self.selectedPolygonView.area)
                                         self.job.save(
                                             onSuccess: { statusCode, mappingResult in
                                                 jobProduct = self.job.materials.last!
-                                                let workOrderProductParams = ["quantity": self.selectedPolygonView.scale]
-                                                workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
-                                                    onSuccess: { statusCode, mappingResult in
-                                                        self.selectedPolygonView.redraw()
-                                                        self.selectedPolygonView = nil
+                                                var workOrderProductParams: [String : AnyObject] = ["quantity": self.selectedPolygonView.area]
 
-                                                        // TODO: show work order popover?
-                                                    },
-                                                    onError: { error, statusCode, responseString in
-                                                        print(responseString)
+                                                CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                                    onCompaniesFetched: { companies in
+                                                        if let company = companies.first {
+                                                            var price: Double?
+                                                            if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                            } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier1CostPerSqFt
+                                                            } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                            } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier3CostPerSqFt
+                                                            }
+
+                                                            if let price = price {
+                                                                workOrderProductParams["price"] = CGFloat(price)
+                                                            }
+
+                                                            workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
+                                                                onSuccess: { statusCode, mappingResult in
+                                                                    self.selectedPolygonView.redraw()
+                                                                    self.selectedPolygonView = nil
+
+                                                                    // TODO: show work order popover?
+                                                                },
+                                                                onError: { error, statusCode, responseString in
+                                                                    print(responseString)
+                                                                }
+                                                            )
+                                                        }
                                                     }
                                                 )
+
+
+
                                             },
                                             onError: { error, statusCode, responseString -> () in
                                                 print(responseString)
                                             }
                                         )
                                     } else {
-                                        let jobProductParams = ["initial_quantity": Double(self.selectedPolygonView.scale)]
+                                        let jobProductParams: [String : AnyObject] = ["initial_quantity": Double(self.selectedPolygonView.area)]
                                         self.job.addJobProductForProduct(product, params: jobProductParams,
                                             onSuccess: { statusCode, mappingResult in
                                                 jobProduct = self.job.materials.last!
-                                                let workOrderProductParams = ["quantity": self.selectedPolygonView.scale]
-                                                workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
-                                                    onSuccess: { statusCode, mappingResult in
-                                                        self.selectedPolygonView.redraw()
-                                                        self.selectedPolygonView = nil
+                                                var workOrderProductParams = ["quantity": self.selectedPolygonView.area]
 
-                                                        // TODO: show work order popover?
-                                                    },
-                                                    onError: { error, statusCode, responseString in
-                                                        print(responseString)
+                                                CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                                    onCompaniesFetched: { companies in
+                                                        if let company = companies.first {
+                                                            var price: Double?
+                                                            if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                            } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier1CostPerSqFt
+                                                            } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                            } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = company.flooringMaterialTier3CostPerSqFt
+                                                            }
+
+                                                            if let price = price {
+                                                                workOrderProductParams["price"] = CGFloat(price)
+                                                            }
+
+                                                            workOrder.addWorkOrderProductForJobProduct(jobProduct, params: workOrderProductParams,
+                                                                onSuccess: { statusCode, mappingResult in
+                                                                    self.selectedPolygonView.redraw()
+                                                                    self.selectedPolygonView = nil
+
+                                                                    // TODO: show work order popover?
+                                                                },
+                                                                onError: { error, statusCode, responseString in
+                                                                    print(responseString)
+                                                                }
+                                                            )
+                                                        }
                                                     }
                                                 )
                                             },
@@ -1040,7 +1120,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool {
-        return true
+        return false
     }
 
     func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {

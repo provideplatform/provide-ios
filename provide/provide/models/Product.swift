@@ -13,6 +13,7 @@ class Product: Model {
     var id = 0
     var companyId = 0
     var gtin: String!
+    var tier: String!
     var barcodeUri: String!
     var imageUrlString: String!
     var data: [String: AnyObject]!
@@ -32,6 +33,7 @@ class Product: Model {
             "id",
             "company_id",
             "gtin",
+            "tier",
             "barcode_uri",
             "data",
             ]
@@ -90,6 +92,27 @@ class Product: Model {
             return UIImage.imageFromDataURL(barcodeDataURL)
         }
         return nil
+    }
+
+    var isTierOne: Bool {
+        if let tier = tier {
+            return tier == "1"
+        }
+        return false
+    }
+
+    var isTierTwo: Bool {
+        if let tier = tier {
+            return tier == "2"
+        }
+        return false
+    }
+
+    var isTierThree: Bool {
+        if let tier = tier {
+            return tier == "3"
+        }
+        return false
     }
 
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {

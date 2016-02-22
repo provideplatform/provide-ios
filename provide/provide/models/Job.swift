@@ -600,6 +600,20 @@ class Job: Model {
                 jobProduct.price = price
             }
 
+            if let company = company {
+                if company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                    jobProduct.flooringMaterialTier1CostPerSqFt = company.flooringMaterialTier1CostPerSqFt
+                }
+
+                if company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                    jobProduct.flooringMaterialTier2CostPerSqFt = company.flooringMaterialTier2CostPerSqFt
+                }
+
+                if company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                    jobProduct.flooringMaterialTier3CostPerSqFt = company.flooringMaterialTier3CostPerSqFt
+                }
+            }
+
             materials.append(jobProduct)
 
             save(onSuccess:

@@ -88,6 +88,7 @@
 		681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */; };
 		681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF651C18252D00B81BEB /* JobReviewViewController.swift */; };
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
+		6837AF841C7B67CE0082F4EC /* CompanyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF831C7B67CE0082F4EC /* CompanyService.swift */; };
 		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
 		683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */; };
 		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
@@ -384,6 +385,7 @@
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
+		6837AF831C7B67CE0082F4EC /* CompanyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyService.swift; sourceTree = "<group>"; };
 		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
 		683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCreationViewController.swift; sourceTree = "<group>"; };
 		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -787,6 +789,7 @@
 				686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */,
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
 				687CB58C1B07F6020048B692 /* CheckinService.swift */,
+				6837AF831C7B67CE0082F4EC /* CompanyService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
 				687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */,
 				68E218111C3BB663007CEF03 /* JobService.swift */,
@@ -1709,6 +1712,7 @@
 				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
 				68B412E61B080E6D009A4C05 /* ManifestItemTableViewCell.swift in Sources */,
 				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
+				6837AF841C7B67CE0082F4EC /* CompanyService.swift in Sources */,
 				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
 				687CB54D1B07EAD30048B692 /* NSDateExtensions.swift in Sources */,
 				681EBF5C1C180ED600B81BEB /* JobWizardViewController.swift in Sources */,
