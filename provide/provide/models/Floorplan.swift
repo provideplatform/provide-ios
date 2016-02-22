@@ -19,6 +19,7 @@ class Floorplan: Model {
     var blueprintImageUrlString: String!
     var blueprintScale = 0.0
     var blueprintAnnotationsCount = 0
+    var backsplashProductOptions: [Product]!
     var totalSqFt = -1.0
     var numberOfBedrooms = -1
     var numberOfBathrooms = -1
@@ -47,6 +48,7 @@ class Floorplan: Model {
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "backsplash_product_options", toKeyPath: "backsplashProductOptions", withMapping: Product.mapping()))
         return mapping
     }
 
