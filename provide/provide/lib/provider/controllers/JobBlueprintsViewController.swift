@@ -445,7 +445,12 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        return shouldLoadBlueprint
+        if job.isCommercial {
+            return shouldLoadBlueprint
+        } else if job.isResidential {
+            return false
+        }
+        return true
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
