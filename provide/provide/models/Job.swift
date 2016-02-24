@@ -676,6 +676,14 @@ class Job: Model {
                     self.floorplans = floorplans
                 }
 
+                if let floorplanJobs = job.floorplanJobs {
+                    self.floorplanJobs = floorplanJobs
+                }
+
+                if let materials = job.materials {
+                    self.materials = materials
+                }
+
                 if let supervisors = job.supervisors {
                     self.supervisors = supervisors
                 }

@@ -51,6 +51,12 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         return reviewAndCompleteItem
     }
 
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        //tabBarItem.image = FAKFontAwesome.briefcaseIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

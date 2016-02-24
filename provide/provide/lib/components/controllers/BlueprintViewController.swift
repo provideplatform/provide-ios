@@ -187,6 +187,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    private var loadingMaterials = false {
+        didSet {
+            if !loadingBlueprint && !loadingAnnotations && !loadingMaterials {
+                activityIndicatorView.stopAnimating()
+            } else if !activityIndicatorView.isAnimating() {
+                activityIndicatorView.startAnimating()
+            }
+        }
+    }
+
     private var newWorkOrderPending = false
 
     override var navigationController: UINavigationController! {
@@ -345,14 +355,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let image = blueprintViewControllerDelegate?.blueprintImageForBlueprintViewController(self) {
             setBlueprintImage(image)
             loadAnnotations()
-
-            if floorplanSupportsBacksplash {
-                if let floorplanJob = job?.floorplanJobs.first {
-                    if floorplanJob.backsplashSqFt == -1 {
-                        presentBacksplashProductPickerViewController()
-                    }
-                }
-            }
         } else if let url = blueprintImageUrl {
             loadingBlueprint = true
 
@@ -361,14 +363,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     dispatch_after_delay(0.0) { [weak self] in
                         self!.setBlueprintImage(image)
                         self!.loadAnnotations()
-
-                        if self!.floorplanSupportsBacksplash {
-                            if let floorplanJob = self!.job?.floorplanJobs.first {
-                                if floorplanJob.backsplashSqFt == -1 {
-                                    self!.presentBacksplashProductPickerViewController()
-                                }
-                            }
-                        }
                     }
                 },
                 onError: { error, statusCode, responseString in
@@ -429,11 +423,43 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 onSuccess: { statusCode, mappingResult in
                     self.loadingAnnotations = false
                     self.refreshAnnotations()
+                    self.presentFloorplanProductViewControllers()
                 },
                 onError: { error, statusCode, responseString in
                     self.loadingAnnotations = false
                 }
             )
+        }
+    }
+
+    private func presentFloorplanProductViewControllers() {
+        if floorplanSupportsBacksplash {
+            if let floorplanJob = job?.floorplanJobs.first {
+                if floorplanJob.backsplashSqFt != -1 {
+                    loadingMaterials = true
+                    job.reloadMaterials(
+                        { statusCode, mappingResult in
+                            var shouldPresentBacksplashProductPickerViewController = true
+                            for jobProduct in self.job.materials {
+                                let product = jobProduct.product
+                                for backsplashProductOption in floorplanJob.floorplan.backsplashProductOptions {
+                                    if product.id == backsplashProductOption.id {
+                                        shouldPresentBacksplashProductPickerViewController = false
+                                        break
+                                    }
+                                }
+                            }
+                            if shouldPresentBacksplashProductPickerViewController {
+                                self.presentBacksplashProductPickerViewController()
+                            }
+                            self.loadingMaterials = false
+                        },
+                        onError: { error, statusCode, responseString in
+                            self.loadingMaterials = false
+                        }
+                    )
+                }
+            }
         }
     }
 
@@ -1082,9 +1108,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                             }
                                                         }
                                                     )
-
-
-
                                                 },
                                                 onError: { error, statusCode, responseString -> () in
                                                     print(responseString)

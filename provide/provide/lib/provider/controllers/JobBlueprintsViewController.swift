@@ -125,6 +125,14 @@ class JobBlueprintsViewController: ViewController,
 
     private var viewLoaded = false
 
+    private var floorplanImportTimer: NSTimer!
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        //tabBarItem.image = FAKFontAwesome.photoIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -505,19 +513,50 @@ class JobBlueprintsViewController: ViewController,
 
         job.save(
             onSuccess: { statusCode, mappingResult in
-                self.job.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        self.refresh()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
+                self.scheduleRequireFloorplanTimer()
             },
             onError: { error, statusCode, responseString in
 
             }
         )
+    }
+
+    private func scheduleRequireFloorplanTimer() {
+        if let floorplanImportTimer = floorplanImportTimer {
+            floorplanImportTimer.invalidate()
+            self.floorplanImportTimer = nil
+        }
+
+        floorplanImportTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "requireAssociatedFloorplan", userInfo: nil, repeats: true)
+    }
+
+    func requireAssociatedFloorplan() {
+        if let job = job {
+            if job.blueprintImageUrl == nil {
+                job.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        if job.blueprintImageUrl != nil {
+                            if let floorplanImportTimer = self.floorplanImportTimer {
+                                floorplanImportTimer.invalidate()
+                                self.floorplanImportTimer = nil
+                            }
+
+                            self.refresh()
+                        }
+                    },
+                    onError: { error, statusCode, responseString in
+                        
+                    }
+                )
+            } else {
+                if let floorplanImportTimer = floorplanImportTimer {
+                    floorplanImportTimer.invalidate()
+                    self.floorplanImportTimer = nil
+                }
+
+                refresh()
+            }
+        }
     }
 
     deinit {
