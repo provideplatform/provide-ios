@@ -835,6 +835,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: BlueprintPolygonViewDelegate
 
     func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool {
+        if let job = job {
+            if job.isResidential {
+                return false
+            }
+        }
+
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
                 return ["awaiting_schedule", "scheduled"].indexOfObject(workOrder.status) != nil
