@@ -27,6 +27,7 @@ class JobWizardTabBarController: UITabBarController,
             navigationItem.rightBarButtonItems = [taskListItem]
 
             if job.isResidential {
+                viewControllers?.removeAtIndex(3)
                 viewControllers?.removeAtIndex(2)
                 viewControllers?.removeAtIndex(1)
             }
