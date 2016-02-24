@@ -152,6 +152,9 @@ class JobWizardViewController: UINavigationController,
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+        if let job = job {
+            return job.isCommercial && ["configuring", "in_progress"].indexOfObject(job.status) != nil
+        }
         return false
     }
 
