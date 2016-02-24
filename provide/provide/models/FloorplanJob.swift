@@ -17,6 +17,7 @@ class FloorplanJob: Model {
     var job: Job!
     var backsplashPartialLf = -1.0
     var backsplashFullLf = -1.0
+    var backsplashSqFt = -1.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -26,6 +27,7 @@ class FloorplanJob: Model {
             "job_id",
             "backsplash_partial_lf",
             "backsplash_full_lf",
+            "backsplash_sq_ft",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("floorplan", mapping: Floorplan.mapping())

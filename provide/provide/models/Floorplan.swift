@@ -28,6 +28,7 @@ class Floorplan: Model {
     var basePrice = -1.0
     var backsplashPartialLf = -1.0
     var backsplashFullLf = -1.0
+    var backsplashSqFt = -1.0
     var desc: String!
     var profileImageUrlString: String!
 
@@ -48,6 +49,7 @@ class Floorplan: Model {
             "base_price": "basePrice",
             "backsplash_partial_lf": "backsplashPartialLf",
             "backsplash_full_lf": "backsplashFullLf",
+            "backsplash_sq_ft": "backsplashSqFt",
             "description": "desc",
             "profile_image_url": "profileImageUrlString",
             ])
