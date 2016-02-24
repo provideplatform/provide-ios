@@ -1072,30 +1072,49 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                     onSuccess: { statusCode, mappingResult in
                                         var jobProduct = self.job.jobProductForProduct(product)
                                         if jobProduct != nil {
-                                            jobProduct.initialQuantity += Double(self.selectedPolygonView.area)
-                                            self.job.save(
-                                                onSuccess: { statusCode, mappingResult in
-                                                    jobProduct = self.job.materials.last!
-                                                    var workOrderProductParams: [String : AnyObject] = ["quantity": self.selectedPolygonView.area]
+                                            CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                                onCompaniesFetched: { companies in
+                                                    if let company = companies.first {
+                                                        var price: Double?
+                                                        if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                        } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier1CostPerSqFt
+                                                        } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                        } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier3CostPerSqFt
+                                                        }
 
-                                                    CompanyService.sharedService().fetch(companyId: self.job.companyId,
-                                                        onCompaniesFetched: { companies in
-                                                            if let company = companies.first {
+                                                        jobProduct.initialQuantity += Double(self.selectedPolygonView.area)
+                                                        if let price = price {
+                                                            jobProduct.price = price
+                                                        }
+
+                                                        self.job.save(
+                                                            onSuccess: { statusCode, mappingResult in
+                                                                jobProduct = self.job.materials.last!
+
                                                                 var price: Double?
-                                                                if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier1CostPerSqFt
                                                                 } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier1CostPerSqFt
-                                                                } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier2CostPerSqFt
                                                                 } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier2CostPerSqFt
-                                                                } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier3CostPerSqFt
                                                                 } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier3CostPerSqFt
                                                                 }
 
+                                                                var workOrderProductParams: [String : AnyObject] = ["quantity": self.selectedPolygonView.area]
                                                                 if let price = price {
                                                                     workOrderProductParams["price"] = CGFloat(price)
                                                                 }
@@ -1111,39 +1130,58 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                         print(responseString)
                                                                     }
                                                                 )
+                                                            },
+                                                            onError: { error, statusCode, responseString -> () in
+                                                                print(responseString)
                                                             }
-                                                        }
-                                                    )
-                                                },
-                                                onError: { error, statusCode, responseString -> () in
-                                                    print(responseString)
+                                                        )
+                                                    }
                                                 }
                                             )
                                         } else {
-                                            let jobProductParams: [String : AnyObject] = ["initial_quantity": Double(self.selectedPolygonView.area)]
-                                            self.job.addJobProductForProduct(product, params: jobProductParams,
-                                                onSuccess: { statusCode, mappingResult in
-                                                    jobProduct = self.job.materials.last!
-                                                    var workOrderProductParams = ["quantity": self.selectedPolygonView.area]
+                                            CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                                onCompaniesFetched: { companies in
+                                                    if let company = companies.first {
+                                                        var price: Double?
+                                                        if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                        } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier1CostPerSqFt
+                                                        } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                        } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = company.flooringMaterialTier3CostPerSqFt
+                                                        }
 
-                                                    CompanyService.sharedService().fetch(companyId: self.job.companyId,
-                                                        onCompaniesFetched: { companies in
-                                                            if let company = companies.first {
+                                                        var jobProductParams: [String : AnyObject] = ["initial_quantity": Double(self.selectedPolygonView.area)]
+                                                        if let price = price {
+                                                            jobProductParams["price"] = price
+                                                        }
+
+                                                        self.job.addJobProductForProduct(product, params: jobProductParams,
+                                                            onSuccess: { statusCode, mappingResult in
+                                                                jobProduct = self.job.materials.last!
+
                                                                 var price: Double?
-                                                                if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier1CostPerSqFt
                                                                 } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier1CostPerSqFt
-                                                                } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier2CostPerSqFt
                                                                 } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier2CostPerSqFt
-                                                                } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = jobProduct.flooringMaterialTier3CostPerSqFt
                                                                 } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier3CostPerSqFt
                                                                 }
 
+                                                                var workOrderProductParams = ["quantity": self.selectedPolygonView.area]
                                                                 if let price = price {
                                                                     workOrderProductParams["price"] = CGFloat(price)
                                                                 }
@@ -1159,12 +1197,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                         print(responseString)
                                                                     }
                                                                 )
+                                                            },
+                                                            onError: { error, statusCode, responseString -> () in
+                                                                print(responseString)
                                                             }
-                                                        }
-                                                    )
-                                                },
-                                                onError: { error, statusCode, responseString -> () in
-                                                    print(responseString)
+                                                        )
+                                                    }
                                                 }
                                             )
                                         }
@@ -1178,30 +1216,48 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                 if jobProduct != nil {
                                     let backsplashSqFt = self.job.floorplans.first!.backsplashSqFt
                                     if backsplashSqFt != -1 {
-                                        jobProduct.initialQuantity += backsplashSqFt
-                                        self.job.save(
-                                            onSuccess: { statusCode, mappingResult in
-                                                jobProduct = self.job.materials.last!
-                                                var workOrderProductParams: [String : AnyObject] = ["quantity": backsplashSqFt]
+                                        CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                            onCompaniesFetched: { companies in
+                                                if let company = companies.first {
+                                                    var price: Double?
+                                                    if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                    } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier1CostPerSqFt
+                                                    } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                    } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier3CostPerSqFt
+                                                    }
 
-                                                CompanyService.sharedService().fetch(companyId: self.job.companyId,
-                                                    onCompaniesFetched: { companies in
-                                                        if let company = companies.first {
+                                                    jobProduct.initialQuantity += backsplashSqFt
+                                                    if let price = price {
+                                                        jobProduct.price = price
+                                                    }
+                                                    self.job.save(
+                                                        onSuccess: { statusCode, mappingResult in
+                                                            jobProduct = self.job.materials.last!
+
                                                             var price: Double?
-                                                            if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier1CostPerSqFt
                                                             } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier1CostPerSqFt
-                                                            } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier2CostPerSqFt
                                                             } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier2CostPerSqFt
-                                                            } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier3CostPerSqFt
                                                             } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier3CostPerSqFt
                                                             }
 
+                                                            var workOrderProductParams: [String : AnyObject] = ["quantity": backsplashSqFt]
                                                             if let price = price {
                                                                 workOrderProductParams["price"] = price
                                                             }
@@ -1217,45 +1273,60 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                     print(responseString)
                                                                 }
                                                             )
+                                                        },
+                                                        onError: { error, statusCode, responseString -> () in
+                                                            print(responseString)
                                                         }
-                                                    }
-                                                )
-                                                
-                                                
-                                                
-                                            },
-                                            onError: { error, statusCode, responseString -> () in
-                                                print(responseString)
+                                                    )
+                                                }
                                             }
                                         )
                                     }
                                 } else {
                                     let backsplashSqFt = self.job.floorplans.first!.backsplashSqFt
                                     if backsplashSqFt != -1 {
-                                        let jobProductParams: [String : AnyObject] = ["initial_quantity": backsplashSqFt]
-                                        self.job.addJobProductForProduct(product, params: jobProductParams,
-                                            onSuccess: { statusCode, mappingResult in
-                                                jobProduct = self.job.materials.last!
-                                                var workOrderProductParams = ["quantity": backsplashSqFt]
+                                        CompanyService.sharedService().fetch(companyId: self.job.companyId,
+                                            onCompaniesFetched: { companies in
+                                                if let company = companies.first {
+                                                    var price: Double?
+                                                    if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                    } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier1CostPerSqFt
+                                                    } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                    } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = company.flooringMaterialTier3CostPerSqFt
+                                                    }
 
-                                                CompanyService.sharedService().fetch(companyId: self.job.companyId,
-                                                    onCompaniesFetched: { companies in
-                                                        if let company = companies.first {
+                                                    var jobProductParams: [String : AnyObject] = ["initial_quantity": backsplashSqFt]
+                                                    if let price = price {
+                                                        jobProductParams["price"] = price
+                                                    }
+                                                    self.job.addJobProductForProduct(product, params: jobProductParams,
+                                                        onSuccess: { statusCode, mappingResult in
+                                                            jobProduct = self.job.materials.last!
+
                                                             var price: Double?
-                                                            if product.isTierOne && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            if product.isTierOne && jobProduct == nil || jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier1CostPerSqFt
                                                             } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier1CostPerSqFt
-                                                            } else if product.isTierTwo && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            } else if product.isTierTwo && jobProduct == nil || jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier2CostPerSqFt
                                                             } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier2CostPerSqFt
-                                                            } else if product.isTierThree && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            } else if product.isTierThree && jobProduct == nil || jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = jobProduct.flooringMaterialTier3CostPerSqFt
                                                             } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier3CostPerSqFt
                                                             }
-
+                                                            
+                                                            var workOrderProductParams = ["quantity": backsplashSqFt]
                                                             if let price = price {
                                                                 workOrderProductParams["price"] = price
                                                             }
@@ -1271,18 +1342,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                     print(responseString)
                                                                 }
                                                             )
+                                                        },
+                                                        onError: { error, statusCode, responseString -> () in
+                                                            print(responseString)
                                                         }
-                                                    }
-                                                )
-                                            },
-                                            onError: { error, statusCode, responseString -> () in
-                                                print(responseString)
+                                                    )
+                                                }
                                             }
                                         )
                                     }
                                 }
                             }
-
                         },
                         onError: { error, statusCode, responseString -> () in
                             print(responseString)
