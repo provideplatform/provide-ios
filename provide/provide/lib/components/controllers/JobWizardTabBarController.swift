@@ -30,6 +30,10 @@ class JobWizardTabBarController: UITabBarController,
                 viewControllers?.removeAtIndex(3)
                 viewControllers?.removeAtIndex(2)
                 viewControllers?.removeAtIndex(1)
+
+                if let viewController = viewControllers?.first {
+                    viewController.title = "Floorplan"
+                }
             }
 
             if job.status == "pending_completion" || job.status == "completed" || job.status == "canceled" {
@@ -99,7 +103,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var manageJobTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            let index = job.isCommercial ? 4 : (job.isResidential ? 2 : -1)
+            let index = job.isCommercial ? 4 : (job.isResidential ? 1 : -1)
             if index != -1 {
                 return items[index]
             }
@@ -258,7 +262,7 @@ class JobWizardTabBarController: UITabBarController,
         tabBar.backgroundImage = UIImage("bar-background")!.crop(cropRect)
 
         let mapPin = UIImage("map-pin")!
-        tabBar.selectionIndicatorImage = mapPin.scaledToWidth(mapPin.size.width / 2.8)
+        tabBar.selectionIndicatorImage = mapPin.scaledToWidth(mapPin.size.width / 4)
 
         refreshSelectionIndicatorImageViewFrame()
     }
