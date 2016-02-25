@@ -24,6 +24,9 @@ class FloorplanJob: Model {
     var flooringMaterialTier1CostPerSqFt = -1.0
     var flooringMaterialTier2CostPerSqFt = -1.0
     var flooringMaterialTier3CostPerSqFt = -1.0
+    var flooringLaborTier1RevenuePerSqFt = -1.0
+    var flooringLaborTier2RevenuePerSqFt = -1.0
+    var flooringLaborTier3RevenuePerSqFt = -1.0
 
     var supportsBacksplash: Bool {
         return backsplashSqFt != -1 && backsplashFullLf != -1 && backsplashPartialLf != -1
@@ -44,6 +47,9 @@ class FloorplanJob: Model {
             "flooring_material_tier1_cost_per_sq_ft",
             "flooring_material_tier2_cost_per_sq_ft",
             "flooring_material_tier3_cost_per_sq_ft",
+            "flooring_labor_tier1_revenue_per_sq_ft",
+            "flooring_labor_tier2_revenue_per_sq_ft",
+            "flooring_labor_tier3_revenue_per_sq_ft",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("floorplan", mapping: Floorplan.mapping())

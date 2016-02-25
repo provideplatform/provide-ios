@@ -1061,6 +1061,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
             workOrder.itemsOrdered = [Product]()
             workOrder.itemsRejected = [Product]()
 
+            let floorplanJob = job.floorplanJobs.first
+
             job.reloadMaterials(
                 { statusCode, mappingResult in
                     workOrder.save(
@@ -1071,21 +1073,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                 annotation.save(self.blueprint,
                                     onSuccess: { statusCode, mappingResult in
                                         var jobProduct = self.job.jobProductForProduct(product)
-                                        if jobProduct != nil {
+                                        if jobProduct != nil && floorplanJob != nil {
                                             CompanyService.sharedService().fetch(companyId: self.job.companyId,
                                                 onCompaniesFetched: { companies in
                                                     if let company = companies.first {
                                                         var price: Double?
-                                                        if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                        if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                         } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier1CostPerSqFt
-                                                        } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                         } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier2CostPerSqFt
-                                                        } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                        } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                         } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier3CostPerSqFt
                                                         }
@@ -1100,16 +1102,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                 jobProduct = self.job.materials.last!
 
                                                                 var price: Double?
-                                                                if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                                if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                                 } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier1CostPerSqFt
-                                                                } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                                } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                                 } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier2CostPerSqFt
-                                                                } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                                } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                                 } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier3CostPerSqFt
                                                                 }
@@ -1143,16 +1145,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                 onCompaniesFetched: { companies in
                                                     if let company = companies.first {
                                                         var price: Double?
-                                                        if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                        if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                         } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier1CostPerSqFt
-                                                        } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                        } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                         } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier2CostPerSqFt
-                                                        } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                            price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                        } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                            price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                         } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                             price = company.flooringMaterialTier3CostPerSqFt
                                                         }
@@ -1167,16 +1169,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                                 jobProduct = self.job.materials.last!
 
                                                                 var price: Double?
-                                                                if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                                if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                                 } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier1CostPerSqFt
-                                                                } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                                } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                                 } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier2CostPerSqFt
-                                                                } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                                    price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                                } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                    price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                                 } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                     price = company.flooringMaterialTier3CostPerSqFt
                                                                 }
@@ -1220,16 +1222,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                             onCompaniesFetched: { companies in
                                                 if let company = companies.first {
                                                     var price: Double?
-                                                    if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                    if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                     } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier1CostPerSqFt
-                                                    } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                     } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier2CostPerSqFt
-                                                    } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                    } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                     } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier3CostPerSqFt
                                                     }
@@ -1243,16 +1245,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                             jobProduct = self.job.materials.last!
 
                                                             var price: Double?
-                                                            if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                            if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                             } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier1CostPerSqFt
-                                                            } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                             } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier2CostPerSqFt
-                                                            } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                            } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                             } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier3CostPerSqFt
                                                             }
@@ -1289,16 +1291,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                             onCompaniesFetched: { companies in
                                                 if let company = companies.first {
                                                     var price: Double?
-                                                    if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                    if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                     } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier1CostPerSqFt
-                                                    } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                    } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                     } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier2CostPerSqFt
-                                                    } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                        price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                    } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                        price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                     } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                         price = company.flooringMaterialTier3CostPerSqFt
                                                     }
@@ -1312,16 +1314,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                             jobProduct = self.job.materials.last!
 
                                                             var price: Double?
-                                                            if product.isTierOne && jobProduct != nil && jobProduct.flooringMaterialTier1CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier1CostPerSqFt
+                                                            if product.isTierOne && floorplanJob != nil && floorplanJob!.flooringMaterialTier1CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier1CostPerSqFt
                                                             } else if product.isTierOne && company.flooringMaterialTier1CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier1CostPerSqFt
-                                                            } else if product.isTierTwo && jobProduct != nil && jobProduct.flooringMaterialTier2CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier2CostPerSqFt
+                                                            } else if product.isTierTwo && floorplanJob != nil && floorplanJob!.flooringMaterialTier2CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier2CostPerSqFt
                                                             } else if product.isTierTwo && company.flooringMaterialTier2CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier2CostPerSqFt
-                                                            } else if product.isTierThree && jobProduct != nil && jobProduct.flooringMaterialTier3CostPerSqFt != -1.0 {
-                                                                price = jobProduct.flooringMaterialTier3CostPerSqFt
+                                                            } else if product.isTierThree && floorplanJob != nil && floorplanJob!.flooringMaterialTier3CostPerSqFt != -1.0 {
+                                                                price = floorplanJob!.flooringMaterialTier3CostPerSqFt
                                                             } else if product.isTierThree && company.flooringMaterialTier3CostPerSqFt != -1.0 {
                                                                 price = company.flooringMaterialTier3CostPerSqFt
                                                             }
@@ -1607,15 +1609,43 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
-        var fee: Double!
+        let workOrder = viewController.workOrder
         if let job = job {
             if let floorplanJob = job.floorplanJobs.first {
+                let floorplan = floorplanJob.floorplan
                 if floorplanJob.supportsBacksplash {
+                    for backsplashProductOptions in floorplan.backsplashProductOptions {
+                        for workOrderProduct in workOrder.materials {
+                            if workOrderProduct.jobProduct.productId == backsplashProductOptions.id {
+                                let backsplashLaborPricePerLfFt = 11.0 // FIXME-- determine if straight/diag/running bong
+                                return (floorplanJob.backsplashFullLf * backsplashLaborPricePerLfFt) + (floorplanJob.backsplashPartialLf * backsplashLaborPricePerLfFt * 0.5)
+                            }
+                        }
+                    }
+                }
 
+                for flooringProductOption in floorplan.flooringProductOptions {
+                    for workOrderProduct in workOrder.materials {
+                        let product = workOrderProduct.jobProduct.product
+                        if product.id == flooringProductOption.id {
+                            var flooringLaborPricePerSqFt: Double?
+                            if product.isTierOne && floorplanJob.flooringLaborTier1RevenuePerSqFt != -1.0 {
+                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier1RevenuePerSqFt
+                            } else if product.isTierTwo && floorplanJob.flooringLaborTier2RevenuePerSqFt != -1.0 {
+                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier2RevenuePerSqFt
+                            } else if product.isTierThree && floorplanJob.flooringLaborTier3RevenuePerSqFt != -1.0 {
+                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier3RevenuePerSqFt
+                            }
+
+                            if let flooringLaborPricePerSqFt = flooringLaborPricePerSqFt {
+                                return flooringLaborPricePerSqFt * workOrderProduct.quantity
+                            }
+                        }
+                    }
                 }
             }
         }
-        return fee
+        return nil
     }
 
     // MARK: UIPopoverPresentationControllerDelegate

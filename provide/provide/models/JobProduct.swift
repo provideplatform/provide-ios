@@ -17,9 +17,6 @@ class JobProduct: Model {
     var initialQuantity = 0.0
     var remainingQuantity = 0.0
     var price = -1.0
-    var flooringMaterialTier1CostPerSqFt = -1.0
-    var flooringMaterialTier2CostPerSqFt = -1.0
-    var flooringMaterialTier3CostPerSqFt = -1.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -30,9 +27,6 @@ class JobProduct: Model {
             "initial_quantity": "initialQuantity",
             "remaining_quantity": "remainingQuantity",
             "price": "price",
-            "flooring_material_tier1_cost_per_sq_ft": "flooringMaterialTier1CostPerSqFt",
-            "flooring_material_tier2_cost_per_sq_ft": "flooringMaterialTier2CostPerSqFt",
-            "flooring_material_tier3_cost_per_sq_ft": "flooringMaterialTier3CostPerSqFt",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("product", mapping: Product.mapping())
         return mapping

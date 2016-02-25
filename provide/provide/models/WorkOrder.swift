@@ -540,6 +540,9 @@ class WorkOrder: Model {
                 if workOrderProvider.hourlyRate > -1.0 {
                     wop.updateValue(workOrderProvider.hourlyRate, forKey: "hourly_rate")
                 }
+                if workOrderProvider.flatFee > -1.0 {
+                    wop.updateValue(workOrderProvider.flatFee, forKey: "flat_fee")
+                }
                 if workOrderProvider.id > 0 {
                     wop.updateValue(workOrderProvider.id, forKey: "id")
                 }
