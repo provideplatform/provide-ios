@@ -43,7 +43,7 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "TASKS"
+        title = "PUNCH LIST"
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
