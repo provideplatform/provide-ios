@@ -1606,6 +1606,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
         selectedPolygonView = nil
     }
 
+    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
+        var fee: Double!
+        if let job = job {
+            if let floorplanJob = job.floorplanJobs.first {
+                if floorplanJob.supportsBacksplash {
+
+                }
+            }
+        }
+        return fee
+    }
+
     // MARK: UIPopoverPresentationControllerDelegate
 
 //    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {

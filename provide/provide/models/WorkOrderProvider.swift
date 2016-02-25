@@ -17,6 +17,7 @@ class WorkOrderProvider: Model {
     var hourlyRate = -1.0
     var estimatedDuration = -1.0
     var duration = -1.0
+    var flatFee = -1.0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -28,6 +29,7 @@ class WorkOrderProvider: Model {
             "estimated_duration",
             "estimated_cost",
             "duration",
+            "flat_fee",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("provider", mapping: Provider.mapping())

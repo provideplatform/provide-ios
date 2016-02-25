@@ -21,6 +21,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
+    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double!
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
@@ -611,6 +612,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 self.reloadTableView()
             }
         )
+    }
+
+    func flatFeeForNewProvider(provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double! {
+        if let fee = delegate?.flatFeeForNewProvider(provider, forWorkOrderCreationViewController: self) {
+            return fee
+        }
+        return nil
     }
 
     // MARK: WorkOrderInventoryViewControllerDelegate

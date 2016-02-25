@@ -484,10 +484,13 @@ class WorkOrder: Model {
         return dictionary
     }
 
-    func addProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
+    func addProvider(provider: Provider, flatFee: Double = -1.0, onSuccess: OnSuccess, onError: OnError) {
         if !hasProvider(provider) {
             let workOrderProvider = WorkOrderProvider()
             workOrderProvider.provider = provider
+            if flatFee >= 0.0 {
+                workOrderProvider.flatFee = flatFee
+            }
             workOrderProviders.append(workOrderProvider)
             if id > 0 {
                 save(onSuccess: onSuccess, onError: onError)

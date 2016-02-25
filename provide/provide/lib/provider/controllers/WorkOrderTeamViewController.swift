@@ -12,6 +12,7 @@ protocol WorkOrderTeamViewControllerDelegate {
     func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder!
     func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
     func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider provider: Provider)
+    func flatFeeForNewProvider(provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double!
 }
 
 class WorkOrderTeamViewController: UITableViewController,
@@ -171,7 +172,11 @@ class WorkOrderTeamViewController: UITableViewController,
 
                     self!.addingProvider = true
 
-                    self!.workOrder?.addProvider(provider,
+                    var flatFee = -1.0
+                    if let fee = self!.delegate?.flatFeeForNewProvider(provider, forWorkOrderTeamViewControllerViewController: self!) {
+                        flatFee = fee
+                    }
+                    self!.workOrder?.addProvider(provider, flatFee: flatFee,
                         onSuccess: { (statusCode, mappingResult) -> () in
 //                            self!.addingProvider = false
                             cell?.hideActivityIndicator()
@@ -184,18 +189,20 @@ class WorkOrderTeamViewController: UITableViewController,
                                 }
                             }
 
-                            if let workOrderProvider = workOrderProvider {
-                                let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
-                                workOrderProviderCreationViewController.workOrder = self!.workOrder
-                                workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
-                                workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
-                                workOrderProviderCreationViewController.modalPresentationStyle = .Popover
-                                workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
-                                workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
-                                workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-                                workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                                self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
-                                    self!.addingProvider = false
+                            if flatFee == -1.0 {
+                                if let workOrderProvider = workOrderProvider {
+                                    let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
+                                    workOrderProviderCreationViewController.workOrder = self!.workOrder
+                                    workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
+                                    workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
+                                    workOrderProviderCreationViewController.modalPresentationStyle = .Popover
+                                    workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
+                                    workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
+                                    workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                                    workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+                                    self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
+                                        self!.addingProvider = false
+                                    }
                                 }
                             }
                         },
@@ -580,7 +587,8 @@ class WorkOrderTeamViewController: UITableViewController,
 
                     if shouldAddProvider {
                         let indexPath = workOrderTeamViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        workOrderTeamViewController?.addProvider(workOrderTeamViewController.queryResultsPickerViewController.providers[indexPath.row])
+                        let provider = workOrderTeamViewController.queryResultsPickerViewController.providers[indexPath.row]
+                        workOrderTeamViewController?.addProvider(provider)
                     }
 
                     collectionView.scrollEnabled = true

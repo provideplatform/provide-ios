@@ -18,6 +18,16 @@ class FloorplanJob: Model {
     var backsplashPartialLf = -1.0
     var backsplashFullLf = -1.0
     var backsplashSqFt = -1.0
+    var backsplashLaborPricePerStraightLf = -1.0
+    var backsplashLaborPricePerDiagonalLf = -1.0
+    var backsplashLaborPricePerRunningBondLf = -1.0
+    var flooringMaterialTier1CostPerSqFt = -1.0
+    var flooringMaterialTier2CostPerSqFt = -1.0
+    var flooringMaterialTier3CostPerSqFt = -1.0
+
+    var supportsBacksplash: Bool {
+        return backsplashSqFt != -1 && backsplashFullLf != -1 && backsplashPartialLf != -1
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
@@ -28,6 +38,12 @@ class FloorplanJob: Model {
             "backsplash_partial_lf",
             "backsplash_full_lf",
             "backsplash_sq_ft",
+            "backsplash_labor_price_per_straight_lf",
+            "backsplash_labor_price_per_diagonal_lf",
+            "backsplash_labor_price_per_running_bond_lf",
+            "flooring_material_tier1_cost_per_sq_ft",
+            "flooring_material_tier2_cost_per_sq_ft",
+            "flooring_material_tier3_cost_per_sq_ft",
             ]
         )
         mapping.addRelationshipMappingWithSourceKeyPath("floorplan", mapping: Floorplan.mapping())
