@@ -824,6 +824,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
         overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
     }
 
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool) {
+        if visible {
+            if presentedViewController == nil {
+                presentFloorplanProductViewControllers()
+            }
+        } else if let presentedViewController = presentedViewController {
+            if presentedViewController.isKindOfClass(ProductPickerViewController) {
+                dismissViewController(animated: true)
+            }
+        }
+    }
+
     func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
         return job.isResidential
     }
@@ -1650,9 +1662,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-//    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-//        return .None
-//    }
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        if let presentedViewController = (controller.presentedViewController as? UINavigationController)?.viewControllers.first {
+            if presentedViewController.isKindOfClass(ProductPickerViewController) {
+                return .None
+            }
+        }
+
+
+        return .CurrentContext
+    }
 
     func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return true

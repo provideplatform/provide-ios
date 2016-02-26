@@ -42,12 +42,14 @@
                                     <barButtonItem title="Scale" id="dlS-QM-Xdl"/>
                                     <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fAE-sK-LuL"/>
                                     <barButtonItem title="+ Work Order" id="vpF-ec-lig"/>
+                                    <barButtonItem title="Floorplan Options" id="bur-kU-fzu"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk"/>
                                     <barButtonItem title="Navigator" id="F6Z-Yj-ebn"/>
                                 </items>
                                 <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="createWorkOrderButton" destination="vpF-ec-lig" id="y2k-88-5p7"/>
+                                    <outlet property="floorplanOptionsButton" destination="bur-kU-fzu" id="u9C-Jn-p4K"/>
                                     <outlet property="navigationButton" destination="F6Z-Yj-ebn" id="Wwg-bl-5N2"/>
                                     <outlet property="scaleButton" destination="dlS-QM-Xdl" id="85b-r0-9pj"/>
                                 </connections>
@@ -113,15 +115,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="039-44-aWl"/>
+                            <constraint firstItem="xRM-F2-amm" firstAttribute="width" secondItem="vsP-WQ-g9V" secondAttribute="width" id="5wJ-DJ-dbu"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" id="I5E-q1-sL8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="YJZ-gU-i6b"/>
-                            <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="eRR-gR-7ev"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="MUj-kM-Bct"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="gJI-FF-5LS"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
-                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="l5z-mT-eEf"/>
+                            <constraint firstItem="xRM-F2-amm" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="mk0-Dg-es5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="x2V-2a-s9R"/>
                         </constraints>

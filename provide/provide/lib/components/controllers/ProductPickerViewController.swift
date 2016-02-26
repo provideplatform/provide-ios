@@ -47,6 +47,13 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
+    private var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss:")
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        dismissItem.tintColor = UIColor.whiteColor()
+        return dismissItem
+    }
+
     private var inFlightRequestOperation: RKObjectRequestOperation!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
@@ -82,7 +89,21 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if !isIPad() {
+            navigationItem.leftBarButtonItems = [dismissItem]
+        }
+
         activityIndicatorView?.startAnimating()
+    }
+
+    func dismiss(sender: UIBarButtonItem) {
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.count > 1 {
+                navigationController.popViewControllerAnimated(true)
+            } else {
+                navigationController.presentingViewController?.dismissViewController(animated: true)
+            }
+        }
     }
 
     func showActivityIndicator() {

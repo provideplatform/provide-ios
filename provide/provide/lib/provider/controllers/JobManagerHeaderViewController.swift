@@ -78,76 +78,74 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         tableView.reloadData()
 
         if tableView.numberOfRowsInSection(0) > 0 {
-            if isIPad() {
-                // profit
+            // profit
 
-                if let humanReadableProfit = job.humanReadableProfit {
-                    profitValueLabel?.text = humanReadableProfit
-                } else {
-                    profitValueLabel?.text = "--"
-                }
+            if let humanReadableProfit = job.humanReadableProfit {
+                profitValueLabel?.text = humanReadableProfit
+            } else {
+                profitValueLabel?.text = "--"
+            }
 
-                if let humanReadableProfitMargin = job.humanReadableProfitMargin {
-                    profitMarginValueLabel?.text = humanReadableProfitMargin
-                    profitMarginButton?.setTitle(humanReadableProfitMargin, forState: .Normal)
-                } else {
-                    profitMarginValueLabel?.text = "--"
-                    profitMarginButton?.setTitle("", forState: .Normal)
-                }
+            if let humanReadableProfitMargin = job.humanReadableProfitMargin {
+                profitMarginValueLabel?.text = humanReadableProfitMargin
+                profitMarginButton?.setTitle(humanReadableProfitMargin, forState: .Normal)
+            } else {
+                profitMarginValueLabel?.text = "--"
+                profitMarginButton?.setTitle("", forState: .Normal)
+            }
 
-                if let humanReadableProfitPerSqFt = job.humanReadableProfitPerSqFt {
-                    profitPerSqFtValueLabel?.text = humanReadableProfitPerSqFt
-                } else {
-                    profitPerSqFtValueLabel?.text = "--"
-                }
+            if let humanReadableProfitPerSqFt = job.humanReadableProfitPerSqFt {
+                profitPerSqFtValueLabel?.text = humanReadableProfitPerSqFt
+            } else {
+                profitPerSqFtValueLabel?.text = "--"
+            }
 
-                // job expenses
+            // job expenses
 
-                if let humanReadableCost = job.humanReadableCost {
-                    expensesValueLabel?.text = humanReadableCost
-                } else {
-                    expensesValueLabel?.text = "--"
-                }
+            if let humanReadableCost = job.humanReadableCost {
+                expensesValueLabel?.text = humanReadableCost
+            } else {
+                expensesValueLabel?.text = "--"
+            }
 
-                // labor
+            // labor
 
-                if let humanReadableLaborCost = job.humanReadableLaborCost {
-                    laborValueLabel?.text = humanReadableLaborCost
-                } else {
-                    laborValueLabel?.text = "--"
-                }
+            if let humanReadableLaborCost = job.humanReadableLaborCost {
+                laborValueLabel?.text = humanReadableLaborCost
+            } else {
+                laborValueLabel?.text = "--"
+            }
 
-                if let humanReadableLaborCostPerSqFt = job.humanReadableLaborCostPerSqFt {
-                    laborCostPerSqFtValueLabel?.text = humanReadableLaborCostPerSqFt
-                } else {
-                    laborCostPerSqFtValueLabel?.text = "--"
-                }
+            if let humanReadableLaborCostPerSqFt = job.humanReadableLaborCostPerSqFt {
+                laborCostPerSqFtValueLabel?.text = humanReadableLaborCostPerSqFt
+            } else {
+                laborCostPerSqFtValueLabel?.text = "--"
+            }
 
-                if let humanReadableLaborCostPercentageOfRevenue = job.humanReadableLaborCostPercentageOfRevenue {
-                    laborCostPercentageOfRevenueValueLabel?.text = humanReadableLaborCostPercentageOfRevenue
-                } else {
-                    laborCostPercentageOfRevenueValueLabel?.text = "--"
-                }
+            if let humanReadableLaborCostPercentageOfRevenue = job.humanReadableLaborCostPercentageOfRevenue {
+                laborCostPercentageOfRevenueValueLabel?.text = humanReadableLaborCostPercentageOfRevenue
+            } else {
+                laborCostPercentageOfRevenueValueLabel?.text = "--"
+            }
 
-                // materials
+            // materials
 
-                if let humanReadableMaterialsCost = job.humanReadableMaterialsCost {
-                    materialsCostValueLabel?.text = humanReadableMaterialsCost
-                } else {
-                    materialsCostValueLabel?.text = "--"
-                }
+            if let humanReadableMaterialsCost = job.humanReadableMaterialsCost {
+                materialsCostValueLabel?.text = humanReadableMaterialsCost
+            } else {
+                materialsCostValueLabel?.text = "--"
+            }
 
-                if let humanReadableMaterialsCostPerSqFt = job.humanReadableMaterialsCostPerSqFt {
-                    materialsCostPerSqFtValueLabel?.text = humanReadableMaterialsCostPerSqFt
-                } else {
-                    materialsCostPerSqFtValueLabel?.text = "--"
-                }
+            if let humanReadableMaterialsCostPerSqFt = job.humanReadableMaterialsCostPerSqFt {
+                materialsCostPerSqFtValueLabel?.text = humanReadableMaterialsCostPerSqFt
+            } else {
+                materialsCostPerSqFtValueLabel?.text = "--"
+            }
 
-                if let humanReadableMaterialsCostPercentageOfRevenue = job.humanReadableMaterialsCostPercentageOfRevenue {
-                    materialsCostPercentageOfRevenueValueLabel?.text = humanReadableMaterialsCostPercentageOfRevenue
-                } else {
-                    materialsCostPercentageOfRevenueValueLabel?.text = "--"
-                }
+            if let humanReadableMaterialsCostPercentageOfRevenue = job.humanReadableMaterialsCostPercentageOfRevenue {
+                materialsCostPercentageOfRevenueValueLabel?.text = humanReadableMaterialsCostPercentageOfRevenue
+            } else {
+                materialsCostPercentageOfRevenueValueLabel?.text = "--"
             }
 
             tableView.alpha = 1.0
@@ -202,7 +200,7 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return job != nil && isIPad() ? 1 : 0
+        return job != nil ? 1 : 0
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -226,7 +224,7 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return isIPad() ? (job.isCurrentUserCompanyAdmin ? 2 : (job.isCurrentUserSupervisor ? 1 : 0)) : 0
+            return job.isCurrentUserCompanyAdmin ? 2 : (job.isCurrentUserSupervisor ? 1 : 0)
         }
         return 0
     }
