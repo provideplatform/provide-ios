@@ -25,7 +25,15 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
     private var authorizationWebViewController: WebViewController!
 
-    private var viewLoaded = false
+    private var viewLoaded = false {
+        didSet {
+            if let _ = company {
+                if viewLoaded {
+                    reload()
+                }
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,21 +44,17 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         disconnectButton.alpha = 0.0
 
         viewLoaded = true
-
-        if let _ = company {
-            reload()
-        }
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
         if segue.identifier! == "QuickbooksAuthorizationViewControllerSegue" {
+            setHasBeenPromptedToIntegrateQuickbooksAccountFlag()
             authorizationWebViewController = segue.destinationViewController as! WebViewController
 
             if ApiService.sharedService().hasCachedToken {
@@ -64,7 +68,7 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
     func reload() {
         if !company.isIntegratedWithQuickbooks {
             performSegueWithIdentifier("QuickbooksAuthorizationViewControllerSegue", sender: self)
-        } else {
+        } else if company.isIntegratedWithQuickbooks {
             instructionLabel?.text = "Congrats! Quickbooks is integrated!"
             instructionLabel?.alpha = 1.0
 
@@ -98,6 +102,12 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
     func webViewControllerDismissed(viewController: WebViewController) {
         promptForCancellationOfQuickbooksIntegration()
+    }
+
+    private func setHasBeenPromptedToIntegrateQuickbooksAccountFlag() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(true, forKey: "presentedQuickbooksAuthorizationDialog")
+        userDefaults.synchronize()
     }
 
     private func promptForCancellationOfQuickbooksIntegration() {

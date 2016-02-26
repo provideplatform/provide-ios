@@ -96,14 +96,16 @@ class ApplicationViewController: ECSlidingViewController,
             { statusCode, mappingResult in
                 self.refreshMenu()
 
-                if currentUser().profileImageUrl == nil {
+                if currentUser().profileImageUrl == nil && !currentUser().hasBeenPromptedToTakeSelfie {
                     let authorizationStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
                     if authorizationStatus == .Authorized {
+                        self.setHasBeenPromptedToTakeSelfieFlag()
                         self.initCameraViewController()
                     } else if authorizationStatus == .NotDetermined {
                         NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestMediaAuthorization")
                         AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
                             if granted {
+                                self.setHasBeenPromptedToTakeSelfieFlag()
                                 self.initCameraViewController()
                             }
                         }
@@ -189,6 +191,14 @@ class ApplicationViewController: ECSlidingViewController,
         let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
-        navigationController?.pushViewController(selfieViewController, animated: false)
+        dispatch_after_delay(0.0) {
+            self.navigationController?.pushViewController(selfieViewController, animated: false)
+        }
+    }
+
+    private func setHasBeenPromptedToTakeSelfieFlag() {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(true, forKey: "presentedSelfieViewController")
+        userDefaults.synchronize()
     }
 }

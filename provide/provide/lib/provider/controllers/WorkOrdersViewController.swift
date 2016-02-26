@@ -272,7 +272,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 }
 
                 if let company = company {
-                    if !company.isIntegratedWithQuickbooks {
+                    if !company.isIntegratedWithQuickbooks && !user.hasBeenPromptedToIntegrateQuickbooks {
                         self.performSegueWithIdentifier("QuickbooksViewControllerSegue", sender: company)
                     }
                 }

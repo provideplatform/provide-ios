@@ -45,6 +45,14 @@ class User: Model {
         }
     }
 
+    var hasBeenPromptedToIntegrateQuickbooks: Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey("presentedQuickbooksAuthorizationDialog")
+    }
+
+    var hasBeenPromptedToTakeSelfie: Bool {
+        return NSUserDefaults.standardUserDefaults().boolForKey("presentedSelfieViewController")
+    }
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
