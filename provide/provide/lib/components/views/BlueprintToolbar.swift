@@ -17,6 +17,7 @@ protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
+    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController)
 }
 
@@ -115,8 +116,14 @@ class BlueprintToolbar: UIToolbar {
             }
         }
 
+        let floorplanOptionsButtonVisible = blueprintToolbarDelegate.floorplanOptionsItemIsShownByBlueprintToolbar(self)
         let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
         floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, forState: .Normal)
+        if !floorplanOptionsButtonVisible {
+            if let index = items!.indexOfObject(floorplanOptionsButton) {
+                items!.removeAtIndex(index)
+            }
+        }
 
         let navigationButtonTitleTextAttribute = navigatorVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
