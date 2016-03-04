@@ -19,6 +19,7 @@ class ApiService: NSObject {
     private let mimeMappings = [
         "application/pdf": "pdf",
         "image/jpg": "jpg",
+        "image/x-dwg": "dwg",
         "video/mp4": "m4v",
     ]
 
@@ -228,6 +229,16 @@ class ApiService: NSObject {
     }
 
     // MARK: User API
+
+    func createUser(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("users", method: .POST, params: params,
+            onSuccess: { statusCode, mappingResult in
+                assert(statusCode == 201)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: onError
+        )
+    }
 
     func fetchUser(onSuccess onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],

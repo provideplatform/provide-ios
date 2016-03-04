@@ -71,6 +71,29 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     }
 
+    func isInviteRedeptionPinInputViewController(pinInputViewController: PinInputViewController) -> Bool {
+        return true
+    }
+
+    func pinInputViewController(pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String) {
+        if let presentingViewController = pinInputViewController.presentingViewController {
+            presentingViewController.dismissViewController(animated: true)
+
+            let params: [String : AnyObject] = [
+                "invitation_token": pin
+            ]
+
+            ApiService.sharedService().createUser(params,
+                onSuccess: { statusCode, mappingResult in
+
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

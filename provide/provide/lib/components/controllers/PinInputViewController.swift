@@ -8,9 +8,12 @@
 
 import UIKit
 
-@objc protocol PinInputViewControllerDelegate {
+@objc
+protocol PinInputViewControllerDelegate {
     func pinInputViewControllerDidComplete(pinInputViewController: PinInputViewController)
     optional func pinInputViewControllerDidExceedMaxAttempts(pinInputViewController: PinInputViewController)
+    optional func isInviteRedeptionPinInputViewController(pinInputViewController: PinInputViewController) -> Bool
+    optional func pinInputViewController(pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
 }
 
 
@@ -18,6 +21,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     enum Type {
         case CreatePinController   // 1. create, 2. confirm creation
+        case RedeemPinController // 1. redeem
         case UpdatePinController   // 2. match old, 2. change, 3. confirm change
         case ValidatePinController // 1. validate
     }
@@ -29,7 +33,18 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Public Variables
-    var delegate: PinInputViewControllerDelegate!
+    var delegate: PinInputViewControllerDelegate! {
+        didSet {
+            if let delegate = delegate {
+                if let isInviteRedemption = delegate.isInviteRedeptionPinInputViewController?(self) {
+                    if isInviteRedemption {
+                        type = .RedeemPinController
+                        state = .Input
+                    }
+                }
+            }
+        }
+    }
 
     // MARK: Private Variables
     @IBOutlet private weak var messageLabel: UILabel!
@@ -68,6 +83,12 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         messageLabel.text = getMessage(type, state)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        messageLabel.text = getMessage(type, state)
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -79,9 +100,14 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     func pinInputControl(pinInputControl: PinInputControl, didCompleteEnteringPin pin: String) {
         switch state! {
         case .Input:
-            firstPinInput = pin
-            state = .ReInput
-            resetWithMessage(getMessage(type, state))
+            if type != .RedeemPinController {
+                firstPinInput = pin
+                state = .ReInput
+                resetWithMessage(getMessage(type, state))
+            } else {
+                pinInputControl.resignFirstResponder()
+                delegate?.pinInputViewController?(self, shouldAttemptInviteRedemptionWithPin: pin)
+            }
         case .ReInput:
             if firstPinInput == pin { // both match
                 KeyChainService.sharedService().pin = pin
@@ -127,6 +153,11 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
             case .Input:   return "Create your 4 digit pin"
             case .ReInput: return "Confirm your 4 digit pin"
             default:       break // .Validate is not applicable since the new pin is not created yet
+            }
+        case .RedeemPinController:
+            switch inputState {
+            case .Input: return "Enter your pin"
+            default:        break // .Input and .ReInput are not applicable
             }
         case .UpdatePinController:
             switch inputState {

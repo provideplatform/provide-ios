@@ -101,7 +101,7 @@
                     <connections>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
-                        <segue destination="OYp-7G-woo" kind="show" identifier="PinInputViewControllerSegue" id="EM1-MG-mRJ"/>
+                        <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="EM1-MG-mRJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
