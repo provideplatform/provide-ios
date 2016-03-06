@@ -133,7 +133,12 @@ class NavigationRootViewController: ViewController,
 
     func setPasswordViewController(viewController: SetPasswordViewController, didSetPassword success: Bool) {
         if success {
-            viewController.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+            dispatch_after_delay(0.0) {
+                self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+                dispatch_after_delay(1.0) {
+                    self.signInButton.alpha = 1.0
+                }
+            }
         }
     }
 
