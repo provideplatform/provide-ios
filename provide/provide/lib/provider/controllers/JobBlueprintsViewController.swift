@@ -207,7 +207,7 @@ class JobBlueprintsViewController: ViewController,
 //            navigationItem.title = "SETUP FLOORPLAN"
 //        }
         if let job = job {
-            if job.isCommercial {
+            if job.isCommercial || job.isPunchlist {
                 if let _ = floorplansContainerView.superview {
                     floorplansContainerView.removeFromSuperview()
                 }
@@ -220,7 +220,7 @@ class JobBlueprintsViewController: ViewController,
         } else if let job = job {
             if job.hasPendingBlueprint {
                 importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-            } else if job.isCommercial {
+            } else if job.isCommercial || job.isPunchlist {
                 if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
                     if job.blueprintImageUrl == nil && importedPngAttachment == nil {
                         job.reload(
@@ -453,7 +453,7 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        if job.isCommercial {
+        if job.isCommercial || job.isPunchlist {
             return shouldLoadBlueprint
         } else if job.isResidential {
             return false

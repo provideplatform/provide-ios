@@ -26,13 +26,15 @@ class JobWizardTabBarController: UITabBarController,
 
             navigationItem.rightBarButtonItems = [taskListItem]
 
-            if job.isResidential {
+            if job.isResidential || job.isPunchlist {
                 viewControllers?.removeAtIndex(3)
                 viewControllers?.removeAtIndex(2)
                 viewControllers?.removeAtIndex(1)
 
-                if let viewController = viewControllers?.first {
-                    viewController.title = "Floorplan"
+                if job.isResidential {
+                    if let viewController = viewControllers?.first {
+                        viewController.title = "Floorplan"
+                    }
                 }
             }
 
@@ -93,7 +95,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var setupWorkOrdersTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            let index = job.isCommercial ? 3 : (job.isResidential ? 1 : -1)
+            let index = job.isCommercial ? 3 : (job.isResidential || job.isPunchlist ? 1 : -1)
             if index != -1 {
                 return items[index]
             }
@@ -103,7 +105,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var manageJobTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            let index = job.isCommercial ? 4 : (job.isResidential ? 1 : -1)
+            let index = job.isCommercial ? 4 : (job.isResidential || job.isPunchlist ? 1 : -1)
             if index != -1 {
                 return items[index]
             }
@@ -113,7 +115,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var reviewTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
-            let index = job.isCommercial ? 4 : (job.isResidential ? 2 : -1)
+            let index = job.isCommercial ? 4 : (job.isResidential || job.isPunchlist ? 2 : -1)
             if index != -1 {
                 return items[index]
             }
@@ -145,7 +147,7 @@ class JobWizardTabBarController: UITabBarController,
             }
             if job.isCommercial {
                 return !hasScale
-            } else if job.isResidential {
+            } else if job.isResidential || job.isPunchlist {
 //                for annotation in job.blueprint.annotations {
 //                    if annotation.workOrderId == 0 {
 //                        return true

@@ -117,7 +117,7 @@ class JobCreationViewController: UITableViewController,
 
     private func createJob() {
         let job = Job()
-        job.type = typeSegmentedControl.selectedSegmentIndex == 0 ? "commercial" : (typeSegmentedControl.selectedSegmentIndex == 1 ? "residential" : nil)
+        job.type = typeSegmentedControl.selectedSegmentIndex == 0 ? "commercial" : (typeSegmentedControl.selectedSegmentIndex == 1 ? "residential" : (typeSegmentedControl.selectedSegmentIndex == 2 ? "punchlist" : nil))
         if let customer = customer {
             job.customerId = customer.id
             job.companyId = customer.companyId

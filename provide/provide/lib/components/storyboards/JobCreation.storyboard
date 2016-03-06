@@ -73,10 +73,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="WuX-tZ-4fJ">
-                                                    <rect key="frame" x="8" y="8" width="215" height="29"/>
+                                                    <rect key="frame" x="8" y="8" width="297" height="29"/>
                                                     <segments>
                                                         <segment title="Commercial"/>
                                                         <segment title="Residential"/>
+                                                        <segment title="Punchlist"/>
                                                     </segments>
                                                 </segmentedControl>
                                             </subviews>

@@ -404,7 +404,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let job = job {
             if job.isResidential {
                 scrollView.zoomScale = scrollView.minimumZoomScale
-            } else if job.isCommercial {
+            } else if job.isCommercial || job.isPunchlist {
                 scrollView.minimumZoomScale = 0.2
                 scrollView.maximumZoomScale = 1.0
 

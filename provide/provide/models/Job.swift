@@ -174,6 +174,13 @@ class Job: Model {
         return false
     }
 
+    var isPunchlist: Bool {
+        if let type = type {
+            return type == "punchlist"
+        }
+        return false
+    }
+
     var isResidential: Bool {
         if let type = type {
             return type == "residential"
