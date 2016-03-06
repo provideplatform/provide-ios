@@ -23,7 +23,7 @@ class ApiService: NSObject {
         "video/mp4": "m4v",
     ]
 
-    private let objectMappings = [
+    private let objectMappings: [String : AnyObject] = [
         "attachments": Attachment.mapping(),
         "annotations": Annotation.mapping(),
         "comments": Comment.mapping(),
@@ -35,6 +35,7 @@ class ApiService: NSObject {
         "eta": Directions.mapping(),
         "expenses": Expense.mapping(),
         "floorplans": Floorplan.mapping(),
+        "invitations": Invitation.mapping(),
         "jobs": Job.mapping(),
         "job_products": JobProduct.mapping(),
         "products": Product.mapping(),
@@ -44,7 +45,7 @@ class ApiService: NSObject {
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
         "work_order_products": WorkOrderProduct.mapping(),
-        "users": User.mapping(),
+        "users": ["*": User.mapping(), "post": UserToken.mapping()],
         "messages": Message.mapping(),
     ]
 
@@ -94,18 +95,22 @@ class ApiService: NSObject {
         return false
     }
 
+    func setToken(token: Token) {
+        self.headers["X-API-Authorization"] = token.authorizationHeaderString
+        KeyChainService.sharedService().token = token
+        KeyChainService.sharedService().email = token.user.email
+
+        AnalyticsService.sharedService().identify(token.user)
+
+        self.registerForRemoteNotifications()
+    }
+
     func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("tokens", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
                 let token = mappingResult.firstObject as! Token
-                self.headers["X-API-Authorization"] = token.authorizationHeaderString
-                KeyChainService.sharedService().token = token
-                KeyChainService.sharedService().email = params["email"]
-
-                AnalyticsService.sharedService().identify(token.user)
-
-                self.registerForRemoteNotifications()
+                self.setToken(token)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in
@@ -228,12 +233,23 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("companies", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    // MARK: Invitation API
+
+    func fetchInvitationWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("invitations/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: User API
 
     func createUser(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("users", method: .POST, params: params,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 201)
+                let userToken = mappingResult.firstObject as! UserToken
+                if let token = userToken.token {
+                    token.user = userToken.user
+                    self.setToken(token)
+                }
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: onError
@@ -950,7 +966,7 @@ class ApiService: NSObject {
                                        onError: onError)
     }
 
-    private func objectMappingForPath(var path: String) -> RKObjectMapping? {
+    private func objectMappingForPath(var path: String, method: String) -> RKObjectMapping? {
         let parts = path.characters.split("/").map { String($0) }
         if parts.count > 5 {
             path = [parts[3], parts[5]].joinWithSeparator("/")
@@ -961,7 +977,26 @@ class ApiService: NSObject {
         } else {
             path = parts[1]
         }
-        return objectMappings[path]
+
+        var mapping: RKObjectMapping?
+
+        if let object = objectMappings[path] {
+            if object is RKObjectMapping {
+                mapping = object as? RKObjectMapping
+            } else if object is [String : RKObjectMapping] {
+                print("found dictionary \(object)")
+                for entry in (object as! [String : RKObjectMapping]).enumerate() {
+                    if entry.element.0 == method {
+                        mapping = entry.element.1
+                        break
+                    } else if entry.element.0 == "*" {
+                        mapping = entry.element.1
+                    }
+                }
+            }
+        }
+
+        return mapping
     }
 
     private func dispatchOperationForURL(baseURL: NSURL,
@@ -972,7 +1007,7 @@ class ApiService: NSObject {
                                          startOperation: Bool = true,
                                          onSuccess: OnSuccess,
                                          onError: OnError) -> RKObjectRequestOperation! {
-        var responseMapping = objectMappingForPath(path)
+        var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercaseString)
         if responseMapping == nil {
             responseMapping = RKObjectMapping(forClass: nil)
         }

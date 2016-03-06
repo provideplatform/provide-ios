@@ -100,6 +100,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     private func login() {
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+
         let params = [
             "email" : emailField.text!,
             "password" : passwordField.text!
@@ -107,9 +109,13 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         ApiService.sharedService().login(params,
             onSuccess: { statusCode, responseString in
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
                 self.userWasAuthenticated()
             },
             onError: { error, statusCode, responseString in
+                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+
                 logWarn("Failed to create API token")
                 self.showError("Authorization failed \(statusCode)")
                 self.showForm()
@@ -240,8 +246,4 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         }
     }
-}
-
-class AuthenticationCell: UITableViewCell {
-    @IBOutlet private weak var textField: UITextField!
 }

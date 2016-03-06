@@ -8,7 +8,10 @@
 
 import UIKit
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController,
+                                    ApplicationViewControllerDelegate,
+                                    SetPasswordViewControllerDelegate,
+                                    PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
@@ -48,6 +51,9 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         case "PinInputViewControllerSegue":
             assert(segue.destinationViewController is PinInputViewController)
             (segue.destinationViewController as! PinInputViewController).delegate = self
+        case "SetPasswordViewControllerSegue":
+            assert(segue.destinationViewController is SetPasswordViewController)
+            (segue.destinationViewController as! SetPasswordViewController).delegate = self
         default:
             break
         }
@@ -79,18 +85,55 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         if let presentingViewController = pinInputViewController.presentingViewController {
             presentingViewController.dismissViewController(animated: true)
 
-            let params: [String : AnyObject] = [
-                "invitation_token": pin
-            ]
+            MBProgressHUD.showHUDAddedTo(presentingViewController.view, animated: true)
 
-            ApiService.sharedService().createUser(params,
+            ApiService.sharedService().fetchInvitationWithId(pin,
                 onSuccess: { statusCode, mappingResult in
+                    let invitation = mappingResult.firstObject as! Invitation
 
+                    if let user = invitation.user {
+                        let params: [String : AnyObject] = [
+                            "email": user.email,
+                            "invitation_token": pin
+                        ]
+
+                        ApiService.sharedService().createUser(params,
+                            onSuccess: { statusCode, mappingResult in
+                                MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
+                                self.performSegueWithIdentifier("SetPasswordViewControllerSegue", sender: self)
+                            },
+                            onError: { error, statusCode, responseString in
+                                MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
+                            }
+                        )
+                    }
                 },
                 onError: { error, statusCode, responseString in
+                    if statusCode == 404 {
+                        MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
 
+                        let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .Alert)
+
+                        let tryAgainAction = UIAlertAction(title: "Try Again", style: .Cancel) { action in
+                            self.performSegueWithIdentifier("PinInputViewControllerSegue", sender: self)
+                        }
+                        alertController.addAction(tryAgainAction)
+
+                        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+                        alertController.addAction(cancelAction)
+
+                        presentingViewController.presentViewController(alertController, animated: true)
+                    }
                 }
             )
+        }
+    }
+
+    // MARK: SetPasswordViewControllerDelegate
+
+    func setPasswordViewController(viewController: SetPasswordViewController, didSetPassword success: Bool) {
+        if success {
+            viewController.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
         }
     }
 

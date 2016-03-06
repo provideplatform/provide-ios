@@ -48,6 +48,42 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                     }
                 )
             }
+        case "SetPasswordViewControllerSegue":
+            assert(sourceViewController is NavigationRootViewController)
+            assert(destinationViewController is SetPasswordViewController)
+
+            if let navigationController = sourceViewController.navigationController {
+                destinationViewController.view.alpha = 0.0
+                navigationController.navigationBar.alpha = 0.0
+                navigationController.pushViewController(destinationViewController as! SetPasswordViewController, animated: false)
+                (destinationViewController as! SetPasswordViewController).setupNavigationItem()
+
+                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
+                    animations: {
+                        navigationController.navigationBar.alpha = 1.0
+                        (self.destinationViewController as! SetPasswordViewController).view.alpha = 1.0
+                    },
+                    completion: nil
+                )
+            }
+        case "SetPasswordViewControllerUnwindSegue":
+            assert(sourceViewController is SetPasswordViewController)
+            assert(destinationViewController is NavigationRootViewController)
+
+            if let navigationController = sourceViewController.navigationController {
+                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                    animations: {
+                        self.destinationViewController.view.alpha = 1.0
+                        (self.sourceViewController as! SetPasswordViewController).view.alpha = 0.0
+                        navigationController.navigationBar.alpha = 0.0
+                    },
+                    completion: { complete in
+                        navigationController.setNavigationBarHidden(true, animated: false)
+                        navigationController.popViewControllerAnimated(false)
+                        navigationController.navigationBar.alpha = 1.0
+                    }
+                )
+            }
         default:
             break
         }
