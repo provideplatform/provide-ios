@@ -227,7 +227,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleToFill
 
-        scrollView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+        scrollView.backgroundColor = UIColor.whiteColor() //UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
         scrollView.addSubview(imageView)
         scrollView.bringSubviewToFront(imageView)
 
