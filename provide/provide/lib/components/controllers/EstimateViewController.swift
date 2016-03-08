@@ -147,6 +147,10 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         return navigationController
     }
 
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

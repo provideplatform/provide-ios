@@ -174,6 +174,10 @@ class JobWizardViewController: UINavigationController,
         return nil
     }
 
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
     // MARK: JobManagerViewControllerDelegate
 
     func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {

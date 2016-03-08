@@ -18,6 +18,7 @@ protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
     func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
     func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool
 }
 
 class BlueprintViewController: WorkOrderComponentViewController,
@@ -25,6 +26,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                BlueprintScaleViewDelegate,
                                BlueprintThumbnailViewDelegate,
                                BlueprintToolbarDelegate,
+                               BlueprintPinViewDelegate,
                                BlueprintPolygonViewDelegate,
                                ProductPickerViewControllerDelegate,
                                WorkOrderCreationViewControllerDelegate,
@@ -87,8 +89,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    private var pinViews = [BlueprintPinView]()
     private var polygonViews = [BlueprintPolygonView]()
 
+    private var selectedPinView: BlueprintPinView!
     private var selectedPolygonView: BlueprintPolygonView!
 
     var blueprint: Attachment! {
@@ -246,7 +250,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         if workOrder.id == annotation.workOrderId {
                             annotation.workOrder = workOrder
 
-                            if let polygonView = self.polygonViewForWorkOrder(annotation.workOrder) {
+                            if let pinView = self.pinViewForWorkOrder(annotation.workOrder) {
+                                pinView.annotation = annotation
+                                pinView.redraw()
+                            } else if let polygonView = self.polygonViewForWorkOrder(annotation.workOrder) {
                                 polygonView.annotation = annotation
                                 polygonView.redraw()
                             }
@@ -398,6 +405,37 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         showToolbar()
         loadedBlueprint = true
+
+        if let canDropWorkOrderPin = blueprintViewControllerDelegate?.blueprintViewControllerCanDropWorkOrderPin(self) {
+            if canDropWorkOrderPin {
+                let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: "dropPin:")
+                imageView.addGestureRecognizer(gestureRecognizer)
+            }
+        }
+    }
+
+    func dropPin(gestureRecognizer: UIGestureRecognizer) {
+        if !newWorkOrderPending {
+            let point = gestureRecognizer.locationInView(imageView)
+
+            let annotation = Annotation()
+            annotation.point = [point.x, point.y]
+
+            newWorkOrderPending = true
+            selectedPinView = BlueprintPinView(delegate: self, annotation: annotation)
+
+            imageView.addSubview(selectedPinView)
+            imageView.bringSubviewToFront(selectedPinView)
+            selectedPinView.frame = CGRect(x: point.x, y: point.y, width: selectedPinView.bounds.width, height: selectedPinView.bounds.height)
+            selectedPinView.frame.origin = CGPoint(x: selectedPinView.frame.origin.x - (selectedPinView.frame.size.width / 2.0),
+                                                   y: selectedPinView.frame.origin.y - selectedPinView.frame.size.height)
+            selectedPinView.alpha = 1.0
+            selectedPinView.attachGestureRecognizer()
+            pinViews.append(selectedPinView)
+
+            createWorkOrder(nil)
+            print("dropped pin at point \(point)")
+        }
     }
 
     private func setZoomLevel() {
@@ -463,23 +501,74 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    private func pinViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPinView! {
+        var pinView: BlueprintPinView!
+        for view in pinViews {
+            if let annotation = view.annotation {
+                if annotation.point != nil {
+                    if let wo = annotation.workOrder {
+                        if wo.id == workOrder?.id {
+                            pinView = view
+                            break
+                        }
+                    } else if annotation.workOrderId == workOrder?.id {
+                        pinView = view
+                        break
+                    }
+                }
+            }
+        }
+        if pinView == nil {
+//            pinView = self.pinView
+            if let annotations = workOrder.annotations {
+                if annotations.count > 0 {
+                    if let annotation = annotations.first {
+                        if annotation.point != nil {
+                            pinView = BlueprintPinView(delegate: self, annotation: annotation)
+                        }
+                    }
+                }
+            }
+        }
+        return pinView
+    }
+
+    private func removePinViews() {
+        for view in pinViews {
+            view.removeFromSuperview()
+        }
+
+        pinViews = [BlueprintPinView]()
+    }
+
     private func polygonViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPolygonView! {
         var polygonView: BlueprintPolygonView!
         for view in polygonViews {
             if let annotation = view.annotation {
-                if let wo = annotation.workOrder {
-                    if wo.id == workOrder?.id {
+                if annotation.polygon != nil {
+                    if let wo = annotation.workOrder {
+                        if wo.id == workOrder?.id {
+                            polygonView = view
+                            break
+                        }
+                    } else if annotation.workOrderId == workOrder?.id {
                         polygonView = view
                         break
                     }
-                } else if annotation.workOrderId == workOrder?.id {
-                    polygonView = view
-                    break
                 }
             }
         }
         if polygonView == nil {
-            polygonView = self.polygonView
+            //polygonView = self.polygonView
+            if let annotations = workOrder.annotations {
+                if annotations.count > 0 {
+                    if let annotation = annotations.first {
+                        if annotation.polygon != nil {
+                            polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                        }
+                    }
+                }
+            }
         }
         return polygonView
     }
@@ -496,8 +585,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let blueprint = blueprint {
             for annotation in blueprint.annotations {
                 let annotationWorkOrder = annotation.workOrderId > 0 ? annotation.workOrder : nil
-                if polygonView == polygonViewForWorkOrder(annotationWorkOrder) {
-                    let polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                if annotation.point != nil {
+                    let pinView = BlueprintPinView(delegate: self, annotation: annotation)
+                    pinView.frame = CGRect(x: annotation.point[0],
+                                           y: annotation.point[1],
+                                           width: pinView.bounds.width,
+                                           height: pinView.bounds.height)
+                    pinView.frame.origin = CGPoint(x: pinView.frame.origin.x - (pinView.frame.size.width / 2.0),
+                                                   y: pinView.frame.origin.y - pinView.frame.size.height)
+                    pinView.alpha = 1.0
+
+                    imageView.addSubview(pinView)
+                    imageView.bringSubviewToFront(pinView)
+                    
+                    pinView.attachGestureRecognizer()
+
+                    pinViews.append(pinView)
+                } else if let polygonView = polygonViewForWorkOrder(annotationWorkOrder) {
                     imageView.addSubview(polygonView)
                     polygonView.alpha = 1.0
                     polygonView.attachGestureRecognizer()
@@ -578,16 +682,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func cancelCreateWorkOrder(sender: UIBarButtonItem) {
         newWorkOrderPending = false
+        dismissWorkOrderCreationPinView()
         dismissWorkOrderCreationPolygonView()
         toolbar.reload()
     }
 
+    func dismissWorkOrderCreationPinView() {
+        selectedPinView?.resignFirstResponder(false)
+    }
+
     func dismissWorkOrderCreationPolygonView() {
-        polygonView.resignFirstResponder(false)
+        polygonView?.resignFirstResponder(false)
         restoreCachedNavigationItem()
     }
 
-    func createWorkOrder(sender: UIBarButtonItem) {
+    func createWorkOrder(sender: UIBarButtonItem!) {
         let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
 
         let workOrder = WorkOrder()
@@ -794,7 +903,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
         if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
-            return !canSetScale
+            return !canSetScale && job != nil && !job.isPunchlist
         }
         return true
     }
@@ -842,6 +951,48 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
         navigationController!.presentViewController(alertController, animated: true)
+    }
+
+    // MARK: BlueprintPinViewDelegate
+
+    func blueprintImageViewForBlueprintPinView(view: BlueprintPinView) -> UIImageView! {
+        if let index = pinViews.indexOfObject(view) {
+            if let _ = pinViews[index].delegate {
+                return imageView
+            } else {
+                return nil
+            }
+        } else {
+            return imageView
+        }
+    }
+
+    func blueprintPinViewWasSelected(view: BlueprintPinView) {
+        selectedPinView = view
+
+        print("\(view)")
+
+        if let annotation = view.annotation {
+            if let workOrder = annotation.workOrder {
+                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
+                createWorkOrderViewController.workOrder = workOrder
+                createWorkOrderViewController.delegate = self
+                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
+
+                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
+                navigationController.modalPresentationStyle = .Popover
+
+                let popover = navigationController.popoverPresentationController!
+                popover.delegate = self
+                popover.sourceView = imageView
+                popover.sourceRect = view.frame
+                popover.canOverlapSourceViewRect = true
+                popover.permittedArrowDirections = [.Left, .Right]
+                popover.passthroughViews = [view]
+
+                presentViewController(navigationController, animated: true)
+            }
+        }
     }
 
     // MARK: BlueprintPolygonViewDelegate
@@ -1562,12 +1713,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
         if let blueprint = blueprint {
             let annotation = Annotation()
-            annotation.polygon = polygonView.polygon
+            if let pinView = selectedPinView {
+                annotation.point = [pinView.point.x, pinView.point.y]
+            } else if let polygonView = polygonView {
+                annotation.polygon = polygonView.polygon
+            }
             annotation.workOrderId = workOrder.id
             annotation.workOrder = workOrder
             annotation.save(blueprint,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     self!.refreshAnnotations()
+                    self!.dismissWorkOrderCreationPinView()
                     self!.dismissWorkOrderCreationPolygonView()
                     viewController.reloadTableView()
                 },
@@ -1575,6 +1731,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
                 }
             )
+        }
+    }
+
+    private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
+        if let pinView = pinViewForWorkOrder(workOrder) {
+            pinView.redraw()
         }
     }
 
@@ -1586,16 +1748,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
@@ -1617,7 +1782,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
         newWorkOrderPending = false
         toolbar.reload()
         dismissViewController(animated: true)
+        if workOrder == nil {
+            if let index = pinViews.indexOfObject(selectedPinView) {
+                pinViews.removeAtIndex(index)
+                selectedPinView.removeFromSuperview()
+            }
+        }
         selectedPolygonView = nil
+        selectedPinView = nil
     }
 
     func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {

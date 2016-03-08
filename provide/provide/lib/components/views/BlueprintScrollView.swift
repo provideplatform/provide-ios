@@ -33,7 +33,7 @@ class BlueprintScrollView: UIScrollView, UIGestureRecognizerDelegate {
                     for blueprintSubview in subview.subviews {
                         let pointInSubview = gestureRecognizer.locationInView(blueprintSubview)
                         if let v = blueprintSubview.hitTest(pointInSubview, withEvent: nil) {
-                            if v.isKindOfClass(BlueprintPolygonVertexView) {
+                            if v.isKindOfClass(BlueprintPolygonVertexView) || v.isKindOfClass(BlueprintPinView) {
                                 return false
                             }
                         }

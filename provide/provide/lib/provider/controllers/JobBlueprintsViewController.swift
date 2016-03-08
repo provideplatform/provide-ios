@@ -118,7 +118,7 @@ class JobBlueprintsViewController: ViewController,
             if job.blueprintImageUrl == nil {
                 return false
             }
-            return !hasBlueprintScale || job.isResidential
+            return !hasBlueprintScale || job.isResidential || job.isPunchlist
         }
         return false
     }
@@ -438,7 +438,7 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
-        return .Setup
+        return job == nil || !job.isPunchlist ? .Setup : .WorkOrders
     }
 
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
@@ -453,16 +453,16 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        if job.isCommercial || job.isPunchlist {
+        if job.isCommercial {
             return shouldLoadBlueprint
-        } else if job.isResidential {
+        } else if job.isResidential || job.isPunchlist {
             return false
         }
         return true
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        return false
+        return job == nil ? false : !job.isPunchlist
     }
 
     func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
@@ -475,6 +475,10 @@ class JobBlueprintsViewController: ViewController,
 
     func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         return false
+    }
+
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+        return job == nil ? false : job.isPunchlist
     }
 
     // MARK: EstimatesViewControllerDelegate

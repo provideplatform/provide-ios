@@ -827,6 +827,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return navigationController
     }
 
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
+
     // MARK: DirectionsViewControllerDelegate
 
     func isPresentingDirections() -> Bool {

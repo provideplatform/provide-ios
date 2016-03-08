@@ -93,6 +93,7 @@
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
+		6837AF971C8E827B0082F4EC /* BlueprintPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */; };
 		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
 		683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */; };
 		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
@@ -394,6 +395,7 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
+		6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPinView.swift; sourceTree = "<group>"; };
 		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
 		683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCreationViewController.swift; sourceTree = "<group>"; };
 		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -963,6 +965,7 @@
 			isa = PBXGroup;
 			children = (
 				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
+				6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */,
 				6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */,
 				68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */,
 				6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */,
@@ -1777,6 +1780,7 @@
 				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,
 				68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */,
 				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
+				6837AF971C8E827B0082F4EC /* BlueprintPinView.swift in Sources */,
 				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */,
 				68F846B91C26F998003C678B /* WorkOrderProductCreationViewController.swift in Sources */,

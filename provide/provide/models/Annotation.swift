@@ -14,6 +14,7 @@ class Annotation: Model {
     var workOrder: WorkOrder!
     var text: String!
     var polygon: [[CGFloat]]!
+    var point: [CGFloat]!
     var circle: [[CGFloat]]!
     var metadata: NSDictionary!
 
@@ -24,6 +25,7 @@ class Annotation: Model {
             "work_order_id": "workOrderId",
             "text": "text",
             "polygon": "polygon",
+            "point": "point",
             "circle": "circle",
             "metadata": "metadata",
             ])
@@ -36,6 +38,9 @@ class Annotation: Model {
             var params: [String : AnyObject] = [String : AnyObject]()
             if let polygon = polygon {
                 params["polygon"] = polygon
+            }
+            if let point = point {
+                params["point"] = point
             }
             if let circle = circle {
                 params["circle"] = circle

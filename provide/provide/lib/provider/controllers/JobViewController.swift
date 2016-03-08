@@ -75,4 +75,8 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
     func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
         return navigationController
     }
+
+    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+        return false
+    }
 }
