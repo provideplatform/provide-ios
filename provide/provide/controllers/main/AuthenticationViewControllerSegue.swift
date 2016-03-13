@@ -22,7 +22,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 navigationController.pushViewController(destinationViewController as! AuthenticationViewController, animated: false)
                 (destinationViewController as! AuthenticationViewController).setupNavigationItem()
 
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
+                UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
                     animations: {
                         navigationController.navigationBar.alpha = 1.0
                         (self.destinationViewController as! AuthenticationViewController).view.alpha = 1.0
@@ -35,7 +35,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
             assert(destinationViewController is NavigationRootViewController)
 
             if let navigationController = sourceViewController.navigationController {
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
                     animations: {
                         self.destinationViewController.view.alpha = 1.0
                         (self.sourceViewController as! AuthenticationViewController).view.alpha = 0.0
@@ -58,7 +58,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 navigationController.pushViewController(destinationViewController as! SetPasswordViewController, animated: false)
                 (destinationViewController as! SetPasswordViewController).setupNavigationItem()
 
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
+                UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
                     animations: {
                         navigationController.navigationBar.alpha = 1.0
                         (self.destinationViewController as! SetPasswordViewController).view.alpha = 1.0
@@ -71,7 +71,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
             assert(destinationViewController is NavigationRootViewController)
 
             if let navigationController = sourceViewController.navigationController {
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
                     animations: {
                         self.destinationViewController.view.alpha = 1.0
                         (self.sourceViewController as! SetPasswordViewController).view.alpha = 0.0

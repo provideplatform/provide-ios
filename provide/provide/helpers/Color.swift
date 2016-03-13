@@ -11,11 +11,11 @@ import UIKit
 class Color {
 
     class func menuBackgroundColor() -> UIColor {
-        return UIColor(red: 0.969, green: 0.965, blue: 0.949, alpha: 1.0)
+        return darkBlueBackground()
     }
 
     class func darkBlueBackground() -> UIColor {
-        return UIColor(red: 0.008, green: 0.067, blue: 0.231, alpha: 1.00)
+        return UIColor("#202838")
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
@@ -24,6 +24,10 @@ class Color {
 
     class func applicationDefaultNavigationBarBackgroundImage() -> UIImage {
         return UIImage("bar-background")
+    }
+
+    class func applicationDefaultNavigationBarBackgroundColor() -> UIColor {
+        return UIColor("#b0e3de")
     }
 
     class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {

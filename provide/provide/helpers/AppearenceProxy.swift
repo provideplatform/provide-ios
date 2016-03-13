@@ -11,7 +11,8 @@ import UIKit
 class AppearenceProxy {
 
     class func setup() {
-        UINavigationBar.appearance().setBackgroundImage(Color.applicationDefaultNavigationBarBackgroundImage(), forBarMetrics: .Default)
+        //UINavigationBar.appearance().setBackgroundImage(Color.applicationDefaultNavigationBarBackgroundImage(), forBarMetrics: .Default)
+        UINavigationBar.appearance().backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         UINavigationBar.appearance().tintColor = defaultBarTintColor()
         UINavigationBar.appearance().titleTextAttributes = navBarTitleTextAttributes()
 
@@ -25,13 +26,13 @@ class AppearenceProxy {
     }
 
     class func defaultBarTintColor() -> UIColor {
-        return UIColor.whiteColor()
+        return Color.darkBlueBackground()
     }
 
     class func navBarTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 20)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : Color.darkBlueBackground()
         ]
     }
 
@@ -52,14 +53,14 @@ class AppearenceProxy {
     class func barButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : Color.darkBlueBackground()
         ]
     }
 
     class func selectedButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : Color.darkBlueBackground()
         ]
     }
 
