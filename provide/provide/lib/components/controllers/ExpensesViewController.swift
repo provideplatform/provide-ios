@@ -41,7 +41,7 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet private weak var addExpenseItem: UIBarButtonItem! {
         didSet {
             if let addExpenseItem = addExpenseItem {
-                let addExpenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+                let addExpenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
                 addExpenseItem.image = addExpenseItemImage
                 addExpenseItem.target = self
                 addExpenseItem.action = "expense:"

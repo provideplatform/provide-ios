@@ -130,7 +130,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
         recognizedTexts.append(text)
     }
 
-    // Mark: ExpenseEditorViewControllerDelegate
+    // MARK: ExpenseEditorViewControllerDelegate
 
     func expenseEditorViewControllerBeganCreatingExpense(viewController: ExpenseEditorViewController) {
         cameraViewControllerCanceled(self)

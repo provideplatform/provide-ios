@@ -21,7 +21,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
     @IBOutlet private weak var toolbar: UIToolbar! {
         didSet {
             if let toolbar = toolbar {
-                toolbar.barTintColor = Color.applicationDefaultBarTintColor()
+                toolbar.barTintColor = Color.applicationDefaultNavigationBarBackgroundColor()
             }
         }
     }
@@ -34,6 +34,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
             if let saveButtonItem = saveButtonItem {
                 saveButtonItem.target = self
                 saveButtonItem.action = "save:"
+                saveButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }
     }

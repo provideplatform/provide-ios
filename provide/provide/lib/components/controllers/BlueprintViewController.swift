@@ -1603,6 +1603,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             case 3:
                 viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
                 (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
+                (viewController as! ExpensesViewController).delegate = self
             default:
                 break
             }
