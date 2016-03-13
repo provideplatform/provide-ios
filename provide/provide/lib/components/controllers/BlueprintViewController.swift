@@ -1783,9 +1783,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
         toolbar.reload()
         dismissViewController(animated: true)
         if workOrder == nil {
-            if let index = pinViews.indexOfObject(selectedPinView) {
-                pinViews.removeAtIndex(index)
-                selectedPinView.removeFromSuperview()
+            if let selectedPinView = selectedPinView {
+                if let index = pinViews.indexOfObject(selectedPinView) {
+                    pinViews.removeAtIndex(index)
+                    selectedPinView.removeFromSuperview()
+                }
             }
         }
         selectedPolygonView = nil
