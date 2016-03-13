@@ -30,6 +30,14 @@ class Color {
         return UIColor("#b0e3de")
     }
 
+    class func applicationDefaultBarTintColor() -> UIColor {
+        return darkBlueBackground()
+    }
+
+    class func applicationDefaultBarButtonItemTintColor() -> UIColor {
+        return darkBlueBackground()
+    }
+
     class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {
         return UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
     }

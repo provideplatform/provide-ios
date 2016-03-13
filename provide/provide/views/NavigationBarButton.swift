@@ -18,11 +18,11 @@ class NavigationBarButton: UIButton {
         super.init(frame: frame)
     }
 
-    class func barButtonItemWithImage(image: UIImage, target: AnyObject?, action: String) -> UIBarButtonItem {
+    class func barButtonItemWithImage(image: UIImage, target: AnyObject?, action: String, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
         let button = NavigationBarButton(type: .Custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
         button.setImage(image.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        button.tintColor = UIColor.whiteColor()
+        button.tintColor = tintColor
         button.addTarget(target, action: Selector(action), forControlEvents: .TouchUpInside)
 
         return UIBarButtonItem(customView: button)

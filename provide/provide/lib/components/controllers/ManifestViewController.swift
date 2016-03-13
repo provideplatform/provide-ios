@@ -294,7 +294,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
             }
         }
 
-        toolbarSegmentedControl.tintColor = UIColor.whiteColor()
+        toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)

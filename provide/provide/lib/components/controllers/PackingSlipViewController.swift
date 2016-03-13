@@ -57,13 +57,13 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         packingSlipToolbarSegmentedControl = UISegmentedControl(items: ["UNLOADED", "ON TRUCK", "REJECTED"])
         packingSlipToolbarSegmentedControl.selectedSegmentIndex = 1
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        packingSlipToolbarSegmentedControl.tintColor = UIColor.whiteColor()
+        packingSlipToolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
         navigationItem.titleView = packingSlipToolbarSegmentedControl
 
         let cameraIconImage = FAKFontAwesome.cameraRetroIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
         let cameraBarButtonItem = UIBarButtonItem(image: cameraIconImage, style: .Plain, target: self, action: "cameraButtonTapped:")
-        cameraBarButtonItem.tintColor = UIColor.whiteColor()
+        cameraBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         navigationItem.rightBarButtonItem = cameraBarButtonItem
 
         barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController

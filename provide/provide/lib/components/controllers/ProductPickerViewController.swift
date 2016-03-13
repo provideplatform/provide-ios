@@ -50,7 +50,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
     private var dismissItem: UIBarButtonItem! {
         let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss:")
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        dismissItem.tintColor = UIColor.whiteColor()
+        dismissItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return dismissItem
     }
 

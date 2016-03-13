@@ -40,7 +40,7 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     @IBOutlet private weak var addEstimateBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addEstimateBarButtonItem = addEstimateBarButtonItem {
-                addEstimateBarButtonItem.tintColor = UIColor.whiteColor()
+                addEstimateBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
 
                 addEstimateBarButtonItem.target = self
                 addEstimateBarButtonItem.action = "addEstimate:"

@@ -21,7 +21,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
     @IBOutlet private weak var toolbar: UIToolbar! {
         didSet {
             if let toolbar = toolbar {
-                toolbar.barTintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+                toolbar.barTintColor = Color.applicationDefaultBarTintColor()
             }
         }
     }

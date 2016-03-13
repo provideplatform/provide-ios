@@ -34,7 +34,7 @@ class FloorplansViewController: ViewController,
     @IBOutlet private weak var addFloorplanBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addFloorplanBarButtonItem = addFloorplanBarButtonItem {
-                addFloorplanBarButtonItem.tintColor = UIColor.whiteColor()
+                addFloorplanBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }
     }

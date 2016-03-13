@@ -70,7 +70,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     private var taskListItem: UIBarButtonItem! {
         let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
         let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
-        taskListItem.tintColor = UIColor.whiteColor()
+        taskListItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return taskListItem
     }
 

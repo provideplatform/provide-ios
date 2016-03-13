@@ -19,7 +19,7 @@ class JobsViewController: ViewController,
     @IBOutlet private weak var addJobBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addJobBarButtonItem = addJobBarButtonItem {
-                addJobBarButtonItem.tintColor = UIColor.whiteColor()
+                addJobBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }
     }

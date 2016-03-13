@@ -26,7 +26,7 @@ class AppearenceProxy {
     }
 
     class func defaultBarTintColor() -> UIColor {
-        return Color.darkBlueBackground()
+        return Color.applicationDefaultBarTintColor()
     }
 
     class func navBarTitleTextAttributes() -> [String : AnyObject] {

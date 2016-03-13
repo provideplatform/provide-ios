@@ -155,13 +155,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         switch mode {
         case .Loading:
             toolbarSegmentedControl = UISegmentedControl(items: loadingSegmentedControlItems)
-            toolbarSegmentedControl.tintColor = UIColor.whiteColor()
+            toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 1
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
             toolbarSegmentedControl.addTarget(self, action: "loadingSegmentChanged:", forControlEvents: .ValueChanged)
         case .Unloading:
             toolbarSegmentedControl = UISegmentedControl(items: unloadingSegmentedControlItems)
-            toolbarSegmentedControl.tintColor = UIColor.whiteColor()
+            toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 0
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
             toolbarSegmentedControl.addTarget(self, action: "unloadingSegmentChanged:", forControlEvents: .ValueChanged)
