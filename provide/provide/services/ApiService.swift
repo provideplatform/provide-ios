@@ -984,7 +984,6 @@ class ApiService: NSObject {
             if object is RKObjectMapping {
                 mapping = object as? RKObjectMapping
             } else if object is [String : RKObjectMapping] {
-                print("found dictionary \(object)")
                 for entry in (object as! [String : RKObjectMapping]).enumerate() {
                     if entry.element.0 == method {
                         mapping = entry.element.1
