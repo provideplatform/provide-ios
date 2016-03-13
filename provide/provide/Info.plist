@@ -104,7 +104,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
