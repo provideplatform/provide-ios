@@ -28,6 +28,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                BlueprintToolbarDelegate,
                                BlueprintPinViewDelegate,
                                BlueprintPolygonViewDelegate,
+                               ExpensesViewControllerDelegate,
                                ProductPickerViewControllerDelegate,
                                WorkOrderCreationViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
@@ -1176,6 +1177,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             presentViewController(navigationController, animated: true)
         }
+    }
+
+    // MARK: ExpensesViewControllerDelegate
+
+    func expenseCaptureViewControllerDelegateForExpensesViewController(viewController: ExpensesViewController) -> AnyObject! {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    return viewController
+                }
+            }
+        }
+        return nil
     }
 
     // MARK: ProductPickerViewControllerDelegate

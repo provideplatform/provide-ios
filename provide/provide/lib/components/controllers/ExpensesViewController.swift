@@ -10,6 +10,8 @@ import UIKit
 
 @objc
 protocol ExpensesViewControllerDelegate {
+    optional func expensesViewControllerShouldEnableAddExpenseItem(viewController: ExpensesViewController) -> Bool
+    optional func expenseCaptureViewControllerDelegateForExpensesViewController(viewController: ExpensesViewController) -> AnyObject!
     optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
 }
 
@@ -22,6 +24,10 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
                     self.navigationItem.rightBarButtonItems = navigationItem.rightBarButtonItems
                     self.navigationItem.title = navigationItem.title
                 }
+
+                if let enabledAddExpenseItem = delegate.expensesViewControllerShouldEnableAddExpenseItem?(self) {
+                    addExpenseItem?.enabled = enabledAddExpenseItem
+                }
             }
         }
     }
@@ -31,7 +37,24 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
             tableView?.reloadData()
         }
     }
-    
+
+    @IBOutlet private weak var addExpenseItem: UIBarButtonItem! {
+        didSet {
+            if let addExpenseItem = addExpenseItem {
+                let addExpenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
+                addExpenseItem.image = addExpenseItemImage
+                addExpenseItem.target = self
+                addExpenseItem.action = "expense:"
+
+                if let delegate = delegate {
+                    if let enabledAddExpenseItem = delegate.expensesViewControllerShouldEnableAddExpenseItem?(self) {
+                        addExpenseItem.enabled = enabledAddExpenseItem
+                    }
+                }
+            }
+        }
+    }
+
     @IBOutlet private weak var tableView: UITableView!
 
     private var dismissItem: UIBarButtonItem! {
@@ -65,6 +88,19 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
                 navigationController.presentingViewController?.dismissViewController(animated: true)
             }
         }
+    }
+
+    func expense(sender: UIBarButtonItem!) {
+        let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
+        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+
+        if let expenseCaptureViewControllerDelegate = delegate?.expenseCaptureViewControllerDelegateForExpensesViewController?(self) {
+            if expenseCaptureViewControllerDelegate is ExpenseCaptureViewControllerDelegate {
+                expenseCaptureViewController.expenseCaptureViewControllerDelegate = expenseCaptureViewControllerDelegate as! ExpenseCaptureViewControllerDelegate
+            }
+        }
+
+        presentViewController(expenseCaptureViewController, animated: true)
     }
 
     func reloadTableView() {

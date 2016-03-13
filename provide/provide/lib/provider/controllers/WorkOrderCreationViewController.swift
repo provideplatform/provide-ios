@@ -48,13 +48,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return dismissItem
     }
 
-    private var expenseItem: UIBarButtonItem! {
-        let expenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-        let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage, target: self, action: "expense:")
-        expenseBarButtonItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
-        return expenseBarButtonItem
-    }
-
     private var cameraItem: UIBarButtonItem! {
         let cameraItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "camera:")
         cameraItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
@@ -216,7 +209,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
         if isSaved {
             navigationItem.rightBarButtonItems!.append(cameraItem)
-            navigationItem.rightBarButtonItems!.append(expenseItem)
             navigationItem.rightBarButtonItems!.append(taskListItem)
         }
     }

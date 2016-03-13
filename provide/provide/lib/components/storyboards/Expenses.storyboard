@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="m0Z-Gr-ZZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="m0Z-Gr-ZZ4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -127,8 +127,11 @@
                             <constraint firstItem="6Hh-PG-JAq" firstAttribute="top" secondItem="rkg-4u-1fb" secondAttribute="top" id="f6f-c6-zPe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uQ4-4P-8UV"/>
+                    <navigationItem key="navigationItem" id="uQ4-4P-8UV">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="y5e-Dd-8vL"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addExpenseItem" destination="y5e-Dd-8vL" id="0Eq-Dp-Vwz"/>
                         <outlet property="tableView" destination="6Hh-PG-JAq" id="qnr-Mv-gGB"/>
                     </connections>
                 </viewController>
