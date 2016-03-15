@@ -95,8 +95,6 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
         }
-
-        activityIndicatorView?.startAnimating()
     }
 
     func dismiss(sender: UIBarButtonItem) {
@@ -193,6 +191,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
     func refresh() {
         if page == 1 {
             refreshControl?.beginRefreshing()
+            activityIndicatorView?.startAnimating()
         }
 
         if var params = delegate.queryParamsForProductPickerViewController(self) {
