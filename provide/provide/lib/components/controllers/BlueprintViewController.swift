@@ -234,7 +234,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         toolbar.alpha = 0.0
         toolbar.blueprintToolbarDelegate = self
-        toolbar.barTintColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        toolbar.barTintColor = Color.darkBlueBackground()
 
         hideToolbar()
 
