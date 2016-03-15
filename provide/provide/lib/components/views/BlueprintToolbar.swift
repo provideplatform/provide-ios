@@ -39,12 +39,19 @@ class BlueprintToolbar: UIToolbar {
         return false
     }
 
+    private var barButtonItemTitleTextAttributes: [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ]
+    }
+
     @IBOutlet private weak var navigationButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = navigationButton {
                 navigationButton.target = self
                 navigationButton.action = "toggleNavigatorVisibility:"
-                navigationButton.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
@@ -54,7 +61,7 @@ class BlueprintToolbar: UIToolbar {
             if let navigationButton = scaleButton {
                 navigationButton.target = self
                 navigationButton.action = "toggleScaleVisibility:"
-                navigationButton.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
@@ -64,7 +71,7 @@ class BlueprintToolbar: UIToolbar {
             if let navigationButton = createWorkOrderButton {
                 navigationButton.target = self
                 navigationButton.action = "createWorkOrder:"
-                navigationButton.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
@@ -74,14 +81,14 @@ class BlueprintToolbar: UIToolbar {
             if let navigationButton = floorplanOptionsButton {
                 navigationButton.target = self
                 navigationButton.action = "toggleFloorplanOptionsVisibility:"
-                navigationButton.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
 
     func reload() {
         if let scaleCanBeSet = blueprintToolbarDelegate?.scaleCanBeSetByBlueprintToolbar(self) {
-            let scaleButtonTitleTextAttribute = scaleVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+            let scaleButtonTitleTextAttribute = scaleVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
             scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
             let index = items!.indexOfObject(scaleButton)
             if !scaleCanBeSet {
@@ -102,7 +109,7 @@ class BlueprintToolbar: UIToolbar {
 
         let createWorkOrderButtonVisible = blueprintToolbarDelegate.newWorkOrderItemIsShownByBlueprintToolbar(self)
         let createWorkOrderButtonEnabled = blueprintToolbarDelegate.newWorkOrderCanBeCreatedByBlueprintToolbar(self)
-        let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? AppearenceProxy.barButtonItemDisabledTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+        let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? AppearenceProxy.barButtonItemDisabledTitleTextAttributes() : barButtonItemTitleTextAttributes
         createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, forState: .Normal)
         if createWorkOrderButtonVisible {
             createWorkOrderButton.enabled = createWorkOrderButtonEnabled
@@ -117,7 +124,7 @@ class BlueprintToolbar: UIToolbar {
         }
 
         let floorplanOptionsButtonVisible = blueprintToolbarDelegate.floorplanOptionsItemIsShownByBlueprintToolbar(self)
-        let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+        let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
         floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, forState: .Normal)
         if !floorplanOptionsButtonVisible {
             if let index = items!.indexOfObject(floorplanOptionsButton) {
@@ -125,7 +132,7 @@ class BlueprintToolbar: UIToolbar {
             }
         }
 
-        let navigationButtonTitleTextAttribute = navigatorVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : AppearenceProxy.barButtonItemTitleTextAttributes()
+        let navigationButtonTitleTextAttribute = navigatorVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
     }
 

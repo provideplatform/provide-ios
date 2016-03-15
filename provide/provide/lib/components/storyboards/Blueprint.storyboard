@@ -39,14 +39,27 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-F2-amm" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Scale" id="dlS-QM-Xdl"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fAE-sK-LuL"/>
-                                    <barButtonItem title="+ Work Order" id="vpF-ec-lig"/>
-                                    <barButtonItem title="Floorplan Options" id="bur-kU-fzu"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk"/>
-                                    <barButtonItem title="Navigator" id="F6Z-Yj-ebn"/>
+                                    <barButtonItem title="Scale" id="dlS-QM-Xdl">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="fAE-sK-LuL">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="+ Work Order" id="vpF-ec-lig">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Floorplan Options" id="bur-kU-fzu">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XU4-o9-Gjk">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Navigator" id="F6Z-Yj-ebn">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="createWorkOrderButton" destination="vpF-ec-lig" id="y2k-88-5p7"/>
                                     <outlet property="floorplanOptionsButton" destination="bur-kU-fzu" id="u9C-Jn-p4K"/>
