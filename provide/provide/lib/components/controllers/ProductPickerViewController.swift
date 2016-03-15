@@ -77,6 +77,9 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
             }
 
             reloadCollectionView()
+
+            activityIndicatorView?.stopAnimating()
+            refreshControl?.endRefreshing()
         }
     }
 

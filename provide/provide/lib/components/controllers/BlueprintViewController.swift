@@ -560,12 +560,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
         }
         if polygonView == nil {
-            //polygonView = self.polygonView
-            if let annotations = workOrder.annotations {
-                if annotations.count > 0 {
-                    if let annotation = annotations.first {
-                        if annotation.polygon != nil {
-                            polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+            if let workOrder = workOrder {
+                if let annotations = workOrder.annotations {
+                    if annotations.count > 0 {
+                        if let annotation = annotations.first {
+                            if annotation.polygon != nil {
+                                polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
+                            }
                         }
                     }
                 }
