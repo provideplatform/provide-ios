@@ -259,9 +259,9 @@ class JobWizardTabBarController: UITabBarController,
     private func setupTabBarAppearence() {
         //tabBar.frame.size.height = 60.0
 
-        var cropRect = tabBar.frame
-        cropRect.origin.y = cropRect.size.height - tabBar.frame.height
-        tabBar.backgroundImage = UIImage("bar-background")!.crop(cropRect)
+        //var cropRect = tabBar.frame
+        //cropRect.origin.y = cropRect.size.height - tabBar.frame.height
+        //tabBar.backgroundImage = UIImage("bar-background")!.crop(cropRect)
 
         let mapPin = UIImage("map-pin")!
         tabBar.selectionIndicatorImage = mapPin.scaledToWidth(mapPin.size.width / 4)
