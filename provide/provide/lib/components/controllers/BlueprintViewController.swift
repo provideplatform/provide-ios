@@ -1612,7 +1612,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let isNewRecord = viewController.workOrder == nil || viewController.workOrder.id == 0
         let isPunchlist = job.isPunchlist
-        return section == 0 ? (isNewRecord ? 2 : (isPunchlist ? 3 : 4)) : 1
+        return section == 0 ? (isNewRecord ? 3 : (isPunchlist ? 3 : 4)) : 1
     }
 
     func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -1631,15 +1631,27 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
                 viewController = calendarViewController
             case 1:
+                viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+                (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
+                CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
+                    onCategoriesFetched: { categories in
+                        (viewController as! CategoryPickerViewController).categories = categories
+
+                        if let selectedCategory = workOrderCreationViewController.workOrder.category {
+                            (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
+                        }
+                    }
+                )
+            case 2:
                 viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
                 (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-            case 2:
-                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
-                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
-            case 3:
-                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
-                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
-                (viewController as! ExpensesViewController).delegate = self
+//            case 3:
+//                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
+//                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
+//            case 4:
+//                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
+//                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
+//                (viewController as! ExpensesViewController).delegate = self
             default:
                 break
             }
@@ -1705,6 +1717,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
             cell.backgroundView!.backgroundColor = workOrder.statusColor
             cell.accessoryType = .DisclosureIndicator
         case 1:
+            if let category = workOrder.category {
+                cell.setName("CATEGORY", value: category.name)
+                cell.accessoryType = .DisclosureIndicator
+            } else {
+                cell.setName("CATEGORY", value: "")
+            }
+        case 2:
             var specificProviders = ""
             let detailDisplayCount = 3
             var i = 0
@@ -1737,7 +1756,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("CREW", value: providers)
             }
             cell.accessoryType = .DisclosureIndicator
-        case 2:
+        case 3:
             if let _ = workOrder.materials {
                 let inventoryDisposition = workOrder.inventoryDisposition
                 cell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
@@ -1746,7 +1765,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 cell.setName("MATERIALS", value: "")
                 cell.showActivity(false)
             }
-        case 3:
+        case 4:
             if let expensesDisposition = workOrder.expensesDisposition {
                 cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
                 cell.accessoryType = .DisclosureIndicator

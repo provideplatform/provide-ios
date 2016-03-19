@@ -26,6 +26,7 @@ protocol WorkOrderCreationViewControllerDelegate {
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        PDTSimpleCalendarViewDelegate,
+                                       CategoryPickerViewControllerDelegate,
                                        DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
@@ -54,24 +55,11 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return cameraItem
     }
 
-    private var saveItem: UIBarButtonItem! {
-        let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
-        saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        return saveItem
-    }
-
     private var taskListItem: UIBarButtonItem! {
         let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
         let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
         taskListItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return taskListItem
-    }
-
-    private var disabledSaveItem: UIBarButtonItem! {
-        let saveItem = UIBarButtonItem(title: "SAVE", style: .Plain, target: self, action: "createWorkOrder:")
-        saveItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Normal)
-        saveItem.enabled = false
-        return saveItem
     }
 
     private var activityIndicatorView: UIActivityIndicatorView {
@@ -202,9 +190,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     private func refreshRightBarButtonItems() {
         if isValid && isDirty {
-            navigationItem.rightBarButtonItems = [saveItem]
+            navigationItem.rightBarButtonItems = []
         } else {
-            navigationItem.rightBarButtonItems = [disabledSaveItem]
+            navigationItem.rightBarButtonItems = []
         }
 
         if isSaved {
@@ -416,6 +404,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         durationPickerViewController.view.addSubview(durationPickerView)
 
         viewController.presentViewController(durationPickerViewController, animated: true)
+    }
+
+    // MARK: CategoryPickerViewControllerDelegate
+
+    func categoryPickerViewController(viewController: CategoryPickerViewController, didSelectCategory category: Category) {
+        if workOrder.id == 0 {
+            workOrder.category = category
+            reloadTableView()
+        }
     }
 
     // MARK: DurationPickerViewDelegate

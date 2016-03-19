@@ -82,10 +82,10 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         timestampLabel?.text = ""
 
         estimatedSqFtLabel?.text = ""
-        estimatedSqFtActivityIndicatorView?.startAnimating()
+        //estimatedSqFtActivityIndicatorView?.startAnimating()
 
         estimatedCostLabel?.text = ""
-        estimatedCostActivityIndicatorView?.startAnimating()
+        //estimatedCostActivityIndicatorView?.startAnimating()
     }
 
     private func refresh() {
@@ -98,11 +98,16 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
             }
 
-            typeLabel?.text = workOrder.desc == nil ? workOrder.humanReadableScheduledStartAtTimestamp : workOrder.desc
+            if let category = workOrder.category {
+                typeLabel?.text = category.name
+            } else {
+                typeLabel?.text = workOrder.desc == nil ? workOrder.humanReadableScheduledStartAtTimestamp : workOrder.desc
+            }
+
             typeLabel?.sizeToFit()
 
-            if workOrder.desc != nil {
-                timestampLabel?.text = workOrder.humanReadableScheduledStartAtTimestamp
+            if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
+                timestampLabel?.text = humanReadableScheduledStartAtTimestamp
                 timestampLabel?.sizeToFit()
                 timestampLabel?.alpha = 1.0
             } else {
@@ -110,28 +115,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 timestampLabel?.alpha = 0.0
             }
 
-            if let humanReadableEstimatedSqFt = workOrder.humanReadableEstimatedSqFt {
-                estimatedSqFtLabel?.text = humanReadableEstimatedSqFt
-                estimatedSqFtActivityIndicatorView?.stopAnimating()
-                estimatedSqFtLabel?.hidden = false
-            }
-
-            if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
-                estimatedCostLabel?.text = "\(humanReadableEstimatedCost) (estimate)"
-                estimatedCostActivityIndicatorView?.stopAnimating()
-                estimatedCostLabel?.hidden = false
-            } else if workOrder.id == 0 {
-                estimatedCostActivityIndicatorView?.stopAnimating()
-            } else {
-                workOrder.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        self.refresh()
-                    },
-                    onError: { error, statusCode, responseString in
-                        self.refresh()
-                    }
-                )
-            }
+//            if let humanReadableEstimatedSqFt = workOrder.humanReadableEstimatedSqFt {
+//                estimatedSqFtLabel?.text = humanReadableEstimatedSqFt
+//                estimatedSqFtActivityIndicatorView?.stopAnimating()
+//                estimatedSqFtLabel?.hidden = false
+//            }
+//
+//            if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
+//                estimatedCostLabel?.text = "\(humanReadableEstimatedCost) (estimate)"
+//                estimatedCostActivityIndicatorView?.stopAnimating()
+//                estimatedCostLabel?.hidden = false
+//            } else if workOrder.id == 0 {
+//                estimatedCostActivityIndicatorView?.stopAnimating()
+//            } else {
+//                workOrder.reload(
+//                    onSuccess: { statusCode, mappingResult in
+//                        self.refresh()
+//                    },
+//                    onError: { error, statusCode, responseString in
+//                        self.refresh()
+//                    }
+//                )
+//            }
 
             typeLabel.sizeToFit()
             timestampLabel.sizeToFit()

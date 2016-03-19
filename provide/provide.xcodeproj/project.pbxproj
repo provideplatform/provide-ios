@@ -101,6 +101,9 @@
 		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
 		683AC1011C21FE4A00391A0B /* JobManagerHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */; };
 		683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */; };
+		683F2AD91C9DB2F8006229AC /* CategoryPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */; };
+		683F2ADB1C9DB32A006229AC /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */; };
+		683F2ADD1C9DB3E5006229AC /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */; };
 		6840F1661BDB1D8E00EF70F7 /* Blueprint.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */; };
 		6840F1681BDB1DAC00EF70F7 /* BlueprintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */; };
 		6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1691BDB59D700EF70F7 /* Job.swift */; };
@@ -408,6 +411,9 @@
 		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobManagerHeaderViewController.swift; sourceTree = "<group>"; };
 		683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProductCreationViewController.swift; sourceTree = "<group>"; };
+		683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CategoryPicker.storyboard; sourceTree = "<group>"; };
+		683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Blueprint.storyboard; sourceTree = "<group>"; };
 		6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintViewController.swift; sourceTree = "<group>"; };
 		6840F1691BDB59D700EF70F7 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
@@ -944,6 +950,7 @@
 				688995181C9D2A9300F7D25F /* BlueprintsPageViewController.swift */,
 				68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
+				683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */,
 				683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
 				688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */,
@@ -988,6 +995,7 @@
 				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
 				688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
+				683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */,
 				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				6816FD351C2FDEE4005A18BB /* DurationPickerView.swift */,
@@ -1085,6 +1093,7 @@
 				6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */,
 				6889951A1C9D2AB300F7D25F /* BlueprintsPageView.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
+				683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */,
 				683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
 				686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */,
@@ -1452,6 +1461,7 @@
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
+				683F2AD91C9DB2F8006229AC /* CategoryPicker.storyboard in Resources */,
 				68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
@@ -1738,6 +1748,7 @@
 				681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */,
 				68B413101B081926009A4C05 /* UIViewControllerExtensions.swift in Sources */,
 				686C1CB91C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift in Sources */,
+				683F2ADB1C9DB32A006229AC /* CategoryPickerViewController.swift in Sources */,
 				68B413201B081F2C009A4C05 /* NSNotificationCenterExtensions.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
@@ -1778,6 +1789,7 @@
 				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */,
 				6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */,
+				683F2ADD1C9DB3E5006229AC /* CategoryTableViewCell.swift in Sources */,
 				681EBF5E1C18136C00B81BEB /* JobBlueprintsViewController.swift in Sources */,
 				681416E81B8457870076BFBD /* Contact.swift in Sources */,
 				68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */,
