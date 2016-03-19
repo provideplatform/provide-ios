@@ -175,7 +175,7 @@ class JobBlueprintsViewController: ViewController,
                                     self.importedPngAttachment = Attachment()
                                     self.importedPngAttachment.id = attachmentId!
                                 } else if self.importedPngAttachment.id == attachmentId {
-                                    //self.reloadJob()
+                                    self.reloadJob()
                                 }
                             } else {
                                 self.refresh()
