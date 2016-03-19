@@ -161,6 +161,7 @@ class ApiService: NSObject {
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
         AnalyticsService.sharedService().logout()
+        ImageService.sharedService().clearCache()
 
         backoffTimeout = nil
     }

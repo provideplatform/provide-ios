@@ -46,6 +46,20 @@ class BlueprintToolbar: UIToolbar {
         ]
     }
 
+    private var selectedButtonItemTitleTextAttributes: [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ]
+    }
+
+    private var barButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ]
+    }
+
     @IBOutlet private weak var navigationButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = navigationButton {
@@ -88,7 +102,7 @@ class BlueprintToolbar: UIToolbar {
 
     func reload() {
         if let scaleCanBeSet = blueprintToolbarDelegate?.scaleCanBeSetByBlueprintToolbar(self) {
-            let scaleButtonTitleTextAttribute = scaleVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
+            let scaleButtonTitleTextAttribute = scaleVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
             scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
             let index = items!.indexOfObject(scaleButton)
             if !scaleCanBeSet {
@@ -109,7 +123,7 @@ class BlueprintToolbar: UIToolbar {
 
         let createWorkOrderButtonVisible = blueprintToolbarDelegate.newWorkOrderItemIsShownByBlueprintToolbar(self)
         let createWorkOrderButtonEnabled = blueprintToolbarDelegate.newWorkOrderCanBeCreatedByBlueprintToolbar(self)
-        let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? AppearenceProxy.barButtonItemDisabledTitleTextAttributes() : barButtonItemTitleTextAttributes
+        let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? barButtonItemDisabledTitleTextAttributes : barButtonItemTitleTextAttributes
         createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, forState: .Normal)
         if createWorkOrderButtonVisible {
             createWorkOrderButton.enabled = createWorkOrderButtonEnabled
@@ -124,7 +138,7 @@ class BlueprintToolbar: UIToolbar {
         }
 
         let floorplanOptionsButtonVisible = blueprintToolbarDelegate.floorplanOptionsItemIsShownByBlueprintToolbar(self)
-        let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
+        let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, forState: .Normal)
         if !floorplanOptionsButtonVisible {
             if let index = items!.indexOfObject(floorplanOptionsButton) {
@@ -132,7 +146,7 @@ class BlueprintToolbar: UIToolbar {
             }
         }
 
-        let navigationButtonTitleTextAttribute = navigatorVisible ? AppearenceProxy.selectedButtonItemTitleTextAttributes() : barButtonItemTitleTextAttributes
+        let navigationButtonTitleTextAttribute = navigatorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
     }
 

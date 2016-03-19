@@ -33,6 +33,10 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
         super.viewDidLoad()
     }
 
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+
     func resetViewControllers() {
         blueprintViewControllers = [BlueprintViewController : Attachment]()
 

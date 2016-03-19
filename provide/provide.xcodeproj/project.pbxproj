@@ -164,6 +164,7 @@
 		688952C31C1FFC61006AEFDF /* CustomerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */; };
 		688995191C9D2A9300F7D25F /* BlueprintsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688995181C9D2A9300F7D25F /* BlueprintsPageViewController.swift */; };
 		6889951B1C9D2AB300F7D25F /* BlueprintsPageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6889951A1C9D2AB300F7D25F /* BlueprintsPageView.storyboard */; };
+		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
 		688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */; };
 		688C2B4D1C60A95F009D5FF5 /* Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B4C1C60A95F009D5FF5 /* Estimate.swift */; };
 		688C2B4F1C60B107009D5FF5 /* Estimates.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 688C2B4E1C60B107009D5FF5 /* Estimates.storyboard */; };
@@ -470,6 +471,7 @@
 		688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPickerViewController.swift; sourceTree = "<group>"; };
 		688995181C9D2A9300F7D25F /* BlueprintsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintsPageViewController.swift; sourceTree = "<group>"; };
 		6889951A1C9D2AB300F7D25F /* BlueprintsPageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BlueprintsPageView.storyboard; sourceTree = "<group>"; };
+		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintToolbar.swift; sourceTree = "<group>"; };
 		688C2B4C1C60A95F009D5FF5 /* Estimate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Estimate.swift; sourceTree = "<group>"; };
 		688C2B4E1C60B107009D5FF5 /* Estimates.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Estimates.storyboard; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 				6837AF831C7B67CE0082F4EC /* CompanyService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
 				687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */,
+				6889951C1C9D3AEF00F7D25F /* ImageService.swift */,
 				68E218111C3BB663007CEF03 /* JobService.swift */,
 				689B0CB51B07E0A7005694B7 /* KeyChainService.swift */,
 				687CB58F1B07F6020048B692 /* LocationService.swift */,
@@ -1812,6 +1815,7 @@
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				6845BB641BF1F60200AD3D79 /* BlueprintScrollView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
+				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,
 				68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */,
 				68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 			);

@@ -361,21 +361,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func loadBlueprint() {
-        if let image = blueprintViewControllerDelegate?.blueprintImageForBlueprintViewController(self) {
-            setBlueprintImage(image)
-            loadAnnotations()
-        } else if let url = blueprintImageUrl {
+        if let url = blueprintImageUrl {
             loadingBlueprint = true
 
-            ApiService.sharedService().fetchImage(url,
-                onImageFetched: { statusCode, image in
-                    dispatch_after_delay(0.0) { [weak self] in
-                        self!.setBlueprintImage(image)
-                        self!.loadAnnotations()
-                    }
+            ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
+                onDownloadSuccess: { [weak self] image in
+                    self!.setBlueprintImage(image)
+                    self!.loadAnnotations()
                 },
-                onError: { error, statusCode, responseString in
+                onDownloadFailure: { error in
 
+                },
+                onDownloadProgress: { receivedSize, expectedSize in
+                    let percentage = CGFloat(receivedSize / expectedSize)
+                    print("completed \(percentage)%")
                 }
             )
         }
@@ -628,29 +627,30 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func hideToolbar() {
         if initialToolbarFrame == nil {
-            dispatch_after_delay(0.0) {
-                self.initialToolbarFrame = self.toolbar?.frame
+            dispatch_after_delay(0.0) { [weak self] in
+                self!.initialToolbarFrame = self!.toolbar?.frame
             }
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                self.toolbar?.alpha = 0.0
-                self.toolbar?.frame.origin.y += self.toolbar.frame.size.height
+            animations: { [weak self] in
+                self!.toolbar?.alpha = 0.0
+                self!.toolbar?.frame.origin.y += (self!.toolbar?.frame.size.height)!
             }, completion: { completed in
 
+                
             }
         )
     }
 
     private func showToolbar() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { [weak self] in
-                self!.toolbar.alpha = 1.0
-                if let initialToolbarFrame = self!.initialToolbarFrame {
-                    self!.toolbar.frame = initialToolbarFrame
+            animations: {
+                self.toolbar?.alpha = 1.0
+                if let initialToolbarFrame = self.initialToolbarFrame {
+                    self.toolbar?.frame = initialToolbarFrame
                 } else {
-                    self!.toolbar.frame.origin.y -= self!.toolbar.frame.size.height
+                    self.toolbar?.frame.origin.y -= (self.toolbar?.frame.size.height)!
                 }
             }, completion: { completed in
 
