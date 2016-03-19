@@ -135,6 +135,10 @@ class JobWizardViewController: UINavigationController,
 
     // MARK: BlueprintViewControllerDelegate
 
+    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
+        return job.blueprint
+    }
+    
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
         return cachedBlueprintImage
     }
@@ -253,8 +257,6 @@ class JobWizardViewController: UINavigationController,
     }
 
     deinit {
-        print("Deinitialized job wizard view controller w/ nav stack: \(self.viewControllers)")
-
         let viewController = viewControllers.first
         if let jobBlueprintsViewController = viewController as? JobBlueprintsViewController {
             jobBlueprintsViewController.teardown()

@@ -111,6 +111,10 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
 
     // BlueprintViewControllerDelegate
 
+    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
+        return estimate.attachments.first!
+    }
+
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         return nil
     }

@@ -25,7 +25,6 @@
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
         </mutableArray>
         <mutableArray key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
@@ -782,47 +781,12 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BkC-j0-KT1">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsm-qU-Fvp" userLabel="Blueprints Page View Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3j8-PF-pdv">
-                                        <rect key="frame" x="20" y="72" width="560" height="418"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="418" id="OqZ-Ov-N1j"/>
-                                        </constraints>
-                                    </imageView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mKD-Lc-3l5">
-                                        <rect key="frame" x="282" y="263" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9TC-nX-DsW">
-                                        <rect key="frame" x="20" y="308" width="560" height="24"/>
-                                        <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2J-Ov-1wQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                        <connections>
-                                            <segue destination="Vn8-Nz-9DZ" kind="embed" identifier="BlueprintViewControllerEmbedSegue" id="oz4-ws-F4S"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="M2J-Ov-1wQ" secondAttribute="bottom" id="7Cd-Ql-6Ug"/>
-                                    <constraint firstAttribute="trailing" secondItem="M2J-Ov-1wQ" secondAttribute="trailing" id="9lB-9V-sa6"/>
-                                    <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerY" secondItem="3j8-PF-pdv" secondAttribute="centerY" id="H5g-r8-yXj"/>
-                                    <constraint firstItem="3j8-PF-pdv" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" constant="20" id="Ln8-FR-QHa"/>
-                                    <constraint firstItem="3j8-PF-pdv" firstAttribute="trailing" secondItem="9TC-nX-DsW" secondAttribute="trailing" id="TXV-un-ebG"/>
-                                    <constraint firstItem="M2J-Ov-1wQ" firstAttribute="top" secondItem="BkC-j0-KT1" secondAttribute="top" id="b0w-7T-U9h"/>
-                                    <constraint firstItem="mKD-Lc-3l5" firstAttribute="centerX" secondItem="M2J-Ov-1wQ" secondAttribute="centerX" id="dSY-Jm-WAw"/>
-                                    <constraint firstItem="3j8-PF-pdv" firstAttribute="top" secondItem="BkC-j0-KT1" secondAttribute="top" constant="72" id="dmf-Uj-4cG"/>
-                                    <constraint firstItem="3j8-PF-pdv" firstAttribute="leading" secondItem="9TC-nX-DsW" secondAttribute="leading" id="f87-Yd-ydc"/>
-                                    <constraint firstItem="3j8-PF-pdv" firstAttribute="centerX" secondItem="mKD-Lc-3l5" secondAttribute="centerX" id="lxh-ZI-Odf"/>
-                                    <constraint firstItem="9TC-nX-DsW" firstAttribute="top" secondItem="mKD-Lc-3l5" secondAttribute="bottom" constant="8" id="mAe-hp-EaK"/>
-                                    <constraint firstItem="M2J-Ov-1wQ" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="vtQ-7A-mkQ"/>
-                                </constraints>
-                            </view>
+                                <connections>
+                                    <segue destination="ZHn-dl-ofk" kind="embed" identifier="BlueprintsPageViewControllerEmbedSegue" id="MOk-AH-ykK"/>
+                                </connections>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2w6-E1-TLh">
                                 <rect key="frame" x="0.0" y="114" width="600" height="373"/>
                                 <constraints>
@@ -888,31 +852,26 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="0j8-kU-PwZ"/>
+                            <constraint firstItem="fsm-qU-Fvp" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="3Q2-pp-C3O"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="812-8N-FHq"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leading" id="8R2-Ek-AaO"/>
-                            <constraint firstItem="BkC-j0-KT1" firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="GaY-Ya-p8G"/>
                             <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="2w6-E1-TLh" secondAttribute="bottom" id="Mbr-HI-5zH"/>
                             <constraint firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="Pit-5c-Z1a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fsm-qU-Fvp" secondAttribute="trailing" constant="-20" id="Q3l-hC-zCf"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="height" multiplier="600:487" id="QAt-4g-BRN"/>
-                            <constraint firstItem="BkC-j0-KT1" firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="QIw-Ag-o2e"/>
-                            <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="fWz-MA-QiB" secondAttribute="top" id="TTy-PY-Gcn"/>
+                            <constraint firstItem="fsm-qU-Fvp" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="g2A-Ma-U1G"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="gfz-5V-tWw"/>
                             <constraint firstItem="2w6-E1-TLh" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="gg0-jo-AQM"/>
+                            <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="fsm-qU-Fvp" secondAttribute="bottom" id="hPL-X3-sJ6"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="width" id="kIU-Ru-gUT"/>
-                            <constraint firstItem="BkC-j0-KT1" firstAttribute="top" secondItem="2OO-pg-gjT" secondAttribute="top" id="ocU-wk-RAe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2w6-E1-TLh" secondAttribute="trailing" constant="-20" id="sSy-qe-gHc"/>
                             <constraint firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="vor-pe-s7e"/>
-                            <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="BkC-j0-KT1" secondAttribute="leading" id="xfJ-Sb-Rgh"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="height" secondItem="2OO-pg-gjT" secondAttribute="height" id="zxi-eS-q4H"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="bF4-gi-Caa"/>
                     <connections>
-                        <outlet property="blueprintActivityIndicatorView" destination="mKD-Lc-3l5" id="4Ob-QE-kbu"/>
-                        <outlet property="blueprintPreviewContainerView" destination="BkC-j0-KT1" id="Q3d-AN-QUj"/>
-                        <outlet property="blueprintPreviewImageView" destination="3j8-PF-pdv" id="haP-Xf-KaS"/>
-                        <outlet property="blueprintPreviewStatusLabel" destination="9TC-nX-DsW" id="EGy-Ng-Cs3"/>
                         <outlet property="estimatesContainerView" destination="2w6-E1-TLh" id="Vy5-2Y-frB"/>
                         <outlet property="floorplansContainerView" destination="x2k-0L-gVr" id="6Lq-Ox-nEW"/>
                         <outlet property="importFromDropboxIconButton" destination="7SP-l0-9g0" id="G9T-T7-k4v"/>
@@ -1271,10 +1230,42 @@
             </objects>
             <point key="canvasLocation" x="-1886" y="3956"/>
         </scene>
+        <!--BlueprintsPageView-->
+        <scene sceneID="igm-hU-qoA">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="BlueprintsPageViewController" storyboardName="BlueprintsPageView" id="ZHn-dl-ofk" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JKC-xw-zgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2103.5" y="564"/>
+        </scene>
+        <!--BlueprintViewController-->
+        <scene sceneID="g0m-lh-Bkg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Blueprint" referencedIdentifier="BlueprintViewController" id="BVJ-Nx-D8g" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JVW-aD-6pj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2097" y="612"/>
+        </scene>
+        <!--FloorplansViewController-->
+        <scene sceneID="jpV-9b-fYM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Floorplans" referencedIdentifier="FloorplansViewController" id="upu-5j-n54" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LTC-D8-fZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2093" y="662"/>
+        </scene>
+        <!--Estimates-->
+        <scene sceneID="ONU-q2-bmk">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Estimates" id="Vkx-in-dm4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xwY-Ag-Dzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2140" y="709"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dropbox" width="214" height="200"/>
-        <image name="map-pin" width="100" height="100"/>
+        <image name="map-pin" width="50" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oJ3-QQ-8sI"/>

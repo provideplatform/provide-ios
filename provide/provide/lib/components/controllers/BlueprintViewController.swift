@@ -9,6 +9,7 @@
 import UIKit
 
 protocol BlueprintViewControllerDelegate: NSObjectProtocol {
+    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment!
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
     func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode!
@@ -228,17 +229,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleToFill
 
-        scrollView.backgroundColor = UIColor.whiteColor() //UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
-        scrollView.addSubview(imageView)
-        scrollView.bringSubviewToFront(imageView)
+        scrollView?.backgroundColor = UIColor.whiteColor() //UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+        scrollView?.addSubview(imageView)
+        scrollView?.bringSubviewToFront(imageView)
 
-        toolbar.alpha = 0.0
-        toolbar.blueprintToolbarDelegate = self
-        toolbar.barTintColor = Color.darkBlueBackground()
+        toolbar?.alpha = 0.0
+        toolbar?.blueprintToolbarDelegate = self
+        toolbar?.barTintColor = Color.darkBlueBackground()
 
         hideToolbar()
 
-        activityIndicatorView.startAnimating()
+        activityIndicatorView?.startAnimating()
 
         if blueprintViewControllerDelegate != nil && !loadedBlueprint && !loadingBlueprint && scrollView != nil {
             loadBlueprint()
@@ -627,15 +628,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func hideToolbar() {
         if initialToolbarFrame == nil {
-            dispatch_after_delay(0.0) { [weak self] in
-                self!.initialToolbarFrame = self!.toolbar.frame
+            dispatch_after_delay(0.0) {
+                self.initialToolbarFrame = self.toolbar?.frame
             }
         }
 
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { [weak self] in
-                self!.toolbar.alpha = 0.0
-                self!.toolbar.frame.origin.y += self!.toolbar.frame.size.height
+            animations: {
+                self.toolbar?.alpha = 0.0
+                self.toolbar?.frame.origin.y += self.toolbar.frame.size.height
             }, completion: { completed in
 
             }

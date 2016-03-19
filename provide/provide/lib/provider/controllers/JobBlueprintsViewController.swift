@@ -14,7 +14,7 @@ protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
 }
 
 class JobBlueprintsViewController: ViewController,
-                                   BlueprintViewControllerDelegate,
+                                   BlueprintsPageViewControllerDelegate,
                                    EstimatesViewControllerDelegate,
                                    FloorplansViewControllerDelegate {
 
@@ -58,6 +58,7 @@ class JobBlueprintsViewController: ViewController,
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
+    private weak var blueprintsPageViewController: BlueprintsPageViewController!
     private weak var blueprintViewController: BlueprintViewController!
     private weak var estimatesViewController: EstimatesViewController!
     private weak var floorplansViewController: FloorplansViewController!
@@ -113,15 +114,15 @@ class JobBlueprintsViewController: ViewController,
         return false
     }
 
-    private var shouldLoadBlueprint: Bool {
-        if let job = job {
-            if job.blueprintImageUrl == nil {
-                return false
-            }
-            return !hasBlueprintScale || job.isResidential || job.isPunchlist
-        }
-        return false
-    }
+//    private var shouldLoadBlueprint: Bool {
+//        if let job = job {
+//            if job.blueprintImageUrl == nil {
+//                return false
+//            }
+//            return !hasBlueprintScale || job.isResidential || job.isPunchlist
+//        }
+//        return false
+//    }
 
     private var viewLoaded = false
 
@@ -173,7 +174,7 @@ class JobBlueprintsViewController: ViewController,
                                     self.importedPngAttachment = Attachment()
                                     self.importedPngAttachment.id = attachmentId!
                                 } else if self.importedPngAttachment.id == attachmentId {
-                                    self.reloadJob()
+                                    //self.reloadJob()
                                 }
                             } else {
                                 self.refresh()
@@ -201,61 +202,66 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func refresh() {
+        reloadJob()
 //        if job.isCommercial {
 //            navigationItem.title = "SETUP BLUEPRINT"
 //        } else if job.isResidential {
 //            navigationItem.title = "SETUP FLOORPLAN"
 //        }
-        if let job = job {
-            if job.isCommercial || job.isPunchlist {
-                if let _ = floorplansContainerView.superview {
-                    floorplansContainerView.removeFromSuperview()
-                }
-            }
-        }
-
-        if shouldLoadBlueprint {
-            importInstructionsContainerView?.alpha = 0.0
-            loadBlueprint()
-        } else if let job = job {
-            if job.hasPendingBlueprint {
-                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-            } else if job.isCommercial || job.isPunchlist {
-                if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-                    if job.blueprintImageUrl == nil && importedPngAttachment == nil {
-                        job.reload(
-                            onSuccess: { [weak self] statusCode, mappingResult in
-                                if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
-                                    self?.renderInstruction("Import a blueprint for this job.")
-                                    self?.showDropbox()
-                                } else if job.hasPendingBlueprint {
-                                    self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-                                }
-                            },
-                            onError: { error, statusCode, responseString in
-
-                            }
-                        )
-                    }
-                } else if job.blueprintImageUrl != nil {
-                    renderInstruction("Congrats! Your blueprint is configured properly.")
-                    estimatesContainerView?.alpha = 1.0
-                    reloadEstimates()
-                }
-            } else if job.isResidential {
-                if job.blueprintImageUrl == nil {
-                    renderFloorplans()
-                }
-            }
-        } else {
-            renderInstruction("Loading job")
-        }
+//        if let job = job {
+//            if job.isCommercial || job.isPunchlist {
+//                if let _ = floorplansContainerView.superview {
+//                    floorplansContainerView.removeFromSuperview()
+//                }
+//            }
+//        }
+//
+//        if shouldLoadBlueprint {
+//            importInstructionsContainerView?.alpha = 0.0
+//            loadBlueprint()
+//        } else if let job = job {
+//            if job.hasPendingBlueprint {
+//                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+//            } else if job.isCommercial || job.isPunchlist {
+//                if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
+//                    if job.blueprintImageUrl == nil && importedPngAttachment == nil {
+//                        job.reload(
+//                            onSuccess: { [weak self] statusCode, mappingResult in
+//                                if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
+//                                    self?.renderInstruction("Import a blueprint for this job.")
+//                                    self?.showDropbox()
+//                                } else if job.hasPendingBlueprint {
+//                                    self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+//                                }
+//                            },
+//                            onError: { error, statusCode, responseString in
+//
+//                            }
+//                        )
+//                    }
+//                } else if job.blueprintImageUrl != nil {
+//                    renderInstruction("Congrats! Your blueprint is configured properly.")
+//                    estimatesContainerView?.alpha = 1.0
+//                    reloadEstimates()
+//                }
+//            } else if job.isResidential {
+//                if job.blueprintImageUrl == nil {
+//                    renderFloorplans()
+//                }
+//            }
+//        } else {
+//            renderInstruction("Loading job")
+//        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
+        if segue.identifier! == "BlueprintsPageViewControllerEmbedSegue" {
+            blueprintsPageViewController = segue.destinationViewController as! BlueprintsPageViewController
+            blueprintsPageViewController.setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
+            blueprintsPageViewController.blueprintsPageViewControllerDelegate = self
+        } else if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
             //blueprintViewController.blueprintViewControllerDelegate = self
         } else if segue.identifier! == "EstimatesViewControllerEmbedSegue" {
@@ -315,11 +321,12 @@ class JobBlueprintsViewController: ViewController,
 
                 job.reload(
                     onSuccess: { statusCode, mappingResult in
-                        self.loadBlueprint()
+                        //self.loadBlueprint()
+                        self.blueprintsPageViewController.resetViewControllers()
                         self.reloadingJob = false
                     },
                     onError: { error, statusCode, responseString in
-                        self.loadBlueprint()
+                        self.blueprintsPageViewController.resetViewControllers()
                         self.reloadingJob = false
                     }
                 )
@@ -387,35 +394,35 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-    private func loadBlueprint(force: Bool = false) {
-        if !reloadingBlueprint {
-            if let image = blueprintImageForBlueprintViewController(blueprintViewController) {
-                setBlueprintImage(image)
-            } else if let blueprintImageUrl = job.blueprintImageUrl {
-                reloadingBlueprint = true
-                importStatus = nil
-
-                blueprintActivityIndicatorView.startAnimating()
-                blueprintPreviewContainerView.alpha = 1.0
-
-                ApiService.sharedService().fetchImage(blueprintImageUrl,
-                    onImageFetched: { statusCode, image  in
-                        self.setBlueprintImage(image)
-                        self.blueprintViewController?.blueprintViewControllerDelegate = self
-                    },
-                    onError: { error, statusCode, responseString in
-                        
-                    }
-                )
-            } else if importedPdfAttachment == nil {
-                blueprintPreviewContainerView.alpha = 0.0
-                blueprintActivityIndicatorView.stopAnimating()
-                showDropbox()
-                importInstructionsContainerView?.alpha = 1.0
-                reloadingBlueprint = false
-            }
-        }
-    }
+//    private func loadBlueprint(force: Bool = false) {
+//        if !reloadingBlueprint {
+//            if let image = blueprintImageForBlueprintViewController(blueprintViewController) {
+//                setBlueprintImage(image)
+//            } else if let blueprintImageUrl = job.blueprintImageUrl {
+//                reloadingBlueprint = true
+//                importStatus = nil
+//
+//                blueprintActivityIndicatorView.startAnimating()
+//                blueprintPreviewContainerView.alpha = 1.0
+//
+//                ApiService.sharedService().fetchImage(blueprintImageUrl,
+//                    onImageFetched: { statusCode, image  in
+//                        self.setBlueprintImage(image)
+//                        self.blueprintViewController?.blueprintViewControllerDelegate = self
+//                    },
+//                    onError: { error, statusCode, responseString in
+//                        
+//                    }
+//                )
+//            } else if importedPdfAttachment == nil {
+//                blueprintPreviewContainerView.alpha = 0.0
+//                blueprintActivityIndicatorView.stopAnimating()
+//                showDropbox()
+//                importInstructionsContainerView?.alpha = 1.0
+//                reloadingBlueprint = false
+//            }
+//        }
+//    }
 
     func setBlueprintImage(image: UIImage) {
         blueprintPreviewImageView.image = image
@@ -427,58 +434,22 @@ class JobBlueprintsViewController: ViewController,
         blueprintActivityIndicatorView.stopAnimating()
         hideDropbox()
 
-        blueprintViewController!.blueprintViewControllerDelegate = self
+        //blueprintViewController!.blueprintViewControllerDelegate = self
         reloadingBlueprint = false
     }
 
-    // MARK: BlueprintViewControllerDelegate
+    // MARK: BlueprintsPageViewControllerDelegate
 
-    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+    func jobForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Job! {
         return job
     }
 
-    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
-        return job == nil || !job.isPunchlist ? .Setup : .WorkOrders
-    }
-
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
-        if let image = blueprintPreviewImageView?.image {
-            return image
+    func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment] {
+        var blueprints = [Attachment]()
+        if let job = job {
+            blueprints = job.blueprints
         }
-        return nil
-    }
-
-    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
-        delegate?.jobBlueprintsViewController(self, didSetScaleForBlueprintViewController: viewController)
-    }
-
-    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        if job.isCommercial {
-            return shouldLoadBlueprint
-        } else if job.isResidential || job.isPunchlist {
-            return false
-        }
-        return true
-    }
-
-    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        return job == nil ? false : !job.isPunchlist
-    }
-
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
-        return navigationController
-    }
-
-    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
-        return nil
-    }
-
-    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        return false
-    }
-
-    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
-        return job == nil ? false : job.isPunchlist
+        return blueprints
     }
 
     // MARK: EstimatesViewControllerDelegate

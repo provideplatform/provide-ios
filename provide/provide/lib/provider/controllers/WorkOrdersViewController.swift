@@ -777,6 +777,10 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     // MARK: BlueprintViewControllerDelegate
 
+    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
+        return jobForBlueprintViewController(viewController)?.blueprint
+    }
+
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let job = workOrder.job {
