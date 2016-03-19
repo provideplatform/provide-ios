@@ -387,7 +387,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     self!.loadAnnotations()
                 },
                 onDownloadFailure: { error in
-                    print("download failed \(error)")
+                    logWarn("Blueprint image download failed; \(error)")
                 },
                 onDownloadProgress: { [weak self] receivedSize, expectedSize in
                     if expectedSize != -1 {
@@ -413,7 +413,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         progressView?.hidden = true
 
-        //thumbnailView?.blueprintImage = image
+        thumbnailView?.blueprintImage = image
 
         scrollView.scrollEnabled = false
         scrollView.contentSize = size

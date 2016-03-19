@@ -212,6 +212,20 @@ class Job: Model {
         return false
     }
 
+    var blueprintImages: [Attachment] {
+        var blueprints = [Attachment]()
+        if let attachments = self.blueprints {
+            if attachments.count > 0 {
+                for blueprint in attachments {
+                    if blueprint.mimeType == "image/png" {
+                        blueprints.append(blueprint)
+                    }
+                }
+            }
+        }
+        return blueprints
+    }
+
     weak var blueprint: Attachment! {
         if let blueprints = blueprints {
             if blueprints.count > 0 {

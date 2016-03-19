@@ -447,7 +447,7 @@ class JobBlueprintsViewController: ViewController,
     func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment] {
         var blueprints = [Attachment]()
         if let job = job {
-            blueprints = job.blueprints
+            blueprints = job.blueprintImages
         }
         return blueprints
     }
