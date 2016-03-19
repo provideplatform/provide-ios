@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BlueprintPinViewDelegate: NSObjectProtocol {
-    func blueprintImageViewForBlueprintPinView(view: BlueprintPinView) -> UIImageView!
+    func categoryForBlueprintPinView(view: BlueprintPinView) -> Category!
     func blueprintPinViewWasSelected(view: BlueprintPinView)
 
 //    func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
@@ -24,12 +24,46 @@ protocol BlueprintPinViewDelegate: NSObjectProtocol {
 
 class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
-    var annotation: Annotation!
+    var annotation: Annotation! {
+        didSet {
+            if let annotation = annotation {
+                if let workOrder = annotation.workOrder {
+                    if let category = workOrder.category {
+                        self.category = category
+                    }
+                }
+            }
+        }
+    }
+
+    var category: Category! {
+        didSet {
+            if let category = category {
+                if let iconImageUrl = category.iconImageUrl {
+                    ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .ContinueInBackground,
+                        onDownloadSuccess: { image in
+                            print("TODO: embed category icon in pin view \(image)")
+                        },
+                        onDownloadFailure: { error in
+
+                        },
+                        onDownloadProgress: { receivedSize, expectedSize in
+
+                        }
+                    )
+                } else if let abbreviation = category.abbreviation {
+                    renderAbbreviation(abbreviation)
+                }
+            }
+        }
+    }
 
     weak var delegate: BlueprintPinViewDelegate! {
         didSet {
-            if let _ = delegate {
-
+            if let delegate = delegate {
+                if let category = delegate.categoryForBlueprintPinView(self) {
+                    self.category = category
+                }
             }
         }
     }
@@ -39,14 +73,6 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
     private var gestureRecognizer: UITapGestureRecognizer!
 
     private var timer: NSTimer!
-
-    private var blueprintImageView: UIImageView! {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintPinView(self) {
-            return blueprintImageView
-        } else {
-            return nil
-        }
-    }
 
     private var targetView: UIView! {
         if let superview = self.superview {
@@ -114,13 +140,26 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
     }
 
     func pinSelected(gestureRecognizer: UITapGestureRecognizer) {
-        if let _ = blueprintImageView {
-            delegate?.blueprintPinViewWasSelected(self)
-        }
+        delegate?.blueprintPinViewWasSelected(self)
     }
 
     func redraw() {
         reset()
         attachGestureRecognizer()
+    }
+
+    private func renderAbbreviation(abbreviation: String) {
+        let abbreviationLabel = UILabel()
+        abbreviationLabel.backgroundColor = UIColor.clearColor() //Color.annotationViewBackgroundImageColor().colorWithAlphaComponent(0.8)
+        abbreviationLabel.textColor = UIColor.whiteColor()
+        abbreviationLabel.text = abbreviation
+        abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 32.0)!
+        abbreviationLabel.sizeToFit()
+        abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image!.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 20.0)
+        //abbreviationLabel.layer.cornerRadius = abbreviationLabel.frame.width / 2
+        abbreviationLabel.alpha = 1.0
+
+        addSubview(abbreviationLabel)
+        bringSubviewToFront(abbreviationLabel)
     }
 }

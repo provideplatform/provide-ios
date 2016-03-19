@@ -615,6 +615,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 let annotationWorkOrder = annotation.workOrderId > 0 ? annotation.workOrder : nil
                 if annotation.point != nil {
                     let pinView = BlueprintPinView(delegate: self, annotation: annotation)
+                    pinView.category = annotation.workOrder?.category
                     pinView.frame = CGRect(x: annotation.point[0],
                                            y: annotation.point[1],
                                            width: pinView.bounds.width,
@@ -983,6 +984,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     // MARK: BlueprintPinViewDelegate
+
+    func categoryForBlueprintPinView(view: BlueprintPinView) -> Category! {
+        let category = Category()
+        category.abbreviation = "ABC"
+        return category
+    }
 
     func blueprintImageViewForBlueprintPinView(view: BlueprintPinView) -> UIImageView! {
         if let index = pinViews.indexOfObject(view) {
