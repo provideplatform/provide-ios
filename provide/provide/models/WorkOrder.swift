@@ -11,6 +11,8 @@ import Foundation
 class WorkOrder: Model {
 
     var id = 0
+    var categoryId = 0
+    var category: Category!
     var companyId = 0
     var company: Company!
     var customerId = 0
@@ -48,6 +50,7 @@ class WorkOrder: Model {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
+            "category_id": "categoryId",
             "company_id": "companyId",
             "customer_id": "customerId",
             "job_id": "jobId",
@@ -67,6 +70,7 @@ class WorkOrder: Model {
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
             ])
+        mapping.addRelationshipMappingWithSourceKeyPath("category", mapping: Category.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
