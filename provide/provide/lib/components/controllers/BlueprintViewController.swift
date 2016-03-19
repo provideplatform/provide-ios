@@ -381,6 +381,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
                 onDownloadSuccess: { [weak self] image in
                     dispatch_async_main_queue {
+                        self!.progressView?.setProgress(1.0, animated: false)
                         self!.setBlueprintImage(image)
                     }
 
@@ -392,6 +393,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 onDownloadProgress: { [weak self] receivedSize, expectedSize in
                     if expectedSize != -1 {
                         dispatch_async_main_queue {
+                            self!.progressView?.hidden = false
+
                             let percentage: Float = Float(receivedSize) / Float(expectedSize)
                             self!.progressView?.setProgress(percentage, animated: true)
                         }
@@ -410,8 +413,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         imageView!.image = image
         imageView!.frame = CGRect(origin: CGPointZero, size: size)
-
-        progressView?.hidden = true
 
         thumbnailView?.blueprintImage = image
 
@@ -436,6 +437,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 imageView.addGestureRecognizer(gestureRecognizer)
             }
         }
+
+        self.progressView?.hidden = true
     }
 
     func dropPin(gestureRecognizer: UIGestureRecognizer) {
