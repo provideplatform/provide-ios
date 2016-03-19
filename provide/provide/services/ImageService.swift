@@ -16,12 +16,17 @@ class ImageService {
 
     private static let sharedInstance = ImageService()
 
+    private var cache: SDImageCache!
+
     class func sharedService() -> ImageService {
         return sharedInstance
     }
 
+    required init() {
+        cache = SDImageCache.sharedImageCache()
+    }
+
     func clearCache() {
-        let cache = SDImageCache.sharedImageCache()
         cache.clearMemory()
         cache.clearDisk()
         cache.cleanDisk()
@@ -33,8 +38,6 @@ class ImageService {
                     onDownloadFailure: OnImageDownloadFailure!,
                     onDownloadProgress: OnDownloadProgress!)
     {
-        let cache = SDImageCache.sharedImageCache()
-
         let urlComponents = NSURLComponents()
         urlComponents.scheme = url.scheme
         urlComponents.host = url.host
@@ -42,34 +45,38 @@ class ImageService {
 
         if let cacheUrl = urlComponents.URL {
             let cacheKey = cacheUrl.absoluteString
-            cache.queryDiskCacheForKey(cacheKey,
-                done: { image, cacheType in
-                    if image != nil {
-                        onDownloadSuccess(image: image)
-                    } else {
-                        cache.removeImageForKey(cacheKey)
 
-                        let downloader = SDWebImageDownloader.sharedDownloader()
-                        downloader.downloadImageWithURL(url, options: .ContinueInBackground,
-                            progress: { receivedSize, expectedSize in
-                                if let onDownloadProgress = onDownloadProgress {
-                                    onDownloadProgress(receivedSize: receivedSize, expectedSize: expectedSize)
-                                }
-                            },
-                            completed: { image, data, error, finished in
-                                if image != nil && finished {
-                                    cache.storeImage(image, forKey: cacheKey, toDisk: cacheOnDisk)
-                                    onDownloadSuccess(image: image)
-                                } else if error != nil {
-                                    if let onDownloadFailure = onDownloadFailure {
-                                        onDownloadFailure(error: error)
+            if let image = cache.imageFromMemoryCacheForKey(cacheKey) {
+                 onDownloadSuccess(image: image)
+            } else {
+                cache.queryDiskCacheForKey(cacheKey,
+                    done: { image, cacheType in
+                        if image != nil {
+                            onDownloadSuccess(image: image)
+                        } else {
+                            let downloader = SDWebImageDownloader.sharedDownloader()
+                            downloader.downloadImageWithURL(url, options: .ContinueInBackground,
+                                progress: { receivedSize, expectedSize in
+                                    if let onDownloadProgress = onDownloadProgress {
+                                        onDownloadProgress(receivedSize: receivedSize, expectedSize: expectedSize)
+                                    }
+                                },
+                                completed: { image, data, error, finished in
+                                    if image != nil && finished {
+
+                                        self.cache.storeImage(image, forKey: cacheKey)
+                                        onDownloadSuccess(image: image)
+                                    } else if error != nil {
+                                        if let onDownloadFailure = onDownloadFailure {
+                                            onDownloadFailure(error: error)
+                                        }
                                     }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
