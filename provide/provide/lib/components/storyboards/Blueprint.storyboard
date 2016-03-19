@@ -127,8 +127,23 @@
                             </activityIndicatorView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
                                 <rect key="frame" x="225" y="285" width="150" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" id="WrP-PU-mMX">
+                                        <variation key="heightClass=regular-widthClass=compact" constant="150"/>
+                                    </constraint>
+                                </constraints>
                                 <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="WrP-PU-mMX"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="WrP-PU-mMX"/>
+                                    </mask>
+                                </variation>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -138,11 +153,16 @@
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerY" secondItem="vsP-WQ-g9V" secondAttribute="centerY" id="5wj-bR-7wb"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="8fg-2O-zv7"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
+                            <constraint firstAttribute="trailing" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="175" id="DUs-DK-Cxk">
+                                <variation key="heightClass=regular-widthClass=compact" constant="125"/>
+                            </constraint>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="MUj-kM-Bct"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="270" id="RDi-mQ-S9b"/>
-                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="bUJ-fH-EIv"/>
+                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="bUJ-fH-EIv">
+                                <variation key="heightClass=regular-widthClass=compact" constant="-88"/>
+                            </constraint>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="270" id="gC5-Fo-9eV"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="gJI-FF-5LS"/>
@@ -154,6 +174,20 @@
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="205" id="skV-Gd-PEJ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="DUs-DK-Cxk"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="RDi-mQ-S9b"/>
+                                <exclude reference="gC5-Fo-9eV"/>
+                                <include reference="DUs-DK-Cxk"/>
+                                <exclude reference="FqT-en-55N"/>
+                                <exclude reference="skV-Gd-PEJ"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
