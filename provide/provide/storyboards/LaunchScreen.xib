@@ -35,6 +35,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="map-pin" width="100" height="100"/>
+        <image name="map-pin" width="100" height="119"/>
     </resources>
 </document>
