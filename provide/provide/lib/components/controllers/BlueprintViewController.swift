@@ -187,6 +187,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if !loadingBlueprint && !loadingAnnotations {
                 activityIndicatorView.stopAnimating()
             } else if !activityIndicatorView.isAnimating() {
+                if loadingBlueprint == true && oldValue == false {
+                    progressView?.setProgress(0.0, animated: false)
+                }
                 activityIndicatorView.startAnimating()
             }
         }
@@ -196,6 +199,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         didSet {
             if !loadingBlueprint && !loadingAnnotations {
                 activityIndicatorView.stopAnimating()
+                progressView?.hidden = true
             } else if !activityIndicatorView.isAnimating() {
                 activityIndicatorView.startAnimating()
             }
@@ -206,6 +210,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         didSet {
             if !loadingBlueprint && !loadingAnnotations && !loadingMaterials {
                 activityIndicatorView.stopAnimating()
+                progressView?.hidden = true
             } else if !activityIndicatorView.isAnimating() {
                 activityIndicatorView.startAnimating()
             }
@@ -377,7 +382,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 onDownloadSuccess: { [weak self] image in
                     dispatch_async_main_queue {
                         self!.setBlueprintImage(image)
-                        self!.progressView?.hidden = true
                     }
 
                     self!.loadAnnotations()
@@ -398,16 +402,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func setBlueprintImage(image: UIImage) {
-        if let _ = imageView.image {
-            return
-        }
+//        if let _ = imageView.image {
+//            return
+//        }
 
         let size = CGSize(width: image.size.width, height: image.size.height)
 
         imageView!.image = image
         imageView!.frame = CGRect(origin: CGPointZero, size: size)
 
-        thumbnailView?.blueprintImage = image
+        progressView?.hidden = true
+
+        //thumbnailView?.blueprintImage = image
 
         scrollView.scrollEnabled = false
         scrollView.contentSize = size
