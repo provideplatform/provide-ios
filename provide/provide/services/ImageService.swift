@@ -34,6 +34,7 @@ class ImageService {
 
     func fetchImage(url: NSURL,
                     cacheOnDisk: Bool = false,
+                    downloadOptions: SDWebImageDownloaderOptions = .ContinueInBackground,
                     onDownloadSuccess: OnImageDownloadSuccess,
                     onDownloadFailure: OnImageDownloadFailure!,
                     onDownloadProgress: OnDownloadProgress!)
@@ -55,7 +56,8 @@ class ImageService {
                             onDownloadSuccess(image: image)
                         } else {
                             let downloader = SDWebImageDownloader.sharedDownloader()
-                            downloader.downloadImageWithURL(url, options: .ContinueInBackground,
+                            downloader.shouldDecompressImages = false
+                            downloader.downloadImageWithURL(url, options: downloadOptions,
                                 progress: { receivedSize, expectedSize in
                                     if let onDownloadProgress = onDownloadProgress {
                                         onDownloadProgress(receivedSize: receivedSize, expectedSize: expectedSize)
@@ -63,8 +65,10 @@ class ImageService {
                                 },
                                 completed: { image, data, error, finished in
                                     if image != nil && finished {
-
-                                        self.cache.storeImage(image, forKey: cacheKey)
+                                        dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+                                            self.cache.storeImage(image, forKey: cacheKey)
+                                        }
+                                        
                                         onDownloadSuccess(image: image)
                                     } else if error != nil {
                                         if let onDownloadFailure = onDownloadFailure {
