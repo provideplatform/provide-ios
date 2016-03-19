@@ -439,6 +439,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
 
         self.progressView?.hidden = true
+
+        if let _ = presentedViewController {
+            dismissViewController(animated: true)
+        }
+        if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            openWorkOrder(inProgressWorkOrder)
+        }
     }
 
     func dropPin(gestureRecognizer: UIGestureRecognizer) {
@@ -1006,29 +1013,48 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintPinViewWasSelected(view: BlueprintPinView) {
         selectedPinView = view
 
-        print("\(view)")
-
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-                createWorkOrderViewController.workOrder = workOrder
-                createWorkOrderViewController.delegate = self
-                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
-
-                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
-                navigationController.modalPresentationStyle = .Popover
-
-                let popover = navigationController.popoverPresentationController!
-                popover.delegate = self
-                popover.sourceView = imageView
-                popover.sourceRect = view.frame
-                popover.canOverlapSourceViewRect = true
-                popover.permittedArrowDirections = [.Left, .Right]
-                popover.passthroughViews = [view]
-
-                presentViewController(navigationController, animated: true)
+                openWorkOrder(workOrder)
+//                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
+//                createWorkOrderViewController.workOrder = workOrder
+//                createWorkOrderViewController.delegate = self
+//                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
+//
+//                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
+//                navigationController.modalPresentationStyle = .Popover
+//
+//                let popover = navigationController.popoverPresentationController!
+//                popover.delegate = self
+//                popover.sourceView = imageView
+//                popover.sourceRect = view.frame
+//                popover.canOverlapSourceViewRect = true
+//                popover.permittedArrowDirections = [.Left, .Right]
+//                popover.passthroughViews = [view]
+//
+//                presentViewController(navigationController, animated: true)
             }
         }
+    }
+
+    private func openWorkOrder(workOrder: WorkOrder) {
+        let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
+        createWorkOrderViewController.workOrder = workOrder
+        createWorkOrderViewController.delegate = self
+        createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
+
+        let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
+        navigationController.modalPresentationStyle = .Popover
+
+        let popover = navigationController.popoverPresentationController!
+        popover.delegate = self
+        popover.sourceView = imageView
+        popover.sourceRect = view.frame
+        popover.canOverlapSourceViewRect = true
+        popover.permittedArrowDirections = [.Left, .Right]
+        popover.passthroughViews = [view]
+
+        presentViewController(navigationController, animated: true)
     }
 
     // MARK: BlueprintPolygonViewDelegate
