@@ -115,4 +115,8 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
     func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
         return job == nil ? false : job.isPunchlist
     }
+
+    deinit {
+        print("deinit page view controller")
+    }
 }
