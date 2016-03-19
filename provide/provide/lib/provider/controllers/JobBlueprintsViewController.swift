@@ -89,12 +89,12 @@ class JobBlueprintsViewController: ViewController,
                 importInstructionsContainerView.alpha = 0.0
 
                 blueprintActivityIndicatorView.startAnimating()
-                blueprintPreviewStatusLabel.text = importStatus
-                blueprintPreviewStatusLabel.alpha = 1.0
-                blueprintPreviewContainerView.bringSubviewToFront(blueprintPreviewStatusLabel)
-                blueprintPreviewContainerView.alpha = 1.0
+                blueprintPreviewStatusLabel?.text = importStatus
+                blueprintPreviewStatusLabel?.alpha = 1.0
+                blueprintPreviewContainerView?.bringSubviewToFront(blueprintPreviewStatusLabel)
+                blueprintPreviewContainerView?.alpha = 1.0
             } else {
-                blueprintPreviewStatusLabel.text = ""
+                blueprintPreviewStatusLabel?.text = ""
             }
         }
     }
@@ -437,8 +437,8 @@ class JobBlueprintsViewController: ViewController,
         blueprintPreviewImageView.image = image
         blueprintPreviewImageView.alpha = 1.0
 
-        blueprintPreviewStatusLabel.alpha = 0.0
-        blueprintPreviewStatusLabel.text = ""
+        blueprintPreviewStatusLabel?.alpha = 0.0
+        blueprintPreviewStatusLabel?.text = ""
 
         blueprintActivityIndicatorView.stopAnimating()
         hideDropbox()
