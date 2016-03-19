@@ -265,11 +265,11 @@ class JobBlueprintsViewController: ViewController,
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
             //blueprintViewController.blueprintViewControllerDelegate = self
         } else if segue.identifier! == "EstimatesViewControllerEmbedSegue" {
-            estimatesViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! EstimatesViewController
-            estimatesViewController.delegate = self
+//            estimatesViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! EstimatesViewController
+//            estimatesViewController.delegate = self
         } else if segue.identifier! == "FloorplansViewControllerEmbedSegue" {
-            floorplansViewController = segue.destinationViewController as! FloorplansViewController
-            floorplansViewController.delegate = self
+//            floorplansViewController = segue.destinationViewController as! FloorplansViewController
+//            floorplansViewController.delegate = self
         }
     }
 
