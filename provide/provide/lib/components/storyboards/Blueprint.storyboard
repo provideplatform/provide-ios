@@ -125,21 +125,30 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">
                                 <rect key="frame" x="291" y="257" width="20" height="20"/>
                             </activityIndicatorView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
+                                <rect key="frame" x="225" y="285" width="150" height="2"/>
+                                <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="-20" id="039-44-aWl"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="width" secondItem="vsP-WQ-g9V" secondAttribute="width" id="5wJ-DJ-dbu"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
+                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="HYt-68-Mwn" secondAttribute="centerX" constant="1" id="I5E-q1-sL8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="MUj-kM-Bct"/>
+                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="top" constant="28" id="VpD-f7-TzN"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
+                            <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="-84" id="fmM-1J-ORX"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="gJI-FF-5LS"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="mk0-Dg-es5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="205" id="skV-Gd-PEJ"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" constant="1" id="x2V-2a-s9R"/>
                         </constraints>
                     </view>
@@ -148,6 +157,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
                         <outlet property="polygonView" destination="abb-Tj-uxb" id="CZx-9o-VWf"/>
+                        <outlet property="progressView" destination="kd1-tJ-VKm" id="P2R-ox-JNt"/>
                         <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                         <outlet property="toolbar" destination="xRM-F2-amm" id="ppx-Z1-rkd"/>

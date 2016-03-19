@@ -67,6 +67,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var imageView: UIImageView!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var progressView: UIProgressView! {
+        didSet {
+            if let progressView = progressView {
+                progressView.setProgress(0.0, animated: false)
+            }
+        }
+    }
 
     @IBOutlet private weak var scrollView: BlueprintScrollView!
 
@@ -98,7 +105,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var selectedPolygonView: BlueprintPolygonView!
 
     var blueprint: Attachment! {
-        if let job = job {
+        if let blueprint = blueprintViewControllerDelegate?.blueprintForBlueprintViewController(self) {
+            return blueprint
+        } else if let job = job {
             return job.blueprint
         } else if let estimate = estimate {
             return estimate.blueprint
@@ -366,15 +375,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
                 onDownloadSuccess: { [weak self] image in
-                    self!.setBlueprintImage(image)
+                    dispatch_async_main_queue {
+                        self!.setBlueprintImage(image)
+                        self!.progressView?.hidden = true
+                    }
+
                     self!.loadAnnotations()
                 },
                 onDownloadFailure: { error in
-
+                    print("download failed \(error)")
                 },
-                onDownloadProgress: { receivedSize, expectedSize in
-                    let percentage = CGFloat(receivedSize / expectedSize)
-                    print("completed \(percentage)%")
+                onDownloadProgress: { [weak self] receivedSize, expectedSize in
+                    if expectedSize != -1 {
+                        dispatch_async_main_queue {
+                            let percentage: Float = Float(receivedSize) / Float(expectedSize)
+                            self!.progressView?.setProgress(percentage, animated: true)
+                        }
+                    }
                 }
             )
         }
