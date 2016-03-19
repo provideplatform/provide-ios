@@ -51,7 +51,6 @@ class JobCreationViewController: UITableViewController,
 
     @IBOutlet private weak var searchBar: UISearchBar!
 
-    @IBOutlet private weak var typeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var nameTextField: UITextField!
 
     @IBOutlet private weak var createButton: UIButton!
@@ -75,8 +74,6 @@ class JobCreationViewController: UITableViewController,
         title = "CREATE JOB"
 
         searchBar?.placeholder = ""
-
-        typeSegmentedControl.addTarget(self, action: "typeChanged:", forControlEvents: .ValueChanged)
 
         createButton.addTarget(self, action: "createJob:", forControlEvents: .TouchUpInside)
 
@@ -117,7 +114,8 @@ class JobCreationViewController: UITableViewController,
 
     private func createJob() {
         let job = Job()
-        job.type = typeSegmentedControl.selectedSegmentIndex == 0 ? "commercial" : (typeSegmentedControl.selectedSegmentIndex == 1 ? "residential" : (typeSegmentedControl.selectedSegmentIndex == 2 ? "punchlist" : nil))
+        job.type = "punchlist"
+
         if let customer = customer {
             job.customerId = customer.id
             job.companyId = customer.companyId
@@ -168,17 +166,7 @@ class JobCreationViewController: UITableViewController,
         if section == 0 {
             return "CUSTOMER"
         } else if section == 1 {
-            return "TYPE"
-        } else if section == 2 {
             return "NAME"
-        }
-
-        if typeSegmentedControl.selectedSegmentIndex == 0 {
-            if section == 3 {
-                return "QUOTED PRICE PER SQ FT"
-            } else if section == 4 {
-                return "TOTAL SQ FT"
-            }
         }
 
         return nil
@@ -192,17 +180,7 @@ class JobCreationViewController: UITableViewController,
         if indexPath.section == 0 {
             return customerTableViewCell
         } else if indexPath.section == 1 {
-            return typeTableViewCell
-        } else if indexPath.section == 2 {
-            return nameTableViewCell
-        }
-
-        if typeSegmentedControl.selectedSegmentIndex == 0 {
-            if indexPath.section == 3 {
-                return quotedPricePerSqFtTableViewCell
-            } else if indexPath.section == 4 {
-                return totalSqFtTableViewCell
-            }
+            return  nameTableViewCell
         }
 
         if let cell = tableView.cellForRowAtIndexPath(indexPath) {
@@ -213,7 +191,7 @@ class JobCreationViewController: UITableViewController,
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
 
     // MARK: UISearchBarDelegate

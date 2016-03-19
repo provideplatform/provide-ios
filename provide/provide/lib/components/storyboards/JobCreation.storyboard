@@ -63,41 +63,19 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Type" id="hKe-of-6eX">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="CFa-bv-H7N">
-                                        <rect key="frame" x="0.0" y="251.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CFa-bv-H7N" id="klS-ri-k6T">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="WuX-tZ-4fJ">
-                                                    <rect key="frame" x="8" y="8" width="297" height="29"/>
-                                                    <segments>
-                                                        <segment title="Commercial"/>
-                                                        <segment title="Residential"/>
-                                                        <segment title="Punchlist"/>
-                                                    </segments>
-                                                </segmentedControl>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Name" id="7dc-Sf-zIj">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="oco-Zf-jiw">
-                                        <rect key="frame" x="0.0" y="328.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="251.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oco-Zf-jiw" id="een-28-8qZ">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GkG-IJ-Ybz">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="GkG-IJ-Ybz">
                                                     <rect key="frame" x="8" y="7" width="584" height="30"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" keyboardType="namePhonePad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="dNb-js-DXL" id="XbV-yC-g5N"/>
                                                     </connections>
@@ -110,7 +88,7 @@
                             <tableViewSection id="1cW-8Y-0Us">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lLD-6o-PDC">
-                                        <rect key="frame" x="0.0" y="388.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="311.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lLD-6o-PDC" id="uY1-kY-8yD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -160,8 +138,6 @@
                         <outlet property="nameTableViewCell" destination="oco-Zf-jiw" id="Emg-re-YdR"/>
                         <outlet property="nameTextField" destination="GkG-IJ-Ybz" id="dQj-dV-4Re"/>
                         <outlet property="searchBar" destination="tMf-bH-FGZ" id="le4-Ah-dEo"/>
-                        <outlet property="typeSegmentedControl" destination="WuX-tZ-4fJ" id="4nK-6K-r9S"/>
-                        <outlet property="typeTableViewCell" destination="CFa-bv-H7N" id="IUp-xs-vtG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0lO-KB-rML" userLabel="First Responder" sceneMemberID="firstResponder"/>
