@@ -14,8 +14,6 @@ typealias OnImageDownloadFailure = (error: NSError) -> ()
 
 class ImageService {
 
-    private let defaultImageCacheNamespace = "images"
-
     private static let sharedInstance = ImageService()
 
     class func sharedService() -> ImageService {
@@ -23,7 +21,7 @@ class ImageService {
     }
 
     func clearCache() {
-        let cache = SDImageCache(namespace: defaultImageCacheNamespace)
+        let cache = SDImageCache.sharedImageCache()
         cache.clearMemory()
         cache.clearDisk()
         cache.cleanDisk()
@@ -35,7 +33,7 @@ class ImageService {
                     onDownloadFailure: OnImageDownloadFailure!,
                     onDownloadProgress: OnDownloadProgress!)
     {
-        let cache = SDImageCache(namespace: defaultImageCacheNamespace)
+        let cache = SDImageCache.sharedImageCache()
 
         let urlComponents = NSURLComponents()
         urlComponents.scheme = url.scheme
@@ -49,9 +47,16 @@ class ImageService {
                     if image != nil {
                         onDownloadSuccess(image: image)
                     } else {
-                        let manager = SDWebImageManager.sharedManager()
-                        manager.downloadImageWithURL(url, options: .RetryFailed, progress: onDownloadProgress,
-                            completed: { image, error, cacheType, finished, imageUrl in
+                        cache.removeImageForKey(cacheKey)
+
+                        let downloader = SDWebImageDownloader.sharedDownloader()
+                        downloader.downloadImageWithURL(url, options: .ContinueInBackground,
+                            progress: { receivedSize, expectedSize in
+                                if let onDownloadProgress = onDownloadProgress {
+                                    onDownloadProgress(receivedSize: receivedSize, expectedSize: expectedSize)
+                                }
+                            },
+                            completed: { image, data, error, finished in
                                 if image != nil && finished {
                                     cache.storeImage(image, forKey: cacheKey, toDisk: cacheOnDisk)
                                     onDownloadSuccess(image: image)
