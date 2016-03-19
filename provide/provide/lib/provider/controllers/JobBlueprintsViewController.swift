@@ -49,6 +49,7 @@ class JobBlueprintsViewController: ViewController,
 
     @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
 
+    @IBOutlet private weak var blueprintPagesContainerView: UIView!
     @IBOutlet private weak var estimatesContainerView: UIView!
     @IBOutlet private weak var floorplansContainerView: UIView!
 
@@ -203,6 +204,7 @@ class JobBlueprintsViewController: ViewController,
 
     func refresh() {
         reloadJob()
+
 //        if job.isCommercial {
 //            navigationItem.title = "SETUP BLUEPRINT"
 //        } else if job.isResidential {
@@ -259,7 +261,6 @@ class JobBlueprintsViewController: ViewController,
 
         if segue.identifier! == "BlueprintsPageViewControllerEmbedSegue" {
             blueprintsPageViewController = segue.destinationViewController as! BlueprintsPageViewController
-            blueprintsPageViewController.setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
             blueprintsPageViewController.blueprintsPageViewControllerDelegate = self
         } else if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
             blueprintViewController = segue.destinationViewController as! BlueprintViewController
@@ -324,6 +325,14 @@ class JobBlueprintsViewController: ViewController,
                         //self.loadBlueprint()
                         self.blueprintsPageViewController.resetViewControllers()
                         self.reloadingJob = false
+
+                        if job.blueprintImages.count == 0 {
+                            self.renderInstruction("Import a blueprint for this job.")
+                            self.showDropbox()
+                        }
+
+                        self.blueprintPagesContainerView?.alpha = 1.0
+                        self.blueprintActivityIndicatorView?.stopAnimating()
                     },
                     onError: { error, statusCode, responseString in
                         self.blueprintsPageViewController.resetViewControllers()

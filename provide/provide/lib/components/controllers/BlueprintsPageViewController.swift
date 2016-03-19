@@ -29,6 +29,12 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
         return blueprintsPageViewControllerDelegate?.jobForBlueprintsPageViewController(self)
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -54,7 +60,7 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
 
         if viewControllers.count > 0 {
             setViewControllers([viewControllers.first!], direction: .Forward, animated: false, completion: { complete in
-                print("set view controllers \(self.blueprintViewControllers)")
+                logInfo("Blueprint page view controller rendered \(viewControllers.first!)")
             })
         }
     }
