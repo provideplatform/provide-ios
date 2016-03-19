@@ -379,6 +379,16 @@ class ApiService: NSObject {
         }
     }
 
+    // MARK: Category API
+
+    func countCategories(params: [String: AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
+        return countTotalResultsForPath("categories", params: params, onTotalResultsCount: onTotalResultsCount)
+    }
+
+    func fetchCategories(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("categories", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Customer API
 
     func countCustomers(params: [String: AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
