@@ -44,7 +44,9 @@ class ImageService {
         urlComponents.host = url.host
         urlComponents.path = url.path
 
-        if let cacheUrl = urlComponents.URL {
+        let cacheUrl: NSURL! = url
+
+        if let cacheUrl = cacheUrl { // urlComponents.URL {
             let cacheKey = cacheUrl.absoluteString
 
             if let image = cache.imageFromMemoryCacheForKey(cacheKey) {
