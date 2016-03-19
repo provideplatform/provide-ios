@@ -62,7 +62,9 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-
+        if let blueprint = blueprintViewControllers[viewController] {
+            return blueprint
+        }
         return nil
     }
 
