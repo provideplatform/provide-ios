@@ -66,9 +66,9 @@ PODS:
   - RFGravatarImageView (1.1):
     - SDWebImage (~> 3.7)
   - RKValueTransformers (1.1.2)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
   - TesseractOCRiOS (4.0.0)
@@ -89,7 +89,7 @@ DEPENDENCIES:
   - Reachability
   - RestKit (= 0.24.1)
   - RFGravatarImageView
-  - SDWebImage (~> 3.7.2)
+  - SDWebImage (~> 3.7.5)
   - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell.git`)
   - TesseractOCRiOS (~> 4.0)
   - UICKeyChainStore
@@ -125,7 +125,7 @@ SPEC CHECKSUMS:
   RestKit: 1987b5efef289c6b27bd980714d6ca48d3871b78
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: 66ac5e4f077fdbe3496e792d89eeff4c3eb67701
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
