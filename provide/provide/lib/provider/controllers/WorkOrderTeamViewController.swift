@@ -397,7 +397,9 @@ class WorkOrderTeamViewController: UITableViewController,
         if let workOrder = workOrder {
             if let queryResultsPickerViewController = queryResultsPickerViewController {
                 if viewController == queryResultsPickerViewController {
-                    return ["company_id": workOrder.companyId, "q": queryString != nil ? queryString : NSNull()]
+                    return ["company_id": workOrder.companyId,
+                            "category_id": workOrder.categoryId != 0 ? workOrder.categoryId : NSNull(),
+                            "q": queryString != nil ? queryString : NSNull()]
                 }
             }
         }

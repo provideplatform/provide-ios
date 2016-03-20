@@ -94,9 +94,9 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        if job.isCommercial {
+        if job != nil && job.isCommercial {
             return true //FIXME shouldLoadBlueprint
-        } else if job.isResidential || job.isPunchlist {
+        } else if job != nil && (job.isResidential || job.isPunchlist) {
             return false
         }
         return true
