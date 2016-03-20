@@ -174,6 +174,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
 
+        reloadTableView()
+
         if workOrder.categoryId == 0 {
             presentCategoryPickerViewController()
         }

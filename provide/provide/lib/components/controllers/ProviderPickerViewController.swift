@@ -136,6 +136,10 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
     }
 
     func reset() {
+        if inFlightRequestOperation != nil {
+            return
+        }
+
         if refreshControl == nil {
             //setupPullToRefresh()
         }
