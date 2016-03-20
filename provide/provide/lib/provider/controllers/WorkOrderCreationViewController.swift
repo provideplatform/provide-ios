@@ -173,6 +173,29 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
+
+        if workOrder.categoryId == 0 {
+            presentCategoryPickerViewController()
+        }
+    }
+
+    private func presentCategoryPickerViewController(animated: Bool = true) {
+        let viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+        (viewController as! CategoryPickerViewController).delegate = self
+        CategoryService.sharedService().fetch(companyId: workOrder.companyId,
+            onCategoriesFetched: { categories in
+                (viewController as! CategoryPickerViewController).categories = categories
+
+                if let selectedCategory = self.workOrder.category {
+                    (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
+                    viewController.navigationItem.hidesBackButton = false
+                } else {
+                    viewController.navigationItem.hidesBackButton = true
+                }
+            }
+        )
+        viewController.navigationItem.hidesBackButton = true
+        navigationController!.pushViewController(viewController, animated: false)
     }
 
     private func refreshTitle() {

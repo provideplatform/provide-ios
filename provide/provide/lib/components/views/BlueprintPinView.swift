@@ -88,12 +88,12 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         return nil
     }
 
-    required init(annotation: Annotation) {
+    required init(annotation: Annotation!) {
         super.init(frame: CGRectZero)
 
         self.annotation = annotation
 
-        if let point = annotation.point {
+        if let point = annotation?.point {
             self.point = CGPoint(x: point[0], y: point[1])
         }
 
