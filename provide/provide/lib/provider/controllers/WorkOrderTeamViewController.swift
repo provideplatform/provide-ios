@@ -397,9 +397,18 @@ class WorkOrderTeamViewController: UITableViewController,
         if let workOrder = workOrder {
             if let queryResultsPickerViewController = queryResultsPickerViewController {
                 if viewController == queryResultsPickerViewController {
-                    return ["company_id": workOrder.companyId,
-                            "category_id": workOrder.categoryId != 0 ? workOrder.categoryId : NSNull(),
-                            "q": queryString != nil ? queryString : NSNull()]
+                    var params: [String : AnyObject] = [
+                        "company_id": workOrder.companyId,
+                    ]
+
+                    if workOrder.categoryId != 0 {
+                        params["category_id"] = workOrder.categoryId
+                    }
+
+                    if let queryString = queryString {
+                        params["q"] = queryString
+                    }
+                    return params
                 }
             }
         }
