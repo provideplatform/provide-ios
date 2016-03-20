@@ -91,12 +91,12 @@ class WorkOrderDetailsViewController: ViewController,
         if let workOrder = workOrder {
             if workOrder.jobId == 0 {
                 dispatch_after_delay(0.0) {
-                    self.headerView.frame.size.width = self.tableView.frame.width
-                    self.headerView.addDropShadow()
-                    self.headerView.workOrder = self.workOrder
+                    self.headerView?.frame.size.width = self.tableView.frame.width
+                    self.headerView?.addDropShadow()
+                    self.headerView?.workOrder = self.workOrder
                 }
             } else {
-                headerView.hidden = true
+                headerView?.hidden = true
             }
         }
 
