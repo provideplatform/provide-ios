@@ -10,7 +10,7 @@ import Foundation
 
 class Category: Model {
 
-    var id: NSNumber!
+    var id = 0
     var name: String!
     var abbreviation: String!
     var iconImageUrlString: String!

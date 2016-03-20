@@ -23,7 +23,7 @@ class WorkOrderDetailsViewController: ViewController,
 
     var workOrder: WorkOrder! {
         didSet {
-            navigationItem.title = title == nil ? workOrder.customer.contact.name : title
+            navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
 
             if workOrder.id > 0 {
                 workOrder.reload(
@@ -75,10 +75,6 @@ class WorkOrderDetailsViewController: ViewController,
                 headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
                 headerTableViewController.workOrder = workOrder
             }
-
-            if workOrder.status == "in_progress" || workOrder.status == "en_route" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
-            }
         }
     }
 
@@ -88,8 +84,6 @@ class WorkOrderDetailsViewController: ViewController,
     @IBOutlet private weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
 
     private var mediaCollectionView: UICollectionView!
-
-    private var timer: NSTimer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -148,37 +142,6 @@ class WorkOrderDetailsViewController: ViewController,
         }
     }
 
-    func refreshInProgress() {
-        if let tableView = tableView {
-            var statusCell: NameValueTableViewCell!
-            var durationCell: NameValueTableViewCell!
-
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
-                statusCell = cell
-
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
-                    animations: {
-                        statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
-
-                        let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
-                        statusCell.backgroundView!.alpha = CGFloat(alpha)
-                    },
-                    completion: { complete in
-
-                    }
-                )
-            }
-
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
-                durationCell = cell
-
-                if let duration = workOrder.humanReadableDuration {
-                    durationCell.setName("DURATION", value: duration)
-                }
-            }
-        }
-    }
-
     // MARK: UITableViewDelegate
 
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -194,13 +157,13 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
 
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 6 : 1
+        return 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -208,45 +171,6 @@ class WorkOrderDetailsViewController: ViewController,
 
         switch indexPath.section {
         case 0:
-            let nameValueCell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
-            nameValueCell.enableEdgeToEdgeDividers()
-
-            switch indexPath.row {
-            case 0:
-                nameValueCell.setName("STATUS", value: workOrder.status)
-                nameValueCell.backgroundView!.backgroundColor = workOrder.statusColor
-            case 1:
-                let scheduledStartAt = workOrder.scheduledStartAtDate == nil ? "--" : workOrder.scheduledStartAtDate.timeString!
-                nameValueCell.setName("SCHEDULED START TIME", value: scheduledStartAt)
-            case 2:
-                let startedAt = workOrder.startedAtDate == nil ? "--" : workOrder.startedAtDate.timeString!
-                nameValueCell.setName("STARTED AT", value: startedAt)
-            case 3:
-                if let endedAt = workOrder.endedAtDate {
-                    nameValueCell.setName("ENDED AT", value: endedAt.timeString!)
-                } else if let abandonedAt = workOrder.abandonedAtDate {
-                    nameValueCell.setName("ABANDONED AT", value: abandonedAt.timeString!)
-                } else if let canceledAt = workOrder.canceledAtDate {
-                    nameValueCell.setName("CANCELED AT", value: canceledAt.timeString!)
-                } else if let _ = workOrder.startedAtDate {
-                    let providers = workOrder.workOrderProviders
-                    if providers.count > 0 {
-                        nameValueCell.setName("OWNER", value: providers.first!.provider.contact.name)
-                    }
-                }
-            case 4:
-                let duration = workOrder.humanReadableDuration == nil ? "--" : workOrder.humanReadableDuration!
-                nameValueCell.setName("DURATION", value: duration)
-            case 5:
-                let inventoryDisposition = workOrder.inventoryDisposition == nil ? "--" : workOrder.inventoryDisposition
-                nameValueCell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: 13.0)
-                nameValueCell.accessoryType = .DisclosureIndicator
-            default:
-                break
-            }
-
-            cell = nameValueCell
-        case 1:
             switch indexPath.row {
             case 0:
                 cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
@@ -350,6 +274,10 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 
+    func workOrderCreationViewControllerForDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
+        return nil
+    }
+
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
 
     }
@@ -370,9 +298,5 @@ class WorkOrderDetailsViewController: ViewController,
 
     func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return "BACK"
-    }
-
-    deinit {
-        timer?.invalidate()
     }
 }

@@ -1628,17 +1628,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: WorkOrderCreationViewControllerDelegate
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 44.0 : 200.0
+        return indexPath.section == 0 ? 200.0 : 44.0
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let isNewRecord = viewController.workOrder == nil || viewController.workOrder.id == 0
-        let isPunchlist = job.isPunchlist
-        return section == 0 ? (isNewRecord ? 3 : (isPunchlist ? 3 : 4)) : 1
+//        let isNewRecord = viewController.workOrder == nil || viewController.workOrder.id == 0
+//        let isPunchlist = job.isPunchlist
+        return 1 //section == 0 ? (isNewRecord ? 2 : (isPunchlist ? 2 : 4)) : 1
     }
 
     func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -1691,12 +1691,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        if indexPath.section > 0 {
-            return nil
-        }
-
         let workOrder = viewController.workOrder
         let polygonView = polygonViewForWorkOrder(workOrder)
+        let pinView = pinViewForWorkOrder(workOrder)
 
         if workOrder.previewImage == nil { // FIXME!!! This has to get moved
             if let blueprintPolygonView = polygonView {
@@ -1720,91 +1717,31 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         }
                     }
                 }
-            }
-        }
+            } else if let pinView = pinView {
+                if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
+                    if let blueprintImageView = imageView {
+                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                        let previewView = UIImageView(image: previewImage)
+                        if let annotation = pinView.annotation {
+                            let pin = BlueprintPinView(annotation: annotation)
+                            previewView.addSubview(pin)
+                            previewView.bringSubviewToFront(pin)
+                            pin.alpha = 1.0
+                            if let sublayers = pin.layer.sublayers {
+                                for sublayer in sublayers {
+                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                }
+                            }
 
-        if workOrder.humanReadableEstimatedSqFt == nil {
-            if let blueprintPolygonView = polygonView {
-                workOrder.estimatedSqFt = Double(blueprintPolygonView.area)
-            }
-        }
-
-        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
-        cell.enableEdgeToEdgeDividers()
-
-        switch indexPath.row {
-        case 0:
-            var scheduledStartTime = "--"
-            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
-                scheduledStartTime = humanReadableScheduledStartTime
-            }
-
-            cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
-            cell.backgroundView!.backgroundColor = workOrder.statusColor
-            cell.accessoryType = .DisclosureIndicator
-        case 1:
-            if let category = workOrder.category {
-                cell.setName("CATEGORY", value: category.name)
-                cell.accessoryType = .DisclosureIndicator
-            } else {
-                cell.setName("CATEGORY", value: "")
-            }
-        case 2:
-            var specificProviders = ""
-            let detailDisplayCount = 3
-            var i = 0
-            for provider in workOrder.providers {
-                if i == detailDisplayCount {
-                    break
+                            workOrder.previewImage = previewView.toImage()
+                        }
+                    }
                 }
-                specificProviders += ", \(provider.contact.name)"
-                i++
             }
-            let matches = Regex.match("^, ", input: specificProviders)
-            if matches.count > 0 {
-                let match = matches[0]
-                let range = Range<String.Index>(start: specificProviders.startIndex.advancedBy(match.range.length), end: specificProviders.endIndex)
-                specificProviders = specificProviders.substringWithRange(range)
-            }
-            var providers = "\(specificProviders)"
-            if workOrder.providers.count > detailDisplayCount {
-                providers += " and \(workOrder.providers.count - detailDisplayCount) other"
-                if workOrder.providers.count - detailDisplayCount > 1 {
-                    providers += "s"
-                }
-            } else if workOrder.providers.count == 0 {
-                providers += "No one"
-            }
-            providers += " assigned"
-            if workOrder.providers.count >= detailDisplayCount {
-                cell.setName("CREW", value: providers, valueFontSize: isIPad() ? 13.0 : 11.0)
-            } else {
-                cell.setName("CREW", value: providers)
-            }
-            cell.accessoryType = .DisclosureIndicator
-        case 3:
-            if let _ = workOrder.materials {
-                let inventoryDisposition = workOrder.inventoryDisposition
-                cell.setName("MATERIALS", value: inventoryDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
-                cell.accessoryType = .DisclosureIndicator
-            } else {
-                cell.setName("MATERIALS", value: "")
-                cell.showActivity(false)
-            }
-        case 4:
-            if let expensesDisposition = workOrder.expensesDisposition {
-                cell.setName("EXPENSES", value: expensesDisposition, valueFontSize: isIPad() ? 13.0 : 11.0)
-                cell.accessoryType = .DisclosureIndicator
-            } else {
-                cell.setName("EXPENSES", value: "")
-                cell.showActivity(false)
-            }
-
-        default:
-            break
         }
 
-        return cell
+        return nil
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {

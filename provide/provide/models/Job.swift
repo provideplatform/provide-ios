@@ -212,12 +212,13 @@ class Job: Model {
         return false
     }
 
-    var blueprintImages: [Attachment] {
+    var blueprintImages: [Attachment] { // FIXME-- returns only 150dpi at this time
         var blueprints = [Attachment]()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    if blueprint.mimeType == "image/png" {
+                    let isAppropriateResolution = blueprint.hasTag("150dpi")
+                    if blueprint.mimeType == "image/png" && isAppropriateResolution {
                         blueprints.append(blueprint)
                     }
                 }

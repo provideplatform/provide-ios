@@ -70,6 +70,13 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var point: CGPoint!
 
+    var overlayViewBoundingBox: CGRect! {
+        if let point = annotation.point {
+            return CGRect(x: point[0], y: point[1], width: 100.0, height: 100.0)
+        }
+        return nil
+    }
+
     private var gestureRecognizer: UITapGestureRecognizer!
 
     private var timer: NSTimer!

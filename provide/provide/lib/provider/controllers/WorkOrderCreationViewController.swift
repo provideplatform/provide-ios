@@ -176,7 +176,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     private func refreshTitle() {
-        navigationItem.title = workOrder.customer.contact.name
+        navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
         navigationItem.titleView = nil
     }
 
@@ -214,8 +214,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        title = "CREATE WORK ORDER"
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
 
@@ -293,6 +291,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
+
+    override func workOrderCreationViewControllerForDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
+        return self
+    }
 
     override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
         let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
@@ -411,7 +413,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func categoryPickerViewController(viewController: CategoryPickerViewController, didSelectCategory category: Category) {
         if workOrder.id == 0 {
             workOrder.category = category
+            workOrder.categoryId = category.id
             reloadTableView()
+
+            if let navigationController = viewController.navigationController {
+                navigationController.popViewControllerAnimated(true)
+            }
         }
     }
 

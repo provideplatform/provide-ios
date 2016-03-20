@@ -181,30 +181,30 @@ class WorkOrderTeamViewController: UITableViewController,
 //                            self!.addingProvider = false
                             cell?.hideActivityIndicator()
 
-                            var workOrderProvider: WorkOrderProvider?
-                            for wop in self!.workOrder.workOrderProviders {
-                                if wop.provider.id == provider.id {
-                                    workOrderProvider = wop
-                                    break
-                                }
-                            }
+//                            var workOrderProvider: WorkOrderProvider?
+//                            for wop in self!.workOrder.workOrderProviders {
+//                                if wop.provider.id == provider.id {
+//                                    workOrderProvider = wop
+//                                    break
+//                                }
+//                            }
 
-                            if flatFee == -1.0 {
-                                if let workOrderProvider = workOrderProvider {
-                                    let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
-                                    workOrderProviderCreationViewController.workOrder = self!.workOrder
-                                    workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
-                                    workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
-                                    workOrderProviderCreationViewController.modalPresentationStyle = .Popover
-                                    workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
-                                    workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
-                                    workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-                                    workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                                    self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
-                                        self!.addingProvider = false
-                                    }
-                                }
-                            }
+//                            if flatFee == -1.0 {
+//                                if let workOrderProvider = workOrderProvider {
+//                                    let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
+//                                    workOrderProviderCreationViewController.workOrder = self!.workOrder
+//                                    workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
+//                                    workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
+//                                    workOrderProviderCreationViewController.modalPresentationStyle = .Popover
+//                                    workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
+//                                    workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
+//                                    workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+//                                    workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
+//                                    self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
+//                                        self!.addingProvider = false
+//                                    }
+//                                }
+//                            }
                         },
                         onError: { (error, statusCode, responseString) -> () in
                             self!.providersPickerViewController?.providers.removeObject(provider)

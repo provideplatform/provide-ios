@@ -9,6 +9,7 @@
 import UIKit
 
 protocol WorkOrderDetailsHeaderTableViewControllerDelegate {
+    func workOrderCreationViewControllerForDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController!
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder)
@@ -31,8 +32,6 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //let cell = tableView.cellForRowAtIndexPath(indexPath)
-
         // no-op
     }
 
@@ -50,6 +49,10 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
     }
 
     // MARK: WorkOrderDetailsHeaderTableViewCellDelegate
+
+    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController! {
+        return workOrderDetailsHeaderTableViewControllerDelegate?.workOrderCreationViewControllerForDetailsHeaderTableViewController(self)
+    }
 
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder) {
         workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldStartWorkOrder: workOrder)

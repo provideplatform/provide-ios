@@ -9,12 +9,13 @@
 import UIKit
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
+    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
 }
 
-class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
+class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate, UITableViewDelegate, UITableViewDataSource {
 
     var workOrderDetailsHeaderTableViewCellDelegate: WorkOrderDetailsHeaderTableViewCellDelegate!
 
@@ -22,29 +23,73 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         didSet {
             if let _ = workOrder {
                 refresh()
+
+                if workOrder.status == "in_progress" || workOrder.status == "en_route" {
+                    if let timer = timer {
+                        timer.invalidate()
+                        self.timer = nil
+                    }
+
+                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
+                }
             }
         }
+    }
+
+    private var timer: NSTimer!
+
+    private var isResponsibleProvider: Bool {
+        let user = currentUser()
+        for provider in workOrder.providers {
+            if provider.userId == user.id {
+                return true
+            }
+        }
+        return false
     }
 
     private var showsCancelButton: Bool {
         if workOrder == nil {
             return false
         }
-        return !showsCompleteButton && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned"
+        let isSupervisor = false
+        return !showsCompleteButton && isSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned"
+    }
+
+    private var showsApproveButton: Bool {
+        if workOrder == nil {
+            return false
+        }
+        return workOrder.status == "pending_completion" && false //workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
+    }
+
+    private var showsRejectButton: Bool {
+        if workOrder == nil {
+            return false
+        }
+        return showsApproveButton
+    }
+
+    private var showsSubmitForApprovalButton: Bool {
+        if workOrder == nil {
+            return false
+        }
+
+        return workOrder.status == "in_progress" && isResponsibleProvider
     }
 
     private var showsCompleteButton: Bool {
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "in_progress"
+        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton //FIXME-- workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
     }
 
     private var showsStartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return showsCancelButton
+        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].indexOfObject(workOrder.status) != nil
     }
 
     @IBOutlet private weak var previewImageView: UIImageView! {
@@ -56,13 +101,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    @IBOutlet private weak var typeLabel: UILabel!
-    @IBOutlet private weak var timestampLabel: UILabel!
-    @IBOutlet private weak var estimatedSqFtLabel: UILabel!
-    @IBOutlet private weak var estimatedCostLabel: UILabel!
-
-    @IBOutlet private weak var estimatedSqFtActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var estimatedCostActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var embeddedTableView: UITableView!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -77,15 +116,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     override func prepareForReuse() {
         super.prepareForReuse()
-
-        typeLabel?.text = ""
-        timestampLabel?.text = ""
-
-        estimatedSqFtLabel?.text = ""
-        //estimatedSqFtActivityIndicatorView?.startAnimating()
-
-        estimatedCostLabel?.text = ""
-        //estimatedCostActivityIndicatorView?.startAnimating()
     }
 
     private func refresh() {
@@ -97,51 +127,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             if let previewImage = workOrder.previewImage {
                 previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
             }
-
-            if let category = workOrder.category {
-                typeLabel?.text = category.name
-            } else {
-                typeLabel?.text = workOrder.desc == nil ? workOrder.humanReadableScheduledStartAtTimestamp : workOrder.desc
-            }
-
-            typeLabel?.sizeToFit()
-
-            if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
-                timestampLabel?.text = humanReadableScheduledStartAtTimestamp
-                timestampLabel?.sizeToFit()
-                timestampLabel?.alpha = 1.0
-            } else {
-                timestampLabel?.text = ""
-                timestampLabel?.alpha = 0.0
-            }
-
-//            if let humanReadableEstimatedSqFt = workOrder.humanReadableEstimatedSqFt {
-//                estimatedSqFtLabel?.text = humanReadableEstimatedSqFt
-//                estimatedSqFtActivityIndicatorView?.stopAnimating()
-//                estimatedSqFtLabel?.hidden = false
-//            }
-//
-//            if let humanReadableEstimatedCost = workOrder.humanReadableEstimatedCost {
-//                estimatedCostLabel?.text = "\(humanReadableEstimatedCost) (estimate)"
-//                estimatedCostActivityIndicatorView?.stopAnimating()
-//                estimatedCostLabel?.hidden = false
-//            } else if workOrder.id == 0 {
-//                estimatedCostActivityIndicatorView?.stopAnimating()
-//            } else {
-//                workOrder.reload(
-//                    onSuccess: { statusCode, mappingResult in
-//                        self.refresh()
-//                    },
-//                    onError: { error, statusCode, responseString in
-//                        self.refresh()
-//                    }
-//                )
-//            }
-
-            typeLabel.sizeToFit()
-            timestampLabel.sizeToFit()
-            estimatedSqFtLabel.sizeToFit()
-            estimatedCostLabel.sizeToFit()
         }
     }
 
@@ -161,8 +146,164 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Cancel")
         }
 
+        if showsSubmitForApprovalButton {
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
+        }
+
+        if showsApproveButton {
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Approve")
+        }
+
+        if showsRejectButton {
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.warningBackground(), title: "Reject")
+        }
+
         setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
         setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 120.0)
+    }
+
+    // MARK: UITableViewDataSource
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+        cell.enableEdgeToEdgeDividers()
+
+        switch indexPath.row {
+        case 0:
+            var scheduledStartTime = "--"
+            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+                scheduledStartTime = humanReadableScheduledStartTime
+            }
+
+            cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
+            cell.backgroundView!.backgroundColor = workOrder.statusColor
+            cell.accessoryType = .DisclosureIndicator
+        case 1:
+            var specificProviders = ""
+            let detailDisplayCount = 3
+            var i = 0
+            for provider in workOrder.providers {
+                if i == detailDisplayCount {
+                    break
+                }
+                specificProviders += ", \(provider.contact.name)"
+                i++
+            }
+            let matches = Regex.match("^, ", input: specificProviders)
+            if matches.count > 0 {
+                let match = matches[0]
+                let range = Range<String.Index>(start: specificProviders.startIndex.advancedBy(match.range.length), end: specificProviders.endIndex)
+                specificProviders = specificProviders.substringWithRange(range)
+            }
+            var providers = "\(specificProviders)"
+            if workOrder.providers.count > detailDisplayCount {
+                providers += " and \(workOrder.providers.count - detailDisplayCount) other"
+                if workOrder.providers.count - detailDisplayCount > 1 {
+                    providers += "s"
+                }
+            } else if workOrder.providers.count == 0 {
+                providers += "No one"
+            }
+            providers += " assigned"
+            if workOrder.providers.count >= detailDisplayCount {
+                cell.setName("CREW", value: providers, valueFontSize: isIPad() ? 12.0 : 10.0)
+            } else {
+                cell.setName("CREW", value: providers)
+            }
+            cell.accessoryType = .DisclosureIndicator
+
+        default:
+            break
+        }
+
+        return cell
+    }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let workOrderCreationViewController = workOrderDetailsHeaderTableViewCellDelegate?.workOrderCreationViewControllerForDetailsHeaderTableViewCell(self) {
+            if let navigationController = workOrderCreationViewController.navigationController {
+                var viewController: UIViewController!
+
+                switch indexPath.row {
+                case 0:
+                    PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
+                    PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+
+                    let calendarViewController = CalendarViewController()
+                    calendarViewController.delegate = workOrderCreationViewController
+                    calendarViewController.weekdayHeaderEnabled = true
+                    calendarViewController.firstDate = NSDate()
+
+                    viewController = calendarViewController
+                case 1:
+                    viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
+                    (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
+                    //            case 3:
+                    //                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
+                    //                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
+                    //            case 4:
+                    //                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
+                    //                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
+                    //                (viewController as! ExpensesViewController).delegate = self
+                case 2:
+                    viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+                    (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
+                    CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
+                        onCategoriesFetched: { categories in
+                            (viewController as! CategoryPickerViewController).categories = categories
+
+                            if let selectedCategory = workOrderCreationViewController.workOrder.category {
+                                (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
+                            }
+                        }
+                    )
+                default:
+                    break
+                }
+                
+                if let vc = viewController {
+                    navigationController.pushViewController(vc, animated: true)
+                }
+            }
+            
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+
+    }
+
+    func refreshInProgress() {
+        if let tableView = embeddedTableView {
+            var statusCell: NameValueTableViewCell!
+            var durationCell: NameValueTableViewCell!
+
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
+                statusCell = cell
+
+                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                    animations: {
+                        statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
+
+                        let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
+                        statusCell.backgroundView!.alpha = CGFloat(alpha)
+                    },
+                    completion: { complete in
+
+                    }
+                )
+            }
+
+            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
+                durationCell = cell
+
+                if let duration = workOrder.humanReadableDuration {
+                    durationCell.setName("DURATION", value: duration)
+                }
+            }
+        }
     }
 
     // MARK: SWTableViewCellDelegate
@@ -201,5 +342,9 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell!) {
         // no-op
+    }
+
+    deinit {
+        timer?.invalidate()
     }
 }

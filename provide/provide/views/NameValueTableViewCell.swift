@@ -14,11 +14,13 @@ class NameValueTableViewCell: UITableViewCell {
     @IBOutlet private weak var valueLabel: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    func setName(name: String, value: String, valueFontSize: CGFloat = 17.0, showActivity: Bool = false) {
+    func setName(name: String, value: String, valueFontSize: CGFloat = 14.0, showActivity: Bool = false) {
         nameLabel?.text = name
+        nameLabel?.sizeToFit()
 
         valueLabel?.text = value
         valueLabel?.font = valueLabel?.font.fontWithSize(valueFontSize)
+        valueLabel?.sizeToFit()
 
         if !showActivity {
             hideActivity()
