@@ -993,9 +993,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: BlueprintPinViewDelegate
 
     func categoryForBlueprintPinView(view: BlueprintPinView) -> Category! {
-        let category = Category()
-        category.abbreviation = "ABC"
-        return category
+        if let annotation = view.annotation {
+            if let workOrder = annotation.workOrder {
+                return workOrder.category
+            }
+        }
+        return nil
     }
 
     func blueprintImageViewForBlueprintPinView(view: BlueprintPinView) -> UIImageView! {
@@ -1016,23 +1019,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
                 openWorkOrder(workOrder)
-//                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-//                createWorkOrderViewController.workOrder = workOrder
-//                createWorkOrderViewController.delegate = self
-//                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
-//
-//                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
-//                navigationController.modalPresentationStyle = .Popover
-//
-//                let popover = navigationController.popoverPresentationController!
-//                popover.delegate = self
-//                popover.sourceView = imageView
-//                popover.sourceRect = view.frame
-//                popover.canOverlapSourceViewRect = true
-//                popover.permittedArrowDirections = [.Left, .Right]
-//                popover.passthroughViews = [view]
-//
-//                presentViewController(navigationController, animated: true)
             }
         }
     }
@@ -1092,6 +1078,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         let previewView = UIImageView(image: previewImage)
                         if let annotation = pinView.annotation {
                             let pin = BlueprintPinView(annotation: annotation)
+                            pin.delegate = self
                             previewView.addSubview(pin)
                             previewView.bringSubviewToFront(pin)
                             pin.alpha = 1.0

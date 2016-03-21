@@ -81,13 +81,6 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     private var timer: NSTimer!
 
-    private var targetView: UIView! {
-        if let superview = self.superview {
-            return superview
-        }
-        return nil
-    }
-
     required init(annotation: Annotation!) {
         super.init(frame: CGRectZero)
 
@@ -120,18 +113,16 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
     }
 
     func attachGestureRecognizer() {
-        if let targetView = targetView {
-            gestureRecognizer = UITapGestureRecognizer(target: self, action: "pinSelected:")
-            targetView.addGestureRecognizer(gestureRecognizer)
-        }
+        userInteractionEnabled = true
+        gestureRecognizer = UITapGestureRecognizer(target: self, action: "pinSelected:")
+        addGestureRecognizer(gestureRecognizer)
     }
 
     private func removeGestureRecognizer() {
-        if let targetView = targetView {
-            if let gestureRecognizer = gestureRecognizer {
-                targetView.removeGestureRecognizer(gestureRecognizer)
-                self.gestureRecognizer = nil
-            }
+        if let gestureRecognizer = gestureRecognizer {
+            removeGestureRecognizer(gestureRecognizer)
+            self.gestureRecognizer = nil
+            userInteractionEnabled = false
         }
     }
 
