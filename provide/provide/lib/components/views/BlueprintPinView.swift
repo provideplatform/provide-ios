@@ -72,7 +72,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var overlayViewBoundingBox: CGRect! {
         if let point = annotation.point {
-            return CGRect(x: point[0], y: point[1], width: 100.0, height: 100.0)
+            return CGRect(x: point[0] - 250.0, y: point[1] - 250.0, width: 500.0, height: 500.0)
         }
         return nil
     }

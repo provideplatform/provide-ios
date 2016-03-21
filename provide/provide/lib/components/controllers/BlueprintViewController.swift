@@ -1018,12 +1018,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                openWorkOrder(workOrder)
+                openWorkOrder(workOrder, fromPinView: view)
             }
         }
     }
 
-    private func openWorkOrder(workOrder: WorkOrder) {
+    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
         setPreviewImageForWorkOrder(workOrder)
 
         let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
@@ -1037,7 +1037,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let popover = navigationController.popoverPresentationController!
         popover.delegate = self
         popover.sourceView = imageView
-        popover.sourceRect = view.frame
+        if let pinView = pinView {
+            popover.sourceRect = pinView.frame
+        }
         popover.canOverlapSourceViewRect = true
         popover.permittedArrowDirections = [.Left, .Right]
         popover.passthroughViews = [view]
