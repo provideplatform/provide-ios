@@ -303,7 +303,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        setZoomLevel()
+        //setZoomLevel()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -480,7 +480,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 scrollView.minimumZoomScale = 0.2
                 scrollView.maximumZoomScale = 1.0
 
-                scrollView.zoomScale = scrollView.minimumZoomScale
+                scrollView.zoomScale = scrollView.maximumZoomScale / 2.0
             }
         }
     }
