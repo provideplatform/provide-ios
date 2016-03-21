@@ -501,12 +501,20 @@ class WorkOrderTeamViewController: UITableViewController,
             queryResultsPickerViewController?.showActivityIndicator()
             tableView.reloadData()
 
-            ApiService.sharedService().countProviders(["company_id": workOrder.companyId],
+            var params: [String : AnyObject] = ["company_id": companyId]
+            if workOrder.categoryId > 0 {
+                params["category_id"] = workOrder.categoryId
+            }
+
+            ApiService.sharedService().countProviders(params,
                 onTotalResultsCount: { totalResultsCount, error in
                     self.totalProvidersCount = totalResultsCount
                     if totalResultsCount > -1 {
                         if totalResultsCount <= self.maximumSearchlessProvidersCount {
-                            ApiService.sharedService().fetchProviders(["company_id": companyId, "page": 1, "rpp": totalResultsCount],
+                            params["page"] = 1
+                            params["rpp"] = totalResultsCount
+
+                            ApiService.sharedService().fetchProviders(params,
                                 onSuccess: { (statusCode, mappingResult) -> () in
                                     self.queryResultsPickerViewController?.providers = mappingResult.array() as! [Provider]
                                     self.tableView.reloadData()
@@ -520,7 +528,11 @@ class WorkOrderTeamViewController: UITableViewController,
                                 }
                             )
                         } else {
-                            self.searchBar.placeholder = "Search \(totalResultsCount) service providers"
+                            var placeholder =  "Search \(totalResultsCount) service providers"
+                            if let category = self.workOrder.category {
+                                placeholder = "Search \(totalResultsCount) \(category.name.lowercaseString) service providers"
+                            }
+                            self.searchBar.placeholder = placeholder
                             self.tableView.reloadData()
                             self.reloadingProvidersCount = false
                         }
