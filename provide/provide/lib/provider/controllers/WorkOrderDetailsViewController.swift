@@ -290,6 +290,18 @@ class WorkOrderDetailsViewController: ViewController,
 
     }
 
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+
+    }
+
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
+
+    }
+
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
+
+    }
+
     // MARK: ManifestViewControllerDelegate
 
     func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {

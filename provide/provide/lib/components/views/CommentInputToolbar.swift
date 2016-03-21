@@ -152,12 +152,10 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == commentInputAccessoryTextField {
-            if let comment = textField.text {
-                if comment.length > 0 {
-                    addComment(nil)
-                    return true
-                }
+        if let comment = textField.text {
+            if comment.length > 0 {
+                addComment(nil)
+                return true
             }
         }
 

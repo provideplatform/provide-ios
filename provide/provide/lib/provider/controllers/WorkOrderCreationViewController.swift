@@ -19,6 +19,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
     func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView!
@@ -407,6 +408,18 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         alertController.addAction(completeAction)
 
         presentViewController(alertController, animated: true)
+    }
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+        self.workOrder.submitForApproval(
+            onSuccess: { statusCode, mappingResult in
+                viewController.tableView.reloadData()
+                self.delegate?.workOrderCreationViewController(self, didSubmitForApprovalWorkOrder: workOrder)
+            },
+            onError: { error, statusCode, responseString in
+                viewController.tableView.reloadData()
+            }
+        )
     }
 
     override func reloadTableView() {

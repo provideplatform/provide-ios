@@ -13,6 +13,9 @@ protocol WorkOrderDetailsHeaderTableViewControllerDelegate {
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder)
 }
 
 class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrderDetailsHeaderTableViewCellDelegate {
@@ -64,5 +67,17 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
 
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder) {
         workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldCompleteWorkOrder: workOrder)
+    }
+
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldApproveWorkOrder workOrder: WorkOrder) {
+        workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldApproveWorkOrder: workOrder)
+    }
+
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+        workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldSubmitForApprovalWorkOrder: workOrder)
+    }
+
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRejectWorkOrder workOrder: WorkOrder) {
+        workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldRejectWorkOrder: workOrder)
     }
 }

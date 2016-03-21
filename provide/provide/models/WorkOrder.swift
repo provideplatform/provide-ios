@@ -220,6 +220,10 @@ class WorkOrder: Model {
             return Color.completedStatusColor()
         } else if status == "abandoned" {
             return Color.abandonedStatusColor()
+        } else if status == "pending_approval" {
+            return Color.completedStatusColor()
+        } else if status == "rejected" {
+            return Color.abandonedStatusColor()
         }
 
         return UIColor.clearColor()
@@ -789,12 +793,20 @@ class WorkOrder: Model {
         updateWorkorderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
+    func approve(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        complete(onSuccess: onSuccess, onError: onError)
+    }
+
     func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
         updateWorkorderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
     func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
         updateWorkorderWithStatus("completed", onSuccess: onSuccess, onError: onError)
+    }
+
+    func submitForApproval(onSuccess onSuccess: OnSuccess, onError: OnError) {
+        updateWorkorderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
     }
 
     func updateWorkorderWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {

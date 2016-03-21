@@ -1767,6 +1767,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+        print("submitted work order for approval... \(workOrder)")
+    }
+
     private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             pinView.redraw()

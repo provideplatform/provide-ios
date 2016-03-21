@@ -13,6 +13,9 @@ protocol WorkOrderDetailsHeaderTableViewCellDelegate {
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldApproveWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRejectWorkOrder workOrder: WorkOrder)
 }
 
 class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -38,6 +41,23 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     private var timer: NSTimer!
 
+    private var isResponsibleSupervisor: Bool {
+        let user = currentUser()
+        if workOrder.jobId > 0 {
+            if let job = JobService.sharedService().jobWithId(workOrder.jobId) {
+                if let supervisors = job.supervisors {
+                    for provider in supervisors {
+                        if provider.userId == user.id {
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+
+        return false
+    }
+
     private var isResponsibleProvider: Bool {
         let user = currentUser()
         for provider in workOrder.providers {
@@ -52,7 +72,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        let isSupervisor = false
+        let isSupervisor = isResponsibleSupervisor
         return !showsCompleteButton && isSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned"
     }
 
@@ -60,7 +80,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "pending_completion" && false //workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
+        return workOrder.status == "pending_completion" && isResponsibleSupervisor
     }
 
     private var showsRejectButton: Bool {
@@ -82,7 +102,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton //FIXME-- workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
+        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor //FIXME-- workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
     }
 
     private var showsStartButton: Bool {
@@ -325,6 +345,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCancelWorkOrder: workOrder)
             } else if showsCompleteButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCompleteWorkOrder: workOrder)
+            } else if showsSubmitForApprovalButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldSubmitForApprovalWorkOrder: workOrder)
             }
         } else if index == 1 {
             if showsStartButton && showsCancelButton {
