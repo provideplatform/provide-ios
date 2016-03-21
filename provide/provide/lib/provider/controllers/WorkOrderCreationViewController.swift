@@ -133,6 +133,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     private func forceDismiss() {
+        commentInputToolbar.dismiss()
         delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
     }
 
@@ -251,8 +252,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         super.viewDidLoad()
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
-
-        refreshUI()
     }
 
     override func viewWillAppear(animated: Bool) {
