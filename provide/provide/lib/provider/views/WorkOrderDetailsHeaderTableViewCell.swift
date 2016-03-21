@@ -120,6 +120,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     private func refresh() {
         refreshUtilityButtons()
+        embeddedTableView.reloadData()
 
         if let workOrder = workOrder {
             previewImageView?.contentMode = .ScaleAspectFit
@@ -174,14 +175,22 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
         switch indexPath.row {
         case 0:
-            var scheduledStartTime = "--"
-            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
-                scheduledStartTime = humanReadableScheduledStartTime
-            }
-
-            cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
             cell.backgroundView!.backgroundColor = workOrder.statusColor
-            cell.accessoryType = .DisclosureIndicator
+
+            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
+                if let duration = self.workOrder.humanReadableDuration {
+                    cell.setName("\(self.workOrder.status.uppercaseString)", value: duration)
+                    cell.accessoryType = .None
+                }
+            } else {
+                var scheduledStartTime = "--"
+                if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+                    scheduledStartTime = humanReadableScheduledStartTime
+                }
+
+                cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
+                cell.accessoryType = .DisclosureIndicator
+            }
         case 1:
             var specificProviders = ""
             let detailDisplayCount = 3
@@ -278,7 +287,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     func refreshInProgress() {
         if let tableView = embeddedTableView {
             var statusCell: NameValueTableViewCell!
-            var durationCell: NameValueTableViewCell!
 
             if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
                 statusCell = cell
@@ -287,21 +295,18 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                     animations: {
                         statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
 
+                        
                         let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
                         statusCell.backgroundView!.alpha = CGFloat(alpha)
+
+                        if let duration = self.workOrder.humanReadableDuration {
+                            statusCell.setName("\(self.workOrder.status.uppercaseString)", value: duration)
+                        }
                     },
                     completion: { complete in
 
                     }
                 )
-            }
-
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 0)) as? NameValueTableViewCell {
-                durationCell = cell
-
-                if let duration = workOrder.humanReadableDuration {
-                    durationCell.setName("DURATION", value: duration)
-                }
             }
         }
     }

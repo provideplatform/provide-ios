@@ -19,6 +19,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var zeroStateLabel: UILabel!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet private weak var addCommentBarButtonItem: UIBarButtonItem! {
         didSet {
@@ -37,6 +38,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         return [Comment]()
     }
 
+    override func showActivity() {
+        activityIndicatorView?.startAnimating()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,6 +52,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 //        if let navigationController = navigationController {
 //            navigationController.setNavigationBarHidden(true, animated: false)
 //        }
+
+        activityIndicatorView.startAnimating()
+        view.bringSubviewToFront(activityIndicatorView)
 
         zeroStateLabel?.alpha = 0.0
     }
@@ -72,6 +80,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         } else {
             zeroStateLabel?.alpha = 0.0
         }
+
+        activityIndicatorView.stopAnimating()
     }
 
 //    optional func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool
@@ -97,6 +107,32 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 //
 //    // support for custom transition layout
 //    optional func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout!
+
+    // MARK: UICollectionViewDelegate
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
+    }
+
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let inset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
+        let insetWidthOffset = inset.left + inset.right
+        if let superview = collectionView.superview {
+            return CGSizeMake(superview.bounds.width - insetWidthOffset, 125.0)
+        }
+        return CGSizeMake(collectionView.bounds.width - insetWidthOffset, 125.0)
+    }
+
+    //    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    //    }
+
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
+    }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return comments.count

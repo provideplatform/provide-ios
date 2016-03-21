@@ -587,6 +587,10 @@ class ApiService: NSObject {
         )
     }
 
+    func fetchComments(forWorkOrderWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("work_orders/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
     func addComment(comment: String, toWorkOrderWithId id: String!, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment],
             onSuccess: { statusCode, mappingResult in

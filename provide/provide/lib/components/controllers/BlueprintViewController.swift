@@ -1685,7 +1685,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 200.0 : 44.0
+        return indexPath.section == 0 ? 75.0 : 44.0
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

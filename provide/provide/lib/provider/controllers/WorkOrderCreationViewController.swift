@@ -27,6 +27,7 @@ protocol WorkOrderCreationViewControllerDelegate {
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        PDTSimpleCalendarViewDelegate,
                                        CategoryPickerViewControllerDelegate,
+                                       CommentsViewControllerDelegate,
                                        DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
@@ -36,6 +37,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        UIPopoverPresentationControllerDelegate {
 
     var delegate: WorkOrderCreationViewControllerDelegate!
+
+    @IBOutlet private weak var commentInputToolbar: CommentInputToolbar!
 
     private var cancelItem: UIBarButtonItem! {
         let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancel:")
@@ -72,6 +75,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     private var isDirty = false
 
     private var reloadingJob = false
+
+    private var commentsViewController: CommentsViewController!
 
     private var isSaved: Bool {
         if let workOrder = workOrder {
@@ -170,6 +175,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     private func refreshUI() {
+        commentInputToolbar?.clipToBounds(view.bounds)
+
         refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
@@ -201,7 +208,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     private func refreshTitle() {
-        navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
+        navigationItem.title = title == nil ? (workOrder?.category != nil ? workOrder?.category.name : workOrder?.customer.contact.name) : title
         navigationItem.titleView = nil
     }
 
@@ -256,6 +263,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
         if segue.identifier! == "WorkOrderTeamViewControllerEmbedSegue" {
             (segue.destinationViewController as! WorkOrderTeamViewController).delegate = self
+        } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
+            commentsViewController = segue.destinationViewController as! CommentsViewController
+            commentsViewController.commentsViewControllerDelegate = self
+            commentInputToolbar?.commentsViewController = commentsViewController
         }
     }
 
@@ -447,6 +458,46 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
+    // MARK: CommentsViewControllerDelegate
+
+    func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment] {
+        if let workOrder = workOrder {
+            if let comments = workOrder.comments {
+                return comments
+            } else {
+                viewController.showActivity()
+                reloadComments()
+            }
+        }
+        return [Comment]()
+    }
+
+    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
+        if let workOrder = workOrder {
+            workOrder.addComment(comment,
+                onSuccess: { statusCode, mappingResult in
+                    viewController.reloadCollectionView()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
+    private func reloadComments() {
+        if let workOrder = workOrder {
+            workOrder.reloadComments(
+                { statusCode, mappingResult in
+                    self.commentsViewController.reloadCollectionView()
+                },
+                onError: { error, statusCode, responseString in
+                    
+                }
+            )
+        }
+    }
+
     // MARK: DurationPickerViewDelegate
 
     func componentsForDurationPickerView(view: DurationPickerView) -> [CGFloat] {
@@ -473,6 +524,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
+        if workOrder.status == "awaiting_schedule" {
+            workOrder.status = "scheduled"
+        }
+
         workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
         reloadTableView()
 

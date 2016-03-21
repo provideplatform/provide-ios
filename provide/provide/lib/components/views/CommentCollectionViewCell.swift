@@ -13,6 +13,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
     var comment: Comment! {
         didSet {
             if let comment = comment {
+                bodyTextView?.editable = false
+
                 nameLabel?.text = comment.user.name
                 bodyTextView?.text = comment.body
 

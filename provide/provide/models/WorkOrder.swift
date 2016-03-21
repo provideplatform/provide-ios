@@ -17,6 +17,7 @@ class WorkOrder: Model {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var comments: [Comment]!
     var jobId = 0
     var job: Job!
     var desc: String!
@@ -75,6 +76,7 @@ class WorkOrder: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
@@ -899,10 +901,38 @@ class WorkOrder: Model {
     }
 
     func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().addComment(comment,
-            toWorkOrderWithId: String(id),
-            onSuccess: onSuccess,
-            onError: onError)
+        ApiService.sharedService().addComment(comment, toWorkOrderWithId: String(id),
+            onSuccess: { (statusCode, mappingResult) -> () in
+                if self.comments == nil {
+                    self.comments = [Comment]()
+                }
+                self.comments.insert(mappingResult.firstObject as! Comment, atIndex: 0)
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { (error, statusCode, responseString) -> () in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
+    }
+
+    func reloadComments(onSuccess: OnSuccess, onError: OnError) {
+        if id > 0 {
+            ApiService.sharedService().fetchComments(forWorkOrderWithId: String(id),
+                onSuccess: { statusCode, mappingResult in
+                    if self.comments == nil {
+                        self.comments = [Comment]()
+                    }
+                    let fetchedComments = (mappingResult.array() as! [Comment]).reverse()
+                    for comment in fetchedComments {
+                        self.comments.append(comment)
+                    }
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
     }
 
     func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {

@@ -149,7 +149,7 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 44.0 : 200.0
+        return 75.0
     }
 
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
