@@ -166,6 +166,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                     self.workOrder.status = wo.status
                     self.reloadTableView()
                     self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
+                    self.reloadComments()
                 }
                 self.refreshUI()
             },
@@ -409,6 +410,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(alertController, animated: true)
     }
 
+    override func reloadTableView() {
+        super.reloadTableView()
+
+        if let _ = commentsViewController {
+            reloadComments()
+        }
+    }
+
     // MARK: PDTSimpleCalendarViewControllerDelegate
 
     func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
@@ -469,8 +478,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     // MARK: CommentsViewControllerDelegate
 
     func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment] {
-        viewController.showActivity()
-        reloadComments()
+        if let workOrder = workOrder {
+            if let comments = workOrder.comments {
+                return comments
+            } else {
+                viewController.showActivity()
+                reloadComments()
+            }
+        }
 
         return [Comment]()
     }
@@ -492,15 +507,25 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     private func reloadComments() {
+        if commentsViewController == nil {
+            return
+        }
+
+        commentsViewController.showActivity()
+
         if let workOrder = workOrder {
-            workOrder.reloadComments(
-                { statusCode, mappingResult in
-                    self.commentsViewController.reloadCollectionView()
-                },
-                onError: { error, statusCode, responseString in
-                    
-                }
-            )
+            if workOrder.id > 0 {
+                workOrder.reloadComments(
+                    { statusCode, mappingResult in
+                        self.commentsViewController.reloadCollectionView()
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            } else {
+                self.commentsViewController.hideActivity()
+            }
         }
     }
 

@@ -46,6 +46,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         activityIndicatorView?.startAnimating()
     }
 
+    override func hideActivity() {
+        activityIndicatorView?.stopAnimating()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,7 +89,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             zeroStateLabel?.alpha = 0.0
         }
 
-        activityIndicatorView.stopAnimating()
+        hideActivity()
     }
 
 //    optional func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool
