@@ -425,8 +425,8 @@ class Job: Model {
     func reloadFinancials(onSuccess: OnSuccess, onError: OnError) {
         if id > 0 {
             let params: [String : AnyObject] = [
-                "include_expenses": "true",
-                "include_products": "true",
+                "include_expenses": "false",
+                "include_products": "false",
                 "include_supervisors": "true",
             ]
 

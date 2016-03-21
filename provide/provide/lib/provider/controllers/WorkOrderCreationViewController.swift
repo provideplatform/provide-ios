@@ -731,7 +731,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct: WorkOrderProduct) {
-        workOrder?.reload(["include_estimated_cost": "true", "include_expenses": "true"],
+        workOrder?.reload(["include_estimated_cost": "false", "include_expenses": "false"],
             onSuccess: { statusCode, mappingResult in
                 self.reloadTableView()
 
