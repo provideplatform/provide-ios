@@ -30,6 +30,10 @@ class CommentInputToolbar: UIToolbar {
         super.awakeFromNib()
 
         items!.append(saveItem)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow", name: UIKeyboardWillShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification)
     }
 
     func clipToBounds(bounds: CGRect) {
@@ -49,8 +53,38 @@ class CommentInputToolbar: UIToolbar {
     func addComment(sender: UIBarButtonItem!) {
         if let comment = commentInputTextField?.text {
             if comment.length > 0 {
+                if commentInputTextField.isFirstResponder() {
+                    commentInputTextField.text = ""
+                    commentInputTextField.resignFirstResponder()
+                }
                 commentsViewController?.commentsViewControllerDelegate?.commentsViewController(commentsViewController, shouldCreateComment: comment)
             }
         }
+    }
+
+    func keyboardWillShow() {
+//        if let _ = commentsViewController?.popoverPresentationController {
+//            commentsViewController?.popoverHeightOffset = commentsViewController?.view.convertRect(self.frame, toView: nil).origin.y
+//        }
+
+        print("show keyboard")
+    }
+
+    func keyboardDidShow() {
+//        if let _ = commentsViewController?.popoverPresentationController {
+//            if let popoverHeightOffset = commentsViewController?.popoverHeightOffset {
+//                self.popoverHeightOffset = popoverHeightOffset + view.convertRect(view.frame, toView: nil).origin.y
+//            }
+//        }
+
+        print("did show keyboard")
+    }
+
+    func keyboardDidHide() {
+        print("keyboard did hide")
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

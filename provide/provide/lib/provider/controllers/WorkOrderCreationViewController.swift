@@ -21,6 +21,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
+    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView!
     func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double!
 }
 
@@ -455,20 +456,19 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             if let navigationController = viewController.navigationController {
                 navigationController.popViewControllerAnimated(true)
             }
+
+            if let blueprintPinViewForWorkOrderCreationViewController = delegate?.blueprintPinViewForWorkOrderCreationViewController(self) {
+                blueprintPinViewForWorkOrderCreationViewController.category = category
+            }
         }
     }
 
     // MARK: CommentsViewControllerDelegate
 
     func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment] {
-        if let workOrder = workOrder {
-            if let comments = workOrder.comments {
-                return comments
-            } else {
-                viewController.showActivity()
-                reloadComments()
-            }
-        }
+        viewController.showActivity()
+        reloadComments()
+
         return [Comment]()
     }
 

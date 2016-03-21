@@ -11,6 +11,7 @@
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
             <string>Exo2-Regular</string>
+            <string>Exo2-Regular</string>
         </mutableArray>
         <mutableArray key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
@@ -119,11 +120,11 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="pYf-qa-Wgo">
-                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="vaI-Ig-AU2">
+                                        <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add comment" textAlignment="natural" minimumFontSize="17" id="vaI-Ig-AU2">
                                             <rect key="frame" x="20" y="7" width="560" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" spellCheckingType="yes" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
                                         </textField>
                                     </barButtonItem>
                                 </items>

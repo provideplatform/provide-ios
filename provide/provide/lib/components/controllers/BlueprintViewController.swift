@@ -1669,6 +1669,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: WorkOrderCreationViewControllerDelegate
 
+    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView! {
+        if let workOrder = viewController.workOrder {
+            return pinViewForWorkOrder(workOrder)
+        }
+        return nil
+    }
+
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
         return 1
     }
