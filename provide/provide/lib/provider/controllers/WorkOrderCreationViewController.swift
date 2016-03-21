@@ -20,6 +20,8 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
     func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView!
@@ -415,6 +417,30 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             onSuccess: { statusCode, mappingResult in
                 viewController.tableView.reloadData()
                 self.delegate?.workOrderCreationViewController(self, didSubmitForApprovalWorkOrder: workOrder)
+            },
+            onError: { error, statusCode, responseString in
+                viewController.tableView.reloadData()
+            }
+        )
+    }
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
+        self.workOrder.approve(
+            onSuccess: { statusCode, mappingResult in
+                viewController.tableView.reloadData()
+                self.delegate?.workOrderCreationViewController(self, didApproveWorkOrder: workOrder)
+            },
+            onError: { error, statusCode, responseString in
+                viewController.tableView.reloadData()
+            }
+        )
+    }
+
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
+        self.workOrder.reject(
+            onSuccess: { statusCode, mappingResult in
+                viewController.tableView.reloadData()
+                self.delegate?.workOrderCreationViewController(self, didRejectWorkOrder: workOrder)
             },
             onError: { error, statusCode, responseString in
                 viewController.tableView.reloadData()

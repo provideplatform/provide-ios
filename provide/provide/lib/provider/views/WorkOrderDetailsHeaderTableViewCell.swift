@@ -79,15 +79,14 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        let isSupervisor = isResponsibleSupervisor
-        return !showsCompleteButton && isSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned"
+        return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned" && workOrder.status != "pending_approval"
     }
 
     private var showsApproveButton: Bool {
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "pending_completion" && isResponsibleSupervisor
+        return workOrder.status == "pending_approval" && isResponsibleSupervisor
     }
 
     private var showsRejectButton: Bool {
@@ -109,7 +108,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor //FIXME-- workOrder.hasApprover(theCurrentUser) ie the user is an admin/supervisor
+        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor
     }
 
     private var showsStartButton: Bool {
@@ -354,10 +353,14 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCompleteWorkOrder: workOrder)
             } else if showsSubmitForApprovalButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldSubmitForApprovalWorkOrder: workOrder)
+            } else if showsApproveButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldApproveWorkOrder: workOrder)
             }
         } else if index == 1 {
             if showsStartButton && showsCancelButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldCancelWorkOrder: workOrder)
+            } else if showsRejectButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldRejectWorkOrder: workOrder)
             }
         }
     }

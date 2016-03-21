@@ -1810,6 +1810,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
         if let presentedViewController = presentedViewController {
             if presentedViewController is UINavigationController {
