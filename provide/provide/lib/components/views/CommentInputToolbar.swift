@@ -16,8 +16,10 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
     @IBOutlet private weak var commentInputTextField: UITextField!
 
     private weak var commentInputAccessoryTextField: UITextField! {
-        if let accessoryToolbar = commentInputTextField?.inputAccessoryView as? CommentInputToolbar {
-            return accessoryToolbar.items!.first!.customView as! UITextField
+        if let commentInputTextField = commentInputTextField {
+            if let accessoryToolbar = commentInputTextField.inputAccessoryView {
+                return (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
+            }
         }
 
         return nil
