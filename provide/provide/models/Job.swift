@@ -217,7 +217,8 @@ class Job: Model {
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    let isAppropriateResolution = blueprint.hasTag("150dpi")
+                    let tag = isIPad() ? "150dpi" : "72dpi"
+                    let isAppropriateResolution = blueprint.hasTag(tag)
                     if blueprint.mimeType == "image/png" && isAppropriateResolution {
                         blueprints.append(blueprint)
                     }
