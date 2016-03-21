@@ -1768,7 +1768,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
-        print("submitted work order for approval... \(workOrder)")
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    presentedViewController.dismissViewController(animated: true) {
+                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    }
+                }
+            }
+        }
     }
 
     private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
