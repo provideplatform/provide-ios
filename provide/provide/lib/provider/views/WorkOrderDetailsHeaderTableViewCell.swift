@@ -16,6 +16,7 @@ protocol WorkOrderDetailsHeaderTableViewCellDelegate {
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldApproveWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRejectWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRestartWorkOrder workOrder: WorkOrder)
 }
 
 class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -116,6 +117,13 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             return false
         }
         return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].indexOfObject(workOrder.status) != nil
+    }
+
+    private var showsRestartButton: Bool {
+        if workOrder == nil {
+            return false
+        }
+        return isResponsibleProvider && ["rejected"].indexOfObject(workOrder.status) != nil
     }
 
     @IBOutlet private weak var previewImageView: UIImageView! {
@@ -355,6 +363,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldSubmitForApprovalWorkOrder: workOrder)
             } else if showsApproveButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldApproveWorkOrder: workOrder)
+            } else if showsRestartButton {
+                workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldRestartWorkOrder: workOrder)
             }
         } else if index == 1 {
             if showsStartButton && showsCancelButton {

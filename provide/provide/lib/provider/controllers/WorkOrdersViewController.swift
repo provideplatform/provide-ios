@@ -240,7 +240,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            return workOrder.status == "in_progress"
+            return workOrder.status == "in_progress" || workOrder.status == "rejected"
         }
         return false
     }
@@ -294,7 +294,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             onRoutesFetched: { [weak self] routes in
                 if routes.count == 0 {
                     workOrderService.fetch(
-                        status: "scheduled,en_route,in_progress",
+                        status: "scheduled,en_route,in_progress,rejected",
                         today: true,
                         onWorkOrdersFetched: { [weak self] workOrders in
                             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead

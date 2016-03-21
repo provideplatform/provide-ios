@@ -302,6 +302,10 @@ class WorkOrderDetailsViewController: ViewController,
 
     }
 
+    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
+
+    }
+
     // MARK: ManifestViewControllerDelegate
 
     func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {

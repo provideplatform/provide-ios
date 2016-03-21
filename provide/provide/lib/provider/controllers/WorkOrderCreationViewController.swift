@@ -448,6 +448,18 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
+    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
+        self.workOrder.start(
+            { statusCode, mappingResult in
+                viewController.tableView.reloadData()
+                self.delegate?.workOrderCreationViewController(self, didRejectWorkOrder: workOrder)
+            },
+            onError: { error, statusCode, responseString in
+                viewController.tableView.reloadData()
+            }
+        )
+    }
+
     override func reloadTableView() {
         super.reloadTableView()
 
