@@ -205,6 +205,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             }
         )
         viewController.navigationItem.hidesBackButton = true
+        //presentViewController(viewController, animated: false)
         navigationController!.pushViewController(viewController, animated: false)
     }
 
@@ -454,8 +455,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             reloadTableView()
 
             if let navigationController = viewController.navigationController {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewControllerAnimated(false)
             }
+
+            //dismissViewController(animated: true)
 
             if let blueprintPinViewForWorkOrderCreationViewController = delegate?.blueprintPinViewForWorkOrderCreationViewController(self) {
                 blueprintPinViewForWorkOrderCreationViewController.category = category

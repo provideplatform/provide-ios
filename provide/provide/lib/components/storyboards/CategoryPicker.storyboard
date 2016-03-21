@@ -14,7 +14,7 @@
         <!--Root View Controller-->
         <scene sceneID="phh-OB-WyP">
             <objects>
-                <tableViewController storyboardIdentifier="CategoryPickerViewController" id="AdH-hd-eXp" customClass="CategoryPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CategoryPickerViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="AdH-hd-eXp" customClass="CategoryPickerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jvq-lc-L4J">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
