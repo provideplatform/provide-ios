@@ -99,11 +99,19 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-    private var job: Job! {
-        if let job = delegate?.jobForJobBlueprintsViewController(self) {
-            return job
+//    private var job: Job! {
+//        if let job = delegate?.jobForJobBlueprintsViewController(self) {
+//            return job
+//        }
+//        return nil
+//    }
+
+    var job: Job! {
+        didSet {
+            if let _ = job {
+                refresh()
+            }
         }
-        return nil
     }
 
     private var hasBlueprintScale: Bool {

@@ -76,7 +76,7 @@
                                             <outlet property="backgroundContainerView" destination="R8O-VO-LP2" id="RKf-1o-hAJ"/>
                                             <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
-                                            <segue destination="HbV-mu-6GN" kind="show" identifier="JobWizardTabBarControllerSegue" id="l9Y-AM-Vs2">
+                                            <segue destination="HbV-mu-6GN" kind="show" identifier="JobBlueprintsViewControllerSegue" id="l9Y-AM-Vs2">
                                                 <nil key="action"/>
                                             </segue>
                                         </connections>
@@ -139,13 +139,13 @@
             </objects>
             <point key="canvasLocation" x="888" y="4426"/>
         </scene>
-        <!--JobWizard-->
+        <!--JobBlueprintsViewController-->
         <scene sceneID="i7N-Hp-HZb">
             <objects>
-                <viewControllerPlaceholder storyboardName="JobWizard" id="HbV-mu-6GN" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="JobBlueprintsViewController" storyboardName="JobWizard" referencedIdentifier="JobBlueprintsViewController" id="HbV-mu-6GN" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RwY-xa-zuq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="883" y="4707"/>
+            <point key="canvasLocation" x="938.5" y="4708"/>
         </scene>
     </scenes>
 </document>

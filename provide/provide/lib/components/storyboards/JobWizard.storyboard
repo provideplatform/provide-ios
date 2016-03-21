@@ -1019,7 +1019,7 @@
                             <tableViewSection headerTitle="Contract Revenue: $2,149,000" id="EYV-mP-nxg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wNy-vl-GHl">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wNy-vl-GHl" id="H7a-xZ-Iay">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>

@@ -54,6 +54,46 @@ class JobsViewController: ViewController,
             if let sender = sender {
                 (segue.destinationViewController as! JobViewController).job = (sender as! JobTableViewCell).job
             }
+        } else if segue.identifier == "JobBlueprintsViewControllerSegue" {
+            if let sender = sender {
+                var job: Job!
+                if sender.isKindOfClass(JobTableViewCell) {
+                    job = (sender as! JobTableViewCell).job
+                } else if sender.isKindOfClass(Job) {
+                    job = sender as! Job
+                }
+
+                if let job = job {
+                    let cacheAge = job.timeIntervalSinceLastRefreshDate()
+                    if cacheAge >= 0.0 {
+                        if cacheAge > 60.0 {
+                            job.reload(["include_supervisors": "true"],
+                                onSuccess: { statusCode, mappingResult in
+                                    if let job = mappingResult.firstObject as? Job {
+                                        var index: Int?
+                                        for j in self.jobs {
+                                            if j.id == job.id {
+                                                index = self.jobs.indexOfObject(j)
+                                            }
+                                        }
+
+                                        if let index = index {
+                                            self.jobs.replaceRange(index...index, with: [job])
+                                        }
+
+                                        (segue.destinationViewController as! JobBlueprintsViewController).job = job
+                                    }
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        } else {
+                            (segue.destinationViewController as! JobBlueprintsViewController).job = job
+                        }
+                    }
+                }
+            }
         } else if segue.identifier == "JobWizardTabBarControllerSegue" {
             if let sender = sender {
                 var job: Job!
@@ -206,7 +246,7 @@ class JobsViewController: ViewController,
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: cell)
+        performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: cell)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -219,7 +259,7 @@ class JobsViewController: ViewController,
             jobCreationViewController.presentingViewController?.dismissViewController(animated: true)
         }
 
-        performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: job)
+        performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: job)
     }
 
     // MARK: JobTableViewCellDelegate
@@ -304,7 +344,7 @@ class JobsViewController: ViewController,
             if selected {
                 dispatch_after_delay(0.0) { [weak self] in
                     self!.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                    self!.jobsViewController?.performSegueWithIdentifier("JobWizardTabBarControllerSegue", sender: cell)
+                    self!.jobsViewController?.performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: cell)
                     cell.setHighlighted(false, animated: true)
                     cell.setSelected(false, animated: true)
                 }
