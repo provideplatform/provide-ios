@@ -773,6 +773,10 @@ class WorkOrder: Model {
         updateWorkorderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
+    func restart(onSuccess: OnSuccess, onError: OnError) {
+        updateWorkorderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
+    }
+
     func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
         self.pendingArrival = true
 

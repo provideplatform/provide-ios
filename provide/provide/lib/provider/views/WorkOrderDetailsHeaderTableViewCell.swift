@@ -193,6 +193,10 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             rightUtilityButtons.sw_addUtilityButtonWithColor(Color.warningBackground(), title: "Reject")
         }
 
+        if showsRestartButton {
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Continue to Fix")
+        }
+
         setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
         setRightUtilityButtons(rightUtilityButtons as [AnyObject], withButtonWidth: 120.0)
     }

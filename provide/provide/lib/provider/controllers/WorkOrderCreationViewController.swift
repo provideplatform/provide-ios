@@ -22,6 +22,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
     func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView!
@@ -449,10 +450,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     }
 
     override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
-        self.workOrder.start(
+        self.workOrder.restart(
             { statusCode, mappingResult in
                 viewController.tableView.reloadData()
-                self.delegate?.workOrderCreationViewController(self, didRejectWorkOrder: workOrder)
+                self.delegate?.workOrderCreationViewController(self, didRestartWorkOrder: workOrder)
             },
             onError: { error, statusCode, responseString in
                 viewController.tableView.reloadData()
