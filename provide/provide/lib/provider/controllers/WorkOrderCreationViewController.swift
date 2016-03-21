@@ -477,6 +477,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             workOrder.addComment(comment,
                 onSuccess: { statusCode, mappingResult in
                     viewController.reloadCollectionView()
+                    dispatch_after_delay(0.0) {
+                        viewController.scrollToNewestComment()
+                    }
                 },
                 onError: { error, statusCode, responseString in
 

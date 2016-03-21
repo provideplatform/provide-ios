@@ -38,6 +38,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         return [Comment]()
     }
 
+    func scrollToNewestComment(animated: Bool = true) {
+        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+    }
+
     override func showActivity() {
         activityIndicatorView?.startAnimating()
     }
