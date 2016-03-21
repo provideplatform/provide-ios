@@ -45,6 +45,7 @@ class WorkOrder: Model {
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
     var materials: [WorkOrderProduct]!
+    var supervisors: [User]!
     var tasks: [Task]!
 
     override class func mapping() -> RKObjectMapping {
@@ -82,6 +83,7 @@ class WorkOrder: Model {
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: WorkOrderProduct.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: User.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
 
@@ -618,7 +620,7 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        reload(["include_estimated_cost": "true", "include_job": "false"], onSuccess: onSuccess, onError: onError)
+        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true"], onSuccess: onSuccess, onError: onError)
     }
 
     func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
@@ -627,6 +629,7 @@ class WorkOrder: Model {
                 let workOrder = mappingResult.firstObject as! WorkOrder
                 self.status = workOrder.status
                 self.estimatedCost = workOrder.estimatedCost
+                self.supervisors = workOrder.supervisors
                 self.workOrderProviders = workOrder.workOrderProviders
                 WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)

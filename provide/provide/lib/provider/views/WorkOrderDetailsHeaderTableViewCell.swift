@@ -43,6 +43,13 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     private var isResponsibleSupervisor: Bool {
         let user = currentUser()
+        if let supervisors = workOrder.supervisors {
+            for supervisor in supervisors {
+                if supervisor.id == user.id {
+                    return true
+                }
+            }
+        }
         if workOrder.jobId > 0 {
             if let job = JobService.sharedService().jobWithId(workOrder.jobId) {
                 if let supervisors = job.supervisors {
