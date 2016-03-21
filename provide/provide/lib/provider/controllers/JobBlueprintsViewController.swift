@@ -201,6 +201,12 @@ class JobBlueprintsViewController: ViewController,
         viewLoaded = true
     }
 
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        teardownBlueprintViewController()
+    }
+
     func teardown() -> UIImage? {
         blueprintPreviewImageView?.image = nil
         return teardownBlueprintViewController()
