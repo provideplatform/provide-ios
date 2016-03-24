@@ -992,6 +992,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: BlueprintPinViewDelegate
 
+    func tintColorForBlueprintPinView(view: BlueprintPinView) -> UIColor {
+        if let annotation = view.annotation {
+            if let workOrder = annotation.workOrder {
+                return workOrder.statusColor
+            }
+        }
+        return UIColor.blueColor()
+    }
+
     func categoryForBlueprintPinView(view: BlueprintPinView) -> Category! {
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {

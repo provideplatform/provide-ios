@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintPinViewDelegate: NSObjectProtocol {
     func categoryForBlueprintPinView(view: BlueprintPinView) -> Category!
+    func tintColorForBlueprintPinView(view: BlueprintPinView) -> UIColor
     func blueprintPinViewWasSelected(view: BlueprintPinView)
 
 //    func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
@@ -31,6 +32,8 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
                     if let category = workOrder.category {
                         self.category = category
                     }
+
+                    tintColor = workOrder.statusColor
                 }
             }
         }
@@ -64,6 +67,8 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
                 if let category = delegate.categoryForBlueprintPinView(self) {
                     self.category = category
                 }
+
+                tintColor = delegate.tintColorForBlueprintPinView(self)
             }
         }
     }
@@ -90,6 +95,10 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             self.point = CGPoint(x: point[0], y: point[1])
         }
 
+        if let tintColor = annotation?.workOrder?.statusColor {
+            self.tintColor = tintColor
+        }
+
         image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
     }
@@ -102,6 +111,10 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
         if let point = annotation.point {
             self.point = CGPoint(x: point[0], y: point[1])
+        }
+
+        if let tintColor = annotation.workOrder?.statusColor {
+            self.tintColor = tintColor
         }
 
         image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
