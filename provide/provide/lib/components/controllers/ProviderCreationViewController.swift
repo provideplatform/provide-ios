@@ -21,7 +21,7 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
     @IBOutlet private weak var mobileNumberTextField: UITextField!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ProviderCreationViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }

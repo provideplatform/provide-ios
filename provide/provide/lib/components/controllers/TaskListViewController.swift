@@ -35,7 +35,7 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
     }
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(TaskListViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -87,7 +87,7 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl!.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl!.addTarget(self, action: #selector(TaskListViewController.reset), forControlEvents: .ValueChanged)
 
         tableView.addSubview(refreshControl!)
         tableView.alwaysBounceVertical = true

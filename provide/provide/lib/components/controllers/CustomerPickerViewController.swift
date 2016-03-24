@@ -135,7 +135,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(CustomerPickerViewController.reset), forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true

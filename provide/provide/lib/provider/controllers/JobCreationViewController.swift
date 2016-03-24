@@ -63,7 +63,7 @@ class JobCreationViewController: UITableViewController,
     @IBOutlet private weak var createButtonTableViewCell: UITableViewCell!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(JobCreationViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -75,7 +75,7 @@ class JobCreationViewController: UITableViewController,
 
         searchBar?.placeholder = ""
 
-        createButton.addTarget(self, action: "createJob:", forControlEvents: .TouchUpInside)
+        createButton.addTarget(self, action: #selector(JobCreationViewController.createJob(_:)), forControlEvents: .TouchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
@@ -215,7 +215,7 @@ class JobCreationViewController: UITableViewController,
     func enableTapToDismissKeyboard() {
         disableTapToDismissKeyboard()
         tableView.enableTapToDismissKeyboard()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "resetTableViewFrame")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(JobCreationViewController.resetTableViewFrame))
         tableView.addGestureRecognizer(tapGestureRecognizer)
     }
 

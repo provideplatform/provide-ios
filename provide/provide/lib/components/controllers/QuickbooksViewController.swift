@@ -40,7 +40,7 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
         instructionLabel?.alpha = 0.0
 
-        disconnectButton.addTarget(self, action: "disconnect:", forControlEvents: .TouchUpInside)
+        disconnectButton.addTarget(self, action: #selector(QuickbooksViewController.disconnect(_:)), forControlEvents: .TouchUpInside)
         disconnectButton.alpha = 0.0
 
         viewLoaded = true

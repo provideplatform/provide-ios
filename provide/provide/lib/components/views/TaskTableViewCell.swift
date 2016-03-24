@@ -65,7 +65,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                 showNameInputAccessoryView()
                 hideNameInputAccessoryView()
 
-                nameTextField.addTarget(self, action: "textFieldChanged:", forControlEvents: .EditingChanged)
+                nameTextField.addTarget(self, action: #selector(TaskListTableViewCell.textFieldChanged(_:)), forControlEvents: .EditingChanged)
             }
         }
     }

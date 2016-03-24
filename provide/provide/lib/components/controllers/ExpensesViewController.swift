@@ -44,7 +44,7 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
                 let addExpenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
                 addExpenseItem.image = addExpenseItemImage
                 addExpenseItem.target = self
-                addExpenseItem.action = "expense:"
+                addExpenseItem.action = #selector(ExpensesViewController.expense(_:))
 
                 if let delegate = delegate {
                     if let enabledAddExpenseItem = delegate.expensesViewControllerShouldEnableAddExpenseItem?(self) {
@@ -58,7 +58,7 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet private weak var tableView: UITableView!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ExpensesViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }

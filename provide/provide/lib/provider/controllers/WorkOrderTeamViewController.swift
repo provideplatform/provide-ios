@@ -92,9 +92,9 @@ class WorkOrderTeamViewController: UITableViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow", name: UIKeyboardWillShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardWillShow), name: UIKeyboardWillShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidShow), name: UIKeyboardDidShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidHide), name: UIKeyboardDidHideNotification)
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -587,7 +587,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
 
         init(viewController: WorkOrderTeamViewController) {
-            super.init(target: viewController, action: "queryResultsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(WorkOrderTeamViewController.queryResultsPickerCollectionViewCellGestureRecognized(_:)))
             workOrderTeamViewController = viewController
             providersPickerCollectionView = viewController.providersPickerViewController.collectionView
         }
@@ -676,7 +676,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
 
         init(viewController: WorkOrderTeamViewController) {
-            super.init(target: viewController, action: "providersPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(WorkOrderTeamViewController.providersPickerCollectionViewCellGestureRecognized(_:)))
             workOrderTeamViewController = viewController
             providersPickerCollectionView = viewController.providersPickerViewController.collectionView
         }

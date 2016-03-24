@@ -42,11 +42,11 @@ class BlueprintPolygonVertexView: UIView, UIGestureRecognizerDelegate {
     }
 
     private func setupGestureRecognizers() {
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "vertexTapped:")
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintPolygonVertexView.vertexTapped(_:)))
         tapGestureRecognizer.delegate = self
         addGestureRecognizer(tapGestureRecognizer)
 
-        blueprintPolygonVertexViewGestureRecognizer = BlueprintPolygonVertexViewGestureRecognizer(target: self, action: "vertexMoved:")
+        blueprintPolygonVertexViewGestureRecognizer = BlueprintPolygonVertexViewGestureRecognizer(target: self, action: #selector(BlueprintPolygonVertexView.vertexMoved(_:)))
         blueprintPolygonVertexViewGestureRecognizer.delegate = self
         addGestureRecognizer(blueprintPolygonVertexViewGestureRecognizer)
     }

@@ -87,7 +87,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(WorkOrderHistoryViewController.reset), forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true

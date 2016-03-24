@@ -114,7 +114,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     func attachGestureRecognizer() {
         userInteractionEnabled = true
-        gestureRecognizer = UITapGestureRecognizer(target: self, action: "pinSelected:")
+        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintPinView.pinSelected(_:)))
         addGestureRecognizer(gestureRecognizer)
     }
 

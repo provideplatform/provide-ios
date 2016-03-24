@@ -496,7 +496,7 @@ class JobInventoryViewContoller: UITableViewController,
         }
 
         init(viewController: JobInventoryViewContoller) {
-            super.init(target: viewController, action: "queryResultsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(JobInventoryViewContoller.queryResultsPickerCollectionViewCellGestureRecognized(_:)))
             jobInventoryViewController = viewController
             jobProductsPickerCollectionView = viewController.jobProductsPickerViewController.collectionView
         }
@@ -576,7 +576,7 @@ class JobInventoryViewContoller: UITableViewController,
         }
 
         init(viewController: JobInventoryViewContoller) {
-            super.init(target: viewController, action: "jobProductsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(JobInventoryViewContoller.jobProductsPickerCollectionViewCellGestureRecognized(_:)))
             jobInventoryViewController = viewController
             jobProductsPickerCollectionView = viewController.jobProductsPickerViewController.collectionView
         }

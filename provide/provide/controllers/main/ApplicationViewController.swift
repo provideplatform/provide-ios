@@ -31,7 +31,7 @@ class ApplicationViewController: ECSlidingViewController,
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "currentUserLoggedOut", name: "ApplicationUserLoggedOut")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ApplicationViewController.currentUserLoggedOut), name: "ApplicationUserLoggedOut")
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

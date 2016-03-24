@@ -91,7 +91,7 @@ class SignatureView: UIView {
             },
             completion: { finished in
                 self.clearButton.enabled = true
-                self.clearButton.addTarget(self, action: "clear", forControlEvents: .TouchUpInside)
+                self.clearButton.addTarget(self, action: #selector(SignatureView.clear), forControlEvents: .TouchUpInside)
             }
         )
     }
@@ -116,7 +116,7 @@ class SignatureView: UIView {
             },
             completion: { finished in
                 self.doneButton.enabled = true
-                self.doneButton.addTarget(self, action: "done", forControlEvents: .TouchUpInside)
+                self.doneButton.addTarget(self, action: #selector(SignatureView.done), forControlEvents: .TouchUpInside)
             }
         )
     }

@@ -433,7 +433,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let canDropWorkOrderPin = blueprintViewControllerDelegate?.blueprintViewControllerCanDropWorkOrderPin(self) {
             if canDropWorkOrderPin {
-                let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: "dropPin:")
+                let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(BlueprintViewController.dropPin(_:)))
                 imageView.addGestureRecognizer(gestureRecognizer)
             }
         }
@@ -762,11 +762,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelSetScale:")
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelSetScale(_:)))
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: "setScale:")
+        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: #selector(BlueprintViewController.setScale(_:)))
         setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
         setScaleItem.enabled = setScaleEnabled
@@ -778,11 +778,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancelCreateWorkOrder:")
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelCreateWorkOrder(_:)))
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: "createWorkOrder:")
+        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: #selector(BlueprintViewController.createWorkOrder(_:)))
         createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
         createWorkOrderItem.enabled = setCreateEnabled

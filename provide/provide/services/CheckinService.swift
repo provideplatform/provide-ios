@@ -76,7 +76,7 @@ class CheckinService: NSObject {
     private func restart() {
         stop()
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(checkinTimeInterval, target: self, selector: "checkin", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(checkinTimeInterval, target: self, selector: #selector(CheckinService.checkin), userInfo: nil, repeats: true)
         timer.fire()
     }
 }

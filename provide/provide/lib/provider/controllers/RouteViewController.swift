@@ -67,7 +67,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(RouteViewController.refresh), forControlEvents: .ValueChanged)
 
         tableView.addSubview(refreshControl)
         tableView.alwaysBounceVertical = true

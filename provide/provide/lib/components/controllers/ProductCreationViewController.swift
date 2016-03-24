@@ -25,7 +25,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
     @IBOutlet internal weak var saveButton: UIButton!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ProductCreationViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -39,7 +39,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             navigationItem.leftBarButtonItems = [dismissItem]
         }
 
-        saveButton.addTarget(self, action: "save:", forControlEvents: .TouchUpInside)
+        saveButton.addTarget(self, action: #selector(ProductCreationViewController.save(_:)), forControlEvents: .TouchUpInside)
 
         setupScanBarButtonItem()
     }

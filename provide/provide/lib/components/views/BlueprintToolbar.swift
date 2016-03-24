@@ -64,7 +64,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = navigationButton {
                 navigationButton.target = self
-                navigationButton.action = "toggleNavigatorVisibility:"
+                navigationButton.action = #selector(BlueprintToolbar.toggleNavigatorVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -74,7 +74,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = scaleButton {
                 navigationButton.target = self
-                navigationButton.action = "toggleScaleVisibility:"
+                navigationButton.action = #selector(BlueprintToolbar.toggleScaleVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -84,7 +84,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = createWorkOrderButton {
                 navigationButton.target = self
-                navigationButton.action = "createWorkOrder:"
+                navigationButton.action = #selector(BlueprintToolbar.createWorkOrder(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -94,7 +94,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = floorplanOptionsButton {
                 navigationButton.target = self
-                navigationButton.action = "toggleFloorplanOptionsVisibility:"
+                navigationButton.action = #selector(BlueprintToolbar.toggleFloorplanOptionsVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }

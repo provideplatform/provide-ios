@@ -33,7 +33,7 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
         didSet {
             if let saveButtonItem = saveButtonItem {
                 saveButtonItem.target = self
-                saveButtonItem.action = "save:"
+                saveButtonItem.action = #selector(ExpenseEditorViewController.save(_:))
                 saveButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }

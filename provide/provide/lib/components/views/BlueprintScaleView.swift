@@ -49,7 +49,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         didSet {
             if let saveButton = saveButton {
                 saveButton.hidden = true
-                saveButton.addTarget(self, action: "setScale", forControlEvents: .TouchUpInside)
+                saveButton.addTarget(self, action: #selector(BlueprintScaleView.setScale), forControlEvents: .TouchUpInside)
             }
         }
     }
@@ -75,7 +75,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
     func attachGestureRecognizer() {
         if let targetView = targetView {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: "pointSelected:")
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintScaleView.pointSelected(_:)))
             targetView.addGestureRecognizer(gestureRecognizer)
         }
     }

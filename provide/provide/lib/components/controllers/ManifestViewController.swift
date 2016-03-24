@@ -167,7 +167,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ManifestViewController.reset), forControlEvents: .ValueChanged)
 
         tableView.addSubview(refreshControl)
         tableView.alwaysBounceVertical = true
@@ -297,7 +297,7 @@ class ManifestViewController: ViewController, UITableViewDelegate, UITableViewDa
         toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         toolbarSegmentedControl.selectedSegmentIndex = 0
         toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        toolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
+        toolbarSegmentedControl.addTarget(self, action: #selector(ManifestViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
 
         lastSelectedIndex = toolbarSegmentedControl.selectedSegmentIndex
     }

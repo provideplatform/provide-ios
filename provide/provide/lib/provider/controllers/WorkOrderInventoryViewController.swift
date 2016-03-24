@@ -534,7 +534,7 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
 
         init(viewController: WorkOrderInventoryViewController) {
-            super.init(target: viewController, action: "queryResultsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(WorkOrderInventoryViewController.queryResultsPickerCollectionViewCellGestureRecognized(_:)))
             workOrderInventoryViewController = viewController
             workOrderProductsPickerCollectionView = viewController.workOrderProductsPickerViewController.collectionView
         }
@@ -616,7 +616,7 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
 
         init(viewController: WorkOrderInventoryViewController) {
-            super.init(target: viewController, action: "workOrderProductsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(WorkOrderInventoryViewController.workOrderProductsPickerCollectionViewCellGestureRecognized(_:)))
             workOrderInventoryViewController = viewController
             workOrderProductsPickerCollectionView = viewController.workOrderProductsPickerViewController.collectionView
         }

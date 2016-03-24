@@ -48,7 +48,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
     }
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(ProductPickerViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         dismissItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return dismissItem
@@ -171,7 +171,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ProductPickerViewController.reset), forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true

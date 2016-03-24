@@ -162,7 +162,7 @@ class JobBlueprintsViewController: ViewController,
         blueprintPreviewImageView?.contentMode = .ScaleAspectFit
 
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
-            importFromDropboxButton.addTarget(self, action: "importFromDropbox:", forControlEvents: .TouchUpInside)
+            importFromDropboxButton.addTarget(self, action: #selector(JobBlueprintsViewController.importFromDropbox(_:)), forControlEvents: .TouchUpInside)
         }
 
         hideDropbox()

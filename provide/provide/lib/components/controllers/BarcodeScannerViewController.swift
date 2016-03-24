@@ -33,7 +33,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
             navigationController.navigationBar.tintColor = Color.applicationDefaultBarTintColor()
         }
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "dismiss:")
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(BarcodeScannerViewController.dismiss(_:)))
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)

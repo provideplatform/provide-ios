@@ -170,7 +170,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
             return
         }
         if let targetView = targetView {
-            gestureRecognizer = UITapGestureRecognizer(target: self, action: "pointSelected:")
+            gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintPolygonView.pointSelected(_:)))
             gestureRecognizer.delegate = self
             targetView.addGestureRecognizer(gestureRecognizer)
         }
@@ -436,7 +436,7 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
     }
 
     private func scheduleAnnotationUpdate() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "updateAnnotation", userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BlueprintPolygonView.updateAnnotation), userInfo: nil, repeats: false)
     }
 
     func updateAnnotation() {

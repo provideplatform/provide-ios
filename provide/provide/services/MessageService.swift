@@ -16,7 +16,7 @@ class MessageService {
     private var messages = [Message]()
 
     private init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleNewMessageReceived:", name: "NewMessageReceivedNotification")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageService.handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
     private static let sharedInstance = MessageService()

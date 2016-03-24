@@ -20,7 +20,7 @@ class MessagesViewController: JSQMessagesViewController {
 
             navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
-            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: "dismiss:")
+            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: #selector(MessagesViewController.dismiss(_:)))
         }
 
         title = "MESSAGES"
@@ -62,7 +62,7 @@ class MessagesViewController: JSQMessagesViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "newMessageReceived:", name: "NewMessageReceivedNotification")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessagesViewController.newMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
     @objc private func newMessageReceived(notification: NSNotification) {

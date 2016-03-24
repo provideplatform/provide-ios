@@ -90,8 +90,8 @@ class MenuContainerView: UIView {
 
         accessibilityIdentifier = "MenuContainerView"
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "openMenu", name: "MenuContainerShouldOpen")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "closeMenu", name: "MenuContainerShouldReset")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuContainerView.openMenu), name: "MenuContainerShouldOpen")
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuContainerView.closeMenu), name: "MenuContainerShouldReset")
 
         addDropShadow(CGSize(width: 2.5, height: 2.0), radius: 10.0, opacity: 0.75)
         layer.shadowOpacity = 0.0
@@ -100,7 +100,7 @@ class MenuContainerView: UIView {
             backgroundView = UIView(frame: targetView.bounds)
             backgroundView.frame.size.height = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
-            backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: "closeMenu"))
+            backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MenuContainerView.closeMenu)))
             backgroundView.backgroundColor = UIColor.blackColor()
             backgroundView.alpha = 0.0
 

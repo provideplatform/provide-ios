@@ -28,7 +28,7 @@ class TaskTableViewCellCheckboxView: UIView {
                 checkIconImageView.image = checkIconImage
                 checkIconImageView.tintColor = checkedGreenColor
 
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapped:")
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TaskTableViewCellCheckboxView.tapped(_:)))
                 checkIconImageView.addGestureRecognizer(tapGestureRecognizer)
             }
         }
@@ -48,7 +48,7 @@ class TaskTableViewCellCheckboxView: UIView {
 
         removeGestureRecognizers()
 
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "tapped:")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TaskTableViewCellCheckboxView.tapped(_:)))
         addGestureRecognizer(tapGestureRecognizer)
     }
 

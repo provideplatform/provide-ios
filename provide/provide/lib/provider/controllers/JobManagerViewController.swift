@@ -34,19 +34,19 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
     private var timer: NSTimer!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(JobManagerViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
 
     private var startItem: UIBarButtonItem! {
-        let startItem = UIBarButtonItem(title: "START JOB", style: .Plain, target: self, action: "start:")
+        let startItem = UIBarButtonItem(title: "START JOB", style: .Plain, target: self, action: #selector(JobManagerViewController.start(_:)))
         startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return startItem
     }
 
     private var reviewAndCompleteItem: UIBarButtonItem! {
-        let reviewAndCompleteItem = UIBarButtonItem(title: "REVIEW & COMPLETE", style: .Plain, target: self, action: "reviewAndComplete:")
+        let reviewAndCompleteItem = UIBarButtonItem(title: "REVIEW & COMPLETE", style: .Plain, target: self, action: #selector(JobManagerViewController.reviewAndComplete(_:)))
         reviewAndCompleteItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return reviewAndCompleteItem
     }

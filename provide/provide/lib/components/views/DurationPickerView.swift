@@ -193,7 +193,7 @@ class DurationPickerView: UIPickerView,
         private var interactionTimer: NSTimer!
 
         init(pickerView: DurationPickerView) {
-            super.init(target: pickerView, action: "gestureRecognized:")
+            super.init(target: pickerView, action: Selector("gestureRecognized:"))
             self.pickerView = pickerView
             delegate = self
         }
@@ -227,7 +227,7 @@ class DurationPickerView: UIPickerView,
         }
 
         private func initInteractionTimer() {
-            interactionTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: pickerView, selector: "dispatchDidPickDurationDelegateCallback", userInfo: nil, repeats: false)
+            interactionTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: pickerView, selector: #selector(DurationPickerView.dispatchDidPickDurationDelegateCallback), userInfo: nil, repeats: false)
         }
 
         private func cancelInteractionTimer() {

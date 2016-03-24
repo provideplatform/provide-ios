@@ -17,14 +17,14 @@ extension UIView {
     func disableTapToDismissKeyboard() {
         if let gestureRecognizers = gestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
-                (gestureRecognizer as UIGestureRecognizer).removeTarget(self, action: "endEditing:")
+                (gestureRecognizer as UIGestureRecognizer).removeTarget(self, action: #selector(UIView.endEditing(_:)))
             }
         }
     }
 
     func enableTapToDismissKeyboard() {
         disableTapToDismissKeyboard()
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "endEditing:"))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(UIView.endEditing(_:))))
     }
 
     func roundCorners(radius: CGFloat) {

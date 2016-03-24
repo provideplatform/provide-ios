@@ -46,26 +46,26 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     @IBOutlet private weak var commentInputToolbar: CommentInputToolbar!
 
     private var cancelItem: UIBarButtonItem! {
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: "cancel:")
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.cancel(_:)))
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return cancelItem
     }
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
 
     private var cameraItem: UIBarButtonItem! {
-        let cameraItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: "camera:")
+        let cameraItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: #selector(WorkOrderCreationViewController.camera(_:)))
         cameraItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
         return cameraItem
     }
 
     private var taskListItem: UIBarButtonItem! {
         let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: "showTaskList:")
+        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.showTaskList(_:)))
         taskListItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return taskListItem
     }

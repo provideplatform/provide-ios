@@ -34,7 +34,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                         self.timer = nil
                     }
 
-                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refreshInProgress", userInfo: nil, repeats: true)
+                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderDetailsHeaderTableViewCell.refreshInProgress), userInfo: nil, repeats: true)
                 }
             }
         }

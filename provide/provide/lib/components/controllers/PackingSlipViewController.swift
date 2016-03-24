@@ -58,11 +58,11 @@ class PackingSlipViewController: WorkOrderComponentViewController,
         packingSlipToolbarSegmentedControl.selectedSegmentIndex = 1
         packingSlipToolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         packingSlipToolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
-        packingSlipToolbarSegmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
+        packingSlipToolbarSegmentedControl.addTarget(self, action: #selector(PackingSlipViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
         navigationItem.titleView = packingSlipToolbarSegmentedControl
 
         let cameraIconImage = FAKFontAwesome.cameraRetroIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-        let cameraBarButtonItem = UIBarButtonItem(image: cameraIconImage, style: .Plain, target: self, action: "cameraButtonTapped:")
+        let cameraBarButtonItem = UIBarButtonItem(image: cameraIconImage, style: .Plain, target: self, action: #selector(PackingSlipViewController.cameraButtonTapped(_:)))
         cameraBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         navigationItem.rightBarButtonItem = cameraBarButtonItem
 
@@ -245,12 +245,12 @@ class PackingSlipViewController: WorkOrderComponentViewController,
                     navigationController.setNavigationBarHidden(false, animated: true)
                 }
 
-                deliverItem = UIBarButtonItem(title: "DELIVER", style: .Plain, target: self, action: "deliver:")
+                deliverItem = UIBarButtonItem(title: "DELIVER", style: .Plain, target: self, action: #selector(PackingSlipViewController.deliver(_:)))
                 deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
                 deliverItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
                 deliverItem.enabled = deliverItemEnabled
 
-                abandonItem = UIBarButtonItem(title: "ABANDON", style: .Plain, target: self, action: "abandon:")
+                abandonItem = UIBarButtonItem(title: "ABANDON", style: .Plain, target: self, action: #selector(PackingSlipViewController.abandon(_:)))
                 abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
                 abandonItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
                 abandonItem.enabled = abandomItemEnabled

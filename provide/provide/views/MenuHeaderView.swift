@@ -32,7 +32,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         nameLabel.text = currentUser().name
         companyLabel.text = ""
 
-        changeProfileImageButton.addTarget(self, action: "changeProfileImage", forControlEvents: .TouchUpInside)
+        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), forControlEvents: .TouchUpInside)
 
         profileImageActivityIndicatorView.stopAnimating()
 

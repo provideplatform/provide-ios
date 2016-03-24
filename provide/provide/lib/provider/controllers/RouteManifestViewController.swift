@@ -101,19 +101,19 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     private var unloadingSegment: UnloadingSegment!
 
     private var completeItem: UIBarButtonItem! {
-        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .Plain, target: self, action: "complete:")
+        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .Plain, target: self, action: #selector(RouteManifestViewController.complete(_:)))
         completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return completeItem
     }
 
     private var scanItem: UIBarButtonItem! {
-        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: "scan:")
+        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: #selector(RouteManifestViewController.scan(_:)))
         scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return scanItem
     }
 
     private var startItem: UIBarButtonItem! {
-        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: "start:")
+        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: #selector(RouteManifestViewController.start(_:)))
         startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return startItem
     }
@@ -158,13 +158,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
             toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 1
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: "loadingSegmentChanged:", forControlEvents: .ValueChanged)
+            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.loadingSegmentChanged(_:)), forControlEvents: .ValueChanged)
         case .Unloading:
             toolbarSegmentedControl = UISegmentedControl(items: unloadingSegmentedControlItems)
             toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 0
             toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: "unloadingSegmentChanged:", forControlEvents: .ValueChanged)
+            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.unloadingSegmentChanged(_:)), forControlEvents: .ValueChanged)
         }
     }
 

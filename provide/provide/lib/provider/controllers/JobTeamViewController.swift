@@ -485,7 +485,7 @@ class JobTeamViewController: UITableViewController,
         }
 
         init(viewController: JobTeamViewController) {
-            super.init(target: viewController, action: "queryResultsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(JobTeamViewController.queryResultsPickerCollectionViewCellGestureRecognized(_:)))
             jobTeamViewController = viewController
             supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
         }
@@ -567,7 +567,7 @@ class JobTeamViewController: UITableViewController,
         }
 
         init(viewController: JobTeamViewController) {
-            super.init(target: viewController, action: "supervisorsPickerCollectionViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(JobTeamViewController.supervisorsPickerCollectionViewCellGestureRecognized(_:)))
             jobTeamViewController = viewController
             supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
         }

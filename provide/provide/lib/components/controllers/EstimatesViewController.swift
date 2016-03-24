@@ -43,7 +43,7 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
                 addEstimateBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
 
                 addEstimateBarButtonItem.target = self
-                addEstimateBarButtonItem.action = "addEstimate:"
+                addEstimateBarButtonItem.action = #selector(EstimatesViewController.addEstimate(_:))
             }
         }
     }
@@ -53,7 +53,7 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
     private var refreshControl: UIRefreshControl!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(EstimatesViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }

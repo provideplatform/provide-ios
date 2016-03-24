@@ -41,7 +41,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
 
     private var saveItem: UIBarButtonItem! {
         let saveIconImage = FAKFontAwesome.saveIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let saveItem = UIBarButtonItem(image: saveIconImage, style: .Plain, target: self, action: "addComment:")
+        let saveItem = UIBarButtonItem(image: saveIconImage, style: .Plain, target: self, action: #selector(CommentInputToolbar.addComment(_:)))
         saveItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return saveItem
     }
@@ -59,9 +59,9 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
 
         items!.append(saveItem)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow", name: UIKeyboardWillShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentInputToolbar.keyboardWillShow), name: UIKeyboardWillShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentInputToolbar.keyboardDidShow), name: UIKeyboardDidShowNotification)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentInputToolbar.keyboardDidHide), name: UIKeyboardDidHideNotification)
     }
 
     func dismiss() {

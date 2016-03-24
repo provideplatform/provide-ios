@@ -111,7 +111,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
             statusLabel.sizeToFit()
 
             if route.status == "loading" || route.status == "in_progress" || route.status == "unloading" || route.status == "pending_completion" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "refresh", userInfo: nil, repeats: true)
+                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(RouteHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
                 timer.fire()
             } else if route.status == "scheduled" {
                 durationLabel.text = route.scheduledStartAtDate.timeString

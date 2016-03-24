@@ -146,7 +146,7 @@ class JobsViewController: ViewController,
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: "reset", forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(JobsViewController.reset), forControlEvents: .ValueChanged)
 
         tableView.addSubview(refreshControl)
         tableView.alwaysBounceVertical = true
@@ -301,7 +301,7 @@ class JobsViewController: ViewController,
         private var shouldCancelJob = false
 
         init(viewController: JobsViewController) {
-            super.init(target: viewController, action: "jobsTableViewCellGestureRecognized:")
+            super.init(target: viewController, action: #selector(JobsViewController.jobsTableViewCellGestureRecognized(_:)))
             jobsViewController = viewController
         }
 

@@ -70,7 +70,7 @@ class FloorplanCreationViewController: UITableViewController,
     @IBOutlet private weak var createButton: UIButton!
 
     private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: "dismiss:")
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(FloorplanCreationViewController.dismiss(_:)))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return dismissItem
     }
@@ -82,7 +82,7 @@ class FloorplanCreationViewController: UITableViewController,
 
         searchBar?.placeholder = ""
 
-        createButton.addTarget(self, action: "saveFloorplan:", forControlEvents: .TouchUpInside)
+        createButton.addTarget(self, action: #selector(FloorplanCreationViewController.saveFloorplan(_:)), forControlEvents: .TouchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
@@ -193,7 +193,7 @@ class FloorplanCreationViewController: UITableViewController,
     func enableTapToDismissKeyboard() {
         disableTapToDismissKeyboard()
         tableView.enableTapToDismissKeyboard()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: "resetTableViewFrame")
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FloorplanCreationViewController.resetTableViewFrame))
         tableView.addGestureRecognizer(tapGestureRecognizer)
     }
 
