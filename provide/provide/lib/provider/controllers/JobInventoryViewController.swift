@@ -267,7 +267,7 @@ class JobInventoryViewContoller: UITableViewController,
         dismissViewController(animated: true)
 
         if totalProductsCount > -1 {
-            totalProductsCount++
+            totalProductsCount += 1
 
             if showsAllProducts {
                 queryResultsPickerViewController?.products.append(product)

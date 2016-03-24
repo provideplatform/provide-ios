@@ -473,7 +473,8 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
         let mapPoints = UnsafeMutablePointer<MKMapPoint>.alloc(points.count)
         var i = 0
         for point in points {
-            mapPoints[i++] = MKMapPoint(x: Double(point.x), y: Double(point.y))
+            mapPoints[i] = MKMapPoint(x: Double(point.x), y: Double(point.y))
+            i += 1
         }
 
         let polygon = MKPolygon(points: mapPoints, count: points.count)

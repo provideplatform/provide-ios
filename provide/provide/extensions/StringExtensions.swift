@@ -39,9 +39,11 @@ extension String {
             } else {
                 assert(components.count == assertedComponentsCount, "This method expected to find \(assertedComponentsCount) and return a tuple containing 2 values")
                 var i = 1
-                var aggregateComponent = components[i++]
+                var aggregateComponent = components[i]
+                i += 1
                 while i < components.count - 1 {
-                    aggregateComponent = "\(aggregateComponent)\(seperator)\(components[i++])"
+                    aggregateComponent = "\(aggregateComponent)\(seperator)\(components[i])"
+                    i += 1
                 }
                 components[1] = aggregateComponent
             }

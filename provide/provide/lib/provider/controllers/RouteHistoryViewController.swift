@@ -161,7 +161,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         let routeIndex = routeIndexAtIndexPath(indexPath)
         if routeIndex == routes.count - 1 && routeIndex > lastRouteIndex {
-            page++
+            page += 1
             lastRouteIndex = routeIndex
             refresh()
         }

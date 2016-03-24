@@ -387,7 +387,7 @@ class WorkOrder: Model {
         if let attachments = attachments {
             for attachment in attachments {
                 if attachment.mimeType == "image/png" || attachment.mimeType == "image/jpg" || attachment.mimeType == "image/jpeg" {
-                    imageCount++
+                    imageCount += 1
                 }
             }
         }
@@ -708,7 +708,7 @@ class WorkOrder: Model {
         if hasProvider(provider) {
             var i = -1
             for p in providers {
-                i++
+                i += 1
                 if p.id == provider.id {
                     break
                 }

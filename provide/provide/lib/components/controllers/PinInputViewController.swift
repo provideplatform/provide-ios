@@ -119,7 +119,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         case .Validate:
             if KeyChainService.sharedService().pin != pin {
                 resetWithMessage("Invalid Pin. Please try again")
-                failedAttempts++
+                failedAttempts += 1
                 if failedAttempts >= maxAllowedAttempts {
                     delegate.pinInputViewControllerDidExceedMaxAttempts?(self)
                 }

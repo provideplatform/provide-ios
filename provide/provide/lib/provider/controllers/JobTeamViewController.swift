@@ -379,7 +379,7 @@ class JobTeamViewController: UITableViewController,
         viewController.presentingViewController?.dismissViewController(animated: true)
 
         if totalProvidersCount > -1 {
-            totalProvidersCount++
+            totalProvidersCount += 1
 
             if showsAllProviders {
                 queryResultsPickerViewController?.providers.append(provider)

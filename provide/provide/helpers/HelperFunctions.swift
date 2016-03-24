@@ -25,7 +25,7 @@ func dispatch_async_global_queue(priority: Int, block: dispatch_block_t) {
     dispatch_async(dispatch_get_global_queue(priority, 0), block)
 }
 
-func log(message: String, _ fileName: String = __FILE__, _ functionName: String = __FUNCTION__, _ lineNumber: Int = __LINE__) {
+func log(message: String, _ fileName: String = #file, _ functionName: String = #function, _ lineNumber: Int = #line) {
     if CurrentBuildConfig == .Debug {
         let timestamp = logTimestampDateFormatter.stringFromDate(NSDate())
         var fileAndMethod = "[\(timestamp)] [\(NSString(string: NSString(string: fileName).lastPathComponent).stringByDeletingPathExtension):\(lineNumber)] "
@@ -36,24 +36,24 @@ func log(message: String, _ fileName: String = __FILE__, _ functionName: String 
     }
 }
 
-func why(message: String, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+func why(message: String, fileName: String = #file, functionName: String = #function, lineNumber: Int = #line) {
     log("❓ WHY: \(message)", fileName, functionName, lineNumber)
 }
 
-func logError(error: NSError, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+func logError(error: NSError, fileName: String = #file, functionName: String = #function, lineNumber: Int = #line) {
     log("❌ NSError: \(error.localizedDescription)", fileName, functionName, lineNumber)
     fatalError("Encountered: NSError: \(error)")
 }
 
-func logError(errorMessage: String, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+func logError(errorMessage: String, fileName: String = #file, functionName: String = #function, lineNumber: Int = #line) {
     log("‼️ ERROR: \(errorMessage)", fileName, functionName, lineNumber)
 }
 
-func logWarn(errorMessage: String, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+func logWarn(errorMessage: String, fileName: String = #file, functionName: String = #function, lineNumber: Int = #line) {
     log("⚠️ WARNING: \(errorMessage)", fileName, functionName, lineNumber)
 }
 
-func logInfo(infoMessage: String, fileName: String = __FILE__, functionName: String = __FUNCTION__, lineNumber: Int = __LINE__) {
+func logInfo(infoMessage: String, fileName: String = #file, functionName: String = #function, lineNumber: Int = #line) {
     log("🔵 INFO: \(infoMessage)", fileName, functionName, lineNumber)
 }
 

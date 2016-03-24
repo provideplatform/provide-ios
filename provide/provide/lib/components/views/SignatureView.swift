@@ -78,7 +78,7 @@ class SignatureView: UIView {
             let pt = touch.locationInView(touch.view)
             path.addLineToPoint(pt)
 
-            self.touches++
+            self.touches += 1
 
             setNeedsDisplay()
         }

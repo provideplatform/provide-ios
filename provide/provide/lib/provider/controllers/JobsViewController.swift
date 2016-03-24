@@ -238,7 +238,7 @@ class JobsViewController: ViewController,
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         let jobIndex = indexPath.row
         if jobIndex == jobs.count - 1 && jobIndex > lastJobIndex {
-            page++
+            page += 1
             lastJobIndex = jobIndex
             refresh()
         }

@@ -119,7 +119,7 @@ class FloorplansViewController: ViewController,
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         let floorplanIndex = indexPath.row
         if floorplanIndex == floorplans.count - 1 && floorplanIndex > lastFloorplanIndex {
-            page++
+            page += 1
             lastFloorplanIndex = floorplanIndex
             refresh()
         }

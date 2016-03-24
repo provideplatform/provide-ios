@@ -154,7 +154,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         let workOrderIndex = workOrderIndexAtIndexPath(indexPath)
         if workOrderIndex == workOrders.count - 1 && workOrderIndex > lastWorkOrderIndex {
-            page++
+            page += 1
             lastWorkOrderIndex = workOrderIndex
             refresh()
         }

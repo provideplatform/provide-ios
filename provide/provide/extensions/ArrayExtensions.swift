@@ -29,7 +29,7 @@ extension Array {
             if obj == elem as! T {
                 return idx
             }
-            idx++
+            idx += 1
         }
         return nil
     }

@@ -116,7 +116,8 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         var totalCellCount = 0
         var i = 0
         while i < tableView.numberOfSections {
-            totalCellCount += tableView.numberOfRowsInSection(i++)
+            totalCellCount += tableView.numberOfRowsInSection(i)
+            i += 1
         }
         //let rowHeight = tableView[0].bounds.height // height of first cell
         let totalCellHeight = CGFloat(totalCellCount) * 50.0

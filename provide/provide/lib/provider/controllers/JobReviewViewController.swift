@@ -17,7 +17,7 @@ class JobReviewViewController: ViewController {
     }
 
     private var completeItem: UIBarButtonItem! {
-        let completeItem = UIBarButtonItem(title: "COMPLETE JOB", style: .Plain, target: self, action: "complete:")
+        let completeItem = UIBarButtonItem(title: "COMPLETE JOB", style: .Plain, target: self, action: #selector(JobReviewViewController.complete(_:)))
         completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         return completeItem
     }

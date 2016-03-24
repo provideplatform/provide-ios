@@ -525,7 +525,7 @@ class JobBlueprintsViewController: ViewController,
             self.floorplanImportTimer = nil
         }
 
-        floorplanImportTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "requireAssociatedFloorplan", userInfo: nil, repeats: true)
+        floorplanImportTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(JobBlueprintsViewController.requireAssociatedFloorplan), userInfo: nil, repeats: true)
     }
 
     func requireAssociatedFloorplan() {

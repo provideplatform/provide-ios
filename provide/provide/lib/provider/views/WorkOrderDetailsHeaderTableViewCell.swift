@@ -238,7 +238,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                     break
                 }
                 specificProviders += ", \(provider.contact.name)"
-                i++
+                i += 1
             }
             let matches = Regex.match("^, ", input: specificProviders)
             if matches.count > 0 {

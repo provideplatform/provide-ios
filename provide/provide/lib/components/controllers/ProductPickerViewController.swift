@@ -215,7 +215,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
                     }
                     self.products += fetchedProducts
 
-                    self.page++
+                    self.page += 1
                     self.reloadCollectionView()
                 },
                 onError: { error, statusCode, responseString in

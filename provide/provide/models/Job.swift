@@ -573,7 +573,7 @@ class Job: Model {
         if hasSupervisor(supervisor) {
             var i = -1
             for s in supervisors {
-                i++
+                i += 1
                 if s.id == supervisor.id {
                     break
                 }
