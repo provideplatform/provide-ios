@@ -335,14 +335,16 @@ class WorkOrder: Model {
     var currentComponentIdentifier: String! {
         var componentIdentifier: String!
         for component in components {
-            if let completed = component["completed"] as? Bool {
-                if !completed {
-                    componentIdentifier = component["component"] as! String
+            if let componentDict = component as? [String : AnyObject] {
+                if let completed = componentDict["completed"] as? Bool {
+                    if !completed {
+                        componentIdentifier = componentDict["component"] as! String
+                        break
+                    }
+                } else {
+                    componentIdentifier = componentDict["component"] as! String
                     break
                 }
-            } else {
-                componentIdentifier = component["component"] as! String
-                break
             }
         }
         return componentIdentifier

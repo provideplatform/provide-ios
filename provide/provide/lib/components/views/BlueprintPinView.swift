@@ -90,7 +90,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             self.point = CGPoint(x: point[0], y: point[1])
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(75.0)
+        image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
     }
 
@@ -104,7 +104,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             self.point = CGPoint(x: point[0], y: point[1])
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(75.0)
+        image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
     }
 

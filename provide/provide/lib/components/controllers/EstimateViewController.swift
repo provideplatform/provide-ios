@@ -37,7 +37,7 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         activityIndicatorView?.startAnimating()
 
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
-            if let userInfo = notification.object {
+            if let userInfo = notification.object as? [String : AnyObject] {
                 let attachmentId = userInfo["attachment_id"] as? Int
                 let attachableType = userInfo["attachable_type"] as? String
                 let attachableId = userInfo["attachable_id"] as? Int
