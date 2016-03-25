@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -127,23 +127,8 @@
                             </activityIndicatorView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
                                 <rect key="frame" x="225" y="285" width="150" height="2"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" id="WrP-PU-mMX">
-                                        <variation key="heightClass=regular-widthClass=compact" constant="150"/>
-                                    </constraint>
-                                </constraints>
                                 <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="WrP-PU-mMX"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="WrP-PU-mMX"/>
-                                    </mask>
-                                </variation>
                             </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -153,16 +138,17 @@
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerY" secondItem="vsP-WQ-g9V" secondAttribute="centerY" id="5wj-bR-7wb"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="8fg-2O-zv7"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
-                            <constraint firstAttribute="trailing" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="175" id="DUs-DK-Cxk">
-                                <variation key="heightClass=regular-widthClass=compact" constant="125"/>
-                            </constraint>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
+                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="105" id="Hqo-FQ-9BA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xRM-F2-amm" secondAttribute="trailing" constant="-20" id="MUj-kM-Bct"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="kd1-tJ-VKm" secondAttribute="bottom" constant="344" id="OpH-np-Zos"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="270" id="RDi-mQ-S9b"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="170" id="SVf-9M-jzH"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="bUJ-fH-EIv">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-88"/>
                             </constraint>
+                            <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="dRv-4s-X1u"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="270" id="gC5-Fo-9eV"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="xRM-F2-amm" secondAttribute="bottom" id="gJI-FF-5LS"/>
@@ -170,22 +156,45 @@
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="258" id="gja-4k-PRU"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="258" id="kQL-eL-ro2"/>
+                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="390" id="ltK-f8-1iH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="105" id="m0v-51-Iuv"/>
                             <constraint firstItem="xRM-F2-amm" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="mk0-Dg-es5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="205" id="skV-Gd-PEJ"/>
+                            <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="170" id="uET-Uz-hZ5"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="DUs-DK-Cxk"/>
+                                <exclude reference="SVf-9M-jzH"/>
+                                <exclude reference="dRv-4s-X1u"/>
+                                <exclude reference="uET-Uz-hZ5"/>
+                                <exclude reference="Hqo-FQ-9BA"/>
+                                <exclude reference="ltK-f8-1iH"/>
+                                <exclude reference="m0v-51-Iuv"/>
+                                <exclude reference="OpH-np-Zos"/>
+                                <exclude reference="kQL-eL-ro2"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <exclude reference="5wj-bR-7wb"/>
+                                <exclude reference="8fg-2O-zv7"/>
                                 <exclude reference="RDi-mQ-S9b"/>
+                                <include reference="SVf-9M-jzH"/>
+                                <include reference="dRv-4s-X1u"/>
                                 <exclude reference="gC5-Fo-9eV"/>
-                                <include reference="DUs-DK-Cxk"/>
+                                <exclude reference="gWP-3s-TEr"/>
+                                <include reference="uET-Uz-hZ5"/>
                                 <exclude reference="FqT-en-55N"/>
+                                <include reference="Hqo-FQ-9BA"/>
+                                <exclude reference="bUJ-fH-EIv"/>
+                                <include reference="ltK-f8-1iH"/>
+                                <include reference="m0v-51-Iuv"/>
                                 <exclude reference="skV-Gd-PEJ"/>
+                                <include reference="OpH-np-Zos"/>
+                                <exclude reference="gja-4k-PRU"/>
+                                <include reference="kQL-eL-ro2"/>
                             </mask>
                         </variation>
                     </view>
