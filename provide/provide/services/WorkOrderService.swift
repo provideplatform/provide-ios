@@ -101,7 +101,7 @@ class WorkOrderService: NSObject {
         status: String = "scheduled",
         today: Bool = false,
         excludeRoutes: Bool = true,
-        includeExpenses: Bool = true,
+        includeExpenses: Bool = false,
         includeSupervisors: Bool = true,
         onWorkOrdersFetched: OnWorkOrdersFetched!)
     {

@@ -171,8 +171,8 @@ class JobsViewController: ViewController,
                                          companyId: ApiService.sharedService().defaultCompanyId,
                                          status: "configuring,in_progress,pending_completion",
                                          includeCustomer: true,
-                                         includeExpenses: true,
-                                         includeProducts: true) { jobs in
+                                         includeExpenses: false,
+                                         includeProducts: false) { jobs in
             self.jobs += jobs
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
