@@ -183,7 +183,7 @@
         <!--Comments View Controller-->
         <scene sceneID="DEa-XM-Q76">
             <objects>
-                <viewController storyboardIdentifier="CommentsViewControllerUnembedded" id="azg-CK-naS" customClass="CommentsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentsViewControllerUnembedded" automaticallyAdjustsScrollViewInsets="NO" id="azg-CK-naS" customClass="CommentsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o1R-Nb-GTK"/>
                         <viewControllerLayoutGuide type="bottom" id="dPd-xB-hA7"/>
@@ -304,6 +304,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="uP4-Pf-8Hx" firstAttribute="top" secondItem="o1R-Nb-GTK" secondAttribute="bottom" constant="-20" id="4BI-cP-6OR"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="leading" secondItem="KrU-S3-ihG" secondAttribute="leading" id="4pr-mg-mDz"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="trailing" secondItem="V0J-pb-vrd" secondAttribute="trailing" id="AIM-ri-aAa"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="top" secondItem="KrU-S3-ihG" secondAttribute="topMargin" id="Et3-ev-jir"/>
@@ -312,8 +313,11 @@
                             <constraint firstAttribute="trailing" secondItem="uP4-Pf-8Hx" secondAttribute="trailing" id="PK8-Ob-2kj"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="leading" secondItem="V0J-pb-vrd" secondAttribute="leading" id="k0s-eV-Xp1"/>
                             <constraint firstItem="JTb-c2-Ghj" firstAttribute="leading" secondItem="KrU-S3-ihG" secondAttribute="leadingMargin" constant="29" id="kh8-uH-ZQ9"/>
+                            <constraint firstItem="dPd-xB-hA7" firstAttribute="top" secondItem="uP4-Pf-8Hx" secondAttribute="bottom" id="mxE-OO-E3L"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="bottom" secondItem="V0J-pb-vrd" secondAttribute="top" id="pBR-fK-O7F"/>
+                            <constraint firstItem="uP4-Pf-8Hx" firstAttribute="leading" secondItem="KrU-S3-ihG" secondAttribute="leadingMargin" constant="-20" id="qVz-zN-efZ"/>
                             <constraint firstItem="uP4-Pf-8Hx" firstAttribute="centerX" secondItem="JTb-c2-Ghj" secondAttribute="centerX" id="qdy-je-NFe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uP4-Pf-8Hx" secondAttribute="trailing" constant="-20" id="yYV-Cn-SMx"/>
                             <constraint firstItem="IGu-gd-PzR" firstAttribute="centerY" secondItem="KrU-S3-ihG" secondAttribute="centerY" id="ylN-NE-WBr"/>
                         </constraints>
                         <variation key="default">
