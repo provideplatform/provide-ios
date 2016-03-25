@@ -938,11 +938,9 @@ class WorkOrder: Model {
 
     func reloadComments(onSuccess: OnSuccess, onError: OnError) {
         if id > 0 {
+            comments = [Comment]()
             ApiService.sharedService().fetchComments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
-                    if self.comments == nil {
-                        self.comments = [Comment]()
-                    }
                     let fetchedComments = (mappingResult.array() as! [Comment]).reverse()
                     for comment in fetchedComments {
                         self.comments.append(comment)

@@ -10,12 +10,20 @@ import UIKit
 
 protocol CommentsViewControllerDelegate {
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String)
-    func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment]
+    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String
+    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> String
+    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]!
 }
 
 class CommentsViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {
 
-    var commentsViewControllerDelegate: CommentsViewControllerDelegate!
+    var commentsViewControllerDelegate: CommentsViewControllerDelegate! {
+        didSet {
+            if let _ = commentsViewControllerDelegate {
+                reset()
+            }
+        }
+    }
 
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var zeroStateLabel: UILabel!
@@ -31,15 +39,15 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         }
     }
 
-    private var comments: [Comment] {
-        if let comments = commentsViewControllerDelegate?.commentsForCommentsViewController(self) {
-            return comments
-        }
-        return [Comment]()
-    }
+    private var comments = [Comment]()
+
+    private var page = 1
+    private var rpp = 10
+
+    private var fetchingComments = false
 
     func scrollToNewestComment(animated: Bool = true) {
-        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .Top, animated: animated)
+        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: comments.count - 1, inSection: 0), atScrollPosition: .Top, animated: animated)
     }
 
     override func showActivity() {
@@ -77,6 +85,56 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             if let popoverPresentationController = commentCreationViewController.popoverPresentationController {
                 popoverPresentationController.permittedArrowDirections = [.Down]
             }
+        }
+    }
+
+    func addComment(comment: Comment) {
+        comments.append(comment)
+        reloadCollectionView()
+        scrollToNewestComment()
+    }
+
+    func reset() {
+        comments = [Comment]()
+        page = 1
+        refresh()
+    }
+
+    func refresh() {
+        if fetchingComments {
+            return
+        }
+
+        fetchingComments = true
+
+        if page == 1 {
+            showActivity()
+        }
+
+        if var params = commentsViewControllerDelegate.queryParamsForCommentsViewController(self) {
+            params["page"] = page
+            params["rpp"] = rpp
+
+            let commentableType = commentsViewControllerDelegate.commentableTypeForCommentsViewController(self)
+            let commentableId = commentsViewControllerDelegate.commentableIdForCommentsViewController(self)
+
+            ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: commentableId,
+                                                    onSuccess: { statusCode, mappingResult in
+                                                        let fetchedComments = mappingResult.array() as! [Comment]
+                                                        if self.page == 1 {
+                                                            self.comments = [Comment]()
+                                                        }
+                                                        self.comments += fetchedComments
+                                                        
+                                                        self.page += 1
+                                                        self.reloadCollectionView()
+
+                                                        self.fetchingComments = false
+                                                    },
+                                                    onError: { error, statusCode, responseString in
+                                                        self.fetchingComments = false
+                                                    }
+            )
         }
     }
 

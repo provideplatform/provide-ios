@@ -573,6 +573,10 @@ class ApiService: NSObject {
 
     // MARK: Comments API
 
+    func fetchComments(params: [String : AnyObject], forCommentableType commentableType: String, withCommentableId commentableId: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     func fetchComments(forJobWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("jobs/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }

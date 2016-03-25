@@ -528,26 +528,24 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: CommentsViewControllerDelegate
 
-    func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment] {
-        if let workOrder = workOrder {
-            if let comments = workOrder.comments {
-                return comments
-            } else {
-                viewController.showActivity()
-                reloadComments()
-            }
-        }
+    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]! {
+        return [String : AnyObject]()
+    }
 
-        return [Comment]()
+    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String {
+        return "work_order"
+    }
+
+    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> String {
+        return String(workOrder.id)
     }
 
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
         if let workOrder = workOrder {
             workOrder.addComment(comment,
                 onSuccess: { statusCode, mappingResult in
-                    viewController.reloadCollectionView()
                     dispatch_after_delay(0.0) {
-                        viewController.scrollToNewestComment()
+                        viewController.addComment(mappingResult.firstObject as! Comment)
                     }
                 },
                 onError: { error, statusCode, responseString in
@@ -562,22 +560,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             return
         }
 
-        commentsViewController.showActivity()
-
-        if let workOrder = workOrder {
-            if workOrder.id > 0 {
-                workOrder.reloadComments(
-                    { statusCode, mappingResult in
-                        self.commentsViewController.reloadCollectionView()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            } else {
-                self.commentsViewController.hideActivity()
-            }
-        }
+        commentsViewController.reset()
     }
 
     // MARK: DurationPickerViewDelegate

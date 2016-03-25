@@ -170,15 +170,16 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     // MARK: CommentsViewControllerDelegate
 
-    func commentsForCommentsViewController(viewController: CommentsViewController) -> [Comment] {
-        if let job = job {
-            if let comments = job.comments {
-                return comments
-            } else {
-                reloadJobComments()
-            }
-        }
-        return [Comment]()
+    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]! {
+        return [String : AnyObject]()
+    }
+
+    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String {
+        return "job"
+    }
+
+    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> String {
+        return String(job.id)
     }
 
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
