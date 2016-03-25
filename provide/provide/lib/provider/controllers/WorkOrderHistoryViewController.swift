@@ -110,10 +110,10 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         let params: [String : AnyObject] = [
             "page": page,
             "rpp": rpp,
-            "status": "abandoned,canceled,scheduled,en_route,in_progress,paused,completed",
+            "status": "awaiting_schedule,scheduled,en_route,in_progress,rejected,pending_approval,paused,completed",
             "sort_started_at_desc": "true",
-            "include_products": "true",
-            "include_work_order_providers": "true",
+            "include_products": "false",
+            "include_work_order_providers": "false",
             "include_checkin_coordinates": "true",
         ]
 
