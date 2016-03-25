@@ -46,6 +46,15 @@ class Attachment: Model {
         return mapping
     }
 
+    var filename: String! {
+        if let metadata = metadata {
+            if let filename = metadata["filename"] as? String {
+                return filename
+            }
+        }
+        return nil
+    }
+
     var url: NSURL! {
         if let status = status {
             if status == "pending" {
