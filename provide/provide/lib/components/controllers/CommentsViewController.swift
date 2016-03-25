@@ -118,23 +118,28 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             let commentableType = commentsViewControllerDelegate.commentableTypeForCommentsViewController(self)
             let commentableId = commentsViewControllerDelegate.commentableIdForCommentsViewController(self)
 
-            ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: commentableId,
-                                                    onSuccess: { statusCode, mappingResult in
-                                                        let fetchedComments = mappingResult.array() as! [Comment]
-                                                        if self.page == 1 {
-                                                            self.comments = [Comment]()
-                                                        }
-                                                        self.comments += fetchedComments
-                                                        
-                                                        self.page += 1
-                                                        self.reloadCollectionView()
+            if Int(commentableId) > 0 {
+                ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: commentableId,
+                                                         onSuccess: { statusCode, mappingResult in
+                                                            let fetchedComments = mappingResult.array() as! [Comment]
+                                                            if self.page == 1 {
+                                                                self.comments = [Comment]()
+                                                            }
+                                                            self.comments += fetchedComments
 
-                                                        self.fetchingComments = false
-                                                    },
-                                                    onError: { error, statusCode, responseString in
-                                                        self.fetchingComments = false
-                                                    }
-            )
+                                                            self.page += 1
+                                                            self.reloadCollectionView()
+
+                                                            self.fetchingComments = false
+                    },
+                                                         onError: { error, statusCode, responseString in
+                                                            self.fetchingComments = false
+                    }
+                )
+            } else {
+                reloadCollectionView()
+                fetchingComments = false
+            }
         }
     }
 
