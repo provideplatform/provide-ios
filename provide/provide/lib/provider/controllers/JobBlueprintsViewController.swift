@@ -14,9 +14,7 @@ protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
 }
 
 class JobBlueprintsViewController: ViewController,
-                                   BlueprintsPageViewControllerDelegate,
-                                   EstimatesViewControllerDelegate,
-                                   FloorplansViewControllerDelegate {
+                                   BlueprintsPageViewControllerDelegate {
 
     private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
@@ -61,12 +59,9 @@ class JobBlueprintsViewController: ViewController,
 
     private weak var blueprintsPageViewController: BlueprintsPageViewController!
     private weak var blueprintViewController: BlueprintViewController!
-    private weak var estimatesViewController: EstimatesViewController!
-    private weak var floorplansViewController: FloorplansViewController!
 
     private var reloadingBlueprint = false
     private var reloadingJob = false
-    private var reloadingEstimates = false
     private var importedPdfAttachment: Attachment! {
         didSet {
             if let _ = importedPdfAttachment {
@@ -146,7 +141,7 @@ class JobBlueprintsViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "SETUP BLUEPRINT"
+        navigationItem.title = ""
 
         importInstructionsLabel?.text = ""
         importInstructionsContainerView?.alpha = 0.0
@@ -183,7 +178,7 @@ class JobBlueprintsViewController: ViewController,
                                     self.importedPngAttachment = Attachment()
                                     self.importedPngAttachment.id = attachmentId!
                                 } else if self.importedPngAttachment.id == attachmentId {
-                                    self.reloadJob()
+                                    self.refresh()
                                 }
                             } else {
                                 self.refresh()
@@ -217,57 +212,30 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func refresh() {
-        reloadJob()
+        if !reloadingJob {
+            if let job = job {
+                reloadingJob = true
 
-//        if job.isCommercial {
-//            navigationItem.title = "SETUP BLUEPRINT"
-//        } else if job.isResidential {
-//            navigationItem.title = "SETUP FLOORPLAN"
-//        }
-//        if let job = job {
-//            if job.isCommercial || job.isPunchlist {
-//                if let _ = floorplansContainerView.superview {
-//                    floorplansContainerView.removeFromSuperview()
-//                }
-//            }
-//        }
-//
-//        if shouldLoadBlueprint {
-//            importInstructionsContainerView?.alpha = 0.0
-//            loadBlueprint()
-//        } else if let job = job {
-//            if job.hasPendingBlueprint {
-//                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-//            } else if job.isCommercial || job.isPunchlist {
-//                if job.blueprintImageUrl == nil && importedPdfAttachment == nil {
-//                    if job.blueprintImageUrl == nil && importedPngAttachment == nil {
-//                        job.reload(
-//                            onSuccess: { [weak self] statusCode, mappingResult in
-//                                if job.blueprintImageUrl == nil && job.blueprints.count == 0 {
-//                                    self?.renderInstruction("Import a blueprint for this job.")
-//                                    self?.showDropbox()
-//                                } else if job.hasPendingBlueprint {
-//                                    self?.importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
-//                                }
-//                            },
-//                            onError: { error, statusCode, responseString in
-//
-//                            }
-//                        )
-//                    }
-//                } else if job.blueprintImageUrl != nil {
-//                    renderInstruction("Congrats! Your blueprint is configured properly.")
-//                    estimatesContainerView?.alpha = 1.0
-//                    reloadEstimates()
-//                }
-//            } else if job.isResidential {
-//                if job.blueprintImageUrl == nil {
-//                    renderFloorplans()
-//                }
-//            }
-//        } else {
-//            renderInstruction("Loading job")
-//        }
+                job.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        self.blueprintsPageViewController.resetViewControllers()
+                        self.reloadingJob = false
+
+                        if job.blueprintImages.count == 0 {
+                            self.renderInstruction("Import a blueprint for this job.")
+                            self.showDropbox()
+                        }
+
+                        self.blueprintPagesContainerView?.alpha = 1.0
+                        self.blueprintActivityIndicatorView?.stopAnimating()
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.blueprintsPageViewController.resetViewControllers()
+                        self.reloadingJob = false
+                    }
+                )
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -276,15 +244,6 @@ class JobBlueprintsViewController: ViewController,
         if segue.identifier! == "BlueprintsPageViewControllerEmbedSegue" {
             blueprintsPageViewController = segue.destinationViewController as! BlueprintsPageViewController
             blueprintsPageViewController.blueprintsPageViewControllerDelegate = self
-        } else if segue.identifier! == "BlueprintViewControllerEmbedSegue" {
-            blueprintViewController = segue.destinationViewController as! BlueprintViewController
-            //blueprintViewController.blueprintViewControllerDelegate = self
-        } else if segue.identifier! == "EstimatesViewControllerEmbedSegue" {
-//            estimatesViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! EstimatesViewController
-//            estimatesViewController.delegate = self
-        } else if segue.identifier! == "FloorplansViewControllerEmbedSegue" {
-//            floorplansViewController = segue.destinationViewController as! FloorplansViewController
-//            floorplansViewController.delegate = self
         }
     }
 
@@ -330,67 +289,6 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-    private func reloadJob() {
-        if !reloadingJob {
-            if let job = job {
-                reloadingJob = true
-
-                job.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        //self.loadBlueprint()
-                        self.blueprintsPageViewController.resetViewControllers()
-                        self.reloadingJob = false
-
-                        if job.blueprintImages.count == 0 {
-                            self.renderInstruction("Import a blueprint for this job.")
-                            self.showDropbox()
-                        }
-
-                        self.blueprintPagesContainerView?.alpha = 1.0
-                        self.blueprintActivityIndicatorView?.stopAnimating()
-                    },
-                    onError: { error, statusCode, responseString in
-                        self.blueprintsPageViewController.resetViewControllers()
-                        self.reloadingJob = false
-                    }
-                )
-            }
-        }
-    }
-
-    private func reloadEstimates() {
-        if !reloadingEstimates {
-            if let job = job {
-                reloadingEstimates = true
-
-                job.reloadEstimates(
-                    { statusCode, mappingResult in
-                        if let estimatesViewController = self.estimatesViewController {
-                            self.estimatesContainerView?.alpha = 1.0
-                            self.estimatesContainerView?.superview?.bringSubviewToFront(self.estimatesContainerView)
-
-                            estimatesViewController.estimates = mappingResult.array() as! [Estimate]
-                        }
-                        self.reloadingEstimates = false
-                    },
-                    onError: { error, statusCode, responseString in
-                        // TODO: set estimates on estimates controller
-                        self.reloadingEstimates = false
-                    }
-                )
-            }
-        }
-    }
-
-    private func renderFloorplans() {
-        renderInstruction(nil)
-
-        floorplansViewController.reset()
-
-        floorplansContainerView?.alpha = 1.0
-        floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
-    }
-
     private func renderInstruction(message: String!) {
         if let message = message {
             importInstructionsLabel?.text = message
@@ -418,36 +316,6 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-//    private func loadBlueprint(force: Bool = false) {
-//        if !reloadingBlueprint {
-//            if let image = blueprintImageForBlueprintViewController(blueprintViewController) {
-//                setBlueprintImage(image)
-//            } else if let blueprintImageUrl = job.blueprintImageUrl {
-//                reloadingBlueprint = true
-//                importStatus = nil
-//
-//                blueprintActivityIndicatorView.startAnimating()
-//                blueprintPreviewContainerView.alpha = 1.0
-//
-//                ApiService.sharedService().fetchImage(blueprintImageUrl,
-//                    onImageFetched: { statusCode, image  in
-//                        self.setBlueprintImage(image)
-//                        self.blueprintViewController?.blueprintViewControllerDelegate = self
-//                    },
-//                    onError: { error, statusCode, responseString in
-//                        
-//                    }
-//                )
-//            } else if importedPdfAttachment == nil {
-//                blueprintPreviewContainerView.alpha = 0.0
-//                blueprintActivityIndicatorView.stopAnimating()
-//                showDropbox()
-//                importInstructionsContainerView?.alpha = 1.0
-//                reloadingBlueprint = false
-//            }
-//        }
-//    }
-
     func setBlueprintImage(image: UIImage) {
         blueprintPreviewImageView.image = image
         blueprintPreviewImageView.alpha = 1.0
@@ -458,7 +326,6 @@ class JobBlueprintsViewController: ViewController,
         blueprintActivityIndicatorView.stopAnimating()
         hideDropbox()
 
-        //blueprintViewController!.blueprintViewControllerDelegate = self
         reloadingBlueprint = false
     }
 
@@ -474,88 +341,6 @@ class JobBlueprintsViewController: ViewController,
             blueprints = job.blueprintImages
         }
         return blueprints
-    }
-
-    // MARK: EstimatesViewControllerDelegate
-
-    func jobForEstimatesViewController(viewController: EstimatesViewController) -> Job! {
-        return job
-    }
-
-    func estimatesViewController(viewController: EstimatesViewController, didCreateEstimate estimate: Estimate) {
-        if let index = viewController.estimates.indexOf(estimate) {
-            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            let cell = viewController.tableView.cellForRowAtIndexPath(indexPath)
-            viewController.performSegueWithIdentifier("EstimateViewControllerSegue", sender: cell)
-        }
-    }
-
-    // MARK: FloorplansViewControllerDelegate
-
-    func customerIdForFloorplansViewController(viewController: FloorplansViewController) -> Int {
-        if let job = job {
-            return job.customerId
-        }
-        return 0
-    }
-
-    func floorplansViewController(viewController: FloorplansViewController, didSelectFloorplan floorplan: Floorplan) {
-        floorplansContainerView.removeFromSuperview()
-
-        importStatus = "Using floorplan \(floorplan.name)..."
-
-        if job.floorplans == nil {
-            job.floorplans = [Floorplan]()
-        }
-
-        job.floorplans.append(floorplan)
-
-        job.save(
-            onSuccess: { statusCode, mappingResult in
-                self.scheduleRequireFloorplanTimer()
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
-    }
-
-    private func scheduleRequireFloorplanTimer() {
-        if let floorplanImportTimer = floorplanImportTimer {
-            floorplanImportTimer.invalidate()
-            self.floorplanImportTimer = nil
-        }
-
-        floorplanImportTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: #selector(JobBlueprintsViewController.requireAssociatedFloorplan), userInfo: nil, repeats: true)
-    }
-
-    func requireAssociatedFloorplan() {
-        if let job = job {
-            if job.blueprintImageUrl == nil {
-                job.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        if job.blueprintImageUrl != nil {
-                            if let floorplanImportTimer = self.floorplanImportTimer {
-                                floorplanImportTimer.invalidate()
-                                self.floorplanImportTimer = nil
-                            }
-
-                            self.refresh()
-                        }
-                    },
-                    onError: { error, statusCode, responseString in
-                        
-                    }
-                )
-            } else {
-                if let floorplanImportTimer = floorplanImportTimer {
-                    floorplanImportTimer.invalidate()
-                    self.floorplanImportTimer = nil
-                }
-
-                refresh()
-            }
-        }
     }
 
     deinit {

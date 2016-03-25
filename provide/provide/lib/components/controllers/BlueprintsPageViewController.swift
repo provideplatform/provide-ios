@@ -13,7 +13,7 @@ protocol BlueprintsPageViewControllerDelegate {
     func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment]
 }
 
-class BlueprintsPageViewController: UIPageViewController, BlueprintViewControllerDelegate {
+class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDelegate, BlueprintViewControllerDelegate {
 
     var blueprintsPageViewControllerDelegate: BlueprintsPageViewControllerDelegate! {
         didSet {
@@ -31,6 +31,8 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        delegate = self
 
         setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
     }
@@ -61,7 +63,25 @@ class BlueprintsPageViewController: UIPageViewController, BlueprintViewControlle
         if viewControllers.count > 0 {
             setViewControllers([viewControllers.first!], direction: .Forward, animated: false, completion: { complete in
                 logInfo("Blueprint page view controller rendered \(viewControllers.first!)")
+
+                self.pageViewController(self, willTransitionToViewControllers: viewControllers)
             })
+        }
+    }
+
+    // MARK: UIPageViewControllerDelegate
+
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        if let navigationController = navigationController {
+            if pendingViewControllers.count == 1 {
+                if let viewController = pendingViewControllers.first! as? BlueprintViewController {
+                    if let blueprint = viewController.blueprint {
+                        if let title = blueprint.filename {
+                            navigationController.navigationItem.title = title.uppercaseString
+                        }
+                    }
+                }
+            }
         }
     }
 
