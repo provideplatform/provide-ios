@@ -622,7 +622,7 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true"], onSuccess: onSuccess, onError: onError)
+        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true", "include_work_order_providers": "true"], onSuccess: onSuccess, onError: onError)
     }
 
     func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {

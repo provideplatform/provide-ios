@@ -44,23 +44,23 @@ class WorkOrderDetailsViewController: ViewController,
                     }
                 )
 
-                workOrder.reloadExpenses(
-                    { statusCode, mappingResult in
-                        self.reloadTableView()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-
-                workOrder.reloadInventory(
-                    { statusCode, mappingResult in
-                        self.reloadTableView()
-                    },
-                    onError: { error, statusCode, responseString in
-                        
-                    }
-                )
+//                workOrder.reloadExpenses(
+//                    { statusCode, mappingResult in
+//                        self.reloadTableView()
+//                    },
+//                    onError: { error, statusCode, responseString in
+//
+//                    }
+//                )
+//
+//                workOrder.reloadInventory(
+//                    { statusCode, mappingResult in
+//                        self.reloadTableView()
+//                    },
+//                    onError: { error, statusCode, responseString in
+//                        
+//                    }
+//                )
             }
 
             if let _ = tableView {
