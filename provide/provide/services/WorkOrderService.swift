@@ -103,6 +103,7 @@ class WorkOrderService: NSObject {
         excludeRoutes: Bool = true,
         includeExpenses: Bool = false,
         includeSupervisors: Bool = true,
+        includeProviders: Bool = true,
         onWorkOrdersFetched: OnWorkOrdersFetched!)
     {
         var params: [String: AnyObject] = [
@@ -129,6 +130,10 @@ class WorkOrderService: NSObject {
 
         if includeSupervisors {
             params.updateValue("true", forKey: "include_supervisors")
+        }
+
+        if includeProviders {
+            params.updateValue("true", forKey: "include_work_order_providers")
         }
 
         ApiService.sharedService().fetchWorkOrders(params,
