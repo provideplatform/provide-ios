@@ -308,7 +308,8 @@ class JobBlueprintsViewController: ViewController,
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
-                    self!.importFromSourceURL(sourceURL)
+                    let filename = (result as! DBChooserResult).name
+                    self!.importFromSourceURL(sourceURL, filename: filename)
                 }
             } else {
                 self!.refresh()
@@ -316,9 +317,9 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-    private func importFromSourceURL(sourceURL: NSURL) {
+    private func importFromSourceURL(sourceURL: NSURL, filename: String) {
         if let job = job {
-            let params: [String : AnyObject] = ["tags": ["blueprint"]]
+            let params: [String : AnyObject] = ["tags": ["blueprint"], "metadata": ["filename": filename]]
             ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     self!.importedPdfAttachment = mappingResult.firstObject as! Attachment
