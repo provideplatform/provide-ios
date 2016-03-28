@@ -267,6 +267,7 @@ class JobCreationViewController: UITableViewController,
             if let name = textField.text {
                 if name.length > 0 {
                     textField.resignFirstResponder()
+                    createJob()
                     return true
                 }
             }
