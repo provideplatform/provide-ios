@@ -71,12 +71,14 @@ class WorkOrderMapView: MapView {
 
         delegate = self
 
-        showsBuildings = true
-        showsPointsOfInterest = true
-
         LocationService.sharedService().requireAuthorization {
-            self.showsUserLocation = true
             LocationService.sharedService().start()
+
+            LocationService.sharedService().resolveCurrentLocation { location in
+                self.showsBuildings = true
+                self.showsPointsOfInterest = true
+                self.showsUserLocation = true
+            }
         }
     }
 
