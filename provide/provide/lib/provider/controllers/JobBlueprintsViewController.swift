@@ -218,7 +218,7 @@ class JobBlueprintsViewController: ViewController,
 
                 job.reload(
                     onSuccess: { statusCode, mappingResult in
-                        self.blueprintsPageViewController.resetViewControllers()
+                        self.blueprintsPageViewController?.resetViewControllers()
                         self.reloadingJob = false
 
                         if job.blueprintImages.count == 0 {
@@ -230,7 +230,7 @@ class JobBlueprintsViewController: ViewController,
                         self.blueprintActivityIndicatorView?.stopAnimating()
                     },
                     onError: { error, statusCode, responseString in
-                        self.blueprintsPageViewController.resetViewControllers()
+                        self.blueprintsPageViewController?.resetViewControllers()
                         self.reloadingJob = false
                     }
                 )
@@ -249,14 +249,18 @@ class JobBlueprintsViewController: ViewController,
 
     private func showDropbox() {
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
-            importFromDropboxButton.superview!.bringSubviewToFront(importFromDropboxButton)
-            importFromDropboxButton.alpha = 1.0
+            if let importFromDropboxButton = importFromDropboxButton {
+                importFromDropboxButton.superview!.bringSubviewToFront(importFromDropboxButton)
+                importFromDropboxButton.alpha = 1.0
+            }
         }
     }
 
     private func hideDropbox() {
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
-            importFromDropboxButton.alpha = 0.0
+            if let importFromDropboxButton = importFromDropboxButton {
+                importFromDropboxButton.alpha = 0.0
+            }
         }
     }
 
