@@ -1937,5 +1937,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     deinit {
         thumbnailView?.removeFromSuperview()
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
