@@ -983,7 +983,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        return job.isResidential
+        if let job = job {
+            return job.isResidential
+        }
+        return false
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
