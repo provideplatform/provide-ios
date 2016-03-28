@@ -846,7 +846,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintScaleViewDidReset(view: BlueprintScaleView) {
-        toolbar.toggleScaleVisibility()
+        toolbar?.toggleScaleVisibility()
     }
 
     func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat) {
