@@ -821,7 +821,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
-        return true
+        return false
     }
 
     func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
