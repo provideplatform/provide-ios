@@ -21,6 +21,18 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     var currentHeading: CLHeading!
     var currentLocation: CLLocation!
 
+    private var intervalSinceLastAccurateLocation: NSTimeInterval! {
+        if let locationServiceStartedDate = locationServiceStartedDate {
+            if let lastAccurateLocationDate = lastAccurateLocationDate {
+                return lastAccurateLocationDate.timeIntervalSinceDate(locationServiceStartedDate)
+            }
+        }
+        return nil
+    }
+
+    private var locationServiceStartedDate: NSDate!
+    private var lastAccurateLocationDate: NSDate!
+
     private var geofenceCallbacks = [String : [String : VoidBlock]]()
     private var onManagerAuthorizedCallbacks = [VoidBlock]()
 
@@ -33,6 +45,15 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     private var requireNavigationAccuracy = false
 
     private var regions = [CLCircularRegion]()
+
+    private var staleLocation: Bool {
+        if intervalSinceLastAccurateLocation != nil && abs(intervalSinceLastAccurateLocation) >= 15.0 {
+            return true
+        } else if locationServiceStartedDate != nil && abs(locationServiceStartedDate.timeIntervalSinceNow) >= 15.0 {
+            return true
+        }
+        return false
+    }
 
     required override init() {
         super.init()
@@ -75,12 +96,18 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Start/stop location updates
 
     func start() {
-        startUpdatingLocation()
+        if locationServiceStartedDate == nil {
+            locationServiceStartedDate = NSDate()
 
-        log("Started location service updates")
+            startUpdatingLocation()
+
+            log("Started location service updates")
+        }
     }
 
     func stop() {
+        locationServiceStartedDate = nil
+
         stopUpdatingLocation()
         stopUpdatingHeading()
 
@@ -88,8 +115,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func foreground() {
-        desiredAccuracy = defaultAccuracy
-        distanceFilter = defaultDistanceFilter
+        if requireNavigationAccuracy {
+            desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            distanceFilter = kCLDistanceFilterNone
+        } else {
+            desiredAccuracy = defaultAccuracy
+            distanceFilter = defaultDistanceFilter
+        }
     }
 
     func background() {
@@ -136,7 +168,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last where location.isAccurate {
+            lastAccurateLocationDate = NSDate()
             locationResolved(location)
+        } else if staleLocation {
+            if let location = locations.last where location.isAccurateForForcedLocationUpdate {
+                lastAccurateLocationDate = NSDate()
+                locationResolved(location)
+            }
         }
     }
 

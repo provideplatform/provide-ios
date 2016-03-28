@@ -19,19 +19,23 @@ extension CLLocation {
         return realTime && horizontallyAccurate && verticallyAccurate && validSpeed
     }
 
-    private var realTime: Bool {
+    var isAccurateForForcedLocationUpdate: Bool {
+        return realTime && (horizontallyAccurate || verticallyAccurate)
+    }
+
+    var realTime: Bool {
         return abs(timestamp.timeIntervalSinceNow) < timeIntervalSinceThreshold
     }
 
-    private var horizontallyAccurate: Bool {
+    var horizontallyAccurate: Bool {
         return horizontalAccuracy >= 0.0 && horizontalAccuracy <= horizontalAccuracyThreshold
     }
 
-    private var verticallyAccurate: Bool {
+    var verticallyAccurate: Bool {
         return (verticalAccuracy >= 0.0 && verticalAccuracy <= verticalAccuracyThreshold) || isSimulator()
     }
 
-    private var validSpeed: Bool {
+    var validSpeed: Bool {
         return speed >= 0.0 || isSimulator()
     }
 }
