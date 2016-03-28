@@ -28,13 +28,20 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             if let _ = workOrder {
                 refresh()
 
-                if workOrder.status == "in_progress" || workOrder.status == "en_route" {
+                if let status = workOrder.status {
+                    if status == "in_progress" || status == "en_route" {
+                        if let timer = timer {
+                            timer.invalidate()
+                            self.timer = nil
+                        }
+
+                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderDetailsHeaderTableViewCell.refreshInProgress), userInfo: nil, repeats: true)
+                    }
+                } else {
                     if let timer = timer {
                         timer.invalidate()
                         self.timer = nil
                     }
-
-                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderDetailsHeaderTableViewCell.refreshInProgress), userInfo: nil, repeats: true)
                 }
             }
         }
