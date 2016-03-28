@@ -579,6 +579,7 @@ class WorkOrder: Model {
 
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
+                    WorkOrderService.sharedService().updateWorkOrder(self)
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
