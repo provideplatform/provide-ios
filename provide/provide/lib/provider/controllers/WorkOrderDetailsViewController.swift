@@ -102,9 +102,11 @@ class WorkOrderDetailsViewController: ViewController,
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
-                if workOrder.id == self.workOrder.id {
-                    self.workOrder = workOrder
-                    self.reloadTableView()
+                if let wo = self.workOrder {
+                    if workOrder.id == wo.id {
+                        self.workOrder = workOrder
+                        self.reloadTableView()
+                    }
                 }
             }
         }
@@ -314,5 +316,9 @@ class WorkOrderDetailsViewController: ViewController,
 
     func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
         return "BACK"
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
