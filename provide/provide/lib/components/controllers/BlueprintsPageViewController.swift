@@ -115,11 +115,15 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
 
     func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
         if job != nil && job.isCommercial {
-            return true //FIXME shouldLoadBlueprint
+            for provider in currentUser().providers {
+                if job.hasSupervisor(provider) {
+                    return true
+                }
+            }
         } else if job != nil && (job.isResidential || job.isPunchlist) {
             return false
         }
-        return true
+        return false
     }
 
     func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {

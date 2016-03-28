@@ -935,7 +935,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
             return canSetScale
         }
-        return true
+        return false
     }
 
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
