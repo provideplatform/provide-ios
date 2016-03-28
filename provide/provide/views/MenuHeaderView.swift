@@ -199,4 +199,8 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         //UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

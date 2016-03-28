@@ -126,6 +126,8 @@ class MenuContainerView: UIView {
 
     deinit {
         teardown()
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {

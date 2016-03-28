@@ -184,4 +184,8 @@ class MessagesViewController: JSQMessagesViewController {
         }
         return false
     }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

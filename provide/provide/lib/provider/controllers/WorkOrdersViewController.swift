@@ -920,4 +920,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             }
         }
     }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }

@@ -53,4 +53,8 @@ class MessageService {
         let message = notification.object as! Message
         messages.append(message)
     }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
