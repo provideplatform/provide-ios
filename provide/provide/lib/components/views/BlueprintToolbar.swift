@@ -112,6 +112,8 @@ class BlueprintToolbar: UIToolbar {
             } else if index == nil {
                 items!.insert(scaleButton, atIndex: 0)
             }
+        } else if let index = items!.indexOfObject(scaleButton) {
+            items!.removeAtIndex(index)
         }
 
         if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
