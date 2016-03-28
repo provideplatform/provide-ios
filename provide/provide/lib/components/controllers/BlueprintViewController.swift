@@ -355,16 +355,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
     override func unwind() {
         clearNavigationItem()
 
-        if let navigationController = navigationController {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-                animations: { [weak self] in
-                    self!.view.alpha = 0.0
-                    navigationController.view.alpha = 0.0
-                    navigationController.view.frame = self!.hiddenNavigationControllerFrame
-                },
-                completion: nil
-            )
-        }
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                                   animations: { [weak self] in
+                                        self!.view.alpha = 0.0
+
+                                        if let navigationController = self!.navigationController {
+                                            navigationController.view.alpha = 0.0
+                                            navigationController.view.frame = self!.hiddenNavigationControllerFrame
+                                        }
+                                    },
+                                   completion: { [weak self] completed in
+                                        self!.view.removeFromSuperview()
+                                    }
+        )
     }
 
     private var floorplanSupportsBacksplash: Bool {
