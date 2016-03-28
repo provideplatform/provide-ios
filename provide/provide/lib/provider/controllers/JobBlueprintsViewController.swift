@@ -335,6 +335,10 @@ class JobBlueprintsViewController: ViewController,
 
     // MARK: BlueprintsPageViewControllerDelegate
 
+    func navigationItemForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> UINavigationItem! {
+        return navigationItem
+    }
+
     func jobForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Job! {
         return job
     }

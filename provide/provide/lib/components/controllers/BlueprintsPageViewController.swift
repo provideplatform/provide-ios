@@ -8,7 +8,9 @@
 
 import UIKit
 
+@objc
 protocol BlueprintsPageViewControllerDelegate {
+    optional func navigationItemForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> UINavigationItem!
     func jobForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Job!
     func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment]
 }
@@ -72,13 +74,24 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
     // MARK: UIPageViewControllerDelegate
 
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        if let navigationController = navigationController {
+        if let _ = navigationController {
             if pendingViewControllers.count == 1 {
                 if let viewController = pendingViewControllers.first! as? BlueprintViewController {
+                    var setTitle = false
+
                     if let blueprint = viewController.blueprint {
                         if let title = blueprint.filename {
-                            navigationController.navigationItem.title = title.uppercaseString
+                            viewController.title = title.uppercaseString
+
+                            if let navigationItem = blueprintsPageViewControllerDelegate?.navigationItemForBlueprintsPageViewController?(self) {
+                                navigationItem.title = viewController.title
+                            }
+                            setTitle = true
                         }
+                    }
+
+                    if !setTitle {
+                        viewController.title = nil
                     }
                 }
             }
