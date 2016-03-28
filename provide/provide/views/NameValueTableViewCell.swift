@@ -44,6 +44,9 @@ class NameValueTableViewCell: UITableViewCell {
 
         backgroundView = UIView(frame: bounds)
         backgroundView?.backgroundColor = UIColor.clearColor()
+
+        nameLabel?.text = ""
+        valueLabel?.text = ""
     }
 
     override func prepareForReuse() {
