@@ -92,15 +92,23 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 durationLabel.sizeToFit()
             }
 
-            statusLabel.text = workOrder.status.uppercaseString
-            statusLabel.sizeToFit()
+            if let status = workOrder.status {
+                statusLabel.text = status.uppercaseString
 
-            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
-                timer.fire()
-            } else if workOrder.status == "scheduled" {
-                durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                if status == "en_route" || status == "in_progress" {
+                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
+                    timer.fire()
+                } else if workOrder.status == "scheduled" {
+                    durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                }
+            } else {
+                statusLabel.text = ""
+
+                timer?.invalidate()
+                timer = nil
             }
+
+            statusLabel.sizeToFit()
         }
     }
 
