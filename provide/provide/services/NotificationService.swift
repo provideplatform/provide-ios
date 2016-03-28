@@ -85,22 +85,20 @@ class NotificationService: NSObject {
             } else {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                     if inProgressWorkOrder.id == workOrderId {
-                        ApiService.sharedService().fetchWorkOrderWithId(String(workOrderId),
-                            onSuccess: { statusCode, mappingResult in
-                                if let wo = mappingResult.firstObject as? WorkOrder {
-                                    WorkOrderService.sharedService().updateWorkOrder(wo)
+                        inProgressWorkOrder.reload([:],
+                                                   onSuccess: { statusCode, mappingResult in
+                                                        WorkOrderService.sharedService().updateWorkOrder(inProgressWorkOrder)
 
-                                    if wo.status == "canceled" {
-                                        LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-                                    }
+                                                        if inProgressWorkOrder.status == "canceled" {
+                                                            LocationService.sharedService().unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                                        }
 
-                                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: wo)
-                                }
-                            },
-                            onError: { error, statusCode, responseString in
+                                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: inProgressWorkOrder)
+                                                   },
+                                                   onError: { error, statusCode, responseString in
 
-                            }
+                                                   }
                         )
                     }
                 } else {
