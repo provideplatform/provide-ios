@@ -127,7 +127,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
                 if self.viewingDirections {
                     if !self.canAttemptSegueToUnloadInProgressRoute && !self.canAttemptSegueToUnloadingRoute {
-                        WorkOrderService.sharedService().inProgressWorkOrder.reload(
+                        WorkOrderService.sharedService().inProgressWorkOrder?.reload(
                             onSuccess: { statusCode, mappingResult in
                                 if let workOrder = mappingResult.firstObject as? WorkOrder {
                                     if workOrder.status != "en_route" {
