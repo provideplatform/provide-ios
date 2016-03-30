@@ -300,12 +300,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        //setZoomLevel()
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -408,10 +402,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func setBlueprintImage(image: UIImage) {
-//        if let _ = imageView.image {
-//            return
-//        }
-
         let size = CGSize(width: image.size.width, height: image.size.height)
 
         imageView!.image = image
@@ -424,12 +414,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         enableScrolling = true
 
-        imageView.alpha = 1.0
-
         loadingBlueprint = false
         toolbar.reload()
 
-        showToolbar()
         loadedBlueprint = true
 
         if let canDropWorkOrderPin = blueprintViewControllerDelegate?.blueprintViewControllerCanDropWorkOrderPin(self) {
@@ -451,6 +438,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         dispatch_after_delay(0.0) {
             self.setZoomLevel()
+            self.imageView.alpha = 1.0
+
+            dispatch_after_delay(0.25) {
+                self.showToolbar()
+            }
         }
     }
 
