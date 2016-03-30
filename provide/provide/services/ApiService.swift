@@ -68,9 +68,6 @@ class ApiService: NSObject {
 
         if let token = KeyChainService.sharedService().token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
-
-            CheckinService.sharedService().start()
-            LocationService.sharedService().start()
         }
     }
 

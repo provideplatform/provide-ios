@@ -86,6 +86,9 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        CheckinService.sharedService().start()
+        LocationService.sharedService().start()
+
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: nil, action: nil)
 
