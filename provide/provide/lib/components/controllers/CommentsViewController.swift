@@ -107,10 +107,6 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         fetchingComments = true
 
-        if page == 1 {
-            showActivity()
-        }
-
         if var params = commentsViewControllerDelegate.queryParamsForCommentsViewController(self) {
             params["page"] = page
             params["rpp"] = rpp
@@ -119,6 +115,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             let commentableId = commentsViewControllerDelegate.commentableIdForCommentsViewController(self)
 
             if Int(commentableId) > 0 {
+                if page == 1 {
+                    showActivity()
+                }
+
                 ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: commentableId,
                                                          onSuccess: { statusCode, mappingResult in
                                                             let fetchedComments = mappingResult.array() as! [Comment]
