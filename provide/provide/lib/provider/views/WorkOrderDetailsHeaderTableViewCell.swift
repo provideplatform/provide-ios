@@ -338,14 +338,15 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
                     animations: {
-                        statusCell.backgroundView!.backgroundColor = Color.completedStatusColor()
+                        statusCell.backgroundView?.backgroundColor = Color.completedStatusColor()
 
-                        
-                        let alpha = statusCell.backgroundView!.alpha == 0.0 ? 0.9 : 0.0
-                        statusCell.backgroundView!.alpha = CGFloat(alpha)
+                        let alpha = statusCell.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
+                        statusCell.backgroundView?.alpha = CGFloat(alpha)
 
-                        if let duration = self.workOrder.humanReadableDuration {
-                            statusCell.setName("\(self.workOrder.status.uppercaseString)", value: duration)
+                        if let workOrder = self.workOrder {
+                            if let duration = workOrder.humanReadableDuration {
+                                statusCell.setName("\(workOrder.status.uppercaseString)", value: duration)
+                            }
                         }
                     },
                     completion: { complete in
