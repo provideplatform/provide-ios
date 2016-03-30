@@ -75,11 +75,11 @@ class Color {
     }
 
     class func awaitingScheduleStatusColor() -> UIColor {
-        return UIColor("#ffffff").colorWithAlphaComponent(0.25)
+        return UIColor("#0070c0")
     }
 
     class func scheduledStatusColor() -> UIColor {
-        return UIColor("#ffffff")
+        return UIColor("#0070c0")
     }
 
     class func enRouteStatusColor() -> UIColor {
@@ -99,18 +99,18 @@ class Color {
     }
 
     class func canceledStatusColor() -> UIColor {
-        return UIColor("#fdc554")
+        return UIColor("#ff0000")
     }
 
     class func abandonedStatusColor() -> UIColor {
-        return UIColor("#ff503f")
+        return UIColor("#ff0000")
     }
 
     class func pendingCompletionStatusColor() -> UIColor {
-        return UIColor("#f89406")
+        return UIColor("#ffff00")
     }
 
     class func completedStatusColor() -> UIColor {
-        return UIColor("#dff0d8")
+        return UIColor("#00b050")
     }
 }
