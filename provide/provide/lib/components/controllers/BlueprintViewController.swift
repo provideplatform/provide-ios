@@ -424,8 +424,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         enableScrolling = true
 
-        setZoomLevel()
-        
         imageView.alpha = 1.0
 
         loadingBlueprint = false
@@ -446,8 +444,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if let _ = presentedViewController {
             dismissViewController(animated: true)
         }
+
         if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             openWorkOrder(inProgressWorkOrder)
+        }
+
+        dispatch_after_delay(0.0) {
+            self.setZoomLevel()
         }
     }
 
@@ -471,7 +474,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             pinViews.append(selectedPinView)
 
             createWorkOrder(nil)
-            print("dropped pin at point \(point)")
         }
     }
 
@@ -1262,6 +1264,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
         thumbnailView?.scrollViewDidZoom(scrollView)
+
+        for pinView in pinViews {
+            pinView.setScale(scrollView.zoomScale)
+        }
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {

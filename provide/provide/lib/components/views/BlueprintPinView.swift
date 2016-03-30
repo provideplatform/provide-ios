@@ -82,6 +82,8 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         return nil
     }
 
+    private var abbreviationLabel: UILabel!
+
     private var gestureRecognizer: UITapGestureRecognizer!
 
     private var timer: NSTimer!
@@ -99,7 +101,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             self.tintColor = tintColor
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
+        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
     }
 
@@ -117,7 +119,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             self.tintColor = tintColor
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(75.0).imageWithRenderingMode(.AlwaysTemplate)
+        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
     }
 
@@ -159,18 +161,26 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         attachGestureRecognizer()
     }
 
+    func setScale(zoomScale: CGFloat) {
+        transform = CGAffineTransformMakeScale(1.0 / zoomScale, 1.0 / zoomScale)
+    }
+
     private func renderAbbreviation(abbreviation: String) {
-        let abbreviationLabel = UILabel()
-        abbreviationLabel.backgroundColor = UIColor.clearColor() //Color.annotationViewBackgroundImageColor().colorWithAlphaComponent(0.8)
-        abbreviationLabel.textColor = UIColor.whiteColor()
+        if abbreviationLabel == nil {
+            abbreviationLabel = UILabel()
+            abbreviationLabel.backgroundColor = UIColor.clearColor()
+            abbreviationLabel.textColor = UIColor.whiteColor()
+            abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 32.0)!
+        }
+
         abbreviationLabel.text = abbreviation
-        abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 32.0)!
         abbreviationLabel.sizeToFit()
-        abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image!.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 20.0)
-        //abbreviationLabel.layer.cornerRadius = abbreviationLabel.frame.width / 2
+        abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image!.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
         abbreviationLabel.alpha = 1.0
 
-        addSubview(abbreviationLabel)
-        bringSubviewToFront(abbreviationLabel)
+        if abbreviationLabel.superview == nil {
+            addSubview(abbreviationLabel)
+            bringSubviewToFront(abbreviationLabel)
+        }
     }
 }
