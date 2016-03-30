@@ -85,8 +85,7 @@ class NotificationService: NSObject {
             } else {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                     if inProgressWorkOrder.id == workOrderId {
-                        inProgressWorkOrder.reload([:],
-                                                   onSuccess: { statusCode, mappingResult in
+                        inProgressWorkOrder.reload(onSuccess: { statusCode, mappingResult in
                                                         WorkOrderService.sharedService().updateWorkOrder(inProgressWorkOrder)
 
                                                         if inProgressWorkOrder.status == "canceled" {
