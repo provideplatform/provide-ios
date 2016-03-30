@@ -48,7 +48,7 @@ class NotificationService: NSObject {
                 }
             }
         case .Job:
-            let jobId = notificationValue as! NSNumber
+            let jobId = notificationValue as! Int
             if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                 if inProgressWorkOrder.jobId == jobId {
                     log("received update for current job id \(jobId)")
