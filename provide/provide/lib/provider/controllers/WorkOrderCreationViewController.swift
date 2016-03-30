@@ -236,7 +236,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
 
         if isSaved {
-            navigationItem.rightBarButtonItems!.append(cameraItem)
             navigationItem.rightBarButtonItems!.append(taskListItem)
         }
     }
