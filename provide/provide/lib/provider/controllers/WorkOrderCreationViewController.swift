@@ -554,8 +554,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                             forCommentableType: "work_order",
                             withCommentableId: String(workOrder.id),
                             params: [:],
-                            onSuccess: { statusCode, mappingResult in
-                                newComment.attachments.append(mappingResult.firstObject as! Attachment)
+                            onSuccess: { statusCode, attachmentMappingResult in
+                                newComment.attachments.append(attachmentMappingResult.firstObject as! Attachment)
 
                                 dispatch_after_delay(0.0) {
                                     viewController.addComment(newComment)
