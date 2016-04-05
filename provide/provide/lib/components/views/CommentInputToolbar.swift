@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
-class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
+class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerDelegate {
 
     weak var commentsViewController: CommentsViewController!
 
@@ -46,6 +48,13 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
         return saveItem
     }
 
+    private var photoItem: UIBarButtonItem! {
+        let photoItemImage = FAKFontAwesome.cameraIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+        let photoItem = UIBarButtonItem(image: photoItemImage, style: .Plain, target: self, action: #selector(CommentInputToolbar.addPhoto(_:)))
+        photoItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
+        return photoItem
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -58,6 +67,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
         super.awakeFromNib()
 
         items!.append(saveItem)
+        items!.append(photoItem)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentInputToolbar.keyboardWillShow), name: UIKeyboardWillShowNotification)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommentInputToolbar.keyboardDidShow), name: UIKeyboardDidShowNotification)
@@ -73,7 +83,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
     }
 
     func clipToBounds(bounds: CGRect) {
-        var offset: CGFloat = 40.0 // account for bar item margins
+        var offset: CGFloat = 80.0 // account for bar item margins
         if let items = items {
             for item in items {
                 if item != commentInputTextFieldBarButtonItem {
@@ -94,11 +104,18 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
                 toolbar.commentsViewController = self.commentsViewController
 
                 let commentInputTextFieldItem = self.commentInputTextFieldItem
-                toolbar.items = [commentInputTextFieldItem, self.saveItem]
+                toolbar.items = [commentInputTextFieldItem, self.saveItem, self.photoItem]
 
                 self.commentInputTextField.inputAccessoryView = toolbar
             }
         }
+    }
+
+    func addPhoto(sender: UIBarButtonItem!) {
+        let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
+        cameraViewController.delegate = self
+
+        commentsViewController.presentViewController(cameraViewController, animated: true)
     }
 
     func addComment(sender: UIBarButtonItem!) {
@@ -120,7 +137,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
         if let comment = comment {
             if comment.length > 0 {
                 commentInputTextField.text = ""
-                commentsViewController?.commentsViewControllerDelegate?.commentsViewController(commentsViewController, shouldCreateComment: comment)
+                commentsViewController?.commentsViewControllerDelegate?.commentsViewController(commentsViewController, shouldCreateComment: comment, withImageAttachment: nil)
             }
         }
     }
@@ -160,6 +177,56 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate {
         }
 
         return false
+    }
+
+    // MARK: CameraViewControllerDelegate
+
+    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
+        return .Photo
+    }
+
+    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
+        cameraViewControllerCanceled(viewController)
+    }
+
+    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+        commentsViewController?.commentsViewControllerDelegate?.commentsViewController(commentsViewController, shouldCreateComment: "", withImageAttachment: image)
+    }
+
+    func cameraViewControllerCanceled(viewController: CameraViewController) {
+        commentsViewController?.dismissViewController(animated: false)
+    }
+
+    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+
+    }
+
+    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+
+    }
+
+    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+        return false
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+
+    }
+
+    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+        
+    }
+    
+    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+        
     }
 
     deinit {

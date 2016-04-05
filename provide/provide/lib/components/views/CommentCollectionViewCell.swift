@@ -13,6 +13,28 @@ class CommentCollectionViewCell: UICollectionViewCell {
     var comment: Comment! {
         didSet {
             if let comment = comment {
+                if let activityIndicatorView = activityIndicatorView {
+                    if comment.body == nil || comment.body.length == 0 {
+                        activityIndicatorView.startAnimating()
+                        bringSubviewToFront(activityIndicatorView)
+                    }
+                }
+
+                if let imageAttachments = comment.attachments {
+                    for attachment in imageAttachments {
+                        attachmentPreviewImageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil, completed: { image, error, cacheType, url in
+                            if let attachmentPreviewImageView = self.attachmentPreviewImageView {
+                                attachmentPreviewImageView.alpha = 1.0
+                                self.bringSubviewToFront(attachmentPreviewImageView)
+                            }
+                            self.activityIndicatorView?.stopAnimating()
+                        })
+                    }
+                } else {
+                    self.activityIndicatorView?.stopAnimating()
+                    self.attachmentPreviewImageView.alpha = 0.0
+                }
+
                 bodyTextView?.editable = false
 
                 nameLabel?.text = comment.user.name
@@ -51,8 +73,15 @@ class CommentCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var bodyTextView: UITextView!
+    @IBOutlet private weak var attachmentPreviewImageView: UIImageView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     override func prepareForReuse() {
         super.prepareForReuse()
+
+        attachmentPreviewImageView?.alpha = 0.0
+        attachmentPreviewImageView?.image = nil
+
+        activityIndicatorView?.stopAnimating()
     }
 }

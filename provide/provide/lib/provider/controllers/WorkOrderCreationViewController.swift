@@ -539,12 +539,34 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return workOrder.id
     }
 
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
+    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
         if let workOrder = workOrder {
             workOrder.addComment(comment,
                 onSuccess: { statusCode, mappingResult in
-                    dispatch_after_delay(0.0) {
-                        viewController.addComment(mappingResult.firstObject as! Comment)
+                    let newComment = mappingResult.firstObject as! Comment
+
+                    if let image = image {
+                        let data = UIImageJPEGRepresentation(image, 1.0)!
+
+                        ApiService.sharedService().addAttachment(data,
+                            withMimeType: "image/jpg",
+                            toCommentWithId: String(newComment.id),
+                            forCommentableType: "work_order",
+                            withCommentableId: String(workOrder.id),
+                            params: [:],
+                            onSuccess: { statusCode, mappingResult in
+                                dispatch_after_delay(0.0) {
+                                    viewController.addComment(newComment)
+                                }
+                            },
+                            onError: { error, statusCode, responseString in
+                                // TODO: implement
+                            }
+                        )
+                    } else {
+                        dispatch_after_delay(0.0) {
+                            viewController.addComment(newComment)
+                        }
                     }
                 },
                 onError: { error, statusCode, responseString in

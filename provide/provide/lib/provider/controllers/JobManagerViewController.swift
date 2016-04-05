@@ -182,7 +182,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         return job.id
     }
 
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
+    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
         if let job = job {
             job.addComment(comment,
                 onSuccess: { statusCode, mappingResult in

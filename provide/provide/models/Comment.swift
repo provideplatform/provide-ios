@@ -10,10 +10,11 @@ import Foundation
 
 class Comment: Model {
 
-    var id: NSNumber!
+    var id = 0
     var body: String!
     var createdAt: String!
     var user: User!
+    var attachments: [Attachment]!
 
     var createdAtDate: NSDate! {
         if let createdAt = createdAt {
@@ -30,6 +31,23 @@ class Comment: Model {
             "created_at": "createdAt"
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
         return mapping
+    }
+
+    var images: [Attachment] {
+        var images = [Attachment]()
+        if let attachments = attachments {
+            if attachments.count > 0 {
+                for attachment in attachments {
+                    if let mimeType = attachment.mimeType {
+                        if mimeType == "image/png" || mimeType == "image/jpg" {
+                            images.append(attachment)
+                        }
+                    }
+                }
+            }
+        }
+        return images
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CommentsViewControllerDelegate {
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String)
+    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)
     func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String
     func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int
     func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]!
@@ -293,7 +293,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     // MARK: CommentCreationViewControllerDelegate
 
     func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String) {
-        commentsViewControllerDelegate?.commentsViewController(self, shouldCreateComment: comment)
+        commentsViewControllerDelegate?.commentsViewController(self, shouldCreateComment: comment, withImageAttachment: nil)
         commentCreationViewControllerShouldBeDismissed(viewController)
     }
 

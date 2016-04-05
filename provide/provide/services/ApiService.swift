@@ -602,6 +602,34 @@ class ApiService: NSObject {
         )
     }
 
+    func addAttachment(data: NSData, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+        if let tags = params["tags"] {
+            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+        }
+        return dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments/\(id)/attachments/new", method: .GET, params: presignParams,
+                                           onSuccess: { statusCode, mappingResult in
+                                            assert(statusCode == 200)
+                                            let attachment = mappingResult.firstObject as? Attachment
+
+                                            self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
+                                                onSuccess: { statusCode, mappingResult in
+                                                    var realParams = params
+                                                    realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
+                                                    realParams.updateValue(mimeType, forKey: "mime_type")
+
+                                                    let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                                                    realParams.updateValue(url, forKey: "url")
+
+                                                    self.dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+                                                },
+                                                onError: onError
+                                            )
+            },
+                                           onError: onError
+        )
+    }
+
     // MARK: Products API
 
     func countProducts(params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation! {
