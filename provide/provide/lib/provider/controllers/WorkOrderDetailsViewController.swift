@@ -91,7 +91,14 @@ class WorkOrderDetailsViewController: ViewController,
         if let workOrder = workOrder {
             if workOrder.jobId == 0 {
                 dispatch_after_delay(0.0) {
-                    self.headerView?.frame.size.width = self.tableView.frame.width
+                    if let tableView = self.tableView {
+                        self.headerView?.frame.size.width = tableView.frame.width
+                    } else {
+                        dispatch_after_delay(0.0) {
+                            self.headerView?.frame.size.width = self.view.frame.width
+                        }
+                    }
+
                     self.headerView?.addDropShadow()
                     self.headerView?.workOrder = self.workOrder
                 }
@@ -129,7 +136,7 @@ class WorkOrderDetailsViewController: ViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        tableView.reloadData()
+        tableView?.reloadData()
     }
 
     func reloadTableView() {

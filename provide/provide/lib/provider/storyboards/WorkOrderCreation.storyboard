@@ -39,79 +39,8 @@
                                     <segue destination="2MU-2C-ZVU" kind="embed" identifier="WorkOrderDetailsHeaderTableViewControllerEmbedSegue" id="Ea8-Tl-P1m"/>
                                 </connections>
                             </containerView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" alwaysBounceVertical="YES" scrollEnabled="NO" delaysContentTouches="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="caq-8z-aq7">
-                                <rect key="frame" x="0.0" y="150" width="600" height="75"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="mediaCollectionViewTableViewCellReuseIdentifier" rowHeight="75" id="ZCL-0w-Xra">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="75"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZCL-0w-Xra" id="roc-k6-FOj">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GlQ-0i-Ebx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="foA-YS-iVI">
-                                                        <size key="itemSize" width="70" height="70"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
-                                                    <cells>
-                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCollectionViewCellReuseIdentifier" id="RSt-Z2-h2G" customClass="ImageCollectionViewCell" customModule="provide" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="2.5" width="70" height="70"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
-                                                                <subviews>
-                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cTa-lH-YNP">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                                    </imageView>
-                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cn4-tM-gto">
-                                                                        <rect key="frame" x="25" y="25" width="20" height="20"/>
-                                                                    </activityIndicatorView>
-                                                                </subviews>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                            <constraints>
-                                                                <constraint firstItem="cn4-tM-gto" firstAttribute="centerY" secondItem="cTa-lH-YNP" secondAttribute="centerY" id="0Ah-IP-kvn"/>
-                                                                <constraint firstAttribute="trailing" secondItem="cTa-lH-YNP" secondAttribute="trailing" id="0hx-Mc-6gC"/>
-                                                                <constraint firstItem="cTa-lH-YNP" firstAttribute="centerX" secondItem="cn4-tM-gto" secondAttribute="centerX" id="8aJ-QN-ikV"/>
-                                                                <constraint firstItem="cTa-lH-YNP" firstAttribute="leading" secondItem="RSt-Z2-h2G" secondAttribute="leading" id="Gdh-CS-ND7"/>
-                                                                <constraint firstItem="cTa-lH-YNP" firstAttribute="top" secondItem="RSt-Z2-h2G" secondAttribute="top" id="VB3-Dl-nli"/>
-                                                                <constraint firstAttribute="bottom" secondItem="cTa-lH-YNP" secondAttribute="bottom" id="j2N-As-RwA"/>
-                                                            </constraints>
-                                                            <connections>
-                                                                <outlet property="activityIndicatorView" destination="cn4-tM-gto" id="zCZ-mb-1FA"/>
-                                                                <outlet property="imageView" destination="cTa-lH-YNP" id="6CD-Bb-ZSU"/>
-                                                            </connections>
-                                                        </collectionViewCell>
-                                                    </cells>
-                                                    <connections>
-                                                        <outlet property="dataSource" destination="d85-m3-Acc" id="fCf-Bo-rGu"/>
-                                                        <outlet property="delegate" destination="d85-m3-Acc" id="djx-hd-kQw"/>
-                                                    </connections>
-                                                </collectionView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="GlQ-0i-Ebx" firstAttribute="top" secondItem="roc-k6-FOj" secondAttribute="top" id="8gV-qe-jbu"/>
-                                                <constraint firstItem="GlQ-0i-Ebx" firstAttribute="leading" secondItem="roc-k6-FOj" secondAttribute="leading" id="9Xd-27-lYr"/>
-                                                <constraint firstAttribute="trailing" secondItem="GlQ-0i-Ebx" secondAttribute="trailing" id="CGx-C7-pxo"/>
-                                                <constraint firstItem="GlQ-0i-Ebx" firstAttribute="centerY" secondItem="roc-k6-FOj" secondAttribute="centerY" id="iYa-ct-qm0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="d85-m3-Acc" id="FPZ-WF-Oxd"/>
-                                    <outlet property="delegate" destination="d85-m3-Acc" id="5ya-Fb-ulQ"/>
-                                </connections>
-                            </tableView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBe-qu-JZX">
-                                <rect key="frame" x="0.0" y="225" width="600" height="331"/>
+                                <rect key="frame" x="0.0" y="158" width="600" height="398"/>
                                 <connections>
                                     <segue destination="Luk-Qv-e8L" kind="embed" identifier="CommentsViewControllerEmbedSegue" id="PJU-fG-ewf"/>
                                 </connections>
@@ -144,30 +73,19 @@
                             <constraint firstItem="uCV-bw-8Sn" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="5Cn-wm-IxV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="GBe-qu-JZX" secondAttribute="trailing" constant="-20" id="9Bd-Av-SuL"/>
                             <constraint firstItem="uCV-bw-8Sn" firstAttribute="top" secondItem="erN-zc-fze" secondAttribute="top" id="BPP-rX-85a"/>
-                            <constraint firstItem="caq-8z-aq7" firstAttribute="top" secondItem="uCV-bw-8Sn" secondAttribute="top" id="Gtz-XZ-SSx"/>
-                            <constraint firstItem="caq-8z-aq7" firstAttribute="width" secondItem="uCV-bw-8Sn" secondAttribute="width" id="IGN-7F-XxS"/>
                             <constraint firstItem="Hrg-SX-9tb" firstAttribute="top" secondItem="GBe-qu-JZX" secondAttribute="bottom" id="SDH-aL-dS2"/>
                             <constraint firstItem="Hrg-SX-9tb" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="Ski-mc-Eay"/>
-                            <constraint firstItem="GBe-qu-JZX" firstAttribute="top" secondItem="caq-8z-aq7" secondAttribute="bottom" id="TMD-hq-A7h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uCV-bw-8Sn" secondAttribute="trailing" constant="-20" id="brU-ma-LNe"/>
                             <constraint firstItem="GBe-qu-JZX" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="ecD-Bg-D7S"/>
                             <constraint firstItem="D5c-sy-iTn" firstAttribute="top" secondItem="Hrg-SX-9tb" secondAttribute="bottom" id="etK-tV-BnF"/>
-                            <constraint firstItem="caq-8z-aq7" firstAttribute="top" secondItem="uCV-bw-8Sn" secondAttribute="bottom" id="f1y-SD-huy"/>
-                            <constraint firstItem="caq-8z-aq7" firstAttribute="bottom" secondItem="D5c-sy-iTn" secondAttribute="top" constant="-375" id="k8O-1L-Av4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hrg-SX-9tb" secondAttribute="trailing" constant="-20" id="my5-24-hgi"/>
                             <constraint firstItem="uCV-bw-8Sn" firstAttribute="centerX" secondItem="erN-zc-fze" secondAttribute="centerX" id="oz3-Fd-YAo"/>
-                            <constraint firstItem="caq-8z-aq7" firstAttribute="centerX" secondItem="uCV-bw-8Sn" secondAttribute="centerX" id="yOU-dj-YvY"/>
+                            <constraint firstItem="GBe-qu-JZX" firstAttribute="top" secondItem="uCV-bw-8Sn" secondAttribute="bottom" constant="8" symbolic="YES" id="rbe-K8-DhH"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Gtz-XZ-SSx"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="commentInputToolbar" destination="Hrg-SX-9tb" id="uYX-xa-UX3"/>
-                        <outlet property="tableView" destination="caq-8z-aq7" id="8pV-5D-BcP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SA4-ey-GBe" userLabel="First Responder" sceneMemberID="firstResponder"/>
