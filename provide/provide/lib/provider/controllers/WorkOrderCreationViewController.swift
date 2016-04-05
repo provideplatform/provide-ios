@@ -535,8 +535,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return "work_order"
     }
 
-    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> String {
-        return String(workOrder.id)
+    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int {
+        return workOrder.id
     }
 
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {

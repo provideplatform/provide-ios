@@ -178,8 +178,8 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         return "job"
     }
 
-    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> String {
-        return String(job.id)
+    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int {
+        return job.id
     }
 
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String) {
