@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ah6-6C-N46">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ah6-6C-N46">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,22 +23,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1mX-0B-7Ri">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="175" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1mX-0B-7Ri">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="jobsTableViewCellReuseIdentifier" id="vQd-Uz-u2J" customClass="JobTableViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vQd-Uz-u2J" id="bWy-Lh-OEI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="174.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-7e-VIa" userLabel="Container View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                                     <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UC4-eu-Kzi">
+                                                            <rect key="frame" x="8" y="4" width="162" height="163"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="162" id="JLU-Ng-7qm"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
-                                                            <rect key="frame" x="8" y="8" width="584" height="21"/>
+                                                            <rect key="frame" x="178" y="28" width="414" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="552-YC-yPO"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -47,10 +55,12 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="topMargin" id="7Jt-QZ-LL6"/>
-                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leadingMargin" id="URj-Gl-J1y"/>
-                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="trailing" secondItem="pa7-7e-VIa" secondAttribute="trailingMargin" id="mde-7Y-NEj"/>
-                                                        <constraint firstAttribute="bottom" secondItem="uVm-fa-pZl" secondAttribute="bottom" constant="71" id="oIP-rD-q8d"/>
+                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="top" constant="4" id="4vo-DU-ejH"/>
+                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="bottom" secondItem="pa7-7e-VIa" secondAttribute="bottomMargin" id="5yf-bF-E5E"/>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="UC4-eu-Kzi" secondAttribute="trailing" constant="8" symbolic="YES" id="89a-oy-LLf"/>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="trailing" secondItem="pa7-7e-VIa" secondAttribute="trailingMargin" id="LDs-Ix-h86"/>
+                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="topMargin" constant="20" id="X5p-so-1Wc"/>
+                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leadingMargin" id="nVZ-3x-8Jg"/>
                                                     </constraints>
                                                 </view>
                                                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
@@ -59,23 +69,21 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="18t-dA-jKR"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="3eK-pO-RMI"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="height" secondItem="bWy-Lh-OEI" secondAttribute="height" id="4aA-OD-hqX"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leading" id="Dlc-0V-fIR"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leading" id="G1W-Mz-rnp"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="width" secondItem="bWy-Lh-OEI" secondAttribute="width" id="H5a-6I-HqB"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="centerY" secondItem="bWy-Lh-OEI" secondAttribute="centerY" id="Ldf-5r-nZU"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="width" secondItem="bWy-Lh-OEI" secondAttribute="height" multiplier="200:33" id="QeQ-aA-idy"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="R8O-VO-LP2" secondAttribute="top" id="T9K-PH-vm5"/>
-                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="bottom" secondItem="pa7-7e-VIa" secondAttribute="bottom" id="uL8-o4-WDk"/>
-                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="wg4-Fl-jkr"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="top" id="771-2B-RAS"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="centerY" secondItem="bWy-Lh-OEI" secondAttribute="centerY" id="KIW-r7-Zlr"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="bWy-Lh-OEI" secondAttribute="leading" id="PCD-Zn-R8i"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="QX9-UR-NJX"/>
+                                                <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="VZd-mh-R9Y"/>
+                                                <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leading" id="cRB-rR-WQx"/>
+                                                <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="mJJ-Nt-rOd"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="R8O-VO-LP2" secondAttribute="bottom" constant="66.5" id="rE1-3L-paX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="backgroundContainerView" destination="R8O-VO-LP2" id="RKf-1o-hAJ"/>
                                             <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
+                                            <outlet property="thumbnailImageView" destination="UC4-eu-Kzi" id="vWm-FV-dSP"/>
                                             <segue destination="HbV-mu-6GN" kind="show" identifier="JobBlueprintsViewControllerSegue" id="l9Y-AM-Vs2">
                                                 <nil key="action"/>
                                             </segue>

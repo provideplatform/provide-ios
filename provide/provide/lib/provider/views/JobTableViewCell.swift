@@ -27,6 +27,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet private weak var backgroundContainerView: UIView!
 
+    @IBOutlet private weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
 
     private var showsCancelButton: Bool {
@@ -51,6 +52,9 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         super.prepareForReuse()
 
         nameLabel?.text = ""
+
+        thumbnailImageView?.alpha = 0.0
+        thumbnailImageView?.image = nil
     }
 
     func dismiss() {
@@ -74,6 +78,15 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         if let job = job {
             nameLabel?.text = job.name
             nameLabel?.sizeToFit()
+
+            thumbnailImageView?.sd_setImageWithURL(job.blueprintThumbnailImageUrl, placeholderImage: nil, completed: { (image, error, cacheType, url) in
+                if let image = self.thumbnailImageView?.image {
+                    self.thumbnailImageView?.bounds.size = image.size
+                    self.thumbnailImageView?.frame.size = image.size
+
+                    self.thumbnailImageView?.alpha = 1.0
+                }
+            })
         }
     }
 

@@ -46,6 +46,7 @@ class Job: Model {
     var quotedPricePerSqFt: NSNumber!
     var supervisors: [Provider]!
     var type: String!
+    var thumbnailImageUrlString: String!
     var totalSqFt: NSNumber!
     var workOrdersCount = 0
     var workOrders: [WorkOrder]!
@@ -134,6 +135,7 @@ class Job: Model {
             "profit_margin": "profitMargin",
             "profit_per_sq_ft": "profitPerSqFt",
             "type": "type",
+            "thumbnail_image_url": "thumbnailImageUrlString",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
@@ -156,6 +158,13 @@ class Job: Model {
     var blueprintImageUrl: NSURL! {
         if let blueprintImageUrlString = blueprintImageUrlString {
             return NSURL(string: blueprintImageUrlString)
+        }
+        return nil
+    }
+
+    var blueprintThumbnailImageUrl: NSURL! {
+        if let thumbnailImageUrlString = thumbnailImageUrlString {
+            return NSURL(string: thumbnailImageUrlString)
         }
         return nil
     }
@@ -221,6 +230,24 @@ class Job: Model {
                     let isAppropriateResolution = blueprint.hasTag(tag)
                     if let mimeType = blueprint.mimeType {
                         if mimeType == "image/png" && isAppropriateResolution {
+                            blueprints.append(blueprint)
+                        }
+                    }
+                }
+            }
+        }
+        return blueprints
+    }
+
+    var blueprintThumbnails: [Attachment] { // FIXME-- returns only 150dpi at this time
+        var blueprints = [Attachment]()
+        if let attachments = self.blueprints {
+            if attachments.count > 0 {
+                for blueprint in attachments {
+                    let isAppropriateResolution = blueprint.hasTag("72dpi")
+                    let hasThumbnailTag = blueprint.hasTag("thumbnail")
+                    if let mimeType = blueprint.mimeType {
+                        if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag {
                             blueprints.append(blueprint)
                         }
                     }
