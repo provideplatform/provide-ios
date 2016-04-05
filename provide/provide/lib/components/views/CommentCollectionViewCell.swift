@@ -10,7 +10,7 @@ import UIKit
 
 class CommentCollectionViewCell: UICollectionViewCell {
 
-    var comment: Comment! {
+    weak var comment: Comment! {
         didSet {
             if let comment = comment {
                 if let activityIndicatorView = activityIndicatorView {

@@ -154,6 +154,13 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                     self.hideActivity()
                 }
             )
+        } else {
+            for c in comments {
+                if c.id == comment.id && c.id > 0 {
+                    c.attachments = comment.attachments
+                }
+            }
+            collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
         }
     }
 
