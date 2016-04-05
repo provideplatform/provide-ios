@@ -84,6 +84,21 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         view.bringSubviewToFront(activityIndicatorView)
 
         zeroStateLabel?.alpha = 0.0
+
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+            if let workOrder = notification.object as? WorkOrder {
+                var indexPath = 0
+                for comment in self.comments {
+                    if comment.isWorkOrderComment {
+                        if comment.commentableId == workOrder.id {
+                            self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                        }
+                    }
+
+                    indexPath += 1
+                }
+            }
+        }
     }
 
     private func setupPullToRefresh() {
@@ -107,10 +122,39 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         }
     }
 
+    private func containsComment(comment: Comment) -> Bool {
+        for c in comments {
+            if c.id == comment.id && c.id > 0 {
+                return true
+            }
+        }
+        return false
+    }
+
     func addComment(comment: Comment) {
-        comments.insert(comment, atIndex: 0)
-        reloadCollectionView()
-        scrollToNewestComment()
+        if !containsComment(comment) {
+            comments.insert(comment, atIndex: 0)
+
+            let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+
+            self.collectionView.performBatchUpdates(
+                {
+                    UIView.animateWithDuration(0.0, animations: {
+                        self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
+                    })
+                },
+                completion: { (completed) in
+                    self.collectionView.contentOffset = CGPointMake(0.0, self.collectionView.contentSize.height - bottom)
+                    CATransaction.commit()
+
+                    self.scrollToNewestComment()
+                    self.hideActivity()
+                }
+            )
+        }
     }
 
     func reset() {
@@ -323,5 +367,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         let saveItem = UIBarButtonItem(image: saveIconImage, style: .Plain, target: viewController, action: Selector("dismiss"))
         saveItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return saveItem
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

@@ -13,6 +13,8 @@ class Comment: Model {
     var id = 0
     var body: String!
     var createdAt: String!
+    var commentableType: String!
+    var commentableId = 0
     var user: User!
     var attachments: [Attachment]!
 
@@ -23,12 +25,21 @@ class Comment: Model {
         return nil
     }
 
+    var isWorkOrderComment: Bool {
+        if let commentableType = commentableType {
+            return commentableType == "work_order"
+        }
+        return false
+    }
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
             "body": "body",
-            "created_at": "createdAt"
+            "created_at": "createdAt",
+            "commentable_type": "commentableType",
+            "commentable_id": "commentableId",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
