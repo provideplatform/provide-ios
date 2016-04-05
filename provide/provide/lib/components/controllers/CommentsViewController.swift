@@ -49,7 +49,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     private var fetchingComments = false
 
     func scrollToNewestComment(animated: Bool = true) {
-        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: comments.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+        if comments.count > 0 {
+            collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: comments.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+        }
     }
 
     override func showActivity() {
@@ -102,7 +104,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     }
 
     func addComment(comment: Comment) {
-        comments.append(comment)
+        comments.insert(comment, atIndex: 0)
         reloadCollectionView()
         scrollToNewestComment()
     }
