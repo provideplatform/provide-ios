@@ -45,13 +45,17 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     private var page = 1
     private var rpp = 10
+    private var hasNextPage = true
 
     private var fetchingComments = false
+    private var scrolledToNewestComment = false
 
     func scrollToNewestComment(animated: Bool = true) {
         if comments.count > 0 {
             collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: comments.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
         }
+
+        scrolledToNewestComment = true
     }
 
     override func showActivity() {
@@ -84,10 +88,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(CommentsViewController.refresh), forControlEvents: .ValueChanged)
+        //refreshControl.addTarget(self, action: #selector(CommentsViewController.refresh), forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
-        collectionView.alwaysBounceVertical = true
+        //collectionView.alwaysBounceVertical = true
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -112,12 +116,13 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     func reset() {
         comments = [Comment]()
         page = 1
-//        scrolledToNewestComment = false
+        hasNextPage = true
+        scrolledToNewestComment = false
         refresh()
     }
 
     func refresh() {
-        if fetchingComments {
+        if fetchingComments || !hasNextPage {
             return
         }
 
@@ -133,6 +138,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             if commentableId > 0 {
                 if page == 1 {
                     showActivity()
+                } else {
+                    refreshControl?.beginRefreshing()
                 }
 
                 ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId),
@@ -143,34 +150,44 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                                                             }
                                                             self.comments += fetchedComments
 
+                                                            self.hasNextPage = fetchedComments.count == self.rpp
+
                                                             if self.page == 1 {
                                                                 self.reloadCollectionView()
                                                             } else {
+                                                                var indexPaths = [NSIndexPath]()
+                                                                var indexPath = 0
+                                                                for _ in fetchedComments {
+                                                                    indexPaths.append(NSIndexPath(forRow: indexPath, inSection: 0))
+                                                                    indexPath += 1
+                                                                }
+
+                                                                let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+
+                                                                CATransaction.begin()
+                                                                CATransaction.setDisableActions(true)
+
                                                                 self.collectionView.performBatchUpdates(
                                                                     {
-                                                                        var indexPath = 0
-                                                                        UIView.animateWithDuration(0.0, animations: { 
-                                                                            for _ in fetchedComments {
-                                                                                self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)])
-                                                                                indexPath += 1
-                                                                            }
-
-                                                                            self.collectionView.scrollToItemAtIndexPath(NSIndexPath(forRow: indexPath, inSection: 0), atScrollPosition: .CenteredVertically, animated: false)
+                                                                        UIView.animateWithDuration(0.0, animations: {
+                                                                            self.collectionView.insertItemsAtIndexPaths(indexPaths)
                                                                         })
                                                                     },
                                                                     completion: { (completed) in
+                                                                        self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - bottom)
+                                                                        CATransaction.commit()
                                                                         self.hideActivity()
                                                                     }
                                                                 )
                                                             }
 
                                                             self.page += 1
+
                                                             self.fetchingComments = false
 
-                                                            if fetchedComments.count < self.rpp {
+                                                            if !self.hasNextPage {
                                                                 self.refreshControl?.removeFromSuperview()
                                                                 self.refreshControl = nil
-                                                                self.collectionView.alwaysBounceVertical = false
                                                             }
                     },
                                                          onError: { error, statusCode, responseString in
@@ -195,7 +212,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         hideActivity()
 
-        scrollToNewestComment(false)
+        dispatch_after_delay(0.0) {
+            self.scrollToNewestComment(self.scrolledToNewestComment)
+        }
     }
 
 //    optional func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool
@@ -209,8 +228,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
-            //if scrolledToNewestComment
-
+            if scrolledToNewestComment {
+                self.refresh()
+            }
         }
     }
 
