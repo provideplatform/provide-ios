@@ -22,6 +22,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
                 if let imageAttachments = comment.attachments {
                     for attachment in imageAttachments {
+                        attachmentPreviewImageView?.contentMode = .ScaleAspectFit
                         attachmentPreviewImageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil, completed: { image, error, cacheType, url in
                             if let attachmentPreviewImageView = self.attachmentPreviewImageView {
                                 attachmentPreviewImageView.alpha = 1.0
