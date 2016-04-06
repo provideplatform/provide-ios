@@ -423,8 +423,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         enableScrolling = true
 
         loadingBlueprint = false
-        toolbar.reload()
-
         loadedBlueprint = true
 
         if let canDropWorkOrderPin = blueprintViewControllerDelegate?.blueprintViewControllerCanDropWorkOrderPin(self) {
@@ -692,7 +690,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     self.toolbar?.frame.origin.y -= (self.toolbar?.frame.size.height)!
                 }
             }, completion: { completed in
-
+                self.toolbar?.reload()
             }
         )
     }

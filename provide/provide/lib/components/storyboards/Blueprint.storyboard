@@ -36,7 +36,7 @@
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-F2-amm" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRM-F2-amm" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
                                 <items>
                                     <barButtonItem title="Scale" id="dlS-QM-Xdl">
@@ -58,8 +58,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="barTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="createWorkOrderButton" destination="vpF-ec-lig" id="y2k-88-5p7"/>
                                     <outlet property="floorplanOptionsButton" destination="bur-kU-fzu" id="u9C-Jn-p4K"/>
@@ -166,18 +165,24 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="SVf-9M-jzH"/>
-                                <exclude reference="dRv-4s-X1u"/>
-                                <exclude reference="uET-Uz-hZ5"/>
                                 <exclude reference="Hqo-FQ-9BA"/>
                                 <exclude reference="ltK-f8-1iH"/>
                                 <exclude reference="m0v-51-Iuv"/>
+                                <exclude reference="SVf-9M-jzH"/>
+                                <exclude reference="dRv-4s-X1u"/>
+                                <exclude reference="uET-Uz-hZ5"/>
                                 <exclude reference="OpH-np-Zos"/>
                                 <exclude reference="kQL-eL-ro2"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
+                                <exclude reference="FqT-en-55N"/>
+                                <include reference="Hqo-FQ-9BA"/>
+                                <exclude reference="bUJ-fH-EIv"/>
+                                <include reference="ltK-f8-1iH"/>
+                                <include reference="m0v-51-Iuv"/>
+                                <exclude reference="skV-Gd-PEJ"/>
                                 <exclude reference="5wj-bR-7wb"/>
                                 <exclude reference="8fg-2O-zv7"/>
                                 <exclude reference="RDi-mQ-S9b"/>
@@ -186,12 +191,6 @@
                                 <exclude reference="gC5-Fo-9eV"/>
                                 <exclude reference="gWP-3s-TEr"/>
                                 <include reference="uET-Uz-hZ5"/>
-                                <exclude reference="FqT-en-55N"/>
-                                <include reference="Hqo-FQ-9BA"/>
-                                <exclude reference="bUJ-fH-EIv"/>
-                                <include reference="ltK-f8-1iH"/>
-                                <include reference="m0v-51-Iuv"/>
-                                <exclude reference="skV-Gd-PEJ"/>
                                 <include reference="OpH-np-Zos"/>
                                 <exclude reference="gja-4k-PRU"/>
                                 <include reference="kQL-eL-ro2"/>
