@@ -446,6 +446,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
             self.setZoomLevel()
             self.imageView.alpha = 1.0
 
+            self.toolbar?.reload()
+
             dispatch_after_delay(0.25) {
                 self.showToolbar()
             }
@@ -690,7 +692,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     self.toolbar?.frame.origin.y -= (self.toolbar?.frame.size.height)!
                 }
             }, completion: { completed in
-                self.toolbar?.reload()
+
             }
         )
     }

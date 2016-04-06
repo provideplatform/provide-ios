@@ -19,6 +19,9 @@ class AppearenceProxy {
         UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
         UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
 
+        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UIToolbar.self]).tintColor = UIColor.whiteColor()
+        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UIToolbar.self]).setTitleTextAttributes(whiteButtonItemTitleTextAttributes(), forState: .Normal)
+
         UITabBar.appearance().tintColor = defaultBarTintColor()
         UITabBarItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
 
@@ -47,6 +50,13 @@ class AppearenceProxy {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
             NSForegroundColorAttributeName : Color.canceledStatusColor()
+        ]
+    }
+
+    class func whiteButtonItemTitleTextAttributes() -> [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
         ]
     }
 
