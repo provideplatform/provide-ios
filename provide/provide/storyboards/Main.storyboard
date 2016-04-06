@@ -59,6 +59,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
+                                <rect key="frame" x="208" y="50" width="183" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="183" id="CLu-8a-BiA"/>
+                                    <constraint firstAttribute="height" constant="65" id="HqC-iN-mNd"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
                                 <rect key="frame" x="248" y="556" width="105" height="36"/>
                                 <constraints>
@@ -73,20 +80,13 @@
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="209" y="51" width="183" height="126"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="183" id="CLu-8a-BiA"/>
-                                    <constraint firstAttribute="height" constant="126" id="HqC-iN-mNd"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Isk-bN-U1h" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" id="8IT-LP-EPz"/>
+                            <constraint firstItem="Isk-bN-U1h" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" constant="-1" id="8IT-LP-EPz"/>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="Es4-5f-YDi"/>
-                            <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="31" id="M2v-HL-uYv"/>
+                            <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="30" id="M2v-HL-uYv"/>
                             <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="8" id="jyT-wL-GlT"/>
                         </constraints>
                         <variation key="default">
@@ -103,6 +103,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="mdI-xf-wyA"/>
                     <connections>
+                        <outlet property="logoImageView" destination="Isk-bN-U1h" id="TW4-Ea-QhM"/>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                         <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="EM1-MG-mRJ"/>
@@ -1098,7 +1099,7 @@
         <image name="provide-pin" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dg0-CW-FQe"/>
+        <segue reference="pyb-Ej-lW7"/>
         <segue reference="qEh-KF-YoG"/>
     </inferredMetricsTieBreakers>
 </document>

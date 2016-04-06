@@ -21,18 +21,28 @@ class NavigationRootViewController: ViewController,
 
         view.backgroundColor = Color.darkBlueBackground()
 
+        logoImageView.alpha = 0.0
+
         signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
         signInButton.alpha = 0.0
 
+        MBProgressHUD.showHUDAddedTo(view, animated: true)
+
         if ApiService.sharedService().hasCachedToken {
             dispatch_after_delay(0.0) {
+                MBProgressHUD.hideHUDForView(self.view, animated: true)
+
                 self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
                 dispatch_after_delay(1.0) {
+                    self.logoImageView.alpha = 1.0
                     self.signInButton.alpha = 1.0
                 }
             }
         } else {
+            MBProgressHUD.hideHUDForView(view, animated: true)
+
+            logoImageView.alpha = 1.0
             signInButton.alpha = 1.0
         }
 
