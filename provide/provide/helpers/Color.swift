@@ -27,7 +27,7 @@ class Color {
     }
 
     class func applicationDefaultNavigationBarBackgroundColor() -> UIColor {
-        return UIColor("#b0e3de")
+        return UIColor("#3b85ec")
     }
 
     class func applicationDefaultBarTintColor() -> UIColor {

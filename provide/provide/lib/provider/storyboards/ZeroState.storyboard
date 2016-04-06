@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2C6-Av-ZrP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="2C6-Av-ZrP">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Exo2-Light.ttf">
-            <string>Exo2-Light</string>
-        </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
         </mutableArray>
@@ -25,46 +22,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="DtU-xu-V42">
-                                <rect key="frame" x="260" y="128" width="80" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="KyN-xX-gtv"/>
-                                    <constraint firstAttribute="width" constant="80" id="XBY-p8-4Wx"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Great Work" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6E-6o-9gR">
-                                <rect key="frame" x="186" y="279" width="227" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="eqs-5B-cPx"/>
-                                    <constraint firstAttribute="width" constant="227" id="ofx-Lx-k4r"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="32"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing scheduled at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGu-h8-V8l">
-                                <rect key="frame" x="159" y="372" width="282" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="282" id="CXi-Oe-i0M"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing requires your attention at the moment." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGu-h8-V8l">
+                                <rect key="frame" x="107" y="326" width="386" height="22"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="18"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-icon" translatesAutoresizingMaskIntoConstraints="NO" id="DtU-xu-V42">
+                                <rect key="frame" x="264" y="247" width="73" height="71"/>
+                                <color key="tintColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="fOq-Cs-Jso"/>
+                                    <constraint firstAttribute="height" constant="71" id="v2p-AJ-2UB"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="DtU-xu-V42" firstAttribute="top" secondItem="Y3d-ET-nQy" secondAttribute="bottom" constant="108" id="5w1-PM-Yah"/>
-                            <constraint firstItem="C3F-i6-ZjX" firstAttribute="top" secondItem="hGu-h8-V8l" secondAttribute="bottom" constant="206" id="9KY-VN-0le"/>
-                            <constraint firstItem="DtU-xu-V42" firstAttribute="centerX" secondItem="K6E-6o-9gR" secondAttribute="centerX" id="fRp-zf-r4y"/>
-                            <constraint firstItem="K6E-6o-9gR" firstAttribute="centerX" secondItem="yQv-5g-8RX" secondAttribute="centerX" id="jlI-2p-eX5"/>
-                            <constraint firstItem="hGu-h8-V8l" firstAttribute="top" secondItem="K6E-6o-9gR" secondAttribute="bottom" constant="61" id="tWb-BM-7qU"/>
-                            <constraint firstItem="K6E-6o-9gR" firstAttribute="centerX" secondItem="hGu-h8-V8l" secondAttribute="centerX" id="zqi-SI-9e3"/>
+                            <constraint firstItem="DtU-xu-V42" firstAttribute="centerX" secondItem="yQv-5g-8RX" secondAttribute="centerX" id="Krv-53-HaD"/>
+                            <constraint firstItem="hGu-h8-V8l" firstAttribute="top" secondItem="DtU-xu-V42" secondAttribute="bottom" constant="8" symbolic="YES" id="Qzj-Pd-c2H"/>
+                            <constraint firstItem="DtU-xu-V42" firstAttribute="top" secondItem="Y3d-ET-nQy" secondAttribute="bottom" constant="227" id="ci7-5Q-QCr"/>
+                            <constraint firstItem="DtU-xu-V42" firstAttribute="centerX" secondItem="hGu-h8-V8l" secondAttribute="centerX" id="x6I-Ha-em4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="DtU-xu-V42" id="0AD-Ih-dxc"/>
-                        <outlet property="label" destination="K6E-6o-9gR" id="I3x-P3-ay5"/>
                         <outlet property="messageLabel" destination="hGu-h8-V8l" id="1y5-RJ-s52"/>
                     </connections>
                 </viewController>
@@ -74,6 +56,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map-pin" width="50" height="60"/>
+        <image name="provide-icon" width="125" height="125"/>
     </resources>
 </document>

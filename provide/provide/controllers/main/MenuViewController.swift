@@ -27,7 +27,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.backgroundColor = Color.darkBlueBackground() //Color.applicationDefaultBackgroundImageColor(view.frame)
+        tableView.backgroundColor = Color.darkBlueBackground()
 
         menuHeaderView.delegate = self
 

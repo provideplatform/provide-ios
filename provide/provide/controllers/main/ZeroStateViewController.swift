@@ -28,13 +28,13 @@ class ZeroStateViewController: ViewController {
         backgroundSubview = UIView(frame: view.bounds)
         let size = max(backgroundSubview.frame.size.width, backgroundSubview.frame.size.height)
         backgroundSubview.frame.size = CGSize(width: size, height: size)
-        backgroundSubview.alpha = 0.65
+        backgroundSubview.alpha = 0.78
         backgroundSubview.backgroundColor = UIColor.blackColor()
         view.addSubview(backgroundSubview)
         view.sendSubviewToBack(backgroundSubview)
 
         view.bringSubviewToFront(imageView)
-        view.bringSubviewToFront(label)
+        //view.bringSubviewToFront(label)
         view.bringSubviewToFront(messageLabel)
     }
 
