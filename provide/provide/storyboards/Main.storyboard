@@ -19,6 +19,7 @@
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
             <string>Exo2-Light</string>
+            <string>Exo2-Light</string>
         </mutableArray>
         <mutableArray key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
@@ -60,34 +61,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="208" y="50" width="183" height="65"/>
+                                <rect key="frame" x="178" y="50" width="244" height="87"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="183" id="CLu-8a-BiA"/>
-                                    <constraint firstAttribute="height" constant="65" id="HqC-iN-mNd"/>
+                                    <constraint firstAttribute="width" constant="244" id="CLu-8a-BiA"/>
+                                    <constraint firstAttribute="height" constant="87" id="HqC-iN-mNd"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
-                                <rect key="frame" x="248" y="556" width="105" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="105" id="KPm-q1-qHH"/>
-                                    <constraint firstAttribute="height" constant="36" id="sTc-C8-R3r"/>
-                                </constraints>
+                                <rect key="frame" x="248" y="282" width="105" height="36"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
+                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
+                                <rect key="frame" x="248" y="556" width="105" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="105" id="jYx-nT-Ss7"/>
+                                    <constraint firstAttribute="height" constant="36" id="tZr-Jq-Uex"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
+                                <state key="normal" title="HAVE A CODE?">
+                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="Wzh-ch-uKh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Isk-bN-U1h" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" constant="-1" id="8IT-LP-EPz"/>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
-                            <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="Es4-5f-YDi"/>
+                            <constraint firstItem="ewp-oP-mJb" firstAttribute="centerY" secondItem="Pce-DG-jaQ" secondAttribute="centerY" id="D7w-x0-yiI"/>
                             <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="30" id="M2v-HL-uYv"/>
-                            <constraint firstAttribute="bottom" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="8" id="jyT-wL-GlT"/>
+                            <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Isk-bN-U1h" secondAttribute="centerX" id="aIV-OY-lUU"/>
+                            <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="j2z-nS-CpL"/>
+                            <constraint firstItem="ewp-oP-mJb" firstAttribute="trailing" secondItem="w8s-wM-zeM" secondAttribute="trailing" id="l0Z-Yg-qs3"/>
+                            <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="w8s-wM-zeM" secondAttribute="bottom" constant="8" symbolic="YES" id="qTS-NV-r8d"/>
+                            <constraint firstItem="ewp-oP-mJb" firstAttribute="leading" secondItem="w8s-wM-zeM" secondAttribute="leading" id="veC-uU-DQ8"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -97,14 +113,14 @@
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
                                 <include reference="9gx-cj-4ES"/>
-                                <exclude reference="jyT-wL-GlT"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="mdI-xf-wyA"/>
                     <connections>
+                        <outlet property="codeButton" destination="w8s-wM-zeM" id="bl3-Kw-a7o"/>
                         <outlet property="logoImageView" destination="Isk-bN-U1h" id="TW4-Ea-QhM"/>
-                        <outlet property="signInButton" destination="ewp-oP-mJb" id="ip9-zA-H5B"/>
+                        <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                         <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="EM1-MG-mRJ"/>
                         <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
@@ -1099,7 +1115,8 @@
         <image name="provide-pin" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pyb-Ej-lW7"/>
         <segue reference="qEh-KF-YoG"/>
+        <segue reference="pyb-Ej-lW7"/>
+        <segue reference="Wzh-ch-uKh"/>
     </inferredMetricsTieBreakers>
 </document>

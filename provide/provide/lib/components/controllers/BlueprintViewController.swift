@@ -63,6 +63,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var thumbnailView: BlueprintThumbnailView!
+    private var thumbnailTintView: UIView!
 
     private var imageView: UIImageView!
 
@@ -237,6 +238,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
         thumbnailView = blueprintThumbnailViewController.thumbnailView
         thumbnailView.delegate = self
         view.addSubview(thumbnailView)
+
+        thumbnailTintView = UIView(frame: view.bounds)
+        thumbnailTintView.backgroundColor = UIColor.blackColor()
+        thumbnailTintView.alpha = 0.0
+        view.addSubview(thumbnailTintView)
+        view.sendSubviewToBack(thumbnailTintView)
+        thumbnailTintView?.userInteractionEnabled = false
 
         imageView = UIImageView()
         imageView.alpha = 0.0
@@ -909,6 +917,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
+        if visible {
+            thumbnailTintView?.alpha = 0.3
+            view.bringSubviewToFront(thumbnailTintView)
+            view.bringSubviewToFront(thumbnailView)
+            view.bringSubviewToFront(toolbar)
+        } else {
+            thumbnailTintView?.alpha = 0.0
+            view.sendSubviewToBack(thumbnailTintView)
+        }
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {

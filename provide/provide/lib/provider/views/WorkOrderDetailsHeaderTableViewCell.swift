@@ -30,11 +30,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
                 if let status = workOrder.status {
                     if status == "in_progress" || status == "en_route" {
-                        if let timer = timer {
-                            timer.invalidate()
-                            self.timer = nil
-                        }
-
                         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderDetailsHeaderTableViewCell.refreshInProgress), userInfo: nil, repeats: true)
                     }
                 } else {
@@ -160,6 +155,11 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     private func refresh() {
+        if let timer = timer {
+            timer.invalidate()
+            self.timer = nil
+        }
+
         refreshUtilityButtons()
         embeddedTableView.reloadData()
 
@@ -189,7 +189,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
 
         if showsSubmitForApprovalButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
         }
 
         if showsApproveButton {
@@ -338,7 +338,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
                     animations: {
-                        statusCell.backgroundView?.backgroundColor = Color.completedStatusColor()
+                        statusCell.backgroundView?.backgroundColor = Color.inProgressStatusColor()
 
                         let alpha = statusCell.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
                         statusCell.backgroundView?.alpha = CGFloat(alpha)

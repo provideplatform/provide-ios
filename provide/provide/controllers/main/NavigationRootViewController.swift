@@ -15,17 +15,22 @@ class NavigationRootViewController: ViewController,
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
+    @IBOutlet private var codeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.darkBlueBackground()
+        view.backgroundColor = UIColor.whiteColor()
 
         logoImageView.alpha = 0.0
 
-        signInButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), forState: .Normal)
         signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
         signInButton.alpha = 0.0
+
+        codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), forState: .Normal)
+        codeButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
+        codeButton.alpha = 0.0
 
         MBProgressHUD.showHUDAddedTo(view, animated: true)
 
@@ -37,6 +42,7 @@ class NavigationRootViewController: ViewController,
                 dispatch_after_delay(1.0) {
                     self.logoImageView.alpha = 1.0
                     self.signInButton.alpha = 1.0
+                    self.codeButton.alpha = 1.0
                 }
             }
         } else {
@@ -44,6 +50,7 @@ class NavigationRootViewController: ViewController,
 
             logoImageView.alpha = 1.0
             signInButton.alpha = 1.0
+            codeButton.alpha = 1.0
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in

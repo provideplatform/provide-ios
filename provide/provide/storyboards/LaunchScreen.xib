@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.12549019607843137" green="0.15686274509803921" blue="0.2196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerY" secondItem="Ems-6k-Ba2" secondAttribute="centerY" id="35Z-xW-erZ"/>
                     <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="DQJ-N8-zy1"/>

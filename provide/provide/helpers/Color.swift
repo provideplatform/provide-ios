@@ -30,6 +30,10 @@ class Color {
         return UIColor("#3983f2")
     }
 
+    class func authenticationViewControllerButtonColor() -> UIColor {
+        return UIColor("#3983f2")
+    }
+
     class func applicationDefaultBarTintColor() -> UIColor {
         return darkBlueBackground()
     }
@@ -83,19 +87,19 @@ class Color {
     }
 
     class func enRouteStatusColor() -> UIColor {
-        return UIColor("#dff0d8")
+        return UIColor("#ffc000")
     }
 
     class func loadingStatusColor() -> UIColor {
-        return UIColor("#dff0d8")
+        return UIColor("#ffc000")
     }
 
     class func unloadingStatusColor() -> UIColor {
-        return UIColor("#dff0d8")
+        return UIColor("#ffc000")
     }
 
     class func inProgressStatusColor() -> UIColor {
-        return UIColor("#dff0d8")
+        return UIColor("#ffc000")
     }
 
     class func canceledStatusColor() -> UIColor {
