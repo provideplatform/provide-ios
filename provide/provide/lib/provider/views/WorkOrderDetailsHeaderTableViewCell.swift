@@ -189,7 +189,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
 
         if showsSubmitForApprovalButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.pendingCompletionStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
         }
 
         if showsApproveButton {
@@ -197,11 +197,11 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
 
         if showsRejectButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.pendingCompletionStatusColor(), title: "Reject")
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.warningBackground(), title: "Reject")
         }
 
         if showsRestartButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.pendingCompletionStatusColor(), title: "Continue to Fix")
+            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Continue to Fix")
         }
 
         setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
