@@ -39,6 +39,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         static let allValues = [Setup, WorkOrders]
     }
 
+    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,in_progress,rejected,paused,pending_approval,pending_final_approval"
+
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
             if let _ = blueprintViewControllerDelegate {
@@ -66,6 +68,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var thumbnailTintView: UIView!
 
     private var imageView: UIImageView!
+
+    private var workOrderStatuses: String!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var progressView: UIProgressView! {
@@ -390,6 +394,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self!.setBlueprintImage(image)
                     }
 
+                    if self!.workOrderStatuses == nil {
+                        self!.workOrderStatuses = self!.defaultWorkOrderFilteringStatuses
+                    }
+
                     self!.loadAnnotations()
                 },
                 onDownloadFailure: { error in
@@ -495,7 +503,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
             loadingAnnotations = true
             blueprint.annotations = [Annotation]()
             let rpp = max(100, blueprintAnnotationsCount)
-            let params = ["page": "1", "rpp": "\(rpp)"]
+            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
+
             blueprint.fetchAnnotations(params,
                 onSuccess: { statusCode, mappingResult in
                     self.loadingAnnotations = false
