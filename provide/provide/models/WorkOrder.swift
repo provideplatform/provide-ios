@@ -223,7 +223,7 @@ class WorkOrder: Model {
         } else if status == "abandoned" {
             return Color.abandonedStatusColor()
         } else if status == "pending_approval" {
-            return Color.completedStatusColor()
+            return Color.pendingCompletionStatusColor()
         } else if status == "rejected" {
             return Color.abandonedStatusColor()
         }
