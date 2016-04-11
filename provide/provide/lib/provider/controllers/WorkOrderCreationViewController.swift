@@ -81,6 +81,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     private var reloadingJob = false
 
+    private var workOrderDetailsHeaderTableViewController: WorkOrderDetailsHeaderTableViewController!
+
     private var commentsViewController: CommentsViewController!
 
     private var isSaved: Bool {
@@ -266,7 +268,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "WorkOrderTeamViewControllerEmbedSegue" {
+        if segue.identifier! == "WorkOrderDetailsHeaderTableViewControllerEmbedSegue" {
+            workOrderDetailsHeaderTableViewController = segue.destinationViewController as! WorkOrderDetailsHeaderTableViewController
+        } else if segue.identifier! == "WorkOrderTeamViewControllerEmbedSegue" {
             (segue.destinationViewController as! WorkOrderTeamViewController).delegate = self
         } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
             commentsViewController = segue.destinationViewController as! CommentsViewController
@@ -465,6 +469,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
         if let _ = commentsViewController {
             reloadComments()
+        }
+
+        if let workOrderDetailsHeaderTableViewController = workOrderDetailsHeaderTableViewController {
+            workOrderDetailsHeaderTableViewController.reloadTableView()
         }
     }
 

@@ -24,6 +24,7 @@ protocol BlueprintWorkOrdersViewControllerDelegate {
     func selectedPolygonViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView!
     func pinViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView!
     func polygonViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView!
+    func previewImageForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> UIImage!
 }
 
 class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WorkOrderCreationViewControllerDelegate {
@@ -82,6 +83,12 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         super.viewDidLoad()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
     func loadAnnotations() {
         if let blueprint = blueprint {
             if workOrderStatuses == nil {
@@ -136,16 +143,29 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func openWorkOrder(workOrder: WorkOrder) {
-        //setPreviewImageForWorkOrder(workOrder)
+        if let navigationController = navigationController {
+            if navigationController.viewControllers.last!.isKindOfClass(WorkOrderCreationViewController) {
+                navigationController.popToRootViewControllerAnimated(true)
+            }
+        }
+
+        delegate?.previewImageForWorkOrder(workOrder, forBlueprintWorkOrdersViewController: self)
 
         let workOrderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
         workOrderCreationViewController.workOrder = workOrder
         workOrderCreationViewController.delegate = self
 
         navigationController?.pushViewController(workOrderCreationViewController, animated: true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        dispatch_after_delay(0.0) {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
 
         delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
+    }
+
+    private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
+
+
     }
 
     // MARK: UITableViewDataSource

@@ -991,6 +991,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintPinViewWasSelected(view: BlueprintPinView) {
+        if selectedPinView != nil && selectedPinView == view {
+            return
+        }
+
         selectedPinView = view
 
         if let annotation = view.annotation {
@@ -1002,58 +1006,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
-    }
-
-    private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
-        let polygonView = polygonViewForWorkOrder(workOrder)
-        let pinView = pinViewForWorkOrder(workOrder)
-
-        if workOrder.previewImage == nil { // FIXME!!! This has to get moved
-            if let blueprintPolygonView = polygonView {
-                if let overlayViewBoundingBox = blueprintPolygonView.overlayViewBoundingBox {
-                    if let blueprintImageView = imageView {
-                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
-                        let previewView = UIImageView(image: previewImage)
-                        if let annotation = blueprintPolygonView.annotation {
-                            let polygonView = BlueprintPolygonView(annotation: annotation)
-                            previewView.addSubview(polygonView)
-                            previewView.bringSubviewToFront(polygonView)
-                            polygonView.alpha = 1.0
-                            if let sublayers = polygonView.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
-                                }
-                            }
-
-                            workOrder.previewImage = previewView.toImage()
-                        }
-                    }
-                }
-            } else if let pinView = pinView {
-                if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
-                    if let blueprintImageView = imageView {
-                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
-                        let previewView = UIImageView(image: previewImage)
-                        if let annotation = pinView.annotation {
-                            let pin = BlueprintPinView(annotation: annotation)
-                            pin.delegate = self
-                            previewView.addSubview(pin)
-                            previewView.bringSubviewToFront(pin)
-                            pin.alpha = 1.0
-                            if let sublayers = pin.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
-                                }
-                            }
-
-                            workOrder.previewImage = previewView.toImage()
-                        }
-                    }
-                }
-            }
-        }
     }
 
     // MARK: BlueprintPolygonViewDelegate
@@ -1256,7 +1208,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     blueprintWorkOrdersViewControllerContainer.alpha = 1.0
 
                     let widthInset = blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
-                    let heightInset = blueprintWorkOrdersViewControllerContainer.frame.height * 1.25
+                    let heightInset = widthInset //blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
 
                     scrollView.contentInset = UIEdgeInsets(top: heightInset, left: widthInset, bottom: heightInset, right: widthInset)
                 }
@@ -1325,6 +1277,60 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         self.dismissWorkOrderCreationPinView()
         self.dismissWorkOrderCreationPolygonView()
+    }
+
+    func previewImageForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> UIImage! {
+        let polygonView = polygonViewForWorkOrder(workOrder)
+        let pinView = pinViewForWorkOrder(workOrder)
+
+        if workOrder.previewImage == nil { // FIXME!!! This has to get moved
+            if let blueprintPolygonView = polygonView {
+                if let overlayViewBoundingBox = blueprintPolygonView.overlayViewBoundingBox {
+                    if let blueprintImageView = imageView {
+                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                        let previewView = UIImageView(image: previewImage)
+                        if let annotation = blueprintPolygonView.annotation {
+                            let polygonView = BlueprintPolygonView(annotation: annotation)
+                            previewView.addSubview(polygonView)
+                            previewView.bringSubviewToFront(polygonView)
+                            polygonView.alpha = 1.0
+                            if let sublayers = polygonView.layer.sublayers {
+                                for sublayer in sublayers {
+                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                }
+                            }
+
+                            workOrder.previewImage = previewView.toImage()
+                        }
+                    }
+                }
+            } else if let pinView = pinView {
+                if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
+                    if let blueprintImageView = imageView {
+                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                        let previewView = UIImageView(image: previewImage)
+                        if let annotation = pinView.annotation {
+                            let pin = BlueprintPinView(annotation: annotation)
+                            pin.delegate = self
+                            previewView.addSubview(pin)
+                            previewView.bringSubviewToFront(pin)
+                            pin.alpha = 1.0
+                            if let sublayers = pin.layer.sublayers {
+                                for sublayer in sublayers {
+                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                }
+                            }
+
+                            workOrder.previewImage = previewView.toImage()
+                        }
+                    }
+                }
+            }
+        }
+
+        return nil
     }
 
     // MARK: ExpensesViewControllerDelegate
