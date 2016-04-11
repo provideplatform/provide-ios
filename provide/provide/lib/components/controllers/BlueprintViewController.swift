@@ -291,7 +291,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             let navigationController = segue.destinationViewController as! UINavigationController
             blueprintWorkOrdersViewController = navigationController.viewControllers.first! as! BlueprintWorkOrdersViewController
             blueprintWorkOrdersViewController.delegate = self
-            addChildViewController(navigationController)
         }
     }
 
@@ -461,6 +460,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 self.showToolbar()
             }
         }
+    }
+
+    private func presentBlueprintWorkOrders() {
+        blueprintWorkOrdersViewControllerContainer?.alpha = 1.0
     }
 
     func dropPin(gestureRecognizer: UIGestureRecognizer) {
@@ -1247,6 +1250,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        if isIPad() {
+            if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
+                if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
+                    blueprintWorkOrdersViewControllerContainer.alpha = 1.0
+                }
+            }
+        }
+
         refreshAnnotations()
         presentFloorplanProductViewControllers()
     }
