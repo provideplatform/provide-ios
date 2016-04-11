@@ -1254,6 +1254,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
                 if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
                     blueprintWorkOrdersViewControllerContainer.alpha = 1.0
+
+                    let widthInset = blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
+                    let heightInset = blueprintWorkOrdersViewControllerContainer.frame.height * 1.25
+
+                    scrollView.contentInset = UIEdgeInsets(top: heightInset, left: widthInset, bottom: heightInset, right: widthInset)
                 }
             }
         }
