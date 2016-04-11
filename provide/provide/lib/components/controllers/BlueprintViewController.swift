@@ -502,8 +502,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-
-
     private func presentFloorplanProductViewControllers() {
         if floorplanSupportsBacksplash {
             if let floorplanJob = job?.floorplanJobs.first {
