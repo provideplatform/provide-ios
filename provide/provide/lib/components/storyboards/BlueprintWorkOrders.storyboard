@@ -14,11 +14,16 @@
         <!--Navigation Controller-->
         <scene sceneID="NFS-zH-ZIw">
             <objects>
-                <navigationController storyboardIdentifier="BlueprintNavigationViewController" id="sqZ-dH-OlV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BlueprintNavigationViewController" autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="sqZ-dH-OlV" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qS3-cS-0fU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Qum-Bj-O2y">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="CBQ-hP-l84" kind="relationship" relationship="rootViewController" id="GFc-cQ-Mgz"/>
                     </connections>
@@ -39,7 +44,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-gD-bVo">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="75" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-gD-bVo">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
@@ -50,19 +55,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="12" width="40" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="12" width="46" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="Rru-dw-xXf"/>
+                                                        <constraint firstAttribute="width" constant="46" id="zoh-dy-cL9"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npx-Uv-N2Z">
-                                                    <rect key="frame" x="56" y="12" width="536" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npx-Uv-N2Z">
+                                                    <rect key="frame" x="62" y="12" width="530" height="19.5"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="NQV-a1-cgE" secondAttribute="leading" id="8mK-h5-Glx"/>
+                                                <constraint firstItem="NQV-a1-cgE" firstAttribute="top" secondItem="1kl-gr-994" secondAttribute="topMargin" constant="4" id="JxM-zL-a9j"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="NQV-a1-cgE" secondAttribute="bottom" constant="4.5" id="PIj-7k-upQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Npx-Uv-N2Z" secondAttribute="trailing" id="Pd9-73-tm8"/>
+                                                <constraint firstItem="Npx-Uv-N2Z" firstAttribute="leading" secondItem="NQV-a1-cgE" secondAttribute="trailing" constant="8" id="VXO-Bi-AOO"/>
+                                                <constraint firstItem="Npx-Uv-N2Z" firstAttribute="top" secondItem="1kl-gr-994" secondAttribute="topMargin" constant="4" id="pLR-ov-oba"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="pinView" destination="NQV-a1-cgE" id="h60-Cb-yjU"/>
+                                            <outlet property="titleLabel" destination="Npx-Uv-N2Z" id="u9h-t8-nAE"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -90,4 +108,7 @@
             <point key="canvasLocation" x="760" y="1330"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map-pin" width="50" height="60"/>
+    </resources>
 </document>

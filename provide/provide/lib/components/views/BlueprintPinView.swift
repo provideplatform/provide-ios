@@ -175,7 +175,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
         abbreviationLabel.text = abbreviation
         abbreviationLabel.sizeToFit()
-        abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image!.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
+        if let image = image {
+            abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
+        }
         abbreviationLabel.alpha = 1.0
 
         if abbreviationLabel.superview == nil {

@@ -13,20 +13,23 @@ protocol BlueprintWorkOrdersViewControllerDelegate {
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
     func blueprintViewControllerStartedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
     func blueprintViewControllerStoppedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
-
+    func blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
+    func blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
+    func blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
+    func blueprintViewControllerShouldRemovePinView(pinView: BlueprintPinView, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController)
+    func blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
+    func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController)
+    func selectedPinViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView!
+    func selectedPolygonViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView!
+    func pinViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView!
+    func polygonViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView!
 }
 
-class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WorkOrderCreationViewControllerDelegate {
 
     private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
-    var delegate: BlueprintWorkOrdersViewControllerDelegate! {
-        didSet {
-            if let _ = delegate {
-                loadAnnotations()
-            }
-        }
-    }
+    var delegate: BlueprintWorkOrdersViewControllerDelegate!
 
     private var annotations: [Annotation] {
         if let blueprint = blueprint {
@@ -42,12 +45,14 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         return nil
     }
 
-    var blueprintAnnotationsCount: Int {
+    private var blueprintAnnotationsCount: Int {
         if let blueprint = blueprint {
             return blueprint.annotations.count
         }
         return 0
     }
+
+    private var newWorkOrderPending = false
 
     private var workOrderStatuses: String!
 
@@ -99,178 +104,233 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     // MARK: UITableViewDataSource
-//
-//    @available(iOS 2.0, *)
+
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return annotations.count
     }
-//
-//    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-//    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-//
-//    @available(iOS 2.0, *)
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("blueprintWorkOrderTableViewCellReuseIdentifier") as! BlueprintWorkOrderTableViewCell
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("blueprintWorkOrderTableViewCellReuseIdentifier") as! BlueprintWorkOrderTableViewCell
         cell.annotation = annotations[indexPath.row]
-
         return cell
     }
-//
-//    @available(iOS 2.0, *)
-//    optional public func numberOfSectionsInTableView(tableView: UITableView) -> Int // Default is 1 if not implemented
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? // fixed font style. use custom view (UILabel) if you want something different
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String?
-//
-//    // Editing
-//
-//    // Individual rows can opt out of having the -editing property set for them. If not implemented, all rows are assumed to be editable.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//
-//    // Moving/reordering
-//
-//    // Allows the reorder accessory view to optionally be shown for a particular row. By default, the reorder control will be shown only if the datasource implements -tableView:moveRowAtIndexPath:toIndexPath:
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//
-//    // Index
-//
-//    @available(iOS 2.0, *)
-//    optional public func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? // return list of section titles to display in section index view (e.g. "ABCD...Z#")
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int // tell table which section corresponds to section title/index (e.g. "B",1))
-//
-//    // Data manipulation - insert and delete support
-//
-//    // After a row has the minus or plus button invoked (based on the UITableViewCellEditingStyle for the cell), the dataSource must commit the change
-//    // Not called for edit actions using UITableViewRowAction - the action's handler will be invoked instead
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-//
-//    // Data manipulation - reorder / moving support
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
 
-    // MARK: UITableViewDelegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let workOrderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
+        workOrderCreationViewController.workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! BlueprintWorkOrderTableViewCell).workOrder
+        workOrderCreationViewController.delegate = self
 
-    // Display customization
+        navigationController?.pushViewController(workOrderCreationViewController, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
 
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, didEndDisplayingCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, didEndDisplayingFooterView view: UIView, forSection section: Int)
-//
-//    // Variable height support
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat
-//
-//    // Use the estimatedHeight methods to quickly calcuate guessed values which will allow for fast load times of the table.
-//    // If these methods are implemented, the above -tableView:heightForXXX calls will be deferred until views are ready to be displayed, so more expensive logic can be placed there.
-//    @available(iOS 7.0, *)
-//    optional public func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-//    @available(iOS 7.0, *)
-//    optional public func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat
-//    @available(iOS 7.0, *)
-//    optional public func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat
-//
-//    // Section header & footer information. Views are preferred over title should you decide to provide both
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? // custom view for header. will be adjusted to default or specified header height
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? // custom view for footer. will be adjusted to default or specified footer height
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath)
-//
-//    // Selection
-//
-//    // -tableView:shouldHighlightRowAtIndexPath: is called when a touch comes down on a row.
-//    // Returning NO to that message halts the selection process and does not cause the currently selected row to lose its selected look while the touch is down.
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath)
-//    @available(iOS 6.0, *)
-//    optional public func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath)
-//
-//    // Called before the user changes the selection. Return a new indexPath, or nil, to change the proposed selection.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?
-//    @available(iOS 3.0, *)
-//    optional public func tableView(tableView: UITableView, willDeselectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath?
-//    // Called after the user changes the selection.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-//    @available(iOS 3.0, *)
-//    optional public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath)
-//
-//    // Editing
-//
-//    // Allows customization of the editingStyle for a particular cell located at 'indexPath'. If not implemented, all editable cells will have UITableViewCellEditingStyleDelete set for them when the table has editing property set to YES.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
-//    @available(iOS 3.0, *)
-//    optional public func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String?
-//    @available(iOS 8.0, *)
-//    optional public func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? // supercedes -tableView:titleForDeleteConfirmationButtonForRowAtIndexPath: if return value is non-nil
-//
-//    // Controls whether the background is indented while editing.  If not implemented, the default is YES.  This is unrelated to the indentation level below.  This method only applies to grouped style table views.
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//
-//    // The willBegin/didEnd methods are called whenever the 'editing' property is automatically changed by the table (allowing insert/delete/move). This is done by a swipe activating a single row
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath)
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath)
-//
-//    // Moving/reordering
-//
-//    // Allows customization of the target row for a particular row as it is being moved/reordered
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, targetIndexPathForMoveFromRowAtIndexPath sourceIndexPath: NSIndexPath, toProposedIndexPath proposedDestinationIndexPath: NSIndexPath) -> NSIndexPath
-//
-//    // Indentation
-//
-//    @available(iOS 2.0, *)
-//    optional public func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int // return 'depth' of row for hierarchies
-//
-//    // Copy/Paste.  All three methods must be implemented by the delegate.
-//
-//    @available(iOS 5.0, *)
-//    optional public func tableView(tableView: UITableView, shouldShowMenuForRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//    @available(iOS 5.0, *)
-//    optional public func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool
-//    @available(iOS 5.0, *)
-//    optional public func tableView(tableView: UITableView, performAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?)
-//
-//    // Focus
-//
-//    @available(iOS 9.0, *)
-//    optional public func tableView(tableView: UITableView, canFocusRowAtIndexPath indexPath: NSIndexPath) -> Bool
-//    @available(iOS 9.0, *)
-//    optional public func tableView(tableView: UITableView, shouldUpdateFocusInContext context: UITableViewFocusUpdateContext) -> Bool
-//    @available(iOS 9.0, *)
-//    optional public func tableView(tableView: UITableView, didUpdateFocusInContext context: UITableViewFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator)
-//    @available(iOS 9.0, *)
-//    optional public func indexPathForPreferredFocusedViewInTableView(tableView: UITableView) -> NSIndexPath?
+        delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    // MARK: WorkOrderCreationViewControllerDelegate
+
+    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView! {
+        if let workOrder = viewController.workOrder {
+            if let delegate = delegate {
+                return delegate.pinViewForWorkOrder(workOrder, forBlueprintWorkOrdersViewController: self)
+            }
+        }
+        return nil
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return indexPath.section == 0 ? 75.0 : 44.0
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let navigationController = workOrderCreationViewController.navigationController {
+            var viewController: UIViewController!
+
+            switch indexPath.row {
+            case 0:
+                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
+                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
+
+                let calendarViewController = CalendarViewController()
+                calendarViewController.delegate = workOrderCreationViewController
+                calendarViewController.weekdayHeaderEnabled = true
+                calendarViewController.firstDate = NSDate()
+
+                viewController = calendarViewController
+            case 1:
+                viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+                (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
+                CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
+                                                      onCategoriesFetched: { categories in
+                                                        (viewController as! CategoryPickerViewController).categories = categories
+
+                                                        if let selectedCategory = workOrderCreationViewController.workOrder.category {
+                                                            (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
+                                                        }
+                    }
+                )
+            case 2:
+                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
+                (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
+                //            case 3:
+                //                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
+                //                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
+                //            case 4:
+                //                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
+                //                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
+            //                (viewController as! ExpensesViewController).delegate = self
+            default:
+                break
+            }
+
+            if let vc = viewController {
+                navigationController.pushViewController(vc, animated: true)
+            }
+        }
+
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+        return nil
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
+        if let blueprint = blueprint {
+            let annotation = Annotation()
+            if let delegate = delegate {
+                if let pinView = delegate.selectedPinViewForBlueprintWorkOrdersViewController(self) {
+                    annotation.point = [pinView.point.x, pinView.point.y]
+                } else if let polygonView = delegate.selectedPolygonViewForBlueprintWorkOrdersViewController(self) {
+                    annotation.polygon = polygonView.polygon
+                }
+            }
+
+            annotation.workOrderId = workOrder.id
+            annotation.workOrder = workOrder
+            annotation.save(blueprint,
+                            onSuccess: { [weak self] statusCode, mappingResult in
+                                self!.delegate?.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self!)
+                                self!.delegate?.blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(self!)
+                                viewController.reloadTableView()
+                },
+                            onError: { error, statusCode, responseString in
+
+                }
+            )
+        }
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    presentedViewController.dismissViewController(animated: true) {
+                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    }
+                }
+            }
+        }
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder) {
+        viewController.reloadTableView()
+        refreshPinViewForWorkOrder(workOrder)
+        refreshPolygonViewForWorkOrder(workOrder)
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    (viewController as! WorkOrderCreationViewController).workOrder.prependExpense(expense)
+                    (viewController as! WorkOrderCreationViewController).reloadTableView()
+                }
+            }
+        }
+
+        refreshWorkOrderCreationView()
+    }
+
+    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
+        newWorkOrderPending = false
+        navigationController?.popViewControllerAnimated(true)
+        delegate?.blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(self)
+        if workOrder == nil {
+            if let selectedPinView = delegate?.selectedPinViewForBlueprintWorkOrdersViewController(self) {
+                delegate?.blueprintViewControllerShouldRemovePinView(selectedPinView, forBlueprintWorkOrdersViewController: self)
+            }
+        }
+
+        delegate?.blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(self)
+        delegate?.blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(self)
+    }
+
+    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
+        return nil
+    }
+
+    private func refreshWorkOrderCreationView() {
+        if let presentedViewController = presentedViewController {
+            if presentedViewController is UINavigationController {
+                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
+                if viewController is WorkOrderCreationViewController {
+                    (viewController as! WorkOrderCreationViewController).reloadTableView()
+                }
+            }
+        }
+    }
+
+    private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
+        if let pinView = delegate?.pinViewForWorkOrder(workOrder, forBlueprintWorkOrdersViewController: self) {
+            pinView.redraw()
+        }
+    }
+
+    private func refreshPolygonViewForWorkOrder(workOrder: WorkOrder) {
+        if let polygonView = delegate?.polygonViewForWorkOrder(workOrder, forBlueprintWorkOrdersViewController: self) {
+            polygonView.redraw()
+        }
+    }
 }

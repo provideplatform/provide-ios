@@ -32,7 +32,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                BlueprintWorkOrdersViewControllerDelegate,
                                ExpensesViewControllerDelegate,
                                ProductPickerViewControllerDelegate,
-                               WorkOrderCreationViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
 
     enum Mode {
@@ -106,6 +105,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var selectedPinView: BlueprintPinView!
     private var selectedPolygonView: BlueprintPolygonView!
 
+    @IBOutlet private weak var blueprintWorkOrdersViewControllerContainer: UIView!
     private var blueprintWorkOrdersViewController: BlueprintWorkOrdersViewController!
 
     var blueprint: Attachment! {
@@ -263,12 +263,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             loadBlueprint()
         }
 
-        blueprintWorkOrdersViewController = UIStoryboard("BlueprintWorkOrders").instantiateViewControllerWithIdentifier("BlueprintWorkOrdersViewController") as! BlueprintWorkOrdersViewController
-        blueprintWorkOrdersViewController.delegate = self
-//        view.superview!.addSubview(blueprintWorkOrdersViewController.view)
-//        view.superview!.bringSubviewToFront(blueprintWorkOrdersViewController.view)
-//        blueprintWorkOrdersViewController.view.frame.origin.x += 400.0
-
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 if let blueprint = self.blueprint {
@@ -287,6 +281,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     }
                 }
             }
+        }
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+
+        if segue.identifier! == "BlueprintWorkOrdersViewControllerSegue" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            blueprintWorkOrdersViewController = navigationController.viewControllers.first! as! BlueprintWorkOrdersViewController
+            blueprintWorkOrdersViewController.delegate = self
+            addChildViewController(navigationController)
         }
     }
 
@@ -640,17 +645,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func refreshWorkOrderCreationView() {
-        if let presentedViewController = presentedViewController {
-            if presentedViewController is UINavigationController {
-                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
-                if viewController is WorkOrderCreationViewController {
-                    (viewController as! WorkOrderCreationViewController).reloadTableView()
-                }
-            }
-        }
-    }
-
     private func hideToolbar() {
         if initialToolbarFrame == nil {
             dispatch_after_delay(0.0) { [weak self] in
@@ -709,13 +703,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
-        newWorkOrderPending = false
-        dismissWorkOrderCreationPinView()
-        dismissWorkOrderCreationPolygonView()
-        toolbar.reload()
-    }
-
     func dismissWorkOrderCreationPinView() {
         selectedPinView?.resignFirstResponder(false)
     }
@@ -723,6 +710,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func dismissWorkOrderCreationPolygonView() {
         polygonView?.resignFirstResponder(false)
         restoreCachedNavigationItem()
+    }
+
+    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+        newWorkOrderPending = false
+        dismissWorkOrderCreationPinView()
+        dismissWorkOrderCreationPolygonView()
+        toolbar.reload()
     }
 
     func createWorkOrder(sender: UIBarButtonItem!) {
@@ -743,7 +737,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         workOrder.materials = [WorkOrderProduct]()
 
         createWorkOrderViewController.workOrder = workOrder
-        createWorkOrderViewController.delegate = self
+        createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
 
         let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
         navigationController.modalPresentationStyle = .FormSheet
@@ -1041,7 +1035,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
         createWorkOrderViewController.workOrder = workOrder
-        createWorkOrderViewController.delegate = self
+        createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
         createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
 
         let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
@@ -1196,7 +1190,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if let workOrder = annotation.workOrder {
                 let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
                 createWorkOrderViewController.workOrder = workOrder
-                createWorkOrderViewController.delegate = self
+                createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
                 createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
 
                 let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
@@ -1239,7 +1233,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation) {
-        refreshWorkOrderCreationView()
+        //refreshWorkOrderCreationView()
     }
 
     // MARK: UIScrollViewDelegate
@@ -1316,6 +1310,54 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintViewControllerStoppedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         loadingAnnotations = false
+    }
+
+    func blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        selectedPinView = nil
+    }
+
+    func blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        selectedPolygonView = nil
+    }
+
+    func blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        toolbar?.reload()
+    }
+
+    func selectedPinViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView! {
+        return selectedPinView
+    }
+
+    func selectedPolygonViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView! {
+        return selectedPolygonView
+    }
+
+    func blueprintViewControllerShouldRemovePinView(pinView: BlueprintPinView, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
+        if let index = pinViews.indexOfObject(pinView) {
+            pinViews.removeAtIndex(index)
+            selectedPinView.removeFromSuperview()
+        }
+    }
+
+    func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
+        if let pinView = pinViewForWorkOrder(workOrder) {
+            scrollView.zoomToRect(pinView.frame, animated: true)
+//            scrollView.scrollRectToVisible(scrollView.convertRect(pinView.frame, toView: scrollView), animated: true)
+//            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
+        }
+    }
+
+    func pinViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView! {
+        return pinViewForWorkOrder(workOrder)
+    }
+
+    func polygonViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView! {
+        return polygonViewForWorkOrder(workOrder)
+    }
+
+    func blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        self.dismissWorkOrderCreationPinView()
+        self.dismissWorkOrderCreationPolygonView()
     }
 
     // MARK: ExpensesViewControllerDelegate
@@ -1701,237 +1743,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
         return .Horizontal
-    }
-
-    // MARK: WorkOrderCreationViewControllerDelegate
-
-    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView! {
-        if let workOrder = viewController.workOrder {
-            return pinViewForWorkOrder(workOrder)
-        }
-        return nil
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 75.0 : 44.0
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let isNewRecord = viewController.workOrder == nil || viewController.workOrder.id == 0
-//        let isPunchlist = job.isPunchlist
-        return 1 //section == 0 ? (isNewRecord ? 2 : (isPunchlist ? 2 : 4)) : 1
-    }
-
-    func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationController = workOrderCreationViewController.navigationController {
-            var viewController: UIViewController!
-
-            switch indexPath.row {
-            case 0:
-                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
-                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-
-                let calendarViewController = CalendarViewController()
-                calendarViewController.delegate = workOrderCreationViewController
-                calendarViewController.weekdayHeaderEnabled = true
-                calendarViewController.firstDate = NSDate()
-
-                viewController = calendarViewController
-            case 1:
-                viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
-                (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
-                CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
-                    onCategoriesFetched: { categories in
-                        (viewController as! CategoryPickerViewController).categories = categories
-
-                        if let selectedCategory = workOrderCreationViewController.workOrder.category {
-                            (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
-                        }
-                    }
-                )
-            case 2:
-                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
-                (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-//            case 3:
-//                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
-//                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
-//            case 4:
-//                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
-//                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
-//                (viewController as! ExpensesViewController).delegate = self
-            default:
-                break
-            }
-
-            if let vc = viewController {
-                navigationController.pushViewController(vc, animated: true)
-            }
-        }
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        return nil
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
-        if let blueprint = blueprint {
-            let annotation = Annotation()
-            if let pinView = selectedPinView {
-                annotation.point = [pinView.point.x, pinView.point.y]
-            } else if let polygonView = polygonView {
-                annotation.polygon = polygonView.polygon
-            }
-            annotation.workOrderId = workOrder.id
-            annotation.workOrder = workOrder
-            annotation.save(blueprint,
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.refreshAnnotations()
-                    self!.dismissWorkOrderCreationPinView()
-                    self!.dismissWorkOrderCreationPolygonView()
-                    viewController.reloadTableView()
-                },
-                onError: { error, statusCode, responseString in
-
-                }
-            )
-        }
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
-        if let presentedViewController = presentedViewController {
-            if presentedViewController is UINavigationController {
-                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
-                if viewController is WorkOrderCreationViewController {
-                    presentedViewController.dismissViewController(animated: true) {
-                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-                    }
-                }
-            }
-        }
-    }
-
-    private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
-        if let pinView = pinViewForWorkOrder(workOrder) {
-            pinView.redraw()
-        }
-    }
-
-    private func refreshPolygonViewForWorkOrder(workOrder: WorkOrder) {
-        if let polygonView = polygonViewForWorkOrder(workOrder) {
-            polygonView.redraw()
-        }
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder) {
-        viewController.reloadTableView()
-        refreshPinViewForWorkOrder(workOrder)
-        refreshPolygonViewForWorkOrder(workOrder)
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
-        if let presentedViewController = presentedViewController {
-            if presentedViewController is UINavigationController {
-                let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
-                if viewController is WorkOrderCreationViewController {
-                    (viewController as! WorkOrderCreationViewController).workOrder.prependExpense(expense)
-                    (viewController as! WorkOrderCreationViewController).reloadTableView()
-                }
-            }
-        }
-
-        refreshWorkOrderCreationView()
-    }
-
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
-        newWorkOrderPending = false
-        toolbar.reload()
-        dismissViewController(animated: true)
-        if workOrder == nil {
-            if let selectedPinView = selectedPinView {
-                if let index = pinViews.indexOfObject(selectedPinView) {
-                    pinViews.removeAtIndex(index)
-                    selectedPinView.removeFromSuperview()
-                }
-            }
-        }
-        selectedPolygonView = nil
-        selectedPinView = nil
-    }
-
-    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
-        let workOrder = viewController.workOrder
-        if let job = job {
-            if let floorplanJob = job.floorplanJobs.first {
-                let floorplan = floorplanJob.floorplan
-                if floorplanJob.supportsBacksplash {
-                    for backsplashProductOptions in floorplan.backsplashProductOptions {
-                        for workOrderProduct in workOrder.materials {
-                            if workOrderProduct.jobProduct.productId == backsplashProductOptions.id {
-                                let backsplashLaborPricePerLfFt = 11.0 // FIXME-- determine if straight/diag/running bong
-                                return (floorplanJob.backsplashFullLf * backsplashLaborPricePerLfFt) + (floorplanJob.backsplashPartialLf * backsplashLaborPricePerLfFt * 0.5)
-                            }
-                        }
-                    }
-                }
-
-                for flooringProductOption in floorplan.flooringProductOptions {
-                    for workOrderProduct in workOrder.materials {
-                        let product = workOrderProduct.jobProduct.product
-                        if product.id == flooringProductOption.id {
-                            var flooringLaborPricePerSqFt: Double?
-                            if product.isTierOne && floorplanJob.flooringLaborTier1RevenuePerSqFt != -1.0 {
-                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier1RevenuePerSqFt
-                            } else if product.isTierTwo && floorplanJob.flooringLaborTier2RevenuePerSqFt != -1.0 {
-                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier2RevenuePerSqFt
-                            } else if product.isTierThree && floorplanJob.flooringLaborTier3RevenuePerSqFt != -1.0 {
-                                flooringLaborPricePerSqFt = floorplanJob.flooringLaborTier3RevenuePerSqFt
-                            }
-
-                            if let flooringLaborPricePerSqFt = flooringLaborPricePerSqFt {
-                                return flooringLaborPricePerSqFt * workOrderProduct.quantity
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return nil
     }
 
     // MARK: UIPopoverPresentationControllerDelegate

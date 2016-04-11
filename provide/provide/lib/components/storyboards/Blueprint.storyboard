@@ -129,6 +129,24 @@
                                 <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doj-tz-7Gy">
+                                <rect key="frame" x="556" y="0.0" width="44" height="492"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="492"/>
+                                        <connections>
+                                            <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="cd9-rd-FWY"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mZN-vT-oPf" secondAttribute="trailing" id="GxN-gk-8j3"/>
+                                    <constraint firstItem="mZN-vT-oPf" firstAttribute="top" secondItem="doj-tz-7Gy" secondAttribute="top" id="ZED-hj-U1C"/>
+                                    <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="doj-tz-7Gy" secondAttribute="leading" id="uFa-ze-0MX"/>
+                                    <constraint firstAttribute="bottom" secondItem="mZN-vT-oPf" secondAttribute="bottom" id="z78-tt-9vP"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -137,6 +155,7 @@
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerY" secondItem="vsP-WQ-g9V" secondAttribute="centerY" id="5wj-bR-7wb"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="8fg-2O-zv7"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
+                            <constraint firstItem="doj-tz-7Gy" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" id="EU7-7l-BXD"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="105" id="Hqo-FQ-9BA"/>
@@ -147,6 +166,7 @@
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="bUJ-fH-EIv">
                                 <variation key="heightClass=regular-widthClass=compact" constant="-88"/>
                             </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="doj-tz-7Gy" secondAttribute="trailing" constant="-20" id="dPr-2n-BGl"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="dRv-4s-X1u"/>
                             <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="270" id="gC5-Fo-9eV"/>
@@ -155,6 +175,7 @@
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="258" id="gja-4k-PRU"/>
                             <constraint firstAttribute="trailing" secondItem="HYt-68-Mwn" secondAttribute="trailing" id="iwZ-hS-Y2N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" id="iyr-XV-Vuj"/>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="doj-tz-7Gy" secondAttribute="bottom" constant="44" id="jTv-eR-NZq"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="258" id="kQL-eL-ro2"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="390" id="ltK-f8-1iH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="105" id="m0v-51-Iuv"/>
@@ -162,6 +183,7 @@
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="pcd-bU-Be5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="kd1-tJ-VKm" secondAttribute="trailing" constant="205" id="skV-Gd-PEJ"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="170" id="uET-Uz-hZ5"/>
+                            <constraint firstItem="doj-tz-7Gy" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="556" id="uWP-nW-vuE"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -201,6 +223,7 @@
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
+                        <outlet property="blueprintWorkOrdersViewControllerContainer" destination="doj-tz-7Gy" id="A0N-L8-s4a"/>
                         <outlet property="polygonView" destination="abb-Tj-uxb" id="CZx-9o-VWf"/>
                         <outlet property="progressView" destination="kd1-tJ-VKm" id="P2R-ox-JNt"/>
                         <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
@@ -211,6 +234,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgM-oB-JlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="770" y="1330"/>
+        </scene>
+        <!--BlueprintWorkOrders-->
+        <scene sceneID="Jfc-IX-AhO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="BlueprintWorkOrders" id="1xQ-6a-WZl" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vUj-jY-7eU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1225.5" y="1330"/>
         </scene>
         <!--Blueprint Thumbnail View Controller-->
         <scene sceneID="Peq-rL-8pv">
