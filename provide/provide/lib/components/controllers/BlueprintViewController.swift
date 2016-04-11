@@ -482,7 +482,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             selectedPinView.attachGestureRecognizer()
             pinViews.append(selectedPinView)
 
-            createWorkOrder(nil)
+            blueprintWorkOrdersViewController?.createWorkOrder(gestureRecognizer)
         }
     }
 
@@ -712,39 +712,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         restoreCachedNavigationItem()
     }
 
-    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
-        newWorkOrderPending = false
-        dismissWorkOrderCreationPinView()
-        dismissWorkOrderCreationPolygonView()
-        toolbar.reload()
-    }
-
-    func createWorkOrder(sender: UIBarButtonItem!) {
-        let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-
-        let workOrder = WorkOrder()
-        workOrder.company = job!.company
-        workOrder.companyId = job!.companyId
-        workOrder.customer = job!.customer
-        workOrder.customerId = job!.customerId
-        workOrder.job = job!
-        workOrder.jobId = job!.id
-        workOrder.status = "awaiting_schedule"
-        workOrder.expenses = [Expense]()
-        workOrder.itemsDelivered = [Product]()
-        workOrder.itemsOrdered = [Product]()
-        workOrder.itemsRejected = [Product]()
-        workOrder.materials = [WorkOrderProduct]()
-
-        createWorkOrderViewController.workOrder = workOrder
-        createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
-
-        let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
-        navigationController.modalPresentationStyle = .FormSheet
-
-        presentViewController(navigationController, animated: true)
-    }
-
     private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
@@ -764,17 +731,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelCreateWorkOrder(_:)))
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-
-        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: #selector(BlueprintViewController.createWorkOrder(_:)))
-        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-        createWorkOrderItem.enabled = setCreateEnabled
-
-        navigationItem.leftBarButtonItems = [cancelItem]
-        navigationItem.rightBarButtonItems = [createWorkOrderItem]
+//        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelCreateWorkOrder(_:)))
+//        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+//        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+//
+//        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: #selector(BlueprintViewController.createWorkOrder(_:)))
+//        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+//        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+//        createWorkOrderItem.enabled = setCreateEnabled
+//
+//        navigationItem.leftBarButtonItems = [cancelItem]
+//        navigationItem.rightBarButtonItems = [createWorkOrderItem]
     }
 
     private func cacheNavigationItem(navigationItem: UINavigationItem) {
@@ -1031,27 +998,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
-        setPreviewImageForWorkOrder(workOrder)
-
-        let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-        createWorkOrderViewController.workOrder = workOrder
-        createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
-        createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
-
-        let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
-        navigationController.modalPresentationStyle = .Popover
-
-        let popover = navigationController.popoverPresentationController!
-        popover.delegate = self
-        popover.sourceView = imageView
-        if let pinView = pinView {
-            popover.sourceRect = pinView.frame
-        }
-        popover.canOverlapSourceViewRect = true
-        popover.permittedArrowDirections = [.Left, .Right]
-        popover.passthroughViews = [view]
-
-        presentViewController(navigationController, animated: true)
+        blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
     }
 
     private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
@@ -1322,6 +1269,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         toolbar?.reload()
+    }
+
+    func jobForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Job! {
+        return job
     }
 
     func selectedPinViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView! {

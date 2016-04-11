@@ -156,7 +156,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(cameraViewController, animated: true)
     }
 
-    func createWorkOrder(sender: UIBarButtonItem) {
+    func createWorkOrder(sender: AnyObject!) {
         createWorkOrder()
     }
 

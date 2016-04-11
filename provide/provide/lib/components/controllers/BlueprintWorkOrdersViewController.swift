@@ -9,6 +9,7 @@
 import UIKit
 
 protocol BlueprintWorkOrdersViewControllerDelegate {
+    func jobForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Job!
     func blueprintForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Attachment!
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
     func blueprintViewControllerStartedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
@@ -50,6 +51,13 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
             return blueprint.annotations.count
         }
         return 0
+    }
+
+    private var job: Job! {
+        if let delegate = delegate {
+            return delegate.jobForBlueprintWorkOrdersViewController(self)
+        }
+        return nil
     }
 
     private var newWorkOrderPending = false
@@ -103,6 +111,43 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
+    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+        newWorkOrderPending = false
+        delegate?.blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(self)
+        delegate?.blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(self)
+    }
+
+    func createWorkOrder(sender: AnyObject!) {
+        let workOrder = WorkOrder()
+        workOrder.company = job.company
+        workOrder.companyId = job.companyId
+        workOrder.customer = job.customer
+        workOrder.customerId = job.customerId
+        workOrder.job = job
+        workOrder.jobId = job.id
+        workOrder.status = "awaiting_schedule"
+        workOrder.expenses = [Expense]()
+        workOrder.itemsDelivered = [Product]()
+        workOrder.itemsOrdered = [Product]()
+        workOrder.itemsRejected = [Product]()
+        workOrder.materials = [WorkOrderProduct]()
+
+        openWorkOrder(workOrder)
+    }
+
+    func openWorkOrder(workOrder: WorkOrder) {
+        //setPreviewImageForWorkOrder(workOrder)
+
+        let workOrderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
+        workOrderCreationViewController.workOrder = workOrder
+        workOrderCreationViewController.delegate = self
+
+        navigationController?.pushViewController(workOrderCreationViewController, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+
+        delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
+    }
+
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,14 +161,8 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let workOrderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-        workOrderCreationViewController.workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! BlueprintWorkOrderTableViewCell).workOrder
-        workOrderCreationViewController.delegate = self
-
-        navigationController?.pushViewController(workOrderCreationViewController, animated: true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-
-        delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
+        let workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! BlueprintWorkOrderTableViewCell).workOrder
+        openWorkOrder(workOrder)
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
