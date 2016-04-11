@@ -39,7 +39,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         static let allValues = [Setup, WorkOrders]
     }
 
-    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,in_progress,rejected,paused,pending_approval,pending_final_approval"
+    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
