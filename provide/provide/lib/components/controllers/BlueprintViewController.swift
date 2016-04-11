@@ -29,6 +29,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                BlueprintToolbarDelegate,
                                BlueprintPinViewDelegate,
                                BlueprintPolygonViewDelegate,
+                               BlueprintWorkOrdersViewControllerDelegate,
                                ExpensesViewControllerDelegate,
                                ProductPickerViewControllerDelegate,
                                WorkOrderCreationViewControllerDelegate,
@@ -38,8 +39,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         case Setup, WorkOrders
         static let allValues = [Setup, WorkOrders]
     }
-
-    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
@@ -68,8 +67,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var thumbnailTintView: UIView!
 
     private var imageView: UIImageView!
-
-    private var workOrderStatuses: String!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var progressView: UIProgressView! {
@@ -109,6 +106,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var selectedPinView: BlueprintPinView!
     private var selectedPolygonView: BlueprintPolygonView!
 
+    private var blueprintWorkOrdersViewController: BlueprintWorkOrdersViewController!
+
     var blueprint: Attachment! {
         if let blueprint = blueprintViewControllerDelegate?.blueprintForBlueprintViewController(self) {
             return blueprint
@@ -125,13 +124,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             return blueprint.url
         }
         return nil
-    }
-
-    var blueprintAnnotationsCount: Int {
-        if let blueprint = blueprint {
-            return blueprint.annotations.count
-        }
-        return 0
     }
 
     var blueprintScale: Float! {
@@ -271,6 +263,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
             loadBlueprint()
         }
 
+        blueprintWorkOrdersViewController = UIStoryboard("BlueprintWorkOrders").instantiateViewControllerWithIdentifier("BlueprintWorkOrdersViewController") as! BlueprintWorkOrdersViewController
+        blueprintWorkOrdersViewController.delegate = self
+//        view.superview!.addSubview(blueprintWorkOrdersViewController.view)
+//        view.superview!.bringSubviewToFront(blueprintWorkOrdersViewController.view)
+//        blueprintWorkOrdersViewController.view.frame.origin.x += 400.0
+
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 if let blueprint = self.blueprint {
@@ -394,11 +392,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self!.setBlueprintImage(image)
                     }
 
-                    if self!.workOrderStatuses == nil {
-                        self!.workOrderStatuses = self!.defaultWorkOrderFilteringStatuses
+                    if let blueprintWorkOrdersViewController = self!.blueprintWorkOrdersViewController {
+                        blueprintWorkOrdersViewController.loadAnnotations()
                     }
-
-                    self!.loadAnnotations()
                 },
                 onDownloadFailure: { error in
                     logWarn("Blueprint image download failed; \(error)")
@@ -498,25 +494,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func loadAnnotations() {
-        if let blueprint = blueprint {
-            loadingAnnotations = true
-            blueprint.annotations = [Annotation]()
-            let rpp = max(100, blueprintAnnotationsCount)
-            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
 
-            blueprint.fetchAnnotations(params,
-                onSuccess: { statusCode, mappingResult in
-                    self.loadingAnnotations = false
-                    self.refreshAnnotations()
-                    self.presentFloorplanProductViewControllers()
-                },
-                onError: { error, statusCode, responseString in
-                    self.loadingAnnotations = false
-                }
-            )
-        }
-    }
 
     private func presentFloorplanProductViewControllers() {
         if floorplanSupportsBacksplash {
@@ -1319,6 +1297,25 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             presentViewController(navigationController, animated: true)
         }
+    }
+
+    // MARK: BlueprintWorkOrdersViewControllerDelegate
+
+    func blueprintForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Attachment! {
+        return blueprint
+    }
+
+    func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        refreshAnnotations()
+        presentFloorplanProductViewControllers()
+    }
+
+    func blueprintViewControllerStartedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        loadingAnnotations = true
+    }
+
+    func blueprintViewControllerStoppedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+        loadingAnnotations = false
     }
 
     // MARK: ExpensesViewControllerDelegate

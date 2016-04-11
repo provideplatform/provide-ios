@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sqZ-dH-OlV">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </mutableArray>
+    </customFonts>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="NFS-zH-ZIw">
+            <objects>
+                <navigationController storyboardIdentifier="BlueprintNavigationViewController" id="sqZ-dH-OlV" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qS3-cS-0fU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CBQ-hP-l84" kind="relationship" relationship="rootViewController" id="GFc-cQ-Mgz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6OJ-iP-xMn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="77" y="1330"/>
+        </scene>
+        <!--Blueprint Work Orders View Controller-->
+        <scene sceneID="Eet-8M-625">
+            <objects>
+                <viewController storyboardIdentifier="BlueprintWorkOrdersViewController" id="CBQ-hP-l84" customClass="BlueprintWorkOrdersViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dmg-1r-LRd"/>
+                        <viewControllerLayoutGuide type="bottom" id="KRf-79-Gt3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5Vx-CZ-RBS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7yg-gD-bVo">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="blueprintWorkOrderTableViewCellReuseIdentifier" rowHeight="75" id="P4D-RK-w2B" customClass="BlueprintWorkOrderTableViewCell" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P4D-RK-w2B" id="1kl-gr-994">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="12" width="40" height="50"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npx-Uv-N2Z">
+                                                    <rect key="frame" x="56" y="12" width="536" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="pinView" destination="NQV-a1-cgE" id="h60-Cb-yjU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="CBQ-hP-l84" id="egZ-3V-jlS"/>
+                                    <outlet property="delegate" destination="CBQ-hP-l84" id="wvh-e4-EXG"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7yg-gD-bVo" firstAttribute="leading" secondItem="5Vx-CZ-RBS" secondAttribute="leadingMargin" constant="-20" id="8yk-aj-o56"/>
+                            <constraint firstItem="KRf-79-Gt3" firstAttribute="top" secondItem="7yg-gD-bVo" secondAttribute="bottom" id="9BE-fa-VzB"/>
+                            <constraint firstItem="7yg-gD-bVo" firstAttribute="top" secondItem="Dmg-1r-LRd" secondAttribute="bottom" constant="-64" id="nzf-FN-6Lv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7yg-gD-bVo" secondAttribute="trailing" constant="-20" id="ubR-aH-O3f"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="onk-Kh-tEo"/>
+                    <connections>
+                        <outlet property="tableView" destination="7yg-gD-bVo" id="937-ds-K16"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HEn-c8-aK1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="760" y="1330"/>
+        </scene>
+    </scenes>
+</document>

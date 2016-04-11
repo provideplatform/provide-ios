@@ -116,6 +116,9 @@
 		6845BB681BF2138E00AD3D79 /* BlueprintPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */; };
 		6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB691BF2863300AD3D79 /* Regex.swift */; };
 		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
+		685BCBDB1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDA1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift */; };
+		685BCBDD1CBB6FE000AB7911 /* BlueprintWorkOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685BCBDC1CBB6FE000AB7911 /* BlueprintWorkOrders.storyboard */; };
+		685BCBDF1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1141C17529C0089EF94 /* JobProduct.swift */; };
 		685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1161C176A740089EF94 /* WorkOrderProduct.swift */; };
@@ -427,6 +430,9 @@
 		6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonLineView.swift; sourceTree = "<group>"; };
 		6845BB691BF2863300AD3D79 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
+		685BCBDA1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintWorkOrdersViewController.swift; sourceTree = "<group>"; };
+		685BCBDC1CBB6FE000AB7911 /* BlueprintWorkOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BlueprintWorkOrders.storyboard; sourceTree = "<group>"; };
+		685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintWorkOrderTableViewCell.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		685DE1141C17529C0089EF94 /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
 		685DE1161C176A740089EF94 /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
@@ -949,6 +955,7 @@
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */,
 				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
+				685BCBDA1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift */,
 				688995181C9D2A9300F7D25F /* BlueprintsPageViewController.swift */,
 				68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
@@ -996,6 +1003,7 @@
 				6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */,
 				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
 				688BFCAA1BDE2B9F00BBACEC /* BlueprintToolbar.swift */,
+				685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */,
 				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
@@ -1094,6 +1102,7 @@
 				68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */,
 				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
 				6840F1651BDB1D8E00EF70F7 /* Blueprint.storyboard */,
+				685BCBDC1CBB6FE000AB7911 /* BlueprintWorkOrders.storyboard */,
 				6889951A1C9D2AB300F7D25F /* BlueprintsPageView.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
 				683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */,
@@ -1495,6 +1504,7 @@
 				68E329871C12F3EE00DC297A /* tessdata in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
+				685BCBDD1CBB6FE000AB7911 /* BlueprintWorkOrders.storyboard in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68EF11371C1EFAC5003302D7 /* ProductPicker.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
@@ -1691,8 +1701,10 @@
 				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
 				68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */,
 				681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */,
+				685BCBDF1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift in Sources */,
 				688BFCAB1BDE2B9F00BBACEC /* BlueprintToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
+				685BCBDB1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift in Sources */,
 				68F537251B834CA50007F480 /* CLLocationExtensions.swift in Sources */,
 				68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
