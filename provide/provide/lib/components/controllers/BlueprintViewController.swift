@@ -1206,8 +1206,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             scrollView.zoomToRect(pinView.frame, animated: true)
-//            scrollView.scrollRectToVisible(scrollView.convertRect(pinView.frame, toView: scrollView), animated: true)
-//            scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
         }
     }
 
