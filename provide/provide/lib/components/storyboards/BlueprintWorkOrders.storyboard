@@ -14,7 +14,7 @@
         <!--Navigation Controller-->
         <scene sceneID="NFS-zH-ZIw">
             <objects>
-                <navigationController storyboardIdentifier="BlueprintNavigationViewController" autoresizesArchivedViewToFullSize="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" navigationBarHidden="YES" id="sqZ-dH-OlV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="BlueprintNavigationViewController" modalTransitionStyle="crossDissolve" navigationBarHidden="YES" id="sqZ-dH-OlV" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qS3-cS-0fU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
