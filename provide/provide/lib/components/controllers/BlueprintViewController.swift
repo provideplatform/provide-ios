@@ -1026,7 +1026,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                insetScrollViewContentForBlueprintWorkOrdersPresentation()
                 openWorkOrder(workOrder, fromPinView: view)
             }
         }
@@ -1034,6 +1033,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
+
+        if pinView != nil {
+            insetScrollViewContentForBlueprintWorkOrdersPresentation()
+            toolbar.toggleWorkOrdersVisibility()
+        }
     }
 
     // MARK: BlueprintPolygonViewDelegate

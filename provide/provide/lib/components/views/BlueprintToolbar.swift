@@ -172,6 +172,10 @@ class BlueprintToolbar: UIToolbar {
     }
 
     func toggleWorkOrdersVisibility(sender: UIBarButtonItem) {
+        toggleWorkOrdersVisibility()
+    }
+
+    func toggleWorkOrdersVisibility() {
         workOrdersVisible = !workOrdersVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible)
 

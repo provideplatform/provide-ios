@@ -135,10 +135,10 @@
                                 <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             </progressView>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doj-tz-7Gy">
-                                <rect key="frame" x="247" y="0.0" width="353" height="492"/>
+                                <rect key="frame" x="200" y="0.0" width="400" height="492"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
-                                        <rect key="frame" x="0.0" y="0.0" width="353" height="492"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="492"/>
                                         <connections>
                                             <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="cd9-rd-FWY"/>
                                         </connections>
@@ -148,7 +148,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="mZN-vT-oPf" secondAttribute="trailing" id="GxN-gk-8j3"/>
                                     <constraint firstItem="mZN-vT-oPf" firstAttribute="top" secondItem="doj-tz-7Gy" secondAttribute="top" id="ZED-hj-U1C"/>
-                                    <constraint firstAttribute="width" constant="353" id="kHa-sW-YIt"/>
+                                    <constraint firstAttribute="width" constant="400" id="kHa-sW-YIt"/>
                                     <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="doj-tz-7Gy" secondAttribute="leading" id="uFa-ze-0MX"/>
                                     <constraint firstAttribute="bottom" secondItem="mZN-vT-oPf" secondAttribute="bottom" id="z78-tt-9vP"/>
                                 </constraints>
