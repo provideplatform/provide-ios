@@ -67,6 +67,9 @@ class BlueprintToolbar: UIToolbar {
             if let navigationButton = workOrdersButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(BlueprintToolbar.toggleWorkOrdersVisibility(_:))
+                if let image = navigationButton.image {
+                    navigationButton.image = image.resize(CGRect(x: 0.0, y: 0.0, width: 25.0, height: 31.0))
+                }
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
