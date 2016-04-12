@@ -61,19 +61,19 @@ class WorkOrderDetailsViewController: ViewController,
 //                        
 //                    }
 //                )
+
+                if let headerView = headerView {
+                    headerView.workOrder = workOrder
+                }
+
+                if let headerTableViewController = headerTableViewController {
+                    headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
+                    headerTableViewController.workOrder = workOrder
+                }
             }
 
             if let _ = tableView {
                 reloadTableView()
-            }
-
-            if let headerView = headerView {
-                headerView.workOrder = workOrder
-            }
-
-            if let headerTableViewController = headerTableViewController {
-                headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
-                headerTableViewController.workOrder = workOrder
             }
         }
     }
@@ -111,8 +111,14 @@ class WorkOrderDetailsViewController: ViewController,
             if let workOrder = notification.object as? WorkOrder {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
-                        self.workOrder = workOrder
-                        self.reloadTableView()
+                        self.workOrder.reload([:],
+                            onSuccess: { [weak self] statusCode, mappingResult in
+                                self!.reloadTableView()
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
                     }
                 }
             }
