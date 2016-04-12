@@ -154,9 +154,9 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         workOrderCreationViewController.workOrder = workOrder
         workOrderCreationViewController.delegate = self
 
-        navigationController?.pushViewController(workOrderCreationViewController, animated: true)
+        navigationController?.pushViewController(workOrderCreationViewController, animated: workOrder.id > 0)
         dispatch_after_delay(0.0) {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            self.navigationController?.setNavigationBarHidden(false, animated: workOrder.id > 0)
         }
 
         delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
@@ -279,6 +279,10 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
                             onSuccess: { [weak self] statusCode, mappingResult in
                                 self!.delegate?.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self!)
                                 self!.delegate?.blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(self!)
+
+                                blueprint.annotations.insert(annotation, atIndex: 0)
+                                self!.tableView.reloadData()
+
                                 viewController.reloadTableView()
                 },
                             onError: { error, statusCode, responseString in
