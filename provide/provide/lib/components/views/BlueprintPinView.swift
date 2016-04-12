@@ -170,13 +170,16 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             abbreviationLabel = UILabel()
             abbreviationLabel.backgroundColor = UIColor.clearColor()
             abbreviationLabel.textColor = UIColor.whiteColor()
-            abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 32.0)!
+            abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 28.0)!
         }
 
         abbreviationLabel.text = abbreviation
         abbreviationLabel.sizeToFit()
         if let image = image {
-            abbreviationLabel.frame = CGRectOffset(abbreviationLabel.frame, (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
+            abbreviationLabel.frame = CGRect(x: (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0),
+                                             y: (image.size.height / 2.0) - (abbreviationLabel.frame.height / 1.5),
+                                             width: abbreviationLabel.frame.width,
+                                             height: abbreviationLabel.frame.height)  //CGRectOffset(abbreviationLabel.frame, (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
         }
         abbreviationLabel.alpha = 1.0
 
