@@ -1148,6 +1148,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return blueprint
     }
 
+    func blueprintWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: BlueprintWorkOrdersViewController) {
+        newWorkOrderPending = false
+    }
+
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         if isIPad() && !initializedAnnotations {
             initializedAnnotations = true

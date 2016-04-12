@@ -10,6 +10,7 @@ import UIKit
 
 protocol BlueprintWorkOrdersViewControllerDelegate {
     func jobForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Job!
+    func blueprintWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: BlueprintWorkOrdersViewController)
     func blueprintForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Attachment!
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
     func blueprintViewControllerStartedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController)
@@ -61,7 +62,13 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         return nil
     }
 
-    private var newWorkOrderPending = false
+    private var newWorkOrderPending = false {
+        didSet {
+            if !newWorkOrderPending {
+                delegate?.blueprintWorkOrdersViewControllerDismissedPendingWorkOrder(self)
+            }
+        }
+    }
 
     private var workOrderStatuses: String!
 
