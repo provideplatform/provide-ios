@@ -35,7 +35,7 @@
         <!--Blueprint Work Orders View Controller-->
         <scene sceneID="Eet-8M-625">
             <objects>
-                <viewController storyboardIdentifier="BlueprintWorkOrdersViewController" id="CBQ-hP-l84" customClass="BlueprintWorkOrdersViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BlueprintWorkOrdersViewController" modalPresentationStyle="currentContext" id="CBQ-hP-l84" customClass="BlueprintWorkOrdersViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dmg-1r-LRd"/>
                         <viewControllerLayoutGuide type="bottom" id="KRf-79-Gt3"/>
@@ -55,7 +55,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="12" width="46" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="Rru-dw-xXf"/>

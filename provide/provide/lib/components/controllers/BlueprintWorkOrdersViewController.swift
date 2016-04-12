@@ -94,6 +94,8 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         super.viewWillAppear(animated)
 
         navigationController?.setNavigationBarHidden(true, animated: true)
+
+        tableView?.reloadData()
     }
 
     func loadAnnotations() {
@@ -170,7 +172,6 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
-
 
     }
 
