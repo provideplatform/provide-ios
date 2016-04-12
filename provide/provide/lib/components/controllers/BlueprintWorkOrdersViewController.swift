@@ -288,7 +288,6 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
                                 self!.delegate?.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self!)
                                 self!.delegate?.blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(self!)
 
-                                blueprint.annotations.insert(annotation, atIndex: 0)
                                 self!.tableView.reloadData()
 
                                 viewController.reloadTableView()
