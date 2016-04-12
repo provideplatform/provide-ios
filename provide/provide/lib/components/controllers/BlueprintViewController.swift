@@ -178,6 +178,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var cachedNavigationItem: UINavigationItem!
 
     private var loadedBlueprint = false
+    private var initializedAnnotations = false
 
     private var loadingBlueprint = false {
         didSet {
@@ -460,10 +461,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 self.showToolbar()
             }
         }
-    }
-
-    private func presentBlueprintWorkOrders() {
-        blueprintWorkOrdersViewControllerContainer?.alpha = 1.0
     }
 
     func dropPin(gestureRecognizer: UIGestureRecognizer) {
@@ -877,6 +874,38 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool) {
+        let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
+
+        if visible {
+            insetScrollViewContentForBlueprintWorkOrdersPresentation()
+        } else {
+            scrollView.contentInset = UIEdgeInsetsZero
+        }
+
+        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
+            }, completion:  { (completed) in
+
+            }
+        )
+    }
+
+    private func insetScrollViewContentForBlueprintWorkOrdersPresentation() {
+        if scrollView.contentInset != UIEdgeInsetsZero {
+            return
+        }
+
+        let widthInset = blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
+        let heightInset = widthInset
+
+        scrollView.contentInset = UIEdgeInsets(top: heightInset,
+                                               left: widthInset,
+                                               bottom: heightInset,
+                                               right: widthInset)
+    }
+
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         scaleView.alpha = alpha
@@ -997,6 +1026,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
+                insetScrollViewContentForBlueprintWorkOrdersPresentation()
                 openWorkOrder(workOrder, fromPinView: view)
             }
         }
@@ -1200,15 +1230,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
-        if isIPad() {
+        if isIPad() && !initializedAnnotations {
+            initializedAnnotations = true
             if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
                 if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
-                    blueprintWorkOrdersViewControllerContainer.alpha = 1.0
-
-                    let widthInset = blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
-                    let heightInset = widthInset //blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
-
-                    scrollView.contentInset = UIEdgeInsets(top: heightInset, left: widthInset, bottom: heightInset, right: widthInset)
+                    dispatch_after_delay(0.0) {
+                        blueprintWorkOrdersViewControllerContainer.frame.origin.x = self.view.frame.width
+                        blueprintWorkOrdersViewControllerContainer.alpha = 1.0
+                    }
                 }
             }
         }

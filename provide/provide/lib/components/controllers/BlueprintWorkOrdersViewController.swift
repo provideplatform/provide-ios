@@ -101,18 +101,17 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
             let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
 
             blueprint.fetchAnnotations(params,
-                                       onSuccess: { statusCode, mappingResult in
-                                        self.loadingAnnotations = false
+                onSuccess: { statusCode, mappingResult in
+                    self.loadingAnnotations = false
 
-                                        self.tableView?.reloadData()
+                    self.tableView?.reloadData()
 
-                                        if let delegate = self.delegate {
-                                            delegate.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self)
-                                        }
-                                        
+                    if let delegate = self.delegate {
+                        delegate.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self)
+                    }
                 },
-                                       onError: { error, statusCode, responseString in
-                                        self.loadingAnnotations = false
+                onError: { error, statusCode, responseString in
+                    self.loadingAnnotations = false
                 }
             )
         }

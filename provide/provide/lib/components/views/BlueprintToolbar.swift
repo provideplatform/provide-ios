@@ -11,6 +11,7 @@ import UIKit
 protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
     func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
@@ -26,6 +27,7 @@ class BlueprintToolbar: UIToolbar {
     weak var blueprintToolbarDelegate: BlueprintToolbarDelegate!
 
     private var navigatorVisible = false
+    private var workOrdersVisible = false
     private var scaleVisible = false
     private var scaleBeingEdited = false
     private var floorplanOptionsVisible = false
@@ -58,6 +60,16 @@ class BlueprintToolbar: UIToolbar {
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
             NSForegroundColorAttributeName : UIColor.whiteColor()
         ]
+    }
+
+    @IBOutlet private weak var workOrdersButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = workOrdersButton {
+                navigationButton.target = self
+                navigationButton.action = #selector(BlueprintToolbar.toggleWorkOrdersVisibility(_:))
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+            }
+        }
     }
 
     @IBOutlet private weak var navigationButton: UIBarButtonItem! {
@@ -155,6 +167,13 @@ class BlueprintToolbar: UIToolbar {
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
+
+        reload()
+    }
+
+    func toggleWorkOrdersVisibility(sender: UIBarButtonItem) {
+        workOrdersVisible = !workOrdersVisible
+        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible)
 
         reload()
     }

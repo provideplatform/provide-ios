@@ -57,6 +57,10 @@
                                     <barButtonItem title="Navigator" id="F6Z-Yj-ebn">
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="92B-rr-Yc5"/>
+                                    <barButtonItem image="provide-pin" id="uTM-AY-XRu">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -64,6 +68,7 @@
                                     <outlet property="floorplanOptionsButton" destination="bur-kU-fzu" id="u9C-Jn-p4K"/>
                                     <outlet property="navigationButton" destination="F6Z-Yj-ebn" id="Wwg-bl-5N2"/>
                                     <outlet property="scaleButton" destination="dlS-QM-Xdl" id="85b-r0-9pj"/>
+                                    <outlet property="workOrdersButton" destination="uTM-AY-XRu" id="sov-zX-v2c"/>
                                 </connections>
                             </toolbar>
                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAt-pi-biU" customClass="BlueprintScaleView" customModule="provide" customModuleProvider="target">
@@ -307,4 +312,7 @@
             <point key="canvasLocation" x="77" y="1330"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="provide-pin" width="50" height="50"/>
+    </resources>
 </document>
