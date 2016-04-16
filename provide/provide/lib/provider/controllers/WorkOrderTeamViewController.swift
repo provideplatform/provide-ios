@@ -155,63 +155,39 @@ class WorkOrderTeamViewController: UITableViewController,
         }
 
         if !workOrder.hasProvider(provider) {
-            providersPickerViewController?.providers.append(provider)
-            let indexPaths = [NSIndexPath(forRow: (providersPickerViewController?.providers.count)! - 1, inSection: 0)]
-            providersPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
-            if let _ = providersPickerViewController?.collectionView {
-                let cell = providersPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as? PickerCollectionViewCell
+            if let providersPickerViewController = providersPickerViewController {
+                providersPickerViewController.providers.append(provider)
+                let indexPaths = [NSIndexPath(forRow: providersPickerViewController.providers.count - 1, inSection: 0)]
+                providersPickerViewController.collectionView.reloadItemsAtIndexPaths(indexPaths)
+                if let _ = providersPickerViewController.collectionView {
+                    let cell = providersPickerViewController.collectionView.cellForItemAtIndexPath(indexPaths.first!) as? PickerCollectionViewCell
 
-                if workOrder.id > 0 {
-                    cell?.showActivityIndicator()
-                } else {
-                    addingProvider = false
-                }
-
-                dispatch_async(workOrderProviderOperationQueue) { [weak self] in
-                    while self!.addingProvider { }
-
-                    self!.addingProvider = true
-
-                    var flatFee = -1.0
-                    if let fee = self!.delegate?.flatFeeForNewProvider(provider, forWorkOrderTeamViewControllerViewController: self!) {
-                        flatFee = fee
+                    if workOrder.id > 0 {
+                        cell?.showActivityIndicator()
+                    } else {
+                        addingProvider = false
                     }
-                    self!.workOrder?.addProvider(provider, flatFee: flatFee,
-                        onSuccess: { (statusCode, mappingResult) -> () in
-//                            self!.addingProvider = false
-                            cell?.hideActivityIndicator()
 
-//                            var workOrderProvider: WorkOrderProvider?
-//                            for wop in self!.workOrder.workOrderProviders {
-//                                if wop.provider.id == provider.id {
-//                                    workOrderProvider = wop
-//                                    break
-//                                }
-//                            }
+                    dispatch_async(workOrderProviderOperationQueue) { [weak self] in
+                        while self!.addingProvider { }
 
-//                            if flatFee == -1.0 {
-//                                if let workOrderProvider = workOrderProvider {
-//                                    let workOrderProviderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderProviderCreationViewController") as! WorkOrderProviderCreationViewController
-//                                    workOrderProviderCreationViewController.workOrder = self!.workOrder
-//                                    workOrderProviderCreationViewController.workOrderProvider = workOrderProvider
-//                                    workOrderProviderCreationViewController.workOrderProviderCreationViewControllerDelegate = self!
-//                                    workOrderProviderCreationViewController.modalPresentationStyle = .Popover
-//                                    workOrderProviderCreationViewController.preferredContentSize = CGSizeMake(150, 350)
-//                                    workOrderProviderCreationViewController.popoverPresentationController!.sourceView = cell
-//                                    workOrderProviderCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
-//                                    workOrderProviderCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-//                                    self!.presentViewController(workOrderProviderCreationViewController, animated: true) {
-//                                        self!.addingProvider = false
-//                                    }
-//                                }
-//                            }
-                        },
-                        onError: { (error, statusCode, responseString) -> () in
-                            self!.providersPickerViewController?.providers.removeObject(provider)
-                            self!.providersPickerViewController?.reloadCollectionView()
-                            self!.addingProvider = false
+                        self!.addingProvider = true
+
+                        var flatFee = -1.0
+                        if let fee = self!.delegate?.flatFeeForNewProvider(provider, forWorkOrderTeamViewControllerViewController: self!) {
+                            flatFee = fee
                         }
-                    )
+                        self!.workOrder?.addProvider(provider, flatFee: flatFee,
+                                                     onSuccess: { (statusCode, mappingResult) -> () in
+                                                        cell?.hideActivityIndicator()
+                            },
+                                                     onError: { (error, statusCode, responseString) -> () in
+                                                        self!.providersPickerViewController?.providers.removeObject(provider)
+                                                        self!.providersPickerViewController?.reloadCollectionView()
+                                                        self!.addingProvider = false
+                            }
+                        )
+                    }
                 }
             }
         }
