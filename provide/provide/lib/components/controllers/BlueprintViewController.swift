@@ -843,7 +843,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool) {
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat! = nil) {
         let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
@@ -854,7 +854,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
             animations: {
-                self.blueprintWorkOrdersViewControllerContainer?.alpha = visible ? 1.0 : 0.0
+                self.blueprintWorkOrdersViewControllerContainer?.alpha = alpha != nil ? alpha : (visible ? 1.0 : 0.0)
                 self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
             }, completion:  { (completed) in
 
@@ -980,22 +980,31 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintPinViewWasSelected(view: BlueprintPinView) {
+        var delay = 0.0
+
         if selectedPinView != nil && selectedPinView == view {
             return
+        } else if selectedPinView != nil {
+            toolbar.setWorkOrdersVisibility(false, alpha: 1.0)
+            delay = 0.15
         }
 
         selectedPinView = view
 
         if let annotation = view.annotation {
             if let workOrder = annotation.workOrder {
-                openWorkOrder(workOrder, fromPinView: view)
+                dispatch_after_delay(delay) {
+                    self.openWorkOrder(workOrder, fromPinView: view, delay: delay)
+                }
             }
         }
     }
 
-    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
+    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil, delay: Double = 0.0) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
-        toolbar.toggleWorkOrdersVisibility()
+        dispatch_after_delay(delay) {
+            self.toolbar.setWorkOrdersVisibility(true)
+        }
     }
 
     // MARK: BlueprintPolygonViewDelegate
@@ -1209,6 +1218,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             scrollView.zoomToRect(pinView.frame, animated: true)
+
+            if selectedPinView == nil {
+                selectedPinView = pinView
+            }
         }
     }
 

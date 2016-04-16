@@ -93,7 +93,11 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        if let navigationController = navigationController {
+            if !navigationController.viewControllers.last!.isKindOfClass(WorkOrderCreationViewController) {
+                navigationController.setNavigationBarHidden(true, animated: true)
+            }
+        }
 
         tableView?.reloadData()
     }
@@ -151,9 +155,12 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func openWorkOrder(workOrder: WorkOrder) {
+        var animated = true
+
         if let navigationController = navigationController {
             if navigationController.viewControllers.last!.isKindOfClass(WorkOrderCreationViewController) {
-                navigationController.popToRootViewControllerAnimated(true)
+                animated = navigationController.view.superview!.frame.origin.x != navigationController.view.superview!.superview!.frame.width
+                navigationController.popToRootViewControllerAnimated(animated)
             }
         }
 
@@ -164,10 +171,10 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         workOrderCreationViewController.delegate = self
 
         dispatch_after_delay(0.0) {
-            self.navigationController?.setNavigationBarHidden(false, animated: workOrder.id > 0)
+            self.navigationController?.setNavigationBarHidden(false, animated: animated && workOrder.id > 0)
 
             dispatch_after_delay(0.0) {
-                self.navigationController?.pushViewController(workOrderCreationViewController, animated: workOrder.id > 0)
+                self.navigationController?.pushViewController(workOrderCreationViewController, animated: animated && workOrder.id > 0)
             }
         }
 

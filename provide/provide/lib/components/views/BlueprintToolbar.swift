@@ -11,7 +11,7 @@ import UIKit
 protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool)
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
     func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
@@ -179,9 +179,13 @@ class BlueprintToolbar: UIToolbar {
     }
 
     func toggleWorkOrdersVisibility() {
-        workOrdersVisible = !workOrdersVisible
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible)
+        setWorkOrdersVisibility(!workOrdersVisible)
+    }
 
+    func setWorkOrdersVisibility(workOrdersVisible: Bool, alpha: CGFloat! = nil) {
+        self.workOrdersVisible = workOrdersVisible
+
+        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible, alpha: alpha)
         reload()
     }
 
