@@ -155,6 +155,13 @@ class Job: Model {
         return Annotation(job: self)
     }
 
+    var blueprintPdfUrl: NSURL! {
+        if let blueprintPdfUrl = blueprintPdfs.first?.url {
+            return blueprintPdfUrl
+        }
+        return nil
+    }
+
     var blueprintImageUrl: NSURL! {
         if let blueprintImageUrlString = blueprintImageUrlString {
             return NSURL(string: blueprintImageUrlString)
@@ -219,6 +226,22 @@ class Job: Model {
             }
         }
         return false
+    }
+
+    var blueprintPdfs: [Attachment] { // FIXME-- returns only 150dpi at this time
+        var blueprints = [Attachment]()
+        if let attachments = self.blueprints {
+            if attachments.count > 0 {
+                for blueprint in attachments {
+                    if let mimeType = blueprint.mimeType {
+                        if mimeType == "application/pdf" {
+                            blueprints.append(blueprint)
+                        }
+                    }
+                }
+            }
+        }
+        return blueprints
     }
 
     var blueprintImages: [Attachment] { // FIXME-- returns only 150dpi at this time
