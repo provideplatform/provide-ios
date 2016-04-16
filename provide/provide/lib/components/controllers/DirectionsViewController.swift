@@ -304,23 +304,6 @@ class DirectionsViewController: ViewController {
         }
     }
 
-//    // MARK: Navigation item
-//
-//    func setupNavigationItem(cancelItemEnabled: Bool = false) {
-//        if let navigationItem = directionsViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
-//            if let directions = directions {
-//                if let route = directions.selectedRoute() {
-//                    if let leg = route.currentLeg {
-//                        log("steps \(leg.steps)")
-//                        let title = leg.steps[0].htmlInstructions
-//                        log("title \(title)")
-//                        navigationItem.title = title
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     private func renderRouteOverview() {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             mapView.removeOverlays(mapView.overlays)
