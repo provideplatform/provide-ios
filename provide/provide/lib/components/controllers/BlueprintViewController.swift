@@ -445,10 +445,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             dismissViewController(animated: true)
         }
 
-        if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            openWorkOrder(inProgressWorkOrder)
-        }
-
         dispatch_after_delay(0.0) {
             self.setZoomLevel()
             self.imageView.alpha = 1.0
@@ -457,6 +453,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             dispatch_after_delay(0.25) {
                 self.showToolbar()
+
+                dispatch_after_delay(0.0) {
+                    if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                        self.openWorkOrder(inProgressWorkOrder)
+                    }
+                }
             }
         }
     }
@@ -852,6 +854,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
             animations: {
+                self.blueprintWorkOrdersViewControllerContainer?.alpha = visible ? 1.0 : 0.0
                 self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
             }, completion:  { (completed) in
 
@@ -992,11 +995,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
-
-        if pinView != nil {
-            insetScrollViewContentForBlueprintWorkOrdersPresentation()
-            toolbar.toggleWorkOrdersVisibility()
-        }
+        toolbar.toggleWorkOrdersVisibility()
     }
 
     // MARK: BlueprintPolygonViewDelegate

@@ -172,25 +172,6 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
 
         delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
-
-        if !isIPad() {
-            var superview: UIView! = view.superview!
-            while superview.alpha > 0.0 {
-                if let sv = superview.superview {
-                    superview = sv
-                } else {
-                    superview = nil
-                    break
-                }
-            }
-
-            if superview != nil {
-                dispatch_after_delay(0.0) {
-                    superview.frame.origin.x = self.view.frame.width
-                    superview.alpha = 1.0
-                }
-            }
-        }
     }
 
     private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
