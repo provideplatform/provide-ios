@@ -31,11 +31,6 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
 
         navigationController!.popViewControllerAnimated(false)
         navigationController!.pushViewController(blueprintViewController, animated: false)
-
-//        dispatch_after_delay(0.0) {
-//            self.blueprintViewController.view.frame = self.view.frame
-//            self.view.addSubview(self.blueprintViewController.view)
-//        }
     }
 
     // MARK: BlueprintViewControllerDelegate
