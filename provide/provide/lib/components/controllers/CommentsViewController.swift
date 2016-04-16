@@ -332,7 +332,11 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("commentCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! CommentCollectionViewCell
-        cell.comment = comments.reverse()[indexPath.row]
+        if indexPath.row <= comments.count - 1 {
+            cell.comment = comments.reverse()[indexPath.row]
+        } else {
+            cell.comment = nil
+        }
         return cell
     }
 

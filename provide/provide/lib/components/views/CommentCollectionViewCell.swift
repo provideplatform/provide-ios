@@ -70,6 +70,8 @@ class CommentCollectionViewCell: UICollectionViewCell {
                     }
                     timestampLabel?.text = timestamp
                 }
+            } else {
+                prepareForReuse()
             }
         }
     }
