@@ -751,6 +751,8 @@ class Job: Model {
                 }
                 // TODO-- marshall the rest of the fields
 
+                JobService.sharedService().updateJob(job)
+
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in
