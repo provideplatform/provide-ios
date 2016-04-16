@@ -117,6 +117,12 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
                 onSuccess: { statusCode, mappingResult in
                     self.loadingAnnotations = false
 
+                    for annotation in mappingResult.array() as! [Annotation] {
+                        if let workOrder = annotation.workOrder {
+                            WorkOrderService.sharedService().updateWorkOrder(workOrder)
+                        }
+                    }
+
                     self.tableView?.reloadData()
 
                     if let delegate = self.delegate {
