@@ -77,6 +77,8 @@ class NotificationService: NSObject {
                 NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
             }
         case .WorkOrder:
+            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: userInfo)
+
             let workOrderId = notificationValue as! Int
             if let providerRemoved = userInfo["provider_removed"] as? Bool {
                 if providerRemoved {

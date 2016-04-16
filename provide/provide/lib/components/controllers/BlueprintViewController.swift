@@ -281,6 +281,29 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 }
             }
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
+            if let userInfo = notification.object as? [String : AnyObject] {
+                let attachmentId = userInfo["attachment_id"] as? Int
+                let attachableType = userInfo["attachable_type"] as? String
+                let attachableId = userInfo["attachable_id"] as? Int
+
+                if attachmentId != nil && attachableType != nil && attachableId != nil {
+                    if let job = self.job {
+                        if attachableType == "job" && attachableId == job.id {
+                            job.reload(
+                                onSuccess: { statusCode, mappingResult in
+                                    self.loadBlueprint()
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
