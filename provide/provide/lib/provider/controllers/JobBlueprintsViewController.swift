@@ -141,18 +141,19 @@ class JobBlueprintsViewController: ViewController,
                 if attachmentId != nil && attachableType != nil && attachableId != nil {
                     if let job = self.job {
                         if attachableType == "job" && attachableId == job.id {
-                            if let importedPdfAttachment = self.importedPdfAttachment {
-                                if importedPdfAttachment.id == attachmentId {
-                                    self.importStatus = "Processing your imported blueprint..."
-                                } else if self.importedPngAttachment == nil {
-                                    self.importedPngAttachment = Attachment()
-                                    self.importedPngAttachment.id = attachmentId!
-                                } else if self.importedPngAttachment.id == attachmentId {
-                                    self.refresh()
-                                }
-                            } else {
-                                self.refresh()
-                            }
+                            self.refresh()
+//                            if let importedPdfAttachment = self.importedPdfAttachment {
+//                                if importedPdfAttachment.id == attachmentId {
+//                                    self.importStatus = "Processing your imported blueprint..."
+//                                } else if self.importedPngAttachment == nil {
+//                                    self.importedPngAttachment = Attachment()
+//                                    self.importedPngAttachment.id = attachmentId!
+//                                } else if self.importedPngAttachment.id == attachmentId {
+//                                    self.refresh()
+//                                }
+//                            } else {
+//                                self.refresh()
+//                            }
                         }
                     }
                 }
