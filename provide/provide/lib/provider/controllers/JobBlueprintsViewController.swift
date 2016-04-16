@@ -8,25 +8,10 @@
 
 import UIKit
 
-protocol JobBlueprintsViewControllerDelegate: NSObjectProtocol {
-    func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job!
-    func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController)
-}
-
 class JobBlueprintsViewController: ViewController,
                                    BlueprintsPageViewControllerDelegate {
 
     private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
-
-    weak var delegate: JobBlueprintsViewControllerDelegate! {
-        didSet {
-            if let _ = delegate {
-                if let _ = job {
-                    refresh()
-                }
-            }
-        }
-    }
 
     @IBOutlet private weak var blueprintPreviewContainerView: UIView! {
         didSet {
@@ -94,17 +79,12 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-//    private var job: Job! {
-//        if let job = delegate?.jobForJobBlueprintsViewController(self) {
-//            return job
-//        }
-//        return nil
-//    }
-
     var job: Job! {
         didSet {
             if let _ = job {
-                refresh()
+                if viewLoaded {
+                    refresh()
+                }
             }
         }
     }
@@ -117,16 +97,6 @@ class JobBlueprintsViewController: ViewController,
         }
         return false
     }
-
-//    private var shouldLoadBlueprint: Bool {
-//        if let job = job {
-//            if job.blueprintImageUrl == nil {
-//                return false
-//            }
-//            return !hasBlueprintScale || job.isResidential || job.isPunchlist
-//        }
-//        return false
-//    }
 
     private var viewLoaded = false
 
@@ -189,7 +159,7 @@ class JobBlueprintsViewController: ViewController,
             }
         }
 
-        if job != nil && delegate != nil {
+        if job != nil {
             refresh()
         }
 
@@ -221,13 +191,13 @@ class JobBlueprintsViewController: ViewController,
                         self.blueprintsPageViewController?.resetViewControllers()
                         self.reloadingJob = false
 
+                        self.blueprintPagesContainerView?.alpha = 1.0
+                        self.blueprintActivityIndicatorView?.stopAnimating()
+
                         if job.blueprintImages.count == 0 {
                             self.renderInstruction("Import a blueprint for this job.")
                             self.showDropbox()
                         }
-
-                        self.blueprintPagesContainerView?.alpha = 1.0
-                        self.blueprintActivityIndicatorView?.stopAnimating()
                     },
                     onError: { error, statusCode, responseString in
                         self.blueprintsPageViewController?.resetViewControllers()

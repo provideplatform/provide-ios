@@ -16,7 +16,6 @@ protocol JobWizardViewControllerDelegate: NSObjectProtocol {
 
 class JobWizardViewController: UINavigationController,
                                UINavigationControllerDelegate,
-                               JobBlueprintsViewControllerDelegate,
                                BlueprintViewControllerDelegate,
                                JobManagerViewControllerDelegate,
                                JobInventoryViewControllerDelegate,
@@ -99,7 +98,7 @@ class JobWizardViewController: UINavigationController,
 
     func setupViewController(viewController: UIViewController) {
         if viewController.isKindOfClass(JobBlueprintsViewController) {
-            (viewController as! JobBlueprintsViewController).delegate = self
+            //(viewController as! JobBlueprintsViewController).delegate = self
 
         } else if viewController.isKindOfClass(JobTeamViewController) {
             (viewController as! JobTeamViewController).delegate = self
@@ -121,16 +120,6 @@ class JobWizardViewController: UINavigationController,
         refreshUI()
 
         pendingViewController = nil
-    }
-
-    // MARK: JobBlueprintsViewControllerDelegate
-
-    func jobForJobBlueprintsViewController(viewController: JobBlueprintsViewController) -> Job! {
-        return job
-    }
-
-    func jobBlueprintsViewController(viewController: JobBlueprintsViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
-        jobWizardViewControllerDelegate?.jobWizardViewController(self, didSetScaleForBlueprintViewController: blueprintViewController)
     }
 
     // MARK: BlueprintViewControllerDelegate
