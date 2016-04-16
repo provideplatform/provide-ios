@@ -128,6 +128,9 @@
                             </view>
                             <containerView opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
                                 <rect key="frame" x="175" y="0.0" width="425" height="492"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="425" id="Mht-OJ-5PR"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="tZl-Jd-TXW"/>
                                 </connections>
@@ -151,7 +154,6 @@
                             <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
                             <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="xRM-F2-amm" secondAttribute="leading" id="CmS-mB-OKl"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="mZN-vT-oPf" secondAttribute="bottom" constant="44" id="D6O-aM-XFj"/>
-                            <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="175" id="FAs-ip-0z6"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="105" id="Hqo-FQ-9BA"/>
@@ -201,7 +203,6 @@
                                 <exclude reference="5HC-oR-ujD"/>
                                 <exclude reference="5wZ-0l-W5A"/>
                                 <include reference="CmS-mB-OKl"/>
-                                <exclude reference="FAs-ip-0z6"/>
                                 <include reference="V5k-bs-umh"/>
                                 <include reference="Vec-Iu-FUd"/>
                                 <include reference="ubx-oP-Ofu"/>
