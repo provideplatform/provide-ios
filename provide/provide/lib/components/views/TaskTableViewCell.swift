@@ -223,21 +223,24 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
     func providersForProviderSearchViewController(viewController: ProviderSearchViewController) -> [Provider]! {
         if let job = delegate?.jobForTaskListTableViewCell?(self) {
-            var providers = job.supervisors
-            if let workOrder = delegate?.workOrderForTaskListTableViewCell?(self) {
-                for provider in workOrder.providers {
-                    var isSupervisor = false
-                    for supervisor in providers {
-                        if supervisor.id == provider.id {
-                            isSupervisor = true
+            if let supervisors = job.supervisors {
+                var providers = supervisors
+                if let workOrder = delegate?.workOrderForTaskListTableViewCell?(self) {
+                    for provider in workOrder.providers {
+                        var isSupervisor = false
+                        for supervisor in providers {
+                            if supervisor.id == provider.id {
+                                isSupervisor = true
+                            }
+                        }
+                        if !isSupervisor {
+                            providers.append(provider)
                         }
                     }
-                    if !isSupervisor {
-                        providers.append(provider)
-                    }
                 }
+                return providers
             }
-            return providers
+
         } else if let workOrder = delegate?.workOrderForTaskListTableViewCell?(self) {
             return workOrder.providers
         }
