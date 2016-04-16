@@ -127,9 +127,9 @@
                                 </connections>
                             </view>
                             <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
-                                <rect key="frame" x="200" y="0.0" width="400" height="492"/>
+                                <rect key="frame" x="175" y="0.0" width="425" height="492"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="3pe-9U-LFa"/>
+                                    <constraint firstAttribute="width" constant="425" id="3pe-9U-LFa"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="tZl-Jd-TXW"/>

@@ -163,16 +163,17 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
         workOrderCreationViewController.workOrder = workOrder
         workOrderCreationViewController.delegate = self
 
-        navigationController?.pushViewController(workOrderCreationViewController, animated: workOrder.id > 0)
         dispatch_after_delay(0.0) {
             self.navigationController?.setNavigationBarHidden(false, animated: workOrder.id > 0)
+
+            dispatch_after_delay(0.0) {
+                self.navigationController?.pushViewController(workOrderCreationViewController, animated: workOrder.id > 0)
+            }
         }
 
         delegate?.blueprintViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forBlueprintWorkOrdersViewController: self)
 
         if !isIPad() {
-            //delegate?.blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(self)
-
             var superview: UIView! = view.superview!
             while superview.alpha > 0.0 {
                 if let sv = superview.superview {

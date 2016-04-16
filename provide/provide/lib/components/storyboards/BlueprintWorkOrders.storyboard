@@ -15,7 +15,7 @@
         <scene sceneID="NFS-zH-ZIw">
             <objects>
                 <navigationController storyboardIdentifier="BlueprintNavigationViewController" modalTransitionStyle="crossDissolve" navigationBarHidden="YES" id="sqZ-dH-OlV" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qS3-cS-0fU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -98,6 +98,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="7yg-gD-bVo" secondAttribute="trailing" constant="-20" id="ubR-aH-O3f"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="onk-Kh-tEo"/>
                     <connections>
                         <outlet property="tableView" destination="7yg-gD-bVo" id="937-ds-K16"/>
