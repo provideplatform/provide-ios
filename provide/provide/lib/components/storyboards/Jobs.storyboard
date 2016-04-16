@@ -43,6 +43,9 @@
                                                                 <constraint firstAttribute="width" constant="162" id="JLU-Ng-7qm"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1Nb-xd-Z8w">
+                                                            <rect key="frame" x="79" y="76" width="20" height="20"/>
+                                                        </activityIndicatorView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
                                                             <rect key="frame" x="178" y="28" width="414" height="21"/>
                                                             <constraints>
@@ -59,12 +62,14 @@
                                                         <constraint firstItem="UC4-eu-Kzi" firstAttribute="bottom" secondItem="pa7-7e-VIa" secondAttribute="bottomMargin" id="5yf-bF-E5E"/>
                                                         <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="UC4-eu-Kzi" secondAttribute="trailing" constant="8" symbolic="YES" id="89a-oy-LLf"/>
                                                         <constraint firstItem="uVm-fa-pZl" firstAttribute="trailing" secondItem="pa7-7e-VIa" secondAttribute="trailingMargin" id="LDs-Ix-h86"/>
+                                                        <constraint firstItem="1Nb-xd-Z8w" firstAttribute="centerX" secondItem="UC4-eu-Kzi" secondAttribute="centerX" id="UC3-pE-VDW"/>
                                                         <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="topMargin" constant="20" id="X5p-so-1Wc"/>
+                                                        <constraint firstItem="1Nb-xd-Z8w" firstAttribute="centerY" secondItem="UC4-eu-Kzi" secondAttribute="centerY" id="jom-o6-Ml3"/>
                                                         <constraint firstItem="UC4-eu-Kzi" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leadingMargin" id="nVZ-3x-8Jg"/>
                                                     </constraints>
                                                 </view>
                                                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
@@ -76,10 +81,11 @@
                                                 <constraint firstItem="pa7-7e-VIa" firstAttribute="top" secondItem="bWy-Lh-OEI" secondAttribute="top" id="VZd-mh-R9Y"/>
                                                 <constraint firstItem="R8O-VO-LP2" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leading" id="cRB-rR-WQx"/>
                                                 <constraint firstAttribute="trailing" secondItem="R8O-VO-LP2" secondAttribute="trailing" id="mJJ-Nt-rOd"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="R8O-VO-LP2" secondAttribute="bottom" constant="66.5" id="rE1-3L-paX"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="R8O-VO-LP2" secondAttribute="bottom" constant="-8.5" id="rE1-3L-paX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="activityIndicatorView" destination="1Nb-xd-Z8w" id="Nyt-qh-bYA"/>
                                             <outlet property="backgroundContainerView" destination="R8O-VO-LP2" id="RKf-1o-hAJ"/>
                                             <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>

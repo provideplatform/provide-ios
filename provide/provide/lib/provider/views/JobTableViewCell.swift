@@ -27,6 +27,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet private weak var backgroundContainerView: UIView!
 
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
 
@@ -52,6 +53,8 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         super.prepareForReuse()
 
         nameLabel?.text = ""
+
+        activityIndicatorView?.startAnimating()
 
         thumbnailImageView?.alpha = 0.0
         thumbnailImageView?.image = nil
@@ -85,6 +88,8 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
                     self.thumbnailImageView?.frame.size = image.size
 
                     self.thumbnailImageView?.alpha = 1.0
+
+                    self.activityIndicatorView?.stopAnimating()
                 }
             })
         }
