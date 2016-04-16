@@ -47,6 +47,27 @@ class JobsViewController: ViewController,
         navigationItem.title = "JOBS"
 
         setupPullToRefresh()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
+            if let job = notification.object as? Job {
+                var i = 0
+                for j in self.jobs {
+                    if job.id == j.id {
+                        let indexPath = i
+                        j.reload([:],
+                            onSuccess: { [weak self] statusCode, mappingResult in
+                                self!.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    }
+
+                    i += 1
+                }
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -382,5 +403,7 @@ class JobsViewController: ViewController,
 
     deinit {
         logInfo("Deinitialized jobs view controller")
+
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

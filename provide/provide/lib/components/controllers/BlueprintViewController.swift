@@ -304,6 +304,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 }
             }
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
+            if let job = notification.object as? Job {
+                if let j = self.job {
+                    if job.id == j.id {
+                        self.job.reload([:],
+                            onSuccess: { [weak self] statusCode, mappingResult in
+                                self!.loadBlueprint()
+                            },
+                            onError: { error, statusCode, responseString in
+
+                            }
+                        )
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

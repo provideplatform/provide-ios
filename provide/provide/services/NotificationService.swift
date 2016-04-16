@@ -49,6 +49,15 @@ class NotificationService: NSObject {
             }
         case .Job:
             let jobId = notificationValue as! Int
+            if let job = JobService.sharedService().jobWithId(jobId) {
+                job.reload(
+                    onSuccess: { statusCode, mappingResult in
+                        NSNotificationCenter.defaultCenter().postNotificationName("JobChanged", object: job)
+                    },
+                    onError: { error, statusCode, responseString in
+                    }
+                )
+            }
             if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                 if inProgressWorkOrder.jobId == jobId {
                     log("received update for current job id \(jobId)")
