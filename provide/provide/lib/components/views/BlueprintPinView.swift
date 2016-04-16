@@ -61,6 +61,13 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         }
     }
 
+    private weak var workOrder: WorkOrder! {
+        if let annotation = annotation {
+            return annotation.workOrder
+        }
+        return nil
+    }
+
     weak var delegate: BlueprintPinViewDelegate! {
         didSet {
             if let delegate = delegate {
@@ -103,6 +110,8 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
         image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
+
+        initWorkOrderChangedNotificationObserver()
     }
 
     required init(delegate: BlueprintPinViewDelegate, annotation: Annotation) {
@@ -121,10 +130,26 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
         image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
+
+        initWorkOrderChangedNotificationObserver()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+
+        initWorkOrderChangedNotificationObserver()
+    }
+
+    func initWorkOrderChangedNotificationObserver() {
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if let wo = self.workOrder {
+                    if workOrder.id == wo.id {
+                        self.tintColor = workOrder.statusColor
+                    }
+                }
+            }
+        }
     }
 
     func attachGestureRecognizer() {
@@ -187,5 +212,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             addSubview(abbreviationLabel)
             bringSubviewToFront(abbreviationLabel)
         }
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
