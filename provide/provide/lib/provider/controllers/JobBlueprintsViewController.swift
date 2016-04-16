@@ -242,7 +242,16 @@ class JobBlueprintsViewController: ViewController,
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
                     let filename = (result as! DBChooserResult).name
-                    self!.importFromSourceURL(sourceURL, filename: filename)
+                    if let fileExtension = sourceURL.pathExtension {
+                        if fileExtension.lowercaseString == "pdf" {
+                            self!.importFromSourceURL(sourceURL, filename: filename)
+                        } else {
+                            self!.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
+                            self!.renderInstruction("Import a blueprint for this job.")
+                            self!.showDropbox()
+
+                        }
+                    }
                 }
             } else {
                 self!.refresh()
