@@ -23,6 +23,7 @@ class Attachment: Model {
     var tags: NSArray!
     var displayUrlString: String!
     var urlString: String!
+    var data: NSData!
 
     var annotations = [Annotation]()
 
@@ -77,6 +78,18 @@ class Attachment: Model {
             }
         }
         return false
+    }
+
+    func fetch(onURLFetched: OnURLFetched, onError: OnError) {
+        ApiService.sharedService().fetchURL(url,
+            onURLFetched: { statusCode, response in
+                self.data = response
+                onURLFetched(statusCode: statusCode, response: response)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func updateAttachment(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
