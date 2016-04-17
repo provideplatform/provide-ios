@@ -64,33 +64,27 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             }
 
             NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
-        case .Checkin:
-            let checkin = notificationValue as! Bool
-            if checkin {
-                LocationService.sharedService().resolveCurrentLocation { location in
-                    ApiService.sharedService().checkin(location)
-                    LocationService.sharedService().background()
-                }
-            }
         case .Job:
-            let jobId = notificationValue as! Int
-            if let job = JobService.sharedService().jobWithId(jobId) {
-                job.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        NSNotificationCenter.defaultCenter().postNotificationName("JobChanged", object: job)
-                    },
-                    onError: { error, statusCode, responseString in
+            if !socket.isConnected {
+                let jobId = notificationValue as! Int
+                if let job = JobService.sharedService().jobWithId(jobId) {
+                    job.reload(
+                        onSuccess: { statusCode, mappingResult in
+                            NSNotificationCenter.defaultCenter().postNotificationName("JobChanged", object: job)
+                        },
+                        onError: { error, statusCode, responseString in
+                        }
+                    )
+                }
+                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    if inProgressWorkOrder.jobId == jobId {
+                        log("received update for current job id \(jobId)")
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
                     }
-                )
-            }
-            if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                if inProgressWorkOrder.jobId == jobId {
-                    log("received update for current job id \(jobId)")
                 } else {
                     NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
                 }
-            } else {
-                NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
             }
         case .Message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
@@ -111,41 +105,43 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
             }
         case .WorkOrder:
-            let workOrderId = notificationValue as! Int
-            if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {
-                workOrder.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: workOrder)
-                    },
-                    onError: { error, statusCode, responseString in
-                    }
-                )
-            }
-
-            if let providerRemoved = userInfo["provider_removed"] as? Bool {
-                if providerRemoved {
-                    log("provider removed from work order id \(workOrderId)")
+            if !socket.isConnected {
+                let workOrderId = notificationValue as! Int
+                if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {
+                    workOrder.reload(
+                        onSuccess: { statusCode, mappingResult in
+                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: workOrder)
+                        },
+                        onError: { error, statusCode, responseString in
+                        }
+                    )
                 }
-            } else {
-                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    if inProgressWorkOrder.id == workOrderId {
-                        inProgressWorkOrder.reload(onSuccess: { statusCode, mappingResult in
-                                                        WorkOrderService.sharedService().updateWorkOrder(inProgressWorkOrder)
 
-                                                        if inProgressWorkOrder.status == "canceled" {
-                                                            LocationService.sharedService().unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                                            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-                                                        }
-
-                                                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: inProgressWorkOrder)
-                                                   },
-                                                   onError: { error, statusCode, responseString in
-
-                                                   }
-                        )
+                if let providerRemoved = userInfo["provider_removed"] as? Bool {
+                    if providerRemoved {
+                        log("provider removed from work order id \(workOrderId)")
                     }
                 } else {
-                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                        if inProgressWorkOrder.id == workOrderId {
+                            inProgressWorkOrder.reload(onSuccess: { statusCode, mappingResult in
+                                WorkOrderService.sharedService().updateWorkOrder(inProgressWorkOrder)
+
+                                if inProgressWorkOrder.status == "canceled" {
+                                    LocationService.sharedService().unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                }
+
+                                NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: inProgressWorkOrder)
+                                },
+                                                       onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        }
+                    } else {
+                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    }
                 }
             }
         default:
@@ -204,6 +200,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 let workOrder = WorkOrder(string: payload!.toJSONString())
                                 WorkOrderService.sharedService().updateWorkOrder(workOrder)
                                 NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: workOrder)
+                                if WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                                    NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                                }
                                 break
 
                             default:
