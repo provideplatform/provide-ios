@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         RKLogConfigureFromEnvironment()
 
-        RKEntityMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
+        RKObjectMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
             return keyPath.snakeCaseToCamelCaseString()
         }
 
