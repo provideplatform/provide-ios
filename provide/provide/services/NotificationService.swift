@@ -161,8 +161,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     @objc func websocket(socket: JFRWebSocket, didReceiveMessage message: String) {
-        AnalyticsService.sharedService().track("Websocket Received Message", properties: [:])
-
         if let token = KeyChainService.sharedService().token {
             if message =~ ".*(client_connected).*" {
                 socket.writeString("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")
@@ -176,6 +174,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         let payload = data["payload"] as? [String : AnyObject]
 
                         if let message = message {
+                            AnalyticsService.sharedService().track("Websocket Received Message", properties: ["message": message])
+
                             switch message {
 
                             case "attachment_changed":
