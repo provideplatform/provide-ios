@@ -179,9 +179,19 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             AnalyticsService.sharedService().track("Websocket Received Message", properties: ["message": message])
 
                             switch message {
-
                             case "attachment_changed":
                                 let attachment = Attachment(string: payload!.toJSONString())
+                                if let attachableType = attachment.attachableType {
+                                    if attachableType == "job" {
+                                        if let job = JobService.sharedService().jobWithId(attachment.attachableId) {
+                                            job.mergeAttachment(attachment)
+                                        }
+                                    } else if attachableType == "work_order" {
+                                        if let workOrder = WorkOrderService.sharedService().workOrderWithId(attachment.attachableId) {
+                                            workOrder.mergeAttachment(attachment)
+                                        }
+                                    }
+                                }
                                 NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: attachment)
                                 break
 
