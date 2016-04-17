@@ -21,6 +21,8 @@ protocol DirectionsViewControllerDelegate {
 
 class DirectionsViewController: ViewController {
 
+    private let monitoredRegionsQueue = dispatch_queue_create("api.amonitoredRegionsQueue", DISPATCH_QUEUE_SERIAL)
+
     private let defaultMapCameraPitch = 0.0 //65.0
     private let defaultMapCameraAltitude = 500.0
 
@@ -275,10 +277,12 @@ class DirectionsViewController: ViewController {
     }
 
     private func unregisterMonitoredRegions() {
-        if let regions = regions {
-            for region in regions {
-                self.regions.removeObject(region)
-                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
+        dispatch_async(monitoredRegionsQueue) { [weak self] in
+            if let regions = self!.regions {
+                for region in regions {
+                    self!.regions.removeObject(region)
+                    LocationService.sharedService().unregisterRegionMonitor(region.identifier)
+                }
             }
         }
     }
