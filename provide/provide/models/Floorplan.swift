@@ -101,6 +101,27 @@ class Floorplan: Model {
         return nil
     }
 
+    func mergeAttachment(attachment: Attachment) {
+        if attachments == nil {
+            attachments = [Attachment]()
+        }
+
+        var replaced = false
+        var index = 0
+        for a in attachments {
+            if a.id == attachment.id {
+                self.attachments[index] = attachment
+                replaced = true
+                break
+            }
+            index += 1
+        }
+
+        if !replaced {
+            attachments.append(attachment)
+        }
+    }
+
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
         var params = toDictionary()
         params.removeValueForKey("id")

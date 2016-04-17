@@ -532,6 +532,27 @@ class WorkOrder: Model {
         }
     }
 
+    func mergeAttachment(attachment: Attachment) {
+        if attachments == nil {
+            attachments = [Attachment]()
+        }
+
+        var replaced = false
+        var index = 0
+        for a in attachments {
+            if a.id == attachment.id {
+                self.attachments[index] = attachment
+                replaced = true
+                break
+            }
+            index += 1
+        }
+
+        if !replaced {
+            attachments.append(attachment)
+        }
+    }
+
     func removeProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
         if hasProvider(provider) {
             removeProvider(provider)
