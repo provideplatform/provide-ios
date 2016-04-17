@@ -155,11 +155,12 @@ class RouteLegStep: Model {
         var coords = [CLLocationCoordinate2D]()
         for shapeString in shape {
             let shapeCoords = shapeString.splitAtString(",")
-            let latitude = Double(shapeCoords.0)!
-            let longitude = Double(shapeCoords.1)!
-            coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            let latitude = Double(shapeCoords.0)
+            let longitude = Double(shapeCoords.1)
+            if latitude != nil && longitude != nil {
+                coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+            }
         }
-
         return coords
     }
 
