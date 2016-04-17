@@ -48,12 +48,7 @@ extension String {
                 components[1] = aggregateComponent
             }
         }
-        if components.count == 2 {
-            return (components[0], components[1])
-        } else if components.count == 1 {
-            return (components[0], "")
-        }
-        return ("", "")
+        return (components[0], components[1])
     }
 
     private func toJSONAnyObject() -> AnyObject! {
