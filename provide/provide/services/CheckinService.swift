@@ -82,6 +82,5 @@ class CheckinService: NSObject {
         }
 
         timer = NSTimer.scheduledTimerWithTimeInterval(checkinTimeInterval, target: self, selector: #selector(CheckinService.checkin), userInfo: nil, repeats: true)
-        timer.fire()
     }
 }
