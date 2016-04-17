@@ -1037,9 +1037,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if selectedPinView != nil && selectedPinView == view {
             toolbar.setWorkOrdersVisibility(true, alpha: 1.0)
+            if let annotation = view.annotation {
+                if let workOrder = annotation.workOrder {
+                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
+                }
+            }
+
             return
-        } else if selectedPinView != nil {
-            toolbar.setWorkOrdersVisibility(false, alpha: 1.0)
+        } else {
+            toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
             delay = 0.15
         }
 
