@@ -15,29 +15,54 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     private var socket: JFRWebSocket!
 
+    private var socketTimer: NSTimer!
+
     class func sharedService() -> NotificationService {
         return sharedInstance
     }
 
     override init() {
         super.init()
+    }
+
+    func configureWebsocket() {
+        disconnectWebsocket()
 
         socket = JFRWebSocket(URL: NSURL(CurrentEnvironment.websocketBaseUrlString), protocols: [])
         socket.delegate = self
+
+        if let token = KeyChainService.sharedService().token {
+            socket.addHeader(token.authorizationHeaderString, forKey: "X-API-Authorization")
+        }
     }
 
     func connectWebsocket() {
+        disconnectWebsocket()
+        configureWebsocket()
+
         if let socket = socket {
-            if let token = KeyChainService.sharedService().token {
-                socket.addHeader(token.authorizationHeaderString, forKey: "X-API-Authorization")
-                socket.connect()
-            }
+            socket.connect()
+
+            socketTimer = NSTimer.scheduledTimerWithTimeInterval(30.0, target: self, selector: #selector(NotificationService.maintainWebsocketConnection), userInfo: nil, repeats: true)
         }
     }
 
     func disconnectWebsocket() {
         if let socket = socket {
             socket.disconnect()
+
+            self.socket = nil
+
+            socketTimer?.invalidate()
+            socketTimer = nil
+        }
+    }
+
+    func maintainWebsocketConnection() {
+        if let socket = socket {
+            if !socket.isConnected {
+                connectWebsocket()
+            }
         }
     }
 
@@ -181,6 +206,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             switch message {
                             case "attachment_changed":
                                 let attachment = Attachment(string: payload!.toJSONString())
+                                attachment.urlString = payload!["url"]! // HACK
                                 if let attachableType = attachment.attachableType {
                                     if attachableType == "job" {
                                         if let job = JobService.sharedService().jobWithId(attachment.attachableId) {
