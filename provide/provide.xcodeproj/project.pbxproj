@@ -6186,7 +6186,7 @@
 				<string>680B74AF1B36DDFA00181300</string>
 				<string>68B730D31C1AE5F100549D95</string>
 				<string>680B74AE1B36DDFA00181300</string>
-				<string>E804D68CCDBD2B196B042A85</string>
+				<string>8A86967B682724941AF5B942</string>
 			</array>
 			<key>isa</key>
 			<string>PBXFrameworksBuildPhase</string>
@@ -8486,6 +8486,13 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
+		<key>8A86967B682724941AF5B942</key>
+		<dict>
+			<key>fileRef</key>
+			<string>DC054BB3893003830C59E6FF</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
 		<key>9E6EB53BB17DCF32736F4403</key>
 		<dict>
 			<key>buildActionMask</key>
@@ -8515,19 +8522,6 @@ fi
 </string>
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
-		</dict>
-		<key>CB634A9F78B7617ABCAE6198</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.framework</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>Pods.framework</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
 		</dict>
 		<key>CE6BCE7A9D383AD1B3C43363</key>
 		<dict>
@@ -8559,11 +8553,24 @@ fi
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
 		</dict>
+		<key>DC054BB3893003830C59E6FF</key>
+		<dict>
+			<key>explicitFileType</key>
+			<string>archive.ar</string>
+			<key>includeInIndex</key>
+			<string>0</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>path</key>
+			<string>libPods.a</string>
+			<key>sourceTree</key>
+			<string>BUILT_PRODUCTS_DIR</string>
+		</dict>
 		<key>E202B806A9E0508AFF60327D</key>
 		<dict>
 			<key>children</key>
 			<array>
-				<string>CB634A9F78B7617ABCAE6198</string>
+				<string>DC054BB3893003830C59E6FF</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -8571,20 +8578,6 @@ fi
 			<string>Frameworks</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
-		</dict>
-		<key>E804D68CCDBD2B196B042A85</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB634A9F78B7617ABCAE6198</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-			<key>settings</key>
-			<dict>
-				<key>ATTRIBUTES</key>
-				<array>
-					<string>Weak</string>
-				</array>
-			</dict>
 		</dict>
 		<key>F410D0111E3427E922238736</key>
 		<dict>

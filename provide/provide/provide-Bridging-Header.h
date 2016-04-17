@@ -9,13 +9,14 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 
 // CocoaPods
-#import <Analytics/Analytics.h>
+#import <Analytics/SEGAnalytics.h>
 #import <DBChooser/DBChooser.h>
 #import <DropboxSDK/DropboxSDK.h>
 #import <ECSlidingViewController/ECSlidingSegue.h>
 #import <ECSlidingViewController/ECSlidingViewController.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <FontAwesomeKit/FontAwesomeKit.h>
+#import <jetfire/JFRWebSocket.h>
 #import <JSQMessagesViewController/JSQMessages.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <MKNetworkKit/MKNetworkKit.h>
