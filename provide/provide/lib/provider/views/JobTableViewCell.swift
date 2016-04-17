@@ -47,6 +47,33 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         delegate = self
 
         refreshUtilityButtons()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
+            if let attachment = notification.object as? Attachment {
+                if let attachableType = attachment.attachableType {
+                    if attachableType == "job" && attachment.attachableId == self.job.id {
+                        let isAppropriateResolution = attachment.hasTag("72dpi")
+                        let hasThumbnailTag = attachment.hasTag("thumbnail")
+                        let isPublished = attachment.status == "published"
+                        if let mimeType = attachment.mimeType {
+                            if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag && isPublished {
+                                self.setThumbnailImageWithURL(attachment.url)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
+            if let job = notification.object as? Job {
+                if let j = self.job {
+                    if job.id == j.id {
+                        self.job = job
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForReuse() {
@@ -82,7 +109,13 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             nameLabel?.text = job.name
             nameLabel?.sizeToFit()
 
-            thumbnailImageView?.sd_setImageWithURL(job.blueprintThumbnailImageUrl, placeholderImage: nil, completed: { (image, error, cacheType, url) in
+            setThumbnailImageWithURL(job.blueprintThumbnailImageUrl)
+        }
+    }
+
+    func setThumbnailImageWithURL(url: NSURL!) {
+        if let url = url {
+            thumbnailImageView?.sd_setImageWithURL(url, placeholderImage: nil, completed: { (image, error, cacheType, url) in
                 if let image = self.thumbnailImageView?.image {
                     self.thumbnailImageView?.bounds.size = image.size
                     self.thumbnailImageView?.frame.size = image.size
@@ -154,5 +187,9 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
     func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell!) {
         // no-op
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
