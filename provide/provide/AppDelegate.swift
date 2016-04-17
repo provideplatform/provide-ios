@@ -38,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if ApiService.sharedService().hasCachedToken {
             ApiService.sharedService().registerForRemoteNotifications()
+            NotificationService.sharedService().connectWebsocket()
         }
 
         return true

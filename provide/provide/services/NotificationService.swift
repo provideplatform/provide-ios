@@ -7,13 +7,38 @@
 //
 
 import Foundation
+import JavaScriptCore
 
-class NotificationService: NSObject {
+class NotificationService: NSObject, JFRWebSocketDelegate {
 
     private static let sharedInstance = NotificationService()
 
+    private var socket: JFRWebSocket!
+
     class func sharedService() -> NotificationService {
         return sharedInstance
+    }
+
+    override init() {
+        super.init()
+
+        socket = JFRWebSocket(URL: NSURL(CurrentEnvironment.websocketBaseUrlString), protocols: [])
+        socket.delegate = self
+    }
+
+    func connectWebsocket() {
+        if let socket = socket {
+            if let token = KeyChainService.sharedService().token {
+                socket.addHeader(token.authorizationHeaderString, forKey: "X-API-Authorization")
+                socket.connect()
+            }
+        }
+    }
+
+    func disconnectWebsocket() {
+        if let socket = socket {
+            socket.disconnect()
+        }
     }
 
     func dispatchRemoteNotification(userInfo: [String: AnyObject]) {
@@ -125,6 +150,70 @@ class NotificationService: NSObject {
             }
         default:
             break
+        }
+    }
+
+    // MARK: JFRWebSocketDelegate
+
+    @objc func websocketDidConnect(socket: JFRWebSocket) {
+        AnalyticsService.sharedService().track("Websocket Connected", properties: [:])
+    }
+
+    @objc func websocketDidDisconnect(socket: JFRWebSocket, error: NSError?) {
+        AnalyticsService.sharedService().track("Websocket Disconnected", properties: [:])
+        connectWebsocket()
+    }
+
+    @objc func websocket(socket: JFRWebSocket, didReceiveMessage message: String) {
+        AnalyticsService.sharedService().track("Websocket Received Message", properties: [:])
+
+        if let token = KeyChainService.sharedService().token {
+            if message =~ ".*(client_connected).*" {
+                socket.writeString("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")
+            } else if message =~ ".*(websocket_rails.ping).*" {
+                socket.writeString("[\"websocket_rails.pong\",{\"data\":{}}]")
+            } else if message =~ "^\\[\\[\"push\"" {
+                let context = JSContext()
+                if let value = context.evaluateScript("eval('\(message)')[0][1]")?.toDictionary() {
+                    if let data = value["data"] as? [String : AnyObject] {
+                        let message = data["message"] as? String
+                        var payload = data["payload"] as? [String : AnyObject]
+                        if payload != nil {
+                            for key in payload!.keys {
+                                if payload![key]!.isKindOfClass(NSNull)  {
+                                    payload!.removeValueForKey(key)
+                                }
+                            }
+                        }
+
+                        if let message = message {
+                            switch message {
+
+                            case "attachment_changed":
+                                let attachment = Attachment(string: payload!.toJSONString())
+                                NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: attachment)
+                                break
+
+                            case "job_changed":
+                                let job = Job(string: payload!.toJSONString())
+                                JobService.sharedService().updateJob(job)
+                                NSNotificationCenter.defaultCenter().postNotificationName("JobChanged", object: job)
+                                break
+
+                            case "work_order_changed":
+                                let workOrder = WorkOrder(string: payload!.toJSONString())
+                                WorkOrderService.sharedService().updateWorkOrder(workOrder)
+                                NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: workOrder)
+                                break
+
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+
+            }
         }
     }
 }

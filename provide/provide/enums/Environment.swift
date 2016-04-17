@@ -43,6 +43,11 @@ enum Environment: String {
         return apiHostname.hasSuffix(productionApiHostSuffix)
     }
 
+    var websocketBaseUrlString: String {
+        let scheme = apiUseSSL ? "wss" : "ws"
+        return "\(scheme)://\(apiHostname)/websocket"
+    }
+
     var marketingBaseUrlString: String {
         let scheme = marketingUseSSL ? "https" : "http"
         return "\(scheme)://\(marketingHostname)"

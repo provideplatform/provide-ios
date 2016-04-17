@@ -101,6 +101,8 @@ class ApiService: NSObject {
         AnalyticsService.sharedService().identify(token.user)
 
         self.registerForRemoteNotifications()
+
+        NotificationService.sharedService().connectWebsocket()
     }
 
     func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -156,6 +158,7 @@ class ApiService: NSObject {
     private func localLogout() {
         CheckinService.sharedService().stop()
         LocationService.sharedService().stop()
+        NotificationService.sharedService().disconnectWebsocket()
         headers.removeValueForKey("X-API-Authorization")
         KeyChainService.sharedService().clearStoredUserData()
         AnalyticsService.sharedService().logout()
