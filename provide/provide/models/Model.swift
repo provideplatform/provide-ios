@@ -54,12 +54,27 @@ class Model: NSObject {
 
         for (key, var value) in dictionary {
             var camelCaseKey = key.snakeCaseToCamelCaseString()
+
+            var clazz: Model.Type?
+            if let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
+                clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as? Model.Type
+            }
+
             if value is NSDictionary {
-                if let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
-                    let clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as! Model.Type
+                if let clazz = clazz {
                     value = clazz.init(string: (value as! NSDictionary).toJSON())
                 } else {
                     value = value as! NSDictionary
+                }
+            } else if value is NSArray {
+                if let clazz = clazz {
+                    var newValue = [Model]()
+                    for v in value as! NSArray {
+                        newValue.append(clazz.init(string: (v as! NSDictionary).toJSON()))
+                    }
+                    value = newValue
+                } else {
+                    value = value as! NSArray
                 }
             }
 
