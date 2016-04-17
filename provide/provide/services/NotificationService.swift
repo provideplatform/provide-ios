@@ -63,7 +63,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 }
             }
 
-            NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
+            if !socket.isConnected {
+                NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
+            }
         case .Job:
             if !socket.isConnected {
                 let jobId = notificationValue as! Int
