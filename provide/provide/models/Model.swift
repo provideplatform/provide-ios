@@ -67,7 +67,9 @@ class Model: NSObject {
                 camelCaseKey = "senderID" // HACK to accommodate creating a Message object
             }
 
-            setValue(value, forKey: camelCaseKey)
+            if !value.isKindOfClass(NSNull) {
+                setValue(value, forKey: camelCaseKey)
+            }
         }
     }
 
