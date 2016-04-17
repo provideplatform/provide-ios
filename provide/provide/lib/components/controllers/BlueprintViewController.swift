@@ -1036,6 +1036,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
+            toolbar.setWorkOrdersVisibility(true, alpha: 1.0)
             return
         } else if selectedPinView != nil {
             toolbar.setWorkOrdersVisibility(false, alpha: 1.0)
@@ -1063,14 +1064,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func hidePinViews(excludedPin: BlueprintPinView! = nil) {
         for pinView in pinViews {
             if excludedPin == nil || pinView != excludedPin {
-                pinView.hidden = true
+                pinView.alpha = 0.2
+                pinView.userInteractionEnabled = false
             }
         }
     }
 
     private func showPinViews() {
         for pinView in pinViews {
-            pinView.hidden = false
+            pinView.alpha = 1.0
+            pinView.userInteractionEnabled = true
         }
     }
 
