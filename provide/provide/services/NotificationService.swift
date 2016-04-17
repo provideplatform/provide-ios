@@ -174,13 +174,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     if let data = value["data"] as? [String : AnyObject] {
                         let message = data["message"] as? String
                         var payload = data["payload"] as? [String : AnyObject]
-                        if payload != nil {
-                            for key in payload!.keys {
-                                if payload![key]!.isKindOfClass(NSNull)  {
-                                    payload!.removeValueForKey(key)
-                                }
-                            }
-                        }
 
                         if let message = message {
                             switch message {
