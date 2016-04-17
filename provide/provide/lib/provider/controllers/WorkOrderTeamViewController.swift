@@ -494,7 +494,17 @@ class WorkOrderTeamViewController: UITableViewController,
                                 onSuccess: { (statusCode, mappingResult) -> () in
                                     self.queryResultsPickerViewController?.providers = mappingResult.array() as! [Provider]
                                     self.tableView.reloadData()
-                                    self.searchBar.placeholder = "Showing all \(totalResultsCount) service providers"
+                                    if totalResultsCount == 0 {
+                                        if let category = self.workOrder.category {
+                                            self.searchBar.placeholder = "No \(category.name.lowercaseString) service providers have been added... yet."
+                                        } else {
+                                            self.searchBar.placeholder = "No service providers have been added... yet."
+                                        }
+                                    } else if let category = self.workOrder.category {
+                                        self.searchBar.placeholder = "Showing all \(totalResultsCount) \(category.name.lowercaseString) service providers"
+                                    } else {
+                                        self.searchBar.placeholder = "Showing all \(totalResultsCount) service providers"
+                                    }
                                     self.reloadingProvidersCount = false
                                 },
                                 onError: { (error, statusCode, responseString) -> () in
