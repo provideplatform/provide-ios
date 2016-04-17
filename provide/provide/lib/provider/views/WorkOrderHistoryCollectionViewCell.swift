@@ -35,80 +35,82 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             mapView.removeAnnotations()
             mapView.removeOverlays()
 
-            if let workOrderProviders = workOrder.workOrderProviders {
-                for workOrderProvider in workOrderProviders {
-                    if let checkinsPolyline = workOrderProvider.checkinsPolyline {
-                        mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
+            if let workOrder = workOrder {
+                if let workOrderProviders = workOrder.workOrderProviders {
+                    for workOrderProvider in workOrderProviders {
+                        if let checkinsPolyline = workOrderProvider.checkinsPolyline {
+                            mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
 
-                        let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
+                            let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
 
-                        if checkinsPolyline.pointCount > 0 {
-                            mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
-                        } else {
-                            mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
+                            if checkinsPolyline.pointCount > 0 {
+                                mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
+                            } else {
+                                mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
+                            }
                         }
                     }
                 }
-            }
 
 
-            mapView.addAnnotation(workOrder.annotation)
+                mapView.addAnnotation(workOrder.annotation)
 
-            mapView.alpha = 1.0
+                mapView.alpha = 1.0
 
-            statusBackgroundView.backgroundColor = workOrder.statusColor
-            statusBackgroundView.frame = bounds
-            statusBackgroundView.alpha = 0.9
+                statusBackgroundView.backgroundColor = workOrder.statusColor
+                statusBackgroundView.frame = bounds
+                statusBackgroundView.alpha = 0.9
 
-//            if let profileImageUrl = workOrder.providerOriginAssignment.provider.profileImageUrl {
-//                avatarImageView.contentMode = .ScaleAspectFit
-//                avatarImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
-//                    self.bringSubviewToFront(self.avatarImageView)
-//                    self.avatarImageView.makeCircular()
-//                    self.avatarImageView.alpha = 1.0
-//                    self.gravatarImageView?.alpha = 0.0
-//                }
-//            } else {
-//                let gravatarImageView = RFGravatarImageView(frame: avatarImageView.frame)
-//                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
-//                gravatarImageView.load { error in
-//                    gravatarImageView.makeCircular()
-//                    self.insertSubview(gravatarImageView, aboveSubview: self.avatarImageView)
-//                    self.avatarImageView.alpha = 0.0
-//                    gravatarImageView.alpha = 1.0
-//                }
-//            }
+                //            if let profileImageUrl = workOrder.providerOriginAssignment.provider.profileImageUrl {
+                //                avatarImageView.contentMode = .ScaleAspectFit
+                //                avatarImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
+                //                    self.bringSubviewToFront(self.avatarImageView)
+                //                    self.avatarImageView.makeCircular()
+                //                    self.avatarImageView.alpha = 1.0
+                //                    self.gravatarImageView?.alpha = 0.0
+                //                }
+                //            } else {
+                //                let gravatarImageView = RFGravatarImageView(frame: avatarImageView.frame)
+                //                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
+                //                gravatarImageView.load { error in
+                //                    gravatarImageView.makeCircular()
+                //                    self.insertSubview(gravatarImageView, aboveSubview: self.avatarImageView)
+                //                    self.avatarImageView.alpha = 0.0
+                //                    gravatarImageView.alpha = 1.0
+                //                }
+                //            }
 
-            if let timestamp = workOrder.humanReadableStartedAtTimestamp {
-                timestampLabel.text = timestamp.uppercaseString
-                timestampLabel.sizeToFit()
-            } else if let timestamp = workOrder.humanReadableScheduledStartAtTimestamp {
-                timestampLabel.text = timestamp.uppercaseString
-                timestampLabel.sizeToFit()
-            }
-
-            if let duration = workOrder.humanReadableDuration {
-                durationLabel.text = duration.uppercaseString
-                durationLabel.sizeToFit()
-            }
-
-            if let status = workOrder.status {
-                statusLabel.text = status.uppercaseString
-
-                if status == "en_route" || status == "in_progress" {
-                    timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
-                    timer.fire()
-                } else if workOrder.status == "scheduled" {
-                    durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                if let timestamp = workOrder.humanReadableStartedAtTimestamp {
+                    timestampLabel.text = timestamp.uppercaseString
+                    timestampLabel.sizeToFit()
+                } else if let timestamp = workOrder.humanReadableScheduledStartAtTimestamp {
+                    timestampLabel.text = timestamp.uppercaseString
+                    timestampLabel.sizeToFit()
                 }
-            } else {
-                statusLabel.text = ""
 
-                timer?.invalidate()
-                timer = nil
+                if let duration = workOrder.humanReadableDuration {
+                    durationLabel.text = duration.uppercaseString
+                    durationLabel.sizeToFit()
+                }
+
+                if let status = workOrder.status {
+                    statusLabel.text = status.uppercaseString
+
+                    if status == "en_route" || status == "in_progress" {
+                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
+                        timer.fire()
+                    } else if workOrder.status == "scheduled" {
+                        durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                    }
+                } else {
+                    statusLabel.text = ""
+                    
+                    timer?.invalidate()
+                    timer = nil
+                }
+                
+                statusLabel.sizeToFit()
             }
-
-            statusLabel.sizeToFit()
         }
     }
 
