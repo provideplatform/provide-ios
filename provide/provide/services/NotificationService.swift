@@ -173,7 +173,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 if let value = context.evaluateScript("eval('\(message)')[0][1]")?.toDictionary() {
                     if let data = value["data"] as? [String : AnyObject] {
                         let message = data["message"] as? String
-                        var payload = data["payload"] as? [String : AnyObject]
+                        let payload = data["payload"] as? [String : AnyObject]
 
                         if let message = message {
                             switch message {
