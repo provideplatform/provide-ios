@@ -206,7 +206,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             switch message {
                             case "attachment_changed":
                                 let attachment = Attachment(string: payload!.toJSONString())
-                                attachment.urlString = payload!["url"]! // HACK
+                                if let url = payload!["url"] as? String {
+                                    attachment.urlString = url // FIXME-- marshall with proper mapping
+                                }
                                 if let attachableType = attachment.attachableType {
                                     if attachableType == "job" {
                                         if let job = JobService.sharedService().jobWithId(attachment.attachableId) {
