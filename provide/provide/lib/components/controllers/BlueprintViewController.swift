@@ -295,7 +295,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 if let blueprint = self.blueprint {
                     if blueprint.id == attachment.id {
                         let tag = isIPad() ? "150dpi" : "72dpi"
-                        let isAppropriateResolution = blueprint.hasTag(tag)
+                        let isAppropriateResolution = attachment.hasTag(tag)
                         let hasThumbnailTag = attachment.hasTag("thumbnail")
                         let isPublished = attachment.status == "published"
                         if let mimeType = attachment.mimeType {
