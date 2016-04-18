@@ -238,6 +238,12 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 }
                                 break
 
+                            case "work_order_provider_added":
+                                break
+
+                            case "work_order_provider_removed":
+                                break
+
                             default:
                                 break
                             }
