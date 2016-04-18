@@ -52,10 +52,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             socket.disconnect()
 
             self.socket = nil
-
-            socketTimer?.invalidate()
-            socketTimer = nil
         }
+
+        socketTimer?.invalidate()
+        socketTimer = nil
     }
 
     func maintainWebsocketConnection() {
