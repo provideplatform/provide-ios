@@ -294,11 +294,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
             if let attachment = notification.object as? Attachment {
                 if let blueprint = self.blueprint {
                     if blueprint.id == attachment.id {
-                        let isAppropriateResolution = attachment.hasTag("72dpi")
+                        let tag = isIPad() ? "150dpi" : "72dpi"
+                        let isAppropriateResolution = blueprint.hasTag(tag)
                         let hasThumbnailTag = attachment.hasTag("thumbnail")
                         let isPublished = attachment.status == "published"
                         if let mimeType = attachment.mimeType {
-                            if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag && isPublished {
+                            if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag && isPublished {
                                 blueprint.urlString = attachment.urlString
                                 self.loadBlueprint()
                             }
