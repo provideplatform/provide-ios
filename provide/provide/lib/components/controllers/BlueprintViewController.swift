@@ -162,8 +162,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var backsplashProductPickerViewController: ProductPickerViewController!
 
-    private var initialToolbarFrame: CGRect!
-
     private var enableScrolling = false {
         didSet {
             if let scrollView = scrollView {
@@ -258,11 +256,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
-        toolbar?.alpha = 0.0
-        toolbar?.blueprintToolbarDelegate = self
-        toolbar?.barTintColor = Color.darkBlueBackground()
-
-        hideToolbar()
+        if let toolbar = toolbar {
+            toolbar.alpha = 0.0
+            toolbar.frame.origin.y = view.frame.height
+            toolbar.blueprintToolbarDelegate = self
+            toolbar.barTintColor = Color.darkBlueBackground()
+        }
 
         activityIndicatorView?.startAnimating()
 
@@ -676,16 +675,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
-        if initialToolbarFrame == nil {
-            dispatch_after_delay(0.0) { [weak self] in
-                self!.initialToolbarFrame = self!.toolbar?.frame
-            }
-        }
-
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: { [weak self] in
-                self!.toolbar?.alpha = 0.0
-                self!.toolbar?.frame.origin.y += (self!.toolbar?.frame.size.height)!
+                if let toolbar = self!.toolbar {
+                    toolbar.alpha = 0.0
+                    toolbar.frame.origin.y = self!.view.frame.height
+                }
             }, completion: { completed in
 
                 
@@ -696,11 +691,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func showToolbar() {
         UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
             animations: {
-                self.toolbar?.alpha = 1.0
-                if let initialToolbarFrame = self.initialToolbarFrame {
-                    self.toolbar?.frame = initialToolbarFrame
-                } else {
-                    self.toolbar?.frame.origin.y -= (self.toolbar?.frame.size.height)!
+                if let toolbar = self.toolbar {
+                    toolbar.alpha = 1.0
+                    toolbar.frame.origin.y = self.view.frame.height - toolbar.frame.height
                 }
             }, completion: { completed in
 
