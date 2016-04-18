@@ -292,13 +292,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
             if let attachment = notification.object as? Attachment {
-                if let attachableType = attachment.attachableType {
-                    if attachableType == "job" && attachment.attachableId == self.job.id {
+                if let blueprint = self.blueprint {
+                    if blueprint.id == attachment.id {
                         let isAppropriateResolution = attachment.hasTag("72dpi")
                         let hasThumbnailTag = attachment.hasTag("thumbnail")
                         let isPublished = attachment.status == "published"
                         if let mimeType = attachment.mimeType {
                             if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag && isPublished {
+                                blueprint.urlString = attachment.urlString
                                 self.loadBlueprint()
                             }
                         }
