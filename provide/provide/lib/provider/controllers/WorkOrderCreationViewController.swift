@@ -30,9 +30,9 @@ protocol WorkOrderCreationViewControllerDelegate {
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
-                                       PDTSimpleCalendarViewDelegate,
                                        CategoryPickerViewControllerDelegate,
                                        CommentsViewControllerDelegate,
+                                       DatePickerViewControllerDelegate,
                                        DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
@@ -171,7 +171,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 if statusCode == 201 {
                     let wo = mappingResult.firstObject as! WorkOrder
                     self.workOrder.status = wo.status
-                    self.reloadTableView()
+                    self.reloadTableView(true)
                     self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
                     self.reloadComments()
                 }
@@ -190,7 +190,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
 
-        reloadTableView()
+        reloadTableView(true)
 
         if workOrder.categoryId == 0 {
             presentCategoryPickerViewController()
@@ -257,6 +257,16 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         super.viewDidLoad()
 
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
+
+        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if let wo = self.workOrder {
+                    if workOrder.id == wo.id {
+                        self.reloadTableView(false)
+                    }
+                }
+            }
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -467,8 +477,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     override func reloadTableView() {
         super.reloadTableView()
 
-        if let _ = commentsViewController {
-            reloadComments()
+        reloadTableView(true)
+    }
+
+    private func reloadTableView(reloadComments: Bool = true) {
+        if reloadComments {
+            if let _ = commentsViewController {
+                self.reloadComments()
+            }
         }
 
         if let workOrderDetailsHeaderTableViewController = workOrderDetailsHeaderTableViewController {
@@ -476,41 +492,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    // MARK: PDTSimpleCalendarViewControllerDelegate
+    // MARK: DatePickerViewControllerDelegate
 
-    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
+    func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate) {
+        navigationController?.popViewControllerAnimated(true)
         workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
         isDirty = true
         refreshRightBarButtonItems()
-        renderDurationPickerInViewController(controller)
-    }
-
-    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, isEnabledDate date: NSDate!) -> Bool {
-        if let scheduledStartAtDate = workOrder.scheduledStartAtDate {
-            return scheduledStartAtDate.atMidnight != date.atMidnight
-        }
-        return true
-    }
-
-    private func renderDurationPickerInViewController(viewController: UIViewController) {
-        let calendarViewController = viewController as! CalendarViewController
-        let cell = calendarViewController.selectedDateCell
-
-        let durationPickerViewController = UIViewController()
-        durationPickerViewController.view.backgroundColor = UIColor.clearColor()
-        durationPickerViewController.view.frame.size = CGSize(width: 300.0, height: 100.0)
-        durationPickerViewController.modalPresentationStyle = .Popover
-        durationPickerViewController.preferredContentSize = durationPickerViewController.view.frame.size
-        durationPickerViewController.popoverPresentationController?.sourceView = cell
-        durationPickerViewController.popoverPresentationController?.permittedArrowDirections = [.Left, .Right]
-        durationPickerViewController.popoverPresentationController?.delegate = self
-
-        let durationPickerView = DurationPickerView()
-        durationPickerView.durationPickerViewDelegate = self
-        durationPickerView.frame = durationPickerViewController.view.bounds
-        durationPickerViewController.view.addSubview(durationPickerView)
-
-        viewController.presentViewController(durationPickerViewController, animated: true)
     }
 
     // MARK: CategoryPickerViewControllerDelegate
@@ -519,7 +507,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         if workOrder.id == 0 {
             workOrder.category = category
             workOrder.categoryId = category.id
-            reloadTableView()
+            reloadTableView(true)
 
             if let navigationController = viewController.navigationController {
                 navigationController.popViewControllerAnimated(false)
@@ -625,7 +613,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
 
         workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        reloadTableView()
+        reloadTableView(true)
 
         if workOrder.id == 0 {
             createWorkOrder()
@@ -678,7 +666,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         workOrder.attach(image, params: params,
             onSuccess: { (statusCode, mappingResult) -> () in
                 self.refreshUI()
-                self.reloadTableView()
+                self.reloadTableView(true)
             },
             onError: { (error, statusCode, responseString) -> () in
                 self.refreshUI()
@@ -767,10 +755,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider: WorkOrderProvider) {
         workOrder?.reload(
             onSuccess: { statusCode, mappingResult in
-                self.reloadTableView()
+                self.reloadTableView(true)
             },
             onError: { error, statusCode, responseString in
-                self.reloadTableView()
+                self.reloadTableView(true)
             }
         )
     }
@@ -778,10 +766,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider: Provider) {
         workOrder?.reload(
             onSuccess: { statusCode, mappingResult in
-                self.reloadTableView()
+                self.reloadTableView(true)
             },
             onError: { error, statusCode, responseString in
-                self.reloadTableView()
+                self.reloadTableView(true)
             }
         )
     }
@@ -802,7 +790,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct: WorkOrderProduct) {
         workOrder?.reload(
             onSuccess: { statusCode, mappingResult in
-                self.reloadTableView()
+                self.reloadTableView(true)
 
                 if self.workOrder.jobId > 0 {
                     if let job = JobService.sharedService().jobWithId(self.workOrder.jobId) {
@@ -818,7 +806,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 }
             },
             onError: { error, statusCode, responseString in
-                self.reloadTableView()
+                self.reloadTableView(true)
             }
         )
     }
@@ -826,7 +814,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct: WorkOrderProduct) {
         workOrder?.reload(["include_estimated_cost": "false", "include_expenses": "false"],
             onSuccess: { statusCode, mappingResult in
-                self.reloadTableView()
+                self.reloadTableView(true)
 
                 if self.workOrder.jobId > 0 {
                     if let job = JobService.sharedService().jobWithId(self.workOrder.jobId) {
@@ -842,7 +830,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 }
             },
             onError: { error, statusCode, responseString in
-                self.reloadTableView()
+                self.reloadTableView(true)
             }
         )
     }
