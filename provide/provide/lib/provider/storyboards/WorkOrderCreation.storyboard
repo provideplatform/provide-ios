@@ -484,23 +484,23 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="484" height="43.5"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOE CUSTOMER" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YRr-TR-xpo">
-                                                                <rect key="frame" x="133" y="11" width="344" height="21"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOE CUSTOMER" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YRr-TR-xpo">
+                                                                <rect key="frame" x="232" y="11" width="245" height="21"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="344" id="Mqr-6x-bgq"/>
+                                                                    <constraint firstAttribute="width" constant="245" id="Mqr-6x-bgq"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="13"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AWAITING_SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXf-dF-vEq">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AWAITING_SCHEDULE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXf-dF-vEq">
                                                                 <rect key="frame" x="8" y="11" width="203" height="21"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="203" id="q4P-sm-E1h">
                                                                         <variation key="heightClass=regular-widthClass=compact" constant="148"/>
                                                                     </constraint>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="13"/>
                                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
