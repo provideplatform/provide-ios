@@ -27,22 +27,9 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         didSet {
             if let _ = workOrder {
                 refresh()
-
-                if let status = workOrder.status {
-                    if status == "in_progress" || status == "en_route" {
-                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderDetailsHeaderTableViewCell.refreshInProgress), userInfo: nil, repeats: true)
-                    }
-                } else {
-                    if let timer = timer {
-                        timer.invalidate()
-                        self.timer = nil
-                    }
-                }
             }
         }
     }
-
-    private var timer: NSTimer!
 
     private var isResponsibleSupervisor: Bool {
         let user = currentUser()
@@ -155,11 +142,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     private func refresh() {
-        if let timer = timer {
-            timer.invalidate()
-            self.timer = nil
-        }
-
         refreshUtilityButtons()
         embeddedTableView.reloadData()
 
@@ -401,9 +383,5 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell!) {
         // no-op
-    }
-
-    deinit {
-        timer?.invalidate()
     }
 }
