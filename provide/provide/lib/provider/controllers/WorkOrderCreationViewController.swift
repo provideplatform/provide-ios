@@ -262,7 +262,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
             if let workOrder = notification.object as? WorkOrder {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
-                        self.reloadTableView(false)
+                        self.workOrder = workOrder
                     }
                 }
             }
