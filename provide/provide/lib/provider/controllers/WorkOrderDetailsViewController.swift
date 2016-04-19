@@ -106,23 +106,6 @@ class WorkOrderDetailsViewController: ViewController,
                 headerView?.hidden = true
             }
         }
-
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
-            if let workOrder = notification.object as? WorkOrder {
-                if let wo = self.workOrder {
-                    if workOrder.id == wo.id {
-                        self.workOrder.reload([:],
-                            onSuccess: { [weak self] statusCode, mappingResult in
-                                self!.reloadTableView()
-                            },
-                            onError: { error, statusCode, responseString in
-
-                            }
-                        )
-                    }
-                }
-            }
-        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
