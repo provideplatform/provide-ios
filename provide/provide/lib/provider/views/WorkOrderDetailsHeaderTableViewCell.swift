@@ -232,7 +232,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             let matches = Regex.match("^, ", input: specificProviders)
             if matches.count > 0 {
                 let match = matches[0]
-                let range = Range<String.Index>(start: specificProviders.startIndex.advancedBy(match.range.length), end: specificProviders.endIndex)
+                let range = specificProviders.startIndex.advancedBy(match.range.length)..<specificProviders.endIndex
                 specificProviders = specificProviders.substringWithRange(range)
             }
             var providers = "\(specificProviders)"

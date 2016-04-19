@@ -29,7 +29,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
             let matches = Regex.match("\\d+\\.\\d{2}", input: recognizedText)
             if matches.count > 0 {
                 let match = matches[0]
-                let range = Range<String.Index>(start: recognizedText.startIndex.advancedBy(match.range.length), end: recognizedText.endIndex)
+                let range = recognizedText.startIndex.advancedBy(match.range.length)..<recognizedText.endIndex
                 return Double(recognizedText.substringWithRange(range))!
             }
         }
