@@ -266,25 +266,15 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
                 switch indexPath.row {
                 case 0:
-                    PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
-                    PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-
-                    let calendarViewController = CalendarViewController()
-                    calendarViewController.delegate = workOrderCreationViewController
-                    calendarViewController.weekdayHeaderEnabled = true
-                    calendarViewController.firstDate = NSDate()
-
-                    viewController = calendarViewController
+                    let datePickerViewController = UIStoryboard("DatePicker").instantiateInitialViewController() as! DatePickerViewController
+                    if let scheduledStartAtDate = workOrderCreationViewController.workOrder?.scheduledStartAtDate {
+                        datePickerViewController.initialDate = scheduledStartAtDate
+                    }
+                    datePickerViewController.delegate = workOrderCreationViewController
+                    viewController = datePickerViewController
                 case 1:
                     viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
                     (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-                    //            case 3:
-                    //                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
-                    //                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
-                    //            case 4:
-                    //                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
-                    //                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
-                    //                (viewController as! ExpensesViewController).delegate = self
                 case 2:
                     viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
                     (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
