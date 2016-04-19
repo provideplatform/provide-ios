@@ -230,7 +230,15 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 break
 
                             case "work_order_changed":
-                                let workOrder = WorkOrder(string: payload!.toJSONString())
+                                let workOrderJson = payload!.toJSONString()
+                                let workOrder = WorkOrder(string: workOrderJson)
+                                var annotations = [Annotation]()
+                                if let workOrderAnnotations = workOrderJson.toJSONObject()["annotations"] as? NSArray { // HACK
+                                    for workOrderAnnotation in workOrderAnnotations.objectEnumerator().allObjects {
+                                        annotations.append(Annotation(string: (workOrderAnnotation as! NSDictionary).toJSON()))
+                                    }
+                                }
+                                workOrder.annotations = annotations
                                 WorkOrderService.sharedService().updateWorkOrder(workOrder)
                                 NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderChanged", object: workOrder)
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
