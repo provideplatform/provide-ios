@@ -566,6 +566,9 @@ class WorkOrder: Model {
         var params = toDictionary()
 
         if id > 0 {
+            if self.workOrderProviders == nil {
+                self.workOrderProviders = [WorkOrderProvider]()
+            }
             var workOrderProviders = [[String : AnyObject]]()
             for workOrderProvider in self.workOrderProviders {
                 var wop: [String : AnyObject] = ["provider_id": workOrderProvider.provider.id]
