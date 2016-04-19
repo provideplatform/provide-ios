@@ -14,7 +14,10 @@ class NameValueTableViewCell: UITableViewCell {
     @IBOutlet private weak var valueLabel: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    func setName(name: String, value: String, valueFontSize: CGFloat = 14.0, showActivity: Bool = false) {
+    func setName(name: String, value: String, valueFontSize: CGFloat = 13.0, showActivity: Bool = false) {
+        nameLabel?.hidden = true
+        valueLabel.hidden = true
+
         nameLabel?.text = name
         nameLabel?.sizeToFit()
 
@@ -22,9 +25,22 @@ class NameValueTableViewCell: UITableViewCell {
         valueLabel?.font = valueLabel?.font.fontWithSize(valueFontSize)
         valueLabel?.sizeToFit()
 
+//        if nameLabel != nil && valueLabel != nil {
+//            if CGRectIntersectsRect(nameLabel.frame, valueLabel.frame) {
+//                nameLabel.font = nameLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
+//                nameLabel.sizeToFit()
+//
+//                valueLabel.font = valueLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
+//                valueLabel.sizeToFit()
+//            }
+//        }
+
         if !showActivity {
             hideActivity()
         }
+
+        nameLabel?.hidden = false
+        valueLabel?.hidden = false
     }
 
     func showActivity(resetName: Bool = true) {
@@ -46,14 +62,21 @@ class NameValueTableViewCell: UITableViewCell {
         backgroundView?.backgroundColor = UIColor.clearColor()
 
         nameLabel?.text = ""
+        nameLabel?.hidden = true
+
         valueLabel?.text = ""
+        valueLabel?.hidden = true
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
         nameLabel?.text = ""
+        nameLabel?.hidden = true
+
         valueLabel?.text = ""
+        valueLabel.hidden = true
+
         activityIndicatorView?.stopAnimating()
     }
 }
