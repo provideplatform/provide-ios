@@ -21,7 +21,7 @@ class WorkOrderDetailsViewController: ViewController,
                                       WorkOrderDetailsHeaderTableViewControllerDelegate,
                                       ManifestViewControllerDelegate {
 
-    weak var workOrder: WorkOrder! {
+    var workOrder: WorkOrder! {
         didSet {
             navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
 
