@@ -21,7 +21,7 @@
         <!--Work Order Creation View Controller-->
         <scene sceneID="yvX-Y0-t1l">
             <objects>
-                <viewController storyboardIdentifier="WorkOrderCreationViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="currentContext" id="d85-m3-Acc" customClass="WorkOrderCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkOrderCreationViewController" modalTransitionStyle="crossDissolve" id="d85-m3-Acc" customClass="WorkOrderCreationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OXr-em-XRB"/>
                         <viewControllerLayoutGuide type="bottom" id="D5c-sy-iTn"/>
