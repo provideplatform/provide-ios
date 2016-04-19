@@ -234,52 +234,7 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let navigationController = workOrderCreationViewController.navigationController {
-            var viewController: UIViewController!
 
-            switch indexPath.row {
-            case 0:
-                PDTSimpleCalendarViewCell.appearance().circleSelectedColor = Color.darkBlueBackground()
-                PDTSimpleCalendarViewCell.appearance().textDisabledColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5)
-
-                let calendarViewController = CalendarViewController()
-                calendarViewController.delegate = workOrderCreationViewController
-                calendarViewController.weekdayHeaderEnabled = true
-                calendarViewController.firstDate = NSDate()
-
-                viewController = calendarViewController
-            case 1:
-                viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
-                (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
-                CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
-                                                      onCategoriesFetched: { categories in
-                                                        (viewController as! CategoryPickerViewController).categories = categories
-
-                                                        if let selectedCategory = workOrderCreationViewController.workOrder.category {
-                                                            (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
-                                                        }
-                    }
-                )
-            case 2:
-                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
-                (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-                //            case 3:
-                //                viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderInventoryViewController")
-                //                (viewController as! WorkOrderInventoryViewController).delegate = workOrderCreationViewController
-                //            case 4:
-                //                viewController = UIStoryboard("Expenses").instantiateViewControllerWithIdentifier("ExpensesViewController")
-                //                (viewController as! ExpensesViewController).expenses = workOrderCreationViewController.workOrder.expenses
-            //                (viewController as! ExpensesViewController).delegate = self
-            default:
-                break
-            }
-
-            if let vc = viewController {
-                navigationController.pushViewController(vc, animated: true)
-            }
-        }
-
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
