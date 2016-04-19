@@ -33,7 +33,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                                        CategoryPickerViewControllerDelegate,
                                        CommentsViewControllerDelegate,
                                        DatePickerViewControllerDelegate,
-                                       DurationPickerViewDelegate,
                                        CameraViewControllerDelegate,
                                        ExpenseCaptureViewControllerDelegate,
                                        TaskListViewControllerDelegate,
@@ -499,6 +498,21 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
         isDirty = true
         refreshRightBarButtonItems()
+
+        if workOrder.status == "awaiting_schedule" {
+            workOrder.status = "scheduled"
+        }
+
+        // FIXME-- make this support the end date also
+        // FIXME-- WTF was this?? workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
+
+        reloadTableView(true)
+
+        if workOrder.id == 0 {
+            createWorkOrder()
+        } else {
+            refreshUI()
+        }
     }
 
     // MARK: CategoryPickerViewControllerDelegate
@@ -580,65 +594,6 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
 
         commentsViewController.reset()
-    }
-
-    // MARK: DurationPickerViewDelegate
-
-    func componentsForDurationPickerView(view: DurationPickerView) -> [CGFloat] {
-        var values = [CGFloat]()
-        var value: CGFloat = 0.0
-        while value < 86400.0 {
-            values.append(value)
-            value += 900.0 // 15 minutes
-        }
-        return values
-    }
-
-    func componentTitlesForDurationPickerView(view: DurationPickerView) -> [String] {
-        var titles = [String]()
-        for value in componentsForDurationPickerView(view) {
-            let date = NSDate().atMidnight.dateByAddingTimeInterval(NSTimeInterval(value))
-            titles.append(date.timeString!)
-        }
-        return titles
-    }
-
-    func durationPickerView(view: DurationPickerView, widthForComponent component: Int) -> CGFloat {
-        return 300.0
-    }
-
-    func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
-        if workOrder.status == "awaiting_schedule" {
-            workOrder.status = "scheduled"
-        }
-
-        workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        reloadTableView(true)
-
-        if workOrder.id == 0 {
-            createWorkOrder()
-        } else {
-            refreshUI()
-        }
-
-        if let presentedViewController = presentedViewController {
-            if let presentingViewController = presentedViewController.presentingViewController as? UINavigationController {
-                presentingViewController.dismissViewController(animated: false)
-                presentingViewController.popToRootViewControllerAnimated(true)
-            }
-        }
-    }
-
-    func durationPickerViewInteractionStarted(view: DurationPickerView) {
-
-    }
-
-    func durationPickerViewInteractionEnded(view: DurationPickerView) {
-
-    }
-
-    func durationPickerViewInteractionContinued(view: DurationPickerView) {
-
     }
 
     // MARK: CameraViewControllerDelegate
