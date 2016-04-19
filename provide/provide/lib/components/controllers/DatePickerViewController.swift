@@ -20,23 +20,17 @@ class DatePickerViewController: UIViewController {
 
     var initialDate: NSDate!
 
-    @IBOutlet private weak var datePicker: UIDatePicker! {
-        didSet {
-            if let datePicker = datePicker {
-                datePicker.minimumDate = defaultMinimumDate
-
-                if let initialDate = initialDate {
-                    datePicker.timeZone = NSTimeZone.localTimeZone()
-                    datePicker.setDate(initialDate, animated: false)
-                }
-            }
-        }
-    }
-
+    @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var saveButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        datePicker?.minimumDate = defaultMinimumDate
+        if let initialDate = initialDate {
+            datePicker?.timeZone = NSTimeZone.localTimeZone()
+            datePicker?.setDate(initialDate, animated: false)
+        }
 
         saveButton?.addTarget(self, action: #selector(DatePickerViewController.save), forControlEvents: .TouchUpInside)
     }

@@ -193,7 +193,16 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     // MARK: UITableViewDataSource
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
+    }
+
+    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+            if cell.accessoryType == .None {
+                return nil
+            }
+        }
+        return indexPath
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -204,21 +213,48 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         case 0:
             cell.backgroundView!.backgroundColor = workOrder.statusColor
 
-            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
-                if let duration = self.workOrder.humanReadableDuration {
-                    cell.setName("\(self.workOrder.status.uppercaseString)", value: duration)
-                    cell.accessoryType = .None
-                }
-            } else {
-                var scheduledStartTime = "--"
-                if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
-                    scheduledStartTime = humanReadableScheduledStartTime
-                }
+//            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
+//                if let duration = self.workOrder.humanReadableDuration {
+//                    cell.setName("\(self.workOrder.status.uppercaseString)", value: duration)
+//                    cell.accessoryType = .None
+//                }
+//            } else {
+//                var scheduledStartTime = "--"
+//                if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+//                    scheduledStartTime = humanReadableScheduledStartTime
+//                }
+//
+//                cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
+//                cell.accessoryType = .DisclosureIndicator
+//            }
 
-                cell.setName("\(workOrder.status.uppercaseString)", value: scheduledStartTime)
+            if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
                 cell.accessoryType = .DisclosureIndicator
+            } else {
+                cell.accessoryType = .None
             }
+
+            var scheduledStartTime = "--"
+            if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
+                scheduledStartTime = humanReadableScheduledStartTime
+            }
+
+            cell.setName("SCHEDULED START", value: scheduledStartTime)
         case 1:
+            if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
+                cell.accessoryType = .DisclosureIndicator
+            } else {
+                cell.accessoryType = .None
+            }
+
+//            var scheduledEndTime = "--"
+//            if let humanReadableScheduledEndTime = workOrder.humanReadableScheduledEndAtTimestamp {
+//                scheduledEndTime = humanReadableScheduledEndTime
+//            }
+
+            cell.setName("DUE AT", value: "--")
+            cell.accessoryType = .None // HACK - temporary
+        case 2:
             var specificProviders = ""
             let detailDisplayCount = 3
             var i = 0
@@ -251,7 +287,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 cell.setName("CREW", value: providers)
             }
             cell.accessoryType = .DisclosureIndicator
-
         default:
             break
         }
@@ -273,20 +308,27 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                     datePickerViewController.delegate = workOrderCreationViewController
                     viewController = datePickerViewController
                 case 1:
+                    let datePickerViewController = UIStoryboard("DatePicker").instantiateInitialViewController() as! DatePickerViewController
+                    if let scheduledEndAtDate = workOrderCreationViewController.workOrder?.scheduledEndAtDate {
+                        datePickerViewController.initialDate = scheduledEndAtDate
+                    }
+                    //datePickerViewController.delegate = workOrderCreationViewController
+                    viewController = datePickerViewController
+                case 2:
                     viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
                     (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-                case 2:
-                    viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
-                    (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
-                    CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
-                        onCategoriesFetched: { categories in
-                            (viewController as! CategoryPickerViewController).categories = categories
 
-                            if let selectedCategory = workOrderCreationViewController.workOrder.category {
-                                (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
-                            }
-                        }
-                    )
+//                    viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+//                    (viewController as! CategoryPickerViewController).delegate = workOrderCreationViewController
+//                    CategoryService.sharedService().fetch(companyId: workOrderCreationViewController.workOrder.companyId,
+//                        onCategoriesFetched: { categories in
+//                            (viewController as! CategoryPickerViewController).categories = categories
+//
+//                            if let selectedCategory = workOrderCreationViewController.workOrder.category {
+//                                (viewController as! CategoryPickerViewController).selectedCategories = [selectedCategory]
+//                            }
+//                        }
+//                    )
                 default:
                     break
                 }

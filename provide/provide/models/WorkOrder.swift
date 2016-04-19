@@ -23,6 +23,7 @@ class WorkOrder: Model {
     var desc: String!
     var workOrderProviders: [WorkOrderProvider]!
     var scheduledStartAt: String!
+    var scheduledEndAt: String!
     var startedAt: String!
     var endedAt: String!
     var abandonedAt: String!
@@ -59,6 +60,7 @@ class WorkOrder: Model {
             "config": "config",
             "description": "desc",
             "scheduled_start_at": "scheduledStartAt",
+            "scheduled_end_at": "scheduledEndAt",
             "started_at": "startedAt",
             "ended_at": "endedAt",
             "abandoned_at": "abandonedAt",
@@ -112,6 +114,17 @@ class WorkOrder: Model {
             return NSDate.fromString(scheduledStartAt)
         }
         return nil
+    }
+
+    var scheduledEndAtDate: NSDate! {
+        if let scheduledEndAt = scheduledEndAt {
+            return NSDate.fromString(scheduledEndAt)
+        }
+        return nil
+    }
+
+    var scheduledDueDate: NSDate! {
+        return scheduledEndAtDate
     }
 
     var startedAtDate: NSDate! {
@@ -195,6 +208,17 @@ class WorkOrder: Model {
                 return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
             } else {
                 return "\(scheduledStartAtDate.month)/\(scheduledStartAtDate.dayOfMonth)/\(scheduledStartAtDate.year) @ \(scheduledStartAtDate.timeString!)"
+            }
+        }
+        return nil
+    }
+
+    var humanReadableScheduledEndAtTimestamp: String! {
+        if let scheduledEndAtDate = scheduledEndAtDate {
+            if isIPad() {
+                return "\(scheduledEndAtDate.dayOfWeek), \(scheduledEndAtDate.monthName) \(scheduledEndAtDate.dayOfMonth) @ \(scheduledEndAtDate.timeString!)"
+            } else {
+                return "\(scheduledEndAtDate.month)/\(scheduledEndAtDate.dayOfMonth)/\(scheduledEndAtDate.year) @ \(scheduledEndAtDate.timeString!)"
             }
         }
         return nil
