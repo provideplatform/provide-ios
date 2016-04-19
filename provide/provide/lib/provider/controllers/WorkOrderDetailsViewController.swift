@@ -21,19 +21,19 @@ class WorkOrderDetailsViewController: ViewController,
                                       WorkOrderDetailsHeaderTableViewControllerDelegate,
                                       ManifestViewControllerDelegate {
 
-    var workOrder: WorkOrder! {
+    weak var workOrder: WorkOrder! {
         didSet {
             navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
 
             if workOrder.id > 0 {
-                workOrder.reload(
-                    onSuccess: { statusCode, mappingResult in
-                        self.reloadTableView()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
+//                workOrder.reload(
+//                    onSuccess: { statusCode, mappingResult in
+//                        self.reloadTableView()
+//                    },
+//                    onError: { error, statusCode, responseString in
+//
+//                    }
+//                )
 
                 workOrder.reloadAttachments(
                     { statusCode, mappingResult in
