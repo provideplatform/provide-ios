@@ -155,6 +155,18 @@ class EstimateViewController: ViewController, BlueprintViewControllerDelegate {
         return false
     }
 
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+        return nil
+    }
+
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+        
+    }
+
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

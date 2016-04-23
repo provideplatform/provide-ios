@@ -20,13 +20,15 @@ protocol BlueprintViewControllerDelegate: NSObjectProtocol {
     func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
     func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
     func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar!
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController)
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController)
 }
 
 class BlueprintViewController: WorkOrderComponentViewController,
                                UIScrollViewDelegate,
                                BlueprintScaleViewDelegate,
                                BlueprintThumbnailViewDelegate,
-                               BlueprintToolbarDelegate,
                                BlueprintPinViewDelegate,
                                BlueprintPolygonViewDelegate,
                                BlueprintWorkOrdersViewControllerDelegate,
@@ -76,7 +78,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     @IBOutlet private weak var scrollView: BlueprintScrollView!
 
-    @IBOutlet private weak var toolbar: BlueprintToolbar!
+    //@IBOutlet private weak var toolbar: BlueprintToolbar!
 
     @IBOutlet private weak var scaleView: BlueprintScaleView! {
         didSet {
@@ -256,12 +258,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
-        if let toolbar = toolbar {
-            toolbar.alpha = 0.0
-            toolbar.frame.origin.y = view.frame.height
-            toolbar.blueprintToolbarDelegate = self
-            toolbar.barTintColor = Color.darkBlueBackground()
-        }
+//        if let toolbar = toolbar {
+//            toolbar.alpha = 0.0
+//            toolbar.frame.origin.y = view.frame.height
+//            toolbar.blueprintToolbarDelegate = self
+//            toolbar.barTintColor = Color.darkBlueBackground()
+//        }
 
         activityIndicatorView?.startAnimating()
 
@@ -511,7 +513,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
             self.setZoomLevel()
             self.imageView.alpha = 1.0
 
-            self.toolbar?.reload()
+            if let toolbar = self.blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                toolbar.reload()
+            }
 
             dispatch_after_delay(0.25) {
                 self.showToolbar()
@@ -675,30 +679,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: { [weak self] in
-                if let toolbar = self!.toolbar {
-                    toolbar.alpha = 0.0
-                    toolbar.frame.origin.y = self!.view.frame.height
-                }
-            }, completion: { completed in
-
-                
-            }
-        )
+        blueprintViewControllerDelegate?.hideToolbarForBlueprintViewController(self)
     }
 
     private func showToolbar() {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
-            animations: {
-                if let toolbar = self.toolbar {
-                    toolbar.alpha = 1.0
-                    toolbar.frame.origin.y = self.view.frame.height - toolbar.frame.height
-                }
-            }, completion: { completed in
-
-            }
-        )
+        blueprintViewControllerDelegate?.showToolbarForBlueprintViewController(self)
     }
 
     func cancelSetScale(sender: UIBarButtonItem) {
@@ -707,23 +692,23 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func setScale(sender: UIBarButtonItem!) {
-        let scale = scaleView.scale
-        scaleView.resignFirstResponder(false)
-
-        restoreCachedNavigationItem()
-
-        if let blueprint = blueprint {
-            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
-            metadata["scale"] = scale
-            blueprint.updateAttachment(["metadata": metadata],
-                onSuccess: { statusCode, mappingResult in
-                    self.toolbar.reload()
-                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController(self)
-                }, onError: { error, statusCode, responseString in
-
-                }
-            )
-        }
+//        let scale = scaleView.scale
+//        scaleView.resignFirstResponder(false)
+//
+//        restoreCachedNavigationItem()
+//
+//        if let blueprint = blueprint {
+//            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
+//            metadata["scale"] = scale
+//            blueprint.updateAttachment(["metadata": metadata],
+//                onSuccess: { statusCode, mappingResult in
+//                    self.toolbar.reload()
+//                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController(self)
+//                }, onError: { error, statusCode, responseString in
+//
+//                }
+//            )
+//        }
     }
 
     func dismissWorkOrderCreationPinView() {
@@ -822,7 +807,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintScaleViewDidReset(view: BlueprintScaleView) {
-        toolbar?.toggleScaleVisibility()
+        //toolbar?.toggleScaleVisibility()
     }
 
     func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat) {
@@ -876,37 +861,32 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return CGSizeZero
     }
 
-    // MARK: BlueprintToolbarDelegate
-
-    func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment {
-        if let blueprint = blueprint {
-            return blueprint
-        }
-        return Attachment()
-    }
-
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
+    func setNavigatorVisibility(visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
         if visible {
             thumbnailTintView?.alpha = 0.3
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(thumbnailView)
-            view.bringSubviewToFront(toolbar)
+//            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+//                toolbar.frame.size.width = toolbar.superview!.frame.width
+//            }
         } else {
             thumbnailTintView?.alpha = 0.0
             view.sendSubviewToBack(thumbnailTintView)
         }
     }
 
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat! = nil) {
+    func setWorkOrdersVisibility(visible: Bool, alpha: CGFloat! = nil) {
         let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
             thumbnailTintView?.alpha = 0.1
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(blueprintWorkOrdersViewControllerContainer)
-            view.bringSubviewToFront(toolbar)
+//            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+//                toolbar.frame.size.width = toolbar.superview!.frame.width
+//            }
             insetScrollViewContentForBlueprintWorkOrdersPresentation()
         } else {
             thumbnailTintView?.alpha = 0.0
@@ -917,8 +897,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
             animations: {
                 self.blueprintWorkOrdersViewControllerContainer?.alpha = alpha != nil ? alpha : (visible ? 1.0 : 0.0)
                 self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
-            }, completion:  { (completed) in
-
+            },
+            completion:  { (completed) in
+                
             }
         )
     }
@@ -935,77 +916,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                                                left: widthInset,
                                                bottom: heightInset,
                                                right: widthInset)
-    }
-
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
-        let alpha = CGFloat(visible ? 1.0 : 0.0)
-        scaleView.alpha = alpha
-
-        if visible {
-            if scrollView.zoomScale < 0.9 {
-                scrollView.setZoomScale(0.9, animated: true)
-            }
-
-            overrideNavigationItemForSettingScale(false) // FIXME: pass true when scaleView has both line endpoints drawn...
-            scaleView.attachGestureRecognizer()
-        } else {
-            restoreCachedNavigationItem()
-            scaleView.resignFirstResponder(true)
-        }
-    }
-
-    func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
-            return canSetScale
-        }
-        return false
-    }
-
-    func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if let canSetScale = blueprintViewControllerDelegate?.scaleCanBeSetByBlueprintViewController(self) {
-            return !canSetScale && job != nil && !job.isPunchlist
-        }
-        return true
-    }
-
-    func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if newWorkOrderPending {
-            return false
-        }
-
-        if let presentedViewController = presentedViewController {
-            return !(presentedViewController is WorkOrderCreationViewController)
-        }
-
-        if let newWorkOrderCanBeCreated = blueprintViewControllerDelegate?.newWorkOrderCanBeCreatedByBlueprintViewController(self) {
-            return newWorkOrderCanBeCreated
-        }
-
-        return true
-    }
-
-    func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) {
-        polygonView.alpha = 1.0
-        polygonView.attachGestureRecognizer()
-
-        newWorkOrderPending = true
-
-        overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
-    }
-
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool) {
-        // no-op
-    }
-
-    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        if let job = job {
-            return job.isResidential
-        }
-        return false
-    }
-
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
-        navigationController!.presentViewController(alertController, animated: true)
     }
 
     // MARK: BlueprintPinViewDelegate
@@ -1044,16 +954,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
-            toolbar.setWorkOrdersVisibility(true, alpha: 1.0)
-            if let annotation = view.annotation {
-                if let workOrder = annotation.workOrder {
-                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
-                }
-            }
+            // FIXME
+//            toolbar.setWorkOrdersVisibility(true, alpha: 1.0)
+//            if let annotation = view.annotation {
+//                if let workOrder = annotation.workOrder {
+//                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
+//                }
+//            }
 
             return
         } else {
-            toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
+            //toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
             delay = 0.15
         }
 
@@ -1071,7 +982,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil, delay: Double = 0.0) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
         dispatch_after_delay(delay) {
-            self.toolbar.setWorkOrdersVisibility(true)
+            //self.toolbar.setWorkOrdersVisibility(true)
         }
     }
 
@@ -1277,7 +1188,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
-        toolbar?.reload()
+        //toolbar?.reload()
     }
 
     func jobForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Job! {

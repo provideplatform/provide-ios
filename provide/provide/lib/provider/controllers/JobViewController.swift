@@ -78,4 +78,16 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
     func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
         return false
     }
+
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+        return nil
+    }
+
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+        
+    }
 }

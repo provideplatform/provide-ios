@@ -15,11 +15,16 @@ protocol BlueprintsPageViewControllerDelegate {
     func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment]
 }
 
-class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDelegate, BlueprintViewControllerDelegate {
+class BlueprintsPageViewController: UIPageViewController,
+                                    UIPageViewControllerDelegate,
+                                    BlueprintViewControllerDelegate,
+                                    BlueprintToolbarDelegate {
 
     var blueprintsPageViewControllerDelegate: BlueprintsPageViewControllerDelegate! {
         didSet {
             if let _ = blueprintsPageViewControllerDelegate {
+                setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
+                blueprintViewControllers = [BlueprintViewController : Attachment]()
                 resetViewControllers()
             }
         }
@@ -31,6 +36,34 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
         return blueprintsPageViewControllerDelegate?.jobForBlueprintsPageViewController(self)
     }
 
+    private var selectedBlueprint: Attachment! {
+        if let viewController = selectedBlueprintViewController {
+            if let blueprint = blueprintViewControllers[viewController] {
+                return blueprint
+            }
+        }
+        return nil
+    }
+
+    private var selectedBlueprintViewController: BlueprintViewController! {
+        if blueprintViewControllers.count > 0 {
+            if let viewControllers = viewControllers {
+                if viewControllers.count == 1 {
+                    if let viewController = viewControllers.first as? BlueprintViewController {
+                        return viewController
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
+    private var selectedIndex = 0
+
+    private var toolbarViewController: UIViewController!
+
+    private var toolbar: BlueprintToolbar!
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -41,20 +74,48 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        toolbarViewController = UIStoryboard("BlueprintsPageView").instantiateViewControllerWithIdentifier("BlueprintToolbarViewController")
+        toolbar = toolbarViewController.view.subviews.first! as! BlueprintToolbar
+
+        if let toolbar = toolbar {
+            toolbar.blueprintToolbarDelegate = self
+
+            toolbar.alpha = 0.0
+            toolbar.barTintColor = Color.darkBlueBackground()
+
+            updateToolbarViewControllerFrame()
+        }
+    }
+
+    private func updateToolbarViewControllerFrame() {
+        if let toolbarViewController = toolbarViewController {
+            if toolbarViewController.view.superview == nil {
+                toolbarViewController.view.frame.origin.y = view.frame.size.height
+                toolbarViewController.view.frame.size.width = view.frame.size.width
+
+                view.addSubview(toolbarViewController.view)
+                view.bringSubviewToFront(toolbarViewController.view)
+            }
+
+            dispatch_after_delay(0.0) {
+                self.toolbar.reload()
+            }
+        }
     }
 
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
-    func resetViewControllers() {
-        blueprintViewControllers = [BlueprintViewController : Attachment]()
+    func resetViewControllers(direction: UIPageViewControllerNavigationDirection = .Forward, animated: Bool = false) {
+        if let blueprints = blueprintsPageViewControllerDelegate?.blueprintsForBlueprintsPageViewController(self) {
+            for blueprint in blueprints {
+                let blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
+                blueprintViewController.blueprintViewControllerDelegate = self
 
-        for blueprint in blueprintsPageViewControllerDelegate.blueprintsForBlueprintsPageViewController(self) {
-            let blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
-            blueprintViewController.blueprintViewControllerDelegate = self
-
-            blueprintViewControllers[blueprintViewController] = blueprint
+                blueprintViewControllers[blueprintViewController] = blueprint
+            }
         }
 
         var viewControllers = [BlueprintViewController]()
@@ -63,7 +124,8 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
         }
 
         if viewControllers.count > 0 {
-            setViewControllers([viewControllers.first!], direction: .Forward, animated: false, completion: { complete in
+            let viewController = viewControllers[selectedIndex]
+            setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
                 logInfo("Blueprint page view controller rendered \(viewControllers.first!)")
 
                 self.pageViewController(self, willTransitionToViewControllers: viewControllers)
@@ -71,31 +133,57 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
         }
     }
 
+    func next() {
+        if blueprintViewControllers.count > 0 {
+            var direction: UIPageViewControllerNavigationDirection = .Forward
+            selectedIndex += 1
+            if selectedIndex > blueprintViewControllers.count - 1 {
+                selectedIndex = 0
+                direction = .Reverse
+            }
+
+            resetViewControllers(direction, animated: true)
+        }
+    }
+
+    func previous() {
+        if blueprintViewControllers.count > 0 {
+            var direction: UIPageViewControllerNavigationDirection = .Reverse
+            selectedIndex -= 1
+            if selectedIndex < 0 {
+                selectedIndex = blueprintViewControllers.count - 1
+                direction = .Forward
+            }
+
+            resetViewControllers(direction, animated: true)
+        }
+    }
+
     // MARK: UIPageViewControllerDelegate
 
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
-        if let _ = navigationController {
-            if pendingViewControllers.count == 1 {
-                if let viewController = pendingViewControllers.first! as? BlueprintViewController {
-                    var setTitle = false
-
-                    if let blueprint = viewController.blueprint {
-                        if let title = blueprint.filename {
-                            viewController.title = title.uppercaseString
-
-                            if let navigationItem = blueprintsPageViewControllerDelegate?.navigationItemForBlueprintsPageViewController?(self) {
-                                navigationItem.title = viewController.title
-                            }
-                            setTitle = true
-                        }
-                    }
-
-                    if !setTitle {
-                        viewController.title = nil
-                    }
-                }
-            }
-        }
+//        if let _ = navigationController {
+//            if pendingViewControllers.count == 1 {
+//                if let viewController = pendingViewControllers.first! as? BlueprintViewController {
+//                    var setTitle = false
+//
+//                    if let blueprint = viewController.blueprint {
+//                        if let title = blueprint.filename {
+//                            viewController.title = title.uppercaseString
+//
+//                            if let navigationItem = blueprintsPageViewControllerDelegate?.navigationItemForBlueprintsPageViewController?(self) {
+//                                navigationItem.title = viewController.title
+//                            }
+//                            setTitle = true
+//                        }
+//                    }
+//
+//                    if !setTitle {
+//                        viewController.title = nil
+//                    }
+//                }
+//            }
+//        }
     }
 
     // MARK: BlueprintViewControllerDelegate
@@ -157,6 +245,136 @@ class BlueprintsPageViewController: UIPageViewController, UIPageViewControllerDe
 
     func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
         return job == nil ? false : job.isPunchlist
+    }
+
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+        return toolbar
+    }
+
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+        hideToolbar()
+    }
+
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+        showToolbar()
+    }
+
+    // MARK: BlueprintToolbarDelegate
+
+    func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment {
+        if let blueprint = selectedBlueprint {
+            return blueprint
+        }
+        return Attachment()
+    }
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetBlueprintSelectorVisibility visible: Bool) {
+        print("set selector visibility \(visible)")
+    }
+
+    func previousBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar) {
+        previous()
+    }
+
+    func nextBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar) {
+        next()
+    }
+
+    func previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return true
+    }
+
+    func nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return true
+    }
+
+    func selectedBlueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment! {
+        if let blueprint = selectedBlueprint {
+            return blueprint
+        }
+        return nil
+    }
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool) {
+        view.bringSubviewToFront(self.toolbarViewController.view)
+
+        if let blueprintViewController = selectedBlueprintViewController {
+            blueprintViewController.setNavigatorVisibility(visible)
+        }
+    }
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat! = nil) {
+        view.bringSubviewToFront(self.toolbarViewController.view)
+
+        if let blueprintViewController = selectedBlueprintViewController {
+            blueprintViewController.setWorkOrdersVisibility(visible, alpha: alpha)
+        }
+    }
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool) {
+        // no-op
+    }
+
+    func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return false
+    }
+
+    func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return false
+    }
+
+    func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return false
+    }
+
+    func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) {
+//        polygonView.alpha = 1.0
+//        polygonView.attachGestureRecognizer()
+//
+//        newWorkOrderPending = true
+//
+//        overrideNavigationItemForCreatingWorkOrder(false) // FIXME: pass true when polygonView has both line endpoints drawn...
+    }
+
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool) {
+        // no-op
+    }
+
+    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
+        return false
+    }
+    
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController) {
+        navigationController!.presentViewController(alertController, animated: true)
+    }
+
+    private func showToolbar() {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                if let toolbar = self.toolbar {
+                    toolbar.alpha = 1.0
+                    self.toolbarViewController.view.frame.origin.y = self.view.frame.height - toolbar.frame.height
+                }
+            },
+            completion: { completed in
+                
+            }
+        )
+    }
+
+    private func hideToolbar() {
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            animations: {
+                if let toolbar = self.toolbar {
+                    toolbar.alpha = 0.0
+                    self.toolbarViewController.view.frame.origin.y = self.view.frame.height
+
+                }
+            },
+            completion: { completed in
+
+            }
+        )
     }
 
     deinit {

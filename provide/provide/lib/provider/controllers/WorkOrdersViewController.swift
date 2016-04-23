@@ -839,6 +839,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return false
     }
 
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+        return nil
+    }
+
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
     // MARK: DirectionsViewControllerDelegate
 
     func isPresentingDirections() -> Bool {

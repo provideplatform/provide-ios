@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Blueprints Page View Controller-->
@@ -13,5 +14,88 @@
             </objects>
             <point key="canvasLocation" x="467" y="473"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="EPT-Uy-BCZ">
+            <objects>
+                <viewController storyboardIdentifier="BlueprintToolbarViewController" automaticallyAdjustsScrollViewInsets="NO" id="mVG-ra-8kx" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nlf-d2-Rjp"/>
+                        <viewControllerLayoutGuide type="bottom" id="qNL-QC-u1w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hl7-BP-31l">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L0V-LP-PK7" customClass="BlueprintToolbar" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <items>
+                                    <barButtonItem title="Scale" id="OEH-t4-25q">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="YI8-fA-G42">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="+ Work Order" id="ypP-sg-bRT">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Floorplan Options" id="8te-7m-H81">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="8Gm-YV-EVG"/>
+                                    <barButtonItem title="&lt;" id="yS8-Lv-7BX"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="sma-XY-XaW"/>
+                                    <barButtonItem title="first-floor.pdf" id="XzC-Ny-Xti"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="nxK-wJ-eYy"/>
+                                    <barButtonItem title="&gt;" id="5hf-A1-GT7"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Dic-ei-JP4">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem title="Navigator" id="Y5e-QX-9wm">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="26b-wC-rhW"/>
+                                    <barButtonItem image="provide-pin" id="KHp-qx-cui">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="kmG-jb-9ia"/>
+                                </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="blueprintTitleButton" destination="XzC-Ny-Xti" id="evT-TM-XrG"/>
+                                    <outlet property="createWorkOrderButton" destination="ypP-sg-bRT" id="vUr-Wh-Nav"/>
+                                    <outlet property="floorplanOptionsButton" destination="8te-7m-H81" id="KTu-bg-Unf"/>
+                                    <outlet property="navigationButton" destination="Y5e-QX-9wm" id="Eun-Jf-ajc"/>
+                                    <outlet property="nextBlueprintButton" destination="5hf-A1-GT7" id="V7X-Xb-GFx"/>
+                                    <outlet property="previousBlueprintButton" destination="yS8-Lv-7BX" id="XhD-WN-LwP"/>
+                                    <outlet property="scaleButton" destination="OEH-t4-25q" id="wQy-ZF-dzY"/>
+                                    <outlet property="workOrdersButton" destination="KHp-qx-cui" id="RqL-a0-FIW"/>
+                                </connections>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="L0V-LP-PK7" secondAttribute="trailing" constant="-20" id="6ha-Ca-dQ9"/>
+                            <constraint firstItem="L0V-LP-PK7" firstAttribute="leading" secondItem="hl7-BP-31l" secondAttribute="leading" id="PtM-sI-ez9"/>
+                            <constraint firstItem="L0V-LP-PK7" firstAttribute="leading" secondItem="hl7-BP-31l" secondAttribute="leadingMargin" constant="-20" id="Udd-QQ-6ks"/>
+                            <constraint firstItem="L0V-LP-PK7" firstAttribute="width" secondItem="hl7-BP-31l" secondAttribute="width" id="r2n-Ol-Edb"/>
+                            <constraint firstItem="L0V-LP-PK7" firstAttribute="top" secondItem="Nlf-d2-Rjp" secondAttribute="bottom" id="vYe-id-ONv"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="44"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gP7-Y4-xpd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="467" y="881"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="provide-pin" width="50" height="50"/>
+    </resources>
 </document>

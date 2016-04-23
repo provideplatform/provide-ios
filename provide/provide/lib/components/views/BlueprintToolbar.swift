@@ -10,10 +10,16 @@ import UIKit
 
 protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
+    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetBlueprintSelectorVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
+    func previousBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
+    func nextBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
+    func selectedBlueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment!
+    func nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
+    func previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
     func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
@@ -24,8 +30,9 @@ protocol BlueprintToolbarDelegate: NSObjectProtocol {
 
 class BlueprintToolbar: UIToolbar {
 
-    weak var blueprintToolbarDelegate: BlueprintToolbarDelegate!
+    var blueprintToolbarDelegate: BlueprintToolbarDelegate!
 
+    private var blueprintSelectorVisible = false
     private var navigatorVisible = false
     private var workOrdersVisible = false
     private var scaleVisible = false
@@ -60,6 +67,36 @@ class BlueprintToolbar: UIToolbar {
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
             NSForegroundColorAttributeName : UIColor.whiteColor()
         ]
+    }
+
+    @IBOutlet private weak var previousBlueprintButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = previousBlueprintButton {
+                navigationButton.target = self
+                navigationButton.action = #selector(BlueprintToolbar.previousBlueprint(_:))
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+            }
+        }
+    }
+
+    @IBOutlet private weak var nextBlueprintButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = nextBlueprintButton {
+                navigationButton.target = self
+                navigationButton.action = #selector(BlueprintToolbar.nextBlueprint(_:))
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+            }
+        }
+    }
+
+    @IBOutlet private weak var blueprintTitleButton: UIBarButtonItem! {
+        didSet {
+            if let navigationButton = blueprintTitleButton {
+                navigationButton.target = self
+                navigationButton.action = #selector(BlueprintToolbar.toggleBlueprintSelectorVisibility(_:))
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+            }
+        }
     }
 
     @IBOutlet private weak var workOrdersButton: UIBarButtonItem! {
@@ -165,11 +202,44 @@ class BlueprintToolbar: UIToolbar {
 
         let navigationButtonTitleTextAttribute = navigatorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
+
+        let blueprintSelectorButtonTitleTextAttribute = blueprintSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
+        blueprintTitleButton.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
+
+        let previousBlueprintButtonButtonTitleTextAttribute = barButtonItemTitleTextAttributes
+        previousBlueprintButton.setTitleTextAttributes(previousBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
+        previousBlueprintButton.enabled = blueprintToolbarDelegate?.previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+
+        let nextBlueprintButtonButtonTitleTextAttribute = barButtonItemTitleTextAttributes
+        nextBlueprintButton.setTitleTextAttributes(nextBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
+        nextBlueprintButton.enabled = blueprintToolbarDelegate?.nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+
+        let blueprintTitle = blueprintToolbarDelegate?.selectedBlueprintForBlueprintToolbar(self)?.filename
+        if let blueprintTitle = blueprintTitle {
+            blueprintTitleButton.title = blueprintTitle
+        } else {
+            blueprintTitleButton.enabled = false
+        }
     }
 
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
+
+        reload()
+    }
+
+    func nextBlueprint(sender: UIBarButtonItem) {
+        blueprintToolbarDelegate?.nextBlueprintShouldBeRenderedForBlueprintToolbar(self)
+    }
+
+    func previousBlueprint(sender: UIBarButtonItem) {
+        blueprintToolbarDelegate?.previousBlueprintShouldBeRenderedForBlueprintToolbar(self)
+    }
+
+    func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem) {
+        blueprintSelectorVisible = !blueprintSelectorVisible
+        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetBlueprintSelectorVisibility: blueprintSelectorVisible)
 
         reload()
     }

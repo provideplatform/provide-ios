@@ -171,6 +171,18 @@ class JobWizardViewController: UINavigationController,
         return false
     }
 
+    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+        return nil
+    }
+
+    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+
+    }
+
+    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+        
+    }
+    
     // MARK: JobManagerViewControllerDelegate
 
     func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
