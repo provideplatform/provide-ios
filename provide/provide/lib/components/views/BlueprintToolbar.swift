@@ -69,12 +69,26 @@ class BlueprintToolbar: UIToolbar {
         ]
     }
 
+    private var previousNextButtonItemTitleTextAttributes: [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 20)!,
+            NSForegroundColorAttributeName : UIColor.whiteColor()
+        ]
+    }
+
+    private var previousNextButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
+        return [
+            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 20)!,
+            NSForegroundColorAttributeName : UIColor.darkGrayColor()
+        ]
+    }
+
     @IBOutlet private weak var previousBlueprintButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = previousBlueprintButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(BlueprintToolbar.previousBlueprint(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
@@ -84,7 +98,7 @@ class BlueprintToolbar: UIToolbar {
             if let navigationButton = nextBlueprintButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(BlueprintToolbar.nextBlueprint(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
@@ -206,13 +220,15 @@ class BlueprintToolbar: UIToolbar {
         let blueprintSelectorButtonTitleTextAttribute = blueprintSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         blueprintTitleButton.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
 
-        let previousBlueprintButtonButtonTitleTextAttribute = barButtonItemTitleTextAttributes
+        let previousBlueprintButtonEnabled = blueprintToolbarDelegate?.previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        let previousBlueprintButtonButtonTitleTextAttribute = previousBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
         previousBlueprintButton.setTitleTextAttributes(previousBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
-        previousBlueprintButton.enabled = blueprintToolbarDelegate?.previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        previousBlueprintButton.enabled = previousBlueprintButtonEnabled
 
-        let nextBlueprintButtonButtonTitleTextAttribute = barButtonItemTitleTextAttributes
+        let nextBlueprintButtonEnabled = blueprintToolbarDelegate?.nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        let nextBlueprintButtonButtonTitleTextAttribute = nextBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
         nextBlueprintButton.setTitleTextAttributes(nextBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
-        nextBlueprintButton.enabled = blueprintToolbarDelegate?.nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        nextBlueprintButton.enabled = nextBlueprintButtonEnabled
 
         let blueprintTitle = blueprintToolbarDelegate?.selectedBlueprintForBlueprintToolbar(self)?.filename
         if let blueprintTitle = blueprintTitle {

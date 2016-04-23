@@ -109,12 +109,28 @@ class BlueprintsPageViewController: UIPageViewController,
     }
 
     func resetViewControllers(direction: UIPageViewControllerNavigationDirection = .Forward, animated: Bool = false) {
+        if let viewController = self.viewControllers?.first as? BlueprintViewController {
+            if viewController.blueprint == nil {
+                blueprintViewControllers = [BlueprintViewController : Attachment]()
+            }
+        }
+
         if let blueprints = blueprintsPageViewControllerDelegate?.blueprintsForBlueprintsPageViewController(self) {
             for blueprint in blueprints {
-                let blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
-                blueprintViewController.blueprintViewControllerDelegate = self
+                var rendered = false
+                for renderedBlueprint in blueprintViewControllers.values {
+                    if renderedBlueprint.id == blueprint.id {
+                        rendered = true
+                        break
+                    }
+                }
 
-                blueprintViewControllers[blueprintViewController] = blueprint
+                if !rendered {
+                    let blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
+                    blueprintViewController.blueprintViewControllerDelegate = self
+
+                    blueprintViewControllers[blueprintViewController] = blueprint
+                }
             }
         }
 
@@ -162,6 +178,10 @@ class BlueprintsPageViewController: UIPageViewController,
     // MARK: UIPageViewControllerDelegate
 
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        if let toolbar = toolbar {
+            toolbar.reload()
+        }
+
 //        if let _ = navigationController {
 //            if pendingViewControllers.count == 1 {
 //                if let viewController = pendingViewControllers.first! as? BlueprintViewController {
@@ -281,11 +301,17 @@ class BlueprintsPageViewController: UIPageViewController,
     }
 
     func previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        return true
+        if blueprintViewControllers.count <= 1 {
+            return false
+        }
+        return selectedIndex > 0
     }
 
     func nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool {
-        return true
+        if blueprintViewControllers.count <= 1 {
+            return false
+        }
+        return selectedIndex < blueprintViewControllers.count - 1
     }
 
     func selectedBlueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment! {
