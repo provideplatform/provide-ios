@@ -150,7 +150,7 @@ class WorkOrderTeamViewController: UITableViewController,
     }
 
     func addProvider(provider: Provider) {
-        if workOrder == nil {
+        if workOrder == nil || workOrder.workOrderProviders == nil {
             return
         }
 
