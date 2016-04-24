@@ -868,9 +868,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             thumbnailTintView?.alpha = 0.3
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(thumbnailView)
-//            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
-//                toolbar.frame.size.width = toolbar.superview!.frame.width
-//            }
         } else {
             thumbnailTintView?.alpha = 0.0
             view.sendSubviewToBack(thumbnailTintView)
@@ -884,9 +881,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             thumbnailTintView?.alpha = 0.1
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(blueprintWorkOrdersViewControllerContainer)
-//            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
-//                toolbar.frame.size.width = toolbar.superview!.frame.width
-//            }
             insetScrollViewContentForBlueprintWorkOrdersPresentation()
         } else {
             thumbnailTintView?.alpha = 0.0
@@ -899,7 +893,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
             },
             completion:  { (completed) in
-                
+                self.selectedPinView = nil
             }
         )
     }
@@ -954,17 +948,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
-            // FIXME
-//            toolbar.setWorkOrdersVisibility(true, alpha: 1.0)
-//            if let annotation = view.annotation {
-//                if let workOrder = annotation.workOrder {
-//                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
-//                }
-//            }
+            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
+            }
+
+            if let annotation = view.annotation {
+                if let workOrder = annotation.workOrder {
+                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
+                }
+            }
 
             return
         } else {
-            //toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
+            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
+            }
             delay = 0.15
         }
 
@@ -981,8 +979,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil, delay: Double = 0.0) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
-        dispatch_after_delay(delay) {
-            //self.toolbar.setWorkOrdersVisibility(true)
+        if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+            dispatch_after_delay(delay) {
+                toolbar.setWorkOrdersVisibility(true)
+            }
         }
     }
 
