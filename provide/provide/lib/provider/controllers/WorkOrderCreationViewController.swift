@@ -271,7 +271,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
-        refreshUI()
+        dispatch_after_delay(0.0) {
+            self.refreshUI()
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
