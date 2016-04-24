@@ -30,7 +30,7 @@ protocol BlueprintWorkOrdersViewControllerDelegate {
 
 class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WorkOrderCreationViewControllerDelegate {
 
-    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
+    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
     var delegate: BlueprintWorkOrdersViewControllerDelegate!
 
@@ -111,7 +111,7 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
             loadingAnnotations = true
             blueprint.annotations = [Annotation]()
             let rpp = max(100, blueprintAnnotationsCount)
-            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
+            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses, "sort_priority_and_due_at_desc": "true"]
 
             blueprint.fetchAnnotations(params,
                 onSuccess: { statusCode, mappingResult in
