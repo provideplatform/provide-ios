@@ -25,6 +25,7 @@ class WorkOrder: Model {
     var scheduledStartAt: String!
     var scheduledEndAt: String!
     var startedAt: String!
+    var dueAt: String!
     var endedAt: String!
     var abandonedAt: String!
     var canceledAt: String!
@@ -62,6 +63,7 @@ class WorkOrder: Model {
             "scheduled_start_at": "scheduledStartAt",
             "scheduled_end_at": "scheduledEndAt",
             "started_at": "startedAt",
+            "due_at": "dueAt",
             "ended_at": "endedAt",
             "abandoned_at": "abandonedAt",
             "canceled_at": "canceledAt",
@@ -112,6 +114,13 @@ class WorkOrder: Model {
     var scheduledStartAtDate: NSDate! {
         if let scheduledStartAt = scheduledStartAt {
             return NSDate.fromString(scheduledStartAt)
+        }
+        return nil
+    }
+
+    var dueAtDate: NSDate! {
+        if let dueAt = dueAt {
+            return NSDate.fromString(dueAt)
         }
         return nil
     }
@@ -198,6 +207,17 @@ class WorkOrder: Model {
             let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
             let secondsString = seconds < 10 ? "0\(Int(seconds))" : "\(Int(seconds))"
             return "\(hoursString)\(minutesString):\(secondsString)"
+        }
+        return nil
+    }
+
+    var humanReadableDueAtTimestamp: String! {
+        if let dueAtDate = dueAtDate {
+            if isIPad() {
+                return "\(dueAtDate.dayOfWeek), \(dueAtDate.monthName) \(dueAtDate.dayOfMonth) @ \(dueAtDate.timeString!)"
+            } else {
+                return "\(dueAtDate.month)/\(dueAtDate.dayOfMonth)/\(dueAtDate.year) @ \(dueAtDate.timeString!)"
+            }
         }
         return nil
     }

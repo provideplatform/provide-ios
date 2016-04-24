@@ -19,6 +19,7 @@ class DatePickerViewController: UIViewController {
     var delegate: DatePickerViewControllerDelegate!
 
     var initialDate: NSDate!
+    var fieldName: String!
 
     @IBOutlet private weak var datePicker: UIDatePicker!
     @IBOutlet private weak var saveButton: UIButton!

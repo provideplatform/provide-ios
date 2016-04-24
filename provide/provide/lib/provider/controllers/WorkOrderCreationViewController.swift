@@ -496,24 +496,43 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     // MARK: DatePickerViewControllerDelegate
 
     func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate) {
-        navigationController?.popViewControllerAnimated(true)
-        workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
-        isDirty = true
-        refreshRightBarButtonItems()
+        if let fieldName = viewController.fieldName {
+            navigationController?.popViewControllerAnimated(true)
 
-        if workOrder.status == "awaiting_schedule" {
-            workOrder.status = "scheduled"
-        }
+            if fieldName == "scheduledStartAt" {
+                workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
+                isDirty = true
+            } else if fieldName == "dueAt" {
+                workOrder.dueAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
+                isDirty = true
+            }
 
-        // FIXME-- make this support the end date also
-        // FIXME-- WTF was this?? workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
+            refreshRightBarButtonItems()
 
-        reloadTableView(true)
+            if workOrder.status == "awaiting_schedule" && workOrder.scheduledStartAt != nil {
+                workOrder.status = "scheduled"
+            }
 
-        if workOrder.id == 0 {
-            createWorkOrder()
-        } else {
-            refreshUI()
+            // FIXME-- make this support the end date also
+            // FIXME-- WTF was this?? workOrder.scheduledStartAt = NSDate.fromString(workOrder.scheduledStartAt).dateByAddingTimeInterval(NSTimeInterval(duration)).format("yyyy-MM-dd'T'HH:mm:ssZZ")
+
+            reloadTableView(true)
+
+            if workOrder.id == 0 {
+                createWorkOrder()
+            } else {
+                workOrder.save(
+                    onSuccess: { statusCode, mappingResult in
+                        self.isDirty = false
+                        self.refreshUI()
+                    },
+                    onError: { error, statusCode, responseString in
+                        self.refreshUI()
+                    }
+                )
+
+                refreshUI()
+            }
         }
     }
 
