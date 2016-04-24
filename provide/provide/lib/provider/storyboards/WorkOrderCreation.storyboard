@@ -32,9 +32,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCV-bw-8Sn">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="HeC-8m-uFA"/>
-                                </constraints>
                                 <connections>
                                     <segue destination="2MU-2C-ZVU" kind="embed" identifier="WorkOrderDetailsHeaderTableViewControllerEmbedSegue" id="Ea8-Tl-P1m"/>
                                 </connections>
@@ -69,18 +66,18 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="D5c-sy-iTn" firstAttribute="top" secondItem="GBe-qu-JZX" secondAttribute="bottom" constant="44" id="0om-y0-6ez"/>
-                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="5Cn-wm-IxV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GBe-qu-JZX" secondAttribute="trailing" constant="-20" id="9Bd-Av-SuL"/>
-                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="top" secondItem="erN-zc-fze" secondAttribute="top" id="BPP-rX-85a"/>
-                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="top" secondItem="GBe-qu-JZX" secondAttribute="bottom" id="SDH-aL-dS2"/>
-                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="Ski-mc-Eay"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="uCV-bw-8Sn" secondAttribute="trailing" constant="-20" id="brU-ma-LNe"/>
-                            <constraint firstItem="GBe-qu-JZX" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leadingMargin" constant="-20" id="ecD-Bg-D7S"/>
-                            <constraint firstItem="D5c-sy-iTn" firstAttribute="top" secondItem="Hrg-SX-9tb" secondAttribute="bottom" id="etK-tV-BnF"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Hrg-SX-9tb" secondAttribute="trailing" constant="-20" id="my5-24-hgi"/>
-                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="centerX" secondItem="erN-zc-fze" secondAttribute="centerX" id="oz3-Fd-YAo"/>
-                            <constraint firstItem="GBe-qu-JZX" firstAttribute="top" secondItem="uCV-bw-8Sn" secondAttribute="bottom" constant="8" symbolic="YES" id="rbe-K8-DhH"/>
+                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="top" secondItem="erN-zc-fze" secondAttribute="top" id="0DI-bp-6b0"/>
+                            <constraint firstItem="GBe-qu-JZX" firstAttribute="top" secondItem="uCV-bw-8Sn" secondAttribute="bottom" constant="8" symbolic="YES" id="2LU-Sc-TCc"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="top" secondItem="GBe-qu-JZX" secondAttribute="bottom" id="54j-f3-QOM"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="width" secondItem="GBe-qu-JZX" secondAttribute="width" id="895-pc-6S6"/>
+                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="trailing" secondItem="GBe-qu-JZX" secondAttribute="trailing" id="9m6-ML-wXG"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="leading" secondItem="erN-zc-fze" secondAttribute="leading" id="JTG-50-kCk"/>
+                            <constraint firstAttribute="trailing" secondItem="Hrg-SX-9tb" secondAttribute="trailing" id="bUY-8F-cqN"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="trailing" secondItem="GBe-qu-JZX" secondAttribute="trailing" id="hxd-V1-0LT"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="bottom" secondItem="D5c-sy-iTn" secondAttribute="top" id="j5G-pt-icP"/>
+                            <constraint firstItem="GBe-qu-JZX" firstAttribute="top" secondItem="erN-zc-fze" secondAttribute="top" constant="158" id="klb-yg-aGF"/>
+                            <constraint firstItem="uCV-bw-8Sn" firstAttribute="leading" secondItem="GBe-qu-JZX" secondAttribute="leading" id="qSC-vF-cx9"/>
+                            <constraint firstItem="Hrg-SX-9tb" firstAttribute="leading" secondItem="GBe-qu-JZX" secondAttribute="leading" id="war-NT-uYz"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
