@@ -893,7 +893,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
             },
             completion:  { (completed) in
-                self.selectedPinView = nil
+                if !visible && completed {
+                    self.selectedPinView = nil
+                }
             }
         )
     }
