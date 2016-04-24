@@ -5,14 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Exo2-Regular.ttf">
-            <string>Exo2-Regular</string>
-        </mutableArray>
-        <mutableArray key="HelveticaNeueLights.ttc">
-            <string>HelveticaNeue-Light</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--Blueprint View Controller-->
         <scene sceneID="EWe-OH-uQ2">
@@ -36,61 +28,6 @@
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAt-pi-biU" customClass="BlueprintScaleView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="151" y="8" width="298" height="100"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the location from which measuring began" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LZD-cI-nlK">
-                                        <rect key="frame" x="0.0" y="8" width="298" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="VLn-KS-aF1"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="12"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jVN-KC-cuJ">
-                                        <rect key="frame" x="219" y="55" width="71" height="25"/>
-                                        <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
-                                        <state key="normal" title="SET SCALE">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="45" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1PZ-LT-FVS">
-                                        <rect key="frame" x="112" y="50" width="73" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="73" id="z7E-0k-4U8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="lAt-pi-biU" id="Ixc-Na-jrq"/>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="LZD-cI-nlK" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" id="6t4-cg-2ZR"/>
-                                    <constraint firstAttribute="trailing" secondItem="LZD-cI-nlK" secondAttribute="trailing" id="L2O-Oj-A4z"/>
-                                    <constraint firstItem="LZD-cI-nlK" firstAttribute="top" secondItem="lAt-pi-biU" secondAttribute="topMargin" id="NRR-U0-IGk"/>
-                                    <constraint firstAttribute="trailing" secondItem="1PZ-LT-FVS" secondAttribute="trailing" constant="113" id="R3e-gt-jkT"/>
-                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="centerX" secondItem="LZD-cI-nlK" secondAttribute="centerX" id="Wz1-YG-5kO"/>
-                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="centerX" secondItem="lAt-pi-biU" secondAttribute="centerX" id="ZJM-yt-HIF"/>
-                                    <constraint firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" constant="20" id="cAM-FT-LXz"/>
-                                    <constraint firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" constant="20" id="cEq-rn-Yt8"/>
-                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="leading" secondItem="lAt-pi-biU" secondAttribute="leading" constant="112" id="eu7-yh-q3w"/>
-                                    <constraint firstAttribute="height" constant="100" id="fa2-eV-LaQ"/>
-                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="top" secondItem="LZD-cI-nlK" secondAttribute="bottom" constant="26" id="isF-cF-wAg"/>
-                                    <constraint firstAttribute="width" constant="298" id="l7Z-p8-JRS"/>
-                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="trailing" secondItem="lAt-pi-biU" secondAttribute="trailingMargin" id="rez-Lw-VEE"/>
-                                    <constraint firstItem="1PZ-LT-FVS" firstAttribute="top" secondItem="LZD-cI-nlK" secondAttribute="bottom" constant="21" id="v1Z-nv-amK"/>
-                                    <constraint firstItem="jVN-KC-cuJ" firstAttribute="bottom" secondItem="1PZ-LT-FVS" secondAttribute="bottom" id="zi0-Bh-int"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="instructionLabel" destination="LZD-cI-nlK" id="Sjk-ji-r7t"/>
-                                    <outlet property="measurementTextField" destination="1PZ-LT-FVS" id="sAX-xu-5cf"/>
-                                    <outlet property="saveButton" destination="jVN-KC-cuJ" id="SRe-jV-pyv"/>
-                                </connections>
-                            </view>
                             <containerView opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
                                 <rect key="frame" x="175" y="0.0" width="425" height="492"/>
                                 <constraints>
@@ -120,7 +57,6 @@
                             <constraint firstItem="mZN-vT-oPf" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" id="5wZ-0l-W5A"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerY" secondItem="vsP-WQ-g9V" secondAttribute="centerY" id="5wj-bR-7wb"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="8fg-2O-zv7"/>
-                            <constraint firstItem="lAt-pi-biU" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="8" id="AFl-9N-f1d"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="205" id="FqT-en-55N"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="vsP-WQ-g9V" secondAttribute="top" id="H5Y-Np-gbG"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leadingMargin" constant="105" id="Hqo-FQ-9BA"/>
@@ -134,7 +70,6 @@
                                 <variation key="heightClass=regular-widthClass=compact" constant="-88"/>
                             </constraint>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" constant="258" id="dRv-4s-X1u"/>
-                            <constraint firstItem="lAt-pi-biU" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="fdu-Wf-0et"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gSj-xf-8dR" secondAttribute="trailing" constant="270" id="gC5-Fo-9eV"/>
                             <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="gWP-3s-TEr"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="258" id="gja-4k-PRU"/>
@@ -194,7 +129,6 @@
                         <outlet property="blueprintWorkOrdersViewControllerContainer" destination="mZN-vT-oPf" id="fWV-bG-Y78"/>
                         <outlet property="polygonView" destination="abb-Tj-uxb" id="CZx-9o-VWf"/>
                         <outlet property="progressView" destination="kd1-tJ-VKm" id="P2R-ox-JNt"/>
-                        <outlet property="scaleView" destination="lAt-pi-biU" id="47j-MH-ztY"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                     </connections>
                 </viewController>
