@@ -889,22 +889,6 @@
             </objects>
             <point key="canvasLocation" x="-2602" y="637"/>
         </scene>
-        <!--FloorplansViewController-->
-        <scene sceneID="1Ob-Re-ErP">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Floorplans" referencedIdentifier="FloorplansViewController" id="IJu-fh-FSq" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P8c-Dh-P0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2087" y="637"/>
-        </scene>
-        <!--Estimates-->
-        <scene sceneID="sgO-T2-veC">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Estimates" id="i1Z-VQ-x6k" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bLl-zy-TmY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2134" y="688"/>
-        </scene>
         <!--Job Inventory View Contoller-->
         <scene sceneID="xnM-A6-K5o">
             <objects>
