@@ -469,6 +469,8 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="484" id="BU5-EP-fEd"/>
+                                                <constraint firstAttribute="width" constant="284" id="J5E-ZM-kNz"/>
+                                                <constraint firstAttribute="width" constant="284" id="flx-D4-yGA"/>
                                             </constraints>
                                             <prototypes>
                                                 <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nameValueTableViewCellReuseIdentifier" id="2QZ-CX-7lQ" customClass="NameValueTableViewCell" customModule="provide" customModuleProvider="target">
@@ -531,6 +533,19 @@
                                                     </connections>
                                                 </tableViewCell>
                                             </prototypes>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="J5E-ZM-kNz"/>
+                                                    <exclude reference="flx-D4-yGA"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="constraints">
+                                                    <exclude reference="BU5-EP-fEd"/>
+                                                    <exclude reference="J5E-ZM-kNz"/>
+                                                    <include reference="flx-D4-yGA"/>
+                                                </mask>
+                                            </variation>
                                             <connections>
                                                 <outlet property="dataSource" destination="5qD-vh-C8v" id="x7c-Eu-Fyu"/>
                                                 <outlet property="delegate" destination="5qD-vh-C8v" id="PYH-8k-O97"/>
@@ -538,6 +553,7 @@
                                         </tableView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="kMO-dF-SVk" firstAttribute="width" secondItem="d2J-7H-nYv" secondAttribute="width" id="9kH-hV-ojI"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="kMO-dF-SVk" secondAttribute="bottom" constant="-6" id="Amh-VO-pYf"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="top" secondItem="d2J-7H-nYv" secondAttribute="topMargin" constant="3" id="DiW-9b-Ewn"/>
                                         <constraint firstItem="gbT-Bv-4kT" firstAttribute="leading" secondItem="d2J-7H-nYv" secondAttribute="leadingMargin" id="HcP-j0-iTv"/>
@@ -546,8 +562,18 @@
                                         <constraint firstAttribute="trailing" secondItem="kMO-dF-SVk" secondAttribute="trailing" id="umm-ga-nCa"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="gbT-Bv-4kT" secondAttribute="bottom" constant="29" id="w8V-Pc-oom"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="9kH-hV-ojI"/>
+                                        </mask>
+                                    </variation>
                                     <variation key="widthClass=compact" ambiguous="YES">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="150"/>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=compact">
+                                        <mask key="constraints">
+                                            <exclude reference="9kH-hV-ojI"/>
+                                        </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
@@ -566,7 +592,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jgl-hd-e0O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="3316"/>
+            <point key="canvasLocation" x="1806" y="3315.75"/>
         </scene>
     </scenes>
 </document>
