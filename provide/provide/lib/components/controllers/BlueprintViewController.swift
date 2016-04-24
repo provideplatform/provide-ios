@@ -258,13 +258,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
-//        if let toolbar = toolbar {
-//            toolbar.alpha = 0.0
-//            toolbar.frame.origin.y = view.frame.height
-//            toolbar.blueprintToolbarDelegate = self
-//            toolbar.barTintColor = Color.darkBlueBackground()
-//        }
-
         activityIndicatorView?.startAnimating()
 
         if blueprintViewControllerDelegate != nil && !loadedBlueprint && !loadingBlueprint && scrollView != nil {
