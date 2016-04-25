@@ -111,7 +111,7 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
             loadingAnnotations = true
             blueprint.annotations = [Annotation]()
             let rpp = max(100, blueprintAnnotationsCount)
-            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses, "sort_priority_and_due_at_desc": "true"]
+            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses, "sort_priority_and_due_at_asc": "true"]
 
             blueprint.fetchAnnotations(params,
                 onSuccess: { statusCode, mappingResult in
@@ -193,13 +193,17 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return annotations.count
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("blueprintWorkOrderTableViewCellReuseIdentifier") as! BlueprintWorkOrderTableViewCell
-        cell.annotation = annotations[indexPath.row]
+        cell.annotation = annotations[indexPath.section]
         return cell
     }
 
@@ -226,7 +230,7 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 75.0 : 44.0
+        return indexPath.section >= 0 ? 75.0 : 44.0
     }
 
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

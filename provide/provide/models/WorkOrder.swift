@@ -47,6 +47,7 @@ class WorkOrder: Model {
     var itemsDelivered: [Product]!
     var itemsRejected: [Product]!
     var materials: [WorkOrderProduct]!
+    var priority = 0
     var supervisors: [User]!
     var tasks: [Task]!
 
@@ -75,6 +76,7 @@ class WorkOrder: Model {
             "customer_rating": "customerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
+            "priority": "priority"
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("category", mapping: Category.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
@@ -256,6 +258,8 @@ class WorkOrder: Model {
             return Color.awaitingScheduleStatusColor()
         } else if status == "scheduled" {
             return Color.scheduledStatusColor()
+        } else if status == "delayed" {
+            return Color.enRouteStatusColor()
         } else if status == "en_route" {
             return Color.enRouteStatusColor()
         } else if status == "in_progress" {
