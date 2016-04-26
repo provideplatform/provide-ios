@@ -111,7 +111,7 @@ class BlueprintWorkOrdersViewController: UIViewController, UITableViewDataSource
             loadingAnnotations = true
             blueprint.annotations = [Annotation]()
             let rpp = max(100, blueprintAnnotationsCount)
-            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses, "sort_priority_and_due_at_asc": "true"]
+            let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
 
             blueprint.fetchAnnotations(params,
                 onSuccess: { statusCode, mappingResult in
