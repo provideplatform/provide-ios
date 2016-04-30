@@ -38,9 +38,14 @@ class ApplicationViewController: ECSlidingViewController,
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
-        dispatch_after_delay(0.0) {
-            self.menuContainerView?.redraw(size)
-        }
+        coordinator.animateAlongsideTransition(
+            { context in
+                self.menuContainerView?.redraw(size)
+            },
+            completion: { (context) in
+
+            }
+        )
     }
 
     override func viewDidLoad() {
