@@ -501,12 +501,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
             dispatch_after_delay(0.25) {
                 self.showToolbar()
-
-                dispatch_after_delay(0.0) {
-                    if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                        self.openWorkOrder(inProgressWorkOrder)
-                    }
-                }
             }
         }
     }
@@ -655,6 +649,19 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     polygonView.attachGestureRecognizer()
 
                     polygonViews.append(polygonView)
+                }
+            }
+
+            dispatch_after_delay(0.0) {
+                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    for annotation in blueprint.annotations {
+                        if let workOrder = annotation.workOrder {
+                            if workOrder.id == inProgressWorkOrder.id {
+                                self.openWorkOrder(inProgressWorkOrder)
+                                break
+                            }
+                        }
+                    }
                 }
             }
         }
