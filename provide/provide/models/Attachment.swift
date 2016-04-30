@@ -24,6 +24,7 @@ class Attachment: Model {
     var displayUrlString: String!
     var urlString: String!
     var data: NSData!
+    var representations: [Attachment]!
 
     var annotations = [Annotation]()
 
@@ -44,6 +45,7 @@ class Attachment: Model {
             "display_url": "displayUrlString",
             "url": "urlString",
         ])
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: Attachment.mapping()))
         return mapping
     }
 
