@@ -145,7 +145,13 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             if let workOrder = notification.object as? WorkOrder {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
-                        self.tintColor = workOrder.statusColor
+                        if let delegate = self.delegate {
+                            if let category = delegate.categoryForBlueprintPinView(self) {
+                                self.category = category
+                            }
+
+                            self.tintColor = delegate.tintColorForBlueprintPinView(self)
+                        }
                     }
                 }
             }
