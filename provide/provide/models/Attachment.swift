@@ -51,7 +51,7 @@ class Attachment: Model {
     }
 
     class func mappingWithRepresentations(levels: Int = 1) -> RKObjectMapping {
-        var i = 0
+//        var i = 0
         let mapping = Attachment.mapping()
 //        while i < levels - 1 {
 //            i += 1
