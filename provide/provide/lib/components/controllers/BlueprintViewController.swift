@@ -231,12 +231,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
         thumbnailView.delegate = self
         view.addSubview(thumbnailView)
 
-        thumbnailTintView = UIView(frame: view.bounds)
-        thumbnailTintView.backgroundColor = UIColor.blackColor()
-        thumbnailTintView.alpha = 0.0
-        view.addSubview(thumbnailTintView)
-        view.sendSubviewToBack(thumbnailTintView)
-        thumbnailTintView?.userInteractionEnabled = false
+        dispatch_after_delay(0.0) {
+            let size = max(self.view.bounds.width, self.view.bounds.height)
+            self.thumbnailTintView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: size, height: size))
+            self.thumbnailTintView.backgroundColor = UIColor.blackColor()
+            self.thumbnailTintView.alpha = 0.0
+            self.view.addSubview(self.thumbnailTintView)
+            self.view.sendSubviewToBack(self.thumbnailTintView)
+            self.thumbnailTintView?.userInteractionEnabled = false
+        }
 
         imageView = UIImageView()
         imageView.alpha = 0.0
@@ -854,6 +857,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
         if visible {
+            setWorkOrdersVisibility(false)
+
             thumbnailTintView?.alpha = 0.3
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(thumbnailView)
@@ -867,6 +872,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
+            setNavigatorVisibility(false)
+
             thumbnailTintView?.alpha = 0.1
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(blueprintWorkOrdersViewControllerContainer)

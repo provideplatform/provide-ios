@@ -248,6 +248,9 @@ class BlueprintToolbar: UIToolbar {
 
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
+        if navigatorVisible {
+            workOrdersVisible = false
+        }
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
 
         reload()
@@ -263,6 +266,10 @@ class BlueprintToolbar: UIToolbar {
 
     func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem) {
         blueprintSelectorVisible = !blueprintSelectorVisible
+        if blueprintSelectorVisible {
+            navigatorVisible = false
+            workOrdersVisible = false
+        }
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetBlueprintSelectorVisibility: blueprintSelectorVisible)
 
         reload()
@@ -278,7 +285,9 @@ class BlueprintToolbar: UIToolbar {
 
     func setWorkOrdersVisibility(workOrdersVisible: Bool, alpha: CGFloat! = nil) {
         self.workOrdersVisible = workOrdersVisible
-
+        if self.workOrdersVisible {
+            navigatorVisible = false
+        }
         blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible, alpha: alpha)
         reload()
     }
