@@ -30,7 +30,7 @@ class Estimate: Model {
             "created_at": "createdAtString",
             "updated_at": "updatedAtString",
             ])
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
         return mapping
     }
 

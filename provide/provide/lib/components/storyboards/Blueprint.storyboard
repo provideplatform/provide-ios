@@ -40,9 +40,9 @@
                                 <rect key="frame" x="290" y="258" width="20" height="20"/>
                             </activityIndicatorView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
-                                <rect key="frame" x="225" y="285" width="150" height="2"/>
+                                <rect key="frame" x="125" y="285" width="350" height="2"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="GAJ-XA-ttT"/>
+                                    <constraint firstAttribute="width" constant="350" id="GAJ-XA-ttT"/>
                                 </constraints>
                                 <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zgM-oB-JlG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769.5" y="1329.75"/>
+            <point key="canvasLocation" x="769" y="1329"/>
         </scene>
         <!--BlueprintWorkOrders-->
         <scene sceneID="Jfc-IX-AhO">

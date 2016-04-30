@@ -29,7 +29,7 @@ class Expense: Model {
             "description": "desc",
             "incurred_at": "incurredAtString",
             ])
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
         return mapping
     }
 

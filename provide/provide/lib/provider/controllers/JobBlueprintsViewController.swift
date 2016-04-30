@@ -124,7 +124,13 @@ class JobBlueprintsViewController: ViewController,
         hideDropbox()
 
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
-            if let userInfo = notification.object as? [String : AnyObject] {
+            if let attachment = notification.object as? Attachment {
+                if let attachableType = attachment.attachableType {
+                    if attachableType == "job" && attachment.attachableId == self.job.id {
+                        self.refresh()
+                    }
+                }
+            } else if let userInfo = notification.object as? [String : AnyObject] {
                 let attachmentId = userInfo["attachment_id"] as? Int
                 let attachableType = userInfo["attachable_type"] as? String
                 let attachableId = userInfo["attachable_id"] as? Int
@@ -133,18 +139,6 @@ class JobBlueprintsViewController: ViewController,
                     if let job = self.job {
                         if attachableType == "job" && attachableId == job.id {
                             self.refresh()
-//                            if let importedPdfAttachment = self.importedPdfAttachment {
-//                                if importedPdfAttachment.id == attachmentId {
-//                                    self.importStatus = "Processing your imported blueprint..."
-//                                } else if self.importedPngAttachment == nil {
-//                                    self.importedPngAttachment = Attachment()
-//                                    self.importedPngAttachment.id = attachmentId!
-//                                } else if self.importedPngAttachment.id == attachmentId {
-//                                    self.refresh()
-//                                }
-//                            } else {
-//                                self.refresh()
-//                            }
                         }
                     }
                 }

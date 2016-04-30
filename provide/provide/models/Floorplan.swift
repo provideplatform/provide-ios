@@ -53,8 +53,8 @@ class Floorplan: Model {
             "description": "desc",
             "profile_image_url": "profileImageUrlString",
             ])
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mappingWithRepresentations()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "backsplash_product_options", toKeyPath: "backsplashProductOptions", withMapping: Product.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "flooring_product_options", toKeyPath: "flooringProductOptions", withMapping: Product.mapping()))
         return mapping
