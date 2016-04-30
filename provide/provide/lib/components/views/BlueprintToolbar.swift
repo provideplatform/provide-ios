@@ -15,6 +15,7 @@ protocol BlueprintToolbarDelegate: NSObjectProtocol {
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
+    func blueprintShouldBeRenderedAtIndexPath(indexPath: NSIndexPath, forBlueprintToolbar blueprintToolbar: BlueprintToolbar)
     func previousBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
     func nextBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
     func selectedBlueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment!
@@ -233,8 +234,9 @@ class BlueprintToolbar: UIToolbar {
         let blueprintTitle = blueprintToolbarDelegate?.selectedBlueprintForBlueprintToolbar(self)?.filename
         if let blueprintTitle = blueprintTitle {
             blueprintTitleButton?.title = blueprintTitle
+            blueprintTitleButton?.enabled = true
         } else {
-            blueprintTitleButton?.enabled = false
+            //blueprintTitleButton?.enabled = false
         }
 
         if isIPhone() {
@@ -256,6 +258,11 @@ class BlueprintToolbar: UIToolbar {
         reload()
     }
 
+    func presentBlueprintAtIndexPath(indexPath: NSIndexPath) {
+        toggleBlueprintSelectorVisibility()
+        blueprintToolbarDelegate?.blueprintShouldBeRenderedAtIndexPath(indexPath, forBlueprintToolbar: self)
+    }
+
     func nextBlueprint(sender: UIBarButtonItem) {
         blueprintToolbarDelegate?.nextBlueprintShouldBeRenderedForBlueprintToolbar(self)
     }
@@ -264,7 +271,7 @@ class BlueprintToolbar: UIToolbar {
         blueprintToolbarDelegate?.previousBlueprintShouldBeRenderedForBlueprintToolbar(self)
     }
 
-    func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem) {
+    func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem! = nil) {
         blueprintSelectorVisible = !blueprintSelectorVisible
         if blueprintSelectorVisible {
             navigatorVisible = false

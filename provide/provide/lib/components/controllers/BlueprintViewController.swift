@@ -828,8 +828,49 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return job
     }
 
-    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment) {
-        print("selected blueprint \(blueprint)")
+    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment!, atIndexPath indexPath: NSIndexPath!) {
+        if blueprint == nil {
+            importFromDropbox()
+        } else {
+            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                toolbar.presentBlueprintAtIndexPath(indexPath)
+            }
+        }
+    }
+
+    private func importFromDropbox() {
+        presentDropboxChooser()
+    }
+
+    private func presentDropboxChooser() {
+        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { [weak self] results in
+            if let results = results {
+                for result in results {
+                    let sourceURL = (result as! DBChooserResult).link
+                    let filename = (result as! DBChooserResult).name
+                    if let fileExtension = sourceURL.pathExtension {
+                        if fileExtension.lowercaseString == "pdf" {
+                            if let job = self!.job {
+                                let params: [String : AnyObject] = ["tags": ["blueprint"], "metadata": ["filename": filename]]
+                                ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
+                                                                                      onSuccess: { statusCode, mappingResult in
+                                                                                        print("SUCCESS!!!! imported attachment w/ filename \(filename)")
+                                                                                        NSNotificationCenter.defaultCenter().postNotificationName("BlueprintsPageViewControllerDidImportFromDropbox")
+                                    }, onError: { error, statusCode, responseString in
+                                        
+                                    }
+                                )
+                            }
+                        } else {
+                            self!.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
+                            self!.presentDropboxChooser()
+                        }
+                    }
+                }
+            } else {
+                print("No file selected for import from Dropbox")
+            }
+        }
     }
 
     // MARK: BlueprintThumbnailViewDelegate

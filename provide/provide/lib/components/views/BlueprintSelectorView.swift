@@ -10,7 +10,7 @@ import UIKit
 
 protocol BlueprintSelectorViewDelegate {
     func jobForBlueprintSelectorView(selectorView: BlueprintSelectorView) -> Job!
-    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment)
+    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment!, atIndexPath indexPath: NSIndexPath!)
 }
 
 class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -119,11 +119,6 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        let inset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
-//        let insetWidthOffset = inset.left + inset.right
-//        if let superview = collectionView.superview {
-//            return CGSizeMake(superview.bounds.width - insetWidthOffset, 125.0)
-//        }
         if indexPath.row < blueprints.count - 1 {
             CGSizeMake(175.0, 150.0)
         }
@@ -131,8 +126,12 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        //let blueprint = blueprints[indexPath.row]
-        //delegate?.blueprintSelectorView(self, didSelectBlueprint: product)
+        if indexPath.row <= blueprints.count - 1 {
+            let blueprint = blueprints[indexPath.row]
+            delegate?.blueprintSelectorView(self, didSelectBlueprint: blueprint, atIndexPath: indexPath)
+        } else {
+            delegate?.blueprintSelectorView(self, didSelectBlueprint: nil, atIndexPath: nil)
+        }
     }
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {

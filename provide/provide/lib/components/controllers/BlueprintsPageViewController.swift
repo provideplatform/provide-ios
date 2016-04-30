@@ -86,6 +86,19 @@ class BlueprintsPageViewController: UIPageViewController,
 
             updateToolbarViewControllerFrame()
         }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("BlueprintsPageViewControllerDidImportFromDropbox") { notification in
+            if let job = self.job {
+                job.reload([:],
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        self?.resetViewControllers(.Forward, animated: true)
+                    },
+                    onError: { error, statusCode, responseString in
+
+                    }
+                )
+            }
+        }
     }
 
     private func updateToolbarViewControllerFrame() {
@@ -149,6 +162,19 @@ class BlueprintsPageViewController: UIPageViewController,
         }
     }
 
+    func seek(selectedIndex: Int!) {
+        if blueprintViewControllers.count > 0 {
+            var direction: UIPageViewControllerNavigationDirection = self.selectedIndex > selectedIndex ? .Reverse : .Forward
+            self.selectedIndex = selectedIndex
+            if selectedIndex > blueprintViewControllers.count - 1 {
+                self.selectedIndex = 0
+                direction = .Reverse
+            }
+
+            resetViewControllers(direction, animated: true)
+        }
+    }
+
     func next() {
         if blueprintViewControllers.count > 0 {
             var direction: UIPageViewControllerNavigationDirection = .Forward
@@ -179,7 +205,9 @@ class BlueprintsPageViewController: UIPageViewController,
 
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let toolbar = toolbar {
-            toolbar.reload()
+            dispatch_after_delay(0.0) {
+                toolbar.reload()
+            }
         }
 
 //        if let _ = navigationController {
@@ -204,6 +232,14 @@ class BlueprintsPageViewController: UIPageViewController,
 //                }
 //            }
 //        }
+    }
+
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let toolbar = toolbar {
+            dispatch_after_delay(0.0) {
+                toolbar.reload()
+            }
+        }
     }
 
     // MARK: BlueprintViewControllerDelegate
@@ -293,6 +329,12 @@ class BlueprintsPageViewController: UIPageViewController,
 
         if let blueprintViewController = selectedBlueprintViewController {
             blueprintViewController.setBlueprintSelectorVisibility(visible)
+        }
+    }
+
+    func blueprintShouldBeRenderedAtIndexPath(indexPath: NSIndexPath, forBlueprintToolbar blueprintToolbar: BlueprintToolbar) {
+        if indexPath.row <= blueprintViewControllers.count - 1 {
+            seek(indexPath.row)
         }
     }
 
@@ -408,6 +450,7 @@ class BlueprintsPageViewController: UIPageViewController,
     }
 
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         print("deinit page view controller")
     }
 }
