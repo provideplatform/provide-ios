@@ -45,7 +45,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="175" id="5Lw-Y2-Vfy"/>
+                            <constraint firstItem="mZN-vT-oPf" firstAttribute="leading" secondItem="vsP-WQ-g9V" secondAttribute="leading" constant="175" id="5Lw-Y2-Vfy">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" id="AJm-Mv-DcG"/>
                             <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="DnO-kL-WZW"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="JWn-gO-wl8"/>
