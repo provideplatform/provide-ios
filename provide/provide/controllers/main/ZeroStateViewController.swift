@@ -61,7 +61,7 @@ class ZeroStateViewController: ViewController {
         targetView.bringSubviewToFront(view)
 
         if animated {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseOut,
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
                 animations: {
                     self.view.alpha = 1.0
                     self.view.frame.origin.y -= self.view.frame.height
@@ -79,7 +79,7 @@ class ZeroStateViewController: ViewController {
 
     func dismiss() {
         if let _ = view.superview {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,
                 animations: {
                     self.view.alpha = 0.0
                     self.view.frame.origin.y += self.view.frame.height
