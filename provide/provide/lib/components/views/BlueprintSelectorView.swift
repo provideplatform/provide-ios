@@ -125,7 +125,7 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 //            return CGSizeMake(superview.bounds.width - insetWidthOffset, 125.0)
 //        }
         if indexPath.row < blueprints.count - 1 {
-            CGSizeMake(200.0, 175.0)
+            CGSizeMake(175.0, 150.0)
         }
         return CGSizeMake(125.0, 150.0)
     }
