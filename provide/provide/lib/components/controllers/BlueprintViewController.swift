@@ -883,7 +883,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if visible {
             setNavigatorVisibility(false)
 
-            thumbnailTintView?.alpha = 0.1
+            thumbnailTintView?.alpha = 0.2
             view.bringSubviewToFront(thumbnailTintView)
             view.bringSubviewToFront(blueprintWorkOrdersViewControllerContainer)
             insetScrollViewContentForBlueprintWorkOrdersPresentation()
