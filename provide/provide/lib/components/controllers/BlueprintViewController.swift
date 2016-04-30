@@ -78,13 +78,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     @IBOutlet private weak var scrollView: BlueprintScrollView!
 
-    //@IBOutlet private weak var toolbar: BlueprintToolbar!
-
     @IBOutlet private weak var scaleView: BlueprintScaleView! {
         didSet {
             if let scaleView = scaleView {
                 scaleView.delegate = self
-                scaleView.backgroundColor = UIColor.whiteColor() //.colorWithAlphaComponent(0.85)
+                scaleView.backgroundColor = UIColor.whiteColor()
                 scaleView.clipsToBounds = true
                 scaleView.roundCorners(5.0)
             }
@@ -245,7 +243,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleToFill
 
-        scrollView?.backgroundColor = UIColor.whiteColor() //UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+        scrollView?.backgroundColor = UIColor.whiteColor()
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
@@ -967,6 +965,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
             dispatch_after_delay(delay) {
                 toolbar.setWorkOrdersVisibility(true)
             }
+        } else {
+            dispatch_after_delay(delay) {
+                self.setWorkOrdersVisibility(true)
+            }
         }
     }
 
@@ -1140,7 +1142,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
-        if isIPad() && !initializedAnnotations {
+        if !initializedAnnotations {
             initializedAnnotations = true
             if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
                 if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
@@ -1165,6 +1167,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         selectedPinView = nil
+
+//        if let _ = WorkOrderService.sharedService().inProgressWorkOrder {
+//            unwind()
+//            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+//        }
     }
 
     func blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
