@@ -89,15 +89,6 @@ class JobBlueprintsViewController: ViewController,
         }
     }
 
-    private var hasBlueprintScale: Bool {
-        if let blueprint = job?.blueprint {
-            if let _ = blueprint.metadata["scale"] as? Double {
-                return true
-            }
-        }
-        return false
-    }
-
     private var viewLoaded = false
 
     private var floorplanImportTimer: NSTimer!

@@ -117,8 +117,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
     var blueprint: Attachment! {
         if let blueprint = blueprintViewControllerDelegate?.blueprintForBlueprintViewController(self) {
             return blueprint
-        } else if let job = job {
-            return job.blueprint
         } else if let estimate = estimate {
             return estimate.blueprint
         }

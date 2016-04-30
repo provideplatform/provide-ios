@@ -135,30 +135,30 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
 
         if let job = delegate?.jobForEstimatesViewController?(self) {
             let params = [String : AnyObject]()
-            job.addEstimate(params, forBlueprint: job.blueprint,
-                onSuccess: { statusCode, mappingResult in
-                    let estimate = mappingResult.firstObject as! Estimate
-
-                    newEstimate.id = estimate.id
-                    newEstimate.userId = estimate.userId
-                    newEstimate.jobId = estimate.jobId
-                    newEstimate.createdAtString = estimate.createdAtString
-                    newEstimate.updatedAtString = estimate.updatedAtString
-                    newEstimate.totalSqFt = estimate.totalSqFt
-                    newEstimate.quotedPricePerSqFt = estimate.quotedPricePerSqFt
-                    newEstimate.attachments = estimate.attachments
-
-                    self.delegate?.estimatesViewController?(self, didCreateEstimate: newEstimate)
-
-                    dispatch_after_delay(0.0) {
-                        self.reloadTableView()
-                        self.tableView.allowsSelection = true
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    self.tableView.allowsSelection = true
-                }
-            )
+//            job.addEstimate(params, forBlueprint: job.blueprint,
+//                onSuccess: { statusCode, mappingResult in
+//                    let estimate = mappingResult.firstObject as! Estimate
+//
+//                    newEstimate.id = estimate.id
+//                    newEstimate.userId = estimate.userId
+//                    newEstimate.jobId = estimate.jobId
+//                    newEstimate.createdAtString = estimate.createdAtString
+//                    newEstimate.updatedAtString = estimate.updatedAtString
+//                    newEstimate.totalSqFt = estimate.totalSqFt
+//                    newEstimate.quotedPricePerSqFt = estimate.quotedPricePerSqFt
+//                    newEstimate.attachments = estimate.attachments
+//
+//                    self.delegate?.estimatesViewController?(self, didCreateEstimate: newEstimate)
+//
+//                    dispatch_after_delay(0.0) {
+//                        self.reloadTableView()
+//                        self.tableView.allowsSelection = true
+//                    }
+//                },
+//                onError: { error, statusCode, responseString in
+//                    self.tableView.allowsSelection = true
+//                }
+//            )
         }
     }
 

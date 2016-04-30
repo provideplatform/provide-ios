@@ -24,6 +24,8 @@ class Attachment: Model {
     var displayUrlString: String!
     var urlString: String!
     var data: NSData!
+    var parentAttachmentId = 0
+    var representations = [Attachment]()
 
     var annotations = [Annotation]()
 
@@ -39,11 +41,18 @@ class Attachment: Model {
             "key": "key",
             "metadata": "metadata",
             "mime_type": "mimeType",
+            "parent_attachment_id": "parentAttachmentId",
             "status": "status",
             "tags": "tags",
             "display_url": "displayUrlString",
             "url": "urlString",
         ])
+        return mapping
+    }
+
+    class func mappingWithRepresentations() -> RKObjectMapping {
+        let mapping = Attachment.mapping()
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: Attachment.mapping()))
         return mapping
     }
 

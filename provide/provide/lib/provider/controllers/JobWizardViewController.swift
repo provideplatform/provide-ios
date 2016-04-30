@@ -125,7 +125,7 @@ class JobWizardViewController: UINavigationController,
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        return job.blueprint
+        return nil
     }
     
     func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {

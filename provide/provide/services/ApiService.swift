@@ -24,7 +24,7 @@ class ApiService: NSObject {
     ]
 
     private let objectMappings: [String : AnyObject] = [
-        "attachments": Attachment.mapping(),
+        "attachments": Attachment.mappingWithRepresentations(),
         "annotations": Annotation.mapping(),
         "categories": Category.mapping(),
         "comments": Comment.mapping(),

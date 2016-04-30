@@ -176,13 +176,6 @@ class Job: Model {
         return nil
     }
 
-    var hasPendingBlueprint: Bool {
-        if let blueprint = blueprint {
-            return blueprint.status == "pending"
-        }
-        return false
-    }
-
     var isCommercial: Bool {
         if let type = type {
             return type == "commercial"
@@ -228,7 +221,7 @@ class Job: Model {
         return false
     }
 
-    var blueprintPdfs: [Attachment] { // FIXME-- returns only 150dpi at this time
+    var blueprintPdfs: [Attachment] {
         var blueprints = [Attachment]()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
@@ -249,12 +242,14 @@ class Job: Model {
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    let tag = isIPad() ? "150dpi" : "72dpi"
-                    let isAppropriateResolution = blueprint.hasTag(tag)
-                    let hasThumbnailTag = blueprint.hasTag("thumbnail")
-                    if let mimeType = blueprint.mimeType {
-                        if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
-                            blueprints.append(blueprint)
+                    for representation in blueprint.representations {
+                        let tag = isIPad() ? "150dpi" : "72dpi"
+                        let isAppropriateResolution = representation.hasTag(tag)
+                        let hasThumbnailTag = representation.hasTag("thumbnail")
+                        if let mimeType = representation.mimeType {
+                            if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
+                                blueprints.append(representation)
+                            }
                         }
                     }
                 }
@@ -268,30 +263,19 @@ class Job: Model {
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    let isAppropriateResolution = blueprint.hasTag("72dpi")
-                    let hasThumbnailTag = blueprint.hasTag("thumbnail")
-                    if let mimeType = blueprint.mimeType {
-                        if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag {
-                            blueprints.append(blueprint)
+                    for representation in blueprint.representations {
+                        let isAppropriateResolution = representation.hasTag("72dpi")
+                        let hasThumbnailTag = representation.hasTag("thumbnail")
+                        if let mimeType = representation.mimeType {
+                            if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag {
+                                blueprints.append(representation)
+                            }
                         }
                     }
                 }
             }
         }
         return blueprints
-    }
-
-    weak var blueprint: Attachment! {
-        if let blueprints = blueprints {
-            if blueprints.count > 0 {
-                for blueprint in blueprints {
-                    if blueprint.mimeType == "image/png" {
-                        return blueprint
-                    }
-                }
-            }
-        }
-        return nil
     }
 
     var coordinate: CLLocationCoordinate2D {
@@ -846,13 +830,13 @@ class Job: Model {
     }
 
     func updateJobBlueprintScale(blueprintScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
-        if let blueprint = blueprint {
-            self.blueprintScale = Double(blueprintScale)
-
-            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
-            metadata["scale"] = blueprintScale
-            blueprint.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
-        }
+//        if let blueprint = blueprint {
+//            self.blueprintScale = Double(blueprintScale)
+//
+//            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
+//            metadata["scale"] = blueprintScale
+//            blueprint.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
+//        }
     }
 
     func updateJobWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {

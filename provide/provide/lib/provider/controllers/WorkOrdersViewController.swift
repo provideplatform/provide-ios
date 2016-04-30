@@ -782,7 +782,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        return jobForBlueprintViewController(viewController)?.blueprint
+        return nil //jobForBlueprintViewController(viewController)?.blueprint
     }
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
