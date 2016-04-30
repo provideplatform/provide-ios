@@ -180,28 +180,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="dOc-tC-XPP" secondAttribute="top" id="Hzf-Fu-d0V"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="Wjj-lL-tWV"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="aXh-Nn-T06"/>
-                            <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="c4K-i0-hwg"/>
-                            <constraint firstItem="urM-pc-Y9e" firstAttribute="top" secondItem="rux-3S-Dfa" secondAttribute="bottom" id="gks-ki-gRi"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="oSs-sl-Hz6"/>
-                            <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="dOc-tC-XPP" secondAttribute="top" id="yAq-HY-Htp"/>
+                            <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="7FC-kJ-uto"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="539-BZ-ZYt" secondAttribute="bottom" constant="-20" id="Akv-m6-K7S"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="PeM-I8-dOc"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="Rx9-bf-NMb"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Hzf-Fu-d0V"/>
-                                <exclude reference="aXh-Nn-T06"/>
-                                <exclude reference="oSs-sl-Hz6"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="Hzf-Fu-d0V"/>
-                                <include reference="aXh-Nn-T06"/>
-                                <include reference="oSs-sl-Hz6"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="rux-3S-Dfa" id="DCB-UB-At2"/>
@@ -226,7 +209,7 @@
         <!--Work Order Component View Controller-->
         <scene sceneID="Hex-5K-2Np">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" id="jXg-51-56R" customClass="WorkOrderComponentViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jXg-51-56R" customClass="WorkOrderComponentViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BQv-F8-7xC"/>
                         <viewControllerLayoutGuide type="bottom" id="xSQ-fu-eX5"/>
