@@ -289,7 +289,11 @@ class BlueprintsPageViewController: UIPageViewController,
     }
 
     func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetBlueprintSelectorVisibility visible: Bool) {
-        print("set selector visibility \(visible)")
+        view.bringSubviewToFront(self.toolbarViewController.view)
+
+        if let blueprintViewController = selectedBlueprintViewController {
+            blueprintViewController.setBlueprintSelectorVisibility(visible)
+        }
     }
 
     func previousBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar) {

@@ -52,21 +52,23 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 initialsLabel?.text = ""
                 initialsLabel?.alpha = 0.0
 
-                imageView.contentMode = .ScaleAspectFit
-                imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
-                    self.gravatarImageView?.alpha = 0.0
+                if let imageView = imageView {
+                    imageView.contentMode = .ScaleAspectFit
+                    imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
+                        self.gravatarImageView?.alpha = 0.0
 
-                    self.contentView.bringSubviewToFront(self.imageView)
-                    if self.rendersCircularImage {
-                        self.imageView.makeCircular()
-                    }
-                    self.imageView.alpha = 1.0
+                        self.contentView.bringSubviewToFront(self.imageView)
+                        if self.rendersCircularImage {
+                            self.imageView.makeCircular()
+                        }
+                        self.imageView.alpha = 1.0
 
-                    self.hideActivityIndicator()
-                })
+                        self.hideActivityIndicator()
+                    })
+                }
             } else {
-                imageView.image = nil
-                imageView.alpha = 0.0
+                imageView?.image = nil
+                imageView?.alpha = 0.0
             }
         }
     }
@@ -113,12 +115,14 @@ class PickerCollectionViewCell: UICollectionViewCell {
     var accessoryImage: UIImage! {
         didSet {
             if let accessoryImage = accessoryImage {
-                accessoryImageView.image = accessoryImage
-                accessoryImageView.alpha = 1.0
-                contentView.bringSubviewToFront(accessoryImageView)
+                accessoryImageView?.image = accessoryImage
+                accessoryImageView?.alpha = 1.0
+                if let accessoryImageView = accessoryImageView {
+                    contentView.bringSubviewToFront(accessoryImageView)
+                }
             } else {
-                accessoryImageView.alpha = 0.0
-                accessoryImageView.image = nil
+                accessoryImageView?.alpha = 0.0
+                accessoryImageView?.image = nil
             }
         }
     }
@@ -149,9 +153,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
     override var selected: Bool {
         didSet {
             if selected {
-                selectedImageView.alpha = 1.0
+                selectedImageView?.alpha = 1.0
             } else {
-                selectedImageView.alpha = 0.0
+                selectedImageView?.alpha = 0.0
             }
         }
     }
@@ -250,13 +254,13 @@ class PickerCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        nameLabel.text = ""
+        nameLabel?.text = ""
 
-        imageView.image = nil
-        imageView.alpha = 0.0
+        imageView?.image = nil
+        imageView?.alpha = 0.0
 
-        accessoryImageView.alpha = 0.0
-        selectedImageView.alpha = 0.0
+        accessoryImageView?.alpha = 0.0
+        selectedImageView?.alpha = 0.0
 
         gravatarEmail = nil
         gravatarImageView?.image = nil
@@ -323,17 +327,17 @@ class PickerCollectionViewCell: UICollectionViewCell {
     }
 
     private func unhighlighted() {
-        nameLabel.font = defaultFont
+        nameLabel?.font = defaultFont
 
-        imageView.frame = defaultImageViewFrame
+        imageView?.frame = defaultImageViewFrame
 
         gravatarImageView?.frame = defaultImageViewFrame
     }
 
     private func highlighted() {
-        nameLabel.font = highlightedFont
+        nameLabel?.font = highlightedFont
 
-        imageView.frame = highlightedImageViewFrame
+        imageView?.frame = highlightedImageViewFrame
 
         gravatarImageView?.frame = highlightedImageViewFrame
     }

@@ -28,6 +28,7 @@ protocol BlueprintViewControllerDelegate: NSObjectProtocol {
 class BlueprintViewController: WorkOrderComponentViewController,
                                UIScrollViewDelegate,
                                BlueprintScaleViewDelegate,
+                               BlueprintSelectorViewDelegate,
                                BlueprintThumbnailViewDelegate,
                                BlueprintPinViewDelegate,
                                BlueprintPolygonViewDelegate,
@@ -62,6 +63,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return .Setup
     }
 
+    private var blueprintSelectorView: BlueprintSelectorView!
     private var thumbnailView: BlueprintThumbnailView!
     private var thumbnailTintView: UIView!
 
@@ -223,6 +225,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
         super.viewDidLoad()
 
         setupNavigationItem()
+
+        let blueprintSelectorViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintSelectorViewController") as! BlueprintSelectorViewController
+        blueprintSelectorView = blueprintSelectorViewController.selectorView
+        blueprintSelectorView.delegate = self
+        view.addSubview(blueprintSelectorView)
 
         let blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
         thumbnailView = blueprintThumbnailViewController.thumbnailView
@@ -815,7 +822,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         setScale(nil)
     }
 
-    // MARK: BlueprintThumbnailViewControllerDelegate
+    // MARK: BlueprintSelectorViewDelegate
+
+    func jobForBlueprintSelectorView(selectorView: BlueprintSelectorView) -> Job! {
+        return job
+    }
+
+    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment) {
+        print("selected blueprint \(blueprint)")
+    }
+
+    // MARK: BlueprintThumbnailViewDelegate
 
     func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
@@ -862,10 +879,28 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return CGSizeZero
     }
 
+    func setBlueprintSelectorVisibility(visible: Bool) {
+        let alpha = CGFloat(visible ? 1.0 : 0.0)
+        blueprintSelectorView?.redraw(view)
+        blueprintSelectorView?.alpha = alpha
+        if visible {
+            setNavigatorVisibility(false)
+            setWorkOrdersVisibility(false)
+
+            thumbnailTintView?.alpha = 0.3
+            view.bringSubviewToFront(thumbnailTintView)
+            view.bringSubviewToFront(blueprintSelectorView)
+        } else {
+            thumbnailTintView?.alpha = 0.0
+            view.sendSubviewToBack(thumbnailTintView)
+        }
+    }
+
     func setNavigatorVisibility(visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
         if visible {
+            setBlueprintSelectorVisibility(false)
             setWorkOrdersVisibility(false)
 
             thumbnailTintView?.alpha = 0.3
@@ -881,6 +916,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
+            setBlueprintSelectorVisibility(false)
             setNavigatorVisibility(false)
 
             thumbnailTintView?.alpha = 0.2

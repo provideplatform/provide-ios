@@ -188,6 +188,8 @@
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
+		689C79191CD4F9EC0018F583 /* BlueprintSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C79181CD4F9EC0018F583 /* BlueprintSelectorView.swift */; };
+		689C791B1CD4FA230018F583 /* BlueprintSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C791A1CD4FA230018F583 /* BlueprintSelectorViewController.swift */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -506,6 +508,8 @@
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		689C79181CD4F9EC0018F583 /* BlueprintSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintSelectorView.swift; sourceTree = "<group>"; };
+		689C791A1CD4FA230018F583 /* BlueprintSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintSelectorViewController.swift; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
 		68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -959,6 +963,7 @@
 				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
 				68E329541C04394200DC297A /* BlueprintThumbnailViewController.swift */,
 				6840F1671BDB1DAC00EF70F7 /* BlueprintViewController.swift */,
+				689C791A1CD4FA230018F583 /* BlueprintSelectorViewController.swift */,
 				685BCBDA1CBB6EB700AB7911 /* BlueprintWorkOrdersViewController.swift */,
 				688995181C9D2A9300F7D25F /* BlueprintsPageViewController.swift */,
 				68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */,
@@ -1004,6 +1009,7 @@
 				68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */,
 				6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */,
 				6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */,
+				689C79181CD4F9EC0018F583 /* BlueprintSelectorView.swift */,
 				6845BB631BF1F60200AD3D79 /* BlueprintScrollView.swift */,
 				6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */,
 				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
@@ -1772,6 +1778,7 @@
 				688C2B531C60B1CB009D5FF5 /* EstimateViewController.swift in Sources */,
 				68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */,
 				68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */,
+				689C79191CD4F9EC0018F583 /* BlueprintSelectorView.swift in Sources */,
 				687CB5651B07EAD30048B692 /* StringExtensions.swift in Sources */,
 				68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
 				68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
@@ -1822,6 +1829,7 @@
 				6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */,
 				687CB56E1B07EAD30048B692 /* UIImageExtensions.swift in Sources */,
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
+				689C791B1CD4FA230018F583 /* BlueprintSelectorViewController.swift in Sources */,
 				68E329551C04394200DC297A /* BlueprintThumbnailViewController.swift in Sources */,
 				68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */,
 				687CB56B1B07EAD30048B692 /* UIColorExtensions.swift in Sources */,

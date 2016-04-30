@@ -50,9 +50,18 @@ class Attachment: Model {
         return mapping
     }
 
-    class func mappingWithRepresentations() -> RKObjectMapping {
+    class func mappingWithRepresentations(levels: Int = 1) -> RKObjectMapping {
+        var i = 0
         let mapping = Attachment.mapping()
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: Attachment.mapping()))
+        while i < levels - 1 {
+            i += 1
+
+            let nestedMapping = Attachment.mapping()
+            nestedMapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: mappingWithRepresentations(levels - i)))
+
+            mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: nestedMapping))
+        }
+
         return mapping
     }
 
@@ -76,6 +85,15 @@ class Attachment: Model {
             return NSURL(string: displayUrlString)
         }
         return NSURL(string: urlString)
+    }
+
+    var thumbnailUrl: NSURL! {
+        if let metadata = metadata {
+            if let thumbnailUrlString = metadata["thumbnail_url"] as? String {
+                return NSURL(thumbnailUrlString)
+            }
+        }
+        return nil
     }
 
     func hasTag(tag: String) -> Bool {
