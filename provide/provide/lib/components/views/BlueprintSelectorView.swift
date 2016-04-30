@@ -40,13 +40,14 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
         let blueprint = blueprints[index]
         for representation in blueprint.representations {
             if representation.hasTag("72dpi") {
-//                for rep in representation.representations {
-//                    if rep.hasTag("thumbnail") {
-//                        return rep.url
-//                    }
-//                }
                 if let thumbnailUrl = representation.thumbnailUrl {
                     return thumbnailUrl
+                } else {
+                    for rep in representation.representations {
+                        if rep.hasTag("thumbnail") {
+                            return rep.url
+                        }
+                    }
                 }
             }
         }
@@ -67,11 +68,12 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
             targetView.bringSubviewToFront(self)
 
             self.frame = CGRect(x: 50.0,
-                                y: targetView.frame.height - 200.0 - 10.0 - 44.0,
-                                width: 400.0,
-                                height: 200.0)
+                                y: targetView.frame.height - 165.0 - 10.0 - 44.0,
+                                width: 345.0,
+                                height: 165.0)
 
             self.collectionView.contentSize = self.frame.size
+
         }
     }
 
@@ -87,6 +89,7 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier("blueprintCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
+        cell.rendersCircularImage = false
 
         if indexPath.row <= blueprints.count - 1 {
             let blueprint = blueprints[indexPath.row]
@@ -112,7 +115,7 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     // MARK: UICollectionViewDelegate
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
+        return UIEdgeInsetsMake(5.0, 10.0, 5.0, 10.0)
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -121,7 +124,10 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 //        if let superview = collectionView.superview {
 //            return CGSizeMake(superview.bounds.width - insetWidthOffset, 125.0)
 //        }
-        return CGSizeMake(200.0, 175.0) //CGSizeMake(collectionView.bounds.width - insetWidthOffset, 100.0)
+        if indexPath.row < blueprints.count - 1 {
+            CGSizeMake(200.0, 175.0)
+        }
+        return CGSizeMake(125.0, 150.0)
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

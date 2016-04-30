@@ -52,12 +52,16 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             if let attachment = notification.object as? Attachment {
                 if let attachableType = attachment.attachableType {
                     if attachableType == "job" && attachment.attachableId == self.job.id {
-                        let isAppropriateResolution = attachment.hasTag("72dpi")
-                        let hasThumbnailTag = attachment.hasTag("thumbnail")
-                        let isPublished = attachment.status == "published"
                         if let mimeType = attachment.mimeType {
-                            if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag && isPublished {
-                                self.setThumbnailImageWithURL(attachment.url)
+                            if mimeType == "image/png" {
+                                let isAppropriateResolution = attachment.hasTag("72dpi")
+                                let hasThumbnailTag = attachment.hasTag("thumbnail")
+                                let isPublished = attachment.status == "published"
+                                if isAppropriateResolution && hasThumbnailTag && isPublished {
+                                    self.setThumbnailImageWithURL(attachment.url)
+                                } else if let thumbnailUrl = attachment.thumbnailUrl {
+                                    self.setThumbnailImageWithURL(thumbnailUrl)
+                                }
                             }
                         }
                     }
