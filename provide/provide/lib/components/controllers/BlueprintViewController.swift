@@ -355,9 +355,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
 
-        dispatch_after_delay(0.0) { [weak self] in
-            self!.thumbnailView?.blueprintImage = self!.imageView.image
-        }
+        coordinator.animateAlongsideTransition(
+            { context in
+                self.hideToolbar()
+                self.thumbnailView?.blueprintImage = self.imageView.image
+                self.thumbnailTintView?.frame.size = size
+            },
+            completion: { context in
+                self.showToolbar()
+
+                if let scrollView = self.scrollView {
+                    self.thumbnailView?.scrollViewDidZoom(scrollView)
+                }
+            }
+        )
     }
 
     override func viewDidAppear(animated: Bool) {
