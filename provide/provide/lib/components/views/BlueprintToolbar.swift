@@ -218,7 +218,7 @@ class BlueprintToolbar: UIToolbar {
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
 
         let blueprintSelectorButtonTitleTextAttribute = blueprintSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-        blueprintTitleButton.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
+        blueprintTitleButton?.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
 
         let previousBlueprintButtonEnabled = blueprintToolbarDelegate?.previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
         let previousBlueprintButtonButtonTitleTextAttribute = previousBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
@@ -232,9 +232,17 @@ class BlueprintToolbar: UIToolbar {
 
         let blueprintTitle = blueprintToolbarDelegate?.selectedBlueprintForBlueprintToolbar(self)?.filename
         if let blueprintTitle = blueprintTitle {
-            blueprintTitleButton.title = blueprintTitle
+            blueprintTitleButton?.title = blueprintTitle
         } else {
-            blueprintTitleButton.enabled = false
+            blueprintTitleButton?.enabled = false
+        }
+
+        if isIPhone() {
+            if let blueprintTitleButton = blueprintTitleButton {
+                if let index = items!.indexOfObject(blueprintTitleButton) {
+                    items!.removeAtIndex(index)
+                }
+            }
         }
     }
 
