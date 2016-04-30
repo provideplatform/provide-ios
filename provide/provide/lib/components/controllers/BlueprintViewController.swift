@@ -223,15 +223,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var newWorkOrderPending = false
 
-//    override var navigationController: UINavigationController! {
-//        if let navigationController = super.navigationController {
-//            if let parentNavigationController = navigationController.navigationController {
-//                return parentNavigationController
-//            }
-//        }
-//        return super.navigationController
-//    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
