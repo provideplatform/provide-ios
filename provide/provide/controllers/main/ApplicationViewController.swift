@@ -21,13 +21,6 @@ class ApplicationViewController: ECSlidingViewController,
 
     private var menuContainerView: MenuContainerView!
 
-    override var navigationController: UINavigationController! {
-        if let navigationController = topViewController as? UINavigationController {
-            return navigationController
-        }
-        return super.navigationController
-    }
-
     override func awakeFromNib() {
         super.awakeFromNib()
 
