@@ -278,6 +278,13 @@ class Job: Model {
         return blueprints
     }
 
+    var hasPendingBlueprint: Bool {
+        if let attachments = self.blueprints {
+            return attachments.count > 0 && attachments.first!.thumbnailUrl == nil
+        }
+        return false
+    }
+
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
                                           customer.contact.longitude.doubleValue)

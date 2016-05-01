@@ -180,9 +180,11 @@ class JobBlueprintsViewController: ViewController,
                         self.blueprintPagesContainerView?.alpha = 1.0
                         self.blueprintActivityIndicatorView?.stopAnimating()
 
-                        if job.blueprintImages.count == 0 {
+                        if job.blueprintImages.count == 0 && !job.hasPendingBlueprint {
                             self.renderInstruction("Import a blueprint for this job.")
                             self.showDropbox()
+                        } else if job.hasPendingBlueprint {
+                            self.blueprintActivityIndicatorView?.startAnimating()
                         }
                     },
                     onError: { error, statusCode, responseString in

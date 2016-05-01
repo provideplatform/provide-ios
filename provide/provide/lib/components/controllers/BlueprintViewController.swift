@@ -292,6 +292,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         if let mimeType = attachment.mimeType {
                             if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag && isPublished {
                                 blueprint.urlString = attachment.urlString
+                                blueprint.metadata = attachment.metadata
+                                blueprint.status = attachment.status
+                                
                                 self.loadBlueprint()
                             }
                         }
