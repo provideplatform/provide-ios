@@ -119,6 +119,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
     func setThumbnailImageWithURL(url: NSURL!) {
         if let url = url {
+            thumbnailImageView?.contentMode = .ScaleAspectFit
             thumbnailImageView?.sd_setImageWithURL(url, placeholderImage: nil, completed: { (image, error, cacheType, url) in
                 if let image = self.thumbnailImageView?.image {
                     self.thumbnailImageView?.bounds.size = image.size
