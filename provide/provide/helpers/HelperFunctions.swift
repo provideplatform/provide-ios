@@ -13,8 +13,10 @@ typealias VoidBlock = () -> Void
 let logTimestampDateFormatter = NSDateFormatter(dateFormat: "HH:mm:ss.SSS")
 
 func dispatch_after_delay(seconds: Double, block: dispatch_block_t) {
-    let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
-    dispatch_after(delay, dispatch_get_main_queue(), block)
+    dispatch_async_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT) {
+        let delay = dispatch_time(DISPATCH_TIME_NOW, Int64(seconds * Double(NSEC_PER_SEC)))
+        dispatch_after(delay, dispatch_get_main_queue(), block)
+    }
 }
 
 func dispatch_async_main_queue(block: dispatch_block_t) {
