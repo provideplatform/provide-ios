@@ -243,7 +243,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q1n-Ar-dtj">
-                                                    <rect key="frame" x="153" y="0.0" width="75" height="113"/>
+                                                    <rect key="frame" x="100" y="0.0" width="280.5" height="113"/>
                                                 </imageView>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3es-Kw-YvZ">
                                                     <rect key="frame" x="180" y="47" width="20" height="20"/>
@@ -257,10 +257,10 @@
                                             <constraint firstItem="3es-Kw-YvZ" firstAttribute="centerY" secondItem="5R1-Qv-oCb" secondAttribute="centerY" id="Eqk-3L-Bqm"/>
                                             <constraint firstItem="AnJ-8v-Enr" firstAttribute="top" secondItem="DvZ-BX-9nM" secondAttribute="bottom" id="FHv-Ee-fgH"/>
                                             <constraint firstItem="85d-O3-69G" firstAttribute="leading" secondItem="5R1-Qv-oCb" secondAttribute="leadingMargin" constant="84" id="QJC-dy-VMG"/>
-                                            <constraint firstItem="q1n-Ar-dtj" firstAttribute="leading" secondItem="5R1-Qv-oCb" secondAttribute="leadingMargin" constant="145" id="RR1-TP-vqe"/>
+                                            <constraint firstItem="q1n-Ar-dtj" firstAttribute="leading" secondItem="5R1-Qv-oCb" secondAttribute="leadingMargin" constant="92" id="RR1-TP-vqe"/>
                                             <constraint firstItem="DvZ-BX-9nM" firstAttribute="leading" secondItem="AnJ-8v-Enr" secondAttribute="leading" id="RoP-X2-ipj"/>
                                             <constraint firstItem="q1n-Ar-dtj" firstAttribute="top" secondItem="5R1-Qv-oCb" secondAttribute="topMargin" constant="-8" id="T8R-Q5-yaO"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="q1n-Ar-dtj" secondAttribute="trailing" constant="144.5" id="UHI-Wf-yFL"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="q1n-Ar-dtj" secondAttribute="trailing" constant="-8" id="UHI-Wf-yFL"/>
                                             <constraint firstAttribute="bottom" secondItem="85d-O3-69G" secondAttribute="bottom" id="WCC-Kc-Drv"/>
                                             <constraint firstItem="85d-O3-69G" firstAttribute="top" secondItem="C9C-BB-xby" secondAttribute="bottom" constant="8" id="WVg-8c-Oeu"/>
                                             <constraint firstItem="C9C-BB-xby" firstAttribute="top" secondItem="5R1-Qv-oCb" secondAttribute="topMargin" constant="9" id="Xmd-QI-ufk"/>
