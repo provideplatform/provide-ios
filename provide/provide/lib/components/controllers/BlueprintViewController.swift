@@ -857,17 +857,20 @@ class BlueprintViewController: WorkOrderComponentViewController,
                             if let job = self!.job {
                                 let params: [String : AnyObject] = ["tags": ["blueprint"], "metadata": ["filename": filename]]
                                 ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
-                                                                                      onSuccess: { statusCode, mappingResult in
-                                                                                        print("SUCCESS!!!! imported attachment w/ filename \(filename)")
-                                                                                        NSNotificationCenter.defaultCenter().postNotificationName("BlueprintsPageViewControllerDidImportFromDropbox")
-                                    }, onError: { error, statusCode, responseString in
+                                    onSuccess: { statusCode, mappingResult in
+                                        NSNotificationCenter.defaultCenter().postNotificationName("BlueprintsPageViewControllerDidImportFromDropbox")
+                                    },
+                                    onError: { error, statusCode, responseString in
                                         
                                     }
                                 )
                             }
                         } else {
                             self!.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
-                            self!.presentDropboxChooser()
+
+                            dispatch_after_delay(3.25) {
+                                self!.presentDropboxChooser()
+                            }
                         }
                     }
                 }
@@ -1252,7 +1255,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
                     dispatch_after_delay(0.0) {
                         blueprintWorkOrdersViewControllerContainer.frame.origin.x = self.view.frame.width
-                        blueprintWorkOrdersViewControllerContainer.alpha = 1.0
+                        //blueprintWorkOrdersViewControllerContainer.alpha = 1.0
                     }
                 }
             }
