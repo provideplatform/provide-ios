@@ -366,20 +366,6 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         return "ADD COMMENT"
     }
 
-    func dismissItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem! {
-        let dismissIconImage = FAKFontAwesome.closeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let dismissItem = UIBarButtonItem(image: dismissIconImage, style: .Plain, target: viewController, action: Selector("dismiss"))
-        dismissItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
-        return dismissItem
-    }
-
-    func saveItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem! {
-        let saveIconImage = FAKFontAwesome.saveIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let saveItem = UIBarButtonItem(image: saveIconImage, style: .Plain, target: viewController, action: Selector("dismiss"))
-        saveItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
-        return saveItem
-    }
-
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

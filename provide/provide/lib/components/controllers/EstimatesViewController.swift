@@ -133,8 +133,8 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
         reloadTableView()
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: estimates.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
 
-        if let job = delegate?.jobForEstimatesViewController?(self) {
-            let params = [String : AnyObject]()
+//        if let job = delegate?.jobForEstimatesViewController?(self) {
+//            let params = [String : AnyObject]()
 //            job.addEstimate(params, forBlueprint: job.blueprint,
 //                onSuccess: { statusCode, mappingResult in
 //                    let estimate = mappingResult.firstObject as! Estimate
@@ -159,7 +159,7 @@ class EstimatesViewController: ViewController, UITableViewDelegate, UITableViewD
 //                    self.tableView.allowsSelection = true
 //                }
 //            )
-        }
+//        }
     }
 
     func dismiss(sender: UIBarButtonItem) {

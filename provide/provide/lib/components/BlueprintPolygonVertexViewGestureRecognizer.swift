@@ -60,7 +60,9 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
         }
     }
 
-    private func dragVertex(var xOffset: CGFloat, var yOffset: CGFloat) {
+    private func dragVertex(xOffset: CGFloat, yOffset: CGFloat) {
+        var xOffset = xOffset
+        var yOffset = yOffset
         if let view = view {
             if let superview = view.superview?.superview {
                 if superview is BlueprintScrollView {

@@ -760,7 +760,8 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toFloorplanWithId id: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var params = params
         params["source_url"] = sourceUrl.absoluteString
         return dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
@@ -830,7 +831,8 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var params = params
         params["source_url"] = sourceUrl.absoluteString
         return dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
@@ -853,7 +855,8 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("jobs/\(id)/estimates", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toEstimateWithId id: String, forJobWithId jobId: String, var params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+    func addAttachmentFromSourceUrl(sourceUrl: NSURL, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        var params = params
         params["source_url"] = sourceUrl.absoluteString
         return dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
@@ -966,7 +969,9 @@ class ApiService: NSObject {
 
     // MARK: Private methods
 
-    private func countTotalResultsForPath(path: String, var params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation {
+    private func countTotalResultsForPath(path: String, params: [String : AnyObject], onTotalResultsCount: OnTotalResultsCount) -> RKObjectRequestOperation {
+        var params = params
+
         params["page"] = 1
         params["rpp"] = 0
 
@@ -1014,7 +1019,8 @@ class ApiService: NSObject {
                                        onError: onError)
     }
 
-    private func objectMappingForPath(var path: String, method: String) -> RKObjectMapping? {
+    private func objectMappingForPath(path: String, method: String) -> RKObjectMapping? {
+        var path = path
         let parts = path.characters.split("/").map { String($0) }
         if parts.count > 5 {
             path = [parts[3], parts[5]].joinWithSeparator("/")
