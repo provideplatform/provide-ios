@@ -155,7 +155,9 @@ class BlueprintsPageViewController: UIPageViewController,
         if viewControllers.count > 0 {
             let viewController = viewControllers[selectedIndex]
             setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
-                //self.pageViewController(self, willTransitionToViewControllers: viewControllers)
+                logInfo("Blueprint page view controller rendered \(viewControllers.first!)")
+
+                self.pageViewController(self, willTransitionToViewControllers: viewControllers)
             })
         }
     }
