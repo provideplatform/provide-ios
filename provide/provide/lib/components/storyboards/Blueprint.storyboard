@@ -169,7 +169,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jmv-0p-v0U">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="165"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="25" minimumInteritemSpacing="25" id="8PA-U0-oN8">
                                     <size key="itemSize" width="200" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -275,7 +275,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jmv-0p-v0U" firstAttribute="top" secondItem="RNR-cU-ehK" secondAttribute="top" id="4b7-wc-HtU"/>
                             <constraint firstItem="Jmv-0p-v0U" firstAttribute="height" secondItem="RNR-cU-ehK" secondAttribute="height" id="C7v-cJ-KlW"/>

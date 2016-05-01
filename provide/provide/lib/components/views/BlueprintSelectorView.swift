@@ -68,12 +68,12 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
             targetView.bringSubviewToFront(self)
 
             self.frame = CGRect(x: 50.0,
-                                y: targetView.frame.height - 165.0 - 10.0 - 44.0,
-                                width: 345.0,
+                                y: Double(targetView.frame.height) - 165.0 - 10.0 - 44.0,
+                                width: (Double(self.blueprints.count) * 175.0) + 125.0 + 10.0,
                                 height: 165.0)
 
             self.collectionView.contentSize = self.frame.size
-
+            self.collectionView.frame.size = self.collectionView.contentSize
         }
     }
 
