@@ -42,7 +42,7 @@
                                     <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="tZl-Jd-TXW"/>
                                 </connections>
                             </containerView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gSj-xf-8dR">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kme-T2-VmW">
                                 <rect key="frame" x="290" y="258" width="20" height="20"/>
                             </activityIndicatorView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
@@ -56,13 +56,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="kd1-tJ-VKm" secondAttribute="bottom" constant="249" id="4WK-iO-hE5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" id="AJm-Mv-DcG"/>
-                            <constraint firstItem="kd1-tJ-VKm" firstAttribute="top" secondItem="gSj-xf-8dR" secondAttribute="bottom" constant="7" id="DnO-kL-WZW"/>
-                            <constraint firstItem="HYt-68-Mwn" firstAttribute="centerY" secondItem="gSj-xf-8dR" secondAttribute="centerY" id="JWn-gO-wl8"/>
+                            <constraint firstItem="kme-T2-VmW" firstAttribute="centerX" secondItem="vsP-WQ-g9V" secondAttribute="centerX" id="GdR-xW-oJS"/>
                             <constraint firstAttribute="trailing" secondItem="mZN-vT-oPf" secondAttribute="trailing" id="OHY-pu-WAs"/>
-                            <constraint firstItem="gSj-xf-8dR" firstAttribute="centerX" secondItem="kd1-tJ-VKm" secondAttribute="centerX" id="RYV-5l-guE"/>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="mZN-vT-oPf" secondAttribute="bottom" constant="44" id="bqF-RN-YSE"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="mZN-vT-oPf" secondAttribute="top" id="dFX-oo-4YI"/>
+                            <constraint firstItem="kme-T2-VmW" firstAttribute="centerY" secondItem="vsP-WQ-g9V" secondAttribute="centerY" id="dTP-Jy-tRm"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="bottom" secondItem="KSM-yJ-cc2" secondAttribute="top" id="ffE-NR-uEQ"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="trailing" secondItem="mZN-vT-oPf" secondAttribute="trailing" id="hQm-oI-ANF"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="centerX" secondItem="kd1-tJ-VKm" secondAttribute="centerX" id="nhN-0v-EjO"/>
@@ -72,7 +72,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="gSj-xf-8dR" id="g1b-hK-eWG"/>
+                        <outlet property="activityIndicatorView" destination="kme-T2-VmW" id="p7u-uV-nBy"/>
                         <outlet property="blueprintWorkOrdersViewControllerContainer" destination="mZN-vT-oPf" id="fWV-bG-Y78"/>
                         <outlet property="progressView" destination="kd1-tJ-VKm" id="P2R-ox-JNt"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>

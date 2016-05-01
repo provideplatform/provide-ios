@@ -280,7 +280,19 @@ class Job: Model {
 
     var hasPendingBlueprint: Bool {
         if let attachments = self.blueprints {
-            return attachments.count > 0 && attachments.first!.thumbnailUrl == nil
+            var hasThumbnailImage = false
+            for attachment in attachments {
+                for representation in attachment.representations {
+                    if representation.thumbnailUrl != nil {
+                        hasThumbnailImage = true
+                        break
+                    }
+                    if hasThumbnailImage {
+                        break
+                    }
+                }
+            }
+            return attachments.count > 0 && !hasThumbnailImage
         }
         return false
     }

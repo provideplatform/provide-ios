@@ -200,10 +200,10 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var loadingAnnotations = false {
         didSet {
             if !loadingBlueprint && !loadingAnnotations {
-                activityIndicatorView.stopAnimating()
+                activityIndicatorView?.stopAnimating()
                 progressView?.hidden = true
             } else if !activityIndicatorView.isAnimating() {
-                activityIndicatorView.startAnimating()
+                activityIndicatorView?.startAnimating()
             }
         }
     }
@@ -459,6 +459,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
                 onDownloadSuccess: { [weak self] image in
                     dispatch_async_main_queue {
+                        self!.activityIndicatorView?.stopAnimating()
                         self!.progressView?.setProgress(1.0, animated: false)
                         self!.setBlueprintImage(image)
                     }
@@ -673,8 +674,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     polygonViews.append(polygonView)
                 }
             }
-
-            activityIndicatorView?.stopAnimating()
 
             dispatch_after_delay(0.0) {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
@@ -1272,11 +1271,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     func blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
         selectedPinView = nil
-
-//        if let _ = WorkOrderService.sharedService().inProgressWorkOrder {
-//            unwind()
-//            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
-//        }
     }
 
     func blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
