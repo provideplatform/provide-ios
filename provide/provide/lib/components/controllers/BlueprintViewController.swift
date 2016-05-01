@@ -674,6 +674,8 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 }
             }
 
+            activityIndicatorView?.stopAnimating()
+
             dispatch_after_delay(0.0) {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
                     for annotation in blueprint.annotations {

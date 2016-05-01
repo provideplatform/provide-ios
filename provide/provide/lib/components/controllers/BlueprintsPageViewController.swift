@@ -207,29 +207,6 @@ class BlueprintsPageViewController: UIPageViewController,
                 toolbar.reload()
             }
         }
-
-//        if let _ = navigationController {
-//            if pendingViewControllers.count == 1 {
-//                if let viewController = pendingViewControllers.first! as? BlueprintViewController {
-//                    var setTitle = false
-//
-//                    if let blueprint = viewController.blueprint {
-//                        if let title = blueprint.filename {
-//                            viewController.title = title.uppercaseString
-//
-//                            if let navigationItem = blueprintsPageViewControllerDelegate?.navigationItemForBlueprintsPageViewController?(self) {
-//                                navigationItem.title = viewController.title
-//                            }
-//                            setTitle = true
-//                        }
-//                    }
-//
-//                    if !setTitle {
-//                        viewController.title = nil
-//                    }
-//                }
-//            }
-//        }
     }
 
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
