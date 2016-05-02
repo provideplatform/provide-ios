@@ -13,6 +13,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     private static let sharedInstance = NotificationService()
 
+    private let socketQueue = dispatch_queue_create("api.websocketQueue", nil)
+
     private var socket: JFRWebSocket!
 
     private var socketTimer: NSTimer!
@@ -29,6 +31,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         disconnectWebsocket()
 
         socket = JFRWebSocket(URL: NSURL(CurrentEnvironment.websocketBaseUrlString), protocols: [])
+        socket.queue = socketQueue
         socket.delegate = self
 
         if let token = KeyChainService.sharedService().token {
