@@ -55,8 +55,10 @@ class JobsViewController: ViewController,
                     if job.id == j.id {
                         let indexPath = i
                         j.reload([:],
-                            onSuccess: { [weak self] statusCode, mappingResult in
-                                self!.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                            onSuccess: { statusCode, mappingResult in
+                                if self.jobs.count > 0 {
+                                    self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                                }
                             },
                             onError: { error, statusCode, responseString in
 
