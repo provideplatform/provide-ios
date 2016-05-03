@@ -2,11 +2,11 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import <UIKit/UIGestureRecognizerSubclass.h>
-
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import <UIKit/UIKit.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 // CocoaPods
 #import <Analytics/SEGAnalytics.h>
