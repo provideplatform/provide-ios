@@ -91,7 +91,13 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                 for comment in self.comments {
                     if comment.isWorkOrderComment {
                         if comment.commentableId == workOrder.id {
-                            self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                            if NSThread.isMainThread() {
+                                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                            } else {
+                                dispatch_after_delay(0.0) {
+                                    self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                }
+                            }
                         }
                     }
 
