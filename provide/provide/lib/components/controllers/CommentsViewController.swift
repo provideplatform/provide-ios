@@ -87,21 +87,17 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
-                var indexPath = 0
-                for comment in self.comments {
-                    if comment.isWorkOrderComment {
-                        if comment.commentableId == workOrder.id {
-                            if NSThread.isMainThread() {
+                dispatch_after_delay(0.0) {
+                    var indexPath = 0
+                    for comment in self.comments {
+                        if comment.isWorkOrderComment {
+                            if comment.commentableId == workOrder.id {
                                 self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
-                            } else {
-                                dispatch_after_delay(0.0) {
-                                    self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
-                                }
                             }
                         }
-                    }
 
-                    indexPath += 1
+                        indexPath += 1
+                    }
                 }
             }
         }
