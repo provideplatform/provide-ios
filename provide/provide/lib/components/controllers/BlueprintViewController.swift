@@ -266,14 +266,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
                 if let blueprint = self.blueprint {
                     for annotation in blueprint.annotations {
                         if workOrder.id == annotation.workOrderId {
-                            annotation.workOrder = workOrder
+                            dispatch_after_delay(0.0) {
+                                annotation.workOrder = workOrder
 
-                            if let pinView = self.pinViewForWorkOrder(workOrder) {
-                                pinView.annotation = annotation
-                                pinView.redraw()
-                            } else if let polygonView = self.polygonViewForWorkOrder(workOrder) {
-                                polygonView.annotation = annotation
-                                polygonView.redraw()
+                                if let pinView = self.pinViewForWorkOrder(workOrder) {
+                                    pinView.annotation = annotation
+                                    pinView.redraw()
+                                } else if let polygonView = self.polygonViewForWorkOrder(workOrder) {
+                                    polygonView.annotation = annotation
+                                    polygonView.redraw()
+                                }
                             }
                         }
                     }
