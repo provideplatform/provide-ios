@@ -19,7 +19,13 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     var job: Job! {
         didSet {
             if let _ = job {
-                refresh()
+                if NSThread.isMainThread() {
+                    self.refresh()
+                } else {
+                    dispatch_after_delay(0.0) {
+                        self.refresh()
+                    }
+                }
             }
         }
     }

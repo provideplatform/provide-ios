@@ -12,43 +12,12 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
 
     weak var annotation: Annotation! {
         didSet {
-             pinView?.image = pinView?.image?.imageWithRenderingMode(.AlwaysTemplate)
-
-            if let annotation = annotation {
-                pinView.annotation = annotation
-                pinView.alpha = 1.0
-
-                if let workOrder = annotation.workOrder {
-                    if let description = workOrder.desc {
-                        titleLabel.text = description
-                    } else {
-                        titleLabel.text = "\(workOrder.category.name)"
-                    }
-
-                    if let humanReadableDueAtTimestamp = workOrder.humanReadableDueAtTimestamp {
-                        dueDateLabel.text = "Due \(humanReadableDueAtTimestamp)"
-                    } else if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
-                        dueDateLabel.text = "Starts \(humanReadableScheduledStartAtTimestamp)"
-                    }
-
-                    if workOrder.priority > 0 {
-                        var priorityIndicatorString = ""
-                        var i = 0
-                        while i < workOrder.priority {
-                            priorityIndicatorString = "\(priorityIndicatorString)!"
-                            i += 1
-                        }
-                        priorityLabel.text = priorityIndicatorString
-                        priorityLabel.hidden = false
-                    } else {
-                        priorityLabel.text = ""
-                        priorityLabel.hidden = true
-                    }
-                } else {
-                    prepareForReuse()
-                }
+            if NSThread.isMainThread() {
+                self.refresh()
             } else {
-                prepareForReuse()
+                dispatch_after_delay(0.0) {
+                    self.refresh()
+                }
             }
         }
     }
@@ -75,5 +44,46 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
         titleLabel.text = ""
         dueDateLabel.text = ""
         priorityLabel.text = ""
+    }
+
+    private func refresh() {
+        pinView?.image = pinView?.image?.imageWithRenderingMode(.AlwaysTemplate)
+
+        if let annotation = annotation {
+            pinView.annotation = annotation
+            pinView.alpha = 1.0
+
+            if let workOrder = annotation.workOrder {
+                if let description = workOrder.desc {
+                    titleLabel.text = description
+                } else {
+                    titleLabel.text = "\(workOrder.category.name)"
+                }
+
+                if let humanReadableDueAtTimestamp = workOrder.humanReadableDueAtTimestamp {
+                    dueDateLabel.text = "Due \(humanReadableDueAtTimestamp)"
+                } else if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
+                    dueDateLabel.text = "Starts \(humanReadableScheduledStartAtTimestamp)"
+                }
+
+                if workOrder.priority > 0 {
+                    var priorityIndicatorString = ""
+                    var i = 0
+                    while i < workOrder.priority {
+                        priorityIndicatorString = "\(priorityIndicatorString)!"
+                        i += 1
+                    }
+                    priorityLabel.text = priorityIndicatorString
+                    priorityLabel.hidden = false
+                } else {
+                    priorityLabel.text = ""
+                    priorityLabel.hidden = true
+                }
+            } else {
+                prepareForReuse()
+            }
+        } else {
+            prepareForReuse()
+        }
     }
 }

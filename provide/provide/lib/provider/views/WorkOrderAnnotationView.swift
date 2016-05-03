@@ -49,7 +49,7 @@ class WorkOrderAnnotationView: AnnotationView {
         containerView.addDropShadow()
         containerView.roundCorners(25.0)
 
-        pinPointerView.backgroundColor = unselectedBackgroundColor //resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: pinPointerView.frame.width, height: pinPointerView.frame.height))
+        pinPointerView.backgroundColor = unselectedBackgroundColor
         pinPointerView.addDropShadow()
         sendSubviewToBack(pinPointerView)
 

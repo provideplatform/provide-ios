@@ -27,13 +27,11 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var annotation: Annotation! {
         didSet {
-            if let annotation = annotation {
-                if let workOrder = annotation.workOrder {
-                    if let category = workOrder.category {
-                        self.category = category
-                    } else {
-                        self.category = nil
-                    }
+            if let workOrder = workOrder {
+                if let category = workOrder.category {
+                    self.category = category
+                } else {
+                    self.category = nil
                 }
             }
         }
@@ -41,8 +39,12 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var category: Category! {
         didSet {
-            dispatch_after_delay(0.0) {
+            if NSThread.isMainThread() {
                 self.refresh()
+            } else {
+                dispatch_after_delay(0.0) {
+                    self.refresh()
+                }
             }
         }
     }
@@ -124,13 +126,13 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         if let category = category {
             if let iconImageUrl = category.iconImageUrl {
                 ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .ContinueInBackground,
-                                                        onDownloadSuccess: { image in
-                                                            print("TODO: embed category icon in pin view \(image)")
+                    onDownloadSuccess: { image in
+                        print("TODO: embed category icon in pin view \(image)")
                     },
-                                                        onDownloadFailure: { error in
+                    onDownloadFailure: { error in
 
                     },
-                                                        onDownloadProgress: { receivedSize, expectedSize in
+                    onDownloadProgress: { receivedSize, expectedSize in
 
                     }
                 )

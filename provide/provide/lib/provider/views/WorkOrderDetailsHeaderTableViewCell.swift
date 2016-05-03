@@ -26,8 +26,12 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     weak var workOrder: WorkOrder! {
         didSet {
             if let _ = workOrder {
-                dispatch_after_delay(0.0) {
+                if NSThread.isMainThread() {
                     self.refresh()
+                } else {
+                    dispatch_after_delay(0.0) {
+                        self.refresh()
+                    }
                 }
             }
         }

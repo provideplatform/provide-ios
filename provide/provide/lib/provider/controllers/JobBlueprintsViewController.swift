@@ -127,7 +127,9 @@ class JobBlueprintsViewController: ViewController,
             if let attachment = notification.object as? Attachment {
                 if let attachableType = attachment.attachableType {
                     if attachableType == "job" && attachment.attachableId == self.job.id {
-                        self.refresh()
+                        dispatch_after_delay(0.0) {
+                            self.refresh()
+                        }
                     }
                 }
             } else if let userInfo = notification.object as? [String : AnyObject] {
@@ -138,7 +140,9 @@ class JobBlueprintsViewController: ViewController,
                 if attachmentId != nil && attachableType != nil && attachableId != nil {
                     if let job = self.job {
                         if attachableType == "job" && attachableId == job.id {
-                            self.refresh()
+                            dispatch_after_delay(0.0) {
+                                self.refresh()
+                            }
                         }
                     }
                 }

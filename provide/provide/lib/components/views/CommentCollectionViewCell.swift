@@ -12,8 +12,12 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
     weak var comment: Comment! {
         didSet {
-            dispatch_after_delay(0.0) {
+            if NSThread.isMainThread() {
                 self.refresh()
+            } else {
+                dispatch_after_delay(0.0) {
+                    self.refresh()
+                }
             }
         }
     }

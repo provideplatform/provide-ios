@@ -18,28 +18,11 @@ class CategoryTableViewCell: UITableViewCell {
 
     var category: Category! {
         didSet {
-            if let category = category {
-                nameLabel?.text = category.name
-
-                activityIndicatorView?.startAnimating()
-
-                iconImageView?.contentMode = .ScaleAspectFit
-
-                if let iconImageUrl = category.iconImageUrl {
-                    iconImageView?.sd_setImageWithURL(iconImageUrl, placeholderImage: nil, options: .RetryFailed,
-                        completed: { image, error, cacheType, url in
-                            self.activityIndicatorView?.stopAnimating()
-                            self.iconImageView?.alpha = 1.0
-                        }
-                    )
-                } else {
-                    pinView = BlueprintPinView(annotation: nil)
-                    pinView?.contentMode = .ScaleAspectFit
-                    pinView?.category = category
-
-                    iconImageView?.image = pinView?.toImage()
-                    iconImageView?.alpha = 1.0
-                    activityIndicatorView?.stopAnimating()
+            if NSThread.isMainThread() {
+                self.refresh()
+            } else {
+                dispatch_after_delay(0.0) {
+                    self.refresh()
                 }
             }
         }
@@ -57,5 +40,32 @@ class CategoryTableViewCell: UITableViewCell {
 
         pinView?.removeFromSuperview()
         pinView = nil
+    }
+
+    private func refresh() {
+        if let category = category {
+            nameLabel?.text = category.name
+
+            activityIndicatorView?.startAnimating()
+
+            iconImageView?.contentMode = .ScaleAspectFit
+
+            if let iconImageUrl = category.iconImageUrl {
+                iconImageView?.sd_setImageWithURL(iconImageUrl, placeholderImage: nil, options: .RetryFailed,
+                                                  completed: { image, error, cacheType, url in
+                                                    self.activityIndicatorView?.stopAnimating()
+                                                    self.iconImageView?.alpha = 1.0
+                    }
+                )
+            } else {
+                pinView = BlueprintPinView(annotation: nil)
+                pinView?.contentMode = .ScaleAspectFit
+                pinView?.category = category
+
+                iconImageView?.image = pinView?.toImage()
+                iconImageView?.alpha = 1.0
+                activityIndicatorView?.stopAnimating()
+            }
+        }
     }
 }
