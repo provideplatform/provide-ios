@@ -41,7 +41,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var category: Category! {
         didSet {
-            refresh()
+            dispatch_after_delay(0.0) {
+                self.refresh()
+            }
         }
     }
 
@@ -54,13 +56,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     weak var delegate: BlueprintPinViewDelegate! {
         didSet {
-            if let delegate = delegate {
-                if let category = delegate.categoryForBlueprintPinView(self) {
-                    self.category = category
-                } else {
-                    self.category = nil
-                }
-            }
+            self.category = delegate?.categoryForBlueprintPinView(self)
         }
     }
 
@@ -209,7 +205,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             abbreviationLabel = UILabel()
             abbreviationLabel.backgroundColor = UIColor.clearColor()
             abbreviationLabel.textColor = UIColor.whiteColor()
-            abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 28.0)!
+            abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 26.0)!
         }
 
         abbreviationLabel.text = abbreviation
@@ -218,7 +214,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             abbreviationLabel.frame = CGRect(x: (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0),
                                              y: (image.size.height / 2.0) - (abbreviationLabel.frame.height / 1.5),
                                              width: abbreviationLabel.frame.width,
-                                             height: abbreviationLabel.frame.height)  //CGRectOffset(abbreviationLabel.frame, (image.size.width / 2.0) - (abbreviationLabel.frame.width / 2.0), 5.0)
+                                             height: abbreviationLabel.frame.height)
         }
         abbreviationLabel.alpha = 1.0
 
