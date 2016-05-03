@@ -31,9 +31,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
                 if let workOrder = annotation.workOrder {
                     if let category = workOrder.category {
                         self.category = category
+                    } else {
+                        self.category = nil
                     }
-
-                    tintColor = workOrder.statusColor
                 }
             }
         }
@@ -41,23 +41,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var category: Category! {
         didSet {
-            if let category = category {
-                if let iconImageUrl = category.iconImageUrl {
-                    ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .ContinueInBackground,
-                        onDownloadSuccess: { image in
-                            print("TODO: embed category icon in pin view \(image)")
-                        },
-                        onDownloadFailure: { error in
-
-                        },
-                        onDownloadProgress: { receivedSize, expectedSize in
-
-                        }
-                    )
-                } else if let abbreviation = category.abbreviation {
-                    renderAbbreviation(abbreviation)
-                }
-            }
+            refresh()
         }
     }
 
@@ -73,9 +57,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             if let delegate = delegate {
                 if let category = delegate.categoryForBlueprintPinView(self) {
                     self.category = category
+                } else {
+                    self.category = nil
                 }
-
-                tintColor = delegate.tintColorForBlueprintPinView(self)
             }
         }
     }
@@ -140,6 +124,32 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         initWorkOrderChangedNotificationObserver()
     }
 
+    private func refresh() {
+        if let category = category {
+            if let iconImageUrl = category.iconImageUrl {
+                ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .ContinueInBackground,
+                                                        onDownloadSuccess: { image in
+                                                            print("TODO: embed category icon in pin view \(image)")
+                    },
+                                                        onDownloadFailure: { error in
+
+                    },
+                                                        onDownloadProgress: { receivedSize, expectedSize in
+
+                    }
+                )
+            } else if let abbreviation = category.abbreviation {
+                renderAbbreviation(abbreviation)
+            }
+        }
+
+        if let tintColor = delegate?.tintColorForBlueprintPinView(self) {
+            self.tintColor = tintColor
+        } else if let workOrder = workOrder {
+            tintColor = workOrder.statusColor
+        }
+    }
+
     func initWorkOrderChangedNotificationObserver() {
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
@@ -149,8 +159,6 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
                             if let category = delegate.categoryForBlueprintPinView(self) {
                                 self.category = category
                             }
-
-                            self.tintColor = delegate.tintColorForBlueprintPinView(self)
                         }
                     }
                 }

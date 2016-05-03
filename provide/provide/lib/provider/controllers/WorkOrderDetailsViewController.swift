@@ -23,57 +23,8 @@ class WorkOrderDetailsViewController: ViewController,
 
     var workOrder: WorkOrder! {
         didSet {
-            navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
-
-            if workOrder.id > 0 {
-//                workOrder.reload(
-//                    onSuccess: { statusCode, mappingResult in
-//                        self.reloadTableView()
-//                    },
-//                    onError: { error, statusCode, responseString in
-//
-//                    }
-//                )
-
-                workOrder.reloadAttachments(
-                    { statusCode, mappingResult in
-                        self.mediaCollectionView?.reloadData()
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-
-//                workOrder.reloadExpenses(
-//                    { statusCode, mappingResult in
-//                        self.reloadTableView()
-//                    },
-//                    onError: { error, statusCode, responseString in
-//
-//                    }
-//                )
-//
-//                workOrder.reloadInventory(
-//                    { statusCode, mappingResult in
-//                        self.reloadTableView()
-//                    },
-//                    onError: { error, statusCode, responseString in
-//                        
-//                    }
-//                )
-
-                if let headerView = headerView {
-                    headerView.workOrder = workOrder
-                }
-
-                if let headerTableViewController = headerTableViewController {
-                    headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
-                    headerTableViewController.workOrder = workOrder
-                }
-            }
-
-            if let _ = tableView {
-                reloadTableView()
+            dispatch_after_delay(0.0) {
+                self.refresh()
             }
         }
     }
@@ -105,6 +56,61 @@ class WorkOrderDetailsViewController: ViewController,
             } else {
                 headerView?.hidden = true
             }
+        }
+    }
+
+    private func refresh() {
+        navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
+
+        if workOrder.id > 0 {
+            //                workOrder.reload(
+            //                    onSuccess: { statusCode, mappingResult in
+            //                        self.reloadTableView()
+            //                    },
+            //                    onError: { error, statusCode, responseString in
+            //
+            //                    }
+            //                )
+
+            workOrder.reloadAttachments(
+                { statusCode, mappingResult in
+                    self.mediaCollectionView?.reloadData()
+                },
+                onError: { error, statusCode, responseString in
+
+                }
+            )
+
+            //                workOrder.reloadExpenses(
+            //                    { statusCode, mappingResult in
+            //                        self.reloadTableView()
+            //                    },
+            //                    onError: { error, statusCode, responseString in
+            //
+            //                    }
+            //                )
+            //
+            //                workOrder.reloadInventory(
+            //                    { statusCode, mappingResult in
+            //                        self.reloadTableView()
+            //                    },
+            //                    onError: { error, statusCode, responseString in
+            //
+            //                    }
+            //                )
+
+            if let headerView = headerView {
+                headerView.workOrder = workOrder
+            }
+
+            if let headerTableViewController = headerTableViewController {
+                headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
+                headerTableViewController.workOrder = workOrder
+            }
+        }
+        
+        if let _ = tableView {
+            reloadTableView()
         }
     }
 
