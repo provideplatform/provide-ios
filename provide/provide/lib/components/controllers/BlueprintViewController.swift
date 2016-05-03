@@ -1313,7 +1313,9 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self.scrollView.zoomToRect(pinView.frame, animated: true)
                     },
                     completion: { completed in
-
+                        if let toolbar = self.blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                            toolbar.setWorkOrdersVisibility(true)
+                        }
                     }
                 )
             }
