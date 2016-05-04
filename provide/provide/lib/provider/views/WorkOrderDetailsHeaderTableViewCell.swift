@@ -75,7 +75,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "abandoned" && workOrder.status != "pending_approval"
+        return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "pending_approval"
     }
 
     private var showsApproveButton: Bool {
