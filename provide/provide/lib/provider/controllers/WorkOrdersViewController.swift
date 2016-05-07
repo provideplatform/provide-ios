@@ -391,10 +391,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private func refreshAnnotations() {
-        shouldRemoveMapAnnotationsForWorkOrderViewController(self)
+        dispatch_after_delay(0.0) {
+            self.shouldRemoveMapAnnotationsForWorkOrderViewController(self)
 
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            mapView.addAnnotation(workOrder.annotation)
+            if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                self.mapView.addAnnotation(workOrder.annotation)
+            }
         }
     }
 
