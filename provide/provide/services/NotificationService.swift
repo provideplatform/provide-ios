@@ -17,6 +17,13 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     private var socket: JFRWebSocket!
 
+    private var socketConnected: Bool {
+        if let socket = socket {
+            return socket.isConnected
+        }
+        return false
+    }
+
     private var socketTimer: NSTimer!
 
     class func sharedService() -> NotificationService {
@@ -62,8 +69,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     func maintainWebsocketConnection() {
-        if let socket = socket {
-            if !socket.isConnected {
+        if let _ = socket {
+            if !socketConnected {
                 connectWebsocket()
             }
         }
@@ -91,11 +98,11 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 }
             }
 
-            if !socket.isConnected {
+            if !socketConnected {
                 NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
             }
         case .Job:
-            if !socket.isConnected {
+            if !socketConnected {
                 let jobId = notificationValue as! Int
                 if let job = JobService.sharedService().jobWithId(jobId) {
                     job.reload(
@@ -135,7 +142,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
             }
         case .WorkOrder:
-            if !socket.isConnected {
+            if !socketConnected {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {
                     workOrder.reload(
