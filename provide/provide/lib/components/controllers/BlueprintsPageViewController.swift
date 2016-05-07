@@ -12,7 +12,7 @@ import UIKit
 protocol BlueprintsPageViewControllerDelegate {
     optional func navigationItemForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> UINavigationItem!
     func jobForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Job!
-    func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> [Attachment]
+    func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Set<Attachment>
 }
 
 class BlueprintsPageViewController: UIPageViewController,
@@ -131,7 +131,7 @@ class BlueprintsPageViewController: UIPageViewController,
         if let blueprints = blueprintsPageViewControllerDelegate?.blueprintsForBlueprintsPageViewController(self) {
             for blueprint in blueprints {
                 var rendered = false
-                for renderedBlueprint in blueprintViewControllers.values {
+                for renderedBlueprint in Set<Attachment>(blueprintViewControllers.values) {
                     if renderedBlueprint.id == blueprint.id {
                         rendered = true
                         break
@@ -145,18 +145,18 @@ class BlueprintsPageViewController: UIPageViewController,
                     blueprintViewControllers[blueprintViewController] = blueprint
                 }
             }
-        }
 
-        var viewControllers = [BlueprintViewController]()
-        for blueprintViewController in blueprintViewControllers.keys {
-            viewControllers.append(blueprintViewController)
-        }
+            var viewControllers = Set<BlueprintViewController>()
+            for blueprintViewController in blueprintViewControllers.keys {
+                viewControllers.insert(blueprintViewController)
+            }
 
-        if viewControllers.count > 0 {
-            let viewController = viewControllers[selectedIndex]
-            setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
-                self.pageViewController(self, willTransitionToViewControllers: viewControllers)
-            })
+            if viewControllers.count > 0 {
+                let viewController = Array(viewControllers)[selectedIndex]
+                setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
+                    self.pageViewController(self, willTransitionToViewControllers: [viewController])
+                })
+            }
         }
     }
 

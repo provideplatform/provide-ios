@@ -221,14 +221,14 @@ class Job: Model {
         return false
     }
 
-    var blueprintPdfs: [Attachment] {
-        var blueprints = [Attachment]()
+    var blueprintPdfs: Set<Attachment> {
+        var blueprints = Set<Attachment>()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
                     if let mimeType = blueprint.mimeType {
                         if mimeType == "application/pdf" {
-                            blueprints.append(blueprint)
+                            blueprints.insert(blueprint)
                         }
                     }
                 }
@@ -237,18 +237,18 @@ class Job: Model {
         return blueprints
     }
 
-    var blueprintImages: [Attachment] { // FIXME-- returns only 150dpi at this time
-        var blueprints = [Attachment]()
+    var blueprintImages: Set<Attachment> { // FIXME-- returns only 150dpi at this time
+        var blueprints = Set<Attachment>()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    for representation in blueprint.representations {
+                    for representation in Set<Attachment>(blueprint.representations) {
                         let tag = isIPad() ? "150dpi" : "72dpi"
                         let isAppropriateResolution = representation.hasTag(tag)
                         let hasThumbnailTag = representation.hasTag("thumbnail")
                         if let mimeType = representation.mimeType {
                             if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
-                                blueprints.append(representation)
+                                blueprints.insert(representation)
                             }
                         }
                     }
@@ -258,8 +258,8 @@ class Job: Model {
         return blueprints
     }
 
-    var blueprintThumbnails: [Attachment] { // FIXME-- returns only 150dpi at this time
-        var blueprints = [Attachment]()
+    var blueprintThumbnails: Set<Attachment> { // FIXME-- returns only 150dpi at this time
+        var blueprints = Set<Attachment>()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
@@ -268,7 +268,7 @@ class Job: Model {
                         let hasThumbnailTag = representation.hasTag("thumbnail")
                         if let mimeType = representation.mimeType {
                             if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag {
-                                blueprints.append(representation)
+                                blueprints.insert(representation)
                             }
                         }
                     }
