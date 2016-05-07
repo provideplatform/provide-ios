@@ -24,13 +24,13 @@ class BlueprintsPageViewController: UIPageViewController,
         didSet {
             if let _ = blueprintsPageViewControllerDelegate {
                 setViewControllers([BlueprintViewController()], direction: .Forward, animated: false, completion: nil)
-                blueprintViewControllers = [BlueprintViewController : Attachment]()
+                blueprintViewControllers = Set<BlueprintViewController>() //[BlueprintViewController : Attachment]()
                 resetViewControllers()
             }
         }
     }
 
-    private var blueprintViewControllers = [BlueprintViewController : Attachment]()
+    private var blueprintViewControllers = Set<BlueprintViewController>() //[BlueprintViewController : Attachment]()
 
     private var job: Job! {
         return blueprintsPageViewControllerDelegate?.jobForBlueprintsPageViewController(self)
@@ -38,8 +38,8 @@ class BlueprintsPageViewController: UIPageViewController,
 
     private var selectedBlueprint: Attachment! {
         if let viewController = selectedBlueprintViewController {
-            if let blueprint = blueprintViewControllers[viewController] {
-                return blueprint
+            if let index = blueprintViewControllers.indexOf(viewController) {
+                return blueprintViewControllers[index].blueprint
             }
         }
         return nil
@@ -47,13 +47,16 @@ class BlueprintsPageViewController: UIPageViewController,
 
     private var selectedBlueprintViewController: BlueprintViewController! {
         if blueprintViewControllers.count > 0 {
-            if let viewControllers = viewControllers {
-                if viewControllers.count == 1 {
-                    if let viewController = viewControllers.first as? BlueprintViewController {
-                        return viewController
-                    }
-                }
+            if selectedIndex <= blueprintViewControllers.count - 1 {
+                return Array(blueprintViewControllers).sort({ $0.blueprint.id < $1.blueprint.id })[selectedIndex] // HACK
             }
+//            if let viewControllers = viewControllers {
+//                if viewControllers.count == 1 {
+//                    if let viewController = viewControllers.first as? BlueprintViewController {
+//                        return viewController
+//                    }
+//                }
+//            }
         }
         return nil
     }
@@ -124,14 +127,14 @@ class BlueprintsPageViewController: UIPageViewController,
     func resetViewControllers(direction: UIPageViewControllerNavigationDirection = .Forward, animated: Bool = false) {
         if let viewController = self.viewControllers?.first as? BlueprintViewController {
             if viewController.blueprint == nil {
-                blueprintViewControllers = [BlueprintViewController : Attachment]()
+                blueprintViewControllers = Set<BlueprintViewController>() //[BlueprintViewController : Attachment]()
             }
         }
 
         if let blueprints = blueprintsPageViewControllerDelegate?.blueprintsForBlueprintsPageViewController(self) {
             for blueprint in blueprints {
                 var rendered = false
-                for renderedBlueprint in Set<Attachment>(blueprintViewControllers.values) {
+                for renderedBlueprint in blueprintViewControllers.map({ $0.blueprint }) {
                     if renderedBlueprint.id == blueprint.id {
                         rendered = true
                         break
@@ -141,21 +144,19 @@ class BlueprintsPageViewController: UIPageViewController,
                 if !rendered {
                     let blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
                     blueprintViewController.blueprintViewControllerDelegate = self
+                    blueprintViewController.blueprint = blueprint
 
-                    blueprintViewControllers[blueprintViewController] = blueprint
+                    blueprintViewControllers.insert(blueprintViewController)
                 }
             }
 
-            var viewControllers = Set<BlueprintViewController>()
-            for blueprintViewController in blueprintViewControllers.keys {
-                viewControllers.insert(blueprintViewController)
-            }
-
-            if viewControllers.count > 0 {
-                let viewController = Array(viewControllers)[selectedIndex]
-                setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
-                    self.pageViewController(self, willTransitionToViewControllers: [viewController])
-                })
+            if blueprintViewControllers.count > 0 {
+                if let index = blueprintViewControllers.indexOf(selectedBlueprintViewController) {
+                    let viewController = blueprintViewControllers[index]
+                    setViewControllers([viewController], direction: direction, animated: animated, completion: { complete in
+                        self.pageViewController(self, willTransitionToViewControllers: [viewController])
+                    })
+                }
             }
         }
     }
@@ -220,8 +221,8 @@ class BlueprintsPageViewController: UIPageViewController,
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        if let blueprint = blueprintViewControllers[viewController] {
-            return blueprint
+        if let index = blueprintViewControllers.indexOf(viewController) {
+            return blueprintViewControllers[index].blueprint
         }
         return nil
     }

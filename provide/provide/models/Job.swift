@@ -237,7 +237,7 @@ class Job: Model {
         return blueprints
     }
 
-    var blueprintImages: Set<Attachment> { // FIXME-- returns only 150dpi at this time
+    var blueprintImages: Set<Attachment> {
         var blueprints = Set<Attachment>()
         if let attachments = self.blueprints {
             if attachments.count > 0 {
@@ -258,7 +258,7 @@ class Job: Model {
         return blueprints
     }
 
-    var blueprintThumbnails: Set<Attachment> { // FIXME-- returns only 150dpi at this time
+    var blueprintThumbnails: Set<Attachment> {
         var blueprints = Set<Attachment>()
         if let attachments = self.blueprints {
             if attachments.count > 0 {

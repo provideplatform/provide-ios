@@ -116,14 +116,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
     @IBOutlet private weak var blueprintWorkOrdersViewControllerContainer: UIView!
     private var blueprintWorkOrdersViewController: BlueprintWorkOrdersViewController!
 
-    var blueprint: Attachment! {
-        if let blueprint = blueprintViewControllerDelegate?.blueprintForBlueprintViewController(self) {
-            return blueprint
-        } else if let estimate = estimate {
-            return estimate.blueprint
-        }
-        return nil
-    }
+    var blueprint: Attachment!
 
     var blueprintImageUrl: NSURL! {
         if let blueprint = blueprint {
