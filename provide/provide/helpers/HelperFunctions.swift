@@ -157,6 +157,13 @@ func isIPhone() -> Bool {
     return UI_USER_INTERFACE_IDIOM() == .Phone
 }
 
+func isIPhone6Plus() -> Bool {
+    if !isIPhone() {
+        return false
+    }
+    return UIScreen.mainScreen().scale > 2.9
+}
+
 func prettyPrintedJson(uglyJsonStr: String?) -> String {
     if let uglyJsonString = uglyJsonStr {
         let uglyJson: AnyObject = try! NSJSONSerialization.JSONObjectWithData(uglyJsonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: [])
