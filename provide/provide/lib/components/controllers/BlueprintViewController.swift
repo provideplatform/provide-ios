@@ -1301,9 +1301,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
     func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             dispatch_after_delay(0.0) {
-                UIView.animateWithDuration(0.25, delay: 0.25, options: .CurveEaseInOut,
+                UIView.animateWithDuration(0.2, delay: 0.2, options: .CurveEaseOut,
                     animations: {
-                        self.scrollView.zoomToRect(pinView.frame, animated: true)
+                        self.scrollView.zoomToRect(pinView.frame, animated: false)
+
+                        let offsetX = (self.blueprintWorkOrdersViewControllerContainer.frame.width / 2.0) - (pinView.frame.width / 2.0)
+                        self.scrollView.contentOffset.x += offsetX
                     },
                     completion: { completed in
                         if let toolbar = self.blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
