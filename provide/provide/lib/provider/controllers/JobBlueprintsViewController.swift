@@ -126,11 +126,14 @@ class JobBlueprintsViewController: ViewController,
         NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
             if let attachment = notification.object as? Attachment {
                 if let attachableType = attachment.attachableType {
-                    if attachableType == "job" && attachment.attachableId == self.job.id {
-                        dispatch_after_delay(0.0) {
-                            self.refresh()
+                    if let job = self.job {
+                        if attachableType == "job" && attachment.attachableId == job.id {
+                            dispatch_after_delay(0.0) {
+                                self.refresh()
+                            }
                         }
                     }
+
                 }
             } else if let userInfo = notification.object as? [String : AnyObject] {
                 let attachmentId = userInfo["attachment_id"] as? Int
