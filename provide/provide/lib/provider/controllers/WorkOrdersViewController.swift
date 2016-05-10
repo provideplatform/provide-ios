@@ -784,7 +784,12 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        return nil //jobForBlueprintViewController(viewController)?.blueprint
+        if let blueprints = jobForBlueprintViewController(viewController)?.blueprintImages {
+            if blueprints.count > 0 {
+                return Array(blueprints).sort({ $0.id < $1.id }).first! // HACK
+            }
+        }
+        return nil
     }
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {

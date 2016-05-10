@@ -263,7 +263,7 @@ class Job: Model {
         if let attachments = self.blueprints {
             if attachments.count > 0 {
                 for blueprint in attachments {
-                    for representation in blueprint.representations {
+                    for representation in Set<Attachment>(blueprint.representations) {
                         let isAppropriateResolution = representation.hasTag("72dpi")
                         let hasThumbnailTag = representation.hasTag("thumbnail")
                         if let mimeType = representation.mimeType {

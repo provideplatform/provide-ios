@@ -36,7 +36,7 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
     // MARK: BlueprintViewControllerDelegate
 
     func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        return nil //job.blueprint
+        return nil
     }
 
     func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {

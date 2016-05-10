@@ -42,7 +42,13 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
         didSet {
-            if let _ = blueprintViewControllerDelegate {
+            if let delegate = blueprintViewControllerDelegate {
+                if blueprint == nil {
+                    if let blueprint = delegate.blueprintForBlueprintViewController(self) {
+                        self.blueprint = blueprint
+                    }
+                }
+
                 if !loadedBlueprint && !loadingBlueprint && scrollView != nil {
                     loadBlueprint()
                 } else if loadedBlueprint {
