@@ -41,7 +41,19 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         if job == nil {
             return false
         }
-        return job.status != "completed" && job.status != "canceled"
+        var isSupervisor = job.isCurrentUserCompanyAdmin
+        if !isSupervisor {
+            if let providers = currentUser().providers {
+                for provider in providers {
+                    if job.hasSupervisor(provider) {
+                        isSupervisor = true
+                        break
+                    }
+                }
+            }
+        }
+
+        return isSupervisor && job.status != "completed" && job.status != "canceled"
     }
 
     required init?(coder aDecoder: NSCoder) {
