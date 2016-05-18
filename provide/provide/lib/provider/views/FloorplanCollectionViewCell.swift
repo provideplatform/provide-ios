@@ -13,7 +13,7 @@ class FloorplanCollectionViewCell: UICollectionViewCell {
     var floorplan: Floorplan! {
         didSet {
             imageView.contentMode = .ScaleAspectFit
-            if let imageUrl = floorplan.profileImageUrl {
+            if let imageUrl = floorplan.thumbnailImageUrl {
                 imageView.sd_setImageWithURL(imageUrl, placeholderImage: nil) { image, error, cacheType, url in
                     self.imageView.alpha = 1.0
                     self.activityIndicatorView.stopAnimating()

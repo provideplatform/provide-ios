@@ -20,16 +20,8 @@ class Job: Model {
     var contractRevenue = -1.0
     var cost = -1.0
     var attachments: [Attachment]!
-    var blueprints: [Attachment]!
-    var blueprintImageUrlString: String!
-    var blueprintScale = -1.0
-    var blueprintAnnotationsCount = 0
     var floorplans: [Floorplan]!
-    var floorplanJobs: [FloorplanJob]!
     var status: String!
-    var estimates: [Estimate]!
-    var estimatesCount = 0
-    var estimatedAmount = -1.0
     var expenses: [Expense]!
     var expensesCount = 0
     var expensedAmount = -1.0
@@ -49,9 +41,31 @@ class Job: Model {
     var thumbnailImageUrlString: String!
     var totalSqFt = -1.0
     var workOrdersCount = 0
-    var workOrders: [WorkOrder]!
+//    var workOrders: [WorkOrder]!
     var wizardMode: NSNumber!
     var tasks: [Task]!
+
+    var workOrders: [WorkOrder]! {
+        var workOrders: [WorkOrder]!
+        if let floorplans = floorplans {
+            workOrders = [WorkOrder]()
+            for floorplan in floorplans {
+                if let floorplanWorkOrders = floorplan.workOrders {
+                    for workOrder in floorplanWorkOrders {
+                        workOrders.append(workOrder)
+                    }
+                }
+            }
+        }
+        return workOrders
+    }
+
+    var thumbnailImageUrl: NSURL! {
+        if let thumbnailImageUrlString = thumbnailImageUrlString {
+            return NSURL(string: thumbnailImageUrlString)
+        }
+        return nil
+    }
 
     var isWizardMode: Bool {
         if let wizardMode = wizardMode {
@@ -61,8 +75,8 @@ class Job: Model {
     }
 
     var isEditMode: Bool {
-        let hasBlueprint = blueprints?.count > 0
-        let hasScale = hasBlueprint && blueprints?.first!.metadata["scale"] != nil
+        let hasBlueprint = floorplans?.count > 0
+        let hasScale = hasBlueprint && floorplans?.first!.scale != nil
         let hasSupervisor = supervisors?.count > 0
         let hasInventory = materials?.count > 0
         let hasWorkOrders = workOrdersCount > 0
@@ -117,9 +131,6 @@ class Job: Model {
             "customer_id": "customerId",
             "contract_revenue": "contractRevenue",
             "status": "status",
-            "blueprint_image_url": "blueprintImageUrlString",
-            "blueprint_scale": "blueprintScale",
-            "blueprint_annotations_count": "blueprintAnnotationsCount",
             "quoted_price_per_sq_ft": "quotedPricePerSqFt",
             "total_sq_ft": "totalSqFt",
             "work_orders_count": "workOrdersCount",
@@ -140,11 +151,9 @@ class Job: Model {
         mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
         mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mappingWithRepresentations()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", withMapping: Floorplan.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplan_jobs", toKeyPath: "floorplanJobs", withMapping: FloorplanJob.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
@@ -153,27 +162,6 @@ class Job: Model {
 
     var annotation: Annotation {
         return Annotation(job: self)
-    }
-
-    var blueprintPdfUrl: NSURL! {
-        if let blueprintPdfUrl = blueprintPdfs.first?.url {
-            return blueprintPdfUrl
-        }
-        return nil
-    }
-
-    var blueprintImageUrl: NSURL! {
-        if let blueprintImageUrlString = blueprintImageUrlString {
-            return NSURL(string: blueprintImageUrlString)
-        }
-        return nil
-    }
-
-    var blueprintThumbnailImageUrl: NSURL! {
-        if let thumbnailImageUrlString = thumbnailImageUrlString {
-            return NSURL(string: thumbnailImageUrlString)
-        }
-        return nil
     }
 
     var isCommercial: Bool {
@@ -217,82 +205,6 @@ class Job: Model {
             if supervisor.userId == user.id {
                 return true
             }
-        }
-        return false
-    }
-
-    var blueprintPdfs: Set<Attachment> {
-        var blueprints = Set<Attachment>()
-        if let attachments = self.blueprints {
-            if attachments.count > 0 {
-                for blueprint in attachments {
-                    if let mimeType = blueprint.mimeType {
-                        if mimeType == "application/pdf" {
-                            blueprints.insert(blueprint)
-                        }
-                    }
-                }
-            }
-        }
-        return blueprints
-    }
-
-    var blueprintImages: Set<Attachment> {
-        var blueprints = Set<Attachment>()
-        if let attachments = self.blueprints {
-            if attachments.count > 0 {
-                for blueprint in attachments {
-                    for representation in Set<Attachment>(blueprint.representations) {
-                        let tag = isIPad() ? "150dpi" : "72dpi"
-                        let isAppropriateResolution = representation.hasTag(tag)
-                        let hasThumbnailTag = representation.hasTag("thumbnail")
-                        if let mimeType = representation.mimeType {
-                            if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
-                                blueprints.insert(representation)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return blueprints
-    }
-
-    var blueprintThumbnails: Set<Attachment> {
-        var blueprints = Set<Attachment>()
-        if let attachments = self.blueprints {
-            if attachments.count > 0 {
-                for blueprint in attachments {
-                    for representation in Set<Attachment>(blueprint.representations) {
-                        let isAppropriateResolution = representation.hasTag("72dpi")
-                        let hasThumbnailTag = representation.hasTag("thumbnail")
-                        if let mimeType = representation.mimeType {
-                            if mimeType == "image/png" && isAppropriateResolution && hasThumbnailTag {
-                                blueprints.insert(representation)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return blueprints
-    }
-
-    var hasPendingBlueprint: Bool {
-        if let attachments = self.blueprints {
-            var hasThumbnailImage = false
-            for attachment in attachments {
-                for representation in attachment.representations {
-                    if representation.thumbnailUrl != nil {
-                        hasThumbnailImage = true
-                        break
-                    }
-                    if hasThumbnailImage {
-                        break
-                    }
-                }
-            }
-            return attachments.count > 0 && !hasThumbnailImage
         }
         return false
     }
@@ -432,23 +344,6 @@ class Job: Model {
         }
     }
 
-    func prependEstimate(estimate: Estimate) {
-        if estimates == nil {
-            estimates = [Estimate]()
-
-            if estimatedAmount == -1.0 {
-                estimatedAmount = 0.0
-            }
-        }
-
-        estimates.insert(estimate, atIndex: 0)
-
-        estimatesCount += 1
-        if let amount = estimate.amount {
-            estimatedAmount = estimatedAmount + amount
-        }
-    }
-
     func prependExpense(expense: Expense) {
         if expenses == nil {
             expenses = [Expense]()
@@ -542,18 +437,19 @@ class Job: Model {
         }
     }
 
-    func reloadEstimates(onSuccess: OnSuccess, onError: OnError) {
+    func reloadFloorplans(onSuccess: OnSuccess, onError: OnError) {
         if id > 0 {
-            ApiService.sharedService().fetchEstimates(forJobWithId: String(id),
+            ApiService.sharedService().fetchFloorplans(forJobWithId: String(id), params: [:],
                 onSuccess: { statusCode, mappingResult in
-                    self.estimates = mappingResult.array() as! [Estimate]
-                    self.estimatesCount = self.estimates.count
-                    self.estimatedAmount = 0.0
-                    for estimate in self.estimates {
-                        if let amount = estimate.amount {
-                            self.estimatedAmount = self.estimatedAmount + amount
-                        }
+                    if self.floorplans == nil {
+                        self.floorplans = [Floorplan]()
                     }
+
+                    let fetchedFloorplans = mappingResult.array() as! [Floorplan]
+                    for floorplan in fetchedFloorplans {
+                        self.floorplans.append(floorplan)
+                    }
+
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -561,35 +457,6 @@ class Job: Model {
                 }
             )
         }
-    }
-
-    func addEstimate(params: [String: AnyObject], forBlueprint blueprint: Attachment!, onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().createEstimate(params, forJobWithId: String(self.id),
-            onSuccess: { statusCode, mappingResult in
-                let estimateStatusCode = statusCode
-                let estimateMappingResult = mappingResult
-                let estimate = mappingResult.firstObject as! Estimate
-
-                self.prependEstimate(estimate)
-
-                if let blueprint = blueprint {
-                    let blueprintParams = ["metadata": blueprint.metadata, "description": blueprint.desc, "tags": blueprint.tags]
-                    ApiService.sharedService().addAttachmentFromSourceUrl(blueprint.url, toEstimateWithId: String(estimate.id),
-                        forJobWithId: String(self.id), params: blueprintParams, onSuccess: { statusCode, mappingResult in
-                            onSuccess(statusCode: estimateStatusCode, mappingResult: estimateMappingResult)
-                        },
-                        onError: { error, statusCode, responseString in
-                            onError(error: error, statusCode: statusCode, responseString: responseString)
-                        }
-                    )
-                } else {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-                }
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
     }
 
     func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
@@ -755,15 +622,9 @@ class Job: Model {
         ApiService.sharedService().fetchJobWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
                 let job = mappingResult.firstObject as! Job
-                self.blueprints = job.blueprints
-                self.blueprintImageUrlString = job.blueprintImageUrlString
 
                 if let floorplans = job.floorplans {
                     self.floorplans = floorplans
-                }
-
-                if let floorplanJobs = job.floorplanJobs {
-                    self.floorplanJobs = floorplanJobs
                 }
 
                 if let materials = job.materials {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sqZ-dH-OlV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sqZ-dH-OlV">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -38,10 +38,10 @@
             </objects>
             <point key="canvasLocation" x="77" y="1330"/>
         </scene>
-        <!--Blueprint Work Orders View Controller-->
+        <!--Floorplan Work Orders View Controller-->
         <scene sceneID="Eet-8M-625">
             <objects>
-                <viewController storyboardIdentifier="BlueprintWorkOrdersViewController" modalPresentationStyle="currentContext" id="CBQ-hP-l84" customClass="BlueprintWorkOrdersViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FloorplanWorkOrdersViewController" modalPresentationStyle="currentContext" id="CBQ-hP-l84" customClass="FloorplanWorkOrdersViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Dmg-1r-LRd"/>
                         <viewControllerLayoutGuide type="bottom" id="KRf-79-Gt3"/>

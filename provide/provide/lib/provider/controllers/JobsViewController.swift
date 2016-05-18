@@ -77,7 +77,7 @@ class JobsViewController: ViewController,
             if let sender = sender {
                 (segue.destinationViewController as! JobViewController).job = (sender as! JobTableViewCell).job
             }
-        } else if segue.identifier == "JobBlueprintsViewControllerSegue" {
+        } else if segue.identifier == "JobFloorplansViewControllerSegue" {
             if let sender = sender {
                 var job: Job!
                 if sender.isKindOfClass(JobTableViewCell) {
@@ -104,7 +104,7 @@ class JobsViewController: ViewController,
                                             self.jobs.replaceRange(index...index, with: [job])
                                         }
 
-                                        (segue.destinationViewController as! JobBlueprintsViewController).job = job
+                                        (segue.destinationViewController as! JobFloorplansViewController).job = job
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
@@ -112,7 +112,7 @@ class JobsViewController: ViewController,
                                 }
                             )
                         } else {
-                            (segue.destinationViewController as! JobBlueprintsViewController).job = job
+                            (segue.destinationViewController as! JobFloorplansViewController).job = job
                         }
                     }
                 }
@@ -269,7 +269,7 @@ class JobsViewController: ViewController,
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
-        performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: cell)
+        performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: cell)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -282,7 +282,7 @@ class JobsViewController: ViewController,
             jobCreationViewController.presentingViewController?.dismissViewController(animated: true)
         }
 
-        performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: job)
+        performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: job)
     }
 
     // MARK: JobTableViewCellDelegate
@@ -367,7 +367,7 @@ class JobsViewController: ViewController,
             if selected {
                 dispatch_after_delay(0.0) { [weak self] in
                     self!.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                    self!.jobsViewController?.performSegueWithIdentifier("JobBlueprintsViewControllerSegue", sender: cell)
+                    self!.jobsViewController?.performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: cell)
                     cell.setHighlighted(false, animated: true)
                     cell.setSelected(false, animated: true)
                 }

@@ -1,5 +1,5 @@
 //
-//  JobBlueprintsViewController.swift
+//  JobFloorplansViewController.swift
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-class JobBlueprintsViewController: ViewController,
-                                   BlueprintsPageViewControllerDelegate {
+class JobFloorplansViewController: ViewController,
+                                   FloorplansPageViewControllerDelegate {
 
     private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
@@ -42,8 +42,8 @@ class JobBlueprintsViewController: ViewController,
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
-    private weak var blueprintsPageViewController: BlueprintsPageViewController!
-    private weak var blueprintViewController: BlueprintViewController!
+    private weak var blueprintsPageViewController: FloorplansPageViewController!
+    private weak var floorplanViewController: FloorplanViewController!
 
     private var reloadingBlueprint = false
     private var reloadingJob = false
@@ -51,14 +51,14 @@ class JobBlueprintsViewController: ViewController,
         didSet {
             if let _ = importedPdfAttachment {
                 hideDropbox()
-                importStatus = "Importing your blueprint..."
+                importStatus = "Importing your floorplan..."
             }
         }
     }
     private var importedPngAttachment: Attachment! {
         didSet {
             if let _ = importedPngAttachment {
-                importStatus = "Generating high-fidelity blueprint representation (this may take up to a few minutes)"
+                importStatus = "Generating high-fidelity representation (this may take up to a few minutes)"
             }
         }
     }
@@ -118,7 +118,7 @@ class JobBlueprintsViewController: ViewController,
         blueprintPreviewImageView?.contentMode = .ScaleAspectFit
 
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
-            importFromDropboxButton.addTarget(self, action: #selector(JobBlueprintsViewController.importFromDropbox(_:)), forControlEvents: .TouchUpInside)
+            importFromDropboxButton.addTarget(self, action: #selector(JobFloorplansViewController.importFromDropbox(_:)), forControlEvents: .TouchUpInside)
         }
 
         hideDropbox()
@@ -171,7 +171,7 @@ class JobBlueprintsViewController: ViewController,
     }
 
     func teardownBlueprintViewController() -> UIImage? {
-        return blueprintViewController?.teardown()
+        return floorplanViewController?.teardown()
     }
 
     func refresh() {
@@ -187,10 +187,10 @@ class JobBlueprintsViewController: ViewController,
                         self.blueprintPagesContainerView?.alpha = 1.0
                         self.blueprintActivityIndicatorView?.stopAnimating()
 
-                        if job.blueprintImages.count == 0 && !job.hasPendingBlueprint {
-                            self.renderInstruction("Import a blueprint for this job.")
+                        if job.floorplans.count == 0 {
+                            self.renderInstruction("Import a floorplan for this job.")
                             self.showDropbox()
-                        } else if job.hasPendingBlueprint {
+                        } else {
                             self.blueprintActivityIndicatorView?.startAnimating()
                         }
                     },
@@ -206,9 +206,9 @@ class JobBlueprintsViewController: ViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "BlueprintsPageViewControllerEmbedSegue" {
-            blueprintsPageViewController = segue.destinationViewController as! BlueprintsPageViewController
-            blueprintsPageViewController.blueprintsPageViewControllerDelegate = self
+        if segue.identifier! == "FloorplansPageViewControllerEmbedSegue" {
+            blueprintsPageViewController = segue.destinationViewController as! FloorplansPageViewController
+            blueprintsPageViewController.floorplansPageViewControllerDelegate = self
         }
     }
 
@@ -232,35 +232,48 @@ class JobBlueprintsViewController: ViewController,
     func importFromDropbox(sender: UIButton) {
         renderInstruction(nil)
 
-        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { [weak self] results in
+        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { results in
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
                     let filename = (result as! DBChooserResult).name
                     if let fileExtension = sourceURL.pathExtension {
                         if fileExtension.lowercaseString == "pdf" {
-                            self!.importFromSourceURL(sourceURL, filename: filename)
+                            self.importFromSourceURL(sourceURL, filename: filename)
                         } else {
-                            self!.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
-                            self!.renderInstruction("Import a blueprint for this job.")
-                            self!.showDropbox()
+                            self.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
+                            self.renderInstruction("Import a blueprint for this job.")
+                            self.showDropbox()
 
                         }
                     }
                 }
             } else {
-                self!.refresh()
+                self.refresh()
             }
         }
     }
 
     private func importFromSourceURL(sourceURL: NSURL, filename: String) {
         if let job = job {
-            let params: [String : AnyObject] = ["tags": ["blueprint"], "metadata": ["filename": filename]]
-            ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.importedPdfAttachment = mappingResult.firstObject as! Attachment
-                }, onError: { error, statusCode, responseString in
+            let floorplan = Floorplan()
+            floorplan.jobId = job.id
+            floorplan.name = filename
+            floorplan.pdfUrlString = sourceURL.absoluteString
+
+            floorplan.save(
+                onSuccess: { statusCode, mappingResult in
+                    self.job.reloadFloorplans(
+                        { statusCode, mappingResult in
+                            let fp = mappingResult.firstObject as! Floorplan
+                            self.importedPdfAttachment = fp.pdf
+                        },
+                        onError: { error, statusCode, responseString in
+
+                        }
+                    )
+                },
+                onError: { error, statusCode, responseString in
 
                 }
             )
@@ -279,7 +292,7 @@ class JobBlueprintsViewController: ViewController,
 
             blueprintActivityIndicatorView?.stopAnimating()
             blueprintPreviewContainerView?.alpha = 0.0
-        } else if job.blueprintImageUrl != nil {
+        } else if job.floorplans.count > 0 {
             blueprintActivityIndicatorView?.stopAnimating()
             blueprintPreviewContainerView?.alpha = 0.0
         } else {
@@ -307,22 +320,24 @@ class JobBlueprintsViewController: ViewController,
         reloadingBlueprint = false
     }
 
-    // MARK: BlueprintsPageViewControllerDelegate
+    // MARK: FloorplansPageViewControllerDelegate
 
-    func navigationItemForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> UINavigationItem! {
+    func navigationItemForBlueprintsPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem! {
         return navigationItem
     }
 
-    func jobForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Job! {
+    func jobForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Job! {
         return job
     }
 
-    func blueprintsForBlueprintsPageViewController(viewController: BlueprintsPageViewController) -> Set<Attachment> {
-        var blueprints = Set<Attachment>()
+    func floorplansForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Set<Floorplan> {
+        var floorplans = Set<Floorplan>()
         if let job = job {
-            blueprints = job.blueprintImages
+            for floorplan in job.floorplans {
+                floorplans.insert(floorplan)
+            }
         }
-        return blueprints
+        return floorplans
     }
 
     deinit {

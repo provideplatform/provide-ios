@@ -8,9 +8,9 @@
 
 import UIKit
 
-class JobViewController: ViewController, BlueprintViewControllerDelegate {
+class JobViewController: ViewController, FloorplanViewControllerDelegate {
 
-    private var blueprintViewController: BlueprintViewController!
+    private var floorplanViewController: FloorplanViewController!
 
     var job: Job! {
         didSet {
@@ -25,69 +25,65 @@ class JobViewController: ViewController, BlueprintViewControllerDelegate {
 
         navigationItem.title = job.name
 
-        blueprintViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintViewController") as! BlueprintViewController
-        blueprintViewController.blueprintViewControllerDelegate = self
-        blueprintViewController.navigationItem.title = job.name
+        floorplanViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanViewController") as! FloorplanViewController
+        floorplanViewController.floorplanViewControllerDelegate = self
+        floorplanViewController.navigationItem.title = job.name
 
         navigationController!.popViewControllerAnimated(false)
-        navigationController!.pushViewController(blueprintViewController, animated: false)
+        navigationController!.pushViewController(floorplanViewController, animated: false)
     }
 
-    // MARK: BlueprintViewControllerDelegate
+    // MARK: FloorplanViewControllerDelegate
 
-    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
+    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan! {
         return nil
     }
 
-    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
         return job
     }
 
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
         return nil
     }
 
-    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
         return .Setup
     }
 
-    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
-        return nil
-    }
-
-    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
     
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
-    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar! {
         return nil
     }
 
-    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func showToolbarForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController) {
         
     }
 }

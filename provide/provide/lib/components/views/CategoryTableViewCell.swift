@@ -58,7 +58,7 @@ class CategoryTableViewCell: UITableViewCell {
                     }
                 )
             } else {
-                pinView = BlueprintPinView(annotation: nil)
+                pinView = BlueprintPinView(workOrder: nil)
                 pinView?.contentMode = .ScaleAspectFit
                 pinView?.category = category
 

@@ -48,7 +48,7 @@ class JobWizardTabBarController: UITabBarController,
             }
 
             if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-                if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                     jobBlueprintsViewController.refresh()
                 }
             }
@@ -125,8 +125,8 @@ class JobWizardTabBarController: UITabBarController,
 
     private var isEditMode: Bool {
         if let _ = job {
-            let hasBlueprint = job.blueprints?.count > 0
-            let hasScale = hasBlueprint && job.blueprints?.first!.metadata["scale"] != nil
+            let hasBlueprint = job.floorplans?.count > 0
+            let hasScale = hasBlueprint && job.floorplans?.first!.scale != nil
             let hasSupervisor = job.supervisors?.count > 0
             let hasInventory = job.materials?.count > 0
             let hasWorkOrders = job.workOrdersCount > 0
@@ -137,8 +137,8 @@ class JobWizardTabBarController: UITabBarController,
 
     private var shouldRenderBlueprintSetup: Bool {
         if let job = job {
-            let hasBlueprint = job.blueprints?.count > 0
-            let hasScale = hasBlueprint && job.blueprints?.first!.metadata["scale"] != nil
+            let hasBlueprint = job.floorplans?.count > 0
+            let hasScale = hasBlueprint && job.floorplans?.first!.scale != nil
             if isEditMode {
                 return false
             }
@@ -339,18 +339,18 @@ class JobWizardTabBarController: UITabBarController,
     func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage! {
         if viewController.isKindOfClass(UINavigationController) {
             let rootViewController = (viewController as UINavigationController).viewControllers.first!
-            if let _ = rootViewController as? BlueprintViewController {
+            if let _ = rootViewController as? FloorplanViewController {
                 if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                         if let blueprintImage = jobBlueprintsViewController.teardownBlueprintViewController() {
                             return blueprintImage
                         }
                     }
                 }
-            } else if let _ = rootViewController as? JobBlueprintsViewController {
-                if let blueprintViewControllerIndex = tabBar.items!.indexOf(setupWorkOrdersTabBarItem) {
-                    if let blueprintViewController = (viewControllers![blueprintViewControllerIndex] as! UINavigationController).viewControllers.first! as? BlueprintViewController {
-                        return blueprintViewController.teardown()
+            } else if let _ = rootViewController as? JobFloorplansViewController {
+                if let floorplanViewControllerIndex = tabBar.items!.indexOf(setupWorkOrdersTabBarItem) {
+                    if let floorplanViewController = (viewControllers![floorplanViewControllerIndex] as! UINavigationController).viewControllers.first! as? FloorplanViewController {
+                        return floorplanViewController.teardown()
                     }
                 }
             }
@@ -358,9 +358,9 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController blueprintViewController: BlueprintViewController) {
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController floorplanViewController: FloorplanViewController) {
         if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-            if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobBlueprintsViewController {
+            if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                 jobBlueprintsViewController.refresh()
             }
         }

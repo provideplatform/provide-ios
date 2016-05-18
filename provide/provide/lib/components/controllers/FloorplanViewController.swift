@@ -1,5 +1,5 @@
 //
-//  BlueprintViewController.swift
+//  FloorplanViewController.swift
 //  provide
 //
 //  Created by Kyle Thomas on 10/23/15.
@@ -8,30 +8,28 @@
 
 import UIKit
 
-protocol BlueprintViewControllerDelegate: NSObjectProtocol {
-    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment!
-    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job!
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage!
-    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode!
-    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate!
-    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController)
-    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController!
-    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool
-    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar!
-    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController)
-    func showToolbarForBlueprintViewController(viewController: BlueprintViewController)
+protocol FloorplanViewControllerDelegate: NSObjectProtocol {
+    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan!
+    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job!
+    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage!
+    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode!
+    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool
+    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController)
+    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool
+    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool
+    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController!
+    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool
+    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar!
+    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController)
+    func showToolbarForFloorplanViewController(viewController: FloorplanViewController)
 }
 
-class BlueprintViewController: WorkOrderComponentViewController,
+class FloorplanViewController: WorkOrderComponentViewController,
                                UIScrollViewDelegate,
                                BlueprintScaleViewDelegate,
-                               BlueprintSelectorViewDelegate,
+                               FloorplanSelectorViewDelegate,
                                BlueprintThumbnailViewDelegate,
                                BlueprintPinViewDelegate,
-                               BlueprintPolygonViewDelegate,
                                BlueprintWorkOrdersViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
 
@@ -40,18 +38,18 @@ class BlueprintViewController: WorkOrderComponentViewController,
         static let allValues = [Setup, WorkOrders]
     }
 
-    weak var blueprintViewControllerDelegate: BlueprintViewControllerDelegate! {
+    weak var floorplanViewControllerDelegate: FloorplanViewControllerDelegate! {
         didSet {
-            if let delegate = blueprintViewControllerDelegate {
-                if blueprint == nil {
-                    if let blueprint = delegate.blueprintForBlueprintViewController(self) {
-                        self.blueprint = blueprint
+            if let delegate = floorplanViewControllerDelegate {
+                if floorplan == nil {
+                    if let floorplan = delegate.floorplanForFloorplanViewController(self) {
+                        self.floorplan = floorplan
                     }
                 }
 
-                if !loadedBlueprint && !loadingBlueprint && scrollView != nil {
-                    loadBlueprint()
-                } else if loadedBlueprint {
+                if !loadedFloorplan && !loadingFloorplan && scrollView != nil {
+                    loadFloorplan()
+                } else if loadedFloorplan {
                     dispatch_after_delay(0.0) {
                         self.scrollViewDidScroll(self.scrollView)
                     }
@@ -61,15 +59,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private var mode: Mode {
-        if let blueprintViewControllerDelegate = blueprintViewControllerDelegate {
-            if let mode = blueprintViewControllerDelegate.modeForBlueprintViewController(self) {
+        if let floorplanViewControllerDelegate = floorplanViewControllerDelegate {
+            if let mode = floorplanViewControllerDelegate.modeForFloorplanViewController(self) {
                 return mode
             }
         }
         return .Setup
     }
 
-    private var blueprintSelectorView: BlueprintSelectorView!
+    private var floorplanSelectorView: FloorplanSelectorView!
     private var thumbnailView: BlueprintThumbnailView!
     private var thumbnailTintView: UIView!
 
@@ -97,16 +95,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    @IBOutlet private weak var polygonView: BlueprintPolygonView! {
-        didSet {
-            if let polygonView = polygonView {
-                polygonView.delegate = self
-            }
-        }
-    }
-
     private var pinViews = [BlueprintPinView]()
-    private var polygonViews = [BlueprintPolygonView]()
 
     private var selectedPinView: BlueprintPinView! {
         didSet {
@@ -120,39 +109,30 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private var selectedPolygonView: BlueprintPolygonView!
 
     @IBOutlet private weak var blueprintWorkOrdersViewControllerContainer: UIView!
-    private var blueprintWorkOrdersViewController: BlueprintWorkOrdersViewController!
+    private var blueprintWorkOrdersViewController: FloorplanWorkOrdersViewController!
 
-    var blueprint: Attachment!
+    var floorplan: Floorplan!
 
-    var blueprintImageUrl: NSURL! {
-        if let blueprint = blueprint {
-            return blueprint.url
+    var floorplanImageUrl: NSURL! {
+        if let floorplan = floorplan {
+            return floorplan.imageUrl
         }
         return nil
     }
 
     var blueprintScale: Float! {
-        if let metadata = blueprint?.metadata {
-            if let scale = metadata["scale"] as? Double {
-                return Float(scale)
-            }
+        if let floorplan = floorplan {
+            return Float(floorplan.scale)
         }
         return nil
     }
 
     weak var job: Job! {
-        if let job = blueprintViewControllerDelegate?.jobForBlueprintViewController(self) {
+        if let job = floorplanViewControllerDelegate?.jobForFloorplanViewController(self) {
             return job
         }
         if let workOrder = workOrder {
             return workOrder.job
-        }
-        return nil
-    }
-
-    weak var estimate: Estimate! {
-        if let estimate = blueprintViewControllerDelegate?.estimateForBlueprintViewController(self) {
-            return estimate
         }
         return nil
     }
@@ -180,15 +160,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var cachedNavigationItem: UINavigationItem!
 
-    private var loadedBlueprint = false
+    private var loadedFloorplan = false
     private var initializedAnnotations = false
 
-    private var loadingBlueprint = false {
+    private var loadingFloorplan = false {
         didSet {
-            if !loadingBlueprint && !loadingAnnotations {
+            if !loadingFloorplan && !loadingAnnotations {
                 activityIndicatorView.stopAnimating()
             } else if !activityIndicatorView.isAnimating() {
-                if loadingBlueprint == true && oldValue == false {
+                if loadingFloorplan == true && oldValue == false {
                     progressView?.setProgress(0.0, animated: false)
                 }
                 activityIndicatorView.startAnimating()
@@ -198,7 +178,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var loadingAnnotations = false {
         didSet {
-            if !loadingBlueprint && !loadingAnnotations {
+            if !loadingFloorplan && !loadingAnnotations {
                 activityIndicatorView?.stopAnimating()
                 progressView?.hidden = true
             } else if !activityIndicatorView.isAnimating() {
@@ -209,7 +189,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     private var loadingMaterials = false {
         didSet {
-            if !loadingBlueprint && !loadingAnnotations && !loadingMaterials {
+            if !loadingFloorplan && !loadingAnnotations && !loadingMaterials {
                 activityIndicatorView.stopAnimating()
                 progressView?.hidden = true
             } else if !activityIndicatorView.isAnimating() {
@@ -225,12 +205,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         setupNavigationItem()
 
-        let blueprintSelectorViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintSelectorViewController") as! BlueprintSelectorViewController
-        blueprintSelectorView = blueprintSelectorViewController.selectorView
-        blueprintSelectorView.delegate = self
-        view.addSubview(blueprintSelectorView)
+        let floorplanSelectorViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanSelectorViewController") as! FloorplanSelectorViewController
+        floorplanSelectorView = floorplanSelectorViewController.selectorView
+        floorplanSelectorView.delegate = self
+        view.addSubview(floorplanSelectorView)
 
-        let blueprintThumbnailViewController = UIStoryboard("Blueprint").instantiateViewControllerWithIdentifier("BlueprintThumbnailViewController") as! BlueprintThumbnailViewController
+        let blueprintThumbnailViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanThumbnailViewController") as! FloorplanThumbnailViewController
         thumbnailView = blueprintThumbnailViewController.thumbnailView
         thumbnailView.delegate = self
         view.addSubview(thumbnailView)
@@ -256,24 +236,21 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         activityIndicatorView?.startAnimating()
 
-        if blueprintViewControllerDelegate != nil && !loadedBlueprint && !loadingBlueprint && scrollView != nil {
-            loadBlueprint()
+        if floorplanViewControllerDelegate != nil && !loadedFloorplan && !loadingFloorplan && scrollView != nil {
+            loadFloorplan()
         }
 
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
-                if let blueprint = self.blueprint {
-                    for annotation in blueprint.annotations {
-                        if workOrder.id == annotation.workOrderId {
+                if let floorplan = self.floorplan {
+                    for wo in floorplan.workOrders {
+                        if workOrder.id == wo.id {
                             dispatch_after_delay(0.0) {
-                                annotation.workOrder = workOrder
+                                // FIXME!!!!!!!!!!!! replace floorplans work order with this one... annotation.workOrder = workOrder
 
                                 if let pinView = self.pinViewForWorkOrder(workOrder) {
-                                    pinView.annotation = annotation
+                                    pinView.workOrder = workOrder
                                     pinView.redraw()
-                                } else if let polygonView = self.polygonViewForWorkOrder(workOrder) {
-                                    polygonView.annotation = annotation
-                                    polygonView.redraw()
                                 }
                             }
                         }
@@ -282,59 +259,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
-            if let attachment = notification.object as? Attachment {
-                if let blueprint = self.blueprint {
-                    if blueprint.id == attachment.id {
-                        let tag = isIPad() ? "150dpi" : "72dpi"
-                        let isAppropriateResolution = attachment.hasTag(tag)
-                        let hasThumbnailTag = attachment.hasTag("thumbnail")
-                        let isPublished = attachment.status == "published"
-                        if let mimeType = attachment.mimeType {
-                            if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag && isPublished {
-                                blueprint.urlString = attachment.urlString
-                                blueprint.metadata = attachment.metadata
-                                blueprint.status = attachment.status
-                                
-                                self.loadBlueprint()
-                            }
+        NSNotificationCenter.defaultCenter().addObserverForName("FloorplanChanged") { notification in
+            if let floorplan = notification.object as? Floorplan {
+                if let f = self.floorplan {
+                    if floorplan.id == f.id {
+                        self.floorplan = floorplan
+                        if !self.loadedFloorplan {
+                            self.loadFloorplan()
                         }
-                    }
-                }
-            } else if let userInfo = notification.object as? [String : AnyObject] {
-                let attachmentId = userInfo["attachment_id"] as? Int
-                let attachableType = userInfo["attachable_type"] as? String
-                let attachableId = userInfo["attachable_id"] as? Int
-
-                if attachmentId != nil && attachableType != nil && attachableId != nil {
-                    if let job = self.job {
-                        if attachableType == "job" && attachableId == job.id {
-                            job.reload(
-                                onSuccess: { statusCode, mappingResult in
-                                    self.loadBlueprint()
-                                },
-                                onError: { error, statusCode, responseString in
-
-                                }
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
-            if let job = notification.object as? Job {
-                if let j = self.job {
-                    if job.id == j.id {
-                        self.job.reload([:],
-                            onSuccess: { [weak self] statusCode, mappingResult in
-                                self!.loadBlueprint()
-                            },
-                            onError: { error, statusCode, responseString in
-
-                            }
-                        )
                     }
                 }
             }
@@ -346,7 +278,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         if segue.identifier! == "BlueprintWorkOrdersViewControllerSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            blueprintWorkOrdersViewController = navigationController.viewControllers.first! as! BlueprintWorkOrdersViewController
+            blueprintWorkOrdersViewController = navigationController.viewControllers.first! as! FloorplanWorkOrdersViewController
             blueprintWorkOrdersViewController.delegate = self
         }
     }
@@ -355,7 +287,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let image = imageView?.image
         imageView?.image = nil
         thumbnailView?.blueprintImage = nil
-        loadedBlueprint = false
+        loadedFloorplan = false
         return image
     }
 
@@ -446,23 +378,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
         )
     }
 
-    private var floorplanSupportsBacksplash: Bool {
-        if let floorplan = job?.floorplans.first {
-            return floorplan.backsplashProductOptions?.count > 0
-        }
-        return false
-    }
-
-    private func loadBlueprint() {
-        if let url = blueprintImageUrl {
-            loadingBlueprint = true
+    private func loadFloorplan() {
+        if let url = floorplanImageUrl {
+            loadingFloorplan = true
 
             ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
                 onDownloadSuccess: { [weak self] image in
                     dispatch_async_main_queue {
                         self!.activityIndicatorView?.stopAnimating()
                         self!.progressView?.setProgress(1.0, animated: false)
-                        self!.setBlueprintImage(image)
+                        self!.setFloorplanImage(image)
                     }
 
                     if let blueprintWorkOrdersViewController = self!.blueprintWorkOrdersViewController {
@@ -470,7 +395,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                     }
                 },
                 onDownloadFailure: { error in
-                    logWarn("Blueprint image download failed; \(error)")
+                    logWarn("Floorplan image download failed; \(error)")
                 },
                 onDownloadProgress: { [weak self] receivedSize, expectedSize in
                     if expectedSize != -1 {
@@ -486,7 +411,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func setBlueprintImage(image: UIImage) {
+    private func setFloorplanImage(image: UIImage) {
         let size = CGSize(width: image.size.width, height: image.size.height)
 
         imageView!.image = image
@@ -499,12 +424,12 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         enableScrolling = true
 
-        loadingBlueprint = false
-        loadedBlueprint = true
+        loadingFloorplan = false
+        loadedFloorplan = true
 
-        if let canDropWorkOrderPin = blueprintViewControllerDelegate?.blueprintViewControllerCanDropWorkOrderPin(self) {
+        if let canDropWorkOrderPin = floorplanViewControllerDelegate?.floorplanViewControllerCanDropWorkOrderPin(self) {
             if canDropWorkOrderPin {
-                let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(BlueprintViewController.dropPin(_:)))
+                let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(FloorplanViewController.dropPin(_:)))
                 imageView.addGestureRecognizer(gestureRecognizer)
             }
         }
@@ -519,7 +444,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
             self.setZoomLevel()
             self.imageView.alpha = 1.0
 
-            if let toolbar = self.blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+            if let toolbar = self.floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
                 toolbar.reload()
             }
 
@@ -533,11 +458,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
         if !newWorkOrderPending {
             let point = gestureRecognizer.locationInView(imageView)
 
-            let annotation = Annotation()
-            annotation.point = [point.x, point.y]
+            let workOrder = WorkOrder()
+            //annotation.point = [point.x, point.y]
 
             newWorkOrderPending = true
-            selectedPinView = BlueprintPinView(delegate: self, annotation: annotation)
+            selectedPinView = BlueprintPinView(delegate: self, workOrder: workOrder)
 
             imageView.addSubview(selectedPinView)
             imageView.bringSubviewToFront(selectedPinView)
@@ -568,31 +493,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func pinViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPinView! {
         var pinView: BlueprintPinView!
         for view in pinViews {
-            if let annotation = view.annotation {
-                if annotation.point != nil {
-                    if let wo = annotation.workOrder {
-                        if wo.id == workOrder?.id {
-                            pinView = view
-                            break
-                        }
-                    } else if annotation.workOrderId == workOrder?.id {
-                        pinView = view
-                        break
-                    }
+            if let wo = view.workOrder {
+                if wo.id == workOrder?.id {
+                    pinView = view
+                    break
                 }
             }
         }
         if pinView == nil {
-//            pinView = self.pinView
-            if let annotations = workOrder.annotations {
-                if annotations.count > 0 {
-                    if let annotation = annotations.first {
-                        if annotation.point != nil {
-                            pinView = BlueprintPinView(delegate: self, annotation: annotation)
-                        }
-                    }
-                }
-            }
+            pinView = BlueprintPinView(delegate: self, workOrder: workOrder)
         }
         return pinView
     }
@@ -605,85 +514,69 @@ class BlueprintViewController: WorkOrderComponentViewController,
         pinViews = [BlueprintPinView]()
     }
 
-    private func polygonViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPolygonView! {
-        var polygonView: BlueprintPolygonView!
-        for view in polygonViews {
-            if let annotation = view.annotation {
-                if annotation.polygon != nil {
-                    if let wo = annotation.workOrder {
-                        if wo.id == workOrder?.id {
-                            polygonView = view
-                            break
-                        }
-                    } else if annotation.workOrderId == workOrder?.id {
-                        polygonView = view
-                        break
-                    }
-                }
-            }
-        }
-        if polygonView == nil {
-            if let workOrder = workOrder {
-                if let annotations = workOrder.annotations {
-                    if annotations.count > 0 {
-                        if let annotation = annotations.first {
-                            if annotation.polygon != nil {
-                                polygonView = BlueprintPolygonView(delegate: self, annotation: annotation)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return polygonView
-    }
-
-    private func removePolygonViews() {
-        for view in polygonViews {
-            view.removeFromSuperview()
-        }
-
-        polygonViews = [BlueprintPolygonView]()
-    }
-
     private func refreshAnnotations() {
-        if let blueprint = blueprint {
-            for annotation in blueprint.annotations {
-                let annotationWorkOrder = annotation.workOrderId > 0 ? annotation.workOrder : nil
-                if annotation.point != nil {
-                    let pinView = BlueprintPinView(delegate: self, annotation: annotation)
-                    pinView.category = annotation.workOrder?.category
-                    pinView.frame = CGRect(x: annotation.point[0],
-                                           y: annotation.point[1],
-                                           width: pinView.bounds.width,
-                                           height: pinView.bounds.height)
-                    pinView.frame.origin = CGPoint(x: pinView.frame.origin.x - (pinView.frame.size.width / 2.0),
-                                                   y: pinView.frame.origin.y - pinView.frame.size.height)
-                    pinView.alpha = 1.0
-
-                    imageView.addSubview(pinView)
-                    imageView.bringSubviewToFront(pinView)
-                    
-                    pinView.attachGestureRecognizer()
-
-                    pinViews.append(pinView)
-                } else if let polygonView = polygonViewForWorkOrder(annotationWorkOrder) {
-                    imageView.addSubview(polygonView)
-                    polygonView.alpha = 1.0
-                    polygonView.attachGestureRecognizer()
-
-                    polygonViews.append(polygonView)
-                }
+        if let floorplan = floorplan {
+            for workOrder in floorplan.workOrders {
+//                if annotation.point != nil {
+//                    let pinView = BlueprintPinView(delegate: self, annotation: annotation)
+//                    pinView.category = annotation.workOrder?.category
+//                    pinView.frame = CGRect(x: annotation.point[0],
+//                                           y: annotation.point[1],
+//                                           width: pinView.bounds.width,
+//                                           height: pinView.bounds.height)
+//                    pinView.frame.origin = CGPoint(x: pinView.frame.origin.x - (pinView.frame.size.width / 2.0),
+//                                                   y: pinView.frame.origin.y - pinView.frame.size.height)
+//                    pinView.alpha = 1.0
+//
+//                    imageView.addSubview(pinView)
+//                    imageView.bringSubviewToFront(pinView)
+//
+//                    pinView.attachGestureRecognizer()
+//
+//                    pinViews.append(pinView)
+//                } else if let polygonView = polygonViewForWorkOrder(annotationWorkOrder) {
+//                    imageView.addSubview(polygonView)
+//                    polygonView.alpha = 1.0
+//                    polygonView.attachGestureRecognizer()
+//
+//                    polygonViews.append(polygonView)
+//                }
             }
+
+//            for annotation in blueprint.annotations {
+//                let annotationWorkOrder = annotation.workOrderId > 0 ? annotation.workOrder : nil
+//                if annotation.point != nil {
+//                    let pinView = BlueprintPinView(delegate: self, annotation: annotation)
+//                    pinView.category = annotation.workOrder?.category
+//                    pinView.frame = CGRect(x: annotation.point[0],
+//                                           y: annotation.point[1],
+//                                           width: pinView.bounds.width,
+//                                           height: pinView.bounds.height)
+//                    pinView.frame.origin = CGPoint(x: pinView.frame.origin.x - (pinView.frame.size.width / 2.0),
+//                                                   y: pinView.frame.origin.y - pinView.frame.size.height)
+//                    pinView.alpha = 1.0
+//
+//                    imageView.addSubview(pinView)
+//                    imageView.bringSubviewToFront(pinView)
+//                    
+//                    pinView.attachGestureRecognizer()
+//
+//                    pinViews.append(pinView)
+//                } else if let polygonView = polygonViewForWorkOrder(annotationWorkOrder) {
+//                    imageView.addSubview(polygonView)
+//                    polygonView.alpha = 1.0
+//                    polygonView.attachGestureRecognizer()
+//
+//                    polygonViews.append(polygonView)
+//                }
+//            }
 
             dispatch_after_delay(0.0) {
                 if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    for annotation in blueprint.annotations {
-                        if let workOrder = annotation.workOrder {
-                            if workOrder.id == inProgressWorkOrder.id {
-                                self.openWorkOrder(inProgressWorkOrder)
-                                break
-                            }
+                    for workOrder in floorplan.workOrders {
+                        if workOrder.id == inProgressWorkOrder.id {
+                            self.openWorkOrder(inProgressWorkOrder)
+                            break
                         }
                     }
                 }
@@ -692,11 +585,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func hideToolbar() {
-        blueprintViewControllerDelegate?.hideToolbarForBlueprintViewController(self)
+        floorplanViewControllerDelegate?.hideToolbarForFloorplanViewController(self)
     }
 
     private func showToolbar() {
-        blueprintViewControllerDelegate?.showToolbarForBlueprintViewController(self)
+        floorplanViewControllerDelegate?.showToolbarForFloorplanViewController(self)
     }
 
     func cancelSetScale(sender: UIBarButtonItem) {
@@ -716,7 +609,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
 //            blueprint.updateAttachment(["metadata": metadata],
 //                onSuccess: { statusCode, mappingResult in
 //                    self.toolbar.reload()
-//                    self.blueprintViewControllerDelegate?.scaleWasSetForBlueprintViewController(self)
+//                    self.floorplanViewControllerDelegate?.scaleWasSetForFloorplanViewController(self)
 //                }, onError: { error, statusCode, responseString in
 //
 //                }
@@ -728,19 +621,14 @@ class BlueprintViewController: WorkOrderComponentViewController,
         selectedPinView?.resignFirstResponder(false)
     }
 
-    func dismissWorkOrderCreationPolygonView() {
-        polygonView?.resignFirstResponder(false)
-        restoreCachedNavigationItem()
-    }
-
     private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelSetScale(_:)))
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(FloorplanViewController.cancelSetScale(_:)))
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 
-        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: #selector(BlueprintViewController.setScale(_:)))
+        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: #selector(FloorplanViewController.setScale(_:)))
         setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
         setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
         setScaleItem.enabled = setScaleEnabled
@@ -752,11 +640,11 @@ class BlueprintViewController: WorkOrderComponentViewController,
     private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-//        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(BlueprintViewController.cancelCreateWorkOrder(_:)))
+//        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(FloorplanViewController.cancelCreateWorkOrder(_:)))
 //        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
 //        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 //
-//        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: #selector(BlueprintViewController.createWorkOrder(_:)))
+//        let createWorkOrderItem = UIBarButtonItem(title: "CREATE WORK ORDER", style: .Plain, target: self, action: #selector(FloorplanViewController.createWorkOrder(_:)))
 //        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
 //        createWorkOrderItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
 //        createWorkOrderItem.enabled = setCreateEnabled
@@ -827,17 +715,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         setScale(nil)
     }
 
-    // MARK: BlueprintSelectorViewDelegate
+    // MARK: floorplanSelectorViewDelegate
 
-    func jobForBlueprintSelectorView(selectorView: BlueprintSelectorView) -> Job! {
+    func jobForFloorplanSelectorView(selectorView: FloorplanSelectorView) -> Job! {
         return job
     }
 
-    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment!, atIndexPath indexPath: NSIndexPath!) {
-        if blueprint == nil {
+    func floorplanSelectorView(selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: NSIndexPath!) {
+        if floorplan == nil {
             importFromDropbox()
         } else {
-            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+            if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
                 toolbar.presentBlueprintAtIndexPath(indexPath)
             }
         }
@@ -848,29 +736,40 @@ class BlueprintViewController: WorkOrderComponentViewController,
     }
 
     private func presentDropboxChooser() {
-        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { [weak self] results in
+        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { results in
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
                     let filename = (result as! DBChooserResult).name
                     if let fileExtension = sourceURL.pathExtension {
                         if fileExtension.lowercaseString == "pdf" {
-                            if let job = self!.job {
-                                let params: [String : AnyObject] = ["tags": ["blueprint"], "metadata": ["filename": filename]]
-                                ApiService.sharedService().addAttachmentFromSourceUrl(sourceURL, toJobWithId: String(job.id), params: params,
+                            if let job = self.job {
+                                let floorplan = Floorplan()
+                                floorplan.jobId = job.id
+                                floorplan.name = filename
+                                floorplan.pdfUrlString = sourceURL.absoluteString
+
+                                floorplan.save(
                                     onSuccess: { statusCode, mappingResult in
-                                        NSNotificationCenter.defaultCenter().postNotificationName("BlueprintsPageViewControllerDidImportFromDropbox")
+                                        self.job.reloadFloorplans(
+                                            { statusCode, mappingResult in
+                                                NSNotificationCenter.defaultCenter().postNotificationName("FloorplansPageViewControllerDidImportFromDropbox")
+                                            },
+                                            onError: { error, statusCode, responseString in
+                                                
+                                            }
+                                        )
                                     },
                                     onError: { error, statusCode, responseString in
-                                        
+
                                     }
                                 )
                             }
                         } else {
-                            self!.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
+                            self.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
 
                             dispatch_after_delay(3.25) {
-                                self!.presentDropboxChooser()
+                                self.presentDropboxChooser()
                             }
                         }
                     }
@@ -928,17 +827,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         return CGSizeZero
     }
 
-    func setBlueprintSelectorVisibility(visible: Bool) {
+    func setFloorplanSelectorVisibility(visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
-        blueprintSelectorView?.redraw(view)
-        blueprintSelectorView?.alpha = alpha
+        floorplanSelectorView?.redraw(view)
+        floorplanSelectorView?.alpha = alpha
         if visible {
             setNavigatorVisibility(false)
             setWorkOrdersVisibility(false)
 
             thumbnailTintView?.alpha = 0.3
             view.bringSubviewToFront(thumbnailTintView)
-            view.bringSubviewToFront(blueprintSelectorView)
+            view.bringSubviewToFront(floorplanSelectorView)
         } else {
             thumbnailTintView?.alpha = 0.0
             view.sendSubviewToBack(thumbnailTintView)
@@ -949,7 +848,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
         if visible {
-            setBlueprintSelectorVisibility(false)
+            setFloorplanSelectorVisibility(false)
             setWorkOrdersVisibility(false)
 
             thumbnailTintView?.alpha = 0.3
@@ -965,7 +864,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
         let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
-            setBlueprintSelectorVisibility(false)
+            setFloorplanSelectorVisibility(false)
             setNavigatorVisibility(false)
 
             thumbnailTintView?.alpha = 0.2
@@ -1005,19 +904,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
     // MARK: BlueprintPinViewDelegate
 
     func tintColorForBlueprintPinView(view: BlueprintPinView) -> UIColor {
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                return workOrder.statusColor
-            }
+        if let workOrder = view.workOrder {
+            return workOrder.statusColor
         }
         return UIColor.blueColor()
     }
 
     func categoryForBlueprintPinView(view: BlueprintPinView) -> Category! {
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                return workOrder.category
-            }
+        if let workOrder = view.workOrder {
+            return workOrder.category
         }
         return nil
     }
@@ -1038,19 +933,17 @@ class BlueprintViewController: WorkOrderComponentViewController,
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
-            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+            if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
                 toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
             }
 
-            if let annotation = view.annotation {
-                if let workOrder = annotation.workOrder {
-                    blueprintViewControllerShouldFocusOnWorkOrder(workOrder, forBlueprintWorkOrdersViewController: blueprintWorkOrdersViewController)
-                }
+            if let workOrder = view.workOrder {
+                floorplanViewControllerShouldFocusOnWorkOrder(workOrder, forFloorplanWorkOrdersViewController: blueprintWorkOrdersViewController)
             }
 
             return
         } else {
-            if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+            if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
                 toolbar.setWorkOrdersVisibility(false, alpha: 0.0)
             }
             delay = 0.15
@@ -1058,18 +951,16 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
         selectedPinView = view
 
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                dispatch_after_delay(delay) {
-                    self.openWorkOrder(workOrder, fromPinView: view, delay: delay)
-                }
+        if let workOrder = view.workOrder {
+            dispatch_after_delay(delay) {
+                self.openWorkOrder(workOrder, fromPinView: view, delay: delay)
             }
         }
     }
 
     private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil, delay: Double = 0.0) {
         blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
-        if let toolbar = blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+        if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
             dispatch_after_delay(delay) {
                 toolbar.setWorkOrdersVisibility(true)
             }
@@ -1094,113 +985,6 @@ class BlueprintViewController: WorkOrderComponentViewController,
             pinView.alpha = 1.0
             pinView.userInteractionEnabled = true
         }
-    }
-
-    // MARK: BlueprintPolygonViewDelegate
-
-    func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool {
-        if let job = job {
-            if job.isResidential {
-                return false
-            }
-        }
-
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                return ["awaiting_schedule", "scheduled"].indexOfObject(workOrder.status) != nil
-            }
-        }
-        return false
-    }
-
-    func blueprintScaleForBlueprintPolygonView(view: BlueprintPolygonView) -> CGFloat! {
-        if let blueprintScale = blueprintScale {
-            return CGFloat(blueprintScale)
-        }
-        return nil
-    }
-
-    func blueprintImageViewForBlueprintPolygonView(view: BlueprintPolygonView) -> UIImageView! {
-        if let index = polygonViews.indexOfObject(view) {
-            if let _ = polygonViews[index].delegate {
-                return imageView
-            } else {
-                return nil
-            }
-        } else {
-            return imageView
-        }
-    }
-
-    func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment! {
-        return blueprint
-    }
-
-    func blueprintPolygonViewDidClose(view: BlueprintPolygonView) {
-        if view == polygonView {
-            overrideNavigationItemForCreatingWorkOrder(true)
-
-            if view.annotation == nil {
-
-            }
-        }
-    }
-
-    func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor {
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                return workOrder.statusColor
-            }
-        }
-        return UIColor.clearColor()
-    }
-
-    func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat {
-        return 0.75
-    }
-
-    func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer! {
-        let textLayer = CATextLayer()
-        textLayer.string = "\(NSString(format: "%.03f", view.area)) sq ft"
-        textLayer.font = UIFont(name: "Exo2-Regular", size: 16.0)
-        textLayer.foregroundColor = UIColor.blackColor().CGColor
-        textLayer.alignmentMode = "center"
-        textLayer.frame = CGRect(x: boundingBox.origin.x,
-                                 y: boundingBox.origin.y + (boundingBox.height / 2.0),
-                                 width: boundingBox.width,
-                                 height: boundingBox.height)
-
-        return textLayer
-    }
-
-    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath) {
-        selectedPolygonView = view
-
-        if let annotation = view.annotation {
-            if let workOrder = annotation.workOrder {
-                let createWorkOrderViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
-                createWorkOrderViewController.workOrder = workOrder
-                createWorkOrderViewController.delegate = blueprintWorkOrdersViewController
-                createWorkOrderViewController.preferredContentSize = CGSizeMake(500, 600)
-
-                let navigationController = UINavigationController(rootViewController: createWorkOrderViewController)
-                navigationController.modalPresentationStyle = .Popover
-
-                let popover = navigationController.popoverPresentationController!
-                popover.delegate = self
-                popover.sourceView = imageView
-                popover.sourceRect = CGPathGetBoundingBox(path)
-                popover.canOverlapSourceViewRect = true
-                popover.permittedArrowDirections = [.Left, .Right]
-                popover.passthroughViews = [view]
-                
-                presentViewController(navigationController, animated: true)
-            }
-        }
-    }
-
-    func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation) {
-        //refreshWorkOrderCreationView()
     }
 
     // MARK: UIScrollViewDelegate
@@ -1241,15 +1025,15 @@ class BlueprintViewController: WorkOrderComponentViewController,
 
     // MARK: BlueprintWorkOrdersViewControllerDelegate
 
-    func blueprintForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Attachment! {
-        return blueprint
+    func floorplanForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Floorplan! {
+        return floorplan
     }
 
-    func blueprintWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: FloorplanWorkOrdersViewController) {
         newWorkOrderPending = false
     }
 
-    func blueprintViewControllerShouldRedrawAnnotationPinsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         if !initializedAnnotations {
             initializedAnnotations = true
             if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
@@ -1265,46 +1049,46 @@ class BlueprintViewController: WorkOrderComponentViewController,
         refreshAnnotations()
     }
 
-    func blueprintViewControllerStartedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerStartedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         loadingAnnotations = true
     }
 
-    func blueprintViewControllerStoppedReloadingAnnotationsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerStoppedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         loadingAnnotations = false
     }
 
-    func blueprintViewControllerShouldDeselectPinForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         selectedPinView = nil
     }
 
-    func blueprintViewControllerShouldDeselectPolygonForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         selectedPolygonView = nil
     }
 
-    func blueprintViewControllerShouldReloadToolbarForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         //toolbar?.reload()
     }
 
-    func jobForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> Job! {
+    func jobForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Job! {
         return job
     }
 
-    func selectedPinViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView! {
+    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView! {
         return selectedPinView
     }
 
-    func selectedPolygonViewForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView! {
+    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView! {
         return selectedPolygonView
     }
 
-    func blueprintViewControllerShouldRemovePinView(pinView: BlueprintPinView, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldRemovePinView(pinView: BlueprintPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
         if let index = pinViews.indexOfObject(pinView) {
             pinViews.removeAtIndex(index)
             selectedPinView.removeFromSuperview()
         }
     }
 
-    func blueprintViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             dispatch_after_delay(0.0) {
                 UIView.animateWithDuration(0.2, delay: 0.2, options: .CurveEaseOut,
@@ -1315,7 +1099,7 @@ class BlueprintViewController: WorkOrderComponentViewController,
                         self.scrollView.contentOffset.x += offsetX
                     },
                     completion: { completed in
-                        if let toolbar = self.blueprintViewControllerDelegate?.toolbarForBlueprintViewController(self) {
+                        if let toolbar = self.floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
                             toolbar.setWorkOrdersVisibility(true)
                         }
                     }
@@ -1328,65 +1112,42 @@ class BlueprintViewController: WorkOrderComponentViewController,
         }
     }
 
-    func pinViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPinView! {
+    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView! {
         return pinViewForWorkOrder(workOrder)
     }
 
-    func polygonViewForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> BlueprintPolygonView! {
-        return polygonViewForWorkOrder(workOrder)
+    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView! {
+        return nil
     }
 
-    func blueprintViewControllerShouldDismissWorkOrderCreationAnnotationViewsForBlueprintWorkOrdersViewController(viewController: BlueprintWorkOrdersViewController) {
+    func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         self.dismissWorkOrderCreationPinView()
-        self.dismissWorkOrderCreationPolygonView()
     }
 
-    func previewImageForWorkOrder(workOrder: WorkOrder, forBlueprintWorkOrdersViewController viewController: BlueprintWorkOrdersViewController) -> UIImage! {
-        let polygonView = polygonViewForWorkOrder(workOrder)
+    func previewImageForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage! {
         let pinView = pinViewForWorkOrder(workOrder)
 
         if workOrder.previewImage == nil { // FIXME!!! This has to get moved
-            if let blueprintPolygonView = polygonView {
-                if let overlayViewBoundingBox = blueprintPolygonView.overlayViewBoundingBox {
-                    if let blueprintImageView = imageView {
-                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
-                        let previewView = UIImageView(image: previewImage)
-                        if let annotation = blueprintPolygonView.annotation {
-                            let polygonView = BlueprintPolygonView(annotation: annotation)
-                            previewView.addSubview(polygonView)
-                            previewView.bringSubviewToFront(polygonView)
-                            polygonView.alpha = 1.0
-                            if let sublayers = polygonView.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
-                                }
-                            }
-
-                            workOrder.previewImage = previewView.toImage()
-                        }
-                    }
-                }
-            } else if let pinView = pinView {
+            if let pinView = pinView {
                 if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
                     if let blueprintImageView = imageView {
                         let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
                         let previewView = UIImageView(image: previewImage)
-                        if let annotation = pinView.annotation {
-                            let pin = BlueprintPinView(annotation: annotation)
-                            pin.delegate = self
-                            previewView.addSubview(pin)
-                            previewView.bringSubviewToFront(pin)
-                            pin.alpha = 1.0
-                            if let sublayers = pin.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
-                                }
-                            }
-
-                            workOrder.previewImage = previewView.toImage()
-                        }
+//                        if let annotation = pinView.annotation {
+//                            let pin = BlueprintPinView(annotation: annotation)
+//                            pin.delegate = self
+//                            previewView.addSubview(pin)
+//                            previewView.bringSubviewToFront(pin)
+//                            pin.alpha = 1.0
+//                            if let sublayers = pin.layer.sublayers {
+//                                for sublayer in sublayers {
+//                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
+//                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+//                                }
+//                            }
+//
+//                            workOrder.previewImage = previewView.toImage()
+//                        }
                     }
                 }
             }

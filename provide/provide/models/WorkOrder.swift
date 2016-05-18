@@ -106,13 +106,6 @@ class WorkOrder: Model {
         return !pendingArrival
     }
 
-    var blueprintImageUrl: NSURL! {
-        if let job = job {
-            return job.blueprintImageUrl
-        }
-        return nil
-    }
-
     var scheduledStartAtDate: NSDate! {
         if let scheduledStartAt = scheduledStartAt {
             return NSDate.fromString(scheduledStartAt)

@@ -32,7 +32,6 @@ class ApiService: NSObject {
         "customers": Customer.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
-        "estimates": Estimate.mapping(),
         "eta": Directions.mapping(),
         "expenses": Expense.mapping(),
         "floorplans": Floorplan.mapping(),
@@ -706,6 +705,10 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("floorplans", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    func fetchFloorplans(forJobWithId jobId: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("jobs/\(jobId)/floorplans", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     func fetchFloorplanWithId(id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("floorplans/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
@@ -726,6 +729,10 @@ class ApiService: NSObject {
         realParams["id"] = nil
 
         return dispatchApiOperationForPath("floorplans/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchWorkOrders(forFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("floorplans/\(id)/work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func fetchAttachments(forFloorplanWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {

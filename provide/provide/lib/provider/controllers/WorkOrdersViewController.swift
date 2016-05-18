@@ -65,7 +65,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                                                 WorkOrderComponentViewControllerDelegate,
                                                 RouteManifestViewControllerDelegate,
                                                 ManifestViewControllerDelegate,
-                                                BlueprintViewControllerDelegate {
+                                                FloorplanViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
@@ -781,18 +781,18 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         setupBarButtonItems()
     }
 
-    // MARK: BlueprintViewControllerDelegate
+    // MARK: FloorplanViewControllerDelegate
 
-    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
-        if let blueprints = jobForBlueprintViewController(viewController)?.blueprintImages {
-            if blueprints.count > 0 {
-                return Array(blueprints).sort({ $0.id < $1.id }).first! // HACK
+    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan! {
+        if let floorplans = jobForFloorplanViewController(viewController)?.floorplans {
+            if floorplans.count > 0 {
+                return Array(floorplans).sort({ $0.id < $1.id }).first! // HACK
             }
         }
         return nil
     }
 
-    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if let job = workOrder.job {
                 if job.company == nil {
@@ -810,51 +810,47 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         return nil
     }
 
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
         return nil
     }
 
-    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
         return .WorkOrders
     }
 
-    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
-        return nil
-    }
-
-    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
-    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar! {
         return nil
     }
 
-    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func showToolbarForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
@@ -913,8 +909,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
                 managedViewControllers.append(initialViewController)
                 vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
 
-                if vc.isKindOfClass(BlueprintViewController) {
-                    (vc as! BlueprintViewController).blueprintViewControllerDelegate = self
+                if vc.isKindOfClass(FloorplanViewController) {
+                    (vc as! FloorplanViewController).floorplanViewControllerDelegate = self
                 } else if vc.isKindOfClass(CommentsViewController) {
                     (vc as! CommentCreationViewController).commentCreationViewControllerDelegate = self
                 }

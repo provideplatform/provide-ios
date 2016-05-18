@@ -1,5 +1,5 @@
 //
-//  BlueprintSelectorView.swift
+//  FloorplanSelectorView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 4/30/16.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol BlueprintSelectorViewDelegate {
-    func jobForBlueprintSelectorView(selectorView: BlueprintSelectorView) -> Job!
-    func blueprintSelectorView(selectorView: BlueprintSelectorView, didSelectBlueprint blueprint: Attachment!, atIndexPath indexPath: NSIndexPath!)
+protocol FloorplanSelectorViewDelegate {
+    func jobForFloorplanSelectorView(selectorView: FloorplanSelectorView) -> Job!
+    func floorplanSelectorView(selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: NSIndexPath!)
 }
 
-class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    var delegate: BlueprintSelectorViewDelegate! {
+    var delegate: FloorplanSelectorViewDelegate! {
         didSet {
             if let _ = delegate {
                 collectionView.reloadData()
@@ -26,33 +26,18 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     @IBOutlet private weak var collectionView: UICollectionView!
 
     weak var job: Job! {
-        return delegate?.jobForBlueprintSelectorView(self)
+        return delegate?.jobForFloorplanSelectorView(self)
     }
 
-    private var blueprints: [Attachment] {
+    private var floorplans: [Floorplan] {
         if let job = job {
-            return job.blueprints
+            return job.floorplans
         }
-        return [Attachment]()
+        return [Floorplan]()
     }
 
-    private func thumbnailUrlForBlueprintAtIndex(index: Int) -> NSURL! {
-        let blueprint = blueprints[index]
-        for representation in blueprint.representations {
-            if representation.hasTag("72dpi") {
-                if let thumbnailUrl = representation.thumbnailUrl {
-                    return thumbnailUrl
-                } else {
-                    for rep in representation.representations {
-                        if rep.hasTag("thumbnail") {
-                            return rep.url
-                        }
-                    }
-                }
-            }
-        }
-
-        return nil
+    private func thumbnailUrlForFloorplanAtIndex(index: Int) -> NSURL! {
+        return floorplans[index].thumbnailImageUrl
     }
 
     func redraw(targetView: UIView) {
@@ -69,7 +54,7 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 
             self.frame = CGRect(x: 50.0,
                                 y: Double(targetView.frame.height) - 165.0 - 10.0 - 44.0,
-                                width: (Double(self.blueprints.count) * 175.0) + 125.0 + 10.0,
+                                width: (Double(self.floorplans.count) * 175.0) + 125.0 + 10.0,
                                 height: 165.0)
 
             self.collectionView.contentSize = self.frame.size
@@ -84,15 +69,15 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return blueprints.count + 1
+        return floorplans.count + 1
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier("blueprintCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
         cell.rendersCircularImage = false
 
-        if indexPath.row <= blueprints.count - 1 {
-            let blueprint = blueprints[indexPath.row]
+        if indexPath.row <= floorplans.count - 1 {
+            let floorplan = floorplans[indexPath.row]
 
             //cell.selected = isSelected(blueprint)
 
@@ -100,9 +85,9 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
                 collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
             }
 
-            cell.name = blueprint.filename
+            cell.name = floorplan.name
 
-            if let thumbnailUrl = thumbnailUrlForBlueprintAtIndex(indexPath.row) {
+            if let thumbnailUrl = thumbnailUrlForFloorplanAtIndex(indexPath.row) {
                 cell.imageUrl = thumbnailUrl
             }
         } else {
@@ -119,18 +104,18 @@ class BlueprintSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if indexPath.row < blueprints.count - 1 {
+        if indexPath.row < floorplans.count - 1 {
             CGSizeMake(175.0, 150.0)
         }
         return CGSizeMake(125.0, 150.0)
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row <= blueprints.count - 1 {
-            let blueprint = blueprints[indexPath.row]
-            delegate?.blueprintSelectorView(self, didSelectBlueprint: blueprint, atIndexPath: indexPath)
+        if indexPath.row <= floorplans.count - 1 {
+            let floorplan = floorplans[indexPath.row]
+            delegate?.floorplanSelectorView(self, didSelectFloorplan: floorplan, atIndexPath: indexPath)
         } else {
-            delegate?.blueprintSelectorView(self, didSelectBlueprint: nil, atIndexPath: nil)
+            delegate?.floorplanSelectorView(self, didSelectFloorplan: nil, atIndexPath: nil)
         }
     }
 

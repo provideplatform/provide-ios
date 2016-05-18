@@ -25,18 +25,6 @@ protocol BlueprintPinViewDelegate: NSObjectProtocol {
 
 class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
-    var annotation: Annotation! {
-        didSet {
-            if let workOrder = workOrder {
-                if let category = workOrder.category {
-                    self.category = category
-                } else {
-                    self.category = nil
-                }
-            }
-        }
-    }
-
     var category: Category! {
         didSet {
             if NSThread.isMainThread() {
@@ -49,11 +37,16 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         }
     }
 
-    private weak var workOrder: WorkOrder! {
-        if let annotation = annotation {
-            return annotation.workOrder
+    weak var workOrder: WorkOrder! {
+        didSet {
+            if let workOrder = workOrder {
+                if let category = workOrder.category {
+                    self.category = category
+                } else {
+                    self.category = nil
+                }
+            }
         }
-        return nil
     }
 
     weak var delegate: BlueprintPinViewDelegate! {
@@ -65,10 +58,11 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
     var point: CGPoint!
 
     var overlayViewBoundingBox: CGRect! {
-        if let point = annotation.point {
-            return CGRect(x: point[0] - 250.0, y: point[1] - 250.0, width: 500.0, height: 500.0)
-        }
-        return nil
+        // FIXME!!!!
+//        if let point = annotation.point {
+//            return CGRect(x: point[0] - 250.0, y: point[1] - 250.0, width: 500.0, height: 500.0)
+//        }
+        return CGRectZero
     }
 
     private var abbreviationLabel: UILabel!
@@ -77,16 +71,16 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     private var timer: NSTimer!
 
-    required init(annotation: Annotation!) {
+    required init(workOrder: WorkOrder!) {
         super.init(frame: CGRectZero)
 
-        self.annotation = annotation
+        self.workOrder = workOrder
 
-        if let point = annotation?.point {
-            self.point = CGPoint(x: point[0], y: point[1])
-        }
+//        if let point = annotation?.point {
+//            self.point = CGPoint(x: point[0], y: point[1])
+//        }
 
-        if let tintColor = annotation?.workOrder?.statusColor {
+        if let tintColor = workOrder?.statusColor {
             self.tintColor = tintColor
         }
 
@@ -96,19 +90,17 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         initWorkOrderChangedNotificationObserver()
     }
 
-    required init(delegate: BlueprintPinViewDelegate, annotation: Annotation) {
+    required init(delegate: BlueprintPinViewDelegate, workOrder: WorkOrder) {
         super.init(frame: CGRectZero)
 
         self.delegate = delegate
-        self.annotation = annotation
+        self.workOrder = workOrder
 
-        if let point = annotation.point {
-            self.point = CGPoint(x: point[0], y: point[1])
-        }
+//        if let point = annotation.point {
+//            self.point = CGPoint(x: point[0], y: point[1])
+//        }
 
-        if let tintColor = annotation.workOrder?.statusColor {
-            self.tintColor = tintColor
-        }
+        self.tintColor = workOrder.statusColor
 
         image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)

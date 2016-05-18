@@ -1,5 +1,5 @@
 //
-//  BlueprintSelectorViewController.swift
+//  FloorplanSelectorViewController.swift
 //  provide
 //
 //  Created by Kyle Thomas on 4/30/16.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class BlueprintSelectorViewController: ViewController {
+class FloorplanSelectorViewController: ViewController {
 
-    weak var selectorView: BlueprintSelectorView! {
-        return view as? BlueprintSelectorView
+    weak var selectorView: FloorplanSelectorView! {
+        return view as? FloorplanSelectorView
     }
 
     override func viewDidLoad() {

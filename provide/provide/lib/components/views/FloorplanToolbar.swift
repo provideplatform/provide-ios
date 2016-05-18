@@ -1,5 +1,5 @@
 //
-//  BlueprintToolbar.swift
+//  FloorplanToolbar.swift
 //  provide
 //
 //  Created by Kyle Thomas on 10/26/15.
@@ -8,30 +8,30 @@
 
 import UIKit
 
-protocol BlueprintToolbarDelegate: NSObjectProtocol {
-    func blueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetBlueprintSelectorVisibility visible: Bool)
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetNavigatorVisibility visible: Bool)
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetScaleVisibility visible: Bool)
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
-    func blueprintShouldBeRenderedAtIndexPath(indexPath: NSIndexPath, forBlueprintToolbar blueprintToolbar: BlueprintToolbar)
-    func previousBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
-    func nextBlueprintShouldBeRenderedForBlueprintToolbar(toolbar: BlueprintToolbar)
-    func selectedBlueprintForBlueprintToolbar(toolbar: BlueprintToolbar) -> Attachment!
-    func nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func scaleCanBeSetByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func newWorkOrderItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func newWorkOrderCanBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func newWorkOrderShouldBeCreatedByBlueprintToolbar(toolbar: BlueprintToolbar)
-    func floorplanOptionsItemIsShownByBlueprintToolbar(toolbar: BlueprintToolbar) -> Bool
-    func blueprintToolbar(toolbar: BlueprintToolbar, shouldPresentAlertController alertController: UIAlertController)
+protocol FloorplanToolbarDelegate: NSObjectProtocol {
+    func floorplanForFloorplanToolbar(toolbar: FloorplanToolbar) -> Floorplan
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetFloorplanSelectorVisibility visible: Bool)
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetNavigatorVisibility visible: Bool)
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetScaleVisibility visible: Bool)
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
+    func floorplanShouldBeRenderedAtIndexPath(indexPath: NSIndexPath, forFloorplanToolbar floorplanToolbar: FloorplanToolbar)
+    func previousFloorplanShouldBeRenderedForFloorplanToolbar(toolbar: FloorplanToolbar)
+    func nextFloorplanShouldBeRenderedForFloorplanToolbar(toolbar: FloorplanToolbar)
+    func selectedFloorplanForFloorplanToolbar(toolbar: FloorplanToolbar) -> Floorplan!
+    func nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func scaleCanBeSetByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderItemIsShownByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderCanBeCreatedByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderShouldBeCreatedByFloorplanToolbar(toolbar: FloorplanToolbar)
+    func floorplanOptionsItemIsShownByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
+    func floorplanToolbar(toolbar: FloorplanToolbar, shouldPresentAlertController alertController: UIAlertController)
 }
 
-class BlueprintToolbar: UIToolbar {
+class FloorplanToolbar: UIToolbar {
 
-    var blueprintToolbarDelegate: BlueprintToolbarDelegate!
+    var floorplanToolbarDelegate: FloorplanToolbarDelegate!
 
     private var blueprintSelectorVisible = false
     private var navigatorVisible = false
@@ -41,8 +41,8 @@ class BlueprintToolbar: UIToolbar {
     private var floorplanOptionsVisible = false
 
     private var isScaleSet: Bool {
-        if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
-            if let _ = blueprint.metadata["scale"] as? Float {
+        if let floorplan = floorplanToolbarDelegate?.floorplanForFloorplanToolbar(self) {
+            if let _ = floorplan.scale {
                 return true
             }
         }
@@ -88,7 +88,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = previousBlueprintButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.previousBlueprint(_:))
+                navigationButton.action = #selector(FloorplanToolbar.previousBlueprint(_:))
                 navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -98,7 +98,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = nextBlueprintButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.nextBlueprint(_:))
+                navigationButton.action = #selector(FloorplanToolbar.nextBlueprint(_:))
                 navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -108,7 +108,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = blueprintTitleButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.toggleBlueprintSelectorVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleBlueprintSelectorVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -118,7 +118,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = workOrdersButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.toggleWorkOrdersVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleWorkOrdersVisibility(_:))
                 if let image = navigationButton.image {
                     navigationButton.image = image.resize(CGRect(x: 0.0, y: 0.0, width: 25.0, height: 31.0))
                 }
@@ -131,7 +131,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = navigationButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.toggleNavigatorVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleNavigatorVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -141,7 +141,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = scaleButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.toggleScaleVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleScaleVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -151,7 +151,7 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = createWorkOrderButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.createWorkOrder(_:))
+                navigationButton.action = #selector(FloorplanToolbar.createWorkOrder(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -161,14 +161,14 @@ class BlueprintToolbar: UIToolbar {
         didSet {
             if let navigationButton = floorplanOptionsButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(BlueprintToolbar.toggleFloorplanOptionsVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleFloorplanOptionsVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
 
     func reload() {
-        if let scaleCanBeSet = blueprintToolbarDelegate?.scaleCanBeSetByBlueprintToolbar(self) {
+        if let scaleCanBeSet = floorplanToolbarDelegate?.scaleCanBeSetByFloorplanToolbar(self) {
             let scaleButtonTitleTextAttribute = scaleVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
             scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
             let index = items!.indexOfObject(scaleButton)
@@ -183,15 +183,15 @@ class BlueprintToolbar: UIToolbar {
             items!.removeAtIndex(index)
         }
 
-        if let blueprint = blueprintToolbarDelegate?.blueprintForBlueprintToolbar(self) {
-            if let scale = blueprint.metadata?["scale"] as? Float {
+        if let floorplan = floorplanToolbarDelegate?.floorplanForFloorplanToolbar(self) {
+            if let scale = floorplan.scale {
                 scaleButton.title = "Scale Set: 12“ == \(NSString(format: "%.03f px", scale))"
                 scaleButton.setTitleTextAttributes(AppearenceProxy.inProgressBarButtonItemTitleTextAttributes(), forState: .Normal)
             }
         }
 
-        let createWorkOrderButtonVisible = blueprintToolbarDelegate.newWorkOrderItemIsShownByBlueprintToolbar(self)
-        let createWorkOrderButtonEnabled = blueprintToolbarDelegate.newWorkOrderCanBeCreatedByBlueprintToolbar(self)
+        let createWorkOrderButtonVisible = floorplanToolbarDelegate.newWorkOrderItemIsShownByFloorplanToolbar(self)
+        let createWorkOrderButtonEnabled = floorplanToolbarDelegate.newWorkOrderCanBeCreatedByFloorplanToolbar(self)
         let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? barButtonItemDisabledTitleTextAttributes : barButtonItemTitleTextAttributes
         createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, forState: .Normal)
         if createWorkOrderButtonVisible {
@@ -206,7 +206,7 @@ class BlueprintToolbar: UIToolbar {
             }
         }
 
-        let floorplanOptionsButtonVisible = blueprintToolbarDelegate.floorplanOptionsItemIsShownByBlueprintToolbar(self)
+        let floorplanOptionsButtonVisible = floorplanToolbarDelegate.floorplanOptionsItemIsShownByFloorplanToolbar(self)
         let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, forState: .Normal)
         if !floorplanOptionsButtonVisible {
@@ -221,19 +221,19 @@ class BlueprintToolbar: UIToolbar {
         let blueprintSelectorButtonTitleTextAttribute = blueprintSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         blueprintTitleButton?.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
 
-        let previousBlueprintButtonEnabled = blueprintToolbarDelegate?.previousBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        let previousBlueprintButtonEnabled = floorplanToolbarDelegate?.previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
         let previousBlueprintButtonButtonTitleTextAttribute = previousBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
         previousBlueprintButton.setTitleTextAttributes(previousBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
         previousBlueprintButton.enabled = previousBlueprintButtonEnabled
 
-        let nextBlueprintButtonEnabled = blueprintToolbarDelegate?.nextBlueprintButtonShouldBeEnabledForBlueprintToolbar(self) ?? false
+        let nextBlueprintButtonEnabled = floorplanToolbarDelegate?.nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
         let nextBlueprintButtonButtonTitleTextAttribute = nextBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
         nextBlueprintButton.setTitleTextAttributes(nextBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
         nextBlueprintButton.enabled = nextBlueprintButtonEnabled
 
-        let blueprintTitle = blueprintToolbarDelegate?.selectedBlueprintForBlueprintToolbar(self)?.filename
-        if let blueprintTitle = blueprintTitle {
-            blueprintTitleButton?.title = blueprintTitle
+        let floorplanTitle = floorplanToolbarDelegate?.selectedFloorplanForFloorplanToolbar(self)?.name
+        if let floorplanTitle = floorplanTitle {
+            blueprintTitleButton?.title = floorplanTitle
             blueprintTitleButton?.enabled = true
         } else {
             //blueprintTitleButton?.enabled = false
@@ -253,22 +253,22 @@ class BlueprintToolbar: UIToolbar {
         if navigatorVisible {
             workOrdersVisible = false
         }
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
 
         reload()
     }
 
     func presentBlueprintAtIndexPath(indexPath: NSIndexPath) {
         toggleBlueprintSelectorVisibility()
-        blueprintToolbarDelegate?.blueprintShouldBeRenderedAtIndexPath(indexPath, forBlueprintToolbar: self)
+        floorplanToolbarDelegate?.floorplanShouldBeRenderedAtIndexPath(indexPath, forFloorplanToolbar: self)
     }
 
     func nextBlueprint(sender: UIBarButtonItem) {
-        blueprintToolbarDelegate?.nextBlueprintShouldBeRenderedForBlueprintToolbar(self)
+        floorplanToolbarDelegate?.nextFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
     func previousBlueprint(sender: UIBarButtonItem) {
-        blueprintToolbarDelegate?.previousBlueprintShouldBeRenderedForBlueprintToolbar(self)
+        floorplanToolbarDelegate?.previousFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
     func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem! = nil) {
@@ -277,7 +277,7 @@ class BlueprintToolbar: UIToolbar {
             navigatorVisible = false
             workOrdersVisible = false
         }
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetBlueprintSelectorVisibility: blueprintSelectorVisible)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetFloorplanSelectorVisibility: blueprintSelectorVisible)
 
         reload()
     }
@@ -295,7 +295,7 @@ class BlueprintToolbar: UIToolbar {
         if self.workOrdersVisible {
             navigatorVisible = false
         }
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible, alpha: alpha)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible, alpha: alpha)
         reload()
     }
 
@@ -310,7 +310,7 @@ class BlueprintToolbar: UIToolbar {
 
     func makeScaleVisible(scaleVisible: Bool) {
         self.scaleVisible = scaleVisible
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetScaleVisibility: scaleVisible)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetScaleVisibility: scaleVisible)
 
         reload()
     }
@@ -320,7 +320,7 @@ class BlueprintToolbar: UIToolbar {
     }
 
     func createWorkOrder(sender: UIBarButtonItem) {
-        blueprintToolbarDelegate?.newWorkOrderShouldBeCreatedByBlueprintToolbar(self)
+        floorplanToolbarDelegate?.newWorkOrderShouldBeCreatedByFloorplanToolbar(self)
 
         reload()
     }
@@ -331,7 +331,7 @@ class BlueprintToolbar: UIToolbar {
 
     func makeFloorplanOptionsVisible(floorplanOptionsVisible: Bool) {
         self.floorplanOptionsVisible = floorplanOptionsVisible
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldSetFloorplanOptionsVisibility: floorplanOptionsVisible)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetFloorplanOptionsVisibility: floorplanOptionsVisible)
 
         reload()
     }
@@ -354,6 +354,6 @@ class BlueprintToolbar: UIToolbar {
 
         alertController.addAction(setScaleAction)
 
-        blueprintToolbarDelegate?.blueprintToolbar(self, shouldPresentAlertController: alertController)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldPresentAlertController: alertController)
     }
 }

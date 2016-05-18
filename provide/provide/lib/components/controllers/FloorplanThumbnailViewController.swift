@@ -1,5 +1,5 @@
 //
-//  BlueprintThumbnailViewController.swift
+//  FloorplanThumbnailViewController.swift
 //  provide
 //
 //  Created by Kyle Thomas on 11/24/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BlueprintThumbnailViewController: ViewController {
+class FloorplanThumbnailViewController: ViewController {
 
     weak var thumbnailView: BlueprintThumbnailView! {
         return view as? BlueprintThumbnailView

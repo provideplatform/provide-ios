@@ -233,6 +233,12 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: attachment)
                                 break
 
+                            case "floorplan_changed":
+                                let floorplan = Floorplan(string: payload!.toJSONString())
+                                FloorplanService.sharedService().updateFloorplan(floorplan)
+                                NSNotificationCenter.defaultCenter().postNotificationName("FloorplanChanged", object: floorplan)
+                                break
+
                             case "job_changed":
                                 let job = Job(string: payload!.toJSONString())
                                 JobService.sharedService().updateJob(job)

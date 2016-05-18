@@ -131,7 +131,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
             nameLabel?.text = job.name
             nameLabel?.sizeToFit()
 
-            setThumbnailImageWithURL(job.blueprintThumbnailImageUrl)
+            setThumbnailImageWithURL(job.thumbnailImageUrl)
         }
     }
 

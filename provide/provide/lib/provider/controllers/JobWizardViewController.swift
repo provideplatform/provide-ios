@@ -11,12 +11,12 @@ import UIKit
 protocol JobWizardViewControllerDelegate: NSObjectProtocol {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
     func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController: BlueprintViewController)
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController: FloorplanViewController)
 }
 
 class JobWizardViewController: UINavigationController,
                                UINavigationControllerDelegate,
-                               BlueprintViewControllerDelegate,
+                               FloorplanViewControllerDelegate,
                                JobManagerViewControllerDelegate,
                                JobInventoryViewControllerDelegate,
                                JobTeamViewControllerDelegate,
@@ -97,8 +97,8 @@ class JobWizardViewController: UINavigationController,
     }
 
     func setupViewController(viewController: UIViewController) {
-        if viewController.isKindOfClass(JobBlueprintsViewController) {
-            //(viewController as! JobBlueprintsViewController).delegate = self
+        if viewController.isKindOfClass(JobFloorplansViewController) {
+            //(viewController as! JobFloorplansViewController).delegate = self
 
         } else if viewController.isKindOfClass(JobTeamViewController) {
             (viewController as! JobTeamViewController).delegate = self
@@ -106,8 +106,8 @@ class JobWizardViewController: UINavigationController,
         } else if viewController.isKindOfClass(JobInventoryViewContoller) {
             (viewController as! JobInventoryViewContoller).delegate = self
 
-        } else if viewController.isKindOfClass(BlueprintViewController) {
-            (viewController as! BlueprintViewController).blueprintViewControllerDelegate = self
+        } else if viewController.isKindOfClass(FloorplanViewController) {
+            (viewController as! FloorplanViewController).floorplanViewControllerDelegate = self
 
         } else if viewController.isKindOfClass(JobManagerViewController) {
             (viewController as! JobManagerViewController).job = job
@@ -122,64 +122,60 @@ class JobWizardViewController: UINavigationController,
         pendingViewController = nil
     }
 
-    // MARK: BlueprintViewControllerDelegate
+    // MARK: FloorplanViewControllerDelegate
 
-    func blueprintForBlueprintViewController(viewController: BlueprintViewController) -> Attachment! {
+    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan! {
         return nil
     }
     
-    func blueprintImageForBlueprintViewController(viewController: BlueprintViewController) -> UIImage! {
+    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
         return cachedBlueprintImage
     }
 
-    func jobForBlueprintViewController(viewController: BlueprintViewController) -> Job! {
+    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
         return job
     }
 
-    func scaleCanBeSetByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func scaleWasSetForBlueprintViewController(viewController: BlueprintViewController) {
+    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func newWorkOrderCanBeCreatedByBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         if let job = job {
             return job.isCommercial && ["configuring", "in_progress"].indexOfObject(job.status) != nil
         }
         return false
     }
 
-    func areaSelectorIsAvailableForBlueprintViewController(viewController: BlueprintViewController) -> Bool {
+    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func navigationControllerForBlueprintViewController(viewController: BlueprintViewController) -> UINavigationController! {
+    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
-    func modeForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintViewController.Mode! {
+    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
         return .WorkOrders
     }
 
-    func estimateForBlueprintViewController(viewController: BlueprintViewController) -> Estimate! {
-        return nil
-    }
-
-    func blueprintViewControllerCanDropWorkOrderPin(viewController: BlueprintViewController) -> Bool {
+    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func toolbarForBlueprintViewController(viewController: BlueprintViewController) -> BlueprintToolbar! {
+    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar! {
         return nil
     }
 
-    func showToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func showToolbarForFloorplanViewController(viewController: FloorplanViewController) {
 
     }
 
-    func hideToolbarForBlueprintViewController(viewController: BlueprintViewController) {
+    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController) {
         
     }
     
@@ -259,10 +255,10 @@ class JobWizardViewController: UINavigationController,
 
     deinit {
         let viewController = viewControllers.first
-        if let jobBlueprintsViewController = viewController as? JobBlueprintsViewController {
+        if let jobBlueprintsViewController = viewController as? JobFloorplansViewController {
             jobBlueprintsViewController.teardown()
-        } else if let blueprintViewController = viewController as? BlueprintViewController {
-            blueprintViewController.teardown()
+        } else if let floorplanViewController = viewController as? FloorplanViewController {
+            floorplanViewController.teardown()
         }
     }
 }

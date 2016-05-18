@@ -11,89 +11,53 @@ import Foundation
 class Floorplan: Model {
 
     var id = 0
-    var companyId = 0
-    var customerId = 0
+    var jobId = 0
     var name: String!
+    var pdfUrlString: String!
+    var thumbnailImageUrlString: String!
+    var maxZoomLevel: Int!
+    var tilingCompletion = 0.0
     var attachments: [Attachment]!
-    var blueprints: [Attachment]!
-    var blueprintImageUrlString: String!
-    var blueprintScale = 0.0
-    var blueprintAnnotationsCount = 0
-    var backsplashProductOptions: [Product]!
-    var flooringProductOptions: [Product]!
-    var totalSqFt = -1.0
-    var numberOfBedrooms = -1
-    var numberOfBathrooms = -1
-    var garageSize = -1
-    var basePrice = -1.0
-    var backsplashPartialLf = -1.0
-    var backsplashFullLf = -1.0
-    var backsplashSqFt = -1.0
-    var desc: String!
-    var profileImageUrlString: String!
+    var workOrders: [WorkOrder]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(forClass: self)
         mapping.addAttributeMappingsFromDictionary([
             "id": "id",
-            "company_id": "companyId",
-            "customer_id": "customerId",
+            "job_id": "jobId",
             "name": "name",
-            "blueprint_image_url": "blueprintImageUrlString",
-            "blueprint_scale": "blueprintScale",
-            "blueprint_annotations_count": "blueprintAnnotationsCount",
-            "total_sq_ft": "totalSqFt",
-            "number_of_bedrooms": "numberOfBedrooms",
-            "number_of_bathrooms": "numberOfBathrooms",
-            "garage_size": "garageSize",
-            "base_price": "basePrice",
-            "backsplash_partial_lf": "backsplashPartialLf",
-            "backsplash_full_lf": "backsplashFullLf",
-            "backsplash_sq_ft": "backsplashSqFt",
-            "description": "desc",
-            "profile_image_url": "profileImageUrlString",
+            "pdf_url": "pdfUrlString",
+            "thumbnail_image_url": "thumbnailImageUrlString",
+            "max_zoom_level": "maxZoomLevel",
+            "tiling_completion": "tilingCompletion",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "blueprints", toKeyPath: "blueprints", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "backsplash_product_options", toKeyPath: "backsplashProductOptions", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "flooring_product_options", toKeyPath: "flooringProductOptions", withMapping: Product.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: Attachment.mappingWithRepresentations()))
         return mapping
     }
 
-    var profileImageUrl: NSURL! {
-        if let profileImageUrlString = profileImageUrlString {
-            return NSURL(string: profileImageUrlString)
+    var highResolutionImage: Attachment! {
+        if let attachments = attachments {
+            for attachment in attachments {
+                let tag = "300dpi"
+                let isAppropriateResolution = attachment.hasTag(tag)
+                let hasThumbnailTag = attachment.hasTag("thumbnail")
+                if let mimeType = attachment.mimeType {
+                    if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
+                        return attachment
+                    }
+                } 
+            }
         }
         return nil
     }
 
-    var blueprintImageUrl: NSURL! {
-        if let blueprintImageUrlString = blueprintImageUrlString {
-            return NSURL(string: blueprintImageUrlString)
-        }
-        return nil
-    }
-
-    var hasPendingBlueprint: Bool {
-        if let blueprint = blueprint {
-            return blueprint.status == "pending"
-        }
-        return false
-    }
-
-    var requiresBacksplashInstallation: Bool {
-        if let backsplashProductOptions = backsplashProductOptions {
-            return backsplashProductOptions.count > 0 && backsplashPartialLf != -1.0 && backsplashFullLf != -1.0
-        }
-        return false
-    }
-
-    weak var blueprint: Attachment! {
-        if let blueprints = blueprints {
-            if blueprints.count > 0 {
-                for blueprint in blueprints {
-                    if blueprint.mimeType == "image/png" {
-                        return blueprint
+    var pdf: Attachment! {
+        if let attachments = attachments {
+            for attachment in attachments {
+                if let mimeType = attachment.mimeType {
+                    if mimeType == "application/pdf" {
+                        return attachment
                     }
                 }
             }
@@ -101,25 +65,20 @@ class Floorplan: Model {
         return nil
     }
 
-    func mergeAttachment(attachment: Attachment) {
-        if attachments == nil {
-            attachments = [Attachment]()
+    var thumbnailImageUrl: NSURL! {
+        if let thumbnailImageUrlString = thumbnailImageUrlString {
+            return NSURL(string: thumbnailImageUrlString)
         }
+        return nil
+    }
 
-        var replaced = false
-        var index = 0
-        for a in attachments {
-            if a.id == attachment.id {
-                self.attachments[index] = attachment
-                replaced = true
-                break
-            }
-            index += 1
-        }
+    var imageUrl: NSURL! {
+// FIXME!!!!!!!!!!!!!!!!!!
+        return nil
+    }
 
-        if !replaced {
-            attachments.append(attachment)
-        }
+    var scale: Double! {
+        return nil
     }
 
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
@@ -136,6 +95,10 @@ class Floorplan: Model {
                 }
             )
         } else {
+            if let pdfUrl = params.removeValueForKey("pdf_url_string") {
+                params["pdf_url"] = pdfUrl
+            }
+
             ApiService.sharedService().createFloorplan(params,
                 onSuccess: { statusCode, mappingResult in
                     let floorplan = mappingResult.firstObject as! Floorplan
