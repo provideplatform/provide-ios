@@ -799,13 +799,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OO-pg-gjT">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Congrats! Your blueprint is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congrats! Your blueprint is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
                                         <rect key="frame" x="104" y="164" width="394" height="22"/>
                                         <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SP-l0-9g0">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SP-l0-9g0">
                                         <rect key="frame" x="210" y="285" width="26" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="26" id="qx4-i7-5zM"/>
@@ -813,7 +813,7 @@
                                         </constraints>
                                         <state key="normal" title="Button" image="dropbox"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6M-E5-2EJ">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6M-E5-2EJ">
                                         <rect key="frame" x="244" y="277" width="144" height="35"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
                                         <state key="normal" title="Import from Dropbox"/>
@@ -833,9 +833,6 @@
                                     <constraint firstItem="e6M-E5-2EJ" firstAttribute="leading" secondItem="7SP-l0-9g0" secondAttribute="trailing" constant="8" symbolic="YES" id="tuL-x1-cEK"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="yQK-QR-qgF">
-                                <rect key="frame" x="290" y="234" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -843,22 +840,14 @@
                             <constraint firstItem="fsm-qU-Fvp" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="3Q2-pp-C3O"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="812-8N-FHq"/>
                             <constraint firstItem="2OO-pg-gjT" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leading" id="8R2-Ek-AaO"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="centerX" secondItem="fWz-MA-QiB" secondAttribute="centerX" id="Bvg-MO-jsA"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="centerX" secondItem="fWz-MA-QiB" secondAttribute="centerX" id="KRT-1v-C2F"/>
                             <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="2w6-E1-TLh" secondAttribute="bottom" id="Mbr-HI-5zH"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yQK-QR-qgF" secondAttribute="trailing" constant="270" id="MhB-V0-RHf"/>
                             <constraint firstAttribute="trailing" secondItem="2OO-pg-gjT" secondAttribute="trailing" id="Pit-5c-Z1a"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fsm-qU-Fvp" secondAttribute="trailing" constant="-20" id="Q3l-hC-zCf"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="height" multiplier="600:487" id="QAt-4g-BRN"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" constant="234" id="afw-Qx-cE4"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="centerY" secondItem="fWz-MA-QiB" secondAttribute="centerY" id="cGR-xV-plx"/>
                             <constraint firstItem="fsm-qU-Fvp" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="g2A-Ma-U1G"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="top" secondItem="6vd-LW-075" secondAttribute="bottom" id="gfz-5V-tWw"/>
                             <constraint firstItem="2w6-E1-TLh" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="-20" id="gg0-jo-AQM"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="leading" secondItem="fWz-MA-QiB" secondAttribute="leadingMargin" constant="270" id="hNF-SI-Gw7"/>
                             <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="fsm-qU-Fvp" secondAttribute="bottom" id="hPL-X3-sJ6"/>
-                            <constraint firstItem="yQK-QR-qgF" firstAttribute="centerY" secondItem="fWz-MA-QiB" secondAttribute="centerY" id="jVw-65-wdz"/>
-                            <constraint firstItem="af3-yC-5et" firstAttribute="top" secondItem="yQK-QR-qgF" secondAttribute="bottom" constant="233" id="kF7-rS-qjg"/>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="width" secondItem="2OO-pg-gjT" secondAttribute="width" id="kIU-Ru-gUT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="2w6-E1-TLh" secondAttribute="trailing" constant="-20" id="sSy-qe-gHc"/>
                             <constraint firstAttribute="bottom" secondItem="2OO-pg-gjT" secondAttribute="bottom" id="vor-pe-s7e">
@@ -866,29 +855,10 @@
                             </constraint>
                             <constraint firstItem="x2k-0L-gVr" firstAttribute="height" secondItem="2OO-pg-gjT" secondAttribute="height" id="zxi-eS-q4H"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="KRT-1v-C2F"/>
-                                <exclude reference="jVw-65-wdz"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="Bvg-MO-jsA"/>
-                                <include reference="KRT-1v-C2F"/>
-                                <exclude reference="MhB-V0-RHf"/>
-                                <exclude reference="afw-Qx-cE4"/>
-                                <exclude reference="cGR-xV-plx"/>
-                                <exclude reference="hNF-SI-Gw7"/>
-                                <include reference="jVw-65-wdz"/>
-                                <exclude reference="kF7-rS-qjg"/>
-                            </mask>
-                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="bF4-gi-Caa"/>
                     <connections>
-                        <outlet property="blueprintActivityIndicatorView" destination="yQK-QR-qgF" id="Mgh-0I-npB"/>
                         <outlet property="blueprintPagesContainerView" destination="fsm-qU-Fvp" id="axN-Df-1QA"/>
                         <outlet property="estimatesContainerView" destination="2w6-E1-TLh" id="Vy5-2Y-frB"/>
                         <outlet property="floorplansContainerView" destination="x2k-0L-gVr" id="6Lq-Ox-nEW"/>
