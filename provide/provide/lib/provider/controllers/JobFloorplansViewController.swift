@@ -123,35 +123,6 @@ class JobFloorplansViewController: ViewController,
 
         hideDropbox()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("AttachmentChanged") { notification in
-            if let attachment = notification.object as? Attachment {
-                if let attachableType = attachment.attachableType {
-                    if let job = self.job {
-                        if attachableType == "job" && attachment.attachableId == job.id {
-                            dispatch_after_delay(0.0) {
-                                self.refresh()
-                            }
-                        }
-                    }
-
-                }
-            } else if let userInfo = notification.object as? [String : AnyObject] {
-                let attachmentId = userInfo["attachment_id"] as? Int
-                let attachableType = userInfo["attachable_type"] as? String
-                let attachableId = userInfo["attachable_id"] as? Int
-
-                if attachmentId != nil && attachableType != nil && attachableId != nil {
-                    if let job = self.job {
-                        if attachableType == "job" && attachableId == job.id {
-                            dispatch_after_delay(0.0) {
-                                self.refresh()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         if job != nil {
             refresh()
         }
@@ -191,7 +162,9 @@ class JobFloorplansViewController: ViewController,
                             self.renderInstruction("Import a floorplan for this job.")
                             self.showDropbox()
                         } else {
-                            self.blueprintActivityIndicatorView?.startAnimating()
+                            if self.blueprintsPageViewController == nil {
+                                self.blueprintActivityIndicatorView?.startAnimating()
+                            }
                         }
                     },
                     onError: { error, statusCode, responseString in
@@ -209,6 +182,10 @@ class JobFloorplansViewController: ViewController,
         if segue.identifier! == "FloorplansPageViewControllerEmbedSegue" {
             blueprintsPageViewController = segue.destinationViewController as! FloorplansPageViewController
             blueprintsPageViewController.floorplansPageViewControllerDelegate = self
+
+            dispatch_after_delay(0.0) {
+                self.blueprintActivityIndicatorView?.stopAnimating()
+            }
         }
     }
 
