@@ -10,7 +10,7 @@ import UIKit
 
 class BlueprintWorkOrderTableViewCell: UITableViewCell {
 
-    weak var workOrder: WorkOrder! {
+    weak var annotation: Annotation! {
         didSet {
             if NSThread.isMainThread() {
                 self.refresh()
@@ -22,6 +22,13 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
         }
     }
 
+    weak var workOrder: WorkOrder! {
+        if let annotation = annotation {
+            return annotation.workOrder
+        }
+        return nil
+    }
+
     @IBOutlet private weak var pinView: BlueprintPinView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var dueDateLabel: UILabel!
@@ -30,7 +37,7 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        pinView.workOrder = nil
+        pinView.annotation = nil
         pinView.category = nil
         pinView.alpha = 0.0
 
@@ -42,34 +49,38 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
     private func refresh() {
         pinView?.image = pinView?.image?.imageWithRenderingMode(.AlwaysTemplate)
 
-        if let workOrder = workOrder {
-            pinView.workOrder = workOrder
+        if let annotation = annotation {
+            pinView.annotation = annotation
             pinView.alpha = 1.0
 
-            if let description = workOrder.desc {
-                titleLabel.text = description
-            } else {
-                titleLabel.text = "\(workOrder.category.name)"
-            }
-
-            if let humanReadableDueAtTimestamp = workOrder.humanReadableDueAtTimestamp {
-                dueDateLabel.text = "Due \(humanReadableDueAtTimestamp)"
-            } else if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
-                dueDateLabel.text = "Starts \(humanReadableScheduledStartAtTimestamp)"
-            }
-
-            if workOrder.priority > 0 {
-                var priorityIndicatorString = ""
-                var i = 0
-                while i < workOrder.priority {
-                    priorityIndicatorString = "\(priorityIndicatorString)!"
-                    i += 1
+            if let workOrder = annotation.workOrder {
+                if let description = workOrder.desc {
+                    titleLabel.text = description
+                } else {
+                    titleLabel.text = "\(workOrder.category.name)"
                 }
-                priorityLabel.text = priorityIndicatorString
-                priorityLabel.hidden = false
+
+                if let humanReadableDueAtTimestamp = workOrder.humanReadableDueAtTimestamp {
+                    dueDateLabel.text = "Due \(humanReadableDueAtTimestamp)"
+                } else if let humanReadableScheduledStartAtTimestamp = workOrder.humanReadableScheduledStartAtTimestamp {
+                    dueDateLabel.text = "Starts \(humanReadableScheduledStartAtTimestamp)"
+                }
+
+                if workOrder.priority > 0 {
+                    var priorityIndicatorString = ""
+                    var i = 0
+                    while i < workOrder.priority {
+                        priorityIndicatorString = "\(priorityIndicatorString)!"
+                        i += 1
+                    }
+                    priorityLabel.text = priorityIndicatorString
+                    priorityLabel.hidden = false
+                } else {
+                    priorityLabel.text = ""
+                    priorityLabel.hidden = true
+                }
             } else {
-                priorityLabel.text = ""
-                priorityLabel.hidden = true
+                prepareForReuse()
             }
         } else {
             prepareForReuse()

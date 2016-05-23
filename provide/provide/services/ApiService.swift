@@ -228,6 +228,14 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(attachmentId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    func createAnnotationForFloorplanWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("floorplans/\(id)/annotations", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func updateAnnotationWithId(id: String, forFloorplanWithId floorplanId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("floorplans/\(floorplanId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: Company API
 
     func fetchCompanies(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -733,6 +741,10 @@ class ApiService: NSObject {
 
     func fetchWorkOrders(forFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("floorplans/\(id)/work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func fetchAnnotationsForFloorplanWithId(id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("floorplans/\(id)/annotations", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func fetchAttachments(forFloorplanWithId id: String, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {

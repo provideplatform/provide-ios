@@ -444,19 +444,19 @@ class BlueprintPolygonView: UIView, BlueprintPolygonVertexViewDelegate, UIGestur
     func updateAnnotation() {
         timer = nil
 
-        if let annotation = annotation {
-            if let attachment = delegate?.blueprintForBlueprintPolygonView(self) {
-                annotation.polygon = polygon
-                annotation.save(attachment,
-                    onSuccess: { statusCode, mappingResult in
-                        self.delegate?.blueprintPolygonView(self, didUpdateAnnotation: annotation)
-                    },
-                    onError: { error, statusCode, responseString in
-
-                    }
-                )
-            }
-        }
+//        if let annotation = annotation {
+//            if let attachment = delegate?.blueprintForBlueprintPolygonView(self) {
+//                annotation.polygon = polygon
+//                annotation.save(attachment,
+//                    onSuccess: { statusCode, mappingResult in
+//                        self.delegate?.blueprintPolygonView(self, didUpdateAnnotation: annotation)
+//                    },
+//                    onError: { error, statusCode, responseString in
+//
+//                    }
+//                )
+//            }
+//        }
     }
 
     private func completePolygon() {

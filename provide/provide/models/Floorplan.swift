@@ -15,8 +15,14 @@ class Floorplan: Model {
     var name: String!
     var pdfUrlString: String!
     var thumbnailImageUrlString: String!
-    var maxZoomLevel: Int!
+    var imageUrlString72dpi: String!
+    var imageUrlString150dpi: String!
+    var imageUrlString300dpi: String!
+    var maxZoomLevel = -1
     var tilingCompletion = 0.0
+    var tileSize = -1.0
+    var tilingBaseUrlString: String!
+    var annotations: [Annotation]!
     var attachments: [Attachment]!
     var workOrders: [WorkOrder]!
 
@@ -28,28 +34,17 @@ class Floorplan: Model {
             "name": "name",
             "pdf_url": "pdfUrlString",
             "thumbnail_image_url": "thumbnailImageUrlString",
+            "image_url_72dpi": "imageUrlString72dpi",
+            "image_url_150dpi": "imageUrlString150dpi",
+            "image_url_300dpi": "imageUrlString300dpi",
+            "tiling_base_url": "tilingBaseUrlString",
             "max_zoom_level": "maxZoomLevel",
+            "tile_size": "tileSize",
             "tiling_completion": "tilingCompletion",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: Attachment.mappingWithRepresentations()))
         return mapping
-    }
-
-    var highResolutionImage: Attachment! {
-        if let attachments = attachments {
-            for attachment in attachments {
-                let tag = "300dpi"
-                let isAppropriateResolution = attachment.hasTag(tag)
-                let hasThumbnailTag = attachment.hasTag("thumbnail")
-                if let mimeType = attachment.mimeType {
-                    if mimeType == "image/png" && isAppropriateResolution && !hasThumbnailTag {
-                        return attachment
-                    }
-                } 
-            }
-        }
-        return nil
     }
 
     var pdf: Attachment! {
@@ -72,13 +67,37 @@ class Floorplan: Model {
         return nil
     }
 
+    var tilingBaseUrl: NSURL! {
+        if let tilingBaseUrlString = tilingBaseUrlString {
+            return NSURL(string: tilingBaseUrlString)
+        }
+        return nil
+    }
+
     var imageUrl: NSURL! {
-// FIXME!!!!!!!!!!!!!!!!!!
+        if let imageUrlString = imageUrlString300dpi {
+            return NSURL(imageUrlString)
+        }
         return nil
     }
 
     var scale: Double! {
         return nil
+    }
+
+    func fetchAnnotations(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        annotations = [Annotation]()
+
+        ApiService.sharedService().fetchAnnotationsForFloorplanWithId(String(id), params: params,
+            onSuccess: { statusCode, mappingResult in
+                for annotation in mappingResult.array() as! [Annotation] {
+                    self.annotations.append(annotation)
+                }
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            }, onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 
     func save(onSuccess onSuccess: OnSuccess, onError: OnError) {

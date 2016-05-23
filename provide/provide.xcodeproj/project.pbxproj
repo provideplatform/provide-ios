@@ -248,6 +248,7 @@
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
+		68C923C91CEAC1CD00303AA1 /* BlueprintTiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
 		68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
@@ -554,6 +555,7 @@
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestViewController.swift; sourceTree = "<group>"; };
+		68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintTiledView.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
 		68D218A21B0861EF000D3ABA /* directions_0.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = directions_0.gpx; sourceTree = "<group>"; };
@@ -988,6 +990,7 @@
 				6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */,
 				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
 				688BFCAA1BDE2B9F00BBACEC /* FloorplanToolbar.swift */,
+				68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */,
 				685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */,
@@ -1824,6 +1827,7 @@
 				68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
 				687CB5941B07F6020048B692 /* CheckinService.swift in Sources */,
+				68C923C91CEAC1CD00303AA1 /* BlueprintTiledView.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				6845BB641BF1F60200AD3D79 /* BlueprintScrollView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,

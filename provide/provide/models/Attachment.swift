@@ -94,6 +94,24 @@ class Attachment: Model {
         return nil
     }
 
+    var maxZoomLevel: Int! {
+        if let metadata = metadata {
+            if let maxZoomLevel = metadata["max_zoom_level"] as? Int {
+                return maxZoomLevel
+            }
+        }
+        return nil
+    }
+
+    var tilingBaseUrl: NSURL! {
+        if let metadata = metadata {
+            if let tilingBaseUrlString = metadata["tiling_base_url"] as? String {
+                return NSURL(tilingBaseUrlString)
+            }
+        }
+        return nil
+    }
+
     func hasTag(tag: String) -> Bool {
         if let tags = tags {
             for t in tags {

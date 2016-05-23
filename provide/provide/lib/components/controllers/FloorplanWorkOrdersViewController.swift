@@ -23,6 +23,7 @@ protocol BlueprintWorkOrdersViewControllerDelegate {
     func floorplanViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
     func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView!
     func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView!
+    func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize!
     func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView!
     func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView!
     func previewImageForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage!
@@ -34,11 +35,13 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
 
     var delegate: BlueprintWorkOrdersViewControllerDelegate!
 
-    private var workOrders: [WorkOrder] {
-        if let workOrders = floorplan?.workOrders {
-            return workOrders
+    private var annotations: [Annotation] {
+        if let floorplan = floorplan {
+            if let annotations = floorplan.annotations {
+                return annotations
+            }
         }
-        return [WorkOrder]()
+        return [Annotation]()
     }
 
     private var floorplan: Floorplan! {
@@ -49,7 +52,7 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     private var floorplanAnnotationsCount: Int {
-        return workOrders.count
+        return annotations.count
     }
 
     private var job: Job! {
@@ -110,26 +113,26 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
             let rpp = max(100, floorplanAnnotationsCount)
             let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
 
-//            floorplan.fetchAnnotations(params,
-//                onSuccess: { statusCode, mappingResult in
-//                    self.loadingAnnotations = false
-//
-//                    for annotation in mappingResult.array() as! [Annotation] {
-//                        if let workOrder = annotation.workOrder {
-//                            WorkOrderService.sharedService().updateWorkOrder(workOrder)
-//                        }
-//                    }
-//
-//                    self.tableView?.reloadData()
-//
-//                    if let delegate = self.delegate {
-//                        delegate.floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(self)
-//                    }
-//                },
-//                onError: { error, statusCode, responseString in
-//                    self.loadingAnnotations = false
-//                }
-//            )
+            floorplan.fetchAnnotations(params,
+                onSuccess: { statusCode, mappingResult in
+                    self.loadingAnnotations = false
+
+                    for annotation in mappingResult.array() as! [Annotation] {
+                        if let workOrder = annotation.workOrder {
+                            WorkOrderService.sharedService().updateWorkOrder(workOrder)
+                        }
+                    }
+
+                    self.tableView?.reloadData()
+
+                    if let delegate = self.delegate {
+                        delegate.floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(self)
+                    }
+                },
+                onError: { error, statusCode, responseString in
+                    self.loadingAnnotations = false
+                }
+            )
         }
     }
 
@@ -191,7 +194,7 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
     // MARK: UITableViewDataSource
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return workOrders.count
+        return annotations.count
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -200,7 +203,7 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("blueprintWorkOrderTableViewCellReuseIdentifier") as! BlueprintWorkOrderTableViewCell
-        cell.workOrder = workOrders[indexPath.section]
+        cell.annotation = annotations[indexPath.section]
         return cell
     }
 
@@ -247,24 +250,24 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
             let annotation = Annotation()
             if let delegate = delegate {
                 if let pinView = delegate.selectedPinViewForFloorplanWorkOrdersViewController(self) {
-                    annotation.point = [pinView.point.x, pinView.point.y]
-                } else if let polygonView = delegate.selectedPolygonViewForFloorplanWorkOrdersViewController(self) {
-                    annotation.polygon = polygonView.polygon
+                    if let size = delegate.sizeForFloorplanWorkOrdersViewController(self) {
+                        annotation.point = [pinView.point.x / size.width, pinView.point.y / size.height]
+                    }
                 }
             }
 
             annotation.workOrderId = workOrder.id
             annotation.workOrder = workOrder
-            annotation.save(floorplan.highResolutionImage,
-                            onSuccess: { [weak self] statusCode, mappingResult in
-                                self!.delegate?.floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(self!)
-                                self!.delegate?.floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(self!)
+            annotation.save(floorplan,
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.delegate?.floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(self!)
+                    self!.delegate?.floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(self!)
 
-                                self!.tableView.reloadData()
+                    self!.tableView.reloadData()
 
-                                viewController.reloadTableView()
+                    viewController.reloadTableView()
                 },
-                            onError: { error, statusCode, responseString in
+                onError: { error, statusCode, responseString in
 
                 }
             )

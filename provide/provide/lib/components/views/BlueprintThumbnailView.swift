@@ -29,13 +29,14 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                                      height: self!.desiredSize.height)
 
                 if let bluePrintImage = bluePrintImage {
-                    let scaledImage = bluePrintImage.scaledToWidth(self!.desiredSize.width)
-                    self!.thumbnailImageBackgroundView.frame.size = self!.desiredSize
-                    self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
+                    if let scaledImage = bluePrintImage.scaledToWidth(self!.desiredSize.width) {
+                        self!.thumbnailImageBackgroundView.frame.size = self!.desiredSize
+                        self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
 
-                    if let delegate = self!.delegate {
-                        let scale = delegate.initialScaleForBlueprintThumbnailView(self!)
-                        self!.resizeOverlayView(CGPointZero, scale: scale)
+                        if let delegate = self!.delegate {
+                            let scale = delegate.initialScaleForBlueprintThumbnailView(self!)
+                            self!.resizeOverlayView(CGPointZero, scale: scale)
+                        }
                     }
                 } else {
                     self!.alpha = 0.0
@@ -108,6 +109,10 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
+        if frame.size == CGSizeZero {
+            return
+        }
+
         if let _ = blueprintImage {
             let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / scrollView.contentSize.width
             let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / scrollView.contentSize.height

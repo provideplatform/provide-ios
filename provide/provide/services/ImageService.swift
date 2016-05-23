@@ -85,4 +85,25 @@ class ImageService {
             }
         }
     }
+
+    func fetchImageSync(url: NSURL) -> UIImage! {
+        let urlComponents = NSURLComponents()
+        urlComponents.scheme = url.scheme
+        urlComponents.host = url.host
+        urlComponents.path = url.path
+
+        let cacheUrl: NSURL! = url
+
+        if let cacheUrl = cacheUrl { // urlComponents.URL {
+            let cacheKey = cacheUrl.absoluteString
+
+            if let image = cache.imageFromMemoryCacheForKey(cacheKey) {
+                return image
+            } else if let image = cache.imageFromDiskCacheForKey(cacheKey) {
+                return image
+            }
+        }
+
+        return nil
+    }
 }
