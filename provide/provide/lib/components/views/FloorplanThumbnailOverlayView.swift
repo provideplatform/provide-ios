@@ -1,5 +1,5 @@
 //
-//  BlueprintThumbnailOverlayView.swift
+//  FloorplanThumbnailOverlayView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 10/24/15.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol BlueprintThumbnailOverlayViewDelegate: NSObjectProtocol {
-    func blueprintThumbnailOverlayViewNavigationBegan(view: BlueprintThumbnailOverlayView)
-    func blueprintThumbnailOverlayViewNavigationEnded(view: BlueprintThumbnailOverlayView)
-    func blueprintThumbnailOverlayView(view: BlueprintThumbnailOverlayView, navigatedToFrame frame: CGRect)
+protocol FloorplanThumbnailOverlayViewDelegate: NSObjectProtocol {
+    func floorplanThumbnailOverlayViewNavigationBegan(view: FloorplanThumbnailOverlayView)
+    func floorplanThumbnailOverlayViewNavigationEnded(view: FloorplanThumbnailOverlayView)
+    func floorplanThumbnailOverlayView(view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect)
 }
 
-class BlueprintThumbnailOverlayView: UIView {
+class FloorplanThumbnailOverlayView: UIView {
 
-    weak var delegate: BlueprintThumbnailOverlayViewDelegate!
+    weak var delegate: FloorplanThumbnailOverlayViewDelegate!
 
     private var touchesBeganTimestamp: NSDate!
 
@@ -27,7 +27,7 @@ class BlueprintThumbnailOverlayView: UIView {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
 
-        delegate?.blueprintThumbnailOverlayViewNavigationBegan(self)
+        delegate?.floorplanThumbnailOverlayViewNavigationBegan(self)
 
         touchesBeganTimestamp = NSDate()
         applyTouches(touches)
@@ -36,7 +36,7 @@ class BlueprintThumbnailOverlayView: UIView {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesEnded(touches, withEvent: event)
 
-        delegate?.blueprintThumbnailOverlayViewNavigationEnded(self)
+        delegate?.floorplanThumbnailOverlayViewNavigationEnded(self)
 
         applyTouches(touches)
         touchesBeganTimestamp = nil
@@ -45,7 +45,7 @@ class BlueprintThumbnailOverlayView: UIView {
     override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
         super.touchesCancelled(touches, withEvent: event)
 
-        delegate?.blueprintThumbnailOverlayViewNavigationEnded(self)
+        delegate?.floorplanThumbnailOverlayViewNavigationEnded(self)
 
         touchesBeganTimestamp = nil
     }
@@ -89,6 +89,6 @@ class BlueprintThumbnailOverlayView: UIView {
 
         frame = newFrame
 
-        delegate?.blueprintThumbnailOverlayView(self, navigatedToFrame: frame)
+        delegate?.floorplanThumbnailOverlayView(self, navigatedToFrame: frame)
     }
 }

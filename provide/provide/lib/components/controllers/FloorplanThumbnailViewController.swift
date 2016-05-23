@@ -10,8 +10,8 @@ import UIKit
 
 class FloorplanThumbnailViewController: ViewController {
 
-    weak var thumbnailView: BlueprintThumbnailView! {
-        return view as? BlueprintThumbnailView
+    weak var thumbnailView: FloorplanThumbnailView! {
+        return view as? FloorplanThumbnailView
     }
     
     override func viewDidLoad() {

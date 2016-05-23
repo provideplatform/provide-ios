@@ -93,7 +93,7 @@
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
-		6837AF971C8E827B0082F4EC /* BlueprintPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */; };
+		6837AF971C8E827B0082F4EC /* FloorplanPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */; };
 		6837AF991C9D12110082F4EC /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF981C9D12110082F4EC /* CategoryService.swift */; };
 		6837AF9B1C9D126E0082F4EC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF9A1C9D126E0082F4EC /* Category.swift */; };
 		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
@@ -107,18 +107,18 @@
 		6840F1661BDB1D8E00EF70F7 /* Floorplan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Floorplan.storyboard */; };
 		6840F1681BDB1DAC00EF70F7 /* FloorplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* FloorplanViewController.swift */; };
 		6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1691BDB59D700EF70F7 /* Job.swift */; };
-		6840F16C1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */; };
-		6840F16E1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */; };
-		6845BB5D1BF1E46200AD3D79 /* BlueprintScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */; };
-		6845BB621BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB611BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift */; };
-		6845BB641BF1F60200AD3D79 /* BlueprintScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB631BF1F60200AD3D79 /* BlueprintScrollView.swift */; };
-		6845BB661BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */; };
-		6845BB681BF2138E00AD3D79 /* BlueprintPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */; };
+		6840F16C1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */; };
+		6840F16E1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */; };
+		6845BB5D1BF1E46200AD3D79 /* FloorplanScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */; };
+		6845BB621BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */; };
+		6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */; };
+		6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */; };
+		6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */; };
 		6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB691BF2863300AD3D79 /* Regex.swift */; };
 		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
 		685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */; };
 		685BCBDD1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */; };
-		685BCBDF1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */; };
+		685BCBDF1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */; };
 		685D99FC1B19BE2900007920 /* NSURLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685D99FB1B19BE2900007920 /* NSURLExtensions.swift */; };
 		685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1141C17529C0089EF94 /* JobProduct.swift */; };
 		685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1161C176A740089EF94 /* WorkOrderProduct.swift */; };
@@ -248,7 +248,7 @@
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
-		68C923C91CEAC1CD00303AA1 /* BlueprintTiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */; };
+		68C923C91CEAC1CD00303AA1 /* FloorplanTiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
 		68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
@@ -266,7 +266,7 @@
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C21BFB20A900DE7400 /* JobsViewController.swift */; };
 		68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */; };
-		68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */; };
+		68D843C91BFB585F00DE7400 /* FloorplanPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */; };
 		68DA2D391C47A57C00DB2C01 /* ProviderSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA2D381C47A57C00DB2C01 /* ProviderSearchViewController.swift */; };
 		68DA2D3B1C47A79E00DB2C01 /* ProviderSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68DA2D3A1C47A79E00DB2C01 /* ProviderSearch.storyboard */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
@@ -400,7 +400,7 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
-		6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPinView.swift; sourceTree = "<group>"; };
+		6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPinView.swift; sourceTree = "<group>"; };
 		6837AF981C9D12110082F4EC /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		6837AF9A1C9D126E0082F4EC /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
@@ -414,18 +414,18 @@
 		6840F1651BDB1D8E00EF70F7 /* Floorplan.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Floorplan.storyboard; sourceTree = "<group>"; };
 		6840F1671BDB1DAC00EF70F7 /* FloorplanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6840F1691BDB59D700EF70F7 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
-		6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintThumbnailView.swift; sourceTree = "<group>"; };
-		6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintThumbnailOverlayView.swift; sourceTree = "<group>"; };
-		6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintScaleView.swift; sourceTree = "<group>"; };
-		6845BB611BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonVertexViewGestureRecognizer.swift; sourceTree = "<group>"; };
-		6845BB631BF1F60200AD3D79 /* BlueprintScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintScrollView.swift; sourceTree = "<group>"; };
-		6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonVertexView.swift; sourceTree = "<group>"; };
-		6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonLineView.swift; sourceTree = "<group>"; };
+		6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanThumbnailView.swift; sourceTree = "<group>"; };
+		6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanThumbnailOverlayView.swift; sourceTree = "<group>"; };
+		6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScaleView.swift; sourceTree = "<group>"; };
+		6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexViewGestureRecognizer.swift; sourceTree = "<group>"; };
+		6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScrollView.swift; sourceTree = "<group>"; };
+		6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexView.swift; sourceTree = "<group>"; };
+		6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonLineView.swift; sourceTree = "<group>"; };
 		6845BB691BF2863300AD3D79 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
 		685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanWorkOrdersViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FloorplanWorkOrders.storyboard; sourceTree = "<group>"; };
-		685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintWorkOrderTableViewCell.swift; sourceTree = "<group>"; };
+		685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanWorkOrderTableViewCell.swift; sourceTree = "<group>"; };
 		685D99FB1B19BE2900007920 /* NSURLExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		685DE1141C17529C0089EF94 /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
 		685DE1161C176A740089EF94 /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
@@ -555,7 +555,7 @@
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestViewController.swift; sourceTree = "<group>"; };
-		68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintTiledView.swift; sourceTree = "<group>"; };
+		68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanTiledView.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
 		68D218A21B0861EF000D3ABA /* directions_0.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = directions_0.gpx; sourceTree = "<group>"; };
@@ -574,7 +574,7 @@
 		68D843C21BFB20A900DE7400 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
 		68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
 		68D843C61BFB47A200DE7400 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JobViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueprintPolygonView.swift; sourceTree = "<group>"; };
+		68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonView.swift; sourceTree = "<group>"; };
 		68DA2D381C47A57C00DB2C01 /* ProviderSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderSearchViewController.swift; sourceTree = "<group>"; };
 		68DA2D3A1C47A79E00DB2C01 /* ProviderSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderSearch.storyboard; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
@@ -731,7 +731,7 @@
 		6845BB601BF1F4FD00AD3D79 /* gestures */ = {
 			isa = PBXGroup;
 			children = (
-				6845BB611BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift */,
+				6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */,
 				686C1CB81C1E9EFB00A31AFD /* DraggableViewGestureRecognizer.swift */,
 			);
 			name = gestures;
@@ -980,18 +980,18 @@
 			isa = PBXGroup;
 			children = (
 				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
-				6837AF961C8E827B0082F4EC /* BlueprintPinView.swift */,
-				6845BB671BF2138E00AD3D79 /* BlueprintPolygonLineView.swift */,
-				68D843C81BFB585F00DE7400 /* BlueprintPolygonView.swift */,
-				6845BB651BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift */,
-				6845BB5C1BF1E46200AD3D79 /* BlueprintScaleView.swift */,
+				6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */,
+				6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */,
+				68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */,
+				6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */,
+				6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */,
 				689C79181CD4F9EC0018F583 /* FloorplanSelectorView.swift */,
-				6845BB631BF1F60200AD3D79 /* BlueprintScrollView.swift */,
-				6840F16B1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift */,
-				6840F16D1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift */,
+				6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */,
+				6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */,
+				6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */,
 				688BFCAA1BDE2B9F00BBACEC /* FloorplanToolbar.swift */,
-				68C923C81CEAC1CD00303AA1 /* BlueprintTiledView.swift */,
-				685BCBDE1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift */,
+				68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */,
+				685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
 				683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */,
 				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
@@ -1631,7 +1631,7 @@
 				6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */,
 				687B65121C2439210088E539 /* MenuTableViewCell.swift in Sources */,
 				68B730CB1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift in Sources */,
-				6840F16C1BDB62EE00EF70F7 /* BlueprintThumbnailView.swift in Sources */,
+				6840F16C1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift in Sources */,
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
 				687CB5531B07EAD30048B692 /* DictionaryExtensions.swift in Sources */,
 				6837AF8F1C8BAB2D0082F4EC /* Invitation.swift in Sources */,
@@ -1659,7 +1659,7 @@
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
-				6845BB621BF1F51800AD3D79 /* BlueprintPolygonVertexViewGestureRecognizer.swift in Sources */,
+				6845BB621BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift in Sources */,
 				68F537151B834A9A0007F480 /* MenuContainerView.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
 				68F48F801C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift in Sources */,
@@ -1684,14 +1684,14 @@
 				681416E91B8457870076BFBD /* Customer.swift in Sources */,
 				68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
-				6840F16E1BDB6CB800EF70F7 /* BlueprintThumbnailOverlayView.swift in Sources */,
+				6840F16E1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				681416F21B8457870076BFBD /* Route.swift in Sources */,
 				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
 				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
 				68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */,
 				681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */,
-				685BCBDF1CBB718E00AB7911 /* BlueprintWorkOrderTableViewCell.swift in Sources */,
+				685BCBDF1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift in Sources */,
 				688BFCAB1BDE2B9F00BBACEC /* FloorplanToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
 				685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */,
@@ -1714,7 +1714,7 @@
 				681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
 				688C2B571C60FEAF009D5FF5 /* JobStatementViewController.swift in Sources */,
-				68D843C91BFB585F00DE7400 /* BlueprintPolygonView.swift in Sources */,
+				68D843C91BFB585F00DE7400 /* FloorplanPolygonView.swift in Sources */,
 				68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */,
 				687CB5771B07EAD30048B692 /* UITableViewCellExtensions.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
@@ -1731,7 +1731,7 @@
 				6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
 				6837AF991C9D12110082F4EC /* CategoryService.swift in Sources */,
 				683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */,
-				6845BB661BF1FAEE00AD3D79 /* BlueprintPolygonVertexView.swift in Sources */,
+				6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */,
 				68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */,
 				688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */,
 				68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */,
@@ -1780,7 +1780,7 @@
 				68F48F7C1C446A09005F9AB1 /* Task.swift in Sources */,
 				68F537061B834A880007F480 /* ApplicationViewController.swift in Sources */,
 				681416EB1B8457870076BFBD /* Directions.swift in Sources */,
-				6845BB681BF2138E00AD3D79 /* BlueprintPolygonLineView.swift in Sources */,
+				6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */,
 				68B412C21B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
 				68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */,
@@ -1815,11 +1815,11 @@
 				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,
 				68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */,
 				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
-				6837AF971C8E827B0082F4EC /* BlueprintPinView.swift in Sources */,
+				6837AF971C8E827B0082F4EC /* FloorplanPinView.swift in Sources */,
 				687CB54A1B07EAD30048B692 /* MKMapViewExtensions.swift in Sources */,
 				685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */,
 				68F846B91C26F998003C678B /* WorkOrderProductCreationViewController.swift in Sources */,
-				6845BB5D1BF1E46200AD3D79 /* BlueprintScaleView.swift in Sources */,
+				6845BB5D1BF1E46200AD3D79 /* FloorplanScaleView.swift in Sources */,
 				6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
 				68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */,
@@ -1827,9 +1827,9 @@
 				68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
 				687CB5941B07F6020048B692 /* CheckinService.swift in Sources */,
-				68C923C91CEAC1CD00303AA1 /* BlueprintTiledView.swift in Sources */,
+				68C923C91CEAC1CD00303AA1 /* FloorplanTiledView.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
-				6845BB641BF1F60200AD3D79 /* BlueprintScrollView.swift in Sources */,
+				6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
 				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,
 				68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */,

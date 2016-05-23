@@ -26,11 +26,11 @@ protocol FloorplanViewControllerDelegate: NSObjectProtocol {
 
 class FloorplanViewController: WorkOrderComponentViewController,
                                UIScrollViewDelegate,
-                               BlueprintScaleViewDelegate,
+                               FloorplanScaleViewDelegate,
                                FloorplanSelectorViewDelegate,
-                               BlueprintThumbnailViewDelegate,
-                               BlueprintPinViewDelegate,
-                               BlueprintWorkOrdersViewControllerDelegate,
+                               FloorplanThumbnailViewDelegate,
+                               FloorplanPinViewDelegate,
+                               FloorplanWorkOrdersViewControllerDelegate,
                                UIPopoverPresentationControllerDelegate {
 
     enum Mode {
@@ -68,11 +68,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     private var floorplanSelectorView: FloorplanSelectorView!
-    private var thumbnailView: BlueprintThumbnailView!
+    private var thumbnailView: FloorplanThumbnailView!
     private var thumbnailTintView: UIView!
 
     private var imageView: UIImageView!
-    private var blueprintTiledView: BlueprintTiledView!
+    private var floorplanTiledView: FloorplanTiledView!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var progressView: UIProgressView! {
@@ -83,9 +83,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    @IBOutlet private weak var scrollView: BlueprintScrollView!
+    @IBOutlet private weak var scrollView: FloorplanScrollView!
 
-    @IBOutlet private weak var scaleView: BlueprintScaleView! {
+    @IBOutlet private weak var scaleView: FloorplanScaleView! {
         didSet {
             if let scaleView = scaleView {
                 scaleView.delegate = self
@@ -96,9 +96,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private var pinViews = [BlueprintPinView]()
+    private var pinViews = [FloorplanPinView]()
 
-    private var selectedPinView: BlueprintPinView! {
+    private var selectedPinView: FloorplanPinView! {
         didSet {
             if selectedPinView == nil {
                 showPinViews()
@@ -107,10 +107,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
         }
     }
-    private var selectedPolygonView: BlueprintPolygonView!
+    private var selectedPolygonView: FloorplanPolygonView!
 
-    @IBOutlet private weak var blueprintWorkOrdersViewControllerContainer: UIView!
-    private var blueprintWorkOrdersViewController: FloorplanWorkOrdersViewController!
+    @IBOutlet private weak var floorplanWorkOrdersViewControllerContainer: UIView!
+    private var floorplanWorkOrdersViewController: FloorplanWorkOrdersViewController!
 
     var floorplan: Floorplan!
 
@@ -121,7 +121,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return nil
     }
 
-    var blueprintScale: Float! {
+    var floorplanScale: Float! {
         if let floorplan = floorplan {
             return Float(floorplan.scale)
         }
@@ -211,8 +211,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
         floorplanSelectorView.delegate = self
         view.addSubview(floorplanSelectorView)
 
-        let blueprintThumbnailViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanThumbnailViewController") as! FloorplanThumbnailViewController
-        thumbnailView = blueprintThumbnailViewController.thumbnailView
+        let floorplanThumbnailViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanThumbnailViewController") as! FloorplanThumbnailViewController
+        thumbnailView = floorplanThumbnailViewController.thumbnailView
         thumbnailView.delegate = self
         view.addSubview(thumbnailView)
 
@@ -231,16 +231,16 @@ class FloorplanViewController: WorkOrderComponentViewController,
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleToFill
 
-        blueprintTiledView = BlueprintTiledView()
-        blueprintTiledView.alpha = 0.0
-        blueprintTiledView.userInteractionEnabled = true
+        floorplanTiledView = FloorplanTiledView()
+        floorplanTiledView.alpha = 0.0
+        floorplanTiledView.userInteractionEnabled = true
 
         scrollView?.backgroundColor = UIColor.whiteColor()
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
-        scrollView?.addSubview(blueprintTiledView)
-        scrollView?.bringSubviewToFront(blueprintTiledView)
+        scrollView?.addSubview(floorplanTiledView)
+        scrollView?.bringSubviewToFront(floorplanTiledView)
 
         activityIndicatorView?.startAnimating()
 
@@ -286,17 +286,17 @@ class FloorplanViewController: WorkOrderComponentViewController,
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
 
-        if segue.identifier! == "BlueprintWorkOrdersViewControllerSegue" {
+        if segue.identifier! == "FloorplanWorkOrdersViewControllerSegue" {
             let navigationController = segue.destinationViewController as! UINavigationController
-            blueprintWorkOrdersViewController = navigationController.viewControllers.first! as! FloorplanWorkOrdersViewController
-            blueprintWorkOrdersViewController.delegate = self
+            floorplanWorkOrdersViewController = navigationController.viewControllers.first! as! FloorplanWorkOrdersViewController
+            floorplanWorkOrdersViewController.delegate = self
         }
     }
 
     func teardown() -> UIImage? {
         let image = imageView?.image
         imageView?.image = nil
-        thumbnailView?.blueprintImage = nil
+        thumbnailView?.floorplanImage = nil
         loadedFloorplan = false
         return image
     }
@@ -311,7 +311,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         coordinator.animateAlongsideTransition(
             { context in
                 self.hideToolbar()
-                self.thumbnailView?.blueprintImage = self.imageView.image
+                self.thumbnailView?.floorplanImage = self.imageView.image
                 self.thumbnailTintView?.frame.size = size
             },
             completion: { context in
@@ -403,8 +403,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
                         self!.setFloorplanImage(image)
                     }
 
-                    if let blueprintWorkOrdersViewController = self!.blueprintWorkOrdersViewController {
-                        blueprintWorkOrdersViewController.loadAnnotations()
+                    if let floorplanWorkOrdersViewController = self!.floorplanWorkOrdersViewController {
+                        floorplanWorkOrdersViewController.loadAnnotations()
                     }
                 },
                 onDownloadFailure: { error in
@@ -437,21 +437,21 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                                                         let size = CGSize(width: image.size.width, height: image.size.height)
 
-                                                        self!.blueprintTiledView.frame = CGRect(origin: CGPointZero, size: size)
-                                                        self!.blueprintTiledView.backgroundColor = UIColor.clearColor()
-                                                        self!.blueprintTiledView.floorplan = self!.floorplan
-                                                        self!.blueprintTiledView.setNeedsDisplay()
-                                                        //blueprintTiledView.image = image
+                                                        self!.floorplanTiledView.frame = CGRect(origin: CGPointZero, size: size)
+                                                        self!.floorplanTiledView.backgroundColor = UIColor.clearColor()
+                                                        self!.floorplanTiledView.floorplan = self!.floorplan
+                                                        self!.floorplanTiledView.setNeedsDisplay()
+                                                        //floorplanTiledView.image = image
 
-                                                        //        let blueprintTiledLayer = blueprintTiledView.layer as! CATiledLayer
-                                                        //        blueprintTiledLayer.bounds = CGRect(origin: CGPointZero, size: size)
-                                                        //        blueprintTiledLayer.frame = blueprintTiledLayer.bounds
+                                                        //        let floorplanTiledLayer = floorplanTiledView.layer as! CATiledLayer
+                                                        //        floorplanTiledLayer.bounds = CGRect(origin: CGPointZero, size: size)
+                                                        //        floorplanTiledLayer.frame = floorplanTiledLayer.bounds
 
 //                                                        if let urlString = self!.floorplan.imageUrlString72dpi {
 //                                                            ImageService.sharedService().fetchImage(NSURL(urlString), cacheOnDisk: true,
 //                                                                onDownloadSuccess: { [weak self] image in
 //                                                                    dispatch_async_main_queue {
-//                                                                        self!.thumbnailView?.blueprintImage = image
+//                                                                        self!.thumbnailView?.floorplanImage = image
 //                                                                    }
 //                                                                },
 //                                                                onDownloadFailure: { error in
@@ -486,7 +486,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                                                         
                                                         dispatch_after_delay(0.0) {
                                                             self!.setZoomLevel()
-                                                            self!.blueprintTiledView.alpha = 1.0
+                                                            self!.floorplanTiledView.alpha = 1.0
                                                             
                                                             if let toolbar = self!.floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self!) {
                                                                 toolbar.reload()
@@ -498,8 +498,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
                                                         }
                                                     }
 
-                                                    if let blueprintWorkOrdersViewController = self!.blueprintWorkOrdersViewController {
-                                                        blueprintWorkOrdersViewController.loadAnnotations()
+                                                    if let floorplanWorkOrdersViewController = self!.floorplanWorkOrdersViewController {
+                                                        floorplanWorkOrdersViewController.loadAnnotations()
                                                     }
             },
                                                 onDownloadFailure: { error in
@@ -525,7 +525,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         imageView!.image = image
         imageView!.frame = CGRect(origin: CGPointZero, size: size)
 
-        thumbnailView?.blueprintImage = image
+        thumbnailView?.floorplanImage = image
 
         scrollView.scrollEnabled = false
         scrollView.contentSize = size
@@ -570,7 +570,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             annotation.point = [point.x, point.y]
 
             newWorkOrderPending = true
-            selectedPinView = BlueprintPinView(delegate: self, annotation: annotation)
+            selectedPinView = FloorplanPinView(delegate: self, annotation: annotation)
 
             imageView.addSubview(selectedPinView)
             imageView.bringSubviewToFront(selectedPinView)
@@ -581,7 +581,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             selectedPinView.attachGestureRecognizer()
             pinViews.append(selectedPinView)
 
-            blueprintWorkOrdersViewController?.createWorkOrder(gestureRecognizer)
+            floorplanWorkOrdersViewController?.createWorkOrder(gestureRecognizer)
         }
     }
 
@@ -598,8 +598,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func pinViewForWorkOrder(workOrder: WorkOrder!) -> BlueprintPinView! {
-        var pinView: BlueprintPinView!
+    private func pinViewForWorkOrder(workOrder: WorkOrder!) -> FloorplanPinView! {
+        var pinView: FloorplanPinView!
         for view in pinViews {
             if let wo = view.workOrder {
                 if wo.id == workOrder?.id {
@@ -613,7 +613,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 if annotations.count > 0 {
                     if let annotation = annotations.first {
                         if annotation.point != nil {
-                            pinView = BlueprintPinView(delegate: self, annotation: annotation)
+                            pinView = FloorplanPinView(delegate: self, annotation: annotation)
                         }
                     }
                 }
@@ -627,7 +627,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             view.removeFromSuperview()
         }
 
-        pinViews = [BlueprintPinView]()
+        pinViews = [FloorplanPinView]()
     }
 
     private func refreshAnnotations() {
@@ -635,10 +635,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
             if let annotations = floorplan.annotations {
                 for annotation in annotations {
                     if annotation.point != nil {
-                        let pinView = BlueprintPinView(delegate: self, annotation: annotation)
+                        let pinView = FloorplanPinView(delegate: self, annotation: annotation)
                         pinView.category = annotation.workOrder?.category
 
-                        if let size = sizeForFloorplanWorkOrdersViewController(blueprintWorkOrdersViewController) {
+                        if let size = sizeForFloorplanWorkOrdersViewController(floorplanWorkOrdersViewController) {
                             pinView.frame = CGRect(x: annotation.point[0] * size.width,
                                                    y: annotation.point[1] * size.height,
                                                    width: pinView.bounds.width,
@@ -691,10 +691,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
 //
 //        restoreCachedNavigationItem()
 //
-//        if let blueprint = blueprint {
-//            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
+//        if let floorplan = floorplan {
+//            var metadata = floorplan.metadata.mutableCopy() as! [String : AnyObject]
 //            metadata["scale"] = scale
-//            blueprint.updateAttachment(["metadata": metadata],
+//            floorplan.updateAttachment(["metadata": metadata],
 //                onSuccess: { statusCode, mappingResult in
 //                    self.toolbar.reload()
 //                    self.floorplanViewControllerDelegate?.scaleWasSetForFloorplanViewController(self)
@@ -777,29 +777,29 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    // MARK: BlueprintScaleViewDelegate
+    // MARK: FloorplanScaleViewDelegate
 
-    func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView! {
+    func floorplanImageViewForFloorplanScaleView(view: FloorplanScaleView) -> UIImageView! {
         return imageView
     }
 
-    func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat {
-        if let blueprintScale = blueprintScale {
-            return CGFloat(blueprintScale)
+    func floorplanScaleForFloorplanScaleView(view: FloorplanScaleView) -> CGFloat {
+        if let floorplanScale = floorplanScale {
+            return CGFloat(floorplanScale)
         }
 
         return 1.0
     }
 
-    func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView) {
+    func floorplanScaleViewCanSetFloorplanScale(view: FloorplanScaleView) {
         overrideNavigationItemForSettingScale(true)
     }
 
-    func blueprintScaleViewDidReset(view: BlueprintScaleView) {
+    func floorplanScaleViewDidReset(view: FloorplanScaleView) {
         //toolbar?.toggleScaleVisibility()
     }
 
-    func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat) {
+    func floorplanScaleView(view: FloorplanScaleView, didSetScale scale: CGFloat) {
         setScale(nil)
     }
 
@@ -814,7 +814,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             importFromDropbox()
         } else {
             if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
-                toolbar.presentBlueprintAtIndexPath(indexPath)
+                toolbar.presentFloorplanAtIndexPath(indexPath)
             }
         }
     }
@@ -868,9 +868,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    // MARK: BlueprintThumbnailViewDelegate
+    // MARK: FloorplanThumbnailViewDelegate
 
-    func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect) {
+    func floorplanThumbnailView(view: FloorplanThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
         enableScrolling = false
 
@@ -890,19 +890,19 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func blueprintThumbnailViewNavigationBegan(view: BlueprintThumbnailView) {
+    func floorplanThumbnailViewNavigationBegan(view: FloorplanThumbnailView) {
         hideToolbar()
     }
 
-    func blueprintThumbnailViewNavigationEnded(view: BlueprintThumbnailView) {
+    func floorplanThumbnailViewNavigationEnded(view: FloorplanThumbnailView) {
         showToolbar()
     }
 
-    func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat {
+    func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat {
         return scrollView.minimumZoomScale
     }
 
-    func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize {
+    func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize {
         if let imageView = imageView {
             if let image = imageView.image {
                 let imageSize = image.size
@@ -949,7 +949,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func setWorkOrdersVisibility(visible: Bool, alpha: CGFloat! = nil) {
-        let x = visible ? (view.frame.width - blueprintWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
+        let x = visible ? (view.frame.width - floorplanWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
             setFloorplanSelectorVisibility(false)
@@ -957,8 +957,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
             thumbnailTintView?.alpha = 0.2
             view.bringSubviewToFront(thumbnailTintView)
-            view.bringSubviewToFront(blueprintWorkOrdersViewControllerContainer)
-            insetScrollViewContentForBlueprintWorkOrdersPresentation()
+            view.bringSubviewToFront(floorplanWorkOrdersViewControllerContainer)
+            insetScrollViewContentForFloorplanWorkOrdersPresentation()
         } else {
             thumbnailTintView?.alpha = 0.0
             scrollView.contentInset = UIEdgeInsetsZero
@@ -966,8 +966,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
         UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
             animations: {
-                self.blueprintWorkOrdersViewControllerContainer?.alpha = alpha != nil ? alpha : (visible ? 1.0 : 0.0)
-                self.blueprintWorkOrdersViewControllerContainer?.frame.origin.x = x
+                self.floorplanWorkOrdersViewControllerContainer?.alpha = alpha != nil ? alpha : (visible ? 1.0 : 0.0)
+                self.floorplanWorkOrdersViewControllerContainer?.frame.origin.x = x
             },
             completion:  { (completed) in
 
@@ -975,12 +975,12 @@ class FloorplanViewController: WorkOrderComponentViewController,
         )
     }
 
-    private func insetScrollViewContentForBlueprintWorkOrdersPresentation() {
+    private func insetScrollViewContentForFloorplanWorkOrdersPresentation() {
         if scrollView.contentInset != UIEdgeInsetsZero {
             return
         }
 
-        let widthInset = blueprintWorkOrdersViewControllerContainer.frame.width * 1.25
+        let widthInset = floorplanWorkOrdersViewControllerContainer.frame.width * 1.25
         let heightInset = widthInset
 
         scrollView.contentInset = UIEdgeInsets(top: heightInset,
@@ -989,23 +989,23 @@ class FloorplanViewController: WorkOrderComponentViewController,
                                                right: widthInset)
     }
 
-    // MARK: BlueprintPinViewDelegate
+    // MARK: FloorplanPinViewDelegate
 
-    func tintColorForBlueprintPinView(view: BlueprintPinView) -> UIColor {
+    func tintColorForFloorplanPinView(view: FloorplanPinView) -> UIColor {
         if let workOrder = view.workOrder {
             return workOrder.statusColor
         }
         return UIColor.blueColor()
     }
 
-    func categoryForBlueprintPinView(view: BlueprintPinView) -> Category! {
+    func categoryForFloorplanPinView(view: FloorplanPinView) -> Category! {
         if let workOrder = view.workOrder {
             return workOrder.category
         }
         return nil
     }
 
-    func blueprintImageViewForBlueprintPinView(view: BlueprintPinView) -> UIImageView! {
+    func floorplanImageViewForFloorplanPinView(view: FloorplanPinView) -> UIImageView! {
         if let index = pinViews.indexOfObject(view) {
             if let _ = pinViews[index].delegate {
                 return imageView
@@ -1017,7 +1017,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func blueprintPinViewWasSelected(view: BlueprintPinView) {
+    func floorplanPinViewWasSelected(view: FloorplanPinView) {
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
@@ -1026,7 +1026,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
 
             if let workOrder = view.workOrder {
-                floorplanViewControllerShouldFocusOnWorkOrder(workOrder, forFloorplanWorkOrdersViewController: blueprintWorkOrdersViewController)
+                floorplanViewControllerShouldFocusOnWorkOrder(workOrder, forFloorplanWorkOrdersViewController: floorplanWorkOrdersViewController)
             }
 
             return
@@ -1046,8 +1046,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: BlueprintPinView! = nil, delay: Double = 0.0) {
-        blueprintWorkOrdersViewController?.openWorkOrder(workOrder)
+    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: FloorplanPinView! = nil, delay: Double = 0.0) {
+        floorplanWorkOrdersViewController?.openWorkOrder(workOrder)
         if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
             dispatch_after_delay(delay) {
                 toolbar.setWorkOrdersVisibility(true)
@@ -1059,7 +1059,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func hidePinViews(excludedPin: BlueprintPinView! = nil) {
+    private func hidePinViews(excludedPin: FloorplanPinView! = nil) {
         for pinView in pinViews {
             if excludedPin == nil || pinView != excludedPin {
                 pinView.alpha = 0.2
@@ -1111,7 +1111,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    // MARK: BlueprintWorkOrdersViewControllerDelegate
+    // MARK: FloorplanWorkOrdersViewControllerDelegate
 
     func floorplanForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Floorplan! {
         return floorplan
@@ -1124,11 +1124,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
     func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
         if !initializedAnnotations {
             initializedAnnotations = true
-            if let blueprintWorkOrdersViewControllerContainer = blueprintWorkOrdersViewControllerContainer {
-                if blueprintWorkOrdersViewControllerContainer.alpha == 0.0 {
+            if let floorplanWorkOrdersViewControllerContainer = floorplanWorkOrdersViewControllerContainer {
+                if floorplanWorkOrdersViewControllerContainer.alpha == 0.0 {
                     dispatch_after_delay(0.0) {
-                        blueprintWorkOrdersViewControllerContainer.frame.origin.x = self.view.frame.width
-                        //blueprintWorkOrdersViewControllerContainer.alpha = 1.0
+                        floorplanWorkOrdersViewControllerContainer.frame.origin.x = self.view.frame.width
+                        //floorplanWorkOrdersViewControllerContainer.alpha = 1.0
                     }
                 }
             }
@@ -1161,11 +1161,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return job
     }
 
-    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView! {
+    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
         return selectedPinView
     }
 
-    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView! {
+    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
         return selectedPolygonView
     }
 
@@ -1176,7 +1176,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return nil
     }
 
-    func floorplanViewControllerShouldRemovePinView(pinView: BlueprintPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldRemovePinView(pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
         if let index = pinViews.indexOfObject(pinView) {
             pinViews.removeAtIndex(index)
             selectedPinView.removeFromSuperview()
@@ -1190,7 +1190,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     animations: {
                         self.scrollView.zoomToRect(pinView.frame, animated: false)
 
-                        let offsetX = (self.blueprintWorkOrdersViewControllerContainer.frame.width / 2.0) - (pinView.frame.width / 2.0)
+                        let offsetX = (self.floorplanWorkOrdersViewControllerContainer.frame.width / 2.0) - (pinView.frame.width / 2.0)
                         self.scrollView.contentOffset.x += offsetX
                     },
                     completion: { completed in
@@ -1207,11 +1207,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView! {
+    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
         return pinViewForWorkOrder(workOrder)
     }
 
-    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView! {
+    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
         return nil
     }
 
@@ -1225,11 +1225,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         if workOrder.previewImage == nil { // FIXME!!! This has to get moved
             if let pinView = pinView {
                 if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
-                    if let blueprintImageView = imageView {
-                        let previewImage = blueprintImageView.image!.crop(overlayViewBoundingBox)
+                    if let floorplanImageView = imageView {
+                        let previewImage = floorplanImageView.image!.crop(overlayViewBoundingBox)
                         let previewView = UIImageView(image: previewImage)
                         if let annotation = pinView.annotation {
-                            let pin = BlueprintPinView(annotation: annotation)
+                            let pin = FloorplanPinView(annotation: annotation)
                             pin.delegate = self
                             previewView.addSubview(pin)
                             previewView.bringSubviewToFront(pin)

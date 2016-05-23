@@ -75,12 +75,12 @@ class Job: Model {
     }
 
     var isEditMode: Bool {
-        let hasBlueprint = floorplans?.count > 0
-        let hasScale = hasBlueprint && floorplans?.first!.scale != nil
+        let hasFloorplan = floorplans?.count > 0
+        let hasScale = hasFloorplan && floorplans?.first!.scale != nil
         let hasSupervisor = supervisors?.count > 0
         let hasInventory = materials?.count > 0
         let hasWorkOrders = workOrdersCount > 0
-        return !isWizardMode && ((hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || status != "configuring")
+        return !isWizardMode && ((hasFloorplan && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || status != "configuring")
     }
 
     var isReviewMode: Bool {
@@ -709,13 +709,13 @@ class Job: Model {
         }
     }
 
-    func updateJobBlueprintScale(blueprintScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
-//        if let blueprint = blueprint {
-//            self.blueprintScale = Double(blueprintScale)
+    func updateJobFloorplanScale(floorplanScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
+//        if let floorplan = floorplan {
+//            self.floorplanScale = Double(floorplanScale)
 //
-//            var metadata = blueprint.metadata.mutableCopy() as! [String : AnyObject]
-//            metadata["scale"] = blueprintScale
-//            blueprint.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
+//            var metadata = floorplan.metadata.mutableCopy() as! [String : AnyObject]
+//            metadata["scale"] = floorplanScale
+//            floorplan.updateAttachment(["metadata": metadata], onSuccess: onSuccess, onError: onError)
 //        }
     }
 

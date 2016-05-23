@@ -11,28 +11,28 @@ import UIKit
 class JobFloorplansViewController: ViewController,
                                    FloorplansPageViewControllerDelegate {
 
-    private var blueprintPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+    private var floorplanPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
-    @IBOutlet private weak var blueprintPreviewContainerView: UIView! {
+    @IBOutlet private weak var floorplanPreviewContainerView: UIView! {
         didSet {
-            if let blueprintPreviewContainerView = blueprintPreviewContainerView {
-                blueprintPreviewContainerView.backgroundColor = blueprintPreviewBackgroundColor
+            if let floorplanPreviewContainerView = floorplanPreviewContainerView {
+                floorplanPreviewContainerView.backgroundColor = floorplanPreviewBackgroundColor
             }
         }
     }
-    @IBOutlet private weak var blueprintActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var blueprintPreviewStatusLabel: UILabel! {
+    @IBOutlet private weak var floorplanActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var floorplanPreviewStatusLabel: UILabel! {
         didSet {
-            if let blueprintPreviewStatusLabel = blueprintPreviewStatusLabel {
-                blueprintPreviewStatusLabel.text = ""
-                blueprintPreviewStatusLabel.alpha = 0.0
+            if let floorplanPreviewStatusLabel = floorplanPreviewStatusLabel {
+                floorplanPreviewStatusLabel.text = ""
+                floorplanPreviewStatusLabel.alpha = 0.0
             }
         }
     }
 
-    @IBOutlet private weak var blueprintPreviewImageView: UIImageView!
+    @IBOutlet private weak var floorplanPreviewImageView: UIImageView!
 
-    @IBOutlet private weak var blueprintPagesContainerView: UIView!
+    @IBOutlet private weak var floorplanPagesContainerView: UIView!
     @IBOutlet private weak var estimatesContainerView: UIView!
     @IBOutlet private weak var floorplansContainerView: UIView!
 
@@ -42,10 +42,10 @@ class JobFloorplansViewController: ViewController,
     @IBOutlet private weak var importFromDropboxIconButton: UIButton!
     @IBOutlet private weak var importFromDropboxTextButton: UIButton!
 
-    private weak var blueprintsPageViewController: FloorplansPageViewController!
+    private weak var floorplansPageViewController: FloorplansPageViewController!
     private weak var floorplanViewController: FloorplanViewController!
 
-    private var reloadingBlueprint = false
+    private var reloadingFloorplan = false
     private var reloadingJob = false
     private var importedPdfAttachment: Attachment! {
         didSet {
@@ -68,13 +68,13 @@ class JobFloorplansViewController: ViewController,
                 view.sendSubviewToBack(importInstructionsContainerView)
                 importInstructionsContainerView.alpha = 0.0
 
-                blueprintActivityIndicatorView.startAnimating()
-                blueprintPreviewStatusLabel?.text = importStatus
-                blueprintPreviewStatusLabel?.alpha = 1.0
-                blueprintPreviewContainerView?.bringSubviewToFront(blueprintPreviewStatusLabel)
-                blueprintPreviewContainerView?.alpha = 1.0
+                floorplanActivityIndicatorView.startAnimating()
+                floorplanPreviewStatusLabel?.text = importStatus
+                floorplanPreviewStatusLabel?.alpha = 1.0
+                floorplanPreviewContainerView?.bringSubviewToFront(floorplanPreviewStatusLabel)
+                floorplanPreviewContainerView?.alpha = 1.0
             } else {
-                blueprintPreviewStatusLabel?.text = ""
+                floorplanPreviewStatusLabel?.text = ""
             }
         }
     }
@@ -114,8 +114,8 @@ class JobFloorplansViewController: ViewController,
         floorplansContainerView?.alpha = 0.0
         floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
 
-        blueprintPreviewImageView?.alpha = 0.0
-        blueprintPreviewImageView?.contentMode = .ScaleAspectFit
+        floorplanPreviewImageView?.alpha = 0.0
+        floorplanPreviewImageView?.contentMode = .ScaleAspectFit
 
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             importFromDropboxButton.addTarget(self, action: #selector(JobFloorplansViewController.importFromDropbox(_:)), forControlEvents: .TouchUpInside)
@@ -133,15 +133,15 @@ class JobFloorplansViewController: ViewController,
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
 
-        teardownBlueprintViewController()
+        teardownFloorplanViewController()
     }
 
     func teardown() -> UIImage? {
-        blueprintPreviewImageView?.image = nil
-        return teardownBlueprintViewController()
+        floorplanPreviewImageView?.image = nil
+        return teardownFloorplanViewController()
     }
 
-    func teardownBlueprintViewController() -> UIImage? {
+    func teardownFloorplanViewController() -> UIImage? {
         return floorplanViewController?.teardown()
     }
 
@@ -152,23 +152,23 @@ class JobFloorplansViewController: ViewController,
 
                 job.reload(
                     onSuccess: { statusCode, mappingResult in
-                        self.blueprintsPageViewController?.resetViewControllers()
+                        self.floorplansPageViewController?.resetViewControllers()
                         self.reloadingJob = false
 
-                        self.blueprintPagesContainerView?.alpha = 1.0
-                        self.blueprintActivityIndicatorView?.stopAnimating()
+                        self.floorplanPagesContainerView?.alpha = 1.0
+                        self.floorplanActivityIndicatorView?.stopAnimating()
 
                         if job.floorplans.count == 0 {
                             self.renderInstruction("Import a floorplan for this job.")
                             self.showDropbox()
                         } else {
-                            if self.blueprintsPageViewController == nil {
-                                self.blueprintActivityIndicatorView?.startAnimating()
+                            if self.floorplansPageViewController == nil {
+                                self.floorplanActivityIndicatorView?.startAnimating()
                             }
                         }
                     },
                     onError: { error, statusCode, responseString in
-                        self.blueprintsPageViewController?.resetViewControllers()
+                        self.floorplansPageViewController?.resetViewControllers()
                         self.reloadingJob = false
                     }
                 )
@@ -180,11 +180,11 @@ class JobFloorplansViewController: ViewController,
         super.prepareForSegue(segue, sender: sender)
 
         if segue.identifier! == "FloorplansPageViewControllerEmbedSegue" {
-            blueprintsPageViewController = segue.destinationViewController as! FloorplansPageViewController
-            blueprintsPageViewController.floorplansPageViewControllerDelegate = self
+            floorplansPageViewController = segue.destinationViewController as! FloorplansPageViewController
+            floorplansPageViewController.floorplansPageViewControllerDelegate = self
 
             dispatch_after_delay(0.0) {
-                self.blueprintActivityIndicatorView?.stopAnimating()
+                self.floorplanActivityIndicatorView?.stopAnimating()
             }
         }
     }
@@ -219,7 +219,7 @@ class JobFloorplansViewController: ViewController,
                             self.importFromSourceURL(sourceURL, filename: filename)
                         } else {
                             self.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
-                            self.renderInstruction("Import a blueprint for this job.")
+                            self.renderInstruction("Import a floorplan for this job.")
                             self.showDropbox()
 
                         }
@@ -267,11 +267,11 @@ class JobFloorplansViewController: ViewController,
 
             floorplansContainerView?.alpha = 0.0
 
-            blueprintActivityIndicatorView?.stopAnimating()
-            blueprintPreviewContainerView?.alpha = 0.0
+            floorplanActivityIndicatorView?.stopAnimating()
+            floorplanPreviewContainerView?.alpha = 0.0
         } else if job.floorplans.count > 0 {
-            blueprintActivityIndicatorView?.stopAnimating()
-            blueprintPreviewContainerView?.alpha = 0.0
+            floorplanActivityIndicatorView?.stopAnimating()
+            floorplanPreviewContainerView?.alpha = 0.0
         } else {
             importInstructionsLabel?.text = ""
             importInstructionsLabel?.alpha = 0.0
@@ -279,27 +279,27 @@ class JobFloorplansViewController: ViewController,
             importInstructionsContainerView?.alpha = 0.0
             importInstructionsContainerView?.superview?.sendSubviewToBack(importInstructionsContainerView)
 
-            blueprintActivityIndicatorView?.startAnimating()
-            blueprintPreviewContainerView?.alpha = 1.0
+            floorplanActivityIndicatorView?.startAnimating()
+            floorplanPreviewContainerView?.alpha = 1.0
         }
     }
 
-    func setBlueprintImage(image: UIImage) {
-        blueprintPreviewImageView.image = image
-        blueprintPreviewImageView.alpha = 1.0
+    func setFloorplanImage(image: UIImage) {
+        floorplanPreviewImageView.image = image
+        floorplanPreviewImageView.alpha = 1.0
 
-        blueprintPreviewStatusLabel?.alpha = 0.0
-        blueprintPreviewStatusLabel?.text = ""
+        floorplanPreviewStatusLabel?.alpha = 0.0
+        floorplanPreviewStatusLabel?.text = ""
 
-        blueprintActivityIndicatorView.stopAnimating()
+        floorplanActivityIndicatorView.stopAnimating()
         hideDropbox()
 
-        reloadingBlueprint = false
+        reloadingFloorplan = false
     }
 
     // MARK: FloorplansPageViewControllerDelegate
 
-    func navigationItemForBlueprintsPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem! {
+    func navigationItemForFloorplansPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem! {
         return navigationItem
     }
 

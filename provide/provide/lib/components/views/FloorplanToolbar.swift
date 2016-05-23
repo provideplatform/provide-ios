@@ -33,7 +33,7 @@ class FloorplanToolbar: UIToolbar {
 
     var floorplanToolbarDelegate: FloorplanToolbarDelegate!
 
-    private var blueprintSelectorVisible = false
+    private var floorplanSelectorVisible = false
     private var navigatorVisible = false
     private var workOrdersVisible = false
     private var scaleVisible = false
@@ -84,31 +84,31 @@ class FloorplanToolbar: UIToolbar {
         ]
     }
 
-    @IBOutlet private weak var previousBlueprintButton: UIBarButtonItem! {
+    @IBOutlet private weak var previousFloorplanButton: UIBarButtonItem! {
         didSet {
-            if let navigationButton = previousBlueprintButton {
+            if let navigationButton = previousFloorplanButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(FloorplanToolbar.previousBlueprint(_:))
+                navigationButton.action = #selector(FloorplanToolbar.previousFloorplan(_:))
                 navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
 
-    @IBOutlet private weak var nextBlueprintButton: UIBarButtonItem! {
+    @IBOutlet private weak var nextFloorplanButton: UIBarButtonItem! {
         didSet {
-            if let navigationButton = nextBlueprintButton {
+            if let navigationButton = nextFloorplanButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(FloorplanToolbar.nextBlueprint(_:))
+                navigationButton.action = #selector(FloorplanToolbar.nextFloorplan(_:))
                 navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
     }
 
-    @IBOutlet private weak var blueprintTitleButton: UIBarButtonItem! {
+    @IBOutlet private weak var floorplanTitleButton: UIBarButtonItem! {
         didSet {
-            if let navigationButton = blueprintTitleButton {
+            if let navigationButton = floorplanTitleButton {
                 navigationButton.target = self
-                navigationButton.action = #selector(FloorplanToolbar.toggleBlueprintSelectorVisibility(_:))
+                navigationButton.action = #selector(FloorplanToolbar.toggleFloorplanSelectorVisibility(_:))
                 navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
             }
         }
@@ -218,30 +218,30 @@ class FloorplanToolbar: UIToolbar {
         let navigationButtonTitleTextAttribute = navigatorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
         navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
 
-        let blueprintSelectorButtonTitleTextAttribute = blueprintSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-        blueprintTitleButton?.setTitleTextAttributes(blueprintSelectorButtonTitleTextAttribute, forState: .Normal)
+        let floorplanSelectorButtonTitleTextAttribute = floorplanSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
+        floorplanTitleButton?.setTitleTextAttributes(floorplanSelectorButtonTitleTextAttribute, forState: .Normal)
 
-        let previousBlueprintButtonEnabled = floorplanToolbarDelegate?.previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
-        let previousBlueprintButtonButtonTitleTextAttribute = previousBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
-        previousBlueprintButton.setTitleTextAttributes(previousBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
-        previousBlueprintButton.enabled = previousBlueprintButtonEnabled
+        let previousFloorplanButtonEnabled = floorplanToolbarDelegate?.previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
+        let previousFloorplanButtonButtonTitleTextAttribute = previousFloorplanButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
+        previousFloorplanButton.setTitleTextAttributes(previousFloorplanButtonButtonTitleTextAttribute, forState: .Normal)
+        previousFloorplanButton.enabled = previousFloorplanButtonEnabled
 
-        let nextBlueprintButtonEnabled = floorplanToolbarDelegate?.nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
-        let nextBlueprintButtonButtonTitleTextAttribute = nextBlueprintButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
-        nextBlueprintButton.setTitleTextAttributes(nextBlueprintButtonButtonTitleTextAttribute, forState: .Normal)
-        nextBlueprintButton.enabled = nextBlueprintButtonEnabled
+        let nextFloorplanButtonEnabled = floorplanToolbarDelegate?.nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
+        let nextFloorplanButtonButtonTitleTextAttribute = nextFloorplanButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
+        nextFloorplanButton.setTitleTextAttributes(nextFloorplanButtonButtonTitleTextAttribute, forState: .Normal)
+        nextFloorplanButton.enabled = nextFloorplanButtonEnabled
 
         let floorplanTitle = floorplanToolbarDelegate?.selectedFloorplanForFloorplanToolbar(self)?.name
         if let floorplanTitle = floorplanTitle {
-            blueprintTitleButton?.title = floorplanTitle
-            blueprintTitleButton?.enabled = true
+            floorplanTitleButton?.title = floorplanTitle
+            floorplanTitleButton?.enabled = true
         } else {
-            //blueprintTitleButton?.enabled = false
+            //floorplanTitleButton?.enabled = false
         }
 
         if isIPhone() {
-            if let blueprintTitleButton = blueprintTitleButton {
-                if let index = items!.indexOfObject(blueprintTitleButton) {
+            if let floorplanTitleButton = floorplanTitleButton {
+                if let index = items!.indexOfObject(floorplanTitleButton) {
                     items!.removeAtIndex(index)
                 }
             }
@@ -258,26 +258,26 @@ class FloorplanToolbar: UIToolbar {
         reload()
     }
 
-    func presentBlueprintAtIndexPath(indexPath: NSIndexPath) {
-        toggleBlueprintSelectorVisibility()
+    func presentFloorplanAtIndexPath(indexPath: NSIndexPath) {
+        toggleFloorplanSelectorVisibility()
         floorplanToolbarDelegate?.floorplanShouldBeRenderedAtIndexPath(indexPath, forFloorplanToolbar: self)
     }
 
-    func nextBlueprint(sender: UIBarButtonItem) {
+    func nextFloorplan(sender: UIBarButtonItem) {
         floorplanToolbarDelegate?.nextFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
-    func previousBlueprint(sender: UIBarButtonItem) {
+    func previousFloorplan(sender: UIBarButtonItem) {
         floorplanToolbarDelegate?.previousFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
-    func toggleBlueprintSelectorVisibility(sender: UIBarButtonItem! = nil) {
-        blueprintSelectorVisible = !blueprintSelectorVisible
-        if blueprintSelectorVisible {
+    func toggleFloorplanSelectorVisibility(sender: UIBarButtonItem! = nil) {
+        floorplanSelectorVisible = !floorplanSelectorVisible
+        if floorplanSelectorVisible {
             navigatorVisible = false
             workOrdersVisible = false
         }
-        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetFloorplanSelectorVisibility: blueprintSelectorVisible)
+        floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetFloorplanSelectorVisibility: floorplanSelectorVisible)
 
         reload()
     }

@@ -1,5 +1,5 @@
 //
-//  BlueprintPinView.swift
+//  FloorplanPinView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 3/7/16.
@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol BlueprintPinViewDelegate: NSObjectProtocol {
-    func categoryForBlueprintPinView(view: BlueprintPinView) -> Category!
-    func tintColorForBlueprintPinView(view: BlueprintPinView) -> UIColor
-    func blueprintPinViewWasSelected(view: BlueprintPinView)
+protocol FloorplanPinViewDelegate: NSObjectProtocol {
+    func categoryForFloorplanPinView(view: FloorplanPinView) -> Category!
+    func tintColorForFloorplanPinView(view: FloorplanPinView) -> UIColor
+    func floorplanPinViewWasSelected(view: FloorplanPinView)
 
-//    func blueprintForBlueprintPolygonView(view: BlueprintPolygonView) -> Attachment!
-//    func blueprintPolygonViewDidClose(view: BlueprintPolygonView)
-//    func blueprintPolygonViewCanBeResized(view: BlueprintPolygonView) -> Bool
-//    func blueprintPolygonView(view: BlueprintPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
-//    func blueprintPolygonView(view: BlueprintPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
-//    func blueprintPolygonView(view: BlueprintPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
-//    func blueprintPolygonView(view: BlueprintPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
-//    func blueprintPolygonView(view: BlueprintPolygonView, didUpdateAnnotation annotation: Annotation)
+//    func floorplanForFloorplanPolygonView(view: FloorplanPolygonView) -> Attachment!
+//    func floorplanPolygonViewDidClose(view: FloorplanPolygonView)
+//    func floorplanPolygonViewCanBeResized(view: FloorplanPolygonView) -> Bool
+//    func floorplanPolygonView(view: FloorplanPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
+//    func floorplanPolygonView(view: FloorplanPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
+//    func floorplanPolygonView(view: FloorplanPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
+//    func floorplanPolygonView(view: FloorplanPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
+//    func floorplanPolygonView(view: FloorplanPolygonView, didUpdateAnnotation annotation: Annotation)
 }
 
-class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
+class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var annotation: Annotation! {
         didSet {
@@ -56,9 +56,9 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         return nil
     }
 
-    weak var delegate: BlueprintPinViewDelegate! {
+    weak var delegate: FloorplanPinViewDelegate! {
         didSet {
-            self.category = delegate?.categoryForBlueprintPinView(self)
+            self.category = delegate?.categoryForFloorplanPinView(self)
         }
     }
 
@@ -96,7 +96,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
         initWorkOrderChangedNotificationObserver()
     }
 
-    required init(delegate: BlueprintPinViewDelegate, annotation: Annotation) {
+    required init(delegate: FloorplanPinViewDelegate, annotation: Annotation) {
         super.init(frame: CGRectZero)
 
         self.delegate = delegate
@@ -141,7 +141,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
             }
         }
 
-        if let tintColor = delegate?.tintColorForBlueprintPinView(self) {
+        if let tintColor = delegate?.tintColorForFloorplanPinView(self) {
             self.tintColor = tintColor
         } else if let workOrder = workOrder {
             tintColor = workOrder.statusColor
@@ -154,7 +154,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
                         if let delegate = self.delegate {
-                            if let category = delegate.categoryForBlueprintPinView(self) {
+                            if let category = delegate.categoryForFloorplanPinView(self) {
                                 self.category = category
                             }
                         }
@@ -166,7 +166,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
 
     func attachGestureRecognizer() {
         userInteractionEnabled = true
-        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintPinView.pinSelected(_:)))
+        gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FloorplanPinView.pinSelected(_:)))
         addGestureRecognizer(gestureRecognizer)
     }
 
@@ -190,7 +190,7 @@ class BlueprintPinView: UIImageView, UIGestureRecognizerDelegate {
     }
 
     func pinSelected(gestureRecognizer: UITapGestureRecognizer) {
-        delegate?.blueprintPinViewWasSelected(self)
+        delegate?.floorplanPinViewWasSelected(self)
     }
 
     func redraw() {

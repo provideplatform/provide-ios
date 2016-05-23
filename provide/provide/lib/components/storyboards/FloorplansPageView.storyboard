@@ -63,12 +63,12 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="blueprintTitleButton" destination="XzC-Ny-Xti" id="evT-TM-XrG"/>
+                                    <outlet property="floorplanTitleButton" destination="XzC-Ny-Xti" id="evT-TM-XrG"/>
                                     <outlet property="createWorkOrderButton" destination="ypP-sg-bRT" id="vUr-Wh-Nav"/>
                                     <outlet property="floorplanOptionsButton" destination="8te-7m-H81" id="KTu-bg-Unf"/>
                                     <outlet property="navigationButton" destination="Y5e-QX-9wm" id="Eun-Jf-ajc"/>
-                                    <outlet property="nextBlueprintButton" destination="5hf-A1-GT7" id="V7X-Xb-GFx"/>
-                                    <outlet property="previousBlueprintButton" destination="yS8-Lv-7BX" id="XhD-WN-LwP"/>
+                                    <outlet property="nextFloorplanButton" destination="5hf-A1-GT7" id="V7X-Xb-GFx"/>
+                                    <outlet property="previousFloorplanButton" destination="yS8-Lv-7BX" id="XhD-WN-LwP"/>
                                     <outlet property="scaleButton" destination="OEH-t4-25q" id="wQy-ZF-dzY"/>
                                     <outlet property="workOrdersButton" destination="KHp-qx-cui" id="RqL-a0-FIW"/>
                                 </connections>

@@ -25,7 +25,7 @@ protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
-    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView!
+    func floorplanPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> FloorplanPinView!
     func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double!
 }
 
@@ -550,8 +550,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
             //dismissViewController(animated: true)
 
-            if let blueprintPinViewForWorkOrderCreationViewController = delegate?.blueprintPinViewForWorkOrderCreationViewController(self) {
-                blueprintPinViewForWorkOrderCreationViewController.category = category
+            if let floorplanPinViewForWorkOrderCreationViewController = delegate?.floorplanPinViewForWorkOrderCreationViewController(self) {
+                floorplanPinViewForWorkOrderCreationViewController.category = category
             }
         }
     }

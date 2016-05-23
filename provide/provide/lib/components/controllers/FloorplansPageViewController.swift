@@ -10,7 +10,7 @@ import UIKit
 
 @objc
 protocol FloorplansPageViewControllerDelegate {
-    optional func navigationItemForBlueprintsPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem!
+    optional func navigationItemForFloorplansPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem!
     func jobForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Job!
     func floorplansForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Set<Floorplan>
 }

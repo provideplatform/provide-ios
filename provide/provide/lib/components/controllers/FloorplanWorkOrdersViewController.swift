@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol BlueprintWorkOrdersViewControllerDelegate {
+protocol FloorplanWorkOrdersViewControllerDelegate {
     func jobForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Job!
     func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: FloorplanWorkOrdersViewController)
     func floorplanForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Floorplan!
@@ -18,14 +18,14 @@ protocol BlueprintWorkOrdersViewControllerDelegate {
     func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
     func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
     func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldRemovePinView(pinView: BlueprintPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldRemovePinView(pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
     func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
     func floorplanViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
-    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView!
-    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView!
+    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
+    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
     func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize!
-    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPinView!
-    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> BlueprintPolygonView!
+    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
+    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
     func previewImageForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage!
 }
 
@@ -33,7 +33,7 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
 
     private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
-    var delegate: BlueprintWorkOrdersViewControllerDelegate!
+    var delegate: FloorplanWorkOrdersViewControllerDelegate!
 
     private var annotations: [Annotation] {
         if let floorplan = floorplan {
@@ -202,13 +202,13 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("blueprintWorkOrderTableViewCellReuseIdentifier") as! BlueprintWorkOrderTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("floorplanWorkOrderTableViewCellReuseIdentifier") as! FloorplanWorkOrderTableViewCell
         cell.annotation = annotations[indexPath.section]
         return cell
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! BlueprintWorkOrderTableViewCell).workOrder
+        let workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! FloorplanWorkOrderTableViewCell).workOrder
         openWorkOrder(workOrder)
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -216,7 +216,7 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
 
     // MARK: WorkOrderCreationViewControllerDelegate
 
-    func blueprintPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> BlueprintPinView! {
+    func floorplanPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> FloorplanPinView! {
         if let workOrder = viewController.workOrder {
             if let delegate = delegate {
                 return delegate.pinViewForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self)

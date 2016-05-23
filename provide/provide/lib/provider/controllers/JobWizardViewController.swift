@@ -10,8 +10,8 @@ import UIKit
 
 protocol JobWizardViewControllerDelegate: NSObjectProtocol {
     func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
-    func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController: FloorplanViewController)
+    func floorplanImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForFloorplanViewController: FloorplanViewController)
 }
 
 class JobWizardViewController: UINavigationController,
@@ -40,10 +40,10 @@ class JobWizardViewController: UINavigationController,
         return nil
     }
 
-    weak var cachedBlueprintImage: UIImage! {
+    weak var cachedFloorplanImage: UIImage! {
         if let jobWizardViewControllerDelegate = jobWizardViewControllerDelegate {
-            if let cachedBlueprintImage = jobWizardViewControllerDelegate.blueprintImageForJobWizardViewController(self) {
-                return cachedBlueprintImage
+            if let cachedFloorplanImage = jobWizardViewControllerDelegate.floorplanImageForJobWizardViewController(self) {
+                return cachedFloorplanImage
             }
         }
         return nil
@@ -129,7 +129,7 @@ class JobWizardViewController: UINavigationController,
     }
     
     func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
-        return cachedBlueprintImage
+        return cachedFloorplanImage
     }
 
     func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
@@ -255,8 +255,8 @@ class JobWizardViewController: UINavigationController,
 
     deinit {
         let viewController = viewControllers.first
-        if let jobBlueprintsViewController = viewController as? JobFloorplansViewController {
-            jobBlueprintsViewController.teardown()
+        if let jobFloorplansViewController = viewController as? JobFloorplansViewController {
+            jobFloorplansViewController.teardown()
         } else if let floorplanViewController = viewController as? FloorplanViewController {
             floorplanViewController.teardown()
         }

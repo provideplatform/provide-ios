@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="BlueprintScrollView" customModule="provide" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="FloorplanScrollView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <connections>
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
@@ -39,7 +39,7 @@
                                     </constraint>
                                 </constraints>
                                 <connections>
-                                    <segue destination="1xQ-6a-WZl" kind="embed" identifier="BlueprintWorkOrdersViewControllerSegue" id="tZl-Jd-TXW"/>
+                                    <segue destination="1xQ-6a-WZl" kind="embed" identifier="FloorplanWorkOrdersViewControllerSegue" id="tZl-Jd-TXW"/>
                                 </connections>
                             </containerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kme-T2-VmW">
@@ -73,7 +73,7 @@
                     <navigationItem key="navigationItem" id="QPb-YN-RlK"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="kme-T2-VmW" id="p7u-uV-nBy"/>
-                        <outlet property="blueprintWorkOrdersViewControllerContainer" destination="mZN-vT-oPf" id="fWV-bG-Y78"/>
+                        <outlet property="floorplanWorkOrdersViewControllerContainer" destination="mZN-vT-oPf" id="fWV-bG-Y78"/>
                         <outlet property="progressView" destination="kd1-tJ-VKm" id="P2R-ox-JNt"/>
                         <outlet property="scrollView" destination="HYt-68-Mwn" id="bWQ-rK-WaU"/>
                     </connections>
@@ -100,7 +100,7 @@
                         <viewControllerLayoutGuide type="top" id="UP7-qx-ttT"/>
                         <viewControllerLayoutGuide type="bottom" id="EKC-DL-Paa"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IXh-ML-zzU" customClass="BlueprintThumbnailView" customModule="provide" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="IXh-ML-zzU" customClass="FloorplanThumbnailView" customModule="provide" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -108,7 +108,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="BlueprintThumbnailOverlayView" customModule="provide" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="FloorplanThumbnailOverlayView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -142,7 +142,7 @@
         <!--Navigation Controller-->
         <scene sceneID="H20-Kq-Wvi">
             <objects>
-                <navigationController storyboardIdentifier="BlueprintNavigationViewController" id="sJ0-7U-x54" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FloorplanNavigationViewController" id="sJ0-7U-x54" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ueY-wU-Axc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -177,7 +177,7 @@
                                     <inset key="sectionInset" minX="10" minY="5" maxX="10" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="blueprintCollectionViewCellReuseIdentifier" id="iV0-En-pGY" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="floorplanCollectionViewCellReuseIdentifier" id="iV0-En-pGY" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="10" y="7.5" width="175" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -217,7 +217,7 @@
                                             <outlet property="nameLabel" destination="S6o-7Q-cTb" id="L5J-ZE-hft"/>
                                         </connections>
                                     </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="importBlueprintCollectionViewCellReuseIdentifier" id="f6l-w6-591" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="importFloorplanCollectionViewCellReuseIdentifier" id="f6l-w6-591" customClass="PickerCollectionViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="210" y="7.5" width="125" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -242,7 +242,7 @@
                                                         <rect key="frame" x="54" y="698" width="141" height="35"/>
                                                     </variation>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blueprint" translatesAutoresizingMaskIntoConstraints="NO" id="vKw-2L-RuO">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="floorplan" translatesAutoresizingMaskIntoConstraints="NO" id="vKw-2L-RuO">
                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="121"/>
                                                 </imageView>
                                             </subviews>
@@ -297,7 +297,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blueprint" width="300" height="300"/>
+        <image name="floorplan" width="300" height="300"/>
         <image name="dropbox" width="214" height="200"/>
     </resources>
 </document>

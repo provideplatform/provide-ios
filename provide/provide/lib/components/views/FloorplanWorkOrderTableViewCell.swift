@@ -1,5 +1,5 @@
 //
-//  BlueprintWorkOrderTableViewCell.swift
+//  FloorplanWorkOrderTableViewCell.swift
 //  provide
 //
 //  Created by Kyle Thomas on 4/11/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BlueprintWorkOrderTableViewCell: UITableViewCell {
+class FloorplanWorkOrderTableViewCell: UITableViewCell {
 
     weak var annotation: Annotation! {
         didSet {
@@ -29,7 +29,7 @@ class BlueprintWorkOrderTableViewCell: UITableViewCell {
         return nil
     }
 
-    @IBOutlet private weak var pinView: BlueprintPinView!
+    @IBOutlet private weak var pinView: FloorplanPinView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var dueDateLabel: UILabel!
     @IBOutlet private weak var priorityLabel: UILabel!

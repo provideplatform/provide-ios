@@ -1,5 +1,5 @@
 //
-//  BlueprintScrollView.swift
+//  FloorplanScrollView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol BlueprintScrollViewDelegate {
+protocol FloorplanScrollViewDelegate {
 
 }
 
-class BlueprintScrollView: UIScrollView, UIGestureRecognizerDelegate {
+class FloorplanScrollView: UIScrollView, UIGestureRecognizerDelegate {
 
-    var blueprintImageView: UIImageView! {
-        var blueprintImageView: UIImageView!
+    var floorplanImageView: UIImageView! {
+        var floorplanImageView: UIImageView!
         for subview in subviews {
             if subview.isKindOfClass(UIImageView) {
-                blueprintImageView = subview as! UIImageView
+                floorplanImageView = subview as! UIImageView
                 break
             }
         }
-        return blueprintImageView
+        return floorplanImageView
     }
 
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -30,10 +30,10 @@ class BlueprintScrollView: UIScrollView, UIGestureRecognizerDelegate {
         if let view = hitTest(point, withEvent: nil) {
             for subview in view.subviews {
                 if subview.isKindOfClass(UIImageView) {
-                    for blueprintSubview in subview.subviews {
-                        let pointInSubview = gestureRecognizer.locationInView(blueprintSubview)
-                        if let v = blueprintSubview.hitTest(pointInSubview, withEvent: nil) {
-                            if v.isKindOfClass(BlueprintPolygonVertexView) || v.isKindOfClass(BlueprintPinView) {
+                    for floorplanSubview in subview.subviews {
+                        let pointInSubview = gestureRecognizer.locationInView(floorplanSubview)
+                        if let v = floorplanSubview.hitTest(pointInSubview, withEvent: nil) {
+                            if v.isKindOfClass(FloorplanPolygonVertexView) || v.isKindOfClass(FloorplanPinView) {
                                 return false
                             }
                         }

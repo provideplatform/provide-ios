@@ -73,13 +73,13 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("blueprintCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("floorplanCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
         cell.rendersCircularImage = false
 
         if indexPath.row <= floorplans.count - 1 {
             let floorplan = floorplans[indexPath.row]
 
-            //cell.selected = isSelected(blueprint)
+            //cell.selected = isSelected(floorplan)
 
             if cell.selected {
                 collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
@@ -91,7 +91,7 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
                 cell.imageUrl = thumbnailUrl
             }
         } else {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("importBlueprintCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier("importFloorplanCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
         }
 
         return cell
@@ -120,8 +120,8 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
     }
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        //let blueprint = blueprints[indexPath.row]
-        //delegate?.blueprintSelectorView(self, didDeselectBlueprint: product)
+        //let floorplan = floorplans[indexPath.row]
+        //delegate?.floorplanSelectorView(self, didDeselectFloorplan: product)
     }
 
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {

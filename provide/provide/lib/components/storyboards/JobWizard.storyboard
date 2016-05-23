@@ -43,11 +43,11 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Setup Blueprint-->
+        <!--Setup Floorplan-->
         <scene sceneID="DfW-Uj-JeL">
             <objects>
-                <navigationController title="Setup Blueprint" id="Qmv-bo-xht" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Blueprint" id="djs-Nf-6Xr">
+                <navigationController title="Setup Floorplan" id="Qmv-bo-xht" customClass="JobWizardViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Floorplan" id="djs-Nf-6Xr">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-5"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4MI-ji-BvK">
@@ -781,7 +781,7 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsm-qU-Fvp" userLabel="Blueprints Page View Container View">
+                            <containerView opaque="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsm-qU-Fvp" userLabel="Floorplans Page View Container View">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <connections>
                                     <segue destination="ZHn-dl-ofk" kind="embed" identifier="FloorplansPageViewControllerEmbedSegue" id="MOk-AH-ykK"/>
@@ -799,7 +799,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2OO-pg-gjT">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Congrats! Your blueprint is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Congrats! Your floorplan is configured properly." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJa-Sm-IZJ">
                                         <rect key="frame" x="104" y="164" width="394" height="22"/>
                                         <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -888,8 +888,8 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="bF4-gi-Caa"/>
                     <connections>
-                        <outlet property="blueprintActivityIndicatorView" destination="yQK-QR-qgF" id="Mgh-0I-npB"/>
-                        <outlet property="blueprintPagesContainerView" destination="fsm-qU-Fvp" id="axN-Df-1QA"/>
+                        <outlet property="floorplanActivityIndicatorView" destination="yQK-QR-qgF" id="Mgh-0I-npB"/>
+                        <outlet property="floorplanPagesContainerView" destination="fsm-qU-Fvp" id="axN-Df-1QA"/>
                         <outlet property="estimatesContainerView" destination="2w6-E1-TLh" id="Vy5-2Y-frB"/>
                         <outlet property="floorplansContainerView" destination="x2k-0L-gVr" id="6Lq-Ox-nEW"/>
                         <outlet property="importFromDropboxIconButton" destination="7SP-l0-9g0" id="G9T-T7-k4v"/>

@@ -20,7 +20,7 @@
         <!--Navigation Controller-->
         <scene sceneID="NFS-zH-ZIw">
             <objects>
-                <navigationController storyboardIdentifier="BlueprintNavigationViewController" modalTransitionStyle="crossDissolve" navigationBarHidden="YES" id="sqZ-dH-OlV" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FloorplanNavigationViewController" modalTransitionStyle="crossDissolve" navigationBarHidden="YES" id="sqZ-dH-OlV" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qS3-cS-0fU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -54,14 +54,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="blueprintWorkOrderTableViewCellReuseIdentifier" rowHeight="75" id="P4D-RK-w2B" customClass="BlueprintWorkOrderTableViewCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="floorplanWorkOrderTableViewCellReuseIdentifier" rowHeight="75" id="P4D-RK-w2B" customClass="FloorplanWorkOrderTableViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="49.5" width="600" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P4D-RK-w2B" id="1kl-gr-994">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="BlueprintPinView" customModule="provide" customModuleProvider="target">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="NQV-a1-cgE" customClass="FloorplanPinView" customModule="provide" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="12" width="46" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="Rru-dw-xXf"/>

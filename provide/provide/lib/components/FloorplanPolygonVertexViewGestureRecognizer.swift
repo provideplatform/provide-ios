@@ -1,5 +1,5 @@
 //
-//  BlueprintPolygonVertexViewGestureRecognizer.swift
+//  FloorplanPolygonVertexViewGestureRecognizer.swift
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
@@ -9,7 +9,7 @@
 import UIKit
 import UIKit.UIGestureRecognizerSubclass
 
-class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
+class FloorplanPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
 
     private var touchesBeganTimestamp: NSDate!
 
@@ -65,8 +65,8 @@ class BlueprintPolygonVertexViewGestureRecognizer: UIGestureRecognizer {
         var yOffset = yOffset
         if let view = view {
             if let superview = view.superview?.superview {
-                if superview is BlueprintScrollView {
-                    let zoomScale = (superview as! BlueprintScrollView).zoomScale
+                if superview is FloorplanScrollView {
+                    let zoomScale = (superview as! FloorplanScrollView).zoomScale
                     if zoomScale < 1.0 {
                         xOffset = xOffset * (2.0 - zoomScale)
                         yOffset = yOffset * (2.0 - zoomScale)

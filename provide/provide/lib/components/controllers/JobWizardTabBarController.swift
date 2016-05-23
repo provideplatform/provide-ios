@@ -47,9 +47,9 @@ class JobWizardTabBarController: UITabBarController,
                 viewControllers?.append(reviewNavigationController)
             }
 
-            if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-                if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
-                    jobBlueprintsViewController.refresh()
+            if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+                if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
+                    jobFloorplansViewController.refresh()
                 }
             }
 
@@ -66,7 +66,7 @@ class JobWizardTabBarController: UITabBarController,
         }
     }
 
-    private var setupBlueprintsTabBarItem: UITabBarItem! {
+    private var setupFloorplansTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             return items[0]
         }
@@ -125,30 +125,30 @@ class JobWizardTabBarController: UITabBarController,
 
     private var isEditMode: Bool {
         if let _ = job {
-            let hasBlueprint = job.floorplans?.count > 0
-            let hasScale = hasBlueprint && job.floorplans?.first!.scale != nil
+            let hasFloorplan = job.floorplans?.count > 0
+            let hasScale = hasFloorplan && job.floorplans?.first!.scale != nil
             let hasSupervisor = job.supervisors?.count > 0
             let hasInventory = job.materials?.count > 0
             let hasWorkOrders = job.workOrdersCount > 0
-            return !job.isWizardMode && ((hasBlueprint && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring")
+            return !job.isWizardMode && ((hasFloorplan && hasScale && hasSupervisor && hasInventory && hasWorkOrders) || job.status != "configuring")
         }
         return false
     }
 
-    private var shouldRenderBlueprintSetup: Bool {
+    private var shouldRenderFloorplanSetup: Bool {
         if let job = job {
-            let hasBlueprint = job.floorplans?.count > 0
-            let hasScale = hasBlueprint && job.floorplans?.first!.scale != nil
+            let hasFloorplan = job.floorplans?.count > 0
+            let hasScale = hasFloorplan && job.floorplans?.first!.scale != nil
             if isEditMode {
                 return false
             }
-            if !hasBlueprint {
+            if !hasFloorplan {
                 return true
             }
             if job.isCommercial {
                 return !hasScale
             } else if job.isResidential || job.isPunchlist {
-//                for annotation in job.blueprint.annotations {
+//                for annotation in job.floorplan.annotations {
 //                    if annotation.workOrderId == 0 {
 //                        return true
 //                    }
@@ -179,7 +179,7 @@ class JobWizardTabBarController: UITabBarController,
 
     private var shouldRenderWorkOrderSetup: Bool {
         if let job = job {
-            return !isEditMode && !shouldRenderBlueprintSetup && job.workOrdersCount == 0
+            return !isEditMode && !shouldRenderFloorplanSetup && job.workOrdersCount == 0
         }
         return false
     }
@@ -291,8 +291,8 @@ class JobWizardTabBarController: UITabBarController,
             item = reviewTabBarItem
         } else if shouldRenderManageJob {
             item = manageJobTabBarItem
-        } else if shouldRenderBlueprintSetup {
-            item = setupBlueprintsTabBarItem
+        } else if shouldRenderFloorplanSetup {
+            item = setupFloorplansTabBarItem
         } else if shouldRenderTeamSetup {
             item = setupTeamTabBarItem
         } else if shouldRenderInventorySetup {
@@ -336,14 +336,14 @@ class JobWizardTabBarController: UITabBarController,
         return job
     }
 
-    func blueprintImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage! {
+    func floorplanImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage! {
         if viewController.isKindOfClass(UINavigationController) {
             let rootViewController = (viewController as UINavigationController).viewControllers.first!
             if let _ = rootViewController as? FloorplanViewController {
-                if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-                    if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
-                        if let blueprintImage = jobBlueprintsViewController.teardownBlueprintViewController() {
-                            return blueprintImage
+                if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+                    if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
+                        if let floorplanImage = jobFloorplansViewController.teardownFloorplanViewController() {
+                            return floorplanImage
                         }
                     }
                 }
@@ -358,10 +358,10 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForBlueprintViewController floorplanViewController: FloorplanViewController) {
-        if let jobBlueprintsViewControllerIndex = tabBar.items!.indexOf(setupBlueprintsTabBarItem) {
-            if let jobBlueprintsViewController = (viewControllers![jobBlueprintsViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
-                jobBlueprintsViewController.refresh()
+    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForFloorplanViewController floorplanViewController: FloorplanViewController) {
+        if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+            if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
+                jobFloorplansViewController.refresh()
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  BlueprintPolygonLineView.swift
+//  FloorplanPolygonLineView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BlueprintPolygonLineView: UIView {
+class FloorplanPolygonLineView: UIView {
 
     private var startPoint: CGPoint!
     private var endPoint: CGPoint!

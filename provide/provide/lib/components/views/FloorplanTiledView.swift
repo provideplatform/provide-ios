@@ -1,5 +1,5 @@
 //
-//  BlueprintTiledLayer.swift
+//  FloorplanTiledLayer.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/16.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreGraphics
 
-class BlueprintTiledView: UIView {
+class FloorplanTiledView: UIView {
 
     weak var floorplan: Floorplan! {
         didSet {
@@ -79,7 +79,7 @@ class BlueprintTiledView: UIView {
                     self.setNeedsDisplay()
                 },
                 onDownloadFailure: { error in
-                    logWarn("Blueprint image tile download failed; \(error)")
+                    logWarn("Floorplan image tile download failed; \(error)")
                 },
                 onDownloadProgress: { receivedSize, expectedSize in
                     if expectedSize != -1 {

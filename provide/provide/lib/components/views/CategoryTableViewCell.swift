@@ -14,7 +14,7 @@ class CategoryTableViewCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    private var pinView: BlueprintPinView!
+    private var pinView: FloorplanPinView!
 
     var category: Category! {
         didSet {
@@ -58,7 +58,7 @@ class CategoryTableViewCell: UITableViewCell {
                     }
                 )
             } else {
-                pinView = BlueprintPinView(annotation: nil)
+                pinView = FloorplanPinView(annotation: nil)
                 pinView?.contentMode = .ScaleAspectFit
                 pinView?.category = category
 

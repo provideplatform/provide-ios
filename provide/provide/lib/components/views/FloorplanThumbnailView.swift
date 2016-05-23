@@ -1,5 +1,5 @@
 //
-//  BlueprintThumbnailView.swift
+//  FloorplanThumbnailView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 10/24/15.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-protocol BlueprintThumbnailViewDelegate: NSObjectProtocol {
-    func blueprintThumbnailViewNavigationBegan(view: BlueprintThumbnailView)
-    func blueprintThumbnailViewNavigationEnded(view: BlueprintThumbnailView)
-    func blueprintThumbnailView(view: BlueprintThumbnailView, navigatedToFrame frame: CGRect)
-    func initialScaleForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGFloat
-    func sizeForBlueprintThumbnailView(view: BlueprintThumbnailView) -> CGSize
+protocol FloorplanThumbnailViewDelegate: NSObjectProtocol {
+    func floorplanThumbnailViewNavigationBegan(view: FloorplanThumbnailView)
+    func floorplanThumbnailViewNavigationEnded(view: FloorplanThumbnailView)
+    func floorplanThumbnailView(view: FloorplanThumbnailView, navigatedToFrame frame: CGRect)
+    func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat
+    func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize
 }
 
-class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
+class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
 
-    weak var delegate: BlueprintThumbnailViewDelegate!
+    weak var delegate: FloorplanThumbnailViewDelegate!
 
-    weak var blueprintImage: UIImage! {
+    weak var floorplanImage: UIImage! {
         didSet {
-            dispatch_after_delay(0.0) { [weak self, weak bluePrintImage = self.blueprintImage] in
+            dispatch_after_delay(0.0) { [weak self, weak bluePrintImage = self.floorplanImage] in
                 self!.frame = CGRect(x: self!.visibleSize.width - self!.desiredSize.width - 10.0,
                                      y: self!.visibleSize.height - self!.desiredSize.height - 10.0 - 44.0,
                                      width: self!.desiredSize.width,
@@ -34,7 +34,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
                         self!.thumbnailImageBackgroundView.backgroundColor = UIColor(patternImage: scaledImage)
 
                         if let delegate = self!.delegate {
-                            let scale = delegate.initialScaleForBlueprintThumbnailView(self!)
+                            let scale = delegate.initialScaleForFloorplanThumbnailView(self!)
                             self!.resizeOverlayView(CGPointZero, scale: scale)
                         }
                     }
@@ -47,7 +47,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
 
     @IBOutlet private weak var thumbnailImageBackgroundView: UIView!
 
-    @IBOutlet private weak var overlayView: BlueprintThumbnailOverlayView! {
+    @IBOutlet private weak var overlayView: FloorplanThumbnailOverlayView! {
         didSet {
             if let overlayView = overlayView {
                 overlayView.delegate = self
@@ -60,7 +60,7 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     private var desiredSize: CGSize {
         var desiredSize = CGSize(width: 200.0, height: 215.0)
         if let delegate = delegate {
-            desiredSize = delegate.sizeForBlueprintThumbnailView(self)
+            desiredSize = delegate.sizeForFloorplanThumbnailView(self)
         }
         return desiredSize
     }
@@ -77,8 +77,8 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
     }
 
     private func resizeOverlayView(origin: CGPoint = CGPointZero, scale: CGFloat = 1.0) {
-        if let blueprintImage = blueprintImage {
-            let heightRatio = visibleSize.height / (blueprintImage.size.height * scale)
+        if let floorplanImage = floorplanImage {
+            let heightRatio = visibleSize.height / (floorplanImage.size.height * scale)
 
             let viewportHeight = frame.height * heightRatio
             let viewportWidth = viewportHeight * viewportAspectRatio
@@ -113,26 +113,26 @@ class BlueprintThumbnailView: UIView, BlueprintThumbnailOverlayViewDelegate {
             return
         }
 
-        if let _ = blueprintImage {
+        if let _ = floorplanImage {
             let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / scrollView.contentSize.width
             let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / scrollView.contentSize.height
             let origin = CGPoint(x: frame.width * xScale, y: frame.height * yScale)
-            let scale = scrollView.contentSize.height / blueprintImage.size.height
+            let scale = scrollView.contentSize.height / floorplanImage.size.height
             resizeOverlayView(origin, scale: scale)
         }
     }
 
-    // MARK: BlueprintThumbnailOverlayViewDelegate
+    // MARK: FloorplanThumbnailOverlayViewDelegate
 
-    func blueprintThumbnailOverlayView(view: BlueprintThumbnailOverlayView, navigatedToFrame frame: CGRect) {
-        delegate?.blueprintThumbnailView(self, navigatedToFrame: frame)
+    func floorplanThumbnailOverlayView(view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect) {
+        delegate?.floorplanThumbnailView(self, navigatedToFrame: frame)
     }
 
-    func blueprintThumbnailOverlayViewNavigationBegan(view: BlueprintThumbnailOverlayView) {
-        delegate?.blueprintThumbnailViewNavigationBegan(self)
+    func floorplanThumbnailOverlayViewNavigationBegan(view: FloorplanThumbnailOverlayView) {
+        delegate?.floorplanThumbnailViewNavigationBegan(self)
     }
 
-    func blueprintThumbnailOverlayViewNavigationEnded(view: BlueprintThumbnailOverlayView) {
-        delegate?.blueprintThumbnailViewNavigationEnded(self)
+    func floorplanThumbnailOverlayViewNavigationEnded(view: FloorplanThumbnailOverlayView) {
+        delegate?.floorplanThumbnailViewNavigationEnded(self)
     }
 }

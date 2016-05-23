@@ -1,5 +1,5 @@
 //
-//  BlueprintScaleView.swift
+//  FloorplanScaleView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-protocol BlueprintScaleViewDelegate {
-    func blueprintImageViewForBlueprintScaleView(view: BlueprintScaleView) -> UIImageView!
-    func blueprintScaleForBlueprintScaleView(view: BlueprintScaleView) -> CGFloat
-    func blueprintScaleViewCanSetBlueprintScale(view: BlueprintScaleView)
-    func blueprintScaleView(view: BlueprintScaleView, didSetScale scale: CGFloat)
-    func blueprintScaleViewDidReset(view: BlueprintScaleView)
+protocol FloorplanScaleViewDelegate {
+    func floorplanImageViewForFloorplanScaleView(view: FloorplanScaleView) -> UIImageView!
+    func floorplanScaleForFloorplanScaleView(view: FloorplanScaleView) -> CGFloat
+    func floorplanScaleViewCanSetFloorplanScale(view: FloorplanScaleView)
+    func floorplanScaleView(view: FloorplanScaleView, didSetScale scale: CGFloat)
+    func floorplanScaleViewDidReset(view: FloorplanScaleView)
 }
 
-class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFieldDelegate {
+class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFieldDelegate {
 
-    var delegate: BlueprintScaleViewDelegate! {
+    var delegate: FloorplanScaleViewDelegate! {
         didSet {
             if let _ = delegate {
                 measurementTextField.text = ""
@@ -49,7 +49,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         didSet {
             if let saveButton = saveButton {
                 saveButton.hidden = true
-                saveButton.addTarget(self, action: #selector(BlueprintScaleView.setScale), forControlEvents: .TouchUpInside)
+                saveButton.addTarget(self, action: #selector(FloorplanScaleView.setScale), forControlEvents: .TouchUpInside)
             }
         }
     }
@@ -57,10 +57,10 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     private var firstPoint: CGPoint!
     private var secondPoint: CGPoint!
 
-    private var firstPointView: BlueprintPolygonVertexView!
-    private var secondPointView: BlueprintPolygonVertexView!
+    private var firstPointView: FloorplanPolygonVertexView!
+    private var secondPointView: FloorplanPolygonVertexView!
 
-    private var lineView: BlueprintPolygonLineView!
+    private var lineView: FloorplanPolygonLineView!
 
     private var targetView: UIView! {
         if let superview = self.superview {
@@ -70,12 +70,12 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     }
 
     func setScale() {
-        delegate?.blueprintScaleView(self, didSetScale: scale)
+        delegate?.floorplanScaleView(self, didSetScale: scale)
     }
 
     func attachGestureRecognizer() {
         if let targetView = targetView {
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BlueprintScaleView.pointSelected(_:)))
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FloorplanScaleView.pointSelected(_:)))
             targetView.addGestureRecognizer(gestureRecognizer)
         }
     }
@@ -111,7 +111,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
 
         if !suppressDelegateNotification {
-            delegate?.blueprintScaleViewDidReset(self)
+            delegate?.floorplanScaleViewDidReset(self)
         }
     }
 
@@ -121,8 +121,8 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     }
 
     func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintScaleView(self) {
-            let point = gestureRecognizer.locationInView(blueprintImageView)
+        if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
+            let point = gestureRecognizer.locationInView(floorplanImageView)
 
             if let _ = firstPoint {
                 if secondPoint == nil {
@@ -132,7 +132,7 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
 
                     dispatch_after_delay(0.1) {
                         self.measurementTextField.becomeFirstResponder()
-                        self.delegate?.blueprintScaleViewCanSetBlueprintScale(self)
+                        self.delegate?.floorplanScaleViewCanSetFloorplanScale(self)
                     }
                 }
             } else {
@@ -144,26 +144,26 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     }
 
     private func updateLineEndpoints() {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintScaleView(self) {
+        if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
             let singlePoint = firstPoint != nil && secondPoint == nil
             let canDrawLine = firstPoint != nil && secondPoint != nil
 
             if singlePoint {
-                firstPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
+                firstPointView = FloorplanPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
                 firstPointView.delegate = self
                 firstPointView.frame.origin = CGPoint(x: firstPoint.x - (firstPointView.image!.size.width / 2.0),
                                                       y: firstPoint.y - firstPointView.image!.size.height)
 
-                blueprintImageView.addSubview(firstPointView)
-                blueprintImageView.bringSubviewToFront(firstPointView)
+                floorplanImageView.addSubview(firstPointView)
+                floorplanImageView.bringSubviewToFront(firstPointView)
             } else if canDrawLine {
-                secondPointView = BlueprintPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
+                secondPointView = FloorplanPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
                 secondPointView.delegate = self
                 secondPointView.frame.origin = CGPoint(x: secondPoint.x - (secondPointView.image!.size.width / 2.0),
                                                        y: secondPoint.y - secondPointView.image!.size.height)
 
-                blueprintImageView.addSubview(secondPointView)
-                blueprintImageView.bringSubviewToFront(secondPointView)
+                floorplanImageView.addSubview(secondPointView)
+                floorplanImageView.bringSubviewToFront(secondPointView)
 
                 removeGestureRecognizer()
                 redrawLineSegment()
@@ -172,23 +172,23 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
     }
 
     private func redrawLineSegment() {
-        if let blueprintImageView = delegate?.blueprintImageViewForBlueprintScaleView(self) {
+        if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
             let canDrawLine = firstPoint != nil && secondPoint != nil
             if canDrawLine {
                 var attachLineView = false
                 if lineView == nil {
-                    lineView = BlueprintPolygonLineView()
+                    lineView = FloorplanPolygonLineView()
                     attachLineView = true
                 } else if lineView.superview == nil {
                     attachLineView = true
                 }
 
                 if attachLineView {
-                    blueprintImageView.addSubview(lineView)
-                    blueprintImageView.bringSubviewToFront(lineView)
+                    floorplanImageView.addSubview(lineView)
+                    floorplanImageView.bringSubviewToFront(lineView)
 
-                    blueprintImageView.bringSubviewToFront(firstPointView)
-                    blueprintImageView.bringSubviewToFront(secondPointView)
+                    floorplanImageView.bringSubviewToFront(firstPointView)
+                    floorplanImageView.bringSubviewToFront(secondPointView)
                 }
                 
                 lineView.setPoints(firstPoint, endPoint: secondPoint)
@@ -197,13 +197,13 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    // MARK: BlueprintPolygonVertexViewDelegate
+    // MARK: FloorplanPolygonVertexViewDelegate
 
-    func blueprintPolygonVertexViewShouldReceiveTouch(view: BlueprintPolygonVertexView) -> Bool {
+    func floorplanPolygonVertexViewShouldReceiveTouch(view: FloorplanPolygonVertexView) -> Bool {
         return true
     }
 
-    func blueprintPolygonVertexViewShouldRedrawVertices(view: BlueprintPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
+    func floorplanPolygonVertexViewShouldRedrawVertices(view: FloorplanPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         if view == firstPointView {
             firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
                                  y: view.frame.origin.y + firstPointView.image!.size.height)
@@ -220,12 +220,12 @@ class BlueprintScaleView: UIView, BlueprintPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    func blueprintPolygonVertexViewTapped(view: BlueprintPolygonVertexView) {
+    func floorplanPolygonVertexViewTapped(view: FloorplanPolygonVertexView) {
         // no-op
     }
 
     private func populateMeasurementTextFieldFromCurrentScale() {
-        if let currentScale = delegate?.blueprintScaleForBlueprintScaleView(self) {
+        if let currentScale = delegate?.floorplanScaleForFloorplanScaleView(self) {
             if currentScale > 0.0 {
                 let rawDistance = Float(distance / currentScale)
                 measurementTextField.text = "\(ceilf(rawDistance * 100.0) / 100.0)"
