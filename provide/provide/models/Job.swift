@@ -634,6 +634,9 @@ class Job: Model {
                 if let supervisors = job.supervisors {
                     self.supervisors = supervisors
                 }
+
+                self.thumbnailImageUrlString = job.thumbnailImageUrlString
+
                 // TODO-- marshall the rest of the fields
 
                 JobService.sharedService().updateJob(job)

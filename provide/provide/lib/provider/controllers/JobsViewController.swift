@@ -48,6 +48,29 @@ class JobsViewController: ViewController,
 
         setupPullToRefresh()
 
+        NSNotificationCenter.defaultCenter().addObserverForName("FloorplanChanged") { notification in
+            if let floorplan = notification.object as? Floorplan {
+                var i = 0
+                for job in self.jobs {
+                    if job.id == floorplan.jobId {
+                        if job.thumbnailImageUrl == nil {
+                            let indexPath = i
+                            job.reload([:],
+                                onSuccess: { statusCode, mappingResult in
+                                    self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        }
+                    }
+
+                    i += 1
+                }
+            }
+        }
+
         NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
             if let job = notification.object as? Job {
                 var i = 0
