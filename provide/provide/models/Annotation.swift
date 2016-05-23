@@ -117,7 +117,7 @@ class Annotation: Model {
                 onSuccess: { statusCode, mappingResult in
                     let annotation = mappingResult.firstObject as! Annotation
                     self.id = annotation.id
-                    floorplan.annotations.append(annotation)
+                    floorplan.annotations?.append(annotation)
 
                     onSuccess(statusCode: statusCode, mappingResult: mappingResult)
                 },
