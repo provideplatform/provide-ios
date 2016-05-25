@@ -614,7 +614,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                         floorplanTiledView.setNeedsDisplay()
                     }
 
-                    scrollView.minimumZoomScale = 1.0 //0.2
+                    scrollView.minimumZoomScale = 1.0
                     scrollView.maximumZoomScale = CGFloat(floorplan.maxZoomLevel)
                 } else {
                     scrollView.minimumZoomScale = 0.2
@@ -634,6 +634,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     pinView = view
                     break
                 }
+            } else if workOrder.id == 0 && view.annotation.id == 0 && newWorkOrderPending {
+                pinView = view
+                break
             }
         }
         if pinView == nil {
