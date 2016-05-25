@@ -229,6 +229,16 @@ class JobFloorplansViewController: ViewController,
                 self.refresh()
             }
         }
+
+        if isSimulator() {
+            dispatch_after_delay(1.0) {
+                let sourceURL = NSURL("https://provide-production.s3.amazonaws.com/4e00588c-d532-42ef-a86b-a543072aab1c.pdf")
+                self.showToast("Importing PDF document at source url \(sourceURL.absoluteString).", dismissAfter: 1.0)
+                dispatch_after_delay(1.2) {
+                    self.importFromSourceURL(sourceURL, filename: "concept facility 1st floor.pdf")
+                }
+            }
+        }
     }
 
     private func importFromSourceURL(sourceURL: NSURL, filename: String) {
