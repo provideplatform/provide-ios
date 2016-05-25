@@ -1264,22 +1264,23 @@ class FloorplanViewController: WorkOrderComponentViewController,
             if let pinView = pinView {
                 if let overlayViewBoundingBox = pinView.overlayViewBoundingBox {
                     if let floorplanImageView = imageView {
-                        let previewImage = floorplanImageView.image!.crop(overlayViewBoundingBox)
-                        let previewView = UIImageView(image: previewImage)
-                        if let annotation = pinView.annotation {
-                            let pin = FloorplanPinView(annotation: annotation)
-                            pin.delegate = self
-                            previewView.addSubview(pin)
-                            previewView.bringSubviewToFront(pin)
-                            pin.alpha = 1.0
-                            if let sublayers = pin.layer.sublayers {
-                                for sublayer in sublayers {
-                                    sublayer.position.x -= overlayViewBoundingBox.origin.x
-                                    sublayer.position.y -= overlayViewBoundingBox.origin.y
+                        if let previewImage = floorplanImageView.image?.crop(overlayViewBoundingBox) {
+                            let previewView = UIImageView(image: previewImage)
+                            if let annotation = pinView.annotation {
+                                let pin = FloorplanPinView(annotation: annotation)
+                                pin.delegate = self
+                                previewView.addSubview(pin)
+                                previewView.bringSubviewToFront(pin)
+                                pin.alpha = 1.0
+                                if let sublayers = pin.layer.sublayers {
+                                    for sublayer in sublayers {
+                                        sublayer.position.x -= overlayViewBoundingBox.origin.x
+                                        sublayer.position.y -= overlayViewBoundingBox.origin.y
+                                    }
                                 }
-                            }
 
-                            workOrder.previewImage = previewView.toImage()
+                                workOrder.previewImage = previewView.toImage()
+                            }
                         }
                     }
                 }
