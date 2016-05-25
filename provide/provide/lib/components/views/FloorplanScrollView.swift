@@ -9,20 +9,20 @@
 import UIKit
 
 protocol FloorplanScrollViewDelegate {
-
+    func floorplanTiledViewForFloorplanScrollView(scrollView: FloorplanScrollView) -> FloorplanTiledView!
 }
 
 class FloorplanScrollView: UIScrollView, UIGestureRecognizerDelegate {
 
-    var floorplanImageView: UIImageView! {
-        var floorplanImageView: UIImageView!
-        for subview in subviews {
-            if subview.isKindOfClass(UIImageView) {
-                floorplanImageView = subview as! UIImageView
-                break
+    var floorplanScrollViewDelegate: FloorplanScrollViewDelegate!
+
+    override var contentSize: CGSize {
+        didSet {
+            if let floorplanTiledView = floorplanScrollViewDelegate?.floorplanTiledViewForFloorplanScrollView(self) {
+                //floorplanTiledView.center = center
+                //floorplanTiledView.frame.size = contentSize
             }
         }
-        return floorplanImageView
     }
 
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {

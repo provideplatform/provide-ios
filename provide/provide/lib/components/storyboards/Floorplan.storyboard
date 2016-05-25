@@ -297,7 +297,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="floorplan" width="300" height="300"/>
         <image name="dropbox" width="214" height="200"/>
+        <image name="floorplan" width="300" height="300"/>
     </resources>
 </document>
