@@ -251,6 +251,7 @@ class FloorplanToolbar: UIToolbar {
     func toggleNavigatorVisibility(sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         if navigatorVisible {
+            floorplanSelectorVisible = false
             workOrdersVisible = false
         }
         floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetNavigatorVisibility: navigatorVisible)
@@ -294,6 +295,7 @@ class FloorplanToolbar: UIToolbar {
         self.workOrdersVisible = workOrdersVisible
         if self.workOrdersVisible {
             navigatorVisible = false
+            floorplanSelectorVisible = false
         }
         floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetWorkOrdersVisibility: workOrdersVisible, alpha: alpha)
         reload()

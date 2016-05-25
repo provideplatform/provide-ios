@@ -495,7 +495,16 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: DatePickerViewControllerDelegate
 
+    func datePickerViewController(viewController: DatePickerViewController, requiresDateAfter refDate: NSDate) -> Bool {
+        return refDate.timeIntervalSinceNow < 0
+    }
+
     func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate) {
+        if date.timeIntervalSinceNow <= 0 {
+            showToast("Select a date in the future.", dismissAfter: 3.0)
+            return
+        }
+
         if let fieldName = viewController.fieldName {
             navigationController?.popViewControllerAnimated(true)
 

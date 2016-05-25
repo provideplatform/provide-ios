@@ -10,6 +10,7 @@ import UIKit
 
 protocol DatePickerViewControllerDelegate {
     func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate)
+    func datePickerViewController(viewController: DatePickerViewController, requiresDateAfter refDate: NSDate) -> Bool
 }
 
 class DatePickerViewController: UIViewController {
@@ -37,12 +38,22 @@ class DatePickerViewController: UIViewController {
     }
 
     @IBAction func datePickerChanged(datePicker: UIDatePicker) {
-        // no-op
+        var validDate = true
+        if let requiresLaterDate = delegate?.datePickerViewController(self, requiresDateAfter: datePicker.date) {
+            validDate = !requiresLaterDate
+        }
+
+        saveButton?.enabled = validDate
     }
 
     func save(sender: UIButton) {
         if let date = datePicker?.date {
             delegate?.datePickerViewController(self, didSetDate: date)
         }
+    }
+
+    func tick(animated: Bool = true) {
+        let fiveMinutes = 5.0 * 60.0
+        datePicker?.setDate(datePicker.date.dateByAddingTimeInterval(fiveMinutes), animated: animated)
     }
 }
