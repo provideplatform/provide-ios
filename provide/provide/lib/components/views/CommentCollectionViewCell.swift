@@ -51,13 +51,24 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 if imageAttachments.count > 0 {
                     for attachment in imageAttachments {
                         attachmentPreviewImageView?.contentMode = .ScaleAspectFit
-                        attachmentPreviewImageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil, completed: { image, error, cacheType, url in
-                            if let attachmentPreviewImageView = self.attachmentPreviewImageView {
-                                attachmentPreviewImageView.alpha = 1.0
-                                self.bringSubviewToFront(attachmentPreviewImageView)
-                            }
-                            self.activityIndicatorView?.stopAnimating()
-                        })
+                        if let url = attachment.url {
+                            attachmentPreviewImageView?.sd_setImageWithURL(url, placeholderImage: nil, completed: { image, error, cacheType, url in
+                                if let attachmentPreviewImageView = self.attachmentPreviewImageView {
+                                    attachmentPreviewImageView.alpha = 1.0
+                                    self.bringSubviewToFront(attachmentPreviewImageView)
+                                }
+                                self.activityIndicatorView?.stopAnimating()
+                            })
+                        } else {
+                            comment.reload(
+                                { statusCode, mappingResult in
+                                    self.refresh()
+                                },
+                                onError: { error, statusCode, responseString in
+
+                                }
+                            )
+                        }
                     }
                 } else {
                     activityIndicatorView?.stopAnimating()

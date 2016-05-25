@@ -85,6 +85,49 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         zeroStateLabel?.alpha = 0.0
 
+        NSNotificationCenter.defaultCenter().addObserverForName("CommentChanged") { notification in
+            if let comment = notification.object as? Comment {
+                dispatch_after_delay(0.0) {
+                    let commentableType = self.commentsViewControllerDelegate?.commentableTypeForCommentsViewController(self)
+                    let commentableId = self.commentsViewControllerDelegate?.commentableIdForCommentsViewController(self)
+                    var indexPath = 0
+                    var updatedExistingComment = false
+                    if commentableType != nil && commentableId != nil && comment.commentableType == commentableType && comment.commentableId == commentableId {
+                        for c in self.comments.reverse() {
+                            if c.id == comment.id {
+                                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                updatedExistingComment = true
+                            }
+
+                            indexPath += 1
+                        }
+
+                        if !updatedExistingComment {
+                            indexPath = -1
+                            var i = -1
+                            for c in self.comments.reverse() {
+                                i += 1
+                                if c.id == comment.previousCommentId {
+                                    indexPath = i
+                                    break
+                                }
+                            }
+
+                            if indexPath != -1 {
+                                if indexPath == self.comments.count - 1 {
+                                    self.addComment(comment)
+                                } else {
+                                    indexPath = self.comments.count - indexPath // inverse
+                                    self.comments.insert(comment, atIndex: indexPath)
+                                    self.performBatchUpdatesAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 dispatch_after_delay(0.0) {
@@ -136,26 +179,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
     func addComment(comment: Comment) {
         if !containsComment(comment) {
             comments.insert(comment, atIndex: 0)
-
-            let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
-
-            CATransaction.begin()
-            CATransaction.setDisableActions(true)
-
-            self.collectionView.performBatchUpdates(
-                {
-                    UIView.animateWithDuration(0.0, animations: {
-                        self.collectionView.insertItemsAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
-                    })
-                },
-                completion: { (completed) in
-                    self.collectionView.contentOffset = CGPointMake(0.0, self.collectionView.contentSize.height - bottom)
-                    CATransaction.commit()
-
-                    self.scrollToNewestComment()
-                    self.hideActivity()
-                }
-            )
+            performBatchUpdatesAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
         } else {
             for c in comments {
                 if c.id == comment.id && c.id > 0 {
@@ -166,6 +190,28 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         }
 
         zeroStateLabel?.alpha = 0.0
+    }
+
+    private func performBatchUpdatesAtIndexPaths(indexPaths: [NSIndexPath]) {
+        let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+
+        self.collectionView.performBatchUpdates(
+            {
+                UIView.animateWithDuration(0.0, animations: {
+                    self.collectionView.insertItemsAtIndexPaths(indexPaths)
+                })
+            },
+            completion: { (completed) in
+                self.collectionView.contentOffset = CGPointMake(0.0, self.collectionView.contentSize.height - bottom)
+                CATransaction.commit()
+
+                self.scrollToNewestComment()
+                self.hideActivity()
+            }
+        )
     }
 
     func reset() {

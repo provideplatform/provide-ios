@@ -101,6 +101,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if !socketConnected {
                 NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: userInfo)
             }
+        case .Comment:
+            let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
+            let comment = Comment(string: jsonString)
+            NSNotificationCenter.defaultCenter().postNotificationName("CommentChanged", object: comment)
         case .Job:
             if !socketConnected {
                 let jobId = notificationValue as! Int
@@ -232,6 +236,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 }
                                 NSNotificationCenter.defaultCenter().postNotificationName("AttachmentChanged", object: attachment)
                                 break
+
+                            case "comment_changed":
+                                let comment = Comment(string: payload!.toJSONString())
+                                NSNotificationCenter.defaultCenter().postNotificationName("CommentChanged", object: comment)
 
                             case "floorplan_changed":
                                 let floorplan = Floorplan(string: payload!.toJSONString())

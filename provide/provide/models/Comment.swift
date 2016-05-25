@@ -15,6 +15,7 @@ class Comment: Model {
     var createdAt: String!
     var commentableType: String!
     var commentableId = 0
+    var previousCommentId = 0
     var user: User!
     var attachments: [Attachment]!
 
@@ -40,6 +41,7 @@ class Comment: Model {
             "created_at": "createdAt",
             "commentable_type": "commentableType",
             "commentable_id": "commentableId",
+            "previous_comment_id": "previousCommentId",
             ])
         mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
@@ -81,5 +83,24 @@ class Comment: Model {
         if !replaced {
             attachments.append(attachment)
         }
+    }
+
+    func reload(onSuccess: OnSuccess, onError: OnError) {
+        ApiService.sharedService().fetchCommentWithId(String(id), forCommentableType: commentableType, withCommentableId: String(commentableId),
+            onSuccess: { statusCode, mappingResult in
+                let comment = mappingResult.firstObject as! Comment
+
+                self.body = comment.body
+
+                if let attachments = comment.attachments {
+                    self.attachments = attachments
+                }
+
+                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            },
+            onError: { error, statusCode, responseString in
+                onError(error: error, statusCode: statusCode, responseString: responseString)
+            }
+        )
     }
 }

@@ -78,11 +78,14 @@ class Attachment: Model {
                 return nil
             }
         }
-
         if let displayUrlString = displayUrlString {
             return NSURL(string: displayUrlString)
         }
-        return NSURL(string: urlString)
+        if let urlString = urlString {
+            return NSURL(string: urlString)
+        }
+
+        return nil
     }
 
     var thumbnailUrl: NSURL! {
