@@ -96,6 +96,10 @@ class WorkOrder: Model {
         return mapping
     }
 
+    var allowNewComments: Bool {
+        return status != nil && status != "awaiting_schedule"
+    }
+
     var annotation: Annotation {
         return Annotation(workOrder: self)
     }

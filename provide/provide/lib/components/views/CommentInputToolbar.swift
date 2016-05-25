@@ -140,6 +140,16 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         }
     }
 
+    func disable() {
+        commentInputTextField?.enabled = false
+        items?.each({ $0.enabled = false })
+    }
+
+    func enable() {
+        commentInputTextField?.enabled = true
+        items?.each({ $0.enabled = true })
+    }
+
     func keyboardWillShow() {
         if let commentInputTextField = commentInputTextField {
             if let accessoryToolbar = commentInputTextField.inputAccessoryView {

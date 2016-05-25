@@ -191,6 +191,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
         reloadTableView(true)
 
+        if workOrder.allowNewComments {
+            commentInputToolbar?.enable()
+        } else {
+            commentInputToolbar?.disable()
+        }
+
         if workOrder.categoryId == 0 {
             presentCategoryPickerViewController()
         }
