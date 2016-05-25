@@ -164,6 +164,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             }
             collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
         }
+
+        zeroStateLabel?.alpha = 0.0
     }
 
     func reset() {

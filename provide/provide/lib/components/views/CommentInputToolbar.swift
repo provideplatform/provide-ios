@@ -98,16 +98,14 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         sizeToFit()
 
         dispatch_after_delay(0.0) {
-            if !isIPad() {
-                let toolbar = CommentInputToolbar(frame: CGRectOffset(self.frame, 0.0, self.frame.height))
-                toolbar.barTintColor = self.barTintColor
-                toolbar.commentsViewController = self.commentsViewController
+            let toolbar = CommentInputToolbar(frame: CGRectOffset(self.frame, 0.0, self.frame.height))
+            toolbar.barTintColor = self.barTintColor
+            toolbar.commentsViewController = self.commentsViewController
 
-                let commentInputTextFieldItem = self.commentInputTextFieldItem
-                toolbar.items = [commentInputTextFieldItem, self.saveItem, self.photoItem]
+            let commentInputTextFieldItem = self.commentInputTextFieldItem
+            toolbar.items = [commentInputTextFieldItem, self.saveItem, self.photoItem]
 
-                self.commentInputTextField.inputAccessoryView = toolbar
-            }
+            self.commentInputTextField.inputAccessoryView = toolbar
         }
     }
 
