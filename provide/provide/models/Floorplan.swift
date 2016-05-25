@@ -21,7 +21,10 @@ class Floorplan: Model {
     var maxZoomLevel = -1
     var tilingCompletion = 0.0
     var tileSize = -1.0
+    var tilingXOffset = 0.0
+    var tilingYOffset = 0.0
     var tilingBaseUrlString: String!
+    var tilingMetadata: NSDictionary!
     var annotations: [Annotation]!
     var attachments: [Attachment]!
     var workOrders: [WorkOrder]!
@@ -38,13 +41,25 @@ class Floorplan: Model {
             "image_url_150dpi": "imageUrlString150dpi",
             "image_url_300dpi": "imageUrlString300dpi",
             "tiling_base_url": "tilingBaseUrlString",
+            "tiling_x_offset": "tilingXOffset",
+            "tiling_y_offset": "tilingYOffset",
             "max_zoom_level": "maxZoomLevel",
             "tile_size": "tileSize",
             "tiling_completion": "tilingCompletion",
+            "tiling_metadata": "tilingMetadata",
             ])
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: Attachment.mappingWithRepresentations()))
         return mapping
+    }
+
+    var zoomLevels: NSArray! {
+        if let tilingMetadata = tilingMetadata {
+            if let zoomLevels = tilingMetadata["zoom_levels"] as? NSArray {
+                return zoomLevels
+            }
+        }
+        return nil
     }
 
     var pdf: Attachment! {
@@ -75,9 +90,16 @@ class Floorplan: Model {
     }
 
     var imageUrl: NSURL! {
-        if let imageUrlString = imageUrlString300dpi {
-            return NSURL(imageUrlString)
+        if totalDeviceMemoryInGigabytes() >= 1.0 {
+            if let imageUrlString = imageUrlString300dpi {
+                return NSURL(imageUrlString)
+            }
+        } else {
+            if let imageUrlString = imageUrlString72dpi {
+                return NSURL(imageUrlString)
+            }
         }
+
         return nil
     }
 
