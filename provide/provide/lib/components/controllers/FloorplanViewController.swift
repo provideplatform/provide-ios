@@ -605,17 +605,14 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 scrollView.zoomScale = scrollView.minimumZoomScale
             } else if job.isCommercial || job.isPunchlist {
                 if floorplanIsTiled {
-                    //let zoomOutLevels = max(ceil(log2(max(maxContentSize.width / scrollView.frame.size.width, maxContentSize.height / scrollView.frame.size.height))), 0.0)
-                    //let zoomInLevels = floorplan.maxZoomLevel
+                    scrollView.minimumZoomScale = 1.0 / (CGFloat(floorplan.maxZoomLevel) + 1.0) //1.0 / pow(2.0, CGFloat(floorplan.maxZoomLevel) + 1.0)
+                    scrollView.maximumZoomScale = 1.0
 
                     if let floorplanTiledView = floorplanTiledView {
-                        floorplanTiledView.frame = CGRect(origin: view.center,
-                                                          size: CGSize(width: floorplan.tileSize, height: floorplan.tileSize))
+                        floorplanTiledView.frame = CGRect(origin: CGPointZero,
+                                                          size: maxContentSize)
                         floorplanTiledView.setNeedsDisplay()
                     }
-
-                    scrollView.minimumZoomScale = 1.0
-                    scrollView.maximumZoomScale = CGFloat(floorplan.maxZoomLevel)
                 } else {
                     scrollView.minimumZoomScale = 0.2
                     scrollView.maximumZoomScale = 1.0
@@ -1127,7 +1124,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        //floorplanTiledView?.scrollViewDidZoom(scrollView)
+        floorplanTiledView?.scrollViewDidZoom(scrollView)
         thumbnailView?.scrollViewDidZoom(scrollView)
 
         for pinView in pinViews {
@@ -1136,17 +1133,19 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        floorplanTiledView?.scrollViewDidZoom(scrollView)
-
-        if let imageView = imageView {
-            let size = maxContentSize ?? imageView.image!.size
-            let width = size.width * scale
-            let height = size.height * scale
-            imageView.frame.size = CGSize(width: width, height: height)
-            scrollView.contentSize = maxContentSize ?? CGSize(width: width, height: height)
-
-            showToolbar()
+        if floorplanIsTiled {
+            floorplanTiledView?.scrollViewDidZoom(scrollView)
+        } else {
+            if let imageView = imageView {
+                let size = maxContentSize ?? imageView.image!.size
+                let width = size.width * scale
+                let height = size.height * scale
+                imageView.frame.size = CGSize(width: width, height: height)
+                scrollView.contentSize = maxContentSize ?? CGSize(width: width, height: height)
+            }
         }
+
+        showToolbar()
     }
 
     // MARK: FloorplanWorkOrdersViewControllerDelegate

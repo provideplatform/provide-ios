@@ -62,6 +62,32 @@ class Floorplan: Model {
         return nil
     }
 
+    var minimumZoomScale: CGFloat {
+        if let zoomLevels = zoomLevels {
+            if zoomLevels.count > 0 {
+                if let minimumZoomLevel = zoomLevels.objectAtIndex(0) as? [String : AnyObject] {
+                    if let scale = minimumZoomLevel["scale"] as? CGFloat {
+                        return scale
+                    }
+                }
+            }
+        }
+        return 0.2
+    }
+
+    var maximumZoomScale: CGFloat {
+        if let zoomLevels = zoomLevels {
+            if zoomLevels.count > 0 {
+                if let maximumZoomLevel = zoomLevels.objectAtIndex(zoomLevels.count - 1) as? [String : AnyObject] {
+                    if let scale = maximumZoomLevel["scale"] as? CGFloat {
+                        return scale
+                    }
+                }
+            }
+        }
+        return 1.0
+    }
+
     var pdf: Attachment! {
         if let attachments = attachments {
             for attachment in attachments {
@@ -95,8 +121,14 @@ class Floorplan: Model {
                 return NSURL(imageUrlString)
             }
         } else {
-            if let imageUrlString = imageUrlString72dpi {
-                return NSURL(imageUrlString)
+            if isIPad() || isIPhone6Plus() {
+                if let imageUrlString = imageUrlString150dpi {
+                    return NSURL(imageUrlString)
+                }
+            } else {
+                if let imageUrlString = imageUrlString72dpi {
+                    return NSURL(imageUrlString)
+                }
             }
         }
 

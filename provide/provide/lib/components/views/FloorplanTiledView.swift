@@ -15,30 +15,16 @@ class FloorplanTiledView: UIView {
         didSet {
             if let floorplan = floorplan {
                 let layer = self.layer as! CATiledLayer
-                //layer.masksToBounds = true
                 layer.tileSize = CGSize(width: floorplan.tileSize, height: floorplan.tileSize)
                 layer.levelsOfDetail = floorplan.maxZoomLevel + 1
-                //layer.levelsOfDetailBias = floorplan.maxZoomLevel + 1
-                //layer.drawsAsynchronously = true
-                //layer.shouldRasterize = true
             }
         }
     }
-
-    weak var image: UIImage!
 
     var zoomLevel: Int! {
         didSet {
             if let zoomLevel = zoomLevel {
                 if oldValue == nil || zoomLevel != oldValue {
-//                    let zoomScale = CGFloat(zoomLevel / floorplan.maxZoomLevel)
-//
-//                    let x = CGRectGetWidth(layer.bounds) * layer.anchorPoint.x
-//                    let y = CGRectGetWidth(layer.bounds) * layer.anchorPoint.y
-
-                    //layer.position = CGPoint(x: x * zoomScale, y: y * zoomScale)
-                    //layer.transform = CATransform3DMakeScale(zoomScale, zoomScale, 1.0)
-
                     setNeedsDisplay()
                 }
             }
@@ -60,10 +46,10 @@ class FloorplanTiledView: UIView {
 
     override func drawRect(rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()
-
-        let transform = CGContextGetCTM(ctx)
-        let scaleX = transform.a
-        let scaleY = transform.d
+        
+        let ctm = CGContextGetCTM(ctx)
+        let scaleX = ctm.a
+        let scaleY = ctm.d
 
         let tileSize = CGSize(width: (layer as! CATiledLayer).tileSize.width / scaleX,
                               height: (layer as! CATiledLayer).tileSize.height / -scaleY)
@@ -72,7 +58,8 @@ class FloorplanTiledView: UIView {
         let x = Int(rect.origin.x / tileSize.width)
         let y = Int(rect.origin.y / tileSize.height)
 
-        let tilePoint = CGPoint(x: x * Int(tileSize.width), y: y * Int(tileSize.height))
+        let tilePoint = CGPoint(x: CGFloat(x) * CGFloat(rect.width),
+                                y: CGFloat(y) * CGFloat(rect.height))
 
         let url = NSURL("\(baseUrl.absoluteString)/\(z)-\(x)-\(y).png")
 
@@ -84,17 +71,16 @@ class FloorplanTiledView: UIView {
 
             ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
                 onDownloadSuccess: { image in
-                    self.setNeedsDisplay()
+                    self.layer.setNeedsDisplayInRect(rect)
                 },
                 onDownloadFailure: { error in
                     // no-op -- expect failure for "empty" tiles
-                    //logWarn("Floorplan image tile download failed (\(url.absoluteString)); \(error)")
                 },
                 onDownloadProgress: { receivedSize, expectedSize in
                     if expectedSize != -1 {
                         let percentage: Float = Float(receivedSize) / Float(expectedSize)
                         if percentage == 1.0 {
-                            self.setNeedsDisplay()
+                            self.layer.setNeedsDisplayInRect(rect)
                         }
                     }
                 }
@@ -106,52 +92,35 @@ class FloorplanTiledView: UIView {
         if let floorplan = floorplan {
             let scale = scrollView.zoomScale / scrollView.maximumZoomScale
             let newZoomLevel = min(Int(round((Double(scale) * Double(floorplan.maxZoomLevel + 1)))), (layer as! CATiledLayer).levelsOfDetail)
-            zoomLevel = newZoomLevel
-
-            //let tileAmount = pow(4.0, CGFloat(zoomLevel))
-
-            //let xOffset = CGFloat(round(scrollView.contentSize.width / 2.0) - (tileAmount / 2.0) * CGFloat(floorplan.tileSize))
-            //scrollView.contentOffset.x = -xOffset //scrollView.contentOffset.x FIXME
-
-            //let yOffset = CGFloat(round(scrollView.contentSize.height / 2.0) - (tileAmount / 2.0) * CGFloat(floorplan.tileSize))
-            //scrollView.contentOffset.y = -yOffset //scrollView.contentOffset.x FIXME
-
-            //print("x/y offset @ zoom level \(zoomLevel): \(xOffset), \(yOffset)")
-            //print("floorplan x/y offset \(floorplan.tilingXOffset)%/\(floorplan.tilingYOffset)")
-
-//            let xOffset = scrollView.contentSize.width * CGFloat(floorplan.tilingXOffset)
-//            scrollView.contentInset.left = -xOffset //scrollView.contentOffset.x FIXME
-//
-//            let yOffset = scrollView.contentSize.height * CGFloat(floorplan.tilingYOffset)
-//            scrollView.contentInset.top = -yOffset //scrollView.contentOffset.x FIXME
+            let zoomLevel = newZoomLevel
 
             if zoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[zoomLevel] as? [String : AnyObject] {
-                    let width = level["width"] as! Double
-                    let height = level["height"] as! Double
+                    let size = CGFloat(level["size"] as! Double) / contentScaleFactor
 
-                    var xOffset = level["x"] as! Double
-                    var yOffset = level["y"] as! Double
+                    let xOffset = CGFloat(level["x"] as! Double) / contentScaleFactor
+                    let yOffset = CGFloat(level["y"] as! Double) / contentScaleFactor
+                    let origin = CGPoint(x: -xOffset, y: -yOffset)
 
-                    if xOffset > yOffset {
-                        xOffset /= 2.0
-                    } else {
-                        yOffset /= 2.0
+                    scrollView.contentSize = CGSize(width: size, height: size)
+                    frame = CGRect(origin: origin, size: scrollView.contentSize)
+
+//                    scrollView.contentOffset.x = xOffset
+//                    scrollView.contentOffset.y = -yOffset
+
+//                    print("\(scrollView.minimumZoomScale)/\(scrollView.maximumZoomScale)")
+//                    print("scroll view content size: \(scrollView.contentSize)")
+//                    print("tiled view frame: \(frame)")
+                }
+
+                if self.zoomLevel == nil || zoomLevel != self.zoomLevel {
+                    self.zoomLevel = zoomLevel
+
+                    dispatch_after_delay(0.0) {
+                        scrollView.flashScrollIndicators()
                     }
-
-                    //scrollView.contentSize = CGSize(width: width, height: height)
-//                    frame = CGRect(origin: CGPointZero, size: scrollView.contentSize)
-                    frame = CGRect(origin: CGPointZero, size: CGSize(width: width, height: height))
-
-                    scrollView.contentOffset.x = CGFloat(xOffset)
-                    scrollView.contentOffset.y = CGFloat(yOffset)
-
-                    print("floorplan x/y offset \(xOffset)/\(yOffset)")
-                    print("scroll view size: \(scrollView.contentSize)")
-                    print("tiled view frame: \(frame)")
                 }
             }
-
         }
     }
 }
