@@ -696,20 +696,22 @@ class WorkOrder: Model {
     }
 
     func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
-            onSuccess: { statusCode, mappingResult in
-                let workOrder = mappingResult.firstObject as! WorkOrder
-                self.status = workOrder.status
-                self.estimatedCost = workOrder.estimatedCost
-                self.supervisors = workOrder.supervisors
-                self.workOrderProviders = workOrder.workOrderProviders
-                WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
-            }
-        )
+        if id > 0 {
+            ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
+                onSuccess: { statusCode, mappingResult in
+                    let workOrder = mappingResult.firstObject as! WorkOrder
+                    self.status = workOrder.status
+                    self.estimatedCost = workOrder.estimatedCost
+                    self.supervisors = workOrder.supervisors
+                    self.workOrderProviders = workOrder.workOrderProviders
+                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
+                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                },
+                onError: { error, statusCode, responseString in
+                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                }
+            )
+        }
     }
 
     func reloadJob(onSuccess: OnSuccess, onError: OnError) {

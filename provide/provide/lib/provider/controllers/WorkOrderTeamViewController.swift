@@ -529,20 +529,26 @@ class WorkOrderTeamViewController: UITableViewController,
     }
 
     private func reloadWorkOrderProviders() {
-        reloadingProviders = true
-
-        workOrder?.reload(
-            onSuccess: { (statusCode, mappingResult) -> () in
-                let workOrder = mappingResult.firstObject as! WorkOrder
-                self.providersPickerViewController.providers = workOrder.providers
-                self.providersPickerViewController.reloadCollectionView()
-                self.reloadingProviders = false
-            },
-            onError: { (error, statusCode, responseString) -> () in
-                self.providersPickerViewController.reloadCollectionView()
-                self.reloadingProviders = false
+        if let workOrder = workOrder {
+            if workOrder.id == 0 {
+                return
             }
-        )
+
+            reloadingProviders = true
+
+            workOrder.reload(
+                onSuccess: { (statusCode, mappingResult) -> () in
+                    let workOrder = mappingResult.firstObject as! WorkOrder
+                    self.providersPickerViewController.providers = workOrder.providers
+                    self.providersPickerViewController.reloadCollectionView()
+                    self.reloadingProviders = false
+                },
+                onError: { (error, statusCode, responseString) -> () in
+                    self.providersPickerViewController.reloadCollectionView()
+                    self.reloadingProviders = false
+                }
+            )
+        }
     }
 
     // MARK: QueryResultsPickerCollectionViewCellGestureRecognizer
