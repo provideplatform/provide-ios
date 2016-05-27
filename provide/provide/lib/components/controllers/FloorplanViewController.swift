@@ -500,6 +500,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
                         self!.setZoomLevel()
                         self!.floorplanTiledView.alpha = 1.0
 
+                        if let floorplanWorkOrdersViewController = self!.floorplanWorkOrdersViewController {
+                            floorplanWorkOrdersViewController.loadAnnotations()
+                        }
+
                         if let toolbar = self!.floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self!) {
                             toolbar.reload()
                         }
@@ -508,10 +512,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
                             self!.showToolbar()
                         }
                     }
-                }
-
-                if let floorplanWorkOrdersViewController = self!.floorplanWorkOrdersViewController {
-                    floorplanWorkOrdersViewController.loadAnnotations()
                 }
             },
             onDownloadFailure: { error in
@@ -576,7 +576,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     func dropPin(gestureRecognizer: UIGestureRecognizer) {
         if !newWorkOrderPending {
-            let point = gestureRecognizer.locationInView(imageView)
+            let targetView = floorplanIsTiled ? floorplanTiledView : imageView
+
+            let point = gestureRecognizer.locationInView(targetView)
 
             let annotation = Annotation()
             annotation.point = [point.x, point.y]
@@ -584,7 +586,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
             newWorkOrderPending = true
             selectedPinView = FloorplanPinView(delegate: self, annotation: annotation)
 
-            let targetView = floorplanIsTiled ? floorplanTiledView : imageView
             targetView.addSubview(selectedPinView)
             targetView.bringSubviewToFront(selectedPinView)
 
@@ -611,7 +612,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     if let floorplanTiledView = floorplanTiledView {
                         floorplanTiledView.frame = CGRect(origin: CGPointZero,
                                                           size: maxContentSize)
-                        floorplanTiledView.setNeedsDisplay()
                     }
                 } else {
                     scrollView.minimumZoomScale = 0.2
@@ -619,6 +619,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 }
 
                 scrollView.zoomScale = scrollView.minimumZoomScale
+
+                floorplanTiledView?.setNeedsDisplay()
             }
         }
     }
@@ -1127,6 +1129,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
         floorplanTiledView?.scrollViewDidZoom(scrollView)
         thumbnailView?.scrollViewDidZoom(scrollView)
 
+        if floorplanIsTiled {
+            refreshAnnotations()
+        }
+
         for pinView in pinViews {
             pinView.setScale(scrollView.zoomScale / scrollView.maximumZoomScale)
         }
@@ -1207,7 +1213,12 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize! {
-        if let image = imageView?.image {
+        if floorplanIsTiled && floorplanTiledView != nil {
+            if let level = floorplan?.zoomLevels[floorplanTiledView.zoomLevel] as? [String : AnyObject] {
+                return CGSize(width: level["width"] as! Double,
+                              height: level["height"] as! Double)
+            }
+        } else if let image = imageView?.image {
             return image.size
         }
         return nil
