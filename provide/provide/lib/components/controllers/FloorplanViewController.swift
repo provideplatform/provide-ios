@@ -1093,10 +1093,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func hidePinViews(excludedPin: FloorplanPinView! = nil) {
+    private func hidePinViews(excludedPin: FloorplanPinView! = nil, alpha: CGFloat = 0.2) {
         for pinView in pinViews {
             if excludedPin == nil || pinView != excludedPin {
-                pinView.alpha = 0.2
+                pinView.alpha = alpha
                 pinView.userInteractionEnabled = false
             }
         }
