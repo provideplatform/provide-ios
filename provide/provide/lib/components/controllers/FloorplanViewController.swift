@@ -612,7 +612,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         imageView!.image = image
         imageView!.frame = CGRect(origin: CGPointZero, size: size)
 
-        thumbnailView?.floorplanImage = image
+        renderFloorplanThumbnailImage()
 
         scrollView.scrollEnabled = false
         scrollView.contentSize = size
