@@ -332,6 +332,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
         floorplanTiledViews = [FloorplanTiledView]()
 
+        if !floorplanIsTiled {
+            return
+        }
+
         if floorplan?.zoomLevels != nil {
             var i = 0
             while i <= floorplan.maxZoomLevel {
