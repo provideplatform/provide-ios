@@ -276,18 +276,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
         resetFloorplanTiledViews()
 
-//        floorplanTiledView = FloorplanTiledView()
-//        floorplanTiledView?.alpha = 0.0
-//        floorplanTiledView?.userInteractionEnabled = true
-
         scrollView?.floorplanScrollViewDelegate = self
         scrollView?.backgroundColor = UIColor.whiteColor()
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
-
-//
-//        scrollView?.addSubview(floorplanTiledView)
-//        scrollView?.bringSubviewToFront(floorplanTiledView)
 
         activityIndicatorView?.startAnimating()
 
