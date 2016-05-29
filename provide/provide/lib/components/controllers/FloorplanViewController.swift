@@ -1214,7 +1214,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize! {
         if floorplanIsTiled && floorplanTiledView != nil {
-            if let level = floorplan?.zoomLevels[floorplanTiledView.zoomLevel] as? [String : AnyObject] {
+            if let level = floorplan?.zoomLevels?[floorplanTiledView.zoomLevel ?? 0] as? [String : AnyObject] {
                 return CGSize(width: level["width"] as! Double,
                               height: level["height"] as! Double)
             }
