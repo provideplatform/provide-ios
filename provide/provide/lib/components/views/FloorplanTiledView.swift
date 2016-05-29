@@ -16,7 +16,7 @@ class FloorplanTiledView: UIView {
             if let floorplan = floorplan {
                 let layer = self.layer as! CATiledLayer
                 layer.tileSize = CGSize(width: floorplan.tileSize, height: floorplan.tileSize)
-                layer.levelsOfDetail = floorplan.maxZoomLevel + 1
+                layer.levelsOfDetail = 1
             }
         }
     }
@@ -88,37 +88,18 @@ class FloorplanTiledView: UIView {
         }
     }
 
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func applyOffsetCorrection(scrollView: UIScrollView) {
         if let floorplan = floorplan {
-            let scale = scrollView.zoomScale / scrollView.maximumZoomScale
-            let newZoomLevel = min(Int(round((Double(scale) * Double(floorplan.maxZoomLevel + 1)))), (layer as! CATiledLayer).levelsOfDetail)
-            let zoomLevel = newZoomLevel
-
             if zoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[zoomLevel] as? [String : AnyObject] {
                     let size = CGFloat(level["size"] as! Double) / contentScaleFactor
 
-                    let xOffset = CGFloat(level["x"] as! Double) / contentScaleFactor
-                    let yOffset = CGFloat(level["y"] as! Double) / contentScaleFactor
-                    let origin = CGPoint(x: -xOffset, y: -yOffset)
+//                    let xOffset = (CGFloat(level["x"] as! Double) / contentScaleFactor) - scrollView.contentOffset.x
+//                    let yOffset = (CGFloat(level["y"] as! Double) / contentScaleFactor) - scrollView.contentOffset.y
+//                    let origin = CGPoint(x: -xOffset, y: -yOffset)
 
                     scrollView.contentSize = CGSize(width: size, height: size)
-                    frame = CGRect(origin: origin, size: scrollView.contentSize)
-
-//                    scrollView.contentOffset.x = xOffset
-//                    scrollView.contentOffset.y = -yOffset
-
-//                    print("\(scrollView.minimumZoomScale)/\(scrollView.maximumZoomScale)")
-//                    print("scroll view content size: \(scrollView.contentSize)")
-//                    print("tiled view frame: \(frame)")
-                }
-
-                if self.zoomLevel == nil || zoomLevel != self.zoomLevel {
-                    self.zoomLevel = zoomLevel
-
-                    dispatch_after_delay(0.0) {
-                        scrollView.flashScrollIndicators()
-                    }
+                    //frame = CGRect(origin: origin, size: scrollView.contentSize)
                 }
             }
         }

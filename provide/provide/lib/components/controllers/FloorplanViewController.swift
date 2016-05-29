@@ -73,7 +73,40 @@ class FloorplanViewController: WorkOrderComponentViewController,
     private var thumbnailTintView: UIView!
 
     private var imageView: UIImageView!
-    private var floorplanTiledView: FloorplanTiledView!
+    private var floorplanTiledViews = [FloorplanTiledView]()
+    private var floorplanTiledView: FloorplanTiledView! {
+        var floorplanTiledView: FloorplanTiledView?
+        if floorplanZoomLevel <= floorplanTiledViews.count - 1 {
+            floorplanTiledView = floorplanTiledViews[floorplanZoomLevel]
+        }
+        return floorplanTiledView
+    }
+    private var floorplanZoomLevel: Int = 0 {
+        didSet {
+            for floorplanTiledView in floorplanTiledViews {
+                if floorplanTiledView == self.floorplanTiledView {
+                    removePinViews()
+
+                    scrollView.addSubview(floorplanTiledView)
+                    scrollView.bringSubviewToFront(floorplanTiledView)
+
+                    floorplanTiledView.setNeedsDisplay()
+                    floorplanTiledView.alpha = 1.0
+                    floorplanTiledView.applyOffsetCorrection(scrollView)
+
+                    refreshAnnotations()
+                } else {
+                    floorplanTiledView.alpha = 0.0
+                    floorplanTiledView.removeFromSuperview()
+                }
+            }
+        }
+    }
+    private var floorplanScrollViewZoomScale: CGFloat = 1.0 {
+        didSet {
+            floorplanZoomLevel = min(Int(round((Double(floorplanScrollViewZoomScale) * Double(floorplan.maxZoomLevel)))), floorplan.maxZoomLevel)
+        }
+    }
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var progressView: UIProgressView! {
@@ -241,17 +274,20 @@ class FloorplanViewController: WorkOrderComponentViewController,
         imageView.userInteractionEnabled = true
         imageView.contentMode = .ScaleToFill
 
-        floorplanTiledView = FloorplanTiledView()
-        floorplanTiledView?.alpha = 0.0
-        floorplanTiledView?.userInteractionEnabled = true
+        resetFloorplanTiledViews()
+
+//        floorplanTiledView = FloorplanTiledView()
+//        floorplanTiledView?.alpha = 0.0
+//        floorplanTiledView?.userInteractionEnabled = true
 
         scrollView?.floorplanScrollViewDelegate = self
         scrollView?.backgroundColor = UIColor.whiteColor()
         scrollView?.addSubview(imageView)
         scrollView?.bringSubviewToFront(imageView)
 
-        scrollView?.addSubview(floorplanTiledView)
-        scrollView?.bringSubviewToFront(floorplanTiledView)
+//
+//        scrollView?.addSubview(floorplanTiledView)
+//        scrollView?.bringSubviewToFront(floorplanTiledView)
 
         activityIndicatorView?.startAnimating()
 
@@ -292,6 +328,51 @@ class FloorplanViewController: WorkOrderComponentViewController,
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private func resetFloorplanTiledViews() {
+        for floorplanTileView in floorplanTiledViews {
+            floorplanTileView.removeGestureRecognizers()
+            floorplanTileView.removeFromSuperview()
+        }
+
+        floorplanTiledViews = [FloorplanTiledView]()
+
+        if floorplan?.zoomLevels != nil {
+            var i = 0
+            while i <= floorplan.maxZoomLevel {
+                if let level = floorplan?.zoomLevels?[i] as? [String : AnyObject] {
+                    let size =  CGSize(width: level["size"] as! Double,
+                                       height: level["size"] as! Double)
+
+                    let frame = CGRect(origin: CGPointZero, size: size)
+
+                    let floorplanTiledView = FloorplanTiledView(frame: frame)
+                    floorplanTiledView.alpha = 0.0
+                    floorplanTiledView.backgroundColor = UIColor.clearColor()
+                    floorplanTiledView.userInteractionEnabled = true
+                    floorplanTiledView.zoomLevel = i
+
+                    if let canDropWorkOrderPin = floorplanViewControllerDelegate?.floorplanViewControllerCanDropWorkOrderPin(self) {
+                        if canDropWorkOrderPin {
+                            let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(FloorplanViewController.dropPin(_:)))
+                            floorplanTiledView.addGestureRecognizer(gestureRecognizer)
+                        }
+                    }
+
+                    scrollView?.addSubview(floorplanTiledView)
+                    scrollView?.bringSubviewToFront(floorplanTiledView)
+
+                    floorplanTiledViews.append(floorplanTiledView)
+                }
+
+                i += 1
+            }
+
+            for floorplanTiledView in floorplanTiledViews.reverse() {
+                scrollView?.bringSubviewToFront(floorplanTiledView)
             }
         }
     }
@@ -470,8 +551,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                     self!.maxContentSize = CGSize(width: image.size.width, height: image.size.height)
 
-                    self!.floorplanTiledView.backgroundColor = UIColor.clearColor()
-                    self!.floorplanTiledView.floorplan = self!.floorplan
+                    for floorplanTiledView in self!.floorplanTiledViews {
+                        floorplanTiledView.floorplan = self!.floorplan
+                    }
 
                     self!.renderFloorplanThumbnailImage()
 
@@ -483,13 +565,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     self!.loadingFloorplan = false
                     self!.loadedFloorplan = true
 
-                    if let canDropWorkOrderPin = self!.floorplanViewControllerDelegate?.floorplanViewControllerCanDropWorkOrderPin(self!) {
-                        if canDropWorkOrderPin {
-                            let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(FloorplanViewController.dropPin(_:)))
-                            self!.floorplanTiledView.addGestureRecognizer(gestureRecognizer)
-                        }
-                    }
-
                     self!.progressView?.hidden = true
 
                     if let _ = self!.presentedViewController {
@@ -498,7 +573,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                     dispatch_after_delay(0.0) {
                         self!.setZoomLevel()
-                        self!.floorplanTiledView.alpha = 1.0
+                        self!.floorplanTiledView?.alpha = 1.0
 
                         if let floorplanWorkOrdersViewController = self!.floorplanWorkOrdersViewController {
                             floorplanWorkOrdersViewController.loadAnnotations()
@@ -606,21 +681,14 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 scrollView.zoomScale = scrollView.minimumZoomScale
             } else if job.isCommercial || job.isPunchlist {
                 if floorplanIsTiled {
-                    scrollView.minimumZoomScale = 1.0 / (CGFloat(floorplan.maxZoomLevel) + 1.0) //1.0 / pow(2.0, CGFloat(floorplan.maxZoomLevel) + 1.0)
+                    scrollView.minimumZoomScale = 1.0 / CGFloat(floorplan.maxZoomLevel) //1.0 / pow(2.0, CGFloat(floorplan.maxZoomLevel) + 1.0)
                     scrollView.maximumZoomScale = 1.0
-
-                    if let floorplanTiledView = floorplanTiledView {
-                        floorplanTiledView.frame = CGRect(origin: CGPointZero,
-                                                          size: maxContentSize)
-                    }
                 } else {
                     scrollView.minimumZoomScale = 0.2
                     scrollView.maximumZoomScale = 1.0
                 }
 
-                scrollView.zoomScale = scrollView.minimumZoomScale
-
-                floorplanTiledView?.setNeedsDisplay()
+                //scrollView.zoomScale = scrollView.minimumZoomScale
             }
         }
     }
@@ -683,7 +751,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
                             targetView.bringSubviewToFront(pinView)
 
                             pinView.attachGestureRecognizer()
-                            
                             pinViews.append(pinView)
                         }
                     }
@@ -1118,7 +1185,20 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
-        return floorplanIsTiled ? floorplanTiledView : imageView
+        if floorplanIsTiled {
+            var viewForZooming: UIView?
+            for floorplanTiledView in floorplanTiledViews {
+                if floorplanTiledView == self.floorplanTiledView {
+                    floorplanTiledView.alpha = 1.0
+
+                    viewForZooming = floorplanTiledView
+                } else {
+                    floorplanTiledView.alpha = 0.0
+                }
+            }
+            return viewForZooming
+        }
+        return imageView
     }
 
     func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
@@ -1126,12 +1206,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        floorplanTiledView?.scrollViewDidZoom(scrollView)
-        thumbnailView?.scrollViewDidZoom(scrollView)
+        //thumbnailView?.scrollViewDidZoom(scrollView)
 
-        if floorplanIsTiled {
-            refreshAnnotations()
-        }
+        floorplanScrollViewZoomScale = scrollView.zoomScale / scrollView.maximumZoomScale
 
         for pinView in pinViews {
             pinView.setScale(scrollView.zoomScale / scrollView.maximumZoomScale)
@@ -1139,8 +1216,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+        floorplanScrollViewZoomScale = scrollView.zoomScale / scrollView.maximumZoomScale
+
         if floorplanIsTiled {
-            floorplanTiledView?.scrollViewDidZoom(scrollView)
+            //floorplanTiledView?.scrollViewDidZoom(scrollView)
         } else {
             if let imageView = imageView {
                 let size = maxContentSize ?? imageView.image!.size
@@ -1326,6 +1405,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     deinit {
+        for floorplanTiledView in floorplanTiledViews {
+            floorplanTiledView.removeFromSuperview()
+        }
+
+        imageView?.removeFromSuperview()
         thumbnailView?.removeFromSuperview()
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
