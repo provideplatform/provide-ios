@@ -14,6 +14,8 @@ protocol FloorplanThumbnailViewDelegate: NSObjectProtocol {
     func floorplanThumbnailView(view: FloorplanThumbnailView, navigatedToFrame frame: CGRect)
     func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat
     func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize
+    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize!
+    func offsetSizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize
 }
 
 class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
@@ -78,7 +80,8 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
 
     private func resizeOverlayView(origin: CGPoint = CGPointZero, scale: CGFloat = 1.0) {
         if let floorplanImage = floorplanImage {
-            let heightRatio = visibleSize.height / (floorplanImage.size.height * scale)
+            let floorplanImageSize = delegate?.sizeForFloorplanThumbnailImageForFloorplanThumbnailView(self) ?? floorplanImage.size
+            let heightRatio = visibleSize.height / (floorplanImageSize.height * scale)
 
             let viewportHeight = frame.height * heightRatio
             let viewportWidth = viewportHeight * viewportAspectRatio
@@ -96,8 +99,9 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
 
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.contentSize.height > 0 && scrollView.contentSize.width > 0 {
-            let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / scrollView.contentSize.width
-            let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / scrollView.contentSize.height
+            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSizeZero
+            let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / (scrollView.contentSize.width - offsetSize.width)
+            let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / (scrollView.contentSize.height - offsetSize.height)
 
             if let overlayView = overlayView {
                 overlayView.frame = CGRect(x: max(0.0, min(frame.width - overlayView.frame.width, frame.width * xScale)),
@@ -114,10 +118,12 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
         }
 
         if let _ = floorplanImage {
-            let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / scrollView.contentSize.width
-            let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / scrollView.contentSize.height
+            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSizeZero
+            let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / (scrollView.contentSize.width - offsetSize.width)
+            let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / (scrollView.contentSize.height - offsetSize.height)
             let origin = CGPoint(x: frame.width * xScale, y: frame.height * yScale)
-            let scale = scrollView.contentSize.height / floorplanImage.size.height
+            let floorplanImageSize = delegate?.sizeForFloorplanThumbnailImageForFloorplanThumbnailView(self) ?? floorplanImage.size
+            let scale = scrollView.contentSize.height / floorplanImageSize.height
             resizeOverlayView(origin, scale: scale)
         }
     }

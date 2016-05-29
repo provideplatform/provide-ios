@@ -92,14 +92,19 @@ class FloorplanTiledView: UIView {
         if let floorplan = floorplan {
             if zoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[zoomLevel] as? [String : AnyObject] {
-                    let size = CGFloat(level["size"] as! Double) / contentScaleFactor
+                    let width = (CGFloat(level["width"] as! Double) / contentScaleFactor)
+                    let height = (CGFloat(level["height"] as! Double) / contentScaleFactor)
+                    let tileSize = CGFloat(level["size"] as! Double)
+                    let xOffset = (CGFloat(level["x"] as! Double) / contentScaleFactor) - scrollView.contentOffset.x
+                    let yOffset = (CGFloat(level["y"] as! Double) / contentScaleFactor) - scrollView.contentOffset.y
 
-//                    let xOffset = (CGFloat(level["x"] as! Double) / contentScaleFactor) - scrollView.contentOffset.x
-//                    let yOffset = (CGFloat(level["y"] as! Double) / contentScaleFactor) - scrollView.contentOffset.y
-//                    let origin = CGPoint(x: -xOffset, y: -yOffset)
+                    let origin = CGPoint(x: -xOffset, y: -yOffset)
+                    let size = CGSize(width: width, height: height)
 
-                    scrollView.contentSize = CGSize(width: size, height: size)
-                    //frame = CGRect(origin: origin, size: scrollView.contentSize)
+                    scrollView.contentSize = size
+
+                    frame = CGRect(origin: origin,
+                                   size: CGSize(width: tileSize, height: tileSize))
                 }
             }
         }

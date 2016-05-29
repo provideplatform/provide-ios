@@ -383,6 +383,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
         let image = imageView?.image
         imageView?.image = nil
         thumbnailView?.floorplanImage = nil
+        for floorplanTiledView in floorplanTiledViews {
+            floorplanTiledView.removeGestureRecognizers()
+            floorplanTiledView.removeFromSuperview()
+        }
         loadedFloorplan = false
         return image
     }
@@ -974,10 +978,24 @@ class FloorplanViewController: WorkOrderComponentViewController,
         let yScale = frame.origin.y / view.frame.height
 
         let contentSize = scrollView.contentSize
-        let visibleFrame = CGRect(x: contentSize.width * xScale,
+        var visibleFrame = CGRect(x: contentSize.width * xScale,
                                   y: contentSize.height * yScale,
                                   width: scrollView.frame.width,
                                   height: scrollView.frame.height)
+
+        if floorplanIsTiled {
+            if floorplanZoomLevel < floorplan.zoomLevels.count {
+                if let level = floorplan.zoomLevels[floorplanZoomLevel] as? [String : AnyObject] {
+                    let xOffset = CGFloat(level["x"] as! Double) / 2.0
+                    let yOffset = CGFloat(level["y"] as! Double) / 2.0
+
+                    visibleFrame = CGRect(x: (contentSize.width + xOffset) * xScale,
+                                          y: (contentSize.height + yOffset) * yScale,
+                                          width: scrollView.frame.width,
+                                          height: scrollView.frame.height)
+                }
+            }
+        }
 
         scrollView.setContentOffset(visibleFrame.origin, animated: false)
 
@@ -995,7 +1013,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat {
-        return scrollView.minimumZoomScale
+        return scrollView.zoomScale / scrollView.maximumZoomScale
     }
 
     func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize {
@@ -1004,6 +1022,34 @@ class FloorplanViewController: WorkOrderComponentViewController,
             let height = CGFloat(size.width > size.height ? 225.0 : 375.0)
             let width = aspectRatio * height
             return CGSize(width: width, height: height)
+        }
+        return CGSizeZero
+    }
+
+    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize! {
+        if floorplanIsTiled {
+            if floorplanZoomLevel < floorplan.zoomLevels.count {
+                if let level = floorplan.zoomLevels[floorplanZoomLevel] as? [String : AnyObject] {
+                    let width = CGFloat(level["width"] as! Double) / 2.0
+                    let height = CGFloat(level["height"] as! Double) / 2.0
+                    return CGSize(width: width,
+                                  height: height)
+                }
+            }
+        }
+        return thumbnailView.floorplanImage.size
+    }
+
+    func offsetSizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize {
+        if floorplanIsTiled {
+            if floorplanZoomLevel < floorplan.zoomLevels.count {
+                if let level = floorplan.zoomLevels[floorplanZoomLevel] as? [String : AnyObject] {
+                    let xOffset = CGFloat(level["x"] as! Double) / 2.0
+                    let yOffset = CGFloat(level["y"] as! Double) / 2.0
+                    return CGSize(width: xOffset,
+                                  height: yOffset)
+                }
+            }
         }
         return CGSizeZero
     }
@@ -1198,7 +1244,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        //thumbnailView?.scrollViewDidZoom(scrollView)
+        thumbnailView?.scrollViewDidZoom(scrollView)
 
         floorplanScrollViewZoomScale = scrollView.zoomScale / scrollView.maximumZoomScale
 
