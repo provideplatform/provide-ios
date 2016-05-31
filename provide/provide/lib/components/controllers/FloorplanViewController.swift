@@ -87,6 +87,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 if floorplanTiledView == self.floorplanTiledView {
                     removePinViews()
 
+                    scrollView.contentSize = floorplanTiledView.frame.size
                     scrollView.addSubview(floorplanTiledView)
                     scrollView.bringSubviewToFront(floorplanTiledView)
 
@@ -513,6 +514,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                             let percentage: Float = Float(receivedSize) / Float(expectedSize)
                             self!.progressView?.setProgress(percentage, animated: true)
+
+                            print("total size received... \(receivedSize)")
                         }
                     }
                 }
@@ -681,14 +684,18 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 scrollView.zoomScale = scrollView.minimumZoomScale
             } else if job.isCommercial || job.isPunchlist {
                 if floorplanIsTiled {
-                    scrollView.minimumZoomScale = 1.0 / CGFloat(floorplan.maxZoomLevel) //1.0 / pow(2.0, CGFloat(floorplan.maxZoomLevel) + 1.0)
+                    scrollView.minimumZoomScale = 1.0 // CGFloat(floorplan.maxZoomLevel) //1.0 / pow(2.0, CGFloat(floorplan.maxZoomLevel) + 1.0)
                     scrollView.maximumZoomScale = 1.0
+
+                    dispatch_after_delay(0.0) {
+                        self.floorplanScrollViewZoomScale = 1.0
+                    }
                 } else {
                     scrollView.minimumZoomScale = 0.2
                     scrollView.maximumZoomScale = 1.0
-                }
 
-                //scrollView.zoomScale = scrollView.minimumZoomScale
+                    scrollView.zoomScale = scrollView.minimumZoomScale
+                }
             }
         }
     }
@@ -1258,8 +1265,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
-        floorplanScrollViewZoomScale = scrollView.zoomScale / scrollView.maximumZoomScale
-
         if floorplanIsTiled {
             //floorplanTiledView?.scrollViewDidZoom(scrollView)
         } else {
