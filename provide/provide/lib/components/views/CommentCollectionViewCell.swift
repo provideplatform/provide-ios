@@ -91,6 +91,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
                     self.imageView.alpha = 1.0
                 })
+            } else {
+                imageView.alpha = 0.0
+                imageView.image = nil
             }
 
             let date = comment.createdAtDate
