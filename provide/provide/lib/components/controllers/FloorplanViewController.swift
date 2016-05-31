@@ -315,6 +315,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             if let floorplan = notification.object as? Floorplan {
                 if let f = self.floorplan {
                     if floorplan.id == f.id {
+                        floorplan.annotations = self.floorplan.annotations
                         self.floorplan = floorplan
                         if !self.loadedFloorplan && !self.loadingFloorplan {
                             self.loadFloorplan()
