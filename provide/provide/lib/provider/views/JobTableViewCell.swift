@@ -36,6 +36,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var thumbnailImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var customerNameLabel: UILabel!
 
     private var showsCancelButton: Bool {
         if job == nil {
@@ -102,6 +103,7 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         super.prepareForReuse()
 
         nameLabel?.text = ""
+        customerNameLabel?.text = ""
 
         activityIndicatorView?.startAnimating()
 
@@ -130,6 +132,9 @@ class JobTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         if let job = job {
             nameLabel?.text = job.name
             nameLabel?.sizeToFit()
+
+            customerNameLabel?.text = job.customer.displayName
+            customerNameLabel?.sizeToFit()
 
             setThumbnailImageWithURL(job.thumbnailImageUrl)
         }

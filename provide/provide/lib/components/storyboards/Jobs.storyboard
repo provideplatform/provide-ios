@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ah6-6C-N46">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ah6-6C-N46">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <mutableArray key="Exo2-Light.ttf">
+            <string>Exo2-Light</string>
+        </mutableArray>
         <mutableArray key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
         </mutableArray>
@@ -36,17 +40,14 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pa7-7e-VIa" userLabel="Container View">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="175"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UC4-eu-Kzi">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UC4-eu-Kzi">
                                                             <rect key="frame" x="8" y="4" width="162" height="163"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="162" id="JLU-Ng-7qm"/>
-                                                            </constraints>
                                                         </imageView>
-                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1Nb-xd-Z8w">
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1Nb-xd-Z8w">
                                                             <rect key="frame" x="79" y="76" width="20" height="20"/>
                                                         </activityIndicatorView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
-                                                            <rect key="frame" x="178" y="28" width="414" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wal mart" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVm-fa-pZl">
+                                                            <rect key="frame" x="392" y="28" width="199.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="552-YC-yPO"/>
                                                             </constraints>
@@ -54,17 +55,21 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="311 Summer Dr NE, Atlanta GA, 30328" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqy-fr-Bfh" userLabel="Customer Label">
+                                                            <rect key="frame" x="392.5" y="57" width="199.5" height="21"/>
+                                                            <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="top" constant="4" id="4vo-DU-ejH"/>
-                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="bottom" secondItem="pa7-7e-VIa" secondAttribute="bottomMargin" id="5yf-bF-E5E"/>
-                                                        <constraint firstItem="uVm-fa-pZl" firstAttribute="leading" secondItem="UC4-eu-Kzi" secondAttribute="trailing" constant="8" symbolic="YES" id="89a-oy-LLf"/>
                                                         <constraint firstItem="uVm-fa-pZl" firstAttribute="trailing" secondItem="pa7-7e-VIa" secondAttribute="trailingMargin" id="LDs-Ix-h86"/>
-                                                        <constraint firstItem="1Nb-xd-Z8w" firstAttribute="centerX" secondItem="UC4-eu-Kzi" secondAttribute="centerX" id="UC3-pE-VDW"/>
+                                                        <constraint firstItem="vqy-fr-Bfh" firstAttribute="trailing" secondItem="uVm-fa-pZl" secondAttribute="trailing" id="MQJ-Qe-OFn"/>
+                                                        <constraint firstItem="vqy-fr-Bfh" firstAttribute="top" secondItem="uVm-fa-pZl" secondAttribute="bottom" constant="8" symbolic="YES" id="TF9-2H-T8a"/>
                                                         <constraint firstItem="uVm-fa-pZl" firstAttribute="top" secondItem="pa7-7e-VIa" secondAttribute="topMargin" constant="20" id="X5p-so-1Wc"/>
-                                                        <constraint firstItem="1Nb-xd-Z8w" firstAttribute="centerY" secondItem="UC4-eu-Kzi" secondAttribute="centerY" id="jom-o6-Ml3"/>
-                                                        <constraint firstItem="UC4-eu-Kzi" firstAttribute="leading" secondItem="pa7-7e-VIa" secondAttribute="leadingMargin" id="nVZ-3x-8Jg"/>
+                                                        <constraint firstAttribute="bottom" secondItem="vqy-fr-Bfh" secondAttribute="bottom" constant="97" id="aK2-Vo-Axv"/>
+                                                        <constraint firstItem="vqy-fr-Bfh" firstAttribute="leading" secondItem="uVm-fa-pZl" secondAttribute="leading" id="hPt-7M-QGt"/>
                                                     </constraints>
                                                 </view>
                                                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8O-VO-LP2" userLabel="Background View">
@@ -87,6 +92,7 @@
                                             <outlet property="activityIndicatorView" destination="1Nb-xd-Z8w" id="Nyt-qh-bYA"/>
                                             <outlet property="backgroundContainerView" destination="R8O-VO-LP2" id="RKf-1o-hAJ"/>
                                             <outlet property="containerView" destination="pa7-7e-VIa" id="krg-Qh-llQ"/>
+                                            <outlet property="customerNameLabel" destination="vqy-fr-Bfh" id="s4D-Bf-4I3"/>
                                             <outlet property="nameLabel" destination="uVm-fa-pZl" id="rkm-xB-jn6"/>
                                             <outlet property="thumbnailImageView" destination="UC4-eu-Kzi" id="vWm-FV-dSP"/>
                                             <segue destination="HbV-mu-6GN" kind="show" identifier="JobFloorplansViewControllerSegue" id="l9Y-AM-Vs2">
