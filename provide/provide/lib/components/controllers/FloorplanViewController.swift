@@ -515,8 +515,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                             let percentage: Float = Float(receivedSize) / Float(expectedSize)
                             self!.progressView?.setProgress(percentage, animated: true)
-
-                            print("total size received... \(receivedSize)")
                         }
                     }
                 }
