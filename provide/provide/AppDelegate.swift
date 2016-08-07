@@ -100,18 +100,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             if url.scheme.lowercaseString == "provide" {
                 let params = url.query?.componentsSeparatedByString("params=").last?.stringByRemovingPercentEncoding?.toJSONObject()
+                let jwtToken = params?["token"] as? String
 
                 if !ApiService.sharedService().hasCachedToken {
+                    if let jwtToken = jwtToken {
+                        if let jwt = KTJwtService.decode(jwtToken) {
+                            if ApiService.sharedService().login(jwt) {
+                                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserWasAuthenticated")
+
+                                dispatch_after_delay(0.0) {
+                                    self.openURL(url)
+                                }
+                            } else {
+                                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                            }
+                        } else {
+                            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                        }
+                    }
+
                     if url.host == "accept-invitation" {
                         NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldPresentPinInputViewController")
                     }
                 } else {
-                    if let authorization = params?["authorization"] as? String {
-                        //if authorization != ApiService.sharedService()
-                    }
-
-                    if url.host == "drop-pin" {
-                        print(params)
+                    if let jwtToken = jwtToken {
+                        if let jwt = KTJwtService.decode(jwtToken) {
+                            if let userId = jwt.body["user_id"] as? Int {
+                                if userId != currentUser().id {
+                                    NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                                }
+                            }
+                        }
                     }
                 }
             }

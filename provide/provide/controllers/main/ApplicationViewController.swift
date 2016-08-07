@@ -54,6 +54,10 @@ class ApplicationViewController: UIViewController,
         super.viewDidLoad()
 
         refreshCurrentUser()
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+            self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -66,10 +70,6 @@ class ApplicationViewController: UIViewController,
         super.viewDidDisappear(animated)
 
         teardownMenu()
-    }
-
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     func teardownMenu() {
@@ -200,5 +200,9 @@ class ApplicationViewController: UIViewController,
         let userDefaults = NSUserDefaults.standardUserDefaults()
         userDefaults.setBool(true, forKey: "presentedSelfieViewController")
         userDefaults.synchronize()
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

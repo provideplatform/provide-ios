@@ -10,6 +10,7 @@ import Foundation
 import RestKit
 import KTSwiftExtensions
 import Alamofire
+import JWTDecode
 
 typealias OnSuccess = (statusCode: Int, mappingResult: RKMappingResult!) -> ()
 typealias OnError = (error: NSError, statusCode: Int, responseString: String) -> ()
@@ -107,6 +108,34 @@ class ApiService: NSObject {
         self.registerForRemoteNotifications()
 
         NotificationService.sharedService().connectWebsocket()
+    }
+
+    func login(jwt: JWT) -> Bool {
+        let tokenId = jwt.body["token_id"] as? Int
+        let token = jwt.body["token"] as? String
+        let uuid = jwt.body["token_uuid"] as? String
+        let userId = jwt.body["user_id"] as? Int
+        let userEmail = jwt.body["email"] as? String
+        let userName = jwt.body["name"] as? String
+
+        if tokenId != nil && token != nil && uuid != nil && userId != nil && userEmail != nil && userName != nil {
+            let t = Token()
+            t.id = tokenId!
+            t.token = token
+            t.uuid = uuid
+
+            let user = User()
+            user.id = userId!
+            user.email = userEmail!
+            user.name = userName!
+            t.user = user
+
+            setToken(t)
+
+            return true
+        }
+
+        return false
     }
 
     func login(params: [String: String], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {

@@ -23,6 +23,10 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
 
         tableView.layer.cornerRadius = 5.0
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationUserWasAuthenticated") { _ in
+            self.userWasAuthenticated()
+        }
     }
 
     func setupNavigationItem() {
@@ -247,5 +251,9 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         dismissViewController(animated: true) {
 
         }
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

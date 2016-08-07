@@ -14,11 +14,13 @@ PODS:
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - KTSwiftExtensions (0.9.0):
+  - JWTDecode (1.0.0)
+  - KTSwiftExtensions (0.10.0):
     - Alamofire
     - AlamofireObjectMapper
+    - JWTDecode (~> 1.0)
     - MBProgressHUD (~> 0.9.1)
-  - MBProgressHUD (0.9.1)
+  - MBProgressHUD (0.9.2)
   - ObjectMapper (1.4.0)
   - OHHTTPStubs (4.2.1):
     - OHHTTPStubs/Default (= 4.2.1)
@@ -99,7 +101,7 @@ CHECKOUT OPTIONS:
     :commit: eac30313fee77f6db1b6832b1d4b7d8f2007b381
     :git: https://github.com/PrideChung/FontAwesomeKit.git
   KTSwiftExtensions:
-    :commit: 45f9e588aa4f4b267d5364acf748eb9be2699fbf
+    :commit: ee7e216868d6d4700466b37e10b45c00e3019cc8
     :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
@@ -115,8 +117,9 @@ SPEC CHECKSUMS:
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  KTSwiftExtensions: a5d6413eac4651f74b69c5c7d2ce579930503165
-  MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
+  KTSwiftExtensions: 7c818ac0ec26d976c401f4cab9f909883299133e
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
   OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2

@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import KTSwiftExtensions
 
 class NavigationRootViewController: ViewController,
                                     ApplicationViewControllerDelegate,
@@ -39,12 +40,7 @@ class NavigationRootViewController: ViewController,
             dispatch_after_delay(0.0) {
                 MBProgressHUD.hideHUDForView(self.view, animated: true)
 
-                self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
-                dispatch_after_delay(1.0) {
-                    self.logoImageView.alpha = 1.0
-                    self.signInButton.alpha = 1.0
-                    self.codeButton.alpha = 1.0
-                }
+                self.presentApplicationViewController()
             }
         } else {
             MBProgressHUD.hideHUDForView(view, animated: true)
@@ -56,6 +52,24 @@ class NavigationRootViewController: ViewController,
 
         NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in
             self.performSegueWithIdentifier("PinInputViewControllerSegue", sender: self)
+        }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+            self.showToast("The supplied credentials are invalid...")
+        }
+
+        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationUserWasAuthenticated") { _ in
+            self.presentApplicationViewController()
+        }
+    }
+
+    private func presentApplicationViewController() {
+        performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+
+        dispatch_after_delay(1.0) {
+            self.logoImageView.alpha = 1.0
+            self.signInButton.alpha = 1.0
+            self.codeButton.alpha = 1.0
         }
     }
 
