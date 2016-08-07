@@ -18,6 +18,6 @@ pod 'PDTSimpleCalendar'
 pod 'Reachability'
 pod 'RestKit', '0.27.0'
 pod 'RFGravatarImageView'
-pod 'SDWebImage', :head
+pod 'SDWebImage', '3.8.1'
 pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell.git'
 pod 'UICKeyChainStore'

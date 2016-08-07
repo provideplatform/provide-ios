@@ -58,9 +58,9 @@ PODS:
   - RFGravatarImageView (1.1):
     - SDWebImage (~> 3.7)
   - RKValueTransformers (1.1.3)
-  - SDWebImage (HEAD based on 3.8.1):
-    - SDWebImage/Core (= HEAD based on 3.8.1)
-  - SDWebImage/Core (HEAD based on 3.8.1)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.2.1)
@@ -79,7 +79,7 @@ DEPENDENCIES:
   - Reachability
   - RestKit (= 0.27.0)
   - RFGravatarImageView
-  - SDWebImage (HEAD)
+  - SDWebImage (= 3.8.1)
   - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell.git`)
   - UICKeyChainStore
 
