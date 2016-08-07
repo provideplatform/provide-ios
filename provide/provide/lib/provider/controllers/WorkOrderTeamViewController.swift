@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 protocol WorkOrderTeamViewControllerDelegate {
     func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder!

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 protocol TaskTableViewCellCheckboxViewDelegate {
     func taskTableViewCellCheckboxView(view: TaskTableViewCellCheckboxView, didBecomeChecked checked: Bool)

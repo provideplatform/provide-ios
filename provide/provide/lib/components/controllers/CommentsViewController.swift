@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 protocol CommentsViewControllerDelegate {
     func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)

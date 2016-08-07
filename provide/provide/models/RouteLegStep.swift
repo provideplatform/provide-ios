@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RestKit
+import KTSwiftExtensions
 
 class RouteLegStep: Model {
 
@@ -154,9 +156,9 @@ class RouteLegStep: Model {
     var shapeCoordinates: [CLLocationCoordinate2D] {
         var coords = [CLLocationCoordinate2D]()
         for shapeString in shape {
-            let shapeCoords = shapeString.splitAtString(",")
-            let latitude = Double(shapeCoords.0)
-            let longitude = Double(shapeCoords.1)
+            let shapeCoords = shapeString.componentsSeparatedByString(",")
+            let latitude = Double(shapeCoords.first!)
+            let longitude = Double(shapeCoords.last!)
             if latitude != nil && longitude != nil {
                 coords.append(CLLocationCoordinate2D(latitude: latitude!, longitude: longitude!))
             }
@@ -171,9 +173,9 @@ class RouteLegStep: Model {
             }
 
             if let startLocation = shape.first {
-                let startCoords = startLocation.splitAtString(",")
-                let latitude = (startCoords.0 as NSString).doubleValue
-                let longitude = (startCoords.1 as NSString).doubleValue
+                let startCoords = startLocation.componentsSeparatedByString(",")
+                let latitude = (startCoords.first! as NSString).doubleValue
+                let longitude = (startCoords.last! as NSString).doubleValue
                 return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
         }
@@ -188,9 +190,9 @@ class RouteLegStep: Model {
             }
 
             if let endLocation = shape.last {
-                let endCoords = endLocation.splitAtString(",")
-                let latitude = (endCoords.0 as NSString).doubleValue
-                let longitude = (endCoords.1 as NSString).doubleValue
+                let endCoords = endLocation.componentsSeparatedByString(",")
+                let latitude = (endCoords.first! as NSString).doubleValue
+                let longitude = (endCoords.last! as NSString).doubleValue
                 return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             }
         }

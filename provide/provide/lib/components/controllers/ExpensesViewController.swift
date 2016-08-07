@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 @objc
 protocol ExpensesViewControllerDelegate {

@@ -44,13 +44,13 @@ class WorkOrderMapView: MapView {
                 imageView.alpha = 1
             }
         } else {
-            imageView = RFGravatarImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             imageView.alpha = 0.0
-            (imageView as! RFGravatarImageView).email = currentUser().email
-            (imageView as! RFGravatarImageView).load { error in
-                imageView.makeCircular()
-                imageView.alpha = 1
-            }
+//            imageView.email = currentUser().email
+//            imageView.load { error in
+//                imageView.makeCircular()
+//                imageView.alpha = 1
+//            }
         }
 
         return imageView

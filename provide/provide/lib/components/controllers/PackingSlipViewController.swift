@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import FontAwesomeKit
 
 class PackingSlipViewController: WorkOrderComponentViewController,
                                  UITableViewDataSource,

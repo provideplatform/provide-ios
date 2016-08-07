@@ -9,6 +9,8 @@
 import UIKit
 import Fabric
 import Crashlytics
+import KTSwiftExtensions
+import RestKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -97,9 +99,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else {
             if url.scheme.lowercaseString == "provide" {
+                let params = url.query?.componentsSeparatedByString("params=").last?.stringByRemovingPercentEncoding?.toJSONObject()
+
                 if !ApiService.sharedService().hasCachedToken {
                     if url.host == "accept-invitation" {
                         NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldPresentPinInputViewController")
+                    }
+                } else {
+                    if let authorization = params?["authorization"] as? String {
+                        //if authorization != ApiService.sharedService()
+                    }
+
+                    if url.host == "drop-pin" {
+                        print(params)
                     }
                 }
             }

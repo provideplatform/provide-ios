@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 protocol JobTeamViewControllerDelegate: NSObjectProtocol {
     func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job!

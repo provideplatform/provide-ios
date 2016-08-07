@@ -19,7 +19,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
 
-    private var gravatarImageView: RFGravatarImageView!
+    private var gravatarImageView: UIImageView!
 
     private var timer: NSTimer!
 
@@ -81,14 +81,14 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
                     self.gravatarImageView?.alpha = 0.0
                 }
             } else {
-                let gravatarImageView = RFGravatarImageView(frame: avatarImageView.frame)
-                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
-                gravatarImageView.load { error in
-                    gravatarImageView.makeCircular()
-                    self.insertSubview(gravatarImageView, aboveSubview: self.avatarImageView)
-                    self.avatarImageView.alpha = 0.0
-                    gravatarImageView.alpha = 1.0
-                }
+                let gravatarImageView = UIImageView(frame: avatarImageView.frame)
+//                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
+//                gravatarImageView.load { error in
+//                    gravatarImageView.makeCircular()
+//                    self.insertSubview(gravatarImageView, aboveSubview: self.avatarImageView)
+//                    self.avatarImageView.alpha = 0.0
+//                    gravatarImageView.alpha = 1.0
+//                }
             }
 
             if let timestamp = route.humanReadableLoadingStartedAtTimestamp {

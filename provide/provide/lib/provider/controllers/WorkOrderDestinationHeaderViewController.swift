@@ -51,14 +51,14 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             if workOrder.customer.profileImageUrl != nil {
                 // TODO -- load the image view using the profileImageUrl
             } else if workOrder.customer.contact.email != nil {
-                let gravatarImageView = RFGravatarImageView(frame: titleImageView.frame)
-                gravatarImageView.email = workOrder.contact.email
-                gravatarImageView.load { error in
-                    gravatarImageView.makeCircular()
-                    self.view.insertSubview(gravatarImageView, aboveSubview: self.titleImageView)
-                    self.titleImageView.alpha = 0
-                    gravatarImageView.alpha = 1
-                }
+                let gravatarImageView = UIImageView(frame: titleImageView.frame)
+//                gravatarImageView.email = workOrder.contact.email
+//                gravatarImageView.load { error in
+//                    gravatarImageView.makeCircular()
+//                    self.view.insertSubview(gravatarImageView, aboveSubview: self.titleImageView)
+//                    self.titleImageView.alpha = 0
+//                    gravatarImageView.alpha = 1
+//                }
             }
 
             titleLabel.text = workOrder.customer.displayName

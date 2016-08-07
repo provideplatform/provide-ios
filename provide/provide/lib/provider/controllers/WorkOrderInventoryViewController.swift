@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 protocol WorkOrderInventoryViewControllerDelegate: NSObjectProtocol {
     func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder!

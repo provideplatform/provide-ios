@@ -72,7 +72,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
         navigationItem.title = "CAPTURE RECEIPT"
         navigationItem.hidesBackButton = true
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: #selector(ExpenseCaptureViewController.dismiss(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(ExpenseCaptureViewController.dismiss(_:)))
     }
 
     // MARK: CameraViewControllerDelegate

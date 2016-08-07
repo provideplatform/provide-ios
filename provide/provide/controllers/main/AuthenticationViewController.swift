@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MBProgressHUD
+import KTSwiftExtensions
 
 class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ApplicationViewControllerDelegate {
 
@@ -31,7 +33,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "CANCEL", target: self, action: #selector(AuthenticationViewController.cancel(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(AuthenticationViewController.cancel(_:)))
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -216,7 +218,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: Validation Methods
 
     private func validFieldValues() -> Bool {
-        return emailField != nil && emailField.text!.isValidForEmail()
+        return emailField != nil && emailField.text!.isValidEmail()
     }
 
     // MARK: Navigation Methods

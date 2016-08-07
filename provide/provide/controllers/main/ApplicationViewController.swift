@@ -13,11 +13,13 @@ protocol ApplicationViewControllerDelegate {
     func dismissApplicationViewController(viewController: ApplicationViewController)
 }
 
-class ApplicationViewController: ECSlidingViewController,
+class ApplicationViewController: UIViewController,
                                  MenuViewControllerDelegate,
                                  CameraViewControllerDelegate {
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
+
+    private var topViewController: UIViewController!
 
     private var menuContainerView: MenuContainerView!
 

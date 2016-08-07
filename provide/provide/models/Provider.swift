@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RestKit
+import KTSwiftExtensions
 
 class Provider: Model {
 
@@ -55,7 +57,7 @@ class Provider: Model {
 
     var firstName: String? {
         if let name = name {
-            return name.splitAtString(" ").0
+            return name.componentsSeparatedByString(" ").first!
         } else {
             return nil
         }
@@ -63,7 +65,11 @@ class Provider: Model {
 
     var lastName: String? {
         if let name = name {
-            return name.splitAtString(" ").1
+            if name.componentsSeparatedByString(" ").count > 1 {
+                return name.componentsSeparatedByString(" ").last!
+            } else {
+                return nil
+            }
         } else {
             return nil
         }

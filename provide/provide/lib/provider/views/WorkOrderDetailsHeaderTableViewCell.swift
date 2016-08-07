@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWTableViewCell
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
     func workOrderCreationViewControllerForDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!

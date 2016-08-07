@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanScaleViewDelegate {
     func floorplanImageViewForFloorplanScaleView(view: FloorplanScaleView) -> UIImageView!

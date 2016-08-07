@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol ExpenseEditorViewControllerDelegate {
     func expenseEditorViewControllerBeganCreatingExpense(viewController: ExpenseEditorViewController)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JSQMessagesViewController
 
 class MessagesViewController: JSQMessagesViewController {
 
@@ -20,7 +21,7 @@ class MessagesViewController: JSQMessagesViewController {
 
             navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
-            navigationItem.leftBarButtonItem = UIBarButtonItem.plainBarButtonItem(title: "DISMISS", target: self, action: #selector(MessagesViewController.dismiss(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(MessagesViewController.dismiss(_:)))
         }
 
         title = "MESSAGES"

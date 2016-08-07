@@ -23,7 +23,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
     internal var firstName: String? {
         if let name = name {
             if name.componentsSeparatedByString(" ").count > 1 {
-                return name.splitAtString(" ", assertedComponentsCount: nil).0
+                return name.componentsSeparatedByString(" ").first!
             } else {
                 return name
             }
@@ -35,7 +35,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
     internal var lastName: String? {
         if let name = name {
             if name.componentsSeparatedByString(" ").count > 1 {
-                return name.splitAtString(" ", assertedComponentsCount: nil).1
+                return name.componentsSeparatedByString(" ").last!
             } else {
                 return nil
             }
@@ -83,17 +83,17 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
                 renderInitials()
 
-                gravatarImageView.defaultGravatar = .GravatarBlank
-                gravatarImageView.email = gravatarEmail
-                gravatarImageView.size = UInt(gravatarImageView.frame.width)
-                gravatarImageView.load { error in
-                    if self.rendersCircularImage {
-                        self.gravatarImageView.makeCircular()
-                    }
-                    self.contentView.bringSubviewToFront(self.gravatarImageView)
-                    self.gravatarImageView.alpha = 1.0
-                    self.hideActivityIndicator()
-                }
+//                gravatarImageView.defaultGravatar = .GravatarBlank
+//                gravatarImageView.email = gravatarEmail
+//                gravatarImageView.size = UInt(gravatarImageView.frame.width)
+//                gravatarImageView.load { error in
+//                    if self.rendersCircularImage {
+//                        self.gravatarImageView.makeCircular()
+//                    }
+//                    self.contentView.bringSubviewToFront(self.gravatarImageView)
+//                    self.gravatarImageView.alpha = 1.0
+//                    self.hideActivityIndicator()
+//                }
             }
         }
     }
@@ -190,7 +190,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 defaultImageViewFrame = imageView.frame
                 contentView.sendSubviewToBack(imageView)
 
-                gravatarImageView = RFGravatarImageView(frame: defaultImageViewFrame)
+                gravatarImageView = UIImageView(frame: defaultImageViewFrame)
             }
         }
     }
@@ -220,7 +220,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    internal var gravatarImageView: RFGravatarImageView! {
+    internal var gravatarImageView: UIImageView! {
         didSet {
             if let gravatarImageView = gravatarImageView {
                 contentView.addSubview(gravatarImageView)
@@ -234,7 +234,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     internal var highlightedFont: UIFont! {
         if let defaultFont = defaultFont {
-            let name = defaultFont.fontName.splitAtString("-").0
+            let name = defaultFont.fontName.componentsSeparatedByString("-").first!
             return UIFont(name: "\(name)-Bold", size: defaultFont.pointSize)
         }
         return nil

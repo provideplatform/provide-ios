@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RestKit
 
 class Route: Model {
 
@@ -112,9 +113,9 @@ class Route: Model {
             for step in leg.steps {
                 if let shapes = step.shape {
                     for shape in shapes {
-                        let shapeCoords = shape.splitAtString(",")
-                        let latitude = (shapeCoords.0 as NSString).doubleValue
-                        let longitude = (shapeCoords.1 as NSString).doubleValue
+                        let shapeCoords = shape.componentsSeparatedByString(",")
+                        let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
+                        let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
                         coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                     }
                 }

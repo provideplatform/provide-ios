@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import FontAwesomeKit
 
 class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerDelegate {
 

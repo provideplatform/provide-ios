@@ -60,7 +60,8 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
             if ApiService.sharedService().hasCachedToken {
                 let token = KeyChainService.sharedService().token!
                 authorizationWebViewController.webViewControllerDelegate = self
-                authorizationWebViewController.url = NSURL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/quickbooks/authenticate?company_id=\(company.id)&x-api-authorization=\(token.authorizationHeaderString.splitAtString(" ").1)")
+                let authorizationString = token.authorizationHeaderString.componentsSeparatedByString(" ").last!
+                authorizationWebViewController.url = NSURL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/quickbooks/authenticate?company_id=\(company.id)&x-api-authorization=\(authorizationString)")
             }
         }
     }

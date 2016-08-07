@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import RestKit
+import KTSwiftExtensions
+import Alamofire
 
 typealias OnSuccess = (statusCode: Int, mappingResult: RKMappingResult!) -> ()
 typealias OnError = (error: NSError, statusCode: Int, responseString: String) -> ()
@@ -53,6 +56,8 @@ class ApiService: NSObject {
     private var backoffTimeout: NSTimeInterval!
 
     private var headers = [String : String]()
+
+    private var requestOperations = [RKObjectRequestOperation]()
 
     private static let sharedInstance = ApiService()
 
@@ -169,43 +174,17 @@ class ApiService: NSObject {
     // MARK: Fetch images
 
     func fetchURL(url: NSURL, onURLFetched: OnURLFetched, onError: OnError) {
-        let api = MKNetworkEngine(hostName: url.host)
-        let path = NSString(string: url.path!)
-
         let params = url.query != nil ? url.query!.toJSONObject() : [:]
-        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params, httpMethod: "GET", ssl: url.scheme == "https")
-
-        op.addCompletionHandler(
-            { completedOperation in
-                let statusCode = completedOperation.HTTPStatusCode
-                onURLFetched(statusCode: statusCode, response: completedOperation.responseData())
+        let request = Alamofire.request(.GET, url.absoluteString, parameters: params)
+        KTApiService.sharedService().execute(request,
+            successHandler: { response in
+                let statusCode = response!.response!.statusCode
+                onURLFetched(statusCode: statusCode, response: response!.responseData)
             },
-            errorHandler: { completedOperation, error in
-                onError(error: error, statusCode: completedOperation.HTTPStatusCode, responseString: completedOperation.responseString())
+            failureHandler: { response, statusCode, error in
+
             }
         )
-
-        api.enqueueOperation(op)
-    }
-
-    func fetchImage(url: NSURL, onImageFetched: OnImageFetched, onError: OnError) {
-        let api = MKNetworkEngine(hostName: url.host)
-        let path = NSString(string: url.path!)
-
-        let params = url.query != nil ? url.query!.toJSONObject() : [:]
-        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params, httpMethod: "GET", ssl: url.scheme == "https")
-
-        op.addCompletionHandler(
-            { completedOperation in
-                let statusCode = completedOperation.HTTPStatusCode
-                onImageFetched(statusCode: statusCode, response: completedOperation.responseImage())
-            },
-            errorHandler: { completedOperation, error in
-                onError(error: error, statusCode: completedOperation.HTTPStatusCode, responseString: completedOperation.responseString())
-            }
-        )
-
-        api.enqueueOperation(op)
     }
 
     // MARK: Attachments API
@@ -971,23 +950,18 @@ class ApiService: NSObject {
     // MARK: S3
 
     func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        let api = MKNetworkEngine(hostName: url.host)
-        let path = NSString(string: url.path!)
+        let presignedS3Request = KTPresignedS3Request()
+        presignedS3Request.url = url.absoluteString
 
-        let op = api.operationWithPath((path.length == 0 ? "" : path.substringFromIndex(1)), params: params, httpMethod: "POST", ssl: true)
-        op.addData(data, forKey: "file", mimeType: mimeType, fileName: "filename")
-
-        op.addCompletionHandler(
-            { completedOperation in
-                let statusCode = completedOperation.HTTPStatusCode
+        KTS3Service.upload(presignedS3Request, data: data, withMimeType: mimeType,
+            successHandler: { response in
+                let statusCode = response!.response!.statusCode
                 onSuccess(statusCode: statusCode, mappingResult: nil)
             },
-            errorHandler: { completedOperation, error in
-                onError(error: error, statusCode: completedOperation.HTTPStatusCode, responseString: completedOperation.responseString())
+            failureHandler: { response, statusCode, error in
+                onError(error: error!, statusCode: response!.statusCode, responseString: "")
             }
         )
-
-        api.enqueueOperation(op)
     }
 
     // MARK: Private methods
@@ -1047,10 +1021,10 @@ class ApiService: NSObject {
         let parts = path.characters.split("/").map { String($0) }
         if parts.count > 5 {
             path = [parts[3], parts[5]].joinWithSeparator("/")
-            path = path.splitAtString("/").1
+            path = path.componentsSeparatedByString("/").last!
         } else if parts.count > 3 {
             path = [parts[1], parts[3]].joinWithSeparator("/")
-            path = path.splitAtString("/").1
+            path = path.componentsSeparatedByString("/").last!
         } else {
             path = parts[1]
         }
@@ -1129,6 +1103,10 @@ class ApiService: NSObject {
                                                                                                       "params": jsonParams,
                                                                                                       "execTimeMillis": NSDate().timeIntervalSinceDate(startDate) * 1000.0])
 
+                        if self.requestOperations.contains(op) {
+                            self.requestOperations.removeObject(op)
+                        }
+
                         onSuccess(statusCode: operation.HTTPRequestOperation.response.statusCode,
                                   mappingResult: mappingResult)
                     },
@@ -1170,6 +1148,10 @@ class ApiService: NSObject {
                             self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
                         }
 
+                        if self.requestOperations.contains(op) {
+                            self.requestOperations.removeObject(op)
+                        }
+
                         onError(error: error,
                                 statusCode: statusCode,
                                 responseString: responseString)
@@ -1178,6 +1160,7 @@ class ApiService: NSObject {
 
                 if startOperation {
                     op.start()
+                    self.requestOperations.append(op)
                 }
                 
                 return op

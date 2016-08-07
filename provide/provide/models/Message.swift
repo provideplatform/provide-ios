@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RestKit
+import JSQMessagesViewController
 
 class Message: Model {
     var body = ""

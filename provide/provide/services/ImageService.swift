@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SDWebImage
 
 typealias OnDownloadProgress = (receivedSize: Int, expectedSize: Int) -> ()
 typealias OnImageDownloadSuccess = (image: UIImage) -> ()

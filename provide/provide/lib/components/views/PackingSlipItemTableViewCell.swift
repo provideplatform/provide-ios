@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SWTableViewCell
 
 protocol PackingSlipItemTableViewCellDelegate {
     func segmentForPackingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell) -> PackingSlipViewController.Segment!

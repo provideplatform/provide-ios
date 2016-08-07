@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FontAwesomeKit
 
 @objc
 protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this is not named correctly. need an abstract WorkOrderComponent class and repurpose this hack as that delegate.
@@ -570,7 +571,7 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     }
 
     private func unwindManagedViewController(viewController: UIViewController) {
-        let segueIdentifier = ("\(NSStringFromClass((viewController as AnyObject).dynamicType))UnwindSegue" as String).splitAtString(".").1
+        let segueIdentifier = ("\(NSStringFromClass((viewController as AnyObject).dynamicType))UnwindSegue" as String).componentsSeparatedByString(".").last!
         let index = [
             "DirectionsViewControllerUnwindSegue",
             "WorkOrderAnnotationViewControllerUnwindSegue",

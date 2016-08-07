@@ -8,6 +8,8 @@
 
 import Foundation
 import JavaScriptCore
+import jetfire
+import KTSwiftExtensions
 
 class NotificationService: NSObject, JFRWebSocketDelegate {
 

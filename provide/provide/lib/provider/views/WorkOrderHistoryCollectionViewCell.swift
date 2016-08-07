@@ -19,7 +19,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
 
-    private var gravatarImageView: RFGravatarImageView!
+    private var gravatarImageView: UIImageView!
 
     private var timer: NSTimer!
 
@@ -70,7 +70,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 //                    self.gravatarImageView?.alpha = 0.0
                 //                }
                 //            } else {
-                //                let gravatarImageView = RFGravatarImageView(frame: avatarImageView.frame)
+                //                let gravatarImageView = UIImageView(frame: avatarImageView.frame)
                 //                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
                 //                gravatarImageView.load { error in
                 //                    gravatarImageView.makeCircular()
