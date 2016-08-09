@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import KTSwiftExtensions
 
 protocol ApplicationViewControllerDelegate {
     func dismissApplicationViewController(viewController: ApplicationViewController)

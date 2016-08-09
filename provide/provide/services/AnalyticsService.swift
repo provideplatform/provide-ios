@@ -8,11 +8,12 @@
 
 import Foundation
 import Analytics
+import KTSwiftExtensions
 
 class AnalyticsService: NSObject {
 
     private var analyticsEnabled: Bool {
-        return !isSimulator() && !(isRunningUnitTests() || isRunningKIFTests())
+        return !isSimulator() && !isRunningUnitTests()
     }
 
     private static let sharedInstance = AnalyticsService()

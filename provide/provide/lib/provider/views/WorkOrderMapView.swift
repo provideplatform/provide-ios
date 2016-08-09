@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KTSwiftExtensions
 
 class WorkOrderMapView: MapView {
 

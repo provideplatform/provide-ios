@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol MenuViewControllerDelegate {
     func navigationControllerForMenuViewController(menuViewController: MenuViewController) -> UINavigationController!
@@ -168,7 +169,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == lastSectionIndex {
-            return VersionHelper.fullVersion()
+            return KTVersionHelper.fullVersion()
         } else {
             return nil
         }

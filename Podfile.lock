@@ -15,7 +15,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JWTDecode (1.0.0)
-  - KTSwiftExtensions (0.10.0):
+  - KTSwiftExtensions (0.11.0):
     - Alamofire
     - AlamofireObjectMapper
     - JWTDecode (~> 1.0)
@@ -101,7 +101,7 @@ CHECKOUT OPTIONS:
     :commit: eac30313fee77f6db1b6832b1d4b7d8f2007b381
     :git: https://github.com/PrideChung/FontAwesomeKit.git
   KTSwiftExtensions:
-    :commit: ee7e216868d6d4700466b37e10b45c00e3019cc8
+    :commit: 1ccdaf725e313ccf4dfa2471261175698f54f828
     :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
@@ -118,7 +118,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
-  KTSwiftExtensions: 7c818ac0ec26d976c401f4cab9f909883299133e
+  KTSwiftExtensions: 618341fbf9a5bded006462f65b1c36f8d933e691
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
   OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b

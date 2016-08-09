@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol JobCreationViewControllerDelegate: NSObjectProtocol {
     func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job)

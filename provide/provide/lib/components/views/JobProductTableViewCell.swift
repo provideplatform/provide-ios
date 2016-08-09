@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 class JobProductTableViewCell: UITableViewCell {
 

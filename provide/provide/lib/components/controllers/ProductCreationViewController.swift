@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol ProductCreationViewControllerDelegate {
     func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product)

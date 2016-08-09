@@ -112,7 +112,6 @@
 		6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */; };
 		6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */; };
 		6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */; };
-		6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB691BF2863300AD3D79 /* Regex.swift */; };
 		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
 		685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */; };
 		685BCBDD1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */; };
@@ -134,7 +133,6 @@
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687B650E1C2431800088E539 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B650D1C2431800088E539 /* MenuItem.swift */; };
 		687B65121C2439210088E539 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
-		687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5881B07EEF00048B692 /* HelperFunctions.swift */; };
 		687CB5941B07F6020048B692 /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58C1B07F6020048B692 /* CheckinService.swift */; };
 		687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58E1B07F6020048B692 /* DirectionService.swift */; };
 		687CB59D1B07F6020048B692 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58F1B07F6020048B692 /* LocationService.swift */; };
@@ -227,7 +225,6 @@
 		68B730D11C1ADF4200549D95 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D01C1ADF4200549D95 /* DropboxSDK.framework */; };
 		68B730D31C1AE5F100549D95 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D21C1AE5F100549D95 /* DBChooser.framework */; };
 		68B730D51C1B4F0800549D95 /* JobInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */; };
-		68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C11B084DCF00863E21 /* VersionHelper.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
@@ -400,7 +397,6 @@
 		6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScrollView.swift; sourceTree = "<group>"; };
 		6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexView.swift; sourceTree = "<group>"; };
 		6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonLineView.swift; sourceTree = "<group>"; };
-		6845BB691BF2863300AD3D79 /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
 		685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanWorkOrdersViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FloorplanWorkOrders.storyboard; sourceTree = "<group>"; };
@@ -422,7 +418,6 @@
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687B650D1C2431800088E539 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		687B65111C2439210088E539 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
-		687CB5881B07EEF00048B692 /* HelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		687CB58C1B07F6020048B692 /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		687CB58E1B07F6020048B692 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
 		687CB58F1B07F6020048B692 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -515,7 +510,6 @@
 		68B730D01C1ADF4200549D95 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		68B730D21C1AE5F100549D95 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
 		68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobInventoryViewController.swift; sourceTree = "<group>"; };
-		68B978C11B084DCF00863E21 /* VersionHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionHelper.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -706,9 +700,6 @@
 				5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */,
 				68B412B01B08063B009A4C05 /* AppearenceProxy.swift */,
 				68B4128A1B08036F009A4C05 /* Color.swift */,
-				6845BB691BF2863300AD3D79 /* Regex.swift */,
-				687CB5881B07EEF00048B692 /* HelperFunctions.swift */,
-				68B978C11B084DCF00863E21 /* VersionHelper.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -1583,7 +1574,6 @@
 				68E218121C3BB663007CEF03 /* JobService.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
-				687CB5891B07EEF00048B692 /* HelperFunctions.swift in Sources */,
 				68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */,
 				681416EE1B8457870076BFBD /* Origin.swift in Sources */,
 				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
@@ -1611,7 +1601,6 @@
 				687B650E1C2431800088E539 /* MenuItem.swift in Sources */,
 				6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */,
 				681416E61B8457870076BFBD /* Comment.swift in Sources */,
-				68B978C21B084DCF00863E21 /* VersionHelper.swift in Sources */,
 				681416E91B8457870076BFBD /* Customer.swift in Sources */,
 				68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
@@ -1703,7 +1692,6 @@
 				6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */,
 				68B412C21B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
 				68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
-				6845BB6A1BF2863300AD3D79 /* Regex.swift in Sources */,
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				689C791B1CD4FA230018F583 /* FloorplanSelectorViewController.swift in Sources */,
 				68E329551C04394200DC297A /* FloorplanThumbnailViewController.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import UIKit
 import SWTableViewCell
+import KTSwiftExtensions
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
     func workOrderCreationViewControllerForDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!
@@ -274,7 +275,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 specificProviders += ", \(provider.contact.name)"
                 i += 1
             }
-            let matches = Regex.match("^, ", input: specificProviders)
+            let matches = KTRegex.match("^, ", input: specificProviders)
             if matches.count > 0 {
                 let match = matches[0]
                 let range = specificProviders.startIndex.advancedBy(match.range.length)..<specificProviders.endIndex

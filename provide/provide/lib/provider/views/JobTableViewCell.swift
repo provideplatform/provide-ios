@@ -8,6 +8,7 @@
 
 import UIKit
 import SWTableViewCell
+import KTSwiftExtensions
 
 protocol JobTableViewCellDelegate {
     func jobTableViewCell(tableViewCell: JobTableViewCell, shouldCancelJob job: Job)

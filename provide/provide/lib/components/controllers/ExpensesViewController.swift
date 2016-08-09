@@ -8,6 +8,7 @@
 
 import UIKit
 import FontAwesomeKit
+import KTSwiftExtensions
 
 @objc
 protocol ExpensesViewControllerDelegate {

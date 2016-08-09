@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KTSwiftExtensions
 
 typealias OnRoutesFetched = (routes: [Route]) -> ()
 typealias OnWorkOrderDrivingDirectionsFetched = (workOrder: WorkOrder, directions: Directions) -> ()

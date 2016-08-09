@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import KTSwiftExtensions
 
 protocol BarcodeScannerViewDelegate: NSObjectProtocol {
     func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)

@@ -8,6 +8,7 @@
 
 import UIKit
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol JobManagerViewControllerDelegate: NSObjectProtocol {
     func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int

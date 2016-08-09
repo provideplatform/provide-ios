@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         DBSession.setSharedSession(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
 
-        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(VersionHelper.fullVersion())"])
+        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
 
         RKLogConfigureFromEnvironment()
 

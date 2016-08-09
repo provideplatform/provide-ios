@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 @objc
 protocol DurationPickerViewDelegate {

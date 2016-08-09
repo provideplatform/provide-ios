@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import KTSwiftExtensions
 
 protocol SetPasswordViewControllerDelegate {
     func setPasswordViewController(viewController: SetPasswordViewController, didSetPassword success: Bool)
@@ -43,7 +44,7 @@ class SetPasswordViewController: ViewController,
                 confirmField?.resignFirstResponder()
             }
         default:
-            assertUnhandledSegue(segue.identifier)
+            logInfo("Attempted unhandled segue")
         }
     }
 

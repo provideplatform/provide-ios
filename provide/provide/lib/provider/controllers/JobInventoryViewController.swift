@@ -8,6 +8,7 @@
 
 import UIKit
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol JobInventoryViewControllerDelegate: NSObjectProtocol {
     func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job!

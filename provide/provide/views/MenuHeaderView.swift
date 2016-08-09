@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import KTSwiftExtensions
 
 protocol MenuHeaderViewDelegate {
     func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController!

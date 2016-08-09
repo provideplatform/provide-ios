@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanSelectorViewDelegate {
     func jobForFloorplanSelectorView(selectorView: FloorplanSelectorView) -> Job!

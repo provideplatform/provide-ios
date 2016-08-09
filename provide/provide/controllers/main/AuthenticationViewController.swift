@@ -241,7 +241,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
                 passwordField?.resignFirstResponder()
             }
         default:
-            assertUnhandledSegue(segue.identifier)
+            logInfo("Attempted unhandled segue")
         }
     }
 

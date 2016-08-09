@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanPolygonViewDelegate: NSObjectProtocol {
     func floorplanScaleForFloorplanPolygonView(view: FloorplanPolygonView) -> CGFloat!

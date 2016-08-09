@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
 //
 
+import KTSwiftExtensions
+
 enum PushNotificationType: String {
     case Attachment = "attachment_id"
     case Checkin = "checkin"

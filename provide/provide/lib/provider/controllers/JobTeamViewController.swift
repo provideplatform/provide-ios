@@ -8,6 +8,7 @@
 
 import UIKit
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol JobTeamViewControllerDelegate: NSObjectProtocol {
     func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job!

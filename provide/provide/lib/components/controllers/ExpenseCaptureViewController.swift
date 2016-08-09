@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import KTSwiftExtensions
 
 protocol ExpenseCaptureViewControllerDelegate {
     func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model
@@ -26,7 +27,7 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
 
     private var recognizedAmount: Double {
         for recognizedText in recognizedTexts.reverse() {
-            let matches = Regex.match("\\d+\\.\\d{2}", input: recognizedText)
+            let matches = KTRegex.match("\\d+\\.\\d{2}", input: recognizedText)
             if matches.count > 0 {
                 let match = matches[0]
                 let range = recognizedText.startIndex.advancedBy(match.range.length)..<recognizedText.endIndex

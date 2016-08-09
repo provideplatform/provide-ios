@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol WorkOrderCreationViewControllerDelegate {
     func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int

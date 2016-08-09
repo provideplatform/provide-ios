@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanThumbnailViewDelegate: NSObjectProtocol {
     func floorplanThumbnailViewNavigationBegan(view: FloorplanThumbnailView)

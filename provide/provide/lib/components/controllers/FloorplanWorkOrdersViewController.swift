@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanWorkOrdersViewControllerDelegate {
     func jobForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Job!

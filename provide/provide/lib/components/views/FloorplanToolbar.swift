@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanToolbarDelegate: NSObjectProtocol {
     func floorplanForFloorplanToolbar(toolbar: FloorplanToolbar) -> Floorplan

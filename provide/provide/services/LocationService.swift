@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KTSwiftExtensions
 
 typealias OnHeadingResolved = (CLHeading) -> ()
 typealias OnLocationResolved = (CLLocation) -> ()

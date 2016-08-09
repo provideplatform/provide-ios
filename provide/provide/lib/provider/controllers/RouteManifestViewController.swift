@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import KTSwiftExtensions
 
 protocol RouteManifestViewControllerDelegate {
     func targetViewForViewController(viewController: UIViewController) -> UIView

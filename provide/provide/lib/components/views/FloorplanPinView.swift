@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol FloorplanPinViewDelegate: NSObjectProtocol {
     func categoryForFloorplanPinView(view: FloorplanPinView) -> Category!

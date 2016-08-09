@@ -7,6 +7,7 @@
 //
 
 import MapKit
+import KTSwiftExtensions
 
 class AnnotationView: MKAnnotationView {
 
