@@ -163,6 +163,8 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     private func setUserDefaultProfileImage(image: UIImage) {
+        profileImageView.image = nil
+        profileImageView.alpha = 0.0
         profileImageUrl = nil
 
         ApiService.sharedService().setUserDefaultProfileImage(image,

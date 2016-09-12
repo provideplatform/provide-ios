@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.4.1)
+  - Alamofire (3.5.0)
   - AlamofireObjectMapper (3.0.2):
     - Alamofire (~> 3.2)
     - ObjectMapper (~> 1.0)
@@ -14,8 +14,8 @@ PODS:
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - JWTDecode (1.0.0)
-  - KTSwiftExtensions (0.11.0):
+  - JWTDecode (1.1.0)
+  - KTSwiftExtensions (0.18.0):
     - Alamofire
     - AlamofireObjectMapper
     - JWTDecode (~> 1.0)
@@ -101,14 +101,14 @@ CHECKOUT OPTIONS:
     :commit: eac30313fee77f6db1b6832b1d4b7d8f2007b381
     :git: https://github.com/PrideChung/FontAwesomeKit.git
   KTSwiftExtensions:
-    :commit: 1ccdaf725e313ccf4dfa2471261175698f54f828
+    :commit: 5b91101da7f3e116013410695cc3ce6b0460e243
     :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
     :git: https://github.com/kthomas/SWTableViewCell.git
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
   AlamofireObjectMapper: 70f97cbf45c01c48d26aa07a1a7059a60ed7411d
   Analytics: b342fb4f43fa4f97ca6f4358b44d3295217ba294
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
@@ -117,8 +117,8 @@ SPEC CHECKSUMS:
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  JWTDecode: d172edcb1607cc15aed85d58eceedcbb675a4534
-  KTSwiftExtensions: 618341fbf9a5bded006462f65b1c36f8d933e691
+  JWTDecode: a6b91ad0bc798c723e9a29a368a6ead70edf7213
+  KTSwiftExtensions: 2a8864804c34d430d99b45f5fa998b1e6e22986b
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
   OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b

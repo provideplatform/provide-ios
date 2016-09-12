@@ -10,6 +10,8 @@ import Foundation
 import RestKit
 import KTSwiftExtensions
 import Alamofire
+import AlamofireObjectMapper
+import ObjectMapper
 import JWTDecode
 
 typealias OnSuccess = (statusCode: Int, mappingResult: RKMappingResult!) -> ()
@@ -298,7 +300,7 @@ class ApiService: NSObject {
         )
     }
 
-    func setUserDefaultProfileImage(image: UIImage, onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
+    func setUserDefaultProfileImage(image: UIImage, onSuccess: OnSuccess, onError: OnError) {
         let params = [
             "public": false,
             "tags": ["profile_image", "default"]
@@ -306,7 +308,7 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        return ApiService.sharedService().addAttachment(data!,
+        ApiService.sharedService().addAttachment(data!,
             withMimeType: "image/jpg",
             toUserWithId: String(currentUser().id),
             params: params,
@@ -330,32 +332,48 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
+    func addAttachment(data: NSData, withMimeType mimeType: String, usingPresignedS3RequestURL presignedS3RequestURL: NSURL, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        var metadata = [String : String]()
         if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
+            metadata["tags"] = (tags as! [String]).joinWithSeparator(",")
         }
-        return dispatchApiOperationForPath("users/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
+        KTS3Service.presign(presignedS3RequestURL, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata, headers: self.headers,
+            successHandler: { object in
+                let response = try? NSJSONSerialization.JSONObjectWithData(object! as! NSData, options: [])
+                let map = Map(mappingType: .FromJSON,
+                    JSONDictionary: response as! [String : AnyObject],
+                    toObject: true,
+                    context: nil)
 
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: attachment!.fields as! [String : AnyObject],
-                    onSuccess: { statusCode, mappingResult in
+                let presignedRequest = KTPresignedS3Request()
+                presignedRequest.mapping(map)
+
+                KTS3Service.upload(presignedRequest, data: data, withMimeType: mimeType,
+                    successHandler: { object in
                         var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
+                        realParams.updateValue(presignedRequest.fields!["key"]!, forKey: "key")
                         realParams.updateValue(mimeType, forKey: "mime_type")
 
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
+                        let url = "\(presignedRequest.url)\(presignedRequest.fields!["key"]!)"
                         realParams.updateValue(url, forKey: "url")
 
-                        self.dispatchApiOperationForPath("users/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
+                        let createAttachmentUri = presignedS3RequestURL.path!.replaceString("/api/", withString: "").replaceString("/attachments/new", withString: "/attachments")
+                        self.dispatchApiOperationForPath(createAttachmentUri, method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
                     },
-                    onError: onError
+                    failureHandler: { response, object, error in
+                        onError(error: error!, statusCode: (response?.statusCode)!, responseString: object! as! String)
+                    }
                 )
             },
-            onError: onError
+            failureHandler: { response, object, error in
+                onError(error: error!, statusCode: (response?.statusCode)!, responseString: object! as! String)
+            }
         )
+    }
+
+    func addAttachment(data: NSData, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/users/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func updateAttachmentWithId(id: String, onUserWithId userId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -554,32 +572,9 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("work_orders/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
-
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                    onSuccess: { statusCode, mappingResult in
-                        var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                        realParams.updateValue(mimeType, forKey: "mime_type")
-
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.updateValue(url, forKey: "url")
-
-                        self.dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    onError: onError
-                )
-            },
-            onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/work_orders/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func updateAttachmentWithId(id: String, onWorkOrderWithId workOrderId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -624,32 +619,9 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments/\(id)/attachments/new", method: .GET, params: presignParams,
-                                           onSuccess: { statusCode, mappingResult in
-                                            assert(statusCode == 200)
-                                            let attachment = mappingResult.firstObject as? Attachment
-
-                                            self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                                                onSuccess: { statusCode, mappingResult in
-                                                    var realParams = params
-                                                    realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                                                    realParams.updateValue(mimeType, forKey: "mime_type")
-
-                                                    let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                                                    realParams.updateValue(url, forKey: "url")
-
-                                                    self.dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                                                },
-                                                onError: onError
-                                            )
-            },
-                                           onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/\(commentableType)s/\(commentableId)/comments/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Products API
@@ -763,32 +735,9 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("floorplans/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
-
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                    onSuccess: { statusCode, mappingResult in
-                        var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                        realParams.updateValue(mimeType, forKey: "mime_type")
-
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.updateValue(url, forKey: "url")
-
-                        self.dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    onError: onError
-                )
-            },
-            onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/floorplans/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func addAttachmentFromSourceUrl(sourceUrl: NSURL, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -834,32 +783,9 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("jobs/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("jobs/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
-
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                    onSuccess: { statusCode, mappingResult in
-                        var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                        realParams.updateValue(mimeType, forKey: "mime_type")
-
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.updateValue(url, forKey: "url")
-
-                        self.dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    onError: onError
-                )
-            },
-            onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/jobs/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func addAttachmentFromSourceUrl(sourceUrl: NSURL, toJobWithId id: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -892,32 +818,9 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
-
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                    onSuccess: { statusCode, mappingResult in
-                        var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                        realParams.updateValue(mimeType, forKey: "mime_type")
-
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.updateValue(url, forKey: "url")
-
-                        self.dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    onError: onError
-                )
-            },
-            onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/estimates/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     func updateAttachmentWithId(id: String, forEstimateWithId estimateId: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
@@ -938,32 +841,9 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(data: NSData, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
-        var presignParams: [String : AnyObject] = ["filename": "upload.\(mimeMappings[mimeType]!)"]
-        if let tags = params["tags"] {
-            presignParams["metadata"] = "{\"tags\": \"\((tags as! [String]).joinWithSeparator(","))\"}"
-        }
-        return dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new", method: .GET, params: presignParams,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let attachment = mappingResult.firstObject as? Attachment
-
-                self.uploadToS3(attachment!.url, data: data, withMimeType: mimeType, params: (attachment!.fields as! [String : AnyObject]),
-                    onSuccess: { statusCode, mappingResult in
-                        var realParams = params
-                        realParams.updateValue(attachment!.fields["key"]!, forKey: "key")
-                        realParams.updateValue(mimeType, forKey: "mime_type")
-
-                        let url = attachment!.urlString + (attachment!.fields.objectForKey("key") as! String)
-                        realParams.updateValue(url, forKey: "url")
-
-                        self.dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses/\(id)/attachments", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    onError: onError
-                )
-            },
-            onError: onError
-        )
+    func addAttachment(data: NSData, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+        let presignedS3RequestURL = NSURL("\(CurrentEnvironment.apiBaseUrlString)/api/\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new")!
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API
@@ -974,23 +854,6 @@ class ApiService: NSObject {
 
     func createMessage(params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) -> RKObjectRequestOperation! {
         return dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: S3
-
-    func uploadToS3(url: NSURL, data: NSData, withMimeType mimeType: String, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
-        let presignedS3Request = KTPresignedS3Request()
-        presignedS3Request.url = url.absoluteString
-
-        KTS3Service.upload(presignedS3Request, data: data, withMimeType: mimeType,
-            successHandler: { response in
-                let statusCode = response!.response!.statusCode
-                onSuccess(statusCode: statusCode, mappingResult: nil)
-            },
-            failureHandler: { response, statusCode, error in
-                onError(error: error!, statusCode: response!.statusCode, responseString: "")
-            }
-        )
     }
 
     // MARK: Private methods
