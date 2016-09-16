@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -11,32 +11,32 @@ import AVFoundation
 import KTSwiftExtensions
 
 protocol BarcodeScannerViewDelegate: NSObjectProtocol {
-    func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
-    func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect
+    func barcodeScannerView(_ barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    func rectOfInterestForBarcodeScannerView(_ barcodeScannerView: BarcodeScannerView) -> CGRect
 }
 
 class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
     weak var delegate: BarcodeScannerViewDelegate!
 
-    private let avMetadataOutputQueue = dispatch_queue_create("api.avMetadataOutputQueue", nil)
+    fileprivate let avMetadataOutputQueue = DispatchQueue(label: "api.avMetadataOutputQueue", attributes: [])
 
-    private var captureInput: AVCaptureInput!
-    private var captureSession: AVCaptureSession!
+    fileprivate var captureInput: AVCaptureInput!
+    fileprivate var captureSession: AVCaptureSession!
 
-    private var capturePreviewLayer = AVCaptureVideoPreviewLayer()
-    private let codeDetectionLayer = CALayer()
+    fileprivate var capturePreviewLayer = AVCaptureVideoPreviewLayer()
+    fileprivate let codeDetectionLayer = CALayer()
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        opaque = false
-        backgroundColor = UIColor.clearColor()
+        isOpaque = false
+        backgroundColor = UIColor.clear
     }
 
     var isRunning: Bool {
         if let captureSession = captureSession {
-            return captureSession.running
+            return captureSession.isRunning
         }
         return false
     }
@@ -46,10 +46,10 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             return
         }
 
-        if let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo) {
+        if let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) {
             do {
                 try device.lockForConfiguration()
-                device.focusMode = .ContinuousAutoFocus
+                device.focusMode = .continuousAutoFocus
                 device.unlockForConfiguration()
             } catch let error as NSError {
                 logWarn(error.localizedDescription)
@@ -64,7 +64,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
                 var rectOfInterest = bounds
                 if let customRectOfInterest = delegate?.rectOfInterestForBarcodeScannerView(self) {
-                    if customRectOfInterest != CGRectZero {
+                    if customRectOfInterest != CGRect.zero {
                         rectOfInterest = customRectOfInterest
                     }
                 }
@@ -105,7 +105,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
             captureSession = nil
         }
 
-        if NSThread.isMainThread() {
+        if Thread.isMainThread {
             clearDetectedMetadataObjects()
         } else {
             dispatch_after_delay(0.0) {
@@ -116,7 +116,7 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate
 
-    func captureOutput(captureOutput: AVCaptureOutput, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
+    fileprivate func captureOutput(_ captureOutput: AVCaptureOutput, didOutputMetadataObjects metadataObjects: [AnyObject], from connection: AVCaptureConnection) {
         dispatch_after_delay(0.0) {
             self.clearDetectedMetadataObjects()
             self.showDetectedMetadataObjects(metadataObjects)
@@ -125,40 +125,40 @@ class BarcodeScannerView: UIView, AVCaptureMetadataOutputObjectsDelegate {
         delegate?.barcodeScannerView(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
     }
 
-    private func clearDetectedMetadataObjects() {
+    fileprivate func clearDetectedMetadataObjects() {
         codeDetectionLayer.sublayers = nil
     }
 
-    private func showDetectedMetadataObjects(metadataObjects: [AnyObject]) {
+    fileprivate func showDetectedMetadataObjects(_ metadataObjects: [AnyObject]) {
         for object in metadataObjects {
             if let machineReadableCodeObject = object as? AVMetadataMachineReadableCodeObject {
-                if let detectedCode = capturePreviewLayer.transformedMetadataObjectForMetadataObject(machineReadableCodeObject) as? AVMetadataMachineReadableCodeObject {
+                if let detectedCode = capturePreviewLayer.transformedMetadataObject(for: machineReadableCodeObject) as? AVMetadataMachineReadableCodeObject {
                     let shapeLayer = CAShapeLayer()
-                    shapeLayer.strokeColor = UIColor.greenColor().CGColor
-                    shapeLayer.fillColor = UIColor.clearColor().CGColor
+                    shapeLayer.strokeColor = UIColor.green.cgColor
+                    shapeLayer.fillColor = UIColor.clear.cgColor
                     shapeLayer.lineWidth = 2.0
                     shapeLayer.lineJoin = kCALineJoinRound
-                    shapeLayer.path = createPathForPoints(detectedCode.corners)
+                    shapeLayer.path = createPathForPoints(detectedCode.corners as NSArray)
                     codeDetectionLayer.addSublayer(shapeLayer)
                 }
             }
         }
     }
 
-    private func createPathForPoints(points: NSArray) -> CGPath {
-        let path = CGPathCreateMutable()
-        var point = CGPointZero
+    fileprivate func createPathForPoints(_ points: NSArray) -> CGPath {
+        let path = CGMutablePath()
+        var point = CGPoint.zero
 
         if points.count > 0 {
-            CGPointMakeWithDictionaryRepresentation((points[0] as! CFDictionaryRef), &point)
-            CGPathMoveToPoint(path, nil, point.x, point.y)
+            point = CGPoint(dictionaryRepresentation: (points[0] as! CFDictionary))!
+            path.move(to: point)
 
             for pointInArray in points {
-                CGPointMakeWithDictionaryRepresentation((pointInArray as! CFDictionaryRef), &point)
-                CGPathAddLineToPoint(path, nil, point.x, point.y)
+                point = CGPoint(dictionaryRepresentation: (pointInArray as! CFDictionary))!
+                path.addLine(to: point)
             }
 
-            CGPathCloseSubpath(path)
+            path.closeSubpath()
         }
 
         return path

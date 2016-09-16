@@ -3,14 +3,14 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class WorkOrderAnnotationView: AnnotationView {
 
-    private let defaultPadding = UIEdgeInsetsMake(5, 0, 100, 0)
+    fileprivate let defaultPadding = UIEdgeInsetsMake(5, 0, 100, 0)
 
     var minutesEta: Int! {
         didSet {
@@ -25,22 +25,22 @@ class WorkOrderAnnotationView: AnnotationView {
         }
     }
 
-    @IBOutlet private weak var pinPointerView: UIView!
+    @IBOutlet fileprivate weak var pinPointerView: UIView!
 
-    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
 
-    @IBOutlet private weak var travelMinutesLabelView: UILabel!
-    @IBOutlet private weak var travelTimeUnitsLabelView: UILabel!
-    @IBOutlet private weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var travelMinutesLabelView: UILabel!
+    @IBOutlet fileprivate weak var travelTimeUnitsLabelView: UILabel!
+    @IBOutlet fileprivate weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
         canShowCallout = false
-        draggable = false
+        isDraggable = false
 
-        opaque = false
-        backgroundColor = UIColor.clearColor()
+        isOpaque = false
+        backgroundColor = UIColor.clear
 
         selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
         unselectedBackgroundColor = resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
@@ -51,7 +51,7 @@ class WorkOrderAnnotationView: AnnotationView {
 
         pinPointerView.backgroundColor = unselectedBackgroundColor
         pinPointerView.addDropShadow()
-        sendSubviewToBack(pinPointerView)
+        sendSubview(toBack: pinPointerView)
 
         travelMinutesLabelView.alpha = 0
 
@@ -67,20 +67,20 @@ class WorkOrderAnnotationView: AnnotationView {
         travelEtaActivityIndicatorView.startAnimating()
     }
 
-    private func backgroundImageForRect(rect: CGRect) -> UIImage {
+    fileprivate func backgroundImageForRect(_ rect: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0.0)
         let image = Color.annotationViewBackgroundImage()
-        image.drawInRect(rect)
+        image.draw(in: rect)
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return resizedImage
+        return resizedImage!
     }
 
-    private func resizedBackgroundColorForRect(rect: CGRect) -> UIColor {
-        return UIColor(patternImage: backgroundImageForRect(rect)).colorWithAlphaComponent(0.70)
+    fileprivate func resizedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
+        return UIColor(patternImage: backgroundImageForRect(rect)).withAlphaComponent(0.70)
     }
 
-    private func resizedSelectedBackgroundColorForRect(rect: CGRect) -> UIColor {
-        return UIColor(patternImage: backgroundImageForRect(rect)).colorWithAlphaComponent(0.90)
+    fileprivate func resizedSelectedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
+        return UIColor(patternImage: backgroundImageForRect(rect)).withAlphaComponent(0.90)
     }
 }

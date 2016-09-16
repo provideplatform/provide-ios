@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -33,14 +33,14 @@ class WorkOrderMapView: MapView {
         }
     }
 
-    private var userLocationImageView: UIImageView {
+    fileprivate var userLocationImageView: UIImageView {
         let imageView: UIImageView
 
         if let profileImageUrl = currentUser().profileImageUrl {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             imageView.alpha = 0.0
-            imageView.sd_setImageWithURL(profileImageUrl) { image, error, cacheType, url in
+            imageView.sd_setImage(with: profileImageUrl as URL) { image, error, cacheType, url in
                 imageView.makeCircular()
                 imageView.alpha = 1
             }
@@ -57,7 +57,7 @@ class WorkOrderMapView: MapView {
         return imageView
     }
 
-    private var viewingDirections: Bool {
+    fileprivate var viewingDirections: Bool {
         if let delegate = directionsViewControllerDelegate {
             return delegate.isPresentingDirections()
         }
@@ -89,7 +89,7 @@ class WorkOrderMapView: MapView {
         removeAnnotations(nonUserAnnotations)
     }
 
-    override func revealMap(force: Bool = false) {
+    override func revealMap(_ force: Bool = false) {
         super.revealMap(force,
             animations: {
                 self.alpha = 1
@@ -100,7 +100,7 @@ class WorkOrderMapView: MapView {
 
     // MARK: MKMapViewDelegate
 
-    override func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+    override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
         if fullyRendered {
             if let mode = directionsViewControllerDelegate?.mapViewUserTrackingMode(mapView) {
@@ -109,22 +109,22 @@ class WorkOrderMapView: MapView {
         }
     }
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         var view: MKAnnotationView?
 
         if annotation is MKUserLocation {
-            view = mapView.dequeueReusableAnnotationViewWithIdentifier(userLocationAnnotationViewReuseIdentifier)
+            view = mapView.dequeueReusableAnnotationView(withIdentifier: userLocationAnnotationViewReuseIdentifier)
             if view == nil || updateUserLocationAnnotation {
                 updateUserLocationAnnotation = false
 
                 let imageView = userLocationImageView
 
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
-                view?.centerOffset = CGPointMake(0, (imageView.bounds.height / 2.0) * -1.0);
+                view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
                 view?.addSubview(imageView)
             }
         } else {
-            view = mapView.dequeueReusableAnnotationViewWithIdentifier(defaultAnnotationViewReuseIdentifier)
+            view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)
             if view == nil {
                 view = workOrdersViewControllerDelegate?.annotationViewForMapView?(mapView, annotation: annotation)
 
@@ -138,23 +138,23 @@ class WorkOrderMapView: MapView {
         return view
     }
 
-    func mapViewWillStartLocatingUser(mapView: MKMapView) {
+    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
     }
 
-    override func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
-        super.mapView(mapView, didUpdateUserLocation: userLocation)
+        super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
-    func mapViewDidStopLocatingUser(mapView: MKMapView) {
+    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
     }
 
-    func mapView(mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
+    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
         logWarn("MapView failed to locate user")
     }
 
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         var renderer: MKOverlayRenderer!
 
         if let route = overlay as? MKPolyline {
@@ -166,11 +166,11 @@ class WorkOrderMapView: MapView {
         return renderer
     }
 
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
 
     }
 
-    func mapViewDidUpdateUserLocation(mapView: MapView, location: CLLocation) {
+    func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {
         log("Map view updated user location: \(location)")
 
         if mapView.alpha == 0 {
@@ -201,17 +201,17 @@ class WorkOrderMapView: MapView {
             mapView.setCenterCoordinate(location.coordinate,
                 fromEyeCoordinate: mapView.centerCoordinate,
                 eyeAltitude: mapView.camera.altitude,
-                heading: mapView.camera.heading,
                 pitch: mapView.camera.pitch,
+                heading: mapView.camera.heading,
                 animated: false)
         }
     }
 
-    func mapViewDidFailToUpdateUserLocation(mapView: MapView, error: NSError) {
+    func mapViewDidFailToUpdateUserLocation(_ mapView: MapView, error: NSError) {
         logWarn("Map view failed to update user location")
     }
 
-    func mapViewShouldRefreshVisibleMapRect(mapView: MKMapView, animated: Bool = false) {
+    func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
     }

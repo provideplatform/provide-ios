@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 5/25/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,13 +12,13 @@ import JSQMessagesViewController
 
 class Message: Model {
     var body = ""
-    var createdAt: NSDate!
+    var createdAt: Date!
     var id = 0
     var recipientId = 0
     var recipientName: String!
     var senderID = 0
     var senderName: String!
-    var senderProfileImageUrl: NSURL!
+    var senderProfileImageUrl: URL!
 
     convenience init(text: String, recipientId: Int) {
         self.init()
@@ -28,9 +28,9 @@ class Message: Model {
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
+        let mapping = RKObjectMapping(for: self)
 
-        mapping.addAttributeMappingsFromArray([
+        mapping?.addAttributeMappings(from: [
             "body",
             "created_at",
             "id",
@@ -42,11 +42,11 @@ class Message: Model {
         )
 
         // sender_id does not follow camel case convention
-        mapping.addAttributeMappingsFromDictionary([
+        mapping?.addAttributeMappings(from: [
             "sender_id": "senderID",
             ]
         )
-        return mapping
+        return mapping!
     }
 }
 
@@ -63,7 +63,7 @@ extension Message: JSQMessageData {
         return senderName
     }
 
-    func date() -> NSDate {
+    func date() -> Date {
         return createdAt
     }
 
@@ -72,7 +72,7 @@ extension Message: JSQMessageData {
     }
 
     func messageHash() -> UInt {
-        let hash = senderId().hash ^ date().hash ^ text().hash
+        let hash = senderId().hash ^ (date() as NSDate).hash ^ text().hash
         return UInt(abs(hash))
     }
 }

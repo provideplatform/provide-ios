@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,17 +12,17 @@ import KTSwiftExtensions
 class JobFloorplansViewController: ViewController,
                                    FloorplansPageViewControllerDelegate {
 
-    private var floorplanPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+    fileprivate var floorplanPreviewBackgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
 
-    @IBOutlet private weak var floorplanPreviewContainerView: UIView! {
+    @IBOutlet fileprivate weak var floorplanPreviewContainerView: UIView! {
         didSet {
             if let floorplanPreviewContainerView = floorplanPreviewContainerView {
                 floorplanPreviewContainerView.backgroundColor = floorplanPreviewBackgroundColor
             }
         }
     }
-    @IBOutlet private weak var floorplanActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var floorplanPreviewStatusLabel: UILabel! {
+    @IBOutlet fileprivate weak var floorplanActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var floorplanPreviewStatusLabel: UILabel! {
         didSet {
             if let floorplanPreviewStatusLabel = floorplanPreviewStatusLabel {
                 floorplanPreviewStatusLabel.text = ""
@@ -31,24 +31,24 @@ class JobFloorplansViewController: ViewController,
         }
     }
 
-    @IBOutlet private weak var floorplanPreviewImageView: UIImageView!
+    @IBOutlet fileprivate weak var floorplanPreviewImageView: UIImageView!
 
-    @IBOutlet private weak var floorplanPagesContainerView: UIView!
-    @IBOutlet private weak var estimatesContainerView: UIView!
-    @IBOutlet private weak var floorplansContainerView: UIView!
+    @IBOutlet fileprivate weak var floorplanPagesContainerView: UIView!
+    @IBOutlet fileprivate weak var estimatesContainerView: UIView!
+    @IBOutlet fileprivate weak var floorplansContainerView: UIView!
 
-    @IBOutlet private weak var importInstructionsContainerView: UIView!
-    @IBOutlet private weak var importInstructionsLabel: UILabel!
+    @IBOutlet fileprivate weak var importInstructionsContainerView: UIView!
+    @IBOutlet fileprivate weak var importInstructionsLabel: UILabel!
 
-    @IBOutlet private weak var importFromDropboxIconButton: UIButton!
-    @IBOutlet private weak var importFromDropboxTextButton: UIButton!
+    @IBOutlet fileprivate weak var importFromDropboxIconButton: UIButton!
+    @IBOutlet fileprivate weak var importFromDropboxTextButton: UIButton!
 
-    private weak var floorplansPageViewController: FloorplansPageViewController!
-    private weak var floorplanViewController: FloorplanViewController!
+    fileprivate weak var floorplansPageViewController: FloorplansPageViewController!
+    fileprivate weak var floorplanViewController: FloorplanViewController!
 
-    private var reloadingFloorplan = false
-    private var reloadingJob = false
-    private var importedPdfAttachment: Attachment! {
+    fileprivate var reloadingFloorplan = false
+    fileprivate var reloadingJob = false
+    fileprivate var importedPdfAttachment: Attachment! {
         didSet {
             if let _ = importedPdfAttachment {
                 hideDropbox()
@@ -56,23 +56,23 @@ class JobFloorplansViewController: ViewController,
             }
         }
     }
-    private var importedPngAttachment: Attachment! {
+    fileprivate var importedPngAttachment: Attachment! {
         didSet {
             if let _ = importedPngAttachment {
                 importStatus = "Generating high-fidelity representation (this may take up to a few minutes)"
             }
         }
     }
-    private var importStatus: String! {
+    fileprivate var importStatus: String! {
         didSet {
             if let importStatus = importStatus {
-                view.sendSubviewToBack(importInstructionsContainerView)
+                view.sendSubview(toBack: importInstructionsContainerView)
                 importInstructionsContainerView.alpha = 0.0
 
                 floorplanActivityIndicatorView.startAnimating()
                 floorplanPreviewStatusLabel?.text = importStatus
                 floorplanPreviewStatusLabel?.alpha = 1.0
-                floorplanPreviewContainerView?.bringSubviewToFront(floorplanPreviewStatusLabel)
+                floorplanPreviewContainerView?.bringSubview(toFront: floorplanPreviewStatusLabel)
                 floorplanPreviewContainerView?.alpha = 1.0
             } else {
                 floorplanPreviewStatusLabel?.text = ""
@@ -83,16 +83,14 @@ class JobFloorplansViewController: ViewController,
     var job: Job! {
         didSet {
             if let _ = job {
-                if viewLoaded {
+                if isViewLoaded {
                     refresh()
                 }
             }
         }
     }
 
-    private var viewLoaded = false
-
-    private var floorplanImportTimer: NSTimer!
+    fileprivate var floorplanImportTimer: Timer!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -107,19 +105,19 @@ class JobFloorplansViewController: ViewController,
 
         importInstructionsLabel?.text = ""
         importInstructionsContainerView?.alpha = 0.0
-        importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
+        importInstructionsContainerView?.superview?.bringSubview(toFront: importInstructionsContainerView)
 
         estimatesContainerView?.alpha = 0.0
-        estimatesContainerView?.superview?.bringSubviewToFront(estimatesContainerView)
+        estimatesContainerView?.superview?.bringSubview(toFront: estimatesContainerView)
 
         floorplansContainerView?.alpha = 0.0
-        floorplansContainerView?.superview?.bringSubviewToFront(floorplansContainerView)
+        floorplansContainerView?.superview?.bringSubview(toFront: floorplansContainerView)
 
         floorplanPreviewImageView?.alpha = 0.0
-        floorplanPreviewImageView?.contentMode = .ScaleAspectFit
+        floorplanPreviewImageView?.contentMode = .scaleAspectFit
 
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
-            importFromDropboxButton.addTarget(self, action: #selector(JobFloorplansViewController.importFromDropbox(_:)), forControlEvents: .TouchUpInside)
+            importFromDropboxButton?.addTarget(self, action: #selector(JobFloorplansViewController.importFromDropbox(_:)), for: .touchUpInside)
         }
 
         hideDropbox()
@@ -127,11 +125,9 @@ class JobFloorplansViewController: ViewController,
         if job != nil {
             refresh()
         }
-
-        viewLoaded = true
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         teardownFloorplanViewController()
@@ -142,6 +138,7 @@ class JobFloorplansViewController: ViewController,
         return teardownFloorplanViewController()
     }
 
+    @discardableResult
     func teardownFloorplanViewController() -> UIImage? {
         return floorplanViewController?.teardown()
     }
@@ -152,7 +149,7 @@ class JobFloorplansViewController: ViewController,
                 reloadingJob = true
 
                 job.reload(
-                    onSuccess: { statusCode, mappingResult in
+                    { statusCode, mappingResult in
                         self.floorplansPageViewController?.resetViewControllers()
                         self.reloadingJob = false
 
@@ -177,11 +174,11 @@ class JobFloorplansViewController: ViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "FloorplansPageViewControllerEmbedSegue" {
-            floorplansPageViewController = segue.destinationViewController as! FloorplansPageViewController
+            floorplansPageViewController = segue.destination as! FloorplansPageViewController
             floorplansPageViewController.floorplansPageViewControllerDelegate = self
 
             dispatch_after_delay(0.0) {
@@ -190,16 +187,16 @@ class JobFloorplansViewController: ViewController,
         }
     }
 
-    private func showDropbox() {
+    fileprivate func showDropbox() {
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             if let importFromDropboxButton = importFromDropboxButton {
-                importFromDropboxButton.superview!.bringSubviewToFront(importFromDropboxButton)
+                importFromDropboxButton.superview!.bringSubview(toFront: importFromDropboxButton)
                 importFromDropboxButton.alpha = 1.0
             }
         }
     }
 
-    private func hideDropbox() {
+    fileprivate func hideDropbox() {
         for importFromDropboxButton in [importFromDropboxIconButton, importFromDropboxTextButton] {
             if let importFromDropboxButton = importFromDropboxButton {
                 importFromDropboxButton.alpha = 0.0
@@ -207,17 +204,17 @@ class JobFloorplansViewController: ViewController,
         }
     }
 
-    func importFromDropbox(sender: UIButton) {
+    func importFromDropbox(_ sender: UIButton) {
         renderInstruction(nil)
 
-        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { results in
+        DBChooser.default().open(for: DBChooserLinkTypeDirect, from: self) { results in
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
                     let filename = (result as! DBChooserResult).name
-                    if let fileExtension = sourceURL.pathExtension {
-                        if fileExtension.lowercaseString == "pdf" {
-                            self.importFromSourceURL(sourceURL, filename: filename)
+                    if let fileExtension = sourceURL?.pathExtension {
+                        if fileExtension.lowercased() == "pdf" {
+                            self.importFromSourceURL(sourceURL!, filename: filename!)
                         } else {
                             self.showToast("Invalid file format specified; please choose a valid PDF document.", dismissAfter: 3.0)
                             self.renderInstruction("Import a floorplan for this job.")
@@ -233,16 +230,16 @@ class JobFloorplansViewController: ViewController,
 
         if isSimulator() {
             dispatch_after_delay(1.0) {
-                let sourceURL = NSURL("https://provide-production.s3.amazonaws.com/4e00588c-d532-42ef-a86b-a543072aab1c.pdf")
-                self.showToast("Importing PDF document at source url \(sourceURL.absoluteString).", dismissAfter: 1.0)
+                let sourceURL = URL(string: "https://provide-production.s3.amazonaws.com/4e00588c-d532-42ef-a86b-a543072aab1c.pdf")
+                self.showToast("Importing PDF document at source url \(sourceURL?.absoluteString).", dismissAfter: 1.0)
                 dispatch_after_delay(1.2) {
-                    self.importFromSourceURL(sourceURL, filename: "concept facility 1st floor.pdf")
+                    self.importFromSourceURL(sourceURL!, filename: "concept facility 1st floor.pdf")
                 }
             }
         }
     }
 
-    private func importFromSourceURL(sourceURL: NSURL, filename: String) {
+    fileprivate func importFromSourceURL(_ sourceURL: URL, filename: String) {
         if let job = job {
             let floorplan = Floorplan()
             floorplan.jobId = job.id
@@ -250,10 +247,10 @@ class JobFloorplansViewController: ViewController,
             floorplan.pdfUrlString = sourceURL.absoluteString
 
             floorplan.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     self.job.reloadFloorplans(
                         { statusCode, mappingResult in
-                            let fp = mappingResult.firstObject as! Floorplan
+                            let fp = mappingResult?.firstObject as! Floorplan
                             self.importedPdfAttachment = fp.pdf
                         },
                         onError: { error, statusCode, responseString in
@@ -268,12 +265,12 @@ class JobFloorplansViewController: ViewController,
         }
     }
 
-    private func renderInstruction(message: String!) {
+    fileprivate func renderInstruction(_ message: String!) {
         if let message = message {
             importInstructionsLabel?.text = message
             importInstructionsLabel?.alpha = 1.0
 
-            importInstructionsContainerView?.superview?.bringSubviewToFront(importInstructionsContainerView)
+            importInstructionsContainerView?.superview?.bringSubview(toFront: importInstructionsContainerView)
             importInstructionsContainerView?.alpha = 1.0
 
             floorplansContainerView?.alpha = 0.0
@@ -288,14 +285,14 @@ class JobFloorplansViewController: ViewController,
             importInstructionsLabel?.alpha = 0.0
 
             importInstructionsContainerView?.alpha = 0.0
-            importInstructionsContainerView?.superview?.sendSubviewToBack(importInstructionsContainerView)
+            importInstructionsContainerView?.superview?.sendSubview(toBack: importInstructionsContainerView)
 
             floorplanActivityIndicatorView?.startAnimating()
             floorplanPreviewContainerView?.alpha = 1.0
         }
     }
 
-    func setFloorplanImage(image: UIImage) {
+    func setFloorplanImage(_ image: UIImage) {
         floorplanPreviewImageView.image = image
         floorplanPreviewImageView.alpha = 1.0
 
@@ -310,15 +307,15 @@ class JobFloorplansViewController: ViewController,
 
     // MARK: FloorplansPageViewControllerDelegate
 
-    func navigationItemForFloorplansPageViewController(viewController: FloorplansPageViewController) -> UINavigationItem! {
+    func navigationItemForFloorplansPageViewController(_ viewController: FloorplansPageViewController) -> UINavigationItem! {
         return navigationItem
     }
 
-    func jobForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Job! {
+    func jobForFloorplansPageViewController(_ viewController: FloorplansPageViewController) -> Job! {
         return job
     }
 
-    func floorplansForFloorplansPageViewController(viewController: FloorplansPageViewController) -> Set<Floorplan> {
+    func floorplansForFloorplansPageViewController(_ viewController: FloorplansPageViewController) -> Set<Floorplan> {
         var floorplans = Set<Floorplan>()
         if let job = job {
             for floorplan in job.floorplans {
@@ -329,6 +326,6 @@ class JobFloorplansViewController: ViewController,
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 6/25/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -55,11 +55,11 @@ class ProvideTestCase: XCTestCase {
         let app = XCUIApplication()
         let navbar = app.navigationBars["provide.WorkOrdersView"]
         if navbar.exists {
-            navbar.childrenMatchingType(.Button).elementBoundByIndex(1).tap()
-            app.tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+            navbar.children(matching: .button).element(boundBy: 1).tap()
+            app.tables.children(matching: .cell).element(boundBy: 3).tap()
         } else {
 //            app.otherElements["MenuContainerView"].swipeRight()
-            app.otherElements["MenuContainerView"].tables.childrenMatchingType(.Cell).elementBoundByIndex(3).tap()
+            app.otherElements["MenuContainerView"].tables.children(matching: .cell).element(boundBy: 3).tap()
         }
         isLoggedIn = false
     }

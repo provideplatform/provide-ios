@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/11/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,18 +11,18 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol JobInventoryViewControllerDelegate: NSObjectProtocol {
-    func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job!
+    func jobForJobInventoryViewController(_ viewController: JobInventoryViewContoller) -> Job!
 }
 
 class JobInventoryViewContoller: UITableViewController,
                                  UISearchBarDelegate,
-                                 DraggableViewGestureRecognizerDelegate,
+                                 KTDraggableViewGestureRecognizerDelegate,
                                  ProductCreationViewControllerDelegate,
                                  ProductPickerViewControllerDelegate,
                                  JobProductCreationViewControllerDelegate,
                                  ManifestViewControllerDelegate {
 
-    private let jobProductOperationQueue = dispatch_queue_create("api.jobProductOperationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let jobProductOperationQueue = DispatchQueue(label: "api.jobProductOperationQueue", attributes: [])
 
     let maximumSearchlessProductsCount = 25
 
@@ -36,48 +36,48 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    private var job: Job! {
+    fileprivate var job: Job! {
         if let job = delegate?.jobForJobInventoryViewController(self) {
             return job
         }
         return nil
     }
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var reloadingJobProducts = false
-    private var reloadingProductsCount = false
+    fileprivate var reloadingJobProducts = false
+    fileprivate var reloadingProductsCount = false
 
-    private var totalProductsCount = -1
+    fileprivate var totalProductsCount = -1
 
-    private var addingJobProduct = false
-    private var removingJobProduct = false
+    fileprivate var addingJobProduct = false
+    fileprivate var removingJobProduct = false
 
-    private var showsAllProducts: Bool {
+    fileprivate var showsAllProducts: Bool {
         return totalProductsCount == -1 || totalProductsCount <= maximumSearchlessProductsCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllProducts
     }
 
-    private var queryResultsPickerViewController: ProductPickerViewController!
-    private var queryResultsPickerTableViewCell: UITableViewCell! {
+    fileprivate var queryResultsPickerViewController: ProductPickerViewController!
+    fileprivate var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
         return nil
     }
 
-    private var jobProductsPickerViewController: ProductPickerViewController!
-    private var jobProductsTableViewCell: UITableViewCell! {
+    fileprivate var jobProductsPickerViewController: ProductPickerViewController!
+    fileprivate var jobProductsTableViewCell: UITableViewCell! {
         if let jobProductsPickerViewController = jobProductsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(jobProductsPickerViewController)
         }
         return nil
     }
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet fileprivate weak var searchBar: UISearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +87,7 @@ class JobInventoryViewContoller: UITableViewController,
         searchBar?.placeholder = ""
     }
 
-    func addJobProduct(product: Product) {
+    func addJobProduct(_ product: Product) {
         if job == nil {
             return
         }
@@ -95,14 +95,14 @@ class JobInventoryViewContoller: UITableViewController,
         var jobProduct = job.jobProductForProduct(product)
         if jobProduct == nil {
             jobProductsPickerViewController?.products.append(product)
-            let indexPaths = [NSIndexPath(forRow: (jobProductsPickerViewController?.products.count)! - 1, inSection: 0)]
-            jobProductsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
-            let cell = jobProductsPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+            let indexPaths = [IndexPath(row: (jobProductsPickerViewController?.products.count)! - 1, section: 0)]
+            jobProductsPickerViewController?.collectionView.reloadItems(at: indexPaths)
+            let cell = jobProductsPickerViewController?.collectionView.cellForItem(at: indexPaths.first!) as! PickerCollectionViewCell
             cell.showActivityIndicator()
 
             let params: [String : AnyObject] = [:]
 
-            dispatch_async(jobProductOperationQueue) { [weak self] in
+            jobProductOperationQueue.async { [weak self] in
                 while self!.addingJobProduct { }
 
                 self!.addingJobProduct = true
@@ -114,16 +114,16 @@ class JobInventoryViewContoller: UITableViewController,
 
                         jobProduct = self!.job.jobProductForProduct(product)
 
-                        let jobProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("JobProductCreationViewController") as! JobProductCreationViewController
+                        let jobProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewController(withIdentifier: "JobProductCreationViewController") as! JobProductCreationViewController
                         jobProductCreationViewController.job = self!.job
                         jobProductCreationViewController.jobProduct = jobProduct
                         jobProductCreationViewController.jobProductCreationViewControllerDelegate = self!
-                        jobProductCreationViewController.modalPresentationStyle = .Popover
-                        jobProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
+                        jobProductCreationViewController.modalPresentationStyle = .popover
+                        jobProductCreationViewController.preferredContentSize = CGSize(width: 300, height: 250)
                         jobProductCreationViewController.popoverPresentationController!.sourceView = cell
-                        jobProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                        jobProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.left, .right]
                         jobProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                        self!.presentViewController(jobProductCreationViewController, animated: true) {
+                        self!.present(jobProductCreationViewController, animated: true) {
                             self!.addingJobProduct = false
                         }
                     },
@@ -137,13 +137,13 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    func removeJobProduct(product: Product) {
+    func removeJobProduct(_ product: Product) {
         if job == nil {
             return
         }
 
         if let jobProduct = job.jobProductForProduct(product) {
-            dispatch_async(jobProductOperationQueue) { [weak self] in
+            jobProductOperationQueue.async { [weak self] in
                 while self!.removingJobProduct { }
 
                 self!.removingJobProduct = true
@@ -164,28 +164,30 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "ProductCreationViewControllerPopoverSegue" {
-            segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
-            ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProductCreationViewController).delegate = self
+            segue.destination.preferredContentSize = CGSize(width: 400, height: 500)
+            ((segue.destination as! UINavigationController).viewControllers.first! as! ProductCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProductPickerEmbedSegue" {
-            queryResultsPickerViewController = segue.destinationViewController as! ProductPickerViewController
+            queryResultsPickerViewController = segue.destination as! ProductPickerViewController
             queryResultsPickerViewController.delegate = self
         } else if segue.identifier! == "JobProductsProductPickerEmbedSegue" {
-            jobProductsPickerViewController = segue.destinationViewController as! ProductPickerViewController
+            jobProductsPickerViewController = segue.destination as! ProductPickerViewController
             jobProductsPickerViewController.delegate = self
         }
     }
 
-    private func resolveTableViewCellForEmbeddedViewController(viewController: UIViewController) -> UITableViewCell! {
+    fileprivate func resolveTableViewCellForEmbeddedViewController(_ viewController: UIViewController) -> UITableViewCell! {
         var tableViewCell: UITableViewCell!
         var view = viewController.view
         while tableViewCell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                tableViewCell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    tableViewCell = v as! UITableViewCell
+                }
             }
         }
         return tableViewCell
@@ -193,22 +195,22 @@ class JobInventoryViewContoller: UITableViewController,
 
     // MARK: UITableViewDelegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return renderQueryResults ? 2 : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if jobProductsTableViewCell != nil && numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if jobProductsTableViewCell != nil && numberOfSections(in: tableView) == 1 {
             return jobProductsTableViewCell
         }
-        return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if numberOfSections(in: tableView) == 1 {
             return "JOB MANIFEST"
         } else {
-            if numberOfSectionsInTableView(tableView) == 2 && showsAllProducts {
+            if numberOfSections(in: tableView) == 2 && showsAllProducts {
                 if section == 0 {
                     return "PRODUCTS"
                 } else if section == 1 {
@@ -221,11 +223,11 @@ class JobInventoryViewContoller: UITableViewController,
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllProducts
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
@@ -237,36 +239,36 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    // MARK: DraggableViewGestureRecognizerDelegate
+    // MARK: KTDraggableViewGestureRecognizerDelegate
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
         if !draggableViewGestureRecognizer(gestureRecognizer, shouldAnimateResetView: view) {
             view.alpha = 0.0
         }
         return true
     }
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
-        if gestureRecognizer.isKindOfClass(JobProductsPickerCollectionViewCellGestureRecognizer) {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+        if gestureRecognizer.isKind(of: JobProductsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! JobProductsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
-        } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
+        } else if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         }
         return true
     }
 
-    func queryResultsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func queryResultsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
-    func jobProductsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func jobProductsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
     // MARK: ProductCreationViewControllerDelegate
 
-    func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product) {
-        dismissViewController(animated: true)
+    func productCreationViewController(_ viewController: ProductCreationViewController, didCreateProduct product: Product) {
+        dismissViewController(true)
 
         if totalProductsCount > -1 {
             totalProductsCount += 1
@@ -284,42 +286,42 @@ class JobInventoryViewContoller: UITableViewController,
 
     // MARK: ProductPickerViewControllerDelegate
 
-    func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForProductPickerViewController(_ viewController: ProductPickerViewController) -> [String : AnyObject]! {
         if let job = job {
             if jobProductsPickerViewController != nil && viewController == jobProductsPickerViewController {
-                return ["job_id": job.id, "company_id": job.companyId]
+                return ["job_id": job.id as AnyObject, "company_id": job.companyId as AnyObject]
             } else if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
-                return ["company_id": job.companyId, "q": queryString != nil ? queryString : NSNull()]
+                return ["company_id": job.companyId as AnyObject, "q": queryString != nil ? queryString as AnyObject : NSNull() as AnyObject]
             }
         }
         return nil
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product) {
+    func productPickerViewController(_ viewController: ProductPickerViewController, didSelectProduct product: Product) {
 
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, didDeselectProduct: Product) {
+    func productPickerViewController(_ viewController: ProductPickerViewController, didDeselectProduct: Product) {
 
     }
 
-    func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool {
+    func productPickerViewControllerAllowsMultipleSelection(_ viewController: ProductPickerViewController) -> Bool {
         return false
     }
 
-    func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+    func productsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product] {
         return [Product]()
     }
 
-    func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+    func selectedProductsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product] {
         return [Product]()
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 
-    func productPickerViewControllerCanRenderResults(viewController: ProductPickerViewController) -> Bool {
+    func productPickerViewControllerCanRenderResults(_ viewController: ProductPickerViewController) -> Bool {
         if jobProductsPickerViewController != nil && viewController == jobProductsPickerViewController {
             if let job = job {
                 return job.materials != nil
@@ -330,20 +332,20 @@ class JobInventoryViewContoller: UITableViewController,
         return false
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func productPickerViewController(_ viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
         var cell: PickerCollectionViewCell!
 
         if viewController == queryResultsPickerViewController {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
             let products = viewController.products
 
-            if products.count > indexPath.row - 1 {
-                let product = products[indexPath.row]
+            if products.count > (indexPath as NSIndexPath).row - 1 {
+                let product = products[(indexPath as NSIndexPath).row]
 
-                cell.selected = viewController.isSelected(product)
+                cell.isSelected = viewController.isSelected(product)
 
-                if cell.selected {
-                    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                if cell.isSelected {
+                    collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
                 }
 
                 cell.name = product.name
@@ -354,16 +356,16 @@ class JobInventoryViewContoller: UITableViewController,
                 }
             }
         } else if viewController == jobProductsPickerViewController {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("JobProductPickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "JobProductPickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
             let products = viewController.products
 
-            if products.count > indexPath.row - 1 {
-                let product = products[indexPath.row]
+            if products.count > (indexPath as NSIndexPath).row - 1 {
+                let product = products[(indexPath as NSIndexPath).row]
 
-                cell.selected = viewController.isSelected(product)
+                cell.isSelected = viewController.isSelected(product)
 
-                if cell.selected {
-                    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                if cell.isSelected {
+                    collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
                 }
 
                 cell.name = product.name
@@ -378,8 +380,8 @@ class JobInventoryViewContoller: UITableViewController,
 
         if let gestureRecognizers = cell.gestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
-                if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer)
-                    || gestureRecognizer.isKindOfClass(JobProductsPickerCollectionViewCellGestureRecognizer) {
+                if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self)
+                    || gestureRecognizer.isKind(of: JobProductsPickerCollectionViewCellGestureRecognizer.self) {
                     cell.removeGestureRecognizer(gestureRecognizer)
                 }
             }
@@ -400,16 +402,16 @@ class JobInventoryViewContoller: UITableViewController,
 
     // MARK: JobProductCreationViewControllerDelegate
 
-    func jobProductCreationViewController(viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+    func jobProductCreationViewController(_ viewController: JobProductCreationViewController, didUpdateJobProduct jobProduct: JobProduct) {
+        viewController.presentingViewController?.dismissViewController(true)
         jobProductsPickerViewController.reloadCollectionView()
     }
 
-    func jobProductCreationViewController(viewController: JobProductCreationViewController, didRemoveJobProduct jobProduct: JobProduct) {
+    func jobProductCreationViewController(_ viewController: JobProductCreationViewController, didRemoveJobProduct jobProduct: JobProduct) {
         jobProductsPickerViewController.reloadCollectionView()
     }
 
-    private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {
+    fileprivate func reloadJobProductsForPickerViewController(_ viewController: ProductPickerViewController) {
         if viewController == jobProductsPickerViewController {
             if !reloadingJobProducts {
                 if let job = job {
@@ -437,7 +439,7 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    private func reloadProducts() {
+    fileprivate func reloadProducts() {
         reloadingProductsCount = true
 
         if let companyId = job?.companyId {
@@ -445,14 +447,14 @@ class JobInventoryViewContoller: UITableViewController,
             queryResultsPickerViewController?.showActivityIndicator()
             tableView.reloadData()
 
-            ApiService.sharedService().countProducts(["company_id": job.companyId],
+            ApiService.sharedService().countProducts(["company_id": job.companyId as AnyObject],
                 onTotalResultsCount: { totalResultsCount, error in
                     self.totalProductsCount = totalResultsCount
                     if totalResultsCount > -1 {
                         if totalResultsCount <= self.maximumSearchlessProductsCount {
-                            ApiService.sharedService().fetchProducts(["company_id": companyId, "page": 1, "rpp": totalResultsCount],
+                            let _ = ApiService.sharedService().fetchProducts(["company_id": companyId as AnyObject, "page": 1 as AnyObject, "rpp": totalResultsCount as AnyObject],
                                 onSuccess: { (statusCode, mappingResult) -> () in
-                                    self.queryResultsPickerViewController?.products = mappingResult.array() as! [Product]
+                                    self.queryResultsPickerViewController?.products = mappingResult?.array() as! [Product]
                                     self.tableView.reloadData()
                                     self.searchBar.placeholder = "Showing all \(totalResultsCount) products"
                                     self.reloadingProductsCount = false
@@ -473,24 +475,24 @@ class JobInventoryViewContoller: UITableViewController,
         }
     }
 
-    private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class QueryResultsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var jobInventoryViewController: JobInventoryViewContoller!
+        fileprivate var jobInventoryViewController: JobInventoryViewContoller!
 
-        private var jobProductsPickerCollectionView: UICollectionView! {
+        fileprivate var jobProductsPickerCollectionView: UICollectionView! {
             didSet {
                 if let jobProductsPickerCollectionView = jobProductsPickerCollectionView {
                     initialJobProductsPickerCollectionViewBackgroundColor = jobProductsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialJobProductsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialJobProductsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldAddProduct = false
+        fileprivate var shouldAddProduct = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -503,27 +505,27 @@ class JobInventoryViewContoller: UITableViewController,
             jobProductsPickerCollectionView = viewController.jobProductsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     jobProductsPickerCollectionView.backgroundColor = initialJobProductsPickerCollectionViewBackgroundColor
 
                     if shouldAddProduct {
-                        let indexPath = jobInventoryViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        jobInventoryViewController?.addJobProduct(jobInventoryViewController.queryResultsPickerViewController.products[indexPath.row])
+                        let indexPath = jobInventoryViewController.queryResultsPickerViewController.collectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        jobInventoryViewController?.addJobProduct(jobInventoryViewController.queryResultsPickerViewController.products[(indexPath as NSIndexPath).row])
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldAddProduct = false
@@ -531,46 +533,46 @@ class JobInventoryViewContoller: UITableViewController,
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            if jobInventoryViewController.searchBar.isFirstResponder() {
+            if jobInventoryViewController.searchBar.isFirstResponder {
                 jobInventoryViewController.searchBar.resignFirstResponder()
             }
 
-            let jobProductsPickerCollectionViewFrame = jobProductsPickerCollectionView.superview!.convertRect(jobProductsPickerCollectionView.frame, toView: nil)
-            shouldAddProduct = !jobInventoryViewController.addingJobProduct && CGRectIntersectsRect(initialView.frame, jobProductsPickerCollectionViewFrame)
+            let jobProductsPickerCollectionViewFrame = jobProductsPickerCollectionView.superview!.convert(jobProductsPickerCollectionView.frame, to: nil)
+            shouldAddProduct = !jobInventoryViewController.addingJobProduct && initialView.frame.intersects(jobProductsPickerCollectionViewFrame)
 
             if shouldAddProduct {
-                jobProductsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
+                jobProductsPickerCollectionView.backgroundColor = Color.completedStatusColor().withAlphaComponent(0.8)
             } else {
                 jobProductsPickerCollectionView.backgroundColor = initialJobProductsPickerCollectionViewBackgroundColor
             }
         }
     }
 
-    private class JobProductsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class JobProductsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var jobInventoryViewController: JobInventoryViewContoller!
+        fileprivate var jobInventoryViewController: JobInventoryViewContoller!
 
-        private var jobProductsPickerCollectionView: UICollectionView! {
+        fileprivate var jobProductsPickerCollectionView: UICollectionView! {
             didSet {
                 if let jobProductsPickerCollectionView = jobProductsPickerCollectionView {
                     initialJobProductsPickerCollectionViewBackgroundColor = jobProductsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialJobProductsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialJobProductsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldRemoveJobProduct = false
+        fileprivate var shouldRemoveJobProduct = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -583,27 +585,27 @@ class JobInventoryViewContoller: UITableViewController,
             jobProductsPickerCollectionView = viewController.jobProductsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     jobProductsPickerCollectionView.backgroundColor = initialJobProductsPickerCollectionViewBackgroundColor
 
                     if shouldRemoveJobProduct {
-                        let indexPath = jobProductsPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        jobInventoryViewController?.removeJobProduct(jobInventoryViewController.jobProductsPickerViewController.products[indexPath.row])
+                        let indexPath = jobProductsPickerCollectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        jobInventoryViewController?.removeJobProduct(jobInventoryViewController.jobProductsPickerViewController.products[(indexPath as NSIndexPath).row])
                     }
 
-                    collectionView?.scrollEnabled = true
+                    collectionView?.isScrollEnabled = true
                     collectionView = nil
 
                     shouldRemoveJobProduct = false
@@ -611,18 +613,18 @@ class JobInventoryViewContoller: UITableViewController,
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            let jobProductsPickerCollectionViewFrame = jobProductsPickerCollectionView.superview!.convertRect(jobProductsPickerCollectionView.frame, toView: nil)
-            shouldRemoveJobProduct = !jobInventoryViewController.removingJobProduct && !CGRectIntersectsRect(initialView.frame, jobProductsPickerCollectionViewFrame)
+            let jobProductsPickerCollectionViewFrame = jobProductsPickerCollectionView.superview!.convert(jobProductsPickerCollectionView.frame, to: nil)
+            shouldRemoveJobProduct = !jobInventoryViewController.removingJobProduct && !initialView.frame.intersects(jobProductsPickerCollectionViewFrame)
 
             if shouldRemoveJobProduct {
-                let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let accessoryImage = FAKFontAwesome.removeIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 (initialView as! PickerCollectionViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
             } else {
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil

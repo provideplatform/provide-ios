@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -23,9 +23,9 @@ class User: Model {
     var defaultCompanyId = 0
     var menuItemsPreference: NSArray!
 
-    var profileImageUrl: NSURL! {
+    var profileImageUrl: URL! {
         if let profileImageUrlString = profileImageUrlString {
-            return NSURL(string: profileImageUrlString)
+            return URL(string: profileImageUrlString)
         }
         return nil
     }
@@ -47,16 +47,16 @@ class User: Model {
     }
 
     var hasBeenPromptedToIntegrateQuickbooks: Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey("presentedQuickbooksAuthorizationDialog")
+        return UserDefaults.standard.bool(forKey: "presentedQuickbooksAuthorizationDialog")
     }
 
     var hasBeenPromptedToTakeSelfie: Bool {
-        return NSUserDefaults.standardUserDefaults().boolForKey("presentedSelfieViewController")
+        return UserDefaults.standard.bool(forKey: "presentedSelfieViewController")
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "name": "name",
             "email": "email",
@@ -66,62 +66,62 @@ class User: Model {
             "default_company_id": "defaultCompanyId",
             "menu_items": "menuItemsPreference",
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", withMapping: Company.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "providers", toKeyPath: "providers", withMapping: Provider.mapping()))
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "providers", toKeyPath: "providers", with: Provider.mapping()))
+        return mapping!
     }
 
     func reload() {
         reload(nil, onError: nil)
     }
 
-    func reload(onSuccess: OnSuccess!, onError: OnError!) {
+    func reload(_ onSuccess: OnSuccess!, onError: OnError!) {
         ApiService.sharedService().fetchUser(
             onSuccess: { statusCode, mappingResult in
                 if let onSuccess = onSuccess {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 }
             },
             onError: { error, statusCode, responseString in
                 if let onError = onError {
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             }
         )
     }
 
-    func reloadCompanies(onSuccess: OnSuccess!, onError: OnError!) {
-        let companyIdsQueryString = companyIds.map({ String($0) }).joinWithSeparator("|")
-        let params: [String : AnyObject] = ["id": companyIdsQueryString]
+    func reloadCompanies(_ onSuccess: OnSuccess!, onError: OnError!) {
+        let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
+        let params: [String : AnyObject] = ["id": companyIdsQueryString as AnyObject]
         ApiService.sharedService().fetchCompanies(params,
             onSuccess: { statusCode, mappingResult in
-                self.companies = mappingResult.array() as! [Company]
+                self.companies = mappingResult?.array() as! [Company]
                 if let onSuccess = onSuccess {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 }
             },
             onError: { error, statusCode, responseString in
                 if let onError = onError {
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             }
         )
     }
 
-    func reloadProviders(onSuccess: OnSuccess!, onError: OnError!) {
-        let providerIdsQueryString = providerIds.map({ String($0) }).joinWithSeparator("|")
-        let params: [String : AnyObject] = ["id": providerIdsQueryString, "company_id": defaultCompanyId]
+    func reloadProviders(_ onSuccess: OnSuccess!, onError: OnError!) {
+        let providerIdsQueryString = providerIds.map({ String($0) }).joined(separator: "|")
+        let params: [String : AnyObject] = ["id": providerIdsQueryString as AnyObject, "company_id": defaultCompanyId as AnyObject]
         ApiService.sharedService().fetchProviders(params,
             onSuccess: { statusCode, mappingResult in
-                self.providers = mappingResult.array() as! [Provider]
+                self.providers = mappingResult?.array() as! [Provider]
                 if let onSuccess = onSuccess {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 }
             },
             onError: { error, statusCode, responseString in
                 if let onError = onError {
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             }
         )

@@ -3,23 +3,23 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/17/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanPolygonViewDelegate: NSObjectProtocol {
-    func floorplanScaleForFloorplanPolygonView(view: FloorplanPolygonView) -> CGFloat!
-    func floorplanImageViewForFloorplanPolygonView(view: FloorplanPolygonView) -> UIImageView!
-    func floorplanForFloorplanPolygonView(view: FloorplanPolygonView) -> Attachment!
-    func floorplanPolygonViewDidClose(view: FloorplanPolygonView)
-    func floorplanPolygonViewCanBeResized(view: FloorplanPolygonView) -> Bool
-    func floorplanPolygonView(view: FloorplanPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
-    func floorplanPolygonView(view: FloorplanPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
-    func floorplanPolygonView(view: FloorplanPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
-    func floorplanPolygonView(view: FloorplanPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
-    func floorplanPolygonView(view: FloorplanPolygonView, didUpdateAnnotation annotation: Annotation)
+    func floorplanScaleForFloorplanPolygonView(_ view: FloorplanPolygonView) -> CGFloat!
+    func floorplanImageViewForFloorplanPolygonView(_ view: FloorplanPolygonView) -> UIImageView!
+    func floorplanForFloorplanPolygonView(_ view: FloorplanPolygonView) -> Attachment!
+    func floorplanPolygonViewDidClose(_ view: FloorplanPolygonView)
+    func floorplanPolygonViewCanBeResized(_ view: FloorplanPolygonView) -> Bool
+    func floorplanPolygonView(_ view: FloorplanPolygonView, colorForOverlayView overlayView: UIView) -> UIColor
+    func floorplanPolygonView(_ view: FloorplanPolygonView, opacityForOverlayView overlayView: UIView) -> CGFloat
+    func floorplanPolygonView(_ view: FloorplanPolygonView, layerForOverlayView overlayView: UIView, inBoundingBox boundingBox: CGRect) -> CALayer!
+    func floorplanPolygonView(_ view: FloorplanPolygonView, didSelectOverlayView overlayView: UIView, atPoint point: CGPoint, inPath path: CGPath)
+    func floorplanPolygonView(_ view: FloorplanPolygonView, didUpdateAnnotation annotation: Annotation)
 }
 
 class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestureRecognizerDelegate {
@@ -96,13 +96,13 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
     var overlayViewBoundingBox: CGRect! {
         if let overlayView = overlayView {
             if let layer = overlayView.layer.sublayers!.first as? CAShapeLayer {
-                return CGPathGetPathBoundingBox(layer.path)
+                return (layer.path)!.boundingBoxOfPath
             }
         }
         return nil
     }
 
-    private var floorplanImageView: UIImageView! {
+    fileprivate var floorplanImageView: UIImageView! {
         if let floorplanImageView = delegate?.floorplanImageViewForFloorplanPolygonView(self) {
             return floorplanImageView
         } else {
@@ -110,25 +110,25 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         }
     }
 
-    private var points = [CGPoint]()
+    fileprivate var points = [CGPoint]()
 
-    private var pointViews = [FloorplanPolygonVertexView]()
+    fileprivate var pointViews = [FloorplanPolygonVertexView]()
 
-    private var lineViews = [FloorplanPolygonLineView]()
+    fileprivate var lineViews = [FloorplanPolygonLineView]()
 
-    private var overlayView: UIView!
+    fileprivate var overlayView: UIView!
 
-    private var gestureRecognizer: UITapGestureRecognizer!
+    fileprivate var gestureRecognizer: UITapGestureRecognizer!
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
-    private var isClosed: Bool {
+    fileprivate var isClosed: Bool {
         return points.count > 2 && (closePoint != nil || points.first!.x == points.last!.x && points.first!.y == points.last!.y)
     }
 
-    private var closePoint: CGPoint!
+    fileprivate var closePoint: CGPoint!
 
-    private var targetView: UIView! {
+    fileprivate var targetView: UIView! {
         if let superview = self.superview {
             return superview
         }
@@ -136,7 +136,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
     }
 
     required init(annotation: Annotation) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         self.annotation = annotation
 
@@ -149,7 +149,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
     }
 
     required init(delegate: FloorplanPolygonViewDelegate, annotation: Annotation) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         self.delegate = delegate
         self.annotation = annotation
@@ -177,7 +177,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         }
     }
 
-    private func removeGestureRecognizer() {
+    fileprivate func removeGestureRecognizer() {
         if let targetView = targetView {
             if let gestureRecognizer = gestureRecognizer {
                 targetView.removeGestureRecognizer(gestureRecognizer)
@@ -186,7 +186,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         }
     }
 
-    private func reset(suppressDelegateNotification: Bool = false) {
+    fileprivate func reset(_ suppressDelegateNotification: Bool = false) {
         points = [CGPoint]()
 
         removeGestureRecognizer()
@@ -210,32 +210,32 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         closePoint = nil
     }
 
-    func resignFirstResponder(suppressDelegateNotification: Bool = false) -> Bool {
+    func resignFirstResponder(_ suppressDelegateNotification: Bool = false) -> Bool {
         reset(suppressDelegateNotification)
         return super.resignFirstResponder()
     }
 
-    func overlaySelected(gestureRecognizer: UITapGestureRecognizer) {
+    func overlaySelected(_ gestureRecognizer: UITapGestureRecognizer) {
         if isClosed {
             if let floorplanImageView = floorplanImageView {
-                let point = gestureRecognizer.locationInView(floorplanImageView)
+                let point = gestureRecognizer.location(in: floorplanImageView)
                 let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
                 let path = layer.path!
-                if CGPathContainsPoint(path, nil, point, true) {
+                if path.contains(point) {
                     delegate?.floorplanPolygonView(self, didSelectOverlayView: overlayView, atPoint: point, inPath: path)
                 }
             }
         }
     }
 
-    func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
+    func pointSelected(_ gestureRecognizer: UITapGestureRecognizer) {
         if isClosed {
             overlaySelected(gestureRecognizer)
             return
         }
 
         if let floorplanImageView = floorplanImageView {
-            let point = gestureRecognizer.locationInView(floorplanImageView)
+            let point = gestureRecognizer.location(in: floorplanImageView)
 
             var attemptPolygonCompletion = false
 
@@ -272,7 +272,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         }
     }
 
-    private func addPoint(point: CGPoint) {
+    fileprivate func addPoint(_ point: CGPoint) {
         let pointSuperview = floorplanImageView != nil ? floorplanImageView : self
 
         points.append(point)
@@ -287,7 +287,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
             closePoint = point
 
             pointView.alpha = 0.0
-            pointView.userInteractionEnabled = false
+            pointView.isUserInteractionEnabled = false
 
             delegate?.floorplanPolygonViewDidClose(self)
 
@@ -298,21 +298,21 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         pointViews.append(pointView)
 
         pointSuperview.addSubview(pointView)
-        pointSuperview.bringSubviewToFront(pointView)
+        pointSuperview.bringSubview(toFront: pointView)
 
         drawLineSegment(pointSuperview)
     }
 
-    private func drawOverlayView(view: UIView) {
+    fileprivate func drawOverlayView(_ view: UIView) {
         //            let overlayViewFrame = CGRectZero
 
         if overlayView == nil {
-            overlayView = UIView(frame: CGRectZero)
+            overlayView = UIView(frame: CGRect.zero)
             overlayView.layer.addSublayer(CAShapeLayer())
             overlayView.layer.addSublayer(CALayer())
 
             view.addSubview(overlayView)
-            view.bringSubviewToFront(overlayView)
+            view.bringSubview(toFront: overlayView)
         } else {
             overlayView.frame = CGRect(x: 0.0,
                                        y: 0.0,
@@ -324,31 +324,31 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         if points.count > 0 {
             let path = UIBezierPath()
 
-            path.moveToPoint(points[0])
+            path.move(to: points[0])
             for point in points.dropFirst() {
-                path.addLineToPoint(point)
+                path.addLine(to: point)
             }
 
-            path.closePath()
+            path.close()
 
             let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
-            layer.path = path.CGPath
+            layer.path = path.cgPath
 
             if let delegate = delegate {
                 layer.opacity = Float(delegate.floorplanPolygonView(self, opacityForOverlayView: overlayView))
-                layer.fillColor = delegate.floorplanPolygonView(self, colorForOverlayView: overlayView).CGColor
+                layer.fillColor = delegate.floorplanPolygonView(self, colorForOverlayView: overlayView).cgColor
             } else {
                 layer.opacity = 1.0
-                layer.fillColor = UIColor.clearColor().CGColor
+                layer.fillColor = UIColor.clear.cgColor
             }
 
-            if let sublayer = delegate?.floorplanPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: CGPathGetPathBoundingBox(layer.path)) {
+            if let sublayer = delegate?.floorplanPolygonView(self, layerForOverlayView: overlayView, inBoundingBox: ((layer.path)?.boundingBoxOfPath)!) {
                 overlayView.layer.replaceSublayer(overlayView.layer.sublayers!.last!, with: sublayer)
             }
         }
     }
 
-    private func drawLineSegment(view: UIView) {
+    fileprivate func drawLineSegment(_ view: UIView) {
         let canDrawLine = points.count > 1
 
         if canDrawLine {
@@ -360,10 +360,10 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
             lineViews.append(lineView)
 
             view.addSubview(lineView)
-            view.bringSubviewToFront(lineView)
+            view.bringSubview(toFront: lineView)
 
             for pointView in pointViews {
-                view.bringSubviewToFront(pointView)
+                view.bringSubview(toFront: pointView)
             }
 
             if isClosed {
@@ -374,19 +374,19 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
 
     // MARK: FloorplanPolygonVertexViewDelegate
 
-    func floorplanPolygonVertexViewShouldReceiveTouch(view: FloorplanPolygonVertexView) -> Bool {
+    func floorplanPolygonVertexViewShouldReceiveTouch(_ view: FloorplanPolygonVertexView) -> Bool {
         if let delegate = delegate {
              return delegate.floorplanPolygonViewCanBeResized(self)
         }
         return true
     }
 
-    func floorplanPolygonVertexViewShouldRedrawVertices(view: FloorplanPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
+    func floorplanPolygonVertexViewShouldRedrawVertices(_ view: FloorplanPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         let pointSuperview = floorplanImageView != nil ? floorplanImageView : self
 
         cancelAnnotationUpdate()
 
-        let index = pointViews.indexOf(view)!
+        let index = pointViews.index(of: view)!
         let lineViewIndex = isClosed && index == 0 ? lineViews.count - 1 : max(0, index - 1)
 
         points[index] = CGPoint(x: view.frame.origin.x + (view.image!.size.width / 2.0),
@@ -425,21 +425,21 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         }
     }
 
-    func floorplanPolygonVertexViewTapped(view: FloorplanPolygonVertexView) {
-        if pointViews.indexOf(view)! == 0 {
+    func floorplanPolygonVertexViewTapped(_ view: FloorplanPolygonVertexView) {
+        if pointViews.index(of: view)! == 0 {
             completePolygon()
         }
     }
 
-    private func cancelAnnotationUpdate() {
+    fileprivate func cancelAnnotationUpdate() {
         if let timer = timer {
             timer.invalidate()
             self.timer = nil
         }
     }
 
-    private func scheduleAnnotationUpdate() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(FloorplanPolygonView.updateAnnotation), userInfo: nil, repeats: false)
+    fileprivate func scheduleAnnotationUpdate() {
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(FloorplanPolygonView.updateAnnotation), userInfo: nil, repeats: false)
     }
 
     func updateAnnotation() {
@@ -460,7 +460,7 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
 //        }
     }
 
-    private func completePolygon() {
+    fileprivate func completePolygon() {
         if isClosed {
             return
         }
@@ -468,12 +468,12 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
         addPoint(points.first!)
     }
 
-    private func populateMeasurementFromCurrentScale() {
+    fileprivate func populateMeasurementFromCurrentScale() {
         if !isClosed {
             return
         }
 
-        let mapPoints = UnsafeMutablePointer<MKMapPoint>.alloc(points.count)
+        let mapPoints = UnsafeMutablePointer<MKMapPoint>.allocate(capacity: points.count)
         var i = 0
         for point in points {
             mapPoints[i] = MKMapPoint(x: Double(point.x), y: Double(point.y))
@@ -486,13 +486,13 @@ class FloorplanPolygonView: UIView, FloorplanPolygonVertexViewDelegate, UIGestur
 
     // MARK: UIGestureRecognizerDelegate
 
-    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if isClosed {
             if let floorplanImageView = floorplanImageView {
-                let point = gestureRecognizer.locationInView(floorplanImageView)
+                let point = gestureRecognizer.location(in: floorplanImageView)
                 let layer = overlayView.layer.sublayers!.first! as! CAShapeLayer
                 let path = layer.path!
-                return CGPathContainsPoint(path, nil, point, true)
+                return path.contains(point)
             }
         }
         return true

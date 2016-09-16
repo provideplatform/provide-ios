@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 1/5/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -12,19 +12,19 @@ import KTSwiftExtensions
 
 @objc
 protocol AppointmentSchedulerViewControllerDelegate {
-    func appointmentSchedulerViewController(viewController: AppointmentSchedulerViewController, didSelectDesiredDate date: NSDate)
-    func appointmentSchedulerViewController(viewController: AppointmentSchedulerViewController, didConfirmAppointmentDate date: NSDate)
-    func appointmentSchedulerViewController(viewController: AppointmentSchedulerViewController, offeredAppointmentDateWithAvailableDates availableDates: [NSDate]) -> NSDate
-    func appointmentSchedulerViewController(viewController: AppointmentSchedulerViewController, confimationTextForTextView textView: UITextView, offeredDate: NSDate) -> String
-    func appointmentSchedulerViewController(viewController: AppointmentSchedulerViewController, confimationTextForTextView textView: UITextView, confirmedDate: NSDate) -> String
+    func appointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController, didSelectDesiredDate date: Date)
+    func appointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController, didConfirmAppointmentDate date: Date)
+    func appointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController, offeredAppointmentDateWithAvailableDates availableDates: [Date]) -> Date
+    func appointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController, confimationTextForTextView textView: UITextView, offeredDate: Date) -> String
+    func appointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController, confimationTextForTextView textView: UITextView, confirmedDate: Date) -> String
 
-    optional func minimumDateForAppointmentSchedulerViewController(viewController: AppointmentSchedulerViewController) -> NSDate
-    optional func maximumDateForAppointmentSchedulerViewController(viewController: AppointmentSchedulerViewController) -> NSDate
+    @objc optional func minimumDateForAppointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController) -> Date
+    @objc optional func maximumDateForAppointmentSchedulerViewController(_ viewController: AppointmentSchedulerViewController) -> Date
 }
 
 class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewDelegate {
 
-    var availableAppointmentDates: [NSDate]! {
+    var availableAppointmentDates: [Date]! {
         didSet {
             let rendered = containerView != nil && confirmationTextView != nil
             if rendered == true {
@@ -43,20 +43,20 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
 
     var delegate: AppointmentSchedulerViewControllerDelegate!
 
-    private var offeredAppointmentDate: NSDate!
+    fileprivate var offeredAppointmentDate: Date!
 
-    private var calendarViewController: CalendarViewController!
+    fileprivate var calendarViewController: CalendarViewController!
 
-    @IBOutlet private var containerView: UIView!
-    @IBOutlet private var confirmationView: UIView!
-    @IBOutlet private var confirmationTextView: UITextView!
-    @IBOutlet private var confirmationButton: RoundedButton!
-    @IBOutlet private var declineButton: RoundedButton!
+    @IBOutlet fileprivate var containerView: UIView!
+    @IBOutlet fileprivate var confirmationView: UIView!
+    @IBOutlet fileprivate var confirmationTextView: UITextView!
+    @IBOutlet fileprivate var confirmationButton: RoundedButton!
+    @IBOutlet fileprivate var declineButton: RoundedButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         view.alpha = 1
 
         confirmationView.alpha = 0
@@ -69,12 +69,12 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
         }
     }
 
-    private func offerAppointmentDate() {
+    fileprivate func offerAppointmentDate() {
         offeredAppointmentDate = delegate?.appointmentSchedulerViewController(self, offeredAppointmentDateWithAvailableDates: availableAppointmentDates)
         confirmationTextView.text = delegate?.appointmentSchedulerViewController(self, confimationTextForTextView: confirmationTextView, offeredDate: offeredAppointmentDate)
     }
 
-    @IBAction private func appointmentTimeConfirmed(sender: RoundedButton!) {
+    @IBAction fileprivate func appointmentTimeConfirmed(_ sender: RoundedButton!) {
         delegate?.appointmentSchedulerViewController(self, didConfirmAppointmentDate: offeredAppointmentDate)
 
         // HACK-- temporary
@@ -83,7 +83,7 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
         declineButton.alpha = 0
     }
 
-    @IBAction private func appointmentTimeDeclined(sender: RoundedButton!) {
+    @IBAction fileprivate func appointmentTimeDeclined(_ sender: RoundedButton!) {
         availableAppointmentDates.removeObject(offeredAppointmentDate)
         if availableAppointmentDates.count > 0 {
             offerAppointmentDate()
@@ -94,10 +94,10 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
 
     // MARK: Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "CalendarViewControllerEmbedSegue":
-            calendarViewController = segue.destinationViewController as! CalendarViewController
+            calendarViewController = segue.destination as! CalendarViewController
             calendarViewController.delegate = self
 
             if let minimumDate = delegate?.minimumDateForAppointmentSchedulerViewController?(self) {
@@ -115,7 +115,7 @@ class AppointmentSchedulerViewController: ViewController, PDTSimpleCalendarViewD
 
     // MARK: PDTSimpleCalendarViewDelegate
 
-    func simpleCalendarViewController(controller: PDTSimpleCalendarViewController!, didSelectDate date: NSDate!) {
+    func simpleCalendarViewController(_ controller: PDTSimpleCalendarViewController!, didSelect date: Date!) {
         delegate?.appointmentSchedulerViewController(self, didSelectDesiredDate: date)
     }
 }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -63,8 +63,8 @@ class RouteLegStep: Model {
     var currentShapeIndex: Int = 0
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "Position": "position",
             "Instruction": "instruction",
             "PlaceEquipment": "placeEquipment",
@@ -80,7 +80,7 @@ class RouteLegStep: Model {
             "id": "identifier"
             ]
         )
-        return mapping
+        return mapping!
     }
 
     var maneuverIcon: UIImage! {
@@ -106,7 +106,7 @@ class RouteLegStep: Model {
     }
 
     var remainingDistanceString: String! {
-        if let shape = shape where shape.count > 0 {
+        if let shape = shape , shape.count > 0 {
             let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
             if distanceInMiles > 0.1 {
                 return String(format: "%.1f", distanceInMiles) + " mi"
@@ -140,7 +140,7 @@ class RouteLegStep: Model {
 
     var regionOverlay: MKCircle! {
         if let endCoordinate = endCoordinate {
-            return MKCircle(centerCoordinate: endCoordinate, radius: regionMonitoringRadius)
+            return MKCircle(center: endCoordinate, radius: regionMonitoringRadius)
         }
         return nil
     }
@@ -156,7 +156,7 @@ class RouteLegStep: Model {
     var shapeCoordinates: [CLLocationCoordinate2D] {
         var coords = [CLLocationCoordinate2D]()
         for shapeString in shape {
-            let shapeCoords = shapeString.componentsSeparatedByString(",")
+            let shapeCoords = shapeString.components(separatedBy: ",")
             let latitude = Double(shapeCoords.first!)
             let longitude = Double(shapeCoords.last!)
             if latitude != nil && longitude != nil {
@@ -173,7 +173,7 @@ class RouteLegStep: Model {
             }
 
             if let startLocation = shape.first {
-                let startCoords = startLocation.componentsSeparatedByString(",")
+                let startCoords = startLocation.components(separatedBy: ",")
                 let latitude = (startCoords.first! as NSString).doubleValue
                 let longitude = (startCoords.last! as NSString).doubleValue
                 return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
@@ -190,7 +190,7 @@ class RouteLegStep: Model {
             }
 
             if let endLocation = shape.last {
-                let endCoords = endLocation.componentsSeparatedByString(",")
+                let endCoords = endLocation.components(separatedBy: ",")
                 let latitude = (endCoords.first! as NSString).doubleValue
                 let longitude = (endCoords.last! as NSString).doubleValue
                 return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)

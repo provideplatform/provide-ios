@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/28/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,14 +11,14 @@ import SWTableViewCell
 import KTSwiftExtensions
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
-    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldApproveWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRejectWorkOrder workOrder: WorkOrder)
-    func workOrderDetailsHeaderTableViewCell(tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRestartWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldApproveWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRejectWorkOrder workOrder: WorkOrder)
+    func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldRestartWorkOrder workOrder: WorkOrder)
 }
 
 class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate, UITableViewDelegate, UITableViewDataSource {
@@ -28,7 +28,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     weak var workOrder: WorkOrder! {
         didSet {
             if let _ = workOrder {
-                if NSThread.isMainThread() {
+                if Thread.isMainThread {
                     self.refresh()
                 } else {
                     dispatch_after_delay(0.0) {
@@ -39,7 +39,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    private var isResponsibleSupervisor: Bool {
+    fileprivate var isResponsibleSupervisor: Bool {
         let user = currentUser()
         if let supervisors = workOrder.supervisors {
             for supervisor in supervisors {
@@ -63,7 +63,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return false
     }
 
-    private var isResponsibleProvider: Bool {
+    fileprivate var isResponsibleProvider: Bool {
         let user = currentUser()
         for provider in workOrder.providers {
             if provider.userId == user.id {
@@ -73,28 +73,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return false
     }
 
-    private var showsCancelButton: Bool {
+    fileprivate var showsCancelButton: Bool {
         if workOrder == nil {
             return false
         }
         return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "pending_approval"
     }
 
-    private var showsApproveButton: Bool {
+    fileprivate var showsApproveButton: Bool {
         if workOrder == nil {
             return false
         }
         return workOrder.status == "pending_approval" && isResponsibleSupervisor
     }
 
-    private var showsRejectButton: Bool {
+    fileprivate var showsRejectButton: Bool {
         if workOrder == nil {
             return false
         }
         return showsApproveButton
     }
 
-    private var showsSubmitForApprovalButton: Bool {
+    fileprivate var showsSubmitForApprovalButton: Bool {
         if workOrder == nil {
             return false
         }
@@ -102,28 +102,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return workOrder.status == "in_progress" && isResponsibleProvider
     }
 
-    private var showsCompleteButton: Bool {
+    fileprivate var showsCompleteButton: Bool {
         if workOrder == nil {
             return false
         }
         return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor
     }
 
-    private var showsStartButton: Bool {
+    fileprivate var showsStartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].indexOfObject(workOrder.status) != nil
+        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].index(of: workOrder.status) != nil
     }
 
-    private var showsRestartButton: Bool {
+    fileprivate var showsRestartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return isResponsibleProvider && ["rejected"].indexOfObject(workOrder.status) != nil
+        return isResponsibleProvider && ["rejected"].index(of: workOrder.status) != nil
     }
 
-    @IBOutlet private weak var previewImageView: UIImageView! {
+    @IBOutlet fileprivate weak var previewImageView: UIImageView! {
         didSet {
             if let previewImageView = previewImageView {
                 previewImageView.superview?.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
@@ -132,12 +132,12 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    @IBOutlet private weak var embeddedTableView: UITableView!
+    @IBOutlet fileprivate weak var embeddedTableView: UITableView!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
         contentView.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.1)
 
         delegate = self
@@ -149,12 +149,12 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         super.prepareForReuse()
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         refreshUtilityButtons()
         embeddedTableView.reloadData()
 
         if let workOrder = workOrder {
-            previewImageView?.contentMode = .ScaleAspectFit
+            previewImageView?.contentMode = .scaleAspectFit
             previewImageView?.image = nil
             if let previewImage = workOrder.previewImage {
                 previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
@@ -162,36 +162,36 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    private func refreshUtilityButtons() {
+    fileprivate func refreshUtilityButtons() {
         let leftUtilityButtons = NSMutableArray()
         let rightUtilityButtons = NSMutableArray()
 
         if showsCompleteButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Complete")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.completedStatusColor(), title: "Complete")
         }
 
         if showsStartButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.inProgressStatusColor(), title: "Start")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.inProgressStatusColor(), title: "Start")
         }
 
         if showsCancelButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.canceledStatusColor(), title: "Cancel")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.canceledStatusColor(), title: "Cancel")
         }
 
         if showsSubmitForApprovalButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
+            rightUtilityButtons.sw_addUtilityButton(with: Color.completedStatusColor(), title: "Submit for Approval") // FIXME-- attributed string title
         }
 
         if showsApproveButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Approve")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.completedStatusColor(), title: "Approve")
         }
 
         if showsRejectButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.warningBackground(), title: "Reject")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.warningBackground(), title: "Reject")
         }
 
         if showsRestartButton {
-            rightUtilityButtons.sw_addUtilityButtonWithColor(Color.completedStatusColor(), title: "Continue to Fix")
+            rightUtilityButtons.sw_addUtilityButton(with: Color.completedStatusColor(), title: "Continue to Fix")
         }
 
         setLeftUtilityButtons(leftUtilityButtons as [AnyObject], withButtonWidth: 0.0)
@@ -200,29 +200,29 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
 
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-            if cell.accessoryType == .None {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .none {
                 return nil
             }
         }
         return indexPath
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
 
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             cell.backgroundView!.backgroundColor = workOrder.statusColor
 
-            cell.accessoryType = .None
-            cell.setName(workOrder.status.uppercaseString.stringByReplacingOccurrencesOfString("_", withString: " "), value: "")
+            cell.accessoryType = .none
+            cell.setName(workOrder.status.uppercased().replacingOccurrences(of: "_", with: " "), value: "")
         case 1:
             //            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
             //                if let duration = self.workOrder.humanReadableDuration {
@@ -240,9 +240,9 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             //            }
 
             if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
-                cell.accessoryType = .DisclosureIndicator
+                cell.accessoryType = .disclosureIndicator
             } else {
-                cell.accessoryType = .None
+                cell.accessoryType = .none
             }
 
             var scheduledStartTime = "--"
@@ -253,9 +253,9 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             cell.setName("START AT", value: scheduledStartTime)
         case 2:
             if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
-                cell.accessoryType = .DisclosureIndicator
+                cell.accessoryType = .disclosureIndicator
             } else {
-                cell.accessoryType = .None
+                cell.accessoryType = .none
             }
 
             var dueAtTime = "--"
@@ -278,8 +278,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             let matches = KTRegex.match("^, ", input: specificProviders)
             if matches.count > 0 {
                 let match = matches[0]
-                let range = specificProviders.startIndex.advancedBy(match.range.length)..<specificProviders.endIndex
-                specificProviders = specificProviders.substringWithRange(range)
+                let range = specificProviders.index(specificProviders.startIndex, offsetBy: match.range.length)..<specificProviders.endIndex
+                specificProviders = specificProviders.substring(with: range)
             }
             var providers = "\(specificProviders)"
             if workOrder.providers.count > detailDisplayCount {
@@ -296,7 +296,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             } else {
                 cell.setName("CREW", value: providers)
             }
-            cell.accessoryType = .DisclosureIndicator
+            cell.accessoryType = .disclosureIndicator
         default:
             break
         }
@@ -304,12 +304,12 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let workOrderCreationViewController = workOrderDetailsHeaderTableViewCellDelegate?.workOrderCreationViewControllerForDetailsHeaderTableViewCell(self) {
             if let navigationController = workOrderCreationViewController.navigationController {
                 var viewController: UIViewController!
 
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
                     print("status/priority tapped")
                 case 1:
@@ -329,7 +329,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                     datePickerViewController.delegate = workOrderCreationViewController
                     viewController = datePickerViewController
                 case 3:
-                    viewController = UIStoryboard("WorkOrderCreation").instantiateViewControllerWithIdentifier("WorkOrderTeamViewController")
+                    viewController = UIStoryboard("WorkOrderCreation").instantiateViewController(withIdentifier: "WorkOrderTeamViewController")
                     (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
                 default:
                     break
@@ -340,7 +340,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 }
             }
             
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 
@@ -348,10 +348,10 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if let tableView = embeddedTableView {
             var statusCell: NameValueTableViewCell!
 
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? NameValueTableViewCell {
+            if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NameValueTableViewCell {
                 statusCell = cell
 
-                UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
                     animations: {
                         statusCell.backgroundView?.backgroundColor = Color.inProgressStatusColor()
 
@@ -360,7 +360,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
                         if let workOrder = self.workOrder {
                             if let duration = workOrder.humanReadableDuration {
-                                statusCell.setName("\(workOrder.status.uppercaseString)", value: duration)
+                                statusCell.setName("\(workOrder.status.uppercased())", value: duration)
                             }
                         }
                     },
@@ -374,11 +374,11 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     // MARK: SWTableViewCellDelegate
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerLeftUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
         //  no-op
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, didTriggerRightUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
         if index == 0 {
             if showsStartButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldStartWorkOrder: workOrder)
@@ -402,19 +402,19 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, canSwipeToState state: SWCellState) -> Bool {
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, canSwipeTo state: SWCellState) -> Bool {
         return true
     }
 
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell!) -> Bool {
+    func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell!) -> Bool {
         return true
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell!, scrollingToState state: SWCellState) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell!, scrollingTo state: SWCellState) {
         // no-op
     }
 
-    func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell!) {
+    func swipeableTableViewCellDidEndScrolling(_ cell: SWTableViewCell!) {
         // no-op
     }
 }

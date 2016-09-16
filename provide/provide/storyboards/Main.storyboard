@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Exo2-Light.ttf">
+        <array key="Exo2-Light.ttf">
             <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-        </mutableArray>
-        <mutableArray key="Exo2-Regular.ttf">
+        </array>
+        <array key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
-        </mutableArray>
-        <mutableArray key="Exo2-SemiBold.ttf">
+        </array>
+        <array key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Navigation Controller-->
@@ -57,44 +46,41 @@
                         <viewControllerLayoutGuide type="bottom" id="aFy-U9-0mG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Pce-DG-jaQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="178" y="50" width="244" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="CLu-8a-BiA"/>
                                     <constraint firstAttribute="height" constant="87" id="HqC-iN-mNd"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
-                                <rect key="frame" x="248" y="282" width="105" height="36"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
-                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
-                                <rect key="frame" x="248" y="556" width="105" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="jYx-nT-Ss7"/>
                                     <constraint firstAttribute="height" constant="36" id="tZr-Jq-Uex"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="14"/>
                                 <state key="normal" title="HAVE A CODE?">
-                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="Wzh-ch-uKh"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.83137254901960789" green="0.83137254901960789" blue="0.83137254901960789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerY" secondItem="Pce-DG-jaQ" secondAttribute="centerY" id="D7w-x0-yiI"/>
@@ -139,18 +125,17 @@
                         <viewControllerLayoutGuide type="bottom" id="XtO-Ko-RR3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eGZ-2h-M94">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQN-sP-dJb">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="R0e-aH-frg" id="eXj-p4-58n"/>
                                 </connections>
                             </webView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="pQN-sP-dJb" firstAttribute="top" secondItem="eGZ-2h-M94" secondAttribute="top" id="1Sw-VC-Gmd"/>
                             <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leading" id="adF-7t-7WS"/>
@@ -164,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ynb-gA-Nuj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-864" y="1053"/>
+            <point key="canvasLocation" x="-864.5" y="1052.5"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="CRL-d1-7mo">
@@ -175,12 +160,11 @@
                         <viewControllerLayoutGuide type="bottom" id="1gT-5H-qin"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rQQ-e5-Ntm">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nE0-hN-Fx2">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nE0-hN-Fx2">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="400" id="09E-yD-yoe"/>
                                     <constraint firstAttribute="height" constant="844" id="lNz-Va-RN5"/>
@@ -188,27 +172,25 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="Y2a-af-b6z" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2a-af-b6z" id="z9i-9S-yRY">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-zr-4NR">
-                                                    <rect key="frame" x="90" y="7" width="502" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-6n-9RI">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="5kM-hG-x7C"/>
                                                         <constraint firstAttribute="width" constant="75" id="8dW-WX-SSd"/>
                                                         <constraint firstAttribute="width" constant="76" id="hSq-zK-O3M"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="textColor" red="0.18870663642883301" green="0.18870098888874054" blue="0.18870420753955841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -314,20 +296,19 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="aLi-80-mNL" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aLi-80-mNL" id="nvt-U7-Wmo">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm1-XU-sQ9">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="BHS-DA-414"/>
                                                         <constraint firstAttribute="width" constant="76" id="OeF-Np-ZtZ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="textColor" red="0.18870663642883301" green="0.18870098888874054" blue="0.18870420753955841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -342,7 +323,6 @@
                                                     </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lo-59-hky">
-                                                    <rect key="frame" x="90" y="7" width="502" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -459,7 +439,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nE0-hN-Fx2" firstAttribute="leading" secondItem="rQQ-e5-Ntm" secondAttribute="leading" id="4Tq-7f-W1r"/>
                             <constraint firstAttribute="trailing" secondItem="nE0-hN-Fx2" secondAttribute="trailing" id="JTC-oz-JRi"/>
@@ -494,45 +474,44 @@
             <objects>
                 <tableViewController storyboardIdentifier="MenuViewController" id="cnk-1G-UCz" customClass="MenuViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="50" sectionHeaderHeight="10" sectionFooterHeight="10" id="paT-No-aGs" customClass="MenuTableView" customModule="provide" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.86307119290000001" green="0.86307119290000001" blue="0.86307119290000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.86307119290000001" green="0.86307119290000001" blue="0.86307119290000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="6OQ-Ex-Qlu" customClass="MenuHeaderView" customModule="provide" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-x5-mA1">
-                                    <rect key="frame" x="8" y="8" width="65" height="65"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="65" id="Rbr-XQ-HRR"/>
                                         <constraint firstAttribute="height" constant="65" id="eNk-cC-Mdg"/>
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K47-UQ-7Pe">
-                                    <rect key="frame" x="7" y="60" width="67" height="30"/>
+                                    <frame key="frameInset" minX="7" minY="60" width="67" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                     <state key="normal" title="change">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                 </button>
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="fwU-Ao-MaF">
-                                    <rect key="frame" x="31" y="31" width="20" height="20"/>
+                                    <frame key="frameInset" minX="31" minY="31" width="20" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
-                                    <rect key="frame" x="81" y="8" width="91" height="18"/>
                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acme Inc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKg-uN-cvP">
-                                    <rect key="frame" x="81" y="31" width="61" height="18"/>
                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="QgJ-x5-mA1" firstAttribute="top" secondItem="6OQ-Ex-Qlu" secondAttribute="top" constant="8" id="EMg-aN-9zH"/>
                                 <constraint firstItem="IKg-uN-cvP" firstAttribute="leading" secondItem="QgJ-x5-mA1" secondAttribute="trailing" constant="8" id="VtQ-CF-7Rn"/>
@@ -551,14 +530,13 @@
                         </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuTableViewCellReuseIdentifier" id="oGi-d1-paG" userLabel="MenuTableViewCell" customClass="MenuTableViewCell" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="159.5" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="166" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGi-d1-paG" id="Ljp-YN-v2Z">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <frame key="frameInset" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JOBS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
-                                            <rect key="frame" x="58" y="12" width="242" height="21"/>
                                             <accessibility key="accessibilityConfiguration" label="tos_menu_item"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="242" id="IwO-eu-yf6"/>
@@ -566,7 +544,7 @@
                                                 <constraint firstAttribute="width" constant="242" id="pmA-7f-4e5"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -615,7 +593,7 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="label" destination="Buf-hq-Naq" id="4M3-Eq-ash"/>
                                 </connections>
@@ -645,17 +623,16 @@
                         <viewControllerLayoutGuide type="bottom" id="LBg-EW-qci"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TuU-RA-rYT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gL-gT-4zf">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="vq1-hW-c50" kind="embed" identifier="ApplicationUINavigationControllerEmbedSegue" id="Mdy-dO-KcT"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="LBg-EW-qci" firstAttribute="top" secondItem="0gL-gT-4zf" secondAttribute="bottom" id="5pv-m1-qMb"/>
                             <constraint firstItem="0gL-gT-4zf" firstAttribute="leading" secondItem="TuU-RA-rYT" secondAttribute="leadingMargin" constant="-20" id="MsO-kh-u07"/>
@@ -668,7 +645,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O0d-YA-N7Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="265"/>
+            <point key="canvasLocation" x="-87.5" y="264.5"/>
         </scene>
         <!--Pin Input View Controller-->
         <scene sceneID="BH5-FR-gBJ">
@@ -679,34 +656,30 @@
                         <viewControllerLayoutGuide type="bottom" id="gMS-vV-EGl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O0R-jw-XEh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="262" width="560" height="22"/>
                                 <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
-                                <rect key="frame" x="0.0" y="304" width="600" height="296"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
-                                        <rect key="frame" x="0.0" y="80" width="600" height="216"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.23137254901960785" green="0.52156862745098043" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.23137254901960785" green="0.52156862745098043" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
                                     <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
@@ -718,14 +691,13 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-pin" translatesAutoresizingMaskIntoConstraints="NO" id="wkv-VS-jtY">
-                                <rect key="frame" x="280" y="28" width="41" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="g8C-Hx-fU4"/>
                                     <constraint firstAttribute="height" constant="51" id="pT9-sD-CZy"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
                             <constraint firstItem="wkv-VS-jtY" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="8" symbolic="YES" id="Pms-ce-zFF"/>
@@ -744,7 +716,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="-1169"/>
+            <point key="canvasLocation" x="629" y="-1221"/>
         </scene>
         <!--Top View Controller-->
         <scene sceneID="RYy-qi-bSX">
@@ -757,7 +729,7 @@
                     <view key="view" contentMode="scaleToFill" id="K39-hI-ovh">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ixk-Ah-Fso"/>
                 </viewController>
@@ -790,12 +762,11 @@
                         <viewControllerLayoutGuide type="bottom" id="dSJ-8L-R8b"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLs-cj-VgO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="VLD-NA-j6N">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="VLD-NA-j6N">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="844" id="Ftu-f4-q67"/>
                                     <constraint firstAttribute="height" constant="400" id="zbR-YX-2VR"/>
@@ -803,14 +774,13 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="dPc-eh-P8F" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPc-eh-P8F" id="7Ax-w4-izu">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xjt-vG-yCQ">
-                                                    <rect key="frame" x="90" y="7" width="502" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -819,14 +789,13 @@
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmC-Ck-Zwi">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="rqE-YA-xu0"/>
                                                         <constraint firstAttribute="width" constant="76" id="u6G-ZS-uhY"/>
                                                         <constraint firstAttribute="width" constant="75" id="ypH-Hq-ykc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="textColor" red="0.18870663642883301" green="0.18870098888874054" blue="0.18870420753955841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -932,20 +901,19 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConfirmCell" id="Kbj-1u-IwZ" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kbj-1u-IwZ" id="Yyu-hx-Uug">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="confirm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlh-sc-CfC">
-                                                    <rect key="frame" x="8" y="11" width="75" height="22.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="76" id="L7n-Kw-inH"/>
                                                         <constraint firstAttribute="width" constant="75" id="hwX-Eh-8ua"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                                    <color key="textColor" red="0.18870663642883301" green="0.18870098888874054" blue="0.18870420753955841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -960,7 +928,6 @@
                                                     </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-vK-VzY">
-                                                    <rect key="frame" x="90" y="7" width="502" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -1080,7 +1047,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.83137254900000002" green="0.83137254900000002" blue="0.83137254900000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="VLD-NA-j6N" secondAttribute="trailing" id="Ag6-8y-wXJ"/>
                             <constraint firstItem="VLD-NA-j6N" firstAttribute="leading" secondItem="bLs-cj-VgO" secondAttribute="leading" id="YGQ-Qr-Mie"/>
@@ -1111,12 +1078,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="provide-logo" width="341" height="171"/>
+        <image name="provide-logo" width="341" height="170"/>
         <image name="provide-pin" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qEh-KF-YoG"/>
-        <segue reference="pyb-Ej-lW7"/>
+        <segue reference="baH-vf-SLM"/>
         <segue reference="Wzh-ch-uKh"/>
+        <segue reference="flA-yQ-9Vg"/>
     </inferredMetricsTieBreakers>
 </document>

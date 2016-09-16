@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -21,8 +21,8 @@ class WorkOrderProvider: Model {
     var flatFee = -1.0
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             "provider_rating",
             "checkin_coordinates",
@@ -33,8 +33,8 @@ class WorkOrderProvider: Model {
             "flat_fee",
             ]
         )
-        mapping.addRelationshipMappingWithSourceKeyPath("provider", mapping: Provider.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "provider", mapping: Provider.mapping())
+        return mapping!
     }
 
     var estimatedCost: Double {
@@ -46,7 +46,7 @@ class WorkOrderProvider: Model {
 
     var checkinsPolyline: MKPolyline! {
         var coords = [CLLocationCoordinate2D]()
-        if let checkinCoordinates = checkinCoordinates {
+        if let checkinCoordinates = checkinCoordinates as? [[NSNumber]] {
             for checkinCoordinate in checkinCoordinates {
                 let latitude = checkinCoordinate[0].doubleValue
                 let longitude = checkinCoordinate[1].doubleValue

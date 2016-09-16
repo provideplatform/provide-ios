@@ -10,8 +10,8 @@ import UIKit
 
 @objc
 protocol ProviderSearchViewControllerDelegate {
-    func providerSearchViewController(viewController: ProviderSearchViewController, didSelectProvider provider: Provider)
-    optional func providersForProviderSearchViewController(viewController: ProviderSearchViewController) -> [Provider]!
+    func providerSearchViewController(_ viewController: ProviderSearchViewController, didSelectProvider provider: Provider)
+    @objc optional func providersForProviderSearchViewController(_ viewController: ProviderSearchViewController) -> [Provider]!
 }
 
 class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, ProviderPickerViewControllerDelegate {
@@ -27,25 +27,25 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         }
     }
 
-    @IBOutlet private weak var searchBar: UISearchBar! {
+    @IBOutlet fileprivate weak var searchBar: UISearchBar! {
         didSet {
             if let searchBar = searchBar {
-                searchBar.hidden = hidesSearchBar
+                searchBar.isHidden = hidesSearchBar
             }
         }
     }
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var reloadingProviders = false
-    private var reloadingProvidersCount = false
-    private var addingProvider = false
-    private var removingProvider = false
+    fileprivate var reloadingProviders = false
+    fileprivate var reloadingProvidersCount = false
+    fileprivate var addingProvider = false
+    fileprivate var removingProvider = false
 
-    private var maximumSearchlessProvidersCount = 20
-    private var totalProvidersCount = -1
+    fileprivate var maximumSearchlessProvidersCount = 20
+    fileprivate var totalProvidersCount = -1
 
-    private var isInputAccessory = false {
+    fileprivate var isInputAccessory = false {
         didSet {
             if isInputAccessory {
                 hidesSearchBar = true
@@ -53,24 +53,24 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         }
     }
 
-    private var hidesSearchBar = false {
+    fileprivate var hidesSearchBar = false {
         didSet {
             if let searchBar = searchBar {
-                searchBar.hidden = hidesSearchBar
+                searchBar.isHidden = hidesSearchBar
             }
         }
     }
 
-    private var showsAllProviders: Bool {
+    fileprivate var showsAllProviders: Bool {
         return totalProvidersCount == -1 || totalProvidersCount <= maximumSearchlessProvidersCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllProviders
     }
 
-    private var queryResultsPickerViewController: ProviderPickerViewController!
-    private var queryResultsPickerTableViewCell: UITableViewCell! {
+    fileprivate var queryResultsPickerViewController: ProviderPickerViewController!
+    fileprivate var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
@@ -81,41 +81,43 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         super.viewDidLoad()
 
         if hidesSearchBar {
-            let rect = tableView.rectForHeaderInSection(0)
+            let rect = tableView.rectForHeader(inSection: 0)
             tableView.contentOffset = CGPoint(x: 0.0, y: rect.origin.y)
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
-            queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
+            queryResultsPickerViewController = segue.destination as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self
         }
     }
 
-    private func resolveTableViewCellForEmbeddedViewController(viewController: UIViewController) -> UITableViewCell! {
+    fileprivate func resolveTableViewCellForEmbeddedViewController(_ viewController: UIViewController) -> UITableViewCell! {
         var tableViewCell: UITableViewCell!
         var view = viewController.view
         while tableViewCell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                tableViewCell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    tableViewCell = v as! UITableViewCell
+                }
             }
         }
         return tableViewCell
     }
 
-    func setInputAccessoryMode(isInputAccessory: Bool = true) {
+    func setInputAccessoryMode(_ isInputAccessory: Bool = true) {
         self.isInputAccessory = isInputAccessory
     }
 
-    func hideSearchBar(hidden: Bool = true) {
+    func hideSearchBar(_ hidden: Bool = true) {
         hidesSearchBar = hidden
     }
 
-    func query(query: String) {
+    func query(_ query: String) {
         queryString = query
 
         if queryString.replaceString(" ", withString: "").length == 0 {
@@ -134,30 +136,30 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         }
     }
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if isInputAccessory {
             return 0.0
         }
         return super.tableView(tableView, heightForHeaderInSection: section)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllProviders
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         query(searchText)
     }
 
     // MARK: ProviderPickerViewControllerDelegate
 
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func providersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
             if let providers = providerSearchViewControllerDelegate?.providersForProviderSearchViewController?(self) {
                 return providers
@@ -167,30 +169,30 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         return [Provider]()
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
         providerSearchViewControllerDelegate?.providerSearchViewController(self, didSelectProvider: provider)
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
 
     }
 
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerAllowsMultipleSelection(_ viewController: ProviderPickerViewController) -> Bool {
         return false
     }
 
-    func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerCanRenderResults(_ viewController: ProviderPickerViewController) -> Bool {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
             return true
         }
         return false
     }
 
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func selectedProvidersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
         return [Provider]()
     }
 
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForProviderPickerViewController(_ viewController: ProviderPickerViewController) -> [String : AnyObject]! {
         if let providers = providerSearchViewControllerDelegate?.providersForProviderSearchViewController?(self) {
             viewController.providers = providers
             return nil
@@ -199,26 +201,32 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             if viewController == queryResultsPickerViewController {
                 let user = currentUser()
-                let defaultCompanyId = user.defaultCompanyId
+                var defaultCompanyId: AnyObject
+                if user.defaultCompanyId > 0 {
+                    defaultCompanyId = user.defaultCompanyId as AnyObject
+                } else {
+                    defaultCompanyId = NSNull()
+                }
+
                 if let queryString = queryString {
-                    return ["company_id": defaultCompanyId > 0 ? defaultCompanyId : NSNull(), "q": queryString]
+                    return ["company_id": defaultCompanyId, "q": queryString as AnyObject]
                 }
             }
         }
         return nil
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
         let providers = viewController.providers
 
-        if providers.count > indexPath.row - 1 {
-            let provider = providers[indexPath.row]
+        if providers.count > (indexPath as NSIndexPath).row - 1 {
+            let provider = providers[(indexPath as NSIndexPath).row]
 
-            cell.selected = viewController.isSelected(provider)
+            cell.isSelected = viewController.isSelected(provider)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = provider.contact.name
@@ -233,7 +241,7 @@ class ProviderSearchViewController: UITableViewController, UISearchBarDelegate, 
         return cell
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 }

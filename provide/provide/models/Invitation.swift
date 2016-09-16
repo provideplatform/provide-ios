@@ -15,12 +15,12 @@ class Invitation: Model {
     var user: User!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             ]
         )
-        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
+        return mapping!
     }
 }

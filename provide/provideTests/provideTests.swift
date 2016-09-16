@@ -3,7 +3,7 @@
 //  provideTests
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class provideTests: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        measureBlock() {
+        measure() {
             // Put the code you want to measure the time of here.
         }
     }

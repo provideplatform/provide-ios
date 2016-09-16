@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/12/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,15 +12,15 @@ import KTSwiftExtensions
 
 @objc
 protocol CustomerPickerViewControllerDelegate {
-    func queryParamsForCustomerPickerViewController(viewController: CustomerPickerViewController) -> [String : AnyObject]!
-    func customerPickerViewController(viewController: CustomerPickerViewController, didSelectCustomer customer: Customer)
-    func customerPickerViewController(viewController: CustomerPickerViewController, didDeselectCustomer customer: Customer)
-    func customerPickerViewControllerAllowsMultipleSelection(viewController: CustomerPickerViewController) -> Bool
-    func customersForPickerViewController(viewController: CustomerPickerViewController) -> [Customer]
-    func selectedCustomersForPickerViewController(viewController: CustomerPickerViewController) -> [Customer]
-    optional func collectionViewScrollDirectionForPickerViewController(viewController: CustomerPickerViewController) -> UICollectionViewScrollDirection
-    optional func customerPickerViewControllerCanRenderResults(viewController: CustomerPickerViewController) -> Bool
-    optional func customerPickerViewController(viewController: CustomerPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func queryParamsForCustomerPickerViewController(_ viewController: CustomerPickerViewController) -> [String : AnyObject]!
+    func customerPickerViewController(_ viewController: CustomerPickerViewController, didSelectCustomer customer: Customer)
+    func customerPickerViewController(_ viewController: CustomerPickerViewController, didDeselectCustomer customer: Customer)
+    func customerPickerViewControllerAllowsMultipleSelection(_ viewController: CustomerPickerViewController) -> Bool
+    func customersForPickerViewController(_ viewController: CustomerPickerViewController) -> [Customer]
+    func selectedCustomersForPickerViewController(_ viewController: CustomerPickerViewController) -> [Customer]
+    @objc optional func collectionViewScrollDirectionForPickerViewController(_ viewController: CustomerPickerViewController) -> UICollectionViewScrollDirection
+    @objc optional func customerPickerViewControllerCanRenderResults(_ viewController: CustomerPickerViewController) -> Bool
+    @objc optional func customerPickerViewController(_ viewController: CustomerPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class CustomerPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -49,9 +49,9 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var inFlightRequestOperation: RKObjectRequestOperation!
+    fileprivate var inFlightRequestOperation: RKObjectRequestOperation!
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -63,7 +63,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
     var customers = [Customer]() {
         didSet {
@@ -75,11 +75,11 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var selectedCustomers = [Customer]()
+    fileprivate var selectedCustomers = [Customer]()
 
-    private var page = 1
-    private let rpp = 10
-    private var lastCustomerIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastCustomerIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,11 +133,11 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(CustomerPickerViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(CustomerPickerViewController.reset), for: .valueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -160,11 +160,11 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
 
         if var params = delegate.queryParamsForCustomerPickerViewController(self) {
-            params["page"] = page
-            params["rpp"] = rpp
+            params["page"] = page as AnyObject?
+            params["rpp"] = rpp as AnyObject?
 
             if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                params["company_id"] = defaultCompanyId
+                params["company_id"] = defaultCompanyId as AnyObject?
             }
 
             if let inFlightRequestOperation = inFlightRequestOperation {
@@ -177,7 +177,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                 inFlightRequestOperation = ApiService.sharedService().fetchCustomerWithId(String(customerId),
                     onSuccess: { statusCode, mappingResult in
                         self.inFlightRequestOperation = nil
-                        let fetchedCustomer = mappingResult.firstObject as! Customer
+                        let fetchedCustomer = mappingResult?.firstObject as! Customer
                         self.customers = [fetchedCustomer]
 
                         self.reloadCollectionView()
@@ -192,7 +192,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
                 inFlightRequestOperation = ApiService.sharedService().fetchCustomers(params,
                     onSuccess: { statusCode, mappingResult in
                         self.inFlightRequestOperation = nil
-                        let fetchedCustomers = mappingResult.array() as! [Customer]
+                        let fetchedCustomers = mappingResult?.array() as! [Customer]
                         if self.page == 1 {
                             self.customers = [Customer]()
                         }
@@ -208,7 +208,7 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    func isSelected(customer: Customer) -> Bool {
+    func isSelected(_ customer: Customer) -> Bool {
         for p in selectedCustomers {
             if p.id == customer.id {
                 return true
@@ -219,24 +219,24 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
 
     // MARK - UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return customers.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = delegate?.customerPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
             return cell
         }
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
 
-        if customers.count > indexPath.row - 1 {
-            let customer = customers[indexPath.row]
+        if customers.count > (indexPath as NSIndexPath).row - 1 {
+            let customer = customers[(indexPath as NSIndexPath).row]
 
-            cell.selected = isSelected(customer)
+            cell.isSelected = isSelected(customer)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = customer.contact.name
@@ -253,21 +253,21 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let customer = customers[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let customer = customers[(indexPath as NSIndexPath).row]
         delegate?.customerPickerViewController(self, didSelectCustomer: customer)
     }
 
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let customer = customers[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let customer = customers[(indexPath as NSIndexPath).row]
         delegate?.customerPickerViewController(self, didDeselectCustomer: customer)
     }
     
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 }

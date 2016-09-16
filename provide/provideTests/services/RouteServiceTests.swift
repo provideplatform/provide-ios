@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/24/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import XCTest
@@ -27,7 +27,7 @@ class RouteServiceTests: XCTestCase {
     }
 
     func testFetch() {
-        let expectation = expectationWithDescription("GET routes")
+        let expectation = self.expectation(description: "GET routes")
 
         var fetchedRoutes = [Route]()
         RouteService.sharedService().fetch(
@@ -37,7 +37,7 @@ class RouteServiceTests: XCTestCase {
             }
         )
 
-        waitForExpectationsWithTimeout(5) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssert(fetchedRoutes.count == 1)
 
             // Test Route

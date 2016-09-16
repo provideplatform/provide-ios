@@ -3,27 +3,27 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class DirectionsInstructionView: UIView {
 
-    @IBOutlet private weak var backgroundView: UIView!
+    @IBOutlet fileprivate weak var backgroundView: UIView!
 
-    @IBOutlet private weak var icon: UIImageView!
-    @IBOutlet private weak var etaLabel: UILabel!
-    @IBOutlet private weak var instructionLabel: UILabel!
-    @IBOutlet private weak var stepDistanceLabel: UILabel!
-    @IBOutlet private weak var remainingDistanceLabel: UILabel!
-    @IBOutlet private weak var remainingTimeLabel: UILabel!
+    @IBOutlet fileprivate weak var icon: UIImageView!
+    @IBOutlet fileprivate weak var etaLabel: UILabel!
+    @IBOutlet fileprivate weak var instructionLabel: UILabel!
+    @IBOutlet fileprivate weak var stepDistanceLabel: UILabel!
+    @IBOutlet fileprivate weak var remainingDistanceLabel: UILabel!
+    @IBOutlet fileprivate weak var remainingTimeLabel: UILabel!
 
     override var frame: CGRect {
         didSet {
             if backgroundView != nil {
                 backgroundView.frame.size.width = frame.width
-                backgroundView.addDropShadow(CGSizeMake(1.0, 1.0), radius: 2.5, opacity: 0.9)
+                backgroundView.addDropShadow(CGSize(width: 1.0, height: 1.0), radius: 2.5, opacity: 0.9)
             }
         }
     }
@@ -35,7 +35,7 @@ class DirectionsInstructionView: UIView {
 
                 remainingTimeLabel.text = routeLeg.durationString
 
-                if let time = NSDate().dateByAddingTimeInterval(routeLeg.duration as NSTimeInterval).timeString {
+                if let time = Date().addingTimeInterval(routeLeg.duration as TimeInterval).timeString {
                     etaLabel.text = "\(time) arrival"
                 }
 

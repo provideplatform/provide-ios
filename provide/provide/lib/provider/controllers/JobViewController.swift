@@ -3,14 +3,14 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/17/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class JobViewController: ViewController, FloorplanViewControllerDelegate {
 
-    private var floorplanViewController: FloorplanViewController!
+    fileprivate var floorplanViewController: FloorplanViewController!
 
     var job: Job! {
         didSet {
@@ -25,65 +25,65 @@ class JobViewController: ViewController, FloorplanViewControllerDelegate {
 
         navigationItem.title = job.name
 
-        floorplanViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanViewController") as! FloorplanViewController
+        floorplanViewController = UIStoryboard("Floorplan").instantiateViewController(withIdentifier: "FloorplanViewController") as! FloorplanViewController
         floorplanViewController.floorplanViewControllerDelegate = self
         floorplanViewController.navigationItem.title = job.name
 
-        navigationController!.popViewControllerAnimated(false)
+        navigationController!.popViewController(animated: false)
         navigationController!.pushViewController(floorplanViewController, animated: false)
     }
 
     // MARK: FloorplanViewControllerDelegate
 
-    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan! {
+    func floorplanForFloorplanViewController(_ viewController: FloorplanViewController) -> Floorplan! {
         return nil
     }
 
-    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
+    func jobForFloorplanViewController(_ viewController: FloorplanViewController) -> Job! {
         return job
     }
 
-    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
+    func floorplanImageForFloorplanViewController(_ viewController: FloorplanViewController) -> UIImage! {
         return nil
     }
 
-    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
-        return .Setup
+    func modeForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
+        return .setup
     }
 
-    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func scaleCanBeSetByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController) {
+    func scaleWasSetForFloorplanViewController(_ viewController: FloorplanViewController) {
 
     }
 
-    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func newWorkOrderCanBeCreatedByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func areaSelectorIsAvailableForFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
     
-    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController! {
+    func navigationControllerForFloorplanViewController(_ viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
-    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool {
+    func floorplanViewControllerCanDropWorkOrderPin(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar! {
+    func toolbarForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanToolbar! {
         return nil
     }
 
-    func showToolbarForFloorplanViewController(viewController: FloorplanViewController) {
+    func showToolbarForFloorplanViewController(_ viewController: FloorplanViewController) {
 
     }
 
-    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController) {
+    func hideToolbarForFloorplanViewController(_ viewController: FloorplanViewController) {
         
     }
 }

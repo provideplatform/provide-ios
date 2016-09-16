@@ -3,45 +3,45 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/4/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
-typealias OnMessagesFetched = (messages: [Message]) -> ()
-typealias OnMessageCreated = Message -> Void
+typealias OnMessagesFetched = (_ messages: [Message]) -> ()
+typealias OnMessageCreated = (Message) -> Void
 
 class MessageService {
 
-    private var messages = [Message]()
+    fileprivate var messages = [Message]()
 
-    private init() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessageService.handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
+    fileprivate init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(MessageService.handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
-    private static let sharedInstance = MessageService()
+    fileprivate static let sharedInstance = MessageService()
 
     class func sharedService() -> MessageService {
         return sharedInstance
     }
 
-    func fetch(page: Int = 1, rpp: Int = 10, onMessagesFetched: OnMessagesFetched, onError: OnError) {
+    func fetch(_ page: Int = 1, rpp: Int = 10, onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
         let params = ["page": page, "rpp": rpp]
 
-        ApiService.sharedService().fetchMessages(params,
+        ApiService.sharedService().fetchMessages(params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
-                let fetchedMessages = mappingResult.array() as! [Message]
+                let fetchedMessages = mappingResult?.array() as! [Message]
                 self.messages += fetchedMessages
-                onMessagesFetched(messages: fetchedMessages)
+                onMessagesFetched(fetchedMessages)
             },
             onError: onError
         )
     }
 
-    func createMessage(text: String, recipientId: Int, onMessageCreated: OnMessageCreated, onError: OnError) {
-        ApiService.sharedService().createMessage(["body": text, "recipient_id": recipientId],
+    func createMessage(_ text: String, recipientId: Int, onMessageCreated: @escaping OnMessageCreated, onError: @escaping OnError) {
+        ApiService.sharedService().createMessage(["body": text as AnyObject, "recipient_id": recipientId as AnyObject],
             onSuccess: { statusCode, mappingResult in
-                let message = mappingResult.firstObject as! Message
+                let message = mappingResult?.firstObject as! Message
                 self.messages.append(message)
                 onMessageCreated(message)
             },
@@ -49,12 +49,12 @@ class MessageService {
         )
     }
 
-    @objc private func handleNewMessageReceived(notification: NSNotification) {
+    @objc fileprivate func handleNewMessageReceived(_ notification: Notification) {
         let message = notification.object as! Message
         messages.append(message)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

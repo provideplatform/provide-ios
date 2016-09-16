@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -29,11 +29,11 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    private let rendered = false
+    fileprivate let rendered = false
 
-    @IBOutlet private weak var titleImageView: UIImageView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var addressTextView: UITextView!
+    @IBOutlet fileprivate weak var titleImageView: UIImageView!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var addressTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +45,13 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         view.alpha = 0
 
         targetView.addSubview(view)
-        targetView.bringSubviewToFront(view)
+        targetView.bringSubview(toFront: view)
 
         if workOrder != nil {
             if workOrder.customer.profileImageUrl != nil {
                 // TODO -- load the image view using the profileImageUrl
             } else if workOrder.customer.contact.email != nil {
-                let gravatarImageView = UIImageView(frame: titleImageView.frame)
+//                let gravatarImageView = UIImageView(frame: titleImageView.frame)
 //                gravatarImageView.email = workOrder.contact.email
 //                gravatarImageView.load { error in
 //                    gravatarImageView.makeCircular()
@@ -84,9 +84,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
         view.frame = frame
 
-        view.addDropShadow(CGSizeMake(1.0, 1.25), radius: 2.0, opacity: 0.3)
+        view.addDropShadow(CGSize(width: 1.0, height: 1.25), radius: 2.0, opacity: 0.3)
 
-        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRect(
@@ -101,7 +101,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     }
 
     func unwind() {
-        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = self.initialFrame
@@ -115,11 +115,11 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     // MARK Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderDestinationHeaderViewControllerUnwindSegue":
-            assert(segue.sourceViewController is WorkOrderDestinationHeaderViewController)
-            assert(segue.destinationViewController is WorkOrdersViewController)
+            assert(segue.source is WorkOrderDestinationHeaderViewController)
+            assert(segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break

@@ -3,67 +3,67 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/6/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 protocol WorkOrderHistoryViewControllerDelegate {
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
 }
 
 class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    private var page = 1
-    private let rpp = 10
-    private var lastWorkOrderIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastWorkOrderIndex = -1
 
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
-    private var workOrders = [WorkOrder]() {
+    fileprivate var workOrders = [WorkOrder]() {
         didSet {
             collectionView?.reloadData()
         }
     }
 
-    private weak var selectedWorkOrder: WorkOrder!
+    fileprivate weak var selectedWorkOrder: WorkOrder!
 
-    private var zeroStateViewController: ZeroStateViewController!
+    fileprivate var zeroStateViewController: ZeroStateViewController!
 
-    private var isColumnedLayout: Bool {
+    fileprivate var isColumnedLayout: Bool {
         return view.frame.width > 414.0
     }
 
-    private var numberOfSections: Int {
+    fileprivate var numberOfSections: Int {
         if isColumnedLayout {
             return Int(ceil(Double(workOrders.count) / Double(numberOfItemsPerSection)))
         }
         return workOrders.count
     }
 
-    private var numberOfItemsPerSection: Int {
+    fileprivate var numberOfItemsPerSection: Int {
         if isColumnedLayout {
             return 2
         }
         return 1
     }
 
-    private func workOrderIndexAtIndexPath(indexPath: NSIndexPath) -> Int {
+    fileprivate func workOrderIndexAtIndexPath(_ indexPath: IndexPath) -> Int {
         if isColumnedLayout {
-            var i = indexPath.section * 2
-            i += indexPath.row
+            var i = (indexPath as NSIndexPath).section * 2
+            i += (indexPath as NSIndexPath).row
             return i
         }
-        return indexPath.section
+        return (indexPath as NSIndexPath).section
     }
 
-    private func workOrderForRowAtIndexPath(indexPath: NSIndexPath) -> WorkOrder {
+    fileprivate func workOrderForRowAtIndexPath(_ indexPath: IndexPath) -> WorkOrder {
         return workOrders[workOrderIndexAtIndexPath(indexPath)]
     }
 
-    private func setupZeroStateView() {
+    fileprivate func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
@@ -77,7 +77,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         setupZeroStateView()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         selectedWorkOrder = nil
@@ -85,9 +85,9 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         collectionView.frame = view.bounds
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(WorkOrderHistoryViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(WorkOrderHistoryViewController.reset), for: .valueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -108,18 +108,18 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         }
 
         let params: [String : AnyObject] = [
-            "page": page,
-            "rpp": rpp,
-            "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed",
-            "sort_priority_and_due_at_asc": "true",
-            "include_products": "false",
-            "include_work_order_providers": "false",
-            "include_checkin_coordinates": "true",
+            "page": page as AnyObject,
+            "rpp": rpp as AnyObject,
+            "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed" as AnyObject,
+            "sort_priority_and_due_at_asc": "true" as AnyObject,
+            "include_products": "false" as AnyObject,
+            "include_work_order_providers": "false" as AnyObject,
+            "include_checkin_coordinates": "true" as AnyObject,
         ]
 
         ApiService.sharedService().fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
-                let fetchedWorkOrders = mappingResult.array() as! [WorkOrder]
+                let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
                 self.workOrders += fetchedWorkOrders
 
                 self.collectionView.reloadData()
@@ -132,26 +132,26 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         )
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "WorkOrderDetailsViewControllerSegue" {
-            (segue.destinationViewController as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
+            (segue.destination as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
         }
     }
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10.0, 5.0, 0.0, 5.0)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
-        return CGSizeMake(collectionView.frame.width - insetWidthOffset, 175.0)
+        return CGSize(width: collectionView.frame.width - insetWidthOffset, height: 175.0)
     }
 
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let workOrderIndex = workOrderIndexAtIndexPath(indexPath)
         if workOrderIndex == workOrders.count - 1 && workOrderIndex > lastWorkOrderIndex {
             page += 1
@@ -160,21 +160,21 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         }
     }
 
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         selectedWorkOrder = workOrderForRowAtIndexPath(indexPath)
 
         return true
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 
     // MARK: UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isColumnedLayout {
-            let workOrderIndex = workOrderIndexAtIndexPath(NSIndexPath(forRow: 1, inSection: section))
+            let workOrderIndex = workOrderIndexAtIndexPath(IndexPath(row: 1, section: section))
             if workOrderIndex > workOrders.count - 1 {
                 return 1
             }
@@ -184,20 +184,20 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("workOrderHistoryCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! WorkOrderHistoryCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "workOrderHistoryCollectionViewCellReuseIdentifier", for: indexPath) as! WorkOrderHistoryCollectionViewCell
         cell.workOrder = workOrderForRowAtIndexPath(indexPath)
         return cell
     }
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return numberOfSections
     }
 
     //    // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
     //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController! {
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController! {
         return navigationController
     }
 

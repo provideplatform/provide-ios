@@ -3,35 +3,35 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/16/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 @objc
 protocol CommentCreationViewControllerDelegate {
-    func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String)
-    func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController)
-    func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String!
-    func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String!
-    optional func saveItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem!
-    optional func dismissItemForCommentCreationViewController(viewController: CommentCreationViewController) -> UIBarButtonItem!
+    func commentCreationViewController(_ viewController: CommentCreationViewController, didSubmitComment comment: String)
+    func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController)
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String!
+    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String!
+    @objc optional func saveItemForCommentCreationViewController(_ viewController: CommentCreationViewController) -> UIBarButtonItem!
+    @objc optional func dismissItemForCommentCreationViewController(_ viewController: CommentCreationViewController) -> UIBarButtonItem!
 }
 
 class CommentCreationViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
 
     var commentCreationViewControllerDelegate: CommentCreationViewControllerDelegate!
 
-    @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var textView: UITextView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var textView: UITextView!
 
-    private var comments = [Comment]() {
+    fileprivate var comments = [Comment]() {
         didSet {
             collectionView.reloadData()
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
+    fileprivate var dismissItem: UIBarButtonItem! {
         if textView.text.length > 0 {
             if let dismissItem = commentCreationViewControllerDelegate?.saveItemForCommentCreationViewController?(self) {
                 return dismissItem
@@ -41,12 +41,12 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         }
 
         let title = textView.text.length > 0 ? "DISMISS + SAVE" : "DISMISS"
-        let dismissItem = UIBarButtonItem(title: title, style: .Plain, target: self, action: #selector(CommentCreationViewController.dismiss))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+        let dismissItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(CommentCreationViewController.dismiss as (CommentCreationViewController) -> () -> ()))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: .normal)
         return dismissItem
     }
 
-    private var hiddenNavigationControllerFrame: CGRect {
+    fileprivate var hiddenNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
             y: targetView.frame.height,
@@ -55,7 +55,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         )
     }
 
-    private var renderedNavigationControllerFrame: CGRect {
+    fileprivate var renderedNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
             y: hiddenNavigationControllerFrame.origin.y - hiddenNavigationControllerFrame.height,
@@ -72,11 +72,11 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         setupNavigationItem()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         textView.becomeFirstResponder()
@@ -109,9 +109,9 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
             navigationController.view.alpha = 0.0
             navigationController.view.frame = hiddenNavigationControllerFrame
             targetView.addSubview(navigationController.view)
-            targetView.bringSubviewToFront(navigationController.view)
+            targetView.bringSubview(toFront: navigationController.view)
 
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                 animations: {
                     self.view.alpha = 1
                     navigationController.view.alpha = 1
@@ -130,12 +130,12 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
     override func unwind() {
         clearNavigationItem()
 
-        if textView.isFirstResponder() {
+        if textView.isFirstResponder {
             textView.resignFirstResponder()
         }
 
         if let navigationController = navigationController {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                 animations: {
                     self.view.alpha = 0.0
                     navigationController.view.alpha = 0.0
@@ -170,13 +170,13 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
     //    // support for custom transition layout
     //    optional func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout!
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return comments.count
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("commentCollectionViewCellReuseIdentifier", forIndexPath: indexPath)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCollectionViewCellReuseIdentifier", for: indexPath)
 
         return cell
     }
@@ -188,11 +188,11 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
 
     // MARK: UITextFieldDelegate
 
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         return true
     }
 
-    func textViewShouldEndEditing(textView: UITextView) -> Bool {
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         return true
     }
 
@@ -201,7 +201,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
 
     //    optional func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool
 
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         setupNavigationItem()
     }
 

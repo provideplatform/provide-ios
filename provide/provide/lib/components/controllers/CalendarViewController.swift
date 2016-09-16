@@ -11,13 +11,13 @@ import PDTSimpleCalendar
 
 class CalendarViewController: PDTSimpleCalendarViewController {
 
-    private var selectedCell: UICollectionViewCell!
+    fileprivate var selectedCell: UICollectionViewCell!
     var selectedDateCell: UICollectionViewCell! {
         return selectedCell
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedCell = collectionView.cellForItemAtIndexPath(indexPath)
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCell = collectionView.cellForItem(at: indexPath)
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
     }
 }

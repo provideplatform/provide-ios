@@ -23,23 +23,23 @@ class Task: Model {
     var dueAtString: String!
     var completedAtString: String!
 
-    var completedAt: NSDate! {
+    var completedAt: Date! {
         if let completedAtString = completedAtString {
-            return NSDate.fromString(completedAtString)
+            return Date.fromString(completedAtString)
         }
         return nil
     }
 
-    var dueAt: NSDate! {
+    var dueAt: Date! {
         if let dueAtString = dueAtString {
-            return NSDate.fromString(dueAtString)
+            return Date.fromString(dueAtString)
         }
         return nil
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "company_id": "companyId",
             "user_id": "userId",
@@ -53,46 +53,46 @@ class Task: Model {
             "declined_at": "declinedAtString",
             "status": "status",
             ])
-        return mapping
+        return mapping!
     }
 
-    override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
+    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var params = super.toDictionary()
 
         if providerId == 0 {
-            params.removeValueForKey("provider_id")
+            params.removeValue(forKey: "provider_id")
         }
 
         if jobId == 0 {
-            params.removeValueForKey("job_id")
+            params.removeValue(forKey: "job_id")
         }
 
         if workOrderId == 0 {
-            params.removeValueForKey("work_order_id")
+            params.removeValue(forKey: "work_order_id")
         }
 
         return params
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let params = self.toDictionary()
 
         if id > 0 {
             ApiService.sharedService().updateTaskWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
             ApiService.sharedService().createTask(params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }

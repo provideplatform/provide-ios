@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -15,56 +15,56 @@ class NavigationRootViewController: ViewController,
                                     SetPasswordViewControllerDelegate,
                                     PinInputViewControllerDelegate {
 
-    @IBOutlet private var logoImageView: UIImageView!
-    @IBOutlet private var signInButton: UIButton!
-    @IBOutlet private var codeButton: UIButton!
+    @IBOutlet fileprivate var logoImageView: UIImageView!
+    @IBOutlet fileprivate var signInButton: UIButton!
+    @IBOutlet fileprivate var codeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
 
         logoImageView.alpha = 0.0
 
-        signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), forState: .Normal)
-        signInButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
+        signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
+        signInButton.setTitleColor(UIColor.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
-        codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), forState: .Normal)
-        codeButton.setTitleColor(UIColor.darkGrayColor(), forState: .Highlighted)
+        codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
+        codeButton.setTitleColor(UIColor.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
 
-        MBProgressHUD.showHUDAddedTo(view, animated: true)
+        MBProgressHUD.showAdded(to: view, animated: true)
 
         if ApiService.sharedService().hasCachedToken {
             dispatch_after_delay(0.0) {
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
                 self.presentApplicationViewController()
             }
         } else {
-            MBProgressHUD.hideHUDForView(view, animated: true)
+            MBProgressHUD.hide(for: view, animated: true)
 
             logoImageView.alpha = 1.0
             signInButton.alpha = 1.0
             codeButton.alpha = 1.0
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in
-            self.performSegueWithIdentifier("PinInputViewControllerSegue", sender: self)
+        NotificationCenter.default.addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in
+            self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+        NotificationCenter.default.addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
             self.showToast("The supplied credentials are invalid...")
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationUserWasAuthenticated") { _ in
+        NotificationCenter.default.addObserverForName("ApplicationUserWasAuthenticated") { _ in
             self.presentApplicationViewController()
         }
     }
 
-    private func presentApplicationViewController() {
-        performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+    fileprivate func presentApplicationViewController() {
+        performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
 
         dispatch_after_delay(1.0) {
             self.logoImageView.alpha = 1.0
@@ -73,19 +73,19 @@ class NavigationRootViewController: ViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
-            (segue.destinationViewController as! ApplicationViewController).applicationViewControllerDelegate = self
+            (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
             break
         case "AuthenticationViewControllerSegue":
-            assert(segue.destinationViewController is AuthenticationViewController)
+            assert(segue.destination is AuthenticationViewController)
         case "PinInputViewControllerSegue":
-            assert(segue.destinationViewController is PinInputViewController)
-            (segue.destinationViewController as! PinInputViewController).delegate = self
+            assert(segue.destination is PinInputViewController)
+            (segue.destination as! PinInputViewController).delegate = self
         case "SetPasswordViewControllerSegue":
-            assert(segue.destinationViewController is SetPasswordViewController)
-            (segue.destinationViewController as! SetPasswordViewController).delegate = self
+            assert(segue.destination is SetPasswordViewController)
+            (segue.destination as! SetPasswordViewController).delegate = self
         default:
             break
         }
@@ -93,65 +93,65 @@ class NavigationRootViewController: ViewController,
 
     // MARK: ApplicationViewControllerDelegate
 
-    func dismissApplicationViewController(viewController: ApplicationViewController) {
-        dismissViewController(animated: true) {
+    func dismissApplicationViewController(_ viewController: ApplicationViewController) {
+        dismissViewController(true) {
 
         }
     }
 
     // MARK: PinInputViewControllerDelegate
 
-    func pinInputViewControllerDidComplete(pinInputViewController: PinInputViewController) {
+    func pinInputViewControllerDidComplete(_ pinInputViewController: PinInputViewController) {
         print("completed PIN input view controller \(pinInputViewController)")
     }
 
-    func pinInputViewControllerDidExceedMaxAttempts(pinInputViewController: PinInputViewController) {
+    func pinInputViewControllerDidExceedMaxAttempts(_ pinInputViewController: PinInputViewController) {
 
     }
 
-    func isInviteRedeptionPinInputViewController(pinInputViewController: PinInputViewController) -> Bool {
+    func isInviteRedeptionPinInputViewController(_ pinInputViewController: PinInputViewController) -> Bool {
         return true
     }
 
-    func pinInputViewController(pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String) {
+    func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String) {
         if let presentingViewController = pinInputViewController.presentingViewController {
-            presentingViewController.dismissViewController(animated: true)
+            presentingViewController.dismissViewController(true)
 
-            MBProgressHUD.showHUDAddedTo(presentingViewController.view, animated: true)
+            MBProgressHUD.showAdded(to: presentingViewController.view, animated: true)
 
             ApiService.sharedService().fetchInvitationWithId(pin,
                 onSuccess: { statusCode, mappingResult in
-                    let invitation = mappingResult.firstObject as! Invitation
+                    let invitation = mappingResult?.firstObject as! Invitation
 
                     if let user = invitation.user {
                         let params: [String : AnyObject] = [
-                            "email": user.email,
-                            "invitation_token": pin
+                            "email": user.email as AnyObject,
+                            "invitation_token": pin as AnyObject
                         ]
 
                         ApiService.sharedService().createUser(params,
                             onSuccess: { statusCode, mappingResult in
-                                MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
-                                self.performSegueWithIdentifier("SetPasswordViewControllerSegue", sender: self)
+                                MBProgressHUD.hide(for: presentingViewController.view, animated: true)
+                                self.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: self)
                             },
                             onError: { error, statusCode, responseString in
-                                MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
+                                MBProgressHUD.hide(for: presentingViewController.view, animated: true)
                             }
                         )
                     }
                 },
                 onError: { error, statusCode, responseString in
                     if statusCode == 404 {
-                        MBProgressHUD.hideAllHUDsForView(presentingViewController.view, animated: true)
+                        MBProgressHUD.hide(for: presentingViewController.view, animated: true)
 
-                        let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .Alert)
+                        let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .alert)
 
-                        let tryAgainAction = UIAlertAction(title: "Try Again", style: .Cancel) { action in
-                            self.performSegueWithIdentifier("PinInputViewControllerSegue", sender: self)
+                        let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { action in
+                            self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
                         }
                         alertController.addAction(tryAgainAction)
 
-                        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: nil)
+                        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
                         alertController.addAction(cancelAction)
 
                         presentingViewController.presentViewController(alertController, animated: true)
@@ -163,10 +163,10 @@ class NavigationRootViewController: ViewController,
 
     // MARK: SetPasswordViewControllerDelegate
 
-    func setPasswordViewController(viewController: SetPasswordViewController, didSetPassword success: Bool) {
+    func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool) {
         if success {
             dispatch_after_delay(0.0) {
-                self.performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+                self.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
                 dispatch_after_delay(1.0) {
                     self.signInButton.alpha = 1.0
                 }
@@ -175,6 +175,6 @@ class NavigationRootViewController: ViewController,
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

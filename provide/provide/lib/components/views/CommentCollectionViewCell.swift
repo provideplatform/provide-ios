@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/16/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
     weak var comment: Comment! {
         didSet {
-            if NSThread.isMainThread() {
+            if Thread.isMainThread {
                 self.refresh()
             } else {
                 dispatch_after_delay(0.0) {
@@ -23,12 +23,12 @@ class CommentCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var timestampLabel: UILabel!
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var bodyTextView: UITextView!
-    @IBOutlet private weak var attachmentPreviewImageView: UIImageView!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var timestampLabel: UILabel!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var bodyTextView: UITextView!
+    @IBOutlet fileprivate weak var attachmentPreviewImageView: UIImageView!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -39,24 +39,24 @@ class CommentCollectionViewCell: UICollectionViewCell {
         activityIndicatorView?.stopAnimating()
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         if let comment = comment {
             if let activityIndicatorView = activityIndicatorView {
                 if comment.body == nil || comment.body.length == 0 {
                     activityIndicatorView.startAnimating()
-                    bringSubviewToFront(activityIndicatorView)
+                    bringSubview(toFront: activityIndicatorView)
                 }
             }
 
             if let imageAttachments = comment.attachments {
                 if imageAttachments.count > 0 {
                     for attachment in imageAttachments {
-                        attachmentPreviewImageView?.contentMode = .ScaleAspectFit
-                        if let url = attachment.url {
-                            attachmentPreviewImageView?.sd_setImageWithURL(url, placeholderImage: nil, completed: { image, error, cacheType, url in
+                        attachmentPreviewImageView?.contentMode = .scaleAspectFit
+                        if let attachmentURL = attachment.url {
+                            attachmentPreviewImageView?.sd_setImage(with: attachmentURL, completed: { image, error, cacheType, url in
                                 if let attachmentPreviewImageView = self.attachmentPreviewImageView {
                                     attachmentPreviewImageView.alpha = 1.0
-                                    self.bringSubviewToFront(attachmentPreviewImageView)
+                                    self.bringSubview(toFront: attachmentPreviewImageView)
                                 }
                                 self.activityIndicatorView?.stopAnimating()
                             })
@@ -79,15 +79,15 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 self.attachmentPreviewImageView.alpha = 0.0
             }
 
-            bodyTextView?.editable = false
+            bodyTextView?.isEditable = false
 
             nameLabel?.text = comment.user.name
             bodyTextView?.text = comment.body
 
             if let imageUrl = comment.user.profileImageUrl {
-                imageView.contentMode = .ScaleAspectFit
-                imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
-                    self.contentView.bringSubviewToFront(self.imageView)
+                imageView.contentMode = .scaleAspectFit
+                imageView.sd_setImage(with: imageUrl as URL!, completed: { image, error, cacheType, url in
+                    self.contentView.bringSubview(toFront: self.imageView)
                     self.imageView.makeCircular()
 
                     self.imageView.alpha = 1.0
@@ -97,7 +97,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                 imageView.image = nil
             }
 
-            let date = comment.createdAtDate
+            let date = comment.createdAtDate!
             let secondsOld = abs(date.timeIntervalSinceNow)
             if secondsOld < 60 {
                 timestampLabel?.text = "Just now"

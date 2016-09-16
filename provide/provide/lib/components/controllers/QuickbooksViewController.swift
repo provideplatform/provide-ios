@@ -14,62 +14,52 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
     var company: Company! {
         didSet {
             if let _ = company {
-                if viewLoaded {
+                if isViewLoaded {
                     reload()
                 }
             }
         }
     }
 
-    @IBOutlet private weak var instructionLabel: UILabel!
-    @IBOutlet private weak var disconnectButton: UIButton!
+    @IBOutlet fileprivate weak var instructionLabel: UILabel!
+    @IBOutlet fileprivate weak var disconnectButton: UIButton!
 
-    private var authorizationWebViewController: WebViewController!
-
-    private var viewLoaded = false {
-        didSet {
-            if let _ = company {
-                if viewLoaded {
-                    reload()
-                }
-            }
-        }
-    }
+    fileprivate var authorizationWebViewController: WebViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         instructionLabel?.alpha = 0.0
 
-        disconnectButton.addTarget(self, action: #selector(QuickbooksViewController.disconnect(_:)), forControlEvents: .TouchUpInside)
+        disconnectButton.addTarget(self, action: #selector(QuickbooksViewController.disconnect(_:)), for: .touchUpInside)
         disconnectButton.alpha = 0.0
 
-        viewLoaded = true
+        reload()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "QuickbooksAuthorizationViewControllerSegue" {
             setHasBeenPromptedToIntegrateQuickbooksAccountFlag()
-            authorizationWebViewController = segue.destinationViewController as! WebViewController
+            authorizationWebViewController = segue.destination as! WebViewController
 
             if ApiService.sharedService().hasCachedToken {
                 let token = KeyChainService.sharedService().token!
                 authorizationWebViewController.webViewControllerDelegate = self
-                let authorizationString = token.authorizationHeaderString.componentsSeparatedByString(" ").last!
-                authorizationWebViewController.url = NSURL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/quickbooks/authenticate?company_id=\(company.id)&x-api-authorization=\(authorizationString)")
+                let authorizationString = token.authorizationHeaderString.components(separatedBy: " ").last!
+                authorizationWebViewController.url = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/quickbooks/authenticate?company_id=\(company.id)&x-api-authorization=\(authorizationString)")
             }
         }
     }
 
     func reload() {
         if !company.isIntegratedWithQuickbooks {
-            performSegueWithIdentifier("QuickbooksAuthorizationViewControllerSegue", sender: self)
+            performSegue(withIdentifier: "QuickbooksAuthorizationViewControllerSegue", sender: self)
         } else if company.isIntegratedWithQuickbooks {
             instructionLabel?.text = "Congrats! Quickbooks is integrated!"
             instructionLabel?.alpha = 1.0
@@ -78,7 +68,7 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         }
     }
 
-    func disconnect(sender: UIButton) {
+    func disconnect(_ sender: UIButton) {
         if company.isIntegratedWithQuickbooks {
 
         }
@@ -86,15 +76,15 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
 
     // MARK: WebViewControllerDelegate
 
-    func webViewController(viewController: WebViewController, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let url = request.URL {
+    func webViewController(_ viewController: WebViewController, shouldStartLoadWithRequest request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        if let url = request.url {
             if let fragment = url.fragment {
                 if fragment == "/quickbooks/success" {
-                    navigationController?.popViewControllerAnimated(true)
-                    company.hasQuickbooksIntegration = NSNumber(bool: true)
+                    let _ = navigationController?.popViewController(animated: true) // FIXME: Does this actually work yet???
+                    company.hasQuickbooksIntegration = NSNumber(value: true as Bool)
                     reload()
                     dispatch_after_delay(2.5) {
-                        self.presentingViewController?.dismissViewController(animated: true)
+                        self.presentingViewController?.dismissViewController(true)
                     }
                 }
             }
@@ -102,28 +92,28 @@ class QuickbooksViewController: ViewController, WebViewControllerDelegate {
         return true
     }
 
-    func webViewControllerDismissed(viewController: WebViewController) {
+    func webViewControllerDismissed(_ viewController: WebViewController) {
         promptForCancellationOfQuickbooksIntegration()
     }
 
-    private func setHasBeenPromptedToIntegrateQuickbooksAccountFlag() {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setBool(true, forKey: "presentedQuickbooksAuthorizationDialog")
+    fileprivate func setHasBeenPromptedToIntegrateQuickbooksAccountFlag() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(true, forKey: "presentedQuickbooksAuthorizationDialog")
         userDefaults.synchronize()
     }
 
-    private func promptForCancellationOfQuickbooksIntegration() {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    fileprivate func promptForCancellationOfQuickbooksIntegration() {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "You did not connect your account with Quickbooks. Do you want to continue without Quickbooks integration?",
                                                 message: "You can always manage your integrations from the company profile.",
                                                 preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Yes, Continue Without Quickbooks", style: .Cancel) { action in
-            self.presentingViewController?.dismissViewController(animated: true)
+        let cancelAction = UIAlertAction(title: "Yes, Continue Without Quickbooks", style: .cancel) { action in
+            self.presentingViewController?.dismissViewController(true)
         }
         alertController.addAction(cancelAction)
 
-        let setScaleAction = UIAlertAction(title: "Integrate With Quickbooks", style: .Default, handler: nil)
+        let setScaleAction = UIAlertAction(title: "Integrate With Quickbooks", style: .default, handler: nil)
         alertController.addAction(setScaleAction)
 
         presentViewController(alertController, animated: true)

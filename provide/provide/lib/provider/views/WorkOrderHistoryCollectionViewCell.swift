@@ -3,33 +3,33 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/6/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
-    @IBOutlet private weak var avatarImageView: UIImageView!
-    @IBOutlet private weak var mapView: RouteMapView!
+    @IBOutlet fileprivate weak var avatarImageView: UIImageView!
+    @IBOutlet fileprivate weak var mapView: RouteMapView!
 
-    @IBOutlet private weak var detailsContainerView: UIView!
-    @IBOutlet private weak var statusBackgroundView: UIView!
-    @IBOutlet private weak var timestampLabel: UILabel!
-    @IBOutlet private weak var durationLabel: UILabel!
-    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var detailsContainerView: UIView!
+    @IBOutlet fileprivate weak var statusBackgroundView: UIView!
+    @IBOutlet fileprivate weak var timestampLabel: UILabel!
+    @IBOutlet fileprivate weak var durationLabel: UILabel!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
 
-    private var gravatarImageView: UIImageView!
+    fileprivate var gravatarImageView: UIImageView!
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
     var workOrder: WorkOrder! {
         didSet {
-            addBorder(1.0, color: UIColor.lightGrayColor())
+            addBorder(1.0, color: UIColor.lightGray)
             roundCorners(4.0)
 
-            contentView.backgroundColor = UIColor.clearColor()
-            detailsContainerView.backgroundColor = UIColor.clearColor()
+            contentView.backgroundColor = UIColor.clear
+            detailsContainerView.backgroundColor = UIColor.clear
 
             mapView.showsUserLocation = false
             mapView.removeAnnotations()
@@ -39,7 +39,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 if let workOrderProviders = workOrder.workOrderProviders {
                     for workOrderProvider in workOrderProviders {
                         if let checkinsPolyline = workOrderProvider.checkinsPolyline {
-                            mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
+                            mapView.add(checkinsPolyline, level: .aboveRoads)
 
                             let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
 
@@ -81,23 +81,23 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 //            }
 
                 if let timestamp = workOrder.humanReadableStartedAtTimestamp {
-                    timestampLabel.text = timestamp.uppercaseString
+                    timestampLabel.text = timestamp.uppercased()
                     timestampLabel.sizeToFit()
                 } else if let timestamp = workOrder.humanReadableScheduledStartAtTimestamp {
-                    timestampLabel.text = timestamp.uppercaseString
+                    timestampLabel.text = timestamp.uppercased()
                     timestampLabel.sizeToFit()
                 }
 
                 if let duration = workOrder.humanReadableDuration {
-                    durationLabel.text = duration.uppercaseString
+                    durationLabel.text = duration.uppercased()
                     durationLabel.sizeToFit()
                 }
 
                 if let status = workOrder.status {
-                    statusLabel.text = status.uppercaseString
+                    statusLabel.text = status.uppercased()
 
                     if status == "en_route" || status == "in_progress" {
-                        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
+                        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
                         timer.fire()
                     } else if workOrder.status == "scheduled" {
                         durationLabel.text = workOrder.scheduledStartAtDate.timeString
@@ -117,14 +117,14 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        contentView.backgroundColor = UIColor.clearColor()
-        detailsContainerView.backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clear
+        detailsContainerView.backgroundColor = UIColor.clear
 
         mapView.alpha = 0.0
         mapView.removeAnnotations()
         mapView.removeOverlays()
 
-        statusBackgroundView.backgroundColor = UIColor.clearColor()
+        statusBackgroundView.backgroundColor = UIColor.clear
         statusBackgroundView.alpha = 0.9
 
         avatarImageView.image = nil
@@ -142,11 +142,11 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
 
     func refresh() {
         if let duration = workOrder.humanReadableDuration {
-            durationLabel.text = duration.uppercaseString
+            durationLabel.text = duration.uppercased()
             durationLabel.sizeToFit()
         }
 
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
             animations: {
                 let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
                 self.statusBackgroundView?.alpha = CGFloat(alpha)

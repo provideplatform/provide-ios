@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/4/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import KTSwiftExtensions
@@ -24,7 +24,7 @@ enum PushNotificationType: String {
 
     static let allTypes = [Attachment, Checkin, Job, Message, Route, WorkOrder]
 
-    static func typeAndValueFromUserInfo(userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject!) {
+    static func typeAndValueFromUserInfo(_ userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject?) {
         for type in allTypes {
             if let value: AnyObject = userInfo[type.rawValue] {
                 return (type, value)

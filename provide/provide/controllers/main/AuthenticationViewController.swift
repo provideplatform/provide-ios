@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,10 +12,10 @@ import KTSwiftExtensions
 
 class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ApplicationViewControllerDelegate {
 
-    private var emailField: UITextField!
-    private var passwordField: UITextField!
+    fileprivate var emailField: UITextField!
+    fileprivate var passwordField: UITextField!
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
     // MARK: UIViewController Lifecycle
 
@@ -24,23 +24,23 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         tableView.layer.cornerRadius = 5.0
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationUserWasAuthenticated") { _ in
+        NotificationCenter.default.addObserverForName("ApplicationUserWasAuthenticated") { _ in
             self.userWasAuthenticated()
         }
     }
 
     func setupNavigationItem() {
         if let navigationController = navigationController {
-            navigationController.navigationBarHidden = false
+            navigationController.isNavigationBarHidden = false
         }
 
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(AuthenticationViewController.cancel(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(AuthenticationViewController.cancel(_:)))
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateStatus("")
@@ -49,45 +49,47 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: User Interface Methods
 
-    @objc private func cancel(_: UIBarButtonItem) {
-        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseIn,
+    @objc fileprivate func cancel(_: UIBarButtonItem) {
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
             animations: {
-                if self.emailField?.isFirstResponder() == true {
+                if self.emailField?.isFirstResponder == true {
                     self.emailField?.resignFirstResponder()
                 }
 
-                if self.passwordField?.isFirstResponder() == true {
+                if self.passwordField?.isFirstResponder == true {
                     self.passwordField?.resignFirstResponder()
                 }
 
                 return
             },
             completion: { complete in
-                self.performSegueWithIdentifier("AuthenticationViewControllerUnwindSegue", sender: self)
+                self.performSegue(withIdentifier: "AuthenticationViewControllerUnwindSegue", sender: self)
             }
         )
     }
 
-    private func showForm() {
+    fileprivate func showForm() {
         passwordField?.text = ""
 
-        if emailField?.text?.length > 0 {
-            passwordField?.becomeFirstResponder()
-        } else {
-            emailField?.becomeFirstResponder()
+        if let emailField = emailField {
+            if emailField.text!.length > 0 {
+                passwordField?.becomeFirstResponder()
+            } else {
+                emailField.becomeFirstResponder()
+            }
         }
 
-        UIView.animateWithDuration(0.15) {
+        UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 1
-        }
+        }) 
     }
 
-    private func hideForm() {
+    fileprivate func hideForm() {
         view.endEditing(true)
 
-        UIView.animateWithDuration(0.15) {
+        UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 0
-        }
+        }) 
     }
 
     // MARK: Process Methods
@@ -105,8 +107,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         login()
     }
 
-    private func login() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    fileprivate func login() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
             "email" : emailField.text!,
@@ -115,12 +117,12 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         ApiService.sharedService().login(params,
             onSuccess: { statusCode, responseString in
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
                 self.userWasAuthenticated()
             },
             onError: { error, statusCode, responseString in
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
                 logWarn("Failed to create API token")
                 self.showError("Authorization failed \(statusCode)")
@@ -129,22 +131,22 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         )
     }
 
-    private func userWasAuthenticated() {
+    fileprivate func userWasAuthenticated() {
         if KeyChainService.sharedService().email != nil {
-            performSegueWithIdentifier("ApplicationViewControllerSegue", sender: self)
+            performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
         }
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: AuthenticationCell!
 
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             cell = emailCell(tableView)
         case 1:
@@ -161,7 +163,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: AuthenticationCell setup methods
 
-    private func emailCell(tableView: UITableView) -> AuthenticationCell {
+    fileprivate func emailCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["EmailCell"] as! AuthenticationCell
         emailField = cell.textField
         if let storedEmail = KeyChainService.sharedService().email {
@@ -173,7 +175,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         return cell
     }
 
-    private func passwordCell(tableView: UITableView) -> AuthenticationCell {
+    fileprivate func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["PasswordCell"] as! AuthenticationCell
         passwordField = cell.textField
         passwordField.text = ""
@@ -183,24 +185,24 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: UITableViewDelegate
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView[indexPath.row] as! AuthenticationCell
         if let textField = cell.textField {
             textField.becomeFirstResponder()
         }
     }
 
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if emailField != nil && textField == emailField {
             passwordField.becomeFirstResponder()
             return false
@@ -213,7 +215,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         }
     }
 
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if !validFieldValues() {
             // no-op for now
         }
@@ -221,23 +223,23 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: Validation Methods
 
-    private func validFieldValues() -> Bool {
+    fileprivate func validFieldValues() -> Bool {
         return emailField != nil && emailField.text!.isValidEmail()
     }
 
     // MARK: Navigation Methods
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
-            (segue.destinationViewController as! ApplicationViewController).applicationViewControllerDelegate = self
+            (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
             break
         case "AuthenticationViewControllerUnwindSegue":
-            if emailField.isFirstResponder() {
+            if emailField.isFirstResponder {
                 emailField?.resignFirstResponder()
             }
 
-            if passwordField.isFirstResponder() {
+            if passwordField.isFirstResponder {
                 passwordField?.resignFirstResponder()
             }
         default:
@@ -247,13 +249,13 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: ApplicationViewControllerDelegate
 
-    func dismissApplicationViewController(viewController: ApplicationViewController) {
-        dismissViewController(animated: true) {
+    func dismissApplicationViewController(_ viewController: ApplicationViewController) {
+        dismissViewController(true) {
 
         }
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

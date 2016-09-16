@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -16,13 +16,13 @@ class Directions: Model {
     var selectedRouteIndex: Int!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "minutes",
             ]
         )
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Route", toKeyPath: "routes", withMapping: Route.mapping()))
-        return mapping
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Route", toKeyPath: "routes", with: Route.mapping()))
+        return mapping!
     }
 
     var selectedRoute: Route! {

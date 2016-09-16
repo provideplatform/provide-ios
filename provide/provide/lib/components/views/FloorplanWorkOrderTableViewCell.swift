@@ -13,7 +13,7 @@ class FloorplanWorkOrderTableViewCell: UITableViewCell {
 
     weak var annotation: Annotation! {
         didSet {
-            if NSThread.isMainThread() {
+            if Thread.isMainThread {
                 self.refresh()
             } else {
                 dispatch_after_delay(0.0) {
@@ -30,10 +30,10 @@ class FloorplanWorkOrderTableViewCell: UITableViewCell {
         return nil
     }
 
-    @IBOutlet private weak var pinView: FloorplanPinView!
-    @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet private weak var dueDateLabel: UILabel!
-    @IBOutlet private weak var priorityLabel: UILabel!
+    @IBOutlet fileprivate weak var pinView: FloorplanPinView!
+    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet fileprivate weak var dueDateLabel: UILabel!
+    @IBOutlet fileprivate weak var priorityLabel: UILabel!
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -47,8 +47,8 @@ class FloorplanWorkOrderTableViewCell: UITableViewCell {
         priorityLabel.text = ""
     }
 
-    private func refresh() {
-        pinView?.image = pinView?.image?.imageWithRenderingMode(.AlwaysTemplate)
+    fileprivate func refresh() {
+        pinView?.image = pinView?.image?.withRenderingMode(.alwaysTemplate)
 
         if let annotation = annotation {
             pinView.annotation = annotation
@@ -75,10 +75,10 @@ class FloorplanWorkOrderTableViewCell: UITableViewCell {
                         i += 1
                     }
                     priorityLabel.text = priorityIndicatorString
-                    priorityLabel.hidden = false
+                    priorityLabel.isHidden = false
                 } else {
                     priorityLabel.text = ""
-                    priorityLabel.hidden = true
+                    priorityLabel.isHidden = true
                 }
             } else {
                 prepareForReuse()

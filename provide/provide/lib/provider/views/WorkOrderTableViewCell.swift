@@ -3,19 +3,19 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/23/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class WorkOrderTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var customerLabel: UILabel!
-    @IBOutlet private weak var durationLabel: UILabel!
-    @IBOutlet private weak var statusLabel: UILabel!
-    @IBOutlet private weak var inventoryLabel: UILabel!
+    @IBOutlet fileprivate weak var customerLabel: UILabel!
+    @IBOutlet fileprivate weak var durationLabel: UILabel!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var inventoryLabel: UILabel!
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
     var workOrder: WorkOrder! {
         didSet {
@@ -36,7 +36,7 @@ class WorkOrderTableViewCell: UITableViewCell {
             backgroundView?.alpha = 0.9
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(WorkOrderTableViewCell.refresh), userInfo: nil, repeats: true)
+                timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(WorkOrderTableViewCell.refresh), userInfo: nil, repeats: true)
                 timer.fire()
             } else if workOrder.status == "scheduled" {
                 durationLabel.text = workOrder.scheduledStartAtDate.timeString
@@ -48,7 +48,7 @@ class WorkOrderTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        backgroundView?.backgroundColor = UIColor.clearColor()
+        backgroundView?.backgroundColor = UIColor.clear
         backgroundView?.alpha = 0.9
 
         customerLabel.text = ""
@@ -71,7 +71,7 @@ class WorkOrderTableViewCell: UITableViewCell {
     func refresh() {
         durationLabel.text = workOrder.humanReadableDuration
 
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
             animations: {
                 let alpha = self.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
                 self.backgroundView?.alpha = CGFloat(alpha)

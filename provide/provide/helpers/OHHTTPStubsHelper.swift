@@ -3,17 +3,17 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/7/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class OHHTTPStubsHelper {
 
-    static let iso8601DateFormatter: NSDateFormatter = {
-        var dateFormatter = NSDateFormatter()
+    static let iso8601DateFormatter: DateFormatter = {
+        var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC")
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         return dateFormatter
     }()
 
@@ -44,7 +44,7 @@ class OHHTTPStubsHelper {
     }
 }
 
-func stubRoute(httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil)  {
+func stubRoute(_ httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil)  {
     OHHTTPStubs.stubRequestsPassingTest(
         { request in
             return request.URL!.path! == path && request.HTTPMethod == httpMethod

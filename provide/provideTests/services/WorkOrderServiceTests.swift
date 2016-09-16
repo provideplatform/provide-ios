@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 5/31/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class WorkOrderServiceTests: XCTestCase {
     }
 
     func testFetch() {
-        let expectation = expectationWithDescription("GET work_orders")
+        let expectation = self.expectation(description: "GET work_orders")
 
         var fetchedWorkOrders = [WorkOrder]()
         WorkOrderService.sharedService().fetch { workOrders in
@@ -36,7 +36,7 @@ class WorkOrderServiceTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectationsWithTimeout(5) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssert(fetchedWorkOrders.count == 1)
 
             let workOrder = fetchedWorkOrders.first!

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/14/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,23 +12,23 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol ProductCreationViewControllerDelegate {
-    func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product)
+    func productCreationViewController(_ viewController: ProductCreationViewController, didCreateProduct product: Product)
 }
 
 class ProductCreationViewController: UITableViewController, UITextFieldDelegate, BarcodeScannerViewControllerDelegate {
 
     var delegate: ProductCreationViewControllerDelegate!
 
-    @IBOutlet private weak var nameTextField: UITextField!
-    @IBOutlet private weak var gtinTextField: UITextField!
+    @IBOutlet fileprivate weak var nameTextField: UITextField!
+    @IBOutlet fileprivate weak var gtinTextField: UITextField!
     @IBOutlet internal weak var priceTextField: UITextField!
     @IBOutlet internal weak var unitOfMeasureTextField: UITextField!
 
     @IBOutlet internal weak var saveButton: UIButton!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ProductCreationViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(ProductCreationViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
     
@@ -41,7 +41,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             navigationItem.leftBarButtonItems = [dismissItem]
         }
 
-        saveButton.addTarget(self, action: #selector(ProductCreationViewController.save(_:)), forControlEvents: .TouchUpInside)
+        saveButton.addTarget(self, action: #selector(ProductCreationViewController.save(_:)), for: .touchUpInside)
 
         setupScanBarButtonItem()
     }
@@ -57,58 +57,58 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
         }
     }
 
-    internal func save(sender: UIButton) {
+    internal func save(_ sender: UIButton) {
         save()
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
 
-    private func setupScanBarButtonItem() {
-        let barcodeIconImage = FAKFontAwesome.barcodeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-        let scanBarButtonItem = NavigationBarButton.barButtonItemWithImage(barcodeIconImage, target: self, action: "scanButtonTapped:")
+    fileprivate func setupScanBarButtonItem() {
+        let barcodeIconImage = FAKFontAwesome.barcodeIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))
+        let scanBarButtonItem = NavigationBarButton.barButtonItemWithImage(barcodeIconImage!, target: self, action: "scanButtonTapped:")
         navigationItem.rightBarButtonItem = scanBarButtonItem
     }
 
-    func scanButtonTapped(sender: UIBarButtonItem) {
+    func scanButtonTapped(_ sender: UIBarButtonItem) {
         let barcodeScannerViewController = UIStoryboard("BarcodeScanner").instantiateInitialViewController() as! BarcodeScannerViewController
         barcodeScannerViewController.delegate = self
 
         presentViewController(barcodeScannerViewController, animated: true)
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 0.8
         }
         return indexPath
     }
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 1.0
         }
     }
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             if let name = textField.text {
                 if name.length > 0 {
                     textField.resignFirstResponder()
-                    if gtinTextField.canBecomeFirstResponder() {
+                    if gtinTextField.canBecomeFirstResponder {
                         gtinTextField.becomeFirstResponder()
                     }
                     return true
@@ -118,7 +118,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             if let gtin = textField.text {
                 if gtin.length > 0 {
                     textField.resignFirstResponder()
-                    if priceTextField.canBecomeFirstResponder() {
+                    if priceTextField.canBecomeFirstResponder {
                         priceTextField.becomeFirstResponder()
                     }
                     return true
@@ -128,7 +128,7 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             if let price = Double(textField.text!) {
                 if price > 0.0 {
                     textField.resignFirstResponder()
-                    if unitOfMeasureTextField.canBecomeFirstResponder() {
+                    if unitOfMeasureTextField.canBecomeFirstResponder {
                         unitOfMeasureTextField.becomeFirstResponder()
                     }
                     return true
@@ -150,25 +150,25 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
 
     // MARK: BarcodeScannerViewControllerDelegate
 
-    func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
+    func barcodeScannerViewController(_ viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         print("saw barcode(s) \(metadataObjects)")
     }
 
-    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController) {
-        dismissViewController(animated: false)
+    func barcodeScannerViewControllerShouldBeDismissed(_ viewController: BarcodeScannerViewController) {
+        dismissViewController(false)
     }
 
-    private func createProductWithCompanyId(companyId: Int) {
+    fileprivate func createProductWithCompanyId(_ companyId: Int) {
         let product = Product()
         product.companyId = companyId
         product.gtin = gtinTextField?.text
         product.data = [String : AnyObject]()
-        product.data["name"] = nameTextField?.text
-        product.data["price"] = priceTextField?.text
+        product.data["name"] = nameTextField?.text as AnyObject?
+        product.data["price"] = priceTextField?.text as AnyObject?
 
         if let unitOfMeasure = unitOfMeasureTextField?.text {
             if unitOfMeasure.length > 0 {
-                product.data["unit_of_measure"] = unitOfMeasure
+                product.data["unit_of_measure"] = unitOfMeasure as AnyObject?
             }
         }
 
@@ -178,10 +178,10 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
             showActivityIndicator()
 
             product.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     if statusCode == 201 {
                         self.hideActivityIndicator()
-                        self.delegate?.productCreationViewController(self, didCreateProduct: mappingResult.firstObject as! Product)
+                        self.delegate?.productCreationViewController(self, didCreateProduct: mappingResult?.firstObject as! Product)
                     }
                 },
                 onError: { error, statusCode, responseString in
@@ -195,24 +195,24 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
 
     internal func showActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UIButton) {
+            } else if view.isKind(of: UIButton.self) {
                 view.alpha = 0.0
-                (view as! UIButton).enabled = false
+                (view as! UIButton).isEnabled = false
             }
         }
     }
 
     internal func hideActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UIButton) {
+            } else if view.isKind(of: UIButton.self) {
                 view.alpha = 1.0
-                (view as! UIButton).enabled = true
+                (view as! UIButton).isEnabled = true
             }
         }
     }

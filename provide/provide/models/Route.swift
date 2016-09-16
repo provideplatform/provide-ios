@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -31,8 +31,8 @@ class Route: Model {
     var providerOriginAssignment: ProviderOriginAssignment!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "status": "status",
             "id": "id",
             "name": "name",
@@ -46,11 +46,11 @@ class Route: Model {
             "unloading_ended_at": "unloadingEndedAt",
             ])
 
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", withMapping: ProviderOriginAssignment.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: WorkOrder.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", withMapping: RouteLeg.mapping()))
-        return mapping
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", with: ProviderOriginAssignment.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", with: Product.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", with: WorkOrder.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", with: RouteLeg.mapping()))
+        return mapping!
     }
 
     var humanReadableScheduledStartAtTimestamp: String! {
@@ -95,7 +95,7 @@ class Route: Model {
         return nil
     }
 
-    func updateWorkOrder(workOrder: WorkOrder) {
+    func updateWorkOrder(_ workOrder: WorkOrder) {
         var newWorkOrders = [WorkOrder]()
         for wo in workOrders {
             if wo.id == workOrder.id {
@@ -113,7 +113,7 @@ class Route: Model {
             for step in leg.steps {
                 if let shapes = step.shape {
                     for shape in shapes {
-                        let shapeCoords = shape.componentsSeparatedByString(",")
+                        let shapeCoords = shape.components(separatedBy: ",")
                         let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
                         let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
                         coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
@@ -173,14 +173,14 @@ class Route: Model {
             gtinsAccountedForCount[gtin] = gtinOrderedCount(gtin) - gtinLoadedCount(gtin)
         }
 
-        for workOrder in workOrders.reverse() {
+        for workOrder in workOrders.reversed() {
             if let products = workOrder.itemsOrdered {
                 for product in products {
                     let gtin = product.gtin
-                    if let remainingToLoad = gtinsAccountedForCount[gtin] {
+                    if let remainingToLoad = gtinsAccountedForCount[gtin!] {
                         if remainingToLoad > 0 {
                             itemsNotLoaded.append(product)
-                            gtinsAccountedForCount[gtin] = remainingToLoad - 1
+                            gtinsAccountedForCount[gtin!] = remainingToLoad - 1
                         }
                     }
                 }
@@ -192,7 +192,7 @@ class Route: Model {
 
     var itemsOrdered: [Product] {
         var itemsOrdered = [Product]()
-        for workOrder in workOrders.reverse() {
+        for workOrder in workOrders.reversed() {
             if let products = workOrder.itemsOrdered {
                 for product in products {
                     itemsOrdered.append(product)
@@ -205,7 +205,7 @@ class Route: Model {
 
     var itemsDelivered: [Product] {
         var itemsDelivered = [Product]()
-        for workOrder in workOrders.reverse() {
+        for workOrder in workOrders.reversed() {
             if let products = workOrder.itemsDelivered {
                 for product in products {
                     itemsDelivered.append(product)
@@ -218,7 +218,7 @@ class Route: Model {
 
     var itemsRejected: [Product] {
         var itemsRejected = [Product]()
-        for workOrder in workOrders.reverse() {
+        for workOrder in workOrders.reversed() {
             if let products = workOrder.itemsRejected {
                 for product in products {
                     itemsRejected.append(product)
@@ -241,11 +241,11 @@ class Route: Model {
         return gtinsOrdered
     }
 
-    func gtinOrderedCount(gtin: String) -> Int {
+    func gtinOrderedCount(_ gtin: String) -> Int {
         return itemsOrdered.filter { $0.gtin == gtin }.count
     }
 
-    func gtinLoadedCount(gtin: String) -> Int {
+    func gtinLoadedCount(_ gtin: String) -> Int {
         return gtinsLoaded.filter { $0 == gtin }.count
     }
 
@@ -253,7 +253,7 @@ class Route: Model {
         return itemsLoaded.count
     }
 
-    func itemForGtin(gtin: String) -> Product? {
+    func itemForGtin(_ gtin: String) -> Product? {
         for item in itemsOrdered {
             if item.gtin == gtin {
                 return item
@@ -262,68 +262,68 @@ class Route: Model {
         return nil
     }
 
-    func isGtinRequired(gtin: String) -> Bool {
+    func isGtinRequired(_ gtin: String) -> Bool {
         return gtinOrderedCount(gtin) > gtinLoadedCount(gtin)
     }
 
-    var scheduledStartAtDate: NSDate! {
+    var scheduledStartAtDate: Date! {
         if let scheduledStartAt = scheduledStartAt {
-            return NSDate.fromString(scheduledStartAt)
+            return Date.fromString(scheduledStartAt)
         }
         return nil
     }
 
-    var scheduledEndAtDate: NSDate! {
+    var scheduledEndAtDate: Date! {
         if let scheduledEndAt = scheduledEndAt {
-            return NSDate.fromString(scheduledEndAt)
+            return Date.fromString(scheduledEndAt)
         }
         return nil
     }
 
-    var startedAtDate: NSDate! {
+    var startedAtDate: Date! {
         if let startedAt = startedAt {
-            return NSDate.fromString(startedAt)
+            return Date.fromString(startedAt)
         }
         return nil
     }
 
-    var endedAtDate: NSDate! {
+    var endedAtDate: Date! {
         if let endedAt = endedAt {
-            return NSDate.fromString(endedAt)
+            return Date.fromString(endedAt)
         }
         return nil
     }
 
-    var loadingStartedAtDate: NSDate! {
+    var loadingStartedAtDate: Date! {
         if let loadingStartedAt = loadingStartedAt {
-            return NSDate.fromString(loadingStartedAt)
+            return Date.fromString(loadingStartedAt)
         }
         return nil
     }
 
-    var loadingEndedAtDate: NSDate! {
+    var loadingEndedAtDate: Date! {
         if let loadingEndedAt = loadingEndedAt {
-            return NSDate.fromString(loadingEndedAt)
+            return Date.fromString(loadingEndedAt)
         }
         return nil
     }
 
-    var unloadingStartedAtDate: NSDate! {
+    var unloadingStartedAtDate: Date! {
         if let unloadingStartedAt = unloadingStartedAt {
-            return NSDate.fromString(unloadingStartedAt)
+            return Date.fromString(unloadingStartedAt)
         }
         return nil
     }
 
-    var unloadingEndedDate: NSDate! {
+    var unloadingEndedDate: Date! {
         if let unloadingEndedAt = unloadingEndedAt {
-            return NSDate.fromString(unloadingEndedAt)
+            return Date.fromString(unloadingEndedAt)
         }
         return nil
     }
 
     var humanReadableDuration: String! {
-        var startedAtDate: NSDate!
+        var startedAtDate: Date!
 
         if let date = loadingStartedAtDate {
             startedAtDate = date
@@ -335,15 +335,15 @@ class Route: Model {
             var seconds = 0.0
 
             if let endedAtDate = endedAtDate {
-                seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)
+                seconds = endedAtDate.timeIntervalSince(startedAtDate)
             } else {
-                seconds = NSDate().timeIntervalSinceDate(startedAtDate)
+                seconds = Date().timeIntervalSince(startedAtDate)
             }
 
             let hours = Int(floor(Double(seconds) / 3600.0))
-            seconds = Double(seconds) % 3600.0
+            seconds = Double(seconds).truncatingRemainder(dividingBy: 3600.0)
             let minutes = Int(floor(Double(seconds) / 60.0))
-            seconds = floor(Double(seconds) % 60.0)
+            seconds = floor(Double(seconds).truncatingRemainder(dividingBy: 60.0))
 
             let hoursString = hours >= 1 ? "\(hours):" : ""
             let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
@@ -370,78 +370,78 @@ class Route: Model {
             return Color.pendingCompletionStatusColor()
         }
 
-        return UIColor.clearColor()
+        return UIColor.clear
     }
 
-    func reload(onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().fetchRouteWithId(String(id), params: ["include_products": "true", "include_work_orders": "true"],
+    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        ApiService.sharedService().fetchRouteWithId(String(id), params: ["include_products": "true" as AnyObject, "include_work_orders": "true" as AnyObject],
             onSuccess: { statusCode, mappingResult in
-                RouteService.sharedService().updateRoute(mappingResult.firstObject as! Route)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                RouteService.sharedService().updateRoute(mappingResult?.firstObject as! Route)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func load(onSuccess: OnSuccess, onError: OnError) {
+    func load(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         status = "loading"
         ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func start(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         status = "in_progress"
         ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         status = "unloading"
         ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func complete(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         status = "pending_completion"
         ApiService.sharedService().updateRouteWithId(String(id), params: toDictionary(),
             onSuccess: { statusCode, mappingResult in
                 RouteService.sharedService().updateRoute(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func loadManifestItemByGtin(gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
+    func loadManifestItemByGtin(_ gtin: String!, onSuccess: OnSuccess!, onError: OnError!) {
         RouteService.loadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
 
-    func unloadManifestItemByGtin(gtin: String, onSuccess: OnSuccess, onError: OnError) {
+    func unloadManifestItemByGtin(_ gtin: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         RouteService.unloadManifestItemByGtin(gtin, onRoute: self, onSuccess: onSuccess, onError: onError)
     }
 }

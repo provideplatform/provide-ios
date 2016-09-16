@@ -3,23 +3,23 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class SignatureViewController: WorkOrderComponentViewController, SignatureViewDelegate {
 
-    @IBOutlet private weak var signatureView: SignatureView!
-    @IBOutlet private weak var summaryLabel: UILabel!
+    @IBOutlet fileprivate weak var signatureView: SignatureView!
+    @IBOutlet fileprivate weak var summaryLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        let transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
         view.transform = transform
 
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         view.alpha = 1
 
         view.subviews[1].roundCorners(3.0)
@@ -42,7 +42,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
 
         summaryLabel.text = workOrdersViewControllerDelegate?.summaryLabelTextForSignatureViewController?(self)
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRect(
@@ -61,7 +61,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
     override func unwind() {
         clearNavigationItem()
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRect(
@@ -79,7 +79,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
 
     // MARK: SignatureViewDelegate
 
-    func signatureView(signatureView: SignatureView, capturedSignature signature: UIImage) {
+    func signatureView(_ signatureView: SignatureView, capturedSignature signature: UIImage) {
         workOrdersViewControllerDelegate?.signatureReceived?(signature, forWorkOrderViewController: self)
     }
 }

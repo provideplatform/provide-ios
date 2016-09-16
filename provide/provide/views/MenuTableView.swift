@@ -3,47 +3,47 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/25/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class MenuTableView: UITableView {
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesBegan(touches, withEvent: event)
+            superview!.touchesBegan(touches, with: event)
         }
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesEnded(touches, withEvent: event)
+            superview!.touchesEnded(touches, with: event)
         }
     }
 
-    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent!) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent!) {
+        super.touchesCancelled(touches, with: event)
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesCancelled(touches, withEvent: event)
+            superview!.touchesCancelled(touches, with: event)
         }
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesMoved(touches, withEvent: event)
+            superview!.touchesMoved(touches, with: event)
         }
     }
 
-    private func shouldPassTouchToSuperview(touch: UITouch) -> Bool {
-        if let _ = indexPathForRowAtPoint(touch.locationInView(self)) {
+    fileprivate func shouldPassTouchToSuperview(_ touch: UITouch) -> Bool {
+        if let _ = indexPathForRow(at: touch.location(in: self)) {
             return false
         }
 

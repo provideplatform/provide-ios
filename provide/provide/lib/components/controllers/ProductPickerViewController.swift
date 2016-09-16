@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/14/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,15 +12,15 @@ import KTSwiftExtensions
 
 @objc
 protocol ProductPickerViewControllerDelegate {
-    func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]!
-    func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product)
-    func productPickerViewController(viewController: ProductPickerViewController, didDeselectProduct: Product)
-    func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool
-    func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product]
-    func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product]
-    optional func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection
-    optional func productPickerViewControllerCanRenderResults(viewController: ProductPickerViewController) -> Bool
-    optional func productPickerViewController(viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func queryParamsForProductPickerViewController(_ viewController: ProductPickerViewController) -> [String : AnyObject]!
+    func productPickerViewController(_ viewController: ProductPickerViewController, didSelectProduct product: Product)
+    func productPickerViewController(_ viewController: ProductPickerViewController, didDeselectProduct: Product)
+    func productPickerViewControllerAllowsMultipleSelection(_ viewController: ProductPickerViewController) -> Bool
+    func productsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product]
+    func selectedProductsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product]
+    @objc optional func collectionViewScrollDirectionForPickerViewController(_ viewController: ProductPickerViewController) -> UICollectionViewScrollDirection
+    @objc optional func productPickerViewControllerCanRenderResults(_ viewController: ProductPickerViewController) -> Bool
+    @objc optional func productPickerViewController(_ viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class ProductPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -49,16 +49,16 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(ProductPickerViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(ProductPickerViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         dismissItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return dismissItem
     }
 
-    private var inFlightRequestOperation: RKObjectRequestOperation!
+    fileprivate var inFlightRequestOperation: RKObjectRequestOperation!
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -70,7 +70,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
     var products = [Product]() {
         didSet {
@@ -85,11 +85,11 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    private var selectedProducts = [Product]()
+    fileprivate var selectedProducts = [Product]()
 
-    private var page = 1
-    private let rpp = 15
-    private var lastProductIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 15
+    fileprivate var lastProductIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,12 +99,12 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
@@ -117,7 +117,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         activityIndicatorView?.stopAnimating()
     }
 
-    func setCollectionViewMinimumInteritemSpacing(spacing: CGFloat) {
+    func setCollectionViewMinimumInteritemSpacing(_ spacing: CGFloat) {
         if  let collectionView = collectionView {
             if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 flowLayout.minimumInteritemSpacing = spacing
@@ -126,7 +126,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    func setCollectionViewMinimumLineSpacing(spacing: CGFloat) {
+    func setCollectionViewMinimumLineSpacing(_ spacing: CGFloat) {
         if  let collectionView = collectionView {
             if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
                 flowLayout.minimumLineSpacing = spacing
@@ -169,11 +169,11 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ProductPickerViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ProductPickerViewController.reset), for: .valueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -197,11 +197,11 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
 
         if var params = delegate.queryParamsForProductPickerViewController(self) {
-            params["page"] = page
-            params["rpp"] = rpp
+            params["page"] = page as AnyObject?
+            params["rpp"] = rpp as AnyObject?
 
             if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                params["company_id"] = defaultCompanyId
+                params["company_id"] = defaultCompanyId as AnyObject?
             }
 
             if let inFlightRequestOperation = inFlightRequestOperation {
@@ -211,7 +211,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
             inFlightRequestOperation = ApiService.sharedService().fetchProducts(params,
                 onSuccess: { statusCode, mappingResult in
                     self.inFlightRequestOperation = nil
-                    let fetchedProducts = mappingResult.array() as! [Product]
+                    let fetchedProducts = mappingResult?.array() as! [Product]
                     if self.page == 1 {
                         self.products = [Product]()
                     }
@@ -229,7 +229,7 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
         }
     }
 
-    func isSelected(product: Product) -> Bool {
+    func isSelected(_ product: Product) -> Bool {
         for p in selectedProducts {
             if p.id == product.id {
                 return true
@@ -240,24 +240,24 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
 
     // MARK: UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return products.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = delegate?.productPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
             return cell
         }
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
 
-        if products.count > indexPath.row - 1 {
-            let product = products[indexPath.row]
+        if products.count > (indexPath as NSIndexPath).row - 1 {
+            let product = products[(indexPath as NSIndexPath).row]
 
-            cell.selected = isSelected(product)
+            cell.isSelected = isSelected(product)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = product.name
@@ -274,21 +274,21 @@ class ProductPickerViewController: ViewController, UICollectionViewDataSource, U
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let product = products[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = products[(indexPath as NSIndexPath).row]
         delegate?.productPickerViewController(self, didSelectProduct: product)
     }
 
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let product = products[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let product = products[(indexPath as NSIndexPath).row]
         delegate?.productPickerViewController(self, didDeselectProduct: product)
     }
     
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 }

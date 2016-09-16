@@ -3,27 +3,27 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/12/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol ProviderCreationViewControllerDelegate {
-    func providerCreationViewController(viewController: ProviderCreationViewController, didCreateProvider provider: Provider)
+    func providerCreationViewController(_ viewController: ProviderCreationViewController, didCreateProvider provider: Provider)
 }
 
 class ProviderCreationViewController: UITableViewController, UITextFieldDelegate {
 
     var delegate: ProviderCreationViewControllerDelegate!
 
-    @IBOutlet private weak var nameTextField: UITextField!
-    @IBOutlet private weak var emailTextField: UITextField!
-    @IBOutlet private weak var mobileNumberTextField: UITextField!
+    @IBOutlet fileprivate weak var nameTextField: UITextField!
+    @IBOutlet fileprivate weak var emailTextField: UITextField!
+    @IBOutlet fileprivate weak var mobileNumberTextField: UITextField!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ProviderCreationViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(ProviderCreationViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
     
@@ -37,18 +37,18 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
         }
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
             let user = currentUser()
             if user.defaultCompanyId > 0 {
                 createProviderWithCompanyId(user.defaultCompanyId)
@@ -71,25 +71,25 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
             }
         }
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 0.8
         }
         return indexPath
     }
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 1.0
         }
     }
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             if let name = textField.text {
                 return name.length > 0
@@ -98,7 +98,7 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
         return false
     }
 
-    private func createProviderWithCompanyId(companyId: Int) {
+    fileprivate func createProviderWithCompanyId(_ companyId: Int) {
         let provider = Provider()
         provider.companyId = companyId
         provider.name = nameTextField?.text
@@ -115,12 +115,12 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
             showActivityIndicator()
 
             provider.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     if statusCode == 201 {
                         provider.reload(
                             { statusCode, mappingResult in
                                 self.hideActivityIndicator()
-                                self.delegate?.providerCreationViewController(self, didCreateProvider: mappingResult.firstObject as! Provider)
+                                self.delegate?.providerCreationViewController(self, didCreateProvider: mappingResult?.firstObject as! Provider)
                             },
                             onError: { error, statusCode, responseString in
                                 self.hideActivityIndicator()
@@ -133,9 +133,9 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
 
                     if statusCode == 422 {
                         if let response = responseString.toJSONObject() {
-                            if let errorsIndex = response.indexForKey("errors") {
+                            if let errorsIndex = response.index(forKey: "errors") {
                                 if let errors = response[errorsIndex].1 as? [String : [String]] {
-                                    for key in errors.keys.generate() {
+                                    for key in errors.keys.makeIterator() {
                                         for value in errors[key]! {
                                             self.showToast("\(key) \(value)")
                                         }
@@ -151,23 +151,23 @@ class ProviderCreationViewController: UITableViewController, UITextFieldDelegate
         }
     }
 
-    private func showActivityIndicator() {
+    fileprivate func showActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKind(of: UILabel.self) {
                 view.alpha = 0.0
             }
         }
     }
 
-    private func hideActivityIndicator() {
+    fileprivate func hideActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKind(of: UILabel.self) {
                 view.alpha = 1.0
             }
         }

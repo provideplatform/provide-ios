@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -11,52 +11,52 @@ import AVFoundation
 import KTSwiftExtensions
 
 protocol RouteManifestViewControllerDelegate {
-    func targetViewForViewController(viewController: UIViewController) -> UIView
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
-    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
-    func routeForViewController(viewController: UIViewController) -> Route!
-    func routeUpdated(route: Route!, byViewController viewController: UIViewController)
+    func targetViewForViewController(_ viewController: UIViewController) -> UIView
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
+    func routeForViewController(_ viewController: UIViewController) -> Route!
+    func routeUpdated(_ route: Route!, byViewController viewController: UIViewController)
 }
 
 class RouteManifestViewController: ViewController, UITableViewDelegate, UITableViewDataSource, BarcodeScannerViewControllerDelegate {
 
     enum Mode {
-        case Loading, Unloading
+        case loading, unloading
 
-        static let allValues = [Loading, Unloading]
+        static let allValues = [loading, unloading]
     }
 
     enum LoadingSegment {
-        case OnTruck, Required
+        case onTruck, required
 
-        static let allValues = [OnTruck, Required]
+        static let allValues = [onTruck, required]
     }
 
     enum UnloadingSegment {
-        case OnTruck, Delivered
+        case onTruck, delivered
 
-        static let allValues = [OnTruck, Delivered]
+        static let allValues = [onTruck, delivered]
     }
 
-    private let loadingSegmentedControlItems = ["ON TRUCK", "REQUIRED"]
-    private let unloadingSegmentedControlItems = ["ON TRUCK", "DELIVERED"]
+    fileprivate let loadingSegmentedControlItems = ["ON TRUCK", "REQUIRED"]
+    fileprivate let unloadingSegmentedControlItems = ["ON TRUCK", "DELIVERED"]
 
     var delegate: RouteManifestViewControllerDelegate!
 
-    private var mode: Mode {
+    fileprivate var mode: Mode {
         if let route = route {
             if route.status == "unloading" {
-                return .Unloading
+                return .unloading
             }
         }
-        return .Loading
+        return .loading
     }
 
-    private var barcodeScannerViewController: BarcodeScannerViewController!
+    fileprivate var barcodeScannerViewController: BarcodeScannerViewController!
 
-    private var acceptingCodes = false
+    fileprivate var acceptingCodes = false
 
-    private var processingCode: Bool = false {
+    fileprivate var processingCode: Bool = false {
         didSet {
             if !processingCode {
                 dismissBarcodeScannerViewController()
@@ -64,29 +64,29 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private var toolbarSegmentedControl: UISegmentedControl!
-    @IBOutlet private weak var tableView: UITableView!
+    fileprivate var toolbarSegmentedControl: UISegmentedControl!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
-    private var items: [Product]! {
+    fileprivate var items: [Product]! {
         var items = [Product]()
         if let route = route {
             switch mode {
-            case .Loading:
+            case .loading:
                 switch LoadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
-                case .OnTruck:
+                case .onTruck:
                     for product in route.itemsLoaded {
                         items.append(product)
                     }
-                case .Required:
+                case .required:
                     items = route.itemsNotLoaded
                 }
-            case .Unloading:
+            case .unloading:
                 switch UnloadingSegment.allValues[toolbarSegmentedControl.selectedSegmentIndex] {
-                case .OnTruck:
+                case .onTruck:
                     for product in route.itemsLoaded {
                         items.append(product)
                     }
-                case .Delivered:
+                case .delivered:
                     items = route.itemsDelivered
                 }
             }
@@ -94,32 +94,32 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         return items
     }
 
-    private var route: Route! {
+    fileprivate var route: Route! {
         return delegate?.routeForViewController(self)
     }
 
-    private var loadingSegment: LoadingSegment!
-    private var unloadingSegment: UnloadingSegment!
+    fileprivate var loadingSegment: LoadingSegment!
+    fileprivate var unloadingSegment: UnloadingSegment!
 
-    private var completeItem: UIBarButtonItem! {
-        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .Plain, target: self, action: #selector(RouteManifestViewController.complete(_:)))
-        completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var completeItem: UIBarButtonItem! {
+        let completeItem = UIBarButtonItem(title: "COMPLETE", style: .plain, target: self, action: #selector(RouteManifestViewController.complete(_:)))
+        completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return completeItem
     }
 
-    private var scanItem: UIBarButtonItem! {
-        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .Plain, target: self, action: #selector(RouteManifestViewController.scan(_:)))
-        scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var scanItem: UIBarButtonItem! {
+        let scanItem = UIBarButtonItem(title: "+ SCAN", style: .plain, target: self, action: #selector(RouteManifestViewController.scan(_:)))
+        scanItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return scanItem
     }
 
-    private var startItem: UIBarButtonItem! {
-        let startItem = UIBarButtonItem(title: "START", style: .Plain, target: self, action: #selector(RouteManifestViewController.start(_:)))
-        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var startItem: UIBarButtonItem! {
+        let startItem = UIBarButtonItem(title: "START", style: .plain, target: self, action: #selector(RouteManifestViewController.start(_:)))
+        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return startItem
     }
 
-    private var targetView: UIView! {
+    fileprivate var targetView: UIView! {
         return delegate?.targetViewForViewController(self)
     }
 
@@ -152,40 +152,40 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private func initToolbarSegmentedControl() {
+    fileprivate func initToolbarSegmentedControl() {
         switch mode {
-        case .Loading:
+        case .loading:
             toolbarSegmentedControl = UISegmentedControl(items: loadingSegmentedControlItems)
             toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 1
-            toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.loadingSegmentChanged(_:)), forControlEvents: .ValueChanged)
-        case .Unloading:
+            toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
+            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.loadingSegmentChanged(_:)), for: .valueChanged)
+        case .unloading:
             toolbarSegmentedControl = UISegmentedControl(items: unloadingSegmentedControlItems)
             toolbarSegmentedControl.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             toolbarSegmentedControl.selectedSegmentIndex = 0
-            toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.unloadingSegmentChanged(_:)), forControlEvents: .ValueChanged)
+            toolbarSegmentedControl.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
+            toolbarSegmentedControl.addTarget(self, action: #selector(RouteManifestViewController.unloadingSegmentChanged(_:)), for: .valueChanged)
         }
     }
 
-    private func dismissBarcodeScannerViewController() {
+    fileprivate func dismissBarcodeScannerViewController() {
         refreshNavigationItem()
 
-        dismissViewController(animated: true) {
+        dismissViewController(true) {
             self.tableView.reloadData()
         }
     }
 
-    private var navigationItemPrompt: String! {
+    fileprivate var navigationItemPrompt: String! {
         var prompt: String!
         switch mode {
-        case .Loading:
+        case .loading:
             prompt = "\(route.itemsToLoadCountRemaining) item(s) missing from manifest"
             if let name = route?.name {
                 prompt = "\(route.itemsToLoadCountRemaining) item(s) missing from manifest for \(name)"
             }
-        case .Unloading:
+        case .unloading:
             prompt = "\(route.itemsToUnloadCountRemaining) item(s) to receive back into inventory"
             if let name = route?.name {
                 prompt = "\(route.itemsToUnloadCountRemaining) item(s) to receive back into inventory for \(name)"
@@ -226,15 +226,15 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
     }
 
     func render() {
-        if mode == .Loading && route.status != "loading" {
+        if mode == .loading && route.status != "loading" {
             load()
-        } else if mode == .Unloading && route.itemsLoaded.count == 0 {
+        } else if mode == .unloading && route.itemsLoaded.count == 0 {
             complete(nil)
         }
 
         if let navigationController = delegate?.navigationControllerForViewController(self) {
             for viewController in navigationController.viewControllers {
-                if viewController.isKindOfClass(RouteManifestViewController) {
+                if viewController.isKind(of: RouteManifestViewController.self) {
                     return
                 }
             }
@@ -242,7 +242,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func scan(sender: UIBarButtonItem!) {
+    func scan(_ sender: UIBarButtonItem!) {
         clearNavigationItem()
 
         if isSimulator() { // HACK!!!
@@ -253,10 +253,10 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private func simulateScanningAllItems() { // HACK!!! only for being able to fly thru demos on the simulator
+    fileprivate func simulateScanningAllItems() { // HACK!!! only for being able to fly thru demos on the simulator
         if let route = route {
             switch mode {
-            case .Loading:
+            case .loading:
                 var gtins = [String]()
                 for item in route.itemsOrdered {
                     gtins.append(item.gtin)
@@ -264,7 +264,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
                 showHUD()
 
-                ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": gtins],
+                ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": gtins as AnyObject],
                     onSuccess: { statusCode, responseString in
                         var itemsLoaded = [Product]()
                         for product in route.itemsOrdered {
@@ -280,7 +280,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                         self.hideHUD()
                     }
                 )
-            case .Unloading:
+            case .unloading:
                 showHUD()
 
                 for item in route.itemsLoaded {
@@ -301,13 +301,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func start(sender: UIBarButtonItem!) {
+    func start(_ sender: UIBarButtonItem!) {
         clearNavigationItem()
 
         showHUD()
 
         route.start(
-            onSuccess: { statusCode, responseString in
+            { statusCode, responseString in
                 self.dismiss()
             },
             onError: { error, statusCode, responseString in
@@ -333,13 +333,13 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func complete(sender: UIBarButtonItem!) {
+    func complete(_ sender: UIBarButtonItem!) {
         if let route = route {
             if route.itemsLoaded.count == 0 {
                 showHUD()
 
                 route.complete(
-                    onSuccess: { statusCode, mappingResult in
+                    { statusCode, mappingResult in
                         self.dismiss()
                     },
                     onError: { error, statusCode, responseString in
@@ -350,7 +350,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private func dismiss() {
+    fileprivate func dismiss() {
         refreshNavigationItem()
         hideHUD()
         tableView.delegate = nil
@@ -359,7 +359,7 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
 
     // MARK: BarcodeScannerViewControllerDelegate
 
-    func barcodeScannerViewController(barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
+    func barcodeScannerViewController(_ barcodeScannerViewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         if acceptingCodes {
             if let machineReadableCodeObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject {
                 processCode(machineReadableCodeObject)
@@ -367,15 +367,15 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    private func processCode(metadataObject: AVMetadataMachineReadableCodeObject?) {
+    fileprivate func processCode(_ metadataObject: AVMetadataMachineReadableCodeObject?) {
         if let code = metadataObject {
             if code.type == AVMetadataObjectTypeEAN13Code || code.type == AVMetadataObjectTypeCode39Code {
                 let value = code.stringValue
 
                 if let route = route {
                     switch mode {
-                    case .Loading:
-                        if route.isGtinRequired(value) {
+                    case .loading:
+                        if route.isGtinRequired(value!) {
                             acceptingCodes = false
                             processingCode = true
 
@@ -392,14 +392,14 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
                                 }
                             )
                         }
-                    case .Unloading:
-                        if route.gtinLoadedCount(value) > 0 {
+                    case .unloading:
+                        if route.gtinLoadedCount(value!) > 0 {
                             acceptingCodes = false
                             processingCode = true
 
                             showHUD()
 
-                            route.unloadManifestItemByGtin(value,
+                            route.unloadManifestItemByGtin(value!,
                                 onSuccess: { statusCode, responseString in
                                     self.processingCode = false
                                     self.hideHUD()
@@ -419,29 +419,29 @@ class RouteManifestViewController: ViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController) {
+    func barcodeScannerViewControllerShouldBeDismissed(_ viewController: BarcodeScannerViewController) {
         dismissBarcodeScannerViewController()
     }
 
     // MARK: UITableViewDelegate
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("manifestTableViewCell") as! ManifestItemTableViewCell
-        cell.product = items[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "manifestTableViewCell") as! ManifestItemTableViewCell
+        cell.product = items[(indexPath as NSIndexPath).row]
         return cell
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75.0
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        log("selected loaded manifest item: \(items[indexPath.row])")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        log("selected loaded manifest item: \(items[(indexPath as NSIndexPath).row])")
     }
 }

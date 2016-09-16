@@ -3,20 +3,20 @@
 //  provide
 //
 //  Created by Kyle Thomas on 10/24/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanThumbnailViewDelegate: NSObjectProtocol {
-    func floorplanThumbnailViewNavigationBegan(view: FloorplanThumbnailView)
-    func floorplanThumbnailViewNavigationEnded(view: FloorplanThumbnailView)
-    func floorplanThumbnailView(view: FloorplanThumbnailView, navigatedToFrame frame: CGRect)
-    func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat
-    func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize
-    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize!
-    func offsetSizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize
+    func floorplanThumbnailViewNavigationBegan(_ view: FloorplanThumbnailView)
+    func floorplanThumbnailViewNavigationEnded(_ view: FloorplanThumbnailView)
+    func floorplanThumbnailView(_ view: FloorplanThumbnailView, navigatedToFrame frame: CGRect)
+    func initialScaleForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGFloat
+    func sizeForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize
+    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize!
+    func offsetSizeForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize
 }
 
 class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
@@ -38,7 +38,7 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
 
                         if let delegate = self!.delegate {
                             let scale = delegate.initialScaleForFloorplanThumbnailView(self!)
-                            self!.resizeOverlayView(CGPointZero, scale: scale)
+                            self!.resizeOverlayView(CGPoint.zero, scale: scale)
                         }
                     }
                 } else {
@@ -48,19 +48,19 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
         }
     }
 
-    @IBOutlet private weak var thumbnailImageBackgroundView: UIView!
+    @IBOutlet fileprivate weak var thumbnailImageBackgroundView: UIView!
 
-    @IBOutlet private weak var overlayView: FloorplanThumbnailOverlayView! {
+    @IBOutlet fileprivate weak var overlayView: FloorplanThumbnailOverlayView! {
         didSet {
             if let overlayView = overlayView {
                 overlayView.delegate = self
                 overlayView.alpha = 0.0
-                overlayView.addBorder(3.0, color: UIColor.blackColor())
+                overlayView.addBorder(3.0, color: UIColor.black)
             }
         }
     }
 
-    private var desiredSize: CGSize {
+    fileprivate var desiredSize: CGSize {
         var desiredSize = CGSize(width: 200.0, height: 215.0)
         if let delegate = delegate {
             desiredSize = delegate.sizeForFloorplanThumbnailView(self)
@@ -68,18 +68,18 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
         return desiredSize
     }
 
-    private var visibleSize: CGSize {
+    fileprivate var visibleSize: CGSize {
         if let superview = self.superview {
             return superview.frame.size
         }
-        return CGSizeZero
+        return CGSize.zero
     }
 
-    private var viewportAspectRatio: CGFloat {
+    fileprivate var viewportAspectRatio: CGFloat {
         return visibleSize.width / visibleSize.height
     }
 
-    private func resizeOverlayView(origin: CGPoint = CGPointZero, scale: CGFloat = 1.0) {
+    fileprivate func resizeOverlayView(_ origin: CGPoint = CGPoint.zero, scale: CGFloat = 1.0) {
         if let floorplanImage = floorplanImage {
             let floorplanImageSize = delegate?.sizeForFloorplanThumbnailImageForFloorplanThumbnailView(self) ?? floorplanImage.size
             let heightRatio = visibleSize.height / (floorplanImageSize.height * scale)
@@ -98,9 +98,9 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
         }
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentSize.height > 0 && scrollView.contentSize.width > 0 {
-            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSizeZero
+            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSize.zero
             let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / (scrollView.contentSize.width - offsetSize.width)
             let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / (scrollView.contentSize.height - offsetSize.height)
 
@@ -113,13 +113,13 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
         }
     }
 
-    func scrollViewDidZoom(scrollView: UIScrollView) {
-        if frame.size == CGSizeZero {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        if frame.size == CGSize.zero {
             return
         }
 
         if let _ = floorplanImage {
-            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSizeZero
+            let offsetSize = delegate?.offsetSizeForFloorplanThumbnailView(self) ?? CGSize.zero
             let xScale = (scrollView.contentOffset.x + scrollView.contentInset.left) / (scrollView.contentSize.width - offsetSize.width)
             let yScale = (scrollView.contentOffset.y + scrollView.contentInset.top) / (scrollView.contentSize.height - offsetSize.height)
             let origin = CGPoint(x: frame.width * xScale, y: frame.height * yScale)
@@ -131,15 +131,15 @@ class FloorplanThumbnailView: UIView, FloorplanThumbnailOverlayViewDelegate {
 
     // MARK: FloorplanThumbnailOverlayViewDelegate
 
-    func floorplanThumbnailOverlayView(view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect) {
+    func floorplanThumbnailOverlayView(_ view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect) {
         delegate?.floorplanThumbnailView(self, navigatedToFrame: frame)
     }
 
-    func floorplanThumbnailOverlayViewNavigationBegan(view: FloorplanThumbnailOverlayView) {
+    func floorplanThumbnailOverlayViewNavigationBegan(_ view: FloorplanThumbnailOverlayView) {
         delegate?.floorplanThumbnailViewNavigationBegan(self)
     }
 
-    func floorplanThumbnailOverlayViewNavigationEnded(view: FloorplanThumbnailOverlayView) {
+    func floorplanThumbnailOverlayViewNavigationEnded(_ view: FloorplanThumbnailOverlayView) {
         delegate?.floorplanThumbnailViewNavigationEnded(self)
     }
 }

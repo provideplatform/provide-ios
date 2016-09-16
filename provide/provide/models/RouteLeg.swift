@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -18,14 +18,14 @@ class RouteLeg: Model {
     var currentStepIndex: Int = 0
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "Length": "distanceInMeters",
             "TravelTime": "duration"
             ]
         )
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Maneuver", toKeyPath: "steps", withMapping: RouteLegStep.mapping()))
-        return mapping
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Maneuver", toKeyPath: "steps", with: RouteLegStep.mapping()))
+        return mapping!
     }
 
     var distance: CLLocationDistance {

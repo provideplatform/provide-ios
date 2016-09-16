@@ -3,14 +3,14 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/27/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 @objc
 protocol WorkOrderProviderCreationViewControllerDelegate: NSObjectProtocol {
-    func workOrderProviderCreationViewController(viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
+    func workOrderProviderCreationViewController(_ viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
 }
 
 class WorkOrderProviderCreationViewController: UITableViewController, UITextFieldDelegate, DurationPickerViewDelegate {
@@ -27,13 +27,13 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
 
     weak var workOrder: WorkOrder!
     
-    private var durationPickerView: DurationPickerView!
+    fileprivate var durationPickerView: DurationPickerView!
 
-    private var estimatedDuration: Double!
+    fileprivate var estimatedDuration: Double!
 
-    @IBOutlet private weak var rateTextField: UITextField!
+    @IBOutlet fileprivate weak var rateTextField: UITextField!
 
-    private var hourlyRate: Double! {
+    fileprivate var hourlyRate: Double! {
         if let rateTextField = rateTextField {
             if let rate = Double(rateTextField.text!) {
                 return rate
@@ -48,16 +48,16 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
         populateTextFields()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "DurationPickerViewControllerEmbedSegue" {
-            durationPickerView = segue.destinationViewController.view as! DurationPickerView
+            durationPickerView = segue.destination.view as! DurationPickerView
             durationPickerView.durationPickerViewDelegate = self
         }
     }
 
-    private func populateTextFields() {
+    fileprivate func populateTextFields() {
         if let workOrderProvider = workOrderProvider {
             if workOrderProvider.estimatedDuration > -1.0 {
                 durationPickerView.selectRowWithValue(CGFloat(workOrderProvider.estimatedDuration))
@@ -69,28 +69,28 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
             saveWorkOrderProvider()
         }
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 0.8
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 0.8
         }
         return indexPath
     }
 
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            tableView.cellForRowAtIndexPath(indexPath)!.alpha = 1.0
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            tableView.cellForRow(at: indexPath)!.alpha = 1.0
         }
     }
 
-    private func saveWorkOrderProvider() {
+    fileprivate func saveWorkOrderProvider() {
         if let workOrderProvider = workOrderProvider {
             if let estimatedDuration = estimatedDuration {
                 workOrderProvider.estimatedDuration = estimatedDuration
@@ -112,23 +112,23 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
         }
     }
 
-    private func showActivityIndicator() {
+    fileprivate func showActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).startAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKind(of: UILabel.self) {
                 view.alpha = 0.0
             }
         }
     }
 
-    private func hideActivityIndicator() {
+    fileprivate func hideActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        for view in tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section))!.contentView.subviews {
-            if view.isKindOfClass(UIActivityIndicatorView) {
+        for view in tableView.cellForRow(at: IndexPath(row: 0, section: section))!.contentView.subviews {
+            if view.isKind(of: UIActivityIndicatorView.self) {
                 (view as! UIActivityIndicatorView).stopAnimating()
-            } else if view.isKindOfClass(UILabel) {
+            } else if view.isKind(of: UILabel.self) {
                 view.alpha = 1.0
             }
         }
@@ -136,18 +136,18 @@ class WorkOrderProviderCreationViewController: UITableViewController, UITextFiel
 
     // MARK: UITextFieldDelegate
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         saveWorkOrderProvider()
         return true
     }
 
     // MARK: DurationPickerViewDelegate
 
-    func durationPickerView(view: DurationPickerView, didPickDuration duration: CGFloat) {
+    func durationPickerView(_ view: DurationPickerView, didPickDuration duration: CGFloat) {
         estimatedDuration = Double(duration) * 60.0 // convert to seconds
     }
 }

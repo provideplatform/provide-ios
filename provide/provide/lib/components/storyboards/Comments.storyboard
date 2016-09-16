@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4fv-ZV-vdD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4fv-ZV-vdD">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Exo2-Regular.ttf">
+        <array key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
-        </mutableArray>
-        <mutableArray key="Exo2-SemiBold.ttf">
+        </array>
+        <array key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
-            <string>Exo2-SemiBold</string>
-        </mutableArray>
-        <mutableArray key="HelveticaNeue.ttc">
+        </array>
+        <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Navigation Controller-->
@@ -31,9 +27,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="iXH-Gv-iLA">
-                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.011764707040000001" green="0.019607843829999999" blue="0.019607843829999999" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="barTintColor" red="0.014813770540058613" green="0.02447543665766716" blue="0.024265419691801071" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>
                     <connections>
                         <segue destination="jDf-gt-dVV" kind="relationship" relationship="rootViewController" id="5yQ-sc-OXO"/>
@@ -52,18 +48,19 @@
                         <viewControllerLayoutGuide type="bottom" id="5Yb-rM-7cV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="d1r-8T-HEQ">
-                        <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eKE-9l-w5e">
-                                <rect key="frame" x="49" y="226" width="503" height="21"/>
+                                <frame key="frameInset" minX="49" minY="226" width="503" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EAs-fd-6Qs">
-                                <rect key="frame" x="0.0" y="-64" width="600" height="556"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EAs-fd-6Qs">
+                                <frame key="frameInset" minY="-64" width="600" height="556"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7cu-bu-aoH">
                                     <size key="itemSize" width="400" height="125"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -79,23 +76,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kyle Thomas" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ6-RO-jeY">
-                                                    <rect key="frame" x="8" y="0.0" width="300" height="25"/>
                                                     <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bT-jx-p2n">
-                                                    <rect key="frame" x="92" y="105" width="300" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="bKd-gE-41T"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="There is a scheduled tour at the facility on Monday to be aware of." translatesAutoresizingMaskIntoConstraints="NO" id="NK8-yp-foB">
-                                                    <rect key="frame" x="100" y="17" width="300" height="83"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
@@ -103,13 +97,11 @@
                                                     </connections>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AWB-Ob-vCw">
-                                                    <rect key="frame" x="8" y="25" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="jrE-1g-63W"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="lQ6-RO-jeY" firstAttribute="leading" secondItem="AWB-Ob-vCw" secondAttribute="leading" id="1aB-3k-zGC"/>
@@ -141,7 +133,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EAs-fd-6Qs" firstAttribute="leading" secondItem="d1r-8T-HEQ" secondAttribute="leadingMargin" constant="-20" id="31b-nM-ItE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="EAs-fd-6Qs" secondAttribute="trailing" constant="-20" id="7ev-aS-KHg"/>
@@ -153,7 +145,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Udf-t0-7hI"/>
                         <barButtonItem title="Add Comment" id="bC1-xD-W66">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <segue destination="ZJT-bk-dtL" kind="popoverPresentation" identifier="CommentCreationViewControllerPopoverSegue" popoverAnchorBarButtonItem="bC1-xD-W66" id="mZB-Nx-rew">
                                     <popoverArrowDirection key="popoverArrowDirection" down="YES" right="YES"/>
@@ -189,12 +181,12 @@
                         <viewControllerLayoutGuide type="bottom" id="h8H-ca-124"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9GY-td-XKG">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f1o-Hb-Wxj">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f1o-Hb-Wxj">
+                                <frame key="frameInset" width="600" height="600"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="600" id="jLN-sv-Duw"/>
                                 </constraints>
@@ -213,23 +205,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kyle Thomas" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4m-s8-kbk">
-                                                    <rect key="frame" x="8" y="0.0" width="281" height="25"/>
                                                     <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="15"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-TZ-fen">
-                                                    <rect key="frame" x="92" y="93" width="281" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Oge-k3-Ego"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="There is a scheduled tour at the facility on Monday to be aware of." translatesAutoresizingMaskIntoConstraints="NO" id="L1x-zB-BLg">
-                                                    <rect key="frame" x="100" y="17" width="281" height="68"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
@@ -237,19 +226,13 @@
                                                     </connections>
                                                 </textView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="390-P8-ffv">
-                                                    <rect key="frame" x="8" y="25" width="60" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="zYb-K4-mxU"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GUv-9n-sXP">
-                                                    <rect key="frame" x="100" y="0.0" width="280.5" height="113"/>
-                                                </imageView>
-                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OV5-I0-wN8">
-                                                    <rect key="frame" x="180" y="47" width="20" height="20"/>
-                                                </activityIndicatorView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GUv-9n-sXP"/>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OV5-I0-wN8"/>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="y4m-s8-kbk" firstAttribute="leading" secondItem="gmN-o9-wIq" secondAttribute="leadingMargin" id="1ik-MX-NIA"/>
@@ -289,7 +272,6 @@
                                 </connections>
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQ2-ii-FER" customClass="CommentInputToolbar" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" id="JPE-3R-ohk">
                                         <textField key="customView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="WBP-Ti-kIa">
@@ -303,20 +285,20 @@
                                     <barButtonItem title="Item" width="46" id="xUk-Tq-MQv"/>
                                 </items>
                             </toolbar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akN-99-ZdK">
-                                <rect key="frame" x="49" y="226" width="503" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="No comments" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akN-99-ZdK">
+                                <frame key="frameInset" minX="49" minY="226" width="503" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="v9m-nl-YYP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="35t-q1-qXh">
-                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="35t-q1-qXh">
+                                <frame key="frameInset" minX="290" minY="290" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="akN-99-ZdK" firstAttribute="leading" secondItem="9GY-td-XKG" secondAttribute="leadingMargin" constant="29" id="5B2-jZ-vg5"/>
                             <constraint firstItem="h8H-ca-124" firstAttribute="top" secondItem="f1o-Hb-Wxj" secondAttribute="bottom" id="6Jl-Pz-DRC"/>
@@ -343,7 +325,7 @@
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="9Wc-s0-UNl"/>
                         <barButtonItem title="Add Comment" id="UnY-zf-rqj">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="8Xe-Yl-5Fk"/>

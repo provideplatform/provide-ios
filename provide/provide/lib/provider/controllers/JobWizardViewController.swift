@@ -3,16 +3,16 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import PDTSimpleCalendar
 
 protocol JobWizardViewControllerDelegate: NSObjectProtocol {
-    func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job!
-    func floorplanImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage!
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForFloorplanViewController: FloorplanViewController)
+    func jobForJobWizardViewController(_ viewController: JobWizardViewController) -> Job!
+    func floorplanImageForJobWizardViewController(_ viewController: JobWizardViewController) -> UIImage!
+    func jobWizardViewController(_ viewController: JobWizardViewController, didSetScaleForFloorplanViewController: FloorplanViewController)
 }
 
 class JobWizardViewController: UINavigationController,
@@ -50,9 +50,9 @@ class JobWizardViewController: UINavigationController,
         return nil
     }
 
-    private var reloadingJob = false
+    fileprivate var reloadingJob = false
 
-    private weak var pendingViewController: UIViewController!
+    fileprivate weak var pendingViewController: UIViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,34 +62,34 @@ class JobWizardViewController: UINavigationController,
         refreshUI()
     }
 
-    private func refreshUI() {
+    fileprivate func refreshUI() {
         refreshTitle()
         refreshLeftBarButtonItems()
         refreshRightBarButtonItems()
     }
 
-    private func refreshTitle() {
+    fileprivate func refreshTitle() {
         if let job = job {
             navigationItem.title = job.customer.contact.name
             navigationItem.titleView = nil
         }
     }
 
-    private func refreshLeftBarButtonItems() {
+    fileprivate func refreshLeftBarButtonItems() {
         navigationItem.leftBarButtonItems = []
     }
 
-    private func refreshRightBarButtonItems() {
+    fileprivate func refreshRightBarButtonItems() {
         navigationItem.rightBarButtonItems = []
     }
 
     // MARK: UINavigationControllerDelegate
 
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
 
     }
 
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if job == nil {
             pendingViewController = viewController
         } else {
@@ -97,23 +97,23 @@ class JobWizardViewController: UINavigationController,
         }
     }
 
-    func setupViewController(viewController: UIViewController) {
-        if viewController.isKindOfClass(JobFloorplansViewController) {
+    func setupViewController(_ viewController: UIViewController) {
+        if viewController.isKind(of: JobFloorplansViewController.self) {
             //(viewController as! JobFloorplansViewController).delegate = self
 
-        } else if viewController.isKindOfClass(JobTeamViewController) {
+        } else if viewController.isKind(of: JobTeamViewController.self) {
             (viewController as! JobTeamViewController).delegate = self
 
-        } else if viewController.isKindOfClass(JobInventoryViewContoller) {
+        } else if viewController.isKind(of: JobInventoryViewContoller.self) {
             (viewController as! JobInventoryViewContoller).delegate = self
 
-        } else if viewController.isKindOfClass(FloorplanViewController) {
+        } else if viewController.isKind(of: FloorplanViewController.self) {
             (viewController as! FloorplanViewController).floorplanViewControllerDelegate = self
 
-        } else if viewController.isKindOfClass(JobManagerViewController) {
+        } else if viewController.isKind(of: JobManagerViewController.self) {
             (viewController as! JobManagerViewController).job = job
 
-        } else if viewController.isKindOfClass(JobReviewViewController) {
+        } else if viewController.isKind(of: JobReviewViewController.self) {
             (viewController as! JobReviewViewController).job = job
             
         }
@@ -125,76 +125,76 @@ class JobWizardViewController: UINavigationController,
 
     // MARK: FloorplanViewControllerDelegate
 
-    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan! {
+    func floorplanForFloorplanViewController(_ viewController: FloorplanViewController) -> Floorplan! {
         return nil
     }
     
-    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage! {
+    func floorplanImageForFloorplanViewController(_ viewController: FloorplanViewController) -> UIImage! {
         return cachedFloorplanImage
     }
 
-    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job! {
+    func jobForFloorplanViewController(_ viewController: FloorplanViewController) -> Job! {
         return job
     }
 
-    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func scaleCanBeSetByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController) {
+    func scaleWasSetForFloorplanViewController(_ viewController: FloorplanViewController) {
 
     }
 
-    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func newWorkOrderCanBeCreatedByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         if let job = job {
-            return job.isCommercial && ["configuring", "in_progress"].indexOfObject(job.status) != nil
+            return job.isCommercial && ["configuring", "in_progress"].index(of: job.status) != nil
         }
         return false
     }
 
-    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool {
+    func areaSelectorIsAvailableForFloorplanViewController(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController! {
+    func navigationControllerForFloorplanViewController(_ viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
-    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
-        return .WorkOrders
+    func modeForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanViewController.Mode! {
+        return .workOrders
     }
 
-    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool {
+    func floorplanViewControllerCanDropWorkOrderPin(_ viewController: FloorplanViewController) -> Bool {
         return false
     }
 
-    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar! {
+    func toolbarForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanToolbar! {
         return nil
     }
 
-    func showToolbarForFloorplanViewController(viewController: FloorplanViewController) {
+    func showToolbarForFloorplanViewController(_ viewController: FloorplanViewController) {
 
     }
 
-    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController) {
+    func hideToolbarForFloorplanViewController(_ viewController: FloorplanViewController) {
         
     }
     
     // MARK: JobManagerViewControllerDelegate
 
-    func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
+    func jobManagerViewController(_ viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
         return 1
     }
 
-    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 44.0 : 200.0
+    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return (indexPath as NSIndexPath).section == 0 ? 44.0 : 200.0
     }
 
-    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 1 : 1
     }
 
-    func jobManagerViewController(jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func jobManagerViewController(_ jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 //        if let navigationController = jobManagerViewController.navigationController {
 //            var viewController: UIViewController!
 //
@@ -208,29 +208,29 @@ class JobWizardViewController: UINavigationController,
 //            }
 //        }
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func jobManagerViewController(viewController: JobManagerViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        if indexPath.section > 0 {
+    func jobManagerViewController(_ viewController: JobManagerViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell! {
+        if (indexPath as NSIndexPath).section > 0 {
             return nil
         }
 
         let job = viewController.job
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
 
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             let scheduledStartTime = "--"
 //            if let humanReadableScheduledStartTime = job.humanReadableScheduledStartAtTimestamp {
 //                scheduledStartTime = humanReadableScheduledStartTime
 //            }
 
-            cell.setName("\(job.status.uppercaseString)", value: scheduledStartTime)
-            cell.backgroundView!.backgroundColor = job.statusColor
-            cell.accessoryType = .DisclosureIndicator
+            cell.setName("\(job?.status.uppercased())", value: scheduledStartTime)
+            cell.backgroundView!.backgroundColor = job?.statusColor
+            cell.accessoryType = .disclosureIndicator
         default:
             break
         }
@@ -238,28 +238,28 @@ class JobWizardViewController: UINavigationController,
         return cell
     }
 
-    func jobManagerViewController(viewController: JobManagerViewController, didCreateExpense expense: Expense) {
+    func jobManagerViewController(_ viewController: JobManagerViewController, didCreateExpense expense: Expense) {
         viewController.job.prependExpense(expense)
     }
 
     // MARK: JobInventoryViewControllerDelegate
 
-    func jobForJobInventoryViewController(viewController: JobInventoryViewContoller) -> Job! {
+    func jobForJobInventoryViewController(_ viewController: JobInventoryViewContoller) -> Job! {
         return job
     }
 
     // MARK: JobTeamViewControllerDelegate
 
-    func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job! {
+    func jobForJobTeamViewController(_ viewController: JobTeamViewController) -> Job! {
         return job
     }
 
     deinit {
         let viewController = viewControllers.first
         if let jobFloorplansViewController = viewController as? JobFloorplansViewController {
-            jobFloorplansViewController.teardown()
+            let _ = jobFloorplansViewController.teardown()
         } else if let floorplanViewController = viewController as? FloorplanViewController {
-            floorplanViewController.teardown()
+            let _ = floorplanViewController.teardown()
         }
     }
 }

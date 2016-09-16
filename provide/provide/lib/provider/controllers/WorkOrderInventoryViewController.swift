@@ -3,26 +3,46 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/20/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import FontAwesomeKit
 import KTSwiftExtensions
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 protocol WorkOrderInventoryViewControllerDelegate: NSObjectProtocol {
-    func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder!
-    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
-    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct)
+    func workOrderForWorkOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController) -> WorkOrder!
+    func workOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
+    func workOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct workOrderProduct: WorkOrderProduct)
 }
 
 class WorkOrderInventoryViewController: UITableViewController,
                                         UISearchBarDelegate,
-                                        DraggableViewGestureRecognizerDelegate,
+                                        KTDraggableViewGestureRecognizerDelegate,
                                         ProductPickerViewControllerDelegate,
                                         WorkOrderProductCreationViewControllerDelegate {
 
-    private let workOrderProductOperationQueue = dispatch_queue_create("api.workOrderProductOperationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let workOrderProductOperationQueue = DispatchQueue(label: "api.workOrderProductOperationQueue", attributes: [])
 
     let maximumSearchlessProductsCount = 25
 
@@ -36,48 +56,48 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
     }
 
-    private var workOrder: WorkOrder! {
+    fileprivate var workOrder: WorkOrder! {
         if let workOrder = delegate?.workOrderForWorkOrderInventoryViewController(self) {
             return workOrder
         }
         return nil
     }
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var reloadingJobProducts = false
-    private var reloadingJobProductsCount = false
+    fileprivate var reloadingJobProducts = false
+    fileprivate var reloadingJobProductsCount = false
 
-    private var totalJobProductsCount = -1
+    fileprivate var totalJobProductsCount = -1
 
-    private var addingWorkOrderProduct = false
-    private var removingWorkOrderProduct = false
+    fileprivate var addingWorkOrderProduct = false
+    fileprivate var removingWorkOrderProduct = false
 
-    private var showsAllProducts: Bool {
+    fileprivate var showsAllProducts: Bool {
         return totalJobProductsCount == -1 || totalJobProductsCount <= maximumSearchlessProductsCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllProducts
     }
 
-    private var queryResultsPickerViewController: ProductPickerViewController!
-    private var queryResultsPickerTableViewCell: UITableViewCell! {
+    fileprivate var queryResultsPickerViewController: ProductPickerViewController!
+    fileprivate var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
         return nil
     }
 
-    private var workOrderProductsPickerViewController: ProductPickerViewController!
-    private var workOrderProductsTableViewCell: UITableViewCell! {
+    fileprivate var workOrderProductsPickerViewController: ProductPickerViewController!
+    fileprivate var workOrderProductsTableViewCell: UITableViewCell! {
         if let workOrderProductsPickerViewController = workOrderProductsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(workOrderProductsPickerViewController)
         }
         return nil
     }
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet fileprivate weak var searchBar: UISearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +107,7 @@ class WorkOrderInventoryViewController: UITableViewController,
         searchBar?.placeholder = ""
     }
 
-    func addWorkOrderJobProduct(jobProduct: JobProduct) {
+    func addWorkOrderJobProduct(_ jobProduct: JobProduct) {
         if workOrder == nil {
             return
         }
@@ -95,14 +115,14 @@ class WorkOrderInventoryViewController: UITableViewController,
         var workOrderProduct = workOrder.workOrderProductForJobProduct(jobProduct)
         if workOrderProduct == nil {
             workOrderProductsPickerViewController?.products.append(jobProduct.product)
-            let indexPaths = [NSIndexPath(forRow: (workOrderProductsPickerViewController?.products.count)! - 1, inSection: 0)]
-            workOrderProductsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
-            let cell = workOrderProductsPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+            let indexPaths = [IndexPath(row: (workOrderProductsPickerViewController?.products.count)! - 1, section: 0)]
+            workOrderProductsPickerViewController?.collectionView.reloadItems(at: indexPaths)
+            let cell = workOrderProductsPickerViewController?.collectionView.cellForItem(at: indexPaths.first!) as! PickerCollectionViewCell
             cell.showActivityIndicator()
 
             let params: [String : AnyObject] = [:]
 
-            dispatch_async(workOrderProductOperationQueue) { [weak self] in
+            workOrderProductOperationQueue.async { [weak self] in
                 while self!.addingWorkOrderProduct { }
 
                 self!.addingWorkOrderProduct = true
@@ -113,16 +133,16 @@ class WorkOrderInventoryViewController: UITableViewController,
 
                         workOrderProduct = self!.workOrder.workOrderProductForJobProduct(jobProduct)
 
-                        let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewControllerWithIdentifier("WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
+                        let workOrderProductCreationViewController = UIStoryboard("ProductCreation").instantiateViewController(withIdentifier: "WorkOrderProductCreationViewController") as! WorkOrderProductCreationViewController
                         workOrderProductCreationViewController.workOrder = self!.workOrder
                         workOrderProductCreationViewController.workOrderProduct = workOrderProduct
                         workOrderProductCreationViewController.workOrderProductCreationViewControllerDelegate = self!
-                        workOrderProductCreationViewController.modalPresentationStyle = .Popover
-                        workOrderProductCreationViewController.preferredContentSize = CGSizeMake(300, 250)
+                        workOrderProductCreationViewController.modalPresentationStyle = .popover
+                        workOrderProductCreationViewController.preferredContentSize = CGSize(width: 300, height: 250)
                         workOrderProductCreationViewController.popoverPresentationController!.sourceView = cell
-                        workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.Left, .Right]
+                        workOrderProductCreationViewController.popoverPresentationController!.permittedArrowDirections = [.left, .right]
                         workOrderProductCreationViewController.popoverPresentationController!.canOverlapSourceViewRect = false
-                        self!.presentViewController(workOrderProductCreationViewController, animated: true) {
+                        self!.present(workOrderProductCreationViewController, animated: true) {
                             self!.addingWorkOrderProduct = false
                         }
                     },
@@ -136,13 +156,13 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
     }
 
-    func removeWorkOrderJobProduct(jobProduct: JobProduct) {
+    func removeWorkOrderJobProduct(_ jobProduct: JobProduct) {
         if workOrder == nil {
             return
         }
 
         if let workOrderProduct = workOrder.workOrderProductForJobProduct(jobProduct) {
-            dispatch_async(workOrderProductOperationQueue) { [weak self] in
+            workOrderProductOperationQueue.async { [weak self] in
                 while self!.removingWorkOrderProduct { }
 
                 self!.removingWorkOrderProduct = true
@@ -164,25 +184,27 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "QueryResultsProductPickerEmbedSegue" {
-            queryResultsPickerViewController = segue.destinationViewController as! ProductPickerViewController
+            queryResultsPickerViewController = segue.destination as! ProductPickerViewController
             queryResultsPickerViewController.delegate = self
         } else if segue.identifier! == "ProductPickerEmbedSegue" {
-            workOrderProductsPickerViewController = segue.destinationViewController as! ProductPickerViewController
+            workOrderProductsPickerViewController = segue.destination as! ProductPickerViewController
             workOrderProductsPickerViewController.delegate = self
         }
     }
 
-    private func resolveTableViewCellForEmbeddedViewController(viewController: UIViewController) -> UITableViewCell! {
+    fileprivate func resolveTableViewCellForEmbeddedViewController(_ viewController: UIViewController) -> UITableViewCell! {
         var tableViewCell: UITableViewCell!
         var view = viewController.view
         while tableViewCell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                tableViewCell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    tableViewCell = v as! UITableViewCell
+                }
             }
         }
         return tableViewCell
@@ -190,22 +212,22 @@ class WorkOrderInventoryViewController: UITableViewController,
 
     // MARK: UITableViewDelegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return renderQueryResults ? 2 : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if workOrderProductsTableViewCell != nil && numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if workOrderProductsTableViewCell != nil && numberOfSections(in: tableView) == 1 {
             return workOrderProductsTableViewCell
         }
-        return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if numberOfSections(in: tableView) == 1 {
             return "JOB MANIFEST"
         } else {
-            if numberOfSectionsInTableView(tableView) == 2 && showsAllProducts {
+            if numberOfSections(in: tableView) == 2 && showsAllProducts {
                 if section == 0 {
                     return "PRODUCTS"
                 } else if section == 1 {
@@ -218,11 +240,11 @@ class WorkOrderInventoryViewController: UITableViewController,
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllProducts
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
@@ -234,36 +256,36 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
     }
 
-    // MARK: DraggableViewGestureRecognizerDelegate
+    // MARK: KTDraggableViewGestureRecognizerDelegate
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
         if !draggableViewGestureRecognizer(gestureRecognizer, shouldAnimateResetView: view) {
             view.alpha = 0.0
         }
         return true
     }
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
-        if gestureRecognizer.isKindOfClass(WorkOrderProductsPickerCollectionViewCellGestureRecognizer) {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+        if gestureRecognizer.isKind(of: WorkOrderProductsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! WorkOrderProductsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
-        } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
+        } else if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         }
         return true
     }
 
-    func queryResultsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func queryResultsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
-    func workOrderProductsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func workOrderProductsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
     // MARK: ProductCreationViewControllerDelegate
 
-    func productCreationViewController(viewController: ProductCreationViewController, didCreateProduct product: Product) {
-        dismissViewController(animated: true)
+    func productCreationViewController(_ viewController: ProductCreationViewController, didCreateProduct product: Product) {
+        dismissViewController(true)
 
 //        if totalJobProductsCount > -1 {
 //            totalJobProductsCount++
@@ -281,7 +303,7 @@ class WorkOrderInventoryViewController: UITableViewController,
 
     // MARK: ProductPickerViewControllerDelegate
 
-    func queryParamsForProductPickerViewController(viewController: ProductPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForProductPickerViewController(_ viewController: ProductPickerViewController) -> [String : AnyObject]! {
 //        if let workOrder = workOrder {
 //            if workOrderProductsPickerViewController != nil && viewController == workOrderProductsPickerViewController {
 //                return ["work_order_id": workOrder.id, "company_id": workOrder.companyId]
@@ -292,19 +314,19 @@ class WorkOrderInventoryViewController: UITableViewController,
         return nil
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, didSelectProduct product: Product) {
+    func productPickerViewController(_ viewController: ProductPickerViewController, didSelectProduct product: Product) {
 
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, didDeselectProduct: Product) {
+    func productPickerViewController(_ viewController: ProductPickerViewController, didDeselectProduct: Product) {
 
     }
 
-    func productPickerViewControllerAllowsMultipleSelection(viewController: ProductPickerViewController) -> Bool {
+    func productPickerViewControllerAllowsMultipleSelection(_ viewController: ProductPickerViewController) -> Bool {
         return false
     }
 
-    func productsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+    func productsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product] {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
             if let job = workOrder?.job {
                 if let materials = job.materials {
@@ -339,15 +361,15 @@ class WorkOrderInventoryViewController: UITableViewController,
         return [Product]()
     }
 
-    func selectedProductsForPickerViewController(viewController: ProductPickerViewController) -> [Product] {
+    func selectedProductsForPickerViewController(_ viewController: ProductPickerViewController) -> [Product] {
         return [Product]()
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: ProductPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 
-    func productPickerViewControllerCanRenderResults(viewController: ProductPickerViewController) -> Bool {
+    func productPickerViewControllerCanRenderResults(_ viewController: ProductPickerViewController) -> Bool {
         if workOrderProductsPickerViewController != nil && viewController == workOrderProductsPickerViewController {
             if let workOrder = workOrder {
                 return workOrder.materials != nil
@@ -358,17 +380,17 @@ class WorkOrderInventoryViewController: UITableViewController,
         return false
     }
 
-    func productPickerViewController(viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+    func productPickerViewController(_ viewController: ProductPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
         let products = viewController.products
 
-        if products.count > indexPath.row - 1 {
-            let product = products[indexPath.row]
+        if products.count > (indexPath as NSIndexPath).row - 1 {
+            let product = products[(indexPath as NSIndexPath).row]
 
-            cell.selected = viewController.isSelected(product)
+            cell.isSelected = viewController.isSelected(product)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = product.name
@@ -383,8 +405,8 @@ class WorkOrderInventoryViewController: UITableViewController,
 
         if let gestureRecognizers = cell.gestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
-                if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer)
-                    || gestureRecognizer.isKindOfClass(WorkOrderProductsPickerCollectionViewCellGestureRecognizer) {
+                if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self)
+                    || gestureRecognizer.isKind(of: WorkOrderProductsPickerCollectionViewCellGestureRecognizer.self) {
                         cell.removeGestureRecognizer(gestureRecognizer)
                 }
             }
@@ -405,12 +427,12 @@ class WorkOrderInventoryViewController: UITableViewController,
 
     // MARK: WorkOrderProductCreationViewControllerDelegate
 
-    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+    func workOrderProductCreationViewController(_ viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct) {
+        viewController.presentingViewController?.dismissViewController(true)
         delegate?.workOrderInventoryViewController(self, didUpdateWorkOrderProduct: workOrderProduct)
     }
 
-    private func reloadJobProductsForPickerViewController(viewController: ProductPickerViewController) {
+    fileprivate func reloadJobProductsForPickerViewController(_ viewController: ProductPickerViewController) {
         if queryResultsPickerViewController != nil && viewController == queryResultsPickerViewController {
             if !reloadingJobProducts {
                 if let job = workOrder?.job {
@@ -438,7 +460,7 @@ class WorkOrderInventoryViewController: UITableViewController,
         }
     }
 
-    private func reloadWorkOrderProductsForPickerViewController(viewController: ProductPickerViewController) {
+    fileprivate func reloadWorkOrderProductsForPickerViewController(_ viewController: ProductPickerViewController) {
         if workOrderProductsPickerViewController != nil && viewController == workOrderProductsPickerViewController {
             viewController.products = self.workOrder.materials.map({ $0.jobProduct.product })
             viewController.reloadCollectionView()
@@ -511,24 +533,24 @@ class WorkOrderInventoryViewController: UITableViewController,
 //        }
 //    }
 
-    private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class QueryResultsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var workOrderInventoryViewController: WorkOrderInventoryViewController!
+        fileprivate var workOrderInventoryViewController: WorkOrderInventoryViewController!
 
-        private var workOrderProductsPickerCollectionView: UICollectionView! {
+        fileprivate var workOrderProductsPickerCollectionView: UICollectionView! {
             didSet {
                 if let workOrderProductsPickerCollectionView = workOrderProductsPickerCollectionView {
                     initialWorkOrderProductsPickerCollectionViewBackgroundColor = workOrderProductsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialWorkOrderProductsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialWorkOrderProductsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldAddProduct = false
+        fileprivate var shouldAddProduct = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -541,29 +563,29 @@ class WorkOrderInventoryViewController: UITableViewController,
             workOrderProductsPickerCollectionView = viewController.workOrderProductsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     workOrderProductsPickerCollectionView.backgroundColor = initialWorkOrderProductsPickerCollectionViewBackgroundColor
 
                     if shouldAddProduct {
-                        let indexPath = workOrderInventoryViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        if let jobProduct = workOrderInventoryViewController?.workOrder?.job?.jobProductForProduct(workOrderInventoryViewController.queryResultsPickerViewController.products[indexPath.row]) {
+                        let indexPath = workOrderInventoryViewController.queryResultsPickerViewController.collectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        if let jobProduct = workOrderInventoryViewController?.workOrder?.job?.jobProductForProduct(workOrderInventoryViewController.queryResultsPickerViewController.products[(indexPath as NSIndexPath).row]) {
                             workOrderInventoryViewController?.addWorkOrderJobProduct(jobProduct)
                         }
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldAddProduct = false
@@ -571,46 +593,46 @@ class WorkOrderInventoryViewController: UITableViewController,
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            if workOrderInventoryViewController.searchBar.isFirstResponder() {
+            if workOrderInventoryViewController.searchBar.isFirstResponder {
                 workOrderInventoryViewController.searchBar.resignFirstResponder()
             }
 
-            let workOrderProductsPickerCollectionViewFrame = workOrderProductsPickerCollectionView.superview!.convertRect(workOrderProductsPickerCollectionView.frame, toView: nil)
-            shouldAddProduct = !workOrderInventoryViewController.addingWorkOrderProduct && CGRectIntersectsRect(initialView.frame, workOrderProductsPickerCollectionViewFrame)
+            let workOrderProductsPickerCollectionViewFrame = workOrderProductsPickerCollectionView.superview!.convert(workOrderProductsPickerCollectionView.frame, to: nil)
+            shouldAddProduct = !workOrderInventoryViewController.addingWorkOrderProduct && initialView.frame.intersects(workOrderProductsPickerCollectionViewFrame)
 
             if shouldAddProduct {
-                workOrderProductsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
+                workOrderProductsPickerCollectionView.backgroundColor = Color.completedStatusColor().withAlphaComponent(0.8)
             } else {
                 workOrderProductsPickerCollectionView.backgroundColor = initialWorkOrderProductsPickerCollectionViewBackgroundColor
             }
         }
     }
 
-    private class WorkOrderProductsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class WorkOrderProductsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var workOrderInventoryViewController: WorkOrderInventoryViewController!
+        fileprivate var workOrderInventoryViewController: WorkOrderInventoryViewController!
 
-        private var workOrderProductsPickerCollectionView: UICollectionView! {
+        fileprivate var workOrderProductsPickerCollectionView: UICollectionView! {
             didSet {
                 if let workOrderProductsPickerCollectionView = workOrderProductsPickerCollectionView {
                     initialWorkOrderProductsPickerCollectionViewBackgroundColor = workOrderProductsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialWorkOrderProductsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialWorkOrderProductsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldRemoveWorkOrderProduct = false
+        fileprivate var shouldRemoveWorkOrderProduct = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -623,29 +645,29 @@ class WorkOrderInventoryViewController: UITableViewController,
             workOrderProductsPickerCollectionView = viewController.workOrderProductsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     workOrderProductsPickerCollectionView.backgroundColor = initialWorkOrderProductsPickerCollectionViewBackgroundColor
 
                     if shouldRemoveWorkOrderProduct {
-                        let indexPath = workOrderProductsPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        if let jobProduct = workOrderInventoryViewController?.workOrder?.job?.jobProductForProduct(workOrderInventoryViewController.workOrderProductsPickerViewController.products[indexPath.row]) {
+                        let indexPath = workOrderProductsPickerCollectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        if let jobProduct = workOrderInventoryViewController?.workOrder?.job?.jobProductForProduct(workOrderInventoryViewController.workOrderProductsPickerViewController.products[(indexPath as NSIndexPath).row]) {
                             workOrderInventoryViewController?.removeWorkOrderJobProduct(jobProduct)
                         }
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldRemoveWorkOrderProduct = false
@@ -653,18 +675,18 @@ class WorkOrderInventoryViewController: UITableViewController,
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            let workOrderProductsPickerCollectionViewFrame = workOrderProductsPickerCollectionView.superview!.convertRect(workOrderProductsPickerCollectionView.frame, toView: nil)
-            shouldRemoveWorkOrderProduct = !workOrderInventoryViewController.removingWorkOrderProduct && !CGRectIntersectsRect(initialView.frame, workOrderProductsPickerCollectionViewFrame)
+            let workOrderProductsPickerCollectionViewFrame = workOrderProductsPickerCollectionView.superview!.convert(workOrderProductsPickerCollectionView.frame, to: nil)
+            shouldRemoveWorkOrderProduct = !workOrderInventoryViewController.removingWorkOrderProduct && !initialView.frame.intersects(workOrderProductsPickerCollectionViewFrame)
             
             if shouldRemoveWorkOrderProduct {
-                let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let accessoryImage = FAKFontAwesome.removeIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 (initialView as! PickerCollectionViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
             } else {
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil

@@ -10,24 +10,24 @@ import UIKit
 
 @objc
 protocol TaskListTableViewCellDelegate {
-    func taskListTableViewCell(tableViewCell: TaskListTableViewCell, didCreateTask task: Task)
-    func taskListTableViewCell(tableViewCell: TaskListTableViewCell, didUpdateTask task: Task)
-    optional func jobForTaskListTableViewCell(tableViewCell: TaskListTableViewCell) -> Job!
-    optional func workOrderForTaskListTableViewCell(tableViewCell: TaskListTableViewCell) -> WorkOrder!
+    func taskListTableViewCell(_ tableViewCell: TaskListTableViewCell, didCreateTask task: Task)
+    func taskListTableViewCell(_ tableViewCell: TaskListTableViewCell, didUpdateTask task: Task)
+    @objc optional func jobForTaskListTableViewCell(_ tableViewCell: TaskListTableViewCell) -> Job!
+    @objc optional func workOrderForTaskListTableViewCell(_ tableViewCell: TaskListTableViewCell) -> WorkOrder!
 }
 
 class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableViewCellCheckboxViewDelegate, ProviderSearchViewControllerDelegate {
 
-    private let taskOperationQueue = dispatch_queue_create("taskOperationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let taskOperationQueue = DispatchQueue(label: "taskOperationQueue", attributes: [])
 
     var delegate: TaskListTableViewCellDelegate!
 
-    private var providerSearchViewController: ProviderSearchViewController!
+    fileprivate var providerSearchViewController: ProviderSearchViewController!
 
-    private var providerQueryString: String!
-    private var provider: Provider!
+    fileprivate var providerQueryString: String!
+    fileprivate var provider: Provider!
 
-    private var usesStaticProvidersList: Bool {
+    fileprivate var usesStaticProvidersList: Bool {
         if let _ = delegate?.jobForTaskListTableViewCell?(self) {
             return true
         } else if let _ = delegate?.workOrderForTaskListTableViewCell?(self) {
@@ -55,7 +55,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         }
     }
 
-    @IBOutlet private weak var nameTextField: UITextField! {
+    @IBOutlet fileprivate weak var nameTextField: UITextField! {
         didSet {
             if let nameTextField = nameTextField {
                 providerSearchViewController = UIStoryboard("ProviderSearch").instantiateInitialViewController() as! ProviderSearchViewController
@@ -65,18 +65,18 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
                 showNameInputAccessoryView()
                 hideNameInputAccessoryView()
 
-                nameTextField.addTarget(self, action: #selector(TaskListTableViewCell.textFieldChanged(_:)), forControlEvents: .EditingChanged)
+                nameTextField.addTarget(self, action: #selector(TaskListTableViewCell.textFieldChanged(_:)), for: .editingChanged)
             }
         }
     }
 
-    @IBOutlet private weak var checkboxView: TaskTableViewCellCheckboxView! {
+    @IBOutlet fileprivate weak var checkboxView: TaskTableViewCellCheckboxView! {
         didSet {
             if let checkboxView = checkboxView {
                 checkboxView.delegate = self
                 
                 checkboxView.alpha = 0.0
-                contentView.bringSubviewToFront(checkboxView)
+                contentView.bringSubview(toFront: checkboxView)
             }
         }
     }
@@ -97,8 +97,8 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         nameTextField?.text = ""
     }
 
-    private func saveTask() {
-        task.name = nameTextField.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    fileprivate func saveTask() {
+        task.name = nameTextField.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
             task.companyId = defaultCompanyId
@@ -120,11 +120,11 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
         let isNewTask = task.id == 0
 
-        dispatch_async(taskOperationQueue) {
+        taskOperationQueue.async {
             self.task.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     if isNewTask {
-                        let task = mappingResult.firstObject as! Task
+                        let task = mappingResult?.firstObject as! Task
                         self.delegate?.taskListTableViewCell(self, didCreateTask: task)
                     } else {
                         self.delegate?.taskListTableViewCell(self, didUpdateTask: self.task)
@@ -137,20 +137,20 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         }
     }
 
-    func textFieldChanged(textField: UITextField) {
+    func textFieldChanged(_ textField: UITextField) {
         if let text = textField.text {
             let string = NSString(string: text)
-            if string.containsString("@") {
+            if string.contains("@") {
                 if usesStaticProvidersList {
                     showNameInputAccessoryView()
                     providerQueryString = ""
                     providerSearchViewController.query("")
                 } else {
-                    let range = string.rangeOfString("@")
+                    let range = string.range(of: "@")
                     let startIndex = range.location + 1
                     if startIndex <= string.length - 1 {
                         var query: String!
-                        let components = string.substringFromIndex(startIndex).componentsSeparatedByString(" ")
+                        let components = string.substring(from: startIndex).components(separatedBy: " ")
                         if components.count == 1 {
                             query = "\(components[0])"
                         } else if components.count >= 2 {
@@ -173,23 +173,23 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if task.id > 0 {
             return currentUser().id == task.userId
         }
         return true
     }
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
-            if NSString(string: text).containsString("@") {
+            if NSString(string: text).contains("@") {
                 return string != "@"
             }
         }
         return true
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             if textField.text!.length == 0 {
                 return false
@@ -202,11 +202,11 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
     // MARK: TaskTableViewCellCheckboxViewDelegate
 
-    func taskTableViewCellCheckboxView(view: TaskTableViewCellCheckboxView, didBecomeChecked checked: Bool) {
+    func taskTableViewCellCheckboxView(_ view: TaskTableViewCellCheckboxView, didBecomeChecked checked: Bool) {
         task.status = checked ? "completed" : "incomplete"
-        dispatch_async(taskOperationQueue) {
+        taskOperationQueue.async {
             self.task.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     //let task = mappingResult.firstObject as! Task
 
                     self.prepareForReuse()
@@ -221,7 +221,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
 
     // MARK: ProviderSearchViewControllerDelegate
 
-    func providersForProviderSearchViewController(viewController: ProviderSearchViewController) -> [Provider]! {
+    func providersForProviderSearchViewController(_ viewController: ProviderSearchViewController) -> [Provider]! {
         if let job = delegate?.jobForTaskListTableViewCell?(self) {
             if let supervisors = job.supervisors {
                 var providers = supervisors
@@ -247,7 +247,7 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         return nil
     }
 
-    func providerSearchViewController(viewController: ProviderSearchViewController, didSelectProvider provider: Provider) {
+    func providerSearchViewController(_ viewController: ProviderSearchViewController, didSelectProvider provider: Provider) {
         self.provider = provider
 
         if let queryString = providerQueryString {
@@ -258,22 +258,22 @@ class TaskListTableViewCell: UITableViewCell, UITextFieldDelegate, TaskTableView
         }
     }
 
-    private func hideNameInputAccessoryView() {
+    fileprivate func hideNameInputAccessoryView() {
         if let inputAccessoryView = nameTextField.inputAccessoryView {
             inputAccessoryView.alpha = 0.0
-            inputAccessoryView.hidden = true
+            inputAccessoryView.isHidden = true
             nameTextField.layoutIfNeeded()
         }
     }
 
-    private func showNameInputAccessoryView() {
+    fileprivate func showNameInputAccessoryView() {
         if nameTextField.inputAccessoryView == nil {
             nameTextField.inputAccessoryView = providerSearchViewController.view
             nameTextField.inputAccessoryView!.frame.size.height = 120.0
-            nameTextField.inputAccessoryView!.autoresizingMask = .None
+            nameTextField.inputAccessoryView!.autoresizingMask = UIViewAutoresizing()
         }
 
-        nameTextField.inputAccessoryView!.hidden = false
+        nameTextField.inputAccessoryView!.isHidden = false
         nameTextField.inputAccessoryView!.alpha = 1.0
 
         nameTextField.layoutIfNeeded()

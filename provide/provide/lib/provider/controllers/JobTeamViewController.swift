@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/11/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol JobTeamViewControllerDelegate: NSObjectProtocol {
-    func jobForJobTeamViewController(viewController: JobTeamViewController) -> Job!
+    func jobForJobTeamViewController(_ viewController: JobTeamViewController) -> Job!
 }
 
 class JobTeamViewController: UITableViewController,
@@ -19,9 +19,9 @@ class JobTeamViewController: UITableViewController,
                              UISearchBarDelegate,
                              ProviderPickerViewControllerDelegate,
                              ProviderCreationViewControllerDelegate,
-                             DraggableViewGestureRecognizerDelegate {
+                             KTDraggableViewGestureRecognizerDelegate {
 
-    private let jobSupervisorOperationQueue = dispatch_queue_create("api.jobSupervisorOperationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let jobSupervisorOperationQueue = DispatchQueue(label: "api.jobSupervisorOperationQueue", attributes: [])
 
     let maximumSearchlessProvidersCount = 20
 
@@ -35,47 +35,47 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    private var job: Job! {
+    fileprivate var job: Job! {
         if let job = delegate?.jobForJobTeamViewController(self) {
             return job
         }
         return nil
     }
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var reloadingSupervisors = false
-    private var reloadingProvidersCount = false
-    private var addingSupervisor = false
-    private var removingSupervisor = false
+    fileprivate var reloadingSupervisors = false
+    fileprivate var reloadingProvidersCount = false
+    fileprivate var addingSupervisor = false
+    fileprivate var removingSupervisor = false
 
-    private var totalProvidersCount = -1
+    fileprivate var totalProvidersCount = -1
 
-    private var showsAllProviders: Bool {
+    fileprivate var showsAllProviders: Bool {
         return totalProvidersCount == -1 || totalProvidersCount <= maximumSearchlessProvidersCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllProviders
     }
 
-    private var queryResultsPickerViewController: ProviderPickerViewController!
-    private var queryResultsPickerTableViewCell: UITableViewCell! {
+    fileprivate var queryResultsPickerViewController: ProviderPickerViewController!
+    fileprivate var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
         return nil
     }
     
-    private var supervisorsPickerViewController: ProviderPickerViewController!
-    private var supervisorsPickerTableViewCell: UITableViewCell! {
+    fileprivate var supervisorsPickerViewController: ProviderPickerViewController!
+    fileprivate var supervisorsPickerTableViewCell: UITableViewCell! {
         if let supervisorsPickerViewController = supervisorsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(supervisorsPickerViewController)
         }
         return nil
     }
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet fileprivate weak var searchBar: UISearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,37 +85,37 @@ class JobTeamViewController: UITableViewController,
         searchBar?.placeholder = ""
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
             if !isIPad() {
-                segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
-                segue.destinationViewController.popoverPresentationController!.delegate = self
+                segue.destination.preferredContentSize = CGSize(width: 400, height: 500)
+                segue.destination.popoverPresentationController!.delegate = self
             }
-            ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
+            ((segue.destination as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
-            queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
+            queryResultsPickerViewController = segue.destination as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self
         } else if segue.identifier! == "SupervisorsProviderPickerEmbedSegue" {
-            supervisorsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
+            supervisorsPickerViewController = segue.destination as! ProviderPickerViewController
             supervisorsPickerViewController.delegate = self
         }
     }
 
-    func addSupervisor(supervisor: Provider) {
+    func addSupervisor(_ supervisor: Provider) {
         if job == nil {
             return
         }
 
         if !job.hasSupervisor(supervisor) {
             supervisorsPickerViewController?.providers.append(supervisor)
-            let indexPaths = [NSIndexPath(forRow: (supervisorsPickerViewController?.providers.count)! - 1, inSection: 0)]
-            supervisorsPickerViewController?.collectionView.reloadItemsAtIndexPaths(indexPaths)
-            let cell = supervisorsPickerViewController?.collectionView.cellForItemAtIndexPath(indexPaths.first!) as! PickerCollectionViewCell
+            let indexPaths = [IndexPath(row: (supervisorsPickerViewController?.providers.count)! - 1, section: 0)]
+            supervisorsPickerViewController?.collectionView.reloadItems(at: indexPaths)
+            let cell = supervisorsPickerViewController?.collectionView.cellForItem(at: indexPaths.first!) as! PickerCollectionViewCell
             cell.showActivityIndicator()
 
-            dispatch_async(jobSupervisorOperationQueue) {
+            jobSupervisorOperationQueue.async {
                 while self.addingSupervisor { }
 
                 self.addingSupervisor = true
@@ -135,17 +135,17 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    func removeSupervisor(supervisor: Provider) {
+    func removeSupervisor(_ supervisor: Provider) {
         if job == nil {
             return
         }
 
         if job.hasSupervisor(supervisor) {
             let index = supervisorsPickerViewController?.providers.indexOfObject(supervisor)!
-            supervisorsPickerViewController?.providers.removeAtIndex(index!)
+            supervisorsPickerViewController?.providers.remove(at: index!)
             supervisorsPickerViewController?.reloadCollectionView()
 
-            dispatch_async(jobSupervisorOperationQueue) {
+            jobSupervisorOperationQueue.async {
                 while self.removingSupervisor { }
 
                 self.removingSupervisor = true
@@ -159,7 +159,7 @@ class JobTeamViewController: UITableViewController,
                         self.removingSupervisor = false
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self.supervisorsPickerViewController?.providers.insert(supervisor, atIndex: index!)
+                        self.supervisorsPickerViewController?.providers.insert(supervisor, at: index!)
                         self.supervisorsPickerViewController?.reloadCollectionView()
                         self.removingSupervisor = false
                     }
@@ -168,13 +168,15 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    private func resolveTableViewCellForEmbeddedViewController(viewController: UIViewController) -> UITableViewCell! {
+    fileprivate func resolveTableViewCellForEmbeddedViewController(_ viewController: UIViewController) -> UITableViewCell! {
         var tableViewCell: UITableViewCell!
         var view = viewController.view
         while tableViewCell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                tableViewCell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    tableViewCell = v as! UITableViewCell
+                }
             }
         }
         return tableViewCell
@@ -182,22 +184,22 @@ class JobTeamViewController: UITableViewController,
 
     // MARK: UITableViewDelegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return renderQueryResults ? 2 : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if supervisorsPickerTableViewCell != nil && numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if supervisorsPickerTableViewCell != nil && numberOfSections(in: tableView) == 1 {
             return supervisorsPickerTableViewCell
         }
-        return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if numberOfSections(in: tableView) == 1 {
             return "SUPERVISORS"
         } else {
-            if numberOfSectionsInTableView(tableView) == 2 && showsAllProviders {
+            if numberOfSections(in: tableView) == 2 && showsAllProviders {
                 if section == 0 {
                     return "SERVICE PROVIDERS"
                 } else if section == 1 {
@@ -216,11 +218,11 @@ class JobTeamViewController: UITableViewController,
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllProviders
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
@@ -232,35 +234,35 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    // MARK: DraggableViewGestureRecognizerDelegate
+    // MARK: KTDraggableViewGestureRecognizerDelegate
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
         if !draggableViewGestureRecognizer(gestureRecognizer, shouldAnimateResetView: view) {
             view.alpha = 0.0
         }
         return true
     }
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
-        if gestureRecognizer.isKindOfClass(SupervisorPickerCollectionViewCellGestureRecognizer) {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+        if gestureRecognizer.isKind(of: SupervisorPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! SupervisorPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
-        } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
+        } else if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         }
         return true
     }
 
-    func queryResultsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func queryResultsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
-    func supervisorsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func supervisorsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
     // MARK: ProviderPickerViewControllerDelegate
 
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func providersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
         if supervisorsPickerViewController != nil && viewController == supervisorsPickerViewController {
             if let supervisors = job?.supervisors {
                 return supervisors
@@ -274,22 +276,22 @@ class JobTeamViewController: UITableViewController,
         return [Provider]()
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
 
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
 
     }
 
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerAllowsMultipleSelection(_ viewController: ProviderPickerViewController) -> Bool {
 //        if viewController == supervisorsPickerViewController {
 //            return false
 //        }
         return false
     }
 
-    func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerCanRenderResults(_ viewController: ProviderPickerViewController) -> Bool {
         if supervisorsPickerViewController != nil && viewController == supervisorsPickerViewController {
             if let job = job {
                 return job.supervisors != nil
@@ -300,7 +302,7 @@ class JobTeamViewController: UITableViewController,
         return false
     }
 
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func selectedProvidersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
 //        if supervisorsPickerViewController != nil && viewController == supervisorsPickerViewController {
 //            if let supervisors = job?.supervisors {
 //                return supervisors
@@ -314,30 +316,30 @@ class JobTeamViewController: UITableViewController,
         return [Provider]()
     }
 
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForProviderPickerViewController(_ viewController: ProviderPickerViewController) -> [String : AnyObject]! {
         if let job = job {
             if viewController == supervisorsPickerViewController {
-                return ["company_id": job.companyId]
+                return ["company_id": job.companyId as AnyObject]
             } else if viewController == queryResultsPickerViewController {
-                return ["company_id": job.companyId, "q": queryString != nil ? queryString : NSNull()]
+                return ["company_id": job.companyId as AnyObject, "q": queryString != nil ? queryString as AnyObject : NSNull() as AnyObject]
             }
         }
         return nil
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController,
+    func providerPickerViewController(_ viewController: ProviderPickerViewController,
                                       collectionView: UICollectionView,
-                                      cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+                                      cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
         let providers = viewController.providers
 
-        if providers.count > indexPath.row - 1 {
-            let provider = providers[indexPath.row]
+        if providers.count > (indexPath as NSIndexPath).row - 1 {
+            let provider = providers[(indexPath as NSIndexPath).row]
 
-            cell.selected = viewController.isSelected(provider)
+            cell.isSelected = viewController.isSelected(provider)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = provider.contact.name
@@ -351,8 +353,8 @@ class JobTeamViewController: UITableViewController,
 
         if let gestureRecognizers = cell.gestureRecognizers {
             for gestureRecognizer in gestureRecognizers {
-                if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer)
-                    || gestureRecognizer.isKindOfClass(SupervisorPickerCollectionViewCellGestureRecognizer) {
+                if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self)
+                    || gestureRecognizer.isKind(of: SupervisorPickerCollectionViewCellGestureRecognizer.self) {
                     cell.removeGestureRecognizer(gestureRecognizer)
                 }
             }
@@ -371,14 +373,14 @@ class JobTeamViewController: UITableViewController,
         return cell
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 
     // MARK: ProviderCreationViewControllerDelegate
 
-    func providerCreationViewController(viewController: ProviderCreationViewController, didCreateProvider provider: Provider) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+    func providerCreationViewController(_ viewController: ProviderCreationViewController, didCreateProvider provider: Provider) {
+        viewController.presentingViewController?.dismissViewController(true)
 
         if totalProvidersCount > -1 {
             totalProvidersCount += 1
@@ -394,7 +396,7 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadJobForProviderPickerViewController(viewController: ProviderPickerViewController) {
+    fileprivate func reloadJobForProviderPickerViewController(_ viewController: ProviderPickerViewController) {
         if let supervisorsPickerViewController = supervisorsPickerViewController {
             if viewController == supervisorsPickerViewController && job != nil {
                 reloadProviders()
@@ -403,7 +405,7 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadProviders() {
+    fileprivate func reloadProviders() {
         reloadingProvidersCount = true
 
         if let companyId = job?.companyId {
@@ -411,14 +413,14 @@ class JobTeamViewController: UITableViewController,
             queryResultsPickerViewController?.showActivityIndicator()
             tableView.reloadData()
 
-            ApiService.sharedService().countProviders(["company_id": job.companyId],
+            ApiService.sharedService().countProviders(["company_id": job.companyId as AnyObject],
                 onTotalResultsCount: { totalResultsCount, error in
                     self.totalProvidersCount = totalResultsCount
                     if totalResultsCount > -1 {
                         if totalResultsCount <= self.maximumSearchlessProvidersCount {
-                            ApiService.sharedService().fetchProviders(["company_id": companyId, "page": 1, "rpp": totalResultsCount],
+                            ApiService.sharedService().fetchProviders(["company_id": companyId as AnyObject, "page": 1 as AnyObject, "rpp": totalResultsCount as AnyObject],
                                 onSuccess: { (statusCode, mappingResult) -> () in
-                                    self.queryResultsPickerViewController?.providers = mappingResult.array() as! [Provider]
+                                    self.queryResultsPickerViewController?.providers = mappingResult?.array() as! [Provider]
                                     self.tableView.reloadData()
                                     self.searchBar.placeholder = "Showing all \(totalResultsCount) service providers"
                                     self.reloadingProvidersCount = false
@@ -440,8 +442,8 @@ class JobTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadSupervisors() {
-        dispatch_async(jobSupervisorOperationQueue) {
+    fileprivate func reloadSupervisors() {
+        jobSupervisorOperationQueue.async {
             while self.reloadingSupervisors { }
 
             self.reloadingSupervisors = true
@@ -462,24 +464,24 @@ class JobTeamViewController: UITableViewController,
 
     // MARK: QueryResultsPickerCollectionViewCellGestureRecognizer
 
-    private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class QueryResultsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var jobTeamViewController: JobTeamViewController!
+        fileprivate var jobTeamViewController: JobTeamViewController!
 
-        private var supervisorsPickerCollectionView: UICollectionView! {
+        fileprivate var supervisorsPickerCollectionView: UICollectionView! {
             didSet {
                 if let supervisorsPickerCollectionView = supervisorsPickerCollectionView {
                     initialSupervisorsPickerCollectionViewBackgroundColor = supervisorsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldAddSupervisor = false
+        fileprivate var shouldAddSupervisor = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -492,27 +494,27 @@ class JobTeamViewController: UITableViewController,
             supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
 
                     if shouldAddSupervisor {
-                        let indexPath = jobTeamViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        jobTeamViewController?.addSupervisor(jobTeamViewController.queryResultsPickerViewController.providers[indexPath.row])
+                        let indexPath = jobTeamViewController.queryResultsPickerViewController.collectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        jobTeamViewController?.addSupervisor(jobTeamViewController.queryResultsPickerViewController.providers[(indexPath as NSIndexPath).row])
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldAddSupervisor = false
@@ -520,22 +522,22 @@ class JobTeamViewController: UITableViewController,
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            if jobTeamViewController.searchBar.isFirstResponder() {
+            if jobTeamViewController.searchBar.isFirstResponder {
                 jobTeamViewController.searchBar.resignFirstResponder()
             }
 
-            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldAddSupervisor = CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convert(supervisorsPickerCollectionView.frame, to: nil)
+            shouldAddSupervisor = initialView.frame.intersects(supervisorsPickerCollectionViewFrame)
 
             if shouldAddSupervisor {
-                supervisorsPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
+                supervisorsPickerCollectionView.backgroundColor = Color.completedStatusColor().withAlphaComponent(0.8)
             } else {
                 supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
             }
@@ -544,24 +546,24 @@ class JobTeamViewController: UITableViewController,
 
     // MARK: SupervisorPickerCollectionViewCellGestureRecognizer
 
-    private class SupervisorPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class SupervisorPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var jobTeamViewController: JobTeamViewController!
+        fileprivate var jobTeamViewController: JobTeamViewController!
 
-        private var supervisorsPickerCollectionView: UICollectionView! {
+        fileprivate var supervisorsPickerCollectionView: UICollectionView! {
             didSet {
                 if let supervisorsPickerCollectionView = supervisorsPickerCollectionView {
                     initialSupervisorsPickerCollectionViewBackgroundColor = supervisorsPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialSupervisorsPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldRemoveSupervisor = false
+        fileprivate var shouldRemoveSupervisor = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -574,22 +576,22 @@ class JobTeamViewController: UITableViewController,
             supervisorsPickerCollectionView = viewController.supervisorsPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let _ = oldValue {
                     supervisorsPickerCollectionView.backgroundColor = initialSupervisorsPickerCollectionViewBackgroundColor
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldRemoveSupervisor = false
@@ -597,10 +599,10 @@ class JobTeamViewController: UITableViewController,
             }
         }
 
-        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+        fileprivate override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
             if shouldRemoveSupervisor {
-                let indexPath = supervisorsPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                let supervisor = jobTeamViewController.supervisorsPickerViewController.providers[indexPath.row]
+                let indexPath = supervisorsPickerCollectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                let supervisor = jobTeamViewController.supervisorsPickerViewController.providers[(indexPath as NSIndexPath).row]
                 if currentUser().id == supervisor.userId {
                     jobTeamViewController.showToast("You can't remove yourself", dismissAfter: 2.0)
                 } else {
@@ -608,21 +610,21 @@ class JobTeamViewController: UITableViewController,
                 }
             }
 
-            super.touchesEnded(touches, withEvent: event)
+            super.touchesEnded(touches, with: event)
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convertRect(supervisorsPickerCollectionView.frame, toView: nil)
-            shouldRemoveSupervisor = !CGRectIntersectsRect(initialView.frame, supervisorsPickerCollectionViewFrame)
+            let supervisorsPickerCollectionViewFrame = supervisorsPickerCollectionView.superview!.convert(supervisorsPickerCollectionView.frame, to: nil)
+            shouldRemoveSupervisor = !initialView.frame.intersects(supervisorsPickerCollectionViewFrame)
 
             if shouldRemoveSupervisor {
-                let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let accessoryImage = FAKFontAwesome.removeIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 (initialView as! PickerCollectionViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
             } else {
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil

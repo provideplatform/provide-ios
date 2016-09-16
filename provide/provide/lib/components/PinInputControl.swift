@@ -3,14 +3,14 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/26/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol PinInputControlDelegate {
-    func pinInputControl(pinInputControl : PinInputControl, didCompleteEnteringPin: String)
+    func pinInputControl(_ pinInputControl : PinInputControl, didCompleteEnteringPin: String)
 }
 
 // @IBDesignable // Comment out for now due to weird storyboard error
@@ -30,17 +30,17 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
 
     var delegate: PinInputControlDelegate? // Public
 
-    private var pin: String = ""
+    fileprivate var pin: String = ""
 
     // UITextInputTraits protocol
-    var keyboardType: UIKeyboardType = .NumberPad
+    var keyboardType: UIKeyboardType = .numberPad
 
     // UIInputViewAudioFeedback protocol
     var enableInputClicksWhenVisible: Bool {
         return true
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let boxesBoundingWidth = inBetweenSpacing * 3.0 + boxWidth * 4.0
         var startX = (bounds.width - boxesBoundingWidth) / 2.0
         let startY = (bounds.height - boxHeight) / 2.0
@@ -50,20 +50,20 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
         for i in 0..<maxPinLength {
             // Set stroke and fill
             Color.pinInputControlBoxBorderColor().setStroke()
-            UIColor.whiteColor().setFill()
+            UIColor.white.setFill()
 
             // StrokePath
-            let strokePath = UIBezierPath(roundedRect: CGRectMake(startX + borderWidth, startY + borderWidth, boxWidth - (borderWidth * 2), boxHeight - (borderWidth * 2)), cornerRadius: cornerRadius)
+            let strokePath = UIBezierPath(roundedRect: CGRect(x: startX + borderWidth, y: startY + borderWidth, width: boxWidth - (borderWidth * 2), height: boxHeight - (borderWidth * 2)), cornerRadius: cornerRadius)
             strokePath.lineWidth = borderWidth * 2
             strokePath.stroke()
 
             // FillPath
-            let fillPath = UIBezierPath(roundedRect: CGRectMake(startX + borderWidth, startY + borderWidth, boxWidth - (borderWidth * 2), boxHeight - (borderWidth * 2)), cornerRadius: cornerRadius)
+            let fillPath = UIBezierPath(roundedRect: CGRect(x: startX + borderWidth, y: startY + borderWidth, width: boxWidth - (borderWidth * 2), height: boxHeight - (borderWidth * 2)), cornerRadius: cornerRadius)
             fillPath.fill()
 
             if i < pin.length {
-                UIColor.blackColor().setFill()
-                CGContextFillEllipseInRect(context, CGRectMake(startX + boxWidth/2 - dotRadius, startY + boxHeight/2 - dotRadius, dotRadius * 2, dotRadius * 2))
+                UIColor.black.setFill()
+                context?.fillEllipse(in: CGRect(x: startX + boxWidth/2 - dotRadius, y: startY + boxHeight/2 - dotRadius, width: dotRadius * 2, height: dotRadius * 2))
             }
 
             startX += (boxWidth + inBetweenSpacing)
@@ -71,7 +71,7 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
     }
 
     // UIKeyInput
-    func insertText(newChar: String) {
+    func insertText(_ newChar: String) {
         if newChar.isDigit() && pin.length < maxPinLength {
             pin += newChar
             textChanged()
@@ -94,30 +94,30 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
 
     func deleteBackward()  {
         if !pin.isEmpty {
-            pin = pin.substringToIndex(pin.endIndex.predecessor())
+            pin = pin.substring(to: pin.characters.index(before: pin.endIndex))
             textChanged()
         }
     }
 
-    func hasText() -> Bool  {
+    var hasText : Bool  {
         return pin.isEmpty
     }
 
-    private func textChanged() {
+    fileprivate func textChanged() {
         setNeedsDisplay()
-        UIDevice.currentDevice().playInputClick()
-        sendActionsForControlEvents(.EditingChanged)
+        UIDevice.current.playInputClick()
+        sendActions(for: .editingChanged)
     }
 
     // UIResponder
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return true
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
-        if !isFirstResponder() {
+        if !isFirstResponder {
             becomeFirstResponder()
         }
     }

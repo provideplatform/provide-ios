@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/20/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol CommentsViewControllerDelegate {
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)
-    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String
-    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int
-    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]!
+    func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)
+    func commentableTypeForCommentsViewController(_ viewController: CommentsViewController) -> String
+    func commentableIdForCommentsViewController(_ viewController: CommentsViewController) -> Int
+    func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String : AnyObject]!
 }
 
 class CommentsViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {
@@ -27,34 +27,34 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         }
     }
 
-    @IBOutlet private weak var collectionView: UICollectionView!
-    @IBOutlet private weak var zeroStateLabel: UILabel!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var zeroStateLabel: UILabel!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
-    @IBOutlet private weak var addCommentBarButtonItem: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var addCommentBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addCommentBarButtonItem = addCommentBarButtonItem {
-                let commentIconImage = FAKFontAwesome.commentIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let commentIconImage = FAKFontAwesome.commentIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 addCommentBarButtonItem.image = commentIconImage
                 addCommentBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }
     }
 
-    private var comments = [Comment]()
+    fileprivate var comments = [Comment]()
 
-    private var page = 1
-    private var rpp = 10
-    private var hasNextPage = true
+    fileprivate var page = 1
+    fileprivate var rpp = 10
+    fileprivate var hasNextPage = true
 
-    private var fetchingComments = false
-    private var scrolledToNewestComment = false
+    fileprivate var fetchingComments = false
+    fileprivate var scrolledToNewestComment = false
 
-    func scrollToNewestComment(animated: Bool = true) {
+    func scrollToNewestComment(_ animated: Bool = true) {
         if comments.count > 0 {
-            collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: comments.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: animated)
+            collectionView?.scrollToItem(at: IndexPath(item: comments.count - 1, section: 0), at: .bottom, animated: animated)
         }
 
         scrolledToNewestComment = true
@@ -83,11 +83,11 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         setupPullToRefresh()
 
         activityIndicatorView.startAnimating()
-        view.bringSubviewToFront(activityIndicatorView)
+        view.bringSubview(toFront: activityIndicatorView)
 
         zeroStateLabel?.alpha = 0.0
 
-        NSNotificationCenter.defaultCenter().addObserverForName("CommentChanged") { notification in
+        NotificationCenter.default.addObserverForName("CommentChanged") { notification in
             if let comment = notification.object as? Comment {
                 dispatch_after_delay(0.0) {
                     let commentableType = self.commentsViewControllerDelegate?.commentableTypeForCommentsViewController(self)
@@ -95,9 +95,9 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                     var indexPath = 0
                     var updatedExistingComment = false
                     if commentableType != nil && commentableId != nil && comment.commentableType == commentableType && comment.commentableId == commentableId {
-                        for c in self.comments.reverse() {
+                        for c in self.comments.reversed() {
                             if c.id == comment.id {
-                                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                self.collectionView.reloadItems(at: [IndexPath(row: indexPath, section: 0)])
                                 updatedExistingComment = true
                             }
 
@@ -107,7 +107,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                         if !updatedExistingComment {
                             indexPath = -1
                             var i = -1
-                            for c in self.comments.reverse() {
+                            for c in self.comments.reversed() {
                                 i += 1
                                 if c.id == comment.previousCommentId {
                                     indexPath = i
@@ -120,8 +120,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                                     self.addComment(comment)
                                 } else {
                                     indexPath = self.comments.count - indexPath // inverse
-                                    self.comments.insert(comment, atIndex: indexPath)
-                                    self.performBatchUpdatesAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                    self.comments.insert(comment, at: indexPath)
+                                    self.performBatchUpdatesAtIndexPaths([IndexPath(row: indexPath, section: 0)])
                                 }
                             }
                         }
@@ -130,14 +130,14 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 dispatch_after_delay(0.0) {
                     var indexPath = 0
                     for comment in self.comments {
                         if comment.isWorkOrderComment {
                             if comment.commentableId == workOrder.id {
-                                self.collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)])
+                                self.collectionView.reloadItems(at: [IndexPath(row: indexPath, section: 0)])
                             }
                         }
 
@@ -148,7 +148,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
         //refreshControl.addTarget(self, action: #selector(CommentsViewController.refresh), forControlEvents: .ValueChanged)
 
@@ -156,20 +156,20 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         //collectionView.alwaysBounceVertical = true
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "CommentCreationViewControllerPopoverSegue" {
-            let commentCreationViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! CommentCreationViewController
+            let commentCreationViewController = (segue.destination as! UINavigationController).viewControllers.first! as! CommentCreationViewController
             commentCreationViewController.commentCreationViewControllerDelegate = self
             commentCreationViewController.preferredContentSize = CGSize(width: 400, height: 200)
             if let popoverPresentationController = commentCreationViewController.popoverPresentationController {
-                popoverPresentationController.permittedArrowDirections = [.Down]
+                popoverPresentationController.permittedArrowDirections = [.down]
             }
         }
     }
 
-    private func containsComment(comment: Comment) -> Bool {
+    fileprivate func containsComment(_ comment: Comment) -> Bool {
         for c in comments {
             if c.id == comment.id && c.id > 0 {
                 return true
@@ -178,23 +178,23 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         return false
     }
 
-    func addComment(comment: Comment) {
+    func addComment(_ comment: Comment) {
         if !containsComment(comment) {
-            comments.insert(comment, atIndex: 0)
-            performBatchUpdatesAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
+            comments.insert(comment, at: 0)
+            performBatchUpdatesAtIndexPaths([IndexPath(row: self.comments.count - 1, section: 0)])
         } else {
             for c in comments {
                 if c.id == comment.id && c.id > 0 {
                     c.attachments = comment.attachments
                 }
             }
-            collectionView.reloadItemsAtIndexPaths([NSIndexPath(forRow: self.comments.count - 1, inSection: 0)])
+            collectionView.reloadItems(at: [IndexPath(row: self.comments.count - 1, section: 0)])
         }
 
         zeroStateLabel?.alpha = 0.0
     }
 
-    private func performBatchUpdatesAtIndexPaths(indexPaths: [NSIndexPath]) {
+    fileprivate func performBatchUpdatesAtIndexPaths(_ indexPaths: [IndexPath]) {
         let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
 
         CATransaction.begin()
@@ -202,12 +202,12 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
         self.collectionView.performBatchUpdates(
             {
-                UIView.animateWithDuration(0.0, animations: {
-                    self.collectionView.insertItemsAtIndexPaths(indexPaths)
+                UIView.animate(withDuration: 0.0, animations: {
+                    self.collectionView.insertItems(at: indexPaths)
                 })
             },
             completion: { (completed) in
-                self.collectionView.contentOffset = CGPointMake(0.0, self.collectionView.contentSize.height - bottom)
+                self.collectionView.contentOffset = CGPoint(x: 0.0, y: self.collectionView.contentSize.height - bottom)
                 CATransaction.commit()
 
                 self.scrollToNewestComment()
@@ -232,8 +232,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
         fetchingComments = true
 
         if var params = commentsViewControllerDelegate.queryParamsForCommentsViewController(self) {
-            params["page"] = page
-            params["rpp"] = rpp
+            params["page"] = page as AnyObject?
+            params["rpp"] = rpp as AnyObject?
 
             let commentableType = commentsViewControllerDelegate.commentableTypeForCommentsViewController(self)
             let commentableId = Int(commentsViewControllerDelegate.commentableIdForCommentsViewController(self))
@@ -247,7 +247,7 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
                 ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId),
                                                          onSuccess: { statusCode, mappingResult in
-                                                            let fetchedComments = mappingResult.array() as! [Comment]
+                                                            let fetchedComments = mappingResult?.array() as! [Comment]
                                                             if self.page == 1 {
                                                                 self.comments = [Comment]()
                                                             }
@@ -258,10 +258,10 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
                                                             if self.page == 1 {
                                                                 self.reloadCollectionView()
                                                             } else {
-                                                                var indexPaths = [NSIndexPath]()
+                                                                var indexPaths = [IndexPath]()
                                                                 var indexPath = 0
                                                                 for _ in fetchedComments {
-                                                                    indexPaths.append(NSIndexPath(forRow: indexPath, inSection: 0))
+                                                                    indexPaths.append(IndexPath(row: indexPath, section: 0))
                                                                     indexPath += 1
                                                                 }
 
@@ -272,12 +272,12 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
                                                                 self.collectionView.performBatchUpdates(
                                                                     {
-                                                                        UIView.animateWithDuration(0.0, animations: {
-                                                                            self.collectionView.insertItemsAtIndexPaths(indexPaths)
+                                                                        UIView.animate(withDuration: 0.0, animations: {
+                                                                            self.collectionView.insertItems(at: indexPaths)
                                                                         })
                                                                     },
                                                                     completion: { (completed) in
-                                                                        self.collectionView.contentOffset = CGPointMake(0, self.collectionView.contentSize.height - bottom)
+                                                                        self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottom)
                                                                         CATransaction.commit()
                                                                         self.hideActivity()
                                                                     }
@@ -329,8 +329,8 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 //    optional func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
 //
 
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 0 {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row == 0 {
             if scrolledToNewestComment {
                 self.refresh()
             }
@@ -353,39 +353,39 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let inset = UIEdgeInsetsMake(10.0, 10.0, 0.0, 10.0)
         let insetWidthOffset = inset.left + inset.right
         if let superview = collectionView.superview {
-            return CGSizeMake(superview.bounds.width - insetWidthOffset, 125.0)
+            return CGSize(width: superview.bounds.width - insetWidthOffset, height: 125.0)
         }
-        return CGSizeMake(collectionView.bounds.width - insetWidthOffset, 125.0)
+        return CGSize(width: collectionView.bounds.width - insetWidthOffset, height: 125.0)
     }
 
     //    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
     //    }
 
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return false
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return comments.count
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("commentCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! CommentCollectionViewCell
-        if indexPath.row <= comments.count - 1 {
-            cell.comment = comments.reverse()[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCollectionViewCellReuseIdentifier", for: indexPath) as! CommentCollectionViewCell
+        if (indexPath as NSIndexPath).row <= comments.count - 1 {
+            cell.comment = comments.reversed()[(indexPath as NSIndexPath).row]
         } else {
             cell.comment = nil
         }
@@ -399,26 +399,26 @@ class CommentsViewController: ViewController, UICollectionViewDelegate, UICollec
 
     // MARK: CommentCreationViewControllerDelegate
 
-    func commentCreationViewController(viewController: CommentCreationViewController, didSubmitComment comment: String) {
+    func commentCreationViewController(_ viewController: CommentCreationViewController, didSubmitComment comment: String) {
         commentsViewControllerDelegate?.commentsViewController(self, shouldCreateComment: comment, withImageAttachment: nil)
         commentCreationViewControllerShouldBeDismissed(viewController)
     }
 
-    func commentCreationViewControllerShouldBeDismissed(viewController: CommentCreationViewController) {
+    func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController) {
         if let presentingViewController = viewController.presentingViewController {
-            presentingViewController.dismissViewController(animated: true)
+            presentingViewController.dismissViewController(true)
         }
     }
 
-    func promptForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
         return nil
     }
 
-    func titleForCommentCreationViewController(viewController: CommentCreationViewController) -> String! {
+    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
         return "ADD COMMENT"
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

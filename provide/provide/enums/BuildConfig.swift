@@ -3,19 +3,19 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 #if DEBUG
-    let CurrentBuildConfig = BuildConfig.Debug
+    let CurrentBuildConfig = BuildConfig.debug
 #elseif AD_HOC
-    let CurrentBuildConfig = BuildConfig.AdHoc
+    let CurrentBuildConfig = BuildConfig.adHoc
 #elseif APP_STORE
-    let CurrentBuildConfig = BuildConfig.AppStore
+    let CurrentBuildConfig = BuildConfig.appStore
 #endif
 
 enum BuildConfig {
-    case Debug, AdHoc, AppStore
+    case debug, adHoc, appStore
 }

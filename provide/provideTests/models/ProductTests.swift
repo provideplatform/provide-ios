@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/26/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import XCTest
@@ -34,7 +34,7 @@ class ProductTests: XCTestCase {
 
 // MARK: - Helper Functions
 
-private func productWithGtin(gtin: String) -> Product {
+private func productWithGtin(_ gtin: String) -> Product {
     let product = Product()
     product.gtin = gtin
     return product

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/8/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -21,11 +21,11 @@ class ExpenseViewController: ViewController {
         }
     }
 
-    @IBOutlet private weak var dateLabel: UILabel!
-    @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var amountLabel: UILabel!
-    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var dateLabel: UILabel!
+    @IBOutlet fileprivate weak var timeLabel: UILabel!
+    @IBOutlet fileprivate weak var descriptionLabel: UILabel!
+    @IBOutlet fileprivate weak var amountLabel: UILabel!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +36,11 @@ class ExpenseViewController: ViewController {
     }
 
     func hideLabels() {
-        descriptionLabel?.hidden = true
-        amountLabel?.hidden = true
+        descriptionLabel?.isHidden = true
+        amountLabel?.isHidden = true
     }
 
-    private func reload() {
+    fileprivate func reload() {
         if let incurredAtDate = expense.incurredAtDate {
             dateLabel?.text = "\(incurredAtDate.month) / \(incurredAtDate.dayOfMonth) / \(incurredAtDate.year)"
             timeLabel?.text = "\(incurredAtDate.timeString!)"
@@ -53,10 +53,10 @@ class ExpenseViewController: ViewController {
         amountLabel?.text = "$\(expense.amount)"
 
         imageView?.alpha = 0.0
-        imageView?.contentMode = .ScaleAspectFit
+        imageView?.contentMode = .scaleAspectFit
 
         if let attachment = expense.attachments?.first {
-            imageView?.sd_setImageWithURL(attachment.url, placeholderImage: nil,
+            imageView?.sd_setImage(with: attachment.url,
                 completed: { image, error, imageCacheType, url in
                     self.imageView?.alpha = 1.0
                 }

@@ -3,45 +3,45 @@
 //  provide
 //
 //  Created by Kyle Thomas on 10/26/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanToolbarDelegate: NSObjectProtocol {
-    func floorplanForFloorplanToolbar(toolbar: FloorplanToolbar) -> Floorplan
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetFloorplanSelectorVisibility visible: Bool)
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetNavigatorVisibility visible: Bool)
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetScaleVisibility visible: Bool)
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
-    func floorplanShouldBeRenderedAtIndexPath(indexPath: NSIndexPath, forFloorplanToolbar floorplanToolbar: FloorplanToolbar)
-    func previousFloorplanShouldBeRenderedForFloorplanToolbar(toolbar: FloorplanToolbar)
-    func nextFloorplanShouldBeRenderedForFloorplanToolbar(toolbar: FloorplanToolbar)
-    func selectedFloorplanForFloorplanToolbar(toolbar: FloorplanToolbar) -> Floorplan!
-    func nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func scaleCanBeSetByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func newWorkOrderItemIsShownByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func newWorkOrderCanBeCreatedByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func newWorkOrderShouldBeCreatedByFloorplanToolbar(toolbar: FloorplanToolbar)
-    func floorplanOptionsItemIsShownByFloorplanToolbar(toolbar: FloorplanToolbar) -> Bool
-    func floorplanToolbar(toolbar: FloorplanToolbar, shouldPresentAlertController alertController: UIAlertController)
+    func floorplanForFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Floorplan
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldSetFloorplanSelectorVisibility visible: Bool)
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldSetNavigatorVisibility visible: Bool)
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldSetWorkOrdersVisibility visible: Bool, alpha: CGFloat!)
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldSetScaleVisibility visible: Bool)
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldSetFloorplanOptionsVisibility visible: Bool)
+    func floorplanShouldBeRenderedAtIndexPath(_ indexPath: IndexPath, forFloorplanToolbar floorplanToolbar: FloorplanToolbar)
+    func previousFloorplanShouldBeRenderedForFloorplanToolbar(_ toolbar: FloorplanToolbar)
+    func nextFloorplanShouldBeRenderedForFloorplanToolbar(_ toolbar: FloorplanToolbar)
+    func selectedFloorplanForFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Floorplan!
+    func nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func scaleCanBeSetByFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderItemIsShownByFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderCanBeCreatedByFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func newWorkOrderShouldBeCreatedByFloorplanToolbar(_ toolbar: FloorplanToolbar)
+    func floorplanOptionsItemIsShownByFloorplanToolbar(_ toolbar: FloorplanToolbar) -> Bool
+    func floorplanToolbar(_ toolbar: FloorplanToolbar, shouldPresentAlertController alertController: UIAlertController)
 }
 
 class FloorplanToolbar: UIToolbar {
 
     var floorplanToolbarDelegate: FloorplanToolbarDelegate!
 
-    private var floorplanSelectorVisible = false
-    private var navigatorVisible = false
-    private var workOrdersVisible = false
-    private var scaleVisible = false
-    private var scaleBeingEdited = false
-    private var floorplanOptionsVisible = false
+    fileprivate var floorplanSelectorVisible = false
+    fileprivate var navigatorVisible = false
+    fileprivate var workOrdersVisible = false
+    fileprivate var scaleVisible = false
+    fileprivate var scaleBeingEdited = false
+    fileprivate var floorplanOptionsVisible = false
 
-    private var isScaleSet: Bool {
+    fileprivate var isScaleSet: Bool {
         if let floorplan = floorplanToolbarDelegate?.floorplanForFloorplanToolbar(self) {
             if let _ = floorplan.scale {
                 return true
@@ -50,72 +50,72 @@ class FloorplanToolbar: UIToolbar {
         return false
     }
 
-    private var barButtonItemTitleTextAttributes: [String : AnyObject] {
+    fileprivate var barButtonItemTitleTextAttributes: [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : UIColor.white
         ]
     }
 
-    private var selectedButtonItemTitleTextAttributes: [String : AnyObject] {
+    fileprivate var selectedButtonItemTitleTextAttributes: [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : UIColor.white
         ]
     }
 
-    private var barButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
+    fileprivate var barButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : UIColor.white
         ]
     }
 
-    private var previousNextButtonItemTitleTextAttributes: [String : AnyObject] {
+    fileprivate var previousNextButtonItemTitleTextAttributes: [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 20)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : UIColor.white
         ]
     }
 
-    private var previousNextButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
+    fileprivate var previousNextButtonItemDisabledTitleTextAttributes: [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 20)!,
-            NSForegroundColorAttributeName : UIColor.darkGrayColor()
+            NSForegroundColorAttributeName : UIColor.darkGray
         ]
     }
 
-    @IBOutlet private weak var previousFloorplanButton: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var previousFloorplanButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = previousFloorplanButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.previousFloorplan(_:))
-                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private weak var nextFloorplanButton: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var nextFloorplanButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = nextFloorplanButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.nextFloorplan(_:))
-                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(previousNextButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private weak var floorplanTitleButton: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var floorplanTitleButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = floorplanTitleButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.toggleFloorplanSelectorVisibility(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private weak var workOrdersButton: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var workOrdersButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = workOrdersButton {
                 navigationButton.target = self
@@ -123,47 +123,47 @@ class FloorplanToolbar: UIToolbar {
                 if let image = navigationButton.image {
                     navigationButton.image = image.resize(CGRect(x: 0.0, y: 0.0, width: 25.0, height: 31.0))
                 }
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private weak var navigationButton: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var navigationButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = navigationButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.toggleNavigatorVisibility(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private var scaleButton: UIBarButtonItem! {
+    @IBOutlet fileprivate var scaleButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = scaleButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.toggleScaleVisibility(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private var createWorkOrderButton: UIBarButtonItem! {
+    @IBOutlet fileprivate var createWorkOrderButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = createWorkOrderButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.createWorkOrder(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
 
-    @IBOutlet private var floorplanOptionsButton: UIBarButtonItem! {
+    @IBOutlet fileprivate var floorplanOptionsButton: UIBarButtonItem! {
         didSet {
             if let navigationButton = floorplanOptionsButton {
                 navigationButton.target = self
                 navigationButton.action = #selector(FloorplanToolbar.toggleFloorplanOptionsVisibility(_:))
-                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, forState: .Normal)
+                navigationButton.setTitleTextAttributes(barButtonItemTitleTextAttributes, for: UIControlState())
             }
         }
     }
@@ -171,71 +171,71 @@ class FloorplanToolbar: UIToolbar {
     func reload() {
         if let scaleCanBeSet = floorplanToolbarDelegate?.scaleCanBeSetByFloorplanToolbar(self) {
             let scaleButtonTitleTextAttribute = scaleVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-            scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, forState: .Normal)
+            scaleButton.setTitleTextAttributes(scaleButtonTitleTextAttribute, for: UIControlState())
             let index = items!.indexOfObject(scaleButton)
             if !scaleCanBeSet {
                 if let index = index {
-                    items!.removeAtIndex(index)
+                    items!.remove(at: index)
                 }
             } else if index == nil {
-                items!.insert(scaleButton, atIndex: 0)
+                items!.insert(scaleButton, at: 0)
             }
         } else if let index = items!.indexOfObject(scaleButton) {
-            items!.removeAtIndex(index)
+            items!.remove(at: index)
         }
 
         if let floorplan = floorplanToolbarDelegate?.floorplanForFloorplanToolbar(self) {
             if let scale = floorplan.scale {
                 scaleButton.title = "Scale Set: 12“ == \(NSString(format: "%.03f px", scale))"
-                scaleButton.setTitleTextAttributes(AppearenceProxy.inProgressBarButtonItemTitleTextAttributes(), forState: .Normal)
+                scaleButton.setTitleTextAttributes(AppearenceProxy.inProgressBarButtonItemTitleTextAttributes(), for: UIControlState())
             }
         }
 
         let createWorkOrderButtonVisible = floorplanToolbarDelegate.newWorkOrderItemIsShownByFloorplanToolbar(self)
         let createWorkOrderButtonEnabled = floorplanToolbarDelegate.newWorkOrderCanBeCreatedByFloorplanToolbar(self)
         let createWorkOrderButtonTitleTextAttribute = !createWorkOrderButtonEnabled ? barButtonItemDisabledTitleTextAttributes : barButtonItemTitleTextAttributes
-        createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, forState: .Normal)
+        createWorkOrderButton.setTitleTextAttributes(createWorkOrderButtonTitleTextAttribute, for: UIControlState())
         if createWorkOrderButtonVisible {
-            createWorkOrderButton.enabled = createWorkOrderButtonEnabled
+            createWorkOrderButton.isEnabled = createWorkOrderButtonEnabled
 
             if items!.indexOfObject(createWorkOrderButton) == nil {
-                items!.insert(createWorkOrderButton, atIndex: items!.indexOf(scaleButton) != nil ? 1 : 0)
+                items!.insert(createWorkOrderButton, at: items!.index(of: scaleButton) != nil ? 1 : 0)
             }
         } else {
             if let index = items!.indexOfObject(createWorkOrderButton) {
-                items!.removeAtIndex(index)
+                items!.remove(at: index)
             }
         }
 
         let floorplanOptionsButtonVisible = floorplanToolbarDelegate.floorplanOptionsItemIsShownByFloorplanToolbar(self)
         let floorplanOptionsButtonTitleTextAttribute = floorplanOptionsVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-        floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, forState: .Normal)
+        floorplanOptionsButton.setTitleTextAttributes(floorplanOptionsButtonTitleTextAttribute, for: UIControlState())
         if !floorplanOptionsButtonVisible {
             if let index = items!.indexOfObject(floorplanOptionsButton) {
-                items!.removeAtIndex(index)
+                items!.remove(at: index)
             }
         }
 
         let navigationButtonTitleTextAttribute = navigatorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-        navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, forState: .Normal)
+        navigationButton.setTitleTextAttributes(navigationButtonTitleTextAttribute, for: UIControlState())
 
         let floorplanSelectorButtonTitleTextAttribute = floorplanSelectorVisible ? selectedButtonItemTitleTextAttributes : barButtonItemTitleTextAttributes
-        floorplanTitleButton?.setTitleTextAttributes(floorplanSelectorButtonTitleTextAttribute, forState: .Normal)
+        floorplanTitleButton?.setTitleTextAttributes(floorplanSelectorButtonTitleTextAttribute, for: UIControlState())
 
         let previousFloorplanButtonEnabled = floorplanToolbarDelegate?.previousFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
         let previousFloorplanButtonButtonTitleTextAttribute = previousFloorplanButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
-        previousFloorplanButton.setTitleTextAttributes(previousFloorplanButtonButtonTitleTextAttribute, forState: .Normal)
-        previousFloorplanButton.enabled = previousFloorplanButtonEnabled
+        previousFloorplanButton.setTitleTextAttributes(previousFloorplanButtonButtonTitleTextAttribute, for: UIControlState())
+        previousFloorplanButton.isEnabled = previousFloorplanButtonEnabled
 
         let nextFloorplanButtonEnabled = floorplanToolbarDelegate?.nextFloorplanButtonShouldBeEnabledForFloorplanToolbar(self) ?? false
         let nextFloorplanButtonButtonTitleTextAttribute = nextFloorplanButtonEnabled ? previousNextButtonItemTitleTextAttributes : previousNextButtonItemDisabledTitleTextAttributes
-        nextFloorplanButton.setTitleTextAttributes(nextFloorplanButtonButtonTitleTextAttribute, forState: .Normal)
-        nextFloorplanButton.enabled = nextFloorplanButtonEnabled
+        nextFloorplanButton.setTitleTextAttributes(nextFloorplanButtonButtonTitleTextAttribute, for: UIControlState())
+        nextFloorplanButton.isEnabled = nextFloorplanButtonEnabled
 
         let floorplanTitle = floorplanToolbarDelegate?.selectedFloorplanForFloorplanToolbar(self)?.name
         if let floorplanTitle = floorplanTitle {
             floorplanTitleButton?.title = floorplanTitle
-            floorplanTitleButton?.enabled = true
+            floorplanTitleButton?.isEnabled = true
         } else {
             //floorplanTitleButton?.enabled = false
         }
@@ -243,13 +243,13 @@ class FloorplanToolbar: UIToolbar {
         if isIPhone() {
             if let floorplanTitleButton = floorplanTitleButton {
                 if let index = items!.indexOfObject(floorplanTitleButton) {
-                    items!.removeAtIndex(index)
+                    items!.remove(at: index)
                 }
             }
         }
     }
 
-    func toggleNavigatorVisibility(sender: UIBarButtonItem) {
+    func toggleNavigatorVisibility(_ sender: UIBarButtonItem) {
         navigatorVisible = !navigatorVisible
         if navigatorVisible {
             floorplanSelectorVisible = false
@@ -260,20 +260,20 @@ class FloorplanToolbar: UIToolbar {
         reload()
     }
 
-    func presentFloorplanAtIndexPath(indexPath: NSIndexPath) {
+    func presentFloorplanAtIndexPath(_ indexPath: IndexPath) {
         toggleFloorplanSelectorVisibility()
         floorplanToolbarDelegate?.floorplanShouldBeRenderedAtIndexPath(indexPath, forFloorplanToolbar: self)
     }
 
-    func nextFloorplan(sender: UIBarButtonItem) {
+    func nextFloorplan(_ sender: UIBarButtonItem) {
         floorplanToolbarDelegate?.nextFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
-    func previousFloorplan(sender: UIBarButtonItem) {
+    func previousFloorplan(_ sender: UIBarButtonItem) {
         floorplanToolbarDelegate?.previousFloorplanShouldBeRenderedForFloorplanToolbar(self)
     }
 
-    func toggleFloorplanSelectorVisibility(sender: UIBarButtonItem! = nil) {
+    func toggleFloorplanSelectorVisibility(_ sender: UIBarButtonItem! = nil) {
         floorplanSelectorVisible = !floorplanSelectorVisible
         if floorplanSelectorVisible {
             navigatorVisible = false
@@ -284,7 +284,7 @@ class FloorplanToolbar: UIToolbar {
         reload()
     }
 
-    func toggleWorkOrdersVisibility(sender: UIBarButtonItem) {
+    func toggleWorkOrdersVisibility(_ sender: UIBarButtonItem) {
         toggleWorkOrdersVisibility()
     }
 
@@ -292,7 +292,7 @@ class FloorplanToolbar: UIToolbar {
         setWorkOrdersVisibility(!workOrdersVisible)
     }
 
-    func setWorkOrdersVisibility(workOrdersVisible: Bool, alpha: CGFloat! = nil) {
+    func setWorkOrdersVisibility(_ workOrdersVisible: Bool, alpha: CGFloat! = nil) {
         self.workOrdersVisible = workOrdersVisible
         if self.workOrdersVisible {
             navigatorVisible = false
@@ -311,18 +311,18 @@ class FloorplanToolbar: UIToolbar {
         }
     }
 
-    func makeScaleVisible(scaleVisible: Bool) {
+    func makeScaleVisible(_ scaleVisible: Bool) {
         self.scaleVisible = scaleVisible
         floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetScaleVisibility: scaleVisible)
 
         reload()
     }
 
-    func toggleScaleVisibility(sender: UIBarButtonItem) {
+    func toggleScaleVisibility(_ sender: UIBarButtonItem) {
         toggleScaleVisibility()
     }
 
-    func createWorkOrder(sender: UIBarButtonItem) {
+    func createWorkOrder(_ sender: UIBarButtonItem) {
         floorplanToolbarDelegate?.newWorkOrderShouldBeCreatedByFloorplanToolbar(self)
 
         reload()
@@ -332,25 +332,25 @@ class FloorplanToolbar: UIToolbar {
         makeFloorplanOptionsVisible(!floorplanOptionsVisible)
     }
 
-    func makeFloorplanOptionsVisible(floorplanOptionsVisible: Bool) {
+    func makeFloorplanOptionsVisible(_ floorplanOptionsVisible: Bool) {
         self.floorplanOptionsVisible = floorplanOptionsVisible
         floorplanToolbarDelegate?.floorplanToolbar(self, shouldSetFloorplanOptionsVisibility: floorplanOptionsVisible)
 
         reload()
     }
 
-    func toggleFloorplanOptionsVisibility(sender: UIBarButtonItem) {
+    func toggleFloorplanOptionsVisibility(_ sender: UIBarButtonItem) {
         toggleFloorplanOptionsVisibility()
     }
 
     func promptForSetScaleVisibility() {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Scale has already been set. Do you really want to set it again?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-        let setScaleAction = UIAlertAction(title: "Set Scale", style: .Default) { action in
+        let setScaleAction = UIAlertAction(title: "Set Scale", style: .default) { action in
             self.scaleBeingEdited = true
             self.makeScaleVisible(true)
         }

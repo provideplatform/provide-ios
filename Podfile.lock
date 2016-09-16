@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (3.5.0)
-  - AlamofireObjectMapper (3.0.2):
-    - Alamofire (~> 3.2)
-    - ObjectMapper (~> 1.0)
-  - Analytics (3.0.7)
+  - Alamofire (4.0.0)
+  - AlamofireObjectMapper (4.0.0):
+    - Alamofire (~> 4.0)
+    - ObjectMapper (~> 2.0)
+  - Analytics (3.5.0)
   - ELFixSecureTextFieldFont (0.1.0)
   - FontAwesomeKit/Core (2.2.1)
   - FontAwesomeKit/FontAwesome (2.2.1):
@@ -14,14 +14,15 @@ PODS:
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - JWTDecode (1.1.0)
-  - KTSwiftExtensions (0.18.0):
-    - Alamofire
-    - AlamofireObjectMapper
-    - JWTDecode (~> 1.0)
-    - MBProgressHUD (~> 0.9.1)
-  - MBProgressHUD (0.9.2)
-  - ObjectMapper (1.4.0)
+  - JWTDecode (2.0.0)
+  - KTSwiftExtensions (0.23.0):
+    - Alamofire (~> 4.0)
+    - AlamofireObjectMapper (~> 4.0)
+    - JWTDecode (~> 2.0)
+    - MBProgressHUD (~> 1.0)
+    - ObjectMapper (~> 2.0)
+  - MBProgressHUD (1.0.0)
+  - ObjectMapper (2.0.0)
   - OHHTTPStubs (4.2.1):
     - OHHTTPStubs/Default (= 4.2.1)
   - OHHTTPStubs/Core (4.2.1)
@@ -36,7 +37,7 @@ PODS:
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.2.1)
   - PDTSimpleCalendar (0.9.1)
-  - Reachability (3.1.1)
+  - Reachability (3.2)
   - RestKit (0.27.0):
     - RestKit/Core (= 0.27.0)
   - RestKit/Core (0.27.0):
@@ -68,62 +69,61 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
-  - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont.git`)
-  - FontAwesomeKit/FontAwesome (from `https://github.com/PrideChung/FontAwesomeKit.git`)
+  - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont`)
+  - FontAwesomeKit/FontAwesome (from `https://github.com/PrideChung/FontAwesomeKit`)
   - jetfire
   - JSQMessagesViewController (~> 7.1.0)
   - KTSwiftExtensions (from `https://github.com/kthomas/KTSwiftExtensions`)
-  - MBProgressHUD (~> 0.9.1)
   - OHHTTPStubs (~> 4.2.0)
   - PDTSimpleCalendar
   - Reachability
   - RestKit (= 0.27.0)
   - RFGravatarImageView
   - SDWebImage (= 3.8.1)
-  - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell.git`)
+  - SWTableViewCell (from `https://github.com/kthomas/SWTableViewCell`)
   - UICKeyChainStore
 
 EXTERNAL SOURCES:
   ELFixSecureTextFieldFont:
-    :git: https://github.com/elegion/ELFixSecureTextFieldFont.git
+    :git: https://github.com/elegion/ELFixSecureTextFieldFont
   FontAwesomeKit:
-    :git: https://github.com/PrideChung/FontAwesomeKit.git
+    :git: https://github.com/PrideChung/FontAwesomeKit
   KTSwiftExtensions:
     :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
-    :git: https://github.com/kthomas/SWTableViewCell.git
+    :git: https://github.com/kthomas/SWTableViewCell
 
 CHECKOUT OPTIONS:
   ELFixSecureTextFieldFont:
     :commit: bc0d5afecdfbae523ad3b6f855ea641fb980ef9e
-    :git: https://github.com/elegion/ELFixSecureTextFieldFont.git
+    :git: https://github.com/elegion/ELFixSecureTextFieldFont
   FontAwesomeKit:
-    :commit: eac30313fee77f6db1b6832b1d4b7d8f2007b381
-    :git: https://github.com/PrideChung/FontAwesomeKit.git
+    :commit: ffcc61b71c5ae5196705d3486e20e5391fb9396c
+    :git: https://github.com/PrideChung/FontAwesomeKit
   KTSwiftExtensions:
-    :commit: 5b91101da7f3e116013410695cc3ce6b0460e243
+    :commit: 047d161a0c5013596698135d201de1f6b9529e0e
     :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
-    :git: https://github.com/kthomas/SWTableViewCell.git
+    :git: https://github.com/kthomas/SWTableViewCell
 
 SPEC CHECKSUMS:
-  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
-  AlamofireObjectMapper: 70f97cbf45c01c48d26aa07a1a7059a60ed7411d
-  Analytics: b342fb4f43fa4f97ca6f4358b44d3295217ba294
+  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
+  AlamofireObjectMapper: 9faa3ce5a240efda1b209009a2d6e1e949227abc
+  Analytics: 79046b34f62a861622fbb6d1af5b0e705d6aba2e
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  JWTDecode: a6b91ad0bc798c723e9a29a368a6ead70edf7213
-  KTSwiftExtensions: 2a8864804c34d430d99b45f5fa998b1e6e22986b
-  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  ObjectMapper: a07ad0462c5adf014adc0f89ef04c29b626e855e
+  JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
+  KTSwiftExtensions: 7e259c4632fb5232dc6b666326dd67f970fba13e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  ObjectMapper: aed2570edabbd3c9b26c939e1cabdb6558f933e0
   OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
-  Reachability: dd9aa4fb6667b9f787690a74f53cb7634ce99893
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RestKit: a0244db34e14ed9cf059fcee2be6733cc162c34a
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: e5ed67e3811229b616fe01bddeeafe3bb337b1b9
@@ -133,4 +133,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 91a29b0f55c384f0d47c4eb70bdbe07b70ed6947
+
+COCOAPODS: 1.1.0.rc.2

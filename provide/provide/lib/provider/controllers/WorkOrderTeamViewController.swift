@@ -3,17 +3,18 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/18/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import FontAwesomeKit
+import KTSwiftExtensions
 
 protocol WorkOrderTeamViewControllerDelegate {
-    func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder!
-    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
-    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider provider: Provider)
-    func flatFeeForNewProvider(provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double!
+    func workOrderForWorkOrderTeamViewController(_ viewController: WorkOrderTeamViewController) -> WorkOrder!
+    func workOrderTeamViewController(_ viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider)
+    func workOrderTeamViewController(_ viewController: WorkOrderTeamViewController, didRemoveProvider provider: Provider)
+    func flatFeeForNewProvider(_ provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double!
 }
 
 class WorkOrderTeamViewController: UITableViewController,
@@ -21,10 +22,10 @@ class WorkOrderTeamViewController: UITableViewController,
                                    UISearchBarDelegate,
                                    ProviderPickerViewControllerDelegate,
                                    ProviderCreationViewControllerDelegate,
-                                   DraggableViewGestureRecognizerDelegate,
+                                   KTDraggableViewGestureRecognizerDelegate,
                                    WorkOrderProviderCreationViewControllerDelegate {
 
-    private let workOrderProviderOperationQueue = dispatch_queue_create("api.workOrderProviderOperationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let workOrderProviderOperationQueue = DispatchQueue(label: "api.workOrderProviderOperationQueue", attributes: [])
 
     let maximumSearchlessProvidersCount = 20
 
@@ -38,49 +39,49 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    private var workOrder: WorkOrder! {
+    fileprivate var workOrder: WorkOrder! {
         if let workOrder = delegate?.workOrderForWorkOrderTeamViewController(self) {
             return workOrder
         }
         return nil
     }
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var reloadingProviders = false
-    private var reloadingProvidersCount = false
-    private var addingProvider = false
-    private var removingProvider = false
+    fileprivate var reloadingProviders = false
+    fileprivate var reloadingProvidersCount = false
+    fileprivate var addingProvider = false
+    fileprivate var removingProvider = false
 
-    private var totalProvidersCount = -1
+    fileprivate var totalProvidersCount = -1
 
-    private var popoverHeightOffset: CGFloat!
+    fileprivate var popoverHeightOffset: CGFloat!
 
-    private var showsAllProviders: Bool {
+    fileprivate var showsAllProviders: Bool {
         return totalProvidersCount == -1 || totalProvidersCount <= maximumSearchlessProvidersCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllProviders
     }
 
-    private var queryResultsPickerViewController: ProviderPickerViewController!
-    private var queryResultsPickerTableViewCell: UITableViewCell! {
+    fileprivate var queryResultsPickerViewController: ProviderPickerViewController!
+    fileprivate var queryResultsPickerTableViewCell: UITableViewCell! {
         if let queryResultsPickerViewController = queryResultsPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(queryResultsPickerViewController)
         }
         return nil
     }
 
-    private var providersPickerViewController: ProviderPickerViewController!
-    private var providersPickerTableViewCell: UITableViewCell! {
+    fileprivate var providersPickerViewController: ProviderPickerViewController!
+    fileprivate var providersPickerTableViewCell: UITableViewCell! {
         if let providersPickerViewController = providersPickerViewController {
             return resolveTableViewCellForEmbeddedViewController(providersPickerViewController)
         }
         return nil
     }
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet fileprivate weak var searchBar: UISearchBar!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,18 +91,18 @@ class WorkOrderTeamViewController: UITableViewController,
         searchBar?.placeholder = ""
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardWillShow), name: UIKeyboardWillShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidShow), name: UIKeyboardDidShowNotification)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidHide), name: UIKeyboardDidHideNotification)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardWillShow), name: Notification.Name.UIKeyboardWillShow.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidShow), name: Notification.Name.UIKeyboardDidShow.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkOrderTeamViewController.keyboardDidHide), name: Notification.Name.UIKeyboardDidHide.rawValue)
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     func reloadQueryResultsPickerViewController() {
@@ -110,14 +111,14 @@ class WorkOrderTeamViewController: UITableViewController,
 
     func keyboardWillShow() {
         if let _ = popoverPresentationController {
-            popoverHeightOffset = view.convertRect(view.frame, toView: nil).origin.y
+            popoverHeightOffset = view.convert(view.frame, to: nil).origin.y
         }
     }
 
     func keyboardDidShow() {
         if let _ = popoverPresentationController {
             if let popoverHeightOffset = popoverHeightOffset {
-                self.popoverHeightOffset = popoverHeightOffset + view.convertRect(view.frame, toView: nil).origin.y
+                self.popoverHeightOffset = popoverHeightOffset + view.convert(view.frame, to: nil).origin.y
             }
         }
     }
@@ -126,22 +127,22 @@ class WorkOrderTeamViewController: UITableViewController,
 
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier == "ProviderCreationViewControllerPopoverSegue" {
-            segue.destinationViewController.preferredContentSize = CGSizeMake(400, 500)
-            segue.destinationViewController.popoverPresentationController!.delegate = self
-            ((segue.destinationViewController as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
+            segue.destination.preferredContentSize = CGSize(width: 400, height: 500)
+            segue.destination.popoverPresentationController!.delegate = self
+            ((segue.destination as! UINavigationController).viewControllers.first! as! ProviderCreationViewController).delegate = self
         } else if segue.identifier! == "QueryResultsProviderPickerEmbedSegue" {
-            queryResultsPickerViewController = segue.destinationViewController as! ProviderPickerViewController
+            queryResultsPickerViewController = segue.destination as! ProviderPickerViewController
             queryResultsPickerViewController.delegate = self
 
             if let _ = workOrder {
                 reloadWorkOrderForProviderPickerViewController(queryResultsPickerViewController)
             }
         } else if segue.identifier! == "ProviderPickerEmbedSegue" {
-            providersPickerViewController = segue.destinationViewController as! ProviderPickerViewController
+            providersPickerViewController = segue.destination as! ProviderPickerViewController
             providersPickerViewController.delegate = self
 
             if let _ = workOrder {
@@ -150,7 +151,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    func addProvider(provider: Provider) {
+    func addProvider(_ provider: Provider) {
         if workOrder == nil || workOrder.workOrderProviders == nil {
             return
         }
@@ -158,10 +159,10 @@ class WorkOrderTeamViewController: UITableViewController,
         if !workOrder.hasProvider(provider) {
             if let providersPickerViewController = providersPickerViewController {
                 providersPickerViewController.providers.append(provider)
-                let indexPaths = [NSIndexPath(forRow: providersPickerViewController.providers.count - 1, inSection: 0)]
-                providersPickerViewController.collectionView.reloadItemsAtIndexPaths(indexPaths)
+                let indexPaths = [IndexPath(row: providersPickerViewController.providers.count - 1, section: 0)]
+                providersPickerViewController.collectionView.reloadItems(at: indexPaths)
                 if let _ = providersPickerViewController.collectionView {
-                    let cell = providersPickerViewController.collectionView.cellForItemAtIndexPath(indexPaths.first!) as? PickerCollectionViewCell
+                    let cell = providersPickerViewController.collectionView.cellForItem(at: indexPaths.first!) as? PickerCollectionViewCell
 
                     if workOrder.id > 0 {
                         cell?.showActivityIndicator()
@@ -169,7 +170,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         addingProvider = false
                     }
 
-                    dispatch_async(workOrderProviderOperationQueue) { [weak self] in
+                    workOrderProviderOperationQueue.async { [weak self] in
                         while self!.addingProvider { }
 
                         self!.addingProvider = true
@@ -194,21 +195,21 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    func removeProvider(provider: Provider) {
+    func removeProvider(_ provider: Provider) {
         if workOrder == nil {
             return
         }
 
         if workOrder.hasProvider(provider) {
             let index = providersPickerViewController?.providers.indexOfObject(provider)!
-            providersPickerViewController?.providers.removeAtIndex(index!)
+            providersPickerViewController?.providers.remove(at: index!)
             providersPickerViewController?.reloadCollectionView()
 
             if workOrder.id == 0 {
                 removingProvider = false
             }
 
-            dispatch_async(workOrderProviderOperationQueue) { [weak self] in
+            workOrderProviderOperationQueue.async { [weak self] in
                 while self!.addingProvider { }
 
                 self!.removingProvider = true
@@ -223,7 +224,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         self!.delegate?.workOrderTeamViewController(self!, didRemoveProvider: provider)
                     },
                     onError: { (error, statusCode, responseString) -> () in
-                        self!.providersPickerViewController?.providers.insert(provider, atIndex: index!)
+                        self!.providersPickerViewController?.providers.insert(provider, at: index!)
                         self!.providersPickerViewController?.reloadCollectionView()
                         self!.removingProvider = false
                     }
@@ -234,36 +235,39 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    private func resolveTableViewCellForEmbeddedViewController(viewController: UIViewController) -> UITableViewCell! {
+    fileprivate func resolveTableViewCellForEmbeddedViewController(_ viewController: UIViewController) -> UITableViewCell! {
         var tableViewCell: UITableViewCell!
         var view = viewController.view
         while tableViewCell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                tableViewCell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    tableViewCell = v as! UITableViewCell
+                }
             }
+
         }
         return tableViewCell
     }
 
     // MARK: UITableViewDelegate
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return renderQueryResults ? 2 : 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if providersPickerTableViewCell != nil && numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if providersPickerTableViewCell != nil && numberOfSections(in: tableView) == 1 {
             return providersPickerTableViewCell
         }
-        return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        return super.tableView(tableView, cellForRowAt: indexPath)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if numberOfSectionsInTableView(tableView) == 1 {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if numberOfSections(in: tableView) == 1 {
             return "WORK ORDER CREW"
         } else {
-            if numberOfSectionsInTableView(tableView) == 2 && showsAllProviders {
+            if numberOfSections(in: tableView) == 2 && showsAllProviders {
                 if section == 0 {
                     return "SERVICE PROVIDERS"
                 } else if section == 1 {
@@ -282,11 +286,11 @@ class WorkOrderTeamViewController: UITableViewController,
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllProviders
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
@@ -298,35 +302,35 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    // MARK: DraggableViewGestureRecognizerDelegate
+    // MARK: KTDraggableViewGestureRecognizerDelegate
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
         if !draggableViewGestureRecognizer(gestureRecognizer, shouldAnimateResetView: view) {
             view.alpha = 0.0
         }
         return true
     }
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
-        if gestureRecognizer.isKindOfClass(ProviderPickerCollectionViewCellGestureRecognizer) {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+        if gestureRecognizer.isKind(of: ProviderPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! ProviderPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
-        } else if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer) {
+        } else if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self) {
             return (gestureRecognizer as! QueryResultsPickerCollectionViewCellGestureRecognizer).shouldAnimateViewReset
         }
         return true
     }
 
-    func queryResultsPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func queryResultsPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
-    func providersPickerCollectionViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func providersPickerCollectionViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
     // MARK: ProviderPickerViewControllerDelegate
 
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func providersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
         if providersPickerViewController != nil && viewController == providersPickerViewController {
             if let workOrder = workOrder {
                 return workOrder.providers
@@ -340,22 +344,22 @@ class WorkOrderTeamViewController: UITableViewController,
         return [Provider]()
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didSelectProvider provider: Provider) {
 
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didDeselectProvider provider: Provider) {
 
     }
 
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerAllowsMultipleSelection(_ viewController: ProviderPickerViewController) -> Bool {
         //        if viewController == providersPickerViewController {
         //            return false
         //        }
         return false
     }
 
-    func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool {
+    func providerPickerViewControllerCanRenderResults(_ viewController: ProviderPickerViewController) -> Bool {
         if providersPickerViewController != nil && viewController == providersPickerViewController {
             if let _ = workOrder {
                 return true
@@ -366,24 +370,24 @@ class WorkOrderTeamViewController: UITableViewController,
         return false
     }
 
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider] {
+    func selectedProvidersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider] {
         return [Provider]()
     }
 
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForProviderPickerViewController(_ viewController: ProviderPickerViewController) -> [String : AnyObject]! {
         if let workOrder = workOrder {
             if let queryResultsPickerViewController = queryResultsPickerViewController {
                 if viewController == queryResultsPickerViewController {
                     var params: [String : AnyObject] = [
-                        "company_id": workOrder.companyId,
+                        "company_id": workOrder.companyId as AnyObject,
                     ]
 
                     if workOrder.categoryId != 0 {
-                        params["category_id"] = workOrder.categoryId
+                        params["category_id"] = workOrder.categoryId as AnyObject?
                     }
 
                     if let queryString = queryString {
-                        params["q"] = queryString
+                        params["q"] = queryString as AnyObject?
                     }
                     return params
                 }
@@ -392,19 +396,19 @@ class WorkOrderTeamViewController: UITableViewController,
         return nil
     }
 
-    func providerPickerViewController(viewController: ProviderPickerViewController,
+    func providerPickerViewController(_ viewController: ProviderPickerViewController,
         collectionView: UICollectionView,
-        cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+        cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
             let providers = viewController.providers
 
-            if providers.count > indexPath.row - 1 {
-                let provider = providers[indexPath.row]
+            if providers.count > (indexPath as NSIndexPath).row - 1 {
+                let provider = providers[(indexPath as NSIndexPath).row]
 
-                cell.selected = viewController.isSelected(provider)
+                cell.isSelected = viewController.isSelected(provider)
 
-                if cell.selected {
-                    collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+                if cell.isSelected {
+                    collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
                 }
 
                 cell.name = provider.contact.name
@@ -418,8 +422,8 @@ class WorkOrderTeamViewController: UITableViewController,
 
             if let gestureRecognizers = cell.gestureRecognizers {
                 for gestureRecognizer in gestureRecognizers {
-                    if gestureRecognizer.isKindOfClass(QueryResultsPickerCollectionViewCellGestureRecognizer)
-                        || gestureRecognizer.isKindOfClass(ProviderPickerCollectionViewCellGestureRecognizer) {
+                    if gestureRecognizer.isKind(of: QueryResultsPickerCollectionViewCellGestureRecognizer.self)
+                        || gestureRecognizer.isKind(of: ProviderPickerCollectionViewCellGestureRecognizer.self) {
                             cell.removeGestureRecognizer(gestureRecognizer)
                     }
                 }
@@ -438,14 +442,14 @@ class WorkOrderTeamViewController: UITableViewController,
             return cell
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 
     // MARK: ProviderCreationViewControllerDelegate
 
-    func providerCreationViewController(viewController: ProviderCreationViewController, didCreateProvider provider: Provider) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+    func providerCreationViewController(_ viewController: ProviderCreationViewController, didCreateProvider provider: Provider) {
+        viewController.presentingViewController?.dismissViewController(true)
 
         if totalProvidersCount > -1 {
             totalProvidersCount += 1
@@ -461,7 +465,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadWorkOrderForProviderPickerViewController(viewController: ProviderPickerViewController) {
+    fileprivate func reloadWorkOrderForProviderPickerViewController(_ viewController: ProviderPickerViewController) {
         if let providersPickerViewController = providersPickerViewController {
             if viewController == providersPickerViewController && workOrder != nil {
                 reloadProviders()
@@ -470,7 +474,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadProviders() {
+    fileprivate func reloadProviders() {
         reloadingProvidersCount = true
 
         if let companyId = workOrder?.companyId {
@@ -478,9 +482,9 @@ class WorkOrderTeamViewController: UITableViewController,
             queryResultsPickerViewController?.showActivityIndicator()
             tableView.reloadData()
 
-            var params: [String : AnyObject] = ["company_id": companyId]
+            var params: [String : AnyObject] = ["company_id": companyId as AnyObject]
             if workOrder.categoryId > 0 {
-                params["category_id"] = workOrder.categoryId
+                params["category_id"] = workOrder.categoryId as AnyObject?
             }
 
             ApiService.sharedService().countProviders(params,
@@ -488,21 +492,21 @@ class WorkOrderTeamViewController: UITableViewController,
                     self.totalProvidersCount = totalResultsCount
                     if totalResultsCount > -1 {
                         if totalResultsCount <= self.maximumSearchlessProvidersCount {
-                            params["page"] = 1
-                            params["rpp"] = totalResultsCount
+                            params["page"] = 1 as AnyObject?
+                            params["rpp"] = totalResultsCount as AnyObject?
 
                             ApiService.sharedService().fetchProviders(params,
                                 onSuccess: { (statusCode, mappingResult) -> () in
-                                    self.queryResultsPickerViewController?.providers = mappingResult.array() as! [Provider]
+                                    self.queryResultsPickerViewController?.providers = mappingResult?.array() as! [Provider]
                                     self.tableView.reloadData()
                                     if totalResultsCount == 0 {
                                         if let category = self.workOrder.category {
-                                            self.searchBar.placeholder = "No \(category.name.lowercaseString) service providers have been added... yet."
+                                            self.searchBar.placeholder = "No \(category.name.lowercased()) service providers have been added... yet."
                                         } else {
                                             self.searchBar.placeholder = "No service providers have been added... yet."
                                         }
                                     } else if let category = self.workOrder.category {
-                                        self.searchBar.placeholder = "Showing all \(totalResultsCount) \(category.name.lowercaseString) service providers"
+                                        self.searchBar.placeholder = "Showing all \(totalResultsCount) \(category.name.lowercased()) service providers"
                                     } else {
                                         self.searchBar.placeholder = "Showing all \(totalResultsCount) service providers"
                                     }
@@ -517,7 +521,7 @@ class WorkOrderTeamViewController: UITableViewController,
                         } else {
                             var placeholder =  "Search \(totalResultsCount) service providers"
                             if let category = self.workOrder.category {
-                                placeholder = "Search \(totalResultsCount) \(category.name.lowercaseString) service providers"
+                                placeholder = "Search \(totalResultsCount) \(category.name.lowercased()) service providers"
                             }
                             self.searchBar.placeholder = placeholder
                             self.tableView.reloadData()
@@ -529,7 +533,7 @@ class WorkOrderTeamViewController: UITableViewController,
         }
     }
 
-    private func reloadWorkOrderProviders() {
+    fileprivate func reloadWorkOrderProviders() {
         if let workOrder = workOrder {
             if workOrder.id == 0 {
                 return
@@ -538,8 +542,8 @@ class WorkOrderTeamViewController: UITableViewController,
             reloadingProviders = true
 
             workOrder.reload(
-                onSuccess: { (statusCode, mappingResult) -> () in
-                    let workOrder = mappingResult.firstObject as! WorkOrder
+                { (statusCode, mappingResult) -> () in
+                    let workOrder = mappingResult?.firstObject as! WorkOrder
                     self.providersPickerViewController.providers = workOrder.providers
                     self.providersPickerViewController.reloadCollectionView()
                     self.reloadingProviders = false
@@ -554,25 +558,25 @@ class WorkOrderTeamViewController: UITableViewController,
 
     // MARK: QueryResultsPickerCollectionViewCellGestureRecognizer
 
-    private class QueryResultsPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
-        private var popoverHeightOffset:CGFloat = 0.0
+    fileprivate class QueryResultsPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
+        fileprivate var popoverHeightOffset:CGFloat = 0.0
 
-        private var workOrderTeamViewController: WorkOrderTeamViewController!
+        fileprivate var workOrderTeamViewController: WorkOrderTeamViewController!
 
-        private var providersPickerCollectionView: UICollectionView! {
+        fileprivate var providersPickerCollectionView: UICollectionView! {
             didSet {
                 if let providersPickerCollectionView = providersPickerCollectionView {
                     initialProvidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldAddProvider = false
+        fileprivate var shouldAddProvider = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -585,29 +589,29 @@ class WorkOrderTeamViewController: UITableViewController,
             providersPickerCollectionView = viewController.providersPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
-                        popoverHeightOffset = collectionView.convertRect(collectionView.frame, toView: nil).origin.y
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
+                        popoverHeightOffset = collectionView.convert(collectionView.frame, to: nil).origin.y
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let initialView = oldValue {
                     providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
 
                     if shouldAddProvider {
-                        let indexPath = workOrderTeamViewController.queryResultsPickerViewController.collectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                        let provider = workOrderTeamViewController.queryResultsPickerViewController.providers[indexPath.row]
+                        let indexPath = workOrderTeamViewController.queryResultsPickerViewController.collectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                        let provider = workOrderTeamViewController.queryResultsPickerViewController.providers[(indexPath as NSIndexPath).row]
                         workOrderTeamViewController?.addProvider(provider)
                     }
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldAddProvider = false
@@ -615,27 +619,27 @@ class WorkOrderTeamViewController: UITableViewController,
             }
         }
 
-        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
-            initialFrame?.origin.y -= popoverHeightOffset - collectionView.convertRect(collectionView.frame, toView: nil).origin.y
-            super.touchesEnded(touches, withEvent: event)
+        fileprivate override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+            initialFrame?.origin.y -= popoverHeightOffset - collectionView.convert(collectionView.frame, to: nil).origin.y
+            super.touchesEnded(touches, with: event)
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
 
             if initialView == nil || collectionView == nil {
                 return
             }
 
-            if workOrderTeamViewController.searchBar.isFirstResponder() {
+            if workOrderTeamViewController.searchBar.isFirstResponder {
                 workOrderTeamViewController.searchBar.resignFirstResponder()
             }
 
-            let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldAddProvider = CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convert(providersPickerCollectionView.frame, to: nil)
+            shouldAddProvider = initialView.frame.intersects(providersPickerCollectionViewFrame)
 
             if shouldAddProvider {
-                providersPickerCollectionView.backgroundColor = Color.completedStatusColor().colorWithAlphaComponent(0.8)
+                providersPickerCollectionView.backgroundColor = Color.completedStatusColor().withAlphaComponent(0.8)
             } else {
                 providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
             }
@@ -644,24 +648,24 @@ class WorkOrderTeamViewController: UITableViewController,
 
     // MARK: ProviderPickerCollectionViewCellGestureRecognizer
 
-    private class ProviderPickerCollectionViewCellGestureRecognizer: DraggableViewGestureRecognizer {
-        private var collectionView: UICollectionView!
+    fileprivate class ProviderPickerCollectionViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
+        fileprivate var collectionView: UICollectionView!
 
-        private var workOrderTeamViewController: WorkOrderTeamViewController!
+        fileprivate var workOrderTeamViewController: WorkOrderTeamViewController!
 
-        private var providersPickerCollectionView: UICollectionView! {
+        fileprivate var providersPickerCollectionView: UICollectionView! {
             didSet {
                 if let providersPickerCollectionView = providersPickerCollectionView {
                     initialProvidersPickerCollectionViewBackgroundColor = providersPickerCollectionView.backgroundColor
                 }
             }
         }
-        private var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
+        fileprivate var initialProvidersPickerCollectionViewBackgroundColor: UIColor!
 
-        private var shouldRemoveProvider = false
+        fileprivate var shouldRemoveProvider = false
 
-        private var window: UIWindow! {
-            return UIApplication.sharedApplication().keyWindow!
+        fileprivate var window: UIWindow! {
+            return UIApplication.shared.keyWindow!
         }
 
         var shouldAnimateViewReset: Bool {
@@ -674,22 +678,22 @@ class WorkOrderTeamViewController: UITableViewController,
             providersPickerCollectionView = viewController.providersPickerViewController.collectionView
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.isKindOfClass(PickerCollectionViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.isKind(of: PickerCollectionViewCell.self) {
                         collectionView = initialView.superview! as! UICollectionView
-                        collectionView.scrollEnabled = false
+                        collectionView.isScrollEnabled = false
 
-                        initialView.frame = collectionView.convertRect(initialView.frame, toView: nil)
+                        initialView.frame = collectionView.convert(initialView.frame, to: nil)
 
                         window.addSubview(initialView)
-                        window.bringSubviewToFront(initialView)
+                        window.bringSubview(toFront: initialView)
                     }
                 } else if let _ = oldValue {
                     providersPickerCollectionView.backgroundColor = initialProvidersPickerCollectionViewBackgroundColor
 
-                    collectionView.scrollEnabled = true
+                    collectionView.isScrollEnabled = true
                     collectionView = nil
 
                     shouldRemoveProvider = false
@@ -697,10 +701,10 @@ class WorkOrderTeamViewController: UITableViewController,
             }
         }
 
-        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+        fileprivate override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
             if shouldRemoveProvider {
-                let indexPath = providersPickerCollectionView.indexPathForCell(initialView as! UICollectionViewCell)!
-                let supervisor = workOrderTeamViewController.providersPickerViewController.providers[indexPath.row]
+                let indexPath = providersPickerCollectionView.indexPath(for: initialView as! UICollectionViewCell)!
+                let supervisor = workOrderTeamViewController.providersPickerViewController.providers[(indexPath as NSIndexPath).row]
                 if currentUser().id == supervisor.userId {
                     workOrderTeamViewController.showToast("You can't remove yourself", dismissAfter: 2.0)
                 } else {
@@ -708,21 +712,21 @@ class WorkOrderTeamViewController: UITableViewController,
                 }
             }
 
-            super.touchesEnded(touches, withEvent: event)
+            super.touchesEnded(touches, with: event)
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             super.drag(xOffset, yOffset: yOffset)
             
             if initialView == nil || collectionView == nil {
                 return
             }
             
-            let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convertRect(providersPickerCollectionView.frame, toView: nil)
-            shouldRemoveProvider = !CGRectIntersectsRect(initialView.frame, providersPickerCollectionViewFrame)
+            let providersPickerCollectionViewFrame = providersPickerCollectionView.superview!.convert(providersPickerCollectionView.frame, to: nil)
+            shouldRemoveProvider = !initialView.frame.intersects(providersPickerCollectionViewFrame)
             
             if shouldRemoveProvider {
-                let accessoryImage = FAKFontAwesome.removeIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let accessoryImage = FAKFontAwesome.removeIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 (initialView as! PickerCollectionViewCell).setAccessoryImage(accessoryImage, tintColor: Color.abandonedStatusColor())
             } else {
                 (initialView as! PickerCollectionViewCell).accessoryImage = nil
@@ -732,12 +736,12 @@ class WorkOrderTeamViewController: UITableViewController,
 
     // MARK: WorkOrderProviderCreationViewControllerDelegate
 
-    func workOrderProviderCreationViewController(viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider) {
-        viewController.presentingViewController?.dismissViewController(animated: true)
+    func workOrderProviderCreationViewController(_ viewController: WorkOrderProviderCreationViewController, didUpdateWorkOrderProvider workOrderProvider: WorkOrderProvider) {
+        viewController.presentingViewController?.dismissViewController(true)
         delegate?.workOrderTeamViewController(self, didUpdateWorkOrderProvider: workOrderProvider)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

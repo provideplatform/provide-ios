@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/5/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,27 +11,27 @@ import AVFoundation
 import KTSwiftExtensions
 
 protocol ExpenseCaptureViewControllerDelegate {
-    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model
-    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController)
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!)
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense)
+    func expensableForExpenseCaptureViewController(_ viewController: ExpenseCaptureViewController) -> Model
+    func expenseCaptureViewControllerBeganCreatingExpense(_ viewController: ExpenseCaptureViewController)
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!)
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense)
 }
 
 class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDelegate, ExpenseEditorViewControllerDelegate {
 
     var expenseCaptureViewControllerDelegate: ExpenseCaptureViewControllerDelegate!
 
-    private var capturedReceipt: UIImage!
+    fileprivate var capturedReceipt: UIImage!
 
-    private var recognizedTexts = [String]()
+    fileprivate var recognizedTexts = [String]()
 
-    private var recognizedAmount: Double {
-        for recognizedText in recognizedTexts.reverse() {
+    fileprivate var recognizedAmount: Double {
+        for recognizedText in recognizedTexts.reversed() {
             let matches = KTRegex.match("\\d+\\.\\d{2}", input: recognizedText)
             if matches.count > 0 {
                 let match = matches[0]
-                let range = recognizedText.startIndex.advancedBy(match.range.length)..<recognizedText.endIndex
-                return Double(recognizedText.substringWithRange(range))!
+                let range = recognizedText.index(recognizedText.startIndex, offsetBy: match.range.length)..<recognizedText.endIndex
+                return Double(recognizedText.substring(with: range))!
             }
         }
         return 0.0
@@ -48,24 +48,24 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
 
         setupNavigationItem()
 
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == "ExpenseEditorViewControllerSegue" {
-            (segue.destinationViewController as! ExpenseEditorViewController).delegate = self
+            (segue.destination as! ExpenseEditorViewController).delegate = self
 
             let expense = Expense()
-            expense.incurredAtString = NSDate().format("yyyy-MM-dd'T'HH:mm:ssZZ")
-            expense.desc = recognizedTexts.joinWithSeparator("\n")
+            expense.incurredAtString = Date().format("yyyy-MM-dd'T'HH:mm:ssZZ")
+            expense.desc = recognizedTexts.joined(separator: "\n")
             expense.amount = recognizedAmount
             expense.attachments = [Attachment]()
             expense.receiptImage = capturedReceipt
             if let expensable = expenseCaptureViewControllerDelegate?.expensableForExpenseCaptureViewController(self) {
-                expense.expensableType = expensable.isKindOfClass(WorkOrder) ? "work_order" : (expensable.isKindOfClass(Job) ? "job" : nil)
-                expense.expensableId = expensable.isKindOfClass(WorkOrder) ? (expensable as! WorkOrder).id : (expensable.isKindOfClass(Job) ? (expensable as! Job).id : 0)
+                expense.expensableType = expensable.isKind(of: WorkOrder.self) ? "work_order" : (expensable.isKind(of: Job.self) ? "job" : nil)
+                expense.expensableId = expensable.isKind(of: WorkOrder.self) ? (expensable as! WorkOrder).id : (expensable.isKind(of: Job.self) ? (expensable as! Job).id : 0)
             }
-            (segue.destinationViewController as! ExpenseEditorViewController).expense = expense
+            (segue.destination as! ExpenseEditorViewController).expense = expense
         }
     }
 
@@ -73,79 +73,79 @@ class ExpenseCaptureViewController: CameraViewController, CameraViewControllerDe
         navigationItem.title = "CAPTURE RECEIPT"
         navigationItem.hidesBackButton = true
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(ExpenseCaptureViewController.dismiss(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(ExpenseCaptureViewController.dismiss(_:)))
     }
 
     // MARK: CameraViewControllerDelegate
 
-    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
-        return .Photo
+    func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode {
+        return .photo
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController) {
+    func cameraViewControllerCanceled(_ viewController: CameraViewController) {
         if let presentingViewController = presentingViewController {
-            presentingViewController.dismissViewController(animated: true)
+            presentingViewController.dismissViewController(true)
         }
     }
 
-    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
 
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         expenseCaptureViewControllerDelegate?.expenseCaptureViewController(self, didCaptureReceipt: image, recognizedTexts: recognizedTexts)
         capturedReceipt = image
 
-        performSegueWithIdentifier("ExpenseEditorViewControllerSegue", sender: self)
+        performSegue(withIdentifier: "ExpenseEditorViewControllerSegue", sender: self)
     }
 
-    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
-
-    }
-
-    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
 
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: URL) {
 
     }
 
-    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewController(_ cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: URL) {
+
+    }
+
+    func cameraViewControllerShouldOutputFaceMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputOCRMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldRenderFacialRecognition(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+    func cameraViewControllerDidOutputFaceMetadata(_ viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
 
     }
 
-    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+    func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
         recognizedTexts.append(text)
     }
 
     // MARK: ExpenseEditorViewControllerDelegate
 
-    func expenseEditorViewControllerBeganCreatingExpense(viewController: ExpenseEditorViewController) {
+    func expenseEditorViewControllerBeganCreatingExpense(_ viewController: ExpenseEditorViewController) {
         cameraViewControllerCanceled(self)
         expenseCaptureViewControllerDelegate?.expenseCaptureViewControllerBeganCreatingExpense(self)
     }
 
-    func expenseEditorViewController(viewController: ExpenseEditorViewController, didCreateExpense expense: Expense) {
+    func expenseEditorViewController(_ viewController: ExpenseEditorViewController, didCreateExpense expense: Expense) {
         expenseCaptureViewControllerDelegate?.expenseCaptureViewController(self, didCreateExpense: expense)
 
         capturedReceipt = nil
         recognizedTexts = [String]()
     }
 
-    func expenseEditorViewController(viewController: ExpenseEditorViewController, didFailToCreateExpenseWithStatusCode statusCode: Int) {
+    func expenseEditorViewController(_ viewController: ExpenseEditorViewController, didFailToCreateExpenseWithStatusCode statusCode: Int) {
         // TODO: Add appropriate delegation
 
         capturedReceipt = nil

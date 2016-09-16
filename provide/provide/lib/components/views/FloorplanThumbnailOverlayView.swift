@@ -3,38 +3,38 @@
 //  provide
 //
 //  Created by Kyle Thomas on 10/24/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 protocol FloorplanThumbnailOverlayViewDelegate: NSObjectProtocol {
-    func floorplanThumbnailOverlayViewNavigationBegan(view: FloorplanThumbnailOverlayView)
-    func floorplanThumbnailOverlayViewNavigationEnded(view: FloorplanThumbnailOverlayView)
-    func floorplanThumbnailOverlayView(view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect)
+    func floorplanThumbnailOverlayViewNavigationBegan(_ view: FloorplanThumbnailOverlayView)
+    func floorplanThumbnailOverlayViewNavigationEnded(_ view: FloorplanThumbnailOverlayView)
+    func floorplanThumbnailOverlayView(_ view: FloorplanThumbnailOverlayView, navigatedToFrame frame: CGRect)
 }
 
 class FloorplanThumbnailOverlayView: UIView {
 
     weak var delegate: FloorplanThumbnailOverlayViewDelegate!
 
-    private var touchesBeganTimestamp: NSDate!
+    fileprivate var touchesBeganTimestamp: Date!
 
-    private var gestureInProgress: Bool {
+    fileprivate var gestureInProgress: Bool {
         return touchesBeganTimestamp != nil
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
         delegate?.floorplanThumbnailOverlayViewNavigationBegan(self)
 
-        touchesBeganTimestamp = NSDate()
+        touchesBeganTimestamp = Date()
         applyTouches(touches)
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
         delegate?.floorplanThumbnailOverlayViewNavigationEnded(self)
 
@@ -42,32 +42,32 @@ class FloorplanThumbnailOverlayView: UIView {
         touchesBeganTimestamp = nil
     }
 
-    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
 
         delegate?.floorplanThumbnailOverlayViewNavigationEnded(self)
 
         touchesBeganTimestamp = nil
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
         applyTouches(touches)
     }
 
-    private func applyTouches(touches: Set<UITouch>) {
+    fileprivate func applyTouches(_ touches: Set<UITouch>) {
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
 
         for touch in touches {
-            xOffset += touch.locationInView(nil).x - touch.previousLocationInView(nil).x
-            yOffset += touch.locationInView(nil).y - touch.previousLocationInView(nil).y
+            xOffset += touch.location(in: nil).x - touch.previousLocation(in: nil).x
+            yOffset += touch.location(in: nil).y - touch.previousLocation(in: nil).y
 
             dragOverlay(xOffset, yOffset: yOffset)
         }
     }
 
-    private func dragOverlay(xOffset: CGFloat, yOffset: CGFloat) {
+    fileprivate func dragOverlay(_ xOffset: CGFloat, yOffset: CGFloat) {
         var newFrame = CGRect(origin: frame.origin, size: frame.size)
         newFrame.origin.x += xOffset
         newFrame.origin.y += yOffset

@@ -9,51 +9,51 @@
 import UIKit
 
 protocol DatePickerViewControllerDelegate {
-    func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate)
-    func datePickerViewController(viewController: DatePickerViewController, requiresDateAfter refDate: NSDate) -> Bool
+    func datePickerViewController(_ viewController: DatePickerViewController, didSetDate date: Date)
+    func datePickerViewController(_ viewController: DatePickerViewController, requiresDateAfter refDate: Date) -> Bool
 }
 
 class DatePickerViewController: UIViewController {
 
-    private let defaultMinimumDate = NSDate()
+    fileprivate let defaultMinimumDate = Date()
 
     var delegate: DatePickerViewControllerDelegate!
 
-    var initialDate: NSDate!
+    var initialDate: Date!
     var fieldName: String!
 
-    @IBOutlet private weak var datePicker: UIDatePicker!
-    @IBOutlet private weak var saveButton: UIButton!
+    @IBOutlet fileprivate weak var datePicker: UIDatePicker!
+    @IBOutlet fileprivate weak var saveButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         datePicker?.minimumDate = defaultMinimumDate
         if let initialDate = initialDate {
-            datePicker?.timeZone = NSTimeZone.localTimeZone()
+            datePicker?.timeZone = TimeZone.autoupdatingCurrent
             datePicker?.setDate(initialDate, animated: false)
         }
 
-        saveButton?.addTarget(self, action: #selector(DatePickerViewController.save), forControlEvents: .TouchUpInside)
+        saveButton?.addTarget(self, action: #selector(DatePickerViewController.save), for: .touchUpInside)
     }
 
-    @IBAction func datePickerChanged(datePicker: UIDatePicker) {
+    @IBAction func datePickerChanged(_ datePicker: UIDatePicker) {
         var validDate = true
         if let requiresLaterDate = delegate?.datePickerViewController(self, requiresDateAfter: datePicker.date) {
             validDate = !requiresLaterDate
         }
 
-        saveButton?.enabled = validDate
+        saveButton?.isEnabled = validDate
     }
 
-    func save(sender: UIButton) {
+    func save(_ sender: UIButton) {
         if let date = datePicker?.date {
             delegate?.datePickerViewController(self, didSetDate: date)
         }
     }
 
-    func tick(animated: Bool = true) {
+    func tick(_ animated: Bool = true) {
         let fiveMinutes = 5.0 * 60.0
-        datePicker?.setDate(datePicker.date.dateByAddingTimeInterval(fiveMinutes), animated: animated)
+        datePicker?.setDate(datePicker.date.addingTimeInterval(fiveMinutes), animated: animated)
     }
 }

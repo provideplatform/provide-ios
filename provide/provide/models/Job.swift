@@ -3,11 +3,31 @@
 //  provide
 //
 //  Created by Kyle Thomas on 10/24/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 import RestKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class Job: Model {
 
@@ -61,9 +81,9 @@ class Job: Model {
         return workOrders
     }
 
-    var thumbnailImageUrl: NSURL! {
+    var thumbnailImageUrl: URL! {
         if let thumbnailImageUrlString = thumbnailImageUrlString {
-            return NSURL(string: thumbnailImageUrlString)
+            return URL(string: thumbnailImageUrlString)
         }
         return nil
     }
@@ -86,7 +106,7 @@ class Job: Model {
 
     var isReviewMode: Bool {
         if let status = status {
-            return ["pending_completion", "completed"].indexOfObject(status) != nil
+            return ["pending_completion", "completed"].index(of: status) != nil
         }
         return false
     }
@@ -100,7 +120,7 @@ class Job: Model {
 
     var canTransitionToReviewAndCompleteStatus: Bool {
         if let status = status {
-            if let _ = ["in_progress"].indexOfObject(status) {
+            if let _ = ["in_progress"].index(of: status) {
                 if let tasks = tasks {
                     for task in tasks {
                         if task.completedAt == nil {
@@ -124,8 +144,8 @@ class Job: Model {
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "name": "name",
             "company_id": "companyId",
@@ -149,16 +169,16 @@ class Job: Model {
             "type": "type",
             "thumbnail_image_url": "thumbnailImageUrlString",
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", withMapping: Floorplan.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: JobProduct.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: Provider.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "company", mapping: Company.mapping())
+        mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", with: Comment.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", with: Expense.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "floorplans", toKeyPath: "floorplans", with: Floorplan.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", with: JobProduct.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: Provider.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", with: Task.mapping()))
+        return mapping!
     }
 
     var annotation: Annotation {
@@ -226,7 +246,7 @@ class Job: Model {
             return Color.completedStatusColor()
         }
 
-        return UIColor.clearColor()
+        return UIColor.clear
     }
 
     var humanReadableContractRevenue: String! {
@@ -313,7 +333,7 @@ class Job: Model {
         return nil
     }
 
-    func hasSupervisor(supervisor: Provider) -> Bool {
+    func hasSupervisor(_ supervisor: Provider) -> Bool {
         if let supervisors = supervisors {
             for s in supervisors {
                 if s.id == supervisor.id {
@@ -324,7 +344,7 @@ class Job: Model {
         return false
     }
 
-    func mergeAttachment(attachment: Attachment) {
+    func mergeAttachment(_ attachment: Attachment) {
         if attachments == nil {
             attachments = [Attachment]()
         }
@@ -345,7 +365,7 @@ class Job: Model {
         }
     }
 
-    func prependExpense(expense: Expense) {
+    func prependExpense(_ expense: Expense) {
         if expenses == nil {
             expenses = [Expense]()
 
@@ -354,58 +374,58 @@ class Job: Model {
             }
         }
 
-        expenses.insert(expense, atIndex: 0)
+        expenses.insert(expense, at: 0)
 
         expensesCount += 1
         expensedAmount = expensedAmount + expense.amount
     }
 
-    func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
+    func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().addComment(comment, toJobWithId: String(id),
             onSuccess: { (statusCode, mappingResult) -> () in
                 if self.comments == nil {
                     self.comments = [Comment]()
                 }
-                self.comments.insert(mappingResult.firstObject as! Comment, atIndex: 0)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { (error, statusCode, responseString) -> () in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func reloadComments(onSuccess: OnSuccess, onError: OnError) {
+    func reloadComments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchComments(forJobWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
                     if self.comments == nil {
                         self.comments = [Comment]()
                     }
-                    let fetchedComments = (mappingResult.array() as! [Comment]).reverse()
+                    let fetchedComments = (mappingResult?.array() as! [Comment]).reversed()
                     for comment in fetchedComments {
                         self.comments.append(comment)
                     }
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadFinancials(onSuccess: OnSuccess, onError: OnError) {
+    func reloadFinancials(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             let params: [String : AnyObject] = [
-                "include_expenses": "false",
-                "include_products": "false",
-                "include_supervisors": "true",
+                "include_expenses": "false" as AnyObject,
+                "include_products": "false" as AnyObject,
+                "include_supervisors": "true" as AnyObject,
             ]
 
             reload(params,
                 onSuccess: { statusCode, mappingResult in
-                    let job = mappingResult.firstObject as! Job
+                    let job = mappingResult?.firstObject as! Job
 
                     self.supervisors = job.supervisors
 
@@ -429,16 +449,16 @@ class Job: Model {
                     self.profitPerSqFt = job.profitPerSqFt
                     self.profitMargin = job.profitMargin
 
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadFloorplans(onSuccess: OnSuccess, onError: OnError) {
+    func reloadFloorplans(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchFloorplans(forJobWithId: String(id), params: [:],
                 onSuccess: { statusCode, mappingResult in
@@ -446,75 +466,75 @@ class Job: Model {
                         self.floorplans = [Floorplan]()
                     }
 
-                    let fetchedFloorplans = mappingResult.array() as! [Floorplan]
+                    let fetchedFloorplans = mappingResult?.array() as! [Floorplan]
                     for floorplan in fetchedFloorplans {
                         self.floorplans.append(floorplan)
                     }
 
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
+    func reloadExpenses(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchExpenses(forJobWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
-                    self.expenses = mappingResult.array() as! [Expense]
+                    self.expenses = mappingResult?.array() as! [Expense]
                     self.expensesCount = self.expenses.count
                     self.expensedAmount = 0.0
                     for expense in self.expenses {
                         self.expensedAmount = self.expensedAmount + expense.amount
                     }
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func addExpense(params: [String: AnyObject], receipt: UIImage!, onSuccess: OnSuccess, onError: OnError) {
+    func addExpense(_ params: [String: AnyObject], receipt: UIImage!, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().createExpense(params, forExpensableType: "job",
             withExpensableId: String(self.id), onSuccess: { statusCode, mappingResult in
                 let expenseStatusCode = statusCode
                 let expenseMappingResult = mappingResult
-                let expense = mappingResult.firstObject as! Expense
+                let expense = mappingResult?.firstObject as! Expense
 
                 self.prependExpense(expense)
 
                 if let receipt = receipt {
                     expense.attach(receipt, params: params,
                         onSuccess: { (statusCode, mappingResult) -> () in
-                            onSuccess(statusCode: expenseStatusCode, mappingResult: expenseMappingResult)
+                            onSuccess(expenseStatusCode, expenseMappingResult)
                         },
                         onError: { (error, statusCode, responseString) -> () in
-                            onError(error: error, statusCode: statusCode, responseString: responseString)
+                            onError(error, statusCode, responseString)
                         }
                     )
                 } else {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 }
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func addSupervisor(supervisor: Provider, onSuccess: OnSuccess, onError: OnError) {
+    func addSupervisor(_ supervisor: Provider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if !hasSupervisor(supervisor) {
             supervisors.append(supervisor)
-            save(onSuccess: onSuccess, onError: onError)
+            save(onSuccess, onError: onError)
         }
     }
     
-    func removeSupervisor(supervisor: Provider, onSuccess: OnSuccess, onError: OnError) {
+    func removeSupervisor(_ supervisor: Provider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if hasSupervisor(supervisor) {
             var i = -1
             for s in supervisors {
@@ -523,27 +543,27 @@ class Job: Model {
                     break
                 }
             }
-            supervisors.removeAtIndex(i)
-            save(onSuccess: onSuccess, onError: onError)
+            supervisors.remove(at: i)
+            save(onSuccess, onError: onError)
         }
     }
 
-    func reloadMaterials(onSuccess: OnSuccess, onError: OnError) {
+    func reloadMaterials(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
-            let params: [String : AnyObject] = ["include_products": "true"]
+            let params: [String : AnyObject] = ["include_products": "true" as AnyObject]
             ApiService.sharedService().fetchJobWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    self.materials = (mappingResult.firstObject as! Job).materials
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.materials = (mappingResult?.firstObject as! Job).materials
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func jobProductForProduct(product: Product) -> JobProduct! {
+    func jobProductForProduct(_ product: Product) -> JobProduct! {
         if let materials = materials {
             for jobProduct in materials {
                 if jobProduct.productId == product.id {
@@ -554,7 +574,7 @@ class Job: Model {
         return nil
     }
 
-    func addJobProductForProduct(product: Product, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addJobProductForProduct(_ product: Product, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if jobProductForProduct(product) == nil && materials != nil {
             let jobProduct = JobProduct()
             jobProduct.jobId = id
@@ -570,59 +590,58 @@ class Job: Model {
 
             materials.append(jobProduct)
 
-            save(onSuccess:
-                { statusCode, mappingResult in
+            save({ statusCode, mappingResult in
                     let saveMappingResult = mappingResult
                     self.reloadMaterials(
                         { statusCode, mappingResult in
-                            onSuccess(statusCode: statusCode, mappingResult: saveMappingResult)
+                            onSuccess(statusCode, saveMappingResult)
                         },
                         onError: { error, statusCode, responseString in
-                            onError(error: error, statusCode: statusCode, responseString: responseString)
+                            onError(error, statusCode, responseString)
                         }
                     )
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func removeJobProductForProduct(product: Product, onSuccess: OnSuccess, onError: OnError) {
+    func removeJobProductForProduct(_ product: Product, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let jobProduct = jobProductForProduct(product) {
             removeJobProduct(jobProduct, onSuccess: onSuccess, onError: onError)
         }
     }
 
-    func removeJobProduct(jobProduct: JobProduct, onSuccess: OnSuccess, onError: OnError) {
+    func removeJobProduct(_ jobProduct: JobProduct, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         materials.removeObject(jobProduct)
-        save(onSuccess: onSuccess, onError: onError)
+        save(onSuccess, onError: onError)
     }
 
-    func reloadSupervisors(onSuccess: OnSuccess, onError: OnError) {
+    func reloadSupervisors(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
-            let params: [String : AnyObject] = ["include_supervisors": "true"]
+            let params: [String : AnyObject] = ["include_supervisors": "true" as AnyObject]
             ApiService.sharedService().fetchJobWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    self.supervisors = (mappingResult.firstObject as! Job).supervisors
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.supervisors = (mappingResult?.firstObject as! Job).supervisors
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         reload([String : AnyObject](), onSuccess: onSuccess, onError: onError)
     }
 
-    func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func reload(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().fetchJobWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
-                let job = mappingResult.firstObject as! Job
+                let job = mappingResult?.firstObject as! Job
 
                 if let floorplans = job.floorplans {
                     self.floorplans = floorplans
@@ -642,29 +661,29 @@ class Job: Model {
 
                 JobService.sharedService().updateJob(job)
 
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        ApiService.sharedService().updateJobWithId(String(id), params: ["status": "canceled"],
+    func cancel(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        ApiService.sharedService().updateJobWithId(String(id), params: ["status": "canceled" as AnyObject],
             onSuccess: { statusCode, mappingResult in
                 self.status = "canceled"
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
-        params.removeValueForKey("id")
+        params.removeValue(forKey: "id")
 
         if id > 0 {
             if let floorplans = floorplans {
@@ -672,48 +691,48 @@ class Job: Model {
                 for floorplan in floorplans {
                     floorplanIds.append(floorplan.id)
                 }
-                params.updateValue(floorplanIds, forKey: "floorplan_ids")
+                params.updateValue(floorplanIds as AnyObject, forKey: "floorplan_ids")
             }
 
             if let materials = materials {
                 var jobProducts = [[String : AnyObject]]()
                 for jobProduct in materials {
-                    var jp: [String : AnyObject] = ["job_id": id, "product_id": jobProduct.productId, "initial_quantity": jobProduct.initialQuantity]
+                    var jp: [String : AnyObject] = ["job_id": id as AnyObject, "product_id": jobProduct.productId as AnyObject, "initial_quantity": jobProduct.initialQuantity as AnyObject]
                     if jobProduct.price > -1.0 {
-                        jp.updateValue(jobProduct.price, forKey: "price")
+                        jp.updateValue(jobProduct.price as AnyObject, forKey: "price")
                     }
                     if jobProduct.id > 0 {
-                        jp.updateValue(jobProduct.id, forKey: "id")
+                        jp.updateValue(jobProduct.id as AnyObject, forKey: "id")
                     }
                     jobProducts.append(jp)
                 }
-                params.updateValue(jobProducts, forKey: "materials")
+                params.updateValue(jobProducts as AnyObject, forKey: "materials")
             }
 
             ApiService.sharedService().updateJobWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
             ApiService.sharedService().createJob(params,
                 onSuccess: { statusCode, mappingResult in
-                    let job = mappingResult.firstObject as! Job
+                    let job = mappingResult?.firstObject as! Job
                     self.id = job.id
                     self.status = job.status
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func updateJobFloorplanScale(floorplanScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
+    func updateJobFloorplanScale(_ floorplanScale: CGFloat, onSuccess: OnSuccess, onError: OnError) {
 //        if let floorplan = floorplan {
 //            self.floorplanScale = Double(floorplanScale)
 //
@@ -723,21 +742,21 @@ class Job: Model {
 //        }
     }
 
-    func updateJobWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {
+    func updateJobWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
-        ApiService.sharedService().updateJobWithId(String(id), params: ["status": status],
+        ApiService.sharedService().updateJobWithId(String(id), params: ["status": status as AnyObject],
             onSuccess: { statusCode, mappingResult in
                 JobService.sharedService().updateJob(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
     class Annotation: NSObject, MKAnnotation {
-        private var job: Job!
+        fileprivate var job: Job!
 
         required init(job: Job) {
             self.job = job

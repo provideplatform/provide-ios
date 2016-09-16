@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/18/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,15 +12,15 @@ import KTSwiftExtensions
 
 @objc
 protocol ProviderPickerViewControllerDelegate {
-    func queryParamsForProviderPickerViewController(viewController: ProviderPickerViewController) -> [String : AnyObject]!
-    func providerPickerViewController(viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
-    func providerPickerViewController(viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
-    func providerPickerViewControllerAllowsMultipleSelection(viewController: ProviderPickerViewController) -> Bool
-    func providersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
-    func selectedProvidersForPickerViewController(viewController: ProviderPickerViewController) -> [Provider]
-    optional func collectionViewScrollDirectionForPickerViewController(viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection
-    optional func providerPickerViewControllerCanRenderResults(viewController: ProviderPickerViewController) -> Bool
-    optional func providerPickerViewController(viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    func queryParamsForProviderPickerViewController(_ viewController: ProviderPickerViewController) -> [String : AnyObject]!
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didSelectProvider provider: Provider)
+    func providerPickerViewController(_ viewController: ProviderPickerViewController, didDeselectProvider provider: Provider)
+    func providerPickerViewControllerAllowsMultipleSelection(_ viewController: ProviderPickerViewController) -> Bool
+    func providersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider]
+    func selectedProvidersForPickerViewController(_ viewController: ProviderPickerViewController) -> [Provider]
+    @objc optional func collectionViewScrollDirectionForPickerViewController(_ viewController: ProviderPickerViewController) -> UICollectionViewScrollDirection
+    @objc optional func providerPickerViewControllerCanRenderResults(_ viewController: ProviderPickerViewController) -> Bool
+    @objc optional func providerPickerViewController(_ viewController: ProviderPickerViewController, collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell
 }
 
 class ProviderPickerViewController: ViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -49,9 +49,9 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var inFlightRequestOperation: RKObjectRequestOperation!
+    fileprivate var inFlightRequestOperation: RKObjectRequestOperation!
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -63,7 +63,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
     var providers = [Provider]() {
         didSet {
@@ -75,11 +75,11 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private var selectedProviders = [Provider]()
+    fileprivate var selectedProviders = [Provider]()
 
-    private var page = 1
-    private let rpp = 10
-    private var lastProviderIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastProviderIndex = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,11 +127,11 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         activityIndicatorView?.stopAnimating()
 
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(ProviderPickerViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(ProviderPickerViewController.reset), for: .valueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -158,11 +158,11 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
 
         if var params = delegate.queryParamsForProviderPickerViewController(self) {
-            params["page"] = page
-            params["rpp"] = rpp
+            params["page"] = page as AnyObject?
+            params["rpp"] = rpp as AnyObject?
 
             if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                params["company_id"] = defaultCompanyId
+                params["company_id"] = defaultCompanyId as AnyObject?
             }
 
             if let inFlightRequestOperation = inFlightRequestOperation {
@@ -172,7 +172,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
             inFlightRequestOperation = ApiService.sharedService().fetchProviders(params,
                 onSuccess: { statusCode, mappingResult in
                     self.inFlightRequestOperation = nil
-                    let fetchedProviders = mappingResult.array() as! [Provider]
+                    let fetchedProviders = mappingResult?.array() as! [Provider]
                     if self.page == 1 {
                         self.providers = [Provider]()
                     }
@@ -187,7 +187,7 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         }
     }
 
-    func isSelected(provider: Provider) -> Bool {
+    func isSelected(_ provider: Provider) -> Bool {
         for p in selectedProviders {
             if p.id == provider.id {
                 return true
@@ -198,24 +198,24 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
 
     // MARK - UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return providers.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = delegate?.providerPickerViewController?(self, collectionView: collectionView, cellForItemAtIndexPath: indexPath) {
             return cell
         }
 
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PickerCollectionViewCell", forIndexPath: indexPath) as! PickerCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PickerCollectionViewCell", for: indexPath) as! PickerCollectionViewCell
 
-        if providers.count > indexPath.row - 1 {
-            let provider = providers[indexPath.row]
+        if providers.count > (indexPath as NSIndexPath).row - 1 {
+            let provider = providers[(indexPath as NSIndexPath).row]
 
-            cell.selected = isSelected(provider)
+            cell.isSelected = isSelected(provider)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = provider.contact.name
@@ -230,21 +230,21 @@ class ProviderPickerViewController: ViewController, UICollectionViewDataSource, 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let provider = providers[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let provider = providers[(indexPath as NSIndexPath).row]
         delegate?.providerPickerViewController(self, didSelectProvider: provider)
     }
 
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let provider = providers[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let provider = providers[(indexPath as NSIndexPath).row]
         delegate?.providerPickerViewController(self, didDeselectProvider: provider)
     }
 
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,10 +11,10 @@ import KTSwiftExtensions
 
 class JobDetailsHeaderView: UIView, MKMapViewDelegate {
 
-    @IBOutlet private weak var mapView: WorkOrderMapView!
-    @IBOutlet private weak var gradientView: UIView!
-    @IBOutlet private weak var customerLabel: UILabel!
-    @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
+    @IBOutlet fileprivate weak var gradientView: UIView!
+    @IBOutlet fileprivate weak var customerLabel: UILabel!
+    @IBOutlet fileprivate weak var addressLabel: UILabel!
 
     var job: Job! {
         didSet {
@@ -23,17 +23,17 @@ class JobDetailsHeaderView: UIView, MKMapViewDelegate {
                     frame.size.width = superview.bounds.width
                 }
 
-                gradientView.backgroundColor = UIColor.blackColor()
+                gradientView.backgroundColor = UIColor.black
                 gradientView.alpha = 0.7
-                bringSubviewToFront(gradientView)
+                bringSubview(toFront: gradientView)
 
                 customerLabel.text = job.customer.displayName
                 customerLabel.sizeToFit()
-                bringSubviewToFront(customerLabel)
+                bringSubview(toFront: customerLabel)
 
                 addressLabel.text = job.customer.contact.address
                 addressLabel.sizeToFit()
-                bringSubviewToFront(addressLabel)
+                bringSubview(toFront: addressLabel)
 
                 mapView.setCenterCoordinate(job.coordinate, zoomLevel: 12, animated: false)
                 mapView.addAnnotation(job.annotation)

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import AVFoundation
 import KTSwiftExtensions
 
 protocol ApplicationViewControllerDelegate {
-    func dismissApplicationViewController(viewController: ApplicationViewController)
+    func dismissApplicationViewController(_ viewController: ApplicationViewController)
 }
 
 class ApplicationViewController: UIViewController,
@@ -20,29 +20,29 @@ class ApplicationViewController: UIViewController,
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
 
-    private var topViewController: UIViewController!
+    fileprivate var topViewController: UIViewController!
 
-    private var menuContainerView: MenuContainerView!
+    fileprivate var menuContainerView: MenuContainerView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ApplicationViewController.currentUserLoggedOut), name: "ApplicationUserLoggedOut")
+        NotificationCenter.default.addObserver(self, selector: #selector(ApplicationViewController.currentUserLoggedOut), name: "ApplicationUserLoggedOut")
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "ApplicationUINavigationControllerEmbedSegue" {
-            topViewController = segue.destinationViewController
+            topViewController = segue.destination
         }
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
 
-        coordinator.animateAlongsideTransition(
-            { context in
+        coordinator.animate(
+            alongsideTransition: { context in
                 self.menuContainerView?.redraw(size)
             },
             completion: { (context) in
@@ -56,18 +56,18 @@ class ApplicationViewController: UIViewController,
 
         refreshCurrentUser()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+        NotificationCenter.default.addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
             self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         refreshMenu()
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         teardownMenu()
@@ -81,7 +81,7 @@ class ApplicationViewController: UIViewController,
         }
     }
 
-    private func refreshMenu() {
+    fileprivate func refreshMenu() {
         teardownMenu()
 
         dispatch_after_delay(0.0) {
@@ -98,13 +98,13 @@ class ApplicationViewController: UIViewController,
                 self.refreshMenu()
 
                 if currentUser().profileImageUrl == nil && !currentUser().hasBeenPromptedToTakeSelfie {
-                    let authorizationStatus = AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo)
-                    if authorizationStatus == .Authorized {
+                    let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+                    if authorizationStatus == .authorized {
                         self.setHasBeenPromptedToTakeSelfieFlag()
                         self.initCameraViewController()
-                    } else if authorizationStatus == .NotDetermined {
-                        NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestMediaAuthorization")
-                        AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo) { granted in
+                    } else if authorizationStatus == .notDetermined {
+                        NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
+                        AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
                             if granted {
                                 self.setHasBeenPromptedToTakeSelfieFlag()
                                 self.initCameraViewController()
@@ -125,21 +125,21 @@ class ApplicationViewController: UIViewController,
 
     // MARK: MenuViewControllerDelegate
 
-    func navigationControllerForMenuViewController(menuViewController: MenuViewController) -> UINavigationController! {
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
         return topViewController as! UINavigationController
     }
 
     // MARK: CameraViewControllerDelegate
 
-    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
-        return .Selfie
+    func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode {
+        return .selfie
     }
 
-    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
-        navigationController?.popViewControllerAnimated(false)
+    func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
+        let _ = navigationController?.popViewController(animated: false)
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         ApiService.sharedService().setUserDefaultProfileImage(image,
             onSuccess: { statusCode, mappingResult in
 
@@ -150,46 +150,46 @@ class ApplicationViewController: UIViewController,
         )
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: URL) {
 
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: URL) {
 
     }
 
-    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
         
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController) {
+    func cameraViewControllerCanceled(_ viewController: CameraViewController) {
         dispatch_after_delay(0.0) {
-            self.navigationController?.popViewControllerAnimated(false)
+            let _ = self.navigationController?.popViewController(animated: false)
         }
     }
 
-    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+    func cameraViewControllerDidOutputFaceMetadata(_ viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
 
     }
 
-    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputFaceMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputOCRMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldRenderFacialRecognition(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+    func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
         
     }
 
-    private func initCameraViewController() {
-        let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
+    fileprivate func initCameraViewController() {
+        let selfieViewController = UIStoryboard("Camera").instantiateViewController(withIdentifier: "SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
         dispatch_after_delay(0.0) {
@@ -197,13 +197,13 @@ class ApplicationViewController: UIViewController,
         }
     }
 
-    private func setHasBeenPromptedToTakeSelfieFlag() {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        userDefaults.setBool(true, forKey: "presentedSelfieViewController")
+    fileprivate func setHasBeenPromptedToTakeSelfieFlag() {
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(true, forKey: "presentedSelfieViewController")
         userDefaults.synchronize()
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

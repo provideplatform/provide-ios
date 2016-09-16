@@ -3,26 +3,26 @@
 //  provide
 //
 //  Created by Kyle Thomas on 10/23/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanViewControllerDelegate: NSObjectProtocol {
-    func floorplanForFloorplanViewController(viewController: FloorplanViewController) -> Floorplan!
-    func jobForFloorplanViewController(viewController: FloorplanViewController) -> Job!
-    func floorplanImageForFloorplanViewController(viewController: FloorplanViewController) -> UIImage!
-    func modeForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanViewController.Mode!
-    func scaleCanBeSetByFloorplanViewController(viewController: FloorplanViewController) -> Bool
-    func scaleWasSetForFloorplanViewController(viewController: FloorplanViewController)
-    func newWorkOrderCanBeCreatedByFloorplanViewController(viewController: FloorplanViewController) -> Bool
-    func areaSelectorIsAvailableForFloorplanViewController(viewController: FloorplanViewController) -> Bool
-    func navigationControllerForFloorplanViewController(viewController: FloorplanViewController) -> UINavigationController!
-    func floorplanViewControllerCanDropWorkOrderPin(viewController: FloorplanViewController) -> Bool
-    func toolbarForFloorplanViewController(viewController: FloorplanViewController) -> FloorplanToolbar!
-    func hideToolbarForFloorplanViewController(viewController: FloorplanViewController)
-    func showToolbarForFloorplanViewController(viewController: FloorplanViewController)
+    func floorplanForFloorplanViewController(_ viewController: FloorplanViewController) -> Floorplan!
+    func jobForFloorplanViewController(_ viewController: FloorplanViewController) -> Job!
+    func floorplanImageForFloorplanViewController(_ viewController: FloorplanViewController) -> UIImage!
+    func modeForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanViewController.Mode!
+    func scaleCanBeSetByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool
+    func scaleWasSetForFloorplanViewController(_ viewController: FloorplanViewController)
+    func newWorkOrderCanBeCreatedByFloorplanViewController(_ viewController: FloorplanViewController) -> Bool
+    func areaSelectorIsAvailableForFloorplanViewController(_ viewController: FloorplanViewController) -> Bool
+    func navigationControllerForFloorplanViewController(_ viewController: FloorplanViewController) -> UINavigationController!
+    func floorplanViewControllerCanDropWorkOrderPin(_ viewController: FloorplanViewController) -> Bool
+    func toolbarForFloorplanViewController(_ viewController: FloorplanViewController) -> FloorplanToolbar!
+    func hideToolbarForFloorplanViewController(_ viewController: FloorplanViewController)
+    func showToolbarForFloorplanViewController(_ viewController: FloorplanViewController)
 }
 
 class FloorplanViewController: WorkOrderComponentViewController,
@@ -36,8 +36,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
                                UIPopoverPresentationControllerDelegate {
 
     enum Mode {
-        case Setup, WorkOrders
-        static let allValues = [Setup, WorkOrders]
+        case setup, workOrders
+        static let allValues = [setup, workOrders]
     }
 
     weak var floorplanViewControllerDelegate: FloorplanViewControllerDelegate! {
@@ -60,29 +60,29 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private var mode: Mode {
+    fileprivate var mode: Mode {
         if let floorplanViewControllerDelegate = floorplanViewControllerDelegate {
             if let mode = floorplanViewControllerDelegate.modeForFloorplanViewController(self) {
                 return mode
             }
         }
-        return .Setup
+        return .setup
     }
 
-    private var floorplanSelectorView: FloorplanSelectorView!
-    private var thumbnailView: FloorplanThumbnailView!
-    private var thumbnailTintView: UIView!
+    fileprivate var floorplanSelectorView: FloorplanSelectorView!
+    fileprivate var thumbnailView: FloorplanThumbnailView!
+    fileprivate var thumbnailTintView: UIView!
 
-    private var imageView: UIImageView!
-    private var floorplanTiledViews = [FloorplanTiledView]()
-    private var floorplanTiledView: FloorplanTiledView! {
+    fileprivate var imageView: UIImageView!
+    fileprivate var floorplanTiledViews = [FloorplanTiledView]()
+    fileprivate var floorplanTiledView: FloorplanTiledView! {
         var floorplanTiledView: FloorplanTiledView?
         if floorplanZoomLevel <= floorplanTiledViews.count - 1 {
             floorplanTiledView = floorplanTiledViews[floorplanZoomLevel]
         }
         return floorplanTiledView
     }
-    private var floorplanZoomLevel: Int = 0 {
+    fileprivate var floorplanZoomLevel: Int = 0 {
         didSet {
             for floorplanTiledView in floorplanTiledViews {
                 if floorplanTiledView == self.floorplanTiledView {
@@ -90,7 +90,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                     scrollView.contentSize = floorplanTiledView.frame.size
                     scrollView.addSubview(floorplanTiledView)
-                    scrollView.bringSubviewToFront(floorplanTiledView)
+                    scrollView.bringSubview(toFront: floorplanTiledView)
 
                     floorplanTiledView.setNeedsDisplay()
                     floorplanTiledView.alpha = 1.0
@@ -104,14 +104,14 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
         }
     }
-    private var floorplanScrollViewZoomScale: CGFloat = 1.0 {
+    fileprivate var floorplanScrollViewZoomScale: CGFloat = 1.0 {
         didSet {
             floorplanZoomLevel = min(Int(round((Double(floorplanScrollViewZoomScale) * Double(floorplan.maxZoomLevel)))), floorplan.maxZoomLevel)
         }
     }
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var progressView: UIProgressView! {
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var progressView: UIProgressView! {
         didSet {
             if let progressView = progressView {
                 progressView.setProgress(0.0, animated: false)
@@ -119,22 +119,22 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    @IBOutlet private weak var scrollView: FloorplanScrollView!
+    @IBOutlet fileprivate weak var scrollView: FloorplanScrollView!
 
-    @IBOutlet private weak var scaleView: FloorplanScaleView! {
+    @IBOutlet fileprivate weak var scaleView: FloorplanScaleView! {
         didSet {
-            if let scaleView = scaleView {
+            if let scaleView = self.scaleView {
                 scaleView.delegate = self
-                scaleView.backgroundColor = UIColor.whiteColor()
+                scaleView.backgroundColor = UIColor.white
                 scaleView.clipsToBounds = true
                 scaleView.roundCorners(5.0)
             }
         }
     }
 
-    private var pinViews = [FloorplanPinView]()
+    fileprivate var pinViews = [FloorplanPinView]()
 
-    private var selectedPinView: FloorplanPinView! {
+    fileprivate var selectedPinView: FloorplanPinView! {
         didSet {
             if selectedPinView == nil {
                 showPinViews()
@@ -143,16 +143,16 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
         }
     }
-    private var selectedPolygonView: FloorplanPolygonView!
+    fileprivate var selectedPolygonView: FloorplanPolygonView!
 
-    @IBOutlet private weak var floorplanWorkOrdersViewControllerContainer: UIView!
-    private var floorplanWorkOrdersViewController: FloorplanWorkOrdersViewController!
+    @IBOutlet fileprivate weak var floorplanWorkOrdersViewControllerContainer: UIView!
+    fileprivate var floorplanWorkOrdersViewController: FloorplanWorkOrdersViewController!
 
     var floorplan: Floorplan!
 
-    var floorplanImageUrl: NSURL! {
+    var floorplanImageUrl: URL! {
         if let floorplan = floorplan {
-            return floorplan.imageUrl
+            return floorplan.imageUrl as URL!
         }
         return nil
     }
@@ -171,7 +171,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return nil
     }
 
-    private var maxContentSize: CGSize!
+    fileprivate var maxContentSize: CGSize!
 
     weak var job: Job! {
         if let job = floorplanViewControllerDelegate?.jobForFloorplanViewController(self) {
@@ -185,17 +185,17 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     var workOrder: WorkOrder!
 
-    private var backsplashProductPickerViewController: ProductPickerViewController!
+    fileprivate var backsplashProductPickerViewController: ProductPickerViewController!
 
-    private var enableScrolling = false {
+    fileprivate var enableScrolling = false {
         didSet {
             if let scrollView = scrollView {
-                scrollView.scrollEnabled = enableScrolling
+                scrollView.isScrollEnabled = enableScrolling
             }
         }
     }
 
-    private var hiddenNavigationControllerFrame: CGRect {
+    fileprivate var hiddenNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
             y: targetView.frame.height,
@@ -204,16 +204,16 @@ class FloorplanViewController: WorkOrderComponentViewController,
         )
     }
 
-    private var cachedNavigationItem: UINavigationItem!
+    fileprivate var cachedNavigationItem: UINavigationItem!
 
-    private var loadedFloorplan = false
-    private var initializedAnnotations = false
+    fileprivate var loadedFloorplan = false
+    fileprivate var initializedAnnotations = false
 
-    private var loadingFloorplan = false {
+    fileprivate var loadingFloorplan = false {
         didSet {
             if !loadingFloorplan && !loadingAnnotations {
                 activityIndicatorView.stopAnimating()
-            } else if !activityIndicatorView.isAnimating() {
+            } else if !activityIndicatorView.isAnimating {
                 if loadingFloorplan == true && oldValue == false {
                     progressView?.setProgress(0.0, animated: false)
                 }
@@ -222,41 +222,41 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private var loadingAnnotations = false {
+    fileprivate var loadingAnnotations = false {
         didSet {
             if !loadingFloorplan && !loadingAnnotations {
                 activityIndicatorView?.stopAnimating()
-                progressView?.hidden = true
-            } else if !activityIndicatorView.isAnimating() {
+                progressView?.isHidden = true
+            } else if !activityIndicatorView.isAnimating {
                 activityIndicatorView?.startAnimating()
             }
         }
     }
 
-    private var loadingMaterials = false {
+    fileprivate var loadingMaterials = false {
         didSet {
             if !loadingFloorplan && !loadingAnnotations && !loadingMaterials {
                 activityIndicatorView.stopAnimating()
-                progressView?.hidden = true
-            } else if !activityIndicatorView.isAnimating() {
+                progressView?.isHidden = true
+            } else if !activityIndicatorView.isAnimating {
                 activityIndicatorView.startAnimating()
             }
         }
     }
 
-    private var newWorkOrderPending = false
+    fileprivate var newWorkOrderPending = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigationItem()
 
-        let floorplanSelectorViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanSelectorViewController") as! FloorplanSelectorViewController
+        let floorplanSelectorViewController = UIStoryboard("Floorplan").instantiateViewController(withIdentifier: "FloorplanSelectorViewController") as! FloorplanSelectorViewController
         floorplanSelectorView = floorplanSelectorViewController.selectorView
         floorplanSelectorView.delegate = self
         view.addSubview(floorplanSelectorView)
 
-        let floorplanThumbnailViewController = UIStoryboard("Floorplan").instantiateViewControllerWithIdentifier("FloorplanThumbnailViewController") as! FloorplanThumbnailViewController
+        let floorplanThumbnailViewController = UIStoryboard("Floorplan").instantiateViewController(withIdentifier: "FloorplanThumbnailViewController") as! FloorplanThumbnailViewController
         thumbnailView = floorplanThumbnailViewController.thumbnailView
         thumbnailView.delegate = self
         view.addSubview(thumbnailView)
@@ -264,24 +264,24 @@ class FloorplanViewController: WorkOrderComponentViewController,
         dispatch_after_delay(0.0) {
             let size = max(self.view.bounds.width, self.view.bounds.height)
             self.thumbnailTintView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: size, height: size))
-            self.thumbnailTintView.backgroundColor = UIColor.blackColor()
+            self.thumbnailTintView.backgroundColor = UIColor.black
             self.thumbnailTintView.alpha = 0.0
             self.view.addSubview(self.thumbnailTintView)
-            self.view.sendSubviewToBack(self.thumbnailTintView)
-            self.thumbnailTintView?.userInteractionEnabled = false
+            self.view.sendSubview(toBack: self.thumbnailTintView)
+            self.thumbnailTintView?.isUserInteractionEnabled = false
         }
 
         imageView = UIImageView()
         imageView.alpha = 0.0
-        imageView.userInteractionEnabled = true
-        imageView.contentMode = .ScaleToFill
+        imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleToFill
 
         resetFloorplanTiledViews()
 
         scrollView?.floorplanScrollViewDelegate = self
-        scrollView?.backgroundColor = UIColor.whiteColor()
+        scrollView?.backgroundColor = UIColor.white
         scrollView?.addSubview(imageView)
-        scrollView?.bringSubviewToFront(imageView)
+        scrollView?.bringSubview(toFront: imageView)
 
         activityIndicatorView?.startAnimating()
 
@@ -289,7 +289,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             loadFloorplan()
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 if let floorplan = self.floorplan {
                     if let annotations = floorplan.annotations {
@@ -312,7 +312,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("FloorplanChanged") { notification in
+        NotificationCenter.default.addObserverForName("FloorplanChanged") { notification in
             if let floorplan = notification.object as? Floorplan {
                 if let f = self.floorplan {
                     if floorplan.id == f.id {
@@ -327,7 +327,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func resetFloorplanTiledViews() {
+    fileprivate func resetFloorplanTiledViews() {
         for floorplanTileView in floorplanTiledViews {
             floorplanTileView.removeGestureRecognizers()
             floorplanTileView.removeFromSuperview()
@@ -346,12 +346,12 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     let size =  CGSize(width: level["size"] as! Double,
                                        height: level["size"] as! Double)
 
-                    let frame = CGRect(origin: CGPointZero, size: size)
+                    let frame = CGRect(origin: CGPoint.zero, size: size)
 
                     let floorplanTiledView = FloorplanTiledView(frame: frame)
                     floorplanTiledView.alpha = 0.0
-                    floorplanTiledView.backgroundColor = UIColor.clearColor()
-                    floorplanTiledView.userInteractionEnabled = true
+                    floorplanTiledView.backgroundColor = UIColor.clear
+                    floorplanTiledView.isUserInteractionEnabled = true
                     floorplanTiledView.zoomLevel = i
 
                     if let canDropWorkOrderPin = floorplanViewControllerDelegate?.floorplanViewControllerCanDropWorkOrderPin(self) {
@@ -362,7 +362,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     }
 
                     scrollView?.addSubview(floorplanTiledView)
-                    scrollView?.bringSubviewToFront(floorplanTiledView)
+                    scrollView?.bringSubview(toFront: floorplanTiledView)
 
                     floorplanTiledViews.append(floorplanTiledView)
                 }
@@ -370,22 +370,23 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 i += 1
             }
 
-            for floorplanTiledView in floorplanTiledViews.reverse() {
-                scrollView?.bringSubviewToFront(floorplanTiledView)
+            for floorplanTiledView in floorplanTiledViews.reversed() {
+                scrollView?.bringSubview(toFront: floorplanTiledView)
             }
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "FloorplanWorkOrdersViewControllerSegue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             floorplanWorkOrdersViewController = navigationController.viewControllers.first! as! FloorplanWorkOrdersViewController
             floorplanWorkOrdersViewController.delegate = self
         }
     }
 
+    @discardableResult
     func teardown() -> UIImage? {
         let image = imageView?.image
         imageView?.image = nil
@@ -402,11 +403,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         super.didReceiveMemoryWarning()
     }
 
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
 
-        coordinator.animateAlongsideTransition(
-            { context in
+        coordinator.animate(
+            alongsideTransition: { context in
                 self.hideToolbar()
                 self.thumbnailView?.floorplanImage = self.imageView.image
                 self.thumbnailTintView?.frame.size = size
@@ -421,13 +422,13 @@ class FloorplanViewController: WorkOrderComponentViewController,
         )
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
 
-    private var isManagedByWorkOrdersViewController: Bool {
+    fileprivate var isManagedByWorkOrdersViewController: Bool {
         if let navigationController = navigationController {
-            return navigationController.viewControllers.first!.isKindOfClass(WorkOrdersViewController)
+            return navigationController.viewControllers.first!.isKind(of: WorkOrdersViewController.self)
         }
         return false
     }
@@ -449,9 +450,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
             navigationController.view.alpha = 0.0
             navigationController.view.frame = hiddenNavigationControllerFrame
             targetView.addSubview(navigationController.view)
-            targetView.bringSubviewToFront(navigationController.view)
+            targetView.bringSubview(toFront: navigationController.view)
 
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                 animations: { [weak self] in
                     self!.view.alpha = 1
                     navigationController.view.alpha = 1
@@ -470,7 +471,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
     override func unwind() {
         clearNavigationItem()
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                                    animations: { [weak self] in
                                         self!.view.alpha = 0.0
 
@@ -485,7 +486,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         )
     }
 
-    private func loadFloorplan() {
+    fileprivate func loadFloorplan() {
         if floorplanIsTiled {
             renderTiledFloorplan()
         } else if let url = floorplanImageUrl {
@@ -512,7 +513,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 onDownloadProgress: { [weak self] receivedSize, expectedSize in
                     if expectedSize != -1 {
                         dispatch_async_main_queue {
-                            self!.progressView?.hidden = false
+                            self!.progressView?.isHidden = false
 
                             let percentage: Float = Float(receivedSize) / Float(expectedSize)
                             self!.progressView?.setProgress(percentage, animated: true)
@@ -523,9 +524,9 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func renderFloorplanThumbnailImage() {
+    fileprivate func renderFloorplanThumbnailImage() {
         if let imageUrlString = floorplan.imageUrlString72dpi {
-            ImageService.sharedService().fetchImage(NSURL(imageUrlString), cacheOnDisk: true,
+            ImageService.sharedService().fetchImage(URL(string: imageUrlString)!, cacheOnDisk: true,
                 onDownloadSuccess: { [weak self] image in
                     dispatch_async_main_queue {
                         self!.thumbnailView?.floorplanImage = image
@@ -541,7 +542,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func renderTiledFloorplan() {
+    fileprivate func renderTiledFloorplan() {
         if floorplan.maxZoomLevel == -1 {
             return
         }
@@ -560,7 +561,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                     self!.renderFloorplanThumbnailImage()
 
-                    self!.scrollView.scrollEnabled = false
+                    self!.scrollView.isScrollEnabled = false
                     self!.scrollView.contentSize = self!.maxContentSize
 
                     self!.enableScrolling = true
@@ -568,10 +569,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
                     self!.loadingFloorplan = false
                     self!.loadedFloorplan = true
 
-                    self!.progressView?.hidden = true
+                    self!.progressView?.isHidden = true
 
                     if let _ = self!.presentedViewController {
-                        self!.dismissViewController(animated: true)
+                        self!.dismissViewController(true)
                     }
 
                     dispatch_after_delay(0.0) {
@@ -598,7 +599,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             onDownloadProgress: { [weak self] receivedSize, expectedSize in
                 if expectedSize != -1 {
                     dispatch_async_main_queue {
-                        self!.progressView?.hidden = false
+                        self!.progressView?.isHidden = false
 
                         let percentage: Float = Float(receivedSize) / Float(expectedSize)
                         self!.progressView?.setProgress(percentage, animated: true)
@@ -609,15 +610,15 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     }
 
-    private func setFloorplanImage(image: UIImage) {
+    fileprivate func setFloorplanImage(_ image: UIImage) {
         let size = CGSize(width: image.size.width, height: image.size.height)
 
         imageView!.image = image
-        imageView!.frame = CGRect(origin: CGPointZero, size: size)
+        imageView!.frame = CGRect(origin: CGPoint.zero, size: size)
 
         renderFloorplanThumbnailImage()
 
-        scrollView.scrollEnabled = false
+        scrollView.isScrollEnabled = false
         scrollView.contentSize = size
 
         enableScrolling = true
@@ -632,10 +633,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
             }
         }
 
-        self.progressView?.hidden = true
+        self.progressView?.isHidden = true
 
         if let _ = presentedViewController {
-            dismissViewController(animated: true)
+            dismissViewController(true)
         }
 
         dispatch_after_delay(0.0) {
@@ -652,11 +653,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func dropPin(gestureRecognizer: UIGestureRecognizer) {
+    func dropPin(_ gestureRecognizer: UIGestureRecognizer) {
         if !newWorkOrderPending {
             let targetView = floorplanIsTiled ? floorplanTiledView : imageView
 
-            let point = gestureRecognizer.locationInView(targetView)
+            let point = gestureRecognizer.location(in: targetView)
 
             let annotation = Annotation()
             annotation.point = [point.x, point.y]
@@ -665,7 +666,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
             selectedPinView = FloorplanPinView(delegate: self, annotation: annotation)
 
             targetView.addSubview(selectedPinView)
-            targetView.bringSubviewToFront(selectedPinView)
+            targetView.bringSubview(toFront: selectedPinView)
 
             selectedPinView.frame = CGRect(x: point.x, y: point.y, width: selectedPinView.bounds.width, height: selectedPinView.bounds.height)
             selectedPinView.frame.origin = CGPoint(x: selectedPinView.frame.origin.x - (selectedPinView.frame.size.width / 2.0),
@@ -678,7 +679,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func setZoomLevel() {
+    fileprivate func setZoomLevel() {
         if let job = job {
             if job.isResidential {
                 scrollView.zoomScale = scrollView.minimumZoomScale
@@ -700,7 +701,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func pinViewForWorkOrder(workOrder: WorkOrder!) -> FloorplanPinView! {
+    fileprivate func pinViewForWorkOrder(_ workOrder: WorkOrder!) -> FloorplanPinView! {
         var pinView: FloorplanPinView!
         for view in pinViews {
             if let wo = view.workOrder {
@@ -727,7 +728,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return pinView
     }
 
-    private func removePinViews() {
+    fileprivate func removePinViews() {
         for view in pinViews {
             view.removeFromSuperview()
         }
@@ -735,7 +736,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         pinViews = [FloorplanPinView]()
     }
 
-    private func refreshAnnotations() {
+    fileprivate func refreshAnnotations() {
         if let floorplan = floorplan {
             if let annotations = floorplan.annotations {
                 for annotation in annotations {
@@ -755,7 +756,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
                             let targetView = floorplanIsTiled ? floorplanTiledView : imageView
                             targetView.addSubview(pinView)
-                            targetView.bringSubviewToFront(pinView)
+                            targetView.bringSubview(toFront: pinView)
 
                             pinView.attachGestureRecognizer()
                             pinViews.append(pinView)
@@ -777,20 +778,20 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func hideToolbar() {
+    fileprivate func hideToolbar() {
         floorplanViewControllerDelegate?.hideToolbarForFloorplanViewController(self)
     }
 
-    private func showToolbar() {
+    fileprivate func showToolbar() {
         floorplanViewControllerDelegate?.showToolbarForFloorplanViewController(self)
     }
 
-    func cancelSetScale(sender: UIBarButtonItem) {
-        scaleView.resignFirstResponder(false)
+    func cancelSetScale(_ sender: UIBarButtonItem) {
+        let _ = scaleView.resignFirstResponder(false)
         restoreCachedNavigationItem()
     }
 
-    func setScale(sender: UIBarButtonItem!) {
+    func setScale(_ sender: UIBarButtonItem!) {
 //        let scale = scaleView.scale
 //        scaleView.resignFirstResponder(false)
 //
@@ -811,26 +812,26 @@ class FloorplanViewController: WorkOrderComponentViewController,
     }
 
     func dismissWorkOrderCreationPinView() {
-        selectedPinView?.resignFirstResponder(false)
+        let _ = selectedPinView?.resignFirstResponder(false)
     }
 
-    private func overrideNavigationItemForSettingScale(setScaleEnabled: Bool = false) {
+    fileprivate func overrideNavigationItemForSettingScale(_ setScaleEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(FloorplanViewController.cancelSetScale(_:)))
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(FloorplanViewController.cancelSetScale(_:)))
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), for: .disabled)
 
-        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .Plain, target: self, action: #selector(FloorplanViewController.setScale(_:)))
-        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
-        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), forState: .Disabled)
-        setScaleItem.enabled = setScaleEnabled
+        let setScaleItem = UIBarButtonItem(title: "SET SCALE", style: .plain, target: self, action: #selector(FloorplanViewController.setScale(_:)))
+        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
+        setScaleItem.setTitleTextAttributes(AppearenceProxy.barButtonItemDisabledTitleTextAttributes(), for: .disabled)
+        setScaleItem.isEnabled = setScaleEnabled
 
         navigationItem.leftBarButtonItems = [cancelItem]
         navigationItem.rightBarButtonItems = [setScaleItem]
     }
 
-    private func overrideNavigationItemForCreatingWorkOrder(setCreateEnabled: Bool = false) {
+    fileprivate func overrideNavigationItemForCreatingWorkOrder(_ setCreateEnabled: Bool = false) {
         cacheNavigationItem(navigationItem)
 
 //        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(FloorplanViewController.cancelCreateWorkOrder(_:)))
@@ -846,7 +847,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 //        navigationItem.rightBarButtonItems = [createWorkOrderItem]
     }
 
-    private func cacheNavigationItem(navigationItem: UINavigationItem) {
+    fileprivate func cacheNavigationItem(_ navigationItem: UINavigationItem) {
         if cachedNavigationItem == nil {
             cachedNavigationItem = UINavigationItem()
             cachedNavigationItem.leftBarButtonItems = navigationItem.leftBarButtonItems
@@ -857,7 +858,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func restoreCachedNavigationItem() {
+    fileprivate func restoreCachedNavigationItem() {
         if let cachedNavigationItem = cachedNavigationItem {
             var navigationItem: UINavigationItem!
             if let navigationController = navigationController {
@@ -884,11 +885,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     // MARK: FloorplanScaleViewDelegate
 
-    func floorplanImageViewForFloorplanScaleView(view: FloorplanScaleView) -> UIImageView! {
+    func floorplanImageViewForFloorplanScaleView(_ view: FloorplanScaleView) -> UIImageView! {
         return imageView
     }
 
-    func floorplanScaleForFloorplanScaleView(view: FloorplanScaleView) -> CGFloat {
+    func floorplanScaleForFloorplanScaleView(_ view: FloorplanScaleView) -> CGFloat {
         if let floorplanScale = floorplanScale {
             return CGFloat(floorplanScale)
         }
@@ -896,31 +897,31 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return 1.0
     }
 
-    func floorplanScaleViewCanSetFloorplanScale(view: FloorplanScaleView) {
+    func floorplanScaleViewCanSetFloorplanScale(_ view: FloorplanScaleView) {
         overrideNavigationItemForSettingScale(true)
     }
 
-    func floorplanScaleViewDidReset(view: FloorplanScaleView) {
+    func floorplanScaleViewDidReset(_ view: FloorplanScaleView) {
         //toolbar?.toggleScaleVisibility()
     }
 
-    func floorplanScaleView(view: FloorplanScaleView, didSetScale scale: CGFloat) {
+    func floorplanScaleView(_ view: FloorplanScaleView, didSetScale scale: CGFloat) {
         setScale(nil)
     }
 
     // MARK: FloorplanScrollViewDelegate
 
-    func floorplanTiledViewForFloorplanScrollView(scrollView: FloorplanScrollView) -> FloorplanTiledView! {
+    func floorplanTiledViewForFloorplanScrollView(_ scrollView: FloorplanScrollView) -> FloorplanTiledView! {
         return floorplanTiledView
     }
 
     // MARK: FloorplanSelectorViewDelegate
 
-    func jobForFloorplanSelectorView(selectorView: FloorplanSelectorView) -> Job! {
+    func jobForFloorplanSelectorView(_ selectorView: FloorplanSelectorView) -> Job! {
         return job
     }
 
-    func floorplanSelectorView(selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: NSIndexPath!) {
+    func floorplanSelectorView(_ selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: IndexPath!) {
         if floorplan == nil {
             importFromDropbox()
         } else {
@@ -930,29 +931,29 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func importFromDropbox() {
+    fileprivate func importFromDropbox() {
         presentDropboxChooser()
     }
 
-    private func presentDropboxChooser() {
-        DBChooser.defaultChooser().openChooserForLinkType(DBChooserLinkTypeDirect, fromViewController: self) { results in
+    fileprivate func presentDropboxChooser() {
+        DBChooser.default().open(for: DBChooserLinkTypeDirect, from: self) { results in
             if let results = results {
                 for result in results {
                     let sourceURL = (result as! DBChooserResult).link
                     let filename = (result as! DBChooserResult).name
-                    if let fileExtension = sourceURL.pathExtension {
-                        if fileExtension.lowercaseString == "pdf" {
+                    if let fileExtension = sourceURL?.pathExtension {
+                        if fileExtension.lowercased() == "pdf" {
                             if let job = self.job {
                                 let floorplan = Floorplan()
                                 floorplan.jobId = job.id
                                 floorplan.name = filename
-                                floorplan.pdfUrlString = sourceURL.absoluteString
+                                floorplan.pdfUrlString = sourceURL?.absoluteString
 
                                 floorplan.save(
-                                    onSuccess: { statusCode, mappingResult in
+                                    { statusCode, mappingResult in
                                         self.job.reloadFloorplans(
                                             { statusCode, mappingResult in
-                                                NSNotificationCenter.defaultCenter().postNotificationName("FloorplansPageViewControllerDidImportFromDropbox")
+                                                NotificationCenter.default.postNotificationName("FloorplansPageViewControllerDidImportFromDropbox")
                                             },
                                             onError: { error, statusCode, responseString in
                                                 
@@ -981,7 +982,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     // MARK: FloorplanThumbnailViewDelegate
 
-    func floorplanThumbnailView(view: FloorplanThumbnailView, navigatedToFrame frame: CGRect) {
+    func floorplanThumbnailView(_ view: FloorplanThumbnailView, navigatedToFrame frame: CGRect) {
         let reenableScrolling = enableScrolling
         enableScrolling = false
 
@@ -1015,29 +1016,29 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func floorplanThumbnailViewNavigationBegan(view: FloorplanThumbnailView) {
+    func floorplanThumbnailViewNavigationBegan(_ view: FloorplanThumbnailView) {
         hideToolbar()
     }
 
-    func floorplanThumbnailViewNavigationEnded(view: FloorplanThumbnailView) {
+    func floorplanThumbnailViewNavigationEnded(_ view: FloorplanThumbnailView) {
         showToolbar()
     }
 
-    func initialScaleForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGFloat {
+    func initialScaleForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGFloat {
         return scrollView.zoomScale / scrollView.maximumZoomScale
     }
 
-    func sizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize {
+    func sizeForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize {
         if let size = maxContentSize ?? imageView?.image?.size {
             let aspectRatio = CGFloat(size.width / size.height)
             let height = CGFloat(size.width > size.height ? 225.0 : 375.0)
             let width = aspectRatio * height
             return CGSize(width: width, height: height)
         }
-        return CGSizeZero
+        return CGSize.zero
     }
 
-    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize! {
+    func sizeForFloorplanThumbnailImageForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize! {
         if floorplanIsTiled {
             if floorplanZoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[floorplanZoomLevel] as? [String : AnyObject] {
@@ -1051,7 +1052,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return thumbnailView.floorplanImage.size
     }
 
-    func offsetSizeForFloorplanThumbnailView(view: FloorplanThumbnailView) -> CGSize {
+    func offsetSizeForFloorplanThumbnailView(_ view: FloorplanThumbnailView) -> CGSize {
         if floorplanIsTiled {
             if floorplanZoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[floorplanZoomLevel] as? [String : AnyObject] {
@@ -1062,10 +1063,10 @@ class FloorplanViewController: WorkOrderComponentViewController,
                 }
             }
         }
-        return CGSizeZero
+        return CGSize.zero
     }
 
-    func setFloorplanSelectorVisibility(visible: Bool) {
+    func setFloorplanSelectorVisibility(_ visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         floorplanSelectorView?.redraw(view)
         floorplanSelectorView?.alpha = alpha
@@ -1074,15 +1075,15 @@ class FloorplanViewController: WorkOrderComponentViewController,
             setWorkOrdersVisibility(false)
 
             thumbnailTintView?.alpha = 0.3
-            view.bringSubviewToFront(thumbnailTintView)
-            view.bringSubviewToFront(floorplanSelectorView)
+            view.bringSubview(toFront: thumbnailTintView)
+            view.bringSubview(toFront: floorplanSelectorView)
         } else {
             thumbnailTintView?.alpha = 0.0
-            view.sendSubviewToBack(thumbnailTintView)
+            view.sendSubview(toBack: thumbnailTintView)
         }
     }
 
-    func setNavigatorVisibility(visible: Bool) {
+    func setNavigatorVisibility(_ visible: Bool) {
         let alpha = CGFloat(visible ? 1.0 : 0.0)
         thumbnailView?.alpha = alpha
         if visible {
@@ -1090,15 +1091,15 @@ class FloorplanViewController: WorkOrderComponentViewController,
             setWorkOrdersVisibility(false)
 
             thumbnailTintView?.alpha = 0.3
-            view.bringSubviewToFront(thumbnailTintView)
-            view.bringSubviewToFront(thumbnailView)
+            view.bringSubview(toFront: thumbnailTintView)
+            view.bringSubview(toFront: thumbnailView)
         } else {
             thumbnailTintView?.alpha = 0.0
-            view.sendSubviewToBack(thumbnailTintView)
+            view.sendSubview(toBack: thumbnailTintView)
         }
     }
 
-    func setWorkOrdersVisibility(visible: Bool, alpha: CGFloat! = nil) {
+    func setWorkOrdersVisibility(_ visible: Bool, alpha: CGFloat! = nil) {
         let x = visible ? (view.frame.width - floorplanWorkOrdersViewControllerContainer.frame.size.width) : view.frame.width
 
         if visible {
@@ -1106,15 +1107,15 @@ class FloorplanViewController: WorkOrderComponentViewController,
             setNavigatorVisibility(false)
 
             thumbnailTintView?.alpha = 0.2
-            view.bringSubviewToFront(thumbnailTintView)
-            view.bringSubviewToFront(floorplanWorkOrdersViewControllerContainer)
+            view.bringSubview(toFront: thumbnailTintView)
+            view.bringSubview(toFront: floorplanWorkOrdersViewControllerContainer)
             insetScrollViewContentForFloorplanWorkOrdersPresentation()
         } else {
             thumbnailTintView?.alpha = 0.0
-            scrollView.contentInset = UIEdgeInsetsZero
+            scrollView.contentInset = UIEdgeInsets.zero
         }
 
-        UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.floorplanWorkOrdersViewControllerContainer?.alpha = alpha != nil ? alpha : (visible ? 1.0 : 0.0)
                 self.floorplanWorkOrdersViewControllerContainer?.frame.origin.x = x
@@ -1125,8 +1126,8 @@ class FloorplanViewController: WorkOrderComponentViewController,
         )
     }
 
-    private func insetScrollViewContentForFloorplanWorkOrdersPresentation() {
-        if scrollView.contentInset != UIEdgeInsetsZero {
+    fileprivate func insetScrollViewContentForFloorplanWorkOrdersPresentation() {
+        if scrollView.contentInset != UIEdgeInsets.zero {
             return
         }
 
@@ -1141,21 +1142,21 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     // MARK: FloorplanPinViewDelegate
 
-    func tintColorForFloorplanPinView(view: FloorplanPinView) -> UIColor {
+    func tintColorForFloorplanPinView(_ view: FloorplanPinView) -> UIColor {
         if let workOrder = view.workOrder {
             return workOrder.statusColor
         }
-        return UIColor.blueColor()
+        return UIColor.blue
     }
 
-    func categoryForFloorplanPinView(view: FloorplanPinView) -> Category! {
+    func categoryForFloorplanPinView(_ view: FloorplanPinView) -> Category! {
         if let workOrder = view.workOrder {
             return workOrder.category
         }
         return nil
     }
 
-    func floorplanImageViewForFloorplanPinView(view: FloorplanPinView) -> UIImageView! {
+    func floorplanImageViewForFloorplanPinView(_ view: FloorplanPinView) -> UIImageView! {
         if let index = pinViews.indexOfObject(view) {
             if let _ = pinViews[index].delegate {
                 return imageView
@@ -1167,7 +1168,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func floorplanPinViewWasSelected(view: FloorplanPinView) {
+    func floorplanPinViewWasSelected(_ view: FloorplanPinView) {
         var delay = 0.0
 
         if selectedPinView != nil && selectedPinView == view {
@@ -1196,7 +1197,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func openWorkOrder(workOrder: WorkOrder, fromPinView pinView: FloorplanPinView! = nil, delay: Double = 0.0) {
+    fileprivate func openWorkOrder(_ workOrder: WorkOrder, fromPinView pinView: FloorplanPinView! = nil, delay: Double = 0.0) {
         floorplanWorkOrdersViewController?.openWorkOrder(workOrder)
         if let toolbar = floorplanViewControllerDelegate?.toolbarForFloorplanViewController(self) {
             dispatch_after_delay(delay) {
@@ -1209,31 +1210,31 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    private func hidePinViews(excludedPin: FloorplanPinView! = nil, alpha: CGFloat = 0.2) {
+    fileprivate func hidePinViews(_ excludedPin: FloorplanPinView! = nil, alpha: CGFloat = 0.2) {
         for pinView in pinViews {
             if excludedPin == nil || pinView != excludedPin {
                 pinView.alpha = alpha
-                pinView.userInteractionEnabled = false
+                pinView.isUserInteractionEnabled = false
             }
         }
     }
 
-    private func showPinViews() {
+    fileprivate func showPinViews() {
         for pinView in pinViews {
             pinView.alpha = 1.0
-            pinView.userInteractionEnabled = true
+            pinView.isUserInteractionEnabled = true
         }
     }
 
     // MARK: UIScrollViewDelegate
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if enableScrolling {
             thumbnailView?.scrollViewDidScroll(scrollView)
         }
     }
 
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if floorplanIsTiled {
             var viewForZooming: UIView?
             for floorplanTiledView in floorplanTiledViews {
@@ -1250,11 +1251,11 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return imageView
     }
 
-    func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         hideToolbar()
     }
 
-    func scrollViewDidZoom(scrollView: UIScrollView) {
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
         thumbnailView?.scrollViewDidZoom(scrollView)
 
         floorplanScrollViewZoomScale = scrollView.zoomScale / scrollView.maximumZoomScale
@@ -1264,7 +1265,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         if floorplanIsTiled {
             //floorplanTiledView?.scrollViewDidZoom(scrollView)
         } else {
@@ -1282,15 +1283,15 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     // MARK: FloorplanWorkOrdersViewControllerDelegate
 
-    func floorplanForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Floorplan! {
+    func floorplanForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> Floorplan! {
         return floorplan
     }
 
-    func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(_ viewController: FloorplanWorkOrdersViewController) {
         newWorkOrderPending = false
     }
 
-    func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         if !initializedAnnotations {
             initializedAnnotations = true
             if let floorplanWorkOrdersViewControllerContainer = floorplanWorkOrdersViewControllerContainer {
@@ -1306,39 +1307,39 @@ class FloorplanViewController: WorkOrderComponentViewController,
         refreshAnnotations()
     }
 
-    func floorplanViewControllerStartedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerStartedReloadingAnnotationsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         loadingAnnotations = true
     }
 
-    func floorplanViewControllerStoppedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerStoppedReloadingAnnotationsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         loadingAnnotations = false
     }
 
-    func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         selectedPinView = nil
     }
 
-    func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         selectedPolygonView = nil
     }
 
-    func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         //toolbar?.reload()
     }
 
-    func jobForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Job! {
+    func jobForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> Job! {
         return job
     }
 
-    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
+    func selectedPinViewForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
         return selectedPinView
     }
 
-    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
+    func selectedPolygonViewForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
         return selectedPolygonView
     }
 
-    func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize! {
+    func sizeForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> CGSize! {
         if floorplanIsTiled && floorplanTiledView != nil {
             if let level = floorplan?.zoomLevels?[floorplanTiledView.zoomLevel ?? 0] as? [String : AnyObject] {
                 return CGSize(width: level["width"] as! Double,
@@ -1350,19 +1351,19 @@ class FloorplanViewController: WorkOrderComponentViewController,
         return nil
     }
 
-    func floorplanViewControllerShouldRemovePinView(pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldRemovePinView(_ pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
         if let index = pinViews.indexOfObject(pinView) {
-            pinViews.removeAtIndex(index)
+            pinViews.remove(at: index)
             selectedPinView.removeFromSuperview()
         }
     }
 
-    func floorplanViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldFocusOnWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) {
         if let pinView = pinViewForWorkOrder(workOrder) {
             dispatch_after_delay(0.0) {
-                UIView.animateWithDuration(0.2, delay: 0.2, options: .CurveEaseOut,
+                UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut,
                     animations: {
-                        self.scrollView.zoomToRect(pinView.frame, animated: false)
+                        self.scrollView.zoom(to: pinView.frame, animated: false)
 
                         let offsetX = (self.floorplanWorkOrdersViewControllerContainer.frame.width / 2.0) - (pinView.frame.width / 2.0)
                         self.scrollView.contentOffset.x += offsetX
@@ -1381,19 +1382,19 @@ class FloorplanViewController: WorkOrderComponentViewController,
         }
     }
 
-    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
+    func pinViewForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView! {
         return pinViewForWorkOrder(workOrder)
     }
 
-    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
+    func polygonViewForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView! {
         return nil
     }
 
-    func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) {
+    func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) {
         self.dismissWorkOrderCreationPinView()
     }
 
-    func previewImageForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage! {
+    func previewImageForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage! {
         let pinView = pinViewForWorkOrder(workOrder)
 
         if workOrder.previewImage == nil { // FIXME!!! This has to get moved
@@ -1406,7 +1407,7 @@ class FloorplanViewController: WorkOrderComponentViewController,
                                 let pin = FloorplanPinView(annotation: annotation)
                                 pin.delegate = self
                                 previewView.addSubview(pin)
-                                previewView.bringSubviewToFront(pin)
+                                previewView.bringSubview(toFront: pin)
                                 pin.alpha = 1.0
                                 if let sublayers = pin.layer.sublayers {
                                     for sublayer in sublayers {
@@ -1428,26 +1429,26 @@ class FloorplanViewController: WorkOrderComponentViewController,
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         if let presentedViewController = (controller.presentedViewController as? UINavigationController)?.viewControllers.first {
-            if presentedViewController.isKindOfClass(ProductPickerViewController) {
-                return .None
+            if presentedViewController.isKind(of: ProductPickerViewController.self) {
+                return .none
             }
         }
 
 
-        return .CurrentContext
+        return .currentContext
     }
 
-    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return true
     }
 
-    func popoverPresentationControllerDidDismissPopover(popoverPresentationController: UIPopoverPresentationController) {
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
 
     }
 
-    func popoverPresentationController(popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverToRect rect: UnsafeMutablePointer<CGRect>, inView view: AutoreleasingUnsafeMutablePointer<UIView?>) {
+    func popoverPresentationController(_ popoverPresentationController: UIPopoverPresentationController, willRepositionPopoverTo rect: UnsafeMutablePointer<CGRect>, in view: AutoreleasingUnsafeMutablePointer<UIView>) {
 
     }
 
@@ -1459,6 +1460,6 @@ class FloorplanViewController: WorkOrderComponentViewController,
         imageView?.removeFromSuperview()
         thumbnailView?.removeFromSuperview()
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

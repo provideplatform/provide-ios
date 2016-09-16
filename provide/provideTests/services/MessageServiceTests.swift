@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/4/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class MessageServiceTests: XCTestCase {
     }
 
     func testFetch() {
-        let expectation = expectationWithDescription("GET messages")
+        let expectation = self.expectation(description: "GET messages")
 
         var fetchedMessages = [Message]()
         MessageService.sharedService().fetch(
@@ -41,7 +41,7 @@ class MessageServiceTests: XCTestCase {
             }
         )
 
-        waitForExpectationsWithTimeout(5) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssert(fetchedMessages.count == 16)
 
             // 3 participants
@@ -55,7 +55,7 @@ class MessageServiceTests: XCTestCase {
 
             XCTAssertTrue(message.body.hasPrefix("Hey Joe, its Don"))
             let expectedDateString = "2015-05-30T12:01:00Z"
-            let expectedDate = NSDateFormatter(dateFormat: "yyyy-MM-dd'T'HH:mm:ssZZZZZ").dateFromString(expectedDateString)
+            let expectedDate = DateFormatter(coder: "yyyy-MM-dd'T'HH:mm:ssZZZZZ").dateFromString(expectedDateString)
             XCTAssertEqual(message.createdAt, expectedDate!)
             XCTAssertEqual(message.id, 1)
             XCTAssertEqual(message.recipientId, 2)
@@ -63,7 +63,7 @@ class MessageServiceTests: XCTestCase {
             XCTAssertEqual(message.senderID, 1)
             XCTAssertEqual(message.senderName, "Don Dispatcher")
 
-            let expectedProfileImageURL = NSURL("http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg")
+            let expectedProfileImageURL = URL(string: "http://files.gamebanana.com/img/ico/sprays/southpark_spray_cartman_01_copy.jpg")
             XCTAssertEqual(message.senderProfileImageUrl, expectedProfileImageURL)
 
             let messageWithNullAvatar = fetchedMessages[14]

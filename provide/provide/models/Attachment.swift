@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -24,15 +24,15 @@ class Attachment: Model {
     var tags: NSArray!
     var displayUrlString: String!
     var urlString: String!
-    var data: NSData!
+    var data: Data!
     var parentAttachmentId = 0
     var representations = [Attachment]()
 
     var annotations = [Annotation]()
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "attachable_type": "attachableType",
             "attachable_id": "attachableId",
@@ -48,10 +48,10 @@ class Attachment: Model {
             "display_url": "displayUrlString",
             "url": "urlString",
         ])
-        return mapping
+        return mapping!
     }
 
-    class func mappingWithRepresentations(levels: Int = 1) -> RKObjectMapping {
+    class func mappingWithRepresentations(_ levels: Int = 1) -> RKObjectMapping {
 //        var i = 0
         let mapping = Attachment.mapping()
 //        while i < levels - 1 {
@@ -60,7 +60,7 @@ class Attachment: Model {
 //            let nestedMapping = Attachment.mapping()
 //            nestedMapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: mappingWithRepresentations(levels - i)))
 //        }
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: Attachment.mapping()))
+        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", with: Attachment.mapping()))
         return mapping
     }
 
@@ -73,26 +73,27 @@ class Attachment: Model {
         return nil
     }
 
-    var url: NSURL! {
+    var url: URL! {
         if let status = status {
             if status == "pending" {
                 return nil
             }
         }
         if let displayUrlString = displayUrlString {
-            return NSURL(string: displayUrlString)
+            return URL(string: displayUrlString)
         }
         if let urlString = urlString {
-            return NSURL(string: urlString)
+            return URL(string: urlString)
         }
 
         return nil
     }
 
-    var thumbnailUrl: NSURL! {
+    var thumbnailUrl: URL! {
         if let metadata = metadata {
             if let thumbnailUrlString = metadata["thumbnail_url"] as? String {
-                return NSURL(thumbnailUrlString)
+                return URL(string:
+                    thumbnailUrlString)
             }
         }
         return nil
@@ -107,16 +108,16 @@ class Attachment: Model {
         return nil
     }
 
-    var tilingBaseUrl: NSURL! {
+    var tilingBaseUrl: URL! {
         if let metadata = metadata {
             if let tilingBaseUrlString = metadata["tiling_base_url"] as? String {
-                return NSURL(tilingBaseUrlString)
+                return URL(string: tilingBaseUrlString)
             }
         }
         return nil
     }
 
-    func hasTag(tag: String) -> Bool {
+    func hasTag(_ tag: String) -> Bool {
         if let tags = tags {
             for t in tags {
                 if t as? String == tag {
@@ -127,41 +128,41 @@ class Attachment: Model {
         return false
     }
 
-    func fetch(onURLFetched: OnURLFetched, onError: OnError) {
+    func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
         ApiService.sharedService().fetchURL(url,
             onURLFetched: { statusCode, response in
                 self.data = response
-                onURLFetched(statusCode: statusCode, response: response)
+                onURLFetched(statusCode, response)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func updateAttachment(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func updateAttachment(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { [weak self] statusCode, mappingResult in
                 if let metadata = params["metadata"] as? [String : AnyObject] {
-                    self?.metadata = metadata
+                    self?.metadata = metadata as NSDictionary!
                 }
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func fetchAnnotations(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func fetchAnnotations(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().fetchAnnotationsForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { statusCode, mappingResult in
-                for annotation in mappingResult.array() as! [Annotation] {
+                for annotation in mappingResult?.array() as! [Annotation] {
                     self.annotations.append(annotation)
                 }
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             }, onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }

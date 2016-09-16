@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/27/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -13,16 +13,16 @@ class ImagePickerViewController: UIImagePickerController, UIImagePickerControlle
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        sourceType = .PhotoLibrary
-        mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(.PhotoLibrary)!
+        sourceType = .photoLibrary
+        mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         allowsEditing = false
     }
 
-    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+    override var childViewControllerForStatusBarHidden : UIViewController? {
         return nil
     }
 
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

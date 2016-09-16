@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,23 +17,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    private var launchScreenViewController: UIViewController!
+    fileprivate var launchScreenViewController: UIViewController!
 
-    private var suppressLaunchScreenViewController = false
+    fileprivate var suppressLaunchScreenViewController = false
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if !isSimulator() {
             Fabric.with([Crashlytics()])
         }
 
-        DBSession.setSharedSession(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
+        DBSession.setShared(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
 
-        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
+        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String : AnyObject])
 
         RKLogConfigureFromEnvironment()
 
         RKObjectMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
-            return keyPath.snakeCaseToCamelCaseString()
+            return keyPath?.snakeCaseToCamelCaseString()
         }
 
         AppearenceProxy.setup()
@@ -46,23 +46,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         renderLaunchScreenViewController()
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         AnalyticsService.sharedService().track("App Entered Background", properties: [:])
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         if ApiService.sharedService().hasCachedToken {
-            NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+            NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
         }
 
         dismissLaunchScreenViewController()
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         AnalyticsService.sharedService().track("App Became Active", properties: [:])
 
         if launchScreenViewController == nil {
@@ -76,58 +76,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
     }
 
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         return openURL(url)
     }
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         return openURL(url)
     }
 
-    private func openURL(url: NSURL) -> Bool {
-        if DBChooser.defaultChooser().handleOpenURL(url) {
+    fileprivate func openURL(_ url: URL) -> Bool {
+        if DBChooser.default().handleOpen(url) {
             return true
-        } else if DBSession.sharedSession().handleOpenURL(url) {
-            if DBSession.sharedSession().isLinked() {
+        } else if DBSession.shared().handleOpen(url) {
+            if DBSession.shared().isLinked() {
                 AnalyticsService.sharedService().track("App Linked With Dropbox", properties: [:])
-                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationLinkedWithDropbox")
+                NotificationCenter.default.postNotificationName("ApplicationLinkedWithDropbox")
             }
             return true
         } else {
-            if url.scheme.lowercaseString == "provide" {
-                let params = url.query?.componentsSeparatedByString("params=").last?.stringByRemovingPercentEncoding?.toJSONObject()
-                let jwtToken = params?["token"] as? String
+            var handleScheme = false
+            if let scheme = url.scheme?.lowercased() {
+                handleScheme = scheme == "provide"
+            }
+            if handleScheme {
+                var params: [String : AnyObject] = [:]
+                if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
+                    params = queryComponent.toJSONObject()
+                }
+                let jwtToken = params["token"] as? String
 
                 if !ApiService.sharedService().hasCachedToken {
                     if let jwtToken = jwtToken {
                         if let jwt = KTJwtService.decode(jwtToken) {
                             if ApiService.sharedService().login(jwt) {
-                                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserWasAuthenticated")
-
-                                dispatch_after_delay(0.0) {
-                                    self.openURL(url)
-                                }
+                                NotificationCenter.default.postNotificationName("ApplicationUserWasAuthenticated")
+                                return self.openURL(url)
                             } else {
-                                NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                                NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                             }
                         } else {
-                            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                            NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                         }
                     }
 
                     if url.host == "accept-invitation" {
-                        NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldPresentPinInputViewController")
+                        NotificationCenter.default.postNotificationName("ApplicationShouldPresentPinInputViewController")
                     }
                 } else {
                     if let jwtToken = jwtToken {
                         if let jwt = KTJwtService.decode(jwtToken) {
                             if let userId = jwt.body["user_id"] as? Int {
                                 if userId != currentUser().id {
-                                    NSNotificationCenter.defaultCenter().postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                                    NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                                 }
                             }
                         }
@@ -140,12 +144,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Remote notifications
 
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        UIApplication.sharedApplication().registerForRemoteNotifications()
+    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
+        UIApplication.shared.registerForRemoteNotifications()
     }
 
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        ApiService.sharedService().createDevice(["user_id": currentUser().id, "apns_device_id": "\(deviceToken)"],
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        ApiService.sharedService().createDevice(["user_id": currentUser().id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject],
             onSuccess: { statusCode, responseString in
                 AnalyticsService.sharedService().track("App Registered For Remote Notifications")
             },
@@ -159,53 +163,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
     }
 
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         AnalyticsService.sharedService().track("App Failed To Register For Remote Notifications")
 
         log(error.localizedDescription)
     }
 
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(NSDate().timeIntervalSince1970)"])
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo as AnyObject, "received_at": "\(Date().timeIntervalSince1970)" as AnyObject] as [String : AnyObject])
 
         if ApiService.sharedService().hasCachedToken {
             NotificationService.sharedService().dispatchRemoteNotification(userInfo as! [String : AnyObject])
         }
 
-        completionHandler(.NewData)
+        completionHandler(.newData)
     }
 
     // MARK: Privacy view controller
 
-    private func setupLaunchScreenViewController() {
-        launchScreenViewController = NSBundle.mainBundle().loadNibNamed("LaunchScreen", owner: self, options: nil).first as! UIViewController
+    fileprivate func setupLaunchScreenViewController() {
+        launchScreenViewController = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.first as! UIViewController
 
         let notificationNames = ["ApplicationWillRegisterUserNotificationSettings", "ApplicationWillRequestLocationAuthorization", "ApplicationWillRequestMediaAuthorization"]
         for notificationName in notificationNames {
-            NSNotificationCenter.defaultCenter().addObserverForName(notificationName) { _ in
+            NotificationCenter.default.addObserverForName(notificationName) { _ in
                 self.suppressLaunchScreenViewController = true
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationDidChangeStatusBarOrientationNotification) { notification in
+        NotificationCenter.default.addObserverForName(NSNotification.Name.UIApplicationDidChangeStatusBarOrientation.rawValue) { notification in
             dispatch_after_delay(0.0) {
                 self.launchScreenViewController.view.frame = self.window!.frame
             }
         }
     }
 
-    private func renderLaunchScreenViewController() {
+    fileprivate func renderLaunchScreenViewController() {
         if !suppressLaunchScreenViewController {
             window!.addSubview(launchScreenViewController.view)
-            window!.bringSubviewToFront(launchScreenViewController.view)
+            window!.bringSubview(toFront: launchScreenViewController.view)
         }
 
         suppressLaunchScreenViewController = false
     }
 
-    private func dismissLaunchScreenViewController() {
+    fileprivate func dismissLaunchScreenViewController() {
         if let _ = launchScreenViewController?.view.superview {
-            UIView.animateWithDuration(0.2, delay: 0.1, options: .CurveEaseIn,
+            UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn,
                 animations: {
                     self.launchScreenViewController?.view.alpha = 0.0
                 },

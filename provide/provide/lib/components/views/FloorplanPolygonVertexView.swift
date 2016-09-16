@@ -3,15 +3,15 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 protocol FloorplanPolygonVertexViewDelegate: NSObjectProtocol {
-    func floorplanPolygonVertexViewShouldReceiveTouch(view: FloorplanPolygonVertexView) -> Bool
-    func floorplanPolygonVertexViewShouldRedrawVertices(view: FloorplanPolygonVertexView)
-    func floorplanPolygonVertexViewTapped(view: FloorplanPolygonVertexView)
+    func floorplanPolygonVertexViewShouldReceiveTouch(_ view: FloorplanPolygonVertexView) -> Bool
+    func floorplanPolygonVertexViewShouldRedrawVertices(_ view: FloorplanPolygonVertexView)
+    func floorplanPolygonVertexViewTapped(_ view: FloorplanPolygonVertexView)
 }
 
 class FloorplanPolygonVertexView: UIView, UIGestureRecognizerDelegate {
@@ -20,8 +20,8 @@ class FloorplanPolygonVertexView: UIView, UIGestureRecognizerDelegate {
 
     var image: UIImage?
 
-    private var floorplanPolygonVertexViewGestureRecognizer: FloorplanPolygonVertexViewGestureRecognizer!
-    private var tapGestureRecognizer: UITapGestureRecognizer!
+    fileprivate var floorplanPolygonVertexViewGestureRecognizer: FloorplanPolygonVertexViewGestureRecognizer!
+    fileprivate var tapGestureRecognizer: UITapGestureRecognizer!
 
     init(image: UIImage) {
         super.init(frame: CGRect(x: 0.0,
@@ -32,7 +32,7 @@ class FloorplanPolygonVertexView: UIView, UIGestureRecognizerDelegate {
         self.image = image
 
         self.backgroundColor = UIColor(patternImage: image)
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
 
         setupGestureRecognizers()
     }
@@ -41,7 +41,7 @@ class FloorplanPolygonVertexView: UIView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupGestureRecognizers() {
+    fileprivate func setupGestureRecognizers() {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FloorplanPolygonVertexView.vertexTapped(_:)))
         tapGestureRecognizer.delegate = self
         addGestureRecognizer(tapGestureRecognizer)
@@ -51,24 +51,24 @@ class FloorplanPolygonVertexView: UIView, UIGestureRecognizerDelegate {
         addGestureRecognizer(floorplanPolygonVertexViewGestureRecognizer)
     }
 
-    func vertexMoved(gestureRecognizer: UIGestureRecognizer) {
+    func vertexMoved(_ gestureRecognizer: UIGestureRecognizer) {
         delegate?.floorplanPolygonVertexViewShouldRedrawVertices(self)
     }
 
-    func vertexTapped(gestureRecognizer: UIGestureRecognizer) {
+    func vertexTapped(_ gestureRecognizer: UIGestureRecognizer) {
         delegate?.floorplanPolygonVertexViewTapped(self)
     }
 
     // MARK: UIGestureRecognizerDelegate
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let delegate = delegate {
             return delegate.floorplanPolygonVertexViewShouldReceiveTouch(self)
         }
         return true
     }
 
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer == self.floorplanPolygonVertexViewGestureRecognizer && otherGestureRecognizer == self.tapGestureRecognizer
             || gestureRecognizer == self.tapGestureRecognizer && otherGestureRecognizer == self.floorplanPolygonVertexViewGestureRecognizer
     }

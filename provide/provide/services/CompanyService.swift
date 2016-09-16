@@ -8,19 +8,19 @@
 
 import Foundation
 
-typealias OnCompaniesFetched = (companies: [Company]) -> ()
+typealias OnCompaniesFetched = (_ companies: [Company]) -> ()
 
 class CompanyService: NSObject {
 
-    private var companies = [Company]()
+    fileprivate var companies = [Company]()
 
-    private static let sharedInstance = CompanyService()
+    fileprivate static let sharedInstance = CompanyService()
 
     class func sharedService() -> CompanyService {
         return sharedInstance
     }
 
-    func companyWithId(id: Int) -> Company! {
+    func companyWithId(_ id: Int) -> Company! {
         for company in companies {
             if company.id == id {
                 return company
@@ -29,11 +29,11 @@ class CompanyService: NSObject {
         return nil
     }
 
-    func setCompanies(companies: [Company]) {
+    func setCompanies(_ companies: [Company]) {
         self.companies = companies
     }
 
-    func updateCompany(company: Company) {
+    func updateCompany(_ company: Company) {
         var newCompanies = [Company]()
         for c in companies {
             if c.id == company.id {
@@ -45,7 +45,7 @@ class CompanyService: NSObject {
         companies = newCompanies
     }
 
-    func fetch(page: Int = 1,
+    func fetch(_ page: Int = 1,
         rpp: Int = 10,
         companyId: Int!,
         status: String = "scheduled",
@@ -59,22 +59,22 @@ class CompanyService: NSObject {
         }
 
         var params: [String: AnyObject] = [
-            "page": page,
-            "rpp": rpp,
-            "status": status,
+            "page": page as AnyObject,
+            "rpp": rpp as AnyObject,
+            "status": status as AnyObject,
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId
+            params["company_id"] = companyId as AnyObject?
         }
 
         ApiService.sharedService().fetchCompanies(params,
             onSuccess: { statusCode, mappingResult in
-                let fetchedCompanies = mappingResult.array() as! [Company]
+                let fetchedCompanies = mappingResult?.array() as! [Company]
 
                 self.companies += fetchedCompanies
 
-                onCompaniesFetched(companies: fetchedCompanies)
+                onCompaniesFetched(fetchedCompanies)
             },
             onError: { error, statusCode, responseString in
                 // TODO

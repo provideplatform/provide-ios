@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/20/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -20,9 +20,9 @@ class Comment: Model {
     var user: User!
     var attachments: [Attachment]!
 
-    var createdAtDate: NSDate! {
+    var createdAtDate: Date! {
         if let createdAt = createdAt {
-            return NSDate.fromString(createdAt)
+            return Date.fromString(createdAt)
         }
         return nil
     }
@@ -35,8 +35,8 @@ class Comment: Model {
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "body": "body",
             "created_at": "createdAt",
@@ -44,9 +44,9 @@ class Comment: Model {
             "commentable_id": "commentableId",
             "previous_comment_id": "previousCommentId",
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
+        return mapping!
     }
 
     var images: [Attachment] {
@@ -65,7 +65,7 @@ class Comment: Model {
         return images
     }
 
-    func mergeAttachment(attachment: Attachment) {
+    func mergeAttachment(_ attachment: Attachment) {
         if attachments == nil {
             attachments = [Attachment]()
         }
@@ -86,10 +86,10 @@ class Comment: Model {
         }
     }
 
-    func reload(onSuccess: OnSuccess, onError: OnError) {
+    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().fetchCommentWithId(String(id), forCommentableType: commentableType, withCommentableId: String(commentableId),
             onSuccess: { statusCode, mappingResult in
-                let comment = mappingResult.firstObject as! Comment
+                let comment = mappingResult?.firstObject as! Comment
 
                 self.body = comment.body
 
@@ -97,10 +97,10 @@ class Comment: Model {
                     self.attachments = attachments
                 }
 
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }

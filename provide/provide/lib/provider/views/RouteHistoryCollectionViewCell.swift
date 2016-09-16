@@ -3,33 +3,33 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/26/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
-    @IBOutlet private weak var avatarImageView: UIImageView!
-    @IBOutlet private weak var mapView: RouteMapView!
+    @IBOutlet fileprivate weak var avatarImageView: UIImageView!
+    @IBOutlet fileprivate weak var mapView: RouteMapView!
 
-    @IBOutlet private weak var detailsContainerView: UIView!
-    @IBOutlet private weak var statusBackgroundView: UIView!
-    @IBOutlet private weak var timestampLabel: UILabel!
-    @IBOutlet private weak var durationLabel: UILabel!
-    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet fileprivate weak var detailsContainerView: UIView!
+    @IBOutlet fileprivate weak var statusBackgroundView: UIView!
+    @IBOutlet fileprivate weak var timestampLabel: UILabel!
+    @IBOutlet fileprivate weak var durationLabel: UILabel!
+    @IBOutlet fileprivate weak var statusLabel: UILabel!
 
-    private var gravatarImageView: UIImageView!
+    fileprivate var gravatarImageView: UIImageView!
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
     var route: Route! {
         didSet {
-            addBorder(1.0, color: UIColor.lightGrayColor())
+            addBorder(1.0, color: UIColor.lightGray)
             roundCorners(4.0)
 
-            contentView.backgroundColor = UIColor.clearColor()
-            detailsContainerView.backgroundColor = UIColor.clearColor()
+            contentView.backgroundColor = UIColor.clear
+            detailsContainerView.backgroundColor = UIColor.clear
 
             mapView.showsUserLocation = false
             mapView.removeAnnotations()
@@ -41,7 +41,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
             for workOrder in route.workOrders {
                 for workOrderProvider in workOrder.workOrderProviders {
-                    if let checkinCoordinates = workOrderProvider.checkinCoordinates {
+                    if let checkinCoordinates = workOrderProvider.checkinCoordinates as? [[NSNumber]] {
                         var coords = [CLLocationCoordinate2D]()
                         for checkinCoordinate in checkinCoordinates {
                             let latitude = checkinCoordinate[0].doubleValue
@@ -50,7 +50,7 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
                         }
                         if coords.count > 0 {
                             let checkinsPolyline = MKPolyline(coordinates: &coords, count: coords.count)
-                            mapView.addOverlay(checkinsPolyline, level: .AboveRoads)
+                            mapView.add(checkinsPolyline, level: .aboveRoads)
                         }
                     }
                 }
@@ -73,15 +73,15 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
             statusBackgroundView.alpha = 0.9
 
             if let profileImageUrl = route.providerOriginAssignment.provider.profileImageUrl {
-                avatarImageView.contentMode = .ScaleAspectFit
-                avatarImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
-                    self.bringSubviewToFront(self.avatarImageView)
+                avatarImageView.contentMode = .scaleAspectFit
+                avatarImageView.sd_setImage(with: profileImageUrl as URL) { image, error, imageCacheType, url in
+                    self.bringSubview(toFront: self.avatarImageView)
                     self.avatarImageView.makeCircular()
                     self.avatarImageView.alpha = 1.0
                     self.gravatarImageView?.alpha = 0.0
                 }
             } else {
-                let gravatarImageView = UIImageView(frame: avatarImageView.frame)
+//                let gravatarImageView = UIImageView(frame: avatarImageView.frame)
 //                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
 //                gravatarImageView.load { error in
 //                    gravatarImageView.makeCircular()
@@ -92,26 +92,26 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
             }
 
             if let timestamp = route.humanReadableLoadingStartedAtTimestamp {
-                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.text = timestamp.uppercased()
                 timestampLabel.sizeToFit()
             } else if let timestamp = route.humanReadableStartedAtTimestamp {
-                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.text = timestamp.uppercased()
                 timestampLabel.sizeToFit()
             } else if let timestamp = route.humanReadableScheduledStartAtTimestamp {
-                timestampLabel.text = timestamp.uppercaseString
+                timestampLabel.text = timestamp.uppercased()
                 timestampLabel.sizeToFit()
             }
 
             if let duration = route.humanReadableDuration {
-                durationLabel.text = duration.uppercaseString
+                durationLabel.text = duration.uppercased()
                 durationLabel.sizeToFit()
             }
 
-            statusLabel.text = route.status.uppercaseString
+            statusLabel.text = route.status.uppercased()
             statusLabel.sizeToFit()
 
             if route.status == "loading" || route.status == "in_progress" || route.status == "unloading" || route.status == "pending_completion" {
-                timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(RouteHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
+                timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(RouteHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
                 timer.fire()
             } else if route.status == "scheduled" {
                 durationLabel.text = route.scheduledStartAtDate.timeString
@@ -122,14 +122,14 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        contentView.backgroundColor = UIColor.clearColor()
-        detailsContainerView.backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clear
+        detailsContainerView.backgroundColor = UIColor.clear
 
         mapView.alpha = 0.0
         mapView.removeAnnotations()
         mapView.removeOverlays()
 
-        statusBackgroundView.backgroundColor = UIColor.clearColor()
+        statusBackgroundView.backgroundColor = UIColor.clear
         statusBackgroundView.alpha = 0.9
 
         avatarImageView.image = nil
@@ -147,11 +147,11 @@ class RouteHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
     func refresh() {
         if let duration = route.humanReadableDuration {
-            durationLabel.text = duration.uppercaseString
+            durationLabel.text = duration.uppercased()
             durationLabel.sizeToFit()
         }
 
-        UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
             animations: {
                 let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
                 self.statusBackgroundView?.alpha = CGFloat(alpha)

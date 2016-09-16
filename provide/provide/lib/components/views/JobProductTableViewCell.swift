@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/11/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,12 +11,12 @@ import KTSwiftExtensions
 
 class JobProductTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var gtinLabel: UILabel!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var quantityLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet fileprivate weak var gtinLabel: UILabel!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var quantityLabel: UILabel!
+    @IBOutlet fileprivate weak var priceLabel: UILabel!
 
-    @IBOutlet private weak var statusBackgroundView: UIView! {
+    @IBOutlet fileprivate weak var statusBackgroundView: UIView! {
         didSet {
             if let _ = statusBackgroundView {
                 resetStatusBackgroundView()
@@ -68,21 +68,21 @@ class JobProductTableViewCell: UITableViewCell {
         priceLabel?.text = ""
     }
 
-    private func resetStatusBackgroundView() {
+    fileprivate func resetStatusBackgroundView() {
         statusBackgroundView.roundCorners(5.0)
         statusBackgroundView.alpha = 0.8
-        statusBackgroundView.backgroundColor = UIColor.clearColor()
+        statusBackgroundView.backgroundColor = UIColor.clear
         statusBackgroundView.frame.size = CGSize(width: 0.0, height: statusBackgroundView.frame.height)
 
-        contentView.sendSubviewToBack(statusBackgroundView)
+        contentView.sendSubview(toBack: statusBackgroundView)
     }
 
-    private func renderStatusBackgroundView() {
+    fileprivate func renderStatusBackgroundView() {
         dispatch_after_delay(0.0) {
             self.resetStatusBackgroundView()
             self.statusBackgroundView.backgroundColor = self.jobProduct.statusColor
 
-            UIView.animateWithDuration(0.4, delay: 0.15, options: .CurveEaseInOut,
+            UIView.animate(withDuration: 0.4, delay: 0.15, options: .curveEaseInOut,
                 animations: {
                     self.statusBackgroundView.frame = CGRect(x: 0.0,
                         y: 0.0,

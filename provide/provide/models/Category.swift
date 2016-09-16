@@ -16,22 +16,22 @@ class Category: Model {
     var abbreviation: String!
     var iconImageUrlString: String!
 
-    var iconImageUrl: NSURL! {
+    var iconImageUrl: URL! {
         if let iconImageUrlString = iconImageUrlString {
-            return NSURL(iconImageUrlString)
+            return URL(string: iconImageUrlString)
         }
         return nil
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "name": "name",
             "abbreviation": "abbreviation",
             "icon_image_url": "iconImageUrlString",
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
+        return mapping!
     }
 }

@@ -10,33 +10,33 @@ import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanWorkOrdersViewControllerDelegate {
-    func jobForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Job!
-    func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(viewController: FloorplanWorkOrdersViewController)
-    func floorplanForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> Floorplan!
-    func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerStartedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerStoppedReloadingAnnotationsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldRemovePinView(pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController)
-    func floorplanViewControllerShouldFocusOnWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
-    func selectedPinViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
-    func selectedPolygonViewForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
-    func sizeForFloorplanWorkOrdersViewController(viewController: FloorplanWorkOrdersViewController) -> CGSize!
-    func pinViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
-    func polygonViewForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
-    func previewImageForWorkOrder(workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage!
+    func jobForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> Job!
+    func floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> Floorplan!
+    func floorplanViewControllerShouldRedrawAnnotationPinsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerStartedReloadingAnnotationsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerStoppedReloadingAnnotationsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldDeselectPinForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldRemovePinView(_ pinView: FloorplanPinView, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController)
+    func floorplanViewControllerShouldFocusOnWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController)
+    func selectedPinViewForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
+    func selectedPolygonViewForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
+    func sizeForFloorplanWorkOrdersViewController(_ viewController: FloorplanWorkOrdersViewController) -> CGSize!
+    func pinViewForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPinView!
+    func polygonViewForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> FloorplanPolygonView!
+    func previewImageForWorkOrder(_ workOrder: WorkOrder, forFloorplanWorkOrdersViewController viewController: FloorplanWorkOrdersViewController) -> UIImage!
 }
 
 class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, WorkOrderCreationViewControllerDelegate {
 
-    private let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
+    fileprivate let defaultWorkOrderFilteringStatuses = "abandoned,awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,paused,pending_approval,pending_final_approval"
 
     var delegate: FloorplanWorkOrdersViewControllerDelegate!
 
-    private var annotations: [Annotation] {
+    fileprivate var annotations: [Annotation] {
         if let floorplan = floorplan {
             if let annotations = floorplan.annotations {
                 return annotations
@@ -45,25 +45,25 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         return [Annotation]()
     }
 
-    private var floorplan: Floorplan! {
+    fileprivate var floorplan: Floorplan! {
         if let delegate = delegate {
             return  delegate.floorplanForFloorplanWorkOrdersViewController(self)
         }
         return nil
     }
 
-    private var floorplanAnnotationsCount: Int {
+    fileprivate var floorplanAnnotationsCount: Int {
         return annotations.count
     }
 
-    private var job: Job! {
+    fileprivate var job: Job! {
         if let delegate = delegate {
             return delegate.jobForFloorplanWorkOrdersViewController(self)
         }
         return nil
     }
 
-    private var newWorkOrderPending = false {
+    fileprivate var newWorkOrderPending = false {
         didSet {
             if !newWorkOrderPending {
                 delegate?.floorplanWorkOrdersViewControllerDismissedPendingWorkOrder(self)
@@ -71,9 +71,9 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    private var workOrderStatuses: String!
+    fileprivate var workOrderStatuses: String!
 
-    private var loadingAnnotations = false {
+    fileprivate var loadingAnnotations = false {
         didSet {
             if let delegate = delegate {
                 if loadingAnnotations {
@@ -85,17 +85,17 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if let navigationController = navigationController {
-            if !navigationController.viewControllers.last!.isKindOfClass(WorkOrderCreationViewController) {
+            if !navigationController.viewControllers.last!.isKind(of: WorkOrderCreationViewController.self) {
                 navigationController.setNavigationBarHidden(true, animated: true)
             }
         }
@@ -114,11 +114,11 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
             let rpp = max(100, floorplanAnnotationsCount)
             let params = ["page": "1", "rpp": "\(rpp)", "work_order_status": workOrderStatuses]
 
-            floorplan.fetchAnnotations(params,
+            floorplan.fetchAnnotations(params as [String : AnyObject],
                 onSuccess: { statusCode, mappingResult in
                     self.loadingAnnotations = false
 
-                    for annotation in mappingResult.array() as! [Annotation] {
+                    for annotation in mappingResult?.array() as! [Annotation] {
                         if let workOrder = annotation.workOrder {
                             WorkOrderService.sharedService().updateWorkOrder(workOrder)
                         }
@@ -137,13 +137,13 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    func cancelCreateWorkOrder(sender: UIBarButtonItem) {
+    func cancelCreateWorkOrder(_ sender: UIBarButtonItem) {
         newWorkOrderPending = false
         delegate?.floorplanViewControllerShouldDismissWorkOrderCreationAnnotationViewsForFloorplanWorkOrdersViewController(self)
         delegate?.floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(self)
     }
 
-    func createWorkOrder(sender: AnyObject!) {
+    func createWorkOrder(_ sender: AnyObject!) {
         let workOrder = WorkOrder()
         workOrder.company = job.company
         workOrder.companyId = job.companyId
@@ -161,17 +161,17 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         openWorkOrder(workOrder)
     }
 
-    func openWorkOrder(workOrder: WorkOrder) {
+    func openWorkOrder(_ workOrder: WorkOrder) {
         var animated = true
 
         if let navigationController = navigationController {
-            if navigationController.viewControllers.last!.isKindOfClass(WorkOrderCreationViewController) {
+            if navigationController.viewControllers.last!.isKind(of: WorkOrderCreationViewController.self) {
                 animated = navigationController.view.superview!.frame.origin.x != navigationController.view.superview!.superview!.frame.width
-                navigationController.popToRootViewControllerAnimated(animated)
+                navigationController.popToRootViewController(animated: animated)
             }
         }
 
-        delegate?.previewImageForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self)
+        let _ = delegate?.previewImageForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self)
 
         let workOrderCreationViewController = UIStoryboard("WorkOrderCreation").instantiateInitialViewController() as! WorkOrderCreationViewController
         workOrderCreationViewController.workOrder = workOrder
@@ -188,36 +188,36 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         delegate?.floorplanViewControllerShouldFocusOnWorkOrder(workOrderCreationViewController.workOrder, forFloorplanWorkOrdersViewController: self)
     }
 
-    private func setPreviewImageForWorkOrder(workOrder: WorkOrder) {
+    fileprivate func setPreviewImageForWorkOrder(_ workOrder: WorkOrder) {
 
     }
 
     // MARK: UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return annotations.count
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("floorplanWorkOrderTableViewCellReuseIdentifier") as! FloorplanWorkOrderTableViewCell
-        cell.annotation = annotations[indexPath.section]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "floorplanWorkOrderTableViewCellReuseIdentifier") as! FloorplanWorkOrderTableViewCell
+        cell.annotation = annotations[(indexPath as NSIndexPath).section]
         return cell
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let workOrder = (tableView.cellForRowAtIndexPath(indexPath) as! FloorplanWorkOrderTableViewCell).workOrder
-        openWorkOrder(workOrder)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let workOrder = (tableView.cellForRow(at: indexPath) as! FloorplanWorkOrderTableViewCell).workOrder
+        openWorkOrder(workOrder!)
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: WorkOrderCreationViewControllerDelegate
 
-    func floorplanPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> FloorplanPinView! {
+    func floorplanPinViewForWorkOrderCreationViewController(_ viewController: WorkOrderCreationViewController) -> FloorplanPinView! {
         if let workOrder = viewController.workOrder {
             if let delegate = delegate {
                 return delegate.pinViewForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self)
@@ -226,27 +226,27 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         return nil
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int {
         return 1
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return indexPath.section >= 0 ? 75.0 : 44.0
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return (indexPath as NSIndexPath).section >= 0 ? 75.0 : 44.0
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    func workOrderCreationViewController(workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func workOrderCreationViewController(_ workOrderCreationViewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell! {
         return nil
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder) {
         if let floorplan = floorplan {
             let annotation = Annotation()
             if let delegate = delegate {
@@ -275,56 +275,56 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder) {
         if let presentedViewController = presentedViewController {
             if presentedViewController is UINavigationController {
                 let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
                 if viewController is WorkOrderCreationViewController {
-                    presentedViewController.dismissViewController(animated: true) {
-                        NSNotificationCenter.defaultCenter().postNotificationName("WorkOrderContextShouldRefresh")
+                    presentedViewController.dismissViewController(true) {
+                        NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                     }
                 }
             }
         }
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder) {
         viewController.reloadTableView()
         refreshPinViewForWorkOrder(workOrder)
         refreshPolygonViewForWorkOrder(workOrder)
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense) {
         if let presentedViewController = presentedViewController {
             if presentedViewController is UINavigationController {
                 let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
@@ -338,9 +338,9 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         refreshWorkOrderCreationView()
     }
 
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!) {
         newWorkOrderPending = false
-        navigationController?.popViewControllerAnimated(true)
+        let _ = navigationController?.popViewController(animated: true)
         delegate?.floorplanViewControllerShouldReloadToolbarForFloorplanWorkOrdersViewController(self)
         if workOrder == nil {
             if let selectedPinView = delegate?.selectedPinViewForFloorplanWorkOrdersViewController(self) {
@@ -352,11 +352,11 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         delegate?.floorplanViewControllerShouldDeselectPolygonForFloorplanWorkOrdersViewController(self)
     }
 
-    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
+    func flatFeeForNewProvider(_ provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double! {
         return nil
     }
 
-    private func refreshWorkOrderCreationView() {
+    fileprivate func refreshWorkOrderCreationView() {
         if let presentedViewController = presentedViewController {
             if presentedViewController is UINavigationController {
                 let viewController = (presentedViewController as! UINavigationController).viewControllers.first!
@@ -367,13 +367,13 @@ class FloorplanWorkOrdersViewController: UIViewController, UITableViewDataSource
         }
     }
 
-    private func refreshPinViewForWorkOrder(workOrder: WorkOrder) {
+    fileprivate func refreshPinViewForWorkOrder(_ workOrder: WorkOrder) {
         if let pinView = delegate?.pinViewForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self) {
             pinView.redraw()
         }
     }
 
-    private func refreshPolygonViewForWorkOrder(workOrder: WorkOrder) {
+    fileprivate func refreshPolygonViewForWorkOrder(_ workOrder: WorkOrder) {
         if let polygonView = delegate?.polygonViewForWorkOrder(workOrder, forFloorplanWorkOrdersViewController: self) {
             polygonView.redraw()
         }

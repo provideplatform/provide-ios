@@ -3,21 +3,21 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 import KTSwiftExtensions
 
-private let defaultEnvironment = Environment.Production
+private let defaultEnvironment = Environment.production
 private let productionApiHostSuffix = "provide.services"
 private let productionMarketingHostSuffix = "provideapp.com"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment
 
 enum Environment: String {
-    case QA = "QA"
-    case Production = "Production"
+    case qa = "QA"
+    case production = "Production"
 
     var baseUrlString: String {
         return apiBaseUrlString
@@ -31,7 +31,7 @@ enum Environment: String {
     var apiHostname: String {
         var hostName = productionApiHostSuffix
         switch self {
-        case .QA:
+        case .qa:
             hostName = "\(prefixString).\(hostName)"
         default:
             break
@@ -57,7 +57,7 @@ enum Environment: String {
     var marketingHostname: String {
         var hostName = productionMarketingHostSuffix
         switch self {
-        case .QA:
+        case .qa:
             hostName = "\(prefixString).\(hostName)"
         default:
             break
@@ -71,6 +71,6 @@ enum Environment: String {
     }
 
     var prefixString: String {
-        return rawValue.lowercaseString
+        return rawValue.lowercased()
     }
 }

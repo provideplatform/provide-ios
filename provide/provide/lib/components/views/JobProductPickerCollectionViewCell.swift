@@ -25,16 +25,16 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
         }
     }
 
-    override var imageUrl: NSURL! {
+    override var imageUrl: URL! {
         didSet {
             if let imageUrl = imageUrl {
                 self.showActivityIndicator()
 
-                imageView.contentMode = .ScaleAspectFit
-                imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
-                    self.contentView.bringSubviewToFront(self.imageView)
-                    self.contentView.bringSubviewToFront(self.quantityLabel)
-                    self.contentView.bringSubviewToFront(self.priceLabel)
+                imageView.contentMode = .scaleAspectFit
+                imageView.sd_setImage(with: imageUrl, completed: { image, error, cacheType, url in
+                    self.contentView.bringSubview(toFront: self.imageView)
+                    self.contentView.bringSubview(toFront: self.quantityLabel)
+                    self.contentView.bringSubview(toFront: self.priceLabel)
                     if self.rendersCircularImage {
                         self.imageView.makeCircular()
                     }
@@ -82,25 +82,25 @@ class JobProductPickerCollectionViewCell: PickerCollectionViewCell {
         priceLabel?.text = ""
     }
 
-    override func setAccessoryImage(image: UIImage, tintColor: UIColor) {
+    override func setAccessoryImage(_ image: UIImage, tintColor: UIColor) {
         super.setAccessoryImage(image, tintColor: tintColor)
     }
 
-    private func resetStatusBackgroundView() {
+    fileprivate func resetStatusBackgroundView() {
         statusBackgroundView.roundCorners(5.0)
         statusBackgroundView.alpha = 0.8
-        statusBackgroundView.backgroundColor = UIColor.clearColor()
+        statusBackgroundView.backgroundColor = UIColor.clear
         statusBackgroundView.frame.size = CGSize(width: 0.0, height: statusBackgroundView.frame.height)
 
-        contentView.sendSubviewToBack(statusBackgroundView)
+        contentView.sendSubview(toBack: statusBackgroundView)
     }
 
-    private func renderStatusBackgroundView() {
+    fileprivate func renderStatusBackgroundView() {
         dispatch_after_delay(0.0) {
             self.resetStatusBackgroundView()
             self.statusBackgroundView.backgroundColor = self.jobProduct.statusColor
 
-            UIView.animateWithDuration(0.4, delay: 0.15, options: .CurveEaseInOut,
+            UIView.animate(withDuration: 0.4, delay: 0.15, options: .curveEaseInOut,
                 animations: {
                     self.statusBackgroundView.frame = CGRect(x: 0.0,
                                                              y: 0.0,

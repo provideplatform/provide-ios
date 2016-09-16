@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,13 +17,13 @@ class JobReviewViewController: ViewController {
         }
     }
 
-    private var completeItem: UIBarButtonItem! {
-        let completeItem = UIBarButtonItem(title: "COMPLETE JOB", style: .Plain, target: self, action: #selector(JobReviewViewController.complete(_:)))
-        completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var completeItem: UIBarButtonItem! {
+        let completeItem = UIBarButtonItem(title: "COMPLETE JOB", style: .plain, target: self, action: #selector(JobReviewViewController.complete(_:)))
+        completeItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return completeItem
     }
 
-    private func reload() {
+    fileprivate func reload() {
         if job.status == "pending_completion" {
             navigationItem.rightBarButtonItems = [completeItem]
         } else {
@@ -31,14 +31,14 @@ class JobReviewViewController: ViewController {
         }
     }
 
-    func complete(sender: UIBarButtonItem) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    func complete(_ sender: UIBarButtonItem) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to complete this job?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-        let reviewAndCompleteAction = UIAlertAction(title: "Yes, Complete Job", style: .Default) { action in
+        let reviewAndCompleteAction = UIAlertAction(title: "Yes, Complete Job", style: .default) { action in
             self.job.updateJobWithStatus("completed",
                 onSuccess: { statusCode, mappingResult in
                     self.reload()

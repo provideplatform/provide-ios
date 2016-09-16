@@ -10,9 +10,9 @@ import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanPinViewDelegate: NSObjectProtocol {
-    func categoryForFloorplanPinView(view: FloorplanPinView) -> Category!
-    func tintColorForFloorplanPinView(view: FloorplanPinView) -> UIColor
-    func floorplanPinViewWasSelected(view: FloorplanPinView)
+    func categoryForFloorplanPinView(_ view: FloorplanPinView) -> Category!
+    func tintColorForFloorplanPinView(_ view: FloorplanPinView) -> UIColor
+    func floorplanPinViewWasSelected(_ view: FloorplanPinView)
 
 //    func floorplanForFloorplanPolygonView(view: FloorplanPolygonView) -> Attachment!
 //    func floorplanPolygonViewDidClose(view: FloorplanPolygonView)
@@ -40,7 +40,7 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
 
     var category: Category! {
         didSet {
-            if NSThread.isMainThread() {
+            if Thread.isMainThread {
                 self.refresh()
             } else {
                 dispatch_after_delay(0.0) {
@@ -72,14 +72,14 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
         return nil
     }
 
-    private var abbreviationLabel: UILabel!
+    fileprivate var abbreviationLabel: UILabel!
 
-    private var gestureRecognizer: UITapGestureRecognizer!
+    fileprivate var gestureRecognizer: UITapGestureRecognizer!
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
     required init(annotation: Annotation!) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         self.annotation = annotation
 
@@ -91,14 +91,14 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
             self.tintColor = tintColor
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
+        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).withRenderingMode(.alwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
 
         initWorkOrderChangedNotificationObserver()
     }
 
     required init(delegate: FloorplanPinViewDelegate, annotation: Annotation) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         self.delegate = delegate
         self.annotation = annotation
@@ -111,7 +111,7 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
             self.tintColor = tintColor
         }
 
-        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).imageWithRenderingMode(.AlwaysTemplate)
+        image = UIImage(named: "map-pin")!.scaledToWidth(50.0).withRenderingMode(.alwaysTemplate)
         bounds = CGRect(x: 0.0, y: 0.0, width: image!.size.width, height: image!.size.height)
 
         initWorkOrderChangedNotificationObserver()
@@ -123,10 +123,10 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
         initWorkOrderChangedNotificationObserver()
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         if let category = category {
             if let iconImageUrl = category.iconImageUrl {
-                ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .ContinueInBackground,
+                ImageService.sharedService().fetchImage(iconImageUrl, cacheOnDisk: true, downloadOptions: .continueInBackground,
                     onDownloadSuccess: { image in
                         print("TODO: embed category icon in pin view \(image)")
                     },
@@ -150,7 +150,7 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
     }
 
     func initWorkOrderChangedNotificationObserver() {
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
@@ -166,31 +166,31 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
     }
 
     func attachGestureRecognizer() {
-        userInteractionEnabled = true
+        isUserInteractionEnabled = true
         gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FloorplanPinView.pinSelected(_:)))
         addGestureRecognizer(gestureRecognizer)
     }
 
-    private func removeGestureRecognizer() {
+    fileprivate func removeGestureRecognizer() {
         if let gestureRecognizer = gestureRecognizer {
             removeGestureRecognizer(gestureRecognizer)
             self.gestureRecognizer = nil
-            userInteractionEnabled = false
+            isUserInteractionEnabled = false
         }
     }
 
-    private func reset(suppressDelegateNotification: Bool = false) {
+    fileprivate func reset(_ suppressDelegateNotification: Bool = false) {
         point = nil
 
         removeGestureRecognizer()
     }
 
-    func resignFirstResponder(suppressDelegateNotification: Bool = false) -> Bool {
+    func resignFirstResponder(_ suppressDelegateNotification: Bool = false) -> Bool {
         reset(suppressDelegateNotification)
         return super.resignFirstResponder()
     }
 
-    func pinSelected(gestureRecognizer: UITapGestureRecognizer) {
+    func pinSelected(_ gestureRecognizer: UITapGestureRecognizer) {
         delegate?.floorplanPinViewWasSelected(self)
     }
 
@@ -199,15 +199,15 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
         attachGestureRecognizer()
     }
 
-    func setScale(zoomScale: CGFloat) {
-        transform = CGAffineTransformMakeScale(1.0 / zoomScale, 1.0 / zoomScale)
+    func setScale(_ zoomScale: CGFloat) {
+        transform = CGAffineTransform(scaleX: 1.0 / zoomScale, y: 1.0 / zoomScale)
     }
 
-    private func renderAbbreviation(abbreviation: String) {
+    fileprivate func renderAbbreviation(_ abbreviation: String) {
         if abbreviationLabel == nil {
             abbreviationLabel = UILabel()
-            abbreviationLabel.backgroundColor = UIColor.clearColor()
-            abbreviationLabel.textColor = UIColor.whiteColor()
+            abbreviationLabel.backgroundColor = UIColor.clear
+            abbreviationLabel.textColor = UIColor.white
             abbreviationLabel.font = UIFont(name: "Exo2-Bold", size: 26.0)!
         }
 
@@ -223,11 +223,11 @@ class FloorplanPinView: UIImageView, UIGestureRecognizerDelegate {
 
         if abbreviationLabel.superview == nil {
             addSubview(abbreviationLabel)
-            bringSubviewToFront(abbreviationLabel)
+            bringSubview(toFront: abbreviationLabel)
         }
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

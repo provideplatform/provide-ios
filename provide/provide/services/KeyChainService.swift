@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -11,11 +11,11 @@ import UICKeyChainStore
 
 class KeyChainService {
 
-    private let uicStore = UICKeyChainStore()
+    fileprivate let uicStore = UICKeyChainStore()
 
-    private static let sharedInstance = KeyChainService()
+    fileprivate static let sharedInstance = KeyChainService()
 
-    private var cachedToken: Token?
+    fileprivate var cachedToken: Token?
 
     class func sharedService() -> KeyChainService {
         return sharedInstance
@@ -67,7 +67,7 @@ class KeyChainService {
     func clearStoredUserData() {
         cachedToken = nil
 
-        if CurrentBuildConfig != .Debug {
+        if CurrentBuildConfig != .debug {
             uicStore.removeAllItems()
         } else {
             for key in ["user", "token", "email", "deviceId"] {
@@ -78,8 +78,8 @@ class KeyChainService {
         }
     }
 
-    func envPrefixedKey(key: String) -> String {
-        if CurrentEnvironment == .Production {
+    func envPrefixedKey(_ key: String) -> String {
+        if CurrentEnvironment == .production {
             return key
         } else {
             return "\(CurrentEnvironment.prefixString)-\(key)"

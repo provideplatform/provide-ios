@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/20/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,8 +11,8 @@ import KTSwiftExtensions
 
 @objc
 protocol WorkOrderProductCreationViewControllerDelegate: NSObjectProtocol {
-    optional func workOrderProductForWorkOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController) -> WorkOrderProduct!
-    func workOrderProductCreationViewController(viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
+    @objc optional func workOrderProductForWorkOrderProductCreationViewController(_ viewController: WorkOrderProductCreationViewController) -> WorkOrderProduct!
+    func workOrderProductCreationViewController(_ viewController: WorkOrderProductCreationViewController, didUpdateWorkOrderProduct workOrderProduct: WorkOrderProduct)
 }
 
 class WorkOrderProductCreationViewController: ProductCreationViewController {
@@ -37,7 +37,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         }
     }
 
-    @IBOutlet private weak var quantityTextField: UITextField!
+    @IBOutlet fileprivate weak var quantityTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
             if let quantityString = quantityTextField?.text {
                 if let quantity = Double(quantityString) {
                     if quantity <= self.workOrderProduct.jobProduct.remainingQuantity {
-                        workOrderProduct.quantity = quantity
+                        workOrderProduct?.quantity = quantity
                     } else {
                         quantityTextField?.text = ""
                         showToast("Quantity cannot exceed \(self.workOrderProduct.jobProduct.remainingQuantity)")
@@ -64,7 +64,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
             if let priceString = priceTextField?.text {
                 if priceString.length > 0 {
                     if let price = Double(priceString) {
-                        workOrderProduct.price = price
+                        workOrderProduct?.price = price
                     }
                 }
             }
@@ -72,7 +72,7 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
             showActivityIndicator()
 
             workOrder.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     self.workOrderProductCreationViewControllerDelegate?.workOrderProductCreationViewController(self, didUpdateWorkOrderProduct: self.workOrderProduct)
                 },
                 onError: { error, statusCode, responseString in
@@ -82,11 +82,11 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         }
     }
 
-    override func save(sender: UIButton) {
+    override func save(_ sender: UIButton) {
         save()
     }
 
-    private func populateTextFields() {
+    fileprivate func populateTextFields() {
         if let workOrderProduct = workOrderProduct {
             if workOrderProduct.quantity == 0.0 {
                 dispatch_after_delay(0.0) { [weak self] in
@@ -104,18 +104,18 @@ class WorkOrderProductCreationViewController: ProductCreationViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: UITextFieldDelegate
 
-    override func textFieldShouldReturn(textField: UITextField) -> Bool {
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == quantityTextField {
             if let quantity = textField.text {
                 if quantity =~ "\\d+" {
                     textField.resignFirstResponder()
-                    if priceTextField.canBecomeFirstResponder() {
+                    if priceTextField.canBecomeFirstResponder {
                         priceTextField.becomeFirstResponder()
                     }
                     return true

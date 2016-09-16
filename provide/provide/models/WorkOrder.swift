@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -54,8 +54,8 @@ class WorkOrder: Model {
     var tasks: [Task]!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "category_id": "categoryId",
             "company_id": "companyId",
@@ -80,22 +80,22 @@ class WorkOrder: Model {
             "expensed_amount": "expensedAmount",
             "priority": "priority"
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("category", mapping: Category.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("company", mapping: Company.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("customer", mapping: Customer.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("job", mapping: Job.mapping())
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", withMapping: Comment.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", withMapping: Expense.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", withMapping: Product.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", withMapping: WorkOrderProduct.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", withMapping: User.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", withMapping: Task.mapping()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", withMapping: WorkOrderProvider.mapping()))
+        mapping?.addRelationshipMapping(withSourceKeyPath: "category", mapping: Category.mapping())
+        mapping?.addRelationshipMapping(withSourceKeyPath: "company", mapping: Company.mapping())
+        mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())
+        mapping?.addRelationshipMapping(withSourceKeyPath: "job", mapping: Job.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", with: Comment.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "expenses", toKeyPath: "expenses", with: Expense.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_ordered", toKeyPath: "itemsOrdered", with: Product.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_delivered", toKeyPath: "itemsDelivered", with: Product.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_rejected", toKeyPath: "itemsRejected", with: Product.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "materials", toKeyPath: "materials", with: WorkOrderProduct.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: User.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "tasks", toKeyPath: "tasks", with: Task.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", with: WorkOrderProvider.mapping()))
 
-        return mapping
+        return mapping!
     }
 
     var allowNewComments: Bool {
@@ -106,61 +106,61 @@ class WorkOrder: Model {
         return Annotation(workOrder: self)
     }
 
-    private var pendingArrival = false
+    fileprivate var pendingArrival = false
 
     var canArrive: Bool {
         return !pendingArrival
     }
 
-    var scheduledStartAtDate: NSDate! {
+    var scheduledStartAtDate: Date! {
         if let scheduledStartAt = scheduledStartAt {
-            return NSDate.fromString(scheduledStartAt)
+            return Date.fromString(scheduledStartAt)
         }
         return nil
     }
 
-    var dueAtDate: NSDate! {
+    var dueAtDate: Date! {
         if let dueAt = dueAt {
-            return NSDate.fromString(dueAt)
+            return Date.fromString(dueAt)
         }
         return nil
     }
 
-    var scheduledEndAtDate: NSDate! {
+    var scheduledEndAtDate: Date! {
         if let scheduledEndAt = scheduledEndAt {
-            return NSDate.fromString(scheduledEndAt)
+            return Date.fromString(scheduledEndAt)
         }
         return nil
     }
 
-    var scheduledDueDate: NSDate! {
+    var scheduledDueDate: Date! {
         return scheduledEndAtDate
     }
 
-    var startedAtDate: NSDate! {
+    var startedAtDate: Date! {
         if let startedAt = startedAt {
-            return NSDate.fromString(startedAt)
+            return Date.fromString(startedAt)
         }
         return nil
     }
 
-    var endedAtDate: NSDate! {
+    var endedAtDate: Date! {
         if let endedAt = endedAt {
-            return NSDate.fromString(endedAt)
+            return Date.fromString(endedAt)
         }
         return nil
     }
 
-    var abandonedAtDate: NSDate! {
+    var abandonedAtDate: Date! {
         if let abandonedAt = abandonedAt {
-            return NSDate.fromString(abandonedAt)
+            return Date.fromString(abandonedAt)
         }
         return nil
     }
 
-    var canceledAtDate: NSDate! {
+    var canceledAtDate: Date! {
         if let canceledAt = canceledAt {
-            return NSDate.fromString(canceledAt)
+            return Date.fromString(canceledAt)
         }
         return nil
     }
@@ -194,15 +194,15 @@ class WorkOrder: Model {
             }
 
             if let endedAtDate = endedAtDate {
-                seconds = endedAtDate.timeIntervalSinceDate(startedAtDate)
+                seconds = endedAtDate.timeIntervalSince(startedAtDate)
             } else {
-                seconds = NSDate().timeIntervalSinceDate(startedAtDate)
+                seconds = Date().timeIntervalSince(startedAtDate)
             }
 
             let hours = Int(floor(Double(seconds) / 3600.0))
-            seconds = Double(seconds) % 3600.0
+            seconds = Double(seconds).truncatingRemainder(dividingBy: 3600.0)
             let minutes = Int(floor(Double(seconds) / 60.0))
-            seconds = floor(Double(seconds) % 60.0)
+            seconds = floor(Double(seconds).truncatingRemainder(dividingBy: 60.0))
 
             let hoursString = hours >= 1 ? "\(hours):" : ""
             let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
@@ -275,7 +275,7 @@ class WorkOrder: Model {
             return Color.abandonedStatusColor()
         }
 
-        return UIColor.clearColor()
+        return UIColor.clear
     }
 
     var materialsCost: Double! {
@@ -404,10 +404,10 @@ class WorkOrder: Model {
             itemsOnTruck.append(product)
         }
 
-        for (_, itemDelivered) in itemsDelivered.enumerate() {
-            for (x, itemOnTruck) in itemsOnTruck.enumerate() {
+        for (_, itemDelivered) in itemsDelivered.enumerated() {
+            for (x, itemOnTruck) in itemsOnTruck.enumerated() {
                 if itemOnTruck.gtin == itemDelivered.gtin {
-                    itemsOnTruck.removeAtIndex(x)
+                    itemsOnTruck.remove(at: x)
                     break
                 }
             }
@@ -417,10 +417,10 @@ class WorkOrder: Model {
             itemsOnTruck.append(itemRejected)
         }
 
-        for (_, itemRejected) in itemsRejected.enumerate() {
-            for (x, itemOnTruck) in itemsOnTruck.enumerate() {
+        for (_, itemRejected) in itemsRejected.enumerated() {
+            for (x, itemOnTruck) in itemsOnTruck.enumerated() {
                 if itemOnTruck.gtin == itemRejected.gtin {
-                    itemsOnTruck.removeAtIndex(x)
+                    itemsOnTruck.remove(at: x)
                     break
                 }
             }
@@ -478,7 +478,7 @@ class WorkOrder: Model {
         return 50.0
     }
 
-    func rejectItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
+    func rejectItem(_ item: Product, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         itemsDelivered.removeObject(item)
 
         item.rejected = true
@@ -487,7 +487,7 @@ class WorkOrder: Model {
         updateManifest(onSuccess, onError: onError)
     }
 
-    func deliverItem(item: Product, onSuccess: OnSuccess, onError: OnError) {
+    func deliverItem(_ item: Product, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         itemsRejected.removeObject(item)
 
         item.rejected = false
@@ -496,11 +496,11 @@ class WorkOrder: Model {
         updateManifest(onSuccess, onError: onError)
     }
 
-    func canUnloadGtin(gtin: String!) -> Bool {
+    func canUnloadGtin(_ gtin: String!) -> Bool {
         return gtinOrderedCount(gtin) > gtinDeliveredCount(gtin)
     }
 
-    func canRejectGtin(gtin: String!) -> Bool {
+    func canRejectGtin(_ gtin: String!) -> Bool {
         return gtinDeliveredCount(gtin) > 0
     }
 
@@ -525,27 +525,27 @@ class WorkOrder: Model {
         return itemsRejected.map { $0.gtin }
     }
 
-    func gtinOrderedCount(gtin: String!) -> Int {
+    func gtinOrderedCount(_ gtin: String!) -> Int {
         return gtinsOrdered.count
     }
 
-    func gtinRejectedCount(gtin: String!) -> Int {
+    func gtinRejectedCount(_ gtin: String!) -> Int {
         return gtinsRejected.count
     }
 
-    func gtinDeliveredCount(gtin: String!) -> Int {
+    func gtinDeliveredCount(_ gtin: String!) -> Int {
         return gtinsDelivered.count
     }
 
-    override func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
+    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
-        dictionary.removeValueForKey("config")
-        dictionary.removeValueForKey("preview_image")
-        dictionary.removeValueForKey("id")
+        dictionary.removeValue(forKey: "config")
+        dictionary.removeValue(forKey: "preview_image")
+        dictionary.removeValue(forKey: "id")
         return dictionary
     }
 
-    func addProvider(provider: Provider, flatFee: Double = -1.0, onSuccess: OnSuccess, onError: OnError) {
+    func addProvider(_ provider: Provider, flatFee: Double = -1.0, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if !hasProvider(provider) {
             let workOrderProvider = WorkOrderProvider()
             workOrderProvider.provider = provider
@@ -554,12 +554,12 @@ class WorkOrder: Model {
             }
             workOrderProviders.append(workOrderProvider)
             if id > 0 {
-                save(onSuccess: onSuccess, onError: onError)
+                save(onSuccess, onError: onError)
             }
         }
     }
 
-    func updateWorkOrderProvider(workOrderProvider: WorkOrderProvider, onSuccess: OnSuccess, onError: OnError) {
+    func updateWorkOrderProvider(_ workOrderProvider: WorkOrderProvider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let provider = workOrderProvider.provider {
             if hasProvider(provider) {
                 var index: Int?
@@ -569,17 +569,17 @@ class WorkOrder: Model {
                     }
                 }
                 if let index = index {
-                    self.workOrderProviders.replaceRange(index...index, with: [workOrderProvider])
+                    self.workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
 
                     if id > 0 {
-                        save(onSuccess: onSuccess, onError: onError)
+                        save(onSuccess, onError: onError)
                     }
                 }
             }
         }
     }
 
-    func mergeAttachment(attachment: Attachment) {
+    func mergeAttachment(_ attachment: Attachment) {
         if attachments == nil {
             attachments = [Attachment]()
         }
@@ -600,16 +600,16 @@ class WorkOrder: Model {
         }
     }
 
-    func removeProvider(provider: Provider, onSuccess: OnSuccess, onError: OnError) {
+    func removeProvider(_ provider: Provider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if hasProvider(provider) {
             removeProvider(provider)
             if id > 0 {
-                save(onSuccess: onSuccess, onError: onError)
+                save(onSuccess, onError: onError)
             }
         }
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
 
         if id > 0 {
@@ -618,158 +618,158 @@ class WorkOrder: Model {
             }
             var workOrderProviders = [[String : AnyObject]]()
             for workOrderProvider in self.workOrderProviders {
-                var wop: [String : AnyObject] = ["provider_id": workOrderProvider.provider.id]
+                var wop: [String : AnyObject] = ["provider_id": workOrderProvider.provider.id as AnyObject]
                 if workOrderProvider.estimatedDuration > -1.0 {
-                    wop.updateValue(workOrderProvider.estimatedDuration, forKey: "estimated_duration")
+                    wop.updateValue(workOrderProvider.estimatedDuration as AnyObject, forKey: "estimated_duration")
                 }
                 if workOrderProvider.hourlyRate > -1.0 {
-                    wop.updateValue(workOrderProvider.hourlyRate, forKey: "hourly_rate")
+                    wop.updateValue(workOrderProvider.hourlyRate as AnyObject, forKey: "hourly_rate")
                 }
                 if workOrderProvider.flatFee > -1.0 {
-                    wop.updateValue(workOrderProvider.flatFee, forKey: "flat_fee")
+                    wop.updateValue(workOrderProvider.flatFee as AnyObject, forKey: "flat_fee")
                 }
                 if workOrderProvider.id > 0 {
-                    wop.updateValue(workOrderProvider.id, forKey: "id")
+                    wop.updateValue(workOrderProvider.id as AnyObject, forKey: "id")
                 }
                 workOrderProviders.append(wop)
             }
-            params.updateValue(workOrderProviders, forKey: "work_order_providers")
+            params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
 
             var materials = [[String : AnyObject]]()
             for workOrderProduct in self.materials {
-                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity]
+                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId as AnyObject, "quantity": workOrderProduct.quantity as AnyObject]
                 if workOrderProduct.price > 0.0 {
-                    wop.updateValue(workOrderProduct.price, forKey: "price")
+                    wop.updateValue(workOrderProduct.price as AnyObject, forKey: "price")
                 }
                 if workOrderProduct.id > 0 {
-                    wop.updateValue(workOrderProduct.id, forKey: "id")
+                    wop.updateValue(workOrderProduct.id as AnyObject, forKey: "id")
                 }
                 materials.append(wop)
             }
-            params.updateValue(materials, forKey: "materials")
+            params.updateValue(materials as AnyObject, forKey: "materials")
 
             ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
                     WorkOrderService.sharedService().updateWorkOrder(self)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
             var workOrderProviders = [[String : AnyObject]]()
             for provider in providers {
-                workOrderProviders.append(["provider_id": provider.id])
+                workOrderProviders.append(["provider_id": provider.id as AnyObject])
             }
-            params.updateValue(workOrderProviders, forKey: "work_order_providers")
+            params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
 
             var materials = [[String : AnyObject]]()
             for workOrderProduct in self.materials {
-                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId, "quantity": workOrderProduct.quantity]
+                var wop: [String : AnyObject] = ["job_product_id": workOrderProduct.jobProductId as AnyObject, "quantity": workOrderProduct.quantity as AnyObject]
                 if workOrderProduct.price > 0.0 {
-                    wop.updateValue(workOrderProduct.price, forKey: "price")
+                    wop.updateValue(workOrderProduct.price as AnyObject, forKey: "price")
                 }
                 materials.append(wop)
             }
-            params.updateValue(materials, forKey: "materials")
+            params.updateValue(materials as AnyObject, forKey: "materials")
 
             if let _ = scheduledStartAt {
-                params.updateValue("scheduled", forKey: "status")
+                params.updateValue("scheduled" as AnyObject, forKey: "status")
             }
 
             ApiService.sharedService().createWorkOrder(params,
                 onSuccess: { statusCode, mappingResult in
-                    let workOrder = mappingResult.firstObject as! WorkOrder
+                    let workOrder = mappingResult?.firstObject as! WorkOrder
                     self.id = workOrder.id
                     self.status = workOrder.status
                     WorkOrderService.sharedService().updateWorkOrder(workOrder)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reload(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true", "include_work_order_providers": "true"], onSuccess: onSuccess, onError: onError)
+    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        reload(["include_estimated_cost": "false" as AnyObject, "include_job": "false" as AnyObject, "include_supervisors": "true" as AnyObject, "include_work_order_providers": "true" as AnyObject], onSuccess: onSuccess, onError: onError)
     }
 
-    func reload(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func reload(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    let workOrder = mappingResult.firstObject as! WorkOrder
+                    let workOrder = mappingResult?.firstObject as! WorkOrder
                     self.status = workOrder.status
                     self.estimatedCost = workOrder.estimatedCost
                     self.supervisors = workOrder.supervisors
                     self.workOrderProviders = workOrder.workOrderProviders
-                    WorkOrderService.sharedService().updateWorkOrder(mappingResult.firstObject as! WorkOrder)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    WorkOrderService.sharedService().updateWorkOrder(mappingResult?.firstObject as! WorkOrder)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadJob(onSuccess: OnSuccess, onError: OnError) {
+    func reloadJob(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 && jobId > 0 {
             ApiService.sharedService().fetchJobWithId(String(jobId),
                 onSuccess: { statusCode, mappingResult in
-                    self.job = mappingResult.firstObject as! Job
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.job = mappingResult?.firstObject as! Job
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadAttachments(onSuccess: OnSuccess, onError: OnError) {
+    func reloadAttachments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchAttachments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
-                    self.attachments = mappingResult.array() as! [Attachment]
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    self.attachments = mappingResult?.array() as! [Attachment]
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadExpenses(onSuccess: OnSuccess, onError: OnError) {
+    func reloadExpenses(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchExpenses(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
-                    self.expenses = mappingResult.array() as! [Expense]
+                    self.expenses = mappingResult?.array() as! [Expense]
                     self.expensesCount = self.expenses.count
                     self.expensedAmount = 0.0
                     for expense in self.expenses {
                         self.expensedAmount = self.expensedAmount + expense.amount
                     }
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func reloadInventory(onSuccess: OnSuccess, onError: OnError) {
+    func reloadInventory(_ onSuccess: OnSuccess, onError: OnError) {
         if id > 0 {
 
         }
     }
 
-    func hasProvider(provider: Provider) -> Bool {
+    func hasProvider(_ provider: Provider) -> Bool {
         for p in providers {
             if p.id == provider.id {
                 return true
@@ -778,7 +778,7 @@ class WorkOrder: Model {
         return false
     }
 
-    func removeProvider(provider: Provider) {
+    func removeProvider(_ provider: Provider) {
         if hasProvider(provider) {
             var i = -1
             for p in providers {
@@ -787,11 +787,11 @@ class WorkOrder: Model {
                     break
                 }
             }
-            workOrderProviders.removeAtIndex(i)
+            workOrderProviders.remove(at: i)
         }
     }
 
-    func workOrderProductForJobProduct(jobProduct: JobProduct) -> WorkOrderProduct! {
+    func workOrderProductForJobProduct(_ jobProduct: JobProduct) -> WorkOrderProduct! {
         for workOrderProduct in materials {
             if workOrderProduct.jobProductId == jobProduct.id {
                 return workOrderProduct
@@ -800,7 +800,7 @@ class WorkOrder: Model {
         return nil
     }
 
-    func addWorkOrderProductForJobProduct(jobProduct: JobProduct, params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func addWorkOrderProductForJobProduct(_ jobProduct: JobProduct, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if workOrderProductForJobProduct(jobProduct) == nil && materials != nil {
             let workOrderProduct = WorkOrderProduct()
             workOrderProduct.workOrderId = id
@@ -817,90 +817,89 @@ class WorkOrder: Model {
 
             materials.append(workOrderProduct)
 
-            save(onSuccess:
-                { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+            save({ statusCode, mappingResult in
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func removeWorkOrderProductForProduct(jobProduct: JobProduct, onSuccess: OnSuccess, onError: OnError) {
+    func removeWorkOrderProductForProduct(_ jobProduct: JobProduct, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let workOrderProduct = workOrderProductForJobProduct(jobProduct) {
             removeWorkOrderProduct(workOrderProduct, onSuccess: onSuccess, onError: onError)
         }
     }
     
-    func removeWorkOrderProduct(workOrderProduct: WorkOrderProduct, onSuccess: OnSuccess, onError: OnError) {
+    func removeWorkOrderProduct(_ workOrderProduct: WorkOrderProduct, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         materials.removeObject(workOrderProduct)
-        save(onSuccess: onSuccess, onError: onError)
+        save(onSuccess, onError: onError)
     }
 
-    func setComponents(components: NSMutableArray) {
+    func setComponents(_ components: NSMutableArray) {
         let mutableConfig = NSMutableDictionary(dictionary: config)
-        mutableConfig.setObject(components, forKey: "components")
+        mutableConfig.setObject(components, forKey: "components" as NSCopying)
         config = mutableConfig
     }
 
-    func start(onSuccess: OnSuccess, onError: OnError) {
+    func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
-    func restart(onSuccess: OnSuccess, onError: OnError) {
+    func restart(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
     }
 
-    func arrive(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
 
         updateWorkorderWithStatus("in_progress",
             onSuccess: { statusCode, mappingResult in
                 self.pendingArrival = false
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
                 self.pendingArrival = false
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func abandon(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func abandon(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
-    func cancel(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func cancel(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
-    func approve(onSuccess onSuccess: OnSuccess, onError: OnError) {
-        complete(onSuccess: onSuccess, onError: onError)
+    func approve(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        complete(onSuccess, onError: onError)
     }
 
-    func reject(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func reject(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
-    func complete(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func complete(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("completed", onSuccess: onSuccess, onError: onError)
     }
 
-    func submitForApproval(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func submitForApproval(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkorderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkorderWithStatus(status: String, onSuccess: OnSuccess, onError: OnError) {
+    func updateWorkorderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status],
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status as AnyObject],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
@@ -916,24 +915,24 @@ class WorkOrder: Model {
         )
     }
 
-    func updateManifest(onSuccess: OnSuccess, onError: OnError) {
+    func updateManifest(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let params = [
             "gtins_delivered": gtinsDelivered,
             "gtins_rejected": gtinsRejected
         ]
 
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
+        ApiService.sharedService().updateWorkOrderWithId(String(id), params: params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func attach(image: UIImage, params: [String: AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func attach(_ image: UIImage, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.sharedService().addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params,
@@ -941,23 +940,23 @@ class WorkOrder: Model {
                 if self.attachments == nil {
                     self.attachments = [Attachment]()
                 }
-                self.attachments.append(mappingResult.firstObject as! Attachment)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                self.attachments.append(mappingResult?.firstObject as! Attachment)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func prependExpense(expense: Expense) {
+    func prependExpense(_ expense: Expense) {
         if expenses == nil {
             expenses = [Expense]()
         }
         if expensedAmount == nil {
             expensedAmount = 0.0
         }
-        expenses.insert(expense, atIndex: 0)
+        expenses.insert(expense, at: 0)
         expensesCount += 1
         if let amount = expensedAmount {
             expensedAmount = amount + expense.amount
@@ -967,82 +966,82 @@ class WorkOrder: Model {
         }
     }
 
-    func addExpense(params: [String: AnyObject], receipt: UIImage!, onSuccess: OnSuccess, onError: OnError) {
+    func addExpense(_ params: [String: AnyObject], receipt: UIImage!, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().createExpense(params, forExpensableType: "work_order",
             withExpensableId: String(self.id), onSuccess: { statusCode, mappingResult in
                 let expenseStatusCode = statusCode
                 let expenseMappingResult = mappingResult
-                let expense = mappingResult.firstObject as! Expense
+                let expense = mappingResult?.firstObject as! Expense
 
                 self.prependExpense(expense)
 
                 if let receipt = receipt {
                     expense.attach(receipt, params: params,
                         onSuccess: { (statusCode, mappingResult) -> () in
-                            onSuccess(statusCode: expenseStatusCode, mappingResult: expenseMappingResult)
+                            onSuccess(expenseStatusCode, expenseMappingResult)
                         },
                         onError: { (error, statusCode, responseString) -> () in
-                            onError(error: error, statusCode: statusCode, responseString: responseString)
+                            onError(error, statusCode, responseString)
                         }
                     )
                 } else {
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 }
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func addComment(comment: String, onSuccess: OnSuccess, onError: OnError) {
+    func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().addComment(comment, toWorkOrderWithId: String(id),
             onSuccess: { (statusCode, mappingResult) -> () in
                 if self.comments == nil {
                     self.comments = [Comment]()
                 }
-                self.comments.insert(mappingResult.firstObject as! Comment, atIndex: 0)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { (error, statusCode, responseString) -> () in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func reloadComments(onSuccess: OnSuccess, onError: OnError) {
+    func reloadComments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             comments = [Comment]()
             ApiService.sharedService().fetchComments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
-                    let fetchedComments = (mappingResult.array() as! [Comment]).reverse()
+                    let fetchedComments = (mappingResult?.array() as! [Comment]).reversed()
                     for comment in fetchedComments {
                         self.comments.append(comment)
                     }
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }
     }
 
-    func scoreProvider(netPromoterScore: NSNumber, onSuccess: OnSuccess, onError: OnError) {
+    func scoreProvider(_ netPromoterScore: NSNumber, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         providerRating = netPromoterScore
         ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating],
             onSuccess: { statusCode, mappingResult in
                 WorkOrderService.sharedService().updateWorkOrder(self)
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
     class Annotation: NSObject, MKAnnotation {
-        private var workOrder: WorkOrder!
+        fileprivate var workOrder: WorkOrder!
 
         required init(workOrder: WorkOrder) {
             self.workOrder = workOrder

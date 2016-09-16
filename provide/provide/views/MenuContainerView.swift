@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/25/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,13 +11,13 @@ import KTSwiftExtensions
 
 class MenuContainerView: UIView {
 
-    private var backgroundView: UIView!
+    fileprivate var backgroundView: UIView!
 
-    private var menuViewController: MenuViewController!
+    fileprivate var menuViewController: MenuViewController!
 
-    private var touchesBeganTimestamp: NSDate!
+    fileprivate var touchesBeganTimestamp: Date!
 
-    private var menuViewControllerFrame: CGRect {
+    fileprivate var menuViewControllerFrame: CGRect {
         var width = frame.width
         if isIPad() {
             width = width * 0.5
@@ -31,34 +31,34 @@ class MenuContainerView: UIView {
                       height: frame.height)
     }
 
-    private var menuViewFrameOffsetX: CGFloat {
+    fileprivate var menuViewFrameOffsetX: CGFloat {
         return frame.width * (1.0 - ((isIPad() ? 0.5 : 0.66) + exposedMenuViewPercentage))
     }
 
-    private var exposedMenuViewPercentage: CGFloat {
+    fileprivate var exposedMenuViewPercentage: CGFloat {
         return 0.025
     }
 
-    private var closedMenuOffsetX: CGFloat {
+    fileprivate var closedMenuOffsetX: CGFloat {
         return (frame.width * (1.0 - exposedMenuViewPercentage)) * -1.0
     }
 
-    private var gestureInProgress: Bool {
+    fileprivate var gestureInProgress: Bool {
         return touchesBeganTimestamp != nil
     }
 
-    private var isOpen: Bool {
+    fileprivate var isOpen: Bool {
         return frame.origin.x > closedMenuOffsetX
     }
 
-    private var targetView: UIView! {
-        if let targetView = UIApplication.sharedApplication().keyWindow {
+    fileprivate var targetView: UIView! {
+        if let targetView = UIApplication.shared.keyWindow {
             return targetView
         }
         return nil
     }
 
-    private func teardown() {
+    fileprivate func teardown() {
         if let _ = superview {
             removeFromSuperview()
         }
@@ -74,25 +74,25 @@ class MenuContainerView: UIView {
             self.menuViewController = nil
         }
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    func redraw(size: CGSize) {
+    func redraw(_ size: CGSize) {
         let open = isOpen
         let delegate = menuViewController.delegate
-        setupMenuViewController(delegate)
+        setupMenuViewController(delegate!)
         if open {
             openMenu()
         }
     }
 
-    func setupMenuViewController(delegate: MenuViewControllerDelegate) {
+    func setupMenuViewController(_ delegate: MenuViewControllerDelegate) {
         teardown()
 
         accessibilityIdentifier = "MenuContainerView"
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuContainerView.openMenu), name: "MenuContainerShouldOpen")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MenuContainerView.closeMenu), name: "MenuContainerShouldReset")
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuContainerView.openMenu), name: "MenuContainerShouldOpen")
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuContainerView.closeMenu), name: "MenuContainerShouldReset")
 
         addDropShadow(CGSize(width: 2.5, height: 2.0), radius: 10.0, opacity: 0.75)
         layer.shadowOpacity = 0.0
@@ -102,7 +102,7 @@ class MenuContainerView: UIView {
             backgroundView.frame.size.height = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MenuContainerView.closeMenu)))
-            backgroundView.backgroundColor = UIColor.blackColor()
+            backgroundView.backgroundColor = UIColor.black
             backgroundView.alpha = 0.0
 
             frame = CGRect(x: 0.0,
@@ -112,45 +112,45 @@ class MenuContainerView: UIView {
             frame.origin.x = closedMenuOffsetX
 
             targetView.addSubview(backgroundView)
-            targetView.bringSubviewToFront(backgroundView)
+            targetView.bringSubview(toFront: backgroundView)
 
-            menuViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+            menuViewController = UIStoryboard("Main").instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
             menuViewController.delegate = delegate
             menuViewController.view.frame = menuViewControllerFrame
             addSubview(menuViewController.view)
-            bringSubviewToFront(menuViewController.view)
+            bringSubview(toFront: menuViewController.view)
 
             targetView.addSubview(self)
-            targetView.bringSubviewToFront(self)
+            targetView.bringSubview(toFront: self)
         }
     }
 
     deinit {
         teardown()
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
-            let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.sharedApplication().statusBarFrame.height
+            let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
             if point.y <= navbarHeight {
-                return menuViewController.view.pointInside(point, withEvent: event)
+                return menuViewController.view.point(inside: point, with: event)
             }
         }
 
-        return super.pointInside(point, withEvent: event)
+        return super.point(inside: point, with: event)
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
-        touchesBeganTimestamp = NSDate()
+        touchesBeganTimestamp = Date()
         applyTouches(touches)
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
         if let _ = touchesBeganTimestamp {
             let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
@@ -164,20 +164,20 @@ class MenuContainerView: UIView {
         touchesBeganTimestamp = nil
     }
 
-    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
 
         touchesBeganTimestamp = nil
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
 
         if let touchesBeganTimestamp = touchesBeganTimestamp {
-            if NSDate().timeIntervalSinceDate(touchesBeganTimestamp) < 0.1 {
+            if Date().timeIntervalSince(touchesBeganTimestamp) < 0.1 {
                 var xOffset: CGFloat = 0.0
                 for touch in touches {
-                    xOffset = touch.locationInView(nil).x - touch.previousLocationInView(nil).x
+                    xOffset = touch.location(in: nil).x - touch.previousLocation(in: nil).x
                 }
 
                 if xOffset > 15.0 {
@@ -201,19 +201,19 @@ class MenuContainerView: UIView {
         dragMenu(closedMenuOffsetX)
     }
 
-    private func applyTouches(touches: Set<NSObject>) {
+    fileprivate func applyTouches(_ touches: Set<NSObject>) {
         for touch in touches {
             dragMenu(touch as! UITouch)
         }
     }
 
-    private func dragMenu(touch: UITouch) {
-        let xOffset = touch.locationInView(nil).x - touch.previousLocationInView(nil).x
+    fileprivate func dragMenu(_ touch: UITouch) {
+        let xOffset = touch.location(in: nil).x - touch.previousLocation(in: nil).x
         let x = frame.origin.x + xOffset
         dragMenu(x)
     }
 
-    private func dragMenu(x: CGFloat) {
+    fileprivate func dragMenu(_ x: CGFloat) {
         let percentage = 1.0 + (x / frame.width)
         layer.shadowOpacity = percentage == exposedMenuViewPercentage ? 0.0 : (Float(percentage - exposedMenuViewPercentage) * 2.0)
 
@@ -221,21 +221,21 @@ class MenuContainerView: UIView {
             return
         }
 
-        backgroundView.superview!.bringSubviewToFront(backgroundView)
-        superview?.bringSubviewToFront(self)
+        backgroundView.superview!.bringSubview(toFront: backgroundView)
+        superview?.bringSubview(toFront: self)
 
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseInOut,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: UIViewAnimationOptions(),
             animations: {
                 self.frame.origin.x = x
                 self.backgroundView.alpha = 0.75 * percentage
             },
             completion: { complete in
                 if !self.gestureInProgress {
-                    UIApplication.sharedApplication().setStatusBarHidden(self.isOpen, withAnimation: .Slide)
+                    UIApplication.shared.setStatusBarHidden(self.isOpen, with: .slide)
                 }
 
                 if !self.isOpen {
-                    self.backgroundView.superview!.sendSubviewToBack(self.backgroundView)
+                    self.backgroundView.superview!.sendSubview(toBack: self.backgroundView)
                 }
             }
         )

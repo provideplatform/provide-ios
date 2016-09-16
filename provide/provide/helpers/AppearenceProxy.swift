@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,13 +17,13 @@ class AppearenceProxy {
         UINavigationBar.appearance().titleTextAttributes = navBarTitleTextAttributes()
 
         UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
-        UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), for: UIControlState())
 
-        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UIToolbar.self]).tintColor = UIColor.whiteColor()
-        UIBarButtonItem.appearanceWhenContainedInInstancesOfClasses([UIToolbar.self]).setTitleTextAttributes(whiteButtonItemTitleTextAttributes(), forState: .Normal)
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = UIColor.white
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).setTitleTextAttributes(whiteButtonItemTitleTextAttributes(), for: UIControlState())
 
         UITabBar.appearance().tintColor = defaultBarTintColor()
-        UITabBarItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), forState: .Normal)
+        UITabBarItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), for: UIControlState())
 
         UIToolbar.appearance().tintColor = defaultBarTintColor()
     }
@@ -56,7 +56,7 @@ class AppearenceProxy {
     class func whiteButtonItemTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.whiteColor()
+            NSForegroundColorAttributeName : UIColor.white
         ]
     }
 
@@ -77,7 +77,7 @@ class AppearenceProxy {
     class func barButtonItemDisabledTitleTextAttributes() -> [String : AnyObject] {
         return [
             NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.darkGrayColor()
+            NSForegroundColorAttributeName : UIColor.darkGray
         ]
     }
 }

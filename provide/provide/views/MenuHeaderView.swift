@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/27/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,48 +11,48 @@ import AVFoundation
 import KTSwiftExtensions
 
 protocol MenuHeaderViewDelegate {
-    func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController!
+    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController!
 }
 
 class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     var delegate: MenuHeaderViewDelegate!
 
-    @IBOutlet private weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var profileImageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var companyLabel: UILabel!
-    @IBOutlet private weak var changeProfileImageButton: UIButton!
+    @IBOutlet fileprivate weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var profileImageView: UIImageView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var companyLabel: UILabel!
+    @IBOutlet fileprivate weak var changeProfileImageButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
 
-        profileImageUrl = currentUser().profileImageUrl
+        profileImageUrl = currentUser().profileImageUrl as URL!
         nameLabel.text = currentUser().name
         companyLabel.text = ""
 
-        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), forControlEvents: .TouchUpInside)
+        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), for: .touchUpInside)
 
         profileImageActivityIndicatorView.stopAnimating()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("ProfileImageShouldRefresh") { _ in
-            self.profileImageUrl = currentUser().profileImageUrl
+        NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
+            self.profileImageUrl = currentUser().profileImageUrl as URL!
         }
     }
 
-    var profileImageUrl: NSURL! {
+    var profileImageUrl: URL! {
         didSet {
-            bringSubviewToFront(profileImageActivityIndicatorView)
+            bringSubview(toFront: profileImageActivityIndicatorView)
             profileImageActivityIndicatorView.startAnimating()
 
             if let profileImageUrl = profileImageUrl {
-                profileImageView.contentMode = .ScaleAspectFit
-                profileImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
+                profileImageView.contentMode = .scaleAspectFit
+                profileImageView.sd_setImage(with: profileImageUrl) { image, error, imageCacheType, url in
                     self.profileImageActivityIndicatorView.stopAnimating()
 
-                    self.bringSubviewToFront(self.profileImageView)
+                    self.bringSubview(toFront: self.profileImageView)
                     self.profileImageView.makeCircular()
                     self.profileImageView.alpha = 1.0
                 }
@@ -64,18 +64,18 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     func changeProfileImage() {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Want to take a selfie or choose from your camera roll?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
 
-        let selfieAction = UIAlertAction(title: "Selfie", style: .Default) { action in
+        let selfieAction = UIAlertAction(title: "Selfie", style: .default) { action in
             self.initSelfieViewController()
         }
 
-        let cameraRollAction = UIAlertAction(title: "Camera Roll", style: .Default) { action in
+        let cameraRollAction = UIAlertAction(title: "Camera Roll", style: .default) { action in
             self.initImagePickerViewController()
         }
         alertController.addAction(selfieAction)
@@ -86,83 +86,83 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    private func initImagePickerViewController() {
+    fileprivate func initImagePickerViewController() {
         let imagePickerViewController = ImagePickerViewController()
         imagePickerViewController.delegate = self
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
             navigationController.presentViewController(imagePickerViewController, animated: true)
         }
     }
 
     // MARK: CameraViewControllerDelegate
 
-    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
-        return .Selfie
+    func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode {
+        return .selfie
     }
 
-    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
-            navigationController.popViewControllerAnimated(false)
+            NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+            navigationController.popViewController(animated: false)
         }
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         setUserDefaultProfileImage(image)
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController) {
+    func cameraViewControllerCanceled(_ viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
-            navigationController.popViewControllerAnimated(false)
+            NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+            navigationController.popViewController(animated: false)
         }
     }
 
-    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputFaceMetadata(_ viewController: CameraViewController) -> Bool {
         return true
     }
 
-    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldRenderFacialRecognition(_ viewController: CameraViewController) -> Bool {
         return true
     }
 
-    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputOCRMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
 
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: URL) {
 
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: URL) {
 
     }
 
-    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+    func cameraViewControllerDidOutputFaceMetadata(_ viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
 
     }
 
-    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+    func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
         
     }
 
-    private func initSelfieViewController() {
-        let selfieViewController = UIStoryboard("Camera").instantiateViewControllerWithIdentifier("SelfieViewController") as! SelfieViewController
+    fileprivate func initSelfieViewController() {
+        let selfieViewController = UIStoryboard("Camera").instantiateViewController(withIdentifier: "SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
             navigationController.pushViewController(selfieViewController, animated: false)
         }
     }
 
-    private func setUserDefaultProfileImage(image: UIImage) {
+    fileprivate func setUserDefaultProfileImage(_ image: UIImage) {
         profileImageView.image = nil
         profileImageView.alpha = 0.0
         profileImageUrl = nil
@@ -179,31 +179,31 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     // MARK: UIImagePickerControllerDelegate
 
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(animated: true) {
-                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
+            navigationController.dismissViewController(true) {
+                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }
 
         setUserDefaultProfileImage(image)
     }
 
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(animated: true) {
-                NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldOpen")
+            navigationController.dismissViewController(true) {
+                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }
     }
 
     // MARK: UINavigationControllerDelegate
 
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         //UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

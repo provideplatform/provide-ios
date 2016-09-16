@@ -3,26 +3,26 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 import SWTableViewCell
 
 protocol PackingSlipItemTableViewCellDelegate {
-    func segmentForPackingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell) -> PackingSlipViewController.Segment!
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product)
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product)
-    func packingSlipItemTableViewCell(cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadRejectedProduct product: Product)
+    func segmentForPackingSlipItemTableViewCell(_ cell: PackingSlipItemTableViewCell) -> PackingSlipViewController.Segment!
+    func packingSlipItemTableViewCell(_ cell: PackingSlipItemTableViewCell, didRejectProduct rejectedProduct: Product)
+    func packingSlipItemTableViewCell(_ cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadProduct product: Product)
+    func packingSlipItemTableViewCell(_ cell: PackingSlipItemTableViewCell, shouldAttemptToUnloadRejectedProduct product: Product)
 }
 
 class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var descriptionLabel: UILabel!
-    @IBOutlet private weak var mpnLabel: UILabel!
-    @IBOutlet private weak var priceLabel: UILabel!
-    @IBOutlet private weak var skuLabel: UILabel!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var descriptionLabel: UILabel!
+    @IBOutlet fileprivate weak var mpnLabel: UILabel!
+    @IBOutlet fileprivate weak var priceLabel: UILabel!
+    @IBOutlet fileprivate weak var skuLabel: UILabel!
 
     var packingSlipItemTableViewCellDelegate: PackingSlipItemTableViewCellDelegate! {
         didSet {
@@ -40,10 +40,10 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
                 if product.rejected {
                     descriptionLabel?.text = "REJECTED"
-                    descriptionLabel?.textColor = UIColor.redColor()
+                    descriptionLabel?.textColor = UIColor.red
                 } else {
                     descriptionLabel?.text = ""
-                    descriptionLabel?.textColor = UIColor.blackColor()
+                    descriptionLabel?.textColor = UIColor.black
                 }
                 
                 setupUtilityButtons()
@@ -51,15 +51,15 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         }
     }
 
-    private var canRejectProduct: Bool {
+    fileprivate var canRejectProduct: Bool {
         return workOrder.canRejectGtin(product.gtin)
     }
 
-    private var canUnloadProduct: Bool {
+    fileprivate var canUnloadProduct: Bool {
         return workOrder.canUnloadGtin(product.gtin)
     }
 
-    private var workOrder: WorkOrder! {
+    fileprivate var workOrder: WorkOrder! {
         return WorkOrderService.sharedService().inProgressWorkOrder
     }
 
@@ -81,24 +81,24 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
         descriptionLabel?.text = ""
     }
 
-    private func setupUtilityButtons() {
+    fileprivate func setupUtilityButtons() {
         let leftUtilityButtons = NSMutableArray()
         let rightUtilityButtons = NSMutableArray()
 
         if let segment = packingSlipItemTableViewCellDelegate?.segmentForPackingSlipItemTableViewCell(self) {
             switch segment {
-            case .OnTruck:
+            case .onTruck:
                 //let i = rightUtilityButtons.count
-                rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
+                rightUtilityButtons.sw_addUtilityButton(with: Color.darkBlueBackground(), title: "Unload")
                 //rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
-            case .Unloaded:
+            case .unloaded:
                 //let i = rightUtilityButtons.count
                 let redColor = UIColor(red: 1.1, green: 0.231, blue: 0.16, alpha: 1.0)
-                rightUtilityButtons.sw_addUtilityButtonWithColor(redColor, title: "Reject")
+                rightUtilityButtons.sw_addUtilityButton(with: redColor, title: "Reject")
                 //rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
-            case .Rejected:
+            case .rejected:
                 //let i = rightUtilityButtons.count
-                rightUtilityButtons.sw_addUtilityButtonWithColor(Color.darkBlueBackground(), title: "Unload")
+                rightUtilityButtons.sw_addUtilityButton(with: Color.darkBlueBackground(), title: "Unload")
                 //rightUtilityButtons[i].removeConstraints(rightUtilityButtons[i].constraints)
             }
         }
@@ -109,41 +109,41 @@ class PackingSlipItemTableViewCell: SWTableViewCell, SWTableViewCellDelegate {
 
     // MARK: SWTableViewCellDelegate
 
-    func swipeableTableViewCell(cell: SWTableViewCell, canSwipeToState state: SWCellState) -> Bool {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, canSwipeTo state: SWCellState) -> Bool {
         return true
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell, didTriggerLeftUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, didTriggerLeftUtilityButtonWith index: Int) {
 
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell, didTriggerRightUtilityButtonWithIndex index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, didTriggerRightUtilityButtonWith index: Int) {
         if let segment = packingSlipItemTableViewCellDelegate?.segmentForPackingSlipItemTableViewCell(self) {
             switch segment {
-            case .OnTruck:
+            case .onTruck:
                 if product.rejected {
                     packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadRejectedProduct: product)
                 } else {
                     packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadProduct: product)
                 }
 
-            case .Unloaded:
+            case .unloaded:
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, didRejectProduct: product)
-            case .Rejected:
+            case .rejected:
                 packingSlipItemTableViewCellDelegate?.packingSlipItemTableViewCell(self, shouldAttemptToUnloadRejectedProduct: product)
             }
         }
     }
 
-    func swipeableTableViewCell(cell: SWTableViewCell, scrollingToState state: SWCellState) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, scrollingTo state: SWCellState) {
 
     }
 
-    func swipeableTableViewCellDidEndScrolling(cell: SWTableViewCell) {
+    func swipeableTableViewCellDidEndScrolling(_ cell: SWTableViewCell) {
 
     }
 
-    func swipeableTableViewCellShouldHideUtilityButtonsOnSwipe(cell: SWTableViewCell) -> Bool {
+    func swipeableTableViewCellShouldHideUtilityButtons(onSwipe cell: SWTableViewCell) -> Bool {
         return true
     }
 }

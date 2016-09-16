@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -20,9 +20,9 @@ class Provider: Model {
     var profileImageUrlString: String!
     var services: NSSet!
 
-    var profileImageUrl: NSURL? {
+    var profileImageUrl: URL? {
         guard let profileImageUrlString = profileImageUrlString else { return nil }
-        return NSURL(string: profileImageUrlString)
+        return URL(string: profileImageUrlString)
     }
 
     var initialsLabel: UILabel! {
@@ -30,10 +30,10 @@ class Provider: Model {
             let initialsLabel = UILabel()
             initialsLabel.text = ""
             if let firstName = self.firstName {
-                initialsLabel.text = "\(firstName.substringToIndex(firstName.startIndex))"
+                initialsLabel.text = "\(firstName.substring(to: firstName.startIndex))"
             }
             if let lastName = self.firstName {
-                initialsLabel.text = "\(initialsLabel.text)\(lastName.substringToIndex(lastName.startIndex))"
+                initialsLabel.text = "\(initialsLabel.text)\(lastName.substring(to: lastName.startIndex))"
             }
             initialsLabel.sizeToFit()
             return initialsLabel
@@ -42,8 +42,8 @@ class Provider: Model {
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "company_id": "companyId",
             "user_id": "userId",
@@ -51,13 +51,13 @@ class Provider: Model {
             "services": "services",
             "profile_image_url": "profileImageUrlString"
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        return mapping!
     }
 
     var firstName: String? {
         if let name = name {
-            return name.componentsSeparatedByString(" ").first!
+            return name.components(separatedBy: " ").first!
         } else {
             return nil
         }
@@ -65,8 +65,8 @@ class Provider: Model {
 
     var lastName: String? {
         if let name = name {
-            if name.componentsSeparatedByString(" ").count > 1 {
-                return name.componentsSeparatedByString(" ").last!
+            if name.components(separatedBy: " ").count > 1 {
+                return name.components(separatedBy: " ").last!
             } else {
                 return nil
             }
@@ -75,41 +75,41 @@ class Provider: Model {
         }
     }
 
-    func reload(onSuccess: OnSuccess, onError: OnError) {
+    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().fetchProviderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
-        params.removeValueForKey("id")
+        params.removeValue(forKey: "id")
 
         if id > 0 {
             ApiService.sharedService().updateProviderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
-            params.removeValueForKey("user_id")
+            params.removeValue(forKey: "user_id")
 
             ApiService.sharedService().createProvider(params,
                 onSuccess: { statusCode, mappingResult in
-                    let provider = mappingResult.firstObject as! Provider
+                    let provider = mappingResult?.firstObject as! Provider
                     self.id = provider.id
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -21,16 +21,16 @@ class Product: Model {
 
     var rejected = false
 
-    var imageUrl: NSURL! {
+    var imageUrl: URL! {
         if let imageUrlString = imageUrlString {
-            return NSURL(imageUrlString)
+            return URL(string: imageUrlString)
         }
         return nil
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             "company_id",
             "gtin",
@@ -39,10 +39,10 @@ class Product: Model {
             "data",
             ]
         )
-        mapping.addAttributeMappingsFromDictionary([
+        mapping?.addAttributeMappings(from: [
             "image_url": "imageUrlString"
             ])
-        return mapping
+        return mapping!
     }
 
     var name: String? {
@@ -81,9 +81,9 @@ class Product: Model {
         return data["unit_of_measure"] as? String
     }
 
-    var barcodeDataURL: NSURL! {
+    var barcodeDataURL: URL! {
         if let barcodeUri = barcodeUri {
-            return NSURL(string: barcodeUri)
+            return URL(string: barcodeUri)
         }
         return nil
     }
@@ -116,28 +116,28 @@ class Product: Model {
         return false
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
-        params.removeValueForKey("id")
+        params.removeValue(forKey: "id")
 
         if id > 0 {
             ApiService.sharedService().updateProductWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
             ApiService.sharedService().createProduct(params,
                 onSuccess: { statusCode, mappingResult in
-                    let product = mappingResult.firstObject as! Product
+                    let product = mappingResult?.firstObject as! Product
                     self.id = product.id
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }

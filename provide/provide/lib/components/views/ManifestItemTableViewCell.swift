@@ -3,16 +3,16 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class ManifestItemTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var gtinLabel: UILabel!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var sizeLabel: UILabel!
+    @IBOutlet fileprivate weak var gtinLabel: UILabel!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var sizeLabel: UILabel!
 
     var product: Product! {
         didSet {

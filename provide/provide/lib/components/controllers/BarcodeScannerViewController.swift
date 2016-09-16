@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,9 +11,9 @@ import AVFoundation
 
 @objc
 protocol BarcodeScannerViewControllerDelegate {
-    func barcodeScannerViewController(viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
-    func barcodeScannerViewControllerShouldBeDismissed(viewController: BarcodeScannerViewController)
-    optional func rectOfInterestForBarcodeScannerViewController(viewController: BarcodeScannerViewController) -> CGRect
+    func barcodeScannerViewController(_ viewController: BarcodeScannerViewController, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection)
+    func barcodeScannerViewControllerShouldBeDismissed(_ viewController: BarcodeScannerViewController)
+    @objc optional func rectOfInterestForBarcodeScannerViewController(_ viewController: BarcodeScannerViewController) -> CGRect
 }
 
 class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
@@ -24,7 +24,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
         }
     }
 
-    @IBOutlet private weak var barcodeScannerView: BarcodeScannerView!
+    @IBOutlet fileprivate weak var barcodeScannerView: BarcodeScannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(BarcodeScannerViewController.dismiss(_:)))
         view.addGestureRecognizer(swipeGestureRecognizer)
 
-        view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 
         setupBarcodeScannerView()
     }
@@ -67,14 +67,14 @@ class BarcodeScannerViewController: ViewController, BarcodeScannerViewDelegate {
 
     // MARK: BarcodeScannerViewDelegate
 
-    func barcodeScannerView(barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
+    func barcodeScannerView(_ barcodeScannerView: BarcodeScannerView, didOutputMetadataObjects metadataObjects: [AnyObject], fromConnection connection: AVCaptureConnection) {
         delegate?.barcodeScannerViewController(self, didOutputMetadataObjects: metadataObjects, fromConnection: connection)
     }
 
-    func rectOfInterestForBarcodeScannerView(barcodeScannerView: BarcodeScannerView) -> CGRect {
+    func rectOfInterestForBarcodeScannerView(_ barcodeScannerView: BarcodeScannerView) -> CGRect {
         if let rectOfInterest = delegate?.rectOfInterestForBarcodeScannerViewController?(self) {
             return rectOfInterest
         }
-        return CGRectZero
+        return CGRect.zero
     }
 }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -42,7 +42,7 @@ class Color {
         return darkBlueBackground()
     }
 
-    class func applicationDefaultBackgroundImageColor(rect: CGRect) -> UIColor {
+    class func applicationDefaultBackgroundImageColor(_ rect: CGRect) -> UIColor {
         return UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
     }
 
@@ -55,11 +55,11 @@ class Color {
     }
 
     class func annotationViewBackgroundImageColor() -> UIColor {
-        return UIColor(patternImage: annotationViewBackgroundImage()).colorWithAlphaComponent(0.75)
+        return UIColor(patternImage: annotationViewBackgroundImage()).withAlphaComponent(0.75)
     }
 
     class func annotationViewBackgroundSelectedImageColor() -> UIColor {
-        return UIColor(patternImage: annotationViewBackgroundImage()).colorWithAlphaComponent(1.0)
+        return UIColor(patternImage: annotationViewBackgroundImage()).withAlphaComponent(1.0)
     }
 
     class func polylineStrokeColor() -> UIColor {

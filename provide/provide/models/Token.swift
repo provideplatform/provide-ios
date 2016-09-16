@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -17,22 +17,25 @@ class Token: Model {
     var user: User!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             "uuid",
             "token",
             ]
         )
-        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
+        return mapping!
     }
 
     var userId: NSNumber {
-        return user.id
+        return NSNumber(value: user.id)
     }
 
-    var authorizationHeaderString: String {
-        return "Basic " + "\(token):\(uuid)".base64EncodedString
+    var authorizationHeaderString: String! {
+        if token != nil && uuid != nil {
+            return "Basic " + "\(token!):\(uuid!)".base64EncodedString
+        }
+        return nil
     }
 }

@@ -15,9 +15,9 @@ class UserToken: Model {
     var token: Token!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addRelationshipMappingWithSourceKeyPath("user", mapping: User.mapping())
-        mapping.addRelationshipMappingWithSourceKeyPath("token", mapping: Token.mapping())
-        return mapping
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
+        mapping?.addRelationshipMapping(withSourceKeyPath: "token", mapping: Token.mapping())
+        return mapping!
     }
 }

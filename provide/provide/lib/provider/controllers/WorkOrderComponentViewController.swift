@@ -3,16 +3,16 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 @objc
 protocol WorkOrderComponentViewControllerDelegate: NSObjectProtocol {
-    func workOrderComponentViewControllerForParentViewController(viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController!
-    optional func mapViewForWorkOrderViewController(viewController: UIViewController) -> MapView
-    optional func targetViewForViewController(viewController: UIViewController) -> UIView
+    func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController!
+    @objc optional func mapViewForWorkOrderViewController(_ viewController: UIViewController) -> MapView
+    @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
 
 class WorkOrderComponentViewController: ViewController {
@@ -20,9 +20,9 @@ class WorkOrderComponentViewController: ViewController {
     weak var delegate: WorkOrderComponentViewControllerDelegate!
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    private var childViewController: WorkOrderComponentViewController!
+    fileprivate var childViewController: WorkOrderComponentViewController!
 
-    private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
+    fileprivate var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
 
     var targetView: UIView! {
         return delegate?.targetViewForViewController?(self)
@@ -55,11 +55,11 @@ class WorkOrderComponentViewController: ViewController {
 
     // MARK Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderComponentViewControllerUnwindSegue":
-            assert(segue.sourceViewController is WorkOrderComponentViewController)
-            assert(segue.destinationViewController is WorkOrdersViewController)
+            assert(segue.source is WorkOrderComponentViewController)
+            assert(segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break

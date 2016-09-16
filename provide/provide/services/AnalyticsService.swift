@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/21/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -12,11 +12,11 @@ import KTSwiftExtensions
 
 class AnalyticsService: NSObject {
 
-    private var analyticsEnabled: Bool {
+    fileprivate var analyticsEnabled: Bool {
         return !isSimulator() && !isRunningUnitTests()
     }
 
-    private static let sharedInstance = AnalyticsService()
+    fileprivate static let sharedInstance = AnalyticsService()
 
     class func sharedService() -> AnalyticsService {
         return sharedInstance
@@ -30,71 +30,71 @@ class AnalyticsService: NSObject {
         if analyticsEnabled {
             let configuration = SEGAnalyticsConfiguration(writeKey: "7c9wf6cpxb")
             //SEGAnalytics.debug(true)
-            configuration.flushAt = 1
+            configuration?.flushAt = 1
             log("Segment.io enabled with version \(SEGAnalytics.version())")
-            SEGAnalytics.setupWithConfiguration(configuration)
+            SEGAnalytics.setup(with: configuration)
         }
     }
 
     // MARK: Analytics session management
 
-    func identify(user: User) {
+    func identify(_ user: User) {
         if analyticsEnabled {
-            let analytics = SEGAnalytics.sharedAnalytics()
+            let analytics = SEGAnalytics.shared()
             log("Analytics Identify: User id = \(user.id)")
-            analytics.identify("\(user.id)", traits: user.toDictionary())
+            analytics?.identify("\(user.id)", traits: user.toDictionary())
         }
     }
 
     func logout() {
         if analyticsEnabled {
-            SEGAnalytics.sharedAnalytics().reset()
+            SEGAnalytics.shared().reset()
         }
     }
 
     // MARK: Event tracking methods
 
-    func track(event: String) {
+    func track(_ event: String) {
         track(event, properties: nil, options: nil)
     }
 
-    func track(event: String, properties: [String : AnyObject]) {
+    func track(_ event: String, properties: [String : AnyObject]) {
         track(event, properties: properties, options: nil)
     }
 
-    func track(event: String, properties: [String : AnyObject]?, options: [String : AnyObject]? = nil) {
+    func track(_ event: String, properties: [String : AnyObject]?, options: [String : AnyObject]? = nil) {
         if analyticsEnabled {
             var message = "Track: \(event)"
             if let populatedProperties = properties {
                 message += "\nproperties = \(populatedProperties)"
             }
             log(message)
-            SEGAnalytics.sharedAnalytics().track(event, properties: properties, options: options)
+            SEGAnalytics.shared().track(event, properties: properties, options: options)
         }
     }
 
     // MARK: UI event tracking methods
 
-    func screen(screenTitle: String) {
+    func screen(_ screenTitle: String) {
         screen(screenTitle, properties: nil, options: nil)
     }
 
-    func screen(screenTitle: String, properties: [String : AnyObject]) {
+    func screen(_ screenTitle: String, properties: [String : AnyObject]) {
         screen(screenTitle, properties: properties, options: nil)
     }
 
-    func screen(screenTitle: String, properties: [String : AnyObject]?, options: [String : AnyObject]?) {
+    func screen(_ screenTitle: String, properties: [String : AnyObject]?, options: [String : AnyObject]?) {
         if analyticsEnabled {
             var message = "Screen: \(screenTitle)"
             if let populatedProperties = properties {
                 message += "\nproperties = \(populatedProperties)"
             }
             log(message)
-            SEGAnalytics.sharedAnalytics().screen(screenTitle, properties: properties, options: options)
+            SEGAnalytics.shared().screen(screenTitle, properties: properties, options: options)
         }
     }
 
-    func viewDidAppearForController(controller: UIViewController, animated: Bool) {
+    func viewDidAppearForController(_ controller: UIViewController, animated: Bool) {
         if analyticsEnabled {
             let className = classNameForObject(controller)
 
@@ -104,7 +104,7 @@ class AnalyticsService: NSObject {
         }
     }
 
-    private func shouldIgnoreViewController(className: String) -> Bool {
+    fileprivate func shouldIgnoreViewController(_ className: String) -> Bool {
         let prefixes = ["UI", "_", "DD", "MK"]
         for prefix in prefixes {
             if className.hasPrefix(prefix) {

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -27,8 +27,8 @@ class Contact: Model {
     var longitude: NSNumber!
     
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             "name",
             "address1",
@@ -45,7 +45,7 @@ class Contact: Model {
             "longitude",
             ]
         )
-        return mapping
+        return mapping!
     }
 
     var address: String {

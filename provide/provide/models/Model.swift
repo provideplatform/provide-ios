@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -13,26 +13,26 @@ import KTSwiftExtensions
 class Model: NSObject {
 
     class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        return mapping
+        let mapping = RKObjectMapping(for: self)
+        return mapping!
     }
 
     internal var ivars: [String] {
         var count: UInt32 = 0
-        let ivars: UnsafeMutablePointer<Ivar> = class_copyIvarList(self.dynamicType, &count)
+        let ivars: UnsafeMutablePointer<Ivar?> = class_copyIvarList(type(of: self), &count)
 
         var ivarStrings = [String]()
         for i in 0..<count {
-            let key = NSString(CString: ivar_getName(ivars[Int(i)]), encoding: NSUTF8StringEncoding) as! String
+            let key = NSString(cString: ivar_getName(ivars[Int(i)]), encoding: String.Encoding.utf8.rawValue) as! String
             ivarStrings.append(key)
         }
-        ivars.dealloc(Int(count))
+        ivars.deallocate(capacity: Int(count))
         return ivarStrings
     }
 
-    internal var lastRefreshDate: NSDate!
+    internal var lastRefreshDate: Date!
 
-    func timeIntervalSinceLastRefreshDate() -> NSTimeInterval {
+    func timeIntervalSinceLastRefreshDate() -> TimeInterval {
         if let lastRefreshDate = lastRefreshDate {
             return abs(lastRefreshDate.timeIntervalSinceNow)
         }
@@ -51,14 +51,14 @@ class Model: NSObject {
     required init(string: String) {
         super.init()
 
-        let data = string.dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = string.data(using: String.Encoding.utf8)!
         let dictionary = decodeJSON(data)
 
         for (key, var value) in dictionary {
             var camelCaseKey = key.snakeCaseToCamelCaseString()
 
             var clazz: Model.Type?
-            if let relationshipMapping = self.dynamicType.self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
+            if let relationshipMapping = type(of: self).self.mapping().propertyMappingsByDestinationKeyPath[camelCaseKey] as? RKRelationshipMapping {
                 clazz = (relationshipMapping.mapping as! RKObjectMapping).objectClass as? Model.Type
             }
 
@@ -74,7 +74,7 @@ class Model: NSObject {
                     for v in value as! NSArray {
                         newValue.append(clazz.init(string: (v as! NSDictionary).toJSON()))
                     }
-                    value = newValue
+                    value = newValue as AnyObject
                 } else {
                     value = value as! NSArray
                 }
@@ -84,34 +84,34 @@ class Model: NSObject {
                 camelCaseKey = "senderID" // HACK to accommodate creating a Message object
             }
 
-            if !value.isKindOfClass(NSNull) {
+            if !(value is NSNull) {
                 setValue(value, forKey: camelCaseKey)
             }
         }
     }
 
-    func toDictionary(snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
+    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = [String : AnyObject]()
 
         for ivar in ivars {
             var key = ivar
             var value: AnyObject = NSNull()
 
-            if ignoreKeys.indexOf(key) == nil {
-                if let unwrappedValue = valueForKey(key) {
-                    value = unwrappedValue
+            if ignoreKeys.index(of: key) == nil {
+                if let unwrappedValue = self.value(forKey: key) {
+                    value = unwrappedValue as AnyObject
                     if value is Model {
-                        value = (value as! Model).toDictionary(snakeKeys)
+                        value = (value as! Model).toDictionary(snakeKeys) as AnyObject
                     } else if value is [Model] {
                         var newValue = [AnyObject]()
                         for val in value as! [Model] {
-                            newValue.append(val.toDictionary(snakeKeys))
+                            newValue.append(val.toDictionary(snakeKeys) as AnyObject)
                         }
-                        value = newValue
+                        value = newValue as AnyObject
                     }
                 }
 
-                if !value.isKindOfClass(NSNull) || includeNils {
+                if !(value is NSNull) || includeNils {
                     key = snakeKeys ? key.snakeCaseString() : key
                     dictionary[key] = value
                 }
@@ -120,33 +120,33 @@ class Model: NSObject {
 
         if let id = dictionary["id"] as? Int {
             if id == 0 {
-                dictionary.removeValueForKey("id")
+                dictionary.removeValue(forKey: "id")
             }
         }
 
         return dictionary
     }
 
-    func toJSONString(snakeCaseKeys: Bool = false) -> String {
+    func toJSONString(_ snakeCaseKeys: Bool = false) -> String {
         return toDictionary(false).toJSONString()
     }
 
-    override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+    override func setValue(_ value: Any?, forUndefinedKey key: String) {
 
     }
 
-    override func valueForUndefinedKey(key: String) -> AnyObject? {
+    override func value(forUndefinedKey key: String) -> Any? {
         return nil
     }
 
-    override func validateValue(ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {
-        if ioValue.memory != nil {
-            if ioValue.memory is NSNull {
-                ioValue.memory = nil
+    override func validateValue(_ ioValue: AutoreleasingUnsafeMutablePointer<AnyObject?>, forKeyPath inKeyPath: String) throws {
+        if ioValue.pointee != nil {
+            if ioValue.pointee is NSNull {
+                ioValue.pointee = nil
                 return
             }
         }
-        lastRefreshDate = NSDate()
+        lastRefreshDate = Date()
         try super.validateValue(ioValue, forKeyPath: inKeyPath)
     }
 }

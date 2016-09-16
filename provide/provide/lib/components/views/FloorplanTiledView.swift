@@ -31,28 +31,28 @@ class FloorplanTiledView: UIView {
         }
     }
 
-    private var baseUrl: NSURL! {
+    fileprivate var baseUrl: URL! {
         if let floorplan = floorplan {
             if let tilingBaseUrl = floorplan.tilingBaseUrl {
-                return NSURL("\(tilingBaseUrl.absoluteString)")
+                return URL(string: "\(tilingBaseUrl.absoluteString)")
             }
         }
         return nil
     }
 
-    override class func layerClass() -> AnyClass {
+    override class var layerClass : AnyClass {
         return CATiledLayer.self
     }
 
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         let ctx = UIGraphicsGetCurrentContext()
         
-        let ctm = CGContextGetCTM(ctx)
-        let scaleX = ctm.a
-        let scaleY = ctm.d
+        let ctm = ctx?.ctm
+        let scaleX = ctm?.a
+        let scaleY = ctm?.d
 
-        let tileSize = CGSize(width: (layer as! CATiledLayer).tileSize.width / scaleX,
-                              height: (layer as! CATiledLayer).tileSize.height / -scaleY)
+        let tileSize = CGSize(width: (layer as! CATiledLayer).tileSize.width / scaleX!,
+                              height: (layer as! CATiledLayer).tileSize.height / (scaleY! * -1.0))
 
         let z = zoomLevel ?? 0
         let x = Int(rect.origin.x / tileSize.width)
@@ -61,17 +61,17 @@ class FloorplanTiledView: UIView {
         let tilePoint = CGPoint(x: CGFloat(x) * CGFloat(rect.width),
                                 y: CGFloat(y) * CGFloat(rect.height))
 
-        let url = NSURL("\(baseUrl.absoluteString)/\(z)-\(x)-\(y).png")
+        let url = URL(string: "\(baseUrl.absoluteString)/\(z)-\(x)-\(y).png")
 
-        if let image = ImageService.sharedService().fetchImageSync(url) {
-            image.drawAtPoint(tilePoint)
+        if let image = ImageService.sharedService().fetchImageSync(url!) {
+            image.draw(at: tilePoint)
         } else {
-            CGContextSetFillColorWithColor(ctx, UIColor.clearColor().CGColor)
-            CGContextFillRect(ctx, rect)
+            ctx?.setFillColor(UIColor.clear.cgColor)
+            ctx?.fill(rect)
 
-            ImageService.sharedService().fetchImage(url, cacheOnDisk: true,
+            ImageService.sharedService().fetchImage(url!, cacheOnDisk: true,
                 onDownloadSuccess: { image in
-                    self.layer.setNeedsDisplayInRect(rect)
+                    self.layer.setNeedsDisplayIn(rect)
                 },
                 onDownloadFailure: { error in
                     // no-op -- expect failure for "empty" tiles
@@ -80,7 +80,7 @@ class FloorplanTiledView: UIView {
                     if expectedSize != -1 {
                         let percentage: Float = Float(receivedSize) / Float(expectedSize)
                         if percentage == 1.0 {
-                            self.layer.setNeedsDisplayInRect(rect)
+                            self.layer.setNeedsDisplayIn(rect)
                         }
                     }
                 }
@@ -88,7 +88,7 @@ class FloorplanTiledView: UIView {
         }
     }
 
-    func applyOffsetCorrection(scrollView: UIScrollView) {
+    func applyOffsetCorrection(_ scrollView: UIScrollView) {
         if let floorplan = floorplan {
             if zoomLevel < floorplan.zoomLevels.count {
                 if let level = floorplan.zoomLevels[zoomLevel] as? [String : AnyObject] {

@@ -32,8 +32,8 @@ class Floorplan: Model {
     var workOrders: [WorkOrder]!
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "job_id": "jobId",
             "name": "name",
@@ -50,9 +50,9 @@ class Floorplan: Model {
             "tiling_completion": "tilingCompletion",
             "tiling_metadata": "tilingMetadata",
             ])
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", withMapping: Attachment.mappingWithRepresentations()))
-        mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", withMapping: Attachment.mappingWithRepresentations()))
-        return mapping
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", with: Attachment.mappingWithRepresentations()))
+        return mapping!
     }
 
     var zoomLevels: NSArray! {
@@ -67,7 +67,7 @@ class Floorplan: Model {
     var minimumZoomScale: CGFloat {
         if let zoomLevels = zoomLevels {
             if zoomLevels.count > 0 {
-                if let minimumZoomLevel = zoomLevels.objectAtIndex(0) as? [String : AnyObject] {
+                if let minimumZoomLevel = zoomLevels.object(at: 0) as? [String : AnyObject] {
                     if let scale = minimumZoomLevel["scale"] as? CGFloat {
                         return scale
                     }
@@ -80,7 +80,7 @@ class Floorplan: Model {
     var maximumZoomScale: CGFloat {
         if let zoomLevels = zoomLevels {
             if zoomLevels.count > 0 {
-                if let maximumZoomLevel = zoomLevels.objectAtIndex(zoomLevels.count - 1) as? [String : AnyObject] {
+                if let maximumZoomLevel = zoomLevels.object(at: zoomLevels.count - 1) as? [String : AnyObject] {
                     if let scale = maximumZoomLevel["scale"] as? CGFloat {
                         return scale
                     }
@@ -103,33 +103,33 @@ class Floorplan: Model {
         return nil
     }
 
-    var thumbnailImageUrl: NSURL! {
+    var thumbnailImageUrl: URL! {
         if let thumbnailImageUrlString = thumbnailImageUrlString {
-            return NSURL(string: thumbnailImageUrlString)
+            return URL(string: thumbnailImageUrlString)
         }
         return nil
     }
 
-    var tilingBaseUrl: NSURL! {
+    var tilingBaseUrl: URL! {
         if let tilingBaseUrlString = tilingBaseUrlString {
-            return NSURL(string: tilingBaseUrlString)
+            return URL(string: tilingBaseUrlString)
         }
         return nil
     }
 
-    var imageUrl: NSURL! {
+    var imageUrl: URL! {
         if totalDeviceMemoryInGigabytes() >= 1.0 {
             if let imageUrlString = imageUrlString300dpi {
-                return NSURL(imageUrlString)
+                return URL(string: imageUrlString)
             }
         } else {
             if isIPad() || isIPhone6Plus() {
                 if let imageUrlString = imageUrlString150dpi {
-                    return NSURL(imageUrlString)
+                    return URL(string: imageUrlString)
                 }
             } else {
                 if let imageUrlString = imageUrlString72dpi {
-                    return NSURL(imageUrlString)
+                    return URL(string: imageUrlString)
                 }
             }
         }
@@ -141,47 +141,47 @@ class Floorplan: Model {
         return nil
     }
 
-    func fetchAnnotations(params: [String : AnyObject], onSuccess: OnSuccess, onError: OnError) {
+    func fetchAnnotations(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         annotations = [Annotation]()
 
         ApiService.sharedService().fetchAnnotationsForFloorplanWithId(String(id), params: params,
             onSuccess: { statusCode, mappingResult in
-                for annotation in mappingResult.array() as! [Annotation] {
+                for annotation in mappingResult?.array() as! [Annotation] {
                     self.annotations.append(annotation)
                 }
-                onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                onSuccess(statusCode, mappingResult)
             }, onError: { error, statusCode, responseString in
-                onError(error: error, statusCode: statusCode, responseString: responseString)
+                onError(error, statusCode, responseString)
             }
         )
     }
 
-    func save(onSuccess onSuccess: OnSuccess, onError: OnError) {
+    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
-        params.removeValueForKey("id")
+        params.removeValue(forKey: "id")
 
         if id > 0 {
             ApiService.sharedService().updateFloorplanWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         } else {
-            if let pdfUrl = params.removeValueForKey("pdf_url_string") {
+            if let pdfUrl = params.removeValue(forKey: "pdf_url_string") {
                 params["pdf_url"] = pdfUrl
             }
 
             ApiService.sharedService().createFloorplan(params,
                 onSuccess: { statusCode, mappingResult in
-                    let floorplan = mappingResult.firstObject as! Floorplan
+                    let floorplan = mappingResult?.firstObject as! Floorplan
                     self.id = floorplan.id
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
-                    onError(error: error, statusCode: statusCode, responseString: responseString)
+                    onError(error, statusCode, responseString)
                 }
             )
         }

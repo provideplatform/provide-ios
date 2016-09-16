@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -24,7 +24,7 @@ class RoundedButton: UIButton {
 
         roundCorners(5.0)
 
-        addTarget(self, action: #selector(RoundedButton.onTouchUpInside(_:)), forControlEvents: .TouchUpInside)
+        addTarget(self, action: #selector(RoundedButton.onTouchUpInside(_:)), for: .touchUpInside)
     }
 
     var titleText: String = "" {
@@ -33,10 +33,10 @@ class RoundedButton: UIButton {
         }
     }
 
-    override var highlighted: Bool {
+    override var isHighlighted: Bool {
         didSet {
-            if highlighted {
-                backgroundColor = UIColor.darkGrayColor()
+            if isHighlighted {
+                backgroundColor = UIColor.darkGray
             } else {
                 backgroundColor = initialBackgroundColor
             }
@@ -47,7 +47,7 @@ class RoundedButton: UIButton {
 
     var onTouchUpInsideCallback: VoidBlock!
 
-    func onTouchUpInside(sender: RoundedButton) {
+    func onTouchUpInside(_ sender: RoundedButton) {
         if let callback = onTouchUpInsideCallback {
             callback()
         }

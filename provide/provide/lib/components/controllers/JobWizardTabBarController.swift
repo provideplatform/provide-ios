@@ -3,12 +3,32 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import FontAwesomeKit
 import KTSwiftExtensions
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class JobWizardTabBarController: UITabBarController,
                                  UITabBarControllerDelegate,
@@ -21,7 +41,7 @@ class JobWizardTabBarController: UITabBarController,
         }
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         if let job = job {
             navigationItem.title = job.name
             //navigationItem.prompt = job.status
@@ -29,9 +49,9 @@ class JobWizardTabBarController: UITabBarController,
             navigationItem.rightBarButtonItems = [taskListItem]
 
             if job.isResidential || job.isPunchlist {
-                viewControllers?.removeAtIndex(3)
-                viewControllers?.removeAtIndex(2)
-                viewControllers?.removeAtIndex(1)
+                viewControllers?.remove(at: 3)
+                viewControllers?.remove(at: 2)
+                viewControllers?.remove(at: 1)
 
                 if job.isResidential {
                     if let viewController = viewControllers?.first {
@@ -42,14 +62,14 @@ class JobWizardTabBarController: UITabBarController,
 
             if job.status == "pending_completion" || job.status == "completed" || job.status == "canceled" {
                 if let count = viewControllers?.count {
-                    viewControllers?.removeAtIndex(count - 1)
+                    viewControllers?.remove(at: count - 1)
                 }
 
-                let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewControllerWithIdentifier("JobReviewNavigationController")
+                let reviewNavigationController = UIStoryboard("JobWizard").instantiateViewController(withIdentifier: "JobReviewNavigationController")
                 viewControllers?.append(reviewNavigationController)
             }
 
-            if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+            if let jobFloorplansViewControllerIndex = tabBar.items!.index(of: setupFloorplansTabBarItem) {
                 if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                     jobFloorplansViewController.refresh()
                 }
@@ -68,14 +88,14 @@ class JobWizardTabBarController: UITabBarController,
         }
     }
 
-    private var setupFloorplansTabBarItem: UITabBarItem! {
+    fileprivate var setupFloorplansTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             return items[0]
         }
         return nil
     }
 
-    private var setupTeamTabBarItem: UITabBarItem! {
+    fileprivate var setupTeamTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             let index = job.isCommercial ? 1 : -1
             if index != -1 {
@@ -85,7 +105,7 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    private var setupInventoryTabBarItem: UITabBarItem! {
+    fileprivate var setupInventoryTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             let index = job.isCommercial ? 2 : -1
             if index != -1 {
@@ -95,7 +115,7 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    private var setupWorkOrdersTabBarItem: UITabBarItem! {
+    fileprivate var setupWorkOrdersTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             let index = job.isCommercial ? 3 : (job.isResidential || job.isPunchlist ? 1 : -1)
             if index != -1 {
@@ -105,7 +125,7 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    private var manageJobTabBarItem: UITabBarItem! {
+    fileprivate var manageJobTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             let index = job.isCommercial ? 4 : (job.isResidential || job.isPunchlist ? 1 : -1)
             if index != -1 {
@@ -115,7 +135,7 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    private var reviewTabBarItem: UITabBarItem! {
+    fileprivate var reviewTabBarItem: UITabBarItem! {
         if let items = tabBar.items {
             let index = job.isCommercial ? 4 : (job.isResidential || job.isPunchlist ? 2 : -1)
             if index != -1 {
@@ -125,7 +145,7 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    private var isEditMode: Bool {
+    fileprivate var isEditMode: Bool {
         if let _ = job {
             let hasFloorplan = job.floorplans?.count > 0
             let hasScale = hasFloorplan && job.floorplans?.first!.scale != nil
@@ -137,7 +157,7 @@ class JobWizardTabBarController: UITabBarController,
         return false
     }
 
-    private var shouldRenderFloorplanSetup: Bool {
+    fileprivate var shouldRenderFloorplanSetup: Bool {
         if let job = job {
             let hasFloorplan = job.floorplans?.count > 0
             let hasScale = hasFloorplan && job.floorplans?.first!.scale != nil
@@ -161,7 +181,7 @@ class JobWizardTabBarController: UITabBarController,
         return false
     }
 
-    private var shouldRenderTeamSetup: Bool {
+    fileprivate var shouldRenderTeamSetup: Bool {
         if let job = job {
             if let supervisors = job.supervisors {
                 return !isEditMode && supervisors.count == 0
@@ -170,7 +190,7 @@ class JobWizardTabBarController: UITabBarController,
         return false
     }
 
-    private var shouldRenderInventorySetup: Bool {
+    fileprivate var shouldRenderInventorySetup: Bool {
         if let job = job {
             if let materials = job.materials {
                 return !isEditMode && materials.count == 0
@@ -179,27 +199,27 @@ class JobWizardTabBarController: UITabBarController,
         return false
     }
 
-    private var shouldRenderWorkOrderSetup: Bool {
+    fileprivate var shouldRenderWorkOrderSetup: Bool {
         if let job = job {
             return !isEditMode && !shouldRenderFloorplanSetup && job.workOrdersCount == 0
         }
         return false
     }
 
-    private var shouldRenderManageJob: Bool {
+    fileprivate var shouldRenderManageJob: Bool {
         return isEditMode
     }
 
-    private var shouldRenderReviewAndComplete: Bool {
+    fileprivate var shouldRenderReviewAndComplete: Bool {
         if let job = job {
             return job.isReviewMode
         }
         return false
     }
 
-    private var taskListItem: UIBarButtonItem! {
-        let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: #selector(JobWizardTabBarController.showTaskList(_:)))
+    fileprivate var taskListItem: UIBarButtonItem! {
+        let taskListIconImage = FAKFontAwesome.tasksIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
+        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .plain, target: self, action: #selector(JobWizardTabBarController.showTaskList(_:)))
         taskListItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return taskListItem
     }
@@ -211,7 +231,7 @@ class JobWizardTabBarController: UITabBarController,
 
         dispatch_after_delay(0.0) { [weak self] in
             for viewController in self!.viewControllers! {
-                if viewController.isKindOfClass(JobWizardViewController) {
+                if viewController is JobWizardViewController {
                     (viewController as! JobWizardViewController).jobWizardViewControllerDelegate = self!
                 }
             }
@@ -221,15 +241,15 @@ class JobWizardTabBarController: UITabBarController,
 
         setupTabBarAppearence()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("JobDidTransitionToPendingCompletion") { notification in
+        NotificationCenter.default.addObserverForName("JobDidTransitionToPendingCompletion") { notification in
             if let job = self.job {
                 if let changedJob = notification.object {
-                    if job.id == changedJob.id {
+                    if job.id == (changedJob as AnyObject).id {
                         self.job = changedJob as! Job
                         self.selectInitialTabBarItem()
                         if let reviewNavigationController = self.viewControllers!.last! as? UINavigationController {
                             let rootViewController = reviewNavigationController.viewControllers.first!
-                            if rootViewController.isKindOfClass(JobReviewViewController) {
+                            if rootViewController is JobReviewViewController {
                                 (rootViewController as! JobReviewViewController).job = self.job
                             }
                         }
@@ -239,26 +259,26 @@ class JobWizardTabBarController: UITabBarController,
         }
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
 
-    func showTaskList(sender: UIBarButtonItem) {
+    func showTaskList(_ sender: UIBarButtonItem) {
         let taskListNavigationController = UIStoryboard("TaskList").instantiateInitialViewController() as! UINavigationController
         (taskListNavigationController.viewControllers.first! as! TaskListViewController).taskListViewControllerDelegate = self
-        taskListNavigationController.modalPresentationStyle = .Popover
-        taskListNavigationController.preferredContentSize = CGSizeMake(300, 250)
+        taskListNavigationController.modalPresentationStyle = .popover
+        taskListNavigationController.preferredContentSize = CGSize(width: 300, height: 250)
         taskListNavigationController.popoverPresentationController!.barButtonItem = sender
-        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.Right]
+        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.right]
         taskListNavigationController.popoverPresentationController!.canOverlapSourceViewRect = false
         presentViewController(taskListNavigationController, animated: true)
     }
 
-    func dismiss(sender: UIBarButtonItem) {
-        navigationController?.popViewControllerAnimated(true)
+    func dismiss(_ sender: UIBarButtonItem) {
+        let _ = navigationController?.popViewController(animated: true)
     }
 
-    private func setupTabBarAppearence() {
+    fileprivate func setupTabBarAppearence() {
         //tabBar.frame.size.height = 60.0
 
         //var cropRect = tabBar.frame
@@ -271,14 +291,14 @@ class JobWizardTabBarController: UITabBarController,
         refreshSelectionIndicatorImageViewFrame()
     }
 
-    private func refreshSelectionIndicatorImageViewFrame() {
+    fileprivate func refreshSelectionIndicatorImageViewFrame() {
         if let selectionIndicatorImage = tabBar.selectionIndicatorImage {
             for view in tabBar.subviews {
                 for v in view.subviews {
-                    if v.isKindOfClass(UIImageView) {
+                    if v.isKind(of: UIImageView.self) {
                         if (v as! UIImageView).image == selectionIndicatorImage {
                             //v.frame = CGRectInset(v.frame, 0.0, -12.0)
-                            view.sendSubviewToBack(v)
+                            view.sendSubview(toBack: v)
                         }
                     }
                 }
@@ -286,7 +306,7 @@ class JobWizardTabBarController: UITabBarController,
         }
     }
 
-    private func selectInitialTabBarItem() {
+    fileprivate func selectInitialTabBarItem() {
         var item: UITabBarItem?
 
         if shouldRenderReviewAndComplete {
@@ -304,19 +324,19 @@ class JobWizardTabBarController: UITabBarController,
         }
 
         if let item = item {
-            selectedIndex = tabBar.items!.indexOf(item)!
+            selectedIndex = tabBar.items!.index(of: item)!
         }
     }
 
     // MARK: UITabBarControllerDelegate
 
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if let job = job {
-            if viewController.isKindOfClass(UINavigationController) {
+            if viewController.isKind(of: UINavigationController.self) {
                 if (viewController as! UINavigationController).viewControllers.count == 1 {
                     let rootViewController = (viewController as! UINavigationController).viewControllers.first!
-                    if rootViewController.isKindOfClass(JobReviewViewController) {
-                        let shouldSelectViewController = ["pending_completion", "canceled", "completed"].indexOf(job.status) != nil
+                    if rootViewController.isKind(of: JobReviewViewController.self) {
+                        let shouldSelectViewController = ["pending_completion", "canceled", "completed"].index(of: job.status) != nil
                         if shouldSelectViewController {
                             (rootViewController as! JobReviewViewController).job = job
                         }
@@ -328,21 +348,21 @@ class JobWizardTabBarController: UITabBarController,
         return true
     }
 
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         refreshSelectionIndicatorImageViewFrame()
     }
 
     // MARK: JobWizardViewControllerDelegate
 
-    func jobForJobWizardViewController(viewController: JobWizardViewController) -> Job! {
+    func jobForJobWizardViewController(_ viewController: JobWizardViewController) -> Job! {
         return job
     }
 
-    func floorplanImageForJobWizardViewController(viewController: JobWizardViewController) -> UIImage! {
-        if viewController.isKindOfClass(UINavigationController) {
+    func floorplanImageForJobWizardViewController(_ viewController: JobWizardViewController) -> UIImage! {
+        if viewController.isKind(of: UINavigationController.self) {
             let rootViewController = (viewController as UINavigationController).viewControllers.first!
             if let _ = rootViewController as? FloorplanViewController {
-                if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+                if let jobFloorplansViewControllerIndex = tabBar.items!.index(of: setupFloorplansTabBarItem) {
                     if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                         if let floorplanImage = jobFloorplansViewController.teardownFloorplanViewController() {
                             return floorplanImage
@@ -350,7 +370,7 @@ class JobWizardTabBarController: UITabBarController,
                     }
                 }
             } else if let _ = rootViewController as? JobFloorplansViewController {
-                if let floorplanViewControllerIndex = tabBar.items!.indexOf(setupWorkOrdersTabBarItem) {
+                if let floorplanViewControllerIndex = tabBar.items!.index(of: setupWorkOrdersTabBarItem) {
                     if let floorplanViewController = (viewControllers![floorplanViewControllerIndex] as! UINavigationController).viewControllers.first! as? FloorplanViewController {
                         return floorplanViewController.teardown()
                     }
@@ -360,8 +380,8 @@ class JobWizardTabBarController: UITabBarController,
         return nil
     }
 
-    func jobWizardViewController(viewController: JobWizardViewController, didSetScaleForFloorplanViewController floorplanViewController: FloorplanViewController) {
-        if let jobFloorplansViewControllerIndex = tabBar.items!.indexOf(setupFloorplansTabBarItem) {
+    func jobWizardViewController(_ viewController: JobWizardViewController, didSetScaleForFloorplanViewController floorplanViewController: FloorplanViewController) {
+        if let jobFloorplansViewControllerIndex = tabBar.items!.index(of: setupFloorplansTabBarItem) {
             if let jobFloorplansViewController = (viewControllers![jobFloorplansViewControllerIndex] as! UINavigationController).viewControllers.first! as? JobFloorplansViewController {
                 jobFloorplansViewController.refresh()
             }
@@ -370,12 +390,12 @@ class JobWizardTabBarController: UITabBarController,
 
     // MARK: TaskListViewControllerDelegate
 
-    func jobForTaskListViewController(viewController: TaskListViewController) -> Job! {
+    func jobForTaskListViewController(_ viewController: TaskListViewController) -> Job! {
         return job
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         logInfo("Deinitialize JobWizardTabBarController")
     }
 }

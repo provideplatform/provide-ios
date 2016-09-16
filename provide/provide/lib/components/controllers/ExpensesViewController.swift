@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/8/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,9 +12,9 @@ import KTSwiftExtensions
 
 @objc
 protocol ExpensesViewControllerDelegate {
-    optional func expensesViewControllerShouldEnableAddExpenseItem(viewController: ExpensesViewController) -> Bool
-    optional func expenseCaptureViewControllerDelegateForExpensesViewController(viewController: ExpensesViewController) -> AnyObject!
-    optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
+    @objc optional func expensesViewControllerShouldEnableAddExpenseItem(_ viewController: ExpensesViewController) -> Bool
+    @objc optional func expenseCaptureViewControllerDelegateForExpensesViewController(_ viewController: ExpensesViewController) -> AnyObject!
+    @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
 }
 
 class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
@@ -28,7 +28,7 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
                 }
 
                 if let enabledAddExpenseItem = delegate.expensesViewControllerShouldEnableAddExpenseItem?(self) {
-                    addExpenseItem?.enabled = enabledAddExpenseItem
+                    addExpenseItem?.isEnabled = enabledAddExpenseItem
                 }
             }
         }
@@ -40,28 +40,28 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    @IBOutlet private weak var addExpenseItem: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var addExpenseItem: UIBarButtonItem! {
         didSet {
             if let addExpenseItem = addExpenseItem {
-                let addExpenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
+                let addExpenseItemImage = FAKFontAwesome.dollarIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
                 addExpenseItem.image = addExpenseItemImage
                 addExpenseItem.target = self
                 addExpenseItem.action = #selector(ExpensesViewController.expense(_:))
 
                 if let delegate = delegate {
                     if let enabledAddExpenseItem = delegate.expensesViewControllerShouldEnableAddExpenseItem?(self) {
-                        addExpenseItem.enabled = enabledAddExpenseItem
+                        addExpenseItem.isEnabled = enabledAddExpenseItem
                     }
                 }
             }
         }
     }
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(ExpensesViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(ExpensesViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
 
@@ -75,26 +75,26 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == "ExpenseViewControllerSegue" {
-            let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)!
-            (segue.destinationViewController as! ExpenseViewController).expense = expenses[indexPath.row]
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)!
+            (segue.destination as! ExpenseViewController).expense = expenses[(indexPath as NSIndexPath).row]
         }
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
 
-    func expense(sender: UIBarButtonItem!) {
+    func expense(_ sender: UIBarButtonItem!) {
         let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
-        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+        expenseCaptureViewController.modalPresentationStyle = .overCurrentContext
 
         if let expenseCaptureViewControllerDelegate = delegate?.expenseCaptureViewControllerDelegateForExpensesViewController?(self) {
             if expenseCaptureViewControllerDelegate is ExpenseCaptureViewControllerDelegate {
@@ -161,7 +161,7 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
 //    // -tableView:shouldHighlightRowAtIndexPath: is called when a touch comes down on a row.
 //    // Returning NO to that message halts the selection process and does not cause the currently selected row to lose its selected look while the touch is down.
 //    @available(iOS 6.0, *)
-    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 //    @available(iOS 6.0, *)
@@ -234,16 +234,16 @@ class ExpensesViewController: ViewController, UITableViewDelegate, UITableViewDa
     // MARK: UITableViewDataSource
 
     //@available(iOS 2.0, *)
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return expenses.count
     }
 
     // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
     // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("expensesTableViewCellReuseIdentifier") as! ExpenseTableViewCell
-        cell.expense = expenses[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expensesTableViewCellReuseIdentifier") as! ExpenseTableViewCell
+        cell.expense = expenses[(indexPath as NSIndexPath).row]
         return cell
     }
 

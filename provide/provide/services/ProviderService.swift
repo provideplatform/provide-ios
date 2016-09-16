@@ -3,27 +3,27 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
-typealias OnProvidersFetched = (providers: [Provider]) -> ()
+typealias OnProvidersFetched = (_ providers: [Provider]) -> ()
 
 class ProviderService: NSObject {
 
-    private var providers = [Provider]()
+    fileprivate var providers = [Provider]()
 
-    private static let sharedInstance = ProviderService()
+    fileprivate static let sharedInstance = ProviderService()
 
     class func sharedService() -> ProviderService {
         return sharedInstance
     }
 
     func fetch(
-        page: Int = 1,
+        _ page: Int = 1,
         rpp: Int = 10,
-        onProvidersFetched: OnProvidersFetched)
+        onProvidersFetched: @escaping OnProvidersFetched)
     {
         var params = [
             "page": page,
@@ -34,12 +34,12 @@ class ProviderService: NSObject {
             params["company_id"] = defaultCompanyId
         }
 
-        ApiService.sharedService().fetchProviders(params,
+        ApiService.sharedService().fetchProviders(params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
-                let fetchedProviders = mappingResult.array() as! [Provider]
+                let fetchedProviders = mappingResult?.array() as! [Provider]
                 self.providers += fetchedProviders
 
-                onProvidersFetched(providers: fetchedProviders)
+                onProvidersFetched(fetchedProviders)
             },
             onError: { error, statusCode, responseString in
                 // TODO

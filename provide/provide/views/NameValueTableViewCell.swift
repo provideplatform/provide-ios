@@ -3,26 +3,26 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/23/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class NameValueTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var valueLabel: UILabel!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var valueLabel: UILabel!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
-    func setName(name: String, value: String, valueFontSize: CGFloat = 13.0, showActivity: Bool = false) {
-        nameLabel?.hidden = true
-        valueLabel.hidden = true
+    func setName(_ name: String, value: String, valueFontSize: CGFloat = 13.0, showActivity: Bool = false) {
+        nameLabel?.isHidden = true
+        valueLabel.isHidden = true
 
         nameLabel?.text = name
         nameLabel?.sizeToFit()
 
         valueLabel?.text = value
-        valueLabel?.font = valueLabel?.font.fontWithSize(valueFontSize)
+        valueLabel?.font = valueLabel?.font.withSize(valueFontSize)
         valueLabel?.sizeToFit()
 
 //        if nameLabel != nil && valueLabel != nil {
@@ -39,11 +39,11 @@ class NameValueTableViewCell: UITableViewCell {
             hideActivity()
         }
 
-        nameLabel?.hidden = false
-        valueLabel?.hidden = false
+        nameLabel?.isHidden = false
+        valueLabel?.isHidden = false
     }
 
-    func showActivity(resetName: Bool = true) {
+    func showActivity(_ resetName: Bool = true) {
         let name = resetName ? "" : nameLabel?.text
         setName(name!, value: "")
         activityIndicatorView?.startAnimating()
@@ -56,26 +56,26 @@ class NameValueTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        contentView.backgroundColor = UIColor.clearColor()
+        contentView.backgroundColor = UIColor.clear
 
         backgroundView = UIView(frame: bounds)
-        backgroundView?.backgroundColor = UIColor.clearColor()
+        backgroundView?.backgroundColor = UIColor.clear
 
         nameLabel?.text = ""
-        nameLabel?.hidden = true
+        nameLabel?.isHidden = true
 
         valueLabel?.text = ""
-        valueLabel?.hidden = true
+        valueLabel?.isHidden = true
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
         nameLabel?.text = ""
-        nameLabel?.hidden = true
+        nameLabel?.isHidden = true
 
         valueLabel?.text = ""
-        valueLabel.hidden = true
+        valueLabel.isHidden = true
 
         activityIndicatorView?.stopAnimating()
     }

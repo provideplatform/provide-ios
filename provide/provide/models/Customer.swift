@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -18,23 +18,23 @@ class Customer: Model {
     var profileImageUrlString: String!
     var contact: Contact!
 
-    var profileImageUrl: NSURL! {
+    var profileImageUrl: URL! {
         if let profileImageUrlString = profileImageUrlString {
-            return NSURL(string: profileImageUrlString)
+            return URL(string: profileImageUrlString)
         }
         return nil
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "company_id": "companyId",
             "name": "name",
             "display_name": "displayName",
             "profile_image_url": "profileImageUrlString"
         ])
-        mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        return mapping!
     }
 }

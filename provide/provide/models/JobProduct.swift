@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/8/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -20,8 +20,8 @@ class JobProduct: Model {
     var price = -1.0
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromDictionary([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id": "id",
             "job_id": "jobId",
             "product_id": "productId",
@@ -29,8 +29,8 @@ class JobProduct: Model {
             "remaining_quantity": "remainingQuantity",
             "price": "price",
             ])
-        mapping.addRelationshipMappingWithSourceKeyPath("product", mapping: Product.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "product", mapping: Product.mapping())
+        return mapping!
     }
 
     var percentageRemaining: CGFloat {
@@ -42,7 +42,7 @@ class JobProduct: Model {
     }
 
     var statusColor: UIColor! {
-        var statusColor = UIColor.clearColor()
+        var statusColor = UIColor.clear
         if remainingQuantity > 0.0 {
             let percentage = percentageRemaining
             if percentage <= 0.33 {

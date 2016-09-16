@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/9/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,21 +11,21 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol JobManagerViewControllerDelegate: NSObjectProtocol {
-    func jobManagerViewController(viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
-    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    func jobManagerViewController(viewController: JobManagerViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
-    func jobManagerViewController(viewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    func jobManagerViewController(viewController: JobManagerViewController, didCreateExpense expense: Expense)
+    func jobManagerViewController(_ viewController: JobManagerViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
+    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+    func jobManagerViewController(_ viewController: JobManagerViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
+    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
+    func jobManagerViewController(_ viewController: JobManagerViewController, didCreateExpense expense: Expense)
 }
 
 class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDelegate, CommentsViewControllerDelegate, ManifestViewControllerDelegate, ExpensesViewControllerDelegate, ExpenseCaptureViewControllerDelegate {
 
     weak var delegate: JobManagerViewControllerDelegate!
     
-    private var jobManagerHeaderViewController: JobManagerHeaderViewController!
-    private var commentsViewController: CommentsViewController!
-    private var manifestViewController: ManifestViewController!
+    fileprivate var jobManagerHeaderViewController: JobManagerHeaderViewController!
+    fileprivate var commentsViewController: CommentsViewController!
+    fileprivate var manifestViewController: ManifestViewController!
 
     weak var job: Job! {
         didSet {
@@ -33,23 +33,23 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         }
     }
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(JobManagerViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(JobManagerViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
 
-    private var startItem: UIBarButtonItem! {
-        let startItem = UIBarButtonItem(title: "START JOB", style: .Plain, target: self, action: #selector(JobManagerViewController.start(_:)))
-        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var startItem: UIBarButtonItem! {
+        let startItem = UIBarButtonItem(title: "START JOB", style: .plain, target: self, action: #selector(JobManagerViewController.start(_:)))
+        startItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return startItem
     }
 
-    private var reviewAndCompleteItem: UIBarButtonItem! {
-        let reviewAndCompleteItem = UIBarButtonItem(title: "REVIEW & COMPLETE", style: .Plain, target: self, action: #selector(JobManagerViewController.reviewAndComplete(_:)))
-        reviewAndCompleteItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var reviewAndCompleteItem: UIBarButtonItem! {
+        let reviewAndCompleteItem = UIBarButtonItem(title: "REVIEW & COMPLETE", style: .plain, target: self, action: #selector(JobManagerViewController.reviewAndComplete(_:)))
+        reviewAndCompleteItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return reviewAndCompleteItem
     }
 
@@ -69,7 +69,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         }
     }
 
-    func start(sender: UIBarButtonItem) {
+    func start(_ sender: UIBarButtonItem) {
         job.updateJobWithStatus("in_progress",
             onSuccess: { statusCode, mappingResult in
                 self.reload()
@@ -80,18 +80,18 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         )
     }
 
-    func reviewAndComplete(sender: UIBarButtonItem) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    func reviewAndComplete(_ sender: UIBarButtonItem) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to mark this job as ready for review?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-        let reviewAndCompleteAction = UIAlertAction(title: "Yes, Review & Complete Job", style: .Default) { action in
+        let reviewAndCompleteAction = UIAlertAction(title: "Yes, Review & Complete Job", style: .default) { action in
             self.job.updateJobWithStatus("pending_completion",
                 onSuccess: { statusCode, mappingResult in
                     self.reload()
-                    NSNotificationCenter.defaultCenter().postNotificationName("JobDidTransitionToPendingCompletion", object: self.job, userInfo: nil)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: "JobDidTransitionToPendingCompletion"), object: self.job, userInfo: nil)
                 },
                 onError: { error, statusCode, responseString in
 
@@ -103,43 +103,43 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         presentViewController(alertController, animated: true)
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let presentedViewController = presentedViewController {
-            if presentedViewController.isKindOfClass(UINavigationController) {
+            if presentedViewController.isKind(of: UINavigationController.self) {
                 let navigationController = presentedViewController as! UINavigationController
                 if navigationController.viewControllers.count > 1 {
-                    navigationController.popViewControllerAnimated(true)
+                    navigationController.popViewController(animated: true)
                 } else {
-                    navigationController.presentingViewController?.dismissViewController(animated: true)
+                    navigationController.presentingViewController?.dismissViewController(true)
                 }
             } else {
-                dismissViewController(animated: true)
+                dismissViewController(true)
 
             }
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "JobManagerHeaderViewControllerEmbedSegue" {
-            jobManagerHeaderViewController = segue.destinationViewController as! JobManagerHeaderViewController
+            jobManagerHeaderViewController = segue.destination as! JobManagerHeaderViewController
             jobManagerHeaderViewController.jobManagerHeaderViewControllerDelegate = self
         } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
-            commentsViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! CommentsViewController
+            commentsViewController = (segue.destination as! UINavigationController).viewControllers.first! as! CommentsViewController
             commentsViewController.commentsViewControllerDelegate = self
         } else if segue.identifier! == "ManifestViewControllerEmbedSegue" {
-            manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
+            manifestViewController = (segue.destination as! UINavigationController).viewControllers.first! as! ManifestViewController
             manifestViewController.title = "MATERIALS"
             manifestViewController.delegate = self
         } else if segue.identifier! == "ManifestViewControllerShowSegue" {
-            manifestViewController = (segue.destinationViewController as! UINavigationController).viewControllers.first! as! ManifestViewController
+            manifestViewController = (segue.destination as! UINavigationController).viewControllers.first! as! ManifestViewController
             manifestViewController.title = "MATERIALS"
             manifestViewController.delegate = self
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         dispatch_after_delay(0.0) {
@@ -149,14 +149,14 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     // MARK: ManifestViewControllerDelegate
 
-    func itemsForManifestViewController(viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
+    func itemsForManifestViewController(_ viewController: UIViewController, forSegmentIndex segmentIndex: Int) -> [Product]! {
         if segmentIndex == 0 {
             return job?.materials?.map({ $0.product })
         }
         return [Product]()
     }
     
-    func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
+    func workOrderForManifestViewController(_ viewController: UIViewController) -> WorkOrder! {
         return nil //workOrder
     }
 
@@ -166,25 +166,25 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     // MARK: JobManagerHeaderViewControllerDelegate
 
-    func jobManagerHeaderViewController(viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate! {
+    func jobManagerHeaderViewController(_ viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate! {
         return self
     }
 
     // MARK: CommentsViewControllerDelegate
 
-    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]! {
+    func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String : AnyObject]! {
         return [String : AnyObject]()
     }
 
-    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String {
+    func commentableTypeForCommentsViewController(_ viewController: CommentsViewController) -> String {
         return "job"
     }
 
-    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int {
+    func commentableIdForCommentsViewController(_ viewController: CommentsViewController) -> Int {
         return job.id
     }
 
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
+    func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
         if let job = job {
             job.addComment(comment,
                 onSuccess: { statusCode, mappingResult in
@@ -197,7 +197,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         }
     }
 
-    private func reload() {
+    fileprivate func reload() {
         if let job = job {
             if let jobManagerHeaderViewController = jobManagerHeaderViewController {
                 jobManagerHeaderViewController.job = job
@@ -227,7 +227,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         }
     }
 
-    private func reloadJobComments() {
+    fileprivate func reloadJobComments() {
         if let job = job {
             job.reloadComments(
                 { statusCode, mappingResult in
@@ -240,7 +240,7 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         }
     }
 
-    private func reloadJobManifest() {
+    fileprivate func reloadJobManifest() {
         if let job = job {
             job.reloadMaterials(
                 { statusCode, mappingResult in
@@ -256,22 +256,22 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     // MARK: ManifestViewControllerDelegate
 
-    func segmentsForManifestViewController(viewController: UIViewController) -> [String]! {
+    func segmentsForManifestViewController(_ viewController: UIViewController) -> [String]! {
         return ["MATERIALS"]
     }
 
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell! {
-        let cell = tableView.dequeueReusableCellWithIdentifier("jobProductTableViewCell") as! JobProductTableViewCell
+    func manifestViewController(_ viewController: UIViewController, tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell! {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "jobProductTableViewCell") as! JobProductTableViewCell
         cell.enableEdgeToEdgeDividers()
-        cell.jobProduct = job.materials[indexPath.row]
+        cell.jobProduct = job.materials[(indexPath as NSIndexPath).row]
         return cell
     }
 
-    func manifestViewController(viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("selected job product \(job.materials[indexPath.row])")
+    func manifestViewController(_ viewController: UIViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+        print("selected job product \(job.materials[(indexPath as NSIndexPath).row])")
     }
 
-    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem! {
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem! {
         let navigationItem = UINavigationItem()
         if viewController is ManifestViewController {
             navigationItem.title = segmentsForManifestViewController(viewController as! ManifestViewController)[0]
@@ -290,20 +290,20 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
         return navigationItem
     }
 
-    private var expenseItem: UIBarButtonItem! {
+    fileprivate var expenseItem: UIBarButtonItem! {
         if let job = job {
-            let expenseItemImage = FAKFontAwesome.dollarIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-            let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage, target: self, action: "expense:")
-            expenseBarButtonItem.enabled = ["configuring", "in_progress"].indexOfObject(job.status) != nil
+            let expenseItemImage = FAKFontAwesome.dollarIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))
+            let expenseBarButtonItem = NavigationBarButton.barButtonItemWithImage(expenseItemImage!, target: self, action: "expense:")
+            expenseBarButtonItem.isEnabled = ["configuring", "in_progress"].index(of: job.status) != nil
             return expenseBarButtonItem
         }
         return nil
     }
 
-    func expense(sender: UIBarButtonItem!) {
+    func expense(_ sender: UIBarButtonItem!) {
         if let navigationController = presentedViewController as? UINavigationController {
             let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
-            expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+            expenseCaptureViewController.modalPresentationStyle = .overCurrentContext
             expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
 
             navigationController.presentViewController(expenseCaptureViewController, animated: true)
@@ -312,21 +312,21 @@ class JobManagerViewController: ViewController, JobManagerHeaderViewControllerDe
 
     // MARK: ExpenseCaptureViewControllerDelegate
 
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
 
     }
 
-    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model {
+    func expensableForExpenseCaptureViewController(_ viewController: ExpenseCaptureViewController) -> Model {
         return job
     }
 
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
         if let jobManagerHeaderViewController = jobManagerHeaderViewController {
             jobManagerHeaderViewController.reloadJobFinancials()
         }
     }
 
-    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController) {
-        dismissViewController(animated: true)
+    func expenseCaptureViewControllerBeganCreatingExpense(_ viewController: ExpenseCaptureViewController) {
+        dismissViewController(true)
     }
 }

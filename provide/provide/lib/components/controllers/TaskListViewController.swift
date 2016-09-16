@@ -11,8 +11,8 @@ import KTSwiftExtensions
 
 @objc
 protocol TaskListViewControllerDelegate {
-    optional func jobForTaskListViewController(viewController: TaskListViewController) -> Job!
-    optional func workOrderForTaskListViewController(viewController: TaskListViewController) -> WorkOrder!
+    @objc optional func jobForTaskListViewController(_ viewController: TaskListViewController) -> Job!
+    @objc optional func workOrderForTaskListViewController(_ viewController: TaskListViewController) -> WorkOrder!
 }
 
 class TaskListViewController: UITableViewController, TaskListTableViewCellDelegate {
@@ -25,19 +25,19 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
         }
     }
 
-    private var page = 1
-    private let rpp = 10
-    private var lastTaskIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastTaskIndex = -1
 
-    private var tasks = [Task]() {
+    fileprivate var tasks = [Task]() {
         didSet {
             tableView?.reloadData()
         }
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(TaskListViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(TaskListViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
 
@@ -51,30 +51,30 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
         }
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count + 1
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskListTableViewCellReuseIdentifier") as! TaskListTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskListTableViewCellReuseIdentifier") as! TaskListTableViewCell
         cell.delegate = self
         cell.enableEdgeToEdgeDividers()
         
-        if indexPath.section == 0 && indexPath.row == 0 {
+        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0 {
             let task = Task()
             task.status = "incomplete"
 
@@ -82,13 +82,13 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
             return cell
         }
 
-        cell.task = tasks[indexPath.row - 1]
+        cell.task = tasks[(indexPath as NSIndexPath).row - 1]
         return cell
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl!.addTarget(self, action: #selector(TaskListViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl!.addTarget(self, action: #selector(TaskListViewController.reset), for: .valueChanged)
 
         tableView.addSubview(refreshControl!)
         tableView.alwaysBounceVertical = true
@@ -112,26 +112,26 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
 
         var params: [String : AnyObject] = [String : AnyObject]()
 
-        params["page"] = page
-        params["rpp"] = rpp
+        params["page"] = page as AnyObject?
+        params["rpp"] = rpp as AnyObject?
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
+            params["company_id"] = defaultCompanyId as AnyObject?
         }
 
         if let job = taskListViewControllerDelegate?.jobForTaskListViewController?(self) {
-            params["job_id"] = String(job.id)
+            params["job_id"] = String(job.id) as AnyObject?
         }
 
         if let workOrder = taskListViewControllerDelegate?.workOrderForTaskListViewController?(self) {
-            params["work_order_id"] = String(workOrder.id)
+            params["work_order_id"] = String(workOrder.id) as AnyObject?
         } else if let _ = params["job_id"] {
-            params["exclude_work_orders"] = "true"
+            params["exclude_work_orders"] = "true" as AnyObject?
         }
 
         ApiService.sharedService().fetchTasks(params,
             onSuccess: { statusCode, mappingResult in
-                let fetchedTasks = mappingResult.array() as! [Task]
+                let fetchedTasks = mappingResult?.array() as! [Task]
                 if self.page == 1 {
                     self.tasks = [Task]()
                 }
@@ -150,16 +150,16 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
 
     // MARK: TaskListTableViewCellDelegate
 
-    func taskListTableViewCell(tableViewCell: TaskListTableViewCell, didCreateTask task: Task) {
+    func taskListTableViewCell(_ tableViewCell: TaskListTableViewCell, didCreateTask task: Task) {
         dispatch_after_delay(0.0) {
             self.tableView.beginUpdates()
-            self.tasks.insert(task, atIndex: 0)
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+            self.tasks.insert(task, at: 0)
+            self.tableView.insertRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
             self.tableView.endUpdates()
         }
     }
 
-    func taskListTableViewCell(tableViewCell: TaskListTableViewCell, didUpdateTask task: Task) {
+    func taskListTableViewCell(_ tableViewCell: TaskListTableViewCell, didUpdateTask task: Task) {
         var index: Int?
         for t in tasks {
             if t.id == task.id {
@@ -173,11 +173,11 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
         tableView.reloadData()
     }
 
-    func jobForTaskListTableViewCell(tableViewCell: TaskListTableViewCell) -> Job! {
+    func jobForTaskListTableViewCell(_ tableViewCell: TaskListTableViewCell) -> Job! {
         return taskListViewControllerDelegate?.jobForTaskListViewController?(self)
     }
 
-    func workOrderForTaskListTableViewCell(tableViewCell: TaskListTableViewCell) -> WorkOrder! {
+    func workOrderForTaskListTableViewCell(_ tableViewCell: TaskListTableViewCell) -> WorkOrder! {
         return taskListViewControllerDelegate?.workOrderForTaskListViewController?(self)
     }
 }

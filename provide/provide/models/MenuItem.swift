@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/18/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -15,9 +15,9 @@ class MenuItem: NSObject {
     var urlString: String!
     var action: String!
 
-    var url: NSURL! {
+    var url: URL! {
         if let urlString = urlString {
-            return NSURL(string: urlString)
+            return URL(string: urlString)
         }
         return nil
     }

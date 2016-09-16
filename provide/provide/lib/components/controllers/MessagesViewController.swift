@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 5/30/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import JSQMessagesViewController
 
 class MessagesViewController: JSQMessagesViewController {
 
-    private var messages = [Message]()
+    fileprivate var messages = [Message]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,9 +19,9 @@ class MessagesViewController: JSQMessagesViewController {
         if let navigationController = navigationController {
             let backgroundImage = Color.applicationDefaultNavigationBarBackgroundImage()
 
-            navigationController.navigationBar.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
+            navigationController.navigationBar.setBackgroundImage(backgroundImage, for: .default)
             navigationController.navigationBar.titleTextAttributes = AppearenceProxy.navBarTitleTextAttributes()
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(MessagesViewController.dismiss(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(MessagesViewController.dismiss(_:)))
         }
 
         title = "MESSAGES"
@@ -34,20 +34,20 @@ class MessagesViewController: JSQMessagesViewController {
         inputToolbar!.contentView!.leftBarButtonItem = nil
 
         // No avatars for now
-        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
-        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
 
         automaticallyScrollsToMostRecentMessage = true
 
         fetchMessages()
     }
 
-    private func fetchMessages() {
+    fileprivate func fetchMessages() {
         MessageService.sharedService().fetch(
             onMessagesFetched: { messages in
                 self.messages += messages
                 self.collectionView!.reloadData()
-                self.scrollToBottomAnimated(false)
+                self.scrollToBottom(animated: false)
             },
             onError: { error, statusCode, responseString in
                 // TODO
@@ -55,32 +55,32 @@ class MessagesViewController: JSQMessagesViewController {
         )
     }
 
-    @objc private func dismiss(_: UIBarButtonItem) {
-        dismissViewController(animated: true)
+    @objc fileprivate func dismiss(_: UIBarButtonItem) {
+        dismissViewController(true)
     }
 
     // MARK: - Observe NewMessageReceivedNotification
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MessagesViewController.newMessageReceived(_:)), name: "NewMessageReceivedNotification")
+        NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.newMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
-    @objc private func newMessageReceived(notification: NSNotification) {
+    @objc fileprivate func newMessageReceived(_ notification: Notification) {
         let message = notification.object as! Message
         messages.append(message)
         collectionView!.reloadData()
-        scrollToBottomAnimated(true)
+        scrollToBottom(animated: true)
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - JSQMessagesViewController method overrides
 
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
 
         // 1. Play Sound
         JSQSystemSoundPlayer.jsq_playMessageSentSound()
@@ -93,7 +93,7 @@ class MessagesViewController: JSQMessagesViewController {
         messages.append(message)
 
         // 3. Finish
-        finishSendingMessageAnimated(true)
+        finishSendingMessage(animated: true)
 
         // 4. Post the message
         MessageService.sharedService().createMessage(text, recipientId: lastDispatcherId(),
@@ -109,22 +109,22 @@ class MessagesViewController: JSQMessagesViewController {
     }
 
     // Find the last dispatcher that a message was received from
-    private func lastDispatcherId() -> Int {
+    fileprivate func lastDispatcherId() -> Int {
         let notSentByMe = messages.filter { $0.senderId() != self.senderId }
         return notSentByMe.last!.senderID
     }
 
     // MARK: - UICollectionView
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! JSQMessagesCollectionViewCell
 
-        let message = messages[indexPath.row]
-        cell.textView!.textColor = isFromCurrentUser(message) ? UIColor.whiteColor() : UIColor.blackColor()
+        let message = messages[(indexPath as NSIndexPath).row]
+        cell.textView!.textColor = isFromCurrentUser(message) ? UIColor.white : UIColor.black
         // TODO: cell.textView!.linkTextAttributes = [NSForegroundColorAttributeName: cell.textView!.textColor, NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
 
         return cell
@@ -132,25 +132,25 @@ class MessagesViewController: JSQMessagesViewController {
 
     // MARK: - JSQMessagesCollectionView overrides
 
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.row]
     }
 
-    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleGreenColor())
-    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+    let outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleGreen())
+    let incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
 
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         let message = messages[indexPath.row]
         return isFromCurrentUser(message) ? outgoingBubble : incomingBubble
     }
 
     // Set the avatar image for the incomming and outgoing messages
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
     }
 
     // For name above incoming message bubbles
-    override func collectionView(collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> NSAttributedString! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, attributedTextForMessageBubbleTopLabelAt indexPath: IndexPath!) -> NSAttributedString! {
         let message = messages[indexPath.row]
 
         if isFromCurrentUser(message) || isFromPreviousSender(message, atIndex: indexPath.item) {
@@ -160,7 +160,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAt indexPath: IndexPath!) -> CGFloat {
         let message = messages[indexPath.row]
 
         if isFromCurrentUser(message) || isFromPreviousSender(message, atIndex: indexPath.item) {
@@ -172,11 +172,11 @@ class MessagesViewController: JSQMessagesViewController {
 
     // MARK: - Private
 
-    private func isFromCurrentUser(message: Message) -> Bool {
+    fileprivate func isFromCurrentUser(_ message: Message) -> Bool {
         return message.senderId() == currentUser().id.description
     }
 
-    private func isFromPreviousSender(message: Message, atIndex messageIndex: Int) -> Bool {
+    fileprivate func isFromPreviousSender(_ message: Message, atIndex messageIndex: Int) -> Bool {
         if messageIndex > 0 {
             let previousMessage = messages[messageIndex - 1]
             if message.senderId() == previousMessage.senderId() {
@@ -187,6 +187,6 @@ class MessagesViewController: JSQMessagesViewController {
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/18/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,23 +12,23 @@ import FontAwesomeKit
 import KTSwiftExtensions
 
 protocol WorkOrderCreationViewControllerDelegate {
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
-    func workOrderCreationViewController(viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
-    func floorplanPinViewForWorkOrderCreationViewController(viewController: WorkOrderCreationViewController) -> FloorplanPinView!
-    func flatFeeForNewProvider(provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double!
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, numberOfSectionsInTableView tableView: UITableView) -> Int
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCreateWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didStartWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCancelWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCompleteWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didSubmitForApprovalWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didApproveWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didRejectWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didRestartWorkOrder workOrder: WorkOrder)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, didCreateExpense expense: Expense)
+    func workOrderCreationViewController(_ viewController: WorkOrderCreationViewController, shouldBeDismissedWithWorkOrder workOrder: WorkOrder!)
+    func floorplanPinViewForWorkOrderCreationViewController(_ viewController: WorkOrderCreationViewController) -> FloorplanPinView!
+    func flatFeeForNewProvider(_ provider: Provider, forWorkOrderCreationViewController viewController: WorkOrderCreationViewController) -> Double!
 }
 
 class WorkOrderCreationViewController: WorkOrderDetailsViewController,
@@ -44,56 +44,56 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     var delegate: WorkOrderCreationViewControllerDelegate!
 
-    @IBOutlet private weak var commentInputToolbar: CommentInputToolbar!
+    @IBOutlet fileprivate weak var commentInputToolbar: CommentInputToolbar!
 
-    private var cancelItem: UIBarButtonItem! {
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.cancel(_:)))
-        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var cancelItem: UIBarButtonItem! {
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(WorkOrderCreationViewController.cancel(_:)))
+        cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return cancelItem
     }
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(WorkOrderCreationViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
 
-    private var cameraItem: UIBarButtonItem! {
-        let cameraItem = UIBarButtonItem(barButtonSystemItem: .Camera, target: self, action: #selector(WorkOrderCreationViewController.camera(_:)))
-        cameraItem.enabled = ["awaiting_schedule", "scheduled", "in_progress"].indexOfObject(workOrder.status) != nil
+    fileprivate var cameraItem: UIBarButtonItem! {
+        let cameraItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(WorkOrderCreationViewController.camera(_:)))
+        cameraItem.isEnabled = ["awaiting_schedule", "scheduled", "in_progress"].index(of: workOrder.status) != nil
         return cameraItem
     }
 
-    private var taskListItem: UIBarButtonItem! {
-        let taskListIconImage = FAKFontAwesome.tasksIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0)).imageWithRenderingMode(.AlwaysTemplate)
-        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .Plain, target: self, action: #selector(WorkOrderCreationViewController.showTaskList(_:)))
+    fileprivate var taskListItem: UIBarButtonItem! {
+        let taskListIconImage = FAKFontAwesome.tasksIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
+        let taskListItem = UIBarButtonItem(image: taskListIconImage, style: .plain, target: self, action: #selector(WorkOrderCreationViewController.showTaskList(_:)))
         taskListItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return taskListItem
     }
 
-    private var activityIndicatorView: UIActivityIndicatorView {
-        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .White)
+    fileprivate var activityIndicatorView: UIActivityIndicatorView {
+        let activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .white)
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()
         return activityIndicatorView
     }
 
-    private var isDirty = false
+    fileprivate var isDirty = false
 
-    private var reloadingJob = false
+    fileprivate var reloadingJob = false
 
-    private var workOrderDetailsHeaderTableViewController: WorkOrderDetailsHeaderTableViewController!
+    fileprivate var workOrderDetailsHeaderTableViewController: WorkOrderDetailsHeaderTableViewController!
 
-    private var commentsViewController: CommentsViewController!
+    fileprivate var commentsViewController: CommentsViewController!
 
-    private var isSaved: Bool {
+    fileprivate var isSaved: Bool {
         if let workOrder = workOrder {
             return workOrder.id > 0
         }
         return false
     }
 
-    private var isValid: Bool {
+    fileprivate var isValid: Bool {
         if let workOrder = workOrder {
             let validDate = workOrder.scheduledStartAt != nil
             return validDate
@@ -101,14 +101,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         return false
     }
 
-    func cancel(sender: UIBarButtonItem!) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    func cancel(_ sender: UIBarButtonItem!) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to cancel and discard changes?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Don't Cancel", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Don't Cancel", style: .default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let discardAction = UIAlertAction(title: "Discard", style: .Destructive) { [weak self] action in
+        let discardAction = UIAlertAction(title: "Discard", style: .destructive) { [weak self] action in
             self!.delegate?.workOrderCreationViewController(self!, shouldBeDismissedWithWorkOrder: nil)
         }
 
@@ -118,15 +118,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(alertController, animated: true)
     }
 
-    func dismiss(sender: UIBarButtonItem!) {
+    func dismiss(_ sender: UIBarButtonItem!) {
         if isDirty {
-            let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+            let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
             let alertController = UIAlertController(title: "Are you sure you want to cancel and discard changes?", message: nil, preferredStyle: preferredStyle)
 
-            let cancelAction = UIAlertAction(title: "Don't Dismiss", style: .Default, handler: nil)
+            let cancelAction = UIAlertAction(title: "Don't Dismiss", style: .default, handler: nil)
             alertController.addAction(cancelAction)
 
-            let discardAction = UIAlertAction(title: "Yes, Discard Pending Changes", style: .Destructive) { [weak self] action in
+            let discardAction = UIAlertAction(title: "Yes, Discard Pending Changes", style: .destructive) { [weak self] action in
                 self!.forceDismiss()
             }
 
@@ -139,27 +139,27 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    private func forceDismiss() {
+    fileprivate func forceDismiss() {
         commentInputToolbar.dismiss()
         delegate?.workOrderCreationViewController(self, shouldBeDismissedWithWorkOrder: workOrder)
     }
 
-    func expense(sender: UIBarButtonItem!) {
+    func expense(_ sender: UIBarButtonItem!) {
         let expenseCaptureViewController = UIStoryboard("ExpenseCapture").instantiateInitialViewController() as! ExpenseCaptureViewController
-        expenseCaptureViewController.modalPresentationStyle = .OverCurrentContext
+        expenseCaptureViewController.modalPresentationStyle = .overCurrentContext
         expenseCaptureViewController.expenseCaptureViewControllerDelegate = self
 
         presentViewController(expenseCaptureViewController, animated: true)
     }
 
-    func camera(sender: UIBarButtonItem!) {
+    func camera(_ sender: UIBarButtonItem!) {
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
         
         presentViewController(cameraViewController, animated: true)
     }
 
-    func createWorkOrder(sender: AnyObject!) {
+    func createWorkOrder(_ sender: AnyObject!) {
         createWorkOrder()
     }
 
@@ -167,10 +167,10 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         navigationItem.titleView = activityIndicatorView
 
         workOrder.save(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 self.isDirty = false
                 if statusCode == 201 {
-                    let wo = mappingResult.firstObject as! WorkOrder
+                    let wo = mappingResult?.firstObject as! WorkOrder
                     self.workOrder.status = wo.status
                     self.reloadTableView(true)
                     self.delegate?.workOrderCreationViewController(self, didCreateWorkOrder: self.workOrder)
@@ -184,7 +184,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    private func refreshUI() {
+    fileprivate func refreshUI() {
         commentInputToolbar?.clipToBounds(view.bounds)
 
         refreshTitle()
@@ -204,8 +204,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    private func presentCategoryPickerViewController(animated: Bool = true) {
-        let viewController = UIStoryboard("CategoryPicker").instantiateViewControllerWithIdentifier("CategoryPickerViewController")
+    fileprivate func presentCategoryPickerViewController(_ animated: Bool = true) {
+        let viewController = UIStoryboard("CategoryPicker").instantiateViewController(withIdentifier: "CategoryPickerViewController")
         (viewController as! CategoryPickerViewController).delegate = self
         CategoryService.sharedService().fetch(companyId: workOrder.companyId,
             onCategoriesFetched: { categories in
@@ -224,12 +224,12 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         navigationController!.pushViewController(viewController, animated: false)
     }
 
-    private func refreshTitle() {
+    fileprivate func refreshTitle() {
         navigationItem.title = title == nil ? (workOrder?.category != nil ? workOrder?.category.name : workOrder?.customer.contact.name) : title
         navigationItem.titleView = nil
     }
 
-    private func refreshLeftBarButtonItems() {
+    fileprivate func refreshLeftBarButtonItems() {
         if isSaved {
             navigationItem.leftBarButtonItems = [dismissItem]
         } else {
@@ -237,7 +237,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    private func refreshRightBarButtonItems() {
+    fileprivate func refreshRightBarButtonItems() {
         if isValid && isDirty {
             navigationItem.rightBarButtonItems = []
         } else {
@@ -249,13 +249,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    func showTaskList(sender: UIBarButtonItem) {
+    func showTaskList(_ sender: UIBarButtonItem) {
         let taskListNavigationController = UIStoryboard("TaskList").instantiateInitialViewController() as! UINavigationController
         (taskListNavigationController.viewControllers.first! as! TaskListViewController).taskListViewControllerDelegate = self
-        taskListNavigationController.modalPresentationStyle = .Popover
-        taskListNavigationController.preferredContentSize = CGSizeMake(300, 250)
+        taskListNavigationController.modalPresentationStyle = .popover
+        taskListNavigationController.preferredContentSize = CGSize(width: 300, height: 250)
         taskListNavigationController.popoverPresentationController!.barButtonItem = sender
-        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.Right]
+        taskListNavigationController.popoverPresentationController!.permittedArrowDirections = [.right]
         taskListNavigationController.popoverPresentationController!.canOverlapSourceViewRect = false
         presentViewController(taskListNavigationController, animated: true)
     }
@@ -263,9 +263,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .Plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "WORK ORDER", style: .plain, target: nil, action: nil)
 
-        NSNotificationCenter.defaultCenter().addObserverForName("WorkOrderChanged") { notification in
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
                 if let wo = self.workOrder {
                     if workOrder.id == wo.id {
@@ -276,7 +276,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         dispatch_after_delay(0.0) {
@@ -284,15 +284,15 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "WorkOrderDetailsHeaderTableViewControllerEmbedSegue" {
-            workOrderDetailsHeaderTableViewController = segue.destinationViewController as! WorkOrderDetailsHeaderTableViewController
+            workOrderDetailsHeaderTableViewController = segue.destination as! WorkOrderDetailsHeaderTableViewController
         } else if segue.identifier! == "WorkOrderTeamViewControllerEmbedSegue" {
-            (segue.destinationViewController as! WorkOrderTeamViewController).delegate = self
+            (segue.destination as! WorkOrderTeamViewController).delegate = self
         } else if segue.identifier! == "CommentsViewControllerEmbedSegue" {
-            commentsViewController = segue.destinationViewController as! CommentsViewController
+            commentsViewController = segue.destination as! CommentsViewController
             commentsViewController.commentsViewControllerDelegate = self
             commentInputToolbar?.commentsViewController = commentsViewController
         }
@@ -300,76 +300,76 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: UITableViewDelegate
 
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let height = delegate?.workOrderCreationViewController(self, tableView: tableView, heightForRowAtIndexPath: indexPath) {
             return height
         }
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        return super.tableView(tableView, heightForRowAt: indexPath)
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if let sectionCount = delegate?.workOrderCreationViewController(self, numberOfSectionsInTableView: tableView) {
             return sectionCount
         }
-        return super.numberOfSectionsInTableView(tableView)
+        return super.numberOfSections(in: tableView)
     }
 
     // MARK: UITableViewDataSource
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let rowCount = delegate?.workOrderCreationViewController(self, tableView: tableView, numberOfRowsInSection: section) {
             return rowCount
         }
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
 
         if let c = delegate?.workOrderCreationViewController(self, cellForTableView: tableView, atIndexPath: indexPath) {
             cell = c
         } else {
-            cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+            cell = super.tableView(tableView, cellForRowAt: indexPath)
         }
 
         return cell
     }
 
-    override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return tableView.cellForRowAtIndexPath(indexPath)?.accessoryType == .DisclosureIndicator
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return tableView.cellForRow(at: indexPath)?.accessoryType == .disclosureIndicator
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if tableView.cellForRowAtIndexPath(indexPath)?.accessoryType == .DisclosureIndicator {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if tableView.cellForRow(at: indexPath)?.accessoryType == .disclosureIndicator {
             return indexPath
         }
         return nil
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let delegate = delegate {
             delegate.workOrderCreationViewController(self, tableView: tableView, didSelectRowAtIndexPath: indexPath)
         } else {
-            super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+            super.tableView(tableView, didSelectRowAt: indexPath)
         }
     }
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 
-    override func workOrderCreationViewControllerForDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
+    override func workOrderCreationViewControllerForDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
         return self
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to start this work order?", message: "This cannot be undone.", preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Don't Start", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Don't Start", style: .default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let startAction = UIAlertAction(title: "Yes, Manually Start Work Order", style: .Destructive) { action in
+        let startAction = UIAlertAction(title: "Yes, Manually Start Work Order", style: .destructive) { action in
             self.workOrder.arrive(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     viewController.tableView.reloadData()
                     self.delegate?.workOrderCreationViewController(self, didStartWorkOrder: workOrder)
                 },
@@ -385,16 +385,16 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(alertController, animated: true)
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to cancel this work order?", message: "This cannot be undone.", preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Don't Cancel", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Don't Cancel", style: .default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let cancelWorkOrderAction = UIAlertAction(title: "Yes, Cancel Work Order", style: .Destructive) { action in
+        let cancelWorkOrderAction = UIAlertAction(title: "Yes, Cancel Work Order", style: .destructive) { action in
             self.workOrder.cancel(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     viewController.tableView.reloadData()
                     self.delegate?.workOrderCreationViewController(self, didCancelWorkOrder: workOrder)
                 },
@@ -410,16 +410,16 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(alertController, animated: true)
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to complete this work order?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Don't Complete", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Don't Complete", style: .default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let completeAction = UIAlertAction(title: "Yes, Complete Work Order", style: .Destructive) { action in
+        let completeAction = UIAlertAction(title: "Yes, Complete Work Order", style: .destructive) { action in
             self.workOrder.complete(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     viewController.tableView.reloadData()
                     self.delegate?.workOrderCreationViewController(self, didCompleteWorkOrder: workOrder)
                 },
@@ -435,9 +435,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         presentViewController(alertController, animated: true)
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
         self.workOrder.submitForApproval(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 viewController.tableView.reloadData()
                 self.delegate?.workOrderCreationViewController(self, didSubmitForApprovalWorkOrder: workOrder)
             },
@@ -447,9 +447,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
         self.workOrder.approve(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 viewController.tableView.reloadData()
                 self.delegate?.workOrderCreationViewController(self, didApproveWorkOrder: workOrder)
             },
@@ -459,9 +459,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
         self.workOrder.reject(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 viewController.tableView.reloadData()
                 self.delegate?.workOrderCreationViewController(self, didRejectWorkOrder: workOrder)
             },
@@ -471,7 +471,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    override func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
+    override func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
         self.workOrder.restart(
             { statusCode, mappingResult in
                 viewController.tableView.reloadData()
@@ -489,7 +489,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         reloadTableView(true)
     }
 
-    private func reloadTableView(reloadComments: Bool = true) {
+    fileprivate func reloadTableView(_ reloadComments: Bool = true) {
         if reloadComments {
             if let _ = commentsViewController {
                 self.reloadComments()
@@ -503,18 +503,18 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: DatePickerViewControllerDelegate
 
-    func datePickerViewController(viewController: DatePickerViewController, requiresDateAfter refDate: NSDate) -> Bool {
+    func datePickerViewController(_ viewController: DatePickerViewController, requiresDateAfter refDate: Date) -> Bool {
         return refDate.timeIntervalSinceNow < 0
     }
 
-    func datePickerViewController(viewController: DatePickerViewController, didSetDate date: NSDate) {
+    func datePickerViewController(_ viewController: DatePickerViewController, didSetDate date: Date) {
         if date.timeIntervalSinceNow <= 0 {
             showToast("Select a date in the future.", dismissAfter: 3.0)
             return
         }
 
         if let fieldName = viewController.fieldName {
-            navigationController?.popViewControllerAnimated(true)
+            let _ = navigationController?.popViewController(animated: true)
 
             if fieldName == "scheduledStartAt" {
                 workOrder.scheduledStartAt = date.format("yyyy-MM-dd'T'HH:mm:ssZZ")
@@ -539,7 +539,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                 createWorkOrder()
             } else {
                 workOrder.save(
-                    onSuccess: { statusCode, mappingResult in
+                    { statusCode, mappingResult in
                         self.isDirty = false
                         self.refreshUI()
                     },
@@ -555,14 +555,14 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: CategoryPickerViewControllerDelegate
 
-    func categoryPickerViewController(viewController: CategoryPickerViewController, didSelectCategory category: Category) {
+    func categoryPickerViewController(_ viewController: CategoryPickerViewController, didSelectCategory category: Category) {
         if workOrder.id == 0 {
             workOrder.category = category
             workOrder.categoryId = category.id
             reloadTableView(true)
 
             if let navigationController = viewController.navigationController {
-                navigationController.popViewControllerAnimated(false)
+                navigationController.popViewController(animated: false)
             }
 
             //dismissViewController(animated: true)
@@ -575,23 +575,23 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: CommentsViewControllerDelegate
 
-    func queryParamsForCommentsViewController(viewController: CommentsViewController) -> [String : AnyObject]! {
+    func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String : AnyObject]! {
         return [String : AnyObject]()
     }
 
-    func commentableTypeForCommentsViewController(viewController: CommentsViewController) -> String {
+    func commentableTypeForCommentsViewController(_ viewController: CommentsViewController) -> String {
         return "work_order"
     }
 
-    func commentableIdForCommentsViewController(viewController: CommentsViewController) -> Int {
+    func commentableIdForCommentsViewController(_ viewController: CommentsViewController) -> Int {
         return workOrder.id
     }
 
-    func commentsViewController(viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
+    func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage! = nil) {
         if let workOrder = workOrder {
             workOrder.addComment(comment,
                 onSuccess: { statusCode, mappingResult in
-                    let newComment = mappingResult.firstObject as! Comment
+                    let newComment = mappingResult?.firstObject as! Comment
 
                     if let image = image {
                         let data = UIImageJPEGRepresentation(image, 1.0)!
@@ -603,7 +603,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
                             withCommentableId: String(workOrder.id),
                             params: [:],
                             onSuccess: { statusCode, attachmentMappingResult in
-                                newComment.attachments.append(attachmentMappingResult.firstObject as! Attachment)
+                                newComment.attachments.append(attachmentMappingResult?.firstObject as! Attachment)
 
                                 dispatch_after_delay(0.0) {
                                     viewController.addComment(newComment)
@@ -626,7 +626,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         }
     }
 
-    private func reloadComments() {
+    fileprivate func reloadComments() {
         if commentsViewController == nil {
             return
         }
@@ -636,24 +636,25 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: CameraViewControllerDelegate
 
-    func outputModeForCameraViewController(viewController: CameraViewController) -> CameraOutputMode {
-        return .Photo
+    func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode {
+        return .photo
     }
 
-    func cameraViewControllerDidBeginAsyncStillImageCapture(viewController: CameraViewController) {
+    func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
         cameraViewControllerCanceled(viewController)
     }
 
-    func cameraViewController(viewController: CameraViewController, didCaptureStillImage image: UIImage) {
+    func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         navigationItem.titleView = activityIndicatorView
 
+        let tags = ["photo"]
         var params: [String : AnyObject] = [
-            "tags": ["photo"],
+            "tags": tags as AnyObject,
         ]
 
         if let location = LocationService.sharedService().currentLocation {
-            params["latitude"] = location.coordinate.latitude
-            params["longitude"] = location.coordinate.longitude
+            params["latitude"] = location.coordinate.latitude as AnyObject?
+            params["longitude"] = location.coordinate.longitude as AnyObject?
         }
 
         workOrder.attach(image, params: params,
@@ -667,87 +668,87 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    func cameraViewControllerCanceled(viewController: CameraViewController) {
-        dismissViewController(animated: false)
+    func cameraViewControllerCanceled(_ viewController: CameraViewController) {
+        dismissViewController(false)
     }
 
-    func cameraViewController(viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
-
-    }
-
-    func cameraViewControllerDidOutputFaceMetadata(viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+    func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
 
     }
 
-    func cameraViewControllerShouldOutputFaceMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerDidOutputFaceMetadata(_ viewController: CameraViewController, metadataFaceObject: AVMetadataFaceObject) {
+
+    }
+
+    func cameraViewControllerShouldOutputFaceMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldRenderFacialRecognition(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldRenderFacialRecognition(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewControllerShouldOutputOCRMetadata(viewController: CameraViewController) -> Bool {
+    func cameraViewControllerShouldOutputOCRMetadata(_ viewController: CameraViewController) -> Bool {
         return false
     }
 
-    func cameraViewController(cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didStartVideoCaptureAtURL fileURL: URL) {
 
     }
     
-    func cameraViewController(cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: NSURL) {
+    func cameraViewController(_ cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: URL) {
         
     }
 
-    func cameraViewController(viewController: CameraViewController, didRecognizeText text: String!) {
+    func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
 
     }
 
-    override func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
+    override func navigationControllerBackItemTitleForManifestViewController(_ viewController: UIViewController) -> String! {
         return navigationItem.title
     }
 
     // MARK: ExpenseCaptureViewControllerDelegate
     
-    func expensableForExpenseCaptureViewController(viewController: ExpenseCaptureViewController) -> Model {
+    func expensableForExpenseCaptureViewController(_ viewController: ExpenseCaptureViewController) -> Model {
         return workOrder
     }
 
-    func expenseCaptureViewControllerBeganCreatingExpense(viewController: ExpenseCaptureViewController) {
+    func expenseCaptureViewControllerBeganCreatingExpense(_ viewController: ExpenseCaptureViewController) {
 
     }
 
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCaptureReceipt receipt: UIImage, recognizedTexts texts: [String]!) {
         navigationItem.titleView = activityIndicatorView
     }
 
-    func expenseCaptureViewController(viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
+    func expenseCaptureViewController(_ viewController: ExpenseCaptureViewController, didCreateExpense expense: Expense) {
         refreshUI()
         delegate?.workOrderCreationViewController(self, didCreateExpense: expense)
     }
 
     // MARK: TaskListViewControllerDelegate
 
-    func jobForTaskListViewController(viewController: TaskListViewController) -> Job! {
+    func jobForTaskListViewController(_ viewController: TaskListViewController) -> Job! {
         if workOrder.jobId > 0 {
             return JobService.sharedService().jobWithId(workOrder.jobId)
         }
         return nil
     }
 
-    func workOrderForTaskListViewController(viewController: TaskListViewController) -> WorkOrder! {
+    func workOrderForTaskListViewController(_ viewController: TaskListViewController) -> WorkOrder! {
         return workOrder
     }
 
     // MARK: WorkOrderTeamViewControllerDelegate
 
-    func workOrderForWorkOrderTeamViewController(viewController: WorkOrderTeamViewController) -> WorkOrder! {
+    func workOrderForWorkOrderTeamViewController(_ viewController: WorkOrderTeamViewController) -> WorkOrder! {
         return workOrder
     }
 
-    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider: WorkOrderProvider) {
+    func workOrderTeamViewController(_ viewController: WorkOrderTeamViewController, didUpdateWorkOrderProvider: WorkOrderProvider) {
         workOrder?.reload(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 self.reloadTableView(true)
             },
             onError: { error, statusCode, responseString in
@@ -756,9 +757,9 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    func workOrderTeamViewController(viewController: WorkOrderTeamViewController, didRemoveProvider: Provider) {
+    func workOrderTeamViewController(_ viewController: WorkOrderTeamViewController, didRemoveProvider: Provider) {
         workOrder?.reload(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 self.reloadTableView(true)
             },
             onError: { error, statusCode, responseString in
@@ -767,7 +768,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    func flatFeeForNewProvider(provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double! {
+    func flatFeeForNewProvider(_ provider: Provider, forWorkOrderTeamViewControllerViewController workOrderTeamViewControllerViewController: WorkOrderTeamViewController) -> Double! {
         if let fee = delegate?.flatFeeForNewProvider(provider, forWorkOrderCreationViewController: self) {
             return fee
         }
@@ -776,13 +777,13 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: WorkOrderInventoryViewControllerDelegate
 
-    func workOrderForWorkOrderInventoryViewController(viewController: WorkOrderInventoryViewController) -> WorkOrder! {
+    func workOrderForWorkOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController) -> WorkOrder! {
         return workOrder
     }
 
-    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct: WorkOrderProduct) {
+    func workOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController, didUpdateWorkOrderProduct: WorkOrderProduct) {
         workOrder?.reload(
-            onSuccess: { statusCode, mappingResult in
+            { statusCode, mappingResult in
                 self.reloadTableView(true)
 
                 if self.workOrder.jobId > 0 {
@@ -804,8 +805,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         )
     }
 
-    func workOrderInventoryViewController(viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct: WorkOrderProduct) {
-        workOrder?.reload(["include_estimated_cost": "false", "include_expenses": "false"],
+    func workOrderInventoryViewController(_ viewController: WorkOrderInventoryViewController, didRemoveWorkOrderProduct: WorkOrderProduct) {
+        workOrder?.reload(["include_estimated_cost": "false" as AnyObject, "include_expenses": "false" as AnyObject],
             onSuccess: { statusCode, mappingResult in
                 self.reloadTableView(true)
 
@@ -830,7 +831,7 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

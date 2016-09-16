@@ -3,15 +3,16 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/16/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 @objc
 protocol JobManagerHeaderViewControllerDelegate: NSObjectProtocol {
-    func jobManagerHeaderViewController(viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate!
-    optional func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
+    @discardableResult
+    func jobManagerHeaderViewController(_ viewController: JobManagerHeaderViewController, delegateForExpensesViewController expensesViewController: ExpensesViewController) -> ExpensesViewControllerDelegate!
+    @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
 }
 
 class JobManagerHeaderViewController: UITableViewController, ExpensesViewControllerDelegate, UIPopoverPresentationControllerDelegate {
@@ -32,39 +33,39 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-    @IBOutlet private weak var profitLabel: UILabel!
-    @IBOutlet private weak var profitValueLabel: UILabel!
+    @IBOutlet fileprivate weak var profitLabel: UILabel!
+    @IBOutlet fileprivate weak var profitValueLabel: UILabel!
 
-    @IBOutlet private weak var profitPerSqFtLabel: UILabel!
-    @IBOutlet private weak var profitPerSqFtValueLabel: UILabel!
+    @IBOutlet fileprivate weak var profitPerSqFtLabel: UILabel!
+    @IBOutlet fileprivate weak var profitPerSqFtValueLabel: UILabel!
 
-    @IBOutlet private weak var profitMarginLabel: UILabel!
-    @IBOutlet private weak var profitMarginValueLabel: UILabel!
+    @IBOutlet fileprivate weak var profitMarginLabel: UILabel!
+    @IBOutlet fileprivate weak var profitMarginValueLabel: UILabel!
 
-    @IBOutlet private weak var profitMarginButton: UIButton!
+    @IBOutlet fileprivate weak var profitMarginButton: UIButton!
 
-    @IBOutlet private weak var expensesLabel: UILabel!
-    @IBOutlet private weak var expensesValueLabel: UILabel!
+    @IBOutlet fileprivate weak var expensesLabel: UILabel!
+    @IBOutlet fileprivate weak var expensesValueLabel: UILabel!
 
-    @IBOutlet private weak var laborLabel: UILabel!
-    @IBOutlet private weak var laborValueLabel: UILabel!
+    @IBOutlet fileprivate weak var laborLabel: UILabel!
+    @IBOutlet fileprivate weak var laborValueLabel: UILabel!
 
-    @IBOutlet private weak var laborCostPerSqFtLabel: UILabel!
-    @IBOutlet private weak var laborCostPerSqFtValueLabel: UILabel!
+    @IBOutlet fileprivate weak var laborCostPerSqFtLabel: UILabel!
+    @IBOutlet fileprivate weak var laborCostPerSqFtValueLabel: UILabel!
 
-    @IBOutlet private weak var laborCostPercentageOfRevenueLabel: UILabel!
-    @IBOutlet private weak var laborCostPercentageOfRevenueValueLabel: UILabel!
+    @IBOutlet fileprivate weak var laborCostPercentageOfRevenueLabel: UILabel!
+    @IBOutlet fileprivate weak var laborCostPercentageOfRevenueValueLabel: UILabel!
 
-    @IBOutlet private weak var materialsCostLabel: UILabel!
-    @IBOutlet private weak var materialsCostValueLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostValueLabel: UILabel!
 
-    @IBOutlet private weak var materialsCostPercentageOfRevenueLabel: UILabel!
-    @IBOutlet private weak var materialsCostPercentageOfRevenueValueLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostPercentageOfRevenueLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostPercentageOfRevenueValueLabel: UILabel!
 
-    @IBOutlet private weak var materialsCostPerSqFtLabel: UILabel!
-    @IBOutlet private weak var materialsCostPerSqFtValueLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostPerSqFtLabel: UILabel!
+    @IBOutlet fileprivate weak var materialsCostPerSqFtValueLabel: UILabel!
 
-    private var expensesViewController: ExpensesViewController! {
+    fileprivate var expensesViewController: ExpensesViewController! {
         didSet {
             if let expensesViewController = expensesViewController {
                 if let jobManagerHeaderViewControllerDelegate = jobManagerHeaderViewControllerDelegate {
@@ -74,10 +75,10 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-    private func renderFinancials() {
+    fileprivate func renderFinancials() {
         tableView.reloadData()
 
-        if tableView.numberOfRowsInSection(0) > 0 {
+        if tableView.numberOfRows(inSection: 0) > 0 {
             // profit
 
             if let humanReadableProfit = job.humanReadableProfit {
@@ -88,10 +89,10 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
 
             if let humanReadableProfitMargin = job.humanReadableProfitMargin {
                 profitMarginValueLabel?.text = humanReadableProfitMargin
-                profitMarginButton?.setTitle(humanReadableProfitMargin, forState: .Normal)
+                profitMarginButton?.setTitle(humanReadableProfitMargin, for: UIControlState())
             } else {
                 profitMarginValueLabel?.text = "--"
-                profitMarginButton?.setTitle("", forState: .Normal)
+                profitMarginButton?.setTitle("", for: UIControlState())
             }
 
             if let humanReadableProfitPerSqFt = job.humanReadableProfitPerSqFt {
@@ -158,15 +159,15 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         tableView.alpha = 0.0
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "ExpensesViewControllerPopoverSegue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
+            let navigationController = segue.destination as! UINavigationController
             expensesViewController = navigationController.viewControllers.first! as! ExpensesViewController
             expensesViewController.expenses = job.expenses
             navigationController.preferredContentSize = CGSize(width: 400, height: 300)
-            navigationController.popoverPresentationController!.permittedArrowDirections = [.Up]
+            navigationController.popoverPresentationController!.permittedArrowDirections = [.up]
             navigationController.popoverPresentationController!.delegate = self
 
             if let expensesViewControllerDelegate = jobManagerHeaderViewControllerDelegate?.jobManagerHeaderViewController(self, delegateForExpensesViewController: expensesViewController) {
@@ -192,18 +193,18 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         }
     }
 
-    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem! {
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem! {
         if let navigationItem = jobManagerHeaderViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             return navigationItem
         }
         return nil
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return job != nil ? 1 : 0
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var title: String?
         if section == 0 {
             if let humanReadableContractRevenue = job.humanReadableContractRevenue {
@@ -215,14 +216,14 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
         return title
     }
 
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 28.0
         }
         return 0.0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return job.isCurrentUserCompanyAdmin ? 2 : (job.isCurrentUserSupervisor ? 1 : 0)
         }
@@ -231,7 +232,7 @@ class JobManagerHeaderViewController: UITableViewController, ExpensesViewControl
 
     // MARK: UIPopoverPresentationControllerDelegate
 
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 }

@@ -3,14 +3,14 @@
 //  provide
 //
 //  Created by Kyle Thomas on 12/12/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol JobCreationViewControllerDelegate: NSObjectProtocol {
-    func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job)
+    func jobCreationViewController(_ viewController: JobCreationViewController, didCreateJob job: Job)
 }
 
 class JobCreationViewController: UITableViewController,
@@ -30,42 +30,42 @@ class JobCreationViewController: UITableViewController,
         }
     }
 
-    private var customer: Customer!
-    private var customers: [Customer]!
+    fileprivate var customer: Customer!
+    fileprivate var customers: [Customer]!
 
-    private var totalCustomersCount = -1
+    fileprivate var totalCustomersCount = -1
 
-    private var queryString: String!
+    fileprivate var queryString: String!
 
-    private var showsAllCustomers: Bool {
+    fileprivate var showsAllCustomers: Bool {
         return totalCustomersCount == -1 || totalCustomersCount <= maximumSearchlessCustomersCount
     }
 
-    private var renderQueryResults: Bool {
+    fileprivate var renderQueryResults: Bool {
         return queryString != nil || showsAllCustomers
     }
 
-    private var reloadingCustomers = false
-    private var reloadingCustomersCount = false
+    fileprivate var reloadingCustomers = false
+    fileprivate var reloadingCustomersCount = false
 
-    private var customerPickerViewController: CustomerPickerViewController!
+    fileprivate var customerPickerViewController: CustomerPickerViewController!
 
-    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet fileprivate weak var searchBar: UISearchBar!
 
-    @IBOutlet private weak var nameTextField: UITextField!
+    @IBOutlet fileprivate weak var nameTextField: UITextField!
 
-    @IBOutlet private weak var createButton: UIButton!
+    @IBOutlet fileprivate weak var createButton: UIButton!
 
-    @IBOutlet private weak var customerTableViewCell: UITableViewCell!
-    @IBOutlet private weak var typeTableViewCell: UITableViewCell!
-    @IBOutlet private weak var nameTableViewCell: UITableViewCell!
-    @IBOutlet private weak var quotedPricePerSqFtTableViewCell: UITableViewCell!
-    @IBOutlet private weak var totalSqFtTableViewCell: UITableViewCell!
-    @IBOutlet private weak var createButtonTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var customerTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var typeTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var nameTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var quotedPricePerSqFtTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var totalSqFtTableViewCell: UITableViewCell!
+    @IBOutlet fileprivate weak var createButtonTableViewCell: UITableViewCell!
 
-    private var dismissItem: UIBarButtonItem! {
-        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .Plain, target: self, action: #selector(JobCreationViewController.dismiss(_:)))
-        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), forState: .Normal)
+    fileprivate var dismissItem: UIBarButtonItem! {
+        let dismissItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: self, action: #selector(JobCreationViewController.dismiss(_:)))
+        dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
         return dismissItem
     }
 
@@ -76,30 +76,30 @@ class JobCreationViewController: UITableViewController,
 
         searchBar?.placeholder = ""
 
-        createButton.addTarget(self, action: #selector(JobCreationViewController.createJob(_:)), forControlEvents: .TouchUpInside)
+        createButton.addTarget(self, action: #selector(JobCreationViewController.createJob(_:)), for: .touchUpInside)
 
         if !isIPad() {
             navigationItem.leftBarButtonItems = [dismissItem]
         }
     }
 
-    func typeChanged(sender: UISegmentedControl) {
+    func typeChanged(_ sender: UISegmentedControl) {
         tableView.reloadData()
     }
 
-    func dismiss(sender: UIBarButtonItem) {
+    func dismiss(_ sender: UIBarButtonItem) {
         if let navigationController = navigationController {
             if navigationController.viewControllers.count > 1 {
-                navigationController.popViewControllerAnimated(true)
+                navigationController.popViewController(animated: true)
             } else {
-                navigationController.presentingViewController?.dismissViewController(animated: true)
+                navigationController.presentingViewController?.dismissViewController(true)
             }
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CustomerPickerViewControllerEmbedSegue" {
-            customerPickerViewController = segue.destinationViewController as! CustomerPickerViewController
+            customerPickerViewController = segue.destination as! CustomerPickerViewController
             customerPickerViewController.delegate = self
 
             if let _ = delegate {
@@ -108,12 +108,12 @@ class JobCreationViewController: UITableViewController,
         }
     }
 
-    func createJob(sender: UIButton) {
+    func createJob(_ sender: UIButton) {
         tableView.endEditing(true)
         createJob()
     }
 
-    private func createJob() {
+    fileprivate func createJob() {
         let job = Job()
         job.type = "punchlist"
 
@@ -127,11 +127,11 @@ class JobCreationViewController: UITableViewController,
             showActivityIndicator()
 
             job.save(
-                onSuccess: { statusCode, mappingResult in
+                { statusCode, mappingResult in
                     if statusCode == 201 {
                         job.reload(
-                            onSuccess: { statusCode, mappingResult in
-                                self.delegate?.jobCreationViewController(self, didCreateJob: mappingResult.firstObject as! Job)
+                            { statusCode, mappingResult in
+                                self.delegate?.jobCreationViewController(self, didCreateJob: mappingResult?.firstObject as! Job)
                             },
                             onError: { error, statusCode, responseString in
                                 self.hideActivityIndicator()
@@ -146,21 +146,21 @@ class JobCreationViewController: UITableViewController,
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == tableView.numberOfSections - 1 {
-            if nameTextField.isFirstResponder() {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (indexPath as NSIndexPath).section == tableView.numberOfSections - 1 {
+            if nameTextField.isFirstResponder {
                 nameTextField.resignFirstResponder()
             }
         }
         return indexPath
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == numberOfSectionsInTableView(tableView) - 1 {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == numberOfSections(in: tableView) - 1 {
             return nil
         }
 
@@ -173,35 +173,35 @@ class JobCreationViewController: UITableViewController,
         return nil
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == numberOfSectionsInTableView(tableView) - 1 {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).section == numberOfSections(in: tableView) - 1 {
             return createButtonTableViewCell
         }
 
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             return customerTableViewCell
-        } else if indexPath.section == 1 {
+        } else if (indexPath as NSIndexPath).section == 1 {
             return  nameTableViewCell
         }
 
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
             return cell
         }
 
         return UITableViewCell()
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
 
     // MARK: UISearchBarDelegate
 
-    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         return !showsAllCustomers
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         queryString = searchText
         if queryString.replaceString(" ", withString: "").length == 0 {
             queryString = nil
@@ -228,7 +228,7 @@ class JobCreationViewController: UITableViewController,
     func resetTableViewFrame() {
         tableView.endEditing(true)
         
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.tableView.frame.origin.y = 0.0
             },
@@ -240,30 +240,32 @@ class JobCreationViewController: UITableViewController,
 
     // MARK: UITextFieldDelegate
 
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         enableTapToDismissKeyboard()
 
         var view: UIView! = textField
         var cell: UITableViewCell!
         while cell == nil {
-            view = view.superview!
-            if view.isKindOfClass(UITableViewCell) {
-                cell = view as! UITableViewCell
+            if let v = view?.superview {
+                view = v
+                if v is UITableViewCell {
+                    cell = v as! UITableViewCell
+                }
             }
         }
 
         if let cell = cell {
-            if let indexPath = tableView.indexPathForCell(cell) {
-                self.tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            if let indexPath = tableView.indexPath(for: cell) {
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
             }
         }
     }
 
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
 
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == nameTextField {
             if let name = textField.text {
                 if name.length > 0 {
@@ -278,24 +280,24 @@ class JobCreationViewController: UITableViewController,
 
     // MARK: CustomerPickerViewControllerDelegate
 
-    func queryParamsForCustomerPickerViewController(viewController: CustomerPickerViewController) -> [String : AnyObject]! {
+    func queryParamsForCustomerPickerViewController(_ viewController: CustomerPickerViewController) -> [String : AnyObject]! {
         var params = [String : AnyObject]()
         if let queryString = queryString {
-            params["q"] = queryString
+            params["q"] = queryString as AnyObject?
         }
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
+            params["company_id"] = defaultCompanyId as AnyObject?
         }
         return params
     }
 
-    func customerPickerViewController(viewController: CustomerPickerViewController, didSelectCustomer customer: Customer) {
+    func customerPickerViewController(_ viewController: CustomerPickerViewController, didSelectCustomer customer: Customer) {
         self.customer = customer
 
-        if searchBar.isFirstResponder() {
+        if searchBar.isFirstResponder {
             searchBar.resignFirstResponder()
-            if nameTextField.canBecomeFirstResponder() {
-                UIView.animateWithDuration(0.1, delay: 0.1, options: .CurveEaseOut,
+            if nameTextField.canBecomeFirstResponder {
+                UIView.animate(withDuration: 0.1, delay: 0.1, options: .curveEaseOut,
                     animations: { Void in
                         self.tableView.contentOffset = CGPoint(x: 0.0, y: self.customerPickerViewController.view.frame.height * 1.5)
                     },
@@ -307,15 +309,15 @@ class JobCreationViewController: UITableViewController,
         }
     }
 
-    func customerPickerViewController(viewController: CustomerPickerViewController, didDeselectCustomer customer: Customer) {
+    func customerPickerViewController(_ viewController: CustomerPickerViewController, didDeselectCustomer customer: Customer) {
         self.customer = nil
     }
 
-    func customerPickerViewControllerAllowsMultipleSelection(viewController: CustomerPickerViewController) -> Bool {
+    func customerPickerViewControllerAllowsMultipleSelection(_ viewController: CustomerPickerViewController) -> Bool {
         return false
     }
 
-    func customersForPickerViewController(viewController: CustomerPickerViewController) -> [Customer] {
+    func customersForPickerViewController(_ viewController: CustomerPickerViewController) -> [Customer] {
         if let customers = customers {
             return customers
         } else {
@@ -325,20 +327,20 @@ class JobCreationViewController: UITableViewController,
         return [Customer]()
     }
 
-    func selectedCustomersForPickerViewController(viewController: CustomerPickerViewController) -> [Customer] {
+    func selectedCustomersForPickerViewController(_ viewController: CustomerPickerViewController) -> [Customer] {
         if let customer = customer {
             return [customer]
         }
         return [Customer]()
     }
 
-    func collectionViewScrollDirectionForPickerViewController(viewController: CustomerPickerViewController) -> UICollectionViewScrollDirection {
-        return .Horizontal
+    func collectionViewScrollDirectionForPickerViewController(_ viewController: CustomerPickerViewController) -> UICollectionViewScrollDirection {
+        return .horizontal
     }
 
 //    optional func customerPickerViewControllerCanRenderResults(viewController: CustomerPickerViewController) -> Bool
 
-    private func reloadCustomersForCustomerPickerViewController(viewController: CustomerPickerViewController) {
+    fileprivate func reloadCustomersForCustomerPickerViewController(_ viewController: CustomerPickerViewController) {
         if viewController == customerPickerViewController {
             reloadingCustomers = true
             reloadingCustomersCount = true
@@ -348,14 +350,14 @@ class JobCreationViewController: UITableViewController,
             tableView.reloadData()
 
             if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                ApiService.sharedService().countCustomers(["company_id": defaultCompanyId],
+                let _ = ApiService.sharedService().countCustomers(["company_id": defaultCompanyId as AnyObject],
                     onTotalResultsCount: { totalResultsCount, error in
                         self.totalCustomersCount = totalResultsCount
                         if totalResultsCount > -1 {
                             if totalResultsCount <= self.maximumSearchlessCustomersCount {
-                                ApiService.sharedService().fetchCustomers(["company_id": defaultCompanyId, "page": 1, "rpp": totalResultsCount],
+                                let _ = ApiService.sharedService().fetchCustomers(["company_id": defaultCompanyId as AnyObject, "page": 1 as AnyObject, "rpp": totalResultsCount as AnyObject],
                                     onSuccess: { (statusCode, mappingResult) -> () in
-                                        self.customerPickerViewController?.customers = mappingResult.array() as! [Customer]
+                                        self.customerPickerViewController?.customers = mappingResult?.array() as! [Customer]
                                         self.tableView.reloadData()
                                         self.searchBar.placeholder = "Showing all \(totalResultsCount) customers"
                                         self.reloadingCustomersCount = false
@@ -381,29 +383,29 @@ class JobCreationViewController: UITableViewController,
         }
     }
 
-    private func showActivityIndicator() {
+    fileprivate func showActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: section)) {
             for view in cell.contentView.subviews {
-                if view.isKindOfClass(UIActivityIndicatorView) {
+                if view.isKind(of: UIActivityIndicatorView.self) {
                     (view as! UIActivityIndicatorView).startAnimating()
-                } else if view.isKindOfClass(UIButton) {
+                } else if view.isKind(of: UIButton.self) {
                     view.alpha = 0.0
-                    (view as! UIButton).enabled = false
+                    (view as! UIButton).isEnabled = false
                 }
             }
         }
     }
 
-    private func hideActivityIndicator() {
+    fileprivate func hideActivityIndicator() {
         let section = tableView.numberOfSections - 1
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section)) {
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: section)) {
             for view in cell.contentView.subviews {
-                if view.isKindOfClass(UIActivityIndicatorView) {
+                if view.isKind(of: UIActivityIndicatorView.self) {
                     (view as! UIActivityIndicatorView).stopAnimating()
-                } else if view.isKindOfClass(UIButton) {
+                } else if view.isKind(of: UIButton.self) {
                     view.alpha = 1.0
-                    (view as! UIButton).enabled = true
+                    (view as! UIButton).isEnabled = true
                 }
             }
         }

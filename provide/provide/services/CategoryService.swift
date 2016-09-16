@@ -8,19 +8,19 @@
 
 import Foundation
 
-typealias OnCategoriesFetched = (categories: [Category]) -> ()
+typealias OnCategoriesFetched = (_ categories: [Category]) -> ()
 
 class CategoryService {
 
-    private var categories = [Category]()
+    fileprivate var categories = [Category]()
 
-    private static let sharedInstance = CategoryService()
+    fileprivate static let sharedInstance = CategoryService()
 
     class func sharedService() -> CategoryService {
         return sharedInstance
     }
 
-    func fetch(page: Int = 1,
+    func fetch(_ page: Int = 1,
         rpp: Int = 50,
         companyId: Int!,
         includeCustomer: Bool = false,
@@ -31,22 +31,22 @@ class CategoryService {
         }
 
         var params: [String: AnyObject] = [
-            "page": page,
-            "rpp": rpp,
+            "page": page as AnyObject,
+            "rpp": rpp as AnyObject,
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId
+            params["company_id"] = companyId as AnyObject?
         }
 
         ApiService.sharedService().fetchCategories(params,
             onSuccess: { statusCode, mappingResult in
-                let fetchedCategories = mappingResult.array() as! [Category]
+                let fetchedCategories = mappingResult?.array() as! [Category]
 
                 self.categories += fetchedCategories
 
                 if let onCategoriesFetched = onCategoriesFetched {
-                    onCategoriesFetched(categories: fetchedCategories)
+                    onCategoriesFetched(fetchedCategories)
                 }
             },
             onError: { error, statusCode, responseString in

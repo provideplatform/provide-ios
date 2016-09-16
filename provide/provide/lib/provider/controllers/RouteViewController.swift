@@ -3,18 +3,18 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/20/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
-    private var zeroStateViewController: ZeroStateViewController! {
+    fileprivate var zeroStateViewController: ZeroStateViewController! {
         didSet {
             if route == nil {
                 refresh()
@@ -30,9 +30,9 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 
-    private var selectedWorkOrder: WorkOrder!
+    fileprivate var selectedWorkOrder: WorkOrder!
 
-    private func setupZeroStateView() {
+    fileprivate func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
@@ -46,14 +46,14 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         setupZeroStateView()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "WorkOrderDetailsViewControllerSegue" {
-            (segue.destinationViewController as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
+            (segue.destination as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
             selectedWorkOrder = nil
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if let route = route {
@@ -65,9 +65,9 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(RouteViewController.refresh), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(RouteViewController.refresh), for: .valueChanged)
 
         tableView.addSubview(refreshControl)
         tableView.alwaysBounceVertical = true
@@ -79,7 +79,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
                 { statusCode, mappingResult in
                     self.tableView?.reloadData()
 
-                    UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                    UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                         animations: {
                             self.tableView?.alpha = 1.0
                             self.zeroStateViewController?.view.alpha = 0.0
@@ -99,7 +99,7 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
             zeroStateViewController?.setMessage("")
 
             if let tableView = tableView {
-                UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+                UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                     animations: {
                         tableView.alpha = 0.0
                         self.zeroStateViewController?.view.alpha = 1.0
@@ -130,27 +130,27 @@ class RouteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
     // MARK: UITableViewDelegate
 
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        selectedWorkOrder = route.workOrders[indexPath.row]
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        selectedWorkOrder = route.workOrders[(indexPath as NSIndexPath).row]
         return indexPath
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let route = route {
             return route.workOrders.count
         }
         return 0
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("workOrderTableViewCellReuseIdentifier") as! WorkOrderTableViewCell
-        cell.workOrder = route.workOrders[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "workOrderTableViewCellReuseIdentifier") as! WorkOrderTableViewCell
+        cell.workOrder = route.workOrders[(indexPath as NSIndexPath).row]
         return cell
     }
 

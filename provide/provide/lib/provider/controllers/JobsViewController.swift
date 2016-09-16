@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/17/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -15,28 +15,28 @@ class JobsViewController: ViewController,
                           UIPopoverPresentationControllerDelegate,
                           JobCreationViewControllerDelegate,
                           JobTableViewCellDelegate,
-                          DraggableViewGestureRecognizerDelegate {
+                          KTDraggableViewGestureRecognizerDelegate {
 
-    @IBOutlet private weak var addJobBarButtonItem: UIBarButtonItem! {
+    @IBOutlet fileprivate weak var addJobBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addJobBarButtonItem = addJobBarButtonItem {
                 addJobBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
             }
         }
     }
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet fileprivate var tableView: UITableView!
 
-    private var page = 1
-    private let rpp = 10
-    private var lastJobIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastJobIndex = -1
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
-    private weak var jobCreationViewController: JobCreationViewController!
+    fileprivate weak var jobCreationViewController: JobCreationViewController!
 
-    private var cancellingJob = false
+    fileprivate var cancellingJob = false
 
-    private var jobs = [Job]() {
+    fileprivate var jobs = [Job]() {
         didSet {
             tableView?.reloadData()
         }
@@ -49,7 +49,7 @@ class JobsViewController: ViewController,
 
         setupPullToRefresh()
 
-        NSNotificationCenter.defaultCenter().addObserverForName("FloorplanChanged") { notification in
+        NotificationCenter.default.addObserverForName("FloorplanChanged") { notification in
             if let floorplan = notification.object as? Floorplan {
                 var i = 0
                 for job in self.jobs {
@@ -58,7 +58,9 @@ class JobsViewController: ViewController,
                             let indexPath = i
                             job.reload([:],
                                 onSuccess: { statusCode, mappingResult in
-                                    self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                                    if let tableView = self.tableView {
+                                        tableView.reloadRows(at: [NSIndexPath(row: indexPath, section: 0) as IndexPath], with: .none)
+                                    }
                                 },
                                 onError: { error, statusCode, responseString in
 
@@ -72,7 +74,7 @@ class JobsViewController: ViewController,
             }
         }
 
-        NSNotificationCenter.defaultCenter().addObserverForName("JobChanged") { notification in
+        NotificationCenter.default.addObserverForName("JobChanged") { notification in
             if let job = notification.object as? Job {
                 var i = 0
                 for j in self.jobs {
@@ -81,7 +83,9 @@ class JobsViewController: ViewController,
                         j.reload([:],
                             onSuccess: { statusCode, mappingResult in
                                 if self.jobs.count > 0 {
-                                    self.tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: indexPath, inSection: 0)], withRowAnimation: .None)
+                                    if let tableView = self.tableView {
+                                        tableView.reloadRows(at: [NSIndexPath(row: indexPath, section: 0) as IndexPath], with: .none)
+                                    }
                                 }
                             },
                             onError: { error, statusCode, responseString in
@@ -96,17 +100,17 @@ class JobsViewController: ViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "JobViewControllerSegue" {
             if let sender = sender {
-                (segue.destinationViewController as! JobViewController).job = (sender as! JobTableViewCell).job
+                (segue.destination as! JobViewController).job = (sender as! JobTableViewCell).job
             }
         } else if segue.identifier == "JobFloorplansViewControllerSegue" {
             if let sender = sender {
                 var job: Job!
-                if sender.isKindOfClass(JobTableViewCell) {
+                if sender is JobTableViewCell {
                     job = (sender as! JobTableViewCell).job
-                } else if sender.isKindOfClass(Job) {
+                } else if sender is Job {
                     job = sender as! Job
                 }
 
@@ -114,9 +118,9 @@ class JobsViewController: ViewController,
                     let cacheAge = job.timeIntervalSinceLastRefreshDate()
                     if cacheAge >= 0.0 {
                         if cacheAge > 60.0 {
-                            job.reload(["include_supervisors": "true"],
+                            job.reload(["include_supervisors": "true" as AnyObject],
                                 onSuccess: { statusCode, mappingResult in
-                                    if let job = mappingResult.firstObject as? Job {
+                                    if let job = mappingResult?.firstObject as? Job {
                                         var index: Int?
                                         for j in self.jobs {
                                             if j.id == job.id {
@@ -125,10 +129,10 @@ class JobsViewController: ViewController,
                                         }
 
                                         if let index = index {
-                                            self.jobs.replaceRange(index...index, with: [job])
+                                            self.jobs.replaceSubrange(index...index, with: [job])
                                         }
 
-                                        (segue.destinationViewController as! JobFloorplansViewController).job = job
+                                        (segue.destination as! JobFloorplansViewController).job = job
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
@@ -136,7 +140,7 @@ class JobsViewController: ViewController,
                                 }
                             )
                         } else {
-                            (segue.destinationViewController as! JobFloorplansViewController).job = job
+                            (segue.destination as! JobFloorplansViewController).job = job
                         }
                     }
                 }
@@ -144,9 +148,9 @@ class JobsViewController: ViewController,
         } else if segue.identifier == "JobWizardTabBarControllerSegue" {
             if let sender = sender {
                 var job: Job!
-                if sender.isKindOfClass(JobTableViewCell) {
+                if sender is JobTableViewCell {
                     job = (sender as! JobTableViewCell).job
-                } else if sender.isKindOfClass(Job) {
+                } else if sender is Job {
                     job = sender as! Job
                 }
 
@@ -154,9 +158,9 @@ class JobsViewController: ViewController,
                     let cacheAge = job.timeIntervalSinceLastRefreshDate()
                     if cacheAge >= 0.0 {
                         if cacheAge > 60.0 {
-                            job.reload(["include_supervisors": "true"],
+                            job.reload(["include_supervisors": "true" as AnyObject],
                                 onSuccess: { statusCode, mappingResult in
-                                    if let job = mappingResult.firstObject as? Job {
+                                    if let job = mappingResult?.firstObject as? Job {
                                         var index: Int?
                                         for j in self.jobs {
                                             if j.id == job.id {
@@ -165,10 +169,10 @@ class JobsViewController: ViewController,
                                         }
 
                                         if let index = index {
-                                            self.jobs.replaceRange(index...index, with: [job])
+                                            self.jobs.replaceSubrange(index...index, with: [job])
                                         }
 
-                                        (segue.destinationViewController as! JobWizardTabBarController).job = job
+                                        (segue.destination as! JobWizardTabBarController).job = job
                                     }
                                 },
                                 onError: { error, statusCode, responseString in
@@ -176,14 +180,14 @@ class JobsViewController: ViewController,
                                 }
                             )
                         } else {
-                            (segue.destinationViewController as! JobWizardTabBarController).job = job
+                            (segue.destination as! JobWizardTabBarController).job = job
                         }
                     }
                 }
             }
         } else if segue.identifier == "JobCreationViewControllerPopoverSegue" {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            navigationController.preferredContentSize = CGSizeMake(view.frame.width * 0.6, 650)
+            let navigationController = segue.destination as! UINavigationController
+            navigationController.preferredContentSize = CGSize(width: view.frame.width * 0.6, height: 650)
             navigationController.popoverPresentationController!.delegate = self
 
             jobCreationViewController = navigationController.viewControllers.first! as! JobCreationViewController
@@ -191,9 +195,9 @@ class JobsViewController: ViewController,
         }
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(JobsViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(JobsViewController.reset), for: .valueChanged)
 
         tableView.addSubview(refreshControl)
         tableView.alwaysBounceVertical = true
@@ -228,44 +232,44 @@ class JobsViewController: ViewController,
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return jobs.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("jobsTableViewCellReuseIdentifier", forIndexPath: indexPath) as! JobTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "jobsTableViewCellReuseIdentifier", for: indexPath) as! JobTableViewCell
         cell.jobTableViewCellDelegate = self
-        cell.job = jobs[indexPath.row]
+        cell.job = jobs[(indexPath as NSIndexPath).row]
         return cell
     }
 
-    func cancelJobAtIndexPath(indexPath: NSIndexPath) {
-        let job = jobs[indexPath.row]
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? JobTableViewCell {
-            if ["canceled", "completed"].indexOf(job.status) == nil {
+    func cancelJobAtIndexPath(_ indexPath: IndexPath) {
+        let job = jobs[(indexPath as NSIndexPath).row]
+        if let cell = tableView.cellForRow(at: indexPath) as? JobTableViewCell {
+            if ["canceled", "completed"].index(of: job.status) == nil {
                 cell.dismiss()
                 promptForJobCancellation(job, cell: cell)
             }
         }
     }
 
-    func promptForJobCancellation(job: Job, cell: JobTableViewCell) {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+    func promptForJobCancellation(_ job: Job, cell: JobTableViewCell) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Are you sure you want to cancel this job?", message: nil, preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "No, Don't Cancel", style: .Cancel) { action in
+        let cancelAction = UIAlertAction(title: "No, Don't Cancel", style: .cancel) { action in
             cell.reset()
         }
         alertController.addAction(cancelAction)
 
-        let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .Destructive) { action in
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        let setCancelJobAction = UIAlertAction(title: "Cancel Job", style: .destructive) { action in
+            DispatchQueue.global(qos: DispatchQoS.default.qosClass).async {
                 job.cancel(
-                    onSuccess: { statusCode, mappingResult in
-                        if let indexPath = self.tableView.indexPathForCell(cell) {
+                    { statusCode, mappingResult in
+                        if let indexPath = self.tableView.indexPath(for: cell) {
                             self.tableView?.beginUpdates()
                             self.jobs.removeObject(job)
-                            self.tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
+                            self.tableView?.deleteRows(at: [indexPath], with: .top)
                             self.tableView?.endUpdates()
                         }
                     },
@@ -282,8 +286,8 @@ class JobsViewController: ViewController,
 
     // MARK: UITableViewDelegate
 
-    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let jobIndex = indexPath.row
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let jobIndex = (indexPath as NSIndexPath).row
         if jobIndex == jobs.count - 1 && jobIndex > lastJobIndex {
             page += 1
             lastJobIndex = jobIndex
@@ -291,71 +295,71 @@ class JobsViewController: ViewController,
         }
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: cell)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        performSegue(withIdentifier: "JobFloorplansViewControllerSegue", sender: cell)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: JobCreationViewControllerDelegate
 
-    func jobCreationViewController(viewController: JobCreationViewController, didCreateJob job: Job) {
-        jobs.insert(job, atIndex: 0)
+    func jobCreationViewController(_ viewController: JobCreationViewController, didCreateJob job: Job) {
+        jobs.insert(job, at: 0)
 
         if let jobCreationViewController = jobCreationViewController {
-            jobCreationViewController.presentingViewController?.dismissViewController(animated: true)
+            jobCreationViewController.presentingViewController?.dismissViewController(true)
         }
 
-        performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: job)
+        performSegue(withIdentifier: "JobFloorplansViewControllerSegue", sender: job)
     }
 
     // MARK: JobTableViewCellDelegate
 
-    func jobTableViewCell(tableViewCell: JobTableViewCell, shouldCancelJob job: Job) {
+    func jobTableViewCell(_ tableViewCell: JobTableViewCell, shouldCancelJob job: Job) {
         for j in jobs {
             if j.id == job.id {
-                let indexPath = NSIndexPath(forRow: jobs.indexOfObject(j)!, inSection: 0)
+                let indexPath = IndexPath(row: jobs.indexOfObject(j)!, section: 0)
                 cancelJobAtIndexPath(indexPath)
                 return
             }
         }
     }
 
-    // MARK: DraggableViewGestureRecognizerDelegate
+    // MARK: KTDraggableViewGestureRecognizerDelegate
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldResetView view: UIView) -> Bool {
         return false
     }
 
-    func draggableViewGestureRecognizer(gestureRecognizer: DraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
+    func draggableViewGestureRecognizer(_ gestureRecognizer: KTDraggableViewGestureRecognizer, shouldAnimateResetView view: UIView) -> Bool {
         return false
     }
 
-    func jobsTableViewCellGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    func jobsTableViewCellGestureRecognized(_ gestureRecognizer: UIGestureRecognizer) {
         // no-op
     }
 
-    private class JobTableViewCellGestureRecognizer: DraggableViewGestureRecognizer {
+    fileprivate class JobTableViewCellGestureRecognizer: KTDraggableViewGestureRecognizer {
 
-        private weak var tableView: UITableView! {
+        fileprivate weak var tableView: UITableView! {
             return jobsViewController?.tableView
         }
 
-        private weak var jobsViewController: JobsViewController!
+        fileprivate weak var jobsViewController: JobsViewController!
 
-        private var initialBackgroundColor: UIColor!
+        fileprivate var initialBackgroundColor: UIColor!
 
-        private var shouldCancelJob = false
+        fileprivate var shouldCancelJob = false
 
         init(viewController: JobsViewController) {
             super.init(target: viewController, action: #selector(JobsViewController.jobsTableViewCellGestureRecognized(_:)))
             jobsViewController = viewController
         }
 
-        override private var initialView: UIView! {
+        override open var initialView: UIView! {
             didSet {
-                if let initialView = initialView {
-                    if initialView.superview!.isKindOfClass(JobTableViewCell) {
+                if let initialView = self.initialView {
+                    if initialView.superview!.isKind(of: JobTableViewCell.self) {
                     }
                 } else if let _ = oldValue {
                     shouldCancelJob = false
@@ -363,21 +367,21 @@ class JobsViewController: ViewController,
             }
         }
 
-        private func dismissCell() {
+        fileprivate func dismissCell() {
             if let tableViewCell = initialView.superview?.superview as? JobTableViewCell {
                 tableViewCell.dismiss()
             }
         }
 
-        private func restoreCell() {
+        fileprivate func restoreCell() {
             if let tableViewCell = initialView.superview?.superview as? JobTableViewCell {
                 tableViewCell.reset()
             }
         }
 
-        private override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+        fileprivate override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
             let cell = initialView.superview!.superview! as! JobTableViewCell
-            let indexPath = tableView.indexPathForCell(cell)!
+            let indexPath = tableView.indexPath(for: cell)!
             let selected = abs(initialView.frame.origin.x) <= 5.0
 
             if shouldCancelJob {
@@ -386,19 +390,19 @@ class JobsViewController: ViewController,
                 restoreCell()
             }
 
-            super.touchesEnded(touches, withEvent: event)
+            super.touchesEnded(touches, with: event)
 
             if selected {
                 dispatch_after_delay(0.0) { [weak self] in
-                    self!.tableView?.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                    self!.jobsViewController?.performSegueWithIdentifier("JobFloorplansViewControllerSegue", sender: cell)
+                    self!.tableView?.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                    self!.jobsViewController?.performSegue(withIdentifier: "JobFloorplansViewControllerSegue", sender: cell)
                     cell.setHighlighted(false, animated: true)
                     cell.setSelected(false, animated: true)
                 }
             }
         }
 
-        private override func drag(xOffset: CGFloat, yOffset: CGFloat) {
+        fileprivate override func drag(_ xOffset: CGFloat, yOffset: CGFloat) {
             var newFrame = CGRect(origin: initialView.frame.origin, size: initialView.frame.size)
             newFrame.origin.x += xOffset
 
@@ -414,7 +418,7 @@ class JobsViewController: ViewController,
             shouldCancelJob = !jobsViewController.cancellingJob && cancelStrength >= 0.25 && isCancelSwipeDirection
 
             if isCancelSwipeDirection {
-                initialView.backgroundColor = Color.abandonedStatusColor().colorWithAlphaComponent(cancelStrength / 0.75)
+                initialView.backgroundColor = Color.abandonedStatusColor().withAlphaComponent(cancelStrength / 0.75)
             }
 
             if shouldCancelJob {
@@ -430,6 +434,6 @@ class JobsViewController: ViewController,
     deinit {
         logInfo("Deinitialized jobs view controller")
 
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

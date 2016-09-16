@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -17,37 +17,37 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     let defaultAccuracy = kCLLocationAccuracyBest
     let defaultDistanceFilter = kCLDistanceFilterNone
 
-    private let regionMonitorModificationQueue = dispatch_queue_create("api.regionMonitorModificationQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
 
     var currentHeading: CLHeading!
     var currentLocation: CLLocation!
 
-    private var intervalSinceLastAccurateLocation: NSTimeInterval! {
+    fileprivate var intervalSinceLastAccurateLocation: TimeInterval! {
         if let locationServiceStartedDate = locationServiceStartedDate {
             if let lastAccurateLocationDate = lastAccurateLocationDate {
-                return lastAccurateLocationDate.timeIntervalSinceDate(locationServiceStartedDate)
+                return lastAccurateLocationDate.timeIntervalSince(locationServiceStartedDate)
             }
         }
         return nil
     }
 
-    private var locationServiceStartedDate: NSDate!
-    private var lastAccurateLocationDate: NSDate!
+    fileprivate var locationServiceStartedDate: Date!
+    fileprivate var lastAccurateLocationDate: Date!
 
-    private var geofenceCallbacks = [String : [String : VoidBlock]]()
-    private var onManagerAuthorizedCallbacks = [VoidBlock]()
+    fileprivate var geofenceCallbacks = [String : [String : VoidBlock]]()
+    fileprivate var onManagerAuthorizedCallbacks = [VoidBlock]()
 
-    private var onHeadingResolvedCallbacks = [OnHeadingResolved]()
-    private var onHeadingResolvedDurableCallbacks = [String : OnHeadingResolved]()
+    fileprivate var onHeadingResolvedCallbacks = [OnHeadingResolved]()
+    fileprivate var onHeadingResolvedDurableCallbacks = [String : OnHeadingResolved]()
 
-    private var onLocationResolvedCallbacks = [OnLocationResolved]()
-    private var onLocationResolvedDurableCallbacks = [String : OnLocationResolved]()
+    fileprivate var onLocationResolvedCallbacks = [OnLocationResolved]()
+    fileprivate var onLocationResolvedDurableCallbacks = [String : OnLocationResolved]()
 
-    private var requireNavigationAccuracy = false
+    fileprivate var requireNavigationAccuracy = false
 
-    private var regions = [CLCircularRegion]()
+    fileprivate var regions = [CLCircularRegion]()
 
-    private var staleLocation: Bool {
+    fileprivate var staleLocation: Bool {
         if intervalSinceLastAccurateLocation != nil && abs(intervalSinceLastAccurateLocation) >= 15.0 {
             return true
         } else if locationServiceStartedDate != nil && abs(locationServiceStartedDate.timeIntervalSinceNow) >= 15.0 {
@@ -60,14 +60,14 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         super.init()
         delegate = self
 
-        activityType = .AutomotiveNavigation
+        activityType = .automotiveNavigation
         pausesLocationUpdatesAutomatically = false
 
         desiredAccuracy = defaultAccuracy
         distanceFilter = defaultDistanceFilter
     }
 
-    private static let sharedInstance = LocationService()
+    fileprivate static let sharedInstance = LocationService()
 
     class func sharedService() -> LocationService {
         return sharedInstance
@@ -75,20 +75,20 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Authorization
 
-    func requireAuthorization(callback: VoidBlock) {
-        if CLLocationManager.authorizationStatus() == .AuthorizedAlways {
+    func requireAuthorization(_ callback: @escaping VoidBlock) {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways {
             callback()
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationWillRequestLocationAuthorization")
+            NotificationCenter.default.postNotificationName("ApplicationWillRequestLocationAuthorization")
             onManagerAuthorizedCallbacks.append(callback)
             requestAlwaysAuthorization()
         }
     }
 
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedAlways {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways {
             while onManagerAuthorizedCallbacks.count > 0 {
-                let callback = onManagerAuthorizedCallbacks.removeAtIndex(0)
+                let callback = onManagerAuthorizedCallbacks.remove(at: 0)
                 callback()
             }
         }
@@ -98,7 +98,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func start() {
         if locationServiceStartedDate == nil {
-            locationServiceStartedDate = NSDate()
+            locationServiceStartedDate = Date()
 
             startUpdatingLocation()
 
@@ -137,7 +137,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         requireNavigationAccuracy = true
         desiredAccuracy = kCLLocationAccuracyBestForNavigation
 
-        UIApplication.sharedApplication().idleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = true
 
         startUpdatingHeading()
     }
@@ -146,14 +146,14 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         requireNavigationAccuracy = false
         desiredAccuracy = defaultAccuracy
 
-        UIApplication.sharedApplication().idleTimerDisabled = false
+        UIApplication.shared.isIdleTimerDisabled = false
 
         stopUpdatingHeading()
     }
 
     // MARK: Location resolution
 
-    func resolveCurrentLocation(durableKey: String? = nil, allowCachedLocation: Bool = false, onResolved: OnLocationResolved) {
+    func resolveCurrentLocation(_ durableKey: String? = nil, allowCachedLocation: Bool = false, onResolved: @escaping OnLocationResolved) {
         if allowCachedLocation && currentLocation != nil {
             onResolved(currentLocation)
         } else {
@@ -167,34 +167,33 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last where location.isAccurate {
-            lastAccurateLocationDate = NSDate()
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last , location.isAccurate {
+            lastAccurateLocationDate = Date()
             locationResolved(location)
         } else if staleLocation {
-            if let location = locations.last where location.isAccurateForForcedLocationUpdate {
-                lastAccurateLocationDate = NSDate()
+            if let location = locations.last , location.isAccurateForForcedLocationUpdate {
+                lastAccurateLocationDate = Date()
                 locationResolved(location)
             }
         }
     }
 
-    func removeOnLocationResolvedDurableCallback(key: String) {
+    func removeOnLocationResolvedDurableCallback(_ key: String) {
         let callback = onLocationResolvedDurableCallbacks[key]
         if callback != nil {
-            onLocationResolvedDurableCallbacks.removeValueForKey(key)
+            onLocationResolvedDurableCallbacks.removeValue(forKey: key)
         }
     }
 
-    private func locationResolved(location: CLLocation) {
+    fileprivate func locationResolved(_ location: CLLocation) {
         log("Resolved current location: \(location)")
 
         currentLocation = location
 
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
-        dispatch_async(queue) {
+        DispatchQueue.global(qos: DispatchQoS.default.qosClass).async {
             for region in self.regions {
-                if region.containsCoordinate(location.coordinate) {
+                if region.contains(location.coordinate) {
                     if let callbacks = self.geofenceCallbacks[region.identifier] {
                         if let callback = callbacks["didEnterRegion"] {
                             callback()
@@ -205,7 +204,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
 
         while onLocationResolvedCallbacks.count > 0 {
-            let callback = onLocationResolvedCallbacks.removeAtIndex(0)
+            let callback = onLocationResolvedCallbacks.remove(at: 0)
             callback(location)
         }
 
@@ -216,15 +215,15 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Heading resolution
 
-    func resolveCurrentHeading(onResolved: OnHeadingResolved) {
+    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved) {
         resolveCurrentHeading(onResolved, durableKey: nil)
     }
 
-    func resolveCurrentHeading(onResolved: OnHeadingResolved, allowCachedHeading: Bool) {
+    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, allowCachedHeading: Bool) {
         resolveCurrentHeading(onResolved, durableKey: nil, allowCachedHeading: allowCachedHeading)
     }
 
-    func resolveCurrentHeading(onResolved: OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
+    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
         if allowCachedHeading && currentHeading != nil {
             onResolved(currentHeading)
         } else if !requireNavigationAccuracy {
@@ -238,25 +237,25 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if abs(newHeading.timestamp.timeIntervalSinceNow) < 1.0 && newHeading.headingAccuracy >= 0.0 {
             headingResolved(newHeading)
         }
     }
 
-    func removeOnHeadingResolvedDurableCallback(key: String) {
+    func removeOnHeadingResolvedDurableCallback(_ key: String) {
         let callback = onHeadingResolvedDurableCallbacks[key]
         if callback != nil {
-            onHeadingResolvedDurableCallbacks.removeValueForKey(key)
+            onHeadingResolvedDurableCallbacks.removeValue(forKey: key)
         }
     }
 
-    private func headingResolved(heading: CLHeading) {
+    fileprivate func headingResolved(_ heading: CLHeading) {
         log("Resolved current heading: \(heading)")
         currentHeading = heading
 
         while onHeadingResolvedCallbacks.count > 0 {
-            let callback = onHeadingResolvedCallbacks.removeAtIndex(0)
+            let callback = onHeadingResolvedCallbacks.remove(at: 0)
             callback(heading)
         }
 
@@ -271,15 +270,15 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Geofencing
 
-    func monitorRegion(region: CLCircularRegion, onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
-        monitorRegionWithCircularOverlay(MKCircle(centerCoordinate: region.center, radius: region.radius),
+    func monitorRegion(_ region: CLCircularRegion, onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
+        monitorRegionWithCircularOverlay(MKCircle(center: region.center, radius: region.radius),
                                          identifier: region.identifier,
                                          onDidEnterRegion: onDidEnterRegion,
                                          onDidExitRegion: onDidExitRegion)
     }
 
-    func monitorRegionWithCircularOverlay(overlay: MKCircle, identifier: String, onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+    func monitorRegionWithCircularOverlay(_ overlay: MKCircle, identifier: String, onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
+        if CLLocationManager.authorizationStatus() != .authorizedAlways {
             return
         }
 
@@ -304,11 +303,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         regions.append(region)
     }
 
-    func unregisterRegionMonitor(identifier: String) {
-        dispatch_async(regionMonitorModificationQueue) {
+    func unregisterRegionMonitor(_ identifier: String) {
+        regionMonitorModificationQueue.async {
             for region in self.regions {
                 if region.identifier == identifier {
-                    self.geofenceCallbacks.removeValueForKey(region.identifier)
+                    self.geofenceCallbacks.removeValue(forKey: region.identifier)
                     self.regions.removeObject(region)
                     break
                 }
@@ -319,18 +318,18 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     func unregisterRegionMonitors() {
         if regions.count > 0 {
             for region in regions {
-                geofenceCallbacks.removeValueForKey(region.identifier)
+                geofenceCallbacks.removeValue(forKey: region.identifier)
             }
 
             regions = [CLCircularRegion]()
         }
     }
 
-    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
         log("Started monitoring region \(region)")
     }
 
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if let callbacks = geofenceCallbacks[region.identifier] {
             if let callback = callbacks["didEnterRegion"] {
                 callback()
@@ -338,7 +337,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         if let callbacks = geofenceCallbacks[region.identifier] {
             if let callback = callbacks["didExitRegion"] {
                 callback()

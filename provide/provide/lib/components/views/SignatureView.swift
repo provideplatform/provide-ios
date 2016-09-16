@@ -3,27 +3,27 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 @objc
 protocol SignatureViewDelegate {
-    func signatureView(signatureView: SignatureView, capturedSignature signature: UIImage)
+    func signatureView(_ signatureView: SignatureView, capturedSignature signature: UIImage)
 }
 
 class SignatureView: UIView {
 
     var delegate: SignatureViewDelegate!
 
-    @IBOutlet private weak var clearButton: UIButton!
-    @IBOutlet private weak var doneButton: UIButton!
+    @IBOutlet fileprivate weak var clearButton: UIButton!
+    @IBOutlet fileprivate weak var doneButton: UIButton!
 
-    private let minTouchesRequired = 20
-    private var path: UIBezierPath!
-    private var writing = false
-    private var touches = 0 {
+    fileprivate let minTouchesRequired = 20
+    fileprivate var path: UIBezierPath!
+    fileprivate var writing = false
+    fileprivate var touches = 0 {
         didSet {
             if touches == 0 {
                 hideClearButton()
@@ -41,42 +41,42 @@ class SignatureView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        multipleTouchEnabled = false
-        backgroundColor = UIColor.whiteColor()
+        isMultipleTouchEnabled = false
+        backgroundColor = UIColor.white
 
         path = UIBezierPath()
         path.lineWidth = 3.0
     }
 
-    override func drawRect(rect: CGRect) {
-        UIColor.blackColor().setStroke()
+    override func draw(_ rect: CGRect) {
+        UIColor.black.setStroke()
         path.stroke()
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         writing = true
 
         if let touch = touches.first {
-            let pt = touch.locationInView(touch.view)
-            path.moveToPoint(pt)
+            let pt = touch.location(in: touch.view)
+            path.move(to: pt)
         }
 
         write(touches)
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         write(touches)
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         write(touches)
         writing = false
     }
 
-    private func write(touches: Set<UITouch>) {
+    fileprivate func write(_ touches: Set<UITouch>) {
         for touch in touches {
-            let pt = touch.locationInView(touch.view)
-            path.addLineToPoint(pt)
+            let pt = touch.location(in: touch.view)
+            path.addLine(to: pt)
 
             self.touches += 1
 
@@ -84,52 +84,52 @@ class SignatureView: UIView {
         }
     }
 
-    private func enableClearButton() {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut,
+    fileprivate func enableClearButton() {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(),
             animations: {
                 self.clearButton.alpha = 1.0
             },
             completion: { finished in
-                self.clearButton.enabled = true
-                self.clearButton.addTarget(self, action: #selector(SignatureView.clear), forControlEvents: .TouchUpInside)
+                self.clearButton.isEnabled = true
+                self.clearButton.addTarget(self, action: #selector(SignatureView.clear), for: .touchUpInside)
             }
         )
     }
 
-    private func hideClearButton() {
-        clearButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+    fileprivate func hideClearButton() {
+        clearButton.removeTarget(nil, action: nil, for: .allEvents)
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(),
             animations: {
                 self.clearButton.alpha = 0.0
             },
             completion: { finished in
-                self.clearButton.enabled = false
+                self.clearButton.isEnabled = false
             }
         )
     }
 
-    private func enableDoneButton() {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut,
+    fileprivate func enableDoneButton() {
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(),
             animations: {
                 self.doneButton.alpha = 1.0
             },
             completion: { finished in
-                self.doneButton.enabled = true
-                self.doneButton.addTarget(self, action: #selector(SignatureView.done), forControlEvents: .TouchUpInside)
+                self.doneButton.isEnabled = true
+                self.doneButton.addTarget(self, action: #selector(SignatureView.done), for: .touchUpInside)
             }
         )
     }
 
-    private func hideDoneButton() {
-        doneButton.removeTarget(nil, action: nil, forControlEvents: .AllEvents)
+    fileprivate func hideDoneButton() {
+        doneButton.removeTarget(nil, action: nil, for: .allEvents)
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: UIViewAnimationOptions(),
             animations: {
                 self.doneButton.alpha = 0.0
             },
             completion: { finished in
-                self.doneButton.enabled = false
+                self.doneButton.isEnabled = false
             }
         )
     }
@@ -159,11 +159,11 @@ class SignatureView: UIView {
         UIGraphicsBeginImageContext(imageSize)
         let imageContext = UIGraphicsGetCurrentContext()!
 
-        layer.renderInContext(imageContext)
+        layer.render(in: imageContext)
         let img = UIGraphicsGetImageFromCurrentImageContext()
 
         UIGraphicsEndImageContext()
 
-        return img
+        return img!
     }
 }

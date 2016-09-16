@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -52,15 +52,15 @@ class Company: Model {
     }
 
     override class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(forClass: self)
-        mapping.addAttributeMappingsFromArray([
+        let mapping = RKObjectMapping(for: self)
+        mapping?.addAttributeMappings(from: [
             "id",
             "name",
             "has_quickbooks_integration",
             "config",
             ]
         )
-        mapping.addRelationshipMappingWithSourceKeyPath("contact", mapping: Contact.mapping())
-        return mapping
+        mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        return mapping!
     }
 }

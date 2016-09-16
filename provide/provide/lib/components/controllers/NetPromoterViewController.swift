@@ -3,22 +3,22 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class NetPromoterViewController: WorkOrderComponentViewController {
 
-    @IBOutlet private weak var promptTextView: UITextView!
+    @IBOutlet fileprivate weak var promptTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let transform = CGAffineTransformMakeRotation(CGFloat(M_PI_2))
+        let transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
         view.transform = transform
 
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear
         view.alpha = 1
 
         view.subviews[1].roundCorners(3.0)
@@ -36,7 +36,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
 
         targetView.addSubview(view)
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRect(
@@ -55,7 +55,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
     override func unwind() {
         clearNavigationItem()
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRect(
@@ -71,11 +71,12 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         )
     }
 
-    @IBAction func cancel(sender: UIButton) {
+    @IBAction func cancel(_ sender: UIButton) {
         workOrdersViewControllerDelegate?.netPromoterScoreDeclinedForWorkOrderViewController?(self)
     }
 
-    @IBAction func rate(sender: UIButton) {
-        workOrdersViewControllerDelegate?.netPromoterScoreReceived?(sender.tag / 1000, forWorkOrderViewController: self)
+    @IBAction func rate(_ sender: UIButton) {
+        let tag = NSNumber(value: Double(sender.tag) / 1000.0)
+        workOrdersViewControllerDelegate?.netPromoterScoreReceived?(tag, forWorkOrderViewController: self)
     }
 }

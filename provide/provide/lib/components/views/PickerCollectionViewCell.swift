@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/18/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -22,8 +22,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     internal var firstName: String? {
         if let name = name {
-            if name.componentsSeparatedByString(" ").count > 1 {
-                return name.componentsSeparatedByString(" ").first!
+            if name.components(separatedBy: " ").count > 1 {
+                return name.components(separatedBy: " ").first!
             } else {
                 return name
             }
@@ -34,8 +34,8 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     internal var lastName: String? {
         if let name = name {
-            if name.componentsSeparatedByString(" ").count > 1 {
-                return name.componentsSeparatedByString(" ").last!
+            if name.components(separatedBy: " ").count > 1 {
+                return name.components(separatedBy: " ").last!
             } else {
                 return nil
             }
@@ -44,7 +44,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    var imageUrl: NSURL! {
+    var imageUrl: URL! {
         didSet {
             if let imageUrl = imageUrl {
                 self.showActivityIndicator()
@@ -53,11 +53,11 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 initialsLabel?.alpha = 0.0
 
                 if let imageView = imageView {
-                    imageView.contentMode = .ScaleAspectFit
-                    imageView.sd_setImageWithURL(imageUrl, completed: { image, error, cacheType, url in
+                    imageView.contentMode = .scaleAspectFit
+                    imageView.sd_setImage(with: imageUrl, completed: { image, error, cacheType, url in
                         self.gravatarImageView?.alpha = 0.0
 
-                        self.contentView.bringSubviewToFront(self.imageView)
+                        self.contentView.bringSubview(toFront: self.imageView)
                         if self.rendersCircularImage {
                             self.imageView.makeCircular()
                         }
@@ -75,7 +75,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     var gravatarEmail: String! {
         didSet {
-            if let gravatarEmail = gravatarEmail {
+            if let _ = gravatarEmail {
                 showActivityIndicator()
 
                 imageView.image = nil
@@ -102,10 +102,10 @@ class PickerCollectionViewCell: UICollectionViewCell {
         if let _ = name {
             var initials = ""
             if let firstName = firstName {
-                initials = "\(firstName.substringToIndex(firstName.startIndex.advancedBy(1)))"
+                initials = "\(firstName.substring(to: firstName.characters.index(firstName.startIndex, offsetBy: 1)))"
             }
             if let lastName = lastName {
-                initials = "\(initials)\(lastName.substringFromIndex(lastName.startIndex).substringToIndex(lastName.startIndex.advancedBy(1)))"
+                initials = "\(initials)\(lastName.substring(from: lastName.startIndex).substring(to: lastName.characters.index(lastName.startIndex, offsetBy: 1)))"
             }
             return initials
         }
@@ -118,7 +118,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
                 accessoryImageView?.image = accessoryImage
                 accessoryImageView?.alpha = 1.0
                 if let accessoryImageView = accessoryImageView {
-                    contentView.bringSubviewToFront(accessoryImageView)
+                    contentView.bringSubview(toFront: accessoryImageView)
                 }
             } else {
                 accessoryImageView?.alpha = 0.0
@@ -130,7 +130,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
     var selectedImage: UIImage! {
         didSet {
             if let selectedImage = selectedImage {
-                selectedImageView.alpha = selected ? 1.0 : 0.0
+                selectedImageView.alpha = isSelected ? 1.0 : 0.0
                 selectedImageView.image = selectedImage
             }
         }
@@ -150,9 +150,9 @@ class PickerCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet {
-            if selected {
+            if isSelected {
                 selectedImageView?.alpha = 1.0
             } else {
                 selectedImageView?.alpha = 0.0
@@ -163,7 +163,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
     @IBOutlet internal weak var activityIndicatorView: UIActivityIndicatorView! {
         didSet {
             if let activityIndicatorView = activityIndicatorView {
-                bringSubviewToFront(activityIndicatorView)
+                bringSubview(toFront: activityIndicatorView)
             }
         }
     }
@@ -188,7 +188,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         didSet {
             if let imageView = imageView {
                 defaultImageViewFrame = imageView.frame
-                contentView.sendSubviewToBack(imageView)
+                contentView.sendSubview(toBack: imageView)
 
                 gravatarImageView = UIImageView(frame: defaultImageViewFrame)
             }
@@ -198,11 +198,11 @@ class PickerCollectionViewCell: UICollectionViewCell {
     @IBOutlet internal weak var accessoryImageView: UIImageView! {
         didSet {
             if let accessoryImageView = accessoryImageView {
-                accessoryImageView.contentMode = .ScaleAspectFit
+                accessoryImageView.contentMode = .scaleAspectFit
                 accessoryImageView.image = nil
                 accessoryImageView.alpha = 0.0
 
-                contentView.bringSubviewToFront(accessoryImageView)
+                contentView.bringSubview(toFront: accessoryImageView)
             }
         }
     }
@@ -210,12 +210,12 @@ class PickerCollectionViewCell: UICollectionViewCell {
     @IBOutlet internal weak var selectedImageView: UIImageView! {
         didSet {
             if let selectedImageView = selectedImageView {
-                selectedImageView.contentMode = .ScaleAspectFit
+                selectedImageView.contentMode = .scaleAspectFit
                 selectedImageView.image = UIImage(named: "map-pin")?.scaledToWidth(25.0)
                 selectedImageView.alpha = 0.0
 
-                contentView.bringSubviewToFront(selectedImageView)
-                contentView.bringSubviewToFront(nameLabel)
+                contentView.bringSubview(toFront: selectedImageView)
+                contentView.bringSubview(toFront: nameLabel)
             }
         }
     }
@@ -224,7 +224,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         didSet {
             if let gravatarImageView = gravatarImageView {
                 contentView.addSubview(gravatarImageView)
-                contentView.sendSubviewToBack(gravatarImageView)
+                contentView.sendSubview(toBack: gravatarImageView)
             }
         }
     }
@@ -234,7 +234,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
     internal var highlightedFont: UIFont! {
         if let defaultFont = defaultFont {
-            let name = defaultFont.fontName.componentsSeparatedByString("-").first!
+            let name = defaultFont.fontName.components(separatedBy: "-").first!
             return UIFont(name: "\(name)-Bold", size: defaultFont.pointSize)
         }
         return nil
@@ -271,28 +271,28 @@ class PickerCollectionViewCell: UICollectionViewCell {
 
         showActivityIndicator()
 
-        selected = false
+        isSelected = false
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
         highlighted()
     }
 
-    override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+        super.touchesCancelled(touches!, with: event)
 
         unhighlighted()
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
         unhighlighted()
     }
 
-    func setAccessoryImage(image: UIImage, tintColor: UIColor) {
+    func setAccessoryImage(_ image: UIImage, tintColor: UIColor) {
         accessoryImageView?.tintColor = tintColor
         accessoryImage = image
     }
@@ -307,12 +307,12 @@ class PickerCollectionViewCell: UICollectionViewCell {
     func renderInitials() {
         if let initials = initials {
             initialsLabel?.text = initials
-            initialsLabel?.textColor = UIColor.whiteColor()
-            initialsLabel?.backgroundColor = Color.annotationViewBackgroundImageColor().colorWithAlphaComponent(0.8)
+            initialsLabel?.textColor = UIColor.white
+            initialsLabel?.backgroundColor = Color.annotationViewBackgroundImageColor().withAlphaComponent(0.8)
             initialsLabel?.alpha = 1.0
 
             if let initialsLabel = initialsLabel {
-                contentView.bringSubviewToFront(initialsLabel)
+                contentView.bringSubview(toFront: initialsLabel)
             }
 
             hideActivityIndicator()
@@ -326,7 +326,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         activityIndicatorView?.startAnimating()
     }
 
-    private func unhighlighted() {
+    fileprivate func unhighlighted() {
         nameLabel?.font = defaultFont
 
         imageView?.frame = defaultImageViewFrame
@@ -334,7 +334,7 @@ class PickerCollectionViewCell: UICollectionViewCell {
         gravatarImageView?.frame = defaultImageViewFrame
     }
 
-    private func highlighted() {
+    fileprivate func highlighted() {
         nameLabel?.font = highlightedFont
 
         imageView?.frame = highlightedImageViewFrame

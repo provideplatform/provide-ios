@@ -11,15 +11,15 @@ import KTSwiftExtensions
 
 class CategoryTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var iconImageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var iconImageView: UIImageView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
 
-    private var pinView: FloorplanPinView!
+    fileprivate var pinView: FloorplanPinView!
 
     var category: Category! {
         didSet {
-            if NSThread.isMainThread() {
+            if Thread.isMainThread {
                 self.refresh()
             } else {
                 dispatch_after_delay(0.0) {
@@ -43,16 +43,16 @@ class CategoryTableViewCell: UITableViewCell {
         pinView = nil
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         if let category = category {
             nameLabel?.text = category.name
 
             activityIndicatorView?.startAnimating()
 
-            iconImageView?.contentMode = .ScaleAspectFit
+            iconImageView?.contentMode = .scaleAspectFit
 
             if let iconImageUrl = category.iconImageUrl {
-                iconImageView?.sd_setImageWithURL(iconImageUrl, placeholderImage: nil, options: .RetryFailed,
+                iconImageView?.sd_setImage(with: iconImageUrl, placeholderImage: nil, options: .retryFailed,
                                                   completed: { image, error, cacheType, url in
                                                     self.activityIndicatorView?.stopAnimating()
                                                     self.iconImageView?.alpha = 1.0
@@ -60,7 +60,7 @@ class CategoryTableViewCell: UITableViewCell {
                 )
             } else {
                 pinView = FloorplanPinView(annotation: nil)
-                pinView?.contentMode = .ScaleAspectFit
+                pinView?.contentMode = .scaleAspectFit
                 pinView?.category = category
 
                 iconImageView?.image = pinView?.toImage()

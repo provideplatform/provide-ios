@@ -3,25 +3,25 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol MenuViewControllerDelegate {
-    func navigationControllerForMenuViewController(menuViewController: MenuViewController) -> UINavigationController!
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController!
 }
 
 class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     var delegate: MenuViewControllerDelegate!
 
-    @IBOutlet private weak var menuHeaderView: MenuHeaderView!
+    @IBOutlet fileprivate weak var menuHeaderView: MenuHeaderView!
 
-    private var storyboardPaths = [String : AnyObject!]()
+    fileprivate var storyboardPaths = [String : AnyObject!]()
 
-    private var lastSectionIndex: Int {
+    fileprivate var lastSectionIndex: Int {
         return tableView.numberOfSections - 1
     }
 
@@ -37,15 +37,15 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: UITableViewDataSource
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("menuTableViewCellReuseIdentifier") as! MenuTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "menuTableViewCellReuseIdentifier") as! MenuTableViewCell
 
         let menuItems = currentUser().menuItems
-        if menuItems != nil && indexPath.section == 0 {
-            cell.menuItem = menuItems[indexPath.row]
-        } else if indexPath.section == 1 {
+        if menuItems != nil && (indexPath as NSIndexPath).section == 0 {
+            cell.menuItem = menuItems?[(indexPath as NSIndexPath).row]
+        } else if (indexPath as NSIndexPath).section == 1 {
             var menuItem: MenuItem!
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 menuItem = MenuItem(item: ["label": "SUPPORT", "url": "\(CurrentEnvironment.baseUrlString)/#/support"])
             case 1:
@@ -66,35 +66,35 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: UITableViewDelegate
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedCell = tableView.cellForRowAtIndexPath(indexPath)!
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell = tableView.cellForRow(at: indexPath)!
         //let reuseIdentifier = selectedCell.reuseIdentifier ?? ""
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
 
-        if selectedCell.isKindOfClass(MenuTableViewCell) {
+        if selectedCell.isKind(of: MenuTableViewCell.self) {
             if let menuItem = (selectedCell as! MenuTableViewCell).menuItem {
                 if let selector = menuItem.selector {
-                    if respondsToSelector(selector) {
-                        performSelector(selector)
+                    if responds(to: selector) {
+                        perform(selector)
                     }
                 } else if let storyboard = menuItem.storyboard {
                     segueToInitialViewControllerInStoryboard(storyboard)
                 } else if let url = menuItem.url {
-                    let webViewController = UIStoryboard("Main").instantiateViewControllerWithIdentifier("WebViewController") as! WebViewController
+                    let webViewController = UIStoryboard("Main").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                     webViewController.url = url
-                    NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+                    NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
                     delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
                 }
             }
         }
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             if let menuItems = currentUser().menuItems {
@@ -108,16 +108,16 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
     }
 
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.enableEdgeToEdgeDividers()
-        cell.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor.clear
     }
 
     func alignSections() {
         var totalCellCount = 0
         var i = 0
         while i < tableView.numberOfSections {
-            totalCellCount += tableView.numberOfRowsInSection(i)
+            totalCellCount += tableView.numberOfRows(inSection: i)
             i += 1
         }
         //let rowHeight = tableView[0].bounds.height // height of first cell
@@ -127,21 +127,21 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         if let tableHeaderView = tableView.tableHeaderView {
             tableHeaderViewHeight = tableHeaderView.bounds.height
         }
-        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let remainingSpace = view.bounds.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
         tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
     }
 
     func logout() {
-        let preferredStyle: UIAlertControllerStyle = isIPad() ? .Alert : .ActionSheet
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to logout?", preferredStyle: preferredStyle)
 
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
         alertController.addAction(cancelAction)
 
-        let logoutAction = UIAlertAction(title: "Logout", style: .Destructive) { action in
-            NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
-            NSNotificationCenter.defaultCenter().postNotificationName("ApplicationUserLoggedOut")
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { action in
+            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
+            NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
 
             ApiService.sharedService().logout(
                 { statusCode, _ in
@@ -167,7 +167,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: UITableView DataSource Functions
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == lastSectionIndex {
             return KTVersionHelper.fullVersion()
         } else {
@@ -177,7 +177,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: MenuHeaderViewDelegate
 
-    func navigationViewControllerForMenuHeaderView(view: MenuHeaderView) -> UINavigationController! {
+    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController! {
         if let delegate = delegate {
             return delegate.navigationControllerForMenuViewController(self)
         }
@@ -187,38 +187,38 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: Private Methods
 
-    private func navigationControllerContains(clazz: AnyClass) -> Bool {
+    fileprivate func navigationControllerContains(_ clazz: AnyClass) -> Bool {
         for viewController in (delegate?.navigationControllerForMenuViewController(self)?.viewControllers)! {
-            if viewController.isKindOfClass(clazz) {
+            if viewController.isKind(of: clazz) {
                 return true
             }
         }
         return false
     }
 
-    private func segueToInitialViewControllerInStoryboard(storyboardName: String) {
-        NSNotificationCenter.defaultCenter().postNotificationName("MenuContainerShouldReset")
+    fileprivate func segueToInitialViewControllerInStoryboard(_ storyboardName: String) {
+        NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
 
         var storyboardPath: String!
-        if let _ = storyboardPaths.keys.indexOf(storyboardName) {
+        if let _ = storyboardPaths.keys.index(of: storyboardName) {
             if storyboardPaths[storyboardName] != nil {
                 storyboardPath = storyboardPaths[storyboardName] as? String
             }
         } else {
-            storyboardPath = NSBundle.mainBundle().pathForResource(storyboardName, ofType: "storyboardc")
-            storyboardPaths.updateValue(storyboardPath, forKey: storyboardName)
+            storyboardPath = Bundle.main.path(forResource: storyboardName, ofType: "storyboardc")
+            storyboardPaths.updateValue(storyboardPath as AnyObject!, forKey: storyboardName)
         }
 
         if storyboardPath != nil {
             var initialViewController = UIStoryboard(storyboardName).instantiateInitialViewController()!
-            if initialViewController.isKindOfClass(UINavigationController) {
+            if initialViewController.isKind(of: UINavigationController.self) {
                 initialViewController = (initialViewController as! UINavigationController).viewControllers[0]
             }
-            if !navigationControllerContains(initialViewController.dynamicType) {
+            if !navigationControllerContains(type(of: initialViewController)) {
                 delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController, animated: true)
             }
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName("SegueTo\(storyboardName)Storyboard", object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: "SegueTo\(storyboardName)Storyboard"), object: self)
         }
     }
 }

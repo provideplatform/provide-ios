@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import MapKit
@@ -12,7 +12,7 @@ import KTSwiftExtensions
 class AnnotationView: MKAnnotationView {
 
     var onConfirmationRequired: VoidBlock!
-    var selectedBackgroundColor = UIColor.darkGrayColor()
+    var selectedBackgroundColor = UIColor.darkGray
     var selectableViews = [UIView]()
     var unselectedBackgroundColor = Color.darkBlueBackground()
 
@@ -22,13 +22,13 @@ class AnnotationView: MKAnnotationView {
         super.awakeFromNib()
 
         canShowCallout = false
-        draggable = false
+        isDraggable = false
 
-        opaque = false
-        backgroundColor = UIColor.clearColor()
+        isOpaque = false
+        backgroundColor = UIColor.clear
     }
 
-    @objc private func gestureRecognized(_: UIGestureRecognizer) {
+    @objc fileprivate func gestureRecognized(_: UIGestureRecognizer) {
         log("recognized")
     }
 
@@ -37,15 +37,15 @@ class AnnotationView: MKAnnotationView {
         containerView.addGestureRecognizer(recognizer)
     }
 
-    override func removeGestureRecognizers() {
+    func detatchGestureRecognizers() {
         for recognizer in containerView.gestureRecognizers! {
             containerView.removeGestureRecognizer(recognizer)
         }
     }
 
-    private class GestureRecognizer: UIGestureRecognizer, UIGestureRecognizerDelegate {
+    fileprivate class GestureRecognizer: UIGestureRecognizer, UIGestureRecognizerDelegate {
 
-        private weak var annotationView: AnnotationView!
+        fileprivate weak var annotationView: AnnotationView!
 
         var selected: Bool = false {
             didSet {
@@ -66,15 +66,15 @@ class AnnotationView: MKAnnotationView {
             delegate = self
         }
 
-        override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
             selected = true
         }
 
-        override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
+        override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
             selected = false
         }
 
-        override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
             if selected {
                 if let callback = annotationView.onConfirmationRequired {
                     callback()
@@ -86,11 +86,11 @@ class AnnotationView: MKAnnotationView {
 
         // MARK: UIGestureRecognizerDelegate
 
-        @objc func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        @objc func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
             return true
         }
 
-        @objc func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        @objc func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
             return true
         }
 

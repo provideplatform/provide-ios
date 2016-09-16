@@ -10,8 +10,8 @@ import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanSelectorViewDelegate {
-    func jobForFloorplanSelectorView(selectorView: FloorplanSelectorView) -> Job!
-    func floorplanSelectorView(selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: NSIndexPath!)
+    func jobForFloorplanSelectorView(_ selectorView: FloorplanSelectorView) -> Job!
+    func floorplanSelectorView(_ selectorView: FloorplanSelectorView, didSelectFloorplan floorplan: Floorplan!, atIndexPath indexPath: IndexPath!)
 }
 
 class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -24,24 +24,24 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
         }
     }
 
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
 
     weak var job: Job! {
         return delegate?.jobForFloorplanSelectorView(self)
     }
 
-    private var floorplans: [Floorplan] {
+    fileprivate var floorplans: [Floorplan] {
         if let job = job {
             return job.floorplans
         }
         return [Floorplan]()
     }
 
-    private func thumbnailUrlForFloorplanAtIndex(index: Int) -> NSURL! {
-        return floorplans[index].thumbnailImageUrl
+    fileprivate func thumbnailUrlForFloorplanAtIndex(_ index: Int) -> URL! {
+        return floorplans[index].thumbnailImageUrl as URL!
     }
 
-    func redraw(targetView: UIView) {
+    func redraw(_ targetView: UIView) {
         dispatch_after_delay(0.0) {
             if let superview = self.superview {
                 if superview != targetView {
@@ -51,7 +51,7 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
                 targetView.addSubview(self)
             }
 
-            targetView.bringSubviewToFront(self)
+            targetView.bringSubview(toFront: self)
 
             self.frame = CGRect(x: 50.0,
                                 y: Double(targetView.frame.height) - 165.0 - 10.0 - 44.0,
@@ -65,34 +65,34 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 
     // MARK: UICollectionViewDataSource
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return floorplans.count + 1
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("floorplanCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "floorplanCollectionViewCellReuseIdentifier", for: indexPath) as! PickerCollectionViewCell
         cell.rendersCircularImage = false
 
-        if indexPath.row <= floorplans.count - 1 {
-            let floorplan = floorplans[indexPath.row]
+        if (indexPath as NSIndexPath).row <= floorplans.count - 1 {
+            let floorplan = floorplans[(indexPath as NSIndexPath).row]
 
             //cell.selected = isSelected(floorplan)
 
-            if cell.selected {
-                collectionView.selectItemAtIndexPath(indexPath, animated: true, scrollPosition: .None)
+            if cell.isSelected {
+                collectionView.selectItem(at: indexPath, animated: true, scrollPosition: UICollectionViewScrollPosition())
             }
 
             cell.name = floorplan.name
 
-            if let thumbnailUrl = thumbnailUrlForFloorplanAtIndex(indexPath.row) {
+            if let thumbnailUrl = thumbnailUrlForFloorplanAtIndex((indexPath as NSIndexPath).row) {
                 cell.imageUrl = thumbnailUrl
             }
         } else {
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier("importFloorplanCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! PickerCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "importFloorplanCollectionViewCellReuseIdentifier", for: indexPath) as! PickerCollectionViewCell
         }
 
         return cell
@@ -100,36 +100,36 @@ class FloorplanSelectorView: UIView, UICollectionViewDelegate, UICollectionViewD
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(5.0, 10.0, 5.0, 10.0)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if indexPath.row < floorplans.count - 1 {
-            CGSizeMake(175.0, 150.0)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        if (indexPath as NSIndexPath).row < floorplans.count - 1 {
+            return CGSize(width: 175.0, height: 150.0)
         }
-        return CGSizeMake(125.0, 150.0)
+        return CGSize(width: 125.0, height: 150.0)
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row <= floorplans.count - 1 {
-            let floorplan = floorplans[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row <= floorplans.count - 1 {
+            let floorplan = floorplans[(indexPath as NSIndexPath).row]
             delegate?.floorplanSelectorView(self, didSelectFloorplan: floorplan, atIndexPath: indexPath)
         } else {
             delegate?.floorplanSelectorView(self, didSelectFloorplan: nil, atIndexPath: nil)
         }
     }
 
-    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         //let floorplan = floorplans[indexPath.row]
         //delegate?.floorplanSelectorView(self, didDeselectFloorplan: product)
     }
 
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 
-    func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
 }

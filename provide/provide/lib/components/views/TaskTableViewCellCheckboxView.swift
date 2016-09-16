@@ -10,7 +10,7 @@ import UIKit
 import FontAwesomeKit
 
 protocol TaskTableViewCellCheckboxViewDelegate {
-    func taskTableViewCellCheckboxView(view: TaskTableViewCellCheckboxView, didBecomeChecked checked: Bool)
+    func taskTableViewCellCheckboxView(_ view: TaskTableViewCellCheckboxView, didBecomeChecked checked: Bool)
 }
 class TaskTableViewCellCheckboxView: UIView {
 
@@ -18,11 +18,11 @@ class TaskTableViewCellCheckboxView: UIView {
 
     var delegate: TaskTableViewCellCheckboxViewDelegate!
 
-    @IBOutlet private weak var checkIconImageView: UIImageView! {
+    @IBOutlet fileprivate weak var checkIconImageView: UIImageView! {
         didSet {
             if let checkIconImageView = checkIconImageView {
-                let imageBounds = CGRectInset(bounds, 8.0, 8.0)
-                let checkIconImage = FAKFontAwesome.checkIconWithSize(imageBounds.width).imageWithSize(imageBounds.size).imageWithRenderingMode(.AlwaysTemplate)
+                let imageBounds = bounds.insetBy(dx: 8.0, dy: 8.0)
+                let checkIconImage = FAKFontAwesome.checkIcon(withSize: imageBounds.width).image(with: imageBounds.size).withRenderingMode(.alwaysTemplate)
 
                 checkIconImageView.bounds = imageBounds
                 checkIconImageView.frame = CGRect(x: 0.0, y: 0.0, width: imageBounds.width, height: imageBounds.height)
@@ -40,12 +40,12 @@ class TaskTableViewCellCheckboxView: UIView {
         setupFrame()
     }
 
-    private func setupFrame() {
+    fileprivate func setupFrame() {
         bounds = CGRect(x: 0.0, y: 0.0, width: 25.0, height: 25.0)
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
 
         roundCorners(2.0)
-        addBorder(1.5, color: UIColor.blackColor())
+        addBorder(1.5, color: UIColor.black)
 
         removeGestureRecognizers()
 
@@ -53,7 +53,7 @@ class TaskTableViewCellCheckboxView: UIView {
         addGestureRecognizer(tapGestureRecognizer)
     }
 
-    func tapped(gestureRecognizer: UITapGestureRecognizer) {
+    func tapped(_ gestureRecognizer: UITapGestureRecognizer) {
         if checkIconImageView.alpha == 1.0 {
             untickCheckbox()
         } else {
@@ -61,17 +61,17 @@ class TaskTableViewCellCheckboxView: UIView {
         }
     }
 
-    private func tickCheckbox() {
+    fileprivate func tickCheckbox() {
         checkIconImageView?.alpha = 1.0
         delegate?.taskTableViewCellCheckboxView(self, didBecomeChecked: true)
     }
 
-    private func untickCheckbox() {
+    fileprivate func untickCheckbox() {
         checkIconImageView?.alpha = 0.0
         delegate?.taskTableViewCellCheckboxView(self, didBecomeChecked: false)
     }
 
-    func renderForTask(task: Task) {
+    func renderForTask(_ task: Task) {
         if task.id > 0 {
             alpha = 1.0
         }

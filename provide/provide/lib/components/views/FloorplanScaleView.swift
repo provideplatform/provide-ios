@@ -3,18 +3,18 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/10/15.
-//  Copyright © 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol FloorplanScaleViewDelegate {
-    func floorplanImageViewForFloorplanScaleView(view: FloorplanScaleView) -> UIImageView!
-    func floorplanScaleForFloorplanScaleView(view: FloorplanScaleView) -> CGFloat
-    func floorplanScaleViewCanSetFloorplanScale(view: FloorplanScaleView)
-    func floorplanScaleView(view: FloorplanScaleView, didSetScale scale: CGFloat)
-    func floorplanScaleViewDidReset(view: FloorplanScaleView)
+    func floorplanImageViewForFloorplanScaleView(_ view: FloorplanScaleView) -> UIImageView!
+    func floorplanScaleForFloorplanScaleView(_ view: FloorplanScaleView) -> CGFloat
+    func floorplanScaleViewCanSetFloorplanScale(_ view: FloorplanScaleView)
+    func floorplanScaleView(_ view: FloorplanScaleView, didSetScale scale: CGFloat)
+    func floorplanScaleViewDidReset(_ view: FloorplanScaleView)
 }
 
 class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFieldDelegate {
@@ -44,26 +44,26 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         return 1.0
     }
 
-    @IBOutlet private weak var instructionLabel: UILabel!
-    @IBOutlet private weak var measurementTextField: UITextField!
-    @IBOutlet private weak var saveButton: UIButton! {
+    @IBOutlet fileprivate weak var instructionLabel: UILabel!
+    @IBOutlet fileprivate weak var measurementTextField: UITextField!
+    @IBOutlet fileprivate weak var saveButton: UIButton! {
         didSet {
             if let saveButton = saveButton {
-                saveButton.hidden = true
-                saveButton.addTarget(self, action: #selector(FloorplanScaleView.setScale), forControlEvents: .TouchUpInside)
+                saveButton.isHidden = true
+                saveButton.addTarget(self, action: #selector(FloorplanScaleView.setScale), for: .touchUpInside)
             }
         }
     }
 
-    private var firstPoint: CGPoint!
-    private var secondPoint: CGPoint!
+    fileprivate var firstPoint: CGPoint!
+    fileprivate var secondPoint: CGPoint!
 
-    private var firstPointView: FloorplanPolygonVertexView!
-    private var secondPointView: FloorplanPolygonVertexView!
+    fileprivate var firstPointView: FloorplanPolygonVertexView!
+    fileprivate var secondPointView: FloorplanPolygonVertexView!
 
-    private var lineView: FloorplanPolygonLineView!
+    fileprivate var lineView: FloorplanPolygonLineView!
 
-    private var targetView: UIView! {
+    fileprivate var targetView: UIView! {
         if let superview = self.superview {
             return superview
         }
@@ -81,20 +81,20 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    private func removeGestureRecognizer() {
+    fileprivate func removeGestureRecognizer() {
         if let targetView = targetView {
             targetView.removeGestureRecognizers()
         }
     }
 
-    private func reset(suppressDelegateNotification: Bool = false) {
+    fileprivate func reset(_ suppressDelegateNotification: Bool = false) {
         firstPoint = nil
         secondPoint = nil
 
         removeGestureRecognizer()
 
         if let measurementTextField = measurementTextField {
-            if measurementTextField.isFirstResponder() {
+            if measurementTextField.isFirstResponder {
                 measurementTextField.resignFirstResponder()
             }
         }
@@ -116,14 +116,14 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    func resignFirstResponder(suppressDelegateNotification: Bool = false) -> Bool {
+    func resignFirstResponder(_ suppressDelegateNotification: Bool = false) -> Bool {
         reset(suppressDelegateNotification)
         return super.resignFirstResponder()
     }
 
-    func pointSelected(gestureRecognizer: UITapGestureRecognizer) {
+    func pointSelected(_ gestureRecognizer: UITapGestureRecognizer) {
         if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
-            let point = gestureRecognizer.locationInView(floorplanImageView)
+            let point = gestureRecognizer.location(in: floorplanImageView)
 
             if let _ = firstPoint {
                 if secondPoint == nil {
@@ -144,7 +144,7 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    private func updateLineEndpoints() {
+    fileprivate func updateLineEndpoints() {
         if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
             let singlePoint = firstPoint != nil && secondPoint == nil
             let canDrawLine = firstPoint != nil && secondPoint != nil
@@ -156,7 +156,7 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
                                                       y: firstPoint.y - firstPointView.image!.size.height)
 
                 floorplanImageView.addSubview(firstPointView)
-                floorplanImageView.bringSubviewToFront(firstPointView)
+                floorplanImageView.bringSubview(toFront: firstPointView)
             } else if canDrawLine {
                 secondPointView = FloorplanPolygonVertexView(image: (UIImage(named: "map-pin")?.scaledToWidth(75.0))!)
                 secondPointView.delegate = self
@@ -164,7 +164,7 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
                                                        y: secondPoint.y - secondPointView.image!.size.height)
 
                 floorplanImageView.addSubview(secondPointView)
-                floorplanImageView.bringSubviewToFront(secondPointView)
+                floorplanImageView.bringSubview(toFront: secondPointView)
 
                 removeGestureRecognizer()
                 redrawLineSegment()
@@ -172,7 +172,7 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    private func redrawLineSegment() {
+    fileprivate func redrawLineSegment() {
         if let floorplanImageView = delegate?.floorplanImageViewForFloorplanScaleView(self) {
             let canDrawLine = firstPoint != nil && secondPoint != nil
             if canDrawLine {
@@ -186,10 +186,10 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
 
                 if attachLineView {
                     floorplanImageView.addSubview(lineView)
-                    floorplanImageView.bringSubviewToFront(lineView)
+                    floorplanImageView.bringSubview(toFront: lineView)
 
-                    floorplanImageView.bringSubviewToFront(firstPointView)
-                    floorplanImageView.bringSubviewToFront(secondPointView)
+                    floorplanImageView.bringSubview(toFront: firstPointView)
+                    floorplanImageView.bringSubview(toFront: secondPointView)
                 }
                 
                 lineView.setPoints(firstPoint, endPoint: secondPoint)
@@ -200,11 +200,11 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
 
     // MARK: FloorplanPolygonVertexViewDelegate
 
-    func floorplanPolygonVertexViewShouldReceiveTouch(view: FloorplanPolygonVertexView) -> Bool {
+    func floorplanPolygonVertexViewShouldReceiveTouch(_ view: FloorplanPolygonVertexView) -> Bool {
         return true
     }
 
-    func floorplanPolygonVertexViewShouldRedrawVertices(view: FloorplanPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
+    func floorplanPolygonVertexViewShouldRedrawVertices(_ view: FloorplanPolygonVertexView) { // FIXME -- poorly named method... maybe use Invalidated instead of ShouldRedraw...
         if view == firstPointView {
             firstPoint = CGPoint(x: view.frame.origin.x + (firstPointView.image!.size.width / 2.0),
                                  y: view.frame.origin.y + firstPointView.image!.size.height)
@@ -221,11 +221,11 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
         }
     }
 
-    func floorplanPolygonVertexViewTapped(view: FloorplanPolygonVertexView) {
+    func floorplanPolygonVertexViewTapped(_ view: FloorplanPolygonVertexView) {
         // no-op
     }
 
-    private func populateMeasurementTextFieldFromCurrentScale() {
+    fileprivate func populateMeasurementTextFieldFromCurrentScale() {
         if let currentScale = delegate?.floorplanScaleForFloorplanScaleView(self) {
             if currentScale > 0.0 {
                 let rawDistance = Float(distance / currentScale)
@@ -236,15 +236,15 @@ class FloorplanScaleView: UIView, FloorplanPolygonVertexViewDelegate, UITextFiel
 
     // MARK: UITextFieldDelegate
 
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
 
     }
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if (string =~ "[.]") && textField.text!.contains(".") {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (string =~ "[.]") && textField.text!.range(of: ".") != nil {
             return false
         }
-        self.saveButton?.hidden = (string.length == 0 && textField.text!.length == 1) || textField.text!.length == 0
+        self.saveButton?.isHidden = (string.length == 0 && textField.text!.length == 1) || textField.text!.length == 0
         return string.length == 0 || (string =~ "[0-9.]")
     }
 }

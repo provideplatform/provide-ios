@@ -3,17 +3,17 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 class CheckinService: NSObject {
 
-    let defaultCheckinTimeInterval: NSTimeInterval = 300
-    let navigationCheckinTimeInterval: NSTimeInterval = 10
+    let defaultCheckinTimeInterval: TimeInterval = 300
+    let navigationCheckinTimeInterval: TimeInterval = 10
 
-    private var checkinTimeInterval: NSTimeInterval! {
+    fileprivate var checkinTimeInterval: TimeInterval! {
         didSet {
             if let oldInterval = oldValue {
                 if oldInterval != checkinTimeInterval {
@@ -23,7 +23,7 @@ class CheckinService: NSObject {
         }
     }
 
-    private var timer: NSTimer!
+    fileprivate var timer: Timer!
 
     required override init() {
         super.init()
@@ -31,7 +31,7 @@ class CheckinService: NSObject {
         checkinTimeInterval = defaultCheckinTimeInterval
     }
 
-    private static let sharedInstance = CheckinService()
+    fileprivate static let sharedInstance = CheckinService()
 
     class func sharedService() -> CheckinService {
         return sharedInstance
@@ -49,7 +49,7 @@ class CheckinService: NSObject {
 
     // MARK: Checkin frequency
 
-    func setCheckinTimeInterval(checkinTimeInterval: NSTimeInterval) {
+    func setCheckinTimeInterval(_ checkinTimeInterval: TimeInterval) {
         self.checkinTimeInterval = checkinTimeInterval
     }
 
@@ -73,7 +73,7 @@ class CheckinService: NSObject {
         }
     }
 
-    private func restart() {
+    fileprivate func restart() {
         stop()
 
         if let timer = timer {
@@ -81,6 +81,6 @@ class CheckinService: NSObject {
             self.timer = nil
         }
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(checkinTimeInterval, target: self, selector: #selector(CheckinService.checkin), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: checkinTimeInterval, target: self, selector: #selector(CheckinService.checkin), userInfo: nil, repeats: true)
     }
 }

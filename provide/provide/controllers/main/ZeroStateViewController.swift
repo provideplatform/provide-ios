@@ -3,24 +3,24 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/1/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class ZeroStateViewController: ViewController {
 
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var label: UILabel!
-    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var label: UILabel!
+    @IBOutlet fileprivate weak var messageLabel: UILabel!
 
-    private var backgroundSubview: UIView!
+    fileprivate var backgroundSubview: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.clearColor()
-        view.tintColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.clear
+        view.tintColor = UIColor.white
 
         view.alpha = 0.0
         view.frame.origin.y = view.frame.height
@@ -29,28 +29,28 @@ class ZeroStateViewController: ViewController {
         let size = max(backgroundSubview.frame.size.width, backgroundSubview.frame.size.height)
         backgroundSubview.frame.size = CGSize(width: size, height: size)
         backgroundSubview.alpha = 0.78
-        backgroundSubview.backgroundColor = UIColor.blackColor()
+        backgroundSubview.backgroundColor = UIColor.black
         view.addSubview(backgroundSubview)
-        view.sendSubviewToBack(backgroundSubview)
+        view.sendSubview(toBack: backgroundSubview)
 
-        view.bringSubviewToFront(imageView)
+        view.bringSubview(toFront: imageView)
         //view.bringSubviewToFront(label)
-        view.bringSubviewToFront(messageLabel)
+        view.bringSubview(toFront: messageLabel)
     }
 
-    func setLabelText(labelText: String) {
+    func setLabelText(_ labelText: String) {
         label.text = labelText
     }
 
-    func setMessage(message: String) {
+    func setMessage(_ message: String) {
         messageLabel.text = message
     }
 
-    func render(targetView: UIView) {
+    func render(_ targetView: UIView) {
         render(targetView, animated: true)
     }
 
-    func render(targetView: UIView, animated: Bool) {
+    func render(_ targetView: UIView, animated: Bool) {
         if let superview = view.superview {
             if targetView == superview {
                 return
@@ -58,10 +58,10 @@ class ZeroStateViewController: ViewController {
         }
 
         targetView.addSubview(view)
-        targetView.bringSubviewToFront(view)
+        targetView.bringSubview(toFront: view)
 
         if animated {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
                 animations: {
                     self.view.alpha = 1.0
                     self.view.frame.origin.y -= self.view.frame.height
@@ -79,7 +79,7 @@ class ZeroStateViewController: ViewController {
 
     func dismiss() {
         if let _ = view.superview {
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn,
                 animations: {
                     self.view.alpha = 0.0
                     self.view.frame.origin.y += self.view.frame.height

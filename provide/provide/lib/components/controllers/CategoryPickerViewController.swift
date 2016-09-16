@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CategoryPickerViewControllerDelegate {
-    func categoryPickerViewController(viewController: CategoryPickerViewController, didSelectCategory category: Category)
+    func categoryPickerViewController(_ viewController: CategoryPickerViewController, didSelectCategory category: Category)
 }
 
 class CategoryPickerViewController: UITableViewController {
@@ -38,16 +38,16 @@ class CategoryPickerViewController: UITableViewController {
         setupPullToRefresh()
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(CategoryPickerViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(CategoryPickerViewController.reset), for: .valueChanged)
 
         tableView.addSubview(refreshControl!)
 
         refreshControl?.beginRefreshing()
     }
 
-    private func teardownPullToRefresh() {
+    fileprivate func teardownPullToRefresh() {
         refreshControl?.endRefreshing()
         refreshControl?.removeFromSuperview()
     }
@@ -56,18 +56,18 @@ class CategoryPickerViewController: UITableViewController {
         categories = [Category]()
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("categoryTableViewCellReuseIdentifier") as! CategoryTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryTableViewCellReuseIdentifier") as! CategoryTableViewCell
 
-        cell.category = categories[indexPath.row]
+        cell.category = categories[(indexPath as NSIndexPath).row]
 
         for selectedCategory in selectedCategories {
             if selectedCategory.id == cell.category.id {
@@ -79,9 +79,9 @@ class CategoryPickerViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedCategories.append(categories[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCategories.append(categories[(indexPath as NSIndexPath).row])
 
-        delegate?.categoryPickerViewController(self, didSelectCategory: categories[indexPath.row])
+        delegate?.categoryPickerViewController(self, didSelectCategory: categories[(indexPath as NSIndexPath).row])
     }
 }

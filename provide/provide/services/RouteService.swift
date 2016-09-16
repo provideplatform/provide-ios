@@ -3,64 +3,64 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 import KTSwiftExtensions
 
-typealias OnRoutesFetched = (routes: [Route]) -> ()
-typealias OnWorkOrderDrivingDirectionsFetched = (workOrder: WorkOrder, directions: Directions) -> ()
+typealias OnRoutesFetched = (_ routes: [Route]) -> ()
+typealias OnWorkOrderDrivingDirectionsFetched = (_ workOrder: WorkOrder, _ directions: Directions) -> ()
 
 class RouteService: NSObject {
 
-    private var routes = [Route]()
+    fileprivate var routes = [Route]()
 
-    private static let sharedInstance = RouteService()
+    fileprivate static let sharedInstance = RouteService()
 
     class func sharedService() -> RouteService {
         return sharedInstance
     }
 
-    class func loadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
+    class func loadManifestItemByGtin(_ gtin: String, onRoute route: Route, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if route.isGtinRequired(gtin) {
             var gtinsLoaded = route.gtinsLoaded
             gtinsLoaded.append(gtin)
 
-            ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": gtinsLoaded],
+            ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": gtinsLoaded as AnyObject],
                 onSuccess: { statusCode, mappingResult in
                     if let product = route.itemForGtin(gtin) {
                         route.itemsLoaded.append(product)
                     }
 
                     RouteService.sharedService().updateRoute(route)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: onError
             )
         }
     }
 
-    class func unloadManifestItemByGtin(gtin: String, onRoute route: Route, onSuccess: OnSuccess, onError: OnError) {
+    class func unloadManifestItemByGtin(_ gtin: String, onRoute route: Route, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if route.gtinLoadedCount(gtin) > 0 {
-            for (i, product) in route.itemsLoaded.enumerate() {
+            for (i, product) in route.itemsLoaded.enumerated() {
                 if product.gtin == gtin {
-                    route.itemsLoaded.removeAtIndex(i)
+                    route.itemsLoaded.remove(at: i)
                     break
                 }
             }
 
-            ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": route.gtinsLoaded],
+            ApiService.sharedService().updateRouteWithId(String(route.id), params: ["gtins_loaded": route.gtinsLoaded as AnyObject],
                 onSuccess: { statusCode, mappingResult in
                     RouteService.sharedService().updateRoute(route)
-                    onSuccess(statusCode: statusCode, mappingResult: mappingResult)
+                    onSuccess(statusCode, mappingResult)
                 },
                 onError: onError
             )
         }
     }
 
-    func updateRoute(route: Route) {
+    func updateRoute(_ route: Route) {
         var newRoutes = [Route]()
         for r in routes {
             if r.id == route.id {
@@ -72,7 +72,7 @@ class RouteService: NSObject {
         routes = newRoutes
     }
 
-    func fetch(page: Int = 1,
+    func fetch(_ page: Int = 1,
         rpp: Int = 10,
         status: String = "scheduled",
         today: Bool = false,
@@ -81,9 +81,9 @@ class RouteService: NSObject {
         includeProviderOriginAssignment: Bool = true,
         includeProducts: Bool = true,
         includeWorkOrders: Bool = true,
-        onRoutesFetched: OnRoutesFetched)
+        onRoutesFetched: @escaping OnRoutesFetched)
     {
-        var params: [String: AnyObject] = [
+        var params: [String : Any] = [
             "page": (nextRouteOnly ? 1 : page),
             "rpp": (nextRouteOnly ? 1 : rpp),
             "status": status,
@@ -94,23 +94,23 @@ class RouteService: NSObject {
         ]
 
         if today {
-            let today = NSDate()
+            let today = Date()
             let midnightToday = today.atMidnight.utcString
-            let midnightTomorrow = today.atMidnight.dateByAddingTimeInterval(60 * 60 * 24).utcString
+            let midnightTomorrow = today.atMidnight.addingTimeInterval(60 * 60 * 24).utcString
 
-            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject?
         }
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
+            params["company_id"] = defaultCompanyId as AnyObject?
         }
 
-        ApiService.sharedService().fetchRoutes(params,
+        ApiService.sharedService().fetchRoutes(params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
-                let fetchedRoutes = mappingResult.array() as! [Route]
+                let fetchedRoutes = mappingResult?.array() as! [Route]
                 self.routes += fetchedRoutes
 
-                onRoutesFetched(routes: fetchedRoutes)
+                onRoutesFetched(fetchedRoutes)
             },
             onError: { error, statusCode, responseString in
                 // TODO
@@ -118,25 +118,25 @@ class RouteService: NSObject {
         )
     }
 
-    func fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: OnDrivingDirectionsFetched) {
+    func fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: @escaping OnDrivingDirectionsFetched) {
         if let route = inProgressRoute {
             if let providerOriginAssignment = route.providerOriginAssignment {
                 if let origin = providerOriginAssignment.origin {
                     DirectionService.sharedService().fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: origin.coordinate) { directions in
-                        onDrivingDirectionsFetched(directions: directions)
+                        onDrivingDirectionsFetched(directions)
                     }
                 }
             }
         }
     }
 
-    func setInProgressRouteOriginRegionMonitoringCallbacks(onDidEnterRegion: VoidBlock, onDidExitRegion: VoidBlock) {
+    func setInProgressRouteOriginRegionMonitoringCallbacks(_ onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
         if let route = inProgressRoute {
             if let providerOriginAssignment = route.providerOriginAssignment {
                 if let origin = providerOriginAssignment.origin {
                     LocationService.sharedService().unregisterRegionMonitor(origin.regionIdentifier)
 
-                    let overlay = MKCircle(centerCoordinate: origin.coordinate, radius: origin.regionMonitoringRadius)
+                    let overlay = MKCircle(center: origin.coordinate, radius: origin.regionMonitoringRadius)
                     LocationService.sharedService().monitorRegionWithCircularOverlay(overlay,
                         identifier: origin.regionIdentifier,
                         onDidEnterRegion: onDidEnterRegion,

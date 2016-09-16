@@ -3,15 +3,15 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/23/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import KTSwiftExtensions
 
 protocol WorkOrderDetailsViewControllerDelegate {
-    func workOrderDetailsViewController(viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
-    func workOrderDetailsViewController(viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell!
+    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
+    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
 }
 
 class WorkOrderDetailsViewController: ViewController,
@@ -30,12 +30,12 @@ class WorkOrderDetailsViewController: ViewController,
         }
     }
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
 
-    @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
-    @IBOutlet private weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
+    @IBOutlet fileprivate weak var headerView: WorkOrderDetailsHeaderView!
+    @IBOutlet fileprivate weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
 
-    private var mediaCollectionView: UICollectionView!
+    fileprivate var mediaCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,12 +55,12 @@ class WorkOrderDetailsViewController: ViewController,
                     self.headerView?.workOrder = self.workOrder
                 }
             } else {
-                headerView?.hidden = true
+                headerView?.isHidden = true
             }
         }
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
 
         if workOrder.id > 0 {
@@ -115,11 +115,11 @@ class WorkOrderDetailsViewController: ViewController,
         }
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
 
         if segue.identifier! == "WorkOrderDetailsHeaderTableViewControllerEmbedSegue" {
-            if let workOrderDetailsHeaderTableViewController = segue.destinationViewController as? WorkOrderDetailsHeaderTableViewController {
+            if let workOrderDetailsHeaderTableViewController = segue.destination as? WorkOrderDetailsHeaderTableViewController {
                 headerTableViewController = workOrderDetailsHeaderTableViewController
                 if let workOrder = workOrder {
                     headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self
@@ -129,7 +129,7 @@ class WorkOrderDetailsViewController: ViewController,
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         tableView?.reloadData()
@@ -149,36 +149,36 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: UITableViewDelegate
 
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75.0
     }
 
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
 
-        switch indexPath.section {
+        switch (indexPath as NSIndexPath).section {
         case 0:
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
-                cell = tableView.dequeueReusableCellWithIdentifier("mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
+                cell = tableView.dequeueReusableCell(withIdentifier: "mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
                 mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
                 mediaCollectionView.delegate = self
                 mediaCollectionView.dataSource = self
@@ -192,26 +192,26 @@ class WorkOrderDetailsViewController: ViewController,
         return cell
     }
 
-    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return indexPath.row == 5
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return (indexPath as NSIndexPath).row == 5
     }
 
-    func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.row == 5 {
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if (indexPath as NSIndexPath).row == 5 {
             return indexPath
         }
         return nil
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let navigationController = navigationController {
-            let manifestViewController = UIStoryboard("Manifest").instantiateViewControllerWithIdentifier("ManifestViewController") as! ManifestViewController
+            let manifestViewController = UIStoryboard("Manifest").instantiateViewController(withIdentifier: "ManifestViewController") as! ManifestViewController
             manifestViewController.delegate = self
 
             navigationController.pushViewController(manifestViewController, animated: true)
         }
 
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     //    optional func numberOfSectionsInTableView(tableView: UITableView) -> Int // Default is 1 if not implemented
@@ -256,7 +256,7 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let attachments = workOrder.attachments {
             return attachments.count
         }
@@ -264,13 +264,13 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! ImageCollectionViewCell
-        cell.imageUrl = workOrder.attachments[indexPath.row].url
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionViewCellReuseIdentifier", for: indexPath) as! ImageCollectionViewCell
+        cell.imageUrl = workOrder.attachments[(indexPath as NSIndexPath).row].url
         return cell
     }
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
@@ -279,49 +279,49 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 
-    func workOrderCreationViewControllerForDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
+    func workOrderCreationViewControllerForDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
         return nil
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder) {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder) {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldSubmitForApprovalWorkOrder workOrder: WorkOrder) {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldApproveWorkOrder workOrder: WorkOrder) {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldRejectWorkOrder workOrder: WorkOrder) {
 
     }
 
-    func workOrderDetailsHeaderTableViewController(viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldRestartWorkOrder workOrder: WorkOrder) {
 
     }
 
     // MARK: ManifestViewControllerDelegate
 
-    func workOrderForManifestViewController(viewController: UIViewController) -> WorkOrder! {
+    func workOrderForManifestViewController(_ viewController: UIViewController) -> WorkOrder! {
         return workOrder
     }
 
-    func navigationControllerBackItemTitleForManifestViewController(viewController: UIViewController) -> String! {
+    func navigationControllerBackItemTitleForManifestViewController(_ viewController: UIViewController) -> String! {
         return "BACK"
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }

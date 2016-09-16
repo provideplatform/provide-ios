@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -17,7 +17,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         }
     }
 
-    private var minutesEta: Int! {
+    fileprivate var minutesEta: Int! {
         didSet {
             (view as! WorkOrderAnnotationView).minutesEta = minutesEta
         }
@@ -25,7 +25,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if let eta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes {
@@ -57,11 +57,11 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     // MARK Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
-            assert(segue.sourceViewController is WorkOrderAnnotationViewController)
-            assert(segue.destinationViewController is WorkOrdersViewController)
+            assert(segue.source is WorkOrderAnnotationViewController)
+            assert(segue.destination is WorkOrdersViewController)
 
             if let delegate = workOrdersViewControllerDelegate {
                 delegate.confirmationRequiredForWorkOrderViewController?(self)
@@ -69,8 +69,8 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             }
             break
         case "WorkOrderAnnotationViewControllerUnwindSegue":
-            assert(segue.sourceViewController is WorkOrderAnnotationViewController)
-            assert(segue.destinationViewController is WorkOrdersViewController)
+            assert(segue.source is WorkOrderAnnotationViewController)
+            assert(segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break
@@ -79,7 +79,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     // MARK: WorkOrdersViewControllerDelegate
 
-    func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber) {
+    func drivingEtaToNextWorkOrderChanged(_ minutesEta: NSNumber) {
         self.minutesEta = minutesEta as Int
     }
 }

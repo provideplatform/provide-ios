@@ -12,9 +12,9 @@ class FloorplanCollectionViewCell: UICollectionViewCell {
 
     var floorplan: Floorplan! {
         didSet {
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
             if let imageUrl = floorplan.thumbnailImageUrl {
-                imageView.sd_setImageWithURL(imageUrl, placeholderImage: nil) { image, error, cacheType, url in
+                imageView.sd_setImage(with: imageUrl) { image, error, cacheType, url in
                     self.imageView.alpha = 1.0
                     self.activityIndicatorView.stopAnimating()
                 }
@@ -26,9 +26,9 @@ class FloorplanCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet private weak var imageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet fileprivate weak var imageView: UIImageView!
+    @IBOutlet fileprivate weak var nameLabel: UILabel!
 
     override func prepareForReuse() {
         super.prepareForReuse()

@@ -11,7 +11,7 @@ import MBProgressHUD
 import KTSwiftExtensions
 
 protocol SetPasswordViewControllerDelegate {
-    func setPasswordViewController(viewController: SetPasswordViewController, didSetPassword success: Bool)
+    func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool)
 }
 
 class SetPasswordViewController: ViewController,
@@ -21,26 +21,26 @@ class SetPasswordViewController: ViewController,
 
     var delegate: SetPasswordViewControllerDelegate!
 
-    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet fileprivate weak var tableView: UITableView!
     
-    @IBOutlet private weak var passwordField: UITextField!
-    @IBOutlet private weak var confirmField: UITextField!
+    @IBOutlet fileprivate weak var passwordField: UITextField!
+    @IBOutlet fileprivate weak var confirmField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         updateStatus("")
         showForm()
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "SetPasswordViewControllerUnwindSegue":
-            if confirmField.isFirstResponder() {
+            if confirmField.isFirstResponder {
                 confirmField?.resignFirstResponder()
             }
         default:
@@ -50,7 +50,7 @@ class SetPasswordViewController: ViewController,
 
     func setupNavigationItem() {
         if let navigationController = navigationController {
-            navigationController.navigationBarHidden = false
+            navigationController.isNavigationBarHidden = false
         }
 
         navigationItem.title = "SET PASSWORD"
@@ -70,8 +70,8 @@ class SetPasswordViewController: ViewController,
         setPassword()
     }
 
-    private func setPassword() {
-        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    fileprivate func setPassword() {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
             "password" : passwordField.text!
@@ -79,13 +79,13 @@ class SetPasswordViewController: ViewController,
 
         ApiService.sharedService().updateUser(params,
             onSuccess: { statusCode, responseString in
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
-                self.performSegueWithIdentifier("SetPasswordViewControllerUnwindSegue", sender: self)
+                self.performSegue(withIdentifier: "SetPasswordViewControllerUnwindSegue", sender: self)
                 self.delegate?.setPasswordViewController(self, didSetPassword: true)
             },
             onError: { error, statusCode, responseString in
-                MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+                MBProgressHUD.hide(for: self.view, animated: true)
 
                 self.showError("Failed to change password \(statusCode)")
                 self.showForm()
@@ -95,35 +95,35 @@ class SetPasswordViewController: ViewController,
         )
     }
 
-    private func hideForm() {
+    fileprivate func hideForm() {
         view.endEditing(true)
 
-        UIView.animateWithDuration(0.15) {
+        UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 0
-        }
+        }) 
     }
 
-    private func showForm() {
+    fileprivate func showForm() {
         passwordField?.text = ""
         confirmField?.text = ""
 
         passwordField?.becomeFirstResponder()
 
-        UIView.animateWithDuration(0.15) {
+        UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 1
-        }
+        }) 
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 2
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: AuthenticationCell!
 
-        switch indexPath.row {
+        switch (indexPath as NSIndexPath).row {
         case 0:
             cell = passwordCell(tableView)
         case 1:
@@ -138,7 +138,7 @@ class SetPasswordViewController: ViewController,
         return cell
     }
 
-    private func passwordCell(tableView: UITableView) -> AuthenticationCell {
+    fileprivate func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["PasswordCell"] as! AuthenticationCell
         passwordField = cell.textField
         passwordField.text = ""
@@ -146,7 +146,7 @@ class SetPasswordViewController: ViewController,
         return cell
     }
 
-    private func confirmCell(tableView: UITableView) -> AuthenticationCell {
+    fileprivate func confirmCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["ConfirmCell"] as! AuthenticationCell
         confirmField = cell.textField
         confirmField.text = ""
@@ -157,7 +157,7 @@ class SetPasswordViewController: ViewController,
 
     // MARK: UITextFieldDelegate
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if passwordField != nil && textField == passwordField {
             confirmField.becomeFirstResponder()
             return false

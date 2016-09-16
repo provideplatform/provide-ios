@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/26/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -18,55 +18,55 @@ class NavigationBarButton: UIButton {
         super.init(frame: frame)
     }
 
-    class func barButtonItemWithImage(image: UIImage, target: AnyObject?, action: String, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
-        let button = NavigationBarButton(type: .Custom)
+    class func barButtonItemWithImage(_ image: UIImage, target: AnyObject?, action: String, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
+        let button = NavigationBarButton(type: .custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.size.width, height: image.size.height)
-        button.setImage(image.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        button.setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
         button.tintColor = tintColor
-        button.addTarget(target, action: Selector(action), forControlEvents: .TouchUpInside)
+        button.addTarget(target, action: Selector(action), for: .touchUpInside)
 
         return UIBarButtonItem(customView: button)
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
 
-        selected = true
+        isSelected = true
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesBegan(touches, withEvent: event)
+            superview!.touchesBegan(touches, with: event)
         }
     }
 
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
 
-        selected = false
+        isSelected = false
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesEnded(touches, withEvent: event)
+            superview!.touchesEnded(touches, with: event)
         }
     }
 
-    override func touchesCancelled(touches: Set<UITouch>!, withEvent event: UIEvent?) {
-        super.touchesCancelled(touches, withEvent: event)
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
 
-        selected = false
+        isSelected = false
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesCancelled(touches, withEvent: event)
+            superview!.touchesCancelled(touches, with: event)
         }
     }
 
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
 
         if shouldPassTouchToSuperview(touches.first!) {
-            superview!.touchesMoved(touches, withEvent: event)
+            superview!.touchesMoved(touches, with: event)
         }
     }
 
-    private func shouldPassTouchToSuperview(touch: UITouch) -> Bool {
+    fileprivate func shouldPassTouchToSuperview(_ touch: UITouch) -> Bool {
         return false
     }
 

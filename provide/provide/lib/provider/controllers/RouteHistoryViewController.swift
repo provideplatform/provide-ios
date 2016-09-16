@@ -3,63 +3,63 @@
 //  provide
 //
 //  Created by Kyle Thomas on 7/26/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 
 class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    private var page = 1
-    private let rpp = 10
-    private var lastRouteIndex = -1
+    fileprivate var page = 1
+    fileprivate let rpp = 10
+    fileprivate var lastRouteIndex = -1
 
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet fileprivate weak var collectionView: UICollectionView!
 
-    private var refreshControl: UIRefreshControl!
+    fileprivate var refreshControl: UIRefreshControl!
 
-    private var routes = [Route]() {
+    fileprivate var routes = [Route]() {
         didSet {
             collectionView?.reloadData()
         }
     }
 
-    private weak var selectedRoute: Route!
+    fileprivate weak var selectedRoute: Route!
 
-    private var zeroStateViewController: ZeroStateViewController!
+    fileprivate var zeroStateViewController: ZeroStateViewController!
 
-    private var isColumnedLayout: Bool {
+    fileprivate var isColumnedLayout: Bool {
         return view.frame.width > 414.0
     }
 
-    private var numberOfSections: Int {
+    fileprivate var numberOfSections: Int {
         if isColumnedLayout {
             return Int(ceil(Double(routes.count) / Double(numberOfItemsPerSection)))
         }
         return routes.count
     }
 
-    private var numberOfItemsPerSection: Int {
+    fileprivate var numberOfItemsPerSection: Int {
         if isColumnedLayout {
             return 2
         }
         return 1
     }
 
-    private func routeIndexAtIndexPath(indexPath: NSIndexPath) -> Int {
+    fileprivate func routeIndexAtIndexPath(_ indexPath: IndexPath) -> Int {
         if isColumnedLayout {
-            var i = indexPath.section * 2
-            i += indexPath.row
+            var i = (indexPath as NSIndexPath).section * 2
+            i += (indexPath as NSIndexPath).row
             return i
         }
-        return indexPath.section
+        return (indexPath as NSIndexPath).section
     }
 
-    private func routeForRowAtIndexPath(indexPath: NSIndexPath) -> Route {
+    fileprivate func routeForRowAtIndexPath(_ indexPath: IndexPath) -> Route {
         return routes[routeIndexAtIndexPath(indexPath)]
     }
 
-    private func setupZeroStateView() {
+    fileprivate func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
@@ -73,7 +73,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         setupZeroStateView()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         selectedRoute = nil
@@ -81,9 +81,9 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         collectionView.frame = view.bounds
     }
 
-    private func setupPullToRefresh() {
+    fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(RouteHistoryViewController.reset), forControlEvents: .ValueChanged)
+        refreshControl.addTarget(self, action: #selector(RouteHistoryViewController.reset), for: .valueChanged)
 
         collectionView.addSubview(refreshControl)
         collectionView.alwaysBounceVertical = true
@@ -104,25 +104,25 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         }
 
         var params: [String : AnyObject] = [
-            "page": page,
-            "rpp": rpp,
-            "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned,canceled",
-            "sort_started_at_desc": "true",
-            "include_products": "true",
-            "include_dispatcher_origin_assignment": "true",
-            "include_provider_origin_assignment": "true",
-            "include_work_orders": "true",
-            "include_checkin_coordinates": "true",
-            "douglas_peucker_tolerance": "1"
+            "page": page as AnyObject,
+            "rpp": rpp as AnyObject,
+            "status": "scheduled,loading,in_progress,unloading,pending_completion,completed,abandoned,canceled" as AnyObject,
+            "sort_started_at_desc": "true" as AnyObject,
+            "include_products": "true" as AnyObject,
+            "include_dispatcher_origin_assignment": "true" as AnyObject,
+            "include_provider_origin_assignment": "true" as AnyObject,
+            "include_work_orders": "true" as AnyObject,
+            "include_checkin_coordinates": "true" as AnyObject,
+            "douglas_peucker_tolerance": "1" as AnyObject
         ]
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
+            params["company_id"] = defaultCompanyId as AnyObject?
         }
 
         ApiService.sharedService().fetchRoutes(params,
             onSuccess: { statusCode, mappingResult in
-                let fetchedRoutes = mappingResult.array() as! [Route]
+                let fetchedRoutes = mappingResult?.array() as! [Route]
                 self.routes += fetchedRoutes
 
                 self.collectionView.reloadData()
@@ -135,30 +135,30 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         )
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RouteViewControllerSegue" {
-            (segue.destinationViewController as! RouteViewController).route = selectedRoute
+            (segue.destination as! RouteViewController).route = selectedRoute
         }
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
 
     // MARK: UICollectionViewDelegate
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(10.0, 5.0, 0.0, 5.0)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         let inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
-        return CGSizeMake(collectionView.frame.width - insetWidthOffset, 175.0)
+        return CGSize(width: collectionView.frame.width - insetWidthOffset, height: 175.0)
     }
 
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let routeIndex = routeIndexAtIndexPath(indexPath)
         if routeIndex == routes.count - 1 && routeIndex > lastRouteIndex {
             page += 1
@@ -167,21 +167,21 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         }
     }
 
-    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         selectedRoute = routeForRowAtIndexPath(indexPath)
 
         return true
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 
     // MARK: UICollectionViewDataSource
 
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if isColumnedLayout {
-            let routeIndex = routeIndexAtIndexPath(NSIndexPath(forRow: 1, inSection: section))
+            let routeIndex = routeIndexAtIndexPath(IndexPath(row: 1, section: section))
             if routeIndex > routes.count - 1 {
                 return 1
             }
@@ -191,13 +191,13 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("routeHistoryCollectionViewCellReuseIdentifier", forIndexPath: indexPath) as! RouteHistoryCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "routeHistoryCollectionViewCellReuseIdentifier", for: indexPath) as! RouteHistoryCollectionViewCell
         cell.route = routeForRowAtIndexPath(indexPath)
         return cell
     }
 
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return numberOfSections
     }
 

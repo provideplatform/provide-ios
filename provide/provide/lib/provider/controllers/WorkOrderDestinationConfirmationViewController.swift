@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -25,7 +25,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    private var minutesEta: Int! {
+    fileprivate var minutesEta: Int! {
         didSet {
             if let eta = minutesEta {
                 if eta > 0 {
@@ -39,10 +39,10 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         }
     }
 
-    @IBOutlet private weak var arrivalEtaEstimateLabel: UILabel!
-    @IBOutlet private weak var confirmStartWorkOrderButton: RoundedButton!
+    @IBOutlet fileprivate weak var arrivalEtaEstimateLabel: UILabel!
+    @IBOutlet fileprivate weak var confirmStartWorkOrderButton: RoundedButton!
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         confirmStartWorkOrderButton.titleText = "START WORK ORDER" // FIXME
@@ -64,13 +64,13 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         view.alpha = 0.0
         view.frame = frame
 
-        view.addDropShadow(CGSizeMake(1.0, 1.0), radius: 2.5, opacity: 1.0)
+        view.addDropShadow(CGSize(width: 1.0, height: 1.0), radius: 2.5, opacity: 1.0)
 
         targetView.addSubview(view)
 
         setupNavigationItem()
 
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRect(
@@ -87,7 +87,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     // MARK: Status indicator
 
     func showProgressIndicator() {
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.confirmStartWorkOrderButton.alpha = 0
                 self.arrivalEtaEstimateLabel.alpha = 0
@@ -99,7 +99,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     func hideProgressIndicator() {
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.confirmStartWorkOrderButton.alpha = 1
                 self.arrivalEtaEstimateLabel.alpha = 1
@@ -112,11 +112,11 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     // MARK Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderDestinationConfirmationViewControllerUnwindSegue":
-            assert(segue.sourceViewController is WorkOrderDestinationConfirmationViewController)
-            assert(segue.destinationViewController is WorkOrdersViewController)
+            assert(segue.source is WorkOrderDestinationConfirmationViewController)
+            assert(segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break
@@ -124,7 +124,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     func unwind() {
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRect(
@@ -141,14 +141,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         )
     }
 
-    private func setupNavigationItem() {
+    fileprivate func setupNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = "CONFIRMATION"
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(WorkOrderDestinationConfirmationViewController.cancel(_:)))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(WorkOrderDestinationConfirmationViewController.cancel(_:)))
         }
     }
 
-    private func clearNavigationItem() {
+    fileprivate func clearNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = nil
 
@@ -161,14 +161,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     // MARK: Actions
 
-    @objc private func cancel(_: UIBarButtonItem) {
+    @objc fileprivate func cancel(_: UIBarButtonItem) {
         clearNavigationItem()
         workOrdersViewControllerDelegate.confirmationCanceledForWorkOrderViewController?(self)
     }
 
     // MARK: WorkOrdersViewControllerDelegate
 
-    func drivingEtaToNextWorkOrderChanged(minutesEta: NSNumber) {
+    func drivingEtaToNextWorkOrderChanged(_ minutesEta: NSNumber) {
         self.minutesEta = minutesEta as Int
     }
 

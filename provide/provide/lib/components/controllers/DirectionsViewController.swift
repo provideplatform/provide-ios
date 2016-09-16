@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
@@ -11,30 +11,30 @@ import KTSwiftExtensions
 
 protocol DirectionsViewControllerDelegate {
     func isPresentingDirections() -> Bool
-    func finalDestinationForDirectionsViewController(directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
-    func mapViewForDirectionsViewController(directionsViewController: DirectionsViewController) -> MKMapView!
-    func navbarPromptForDirectionsViewController(viewController: UIViewController) -> String!
-    func navigationControllerForViewController(viewController: UIViewController) -> UINavigationController!
-    func navigationControllerNavigationItemForViewController(viewController: UIViewController) -> UINavigationItem!
-    func mapViewUserTrackingMode(mapView: MKMapView) -> MKUserTrackingMode
-    func targetViewForViewController(viewController: UIViewController) -> UIView
+    func finalDestinationForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
+    func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView!
+    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String!
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
+    func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
+    func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
 
 class DirectionsViewController: ViewController {
 
-    private let monitoredRegionsQueue = dispatch_queue_create("api.amonitoredRegionsQueue", DISPATCH_QUEUE_SERIAL)
+    fileprivate let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
 
-    private let defaultMapCameraPitch = 0.0 //65.0
-    private let defaultMapCameraAltitude = 500.0
+    fileprivate let defaultMapCameraPitch = 0.0 //65.0
+    fileprivate let defaultMapCameraAltitude = 500.0
 
-    private let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
-    private let defaultHeadingResolvedDurableCallbackKey = "directionsHeadingDurableCallback"
+    fileprivate let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
+    fileprivate let defaultHeadingResolvedDurableCallbackKey = "directionsHeadingDurableCallback"
 
-    private var regions: [CLCircularRegion]!
-    private var lastRegionCrossed: CLCircularRegion!
-    private var lastRegionCrossing: NSDate!
+    fileprivate var regions: [CLCircularRegion]!
+    fileprivate var lastRegionCrossed: CLCircularRegion!
+    fileprivate var lastRegionCrossing: Date!
 
-    @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
+    @IBOutlet fileprivate weak var directionsInstructionView: DirectionsInstructionView!
 
     var directions: Directions? {
         didSet {
@@ -62,7 +62,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    private func resolveCurrentStep() { // FIXME -- move this to the route model
+    fileprivate func resolveCurrentStep() { // FIXME -- move this to the route model
         if let leg = directions?.selectedRoute?.currentLeg {
             if let nextStep = leg.nextStep {
                 leg.currentStep.instruction = nextStep.instruction
@@ -73,11 +73,11 @@ class DirectionsViewController: ViewController {
 
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate!
 
-    private var targetView: UIView {
+    fileprivate var targetView: UIView {
         return directionsViewControllerDelegate.targetViewForViewController(self)
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
@@ -122,7 +122,7 @@ class DirectionsViewController: ViewController {
         directionsInstructionView.routeLeg = nil
         refreshInstructions()
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
             animations: {
                 self.view.alpha = 1
                 self.view.frame = CGRect(
@@ -139,7 +139,7 @@ class DirectionsViewController: ViewController {
                     }
 
                     if let lastRegionCrossing = self.lastRegionCrossing {
-                        if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.containsCoordinate(location.coordinate) {
+                        if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.contains(location.coordinate) {
                             self.directions = nil
                         }
                     }
@@ -152,7 +152,7 @@ class DirectionsViewController: ViewController {
                         self.fetchDrivingDirections(location)
                     } else {
                         if let lastRegionCrossing = self.lastRegionCrossing {
-                            if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.containsCoordinate(location.coordinate) {
+                            if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.contains(location.coordinate) {
                                 self.directions = nil
                             }
                         } else {
@@ -164,13 +164,13 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    private func setCenterCoordinate(location: CLLocation) {
+    fileprivate func setCenterCoordinate(_ location: CLLocation) {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             var sufficientDelta = false
             if let lastLocation = LocationService.sharedService().currentLocation {
                 let lastCoordinate = lastLocation.coordinate
                 let region = CLCircularRegion(center: lastCoordinate, radius: 2.5, identifier: "sufficientDeltaRegionMonitor")
-                sufficientDelta = !region.containsCoordinate(location.coordinate)
+                sufficientDelta = !region.contains(location.coordinate)
             } else {
                 sufficientDelta = true
             }
@@ -185,15 +185,15 @@ class DirectionsViewController: ViewController {
                     mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
                         fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                         eyeAltitude: cameraAltitude,
-                        heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
                         pitch: CGFloat(defaultMapCameraPitch),
+                        heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
                         animated: false)
                 }
             }
         }
     }
 
-    private func fetchDrivingDirections(location: CLLocation!) {
+    fileprivate func fetchDrivingDirections(_ location: CLLocation!) {
         let callback: OnDrivingDirectionsFetched = { directions in
             self.directions = directions
 
@@ -201,9 +201,9 @@ class DirectionsViewController: ViewController {
 
             for leg in directions.selectedRoute.legs {
                 for step in [leg.currentStep] {
-                    for coordinate in step.shapeCoordinates {
-                        let overlay = MKCircle(centerCoordinate: coordinate, radius: 5.0)
-                        let identifier = step.identifier + "_\(coordinate.latitude),\(coordinate.longitude)"
+                    for coordinate in (step?.shapeCoordinates)! {
+                        let overlay = MKCircle(center: coordinate, radius: 5.0)
+                        let identifier = (step?.identifier)! + "_\(coordinate.latitude),\(coordinate.longitude)"
                         let region = CLCircularRegion(center: overlay.coordinate, radius: overlay.radius, identifier: identifier)
 
                         self.regions.append(region)
@@ -211,7 +211,7 @@ class DirectionsViewController: ViewController {
                         LocationService.sharedService().monitorRegion(region,
                             onDidEnterRegion: {
                                 self.lastRegionCrossed = region
-                                self.lastRegionCrossing = NSDate()
+                                self.lastRegionCrossing = NSDate() as Date!
 
                                 self.regions.removeObject(region)
                                 LocationService.sharedService().unregisterRegionMonitor(region.identifier)
@@ -236,7 +236,7 @@ class DirectionsViewController: ViewController {
                                                 currentLeg.currentStepIndex += 1
                                             } else {
                                                 var shapeIndex = currentStep.shape.count - 1
-                                                for shapeCoord in Array(currentStep.shapeCoordinates.reverse()) {
+                                                for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
                                                     if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
                                                         currentStep.currentShapeIndex = shapeIndex
                                                         if currentStep.isFinished {
@@ -277,8 +277,8 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    private func unregisterMonitoredRegions() {
-        dispatch_async(monitoredRegionsQueue) { [weak self] in
+    fileprivate func unregisterMonitoredRegions() {
+        monitoredRegionsQueue.async { [weak self] in
             if let regions = self!.regions {
                 for region in regions {
                     self!.regions.removeObject(region)
@@ -288,7 +288,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    func calculateBearing(toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
+    func calculateBearing(_ toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
         if let location = LocationService.sharedService().location {
             let lon = location.coordinate.longitude - toCoordinate.longitude
             let y = sin(lon) * cos(toCoordinate.latitude)
@@ -309,12 +309,12 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    private func renderRouteOverview() {
+    fileprivate func renderRouteOverview() {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             mapView.removeOverlays(mapView.overlays)
 
             if let directions = directions {
-                mapView.addOverlay(directions.selectedRoute.overviewPolyline, level: .AboveRoads)
+                mapView.add(directions.selectedRoute.overviewPolyline, level: .aboveRoads)
             }
         }
     }
@@ -322,7 +322,7 @@ class DirectionsViewController: ViewController {
     // MARK: Status indicator
 
     func showProgressIndicator() {
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
             animations: {
 
             },
@@ -333,7 +333,7 @@ class DirectionsViewController: ViewController {
     }
 
     func hideProgressIndicator() {
-        UIView.animateWithDuration(0.1, delay: 0.0, options: .CurveEaseOut,
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
             animations: {
 
             },
@@ -345,10 +345,10 @@ class DirectionsViewController: ViewController {
 
     // MARK Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "DirectionsViewControllerUnwindSegue":
-            assert(segue.sourceViewController is DirectionsViewController)
+            assert(segue.source is DirectionsViewController)
             unwind()
         default:
             break
@@ -369,7 +369,7 @@ class DirectionsViewController: ViewController {
             navigationItem.prompt = nil
         }
 
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseIn,
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn,
             animations: {
                 self.view.alpha = 0
                 self.view.frame = CGRect(
@@ -396,7 +396,7 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    func routeLegAtIndex(i: Int) -> RouteLeg? {
+    func routeLegAtIndex(_ i: Int) -> RouteLeg? {
         var routeLeg: RouteLeg!
         if let directions = directions {
             if let selectedRoute = directions.selectedRoute {
@@ -406,11 +406,11 @@ class DirectionsViewController: ViewController {
         return routeLeg
     }
 
-    func routeLegStepAtIndexPath(indexPath: NSIndexPath) -> RouteLegStep! {
+    func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep! {
         var routeLegStep: RouteLegStep!
-        if let routeLeg = routeLegAtIndex(indexPath.section) {
-            if indexPath.row < routeLeg.steps.count {
-                routeLegStep = routeLeg.steps[indexPath.row]
+        if let routeLeg = routeLegAtIndex((indexPath as NSIndexPath).section) {
+            if (indexPath as NSIndexPath).row < routeLeg.steps.count {
+                routeLegStep = routeLeg.steps[(indexPath as NSIndexPath).row]
             }
         }
         return routeLegStep

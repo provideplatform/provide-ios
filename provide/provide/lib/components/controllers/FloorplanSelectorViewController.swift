@@ -17,7 +17,7 @@ class FloorplanSelectorViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        selectorView!.backgroundColor = UIColor.whiteColor()
+        selectorView!.backgroundColor = UIColor.white
         selectorView!.roundCorners(5.0)
         selectorView!.alpha = 0.0
     }

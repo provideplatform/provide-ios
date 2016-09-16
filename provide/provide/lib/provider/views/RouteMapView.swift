@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 8/2/15.
-//  Copyright (c) 2015 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ class RouteMapView: WorkOrderMapView {
 
     // MARK: MKMapViewDelegate
 
-    override func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    override func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         var renderer: MKOverlayRenderer!
 
         if overlay is MKPolyline {
