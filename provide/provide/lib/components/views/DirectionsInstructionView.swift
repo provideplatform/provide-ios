@@ -50,7 +50,7 @@ class DirectionsInstructionView: UIView {
                 }
 
                 if let instruction = routeLeg.nextStep?.instruction {
-                    instructionLabel.text = instruction
+                    instructionLabel.text = instruction.stringByStrippingHTML()
                 }
             } else {
                 icon.image = nil
