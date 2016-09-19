@@ -1010,7 +1010,7 @@ class ApiService: NSObject {
                 op.setCompletionBlockWithSuccess(
                     { operation, mappingResult in
                         AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: ["path": path as AnyObject,
-                                                                                                      "statusCode": operation?.httpRequestOperation.response.statusCode as AnyObject,
+                                                                                                      "statusCode": (operation?.httpRequestOperation.response.statusCode)! as AnyObject,
                                                                                                       "params": jsonParams as AnyObject,
                                                                                                       "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject] as [String : AnyObject])
 
@@ -1023,8 +1023,8 @@ class ApiService: NSObject {
                     },
                     failure: { operation, error in
                         let receivedResponse = operation?.httpRequestOperation.response != nil
-                        let responseString = receivedResponse ? operation?.httpRequestOperation.responseString : "{}"
-                        let statusCode = receivedResponse ? operation?.httpRequestOperation.response.statusCode : -1
+                        let responseString = receivedResponse ? (operation?.httpRequestOperation.responseString)! : "{}"
+                        let statusCode = receivedResponse ? (operation?.httpRequestOperation.response.statusCode)! : -1
 
                         if receivedResponse {
                             self.backoffTimeout = self.initialBackoffTimeout
@@ -1063,8 +1063,8 @@ class ApiService: NSObject {
                         }
 
                         onError(error as! NSError,
-                                statusCode!,
-                                responseString!)
+                                statusCode,
+                                responseString)
                     }
                 )
 
