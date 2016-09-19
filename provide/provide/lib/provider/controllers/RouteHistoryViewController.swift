@@ -117,7 +117,7 @@ class RouteHistoryViewController: ViewController, UICollectionViewDelegate, UICo
         ]
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId as AnyObject?
+            params["company_id"] = defaultCompanyId as AnyObject
         }
 
         ApiService.sharedService().fetchRoutes(params,

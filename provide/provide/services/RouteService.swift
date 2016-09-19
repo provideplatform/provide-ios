@@ -98,11 +98,11 @@ class RouteService: NSObject {
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.addingTimeInterval(60 * 60 * 24).utcString
 
-            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject?
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject
         }
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId as AnyObject?
+            params["company_id"] = defaultCompanyId as AnyObject
         }
 
         ApiService.sharedService().fetchRoutes(params as [String : AnyObject],

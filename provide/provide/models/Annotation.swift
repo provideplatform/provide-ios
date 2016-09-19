@@ -86,19 +86,19 @@ class Annotation: Model {
         if id > 0 {
             var params: [String : AnyObject] = [String : AnyObject]()
             if let polygon = polygon {
-                params["polygon"] = polygon as AnyObject?
+                params["polygon"] = polygon as AnyObject
             }
             if let point = point {
-                params["point"] = point as AnyObject?
+                params["point"] = point as AnyObject
             }
             if let circle = circle {
-                params["circle"] = circle as AnyObject?
+                params["circle"] = circle as AnyObject
             }
             if let text = text {
-                params["text"] = text as AnyObject?
+                params["text"] = text as AnyObject
             }
             if workOrderId > 0 {
-                params["work_order_id"] = workOrderId as AnyObject?
+                params["work_order_id"] = workOrderId as AnyObject
             }
 
             ApiService.sharedService().updateAnnotationWithId(String(id), forFloorplanWithId: String(floorplan.id), params: params,

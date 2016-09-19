@@ -62,11 +62,11 @@ class FloorplanService: NSObject {
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId as AnyObject?
+            params["company_id"] = companyId as AnyObject
         }
 
         if let customerId = customerId {
-            params["customer_id"] = customerId as AnyObject?
+            params["customer_id"] = customerId as AnyObject
         }
 
         if includeCustomer {

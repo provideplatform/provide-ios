@@ -65,7 +65,7 @@ class CompanyService: NSObject {
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId as AnyObject?
+            params["company_id"] = companyId as AnyObject
         }
 
         ApiService.sharedService().fetchCompanies(params,

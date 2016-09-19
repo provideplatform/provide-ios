@@ -118,7 +118,7 @@ class WorkOrderService: NSObject {
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.addingTimeInterval(60 * 60 * 24).utcString
 
-            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject?
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject
         }
 
         if excludeRoutes {

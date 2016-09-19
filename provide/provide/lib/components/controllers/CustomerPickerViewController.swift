@@ -160,11 +160,11 @@ class CustomerPickerViewController: ViewController, UICollectionViewDataSource, 
         }
 
         if var params = delegate.queryParamsForCustomerPickerViewController(self) {
-            params["page"] = page as AnyObject?
-            params["rpp"] = rpp as AnyObject?
+            params["page"] = page as AnyObject
+            params["rpp"] = rpp as AnyObject
 
             if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-                params["company_id"] = defaultCompanyId as AnyObject?
+                params["company_id"] = defaultCompanyId as AnyObject
             }
 
             if let inFlightRequestOperation = inFlightRequestOperation {

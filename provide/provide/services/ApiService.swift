@@ -744,7 +744,7 @@ class ApiService: NSObject {
 
     func addAttachmentFromSourceUrl(_ sourceUrl: URL, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject?
+        params["source_url"] = sourceUrl.absoluteString as AnyObject
         dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -792,7 +792,7 @@ class ApiService: NSObject {
 
     func addAttachmentFromSourceUrl(_ sourceUrl: URL, toJobWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject?
+        params["source_url"] = sourceUrl.absoluteString as AnyObject
         dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -816,7 +816,7 @@ class ApiService: NSObject {
 
     func addAttachmentFromSourceUrl(_ sourceUrl: URL, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject?
+        params["source_url"] = sourceUrl.absoluteString as AnyObject
         dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -864,8 +864,8 @@ class ApiService: NSObject {
     fileprivate func countTotalResultsForPath(_ path: String, params: [String : AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation! {
         var params = params
 
-        params["page"] = 1 as AnyObject?
-        params["rpp"] = 0 as AnyObject?
+        params["page"] = 1 as AnyObject
+        params["rpp"] = 0 as AnyObject
 
         let op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false,
             onSuccess: { statusCode, mappingResult in
@@ -988,19 +988,16 @@ class ApiService: NSObject {
                 request.setValue(value, forHTTPHeaderField: name)
             }
 
-            var jsonParams: String!
-            if let _ = params {
-                if contentType.lowercased() == "application/json" {
-                    jsonParams = NSDictionary(dictionary: params).toJSON()
-                }
-            } else {
-                jsonParams = "{}"
-            }
+            var jsonParams = "{}"
 
             if [.POST, .PUT].contains(method) {
-                if let jsonParams = jsonParams {
-                    request.setValue(contentType, forHTTPHeaderField: "content-type")
-                    request.httpBody = jsonParams.data(using: String.Encoding.utf8)
+                request.setValue(contentType, forHTTPHeaderField: "content-type")
+
+                if let _ = params {
+                    if contentType.lowercased() == "application/json" {
+                        jsonParams = NSDictionary(dictionary: params).toJSON()
+                        request.httpBody = jsonParams.data(using: String.Encoding.utf8)
+                    }
                 }
             }
 

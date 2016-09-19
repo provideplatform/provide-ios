@@ -65,7 +65,7 @@ class JobService: NSObject {
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId as AnyObject?
+            params["company_id"] = companyId as AnyObject
         }
 
         if includeCustomer {

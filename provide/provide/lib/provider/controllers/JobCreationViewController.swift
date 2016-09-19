@@ -283,10 +283,10 @@ class JobCreationViewController: UITableViewController,
     func queryParamsForCustomerPickerViewController(_ viewController: CustomerPickerViewController) -> [String : AnyObject]! {
         var params = [String : AnyObject]()
         if let queryString = queryString {
-            params["q"] = queryString as AnyObject?
+            params["q"] = queryString as AnyObject
         }
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId as AnyObject?
+            params["company_id"] = defaultCompanyId as AnyObject
         }
         return params
     }

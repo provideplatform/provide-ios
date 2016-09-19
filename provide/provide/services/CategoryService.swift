@@ -36,7 +36,7 @@ class CategoryService {
         ]
 
         if let companyId = companyId {
-            params["company_id"] = companyId as AnyObject?
+            params["company_id"] = companyId as AnyObject
         }
 
         ApiService.sharedService().fetchCategories(params,

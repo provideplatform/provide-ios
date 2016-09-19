@@ -653,8 +653,8 @@ class WorkOrderCreationViewController: WorkOrderDetailsViewController,
         ]
 
         if let location = LocationService.sharedService().currentLocation {
-            params["latitude"] = location.coordinate.latitude as AnyObject?
-            params["longitude"] = location.coordinate.longitude as AnyObject?
+            params["latitude"] = location.coordinate.latitude as AnyObject
+            params["longitude"] = location.coordinate.longitude as AnyObject
         }
 
         workOrder.attach(image, params: params,

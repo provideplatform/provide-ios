@@ -232,8 +232,8 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         fetchingComments = true
 
         if var params = commentsViewControllerDelegate.queryParamsForCommentsViewController(self) {
-            params["page"] = page as AnyObject?
-            params["rpp"] = rpp as AnyObject?
+            params["page"] = page as AnyObject
+            params["rpp"] = rpp as AnyObject
 
             let commentableType = commentsViewControllerDelegate.commentableTypeForCommentsViewController(self)
             let commentableId = Int(commentsViewControllerDelegate.commentableIdForCommentsViewController(self))

@@ -106,8 +106,8 @@ class ExpenseEditorViewController: ExpenseViewController, UITextFieldDelegate {
                         ]
 
                         if let location = LocationService.sharedService().currentLocation {
-                            params["latitude"] = location.coordinate.latitude as AnyObject?
-                            params["longitude"] = location.coordinate.longitude as AnyObject?
+                            params["latitude"] = location.coordinate.latitude as AnyObject
+                            params["longitude"] = location.coordinate.longitude as AnyObject
                         }
 
                         self.expense.attach(receiptImage, params: params,

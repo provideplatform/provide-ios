@@ -163,12 +163,12 @@ class ProductCreationViewController: UITableViewController, UITextFieldDelegate,
         product.companyId = companyId
         product.gtin = gtinTextField?.text
         product.data = [String : AnyObject]()
-        product.data["name"] = nameTextField?.text as AnyObject?
-        product.data["price"] = priceTextField?.text as AnyObject?
+        product.data["name"] = nameTextField?.text as AnyObject
+        product.data["price"] = priceTextField?.text as AnyObject
 
         if let unitOfMeasure = unitOfMeasureTextField?.text {
             if unitOfMeasure.length > 0 {
-                product.data["unit_of_measure"] = unitOfMeasure as AnyObject?
+                product.data["unit_of_measure"] = unitOfMeasure as AnyObject
             }
         }
 

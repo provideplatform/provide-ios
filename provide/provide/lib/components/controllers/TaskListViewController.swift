@@ -112,21 +112,21 @@ class TaskListViewController: UITableViewController, TaskListTableViewCellDelega
 
         var params: [String : AnyObject] = [String : AnyObject]()
 
-        params["page"] = page as AnyObject?
-        params["rpp"] = rpp as AnyObject?
+        params["page"] = page as AnyObject
+        params["rpp"] = rpp as AnyObject
 
         if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId as AnyObject?
+            params["company_id"] = defaultCompanyId as AnyObject
         }
 
         if let job = taskListViewControllerDelegate?.jobForTaskListViewController?(self) {
-            params["job_id"] = String(job.id) as AnyObject?
+            params["job_id"] = String(job.id) as AnyObject
         }
 
         if let workOrder = taskListViewControllerDelegate?.workOrderForTaskListViewController?(self) {
-            params["work_order_id"] = String(workOrder.id) as AnyObject?
+            params["work_order_id"] = String(workOrder.id) as AnyObject
         } else if let _ = params["job_id"] {
-            params["exclude_work_orders"] = "true" as AnyObject?
+            params["exclude_work_orders"] = "true" as AnyObject
         }
 
         ApiService.sharedService().fetchTasks(params,

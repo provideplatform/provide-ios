@@ -383,11 +383,11 @@ class WorkOrderTeamViewController: UITableViewController,
                     ]
 
                     if workOrder.categoryId != 0 {
-                        params["category_id"] = workOrder.categoryId as AnyObject?
+                        params["category_id"] = workOrder.categoryId as AnyObject
                     }
 
                     if let queryString = queryString {
-                        params["q"] = queryString as AnyObject?
+                        params["q"] = queryString as AnyObject
                     }
                     return params
                 }
@@ -484,7 +484,7 @@ class WorkOrderTeamViewController: UITableViewController,
 
             var params: [String : AnyObject] = ["company_id": companyId as AnyObject]
             if workOrder.categoryId > 0 {
-                params["category_id"] = workOrder.categoryId as AnyObject?
+                params["category_id"] = workOrder.categoryId as AnyObject
             }
 
             ApiService.sharedService().countProviders(params,
@@ -492,8 +492,8 @@ class WorkOrderTeamViewController: UITableViewController,
                     self.totalProvidersCount = totalResultsCount
                     if totalResultsCount > -1 {
                         if totalResultsCount <= self.maximumSearchlessProvidersCount {
-                            params["page"] = 1 as AnyObject?
-                            params["rpp"] = totalResultsCount as AnyObject?
+                            params["page"] = 1 as AnyObject
+                            params["rpp"] = totalResultsCount as AnyObject
 
                             ApiService.sharedService().fetchProviders(params,
                                 onSuccess: { (statusCode, mappingResult) -> () in
