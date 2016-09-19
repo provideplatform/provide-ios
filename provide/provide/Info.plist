@@ -74,6 +74,12 @@
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>provide would like to use your current location</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>provide would like to use your bluetooth radio</string>
+	<key>NSCameraUsageDescription</key>
+	<string>provide would like to use your camera</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>provide would like to use your photo library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
