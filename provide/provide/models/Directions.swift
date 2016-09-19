@@ -21,7 +21,7 @@ class Directions: Model {
             "minutes",
             ]
         )
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Route", toKeyPath: "routes", with: Route.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "route", toKeyPath: "routes", with: Route.mapping()))
         return mapping!
     }
 

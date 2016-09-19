@@ -49,7 +49,7 @@ class Route: Model {
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "provider_origin_assignment", toKeyPath: "providerOriginAssignment", with: ProviderOriginAssignment.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "items_loaded", toKeyPath: "itemsLoaded", with: Product.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_orders", toKeyPath: "workOrders", with: WorkOrder.mapping()))
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Leg", toKeyPath: "legs", with: RouteLeg.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "leg", toKeyPath: "legs", with: RouteLeg.mapping()))
         return mapping!
     }
 

@@ -20,11 +20,11 @@ class RouteLeg: Model {
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
-            "Length": "distanceInMeters",
-            "TravelTime": "duration"
+            "length": "distanceInMeters",
+            "travelTime": "duration"
             ]
         )
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "Maneuver", toKeyPath: "steps", with: RouteLegStep.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "maneuver", toKeyPath: "steps", with: RouteLegStep.mapping()))
         return mapping!
     }
 

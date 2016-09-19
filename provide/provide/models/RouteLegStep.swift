@@ -65,18 +65,18 @@ class RouteLegStep: Model {
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
-            "Position": "position",
-            "Instruction": "instruction",
-            "PlaceEquipment": "placeEquipment",
-            "Length": "distanceInMeters",
-            "TravelTime": "duration",
-            "Shape": "shape",
-            "Time": "time",
-            "Direction": "direction",
-            "Action": "maneuver",
-            "BaseTime": "baseTime",
-            "NextManeuver": "nextManeuver",
-            "ToLink": "toLink",
+            "position": "position",
+            "instruction": "instruction",
+            "placeEquipment": "placeEquipment",
+            "length": "distanceInMeters",
+            "travelTime": "duration",
+            "shape": "shape",
+            "time": "time",
+            "direction": "direction",
+            "action": "maneuver",
+            "baseTime": "baseTime",
+            "nextManeuver": "nextManeuver",
+            "toLink": "toLink",
             "id": "identifier"
             ]
         )
