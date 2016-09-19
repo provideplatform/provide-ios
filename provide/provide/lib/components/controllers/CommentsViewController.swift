@@ -17,7 +17,7 @@ protocol CommentsViewControllerDelegate {
     func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String : AnyObject]!
 }
 
-class CommentsViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {
+class CommentsViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {
 
     var commentsViewControllerDelegate: CommentsViewControllerDelegate! {
         didSet {
