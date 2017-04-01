@@ -33,7 +33,7 @@ class Provider: Model {
                 initialsLabel.text = "\(firstName.substring(to: firstName.startIndex))"
             }
             if let lastName = self.firstName {
-                initialsLabel.text = "\(initialsLabel.text)\(lastName.substring(to: lastName.startIndex))"
+                initialsLabel.text = "\(String(describing: initialsLabel.text))\(lastName.substring(to: lastName.startIndex))"
             }
             initialsLabel.sizeToFit()
             return initialsLabel

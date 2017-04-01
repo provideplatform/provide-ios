@@ -133,7 +133,7 @@ class JobWizardViewController: UINavigationController,
         return cachedFloorplanImage
     }
 
-    func jobForFloorplanViewController(_ viewController: FloorplanViewController) -> Job! {
+    @nonobjc internal func jobForFloorplanViewController(_ viewController: FloorplanViewController) -> Job! {
         return job
     }
 
@@ -156,7 +156,7 @@ class JobWizardViewController: UINavigationController,
         return false
     }
 
-    func navigationControllerForFloorplanViewController(_ viewController: FloorplanViewController) -> UINavigationController! {
+    @nonobjc internal func navigationControllerForFloorplanViewController(_ viewController: FloorplanViewController) -> UINavigationController! {
         return navigationController
     }
 
@@ -186,7 +186,7 @@ class JobWizardViewController: UINavigationController,
         return 1
     }
 
-    func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
+    @nonobjc internal func jobManagerViewController(_ viewController: JobManagerViewController, tableView: UITableView, heightForRowAtIndexPath indexPath: IndexPath) -> CGFloat {
         return (indexPath as NSIndexPath).section == 0 ? 44.0 : 200.0
     }
 
@@ -194,7 +194,7 @@ class JobWizardViewController: UINavigationController,
         return section == 0 ? 1 : 1
     }
 
-    func jobManagerViewController(_ jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
+    @nonobjc internal func jobManagerViewController(_ jobManagerViewController: JobManagerViewController, tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath) {
 //        if let navigationController = jobManagerViewController.navigationController {
 //            var viewController: UIViewController!
 //
@@ -228,7 +228,7 @@ class JobWizardViewController: UINavigationController,
 //                scheduledStartTime = humanReadableScheduledStartTime
 //            }
 
-            cell.setName("\(job?.status.uppercased())", value: scheduledStartTime)
+            cell.setName("\(String(describing: job?.status.uppercased()))", value: scheduledStartTime)
             cell.backgroundView!.backgroundColor = job?.statusColor
             cell.accessoryType = .disclosureIndicator
         default:

@@ -1037,7 +1037,7 @@ class ApiService: NSObject {
                                     self.forceLogout()
                                 }
                             }
-                        } else if let err = error as? NSError {
+                        } else if let err = error as NSError? {
                             AnalyticsService.sharedService().track("HTTP Request Failed", properties: ["error": err.localizedDescription as AnyObject,
                                                                                                        "code": err.code as AnyObject,
                                                                                                        "params": jsonParams as AnyObject,
@@ -1059,7 +1059,7 @@ class ApiService: NSObject {
                             self.requestOperations.removeObject(op)
                         }
 
-                        onError(error as! NSError,
+                        onError(error! as NSError,
                                 statusCode,
                                 responseString)
                     }

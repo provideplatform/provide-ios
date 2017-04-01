@@ -16,7 +16,7 @@ class SignatureViewController: WorkOrderComponentViewController, SignatureViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let transform = CGAffineTransform(rotationAngle: CGFloat(M_PI_2))
+        let transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         view.transform = transform
 
         view.backgroundColor = UIColor.clear

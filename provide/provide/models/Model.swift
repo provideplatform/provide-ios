@@ -23,7 +23,7 @@ class Model: NSObject {
 
         var ivarStrings = [String]()
         for i in 0..<count {
-            let key = NSString(cString: ivar_getName(ivars[Int(i)]), encoding: String.Encoding.utf8.rawValue) as! String
+            let key = NSString(cString: ivar_getName(ivars[Int(i)]), encoding: String.Encoding.utf8.rawValue)! as String
             ivarStrings.append(key)
         }
         ivars.deallocate(capacity: Int(count))

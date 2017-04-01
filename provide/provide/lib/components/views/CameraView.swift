@@ -382,7 +382,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                                 }
                             }
                         } else {
-                            logWarn("Error capturing still image \(error)")
+                            logWarn("Error capturing still image \(String(describing: error))")
                         }
                     }
                 }

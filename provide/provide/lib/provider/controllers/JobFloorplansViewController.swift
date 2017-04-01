@@ -231,7 +231,7 @@ class JobFloorplansViewController: ViewController,
         if isSimulator() {
             dispatch_after_delay(1.0) {
                 let sourceURL = URL(string: "https://provide-production.s3.amazonaws.com/4e00588c-d532-42ef-a86b-a543072aab1c.pdf")
-                self.showToast("Importing PDF document at source url \(sourceURL?.absoluteString).", dismissAfter: 1.0)
+                self.showToast("Importing PDF document at source url \(String(describing: sourceURL?.absoluteString)).", dismissAfter: 1.0)
                 dispatch_after_delay(1.2) {
                     self.importFromSourceURL(sourceURL!, filename: "concept facility 1st floor.pdf")
                 }

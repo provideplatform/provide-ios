@@ -62,7 +62,7 @@ class DirectionService: NSObject {
                 onSuccess: { statusCode, mappingResult in
                     if let directions = mappingResult?.firstObject as? Directions {
                         if let minutes = directions.minutes {
-                            onEtaFetched(minutes as Int)
+                            onEtaFetched(minutes as! Int)
                         }
                     }
                 },

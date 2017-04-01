@@ -180,7 +180,7 @@ class DirectionsViewController: ViewController {
                     let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
                         MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
 
-                    let cameraAltitude = distance / tan(M_PI*(15 / 180.0))
+                    let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 
                     mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
                         fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
