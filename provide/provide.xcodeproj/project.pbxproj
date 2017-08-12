@@ -57,9 +57,7 @@
 		681416EB1B8457870076BFBD /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305E1B07DE94001A21B0 /* Directions.swift */; };
 		681416EC1B8457870076BFBD /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4AF39E1B13A3ED00423B71 /* Message.swift */; };
 		681416ED1B8457870076BFBD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305F1B07DE94001A21B0 /* Model.swift */; };
-		681416EE1B8457870076BFBD /* Origin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8B51B4039E600DDBC3D /* Origin.swift */; };
 		681416F01B8457870076BFBD /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730611B07DE94001A21B0 /* Provider.swift */; };
-		681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */; };
 		681416F31B8457870076BFBD /* RouteLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730631B07DE94001A21B0 /* RouteLeg.swift */; };
 		681416F41B8457870076BFBD /* RouteLegStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730641B07DE94001A21B0 /* RouteLegStep.swift */; };
 		681416F51B8457870076BFBD /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730661B07DE94001A21B0 /* Token.swift */; };
@@ -233,8 +231,6 @@
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewController.swift; sourceTree = "<group>"; };
-		682BE8B51B4039E600DDBC3D /* Origin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Origin.swift; sourceTree = "<group>"; };
-		682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderOriginAssignment.swift; sourceTree = "<group>"; };
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -880,9 +876,7 @@
 				687B650D1C2431800088E539 /* MenuItem.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
-				682BE8B51B4039E600DDBC3D /* Origin.swift */,
 				68F730611B07DE94001A21B0 /* Provider.swift */,
-				682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */,
 				6846D9A01F3EDF2A004532BD /* Route.swift */,
 				68F730631B07DE94001A21B0 /* RouteLeg.swift */,
 				68F730641B07DE94001A21B0 /* RouteLegStep.swift */,
@@ -1219,7 +1213,6 @@
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
-				681416EE1B8457870076BFBD /* Origin.swift in Sources */,
 				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
@@ -1265,7 +1258,6 @@
 				6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */,
 				68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				681416F51B8457870076BFBD /* Token.swift in Sources */,
-				681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
