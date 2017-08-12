@@ -41,7 +41,7 @@ class User: Model {
             return menuItems
         } else {
             var defaultMenuItems = [MenuItem]()
-            defaultMenuItems.append(MenuItem(item: ["label": "JOBS", "storyboard": "Jobs"]))
+            defaultMenuItems.append(MenuItem(item: ["label": "History", "storyboard": "Jobs"]))
             return defaultMenuItems
         }
     }

@@ -47,11 +47,11 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             var menuItem: MenuItem!
             switch (indexPath as NSIndexPath).row {
             case 0:
-                menuItem = MenuItem(item: ["label": "SUPPORT", "url": "\(CurrentEnvironment.baseUrlString)/#/support"])
+                menuItem = MenuItem(item: ["label": "Support", "url": "\(CurrentEnvironment.baseUrlString)/#/support"])
             case 1:
-                menuItem = MenuItem(item: ["label": "LEGAL", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
+                menuItem = MenuItem(item: ["label": "Legal", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
             case 2:
-                menuItem = MenuItem(item: ["label": "LOGOUT", "action": "logout"])
+                menuItem = MenuItem(item: ["label": "Logout", "action": "logout"])
             default:
                 break
             }
