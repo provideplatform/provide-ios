@@ -44,7 +44,7 @@ class KeyChainService {
             if let m = self["mode"] {
                 return UserMode(rawValue: m)
             }
-            return .Provider //.Customer
+            return .Customer
         }
         set {
             self["mode"] = newValue?.rawValue
