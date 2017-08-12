@@ -25,7 +25,7 @@
         <scene sceneID="dsG-cH-el8">
             <objects>
                 <navigationController navigationBarHidden="YES" id="J41-78-tRE" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eaA-8b-5sD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaA-8b-5sD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -750,7 +750,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Db6-Og-aM0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="K39-hI-ovh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="383" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -764,7 +764,7 @@
         <scene sceneID="9ra-qq-KyS">
             <objects>
                 <navigationController id="vq1-hW-c50" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rHb-kF-xkw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rHb-kF-xkw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1110,7 +1110,7 @@
         <image name="provide-pin" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="baH-vf-SLM"/>
+        <segue reference="pyb-Ej-lW7"/>
         <segue reference="Wzh-ch-uKh"/>
         <segue reference="flA-yQ-9Vg"/>
     </inferredMetricsTieBreakers>

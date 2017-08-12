@@ -19,8 +19,7 @@ class WorkOrderDetailsViewController: ViewController,
                                       UITableViewDataSource,
                                       UICollectionViewDelegate,
                                       UICollectionViewDataSource,
-                                      WorkOrderDetailsHeaderTableViewControllerDelegate,
-                                      ManifestViewControllerDelegate {
+                                      WorkOrderDetailsHeaderTableViewControllerDelegate {
 
     var workOrder: WorkOrder! {
         didSet {
@@ -61,7 +60,7 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     fileprivate func refresh() {
-        navigationItem.title = title == nil ? (workOrder.category != nil ? workOrder.category.name : workOrder.customer.contact.name) : title
+        navigationItem.title = title == nil ? workOrder.customer.contact.name : title
 
         if workOrder.id > 0 {
             //                workOrder.reload(
@@ -204,13 +203,6 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let navigationController = navigationController {
-            let manifestViewController = UIStoryboard("Manifest").instantiateViewController(withIdentifier: "ManifestViewController") as! ManifestViewController
-            manifestViewController.delegate = self
-
-            navigationController.pushViewController(manifestViewController, animated: true)
-        }
-
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
@@ -278,10 +270,6 @@ class WorkOrderDetailsViewController: ViewController,
 //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
-
-    func workOrderCreationViewControllerForDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController! {
-        return nil
-    }
 
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
 

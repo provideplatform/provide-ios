@@ -46,12 +46,8 @@
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		680B74AE1B36DDFA00181300 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AC1B36DDFA00181300 /* Fabric.framework */; };
 		680B74AF1B36DDFA00181300 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AD1B36DDFA00181300 /* Crashlytics.framework */; };
-		68140D8E1C1C22BD008F7E3A /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */; };
-		68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */; };
-		68140D9E1C1C23E7008F7E3A /* WorkOrderCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */; };
 		68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
 		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
-		68140DA41C1C2550008F7E3A /* Route.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA31C1C2550008F7E3A /* Route.storyboard */; };
 		68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA51C1C259E008F7E3A /* ZeroState.storyboard */; };
 		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
 		681416E51B8457870076BFBD /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730591B07DE94001A21B0 /* Attachment.swift */; };
@@ -64,10 +60,8 @@
 		681416EC1B8457870076BFBD /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4AF39E1B13A3ED00423B71 /* Message.swift */; };
 		681416ED1B8457870076BFBD /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305F1B07DE94001A21B0 /* Model.swift */; };
 		681416EE1B8457870076BFBD /* Origin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8B51B4039E600DDBC3D /* Origin.swift */; };
-		681416EF1B8457870076BFBD /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730601B07DE94001A21B0 /* Product.swift */; };
 		681416F01B8457870076BFBD /* Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730611B07DE94001A21B0 /* Provider.swift */; };
 		681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */; };
-		681416F21B8457870076BFBD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730621B07DE94001A21B0 /* Route.swift */; };
 		681416F31B8457870076BFBD /* RouteLeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730631B07DE94001A21B0 /* RouteLeg.swift */; };
 		681416F41B8457870076BFBD /* RouteLegStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730641B07DE94001A21B0 /* RouteLegStep.swift */; };
 		681416F51B8457870076BFBD /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730661B07DE94001A21B0 /* Token.swift */; };
@@ -75,95 +69,43 @@
 		681416F71B8457870076BFBD /* WorkOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730681B07DE94001A21B0 /* WorkOrder.swift */; };
 		681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */; };
 		681417481B845D900076BFBD /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
-		6816FD361C2FDEE4005A18BB /* DurationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816FD351C2FDEE4005A18BB /* DurationPickerView.swift */; };
-		6816FD381C300063005A18BB /* WorkOrderProviderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816FD371C300063005A18BB /* WorkOrderProviderCreationViewController.swift */; };
 		6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */; };
 		6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */; };
-		681EBF5A1C18074C00B81BEB /* JobWizardTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */; };
-		681EBF5C1C180ED600B81BEB /* JobWizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */; };
-		681EBF5E1C18136C00B81BEB /* JobFloorplansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF5D1C18136C00B81BEB /* JobFloorplansViewController.swift */; };
 		681EBF601C181B9B00B81BEB /* JobWizardUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF5F1C181B9B00B81BEB /* JobWizardUITests.swift */; };
-		681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */; };
-		681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF651C18252D00B81BEB /* JobReviewViewController.swift */; };
 		682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */; };
 		6837AF841C7B67CE0082F4EC /* CompanyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF831C7B67CE0082F4EC /* CompanyService.swift */; };
 		6837AF8F1C8BAB2D0082F4EC /* Invitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF8E1C8BAB2D0082F4EC /* Invitation.swift */; };
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
-		6837AF971C8E827B0082F4EC /* FloorplanPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */; };
 		6837AF991C9D12110082F4EC /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF981C9D12110082F4EC /* CategoryService.swift */; };
-		6837AF9B1C9D126E0082F4EC /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF9A1C9D126E0082F4EC /* Category.swift */; };
 		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
 		683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */; };
 		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
-		683AC1011C21FE4A00391A0B /* JobManagerHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */; };
-		683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */; };
-		683F2AD91C9DB2F8006229AC /* CategoryPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */; };
-		683F2ADB1C9DB32A006229AC /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */; };
-		683F2ADD1C9DB3E5006229AC /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */; };
-		6840F1661BDB1D8E00EF70F7 /* Floorplan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6840F1651BDB1D8E00EF70F7 /* Floorplan.storyboard */; };
-		6840F1681BDB1DAC00EF70F7 /* FloorplanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1671BDB1DAC00EF70F7 /* FloorplanViewController.swift */; };
-		6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F1691BDB59D700EF70F7 /* Job.swift */; };
-		6840F16C1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */; };
-		6840F16E1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */; };
-		6845BB5D1BF1E46200AD3D79 /* FloorplanScaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */; };
-		6845BB621BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */; };
-		6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */; };
-		6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */; };
-		6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */; };
 		6846D9921F3EC187004532BD /* UserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9911F3EC187004532BD /* UserMode.swift */; };
 		6846D9971F3EC97D004532BD /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6846D9961F3EC97D004532BD /* Customer.storyboard */; };
 		6846D9991F3ECE1A004532BD /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9981F3ECE1A004532BD /* CustomerViewController.swift */; };
+		6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D99A1F3ED90B004532BD /* CheckinService.swift */; };
+		6846D9A11F3EDF2A004532BD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A01F3EDF2A004532BD /* Route.swift */; };
+		6846D9A31F3EE08B004532BD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A21F3EE08B004532BD /* RouteMapView.swift */; };
 		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
-		685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */; };
-		685BCBDD1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */; };
-		685BCBDF1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */; };
-		685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1141C17529C0089EF94 /* JobProduct.swift */; };
-		685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685DE1161C176A740089EF94 /* WorkOrderProduct.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
-		686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */; };
-		686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */; };
-		686C1CB31C1D0E3C00A31AFD /* ProviderCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */; };
-		686C1CB51C1D105000A31AFD /* ProviderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */; };
-		686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */; };
-		686C1CBD1C1F93AC00A31AFD /* ProductCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */; };
-		686C1CBF1C1F96A300A31AFD /* ProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */; };
-		68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */; };
-		68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */; };
 		687454381B3C00DF00C49B3F /* RouteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454371B3C00DF00C49B3F /* RouteUITests.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		687B650E1C2431800088E539 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B650D1C2431800088E539 /* MenuItem.swift */; };
 		687B65121C2439210088E539 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
-		687CB5941B07F6020048B692 /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58C1B07F6020048B692 /* CheckinService.swift */; };
 		687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58E1B07F6020048B692 /* DirectionService.swift */; };
 		687CB59D1B07F6020048B692 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58F1B07F6020048B692 /* LocationService.swift */; };
 		687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5901B07F6020048B692 /* ProviderService.swift */; };
-		687CB5A31B07F6020048B692 /* RouteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5911B07F6020048B692 /* RouteService.swift */; };
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
-		687ECC6E1C4CB80A00FD5C4C /* Floorplan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */; };
-		687ECC781C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC771C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift */; };
-		687ECC7A1C4CBFBD00FD5C4C /* FloorplanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */; };
 		688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441561C06E3A10017D4AA /* PinInputViewController.swift */; };
 		6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441591C06E3E10017D4AA /* PinInputControl.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
-		6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */; };
-		688952C31C1FFC61006AEFDF /* CustomerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */; };
-		688995191C9D2A9300F7D25F /* FloorplansPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688995181C9D2A9300F7D25F /* FloorplansPageViewController.swift */; };
-		6889951B1C9D2AB300F7D25F /* FloorplansPageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6889951A1C9D2AB300F7D25F /* FloorplansPageView.storyboard */; };
 		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
-		688BFCAB1BDE2B9F00BBACEC /* FloorplanToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688BFCAA1BDE2B9F00BBACEC /* FloorplanToolbar.swift */; };
-		688C2B571C60FEAF009D5FF5 /* JobStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */; };
-		6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */; };
-		6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */; };
-		6893D60E1BFD59E000D562DF /* ProviderPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */; };
-		6893D6101BFD5A2800D562DF /* PickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */; };
 		689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB11B07DFE3005694B7 /* ApiService.swift */; };
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
-		689C79191CD4F9EC0018F583 /* FloorplanSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C79181CD4F9EC0018F583 /* FloorplanSelectorView.swift */; };
-		689C791B1CD4FA230018F583 /* FloorplanSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689C791A1CD4FA230018F583 /* FloorplanSelectorViewController.swift */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -193,18 +135,11 @@
 		68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412961B0804BC009A4C05 /* TopViewController.swift */; };
 		68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412971B0804BC009A4C05 /* ViewController.swift */; };
 		68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
-		68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */; };
 		68B412C21B080D42009A4C05 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B81B080D41009A4C05 /* DirectionsViewController.swift */; };
 		68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */; };
-		68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */; };
 		68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BC1B080D42009A4C05 /* SelfieViewController.swift */; };
-		68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412BD1B080D42009A4C05 /* SignatureViewController.swift */; };
-		68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */; };
 		68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
 		68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
-		68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */; };
-		68B412E61B080E6D009A4C05 /* ManifestItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */; };
-		68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D91B080E6D009A4C05 /* SignatureView.swift */; };
 		68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
 		68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
 		68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */; };
@@ -212,26 +147,13 @@
 		68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */; };
 		68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
 		68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
-		68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413241B083161009A4C05 /* BarcodeScanner.storyboard */; };
 		68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
-		68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413261B083161009A4C05 /* PackingSlip.storyboard */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
-		68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B4132A1B083161009A4C05 /* Signature.storyboard */; };
-		68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681EBF611C1820C500B81BEB /* JobManagerViewController.swift */; };
-		68B730C31C18293F00549D95 /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C61BFB47A200DE7400 /* JobViewController.swift */; };
-		68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730C41C184C7500549D95 /* JobWizardTabBar.swift */; };
-		68B730C71C1AA7FC00549D95 /* JobWizard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */; };
-		68B730C91C1ACD5F00549D95 /* JobProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730C81C1ACD5F00549D95 /* JobProductTableViewCell.swift */; };
-		68B730CB1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730CA1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift */; };
-		68B730CF1C1AD74600549D95 /* Manifest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B730CE1C1AD74600549D95 /* Manifest.storyboard */; };
 		68B730D11C1ADF4200549D95 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D01C1ADF4200549D95 /* DropboxSDK.framework */; };
 		68B730D31C1AE5F100549D95 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D21C1AE5F100549D95 /* DBChooser.framework */; };
-		68B730D51C1B4F0800549D95 /* JobInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */; };
-		68C923C91CEAC1CD00303AA1 /* FloorplanTiledView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
 		68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
@@ -240,54 +162,19 @@
 		68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A61B0861EF000D3ABA /* houston-3.gpx */; };
 		68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A71B0861EF000D3ABA /* houston-4.gpx */; };
 		68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */; };
-		68D4E7AB1CC5F03500CC1505 /* DatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D4E7AA1CC5F03500CC1505 /* DatePicker.storyboard */; };
-		68D4E7AD1CC5F0A000CC1505 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D4E7AC1CC5F0A000CC1505 /* DatePickerViewController.swift */; };
-		68D6BF911C39040500EC9C37 /* Quickbooks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */; };
-		68D6BF931C39041C00EC9C37 /* QuickbooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */; };
-		68D6BF951C39651D00EC9C37 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */; };
-		68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843BE1BF7F99700DE7400 /* Annotation.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
-		68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C21BFB20A900DE7400 /* JobsViewController.swift */; };
-		68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */; };
-		68D843C91BFB585F00DE7400 /* FloorplanPolygonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */; };
-		68DA2D391C47A57C00DB2C01 /* ProviderSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DA2D381C47A57C00DB2C01 /* ProviderSearchViewController.swift */; };
-		68DA2D3B1C47A79E00DB2C01 /* ProviderSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68DA2D3A1C47A79E00DB2C01 /* ProviderSearch.storyboard */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
 		68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
-		68E2180E1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */; };
-		68E218101C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */; };
-		68E218121C3BB663007CEF03 /* JobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E218111C3BB663007CEF03 /* JobService.swift */; };
-		68E329551C04394200DC297A /* FloorplanThumbnailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329541C04394200DC297A /* FloorplanThumbnailViewController.swift */; };
-		68E329571C12CA1300DC297A /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329561C12CA1300DC297A /* Expense.swift */; };
-		68E3295B1C12ED3700DC297A /* ExpenseCapture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */; };
-		68E3295D1C12ED5000DC297A /* ExpenseCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3295C1C12ED5000DC297A /* ExpenseCaptureViewController.swift */; };
-		68E329891C16E08600DC297A /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329881C16E08600DC297A /* ExpensesViewController.swift */; };
-		68E3298B1C16E0B100DC297A /* Expenses.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68E3298A1C16E0B100DC297A /* Expenses.storyboard */; };
-		68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */; };
-		68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */; };
-		68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */; };
-		68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */; };
-		68EF11371C1EFAC5003302D7 /* ProductPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */; };
-		68F48F781C44697B005F9AB1 /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F48F771C44697B005F9AB1 /* TaskList.storyboard */; };
-		68F48F7A1C4469A3005F9AB1 /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F48F791C4469A3005F9AB1 /* TaskListViewController.swift */; };
-		68F48F7C1C446A09005F9AB1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F48F7B1C446A09005F9AB1 /* Task.swift */; };
-		68F48F7E1C446F1A005F9AB1 /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F48F7D1C446F1A005F9AB1 /* TaskTableViewCell.swift */; };
-		68F48F801C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F48F7F1C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
 		68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CB1B834A080007F480 /* ImagePickerViewController.swift */; };
 		68F536DA1B834A330007F480 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F536D81B834A330007F480 /* Camera.storyboard */; };
 		68F536DD1B834A330007F480 /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F536D91B834A330007F480 /* Comments.storyboard */; };
-		68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536E01B834A5C0007F480 /* RouteHistoryViewController.swift */; };
-		68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536E11B834A5C0007F480 /* RouteManifestViewController.swift */; };
-		68F536EA1B834A5C0007F480 /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536E21B834A5C0007F480 /* RouteViewController.swift */; };
 		68F536ED1B834A5C0007F480 /* WorkOrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */; };
-		68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F01B834A720007F480 /* RouteHistoryCollectionViewCell.swift */; };
-		68F536F81B834A720007F480 /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F11B834A720007F480 /* RouteMapView.swift */; };
 		68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */; };
 		68F536FE1B834A720007F480 /* WorkOrderPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */; };
 		68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F41B834A720007F480 /* WorkOrderTableViewCell.swift */; };
@@ -302,9 +189,6 @@
 		68F537331B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537341B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
 		68F537351B8373BD0007F480 /* cottage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68F537321B8373BD0007F480 /* cottage.gpx */; };
-		68F846B71C26DC9E003C678B /* WorkOrderInventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */; };
-		68F846B91C26F998003C678B /* WorkOrderProductCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F846B81C26F998003C678B /* WorkOrderProductCreationViewController.swift */; };
-		68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 /* End PBXBuildFile section */
 
@@ -349,25 +233,13 @@
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		680B74AC1B36DDFA00181300 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		680B74AD1B36DDFA00181300 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
-		68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RouteHistory.storyboard; sourceTree = "<group>"; };
-		68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderCreation.storyboard; sourceTree = "<group>"; };
 		68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderDetails.storyboard; sourceTree = "<group>"; };
 		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
-		68140DA31C1C2550008F7E3A /* Route.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Route.storyboard; sourceTree = "<group>"; };
 		68140DA51C1C259E008F7E3A /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
-		6816FD351C2FDEE4005A18BB /* DurationPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DurationPickerView.swift; sourceTree = "<group>"; };
-		6816FD371C300063005A18BB /* WorkOrderProviderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProviderCreationViewController.swift; sourceTree = "<group>"; };
 		6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewController.swift; sourceTree = "<group>"; };
-		681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobWizardTabBarController.swift; path = ../../components/controllers/JobWizardTabBarController.swift; sourceTree = "<group>"; };
-		681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardViewController.swift; sourceTree = "<group>"; };
-		681EBF5D1C18136C00B81BEB /* JobFloorplansViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JobFloorplansViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		681EBF5F1C181B9B00B81BEB /* JobWizardUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardUITests.swift; sourceTree = "<group>"; };
-		681EBF611C1820C500B81BEB /* JobManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobManagerViewController.swift; sourceTree = "<group>"; };
-		681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobDetailsHeaderView.swift; sourceTree = "<group>"; };
-		681EBF651C18252D00B81BEB /* JobReviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobReviewViewController.swift; sourceTree = "<group>"; };
 		682BE8B51B4039E600DDBC3D /* Origin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Origin.swift; sourceTree = "<group>"; };
 		682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderOriginAssignment.swift; sourceTree = "<group>"; };
 		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
@@ -378,81 +250,36 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
-		6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPinView.swift; sourceTree = "<group>"; };
 		6837AF981C9D12110082F4EC /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
-		6837AF9A1C9D126E0082F4EC /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
 		683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCreationViewController.swift; sourceTree = "<group>"; };
 		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
-		683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobManagerHeaderViewController.swift; sourceTree = "<group>"; };
-		683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProductCreationViewController.swift; sourceTree = "<group>"; };
-		683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CategoryPicker.storyboard; sourceTree = "<group>"; };
-		683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
-		683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
-		6840F1651BDB1D8E00EF70F7 /* Floorplan.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Floorplan.storyboard; sourceTree = "<group>"; };
-		6840F1671BDB1DAC00EF70F7 /* FloorplanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		6840F1691BDB59D700EF70F7 /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
-		6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanThumbnailView.swift; sourceTree = "<group>"; };
-		6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanThumbnailOverlayView.swift; sourceTree = "<group>"; };
-		6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScaleView.swift; sourceTree = "<group>"; };
-		6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexViewGestureRecognizer.swift; sourceTree = "<group>"; };
-		6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScrollView.swift; sourceTree = "<group>"; };
-		6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexView.swift; sourceTree = "<group>"; };
-		6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonLineView.swift; sourceTree = "<group>"; };
 		6846D9911F3EC187004532BD /* UserMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMode.swift; sourceTree = "<group>"; };
 		6846D9961F3EC97D004532BD /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Customer.storyboard; path = customer/storyboards/Customer.storyboard; sourceTree = "<group>"; };
 		6846D9981F3ECE1A004532BD /* CustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerViewController.swift; path = customer/controllers/CustomerViewController.swift; sourceTree = "<group>"; };
+		6846D99A1F3ED90B004532BD /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
+		6846D9A01F3EDF2A004532BD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		6846D9A21F3EE08B004532BD /* RouteMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
-		685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanWorkOrdersViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FloorplanWorkOrders.storyboard; sourceTree = "<group>"; };
-		685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanWorkOrderTableViewCell.swift; sourceTree = "<group>"; };
-		685DE1141C17529C0089EF94 /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
-		685DE1161C176A740089EF94 /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
-		686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobCreationViewController.swift; sourceTree = "<group>"; };
-		686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CustomerPicker.storyboard; sourceTree = "<group>"; };
-		686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderCreation.storyboard; sourceTree = "<group>"; };
-		686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderCreationViewController.swift; sourceTree = "<group>"; };
-		686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobCreation.storyboard; sourceTree = "<group>"; };
-		686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductCreation.storyboard; sourceTree = "<group>"; };
-		686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCreationViewController.swift; sourceTree = "<group>"; };
-		68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppointmentScheduler.storyboard; sourceTree = "<group>"; };
-		68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppointmentSchedulerViewController.swift; sourceTree = "<group>"; };
 		687454371B3C00DF00C49B3F /* RouteUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteUITests.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		687B650D1C2431800088E539 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		687B65111C2439210088E539 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
-		687CB58C1B07F6020048B692 /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		687CB58E1B07F6020048B692 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
 		687CB58F1B07F6020048B692 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		687CB5901B07F6020048B692 /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
-		687CB5911B07F6020048B692 /* RouteService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteService.swift; sourceTree = "<group>"; };
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
-		687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Floorplan.swift; sourceTree = "<group>"; };
-		687ECC771C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanCollectionViewCell.swift; sourceTree = "<group>"; };
-		687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanService.swift; sourceTree = "<group>"; };
 		688441561C06E3A10017D4AA /* PinInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputViewController.swift; sourceTree = "<group>"; };
 		688441591C06E3E10017D4AA /* PinInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputControl.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
-		6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTeamViewController.swift; sourceTree = "<group>"; };
-		688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerPickerViewController.swift; sourceTree = "<group>"; };
-		688995181C9D2A9300F7D25F /* FloorplansPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplansPageViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		6889951A1C9D2AB300F7D25F /* FloorplansPageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FloorplansPageView.storyboard; sourceTree = "<group>"; };
 		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		688BFCAA1BDE2B9F00BBACEC /* FloorplanToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanToolbar.swift; sourceTree = "<group>"; };
-		688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobStatementViewController.swift; sourceTree = "<group>"; };
-		6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderCreationViewController.swift; sourceTree = "<group>"; };
-		6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderPicker.storyboard; sourceTree = "<group>"; };
-		6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderPickerViewController.swift; sourceTree = "<group>"; };
-		6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerCollectionViewCell.swift; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		689608951B3A1F21008719B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		689B0CB11B07DFE3005694B7 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		689C79181CD4F9EC0018F583 /* FloorplanSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanSelectorView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		689C791A1CD4FA230018F583 /* FloorplanSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanSelectorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
@@ -483,18 +310,11 @@
 		68B412961B0804BC009A4C05 /* TopViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopViewController.swift; sourceTree = "<group>"; };
 		68B412971B0804BC009A4C05 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		68B412B01B08063B009A4C05 /* AppearenceProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearenceProxy.swift; sourceTree = "<group>"; };
-		68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		68B412B81B080D41009A4C05 /* DirectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetPromoterViewController.swift; sourceTree = "<group>"; };
-		68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipViewController.swift; sourceTree = "<group>"; };
 		68B412BC1B080D42009A4C05 /* SelfieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
-		68B412BD1B080D42009A4C05 /* SignatureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureViewController.swift; sourceTree = "<group>"; };
-		68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsInstructionView.swift; sourceTree = "<group>"; };
-		68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackingSlipItemTableViewCell.swift; sourceTree = "<group>"; };
-		68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestItemTableViewCell.swift; sourceTree = "<group>"; };
-		68B412D91B080E6D009A4C05 /* SignatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
 		68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationViewController.swift; sourceTree = "<group>"; };
 		68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderComponentViewController.swift; sourceTree = "<group>"; };
 		68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDestinationConfirmationViewController.swift; sourceTree = "<group>"; };
@@ -502,24 +322,13 @@
 		68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrdersViewController.swift; sourceTree = "<group>"; };
 		68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationView.swift; sourceTree = "<group>"; };
 		68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderMapView.swift; sourceTree = "<group>"; };
-		68B413241B083161009A4C05 /* BarcodeScanner.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BarcodeScanner.storyboard; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
-		68B413261B083161009A4C05 /* PackingSlip.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PackingSlip.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
-		68B4132A1B083161009A4C05 /* Signature.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Signature.storyboard; sourceTree = "<group>"; };
-		68B730C41C184C7500549D95 /* JobWizardTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobWizardTabBar.swift; sourceTree = "<group>"; };
-		68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = JobWizard.storyboard; sourceTree = "<group>"; };
-		68B730C81C1ACD5F00549D95 /* JobProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobProductTableViewCell.swift; path = ../../components/views/JobProductTableViewCell.swift; sourceTree = "<group>"; };
-		68B730CA1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProductTableViewCell.swift; sourceTree = "<group>"; };
-		68B730CE1C1AD74600549D95 /* Manifest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Manifest.storyboard; sourceTree = "<group>"; };
 		68B730D01C1ADF4200549D95 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		68B730D21C1AE5F100549D95 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
-		68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobInventoryViewController.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManifestViewController.swift; sourceTree = "<group>"; };
-		68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanTiledView.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
 		68D218A21B0861EF000D3ABA /* directions_0.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = directions_0.gpx; sourceTree = "<group>"; };
@@ -528,19 +337,7 @@
 		68D218A61B0861EF000D3ABA /* houston-3.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-3.gpx"; sourceTree = "<group>"; };
 		68D218A71B0861EF000D3ABA /* houston-4.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-4.gpx"; sourceTree = "<group>"; };
 		68D218A81B0861EF000D3ABA /* houston-mfrm.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "houston-mfrm.gpx"; sourceTree = "<group>"; };
-		68D4E7AA1CC5F03500CC1505 /* DatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DatePicker.storyboard; sourceTree = "<group>"; };
-		68D4E7AC1CC5F0A000CC1505 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
-		68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Quickbooks.storyboard; sourceTree = "<group>"; };
-		68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickbooksViewController.swift; sourceTree = "<group>"; };
-		68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		68D843BE1BF7F99700DE7400 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		68D843C21BFB20A900DE7400 /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
-		68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
-		68D843C61BFB47A200DE7400 /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JobViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonView.swift; sourceTree = "<group>"; };
-		68DA2D381C47A57C00DB2C01 /* ProviderSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderSearchViewController.swift; sourceTree = "<group>"; };
-		68DA2D3A1C47A79E00DB2C01 /* ProviderSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProviderSearch.storyboard; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
 		68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		68DFB07E1B07C5C4002A72E8 /* provide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = provide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -550,37 +347,13 @@
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
-		68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JobProductPickerCollectionViewCell.swift; path = ../../components/views/JobProductPickerCollectionViewCell.swift; sourceTree = "<group>"; };
-		68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProductPickerCollectionViewCell.swift; sourceTree = "<group>"; };
-		68E218111C3BB663007CEF03 /* JobService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobService.swift; sourceTree = "<group>"; };
-		68E329541C04394200DC297A /* FloorplanThumbnailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanThumbnailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		68E329561C12CA1300DC297A /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
-		68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ExpenseCapture.storyboard; sourceTree = "<group>"; };
-		68E3295C1C12ED5000DC297A /* ExpenseCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseCaptureViewController.swift; sourceTree = "<group>"; };
-		68E329881C16E08600DC297A /* ExpensesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
-		68E3298A1C16E0B100DC297A /* Expenses.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Expenses.storyboard; sourceTree = "<group>"; };
-		68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
-		68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
-		68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseEditorViewController.swift; sourceTree = "<group>"; };
-		68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPickerViewController.swift; sourceTree = "<group>"; };
-		68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductPicker.storyboard; sourceTree = "<group>"; };
-		68F48F771C44697B005F9AB1 /* TaskList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TaskList.storyboard; sourceTree = "<group>"; };
-		68F48F791C4469A3005F9AB1 /* TaskListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
-		68F48F7B1C446A09005F9AB1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		68F48F7D1C446F1A005F9AB1 /* TaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
-		68F48F7F1C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskTableViewCellCheckboxView.swift; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
 		68F536CB1B834A080007F480 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		68F536D81B834A330007F480 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		68F536D91B834A330007F480 /* Comments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comments.storyboard; sourceTree = "<group>"; };
-		68F536E01B834A5C0007F480 /* RouteHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteHistoryViewController.swift; sourceTree = "<group>"; };
-		68F536E11B834A5C0007F480 /* RouteManifestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteManifestViewController.swift; sourceTree = "<group>"; };
-		68F536E21B834A5C0007F480 /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteViewController.swift; sourceTree = "<group>"; };
 		68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsViewController.swift; sourceTree = "<group>"; };
-		68F536F01B834A720007F480 /* RouteHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
-		68F536F11B834A720007F480 /* RouteMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
 		68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderView.swift; sourceTree = "<group>"; };
 		68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderPinAnnotationView.swift; sourceTree = "<group>"; };
 		68F536F41B834A720007F480 /* WorkOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -601,18 +374,13 @@
 		68F7305D1B07DE94001A21B0 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		68F7305E1B07DE94001A21B0 /* Directions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Directions.swift; sourceTree = "<group>"; };
 		68F7305F1B07DE94001A21B0 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		68F730601B07DE94001A21B0 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		68F730611B07DE94001A21B0 /* Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Provider.swift; sourceTree = "<group>"; };
-		68F730621B07DE94001A21B0 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		68F730631B07DE94001A21B0 /* RouteLeg.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteLeg.swift; sourceTree = "<group>"; };
 		68F730641B07DE94001A21B0 /* RouteLegStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteLegStep.swift; sourceTree = "<group>"; };
 		68F730661B07DE94001A21B0 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		68F730671B07DE94001A21B0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		68F730681B07DE94001A21B0 /* WorkOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrder.swift; sourceTree = "<group>"; };
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
-		68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderInventoryViewController.swift; sourceTree = "<group>"; };
-		68F846B81C26F998003C678B /* WorkOrderProductCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProductCreationViewController.swift; sourceTree = "<group>"; };
-		68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderTeamViewController.swift; sourceTree = "<group>"; };
 		8907898F360B1CB495CFEC60 /* Pods-provide.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.adhoc.xcconfig"; sourceTree = "<group>"; };
 		CD6827351347585A791AC2B1 /* Pods-provide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.debug.xcconfig"; sourceTree = "<group>"; };
 		E247A49AB973AF401D3219E9 /* Pods-provide.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.appstore.xcconfig"; sourceTree = "<group>"; };
@@ -679,9 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				68140DA71C1C28D9008F7E3A /* Provider.storyboard */,
-				68140DA31C1C2550008F7E3A /* Route.storyboard */,
-				68140D9B1C1C23E0008F7E3A /* RouteHistory.storyboard */,
-				68140D9D1C1C23E7008F7E3A /* WorkOrderCreation.storyboard */,
 				68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */,
 				68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */,
 				68140DA51C1C259E008F7E3A /* ZeroState.storyboard */,
@@ -692,7 +457,6 @@
 		6845BB601BF1F4FD00AD3D79 /* gestures */ = {
 			isa = PBXGroup;
 			children = (
-				6845BB611BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift */,
 			);
 			name = gestures;
 			sourceTree = "<group>";
@@ -773,18 +537,15 @@
 				686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */,
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
 				6837AF981C9D12110082F4EC /* CategoryService.swift */,
-				687CB58C1B07F6020048B692 /* CheckinService.swift */,
+				6846D99A1F3ED90B004532BD /* CheckinService.swift */,
 				6837AF831C7B67CE0082F4EC /* CompanyService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
-				687ECC791C4CBFBD00FD5C4C /* FloorplanService.swift */,
 				6889951C1C9D3AEF00F7D25F /* ImageService.swift */,
-				68E218111C3BB663007CEF03 /* JobService.swift */,
 				689B0CB51B07E0A7005694B7 /* KeyChainService.swift */,
 				687CB58F1B07F6020048B692 /* LocationService.swift */,
 				68D843C01BFAA73800DE7400 /* NotificationService.swift */,
 				687CB5901B07F6020048B692 /* ProviderService.swift */,
 				5C41C5921B21457800FA7783 /* MessageService.swift */,
-				687CB5911B07F6020048B692 /* RouteService.swift */,
 				687CB5931B07F6020048B692 /* WorkOrderService.swift */,
 			);
 			path = services;
@@ -903,41 +664,16 @@
 		68B412B61B080D41009A4C05 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				68718D981B945676000202E3 /* AppointmentSchedulerViewController.swift */,
-				68B412B71B080D41009A4C05 /* BarcodeScannerViewController.swift */,
-				68D6BF941C39651D00EC9C37 /* CalendarViewController.swift */,
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
-				683F2ADA1C9DB32A006229AC /* CategoryPickerViewController.swift */,
 				683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */,
 				68F536C91B834A080007F480 /* CommentsViewController.swift */,
-				688952C21C1FFC61006AEFDF /* CustomerPickerViewController.swift */,
-				68D4E7AC1CC5F0A000CC1505 /* DatePickerViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
-				68E329881C16E08600DC297A /* ExpensesViewController.swift */,
-				68E329901C16FFDB00DC297A /* ExpenseEditorViewController.swift */,
-				68E3298C1C16E2BD00DC297A /* ExpenseViewController.swift */,
-				68E3295C1C12ED5000DC297A /* ExpenseCaptureViewController.swift */,
-				68E329541C04394200DC297A /* FloorplanThumbnailViewController.swift */,
-				6840F1671BDB1DAC00EF70F7 /* FloorplanViewController.swift */,
-				689C791A1CD4FA230018F583 /* FloorplanSelectorViewController.swift */,
-				685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */,
-				688995181C9D2A9300F7D25F /* FloorplansPageViewController.swift */,
 				68F536CB1B834A080007F480 /* ImagePickerViewController.swift */,
-				68C12EDA1B34A190008D62B3 /* ManifestViewController.swift */,
 				5C10663A1B1A703800866F3C /* MessagesViewController.swift */,
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
-				68B412BA1B080D42009A4C05 /* PackingSlipViewController.swift */,
 				688441561C06E3A10017D4AA /* PinInputViewController.swift */,
-				686C1CBE1C1F96A300A31AFD /* ProductCreationViewController.swift */,
-				68EF11341C1EF755003302D7 /* ProductPickerViewController.swift */,
-				686C1CB41C1D105000A31AFD /* ProviderCreationViewController.swift */,
-				6893D60D1BFD59E000D562DF /* ProviderPickerViewController.swift */,
-				68DA2D381C47A57C00DB2C01 /* ProviderSearchViewController.swift */,
-				68D6BF921C39041C00EC9C37 /* QuickbooksViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
-				68B412BD1B080D42009A4C05 /* SignatureViewController.swift */,
-				68F48F791C4469A3005F9AB1 /* TaskListViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -945,32 +681,10 @@
 		68B412BE1B080D42009A4C05 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				68B412D41B080E6D009A4C05 /* BarcodeScannerView.swift */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
-				683F2ADC1C9DB3E5006229AC /* CategoryTableViewCell.swift */,
 				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
 				6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
-				6816FD351C2FDEE4005A18BB /* DurationPickerView.swift */,
-				68E3298E1C16ECE200DC297A /* ExpenseTableViewCell.swift */,
-				6837AF961C8E827B0082F4EC /* FloorplanPinView.swift */,
-				6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */,
-				68D843C81BFB585F00DE7400 /* FloorplanPolygonView.swift */,
-				6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */,
-				6845BB5C1BF1E46200AD3D79 /* FloorplanScaleView.swift */,
-				689C79181CD4F9EC0018F583 /* FloorplanSelectorView.swift */,
-				6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */,
-				6840F16B1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift */,
-				6840F16D1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift */,
-				688BFCAA1BDE2B9F00BBACEC /* FloorplanToolbar.swift */,
-				68C923C81CEAC1CD00303AA1 /* FloorplanTiledView.swift */,
-				685BCBDE1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift */,
-				68B412D81B080E6D009A4C05 /* ManifestItemTableViewCell.swift */,
-				68B412D71B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift */,
-				6893D60F1BFD5A2800D562DF /* PickerCollectionViewCell.swift */,
-				68B412D91B080E6D009A4C05 /* SignatureView.swift */,
-				68F48F7D1C446F1A005F9AB1 /* TaskTableViewCell.swift */,
-				68F48F7F1C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -989,34 +703,13 @@
 			isa = PBXGroup;
 			children = (
 				68B978C91B085A6C00863E21 /* segues */,
-				686C1CAC1C1C6E8300A31AFD /* JobCreationViewController.swift */,
-				681EBF5D1C18136C00B81BEB /* JobFloorplansViewController.swift */,
-				683AC1001C21FE4A00391A0B /* JobManagerHeaderViewController.swift */,
-				681EBF611C1820C500B81BEB /* JobManagerViewController.swift */,
-				68B730D41C1B4F0800549D95 /* JobInventoryViewController.swift */,
-				6884415D1C1B325E0017D4AA /* JobTeamViewController.swift */,
-				68D843C61BFB47A200DE7400 /* JobViewController.swift */,
-				683C34AC1C1FB20D007B1F96 /* JobProductCreationViewController.swift */,
-				681EBF651C18252D00B81BEB /* JobReviewViewController.swift */,
-				688C2B561C60FEAF009D5FF5 /* JobStatementViewController.swift */,
-				681EBF591C18074C00B81BEB /* JobWizardTabBarController.swift */,
-				681EBF5B1C180ED600B81BEB /* JobWizardViewController.swift */,
-				68D843C21BFB20A900DE7400 /* JobsViewController.swift */,
-				68F536E01B834A5C0007F480 /* RouteHistoryViewController.swift */,
-				68F536E11B834A5C0007F480 /* RouteManifestViewController.swift */,
-				68F536E21B834A5C0007F480 /* RouteViewController.swift */,
 				68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */,
 				68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */,
-				6893D6071BFD559D00D562DF /* WorkOrderCreationViewController.swift */,
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
 				6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
-				68F846B61C26DC9E003C678B /* WorkOrderInventoryViewController.swift */,
-				68F846B81C26F998003C678B /* WorkOrderProductCreationViewController.swift */,
-				6816FD371C300063005A18BB /* WorkOrderProviderCreationViewController.swift */,
-				68F9A8611C23F21000F6608F /* WorkOrderTeamViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
 			);
 			path = controllers;
@@ -1025,23 +718,14 @@
 		68B412F71B08153D009A4C05 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				687ECC771C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift */,
-				681EBF631C1821C500B81BEB /* JobDetailsHeaderView.swift */,
-				68E2180D1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift */,
-				68B730C81C1ACD5F00549D95 /* JobProductTableViewCell.swift */,
-				68D843C41BFB25AE00DE7400 /* JobTableViewCell.swift */,
-				68B730C41C184C7500549D95 /* JobWizardTabBar.swift */,
-				68F536F01B834A720007F480 /* RouteHistoryCollectionViewCell.swift */,
-				68F536F11B834A720007F480 /* RouteMapView.swift */,
+				6846D9A21F3EE08B004532BD /* RouteMapView.swift */,
 				68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */,
-				68B730CA1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift */,
 				68F536F41B834A720007F480 /* WorkOrderTableViewCell.swift */,
 				68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */,
 				68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */,
 				6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */,
 				68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */,
 				68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */,
-				68E2180F1C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1049,36 +733,13 @@
 		68B413231B083161009A4C05 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				68718D961B9455C9000202E3 /* AppointmentScheduler.storyboard */,
-				68B413241B083161009A4C05 /* BarcodeScanner.storyboard */,
 				68F536D81B834A330007F480 /* Camera.storyboard */,
-				683F2AD81C9DB2F8006229AC /* CategoryPicker.storyboard */,
 				683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */,
 				68F536D91B834A330007F480 /* Comments.storyboard */,
-				686C1CAE1C1C6F2000A31AFD /* CustomerPicker.storyboard */,
-				68D4E7AA1CC5F03500CC1505 /* DatePicker.storyboard */,
-				68E3298A1C16E0B100DC297A /* Expenses.storyboard */,
-				68E3295A1C12ED3700DC297A /* ExpenseCapture.storyboard */,
-				6840F1651BDB1D8E00EF70F7 /* Floorplan.storyboard */,
-				685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */,
-				6889951A1C9D2AB300F7D25F /* FloorplansPageView.storyboard */,
-				68140D8D1C1C22BD008F7E3A /* Jobs.storyboard */,
-				686C1CB61C1D10C000A31AFD /* JobCreation.storyboard */,
-				68B730C61C1AA7FC00549D95 /* JobWizard.storyboard */,
-				68B730CE1C1AD74600549D95 /* Manifest.storyboard */,
 				5CA5D9DF1B1A6ABB006C3328 /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
-				68B413261B083161009A4C05 /* PackingSlip.storyboard */,
 				6884415B1C06F6810017D4AA /* PinInput.storyboard */,
-				686C1CBC1C1F93AC00A31AFD /* ProductCreation.storyboard */,
-				68EF11361C1EFAC5003302D7 /* ProductPicker.storyboard */,
-				686C1CB21C1D0E3C00A31AFD /* ProviderCreation.storyboard */,
-				6893D60B1BFD59C500D562DF /* ProviderPicker.storyboard */,
-				68DA2D3A1C47A79E00DB2C01 /* ProviderSearch.storyboard */,
-				68D6BF901C39040500EC9C37 /* Quickbooks.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
-				68B4132A1B083161009A4C05 /* Signature.storyboard */,
-				68F48F771C44697B005F9AB1 /* TaskList.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -1220,36 +881,27 @@
 		68F730581B07DE94001A21B0 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				68D843BE1BF7F99700DE7400 /* Annotation.swift */,
 				68F730591B07DE94001A21B0 /* Attachment.swift */,
-				6837AF9A1C9D126E0082F4EC /* Category.swift */,
 				68F537281B8350AB0007F480 /* Comment.swift */,
 				68F7305A1B07DE94001A21B0 /* Company.swift */,
 				68F7305B1B07DE94001A21B0 /* Contact.swift */,
 				68F7305C1B07DE94001A21B0 /* Customer.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
-				68E329561C12CA1300DC297A /* Expense.swift */,
-				687ECC6D1C4CB80A00FD5C4C /* Floorplan.swift */,
 				6837AF8E1C8BAB2D0082F4EC /* Invitation.swift */,
-				6840F1691BDB59D700EF70F7 /* Job.swift */,
-				685DE1141C17529C0089EF94 /* JobProduct.swift */,
 				687B650D1C2431800088E539 /* MenuItem.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
 				682BE8B51B4039E600DDBC3D /* Origin.swift */,
-				68F730601B07DE94001A21B0 /* Product.swift */,
 				68F730611B07DE94001A21B0 /* Provider.swift */,
 				682BE8B91B40476800DDBC3D /* ProviderOriginAssignment.swift */,
-				68F730621B07DE94001A21B0 /* Route.swift */,
+				6846D9A01F3EDF2A004532BD /* Route.swift */,
 				68F730631B07DE94001A21B0 /* RouteLeg.swift */,
 				68F730641B07DE94001A21B0 /* RouteLegStep.swift */,
-				68F48F7B1C446A09005F9AB1 /* Task.swift */,
 				68F730661B07DE94001A21B0 /* Token.swift */,
 				68F730671B07DE94001A21B0 /* User.swift */,
 				6837AF941C8BBD9B0082F4EC /* UserToken.swift */,
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
-				685DE1161C176A740089EF94 /* WorkOrderProduct.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
 			);
 			path = models;
@@ -1409,72 +1061,46 @@
 			files = (
 				68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */,
 				68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */,
-				68B730CF1C1AD74600549D95 /* Manifest.storyboard in Resources */,
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
 				6846D9971F3EC97D004532BD /* Customer.storyboard in Resources */,
-				68140DA41C1C2550008F7E3A /* Route.storyboard in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
-				68E3298B1C16E0B100DC297A /* Expenses.storyboard in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
-				683F2AD91C9DB2F8006229AC /* CategoryPicker.storyboard in Resources */,
 				68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
 				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
-				68B730C71C1AA7FC00549D95 /* JobWizard.storyboard in Resources */,
-				68B4133D1B083161009A4C05 /* Signature.storyboard in Resources */,
 				683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */,
-				68B4132B1B083161009A4C05 /* BarcodeScanner.storyboard in Resources */,
-				68B413311B083161009A4C05 /* PackingSlip.storyboard in Resources */,
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
-				6893D60C1BFD59C500D562DF /* ProviderPicker.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
-				686C1CBD1C1F93AC00A31AFD /* ProductCreation.storyboard in Resources */,
 				68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
-				68140D8E1C1C22BD008F7E3A /* Jobs.storyboard in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
-				68E3295B1C12ED3700DC297A /* ExpenseCapture.storyboard in Resources */,
 				6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */,
-				68D6BF911C39040500EC9C37 /* Quickbooks.storyboard in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */,
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
-				685BCBDD1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard in Resources */,
-				68D4E7AB1CC5F03500CC1505 /* DatePicker.storyboard in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
-				68EF11371C1EFAC5003302D7 /* ProductPicker.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
-				68DA2D3B1C47A79E00DB2C01 /* ProviderSearch.storyboard in Resources */,
-				6840F1661BDB1D8E00EF70F7 /* Floorplan.storyboard in Resources */,
 				5CA5D9E01B1A6ABB006C3328 /* Messages.storyboard in Resources */,
 				68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */,
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
-				686C1CB71C1D10C000A31AFD /* JobCreation.storyboard in Resources */,
-				686C1CAF1C1C6F2000A31AFD /* CustomerPicker.storyboard in Resources */,
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
-				68140D9C1C1C23E0008F7E3A /* RouteHistory.storyboard in Resources */,
-				6889951B1C9D2AB300F7D25F /* FloorplansPageView.storyboard in Resources */,
-				68140D9E1C1C23E7008F7E3A /* WorkOrderCreation.storyboard in Resources */,
 				5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */,
 				68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */,
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
-				686C1CB31C1D0E3C00A31AFD /* ProviderCreation.storyboard in Resources */,
-				68F48F781C44697B005F9AB1 /* TaskList.storyboard in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
-				68718D971B9455C9000202E3 /* AppointmentScheduler.storyboard in Resources */,
 				68F537331B8373BD0007F480 /* cottage.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1594,49 +1220,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68718D991B945676000202E3 /* AppointmentSchedulerViewController.swift in Sources */,
-				6884415E1C1B325E0017D4AA /* JobTeamViewController.swift in Sources */,
 				687B65121C2439210088E539 /* MenuTableViewCell.swift in Sources */,
-				68B730CB1C1AD2DF00549D95 /* WorkOrderProductTableViewCell.swift in Sources */,
-				6840F16C1BDB62EE00EF70F7 /* FloorplanThumbnailView.swift in Sources */,
 				68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */,
 				6837AF8F1C8BAB2D0082F4EC /* Invitation.swift in Sources */,
-				68F48F7E1C446F1A005F9AB1 /* TaskTableViewCell.swift in Sources */,
 				68F537121B834A9A0007F480 /* ImageCollectionViewCell.swift in Sources */,
-				6837AF9B1C9D126E0082F4EC /* Category.swift in Sources */,
 				687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */,
 				681416F41B8457870076BFBD /* RouteLegStep.swift in Sources */,
 				6846D9991F3ECE1A004532BD /* CustomerViewController.swift in Sources */,
-				686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */,
 				687CB59D1B07F6020048B692 /* LocationService.swift in Sources */,
-				681416EF1B8457870076BFBD /* Product.swift in Sources */,
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
-				68E218121C3BB663007CEF03 /* JobService.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
-				68F9A8621C23F21000F6608F /* WorkOrderTeamViewController.swift in Sources */,
 				681416EE1B8457870076BFBD /* Origin.swift in Sources */,
 				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
-				68DA2D391C47A57C00DB2C01 /* ProviderSearchViewController.swift in Sources */,
-				68F48F7A1C4469A3005F9AB1 /* TaskListViewController.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
-				68E3298F1C16ECE200DC297A /* ExpenseTableViewCell.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
-				6845BB621BF1F51800AD3D79 /* FloorplanPolygonVertexViewGestureRecognizer.swift in Sources */,
 				68F537151B834A9A0007F480 /* MenuContainerView.swift in Sources */,
+				6846D9A11F3EDF2A004532BD /* Route.swift in Sources */,
 				68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */,
-				68F48F801C45A4E5005F9AB1 /* TaskTableViewCellCheckboxView.swift in Sources */,
-				68F536EA1B834A5C0007F480 /* RouteViewController.swift in Sources */,
-				686C1CBF1C1F96A300A31AFD /* ProductCreationViewController.swift in Sources */,
-				68D4E7AD1CC5F0A000CC1505 /* DatePickerViewController.swift in Sources */,
 				68B412AA1B0804BC009A4C05 /* TopViewController.swift in Sources */,
-				687ECC781C4CBDD300FD5C4C /* FloorplanCollectionViewCell.swift in Sources */,
+				6846D9A31F3EE08B004532BD /* RouteMapView.swift in Sources */,
 				681416F01B8457870076BFBD /* Provider.swift in Sources */,
 				689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */,
-				68D6BF931C39041C00EC9C37 /* QuickbooksViewController.swift in Sources */,
-				68B412E91B080E6D009A4C05 /* SignatureView.swift in Sources */,
+				6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */,
 				681416F31B8457870076BFBD /* RouteLeg.swift in Sources */,
 				682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */,
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
@@ -1644,44 +1252,19 @@
 				6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */,
 				681416E61B8457870076BFBD /* Comment.swift in Sources */,
 				681416E91B8457870076BFBD /* Customer.swift in Sources */,
-				68B730C21C18293C00549D95 /* JobManagerViewController.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
-				6840F16E1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				6846D9921F3EC187004532BD /* UserMode.swift in Sources */,
-				681416F21B8457870076BFBD /* Route.swift in Sources */,
-				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
-				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
-				68EF11351C1EF755003302D7 /* ProductPickerViewController.swift in Sources */,
-				681EBF661C18252D00B81BEB /* JobReviewViewController.swift in Sources */,
-				685BCBDF1CBB718E00AB7911 /* FloorplanWorkOrderTableViewCell.swift in Sources */,
-				688BFCAB1BDE2B9F00BBACEC /* FloorplanToolbar.swift in Sources */,
 				68B4128B1B08036F009A4C05 /* Color.swift in Sources */,
-				685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */,
-				68E329911C16FFDB00DC297A /* ExpenseEditorViewController.swift in Sources */,
 				68B4129E1B0804BC009A4C05 /* AuthenticationViewControllerSegue.swift in Sources */,
 				68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */,
-				68B730C31C18293F00549D95 /* JobViewController.swift in Sources */,
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
-				68E329571C12CA1300DC297A /* Expense.swift in Sources */,
-				687ECC7A1C4CBFBD00FD5C4C /* FloorplanService.swift in Sources */,
-				68F846B71C26DC9E003C678B /* WorkOrderInventoryViewController.swift in Sources */,
 				681416ED1B8457870076BFBD /* Model.swift in Sources */,
-				6816FD381C300063005A18BB /* WorkOrderProviderCreationViewController.swift in Sources */,
 				68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */,
-				68B412D11B080D42009A4C05 /* SignatureViewController.swift in Sources */,
-				68F536F81B834A720007F480 /* RouteMapView.swift in Sources */,
-				681EBF641C1821C500B81BEB /* JobDetailsHeaderView.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
-				688C2B571C60FEAF009D5FF5 /* JobStatementViewController.swift in Sources */,
-				68D843C91BFB585F00DE7400 /* FloorplanPolygonView.swift in Sources */,
-				68B730C51C184C7500549D95 /* JobWizardTabBar.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
-				688952C31C1FFC61006AEFDF /* CustomerPickerViewController.swift in Sources */,
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
-				68D6BF951C39651D00EC9C37 /* CalendarViewController.swift in Sources */,
-				6840F1681BDB1DAC00EF70F7 /* FloorplanViewController.swift in Sources */,
 				681416E71B8457870076BFBD /* Company.swift in Sources */,
 				6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */,
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,
@@ -1689,96 +1272,49 @@
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
 				6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
 				6837AF991C9D12110082F4EC /* CategoryService.swift in Sources */,
-				683C34AD1C1FB20D007B1F96 /* JobProductCreationViewController.swift in Sources */,
-				6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */,
-				68D843C31BFB20A900DE7400 /* JobsViewController.swift in Sources */,
 				688441571C06E3A10017D4AA /* PinInputViewController.swift in Sources */,
-				68E3298D1C16E2BD00DC297A /* ExpenseViewController.swift in Sources */,
 				68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */,
-				689C79191CD4F9EC0018F583 /* FloorplanSelectorView.swift in Sources */,
-				68B412C81B080D42009A4C05 /* PackingSlipViewController.swift in Sources */,
-				68B412BF1B080D42009A4C05 /* BarcodeScannerViewController.swift in Sources */,
 				68F536ED1B834A5C0007F480 /* WorkOrderDetailsViewController.swift in Sources */,
 				5C10663B1B1A703800866F3C /* MessagesViewController.swift in Sources */,
-				68E3295D1C12ED5000DC297A /* ExpenseCaptureViewController.swift in Sources */,
 				6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */,
-				6816FD361C2FDEE4005A18BB /* DurationPickerView.swift in Sources */,
 				68B4129B1B0804BC009A4C05 /* AuthenticationViewController.swift in Sources */,
 				681416F51B8457870076BFBD /* Token.swift in Sources */,
 				681416F11B8457870076BFBD /* ProviderOriginAssignment.swift in Sources */,
-				683F2ADB1C9DB32A006229AC /* CategoryPickerViewController.swift in Sources */,
 				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
-				683AC1011C21FE4A00391A0B /* JobManagerHeaderViewController.swift in Sources */,
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
-				687CB5A31B07F6020048B692 /* RouteService.swift in Sources */,
-				68B412E61B080E6D009A4C05 /* ManifestItemTableViewCell.swift in Sources */,
 				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				6837AF841C7B67CE0082F4EC /* CompanyService.swift in Sources */,
 				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
-				681EBF5C1C180ED600B81BEB /* JobWizardViewController.swift in Sources */,
 				68F537181B834A9A0007F480 /* MenuHeaderView.swift in Sources */,
-				6893D6081BFD559D00D562DF /* WorkOrderCreationViewController.swift in Sources */,
-				688995191C9D2A9300F7D25F /* FloorplansPageViewController.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
-				68E2180E1C3BB350007CEF03 /* JobProductPickerCollectionViewCell.swift in Sources */,
-				68E329891C16E08600DC297A /* ExpensesViewController.swift in Sources */,
-				687ECC6E1C4CB80A00FD5C4C /* Floorplan.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,
-				68F48F7C1C446A09005F9AB1 /* Task.swift in Sources */,
 				68F537061B834A880007F480 /* ApplicationViewController.swift in Sources */,
 				681416EB1B8457870076BFBD /* Directions.swift in Sources */,
-				6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */,
 				68B412C21B080D42009A4C05 /* DirectionsViewController.swift in Sources */,
-				68C12EDB1B34A190008D62B3 /* ManifestViewController.swift in Sources */,
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
-				689C791B1CD4FA230018F583 /* FloorplanSelectorViewController.swift in Sources */,
-				68E329551C04394200DC297A /* FloorplanThumbnailViewController.swift in Sources */,
 				68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */,
-				68B730D51C1B4F0800549D95 /* JobInventoryViewController.swift in Sources */,
 				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
 				683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */,
 				6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */,
-				683F2ADD1C9DB3E5006229AC /* CategoryTableViewCell.swift in Sources */,
-				681EBF5E1C18136C00B81BEB /* JobFloorplansViewController.swift in Sources */,
 				681416E81B8457870076BFBD /* Contact.swift in Sources */,
 				68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				681416EA1B8457870076BFBD /* Device.swift in Sources */,
-				6893D6101BFD5A2800D562DF /* PickerCollectionViewCell.swift in Sources */,
-				68B412DA1B080E6D009A4C05 /* BarcodeScannerView.swift in Sources */,
-				68E218101C3BB368007CEF03 /* WorkOrderProductPickerCollectionViewCell.swift in Sources */,
-				6893D60E1BFD59E000D562DF /* ProviderPickerViewController.swift in Sources */,
-				68B412E31B080E6D009A4C05 /* PackingSlipItemTableViewCell.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
 				6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */,
-				681EBF5A1C18074C00B81BEB /* JobWizardTabBarController.swift in Sources */,
-				686C1CB51C1D105000A31AFD /* ProviderCreationViewController.swift in Sources */,
 				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F536FE1B834A720007F480 /* WorkOrderPinAnnotationView.swift in Sources */,
 				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,
-				68D843C51BFB25AE00DE7400 /* JobTableViewCell.swift in Sources */,
-				68F536E41B834A5C0007F480 /* RouteHistoryViewController.swift in Sources */,
-				6837AF971C8E827B0082F4EC /* FloorplanPinView.swift in Sources */,
-				685DE1151C17529C0089EF94 /* JobProduct.swift in Sources */,
-				68F846B91C26F998003C678B /* WorkOrderProductCreationViewController.swift in Sources */,
-				6845BB5D1BF1E46200AD3D79 /* FloorplanScaleView.swift in Sources */,
 				6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
-				68F536F51B834A720007F480 /* RouteHistoryCollectionViewCell.swift in Sources */,
-				68B730C91C1ACD5F00549D95 /* JobProductTableViewCell.swift in Sources */,
-				68F536E71B834A5C0007F480 /* RouteManifestViewController.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
-				687CB5941B07F6020048B692 /* CheckinService.swift in Sources */,
-				68C923C91CEAC1CD00303AA1 /* FloorplanTiledView.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
-				6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
 				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,
-				68D843BF1BF7F99700DE7400 /* Annotation.swift in Sources */,
 				68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

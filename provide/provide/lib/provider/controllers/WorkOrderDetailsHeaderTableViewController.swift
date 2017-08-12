@@ -9,7 +9,6 @@
 import UIKit
 
 protocol WorkOrderDetailsHeaderTableViewControllerDelegate {
-    func workOrderCreationViewControllerForDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController) -> WorkOrderCreationViewController!
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder)
@@ -53,10 +52,6 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
     }
 
     // MARK: WorkOrderDetailsHeaderTableViewCellDelegate
-
-    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController! {
-        return workOrderDetailsHeaderTableViewControllerDelegate?.workOrderCreationViewControllerForDetailsHeaderTableViewController(self)
-    }
 
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder) {
         workOrderDetailsHeaderTableViewControllerDelegate?.workOrderDetailsHeaderTableViewController(self, shouldStartWorkOrder: workOrder)

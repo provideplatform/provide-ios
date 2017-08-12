@@ -103,50 +103,17 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if !socketConnected {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
             }
+
         case .Comment:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let comment = Comment(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
-        case .Job:
-            if !socketConnected {
-                let jobId = notificationValue as! Int
-                if let job = JobService.sharedService().jobWithId(jobId) {
-                    job.reload(
-                        { statusCode, mappingResult in
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "JobChanged"), object: job)
-                        },
-                        onError: { error, statusCode, responseString in
-                        }
-                    )
-                }
-                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-                    if inProgressWorkOrder.jobId == jobId {
-                        log("received update for current job id \(jobId)")
-                    } else {
-                        NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-                    }
-                } else {
-                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-                }
-            }
+
         case .Message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "NewMessageReceivedNotification"), object: message as Any)
-        case .Route:
-            let routeId = notificationValue as! NSNumber
-            if let currentRoute = RouteService.sharedService().currentRoute {
-                if currentRoute.id == routeId.intValue {
-                    log("received update for current route id \(routeId)")
-                }
-            } else {
-                if let nextRoute = RouteService.sharedService().nextRoute {
-                    if nextRoute.id == routeId.intValue {
-                        log("received update for next route id \(routeId)")
-                    }
-                }
-                NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-            }
+
         case .WorkOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
@@ -227,11 +194,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     attachment.urlString = url // FIXME-- marshall with proper mapping
                                 }
                                 if let attachableType = attachment.attachableType {
-                                    if attachableType == "job" {
-                                        if let job = JobService.sharedService().jobWithId(attachment.attachableId) {
-                                            job.mergeAttachment(attachment)
-                                        }
-                                    } else if attachableType == "work_order" {
+                                    if attachableType == "work_order" {
                                         if let workOrder = WorkOrderService.sharedService().workOrderWithId(attachment.attachableId) {
                                             workOrder.mergeAttachment(attachment)
                                         }
@@ -244,28 +207,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 let comment = Comment(string: payload!.toJSONString())
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
 
-                            case "floorplan_changed":
-                                let floorplan = Floorplan(string: payload!.toJSONString())
-                                FloorplanService.sharedService().updateFloorplan(floorplan)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "FloorplanChanged"), object: floorplan as Any)
-                                break
-
-                            case "job_changed":
-                                let job = Job(string: payload!.toJSONString())
-                                JobService.sharedService().updateJob(job)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "JobChanged"), object: job as Any)
-                                break
-
                             case "work_order_changed":
                                 let workOrderJson = payload!.toJSONString()
                                 let workOrder = WorkOrder(string: workOrderJson)
-                                var annotations = [Annotation]()
-                                if let workOrderAnnotations = workOrderJson.toJSONObject()["annotations"] as? NSArray { // HACK
-                                    for workOrderAnnotation in workOrderAnnotations.objectEnumerator().allObjects {
-                                        annotations.append(Annotation(string: (workOrderAnnotation as! NSDictionary).toJSON()))
-                                    }
-                                }
-                                workOrder.annotations = annotations
                                 WorkOrderService.sharedService().updateWorkOrder(workOrder)
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {

@@ -42,11 +42,7 @@ class WorkOrderService: NSObject {
         return nil
     }
 
-    fileprivate var workOrders = [WorkOrder]() {
-        didSet {
-            setRejectedItemFlags(workOrders)
-        }
-    }
+    fileprivate var workOrders = [WorkOrder]()
 
     fileprivate static let sharedInstance = WorkOrderService()
 
@@ -67,25 +63,7 @@ class WorkOrderService: NSObject {
         self.workOrders = workOrders
     }
 
-    func setWorkOrdersUsingRoute(_ route: Route) {
-        workOrders = route.workOrders
-    }
-
-    fileprivate func setRejectedItemFlags(_ workOrders: [WorkOrder]) {
-        for workOrder in workOrders {
-            if let itemsRejected = workOrder.itemsRejected {
-                for itemRejected in itemsRejected {
-                    itemRejected.rejected = true
-                }
-            }
-        }
-    }
-
     func updateWorkOrder(_ workOrder: WorkOrder) {
-        if let currentRoute = RouteService.sharedService().currentRoute {
-            currentRoute.updateWorkOrder(workOrder)
-        }
-
         var newWorkOrders = [WorkOrder]()
         for wo in workOrders {
             if wo.id == workOrder.id {
@@ -101,9 +79,6 @@ class WorkOrderService: NSObject {
         rpp: Int = 10,
         status: String = "scheduled",
         today: Bool = false,
-        excludeRoutes: Bool = true,
-        includeExpenses: Bool = false,
-        includeSupervisors: Bool = true,
         includeProviders: Bool = true,
         onWorkOrdersFetched: OnWorkOrdersFetched!)
     {
@@ -121,18 +96,6 @@ class WorkOrderService: NSObject {
             params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject
         }
 
-        if excludeRoutes {
-            params.updateValue("true" as AnyObject, forKey: "exclude_routes")
-        }
-
-        if includeExpenses {
-            params.updateValue("true" as AnyObject, forKey: "include_expenses")
-        }
-
-        if includeSupervisors {
-            params.updateValue("true" as AnyObject, forKey: "include_supervisors")
-        }
-
         if includeProviders {
             params.updateValue("true" as AnyObject, forKey: "include_work_order_providers")
         }
@@ -140,14 +103,11 @@ class WorkOrderService: NSObject {
         ApiService.sharedService().fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
-                self.setRejectedItemFlags(fetchedWorkOrders)
-
                 self.workOrders += fetchedWorkOrders
-
                 onWorkOrdersFetched(fetchedWorkOrders)
             },
             onError: { error, statusCode, responseString in
-                // TODO
+                logWarn("Failed to retrieve work orders; \(error)")
             }
         )
     }

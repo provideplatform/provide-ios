@@ -23,7 +23,6 @@ class WorkOrderTableViewCell: UITableViewCell {
 
             customerLabel.text = workOrder.customer.contact.name
             statusLabel.text = workOrder.status
-            inventoryLabel.text = workOrder.inventoryDisposition
 
             if let duration = workOrder.humanReadableDuration {
                 durationLabel.text = duration

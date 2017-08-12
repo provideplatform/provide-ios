@@ -28,8 +28,6 @@ class Attachment: Model {
     var parentAttachmentId = 0
     var representations = [Attachment]()
 
-    var annotations = [Annotation]()
-
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
@@ -149,19 +147,6 @@ class Attachment: Model {
                 onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
-        )
-    }
-
-    func fetchAnnotations(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.sharedService().fetchAnnotationsForAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
-            onSuccess: { statusCode, mappingResult in
-                for annotation in mappingResult?.array() as! [Annotation] {
-                    self.annotations.append(annotation)
-                }
-                onSuccess(statusCode, mappingResult)
-            }, onError: { error, statusCode, responseString in
                 onError(error, statusCode, responseString)
             }
         )

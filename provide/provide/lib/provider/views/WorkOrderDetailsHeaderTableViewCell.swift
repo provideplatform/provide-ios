@@ -11,7 +11,6 @@ import SWTableViewCell
 import KTSwiftExtensions
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
-    func workOrderCreationViewControllerForDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell) -> WorkOrderCreationViewController!
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)
@@ -45,17 +44,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             for supervisor in supervisors {
                 if supervisor.id == user.id {
                     return true
-                }
-            }
-        }
-        if workOrder.jobId > 0 {
-            if let job = JobService.sharedService().jobWithId(workOrder.jobId) {
-                if let supervisors = job.supervisors {
-                    for provider in supervisors {
-                        if provider.userId == user.id {
-                            return true
-                        }
-                    }
                 }
             }
         }
@@ -305,43 +293,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let workOrderCreationViewController = workOrderDetailsHeaderTableViewCellDelegate?.workOrderCreationViewControllerForDetailsHeaderTableViewCell(self) {
-            if let navigationController = workOrderCreationViewController.navigationController {
-                var viewController: UIViewController!
 
-                switch (indexPath as NSIndexPath).row {
-                case 0:
-                    print("status/priority tapped")
-                case 1:
-                    let datePickerViewController = UIStoryboard("DatePicker").instantiateInitialViewController() as! DatePickerViewController
-                    datePickerViewController.fieldName = "scheduledStartAt"
-                    if let scheduledStartAtDate = workOrderCreationViewController.workOrder?.scheduledStartAtDate {
-                        datePickerViewController.initialDate = scheduledStartAtDate
-                    }
-                    datePickerViewController.delegate = workOrderCreationViewController
-                    viewController = datePickerViewController
-                case 2:
-                    let datePickerViewController = UIStoryboard("DatePicker").instantiateInitialViewController() as! DatePickerViewController
-                    datePickerViewController.fieldName = "dueAt"
-                    if let endAtDate = workOrderCreationViewController.workOrder?.scheduledEndAtDate {
-                        datePickerViewController.initialDate = endAtDate
-                    }
-                    datePickerViewController.delegate = workOrderCreationViewController
-                    viewController = datePickerViewController
-                case 3:
-                    viewController = UIStoryboard("WorkOrderCreation").instantiateViewController(withIdentifier: "WorkOrderTeamViewController")
-                    (viewController as! WorkOrderTeamViewController).delegate = workOrderCreationViewController
-                default:
-                    break
-                }
-                
-                if let vc = viewController {
-                    navigationController.pushViewController(vc, animated: true)
-                }
-            }
-            
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
     }
 
     func refreshInProgress() {

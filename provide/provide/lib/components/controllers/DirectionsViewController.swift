@@ -266,15 +266,7 @@ class DirectionsViewController: ViewController {
             }
         }
 
-        if let inProgressRoute = RouteService.sharedService().inProgressRoute {
-            if inProgressRoute.disposedOfAllWorkOrders {
-                RouteService.sharedService().fetchInProgressRouteOriginDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
-            } else {
-                WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
-            }
-        } else {
-            WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
-        }
+        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
     }
 
     fileprivate func unregisterMonitoredRegions() {

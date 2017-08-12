@@ -16,10 +16,6 @@ class RenderComponentSegue: UIStoryboardSegue {
             assert(source is WorkOrdersViewController)
             assert(destination is DirectionsViewController)
             (destination as! DirectionsViewController).render()
-        case "RouteManifestViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is RouteManifestViewController)
-            (destination as! RouteManifestViewController).render()
         case "WorkOrderAnnotationViewControllerSegue":
             assert(source is WorkOrdersViewController)
             assert(destination is WorkOrderAnnotationViewController)
