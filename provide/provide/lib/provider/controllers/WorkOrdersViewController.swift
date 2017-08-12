@@ -154,7 +154,11 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
     // MARK: WorkOrder segue state interrogation
 
     fileprivate var canAttemptSegueToValidWorkOrderContext: Bool {
-        return canAttemptSegueToInProgressWorkOrder || canAttemptSegueToEnRouteWorkOrder
+        return canAttemptSegueToInProgressWorkOrder || canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToNextWorkOrder
+    }
+
+    fileprivate var canAttemptSegueToNextWorkOrder: Bool {
+        return WorkOrderService.sharedService().nextWorkOrder != nil
     }
 
     fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
@@ -229,6 +233,8 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
         } else if canAttemptSegueToInProgressWorkOrder {
             performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
+        } else if canAttemptSegueToNextWorkOrder {
+            performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
         }
     }
 
