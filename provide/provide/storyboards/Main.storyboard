@@ -25,7 +25,7 @@
         <scene sceneID="dsG-cH-el8">
             <objects>
                 <navigationController navigationBarHidden="YES" id="J41-78-tRE" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eaA-8b-5sD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eaA-8b-5sD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -515,13 +515,13 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joe Customer" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hth-7D-Yty">
-                                    <rect key="frame" x="81" y="8" width="94.5" height="17.5"/>
+                                    <rect key="frame" x="81" y="8" width="91" height="18"/>
                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acme Inc" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKg-uN-cvP">
-                                    <rect key="frame" x="81" y="30.5" width="63.5" height="17.5"/>
+                                    <rect key="frame" x="81" y="31" width="61" height="18"/>
                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -764,7 +764,7 @@
         <scene sceneID="9ra-qq-KyS">
             <objects>
                 <navigationController id="vq1-hW-c50" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rHb-kF-xkw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="rHb-kF-xkw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

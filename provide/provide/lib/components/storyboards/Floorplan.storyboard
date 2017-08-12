@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sJ0-7U-x54">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="sJ0-7U-x54">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Exo2-Regular.ttf">
+        <array key="Exo2-Regular.ttf">
             <string>Exo2-Regular</string>
-            <string>Exo2-Regular</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Floorplan View Controller-->
@@ -21,18 +24,18 @@
                         <viewControllerLayoutGuide type="bottom" id="KSM-yJ-cc2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vsP-WQ-g9V">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.25" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-68-Mwn" customClass="FloorplanScrollView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <connections>
                                     <outlet property="delegate" destination="3Sa-Xv-qPf" id="ShM-AT-40G"/>
                                 </connections>
                             </scrollView>
                             <containerView opaque="NO" clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZN-vT-oPf">
-                                <rect key="frame" x="175" y="0.0" width="425" height="492"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="-25" y="0.0" width="400" height="559"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="425" id="gve-mH-pod">
                                         <variation key="heightClass=regular-widthClass=compact" constant="400"/>
@@ -43,18 +46,18 @@
                                 </connections>
                             </containerView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kme-T2-VmW">
-                                <rect key="frame" x="290" y="258" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="291.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kd1-tJ-VKm">
-                                <rect key="frame" x="125" y="285" width="350" height="2"/>
+                                <rect key="frame" x="12.5" y="352" width="350" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="GAJ-XA-ttT"/>
                                 </constraints>
-                                <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="progressTintColor" red="0.69019607839999997" green="0.89019607840000003" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" red="0.12549019610000001" green="0.15686274510000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="KSM-yJ-cc2" firstAttribute="top" secondItem="kd1-tJ-VKm" secondAttribute="bottom" constant="249" id="4WK-iO-hE5"/>
                             <constraint firstItem="HYt-68-Mwn" firstAttribute="top" secondItem="eBd-ka-U2j" secondAttribute="bottom" id="AJm-Mv-DcG"/>
@@ -106,14 +109,14 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LYg-39-ca5" userLabel="Thumbnail Image Background View">
                                 <rect key="frame" x="0.0" y="0.0" width="160" height="190"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7lt-JJ-eAg" customClass="FloorplanThumbnailOverlayView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="96" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="LYg-39-ca5" firstAttribute="leading" secondItem="7lt-JJ-eAg" secondAttribute="leading" placeholder="YES" id="A6v-da-bTE"/>
                             <constraint firstItem="LYg-39-ca5" firstAttribute="leading" secondItem="IXh-ML-zzU" secondAttribute="leading" id="GZl-qn-Tcc"/>
@@ -169,7 +172,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jmv-0p-v0U">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="165"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="25" minimumInteritemSpacing="25" id="8PA-U0-oN8">
                                     <size key="itemSize" width="200" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -196,7 +199,6 @@
                                                     <rect key="frame" x="78" y="53" width="20" height="20"/>
                                                 </activityIndicatorView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="05A-w0-7Eb" firstAttribute="centerY" secondItem="iV0-En-pGY" secondAttribute="centerY" constant="-12" id="17W-uh-F1A"/>
@@ -238,15 +240,11 @@
                                                     <rect key="frame" x="44" y="117" width="67" height="33"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="15"/>
                                                     <state key="normal" title="Import"/>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="54" y="698" width="141" height="35"/>
-                                                    </variation>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="floorplan" translatesAutoresizingMaskIntoConstraints="NO" id="vKw-2L-RuO">
                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="121"/>
                                                 </imageView>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="vKw-2L-RuO" firstAttribute="leading" secondItem="f6l-w6-591" secondAttribute="leadingMargin" constant="-8" id="2lW-aQ-gnn"/>
@@ -275,7 +273,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Jmv-0p-v0U" firstAttribute="top" secondItem="RNR-cU-ehK" secondAttribute="top" id="4b7-wc-HtU"/>
                             <constraint firstItem="Jmv-0p-v0U" firstAttribute="height" secondItem="RNR-cU-ehK" secondAttribute="height" id="C7v-cJ-KlW"/>
@@ -297,7 +295,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="dropbox" width="214" height="200"/>
+        <image name="dropbox" width="107" height="100"/>
         <image name="floorplan" width="300" height="300"/>
     </resources>
 </document>

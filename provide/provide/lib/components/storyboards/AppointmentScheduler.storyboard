@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="maV-af-EEN">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="maV-af-EEN">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="HelveticaNeue.ttc">
+        <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
-            <string>HelveticaNeue</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Appointment Scheduler View Controller-->
@@ -21,21 +24,21 @@
                         <viewControllerLayoutGuide type="bottom" id="C8N-Na-3U1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7SZ-5Y-ncj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSX-TY-QKt">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
                                     <segue destination="obl-1C-HHf" kind="embed" identifier="CalendarViewControllerEmbedSegue" id="ZaB-iV-UIn"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgh-Pc-gyJ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Kyle has a 10:30 available. Does that work for you?" translatesAutoresizingMaskIntoConstraints="NO" id="jfa-Lb-yaY">
-                                        <rect key="frame" x="96" y="63" width="409" height="79"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="53" y="63" width="211" height="79"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="144" id="3n0-eu-VYK"/>
                                             <constraint firstAttribute="height" constant="79" id="qci-Hs-er3"/>
@@ -54,15 +57,15 @@
                                         </variation>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfw-gX-RHp" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="315" y="215" width="211" height="50"/>
-                                        <color key="backgroundColor" red="0.80392163989999998" green="0.34117648010000001" blue="0.2196078598" alpha="1" colorSpace="deviceRGB"/>
+                                        <rect key="frame" x="53" y="306" width="211" height="33"/>
+                                        <color key="backgroundColor" red="0.7512897253036499" green="0.25737529993057251" blue="0.16862586140632629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="yXM-8L-nZs"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="ACTUALLY, NO...">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -79,8 +82,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yfo-G1-woT" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="96" y="215" width="211" height="50"/>
-                                        <color key="backgroundColor" red="0.31372549019607843" green="0.85490196078431369" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="53" y="215" width="211" height="50"/>
+                                        <color key="backgroundColor" red="0.31372549019607843" green="0.85490196078431369" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="394-w3-U3J"/>
                                             <constraint firstAttribute="width" constant="211" id="f8p-oC-P9a"/>
@@ -88,8 +91,8 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                                         <state key="normal" title="BOOK THAT SHIT!">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -105,14 +108,12 @@
                                             <action selector="appointmentTimeConfirmed:" destination="maV-af-EEN" eventType="touchUpInside" id="5oz-2n-qYf"/>
                                         </connections>
                                     </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XIU-PT-lWz">
-                                        <rect key="frame" x="-10" y="-10" width="20" height="20"/>
-                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                            <rect key="frame" x="190" y="187" width="20" height="20"/>
-                                        </variation>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XIU-PT-lWz">
+                                        <rect key="frame" x="190" y="187" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="jfa-Lb-yaY" firstAttribute="leading" secondItem="cgh-Pc-gyJ" secondAttribute="leading" constant="96" id="1YD-2B-hNj"/>
                                     <constraint firstItem="jfa-Lb-yaY" firstAttribute="leading" secondItem="cgh-Pc-gyJ" secondAttribute="leading" constant="53" id="ATh-Ce-mWe"/>
@@ -167,7 +168,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0078431377190000002" green="0.090196080509999998" blue="0.30196079609999998" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.010658195242285728" green="0.060844987630844116" blue="0.23536956310272217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GSX-TY-QKt" firstAttribute="trailing" secondItem="cgh-Pc-gyJ" secondAttribute="trailing" id="2ez-O2-H2l"/>
                             <constraint firstAttribute="trailing" secondItem="cgh-Pc-gyJ" secondAttribute="trailing" id="3Fr-9y-FcD"/>
@@ -233,9 +234,9 @@
                         <viewControllerLayoutGuide type="bottom" id="aOd-KM-Sj2"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="J8k-gF-E8q">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
                 </viewController>
