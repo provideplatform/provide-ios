@@ -9,7 +9,7 @@
 import UIKit
 import KTSwiftExtensions
 
-class CustomerViewController: ViewController {
+class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,5 +43,23 @@ class CustomerViewController: ViewController {
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
         presentViewController(messagesNavCon!, animated: true)
+    }
+
+    // MARK: MenuViewControllerDelegate
+
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
+        return navigationController
+    }
+
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+        return nil
+    }
+
+    func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
+        return 0
+    }
+
+    func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
+        return 0
     }
 }

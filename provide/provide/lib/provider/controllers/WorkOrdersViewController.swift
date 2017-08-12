@@ -48,7 +48,8 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func commentsViewControllerShouldBeDismissed(_ viewController: CommentsViewController)
 }
 
-class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate,
+class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
+                                                WorkOrdersViewControllerDelegate,
                                                 CommentCreationViewControllerDelegate,
                                                 DirectionsViewControllerDelegate,
                                                 WorkOrderComponentViewControllerDelegate {
@@ -306,6 +307,27 @@ class WorkOrdersViewController: ViewController, WorkOrdersViewControllerDelegate
         default:
             break
         }
+    }
+
+    // MARK: MenuViewControllerDelegate
+
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
+        return navigationController
+    }
+
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+
+        return nil
+    }
+
+    func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
+
+        return 0
+    }
+
+    func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
+
+        return 0
     }
 
     // MARK: WorkOrdersViewControllerDelegate

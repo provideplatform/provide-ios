@@ -15,7 +15,6 @@ protocol ApplicationViewControllerDelegate {
 }
 
 class ApplicationViewController: UIViewController,
-                                 MenuViewControllerDelegate,
                                  CameraViewControllerDelegate {
 
     var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
@@ -94,7 +93,12 @@ class ApplicationViewController: UIViewController,
 
         dispatch_after_delay(0.0) {
             self.menuContainerView = MenuContainerView(frame: self.view.bounds)
-            self.menuContainerView.setupMenuViewController(self)
+
+            if let tnc = self.topViewController as? UINavigationController {
+                if tnc.viewControllers.first is MenuViewControllerDelegate {
+                    self.menuContainerView.setupMenuViewController(tnc.viewControllers.first as! MenuViewControllerDelegate)
+                }
+            }
         }
     }
 
@@ -103,8 +107,6 @@ class ApplicationViewController: UIViewController,
 
         user.reload(
             { statusCode, mappingResult in
-                self.refreshMenu()
-
                 if currentUser().profileImageUrl == nil && !currentUser().hasBeenPromptedToTakeSelfie {
                     let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
                     if authorizationStatus == .authorized {
@@ -129,12 +131,6 @@ class ApplicationViewController: UIViewController,
 
     func currentUserLoggedOut() {
         applicationViewControllerDelegate?.dismissApplicationViewController(self)
-    }
-
-    // MARK: MenuViewControllerDelegate
-
-    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
-        return topViewController as! UINavigationController
     }
 
     // MARK: CameraViewControllerDelegate

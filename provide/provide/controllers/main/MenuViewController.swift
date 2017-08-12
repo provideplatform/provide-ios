@@ -11,11 +11,20 @@ import KTSwiftExtensions
 
 protocol MenuViewControllerDelegate {
     func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController!
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem!
+    func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int
+    func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int
 }
 
 class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
-    var delegate: MenuViewControllerDelegate!
+    var delegate: MenuViewControllerDelegate! {
+        didSet {
+            if let _ = delegate {
+                tableView.reloadData()
+            }
+        }
+    }
 
     @IBOutlet fileprivate weak var menuHeaderView: MenuHeaderView!
 
@@ -39,28 +48,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuTableViewCellReuseIdentifier") as! MenuTableViewCell
-
-        let menuItems = currentUser().menuItems
-        if menuItems != nil && (indexPath as NSIndexPath).section == 0 {
-            cell.menuItem = menuItems?[(indexPath as NSIndexPath).row]
-        } else if (indexPath as NSIndexPath).section == 1 {
-            var menuItem: MenuItem!
-            switch (indexPath as NSIndexPath).row {
-            case 0:
-                menuItem = MenuItem(item: ["label": "Support", "url": "\(CurrentEnvironment.baseUrlString)/#/support"])
-            case 1:
-                menuItem = MenuItem(item: ["label": "Legal", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
-            case 2:
-                menuItem = MenuItem(item: ["label": "Logout", "action": "logout"])
-            default:
-                break
-            }
-
-            if let menuItem = menuItem {
-                cell.menuItem = menuItem
-            }
-        }
-
+        cell.menuItem = delegate.menuItemForMenuViewController(self, at: indexPath)
         return cell
     }
 
@@ -91,21 +79,17 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if let delegate = delegate {
+            return delegate.numberOfSectionsInMenuViewController(self)
+        }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            if let menuItems = currentUser().menuItems {
-                return menuItems.count
-            }
-            return 4
-        case 1:
-            return 3
-        default:
-            return 0
+        if let delegate = delegate {
+            return delegate.menuViewController(self, numberOfRowsInSection: section)
         }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -150,7 +134,6 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 },
                 onError: { error, _, _ in
                     logWarn("Logout attempt failed; " + error.localizedDescription)
-                    //sender.userInteractionEnabled = true
                 }
             )
         }
