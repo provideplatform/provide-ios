@@ -6,17 +6,43 @@
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
-import UIKit
+import KTSwiftExtensions
 
 class TopViewController: ViewController {
+
+    fileprivate var vc: UIViewController!
+
+    fileprivate var topStoryboard: UIStoryboard! {
+        if let mode = KeyChainService.sharedService().mode {
+            switch mode {
+            case .Customer:
+                return UIStoryboard("Customer")
+            case .Provider:
+                return UIStoryboard("Provider")
+            }
+        } else {
+            // this should never happen...
+            logWarn("No user mode resolved... panic!!!") // this should never happen...
+        }
+        return nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewController = UIStoryboard("Provider").instantiateInitialViewController() as! WorkOrdersViewController
-        viewController.view.frame = view.bounds
+        reload()
+    }
 
-        navigationController?.pushViewController(viewController, animated: false)
+    func reload() {
+        if let _ = vc {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+            navigationController?.popViewController(animated: false)
+            self.vc = nil
+        }
+
+        vc = topStoryboard.instantiateInitialViewController()
+
+        navigationController?.pushViewController(vc, animated: false)
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)

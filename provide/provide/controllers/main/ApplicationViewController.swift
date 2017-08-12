@@ -59,6 +59,14 @@ class ApplicationViewController: UIViewController,
         NotificationCenter.default.addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
             self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
         }
+
+        NotificationCenter.default.addObserverForName("ApplicationShouldRenderUserMode") { _ in
+            if let tvc = self.topViewController as? TopViewController {
+                tvc.reload()
+            }
+
+            self.refreshMenu()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {

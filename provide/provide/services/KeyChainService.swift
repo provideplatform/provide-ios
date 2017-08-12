@@ -39,6 +39,18 @@ class KeyChainService {
         }
     }
 
+    var mode: UserMode? {
+        get {
+            if let m = self["mode"] {
+                return UserMode(rawValue: m)
+            }
+            return .Customer
+        }
+        set {
+            self["mode"] = newValue?.rawValue
+        }
+    }
+
     var pin: String? {
         get {
             return self["pin"]

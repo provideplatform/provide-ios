@@ -112,6 +112,9 @@
 		6845BB641BF1F60200AD3D79 /* FloorplanScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */; };
 		6845BB661BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */; };
 		6845BB681BF2138E00AD3D79 /* FloorplanPolygonLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */; };
+		6846D9921F3EC187004532BD /* UserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9911F3EC187004532BD /* UserMode.swift */; };
+		6846D9971F3EC97D004532BD /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6846D9961F3EC97D004532BD /* Customer.storyboard */; };
+		6846D9991F3ECE1A004532BD /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9981F3ECE1A004532BD /* CustomerViewController.swift */; };
 		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
 		685BCBDB1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */; };
 		685BCBDD1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */; };
@@ -396,6 +399,9 @@
 		6845BB631BF1F60200AD3D79 /* FloorplanScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanScrollView.swift; sourceTree = "<group>"; };
 		6845BB651BF1FAEE00AD3D79 /* FloorplanPolygonVertexView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonVertexView.swift; sourceTree = "<group>"; };
 		6845BB671BF2138E00AD3D79 /* FloorplanPolygonLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloorplanPolygonLineView.swift; sourceTree = "<group>"; };
+		6846D9911F3EC187004532BD /* UserMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMode.swift; sourceTree = "<group>"; };
+		6846D9961F3EC97D004532BD /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Customer.storyboard; path = customer/storyboards/Customer.storyboard; sourceTree = "<group>"; };
+		6846D9981F3ECE1A004532BD /* CustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerViewController.swift; path = customer/controllers/CustomerViewController.swift; sourceTree = "<group>"; };
 		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
 		685BCBDA1CBB6EB700AB7911 /* FloorplanWorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FloorplanWorkOrdersViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		685BCBDC1CBB6FE000AB7911 /* FloorplanWorkOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FloorplanWorkOrders.storyboard; sourceTree = "<group>"; };
@@ -691,6 +697,39 @@
 			name = gestures;
 			sourceTree = "<group>";
 		};
+		6846D9901F3EB35C004532BD /* customer */ = {
+			isa = PBXGroup;
+			children = (
+				6846D9931F3EC75C004532BD /* controllers */,
+				6846D9941F3EC762004532BD /* views */,
+				6846D9951F3EC766004532BD /* storyboards */,
+			);
+			name = customer;
+			sourceTree = "<group>";
+		};
+		6846D9931F3EC75C004532BD /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6846D9981F3ECE1A004532BD /* CustomerViewController.swift */,
+			);
+			name = controllers;
+			sourceTree = "<group>";
+		};
+		6846D9941F3EC762004532BD /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		6846D9951F3EC766004532BD /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6846D9961F3EC97D004532BD /* Customer.storyboard */,
+			);
+			name = storyboards;
+			sourceTree = "<group>";
+		};
 		687CB5871B07EEF00048B692 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -757,6 +796,7 @@
 				689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */,
 				689B0CBB1B07E0F1005694B7 /* Environment.swift */,
 				5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */,
+				6846D9911F3EC187004532BD /* UserMode.swift */,
 			);
 			path = enums;
 			sourceTree = "<group>";
@@ -843,6 +883,7 @@
 			children = (
 				68B412B51B080D41009A4C05 /* components */,
 				68B412F01B08153D009A4C05 /* provider */,
+				6846D9901F3EB35C004532BD /* customer */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -1372,6 +1413,7 @@
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
+				6846D9971F3EC97D004532BD /* Customer.storyboard in Resources */,
 				68140DA41C1C2550008F7E3A /* Route.storyboard in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68E3298B1C16E0B100DC297A /* Expenses.storyboard in Resources */,
@@ -1564,6 +1606,7 @@
 				6837AF9B1C9D126E0082F4EC /* Category.swift in Sources */,
 				687CB5A01B07F6020048B692 /* ProviderService.swift in Sources */,
 				681416F41B8457870076BFBD /* RouteLegStep.swift in Sources */,
+				6846D9991F3ECE1A004532BD /* CustomerViewController.swift in Sources */,
 				686C1CAD1C1C6E8300A31AFD /* JobCreationViewController.swift in Sources */,
 				687CB59D1B07F6020048B692 /* LocationService.swift in Sources */,
 				681416EF1B8457870076BFBD /* Product.swift in Sources */,
@@ -1605,6 +1648,7 @@
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
 				6840F16E1BDB6CB800EF70F7 /* FloorplanThumbnailOverlayView.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
+				6846D9921F3EC187004532BD /* UserMode.swift in Sources */,
 				681416F21B8457870076BFBD /* Route.swift in Sources */,
 				6840F16A1BDB59D700EF70F7 /* Job.swift in Sources */,
 				685DE1171C176A740089EF94 /* WorkOrderProduct.swift in Sources */,
