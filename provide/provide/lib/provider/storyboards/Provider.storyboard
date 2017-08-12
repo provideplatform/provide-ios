@@ -1,37 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZLI-P7-Mie">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZLI-P7-Mie">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Exo2-Bold.ttf">
+        <array key="Exo2-Bold.ttf">
             <string>Exo2-Bold</string>
-            <string>Exo2-Bold</string>
-        </mutableArray>
-        <mutableArray key="Exo2-Light.ttf">
+        </array>
+        <array key="Exo2-Light.ttf">
             <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-            <string>Exo2-Light</string>
-        </mutableArray>
-        <mutableArray key="Exo2-SemiBold.ttf">
+        </array>
+        <array key="Exo2-SemiBold.ttf">
             <string>Exo2-SemiBold</string>
-        </mutableArray>
-        <mutableArray key="HelveticaNeueExtras.ttc">
+        </array>
+        <array key="HelveticaNeueExtras.ttc">
             <string>HelveticaNeue-CondensedBlack</string>
             <string>HelveticaNeue-CondensedBold</string>
-        </mutableArray>
-        <mutableArray key="HelveticaNeueLights.ttc">
+        </array>
+        <array key="HelveticaNeueLights.ttc">
             <string>HelveticaNeue-Light</string>
             <string>HelveticaNeue-UltraLight</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Work Order Destination Header View Controller-->
@@ -48,26 +45,30 @@
                         <subviews>
                             <view alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edd-zO-nGE">
                                 <rect key="frame" x="30" y="0.0" width="5" height="75"/>
-                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="1024 Seale Dr." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mN-WJ-N7Q" userLabel="Address View">
                                 <rect key="frame" x="64" y="23" width="206" height="52"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="center" fixedFrame="YES" text="K Thomas" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" preferredMaxLayoutWidth="206" translatesAutoresizingMaskIntoConstraints="NO" id="bU2-hX-Sww" userLabel="WORKORDERID">
                                 <rect key="frame" x="70" y="9" width="206" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="15"/>
-                                <color key="textColor" red="0.2470588386" green="0.2470588386" blue="0.2470588386" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="textColor" red="0.18870663642883301" green="0.18870098888874054" blue="0.18870420753955841" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTY-l8-tA9">
                                 <rect key="frame" x="4" y="9" width="58" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -97,50 +98,58 @@
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAD-3T-cD1">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yEZ-VZ-TJ4" userLabel="Start Work Order">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="49"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="min." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NlA-W1-wJe">
                                                 <rect key="frame" x="0.0" y="19" width="41" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sju-yc-XKE">
                                                 <rect key="frame" x="3" y="9" width="35" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBlack" family="Helvetica Neue" pointSize="14"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="START WORK ORDER" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZM-fa-171">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ACCEPT REQUEST" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IZM-fa-171">
                                                 <rect key="frame" x="41" y="13" width="158" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pvk-mj-qWe">
                                                 <rect key="frame" x="207" y="14" width="22" height="22"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="30"/>
                                                 <state key="normal" title="&gt;">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                             </button>
                                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="CWb-i7-cdM">
                                                 <rect key="frame" x="10" y="15" width="20" height="20"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </activityIndicatorView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cj3-8g-4uX">
                                 <rect key="frame" x="117" y="45" width="6" height="10"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
                             <outlet property="containerView" destination="ZAD-3T-cD1" id="XwK-hJ-iqk"/>
                             <outlet property="pinPointerView" destination="cj3-8g-4uX" id="Zgo-Gw-52T"/>
@@ -171,14 +180,14 @@
                         <viewControllerLayoutGuide type="bottom" id="urM-pc-Y9e"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dOc-tC-XPP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rux-3S-Dfa" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" ambiguous="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rux-3S-Dfa" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="600"/>
                             </mapView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="7FC-kJ-uto"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="539-BZ-ZYt" secondAttribute="bottom" constant="-20" id="Akv-m6-K7S"/>
@@ -215,9 +224,9 @@
                         <viewControllerLayoutGuide type="bottom" id="xSQ-fu-eX5"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GL3-bs-LmP">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <segue destination="ZLI-P7-Mie" kind="custom" identifier="WorkOrderComponentViewControllerUnwindSegue" customClass="RenderComponentSegue" customModule="provide" customModuleProvider="target" id="GRf-tG-gHK"/>
@@ -250,20 +259,20 @@
                             <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-Ot-6Gh">
                                 <rect key="frame" x="20" y="13" width="281" height="21"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vc0-9E-VYf" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="19" y="20" width="282" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="18"/>
-                                <state key="normal" title="START WORK ORDER">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="ACCEPT REQUEST">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.93333339689999995" green="0.93725496529999996" blue="0.9450981021" alpha="1" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="0.91675049066543579" green="0.92123711109161377" blue="0.9311751127243042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Vc0-9E-VYf" firstAttribute="leading" secondItem="c9M-qb-bHW" secondAttribute="leadingMargin" constant="3" id="037-yV-Xu8"/>
                             <constraint firstItem="i9L-Ot-6Gh" firstAttribute="trailing" secondItem="Vc0-9E-VYf" secondAttribute="trailing" id="42P-7H-3GM"/>
@@ -276,7 +285,7 @@
                             <constraint firstItem="Fea-dB-aXz" firstAttribute="top" secondItem="XX0-JC-R2c" secondAttribute="bottom" constant="14" id="bW3-xU-zEy"/>
                             <constraint firstItem="XX0-JC-R2c" firstAttribute="centerX" secondItem="c9M-qb-bHW" secondAttribute="centerX" id="bjE-79-C0c"/>
                             <constraint firstItem="i9L-Ot-6Gh" firstAttribute="top" secondItem="F2X-co-KVE" secondAttribute="bottom" constant="13" id="cEf-Gf-1AW"/>
-                            <constraint firstItem="Vc0-9E-VYf" firstAttribute="top" secondItem="c9M-qb-bHW" secondAttribute="top" constant="8" symbolic="YES" id="dQM-0N-uyi"/>
+                            <constraint firstItem="Vc0-9E-VYf" firstAttribute="top" secondItem="c9M-qb-bHW" secondAttribute="top" constant="20" symbolic="YES" id="dQM-0N-uyi"/>
                             <constraint firstItem="4h1-EW-dKe" firstAttribute="top" secondItem="Vc0-9E-VYf" secondAttribute="bottom" constant="30" id="h35-LU-tlY"/>
                             <constraint firstItem="i9L-Ot-6Gh" firstAttribute="centerX" secondItem="XX0-JC-R2c" secondAttribute="centerX" id="sUm-u3-xtY"/>
                         </constraints>
@@ -313,12 +322,12 @@
                                 <subviews>
                                     <view alpha="0.85000000000000009" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woG-25-f4e">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="180"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:15 pm arrival" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-OR-d0V">
                                         <rect key="frame" x="279" y="8" width="105" height="20"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.2 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZj-pC-ml2">
@@ -327,7 +336,7 @@
                                             <constraint firstAttribute="width" constant="80" id="G1m-Jx-T9H"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f66-Lm-2DC">
@@ -336,7 +345,7 @@
                                             <constraint firstAttribute="width" constant="65" id="HLk-2U-nJn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Exo2-Bold" family="Exo 2" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.8 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS5-qx-DE5">
@@ -345,7 +354,7 @@
                                             <constraint firstAttribute="height" constant="24" id="oid-7A-dbl"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Exo2-Bold" family="Exo 2" pointSize="24"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uturn-left" translatesAutoresizingMaskIntoConstraints="NO" id="VbB-mz-q4x">
@@ -357,11 +366,11 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue onto Glenlake Pkwy NE until you cannot go any further" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7E-bm-Gkp">
                                         <rect key="frame" x="102" y="83" width="250" height="60"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="woG-25-f4e" secondAttribute="trailing" id="5Yy-6U-9uM"/>
                                     <constraint firstItem="VbB-mz-q4x" firstAttribute="leading" secondItem="f66-Lm-2DC" secondAttribute="leading" id="7Dv-uk-Y3H"/>
@@ -399,7 +408,7 @@
                                 <rect key="frame" x="197" y="80" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Xdw-r3-AUi" secondAttribute="trailing" id="9MB-TL-lEs"/>
                             <constraint firstItem="GOm-rY-Cip" firstAttribute="centerX" secondItem="gOI-6R-sEy" secondAttribute="centerX" id="AQA-Ic-0zw"/>
@@ -487,6 +496,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GRf-tG-gHK"/>
+        <segue reference="e4f-A0-qEi"/>
     </inferredMetricsTieBreakers>
 </document>

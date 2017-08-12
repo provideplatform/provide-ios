@@ -45,7 +45,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        confirmStartWorkOrderButton.titleText = "START WORK ORDER" // FIXME
+        confirmStartWorkOrderButton.titleText = "ACCEPT REQUEST" // FIXME
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
 
         minutesEta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
