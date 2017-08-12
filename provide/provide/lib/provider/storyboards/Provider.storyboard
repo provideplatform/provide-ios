@@ -325,13 +325,13 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:15 pm arrival" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-OR-d0V">
-                                        <rect key="frame" x="279" y="8" width="105" height="20"/>
+                                        <rect key="frame" x="279" y="8" width="105" height="19"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.2 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZj-pC-ml2">
-                                        <rect key="frame" x="184" y="8" width="80" height="20"/>
+                                        <rect key="frame" x="184" y="8" width="80" height="19"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="G1m-Jx-T9H"/>
                                         </constraints>
@@ -340,7 +340,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f66-Lm-2DC">
-                                        <rect key="frame" x="44" y="8" width="65" height="16"/>
+                                        <rect key="frame" x="44" y="8" width="65" height="15"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="65" id="HLk-2U-nJn"/>
                                         </constraints>
@@ -349,7 +349,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.8 miles" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS5-qx-DE5">
-                                        <rect key="frame" x="100" y="53" width="220" height="24"/>
+                                        <rect key="frame" x="100" y="52" width="220" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="oid-7A-dbl"/>
                                         </constraints>
@@ -358,13 +358,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uturn-left" translatesAutoresizingMaskIntoConstraints="NO" id="VbB-mz-q4x">
-                                        <rect key="frame" x="44" y="53" width="50" height="50"/>
+                                        <rect key="frame" x="44" y="52" width="50" height="51"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="nP9-gd-6o3"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue onto Glenlake Pkwy NE until you cannot go any further" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7E-bm-Gkp">
-                                        <rect key="frame" x="102" y="83" width="250" height="60"/>
+                                        <rect key="frame" x="102" y="82" width="250" height="61"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
