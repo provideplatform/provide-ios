@@ -51,12 +51,20 @@ class Contact: Model {
     var address: String {
         var address = ""
         if address1 != nil {
-            address += address1
+            address += address1!
         }
         if address2 != nil {
             address += "\n\(address2)"
         }
-        address += "\n\(city), \(state) \(zip)"
+        if city != nil {
+            address += "\n\(city!), "
+        }
+        if state != nil {
+            address += "\(state!) "
+        }
+        if zip != nil {
+            address += "\(zip!)"
+        }
         return address
     }
 }
