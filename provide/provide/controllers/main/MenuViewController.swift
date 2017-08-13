@@ -9,7 +9,7 @@
 import UIKit
 import KTSwiftExtensions
 
-protocol MenuViewControllerDelegate {
+protocol MenuViewControllerDelegate: NSObjectProtocol {
     func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController!
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem!
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int
@@ -65,6 +65,10 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 if let selector = menuItem.selector {
                     if responds(to: selector) {
                         perform(selector)
+                    } else if let delegate = delegate {
+                        if delegate.responds(to: selector) {
+                            delegate.perform(selector)
+                        }
                     }
                 } else if let storyboard = menuItem.storyboard {
                     segueToInitialViewControllerInStoryboard(storyboard)
