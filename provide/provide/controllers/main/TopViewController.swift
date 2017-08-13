@@ -27,6 +27,12 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         return nil
     }
 
+    var rootViewController: UIViewController! {
+        get {
+            return vc
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 

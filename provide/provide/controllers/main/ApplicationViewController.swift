@@ -59,9 +59,11 @@ class ApplicationViewController: UIViewController,
             self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
         }
 
-        NotificationCenter.default.addObserverForName("ApplicationShouldRenderUserMode") { _ in
-            if let tvc = self.topViewController as? TopViewController {
-                tvc.reload()
+        NotificationCenter.default.addObserverForName("ApplicationShouldReloadTopViewController") { _ in
+            if let tnc = self.topViewController as? UINavigationController {
+                if let tvc = tnc.viewControllers.first as? TopViewController {
+                    tvc.reload()
+                }
             }
 
             self.refreshMenu()
