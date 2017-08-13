@@ -316,18 +316,28 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
-
+        switch (indexPath as NSIndexPath).row {
+        case 0:
+            return MenuItem(item: ["label": "History", "action": "history"])
+        case 1:
+            return MenuItem(item: ["label": "Ride Mode", "action": "switchToCustomerMode"])
+        default:
+            break
+        }
         return nil
     }
 
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
-
-        return 0
+        return 1
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
 
-        return 0
+    func switchToCustomerMode() {
+        KeyChainService.sharedService().mode = .Customer
+        NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 
     // MARK: WorkOrdersViewControllerDelegate

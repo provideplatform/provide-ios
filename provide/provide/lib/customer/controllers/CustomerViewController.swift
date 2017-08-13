@@ -52,14 +52,29 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+        switch (indexPath as NSIndexPath).row {
+        case 0:
+            return MenuItem(item: ["label": "History", "action": "history"])
+        case 1:
+            return MenuItem(item: ["label": "Payment Methods", "action": "paymentMethods"])
+        case 2:
+            return MenuItem(item: ["label": "Driver Mode", "action": "provide"])
+        default:
+            break
+        }
         return nil
     }
 
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
-        return 0
+        return 1
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 3
+    }
+
+    func provide() {
+        KeyChainService.sharedService().mode = .Provider
+        NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 }
