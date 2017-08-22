@@ -11,6 +11,8 @@ import KTSwiftExtensions
 
 class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
+    @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
