@@ -19,6 +19,9 @@ class Provider: Model {
     var contact: Contact!
     var profileImageUrlString: String!
     var services: NSSet!
+    var lastCheckinAt: String!
+    var lastCheckinLatitude: NSNumber!
+    var lastCheckinLongitude: NSNumber!
 
     var profileImageUrl: URL? {
         guard let profileImageUrlString = profileImageUrlString else { return nil }
@@ -49,7 +52,10 @@ class Provider: Model {
             "user_id": "userId",
             "name": "name",
             "services": "services",
-            "profile_image_url": "profileImageUrlString"
+            "profile_image_url": "profileImageUrlString",
+            "last_checkin_at": "lastCheckinAt",
+            "last_checkin_latitude": "lastCheckinLatitude",
+            "last_checkin_longitude": "lastCheckinLongitude",
             ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!
