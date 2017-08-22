@@ -33,9 +33,11 @@ class ZeroStateViewController: ViewController {
         view.addSubview(backgroundSubview)
         view.sendSubview(toBack: backgroundSubview)
 
-        view.bringSubview(toFront: imageView)
-        //view.bringSubviewToFront(label)
-        view.bringSubview(toFront: messageLabel)
+        for item in [imageView, label, messageLabel] as [Any] {
+            if let v = item as? UIView {
+                view.bringSubview(toFront: v)
+            }
+        }
     }
 
     func setLabelText(_ labelText: String) {

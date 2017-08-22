@@ -46,7 +46,6 @@
 		680B74AF1B36DDFA00181300 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 680B74AD1B36DDFA00181300 /* Crashlytics.framework */; };
 		68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
 		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
-		68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA51C1C259E008F7E3A /* ZeroState.storyboard */; };
 		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
 		681416E51B8457870076BFBD /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730591B07DE94001A21B0 /* Attachment.swift */; };
 		681416E61B8457870076BFBD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537281B8350AB0007F480 /* Comment.swift */; };
@@ -97,6 +96,7 @@
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
+		68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A653A01F4C184B007CC52F /* ZeroState.storyboard */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -224,11 +224,10 @@
 		680B74AD1B36DDFA00181300 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderDetails.storyboard; sourceTree = "<group>"; };
 		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
-		68140DA51C1C259E008F7E3A /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewController.swift; sourceTree = "<group>"; };
-		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZeroStateViewController.swift; sourceTree = "<group>"; };
+		682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ZeroStateViewController.swift; path = ../../../controllers/main/ZeroStateViewController.swift; sourceTree = "<group>"; };
 		682D326C1B07CD4200BC4EEC /* provide-prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-prefix.pch"; sourceTree = "<group>"; };
 		682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "provide-Bridging-Header.h"; sourceTree = "<group>"; };
 		6837AF8E1C8BAB2D0082F4EC /* Invitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Invitation.swift; sourceTree = "<group>"; };
@@ -262,6 +261,7 @@
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		68A653A01F4C184B007CC52F /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
@@ -429,7 +429,6 @@
 				68140DA71C1C28D9008F7E3A /* Provider.storyboard */,
 				68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */,
 				68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */,
-				68140DA51C1C259E008F7E3A /* ZeroState.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -477,9 +476,9 @@
 		687CB5871B07EEF00048B692 /* helpers */ = {
 			isa = PBXGroup;
 			children = (
-				5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */,
 				68B412B01B08063B009A4C05 /* AppearenceProxy.swift */,
 				68B4128A1B08036F009A4C05 /* Color.swift */,
+				5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -609,7 +608,6 @@
 				68B412961B0804BC009A4C05 /* TopViewController.swift */,
 				68B412971B0804BC009A4C05 /* ViewController.swift */,
 				68F537051B834A880007F480 /* WebViewController.swift */,
-				682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */,
 			);
 			path = main;
 			sourceTree = "<group>";
@@ -649,6 +647,7 @@
 				68B412B91B080D42009A4C05 /* NetPromoterViewController.swift */,
 				688441561C06E3A10017D4AA /* PinInputViewController.swift */,
 				68B412BC1B080D42009A4C05 /* SelfieViewController.swift */,
+				682BE8BD1B43E11A00DDBC3D /* ZeroStateViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -715,6 +714,7 @@
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				6884415B1C06F6810017D4AA /* PinInput.storyboard */,
 				68B413291B083161009A4C05 /* Selfie.storyboard */,
+				68A653A01F4C184B007CC52F /* ZeroState.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -1050,12 +1050,12 @@
 				683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */,
 				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
-				68140DA61C1C259E008F7E3A /* ZeroState.storyboard in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				68D218B81B0861EF000D3ABA /* houston-3.gpx in Resources */,
+				68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */,
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
