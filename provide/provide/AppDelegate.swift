@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if let jwtToken = jwtToken {
                         if let jwt = KTJwtService.decode(jwtToken) {
                             if let userId = jwt.body["user_id"] as? Int {
-                                if userId != currentUser().id {
+                                if userId != currentUser.id {
                                     NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                                 }
                             }
@@ -149,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        ApiService.sharedService().createDevice(["user_id": currentUser().id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject],
+        ApiService.sharedService().createDevice(["user_id": currentUser.id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject],
             onSuccess: { statusCode, responseString in
                 AnalyticsService.sharedService().track("App Registered For Remote Notifications")
             },

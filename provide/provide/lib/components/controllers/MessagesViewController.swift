@@ -27,8 +27,8 @@ class MessagesViewController: JSQMessagesViewController {
         title = "MESSAGES"
 
         // Must set senderId and senderDisplayName
-        senderId = currentUser().id.description
-        senderDisplayName = currentUser().name
+        senderId = currentUser.id.description
+        senderDisplayName = currentUser.name
 
         // Hide the media attachment button
         inputToolbar!.contentView!.leftBarButtonItem = nil
@@ -88,8 +88,8 @@ class MessagesViewController: JSQMessagesViewController {
         // 2. Create temporary local mesasge and append to data source
         let message = Message(text: text, recipientId: lastDispatcherId())
         message.createdAt = date
-        message.senderID = currentUser().id
-        message.senderName = currentUser().name
+        message.senderID = currentUser.id
+        message.senderName = currentUser.name
         messages.append(message)
 
         // 3. Finish
@@ -173,7 +173,7 @@ class MessagesViewController: JSQMessagesViewController {
     // MARK: - Private
 
     fileprivate func isFromCurrentUser(_ message: Message) -> Bool {
-        return message.senderId() == currentUser().id.description
+        return message.senderId() == currentUser.id.description
     }
 
     fileprivate func isFromPreviousSender(_ message: Message, atIndex messageIndex: Int) -> Bool {

@@ -20,6 +20,8 @@ typealias OnURLFetched = (_ statusCode: Int, _ response: Data) -> ()
 typealias OnImageFetched = (_ statusCode: Int, _ response: UIImage) -> ()
 typealias OnTotalResultsCount = (_ totalResultsCount: Int, _ error: NSError?) -> ()
 
+let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/s3/presign")!
+
 class ApiService: NSObject {
 
     fileprivate let mimeMappings = [
@@ -71,9 +73,11 @@ class ApiService: NSObject {
     }
 
     var defaultCompanyId: Int! {
-        let defaultCompanyId = currentUser().defaultCompanyId
-        if defaultCompanyId > 0 {
-            return defaultCompanyId
+        if let user = currentUser {
+            let defaultCompanyId = user.defaultCompanyId
+            if defaultCompanyId > 0 {
+                return defaultCompanyId
+            }
         }
         return nil
     }
@@ -124,6 +128,7 @@ class ApiService: NSObject {
             user.name = userName!
             t.user = user
 
+            currentUser = user
             setToken(t)
 
             return true
@@ -189,6 +194,7 @@ class ApiService: NSObject {
         AnalyticsService.sharedService().logout()
         ImageService.sharedService().clearCache()
 
+        currentUser = nil
         backoffTimeout = nil
     }
 
@@ -266,11 +272,12 @@ class ApiService: NSObject {
     }
 
     func fetchUser(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users/\(currentUser().id)", method: .GET, params: [:],
+        dispatchApiOperationForPath("users/\(currentUser.id)", method: .GET, params: [:],
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let user = mappingResult?.firstObject as! User
                 if let token = KeyChainService.sharedService().token {
+                    currentUser = user
                     token.user = user
                     KeyChainService.sharedService().token = token
                 }
@@ -281,7 +288,7 @@ class ApiService: NSObject {
     }
 
     func updateUser(_ params: [String: String], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users/\(currentUser().id)", method: .PUT, params: params as [String : AnyObject]?,
+        dispatchApiOperationForPath("users/\(currentUser.id)", method: .PUT, params: params as [String : AnyObject]?,
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 204)
                 onSuccess(statusCode, mappingResult)
@@ -300,7 +307,7 @@ class ApiService: NSObject {
 
         ApiService.sharedService().addAttachment(data!,
             withMimeType: "image/jpg",
-            toUserWithId: String(currentUser().id),
+            toUserWithId: String(currentUser.id),
             params: params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode, mappingResult)
@@ -319,6 +326,34 @@ class ApiService: NSObject {
             onError: { error, statusCode, responseString in
                 onError(error, statusCode, responseString)
             }
+        )
+    }
+
+    func upload(_ data: Data,
+                withMimeType mimeType: String,
+                toBucket bucket: String,
+                asKey key: String,
+                onSuccess: @escaping KTApiSuccessHandler,
+                onError: @escaping KTApiFailureHandler)
+    {
+        var headers = [String: String]()
+        if let token = KeyChainService.sharedService().token { //currentUser?.token?.jwtToken {
+            headers["authorization"] = "bearer \(token)"
+        }
+        KTS3Service.presign(presignedS3RequestURL, bucket: bucket, filename: key, metadata: [String: String](), headers: headers,
+                            successHandler: { object in
+                                let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
+                                let map = Map(mappingType: .fromJSON,
+                                              JSON: presignResponse as! [String : AnyObject],
+                                              toObject: true,
+                                              context: nil)
+                                
+                                let presignedRequest = KTPresignedS3Request()
+                                presignedRequest.mapping(map: map)
+                                
+                                KTS3Service.upload(presignedRequest, data: data, withMimeType: mimeType, successHandler: onSuccess, failureHandler: onError)
+        },
+                            failureHandler: onError
         )
     }
 

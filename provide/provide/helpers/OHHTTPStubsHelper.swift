@@ -34,10 +34,10 @@ class OHHTTPStubsHelper {
                     "id": Int(NSDate().timeIntervalSinceDate(NSDate().atMidnight)),
                     "body": text,
                     "recipient_id": Int(recipientId)!,
-                    "sender_id": currentUser().id,
+                    "sender_id": currentUser.id,
                     "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
                     "recipient_name":"Kyle Thomas",
-                    "sender_name": currentUser().name]
+                    "sender_name": currentUser.name]
                 return OHHTTPStubsResponse(JSONObject: responseJSON, statusCode: 201, headers: ["Content-Type":"application/json"]).requestTime(1.0, responseTime: 1.0)
             }
         )

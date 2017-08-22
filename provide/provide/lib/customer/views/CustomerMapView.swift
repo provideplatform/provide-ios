@@ -12,8 +12,8 @@ class CustomerMapView: MapView {
 
     fileprivate var userLocationImageView: UIImageView {
         let imageView: UIImageView
-        
-        if let profileImageUrl = currentUser().profileImageUrl {
+
+        if let profileImageUrl = currentUser.profileImageUrl {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             imageView.contentMode = .scaleAspectFit
             imageView.alpha = 0.0
@@ -24,7 +24,7 @@ class CustomerMapView: MapView {
         } else {
             imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
             imageView.alpha = 0.0
-            //            imageView.email = currentUser().email
+            //            imageView.email = currentUser.email
             //            imageView.load { error in
             //                imageView.makeCircular()
             //                imageView.alpha = 1

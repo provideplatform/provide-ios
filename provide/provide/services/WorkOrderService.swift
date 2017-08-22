@@ -18,7 +18,7 @@ class WorkOrderService: NSObject {
         for wo in workOrders {
             if wo.status == "scheduled" {
                 for provider in wo.providers {
-                    if provider.userId == currentUser().id {
+                    if provider.userId == currentUser.id {
                         return wo
                     }
                 }
@@ -33,7 +33,7 @@ class WorkOrderService: NSObject {
         for wo in workOrders {
             if wo.status == "en_route" || wo.status == "in_progress" || wo.status == "rejected" {
                 for provider in wo.providers {
-                    if provider.userId == currentUser().id {
+                    if provider.userId == currentUser.id {
                         return wo
                     }
                 }

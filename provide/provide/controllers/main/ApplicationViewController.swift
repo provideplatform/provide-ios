@@ -105,11 +105,13 @@ class ApplicationViewController: UIViewController,
     }
 
     func refreshCurrentUser() {
-        let user = currentUser()
-
-        user.reload(
+        let token = KeyChainService.sharedService().token
+        if currentUser == nil && token != nil {
+            currentUser = token!.user
+        }
+        currentUser?.reload(
             { statusCode, mappingResult in
-                if currentUser().profileImageUrl == nil && !currentUser().hasBeenPromptedToTakeSelfie {
+                if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
                     let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
                     if authorizationStatus == .authorized {
                         self.setHasBeenPromptedToTakeSelfieFlag()

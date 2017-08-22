@@ -27,18 +27,14 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        backgroundColor = UIColor.clear
-
-        profileImageUrl = currentUser().profileImageUrl as URL!
-        nameLabel.text = currentUser().name
-        companyLabel.text = ""
-
-        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), for: .touchUpInside)
-
-        profileImageActivityIndicatorView.stopAnimating()
-
+        refresh()
+        
         NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
-            self.profileImageUrl = currentUser().profileImageUrl as URL!
+            if let user = currentUser {
+                self.profileImageUrl = user.profileImageUrl as URL!
+            } else {
+                self.profileImageUrl = nil
+            }
         }
     }
 
@@ -84,6 +80,24 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             navigationController.presentViewController(alertController, animated: true)
         }
+    }
+
+    fileprivate func refresh() {
+        backgroundColor = UIColor.clear
+        
+        if let user = currentUser {
+            profileImageUrl = user.profileImageUrl as URL!
+            nameLabel.text = user.name
+        } else {
+            profileImageUrl = nil
+            nameLabel.text = ""
+        }
+
+        companyLabel.text = ""
+        
+        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), for: .touchUpInside)
+        
+        profileImageActivityIndicatorView.stopAnimating()
     }
 
     fileprivate func initImagePickerViewController() {

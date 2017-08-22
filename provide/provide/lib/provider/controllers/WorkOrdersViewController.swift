@@ -186,17 +186,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func loadCompaniesContext() {
-        let user = currentUser()
-        user.reloadCompanies(
+        currentUser?.reloadCompanies(
             { statusCode, mappingResult in
                 var company: Company!
                 let companies = mappingResult?.array() as! [Company]
                 if companies.count == 1 {
                     company = companies.first!
-                    logInfo("Loaded company: \(company)")
+                    logInfo("Loaded company: \(company!)")
                 } else {
                     for c in companies {
-                        if user.defaultCompanyId > 0 && c.id == user.defaultCompanyId {
+                        if currentUser.defaultCompanyId > 0 && c.id == currentUser.defaultCompanyId {
                             company = c
                             break
                         }

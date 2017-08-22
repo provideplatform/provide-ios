@@ -322,9 +322,9 @@ class WorkOrder: Model {
     }
 
     var isCurrentUserProvider: Bool {
-        let user = currentUser()
+        let user = currentUser
         for provider in providers {
-            if provider.userId == user.id {
+            if provider.userId == user?.id {
                 return true
             }
         }

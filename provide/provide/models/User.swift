@@ -130,12 +130,4 @@ class User: Model {
 
 // MARK: - Functions
 
-func currentUser() -> User {
-    var user: User!
-    while user == nil {
-        if let token = KeyChainService.sharedService().token {
-            user = token.user
-        }
-    }
-    return user
-}
+var currentUser: User!
