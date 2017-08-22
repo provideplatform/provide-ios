@@ -98,6 +98,7 @@
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
 		68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A653A01F4C184B007CC52F /* ZeroState.storyboard */; };
 		68A653A31F4C20D7007CC52F /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A653A21F4C20D7007CC52F /* ProviderService.swift */; };
+		68A653A51F4C2DDB007CC52F /* CustomerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A653A41F4C2DDB007CC52F /* CustomerMapView.swift */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -264,6 +265,7 @@
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		68A653A01F4C184B007CC52F /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68A653A21F4C20D7007CC52F /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
+		68A653A41F4C2DDB007CC52F /* CustomerMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomerMapView.swift; path = customer/views/CustomerMapView.swift; sourceTree = "<group>"; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 		6846D9941F3EC762004532BD /* views */ = {
 			isa = PBXGroup;
 			children = (
+				68A653A41F4C2DDB007CC52F /* CustomerMapView.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -1285,6 +1288,7 @@
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
 				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,
+				68A653A51F4C2DDB007CC52F /* CustomerMapView.swift in Sources */,
 				68B412B11B08063B009A4C05 /* AppearenceProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

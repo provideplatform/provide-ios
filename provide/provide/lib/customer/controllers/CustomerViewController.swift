@@ -11,7 +11,7 @@ import KTSwiftExtensions
 
 class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
-    @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
+    @IBOutlet fileprivate weak var mapView: CustomerMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +19,16 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         navigationItem.hidesBackButton = true
 
         setupBarButtonItems()
+        
+        LocationService.sharedService().resolveCurrentLocation { [weak self] (_) in
+            logInfo("Current location resolved for customer view controller... refreshing customer context")
+            self?.refreshContext()
+        }
+    }
+
+    fileprivate func refreshContext() {
+        self.loadProviderContext()
+        self.loadWorkOrderContext()
     }
 
     fileprivate func setupBarButtonItems() {
@@ -45,6 +55,46 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
         presentViewController(messagesNavCon!, animated: true)
+    }
+
+    func loadProviderContext() {
+        let providerService = ProviderService.sharedService()
+        if let coordinate = LocationService.sharedService().currentLocation?.coordinate {
+            providerService.fetch(
+                1,
+                rpp: 100,
+                standalone: true,
+                available: true,
+                active: true,
+                nearbyCoordinate: coordinate)
+            { (providers) in
+                logInfo("Found providers: \(providers)")
+                logWarn("TODO: Render provider locations on map...")
+                logWarn("TODO: subscribe to pushed location updates of providers")
+            }
+        } else {
+            logWarn("No current location resolved for customer view controller; nearby providers not fetched")
+        }
+    }
+
+    func loadWorkOrderContext() {
+        let workOrderService = WorkOrderService.sharedService()
+        
+        workOrderService.fetch(
+            status: "scheduled,en_route,in_progress,rejected",
+            today: true,
+            onWorkOrdersFetched: { [weak self] workOrders in
+                workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
+
+                if workOrders.count == 0 {
+                    logWarn("TODO!!!! Render 'where-to?' dialog")
+                }
+
+                // TODO: self!.nextWorkOrderContextShouldBeRewound()
+                // TODO: self!.attemptSegueToValidWorkOrderContext()
+                // TODO: self!.updatingWorkOrderContext = false
+            }
+        )
     }
 
     // MARK: MenuViewControllerDelegate
