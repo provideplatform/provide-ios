@@ -68,6 +68,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
 
     fileprivate var zeroStateViewController: ZeroStateViewController!
+    
+    fileprivate var availabilityBarButtonItem: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +80,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
-        loadCompaniesContext()
+        setupAvailabilityBarButtonItem()
 
-        loadWorkOrderContext()
+        requireProviderContext()
 
         NotificationCenter.default.addObserverForName("SegueToWorkOrderHistoryStoryboard") { [weak self] sender in
             if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {
@@ -152,6 +154,23 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         presentViewController(messagesNavCon!, animated: true)
     }
 
+    @IBAction fileprivate func toggleAvailability(_ sender: UISwitch) {
+        if let currentProvider = currentProvider {
+            availabilityBarButtonItem?.isEnabled = false
+            currentProvider.toggleAvailability(
+                onSuccess: { [weak self] statusCode, mappingResult in
+                    logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
+                    self!.availabilityBarButtonItem?.isEnabled = true
+                },
+                onError: { [weak self] error, statusCode, responseString in
+                    logWarn("Failed to update current provider availability")
+                    sender.isOn = !sender.isOn
+                    self!.availabilityBarButtonItem?.isEnabled = true
+                }
+            )
+        }
+    }
+
     // MARK: WorkOrder segue state interrogation
 
     fileprivate var canAttemptSegueToValidWorkOrderContext: Bool {
@@ -183,6 +202,58 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             }
         }
         return false
+    }
+    
+    fileprivate func setupAvailabilityBarButtonItem() {
+        if availabilityBarButtonItem != nil {
+            navigationItem.rightBarButtonItem = nil
+            availabilityBarButtonItem = nil
+        }
+
+        if currentProvider == nil {
+            return
+        }
+
+        let availabilitySwitch = UISwitch()
+        availabilitySwitch.addTarget(self, action: #selector(WorkOrdersViewController.toggleAvailability), for: .valueChanged)
+        availabilitySwitch.removeFromSuperview()
+        availabilitySwitch.isHidden = false
+        availabilitySwitch.isEnabled = true
+        availabilitySwitch.isOn = currentProvider.isAvailable
+
+        availabilityBarButtonItem = UIBarButtonItem(customView: availabilitySwitch)
+        navigationItem.rightBarButtonItem = availabilityBarButtonItem
+    }
+
+    func requireProviderContext() {
+        if let _ = currentProvider {
+            logInfo("Current provider context has already been established: \(currentProvider)")
+            return
+        }
+
+        if let user = currentUser {
+            if user.providerIds.count == 1 {
+                ApiService.sharedService().fetchProviderWithId(
+                    String(user.providerIds.first!),
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        if let provider = mappingResult!.firstObject as? Provider {
+                            logInfo("Fetched provider context for user: \(provider)")
+                            currentProvider = provider
+                            
+                            self!.setupAvailabilityBarButtonItem()
+
+                            self!.loadCompaniesContext()
+                            self!.loadWorkOrderContext()
+                        }
+
+                    }, onError: { err, statusCode, response in
+                        logWarn("Failed to fetch providers for user (\(statusCode))")
+                    }
+                )
+            }
+        } else {
+            logWarn("No user for which provider context can be loaded")
+        }
     }
 
     func loadCompaniesContext() {
@@ -218,7 +289,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
                 if workOrders.count == 0 {
-                    self!.zeroStateViewController?.render(self!.view)
+                    if let zeroStateViewController = self!.zeroStateViewController {
+                        zeroStateViewController.render(self!.view)
+                    }
                 }
 
                 self!.nextWorkOrderContextShouldBeRewound()
@@ -229,13 +302,20 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func attemptSegueToValidWorkOrderContext() {
+        var availabilityBarButtonItemEnabled = true
+
         if canAttemptSegueToEnRouteWorkOrder {
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
+            availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToInProgressWorkOrder {
             performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
+            availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
+            availabilityBarButtonItemEnabled = false
         }
+
+        availabilityBarButtonItem?.isEnabled = availabilityBarButtonItemEnabled
     }
 
     fileprivate func refreshAnnotations() {
@@ -335,6 +415,19 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func switchToCustomerMode() {
+        // TODO: ensure there is not an active work order that should prevent this from happening...
+        if let _ = currentProvider {
+            currentProvider.toggleAvailability(
+                onSuccess: { statusCode, mappingResult in
+                    logInfo("Current provider context marked unavailable for hire")
+                    currentProvider = nil
+                },
+                onError: { error, statusCode, responseString in
+                    logWarn("Failed to update current provider availability")
+                }
+            )
+        }
+
         KeyChainService.sharedService().mode = .Customer
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }

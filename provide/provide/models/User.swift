@@ -128,6 +128,6 @@ class User: Model {
     }
 }
 
-// MARK: - Functions
+// MARK: - Global user
 
 var currentUser: User!

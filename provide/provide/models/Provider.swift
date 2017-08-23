@@ -19,6 +19,7 @@ class Provider: Model {
     var contact: Contact!
     var profileImageUrlString: String!
     var services: NSSet!
+    var available: NSNumber!
     var lastCheckinAt: String!
     var lastCheckinLatitude: NSNumber!
     var lastCheckinLongitude: NSNumber!
@@ -43,6 +44,13 @@ class Provider: Model {
         }
         return nil
     }
+    
+    var isAvailable: Bool {
+        if let available = available {
+            return available.boolValue
+        }
+        return false
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -53,6 +61,7 @@ class Provider: Model {
             "name": "name",
             "services": "services",
             "profile_image_url": "profileImageUrlString",
+            "available": "available",
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
@@ -120,4 +129,23 @@ class Provider: Model {
             )
         }
     }
+    
+    func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        let val = !isAvailable
+        ApiService.sharedService().updateProviderWithId(
+            String(id),
+            params: ["available": val as AnyObject],
+            onSuccess: { [weak self] statusCode, mappingResult in
+                logInfo("Provider (id: \(self!.id)) marked \(val ? "available" : "unavailable")")
+                self!.available = val ? 1 : 0
+                onSuccess(statusCode, mappingResult)
+            },
+            onError: { [weak self] error, statusCode, responseString in
+                logWarn("Failed to update provider (id: \(self!.id)) availability")
+                onError(error, statusCode, responseString)
+            }
+        )
+    }
 }
+
+var currentProvider: Provider!
