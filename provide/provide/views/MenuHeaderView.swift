@@ -182,7 +182,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         profileImageUrl = nil
 
         ApiService.sharedService().setUserDefaultProfileImage(image,
-            onSuccess: { statusCode, mappingResult in
+            onSuccess: { response in
 
             },
             onError: { error, statusCode, responseString in

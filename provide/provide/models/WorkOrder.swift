@@ -609,16 +609,21 @@ class WorkOrder: Model {
         )
     }
 
-    func attach(_ image: UIImage, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func attach(
+        _ image: UIImage,
+        params: [String: AnyObject],
+        onSuccess: @escaping KTApiSuccessHandler,
+        onError: @escaping KTApiFailureHandler)
+    {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.sharedService().addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params,
-            onSuccess: { statusCode, mappingResult in
+            onSuccess: { response in
                 if self.attachments == nil {
                     self.attachments = [Attachment]()
                 }
-                self.attachments.append(mappingResult?.firstObject as! Attachment)
-                onSuccess(statusCode, mappingResult)
+                self.attachments.append(response?.firstObject as! Attachment)
+                onSuccess(response)
             },
             onError: { error, statusCode, responseString in
                 onError(error, statusCode, responseString)

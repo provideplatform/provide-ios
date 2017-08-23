@@ -27,6 +27,7 @@ class ApiService: NSObject {
     fileprivate let mimeMappings = [
         "application/pdf": "pdf",
         "image/jpg": "jpg",
+        "image/jpeg": "jpg",
         "image/x-dwg": "dwg",
         "video/mp4": "m4v",
     ]
@@ -216,30 +217,120 @@ class ApiService: NSObject {
 
     // MARK: Attachments API
 
-    func updateAttachmentWithId(_ id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    func createAttachment(
+        _ attachableType: String,
+        withAttachableId attachableId: String,
+        params: [String : AnyObject],
+        onSuccess: @escaping KTApiSuccessHandler,
+        onError: @escaping KTApiFailureHandler)
+    {
+        dispatchApiOperationForPath(
+            "\(attachableType)s/\(attachableId)/attachments",
+            method: .POST,
+            params: params,
+            onSuccess: { statusCode, response in
+                onSuccess(response)
+            },
+            onError: { resp, obj, err in
+                //FIXME onError(resp, obj, "")
+            }
+        )
     }
 
-    // MARK: Annotations API
-
-    func fetchAnnotationsForAttachmentWithId(_ id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    func updateAttachmentWithId(
+        _ id: String,
+        forAttachableType attachableType: String,
+        withAttachableId attachableId: String,
+        params: [String : AnyObject],
+        onSuccess: @escaping OnSuccess,
+        onError: @escaping OnError)
+    {
+        dispatchApiOperationForPath(
+            "\(attachableType)s/\(attachableId)/attachments/\(id)",
+            method: .PUT,
+            params: params,
+            onSuccess: onSuccess,
+            onError: onError
+        )
     }
-
-    func createAnnotationForAttachmentWithId(_ id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)/annotations", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    
+    func addAttachment(_ data: Data,
+                       withMimeType mimeType: String,
+                       usingPresignedS3RequestURL presignedS3RequestURL: URL,
+                       params: [String : AnyObject],
+                       onSuccess: @escaping KTApiSuccessHandler,
+                       onError: @escaping KTApiFailureHandler)
+    {
+        KTS3Service.presign(
+            presignedS3RequestURL,
+            bucket: nil,
+            filename: "upload.\(mimeMappings[mimeType]!)",
+            metadata: [String: String](),
+            headers: headers,
+            successHandler: { object in
+                let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
+                let map = Map(mappingType: .fromJSON,
+                              JSON: presignResponse as! [String : AnyObject],
+                              toObject: true,
+                              context: nil)
+                
+                let presignedRequest = KTPresignedS3Request()
+                presignedRequest.mapping(map: map)
+                
+                KTS3Service.upload(
+                    presignedRequest,
+                    data: data,
+                    withMimeType: mimeType,
+                    successHandler: { resp in
+                        logInfo("Attachment uploaded to S3")
+                        onSuccess(resp)
+                },
+                    failureHandler: { resp, obj, err in
+                        logWarn("Failed to upload attachment to S3")
+                        onError(resp, obj, err)
+                }
+                )
+        },
+            failureHandler: { resp, code, err in
+                logWarn("Failed to presign S3")
+        }
+        )
     }
-
-    func updateAnnotationWithId(_ id: String, forAttachmentWithId attachmentId: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(attachmentId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    
+    func addAttachment(_ data: Data,
+                       withMimeType mimeType: String,
+                       toUserWithId id: String,
+                       params: [String : AnyObject],
+                       onSuccess: @escaping KTApiSuccessHandler,
+                       onError: @escaping KTApiFailureHandler)
+    {
+        addAttachment(
+            data,
+            withMimeType: mimeType,
+            usingPresignedS3RequestURL: presignedS3RequestURL,
+            params: params,
+            onSuccess: { response in
+                self.createAttachment("user", withAttachableId: id, params: params, onSuccess: onSuccess, onError: onError)
+                onSuccess(response)
+        },
+            onError: onError
+        )
     }
-
-    func createAnnotationForFloorplanWithId(_ id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)/annotations", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateAnnotationWithId(_ id: String, forFloorplanWithId floorplanId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(floorplanId)/annotations/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
+    
+    func updateAttachmentWithId(
+        _ id: String,
+        onUserWithId userId: String,
+        params: [String : AnyObject],
+        onSuccess: @escaping OnSuccess,
+        onError: @escaping OnError)
+    {
+        dispatchApiOperationForPath(
+            "users/\(userId)/attachments/\(id)",
+            method: .PUT,
+            params: params,
+            onSuccess: onSuccess,
+            onError: onError
+        )
     }
 
     // MARK: Company API
@@ -297,7 +388,7 @@ class ApiService: NSObject {
         )
     }
 
-    func setUserDefaultProfileImage(_ image: UIImage, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func setUserDefaultProfileImage(_ image: UIImage, onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         let params = [
             "public": false,
             "tags": ["profile_image", "default"]
@@ -305,12 +396,13 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        ApiService.sharedService().addAttachment(data!,
+        ApiService.sharedService().addAttachment(
+            data!,
             withMimeType: "image/jpg",
             toUserWithId: String(currentUser.id),
             params: params as [String : AnyObject],
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode, mappingResult)
+            onSuccess: { response in
+                onSuccess(response)
 
                 ApiService.sharedService().fetchUser(
                     onSuccess: { statusCode, mappingResult in
@@ -323,86 +415,8 @@ class ApiService: NSObject {
                     }
                 )
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
-    }
-
-    func upload(_ data: Data,
-                withMimeType mimeType: String,
-                toBucket bucket: String,
-                asKey key: String,
-                onSuccess: @escaping KTApiSuccessHandler,
-                onError: @escaping KTApiFailureHandler)
-    {
-        var headers = [String: String]()
-        if let token = KeyChainService.sharedService().token { //currentUser?.token?.jwtToken {
-            headers["authorization"] = "bearer \(token)"
-        }
-        KTS3Service.presign(presignedS3RequestURL, bucket: bucket, filename: key, metadata: [String: String](), headers: headers,
-                            successHandler: { object in
-                                let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
-                                let map = Map(mappingType: .fromJSON,
-                                              JSON: presignResponse as! [String : AnyObject],
-                                              toObject: true,
-                                              context: nil)
-                                
-                                let presignedRequest = KTPresignedS3Request()
-                                presignedRequest.mapping(map: map)
-                                
-                                KTS3Service.upload(presignedRequest, data: data, withMimeType: mimeType, successHandler: onSuccess, failureHandler: onError)
-        },
-                            failureHandler: onError
-        )
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, usingPresignedS3RequestURL presignedS3RequestURL: URL, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var metadata = [String : String]()
-        if let tags = params["tags"] {
-            metadata["tags"] = (tags as! [String]).joined(separator: ",")
-        }
-        KTS3Service.presign(presignedS3RequestURL, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata, headers: self.headers,
-            successHandler: { object in
-                let response = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
-                let map = Map(mappingType: .fromJSON,
-                    JSON: response as! [String : AnyObject],
-                    toObject: true,
-                    context: nil)
-
-                let presignedRequest = KTPresignedS3Request()
-                presignedRequest.mapping(map: map)
-
-                KTS3Service.upload(presignedRequest, data: data, withMimeType: mimeType,
-                    successHandler: { object in
-                        var realParams = params
-                        realParams.updateValue(presignedRequest.fields!["key"]! as AnyObject, forKey: "key")
-                        realParams.updateValue(mimeType as AnyObject, forKey: "mime_type")
-
-                        let url = "\(presignedRequest.url)\(presignedRequest.fields!["key"]!)"
-                        realParams.updateValue(url as AnyObject, forKey: "url")
-
-                        let createAttachmentUri = presignedS3RequestURL.path.replaceString("/api/", withString: "").replaceString("/attachments/new", withString: "/attachments")
-                        let _ = self.dispatchApiOperationForPath(createAttachmentUri, method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-                    },
-                    failureHandler: { response, object, error in
-                        onError(error!, (response?.statusCode)!, object! as! String)
-                    }
-                )
-            },
-            failureHandler: { response, object, error in
-                onError(error!, (response?.statusCode)!, object! as! String)
-            }
-        )
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toUserWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/users/\(id)/attachments/new")!
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateAttachmentWithId(_ id: String, onUserWithId userId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Device API
@@ -508,14 +522,16 @@ class ApiService: NSObject {
         let longitude = location.coordinate.longitude
         let latitude = location.coordinate.latitude
 
-        let params: [String: AnyObject] = ["latitude": latitude as AnyObject, "longitude": longitude as AnyObject, "checkin_at": checkinDate as AnyObject]
+        let params: [String: AnyObject] = ["latitude": latitude as AnyObject,
+                                           "longitude": longitude as AnyObject,
+                                           "checkin_at": checkinDate as AnyObject]
 
         return checkin(params,
             onSuccess: { statusCode, mappingResult in
-
+                logInfo("Checkin succeeded; \(mappingResult!)")
             },
             onError: { error, statusCode, responseString in
-
+                logWarn("Checkin failed (\(statusCode))")
             }
         )
     }
@@ -599,8 +615,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/work_orders/\(id)/attachments/new")!
+    func addAttachment(_ data: Data, withMimeType mimeType: String, toWorkOrderWithId id: String, params: [String : AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -618,20 +633,6 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchComments(forJobWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func addComment(_ comment: String, toJobWithId id: String!, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/comments", method: .POST, params: ["body": comment as AnyObject],
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
-    }
-
     func fetchComments(forWorkOrderWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
@@ -646,33 +647,8 @@ class ApiService: NSObject {
         )
     }
 
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/\(commentableType)s/\(commentableId)/comments/\(id)/attachments/new")!
+    func addAttachment(_ data: Data, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String : AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: Products API
-
-    func countProducts(_ params: [String : AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) {
-        countTotalResultsForPath("products", params: params, onTotalResultsCount: onTotalResultsCount)
-    }
-
-    func fetchProducts(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
-        return dispatchApiOperationForPath("products", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func createProduct(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-
-        dispatchApiOperationForPath("products", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateProductWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-
-        dispatchApiOperationForPath("products/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Route API
@@ -716,161 +692,6 @@ class ApiService: NSObject {
             },
             onError: onError
         )
-    }
-
-    // MARK: Floorplans API
-
-    func fetchFloorplans(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchFloorplans(forJobWithId jobId: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(jobId)/floorplans", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchFloorplanWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchFloorplanWithId(_ id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func createFloorplan(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-
-        dispatchApiOperationForPath("floorplans", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateFloorplanWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-
-        dispatchApiOperationForPath("floorplans/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchWorkOrders(forFloorplanWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)/work_orders", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchAnnotationsForFloorplanWithId(_ id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)/annotations", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchAttachments(forFloorplanWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/floorplans/\(id)/attachments/new")!
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachmentFromSourceUrl(_ sourceUrl: URL, toFloorplanWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject
-        dispatchApiOperationForPath("floorplans/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateAttachmentWithId(_ id: String, onFloorplanWithId floorplanId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("floorplans/\(floorplanId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: Jobs API
-
-    func fetchJobs(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchJobWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchJobWithId(_ id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func createJob(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-//        realParams["companyId"] = nil
-
-        dispatchApiOperationForPath("jobs", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateJobWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-
-        dispatchApiOperationForPath("jobs/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchAttachments(forJobWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/attachments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toJobWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/jobs/\(id)/attachments/new")!
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachmentFromSourceUrl(_ sourceUrl: URL, toJobWithId id: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject
-        dispatchApiOperationForPath("jobs/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateAttachmentWithId(_ id: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(jobId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: Estimates API
-
-    func fetchEstimates(forJobWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/estimates", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchEstimateWithId(_ id: String, forJobWithId jobId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func createEstimate(_ params: [String : AnyObject], forJobWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/estimates", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachmentFromSourceUrl(_ sourceUrl: URL, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var params = params
-        params["source_url"] = sourceUrl.absoluteString as AnyObject
-        dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(id)/attachments", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toEstimateWithId id: String, forJobWithId jobId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/estimates/\(id)/attachments/new")!
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func updateAttachmentWithId(_ id: String, forEstimateWithId estimateId: String, onJobWithId jobId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(jobId)/estimates/\(estimateId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: Expenses API
-
-    func fetchExpenses(forJobWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("jobs/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchExpenses(forWorkOrderWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/expenses", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func createExpense(_ params: [String : AnyObject], forExpensableType expensableType: String, withExpensableId expensableId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(expensableType)s/\(expensableId)/expenses", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toExpenseWithId id: String, forExpensableType expensableType: String, withExpensableId expensableId: String, params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/\(expensableType)s/\(expensableId)/expenses/\(id)/attachments/new")!
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API

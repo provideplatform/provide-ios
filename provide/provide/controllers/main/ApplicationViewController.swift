@@ -149,7 +149,7 @@ class ApplicationViewController: UIViewController,
 
     func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
         ApiService.sharedService().setUserDefaultProfileImage(image,
-            onSuccess: { statusCode, mappingResult in
+            onSuccess: { response in
 
             },
             onError: { error, statusCode, responseString in
