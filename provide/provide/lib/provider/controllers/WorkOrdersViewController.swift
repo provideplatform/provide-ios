@@ -74,15 +74,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        CheckinService.sharedService().start()
-        LocationService.sharedService().start()
-
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
         setupAvailabilityBarButtonItem()
 
         requireProviderContext()
+        
+        // FIXME-- how does this next line actually work? localLogout has been called at this point...
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkOrdersViewController.clearProviderContext), name: "ApplicationUserLoggedOut")
 
         NotificationCenter.default.addObserverForName("SegueToWorkOrderHistoryStoryboard") { [weak self] sender in
             if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {
@@ -161,6 +161,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
                     self!.availabilityBarButtonItem?.isEnabled = true
+                    
+                    if currentProvider.isAvailable {
+                        CheckinService.sharedService().start()
+                        LocationService.sharedService().start()
+                    } else {
+                        CheckinService.sharedService().stop()
+                        LocationService.sharedService().stop()
+                    }
                 },
                 onError: { [weak self] error, statusCode, responseString in
                     logWarn("Failed to update current provider availability")
@@ -232,7 +240,21 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
 
         if let user = currentUser {
-            if user.providerIds.count == 1 {
+            if user.providerIds.count == 0 {
+                ApiService.sharedService().createProvider(
+                    ["user_id": String(user.id) as AnyObject],
+                    onSuccess: { [weak self] statusCode, mappingResult in
+                        if let provider = mappingResult!.firstObject as? Provider {
+                            logInfo("Created new provider context for user: \(user)")
+                            user.providerIds.append(provider.id)
+                            self!.requireProviderContext()
+                        }
+                        
+                    }, onError: { err, statusCode, response in
+                        logWarn("Failed to create new provider for user (\(statusCode))")
+                    }
+                )
+            } else if user.providerIds.count == 1 {
                 ApiService.sharedService().fetchProviderWithId(
                     String(user.providerIds.first!),
                     onSuccess: { [weak self] statusCode, mappingResult in
@@ -241,6 +263,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             currentProvider = provider
                             
                             self!.setupAvailabilityBarButtonItem()
+
+                            if currentProvider.isAvailable {
+                                CheckinService.sharedService().start()
+                                LocationService.sharedService().start()
+                            }
 
                             self!.loadCompaniesContext()
                             self!.loadWorkOrderContext()
@@ -414,8 +441,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         return 2
     }
 
-    func switchToCustomerMode() {
-        // TODO: ensure there is not an active work order that should prevent this from happening...
+    @objc fileprivate func clearProviderContext() {
         if let _ = currentProvider {
             currentProvider.toggleAvailability(
                 onSuccess: { statusCode, mappingResult in
@@ -423,11 +449,17 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     currentProvider = nil
                 },
                 onError: { error, statusCode, responseString in
-                    logWarn("Failed to update current provider availability")
+                    logWarn("Failed to update current provider availability; current provider context cleared anyway")
+                    currentProvider = nil
                 }
             )
         }
+    }
 
+    func switchToCustomerMode() {
+        // TODO: ensure there is not an active work order that should prevent this from happening...
+        clearProviderContext()
+        
         KeyChainService.sharedService().mode = .Customer
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }

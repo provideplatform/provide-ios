@@ -102,7 +102,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
             startUpdatingLocation()
 
-            log("Started location service updates")
+            logInfo("Started location service updates")
         }
     }
 
@@ -112,7 +112,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         stopUpdatingLocation()
         stopUpdatingHeading()
 
-        log("Stopped location service updates")
+        logInfo("Stopped location service updates")
     }
 
     func foreground() {

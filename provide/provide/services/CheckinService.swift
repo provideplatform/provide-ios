@@ -6,7 +6,7 @@
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
-import Foundation
+import KTSwiftExtensions
 
 class CheckinService: NSObject {
 
@@ -57,6 +57,7 @@ class CheckinService: NSObject {
 
     func start() {
         restart()
+        logInfo("Started checkin service")
     }
 
     func stop() {
@@ -64,6 +65,8 @@ class CheckinService: NSObject {
             t.invalidate()
             timer = nil
         }
+        
+        logInfo("Stopped checkin service")
     }
 
     func checkin() {
