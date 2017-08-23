@@ -108,24 +108,6 @@ class User: Model {
             }
         )
     }
-
-    func reloadProviders(_ onSuccess: OnSuccess!, onError: OnError!) {
-        let providerIdsQueryString = providerIds.map({ String($0) }).joined(separator: "|")
-        let params: [String : AnyObject] = ["id": providerIdsQueryString as AnyObject, "company_id": defaultCompanyId as AnyObject]
-        ApiService.sharedService().fetchProviders(params,
-            onSuccess: { statusCode, mappingResult in
-                self.providers = mappingResult?.array() as! [Provider]
-                if let onSuccess = onSuccess {
-                    onSuccess(statusCode, mappingResult)
-                }
-            },
-            onError: { error, statusCode, responseString in
-                if let onError = onError {
-                    onError(error, statusCode, responseString)
-                }
-            }
-        )
-    }
 }
 
 // MARK: - Global user

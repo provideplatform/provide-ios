@@ -40,10 +40,6 @@ class ProviderService: NSObject {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"
         }
 
-        if let defaultCompanyId = ApiService.sharedService().defaultCompanyId {
-            params["company_id"] = defaultCompanyId
-        }
-
         ApiService.sharedService().fetchProviders(
             params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in

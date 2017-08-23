@@ -269,7 +269,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                                 LocationService.sharedService().start()
                             }
 
-                            self!.loadCompaniesContext()
+                            //self!.loadCompaniesContext()
                             self!.loadWorkOrderContext()
                         }
 
@@ -283,28 +283,28 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
     }
 
-    func loadCompaniesContext() {
-        currentUser?.reloadCompanies(
-            { statusCode, mappingResult in
-                var company: Company!
-                let companies = mappingResult?.array() as! [Company]
-                if companies.count == 1 {
-                    company = companies.first!
-                    logInfo("Loaded company: \(company!)")
-                } else {
-                    for c in companies {
-                        if currentUser.defaultCompanyId > 0 && c.id == currentUser.defaultCompanyId {
-                            company = c
-                            break
-                        }
-                    }
-                }
-            },
-            onError: { error, statusCode, responseString in
-
-            }
-        )
-    }
+//    func loadCompaniesContext() {
+//        currentUser?.reloadCompanies(
+//            { statusCode, mappingResult in
+//                var company: Company!
+//                let companies = mappingResult?.array() as! [Company]
+//                if companies.count == 1 {
+//                    company = companies.first!
+//                    logInfo("Loaded company: \(company!)")
+//                } else {
+//                    for c in companies {
+//                        if currentUser.defaultCompanyId > 0 && c.id == currentUser.defaultCompanyId {
+//                            company = c
+//                            break
+//                        }
+//                    }
+//                }
+//            },
+//            onError: { error, statusCode, responseString in
+//
+//            }
+//        )
+//    }
 
     func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.sharedService()
