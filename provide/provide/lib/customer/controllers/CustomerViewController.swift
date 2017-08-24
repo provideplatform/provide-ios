@@ -21,7 +21,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         setupBarButtonItems()
         
         LocationService.sharedService().resolveCurrentLocation { [weak self] (_) in
-            logInfo("Current location resolved for customer view controller... refreshing customer context")
+            logInfo("Current location resolved for customer view controller... refreshing context")
             self?.refreshContext()
         }
     }
@@ -66,6 +66,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                 standalone: true,
                 available: true,
                 active: true,
+                publiclyAvailable: true,
                 nearbyCoordinate: coordinate)
             { (providers) in
                 logInfo("Found providers: \(providers)")

@@ -25,6 +25,7 @@ class ProviderService: NSObject {
         standalone: Bool = false,
         available: Bool = false,
         active: Bool = false,
+        publiclyAvailable: Bool = false,
         nearbyCoordinate: CLLocationCoordinate2D!,
         onProvidersFetched: @escaping OnProvidersFetched)
     {
@@ -34,6 +35,7 @@ class ProviderService: NSObject {
             "standalone": standalone ? "true" : "false",
             "available": available ? "true" : "false",
             "active": active ? "true" : "false",
+            "publicly_available": publiclyAvailable ? "true" : "false",
         ] as [String : Any]
         
         if let nearbyCoordinate = nearbyCoordinate {
