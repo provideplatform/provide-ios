@@ -66,10 +66,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                 available: true,
                 active: true,
                 nearbyCoordinate: coordinate)
-            { (providers) in
-                logInfo("Found providers: \(providers)")
-                logWarn("TODO: Render provider locations on map...")
-                logWarn("TODO: subscribe to pushed location updates of providers")
+            { [weak self] (providers) in
+                logInfo("Found \(providers.count) provider(s): \(providers)")
+                for provider in providers {
+                    self!.updateProviderLocation(provider)
+                }
             }
         } else {
             logWarn("No current location resolved for customer view controller; nearby providers not fetched")
@@ -94,6 +95,18 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                 // TODO: self!.updatingWorkOrderContext = false
             }
         )
+    }
+
+    fileprivate func updateProviderLocation(_ provider: Provider) {
+        logWarn("Update provider location: \(provider)")
+        if !mapView.annotations.contains(where: { (annotation) -> Bool in
+            if let _ = annotation as? Provider.Annotation {
+                return true
+            }
+            return false
+        }) {
+            mapView.addAnnotation(provider.annotation)
+        }
     }
 
     // MARK: MenuViewControllerDelegate

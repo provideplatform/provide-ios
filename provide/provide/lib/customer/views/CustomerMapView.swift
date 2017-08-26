@@ -37,6 +37,7 @@ class CustomerMapView: MapView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
+        defaultAnnotationViewReuseIdentifier = "providerAnnotationViewReuseIdentifier"
         requireUserLocationBeforeRevealing = true
 
         delegate = self
@@ -88,7 +89,18 @@ class CustomerMapView: MapView {
                 view?.addSubview(imageView)
             }
         } else {
-            logWarn("Customer map view requested unsupported annotation; \(annotation)")
+            view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)
+            if view == nil {
+                if view == nil && annotation is Provider.Annotation {
+                    let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
+                    let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
+
+                    view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
+                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
+                    view?.addSubview(imageView)
+                }
+            }
+            
         }
         
         return view

@@ -51,6 +51,15 @@ class Provider: Model {
         }
         return false
     }
+    
+    var annotation: Annotation {
+        return Annotation(provider: self)
+    }
+
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2DMake(self.lastCheckinLatitude.doubleValue,
+                                          self.lastCheckinLongitude.doubleValue)
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -145,6 +154,30 @@ class Provider: Model {
                 onError(error, statusCode, responseString)
             }
         )
+    }
+    
+    class Annotation: NSObject, MKAnnotation {
+        fileprivate var provider: Provider!
+        
+        required init(provider: Provider) {
+            self.provider = provider
+        }
+        
+        @objc var profileImageUrl: URL? {
+            return provider.profileImageUrl
+        }
+        
+        @objc var coordinate: CLLocationCoordinate2D {
+            return provider.coordinate
+        }
+
+        @objc var title: String? {
+            return nil
+        }
+        
+        @objc var subtitle: String? {
+            return nil
+        }
     }
 }
 
