@@ -236,6 +236,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func requireProviderContext() {
         if let _ = currentProvider {
             logInfo("Current provider context has already been established: \(currentProvider)")
+            if currentProvider.isAvailable {
+                CheckinService.sharedService().start()
+                LocationService.sharedService().start()
+            }
+            loadWorkOrderContext()
             return
         }
 
@@ -269,7 +274,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                                 LocationService.sharedService().start()
                             }
 
-                            //self!.loadCompaniesContext()
                             self!.loadWorkOrderContext()
                         }
 
