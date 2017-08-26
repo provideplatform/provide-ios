@@ -12,6 +12,8 @@ import KTSwiftExtensions
 class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet fileprivate weak var mapView: CustomerMapView!
+    
+    fileprivate var destinationInputViewController: DestinationInputViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,16 +21,28 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         navigationItem.hidesBackButton = true
 
         setupBarButtonItems()
-        
+
+        loadWorkOrderContext()
+
         LocationService.sharedService().resolveCurrentLocation { [weak self] (_) in
             logInfo("Current location resolved for customer view controller... refreshing context")
-            self?.refreshContext()
+            self?.loadProviderContext()
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier! {
+        case "DestinationInputViewControllerEmbedSegue":
+            assert(segue.destination is DestinationInputViewController)
+            destinationInputViewController = segue.destination as! DestinationInputViewController
+        default:
+            break
         }
     }
 
     fileprivate func refreshContext() {
-        self.loadProviderContext()
-        self.loadWorkOrderContext()
+        loadWorkOrderContext()
+        loadProviderContext()
     }
 
     fileprivate func setupBarButtonItems() {
@@ -79,7 +93,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
     func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.sharedService()
-        
+
         workOrderService.fetch(
             status: "scheduled,en_route,in_progress,rejected",
             today: true,
@@ -87,7 +101,19 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
                 if workOrders.count == 0 {
-                    logWarn("TODO!!!! Render 'where-to?' dialog")
+                    UIView.animate(withDuration: 0.25, animations: { [weak self] in
+                        if let destinationInputView = self?.destinationInputViewController.view {
+                            destinationInputView.frame.origin.y += self!.view.frame.height * 0.15
+                        }
+                    }) { [weak self] completed in
+                        if let _ = self?.destinationInputViewController.view {
+//                            let initialLayoutConstraints = destinationInputView.constraints
+//                            destinationInputView.removeFromSuperview()
+//                            self!.mapView.addSubview(destinationInputView)
+//                            destinationInputView.addConstraints(initialLayoutConstraints)
+//                            destinationInputView.setNeedsUpdateConstraints()
+                        }
+                    }
                 }
 
                 // TODO: self!.nextWorkOrderContextShouldBeRewound()

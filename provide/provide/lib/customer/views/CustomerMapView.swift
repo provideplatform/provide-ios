@@ -10,30 +10,6 @@ import KTSwiftExtensions
 
 class CustomerMapView: MapView {
 
-    fileprivate var userLocationImageView: UIImageView {
-        let imageView: UIImageView
-
-        if let profileImageUrl = currentUser.profileImageUrl {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            imageView.contentMode = .scaleAspectFit
-            imageView.alpha = 0.0
-            imageView.sd_setImage(with: profileImageUrl as URL) { image, error, cacheType, url in
-                imageView.makeCircular()
-                imageView.alpha = 1
-            }
-        } else {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            imageView.alpha = 0.0
-            //            imageView.email = currentUser.email
-            //            imageView.load { error in
-            //                imageView.makeCircular()
-            //                imageView.alpha = 1
-            //            }
-        }
-        
-        return imageView
-    }
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
@@ -81,13 +57,7 @@ class CustomerMapView: MapView {
         if annotation is MKUserLocation {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: userLocationAnnotationViewReuseIdentifier)
             if view == nil || updateUserLocationAnnotation {
-                updateUserLocationAnnotation = false
-                
-                let imageView = userLocationImageView
-                
-                view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
-                view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
-                view?.addSubview(imageView)
+                return nil // default blue location marker
             }
         } else {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)

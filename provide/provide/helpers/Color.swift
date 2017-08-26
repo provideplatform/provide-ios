@@ -27,7 +27,7 @@ class Color {
     }
 
     class func applicationDefaultNavigationBarBackgroundColor() -> UIColor {
-        return UIColor("#3983f2")
+        return .clear //UIColor("#3983f2")
     }
 
     class func authenticationViewControllerButtonColor() -> UIColor {
