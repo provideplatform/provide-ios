@@ -57,11 +57,12 @@ class CustomerMapView: MapView {
     }
     
     override func revealMap(_ force: Bool = false) {
-        super.revealMap(force,
-                        animations: {
-                            self.alpha = 1
-        },
-                        completion: nil
+        super.revealMap(
+            force,
+            animations: {
+                self.alpha = 1.0
+            },
+            completion: nil
         )
     }
     
@@ -154,7 +155,7 @@ class CustomerMapView: MapView {
         
         mapView.setCenterCoordinate(location.coordinate,
                                     fromEyeCoordinate: mapView.centerCoordinate,
-                                    eyeAltitude: mapView.camera.altitude,
+                                    eyeAltitude: 20000.0,
                                     pitch: mapView.camera.pitch,
                                     heading: mapView.camera.heading,
                                     animated: false)
