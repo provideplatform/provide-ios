@@ -24,8 +24,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 initialFrame = view.frame
                 initialDestinationTextFieldFrame = destinationTextField.frame
                 initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
-
-                destinationTextField.placeholder = ""
                 
                 navigationController?.setNavigationBarHidden(true, animated: true)
                 
@@ -48,7 +46,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 }
 
                 destinationTextField.text = ""
-                destinationTextField.placeholder = "Where to?"
 
                 navigationController?.setNavigationBarHidden(false, animated: true)
 
