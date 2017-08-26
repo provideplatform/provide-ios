@@ -443,16 +443,18 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
     @objc fileprivate func clearProviderContext() {
         if let _ = currentProvider {
-            currentProvider.toggleAvailability(
-                onSuccess: { statusCode, mappingResult in
-                    logInfo("Current provider context marked unavailable for hire")
-                    currentProvider = nil
-                },
-                onError: { error, statusCode, responseString in
-                    logWarn("Failed to update current provider availability; current provider context cleared anyway")
-                    currentProvider = nil
-                }
-            )
+            if currentProvider.available.boolValue {
+                currentProvider.toggleAvailability(
+                    onSuccess: { statusCode, mappingResult in
+                        logInfo("Current provider context marked unavailable for hire")
+                        currentProvider = nil
+                    },
+                    onError: { error, statusCode, responseString in
+                        logWarn("Failed to update current provider availability; current provider context cleared anyway")
+                        currentProvider = nil
+                    }
+                )
+            }
         }
     }
 
