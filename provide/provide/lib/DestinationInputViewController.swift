@@ -34,17 +34,22 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     
                     self!.destinationTextField.frame.size.width = self!.view.frame.width
                     self!.destinationTextField.becomeFirstResponder()
+                })
 
+                UIView.animate(withDuration: 0.45, animations: { [weak self] in
                     self!.destinationResultsViewController.view.frame.origin.y = self!.view.frame.height
                     self!.destinationResultsViewController.view.frame.size.height = self!.view.superview!.frame.height - self!.view.frame.height
                 })
             } else {
+                if destinationTextField.isFirstResponder {
+                    destinationTextField.resignFirstResponder()
+                }
+
                 destinationTextField.text = ""
                 destinationTextField.placeholder = "Where to?"
 
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
                     self!.view.frame = self!.initialFrame
-                    self!.destinationTextField.frame = self!.initialDestinationTextFieldFrame
                     self!.view.backgroundColor = .clear
 
                     self!.destinationResultsViewController.view.frame = self!.initialDestinationResultsViewFrame
@@ -63,10 +68,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         return true
     }
 
-//    @available(iOS 2.0, *)
 //    optional public func textFieldDidBeginEditing(_ textField: UITextField) // became first responder
-//    
-//    @available(iOS 2.0, *)
+//
 //    optional public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
 //    
 //    @available(iOS 2.0, *)
@@ -82,7 +85,9 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 //    
 //    @available(iOS 2.0, *)
 //    optional public func textFieldShouldClear(_ textField: UITextField) -> Bool // called when clear button pressed. return NO to ignore (no notifications)
-//    
-//    @available(iOS 2.0, *)
-//    optional public func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return NO to ignore.
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        expanded = false
+        return true
+    }
 }

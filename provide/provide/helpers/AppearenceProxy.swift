@@ -12,8 +12,8 @@ class AppearenceProxy {
 
     class func setup() {
         //UINavigationBar.appearance().setBackgroundImage(Color.applicationDefaultNavigationBarBackgroundImage(), forBarMetrics: .Default)
-        UINavigationBar.appearance().backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
-        UINavigationBar.appearance().tintColor = defaultBarTintColor()
+        UINavigationBar.appearance().backgroundColor = .clear //Color.applicationDefaultNavigationBarBackgroundColor()
+        UINavigationBar.appearance().tintColor = nil //.clear //defaultBarTintColor()
         UINavigationBar.appearance().titleTextAttributes = navBarTitleTextAttributes()
 
         UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
