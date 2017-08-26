@@ -101,19 +101,12 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
                 if workOrders.count == 0 {
+                    self?.presentDestinationInputViewController()
                     UIView.animate(withDuration: 0.25, animations: { [weak self] in
                         if let destinationInputView = self?.destinationInputViewController.view {
                             destinationInputView.frame.origin.y += self!.view.frame.height * 0.15
                         }
-                    }) { [weak self] completed in
-                        if let _ = self?.destinationInputViewController.view {
-//                            let initialLayoutConstraints = destinationInputView.constraints
-//                            destinationInputView.removeFromSuperview()
-//                            self!.mapView.addSubview(destinationInputView)
-//                            destinationInputView.addConstraints(initialLayoutConstraints)
-//                            destinationInputView.setNeedsUpdateConstraints()
-                        }
-                    }
+                    })
                 }
 
                 // TODO: self!.nextWorkOrderContextShouldBeRewound()
@@ -123,8 +116,20 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         )
     }
 
+    fileprivate func presentDestinationInputViewController() {
+        if let destinationInputView = destinationInputViewController.view {
+            destinationInputView.removeFromSuperview()
+            mapView.addSubview(destinationInputView)
+
+            destinationInputView.frame.size.width = mapView.frame.width
+            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
+                destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
+            }
+        }
+    }
+
     fileprivate func updateProviderLocation(_ provider: Provider) {
-        logWarn("Update provider location: \(provider)")
+        logInfo("Update provider location: \(provider)")
         if !mapView.annotations.contains(where: { (annotation) -> Bool in
             if let _ = annotation as? Provider.Annotation {
                 return true
