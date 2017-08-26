@@ -43,6 +43,7 @@ class ApiService: NSObject {
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
         "invitations": Invitation.mapping(),
+        "places": Contact.mapping(),
         "providers": Provider.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
@@ -668,7 +669,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("routes/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
 
-    // MARK: Directions and Routing API
+    // MARK: Directions, Routing and Places APIs
 
     func getDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let params = ["from_latitude": coordinate.latitude, "from_longitude": coordinate.longitude, "to_latitude": toCoordinate.latitude, "to_longitude": toCoordinate.longitude]
@@ -692,6 +693,10 @@ class ApiService: NSObject {
             },
             onError: onError
         )
+    }
+    
+    func autocompletePlaces(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API
@@ -782,7 +787,11 @@ class ApiService: NSObject {
             path = [parts[1], parts[3]].joined(separator: "/")
             path = path.components(separatedBy: "/").last!
         } else {
-            path = parts[1]
+            if let _ = Int(parts.last!) {
+                path = parts[1]
+            } else {
+                path = parts.last!
+            }
         }
 
         var mapping: RKObjectMapping?
