@@ -27,6 +27,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
                 destinationTextField.placeholder = ""
                 
+                navigationController?.setNavigationBarHidden(true, animated: true)
+                
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
                     self!.view.frame.origin.y = 0.0
                     self!.view.frame.size.width = self!.view.superview!.frame.width
@@ -36,7 +38,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self!.destinationTextField.becomeFirstResponder()
                 })
 
-                UIView.animate(withDuration: 0.45, animations: { [weak self] in
+                UIView.animate(withDuration: 0.3, animations: { [weak self] in
                     self!.destinationResultsViewController.view.frame.origin.y = self!.view.frame.height
                     self!.destinationResultsViewController.view.frame.size.height = self!.view.superview!.frame.height - self!.view.frame.height
                 })
@@ -47,6 +49,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
                 destinationTextField.text = ""
                 destinationTextField.placeholder = "Where to?"
+
+                navigationController?.setNavigationBarHidden(false, animated: true)
 
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
                     self!.view.frame = self!.initialFrame

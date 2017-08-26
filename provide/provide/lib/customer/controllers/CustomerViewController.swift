@@ -131,10 +131,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
     fileprivate func presentDestinationInputViewController() {
         if let destinationInputView = destinationInputViewController.view {
+            destinationInputView.isHidden = true
             destinationInputView.removeFromSuperview()
             mapView.addSubview(destinationInputView)
 
             destinationInputView.frame.size.width = mapView.frame.width
+//            destinationInputView.frame.origin.y -= destinationInputView.frame.size.height
+            destinationInputView.isHidden = false
             if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                 destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
             }

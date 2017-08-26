@@ -68,12 +68,12 @@
         <!--Destination Input View Controller-->
         <scene sceneID="W13-tB-vm8">
             <objects>
-                <viewController modalPresentationStyle="currentContext" id="9XP-iM-cxc" customClass="DestinationInputViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9XP-iM-cxc" customClass="DestinationInputViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lDm-3e-tgf"/>
                         <viewControllerLayoutGuide type="bottom" id="CmA-yP-9ss"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aeU-ar-cbC">
+                    <view key="view" hidden="YES" contentMode="scaleToFill" id="aeU-ar-cbC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -82,7 +82,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Tet"/>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="28"/>
+                                <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                 <connections>
                                     <outlet property="delegate" destination="9XP-iM-cxc" id="8lz-dE-P8F"/>
