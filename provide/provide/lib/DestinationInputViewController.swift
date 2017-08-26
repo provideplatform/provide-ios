@@ -176,6 +176,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
     func destinationResultsViewController(_ viewController: DestinationResultsViewController, didSelectResult result: Contact) {
         expanded = false
+        view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
         delegate?.destinationInputViewController(self, didSelectDestination: result, startingFrom: nil)
     }

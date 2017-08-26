@@ -44,6 +44,7 @@ class WorkOrder: Model {
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
+    var destination: Contact! // FIXME
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -55,6 +56,7 @@ class WorkOrder: Model {
             "job_id": "jobId",
             "config": "config",
             "description": "desc",
+            "destination": "destination",
             "scheduled_start_at": "scheduledStartAt",
             "scheduled_end_at": "scheduledEndAt",
             "started_at": "startedAt",
@@ -70,7 +72,7 @@ class WorkOrder: Model {
             "customer_rating": "customerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
-            "priority": "priority"
+            "priority": "priority",
             ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "company", mapping: Company.mapping())
         mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())

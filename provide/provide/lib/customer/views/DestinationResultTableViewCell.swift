@@ -19,7 +19,18 @@ class DestinationResultTableViewCell: UITableViewCell {
             if let result = result {
                 icon.image = #imageLiteral(resourceName: "provide-pin")
                 title.text = result.desc
-                subtitle.text = "\(result.city!), \(result.state!)"
+                
+                var st = ""
+                if let city = result.city {
+                    st = city
+                }
+                if let state = result.state {
+                    if let _ = result.city {
+                        st = "\(st), "
+                    }
+                    st = "\(st)\(state)"
+                }
+                subtitle.text = st
             } else {
                 icon.image = nil
                 title.text = ""

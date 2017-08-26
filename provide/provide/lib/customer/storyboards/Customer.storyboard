@@ -16,6 +16,12 @@
         <array key="Exo2-Medium.ttf">
             <string>Exo2-Medium</string>
         </array>
+        <array key="Exo2-Regular.ttf">
+            <string>Exo2-Regular</string>
+        </array>
+        <array key="Exo2-SemiBold.ttf">
+            <string>Exo2-SemiBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Customer View Controller-->
@@ -44,6 +50,13 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <segue destination="TlW-I9-Qya" kind="embed" identifier="DestinationResultsViewControllerEmbedSegue" id="9Xw-7w-mnT"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-tW-oAL">
+                                <rect key="frame" x="0.0" y="667" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="wcE-do-F58" kind="embed" identifier="ConfirmWorkOrderViewControllerEmbedSegue" id="Hzd-8A-MYa"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -187,8 +200,97 @@
             </objects>
             <point key="canvasLocation" x="312.80000000000001" y="818.59070464767626"/>
         </scene>
+        <!--Confirm Work Order View Controller-->
+        <scene sceneID="m4u-Py-LLR">
+            <objects>
+                <viewController id="wcE-do-F58" customClass="ConfirmWorkOrderViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sNf-Xk-SoM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="9xf-dL-czH">
+                                <rect key="frame" x="16" y="52" width="32" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="0Iw-Rp-eh1"/>
+                                    <constraint firstAttribute="width" constant="32" id="7Lf-Ha-vpa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•••• 7059" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="doh-wC-dlI">
+                                <rect key="frame" x="54" y="54" width="116" height="16"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHE-A0-35R" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="16" y="85" width="343" height="51"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <state key="normal" title="CONFIRM PRVD">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="confirm:" destination="wcE-do-F58" eventType="touchUpInside" id="8a7-0Z-44b"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f7X-Fg-TVf">
+                                <rect key="frame" x="178" y="52" width="20" height="28"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-4" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="3ew-Eg-3DR">
+                                <rect key="frame" x="330" y="54" width="29" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="q73-Dl-1cl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="13"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="executive" translatesAutoresizingMaskIntoConstraints="NO" id="50S-DP-wW6">
+                                <rect key="frame" x="311" y="52" width="19" height="19"/>
+                                <color key="tintColor" red="0.91675049070000003" green="0.92123711109999995" blue="0.93117511269999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="19" id="vSF-8f-ARw"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.91675049070000003" green="0.92123711109999995" blue="0.93117511269999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="9xf-dL-czH" firstAttribute="top" secondItem="50S-DP-wW6" secondAttribute="top" id="3Gh-V2-dfk"/>
+                            <constraint firstItem="9xf-dL-czH" firstAttribute="top" secondItem="f7X-Fg-TVf" secondAttribute="top" id="GLj-JR-g3G"/>
+                            <constraint firstItem="3ew-Eg-3DR" firstAttribute="trailing" secondItem="kHE-A0-35R" secondAttribute="trailing" id="IYM-3m-5c0"/>
+                            <constraint firstItem="kHE-A0-35R" firstAttribute="top" secondItem="9xf-dL-czH" secondAttribute="bottom" constant="12" id="LjJ-Pt-mlp"/>
+                            <constraint firstItem="f7X-Fg-TVf" firstAttribute="top" secondItem="sNf-Xk-SoM" secondAttribute="topMargin" constant="52" id="PSq-Q3-FlG"/>
+                            <constraint firstItem="kHE-A0-35R" firstAttribute="top" secondItem="3ew-Eg-3DR" secondAttribute="bottom" constant="16" id="Urf-rg-nfe"/>
+                            <constraint firstItem="f7X-Fg-TVf" firstAttribute="centerX" secondItem="kHE-A0-35R" secondAttribute="centerX" id="Yqq-z0-RA4"/>
+                            <constraint firstItem="9xf-dL-czH" firstAttribute="centerY" secondItem="doh-wC-dlI" secondAttribute="centerY" id="aUk-wq-llv"/>
+                            <constraint firstItem="doh-wC-dlI" firstAttribute="leading" secondItem="9xf-dL-czH" secondAttribute="trailing" constant="6" id="ach-lK-dac"/>
+                            <constraint firstItem="50S-DP-wW6" firstAttribute="centerY" secondItem="3ew-Eg-3DR" secondAttribute="centerY" id="bNB-O0-L32"/>
+                            <constraint firstItem="9xf-dL-czH" firstAttribute="leading" secondItem="kHE-A0-35R" secondAttribute="leading" id="cF7-8v-NAw"/>
+                            <constraint firstItem="kHE-A0-35R" firstAttribute="top" secondItem="f7X-Fg-TVf" secondAttribute="bottom" constant="5" id="fRH-eu-BA0"/>
+                            <constraint firstItem="3ew-Eg-3DR" firstAttribute="trailing" secondItem="sNf-Xk-SoM" secondAttribute="trailingMargin" id="fmi-pW-7E7"/>
+                            <constraint firstItem="kHE-A0-35R" firstAttribute="top" secondItem="doh-wC-dlI" secondAttribute="bottom" constant="15" id="gYn-28-ayf"/>
+                            <constraint firstItem="kHE-A0-35R" firstAttribute="top" secondItem="50S-DP-wW6" secondAttribute="bottom" constant="14" id="kKD-v0-Tf2"/>
+                            <constraint firstItem="3ew-Eg-3DR" firstAttribute="leading" secondItem="50S-DP-wW6" secondAttribute="trailing" id="kKc-sN-qSW"/>
+                            <constraint firstItem="9xf-dL-czH" firstAttribute="leading" secondItem="sNf-Xk-SoM" secondAttribute="leadingMargin" id="nN9-aR-KSU"/>
+                            <constraint firstItem="f7X-Fg-TVf" firstAttribute="leading" secondItem="doh-wC-dlI" secondAttribute="trailing" constant="8" symbolic="YES" id="sNx-rR-SKR"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="kHE-A0-35R" secondAttribute="bottom" constant="14" id="sme-Os-eMs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="f7X-Fg-TVf" id="BqJ-N9-izg"/>
+                        <outlet property="capacity" destination="3ew-Eg-3DR" id="mth-aK-2zt"/>
+                        <outlet property="confirmButton" destination="kHE-A0-35R" id="o2Z-NI-pMM"/>
+                        <outlet property="creditCardIcon" destination="9xf-dL-czH" id="vKz-1J-s73"/>
+                        <outlet property="creditCardLastFour" destination="doh-wC-dlI" id="uTv-rB-tY2"/>
+                        <outlet property="userIconImageView" destination="50S-DP-wW6" id="pAr-8L-17J"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e9Z-pF-Yu0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312.80000000000001" y="1104.6476761619192"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="executive" width="300" height="300"/>
         <image name="provide-pin" width="50" height="50"/>
+        <image name="visa" width="51" height="31"/>
     </resources>
 </document>

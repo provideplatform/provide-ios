@@ -15,6 +15,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     fileprivate var destinationInputViewController: DestinationInputViewController!
     fileprivate var destinationResultsViewController: DestinationResultsViewController!
+    fileprivate var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,9 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             if let destinationInputViewController = destinationInputViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
+        case "ConfirmWorkOrderViewControllerEmbedSegue":
+            assert(segue.destination is ConfirmWorkOrderViewController)
+            confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
         default:
             break
         }
@@ -158,6 +162,21 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationResultsView.isHidden = false
         }
     }
+    
+    fileprivate func presentConfirmWorkOrderViewController() {
+        if let confirmWorkOrderView = confirmWorkOrderViewController.view {
+            confirmWorkOrderView.isHidden = true
+            confirmWorkOrderView.removeFromSuperview()
+            mapView.addSubview(confirmWorkOrderView)
+            
+            confirmWorkOrderView.frame.size.width = mapView.frame.width
+            confirmWorkOrderView.frame.origin.y = mapView.frame.size.height
+            confirmWorkOrderView.isHidden = false
+//            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
+//                destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
+//            }
+        }
+    }
 
     fileprivate func updateProviderLocation(_ provider: Provider) {
         logInfo("Update provider location: \(provider)")
@@ -209,14 +228,14 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     func destinationInputViewController(_ viewController: DestinationInputViewController,
                                         didSelectDestination destination: Contact,
                                         startingFrom origin: Contact!) {
+        presentConfirmWorkOrderViewController()
+
         if origin == nil {
             logInfo("Provided origin is nil; work order origin will be pegged to user's dynamic location")
             LocationService.sharedService().resolveCurrentLocation(
-                onResolved: { currentLocation in
-                    let latitude = NSNumber(value: currentLocation.coordinate.latitude)
-                    let longitude = NSNumber(value: currentLocation.coordinate.longitude)
-
-                    logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
+                onResolved: { [weak self] currentLocation in
+                    self?.confirmWorkOrderViewController.confirmWorkOrderWithOriginCoordinate(currentLocation.coordinate,
+                                                                                              destination: destination)
                 }
             )
         }
