@@ -18,26 +18,28 @@ class ProviderService: NSObject {
     class func sharedService() -> ProviderService {
         return sharedInstance
     }
-    
+
     func fetch(  // consider adding a radius param, in miles, configured server-side and fetched after authentication
         _ page: Int = 1,
         rpp: Int = 10,
-        standalone: Bool = false,
-        available: Bool = false,
-        active: Bool = false,
-        publiclyAvailable: Bool = false,
+        available: Bool!,
+        active: Bool!,
         nearbyCoordinate: CLLocationCoordinate2D!,
         onProvidersFetched: @escaping OnProvidersFetched)
     {
         var params = [
             "page": page,
             "rpp": rpp,
-            "standalone": standalone ? "true" : "false",
-            "available": available ? "true" : "false",
-            "active": active ? "true" : "false",
-            "publicly_available": publiclyAvailable ? "true" : "false",
         ] as [String : Any]
-        
+
+        if let available = available {
+            params["available"] = available
+        }
+
+        if let active = active {
+            params["active"] = active
+        }
+
         if let nearbyCoordinate = nearbyCoordinate {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"
         }

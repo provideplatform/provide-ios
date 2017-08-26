@@ -63,10 +63,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
             providerService.fetch(
                 1,
                 rpp: 100,
-                standalone: true,
                 available: true,
                 active: true,
-                publiclyAvailable: true,
                 nearbyCoordinate: coordinate)
             { (providers) in
                 logInfo("Found providers: \(providers)")
