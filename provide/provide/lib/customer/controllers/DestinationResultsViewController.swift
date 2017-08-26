@@ -9,7 +9,13 @@
 import KTSwiftExtensions
 
 class DestinationResultsViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
-    
+
+    var results: [Contact] = [Contact]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+
     @IBOutlet fileprivate weak var tableView: UITableView!
     
     // MARK: UITableViewDelegate
@@ -21,12 +27,12 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return results.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "destinationResultTableViewCellReuseIdentifier") as! DestinationResultTableViewCell
-//        cell.menuItem = delegate.menuItemForMenuViewController(self, at: indexPath)
+        cell.result = results[indexPath.row]
         return cell
     }
 }

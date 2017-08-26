@@ -17,6 +17,10 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     fileprivate var initialFrame: CGRect!
     fileprivate var initialDestinationTextFieldFrame: CGRect!
     fileprivate var initialDestinationResultsViewFrame: CGRect!
+    fileprivate var initialDestinationResultsTableViewFrame: CGRect!
+    
+    fileprivate var timer: Timer!
+    fileprivate var pendingSearch = false
 
     fileprivate var expanded = false {
         didSet {
@@ -24,7 +28,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 initialFrame = view.frame
                 initialDestinationTextFieldFrame = destinationTextField.frame
                 initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
-                
+                initialDestinationResultsTableViewFrame = destinationResultsViewController?.view.subviews.first!.frame
+
                 navigationController?.setNavigationBarHidden(true, animated: true)
                 
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
@@ -39,6 +44,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 UIView.animate(withDuration: 0.3, animations: { [weak self] in
                     self!.destinationResultsViewController.view.frame.origin.y = self!.view.frame.height
                     self!.destinationResultsViewController.view.frame.size.height = self!.view.superview!.frame.height - self!.view.frame.height
+                    self!.destinationResultsViewController.view.subviews.first!.frame.size.height = self!.destinationResultsViewController.view.frame.size.height
                 })
             } else {
                 if destinationTextField.isFirstResponder {
@@ -54,14 +60,56 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self!.view.backgroundColor = .clear
 
                     self!.destinationResultsViewController.view.frame = self!.initialDestinationResultsViewFrame
+                    self!.destinationResultsViewController.view.subviews.first!.frame = self!.initialDestinationResultsTableViewFrame
                 })
             }
         }
     }
     
+    @objc fileprivate func search() {
+        if pendingSearch {
+            logInfo("Places autocomplete search API request still pending; will execute when it returns")
+            return
+        }
+
+        if let query = destinationTextField.text {
+            timer?.invalidate()
+            timer = nil
+
+            pendingSearch = true
+            LocationService.sharedService().resolveCurrentLocation(
+                onResolved: { [weak self] location in
+                    let currentCoordinate = location.coordinate
+                    let params = [
+                        "q": query,
+                        "latitude": currentCoordinate.latitude,
+                        "longitude": currentCoordinate.longitude,
+                        ] as [String : Any]
+                    ApiService.sharedService().autocompletePlaces(
+                        params as [String : AnyObject],
+                        onSuccess: { [weak self] statusCode, mappingResult in
+                            self!.pendingSearch = false
+                            if let suggestions = mappingResult?.array() as? [Contact] {
+                                logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
+                                self!.destinationResultsViewController.results = suggestions
+                            } else {
+                                logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
+                            }
+                        },
+                        onError: { [weak self] err, statusCode, responseString in
+                            logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
+                            self!.pendingSearch = false
+                        }
+                    )
+                }
+            )
+
+        }
+    }
+    
     // MARK: UITextFieldDelegate
 
-    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if !expanded {
             expanded = true
             return false
@@ -69,26 +117,44 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         return true
     }
 
-//    optional public func textFieldDidBeginEditing(_ textField: UITextField) // became first responder
-//
-//    optional public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool // return YES to allow editing to stop and to resign first responder status. NO to disallow the editing session to end
-//    
-//    @available(iOS 2.0, *)
-//    optional public func textFieldDidEndEditing(_ textField: UITextField) // may be called if forced even if shouldEndEditing returns NO (e.g. view removed from window) or endEditing:YES called
-//    
-//    @available(iOS 10.0, *)
-//    optional public func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) // if implemented, called in place of textFieldDidEndEditing:
-//    
-//    
-//    @available(iOS 2.0, *)
-//    optional public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool // return NO to not change text
-//    
-//    
-//    @available(iOS 2.0, *)
-//    optional public func textFieldShouldClear(_ textField: UITextField) -> Bool // called when clear button pressed. return NO to ignore (no notifications)
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        destinationResultsViewController.results = [Contact]()
+        return true
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        expanded = false
-        return true
+        if expanded {
+            if textField.isFirstResponder {
+                textField.resignFirstResponder()
+            }
+            search()
+            return true
+        }
+        return false
+    }
+
+    @IBAction fileprivate func textFieldChanged(_ textField: UITextField) {
+        // TODO: use a LIFO queue and remove anything that is still queued
+        // to allow only a single API request on the wire at a time
+        
+        if textField.text == "" {
+            timer?.invalidate()
+            timer = nil
+
+            pendingSearch = false
+            destinationResultsViewController.results = [Contact]() // FIXME-- make sure a pending request race doesn't lose to this
+            return
+        }
+
+        if !pendingSearch {
+            search()
+        } else if timer == nil {
+            timer = Timer.scheduledTimer(timeInterval: 0.25,
+                                         target: self,
+                                         selector: #selector(DestinationInputViewController.search),
+                                         userInfo: nil,
+                                         repeats: true)
+
+        }
     }
 }

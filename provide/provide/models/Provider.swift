@@ -23,6 +23,7 @@ class Provider: Model {
     var lastCheckinAt: String!
     var lastCheckinLatitude: NSNumber!
     var lastCheckinLongitude: NSNumber!
+    var lastCheckinHeading: NSNumber!
 
     var profileImageUrl: URL? {
         guard let profileImageUrlString = profileImageUrlString else { return nil }
@@ -74,6 +75,7 @@ class Provider: Model {
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
+            "last_checkin_heading": "lastcheckinHeading",
             ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!
