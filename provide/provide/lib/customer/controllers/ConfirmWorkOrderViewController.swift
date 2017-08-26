@@ -15,7 +15,14 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var creditCardIcon: UIImageView!
     @IBOutlet private weak var creditCardLastFour: UILabel!
     @IBOutlet private weak var capacity: UILabel!
-    @IBOutlet private weak var userIconImageView: UIImageView!
+    @IBOutlet private weak var userIconImageView: UIImageView! {
+        didSet {
+            if let _ = userIconImageView {
+                userIconImageView.image = userIconImageView.image!.withRenderingMode(.alwaysTemplate)
+                userIconImageView.tintColor = .lightGray
+            }
+        }
+    }
 
     fileprivate var workOrder: WorkOrder! {
         didSet {
