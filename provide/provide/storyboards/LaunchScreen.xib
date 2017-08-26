@@ -20,25 +20,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-pin" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-aO-sEQ">
-                        <rect key="frame" x="164.5" y="274" width="46" height="119"/>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-icon" translatesAutoresizingMaskIntoConstraints="NO" id="8Rd-aO-sEQ">
+                        <rect key="frame" x="121" y="271" width="132" height="125"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="46" id="PkA-MD-8Zf"/>
+                            <constraint firstAttribute="width" constant="132" id="Fv0-Jk-aw0"/>
                         </constraints>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerY" secondItem="Ems-6k-Ba2" secondAttribute="centerY" id="35Z-xW-erZ"/>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="DQJ-N8-zy1"/>
-                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="254" id="by0-1s-6ta"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerY" secondItem="Ems-6k-Ba2" secondAttribute="centerY" id="82G-1B-bh5"/>
+                    <constraint firstItem="8Rd-aO-sEQ" firstAttribute="centerX" secondItem="Ems-6k-Ba2" secondAttribute="centerX" id="ca3-Sq-hEw"/>
                 </constraints>
             </view>
             <navigationItem key="navigationItem" id="LFV-Kh-15L"/>
-            <point key="canvasLocation" x="-53" y="-486"/>
+            <point key="canvasLocation" x="-53.5" y="-486.5"/>
         </viewController>
     </objects>
     <resources>
-        <image name="provide-pin" width="50" height="50"/>
+        <image name="provide-icon" width="125" height="125"/>
     </resources>
 </document>
