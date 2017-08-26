@@ -274,7 +274,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         }
 
                     }, onError: { err, statusCode, response in
-                        logWarn("Failed to fetch providers for user (\(statusCode))")
+                        logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
                     }
                 )
             }
