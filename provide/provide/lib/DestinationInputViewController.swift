@@ -8,9 +8,23 @@
 
 import KTSwiftExtensions
 
-class DestinationInputViewController: ViewController, UITextFieldDelegate {
+protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
+    func destinationInputViewController(_ viewController: DestinationInputViewController,
+                                        didSelectDestination destination: Contact,
+                                        startingFrom origin: Contact!) // when startingFrom is nil, uses current location
+}
 
-    weak var destinationResultsViewController: DestinationResultsViewController!
+class DestinationInputViewController: ViewController, UITextFieldDelegate, DestinationResultsViewControllerDelegate {
+
+    weak var delegate: DestinationInputViewControllerDelegate!
+
+    weak var destinationResultsViewController: DestinationResultsViewController! {
+        didSet {
+            if let _ = destinationResultsViewController {
+                destinationResultsViewController.delegate = self
+            }
+        }
+    }
 
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
     
@@ -156,5 +170,13 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                                          repeats: true)
 
         }
+    }
+
+    // MARK: DestinationResultsViewControllerDelegate
+
+    func destinationResultsViewController(_ viewController: DestinationResultsViewController, didSelectResult result: Contact) {
+        expanded = false
+        // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
+        delegate?.destinationInputViewController(self, didSelectDestination: result, startingFrom: nil)
     }
 }

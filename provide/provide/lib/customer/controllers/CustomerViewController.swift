@@ -9,7 +9,7 @@
 import UIKit
 import KTSwiftExtensions
 
-class CustomerViewController: ViewController, MenuViewControllerDelegate {
+class CustomerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
 
     @IBOutlet fileprivate weak var mapView: CustomerMapView!
 
@@ -36,6 +36,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         case "DestinationInputViewControllerEmbedSegue":
             assert(segue.destination is DestinationInputViewController)
             destinationInputViewController = segue.destination as! DestinationInputViewController
+            destinationInputViewController.delegate = self
             if let destinationResultsViewController = destinationResultsViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
@@ -201,5 +202,23 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
     func provide() {
         KeyChainService.sharedService().mode = .Provider
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
+    }
+
+    // MARK: DestinationInputViewControllerDelegate
+
+    func destinationInputViewController(_ viewController: DestinationInputViewController,
+                                        didSelectDestination destination: Contact,
+                                        startingFrom origin: Contact!) {
+        if origin == nil {
+            logInfo("Provided origin is nil; work order origin will be pegged to user's dynamic location")
+            LocationService.sharedService().resolveCurrentLocation(
+                onResolved: { currentLocation in
+                    let latitude = NSNumber(value: currentLocation.coordinate.latitude)
+                    let longitude = NSNumber(value: currentLocation.coordinate.longitude)
+
+                    logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
+                }
+            )
+        }
     }
 }
