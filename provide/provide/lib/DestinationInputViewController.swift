@@ -10,16 +10,20 @@ import KTSwiftExtensions
 
 class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
+    weak var destinationResultsViewController: DestinationResultsViewController!
+
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
     
     fileprivate var initialFrame: CGRect!
     fileprivate var initialDestinationTextFieldFrame: CGRect!
+    fileprivate var initialDestinationResultsViewFrame: CGRect!
 
     fileprivate var expanded = false {
         didSet {
             if expanded {
                 initialFrame = view.frame
                 initialDestinationTextFieldFrame = destinationTextField.frame
+                initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
 
                 destinationTextField.placeholder = ""
                 
@@ -29,8 +33,10 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self!.view.backgroundColor = .white
                     
                     self!.destinationTextField.frame.size.width = self!.view.frame.width
-                    
                     self!.destinationTextField.becomeFirstResponder()
+
+                    self!.destinationResultsViewController.view.frame.origin.y = self!.view.frame.height
+                    self!.destinationResultsViewController.view.frame.size.height = self!.view.superview!.frame.height - self!.view.frame.height
                 })
             } else {
                 destinationTextField.text = ""
@@ -40,6 +46,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self!.view.frame = self!.initialFrame
                     self!.destinationTextField.frame = self!.initialDestinationTextFieldFrame
                     self!.view.backgroundColor = .clear
+
+                    self!.destinationResultsViewController.view.frame = self!.initialDestinationResultsViewFrame
                 })
             }
         }

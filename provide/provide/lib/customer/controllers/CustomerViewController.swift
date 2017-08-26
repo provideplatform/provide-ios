@@ -12,8 +12,9 @@ import KTSwiftExtensions
 class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet fileprivate weak var mapView: CustomerMapView!
-    
+
     fileprivate var destinationInputViewController: DestinationInputViewController!
+    fileprivate var destinationResultsViewController: DestinationResultsViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,15 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
         case "DestinationInputViewControllerEmbedSegue":
             assert(segue.destination is DestinationInputViewController)
             destinationInputViewController = segue.destination as! DestinationInputViewController
+            if let destinationResultsViewController = destinationResultsViewController {
+                destinationInputViewController.destinationResultsViewController = destinationResultsViewController
+            }
+        case "DestinationResultsViewControllerEmbedSegue":
+            assert(segue.destination is DestinationResultsViewController)
+            destinationResultsViewController = segue.destination as! DestinationResultsViewController
+            if let destinationInputViewController = destinationInputViewController {
+                destinationInputViewController.destinationResultsViewController = destinationResultsViewController
+            }
         default:
             break
         }
@@ -104,7 +114,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
                     self?.presentDestinationInputViewController()
                     UIView.animate(withDuration: 0.25, animations: { [weak self] in
                         if let destinationInputView = self?.destinationInputViewController.view {
-                            destinationInputView.frame.origin.y += self!.view.frame.height * 0.15
+                            destinationInputView.frame.origin.y += self!.view.frame.height * 0.1
+                            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
+                                destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
+                            }
                         }
                     })
                 }
@@ -125,6 +138,20 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
             if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                 destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
             }
+        }
+        
+        if let destinationResultsView = destinationResultsViewController.view {
+            destinationResultsView.isHidden = true
+            destinationResultsView.removeFromSuperview()
+            mapView.addSubview(destinationResultsView)
+            
+            destinationResultsView.frame.origin.y = mapView.frame.height
+            destinationResultsView.frame.size.width = mapView.frame.width
+            if let destinationResultsTableView = destinationResultsView.subviews.first as? UITableView {
+                destinationResultsTableView.frame.size.width = destinationResultsView.frame.width
+            }
+            
+            destinationResultsView.isHidden = false
         }
     }
 
