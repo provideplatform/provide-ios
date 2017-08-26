@@ -77,9 +77,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
-        navigationController?.navigationBar.backgroundColor = UIColor("#3983f2")
-        navigationController?.navigationBar.isTranslucent = true
-
         setupAvailabilityBarButtonItem()
 
         requireProviderContext()

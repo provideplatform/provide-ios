@@ -21,9 +21,6 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate {
 
         navigationItem.hidesBackButton = true
 
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.isTranslucent = true
-
         setupBarButtonItems()
 
         loadWorkOrderContext()
