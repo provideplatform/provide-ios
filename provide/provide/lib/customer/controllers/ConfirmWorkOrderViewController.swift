@@ -15,6 +15,8 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var creditCardIcon: UIImageView!
     @IBOutlet private weak var creditCardLastFour: UILabel!
     @IBOutlet private weak var capacity: UILabel!
+    @IBOutlet private weak var distanceEstimate: UILabel!
+    @IBOutlet private weak var fareEstimate: UILabel!
     @IBOutlet private weak var userIconImageView: UIImageView! {
         didSet {
             if let _ = userIconImageView {
@@ -39,6 +41,9 @@ class ConfirmWorkOrderViewController: ViewController {
                         self!.creditCardLastFour.isHidden = false
                         self!.userIconImageView.isHidden = false
                         self!.capacity.isHidden = false
+                        // TODO: fare and distance estimates:
+                        //self!.distanceEstimate.isHidden = false
+                        //self!.fareEstimate.isHidden = false
                     }
                 )
             } else {
@@ -61,10 +66,23 @@ class ConfirmWorkOrderViewController: ViewController {
         creditCardLastFour.isHidden = true
         userIconImageView.isHidden = true
         capacity.isHidden = true
+        distanceEstimate.isHidden = true
+        fareEstimate.isHidden = true
         activityIndicatorView.startAnimating()
 
         logInfo("Waiting for a provider to accept the request")
-        logWarn("TODO: submit the work order via work orders API")
+
+        workOrder.save(
+            { statusCode, mappingResult in
+                if let workOrder = mappingResult?.firstObject {
+                    logInfo("Created work order for hire: \(workOrder)")
+                    
+                }
+            },
+            onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
+            }
+        )
     }
 
     fileprivate func prepareForReuse() {
@@ -76,13 +94,13 @@ class ConfirmWorkOrderViewController: ViewController {
         let longitude = NSNumber(value: coordinate.longitude)
 
         logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
-        
+
         let pendingWorkOrder = WorkOrder()
         pendingWorkOrder.status = "awaiting_schedule"
         pendingWorkOrder.customer = Customer() // awaiting_schedule // FIXME
         pendingWorkOrder.destination = destination // FIXME
         pendingWorkOrder.desc = destination.desc
-        
+
         workOrder = pendingWorkOrder
     }
 }
