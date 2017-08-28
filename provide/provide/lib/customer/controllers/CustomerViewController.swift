@@ -110,8 +110,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         let workOrderService = WorkOrderService.sharedService()
 
         workOrderService.fetch(
-            status: "scheduled,en_route,in_progress,rejected",
-            today: true,
+            status: "pending_acceptance,en_route,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 

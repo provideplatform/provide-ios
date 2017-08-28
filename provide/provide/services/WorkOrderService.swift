@@ -16,7 +16,7 @@ class WorkOrderService: NSObject {
 
     var nextWorkOrder: WorkOrder! {
         for wo in workOrders {
-            if wo.status == "scheduled" {
+            if wo.status == "scheduled" || wo.status == "pending_acceptance" {
                 for provider in wo.providers {
                     if provider.userId == currentUser.id {
                         return wo
