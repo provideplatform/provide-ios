@@ -428,6 +428,36 @@ class WorkOrder: Model {
     func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
 
+        if let companyId = params["company_id"] as? Int {
+            if companyId == 0 {
+                params["company_id"] = nil
+            }
+        }
+
+        if let categoryId = params["category_id"] as? Int {
+            if categoryId == 0 {
+                params["category_id"] = nil
+            }
+        }
+
+        if let customerId = params["customer_id"] as? Int {
+            if customerId == 0 {
+                params["customer_id"] = nil
+            }
+        }
+
+        if let jobId = params["job_id"] as? Int {
+            if jobId == 0 {
+                params["job_id"] = nil
+            }
+        }
+
+        if let userId = params["user_id"] as? Int {
+            if userId == 0 {
+                params["user_id"] = nil
+            }
+        }
+
         if id > 0 {
             if self.workOrderProviders == nil {
                 self.workOrderProviders = [WorkOrderProvider]()

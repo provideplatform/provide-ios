@@ -52,8 +52,8 @@ class ConfirmWorkOrderViewController: ViewController {
                     animations: { [weak self] in
                         self!.view.frame.origin.y -= self!.view.frame.height
                     },
-                    completion: { _ in
-                        
+                    completion: { [weak self] _ in
+                        logInfo("Presented work order for confirmation: \(self!.workOrder)")
                     }
                 )
             }
@@ -72,6 +72,9 @@ class ConfirmWorkOrderViewController: ViewController {
 
         logInfo("Waiting for a provider to accept the request")
 
+        // TODO: show progress HUD
+
+        workOrder.status = "pending_acceptance"
         workOrder.save(
             { statusCode, mappingResult in
                 if let workOrder = mappingResult?.firstObject {
@@ -95,12 +98,22 @@ class ConfirmWorkOrderViewController: ViewController {
 
         logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
 
+        // TODO: show progress HUD
+
         let pendingWorkOrder = WorkOrder()
-        pendingWorkOrder.status = "awaiting_schedule"
-        pendingWorkOrder.customer = Customer() // awaiting_schedule // FIXME
         pendingWorkOrder.destination = destination // FIXME
         pendingWorkOrder.desc = destination.desc
 
-        workOrder = pendingWorkOrder
+        pendingWorkOrder.save(
+            { [weak self] statusCode, mappingResult in
+                if let workOrder = mappingResult?.firstObject {
+                    logInfo("Created work order for hire: \(workOrder)")
+                    self!.workOrder = pendingWorkOrder
+                }
+            },
+            onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
+            }
+        )
     }
 }
