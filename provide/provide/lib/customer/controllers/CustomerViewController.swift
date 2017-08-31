@@ -17,6 +17,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     fileprivate var destinationResultsViewController: DestinationResultsViewController!
     fileprivate var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
 
+    fileprivate var updatingWorkOrderContext = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +31,12 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         LocationService.sharedService().resolveCurrentLocation { [weak self] (_) in
             logInfo("Current location resolved for customer view controller... refreshing context")
             self?.loadProviderContext()
+        }
+
+        NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { _ in
+            if !self.updatingWorkOrderContext && self.confirmWorkOrderViewController.inProgressWorkOrder == nil && WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                self.loadWorkOrderContext()
+            }
         }
     }
 
@@ -109,6 +117,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.sharedService()
 
+        updatingWorkOrderContext = true
         workOrderService.fetch(
             status: "pending_acceptance,en_route,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
@@ -124,11 +133,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                             }
                         }
                     })
+                } else {
+                    logWarn("found work orders that need to be handled...")
+                    // TODO: self!.nextWorkOrderContextShouldBeRewound()
+                    // TODO: self!.attemptSegueToValidWorkOrderContext()
                 }
 
-                // TODO: self!.nextWorkOrderContextShouldBeRewound()
-                // TODO: self!.attemptSegueToValidWorkOrderContext()
-                // TODO: self!.updatingWorkOrderContext = false
+                self!.updatingWorkOrderContext = false
             }
         )
     }

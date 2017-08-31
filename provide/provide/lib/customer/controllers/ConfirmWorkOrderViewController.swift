@@ -78,6 +78,10 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
+    var inProgressWorkOrder: WorkOrder! {
+        return workOrder
+    }
+
     @IBAction fileprivate func confirm(_ sender: UIButton) {
         sender.isHidden = true
         creditCardIcon.isHidden = true

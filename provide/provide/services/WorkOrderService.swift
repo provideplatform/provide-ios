@@ -31,7 +31,10 @@ class WorkOrderService: NSObject {
 
     var inProgressWorkOrder: WorkOrder! {
         for wo in workOrders {
-            if wo.status == "en_route" || wo.status == "in_progress" || wo.status == "rejected" {
+            if wo.status == "pending_acceptance" || wo.status == "en_route" || wo.status == "in_progress" || wo.status == "rejected" {
+                if wo.userId == currentUser.id {
+                    return wo
+                }
                 for provider in wo.providers {
                     if provider.userId == currentUser.id {
                         return wo
