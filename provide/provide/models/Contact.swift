@@ -26,7 +26,8 @@ class Contact: Model {
     var latitude: NSNumber!
     var longitude: NSNumber!
     var desc: String!
-    
+    var data: [String: AnyObject]!
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
@@ -44,6 +45,7 @@ class Contact: Model {
             "time_zone_id",
             "latitude",
             "longitude",
+            "data",
             ]
         )
         mapping?.addAttributeMappings(from: [

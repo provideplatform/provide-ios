@@ -32,6 +32,8 @@ class WorkOrder: Model {
     var canceledAt: String!
     var duration: NSNumber!
     var estimatedCost = -1.0
+    var estimatedPrice = -1.0
+    var estimatedDistance: NSNumber!
     var estimatedDuration: NSNumber!
     var estimatedSqFt = -1.0
     var status: String!
@@ -39,12 +41,12 @@ class WorkOrder: Model {
     var providerRating: NSNumber!
     var customerRating: NSNumber!
     var attachments: [Attachment]!
-    var config: NSMutableDictionary!
+    var config: [String: AnyObject]!
+    var configJson: String!
     var expensesCount = 0
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
-    var destination: Contact! // FIXME
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -56,7 +58,6 @@ class WorkOrder: Model {
             "job_id": "jobId",
             "config": "config",
             "description": "desc",
-            "destination": "destination",
             "scheduled_start_at": "scheduledStartAt",
             "scheduled_end_at": "scheduledEndAt",
             "started_at": "startedAt",
@@ -66,7 +67,9 @@ class WorkOrder: Model {
             "canceled_at": "canceledAt",
             "duration": "duration",
             "estimated_cost": "estimatedCost",
+            "estimated_distance": "estimatedDistance",
             "estimated_duration": "estimatedDuration",
+            "estimated_price": "estimatedPrice",
             "status": "status",
             "provider_rating": "providerRating",
             "customer_rating": "customerRating",
@@ -355,7 +358,6 @@ class WorkOrder: Model {
 
     override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
-        dictionary.removeValue(forKey: "config")
         dictionary.removeValue(forKey: "preview_image")
         dictionary.removeValue(forKey: "id")
         return dictionary
@@ -578,7 +580,7 @@ class WorkOrder: Model {
     func setComponents(_ components: NSMutableArray) {
         let mutableConfig = NSMutableDictionary(dictionary: config)
         mutableConfig.setObject(components, forKey: "components" as NSCopying)
-        config = mutableConfig
+        config = mutableConfig as! [String : AnyObject]
     }
 
     func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {

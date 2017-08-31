@@ -41,12 +41,30 @@ class ConfirmWorkOrderViewController: ViewController {
                         self!.creditCardLastFour.isHidden = false
                         self!.userIconImageView.isHidden = false
                         self!.capacity.isHidden = false
-                        // TODO: fare and distance estimates:
-                        //self!.distanceEstimate.isHidden = false
-                        //self!.fareEstimate.isHidden = false
+                        self!.distanceEstimate.isHidden = false
+                        self!.fareEstimate.isHidden = false
                     }
                 )
             } else {
+                var distanceTimeEstimate = ""
+                if let estimatedDistance = workOrder.estimatedDistance {
+                    distanceTimeEstimate = "\(estimatedDistance) miles"
+                }
+                if let estimatedDuration = workOrder.estimatedDuration {
+                    distanceTimeEstimate = "\(distanceTimeEstimate) / \(estimatedDuration) minutes"
+                }
+                distanceEstimate.text = distanceTimeEstimate
+                distanceEstimate.isHidden = false
+
+                fareEstimate.text = ""
+                if workOrder.estimatedPrice != -1.0 {
+                    fareEstimate.text = "$\(workOrder.estimatedPrice)"
+                    fareEstimate.isHidden = false
+                }
+
+                //                self.creditCardLastFour.text = "" // TODO
+                //                self.capacity.text = "" // TODO
+
                 UIView.animate(
                     withDuration: 0.25,
                     animations: { [weak self] in
@@ -101,14 +119,17 @@ class ConfirmWorkOrderViewController: ViewController {
         // TODO: show progress HUD
 
         let pendingWorkOrder = WorkOrder()
-        pendingWorkOrder.destination = destination // FIXME
         pendingWorkOrder.desc = destination.desc
+        if let cfg = destination.data {
+            pendingWorkOrder.config = ["origin": ["latitude": latitude, "longitude": longitude] as AnyObject,
+                                       "destination": cfg as AnyObject]
+        }
 
         pendingWorkOrder.save(
             { [weak self] statusCode, mappingResult in
-                if let workOrder = mappingResult?.firstObject {
+                if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
-                    self!.workOrder = pendingWorkOrder
+                    self!.workOrder = workOrder
                 }
             },
             onError: { err, statusCode, responseString in
