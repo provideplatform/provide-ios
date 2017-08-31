@@ -71,7 +71,7 @@ class ConfirmWorkOrderViewController: ViewController {
                         self!.view.frame.origin.y -= self!.view.frame.height
                     },
                     completion: { [weak self] _ in
-                        logInfo("Presented work order for confirmation: \(self!.workOrder)")
+                        logInfo("Presented work order for confirmation: \(self!.workOrder!)")
                     }
                 )
             }
