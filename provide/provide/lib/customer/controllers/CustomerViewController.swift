@@ -19,6 +19,27 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     fileprivate var updatingWorkOrderContext = false
 
+    fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "en_route"
+        }
+        return false
+    }
+
+    fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "pending_acceptance"
+        }
+        return false
+    }
+
+    fileprivate var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "awaiting_schedule"
+        }
+        return false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,9 +54,9 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             self?.loadProviderContext()
         }
 
-        NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { _ in
-            if !self.updatingWorkOrderContext && self.confirmWorkOrderViewController.inProgressWorkOrder == nil && WorkOrderService.sharedService().inProgressWorkOrder == nil {
-                self.loadWorkOrderContext()
+        NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { [weak self] _ in
+            if !self!.updatingWorkOrderContext && WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                self!.loadWorkOrderContext()
             }
         }
     }
@@ -119,29 +140,39 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         updatingWorkOrderContext = true
         workOrderService.fetch(
-            status: "pending_acceptance,en_route,in_progress",
+            status: "awaiting_schedule,pending_acceptance,en_route,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
-
-                if workOrders.count == 0 {
-                    self?.presentDestinationInputViewController()
-                    UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                        if let destinationInputView = self?.destinationInputViewController.view {
-                            destinationInputView.frame.origin.y += self!.view.frame.height * 0.1
-                            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-                                destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
-                            }
-                        }
-                    })
-                } else {
-                    logWarn("found work orders that need to be handled...")
-                    // TODO: self!.nextWorkOrderContextShouldBeRewound()
-                    // TODO: self!.attemptSegueToValidWorkOrderContext()
-                }
-
+                self!.attemptSegueToValidWorkOrderContext()
                 self!.updatingWorkOrderContext = false
             }
         )
+    }
+
+    fileprivate func attemptSegueToValidWorkOrderContext() {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if canAttemptSegueToEnRouteWorkOrder {
+                logWarn("Segue to en route work order not implemented...")
+            } else if canAttemptSegueToAwaitingScheduleWorkOrder || canAttemptSegueToPendingAcceptanceWorkOrder {
+                presentConfirmWorkOrderViewController()
+                confirmWorkOrderViewController?.setWorkOrder(workOrder)
+            }
+        } else {
+            confirmWorkOrderViewController?.prepareForReuse()
+            destinationResultsViewController?.prepareForReuse()
+
+            presentDestinationInputViewController()
+            UIView.animate(withDuration: 0.25, animations: { [weak self] in
+                if let destinationInputView = self?.destinationInputViewController.view {
+                    if destinationInputView.frame.origin.y == 0.0 {
+                        destinationInputView.frame.origin.y += self!.view.frame.height * 0.1
+                        if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
+                            destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
+                        }
+                    }
+                }
+            })
+        }
     }
 
     fileprivate func presentDestinationInputViewController() {

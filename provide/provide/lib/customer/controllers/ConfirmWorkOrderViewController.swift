@@ -29,51 +29,69 @@ class ConfirmWorkOrderViewController: ViewController {
     fileprivate var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
-                UIView.animate(
-                    withDuration: 0.25,
-                    animations: { [weak self] in
-                        self!.view.frame.origin.y += self!.view.frame.height
-                    },
-                    completion: { [weak self] completed in
-                        self!.activityIndicatorView.stopAnimating()
-                        self!.confirmButton.isHidden = false
-                        self!.creditCardIcon.isHidden = false
-                        self!.creditCardLastFour.isHidden = false
-                        self!.userIconImageView.isHidden = false
-                        self!.capacity.isHidden = false
-                        self!.distanceEstimate.isHidden = false
-                        self!.fareEstimate.isHidden = false
-                    }
-                )
+                if oldValue != nil {
+                    UIView.animate(
+                        withDuration: 0.25,
+                        animations: { [weak self] in
+                            self!.view.frame.origin.y += self!.view.frame.height
+                        },
+                        completion: { [weak self] completed in
+                            if self!.workOrder == nil {
+                                self!.activityIndicatorView.stopAnimating()
+                                self!.confirmButton.isHidden = false
+                                self!.creditCardIcon.isHidden = false
+                                self!.creditCardLastFour.isHidden = false
+                                self!.userIconImageView.isHidden = false
+                                self!.capacity.isHidden = false
+                                self!.distanceEstimate.isHidden = false
+                                self!.fareEstimate.isHidden = false
+                            }
+                        }
+                    )
+                }
             } else {
-                var distanceTimeEstimate = ""
-                if let estimatedDistance = workOrder.estimatedDistance {
-                    distanceTimeEstimate = "\(estimatedDistance) miles"
-                }
-                if let estimatedDuration = workOrder.estimatedDuration {
-                    distanceTimeEstimate = "\(distanceTimeEstimate) / \(estimatedDuration) minutes"
-                }
-                distanceEstimate.text = distanceTimeEstimate
-                distanceEstimate.isHidden = false
-
-                fareEstimate.text = ""
-                if workOrder.estimatedPrice != -1.0 {
-                    fareEstimate.text = "$\(workOrder.estimatedPrice)"
-                    fareEstimate.isHidden = false
-                }
-
-                //                self.creditCardLastFour.text = "" // TODO
-                //                self.capacity.text = "" // TODO
-
-                UIView.animate(
-                    withDuration: 0.25,
-                    animations: { [weak self] in
-                        self!.view.frame.origin.y -= self!.view.frame.height
-                    },
-                    completion: { [weak self] _ in
-                        logInfo("Presented work order for confirmation: \(self!.workOrder!)")
+                if workOrder.status == "awaiting_schedule" {
+                    var distanceTimeEstimate = ""
+                    if let estimatedDistance = workOrder.estimatedDistance {
+                        distanceTimeEstimate = "\(estimatedDistance) miles"
                     }
-                )
+                    if let estimatedDuration = workOrder.estimatedDuration {
+                        distanceTimeEstimate = "\(distanceTimeEstimate) / \(estimatedDuration) minutes"
+                    }
+                    distanceEstimate.text = distanceTimeEstimate
+                    distanceEstimate.isHidden = false
+
+                    fareEstimate.text = ""
+                    if workOrder.estimatedPrice != -1.0 {
+                        fareEstimate.text = "$\(workOrder.estimatedPrice)"
+                        fareEstimate.isHidden = false
+                    }
+
+                    //                self.creditCardLastFour.text = "" // TODO
+                    //                self.capacity.text = "" // TODO
+                } else if workOrder.status == "pending_acceptance" {
+                    confirmButton.isHidden = true
+                    creditCardIcon.isHidden = true
+                    creditCardLastFour.isHidden = true
+                    userIconImageView.isHidden = true
+                    capacity.isHidden = true
+                    distanceEstimate.isHidden = true
+                    fareEstimate.isHidden = true
+                    activityIndicatorView.startAnimating()
+                }
+
+                if oldValue == nil {
+                    UIView.animate(
+                        withDuration: 0.25,
+                        animations: { [weak self] in
+                            self!.view.frame.origin.y -= self!.view.frame.height
+                        },
+                        completion: { [weak self] _ in
+                            logInfo("Presented work order for confirmation: \(self!.workOrder!)")
+                        }
+                    )
+                }
+
             }
         }
     }
@@ -110,8 +128,12 @@ class ConfirmWorkOrderViewController: ViewController {
         )
     }
 
-    fileprivate func prepareForReuse() {
+    func prepareForReuse() {
         workOrder = nil
+    }
+
+    func setWorkOrder(_ workOrder: WorkOrder) {
+        self.workOrder = workOrder
     }
 
     func confirmWorkOrderWithOriginCoordinate(_ coordinate: CLLocationCoordinate2D, destination: Contact) {
@@ -133,7 +155,8 @@ class ConfirmWorkOrderViewController: ViewController {
             { [weak self] statusCode, mappingResult in
                 if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
-                    self!.workOrder = workOrder
+                    WorkOrderService.sharedService().setWorkOrders([workOrder])
+                    self!.setWorkOrder(workOrder)
                 }
             },
             onError: { err, statusCode, responseString in

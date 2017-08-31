@@ -24,6 +24,10 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
 
     @IBOutlet fileprivate weak var tableView: UITableView!
 
+    func prepareForReuse() {
+        results = [Contact]()
+    }
+
     // MARK: UITableViewDelegate
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
