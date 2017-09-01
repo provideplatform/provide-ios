@@ -163,7 +163,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         if !pendingSearch {
             search()
         } else if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 0.25,
+            timer = Timer.scheduledTimer(timeInterval: 0.1,
                                          target: self,
                                          selector: #selector(DestinationInputViewController.search),
                                          userInfo: nil,

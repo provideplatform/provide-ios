@@ -694,9 +694,10 @@ class ApiService: NSObject {
             onError: onError
         )
     }
-    
-    func autocompletePlaces(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+
+    @discardableResult
+    func autocompletePlaces(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+        return dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API
