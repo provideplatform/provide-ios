@@ -22,6 +22,7 @@ class User: Model {
     var providerIds = [Int]()
     var defaultCompanyId = 0
     var menuItemsPreference: NSArray!
+    var paymentMethods: [Any]!
 
     var profileImageUrl: URL! {
         if let profileImageUrlString = profileImageUrlString {
@@ -65,6 +66,7 @@ class User: Model {
             "provider_ids": "providerIds",
             "default_company_id": "defaultCompanyId",
             "menu_items": "menuItemsPreference",
+            "payment_methods": "paymentMethods",
             ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))
