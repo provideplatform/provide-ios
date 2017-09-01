@@ -185,7 +185,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         let payload = data["payload"] as? [String : AnyObject]
 
                         if let message = message {
-                            AnalyticsService.sharedService().track("Websocket Received Message", properties: ["message": message as AnyObject] as [String : AnyObject])
+                            logInfo("Websocket message received: \(message)")
+
+                            AnalyticsService.sharedService().track("Websocket Received Message",
+                                                                   properties: ["message": message as AnyObject] as [String : AnyObject])
 
                             switch message {
                             case "attachment_changed":
