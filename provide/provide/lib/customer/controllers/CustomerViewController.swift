@@ -281,4 +281,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             )
         }
     }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
