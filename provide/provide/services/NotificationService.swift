@@ -221,6 +221,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 break
 
                             case "work_order_provider_changed":
+                                let workOrderProviderJson = payload!.toJSONString()
+                                let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
