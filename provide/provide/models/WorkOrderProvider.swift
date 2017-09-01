@@ -19,6 +19,7 @@ class WorkOrderProvider: Model {
     var estimatedDuration = -1.0
     var duration = -1.0
     var flatFee = -1.0
+    var timedOutAt: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -31,10 +32,15 @@ class WorkOrderProvider: Model {
             "estimated_cost",
             "duration",
             "flat_fee",
+            "timed_out_at",
             ]
         )
         mapping?.addRelationshipMapping(withSourceKeyPath: "provider", mapping: Provider.mapping())
         return mapping!
+    }
+
+    var isTimedOut: Bool {
+        return timedOutAt != nil
     }
 
     var estimatedCost: Double {

@@ -360,6 +360,21 @@ class WorkOrder: Model {
         return false
     }
 
+    var isCurrentProviderTimedOut: Bool {
+        if isCurrentUserProvider {
+            if let workOrderProviders = workOrderProviders {
+                for workOrderProvider in workOrderProviders {
+                    if workOrderProvider.provider.userId == currentUser.id {
+                        if workOrderProvider.isTimedOut {
+                            return true
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+    
     var providers: [Provider] {
         var providers = [Provider]()
         if let workOrderProviders = workOrderProviders {
