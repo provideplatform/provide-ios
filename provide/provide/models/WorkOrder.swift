@@ -19,6 +19,8 @@ class WorkOrder: Model {
     var company: Company!
     var customerId = 0
     var customer: Customer!
+    var userId = 0
+    var user: User!
     var comments: [Comment]!
     var jobId = 0
     var desc: String!
@@ -47,7 +49,6 @@ class WorkOrder: Model {
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
-    var userId = 0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -79,6 +80,7 @@ class WorkOrder: Model {
             "priority": "priority",
             "user_id": "userId",
             ])
+        mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         mapping?.addRelationshipMapping(withSourceKeyPath: "company", mapping: Company.mapping())
         mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
@@ -277,9 +279,29 @@ class WorkOrder: Model {
         return customer.contact
     }
 
-    var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
-                                          customer.contact.longitude.doubleValue)
+    var coordinate: CLLocationCoordinate2D! {
+        if let config = config {
+            if let currentLocation = config["current_location"] as? [String: Double] {
+                let latitude = currentLocation["latitude"]
+                let longitude = currentLocation["longitude"]
+                if latitude != nil && longitude != nil {
+                    return CLLocationCoordinate2DMake(latitude!, longitude!)
+                }
+            } else if let origin = config["origin"] as? [String: Double] {
+                let latitude = origin["latitude"]
+                let longitude = origin["longitude"]
+                if latitude != nil && longitude != nil {
+                    return CLLocationCoordinate2DMake(latitude!, longitude!)
+                }
+            }
+        }
+        
+        if let customer = customer {
+            return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
+                                              customer.contact.longitude.doubleValue)
+        }
+
+        return nil
     }
 
     var components: NSMutableArray {

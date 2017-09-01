@@ -60,7 +60,15 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     fileprivate func refresh() {
-        navigationItem.title = title == nil ? workOrder.customer.contact.name : title
+        if title == nil {
+            if let customer = workOrder.customer {
+                navigationItem.title = customer.contact.name
+            } else if let user = workOrder.user {
+                navigationItem.title = user.name
+            }
+        } else {
+            navigationItem.title = title
+        }
 
         if workOrder.id > 0 {
             //                workOrder.reload(

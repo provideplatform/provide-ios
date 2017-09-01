@@ -6,7 +6,7 @@
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
-import UIKit
+import KTSwiftExtensions
 
 class WorkOrderDestinationHeaderViewController: ViewController {
 
@@ -47,22 +47,35 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         targetView.addSubview(view)
         targetView.bringSubview(toFront: view)
 
-        if workOrder != nil {
-            if workOrder.customer.profileImageUrl != nil {
-                // TODO -- load the image view using the profileImageUrl
-            } else if workOrder.customer.contact.email != nil {
-//                let gravatarImageView = UIImageView(frame: titleImageView.frame)
-//                gravatarImageView.email = workOrder.contact.email
-//                gravatarImageView.load { error in
-//                    gravatarImageView.makeCircular()
-//                    self.view.insertSubview(gravatarImageView, aboveSubview: self.titleImageView)
-//                    self.titleImageView.alpha = 0
-//                    gravatarImageView.alpha = 1
-//                }
-            }
+        titleLabel.text = ""
+        addressTextView.text = ""
 
-            titleLabel.text = workOrder.customer.displayName
-            addressTextView.text = workOrder.customer.contact.address
+        if workOrder != nil {
+            if let customer = workOrder.customer {
+                if customer.profileImageUrl != nil {
+                    // TODO -- load the image view using the profileImageUrl
+                } else if let _ = customer.contact.email {
+                    logWarn("Not rendering gravatar image view for work order contact email")
+                }
+                
+                titleLabel.text = customer.displayName
+                addressTextView.text = customer.contact.address
+            } else if let user = workOrder.user {
+                if user.profileImageUrl != nil {
+                    // TODO -- load the image view using the profileImageUrl
+                } else if let _ = user.email {
+                    logWarn("Not rendering gravatar image view for work order contact email")
+                }
+                
+                titleLabel.text = user.name
+                if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
+                    if let desc = destination["description"] as? String {
+                        addressTextView.text = desc
+                    }
+                }
+            }
+            
+            addressTextView.sizeToFit()
         }
 
         //var frame = initialFrame

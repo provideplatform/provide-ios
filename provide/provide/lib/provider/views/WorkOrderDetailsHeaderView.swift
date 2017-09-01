@@ -26,23 +26,39 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             gradientView.alpha = 0.7
             bringSubview(toFront: gradientView)
 
-            customerLabel.text = workOrder.customer.displayName
+            customerLabel.text = ""
+            addressLabel.text = ""
+
+            if let customer = workOrder.customer {
+                customerLabel.text = customer.displayName
+                addressLabel.text = customer.contact.address
+            } else if let user = workOrder.user {
+                customerLabel.text = user.name
+                if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
+                    if let desc = destination["description"] as? String {
+                        addressLabel.text = desc
+                    }
+                }
+            }
+            
             customerLabel.sizeToFit()
             bringSubview(toFront: customerLabel)
-            
-            addressLabel.text = workOrder.customer.contact.address
+
             addressLabel.sizeToFit()
             bringSubview(toFront: addressLabel)
 
             mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
             mapView.addAnnotation(workOrder.annotation)
 
-            dispatch_after_delay(0.0) {
-                var coordinate = self.workOrder.coordinate
-                coordinate.latitude += self.mapView.region.span.latitudeDelta * 0.1
-                coordinate.longitude += self.mapView.region.span.longitudeDelta * 0.4
+            dispatch_after_delay(0.0) { [weak self] in
+                if let _ = self?.workOrder.coordinate {
+                    var coordinate = self!.workOrder.coordinate!
+                    coordinate.latitude += self!.mapView.region.span.latitudeDelta * 0.1
+                    coordinate.longitude += self!.mapView.region.span.longitudeDelta * 0.4
+                    
+                    self!.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+                }
 
-                self.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
             }
         }
     }
