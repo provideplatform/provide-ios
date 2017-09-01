@@ -22,7 +22,9 @@ class WorkOrderService: NSObject {
                 }
                 for provider in wo.providers {
                     if provider.userId == currentUser.id {
-                        return wo
+                        if !wo.isCurrentProviderTimedOut {
+                            return wo
+                        }
                     }
                 }
             }

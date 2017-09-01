@@ -302,7 +302,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
-                if workOrders.count == 0 {
+                if workOrders.count == 0 || WorkOrderService.sharedService().inProgressWorkOrder == nil {
                     if let zeroStateViewController = self!.zeroStateViewController {
                         zeroStateViewController.render(self!.view)
                     }
