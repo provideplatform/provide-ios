@@ -220,6 +220,12 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 }
                                 break
 
+                            case "work_order_provider_changed":
+                                if WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                                }
+                                break
+
                             case "work_order_provider_added":
                                 break
 
