@@ -91,7 +91,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
 
         NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { _ in
-            if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder) {
+            if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder || self.canAttemptSegueToPendingAcceptanceWorkOrder) {
                 if self.viewingDirections {
                     self.updatingWorkOrderContext = true
                     WorkOrderService.sharedService().inProgressWorkOrder?.reload(
@@ -192,6 +192,13 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             return workOrder.status == "en_route"
+        }
+        return false
+    }
+
+    fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "pending_acceptance"
         }
         return false
     }
@@ -314,7 +321,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         let workOrderService = WorkOrderService.sharedService()
 
         workOrderService.fetch(
-            status: "pending_acceptance,en_route,in_progress,timed_out",
+            status: "pending_acceptance,en_route,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
