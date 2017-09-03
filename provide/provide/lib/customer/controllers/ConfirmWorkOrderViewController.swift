@@ -97,7 +97,6 @@ class ConfirmWorkOrderViewController: ViewController {
                         }
                     )
                 }
-
             }
         }
     }

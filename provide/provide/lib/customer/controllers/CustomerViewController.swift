@@ -16,6 +16,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     fileprivate var destinationInputViewController: DestinationInputViewController!
     fileprivate var destinationResultsViewController: DestinationResultsViewController!
     fileprivate var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
+    fileprivate var providerEnRouteViewController: ProviderEnRouteViewController!
 
     fileprivate var updatingWorkOrderContext = false
 
@@ -59,6 +60,30 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 self!.loadWorkOrderContext()
             }
         }
+
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
+            if let workOrder = notification.object as? WorkOrder {
+                dispatch_after_delay(0.0) {
+                    if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
+                        self?.handleInProgressWorkOrderStateChange()
+                    }
+                }
+
+            }
+        }
+    }
+
+    fileprivate func handleInProgressWorkOrderStateChange() {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if workOrder.status == "en_route" {
+                // ensure we weren't previously awaiting confirmation
+                if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
+                    confirmWorkOrderViewController?.prepareForReuse()
+                }
+
+                attemptSegueToValidWorkOrderContext()
+            }
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,6 +104,9 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             assert(segue.destination is ConfirmWorkOrderViewController)
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
+        case "ProviderEnRouteViewControllerEmbedSegue":
+            assert(segue.destination is ProviderEnRouteViewController)
+            providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
         default:
             break
         }
@@ -171,9 +199,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     fileprivate func attemptSegueToValidWorkOrderContext() {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if canAttemptSegueToEnRouteWorkOrder {
-                logWarn("Segue to en route work order not implemented...")
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
+                presentProviderEnRouteViewController()
+                providerEnRouteViewController?.setWorkOrder(workOrder)
             } else if canAttemptSegueToAwaitingScheduleWorkOrder || canAttemptSegueToPendingAcceptanceWorkOrder {
                 setupCancelWorkOrderBarButtonItem()
                 presentConfirmWorkOrderViewController()
@@ -182,6 +211,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         } else {
             setupMenuBarButtonItem()
 
+            providerEnRouteViewController?.prepareForReuse()
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
 
@@ -240,6 +270,18 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 //            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
 //                destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
 //            }
+        }
+    }
+
+    fileprivate func presentProviderEnRouteViewController() {
+        if let providerEnRouteView = providerEnRouteViewController.view {
+            providerEnRouteView.isHidden = true
+            providerEnRouteView.removeFromSuperview()
+            mapView.addSubview(providerEnRouteView)
+
+            providerEnRouteView.frame.size.width = mapView.frame.width
+            providerEnRouteView.frame.origin.y = mapView.frame.size.height
+            providerEnRouteView.isHidden = false
         }
     }
 

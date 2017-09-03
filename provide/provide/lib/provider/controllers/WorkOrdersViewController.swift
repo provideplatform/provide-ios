@@ -92,7 +92,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
         NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.sharedService().inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder || self.canAttemptSegueToPendingAcceptanceWorkOrder) {
-                if self.viewingDirections {
+                if self.viewingDirections && WorkOrderService.sharedService().inProgressWorkOrder != nil {
                     self.updatingWorkOrderContext = true
                     WorkOrderService.sharedService().inProgressWorkOrder?.reload(
                         { statusCode, mappingResult in
@@ -105,12 +105,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                                     self.updatingWorkOrderContext = false
                                 }
                             }
-                    },
+                        },
                         onError: { error, statusCode, responseString in
                             self.refreshAnnotations()
                             self.updatingWorkOrderContext = true
                             self.loadWorkOrderContext()
-                    }
+                        }
                     )
                 } else {
                     self.refreshAnnotations()

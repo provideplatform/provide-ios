@@ -387,6 +387,19 @@ class WorkOrder: Model {
         return providers
     }
 
+    var providerProfileImageUrl: URL? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
+        if let workOrderProviders = workOrderProviders {
+            for workOrderProvider in workOrderProviders {
+                if !workOrderProvider.isTimedOut {
+                    if let provider = workOrderProvider.provider {
+                        return provider.profileImageUrl
+                    }
+                }
+            }
+        }
+        return nil
+    }
+
     var regionIdentifier: String {
         return "work order \(id)"
     }

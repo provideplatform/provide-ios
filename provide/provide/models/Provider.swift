@@ -15,7 +15,6 @@ class Provider: Model {
     var id = 0
     var companyId = 0
     var userId = 0
-    var name: String!
     var contact: Contact!
     var profileImageUrlString: String!
     var services: NSSet!
@@ -24,6 +23,13 @@ class Provider: Model {
     var lastCheckinLatitude: NSNumber!
     var lastCheckinLongitude: NSNumber!
     var lastCheckinHeading: NSNumber!
+
+    var name: String? {
+        if let name = contact?.name {
+            return name
+        }
+        return nil
+    }
 
     var profileImageUrl: URL? {
         guard let profileImageUrlString = profileImageUrlString else { return nil }
