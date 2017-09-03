@@ -93,8 +93,8 @@
 		6884415A1C06E3E10017D4AA /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688441591C06E3E10017D4AA /* PinInputControl.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
 		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
-		688CDCA41F53A1F8002060C1 /* arlington.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 688CDCA31F53A1F8002060C1 /* arlington.gpx */; };
 		6899CDD71F5BC4140074370C /* ProviderEnRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDD61F5BC4140074370C /* ProviderEnRouteViewController.swift */; };
+		688CDCA41F53A1F8002060C1 /* ballston.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 688CDCA31F53A1F8002060C1 /* ballston.gpx */; };
 		689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB11B07DFE3005694B7 /* ApiService.swift */; };
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
@@ -167,6 +167,7 @@
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
+		68E112FF1F5BD34F0069BD45 /* clarendon.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68E112FE1F5BD34F0069BD45 /* clarendon.gpx */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
@@ -264,7 +265,7 @@
 		688441591C06E3E10017D4AA /* PinInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinInputControl.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
 		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
-		688CDCA31F53A1F8002060C1 /* arlington.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = arlington.gpx; path = arlington/arlington.gpx; sourceTree = "<group>"; };
+		688CDCA31F53A1F8002060C1 /* ballston.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ballston.gpx; path = arlington/ballston.gpx; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		689608951B3A1F21008719B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6899CDD61F5BC4140074370C /* ProviderEnRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProviderEnRouteViewController.swift; path = customer/controllers/ProviderEnRouteViewController.swift; sourceTree = "<group>"; };
@@ -345,6 +346,7 @@
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
+		68E112FE1F5BD34F0069BD45 /* clarendon.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = clarendon.gpx; path = arlington/clarendon.gpx; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
@@ -516,7 +518,8 @@
 		688CDCA21F53A1C9002060C1 /* arlington */ = {
 			isa = PBXGroup;
 			children = (
-				688CDCA31F53A1F8002060C1 /* arlington.gpx */,
+				688CDCA31F53A1F8002060C1 /* ballston.gpx */,
+				68E112FE1F5BD34F0069BD45 /* clarendon.gpx */,
 			);
 			name = arlington;
 			sourceTree = "<group>";
@@ -1068,9 +1071,10 @@
 				68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */,
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
-				688CDCA41F53A1F8002060C1 /* arlington.gpx in Resources */,
+				688CDCA41F53A1F8002060C1 /* ballston.gpx in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
 				6846D9971F3EC97D004532BD /* Customer.storyboard in Resources */,
+				68E112FF1F5BD34F0069BD45 /* clarendon.gpx in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
