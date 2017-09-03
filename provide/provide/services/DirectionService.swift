@@ -55,6 +55,10 @@ class DirectionService: NSObject {
         return sharedInstance
     }
 
+    func resetLastDirectionsApiRequestCoordinate() {
+        lastDirectionsApiRequestCoordinate = nil
+    }
+
     func fetchDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onEtaFetched: @escaping OnEtaFetched) {
         if canSendEtaApiRequest {
             lastEtaApiRequestDate = Date()

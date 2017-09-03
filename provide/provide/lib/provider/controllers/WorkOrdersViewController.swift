@@ -77,8 +77,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
-        setupAvailabilityBarButtonItem()
-
         requireProviderContext()
         
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
@@ -113,6 +111,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         }
                     )
                 } else {
+                    DirectionService.sharedService().resetLastDirectionsApiRequestCoordinate()
+                    
                     self.refreshAnnotations()
                     self.updatingWorkOrderContext = true
                     self.loadWorkOrderContext()
@@ -120,17 +120,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             }
         }
 
-        setupBarButtonItems()
+        setupMenuBarButtonItem()
+        setupAvailabilityBarButtonItem()
+
         setupZeroStateView()
     }
 
     fileprivate func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
-    }
-
-    fileprivate func setupBarButtonItems() {
-        setupMenuBarButtonItem()
-        setupMessagesBarButtonItem()
     }
 
     fileprivate func setupMenuBarButtonItem() {
@@ -140,9 +137,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     fileprivate func setupMessagesBarButtonItem() {
-//        let messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-//        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
-//        navigationItem.rightBarButtonItem = messagesBarButtonItem
+        let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
+        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
+        navigationItem.rightBarButtonItem = messagesBarButtonItem
     }
 
     @objc fileprivate func menuButtonTapped(_ sender: UIBarButtonItem) {
@@ -231,7 +228,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
         let availabilitySwitch = UISwitch()
         availabilitySwitch.addTarget(self, action: #selector(WorkOrdersViewController.toggleAvailability), for: .valueChanged)
-        availabilitySwitch.removeFromSuperview()
         availabilitySwitch.isHidden = false
         availabilitySwitch.isEnabled = true
         availabilitySwitch.isOn = currentProvider.isAvailable
@@ -327,6 +323,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
+        } else {
+            setupAvailabilityBarButtonItem()
         }
 
         availabilityBarButtonItem?.isEnabled = availabilityBarButtonItemEnabled
@@ -685,7 +683,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {
-        setupBarButtonItems()
+        setupMenuBarButtonItem()
+        setupAvailabilityBarButtonItem()
     }
 
     // MARK: DirectionsViewControllerDelegate
