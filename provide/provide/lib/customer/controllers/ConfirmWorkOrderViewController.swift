@@ -8,7 +8,13 @@
 
 import KTSwiftExtensions
 
+protocol ConfirmWorkOrderViewControllerDelegate: NSObjectProtocol {
+    func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder)
+}
+
 class ConfirmWorkOrderViewController: ViewController {
+
+    weak var delegate: ConfirmWorkOrderViewControllerDelegate!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var confirmButton: UIButton!
@@ -116,10 +122,10 @@ class ConfirmWorkOrderViewController: ViewController {
 
         workOrder.status = "pending_acceptance"
         workOrder.save(
-            { statusCode, mappingResult in
-                if let workOrder = mappingResult?.firstObject {
+            { [weak self] statusCode, mappingResult in
+                if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
-                    
+                    self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
                 }
             },
             onError: { err, statusCode, responseString in

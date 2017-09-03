@@ -623,17 +623,17 @@ class WorkOrder: Model {
     }
 
     func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
     func restart(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
     }
 
     func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
 
-        updateWorkorderWithStatus("in_progress",
+        updateWorkOrderWithStatus("in_progress",
             onSuccess: { statusCode, mappingResult in
                 self.pendingArrival = false
                 onSuccess(statusCode, mappingResult)
@@ -646,11 +646,11 @@ class WorkOrder: Model {
     }
 
     func abandon(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
     func cancel(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
     func approve(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -658,18 +658,18 @@ class WorkOrder: Model {
     }
 
     func reject(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
     func complete(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("completed", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("completed", onSuccess: onSuccess, onError: onError)
     }
 
     func submitForApproval(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkorderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkorderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func updateWorkOrderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
         ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status as AnyObject],
             onSuccess: { statusCode, mappingResult in

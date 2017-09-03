@@ -45,7 +45,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         navigationItem.hidesBackButton = true
 
-        setupBarButtonItems()
+        setupMenuBarButtonItem()
 
         loadWorkOrderContext()
 
@@ -89,21 +89,22 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         loadProviderContext()
     }
 
-    fileprivate func setupBarButtonItems() {
-        setupMenuBarButtonItem()
-        setupMessagesBarButtonItem()
-    }
-
     fileprivate func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: "menuButtonTapped:")
         navigationItem.leftBarButtonItem = menuBarButtonItem
+        navigationItem.rightBarButtonItem = nil
     }
 
     fileprivate func setupMessagesBarButtonItem() {
-        //        let messageIconImage = FAKFontAwesome.envelopeOIconWithSize(25.0).imageWithSize(CGSize(width: 25.0, height: 25.0))
-        //        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
-        //        navigationItem.rightBarButtonItem = messagesBarButtonItem
+        let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
+        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
+        navigationItem.rightBarButtonItem = messagesBarButtonItem
+    }
+
+    fileprivate func setupCancelWorkOrderBarButtonItem() {
+        let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(CustomerViewController.cancelButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
     }
 
     @objc fileprivate func menuButtonTapped(_ sender: UIBarButtonItem) {
@@ -113,6 +114,24 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
         presentViewController(messagesNavCon!, animated: true)
+    }
+
+    @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
+            attemptSegueToValidWorkOrderContext()
+
+            workOrder.updateWorkOrderWithStatus("canceled",
+                onSuccess: { [weak self] statusCode, result in
+                    self?.attemptSegueToValidWorkOrderContext()
+                    self?.loadWorkOrderContext()
+                },
+                onError: { [weak self] err, statusCode, response in
+                    logWarn("Failed to cancel work order; attempting to reload work order context")
+                    self?.loadWorkOrderContext()
+                }
+            )
+        }
     }
 
     func loadProviderContext() {
@@ -153,11 +172,16 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if canAttemptSegueToEnRouteWorkOrder {
                 logWarn("Segue to en route work order not implemented...")
+                setupCancelWorkOrderBarButtonItem()
+                setupMessagesBarButtonItem()
             } else if canAttemptSegueToAwaitingScheduleWorkOrder || canAttemptSegueToPendingAcceptanceWorkOrder {
+                setupCancelWorkOrderBarButtonItem()
                 presentConfirmWorkOrderViewController()
                 confirmWorkOrderViewController?.setWorkOrder(workOrder)
             }
         } else {
+            setupMenuBarButtonItem()
+
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
 
@@ -264,11 +288,18 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 
+    // MARK: ConfirmWorkOrderViewControllerDelegate
+
+    func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder) {
+        setupCancelWorkOrderBarButtonItem()
+    }
+
     // MARK: DestinationInputViewControllerDelegate
 
     func destinationInputViewController(_ viewController: DestinationInputViewController,
                                         didSelectDestination destination: Contact,
                                         startingFrom origin: Contact!) {
+        setupCancelWorkOrderBarButtonItem()
         presentConfirmWorkOrderViewController()
 
         if origin == nil {
