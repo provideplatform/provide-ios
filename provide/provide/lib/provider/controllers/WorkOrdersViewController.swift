@@ -490,9 +490,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode {
-//        if viewingDirections {
-//            return .FollowWithHeading
-//        }
+        if viewingDirections {
+            return .followWithHeading
+        }
         return .none
     }
 
