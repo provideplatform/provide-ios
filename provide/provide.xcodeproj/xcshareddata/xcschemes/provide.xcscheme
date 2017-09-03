@@ -106,7 +106,7 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../provide/provide/gpx/arlington/clarendon.gpx"
+         identifier = "../provide/provide/gpx/arlington/ballston.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
