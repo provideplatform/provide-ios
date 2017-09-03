@@ -11,6 +11,7 @@ import KTSwiftExtensions
 
 typealias OnHeadingResolved = (CLHeading) -> ()
 typealias OnLocationResolved = (CLLocation) -> ()
+typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> ()
 
 class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
@@ -42,6 +43,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     fileprivate var onLocationResolvedCallbacks = [OnLocationResolved]()
     fileprivate var onLocationResolvedDurableCallbacks = [String : OnLocationResolved]()
+
+    fileprivate var onLocationAndHeadingResolvedCallbacks = [OnLocationAndHeadingResolved]()
+    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String : OnLocationAndHeadingResolved]()
 
     fileprivate var requireNavigationAccuracy = false
 
@@ -101,6 +105,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             locationServiceStartedDate = Date()
 
             startUpdatingLocation()
+            startUpdatingHeading()
 
             logInfo("Started location service updates")
         }
@@ -151,6 +156,17 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         stopUpdatingHeading()
     }
 
+    // MARK: Location + heading resolution
+
+    func resolveCurrentLocationAndHeading(onResolved: @escaping OnLocationAndHeadingResolved) {
+        foreground()
+        resolveCurrentLocation { [weak self] location in
+            self?.resolveCurrentHeading { heading in
+                onResolved(location, heading)
+            }
+        }
+    }
+
     // MARK: Location resolution
 
     func resolveCurrentLocation(_ durableKey: String? = nil, allowCachedLocation: Bool = false, onResolved: @escaping OnLocationResolved) {
@@ -187,7 +203,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     fileprivate func locationResolved(_ location: CLLocation) {
-        log("Resolved current location: \(location)")
+        logInfo("Resolved current location: \(location)")
 
         currentLocation = location
 
@@ -251,7 +267,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     fileprivate func headingResolved(_ heading: CLHeading) {
-        log("Resolved current heading: \(heading)")
+        logInfo("Resolved current heading: \(heading)")
         currentHeading = heading
 
         while onHeadingResolvedCallbacks.count > 0 {
@@ -326,7 +342,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        log("Started monitoring region \(region)")
+        logInfo("Started monitoring region \(region)")
     }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {

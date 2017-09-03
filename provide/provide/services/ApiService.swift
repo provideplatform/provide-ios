@@ -515,7 +515,7 @@ class ApiService: NSObject {
 
     // MARK: Checkin API
 
-    func checkin(_ location: CLLocation) {
+    func checkin(_ location: CLLocation, heading: CLHeading!) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ"
         let checkinDate = dateFormatter.string(from: location.timestamp)
@@ -523,9 +523,13 @@ class ApiService: NSObject {
         let longitude = location.coordinate.longitude
         let latitude = location.coordinate.latitude
 
-        let params: [String: AnyObject] = ["latitude": latitude as AnyObject,
+        var params: [String: AnyObject] = ["latitude": latitude as AnyObject,
                                            "longitude": longitude as AnyObject,
                                            "checkin_at": checkinDate as AnyObject]
+
+        if let heading = heading {
+            params["heading"] = heading.magneticHeading as AnyObject
+        }
 
         return checkin(params,
             onSuccess: { statusCode, mappingResult in
