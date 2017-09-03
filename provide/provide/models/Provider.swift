@@ -166,6 +166,10 @@ class Provider: Model {
     
     class Annotation: NSObject, MKAnnotation {
         fileprivate var provider: Provider!
+
+        func matches(_ otherProvider: Provider) -> Bool {
+            return otherProvider.id == provider.id
+        }
         
         required init(provider: Provider) {
             self.provider = provider

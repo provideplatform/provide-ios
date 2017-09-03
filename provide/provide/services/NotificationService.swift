@@ -210,6 +210,37 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 let comment = Comment(string: payload!.toJSONString())
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
 
+                            case "provider_became_available":
+                                let providerJson = payload!.toJSONString()
+                                let provider = Provider(string: providerJson)
+                                if ProviderService.sharedService().containsProvider(provider) {
+                                    ProviderService.sharedService().updateProvider(provider)
+                                } else {
+                                    ProviderService.sharedService().appendProvider(provider)
+                                }
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
+                                break
+
+                            case "provider_became_unavailable":
+                                if let providerId = payload?["provider_id"] as? Int {
+                                    if let provider = ProviderService.sharedService().cachedProvider(providerId) {
+                                        ProviderService.sharedService().removeProvider(providerId)
+                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
+                                    }
+                                }
+                                break
+
+                            case "provider_location_changed":
+                                let providerJson = payload!.toJSONString()
+                                let provider = Provider(string: providerJson)
+                                if ProviderService.sharedService().containsProvider(provider) {
+                                    ProviderService.sharedService().updateProvider(provider)
+                                } else {
+                                    ProviderService.sharedService().appendProvider(provider)
+                                }
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
+                                break
+
                             case "work_order_changed":
                                 let workOrderJson = payload!.toJSONString()
                                 let workOrder = WorkOrder(string: workOrderJson)

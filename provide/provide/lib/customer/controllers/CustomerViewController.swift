@@ -61,6 +61,34 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             }
         }
 
+        NotificationCenter.default.addObserverForName("ProviderContextShouldRefresh") { [weak self] _ in
+            self?.loadProviderContext()
+        }
+
+        NotificationCenter.default.addObserverForName("ProviderBecameAvailable") { [weak self] notification in
+            if let provider = notification?.object as? Provider {
+                dispatch_after_delay(0.0) {
+                    self?.updateProviderLocation(provider)
+                }
+            }
+        }
+
+        NotificationCenter.default.addObserverForName("ProviderBecameUnavailable") { [weak self] notification in
+            if let provider = notification?.object as? Provider {
+                dispatch_after_delay(0.0) {
+                    self?.updateProviderLocation(provider)
+                }
+            }
+        }
+
+        NotificationCenter.default.addObserverForName("ProviderLocationChanged") { [weak self] notification in
+            if let provider = notification?.object as? Provider {
+                dispatch_after_delay(0.0) {
+                    self?.updateProviderLocation(provider)
+                }
+            }
+        }
+
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 dispatch_after_delay(0.0) {
@@ -236,7 +264,6 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             mapView.addSubview(destinationInputView)
 
             destinationInputView.frame.size.width = mapView.frame.width
-//            destinationInputView.frame.origin.y -= destinationInputView.frame.size.height
             destinationInputView.isHidden = false
             if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                 destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
@@ -267,9 +294,6 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             confirmWorkOrderView.frame.size.width = mapView.frame.width
             confirmWorkOrderView.frame.origin.y = mapView.frame.size.height
             confirmWorkOrderView.isHidden = false
-//            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-//                destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
-//            }
         }
     }
 
@@ -286,13 +310,22 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func updateProviderLocation(_ provider: Provider) {
-        logInfo("Update provider location: \(provider)")
-        if !mapView.annotations.contains(where: { (annotation) -> Bool in
-            if let _ = annotation as? Provider.Annotation {
-                return true
+        if !mapView.annotations.contains(where: { annotation -> Bool in
+            if let providerAnnotation = annotation as? Provider.Annotation {
+                if providerAnnotation.matches(provider) {
+                    if ProviderService.sharedService().containsProvider(provider) {
+                        logWarn("Animated provider annotation movement not yet implemented")
+                        return true
+                    } else {
+                        logInfo("Removing unavailable provider annotation from customer map view")
+                        mapView.removeAnnotation(annotation)
+                        return true
+                    }
+                }
             }
             return false
         }) {
+            logInfo("Added provider annotation: \(provider)")
             mapView.addAnnotation(provider.annotation)
         }
     }
