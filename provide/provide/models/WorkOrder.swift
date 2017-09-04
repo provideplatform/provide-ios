@@ -287,9 +287,9 @@ class WorkOrder: Model {
                 if latitude != nil && longitude != nil {
                     return CLLocationCoordinate2DMake(latitude!, longitude!)
                 }
-            } else if let origin = config["origin"] as? [String: Double] {
-                let latitude = origin["latitude"]
-                let longitude = origin["longitude"]
+            } else if let origin = config["origin"] as? [String: AnyObject] {
+                let latitude = origin["latitude"] as? Double
+                let longitude = origin["longitude"] as? Double
                 if latitude != nil && longitude != nil {
                     return CLLocationCoordinate2DMake(latitude!, longitude!)
                 }
