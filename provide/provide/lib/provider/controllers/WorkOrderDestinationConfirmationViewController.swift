@@ -46,9 +46,9 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         super.viewWillAppear(animated)
 
         if let _ = WorkOrderService.sharedService().inProgressWorkOrder {
-            confirmStartWorkOrderButton.titleText = "CONFIRM DESTINATION" // FIXME
+            confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
         } else if let _ = WorkOrderService.sharedService().nextWorkOrder {
-            confirmStartWorkOrderButton.titleText = "ACCEPT REQUEST" // FIXME
+            confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
         }
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
 
