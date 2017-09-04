@@ -6,7 +6,7 @@
 //  Copyright © 2017 Provide Technologies Inc.. All rights reserved.
 //
 
-import Foundation
+import KTSwiftExtensions
 import JSQMessagesViewController
 
 class MessageCell: JSQMessagesCollectionViewCell {
@@ -83,7 +83,14 @@ class MessageCell: JSQMessagesCollectionViewCell {
     func configure(message: Message, collectionViewController: JSQMessagesViewController) {
         self.collectionViewController = collectionViewController
 
-        avatarImageView.image = nil // FIXME!!!
+        avatarImageView.image = #imageLiteral(resourceName: "profile-image-placeholder")
+        if let profileImageUrl = message.senderProfileImageUrl {
+            avatarImageView.sd_setImage(with: profileImageUrl,
+                completed: { image, err, cacheType, url in
+                    logInfo("load avatar image view")
+                }
+            )
+        }
 
         cellBottomLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!
         cellBottomLabel.textColor = .white

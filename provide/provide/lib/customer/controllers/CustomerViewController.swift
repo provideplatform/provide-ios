@@ -194,6 +194,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                     messagesVC.recipient = user
                 }
             }
+            messagesNavCon?.modalPresentationStyle = .overCurrentContext
             presentViewController(messagesNavCon!, animated: true)
         }
     }
