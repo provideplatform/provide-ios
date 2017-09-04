@@ -12,6 +12,7 @@ import KTSwiftExtensions
 typealias OnHeadingResolved = (CLHeading) -> ()
 typealias OnLocationResolved = (CLLocation) -> ()
 typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> ()
+typealias OnReverseGeocodeResolved = (CLPlacemark) -> ()
 
 class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
@@ -363,6 +364,17 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         if let callbacks = geofenceCallbacks[region.identifier] {
             if let callback = callbacks["didExitRegion"] {
                 callback()
+            }
+        }
+    }
+
+    func reverseGeocodeLocation(_ location: CLLocation, onResolved: @escaping OnReverseGeocodeResolved) {
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(self.location!) { (placemarks, error) in
+            if let placemarks = placemarks {
+                if placemarks.count > 0 {
+                    onResolved(placemarks.first!)
+                }
             }
         }
     }
