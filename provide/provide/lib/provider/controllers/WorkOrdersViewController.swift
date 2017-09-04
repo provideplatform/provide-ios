@@ -301,7 +301,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         let workOrderService = WorkOrderService.sharedService()
 
         workOrderService.fetch(
-            status: "pending_acceptance,en_route,in_progress",
+            status: "pending_acceptance,en_route,arriving,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
