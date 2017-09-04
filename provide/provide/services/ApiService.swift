@@ -233,7 +233,7 @@ class ApiService: NSObject {
                 onSuccess(response)
             },
             onError: { resp, obj, err in
-                //FIXME onError(resp, obj, "")
+                logWarn("Failed to create \(attachableType) attachment")
             }
         )
     }
@@ -282,19 +282,19 @@ class ApiService: NSObject {
                     presignedRequest,
                     data: data,
                     withMimeType: mimeType,
-                    successHandler: { resp in
+                    successHandler: { _ in
                         logInfo("Attachment uploaded to S3")
-                        onSuccess(resp)
-                },
+                        onSuccess(presignResponse as AnyObject)
+                    },
                     failureHandler: { resp, obj, err in
                         logWarn("Failed to upload attachment to S3")
                         onError(resp, obj, err)
-                }
+                    }
                 )
-        },
+            },
             failureHandler: { resp, code, err in
                 logWarn("Failed to presign S3")
-        }
+            }
         )
     }
     
@@ -311,8 +311,29 @@ class ApiService: NSObject {
             usingPresignedS3RequestURL: presignedS3RequestURL,
             params: params,
             onSuccess: { response in
-                self.createAttachment("user", withAttachableId: id, params: params, onSuccess: onSuccess, onError: onError)
-                onSuccess(response)
+                var attachment = [String : Any]()
+                if let response = response as? [String: Any] {
+                    let bucketBaseUrl = response["url"] as? String
+                    if let fields = response["fields"] as? [String: Any] {
+                        if let key = fields["key"] as? String {
+                            let url = "\(bucketBaseUrl!)/\(key)"
+                            attachment["url"] = url
+                            attachment["key"] = key
+                        }
+                        if let mimeType = fields["Content-Type"] {
+                            attachment["mime_type"] = mimeType
+                        }
+                        attachment["metadata"] = fields
+                    }
+                }
+                for (k, v) in params {
+                    attachment[k] = v
+                }
+                self.createAttachment("user",
+                                      withAttachableId: id,
+                                      params: attachment as [String : AnyObject],
+                                      onSuccess: onSuccess,
+                                      onError: onError)
         },
             onError: onError
         )
@@ -412,7 +433,7 @@ class ApiService: NSObject {
                         }
                     },
                     onError: { error, statusCode, responseString in
-
+                        logWarn("Failed to fetch user (\(statusCode))")
                     }
                 )
             },
