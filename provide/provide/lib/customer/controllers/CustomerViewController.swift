@@ -182,8 +182,20 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
-        let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
-        presentViewController(messagesNavCon!, animated: true)
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
+            if let messagesVC = messagesNavCon?.viewControllers.first as? MessagesViewController {
+                if let provider = workOrder.provider {
+                    let user = User()
+                    user.id = provider.userId
+                    user.name = provider.name
+                    user.profileImageUrlString = provider.profileImageUrlString
+
+                    messagesVC.recipient = user
+                }
+            }
+            presentViewController(messagesNavCon!, animated: true)
+        }
     }
 
     @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {

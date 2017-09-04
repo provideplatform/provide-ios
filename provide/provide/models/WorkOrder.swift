@@ -384,6 +384,19 @@ class WorkOrder: Model {
         }
         return false
     }
+
+    var provider: Provider? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
+        if let workOrderProviders = workOrderProviders {
+            for workOrderProvider in workOrderProviders {
+                if !workOrderProvider.isTimedOut {
+                    if let provider = workOrderProvider.provider {
+                        return provider
+                    }
+                }
+            }
+        }
+        return nil
+    }
     
     var providers: [Provider] {
         var providers = [Provider]()
@@ -397,15 +410,9 @@ class WorkOrder: Model {
         return providers
     }
 
-    var providerProfileImageUrl: URL? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
-        if let workOrderProviders = workOrderProviders {
-            for workOrderProvider in workOrderProviders {
-                if !workOrderProvider.isTimedOut {
-                    if let provider = workOrderProvider.provider {
-                        return provider.profileImageUrl
-                    }
-                }
-            }
+    var providerProfileImageUrl: URL? {
+        if let provider = provider {
+            return provider.profileImageUrl
         }
         return nil
     }

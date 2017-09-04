@@ -25,9 +25,7 @@ class MessageService {
         return sharedInstance
     }
 
-    func fetch(_ page: Int = 1, rpp: Int = 10, onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
-        let params = ["page": page, "rpp": rpp]
-
+    func fetch(params: [String: AnyObject], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
         ApiService.sharedService().fetchMessages(params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
                 let fetchedMessages = mappingResult?.array() as! [Message]

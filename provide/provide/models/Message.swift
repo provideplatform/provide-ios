@@ -10,8 +10,24 @@ import UIKit
 import RestKit
 import JSQMessagesViewController
 
+private let elapsedTimeStringFormatter: DateComponentsFormatter = {
+    $0.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute, .second]
+    $0.unitsStyle = .full
+    $0.maximumUnitCount = 1
+    return $0
+}(DateComponentsFormatter())
+
+private let elapsedTimeStringAbbreviatedFormatter: DateComponentsFormatter = {
+    $0.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute, .second]
+    $0.unitsStyle = .abbreviated
+    $0.maximumUnitCount = 1
+    return $0
+}(DateComponentsFormatter())
+
 class Message: Model {
+
     var body = ""
+    var mediaUrl: String!
     var createdAt: Date!
     var id = 0
     var recipientId = 0
@@ -20,6 +36,14 @@ class Message: Model {
     var senderName: String!
     var senderProfileImageUrl: URL!
 
+    var elapsedTimeString: String {
+        return elapsedTimeStringFormatter.string(from: createdAt, to: Date())!.components(separatedBy: ", ").first! + " ago"
+    }
+
+    var elapsedTimeStringAbbreviated: String {
+        return elapsedTimeStringAbbreviatedFormatter.string(from: createdAt, to: Date())!.components(separatedBy: ", ").first!
+    }
+
     convenience init(text: String, recipientId: Int) {
         self.init()
 
@@ -27,41 +51,44 @@ class Message: Model {
         self.recipientId = recipientId
     }
 
+    convenience init(body: String!, mediaUrl: String!, recipientId: Int, senderId: Int, senderName: String) {
+        self.init()
+
+        self.body = body
+        self.mediaUrl = mediaUrl
+        self.recipientId = recipientId
+        self.senderID = senderId
+        self.senderName = senderName
+        createdAt = NSDate() as Date!
+    }
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
 
-        mapping?.addAttributeMappings(from: [
-            "body",
-            "created_at",
-            "id",
-            "recipient_id",
-            "recipient_name",
-            "sender_name",
-            "sender_profile_image_url",
+        mapping?.addAttributeMappings(
+            from: [
+                "body",
+                "media_url",
+                "created_at",
+                "id",
+                "recipient_id",
+                "recipient_name",
+                "sender_name",
+                "sender_profile_image_url",
             ]
         )
 
-        // sender_id does not follow camel case convention
-        mapping?.addAttributeMappings(from: [
-            "sender_id": "senderID",
+        mapping?.addAttributeMappings(
+            from: [
+                "sender_id": "senderID",
             ]
         )
+
         return mapping!
     }
 }
 
-extension Message: JSQMessageData {
-    func text() -> String {
-        return body
-    }
-
-    func senderId() -> String {
-        return senderID.description
-    }
-
-    func senderDisplayName() -> String {
-        return senderName
-    }
+extension Message: JSQMessageData, JSQMessageMediaData {
 
     func date() -> Date {
         return createdAt
@@ -71,8 +98,40 @@ extension Message: JSQMessageData {
         return false
     }
 
+    func media() -> JSQMessageMediaData! {
+        return self
+    }
+
     func messageHash() -> UInt {
         let hash = senderId().hash ^ (date() as NSDate).hash ^ text().hash
         return UInt(abs(hash))
+    }
+
+    func text() -> String {
+        return body
+    }
+
+    func senderId() -> String {
+        return String(senderID)
+    }
+
+    func senderDisplayName() -> String {
+        return senderName
+    }
+
+    public func mediaView() -> UIView! {
+        return nil
+    }
+
+    public func mediaViewDisplaySize() -> CGSize {
+        return CGSize(width: 227.5, height: 128.0)
+    }
+
+    public func mediaPlaceholderView() -> UIView! {
+        return mediaView()
+    }
+
+    public func mediaHash() -> UInt {
+        return messageHash()
     }
 }
