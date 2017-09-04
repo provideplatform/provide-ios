@@ -15,7 +15,8 @@ class WorkOrderPinAnnotationView: MKAnnotationView {
     }
 
     fileprivate var imageView: UIImageView {
-        return UIImageView(image: UIImage("map-pin")!.resize(rect))
+        let pin = #imageLiteral(resourceName: "provide-pin")
+        return UIImageView(image: pin.resize(rect))
     }
 
     init(frame: CGRect) {

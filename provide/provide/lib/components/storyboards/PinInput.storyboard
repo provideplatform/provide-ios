@@ -61,12 +61,8 @@
                                     <constraint firstAttribute="trailing" secondItem="JYZ-L0-92i" secondAttribute="trailing" id="jw0-UC-6LD"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-pin" translatesAutoresizingMaskIntoConstraints="NO" id="YZz-gX-51V">
-                                <rect key="frame" x="48.5" y="36" width="278" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="3HS-KR-hI5"/>
-                                    <constraint firstAttribute="width" constant="278" id="VW8-uA-arq"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-icon" translatesAutoresizingMaskIntoConstraints="NO" id="YZz-gX-51V">
+                                <rect key="frame" x="125" y="36" width="125" height="125"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -92,6 +88,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map-pin" width="50" height="60"/>
+        <image name="provide-icon" width="125" height="125"/>
     </resources>
 </document>

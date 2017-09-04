@@ -21,10 +21,10 @@ protocol PinInputViewControllerDelegate {
 class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     enum `Type` {
-        case createPinController   // 1. create, 2. confirm creation
-        case redeemPinController // 1. redeem
-        case updatePinController   // 2. match old, 2. change, 3. confirm change
-        case validatePinController // 1. validate
+        case createPinController    // 1. create, 2. confirm creation
+        case redeemPinController    // 1. redeem
+        case updatePinController    // 2. match old, 2. change, 3. confirm change
+        case validatePinController  // 1. validate
     }
 
     enum State {
@@ -34,6 +34,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Public Variables
+    
     var delegate: PinInputViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
@@ -48,6 +49,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Private Variables
+    
     @IBOutlet fileprivate weak var messageLabel: UILabel!
     @IBOutlet fileprivate weak var pinInputControl: PinInputControl!
 
@@ -136,13 +138,15 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         pinInputControl.resetView()
 
         dispatch_after_delay(fadeStartDelay) {
-            UIView.animate(withDuration: self.fadeDuration, animations: {
-                self.messageLabel.alpha = 0
-                }) { _ in
-                    UIView.animate(withDuration: self.fadeDuration) {
-                        self.messageLabel.text = message
-                        self.messageLabel.alpha = 1
-                    }
+            UIView.animate(withDuration: self.fadeDuration,
+                animations: {
+                    self.messageLabel.alpha = 0
+                }
+            ) { _ in
+                UIView.animate(withDuration: self.fadeDuration) {
+                    self.messageLabel.text = message
+                    self.messageLabel.alpha = 1
+                }
             }
         }
     }
@@ -174,5 +178,4 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         }
         return "Enter pin" // should never happen!
     }
-
 }
