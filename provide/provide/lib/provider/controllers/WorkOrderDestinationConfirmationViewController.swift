@@ -45,7 +45,11 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        confirmStartWorkOrderButton.titleText = "ACCEPT REQUEST" // FIXME
+        if let _ = WorkOrderService.sharedService().inProgressWorkOrder {
+            confirmStartWorkOrderButton.titleText = "CONFIRM DESTINATION" // FIXME
+        } else if let _ = WorkOrderService.sharedService().nextWorkOrder {
+            confirmStartWorkOrderButton.titleText = "ACCEPT REQUEST" // FIXME
+        }
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
 
         minutesEta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
@@ -171,19 +175,4 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     func drivingEtaToNextWorkOrderChanged(_ minutesEta: NSNumber) {
         self.minutesEta = minutesEta as! Int
     }
-
-//    // MARK: Location updates (no longer needed due to the above delegate method but here for reference)
-    //    private var listeningToLocationUpdates = false
-//    private func registerForLocationUpdates() {
-//        LocationService.sharedService().resolveCurrentLocation({ location in
-//            listeningToLocationUpdates = true
-//            minutesEta = self.workOrdersViewControllerDelegate.drivingEtaToNextWorkOrderForViewController(self)
-//            LocationService.sharedService().background()
-//        }, durableKey: "workOrderDestinationConfirmationViewController")
-//    }
-//
-//    private func unregisterForLocationUpdates() {
-//        listeningToLocationUpdates = false
-//        LocationService.sharedService().removeOnLocationResolvedDurableCallback("workOrderDestinationConfirmationViewController")
-//    }
 }

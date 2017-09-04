@@ -24,7 +24,7 @@ class DirectionsViewController: ViewController {
 
     fileprivate let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
 
-    fileprivate let defaultMapCameraPitch = 0.0 //65.0
+    fileprivate let defaultMapCameraPitch = 60.0
     fileprivate let defaultMapCameraAltitude = 500.0
 
     fileprivate let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
@@ -182,7 +182,7 @@ class DirectionsViewController: ViewController {
 
                     let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 
-                    mapView.setCenterCoordinate(location.coordinate, //directions.selectedRoute.currentLeg.currentStep.endCoordinate, //location.coordinate,
+                    mapView.setCenterCoordinate(location.coordinate,
                         fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
                         eyeAltitude: cameraAltitude,
                         pitch: CGFloat(defaultMapCameraPitch),

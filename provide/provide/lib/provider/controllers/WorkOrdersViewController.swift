@@ -325,7 +325,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToArrivingWorkOrder {
-            logWarn("Present destination confirmation not yet implemented")
+            confirmationRequiredForWorkOrderViewController(self)
         } else if canAttemptSegueToInProgressWorkOrder {
             let workOrder = WorkOrderService.sharedService().inProgressWorkOrder
             if let _ = workOrder?.user {
@@ -604,10 +604,22 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController) {
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.sharedService().nextWorkOrder {
-                workOrder.start(
+                workOrder.route(
                     { [weak self] statusCode, responseString in
+                        logInfo("Work order en route")
                         self!.nextWorkOrderContextShouldBeRewound()
                         self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+                    },
+                    onError: { error, statusCode, responseString in
+                        logWarn("Failed to start work order (\(statusCode))")
+                    }
+                )
+            } else if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                workOrder.start(
+                    { [weak self] statusCode, responseString in
+                        logInfo("Work order started")
+                        self?.nextWorkOrderContextShouldBeRewound()
+                        self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
                     },
                     onError: { error, statusCode, responseString in
                         logWarn("Failed to start work order (\(statusCode))")
@@ -616,21 +628,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             }
         }
     }
-
-//    func workOrderDestinationConfirmed() { // FIXME-- implement this on customer UI.
-//        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-//            logWarn("Work order destination confirmation not yet implemented")
-//            workOrder.save(
-//                { [weak self] statusCode, responseString in
-//                    self!.nextWorkOrderContextShouldBeRewound()
-//                    self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-//                },
-//                onError: { error, statusCode, responseString in
-//                    logWarn("Failed to start work order (\(statusCode))")
-//                }
-//            )
-//        }
-//    }
 
     func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()

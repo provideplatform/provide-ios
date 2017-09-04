@@ -361,7 +361,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOYOTA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-TN-Unf">
-                                <rect key="frame" x="233" y="55" width="131" height="20"/>
+                                <rect key="frame" x="233" y="56" width="131" height="19"/>
                                 <fontDescription key="fontDescription" name="Exo2-Medium" family="Exo 2" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

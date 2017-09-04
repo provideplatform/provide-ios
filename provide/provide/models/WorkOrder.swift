@@ -645,11 +645,11 @@ class WorkOrder: Model {
         config = mutableConfig as! [String : AnyObject]
     }
 
-    func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func route(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
-    func restart(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
     }
 

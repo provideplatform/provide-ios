@@ -50,7 +50,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         for annotation in annotations {
             if annotation is Provider.Annotation {
                 if let annotationView = view(for: annotation) {
-                    for v in annotationView.subviews {
+                    for _ in annotationView.subviews {
 //                        if v is UIImageView {
 //                            v.frame.size = CGSize(width: v.frame.size.width * scale,
 //                                                  height: v.frame.size.height * scale)

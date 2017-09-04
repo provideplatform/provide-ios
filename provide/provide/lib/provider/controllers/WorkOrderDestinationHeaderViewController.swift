@@ -24,7 +24,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     }
 
     weak var workOrder: WorkOrder! {
-        return WorkOrderService.sharedService().nextWorkOrder
+        return WorkOrderService.sharedService().nextWorkOrder ?? WorkOrderService.sharedService().inProgressWorkOrder
     }
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
@@ -34,11 +34,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     @IBOutlet fileprivate weak var titleImageView: UIImageView!
     @IBOutlet fileprivate weak var titleLabel: UILabel!
     @IBOutlet fileprivate weak var addressTextView: UITextView!
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.933, green: 0.937, blue: 0.945, alpha: 1.00)
-    }
 
     func render() {
         view.removeFromSuperview()
@@ -69,7 +64,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 
                 titleLabel.text = user.name
                 if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
-                    if let desc = destination["description"] as? String {
+                    if let formattedAddress = destination["formatted_address"] as? String {
+                        addressTextView.text = formattedAddress
+                    } else if let desc = destination["description"] as? String {
                         addressTextView.text = desc
                     }
                 }
