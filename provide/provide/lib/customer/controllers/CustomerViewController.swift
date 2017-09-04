@@ -222,7 +222,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         updatingWorkOrderContext = true
         workOrderService.fetch(
-            status: "awaiting_schedule,pending_acceptance,en_route,in_progress",
+            status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress",
             onWorkOrdersFetched: { [weak self] workOrders in
                 workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
                 self!.attemptSegueToValidWorkOrderContext()
