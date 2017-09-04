@@ -101,6 +101,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pickup Location" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gLW-KC-aRi">
+                                <rect key="frame" x="16" y="22" width="288" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <accessibility key="accessibilityConfiguration" label="Tet"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
+                                <connections>
+                                    <action selector="textFieldChanged:" destination="9XP-iM-cxc" eventType="editingChanged" id="eeG-82-7oW"/>
+                                    <outlet property="delegate" destination="9XP-iM-cxc" id="VyV-4b-jpI"/>
+                                </connections>
+                            </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where to?" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="cyP-qn-7h8">
                                 <rect key="frame" x="16" y="22" width="288" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,14 +129,19 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="cyP-qn-7h8" firstAttribute="top" secondItem="lDm-3e-tgf" secondAttribute="bottom" constant="22" id="00v-s9-eEe"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gLW-KC-aRi" secondAttribute="trailing" id="22I-cl-Kt3"/>
                             <constraint firstItem="CmA-yP-9ss" firstAttribute="top" secondItem="cyP-qn-7h8" secondAttribute="bottom" constant="23" id="PcS-e0-NXN"/>
+                            <constraint firstItem="CmA-yP-9ss" firstAttribute="top" secondItem="gLW-KC-aRi" secondAttribute="bottom" constant="23" id="R0H-GR-Cew"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="gLW-KC-aRi" secondAttribute="leading" id="RGw-gw-x8c"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cyP-qn-7h8" secondAttribute="trailing" id="Wi4-AF-Uxe"/>
+                            <constraint firstItem="gLW-KC-aRi" firstAttribute="top" secondItem="lDm-3e-tgf" secondAttribute="bottom" constant="22" id="qoT-rs-e0M"/>
                             <constraint firstAttribute="leadingMargin" secondItem="cyP-qn-7h8" secondAttribute="leading" id="qxA-8U-gzk"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="destinationTextField" destination="cyP-qn-7h8" id="G6U-tt-1X0"/>
+                        <outlet property="originTextField" destination="gLW-KC-aRi" id="ylm-qN-slK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdu-Of-7jU" userLabel="First Responder" sceneMemberID="firstResponder"/>

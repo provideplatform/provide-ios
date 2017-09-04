@@ -280,7 +280,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             if let destinationResultsTableView = destinationResultsView.subviews.first as? UITableView {
                 destinationResultsTableView.frame.size.width = destinationResultsView.frame.width
             }
-            
+
             destinationResultsView.isHidden = false
         }
     }
@@ -310,6 +310,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func updateProviderLocation(_ provider: Provider) {
+        if provider.userId == currentUser.id {
+            return  // HACK!!! API should not return this
+        }
+
         if !mapView.annotations.contains(where: { annotation -> Bool in
             if let providerAnnotation = annotation as? Provider.Annotation {
                 if providerAnnotation.matches(provider) {

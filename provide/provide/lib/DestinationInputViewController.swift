@@ -26,6 +26,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         }
     }
 
+    @IBOutlet fileprivate weak var originTextField: UITextField!
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
     
     fileprivate var initialFrame: CGRect!
@@ -36,6 +37,18 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     fileprivate var timer: Timer!
     fileprivate var pendingSearch = false
 
+    fileprivate var placemark: CLPlacemark! {
+        didSet {
+            if let placemark = placemark {
+                if placemark.thoroughfare != nil && placemark.subThoroughfare != nil {
+                    self.originTextField.text = "\(placemark.subThoroughfare!) \(placemark.thoroughfare!)"
+                }
+            } else {
+                self.originTextField.text = ""
+            }
+        }
+    }
+
     fileprivate var expanded = false {
         didSet {
             if expanded {
@@ -45,14 +58,17 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 initialDestinationResultsTableViewFrame = destinationResultsViewController?.view.subviews.first!.frame
 
                 navigationController?.setNavigationBarHidden(true, animated: true)
-                
+
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
                     self!.view.frame.origin.y = 0.0
                     self!.view.frame.size.width = self!.view.superview!.frame.width
                     self!.view.backgroundColor = .white
-                    
+
                     self!.destinationTextField.frame.size.width = self!.view.frame.width
                     self!.destinationTextField.becomeFirstResponder()
+
+                    self!.originTextField.frame.size.width = self!.view.frame.width
+                    self!.originTextField.isHidden = false
                 })
 
                 UIView.animate(withDuration: 0.3, animations: { [weak self] in
@@ -65,7 +81,10 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     destinationTextField.resignFirstResponder()
                 }
 
+                placemark = nil
+
                 destinationTextField.text = ""
+                originTextField.text = ""
 
                 navigationController?.setNavigationBarHidden(false, animated: true)
 
@@ -79,7 +98,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             }
         }
     }
-    
+
     @objc fileprivate func search() {
         if pendingSearch {
             logInfo("Places autocomplete search API request still pending; will execute when it returns")
@@ -93,6 +112,12 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             pendingSearch = true
             LocationService.sharedService().resolveCurrentLocation(
                 onResolved: { [weak self] location in
+                    LocationService.sharedService().reverseGeocodeLocation(
+                        location,
+                        onResolved: { [weak self] placemark in
+                            self?.placemark = placemark
+                        }
+                    )
                     let currentCoordinate = location.coordinate
                     let params = [
                         "q": query,
@@ -178,6 +203,9 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         expanded = false
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
+        if let placemark = placemark {
+            result.merge(placemark: placemark)
+        }
         delegate?.destinationInputViewController(self, didSelectDestination: result, startingFrom: nil)
     }
 }
