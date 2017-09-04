@@ -262,11 +262,20 @@ class ApiService: NSObject {
                        onSuccess: @escaping KTApiSuccessHandler,
                        onError: @escaping KTApiFailureHandler)
     {
+        var tags: String! = nil
+        if let t = params["tags"] as? [String] {
+            tags = t.joined(separator: ",")
+        }
+        let metadata = [
+            "sqs-queue-url": "https://sqs.us-east-1.amazonaws.com/562811387569/prvd-production",
+            "tags": tags,
+        ] as [String : Any]
+
         KTS3Service.presign(
             presignedS3RequestURL,
             bucket: nil,
             filename: "upload.\(mimeMappings[mimeType]!)",
-            metadata: [String: String](),
+            metadata: metadata as! [String : String],
             headers: headers,
             successHandler: { object in
                 let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
@@ -311,19 +320,19 @@ class ApiService: NSObject {
             usingPresignedS3RequestURL: presignedS3RequestURL,
             params: params,
             onSuccess: { response in
-                var attachment = [String : Any]()
-                if let response = response as? [String: Any] {
+                var attachment = [String : AnyObject]()
+                if let response = response as? [String: AnyObject] {
                     let bucketBaseUrl = response["url"] as? String
-                    if let fields = response["fields"] as? [String: Any] {
+                    if let fields = response["fields"] as? [String: AnyObject] {
                         if let key = fields["key"] as? String {
                             let url = "\(bucketBaseUrl!)/\(key)"
-                            attachment["url"] = url
-                            attachment["key"] = key
+                            attachment["url"] = url as AnyObject
+                            attachment["key"] = key as AnyObject
                         }
                         if let mimeType = fields["Content-Type"] {
                             attachment["mime_type"] = mimeType
                         }
-                        attachment["metadata"] = fields
+                        attachment["metadata"] = fields as AnyObject
                     }
                 }
                 for (k, v) in params {
@@ -412,7 +421,7 @@ class ApiService: NSObject {
 
     func setUserDefaultProfileImage(_ image: UIImage, onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         let params = [
-            "public": false,
+            "public": true,
             "tags": ["profile_image", "default"]
         ] as [String : Any]
 
