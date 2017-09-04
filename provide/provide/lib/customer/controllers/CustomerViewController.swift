@@ -41,6 +41,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         return false
     }
 
+    fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "in_progress"
+        }
+        return false
+    }
+
     fileprivate var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             return workOrder.status == "awaiting_schedule"
@@ -233,7 +240,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     fileprivate func attemptSegueToValidWorkOrderContext() {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
-            if canAttemptSegueToArrivingWorkOrder || canAttemptSegueToEnRouteWorkOrder {
+            if canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToArrivingWorkOrder || canAttemptSegueToInProgressWorkOrder {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
                 presentProviderEnRouteViewController()
