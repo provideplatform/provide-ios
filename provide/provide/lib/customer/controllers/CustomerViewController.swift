@@ -377,19 +377,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     func destinationInputViewController(_ viewController: DestinationInputViewController,
                                         didSelectDestination destination: Contact,
-                                        startingFrom origin: Contact!) {
+                                        startingFrom origin: Contact) {
         setupCancelWorkOrderBarButtonItem()
         presentConfirmWorkOrderViewController()
 
-        if origin == nil {
-            logInfo("Provided origin is nil; work order origin will be pegged to user's dynamic location")
-            LocationService.sharedService().resolveCurrentLocation(
-                onResolved: { [weak self] currentLocation in
-                    self?.confirmWorkOrderViewController.confirmWorkOrderWithOriginCoordinate(currentLocation.coordinate,
-                                                                                              destination: destination)
-                }
-            )
-        }
+        confirmWorkOrderViewController.confirmWorkOrderWithOrigin(origin, destination: destination)
     }
 
     deinit {

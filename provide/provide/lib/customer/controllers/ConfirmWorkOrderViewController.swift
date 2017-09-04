@@ -141,9 +141,9 @@ class ConfirmWorkOrderViewController: ViewController {
         self.workOrder = workOrder
     }
 
-    func confirmWorkOrderWithOriginCoordinate(_ coordinate: CLLocationCoordinate2D, destination: Contact) {
-        let latitude = NSNumber(value: coordinate.latitude)
-        let longitude = NSNumber(value: coordinate.longitude)
+    func confirmWorkOrderWithOrigin(_ origin: Contact, destination: Contact) {
+        let latitude = origin.latitude!
+        let longitude = origin.longitude!
 
         logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
 
@@ -152,7 +152,7 @@ class ConfirmWorkOrderViewController: ViewController {
         let pendingWorkOrder = WorkOrder()
         pendingWorkOrder.desc = destination.desc
         if let cfg = destination.data {
-            pendingWorkOrder.config = ["origin": ["latitude": latitude, "longitude": longitude] as AnyObject,
+            pendingWorkOrder.config = ["origin": origin.toDictionary() as AnyObject,
                                        "destination": cfg as AnyObject]
         }
 

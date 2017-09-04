@@ -11,7 +11,7 @@ import KTSwiftExtensions
 protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
     func destinationInputViewController(_ viewController: DestinationInputViewController,
                                         didSelectDestination destination: Contact,
-                                        startingFrom origin: Contact!) // when startingFrom is nil, uses current location
+                                        startingFrom origin: Contact)
 }
 
 class DestinationInputViewController: ViewController, UITextFieldDelegate, DestinationResultsViewControllerDelegate {
@@ -57,6 +57,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
                 initialDestinationResultsTableViewFrame = destinationResultsViewController?.view.subviews.first!.frame
 
+                placemark = nil
+
                 navigationController?.setNavigationBarHidden(true, animated: true)
 
                 UIView.animate(withDuration: 0.25, animations: { [weak self] in
@@ -80,8 +82,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 if destinationTextField.isFirstResponder {
                     destinationTextField.resignFirstResponder()
                 }
-
-                placemark = nil
 
                 destinationTextField.text = ""
                 originTextField.text = ""
@@ -203,9 +203,18 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         expanded = false
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
-        if let placemark = placemark {
-            result.merge(placemark: placemark)
-        }
-        delegate?.destinationInputViewController(self, didSelectDestination: result, startingFrom: nil)
+
+        LocationService.sharedService().resolveCurrentLocation(
+            onResolved: { [weak self] currentLocation in
+                let origin = Contact()
+                origin.latitude = currentLocation.coordinate.latitude as NSNumber
+                origin.longitude = currentLocation.coordinate.longitude as NSNumber
+                if let placemark = self?.placemark {
+                    origin.merge(placemark: placemark)
+                    self?.placemark = nil
+                }
+                self?.delegate?.destinationInputViewController(self!, didSelectDestination: result, startingFrom: origin)
+            }
+        )
     }
 }
