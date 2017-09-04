@@ -240,6 +240,12 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
+        if isSimulator() {
+            logInfo("Returning simulated heading details; simulator does not support heading")
+            onResolved(SimulatedHeading())
+            return
+        }
+
         if allowCachedHeading && currentHeading != nil {
             onResolved(currentHeading)
         } else if !requireNavigationAccuracy {
