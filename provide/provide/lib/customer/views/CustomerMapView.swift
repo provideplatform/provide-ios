@@ -8,7 +8,7 @@
 
 import KTSwiftExtensions
 
-class CustomerMapView: MapView {
+class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,6 +22,10 @@ class CustomerMapView: MapView {
             self.showsUserLocation = true
             LocationService.sharedService().start()
         }
+
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(CustomerMapView.mapViewPinchGestureRecognized(_:)))
+        pinchGestureRecognizer.delegate = self
+        addGestureRecognizer(pinchGestureRecognizer)
     }
 
     override func removeAnnotations() {
@@ -41,7 +45,29 @@ class CustomerMapView: MapView {
             completion: nil
         )
     }
-    
+
+    func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
+        for annotation in annotations {
+            if annotation is Provider.Annotation {
+                if let annotationView = view(for: annotation) {
+                    for v in annotationView.subviews {
+//                        if v is UIImageView {
+//                            v.frame.size = CGSize(width: v.frame.size.width * scale,
+//                                                  height: v.frame.size.height * scale)
+//                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    // MARK: UIGestureRecognizerDelegate
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
     // MARK: MKMapViewDelegate
     
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -63,8 +89,10 @@ class CustomerMapView: MapView {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)
             if view == nil {
                 if view == nil && annotation is Provider.Annotation {
-                    let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
-                    let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
+//                    let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
+//                    let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
+                    let icon = #imageLiteral(resourceName: "prvd-reg")
+                    let imageView = UIImageView(image: icon)
 
                     view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
                     view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
