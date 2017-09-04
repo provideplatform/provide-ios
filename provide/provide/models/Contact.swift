@@ -73,4 +73,22 @@ class Contact: Model {
         }
         return address
     }
+
+    func merge(placemark: CLPlacemark) {
+        if placemark.thoroughfare != nil && placemark.subThoroughfare != nil {
+            address1 = "\(placemark.subThoroughfare!) \(placemark.thoroughfare!)"
+        }
+
+        if let locality = placemark.locality {
+            city = locality
+        }
+
+        if let administrativeArea = placemark.administrativeArea {
+            state = administrativeArea
+        }
+
+        if let postalCode = placemark.postalCode {
+            zip = postalCode
+        }
+    }
 }
