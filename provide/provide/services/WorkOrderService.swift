@@ -37,11 +37,20 @@ class WorkOrderService: NSObject {
     var inProgressWorkOrder: WorkOrder! {
         for wo in workOrders {
             if wo.userId == currentUser.id {
-                if wo.status == "awaiting_schedule" || wo.status == "pending_acceptance" || wo.status == "en_route" || wo.status == "in_progress" || wo.status == "timed_out" {
+                if wo.status == "awaiting_schedule"
+                        || wo.status == "pending_acceptance"
+                        || wo.status == "en_route"
+                        || wo.status == "arriving"
+                        || wo.status == "in_progress"
+                        || wo.status == "timed_out" {
                     return wo
                 }
             }
-            if wo.status == "pending_acceptance" || wo.status == "en_route" || wo.status == "in_progress" || wo.status == "rejected" {
+            if wo.status == "pending_acceptance"
+                    || wo.status == "en_route"
+                    || wo.status == "arriving"
+                    || wo.status == "in_progress"
+                    || wo.status == "rejected" {
                 for provider in wo.providers {
                     if provider.userId == currentUser.id {
                         if !wo.isCurrentProviderTimedOut {
@@ -156,9 +165,9 @@ class WorkOrderService: NSObject {
 
             let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
             LocationService.sharedService().monitorRegionWithCircularOverlay(overlay,
-                                                                           identifier: workOrder.regionIdentifier,
-                                                                           onDidEnterRegion: onDidEnterRegion,
-                                                                           onDidExitRegion: onDidExitRegion)
+                                                                             identifier: workOrder.regionIdentifier,
+                                                                             onDidEnterRegion: onDidEnterRegion,
+                                                                             onDidExitRegion: onDidExitRegion)
         }
     }
 }

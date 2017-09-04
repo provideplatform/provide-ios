@@ -349,6 +349,12 @@ class DirectionsViewController: ViewController {
 
     func unwind() {
         unregisterMonitoredRegions()
+        
+        LocationService.sharedService().removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
+        LocationService.sharedService().removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
+        
+        CheckinService.sharedService().disableNavigationAccuracy()
+        LocationService.sharedService().disableNavigationAccuracy()
 
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
@@ -378,12 +384,6 @@ class DirectionsViewController: ViewController {
                     mapView.enableUserInteraction()
                     mapView.camera.pitch = 0.0
                 }
-
-                LocationService.sharedService().removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
-                LocationService.sharedService().removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
-
-                CheckinService.sharedService().disableNavigationAccuracy()
-                LocationService.sharedService().disableNavigationAccuracy()
             }
         )
     }

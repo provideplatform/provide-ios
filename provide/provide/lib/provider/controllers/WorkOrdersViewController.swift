@@ -200,6 +200,13 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         return false
     }
 
+    fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            return workOrder.status == "arriving"
+        }
+        return false
+    }
+
     fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             return workOrder.status == "in_progress" || workOrder.status == "rejected"
@@ -317,8 +324,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         if canAttemptSegueToEnRouteWorkOrder {
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
+        } else if canAttemptSegueToArrivingWorkOrder {
+            logWarn("Present destination confirmation not yet implemented")
         } else if canAttemptSegueToInProgressWorkOrder {
-            performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
+            let workOrder = WorkOrderService.sharedService().inProgressWorkOrder
+            if let _ = workOrder?.user {
+                performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
+            } else {
+                performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
+            }
+            
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
@@ -354,27 +369,44 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
             refreshAnnotations()
 
-
-            if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
-                WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
-                    {
+            WorkOrderService.sharedService().setInProgressWorkOrderRegionMonitoringCallbacks(
+                {
+                    logInfo("Entered monitored work order region")
+                    if let wo = WorkOrderService.sharedService().inProgressWorkOrder {
                         if wo.canArrive {
                             wo.arrive(
                                 { [weak self] statusCode, responseString in
-                                    self!.nextWorkOrderContextShouldBeRewound()
+                                    logInfo("Work order marked as arriving")
                                     LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
-                                    self!.attemptSegueToValidWorkOrderContext()
+                                    dispatch_after_delay(2.5) {
+                                        self?.nextWorkOrderContextShouldBeRewound()
+                                        self?.attemptSegueToValidWorkOrderContext()
+                                    }
                                 },
                                 onError: { error, statusCode, responseString in
+                                    logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
+                                    LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
+                                }
+                            )
+                        } else if wo.status == "in_progress" {
+                            wo.complete(
+                                { [weak self] statusCode, responseString in
+                                    logInfo("Completed work order")
+                                    self?.nextWorkOrderContextShouldBeRewound()
+                                    self?.attemptSegueToValidWorkOrderContext()
+                                },
+                                onError: { error, statusCode, responseString in
+                                    logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
+                                    LocationService.sharedService().unregisterRegionMonitor(wo.regionIdentifier)
                                 }
                             )
                         }
-
-                    },
-                    onDidExitRegion: {
                     }
-                )
-            }
+                },
+                onDidExitRegion: {
+                    logInfo("Exited monitored work order region")
+                }
+            )
 
             CheckinService.sharedService().enableNavigationAccuracy()
             LocationService.sharedService().enableNavigationAccuracy()
@@ -455,7 +487,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
     func annotationsForMapView(_ mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation] {
         var annotations = [MKAnnotation]()
-        annotations.append(workOrder.annotation)
+        if let user = workOrder.user {
+            annotations.append(user.annotation)
+        } else {
+            annotations.append(workOrder.annotation)
+        }
+
         return annotations
     }
 
@@ -468,6 +505,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     annotationView = (vc as! WorkOrderAnnotationViewController).view as! WorkOrderAnnotationView
                 }
             }
+        } else if annotation is User.Annotation {
+            
         }
 
         return annotationView
@@ -571,12 +610,27 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
                     },
                     onError: { error, statusCode, responseString in
-
+                        logWarn("Failed to start work order (\(statusCode))")
                     }
                 )
             }
         }
     }
+
+//    func workOrderDestinationConfirmed() { // FIXME-- implement this on customer UI.
+//        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+//            logWarn("Work order destination confirmation not yet implemented")
+//            workOrder.save(
+//                { [weak self] statusCode, responseString in
+//                    self!.nextWorkOrderContextShouldBeRewound()
+//                    self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+//                },
+//                onError: { error, statusCode, responseString in
+//                    logWarn("Failed to start work order (\(statusCode))")
+//                }
+//            )
+//        }
+//    }
 
     func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
@@ -585,7 +639,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 self!.attemptSegueToValidWorkOrderContext()
             },
             onError: { error, statusCode, responseString in
-
+                logWarn("Failed to abandon work order (\(statusCode))")
             }
         )
     }

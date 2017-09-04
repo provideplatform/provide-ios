@@ -23,7 +23,23 @@ class User: Model {
     var defaultCompanyId = 0
     var menuItemsPreference: NSArray!
     var paymentMethods: [Any]!
-
+    var lastCheckinAt: String!
+    var lastCheckinLatitude: NSNumber!
+    var lastCheckinLongitude: NSNumber!
+    var lastCheckinHeading: NSNumber!
+    
+    var annotation: Annotation {
+        return Annotation(user: self)
+    }
+    
+    var coordinate: CLLocationCoordinate2D! {
+        if lastCheckinLatitude != nil && lastCheckinLongitude != nil {
+            return CLLocationCoordinate2DMake(lastCheckinLatitude.doubleValue,
+                                              lastCheckinLongitude.doubleValue)
+        }
+        return nil
+    }
+    
     var profileImageUrl: URL! {
         if let profileImageUrlString = profileImageUrlString {
             return URL(string: profileImageUrlString)
@@ -67,6 +83,10 @@ class User: Model {
             "default_company_id": "defaultCompanyId",
             "menu_items": "menuItemsPreference",
             "payment_methods": "paymentMethods",
+            "last_checkin_at": "lastCheckinAt",
+            "last_checkin_latitude": "lastCheckinLatitude",
+            "last_checkin_longitude": "lastCheckinLongitude",
+            "last_checkin_heading": "lastcheckinHeading",
             ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))
@@ -109,6 +129,26 @@ class User: Model {
                 }
             }
         )
+    }
+    
+    class Annotation: NSObject, MKAnnotation {
+        fileprivate var user: User!
+        
+        required init(user: User) {
+            self.user = user
+        }
+        
+        @objc var coordinate: CLLocationCoordinate2D {
+            return user.coordinate
+        }
+
+        @objc var title: String? {
+            return nil
+        }
+        
+        @objc var subtitle: String? {
+            return nil
+        }
     }
 }
 
