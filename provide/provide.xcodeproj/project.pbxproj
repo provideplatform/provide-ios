@@ -160,6 +160,7 @@
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
+		68CD56051F6C8C3B007E66CE /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */; };
 		68D218A91B0861EF000D3ABA /* atlanta.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D2189F1B0861EF000D3ABA /* atlanta.gpx */; };
 		68D218AC1B0861EF000D3ABA /* sandy-springs.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A01B0861EF000D3ABA /* sandy-springs.gpx */; };
 		68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 68D218A21B0861EF000D3ABA /* directions_0.gpx */; };
@@ -343,6 +344,7 @@
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		68D2189F1B0861EF000D3ABA /* atlanta.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = atlanta.gpx; sourceTree = "<group>"; };
 		68D218A01B0861EF000D3ABA /* sandy-springs.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "sandy-springs.gpx"; sourceTree = "<group>"; };
 		68D218A21B0861EF000D3ABA /* directions_0.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = directions_0.gpx; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 				687B650D1C2431800088E539 /* MenuItem.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
+				68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */,
 				68F730611B07DE94001A21B0 /* Provider.swift */,
 				6846D9A01F3EDF2A004532BD /* Route.swift */,
 				68F730631B07DE94001A21B0 /* RouteLeg.swift */,
@@ -1329,6 +1332,7 @@
 				686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */,
 				68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */,
 				68F537181B834A9A0007F480 /* MenuHeaderView.swift in Sources */,
+				68CD56051F6C8C3B007E66CE /* PaymentMethod.swift in Sources */,
 				68B412871B0802AF009A4C05 /* MapView.swift in Sources */,
 				68B412CE1B080D42009A4C05 /* SelfieViewController.swift in Sources */,
 				68B412AD1B0804BC009A4C05 /* ViewController.swift in Sources */,

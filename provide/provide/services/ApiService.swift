@@ -734,6 +734,16 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    // MARK: - Payment methods API
+
+    func fetchPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("payment_methods", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    }
+
+    func createPaymentMethod(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("payment_methods", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: - Messages API
 
     func fetchMessages(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
