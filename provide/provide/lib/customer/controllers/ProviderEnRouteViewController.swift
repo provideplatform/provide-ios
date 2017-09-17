@@ -10,6 +10,7 @@ import KTSwiftExtensions
 
 class ProviderEnRouteViewController: ViewController {
 
+    @IBOutlet private weak var providerStatusLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var makeLabel: UILabel!
@@ -29,6 +30,7 @@ class ProviderEnRouteViewController: ViewController {
                         completion: { [weak self] completed in
                             if self!.workOrder == nil {
                                 self!.activityIndicatorView.startAnimating()
+                                self!.providerStatusLabel.isHidden = true
                                 self!.nameLabel.isHidden = true
                                 self!.categoryLabel.isHidden = true
                                 self!.makeLabel.isHidden = true
@@ -39,6 +41,15 @@ class ProviderEnRouteViewController: ViewController {
                     )
                 }
             } else {
+                if workOrder.status == "en_route" {
+                    self.providerStatusLabel.text = "YOUR DRIVER IS EN ROUTE"
+                } else if workOrder.status == "arriving" {
+                    self.providerStatusLabel.text = "YOUR DRIVER IS ARRIVING NOW"
+                } else if workOrder.status == "in_progress" {
+                    self.providerStatusLabel.text = "HEADING TO DESTINATION"
+                }
+                self.providerStatusLabel.isHidden = true
+
                 self.nameLabel.text = workOrder.providers.first!.firstName!.uppercased()
                 self.nameLabel.isHidden = false
 
