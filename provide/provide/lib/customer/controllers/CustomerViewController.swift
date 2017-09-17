@@ -193,10 +193,19 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
                     messagesVC.recipient = user
                 }
+                let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop,
+                                                  target: self,
+                                                  action: #selector(CustomerViewController.dismissMessagesButtonTapped(_:)))
+                dismissItem.tintColor = .white
+                messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }
             messagesNavCon?.modalPresentationStyle = .overCurrentContext
             presentViewController(messagesNavCon!, animated: true)
         }
+    }
+    
+    @objc fileprivate func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
+        dismissViewController(true)
     }
 
     @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -346,6 +355,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 if providerAnnotation.matches(provider) {
                     if ProviderService.sharedService().containsProvider(provider) {
                         logWarn("Animated provider annotation movement not yet implemented")
+                        mapView.removeAnnotation(annotation)
+                        mapView.addAnnotation(provider.annotation)
                         return true
                     } else {
                         logInfo("Removing unavailable provider annotation from customer map view")

@@ -14,7 +14,7 @@ typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) ->
 
 class WorkOrderService: NSObject {
 
-    var nextWorkOrder: WorkOrder! {
+    weak var nextWorkOrder: WorkOrder! {
         for wo in workOrders {
             if wo.status == "scheduled" || wo.status == "pending_acceptance" {
                 if wo.userId == currentUser.id {
@@ -34,7 +34,7 @@ class WorkOrderService: NSObject {
 
     var nextWorkOrderDrivingEtaMinutes: Int!
 
-    var inProgressWorkOrder: WorkOrder! {
+    weak var inProgressWorkOrder: WorkOrder! {
         for wo in workOrders {
             if wo.userId == currentUser.id {
                 if wo.status == "awaiting_schedule"

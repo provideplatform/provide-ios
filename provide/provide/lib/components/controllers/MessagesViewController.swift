@@ -402,8 +402,9 @@ class MessagesViewController: JSQMessagesViewController {
     // MARK: - Private
 
     private func configureNavigationItemTitleView() {
+        navigationController?.navigationBar.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         if let recipient = recipient {
-            (navigationItem.titleView as! MessagesTitleView).configure(name: recipient.name,
+            (navigationItem.titleView as! MessagesTitleView).configure(name: (recipient.firstName ?? recipient.name),
                                                                        profileImageUrl: recipient.profileImageUrl,
                                                                        height: navigationController?.navigationBar.frame.height ?? 64.0)
         }

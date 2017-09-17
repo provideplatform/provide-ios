@@ -34,19 +34,14 @@ class WorkOrderMapView: MapView {
     }
 
     fileprivate var userLocationImageView: UIImageView {
-        let imageView: UIImageView
+        let imageView: ProfileImageView
 
         if let profileImageUrl = currentUser.profileImageUrl {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            imageView.contentMode = .scaleAspectFit
-            imageView.alpha = 0.0
-            imageView.sd_setImage(with: profileImageUrl as URL) { image, error, cacheType, url in
-                imageView.makeCircular()
-                imageView.alpha = 1
-            }
+            imageView = ProfileImageView(url: profileImageUrl)
         } else {
-            imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            imageView.alpha = 0.0
+            imageView = ProfileImageView()
+            //imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            //imageView.alpha = 0.0
 //            imageView.email = currentUser.email
 //            imageView.load { error in
 //                imageView.makeCircular()

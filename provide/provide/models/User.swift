@@ -46,6 +46,26 @@ class User: Model {
         }
         return nil
     }
+    
+    var firstName: String? {
+        if let name = name {
+            return name.components(separatedBy: " ").first!
+        } else {
+            return nil
+        }
+    }
+    
+    var lastName: String? {
+        if let name = name {
+            if name.components(separatedBy: " ").count > 1 {
+                return name.components(separatedBy: " ").last!
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
+    }
 
     var menuItems: [MenuItem]! {
         if let menuItemsPreference = menuItemsPreference {

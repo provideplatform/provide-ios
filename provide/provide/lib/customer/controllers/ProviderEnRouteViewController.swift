@@ -15,10 +15,10 @@ class ProviderEnRouteViewController: ViewController {
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var makeLabel: UILabel!
     @IBOutlet private weak var modelLabel: UILabel!
-    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var profileImageView: ProfileImageView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    fileprivate var workOrder: WorkOrder! {
+    fileprivate weak var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
@@ -41,45 +41,21 @@ class ProviderEnRouteViewController: ViewController {
                     )
                 }
             } else {
-                if workOrder.status == "en_route" {
-                    self.providerStatusLabel.text = "YOUR DRIVER IS EN ROUTE"
-                } else if workOrder.status == "arriving" {
-                    self.providerStatusLabel.text = "YOUR DRIVER IS ARRIVING NOW"
-                } else if workOrder.status == "in_progress" {
-                    self.providerStatusLabel.text = "HEADING TO DESTINATION"
-                }
-                self.providerStatusLabel.isHidden = true
+                refreshStatus()
 
-                self.nameLabel.text = workOrder.providers.first!.firstName!.uppercased()
-                self.nameLabel.isHidden = false
+                nameLabel.text = workOrder.providers.first!.firstName!.uppercased()
+                nameLabel.isHidden = false
 
-                self.categoryLabel.text = ""  // FIXME -- workOrder.category.desc
-                self.categoryLabel.isHidden = false
+                categoryLabel.text = ""  // FIXME -- workOrder.category.desc
+                categoryLabel.isHidden = false
 
-                self.makeLabel.text = ""
-                self.makeLabel.isHidden = false
+                makeLabel.text = ""
+                makeLabel.isHidden = false
 
-                self.modelLabel.text = ""
-                self.modelLabel.isHidden = false
+                modelLabel.text = ""
+                modelLabel.isHidden = false
 
-                view.bringSubview(toFront: activityIndicatorView)
-                activityIndicatorView.startAnimating()
-
-                if let profileImageUrl = workOrder.providerProfileImageUrl {
-                    profileImageView.contentMode = .scaleAspectFit
-                    profileImageView.sd_setImage(with: profileImageUrl) { [weak self] image, error, imageCacheType, url in
-                        self?.activityIndicatorView.stopAnimating()
-
-                        self?.view.bringSubview(toFront: self!.profileImageView)
-                        self?.profileImageView.makeCircular()
-                        self?.profileImageView.alpha = 1.0
-                    }
-                } else {
-                    activityIndicatorView.stopAnimating()
-
-                    profileImageView.image = nil  // TODO: render default profile pic
-                    profileImageView.alpha = 0.0
-                }
+                refreshProvider()
 
                 if oldValue == nil {
                     UIView.animate(
@@ -95,6 +71,73 @@ class ProviderEnRouteViewController: ViewController {
             }
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
+                    dispatch_after_delay(0.0) {
+                        self?.refreshStatus()
+                    }
+                }
+            }
+
+        }
+    }
+
+    func refreshProvider() {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            view.bringSubview(toFront: activityIndicatorView)
+            activityIndicatorView.startAnimating()
+            
+            if let profileImageUrl = workOrder.providerProfileImageUrl {
+                profileImageView.setImageWithUrl(profileImageUrl) { [weak self] in
+                    self?.activityIndicatorView.stopAnimating()
+                    self?.view.bringSubview(toFront: self!.profileImageView)
+                    self?.profileImageView.makeCircular()
+                    self?.profileImageView.alpha = 1.0
+                }
+            } else {
+                activityIndicatorView.stopAnimating()
+                
+                profileImageView.image = nil  // TODO: render default profile pic
+                profileImageView.alpha = 0.0
+            }
+        }
+    }
+    
+    func refreshStatus() {
+        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+            if workOrder.status == nil {
+                providerStatusLabel?.text = ""
+                providerStatusLabel?.isHidden = false
+                return
+            }
+            
+            if workOrder.status == "en_route" {
+                if workOrder.providerProfileImageUrl == nil {
+                    workOrder.reload(
+                        { [weak self] _, _ in
+                            self?.refreshProvider()
+                        },
+                        onError: { (error, statusCode, response) in
+                            logWarn("Failed to reload work order")
+                        }
+                    )
+                }
+                providerStatusLabel?.text = "YOUR DRIVER IS EN ROUTE"
+            } else if workOrder.status == "arriving" {
+                providerStatusLabel?.text = "YOUR DRIVER IS ARRIVING NOW"
+            } else if workOrder.status == "in_progress" {
+                providerStatusLabel?.text = "HEADING TO DESTINATION"
+            } else if workOrder.status == "completed" {
+                providerStatusLabel?.text = "YOU HAVE ARRIVED"
+            }
+            providerStatusLabel?.isHidden = false
+        }
+    }
 
     func prepareForReuse() {
         workOrder = nil
@@ -102,5 +145,9 @@ class ProviderEnRouteViewController: ViewController {
 
     func setWorkOrder(_ workOrder: WorkOrder) {
         self.workOrder = workOrder
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }

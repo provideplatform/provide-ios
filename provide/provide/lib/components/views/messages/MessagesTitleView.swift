@@ -57,7 +57,7 @@ class MessagesTitleView: UIView {
 
         nameLabel.sizeToFit()
 
-        let cornerLength: CGFloat = 4/30 * profileImageView.frame.width // 4 points on an image that has a width of 30 and proportional for others
-        addHexagonalOutline(to: profileImageView, borderWidth: 2, cornerLength: cornerLength)
+        //let cornerLength: CGFloat = 4/30 * profileImageView.frame.width // 4 points on an image that has a width of 30 and proportional for others
+        //addHexagonalOutline(to: profileImageView, borderWidth: 2, cornerLength: cornerLength)
     }
 }
