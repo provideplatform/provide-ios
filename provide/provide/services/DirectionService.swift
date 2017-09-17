@@ -18,7 +18,7 @@ class DirectionService: NSObject {
             var sufficientDelta = false
             if let currentLocation = LocationService.sharedService().currentLocation {
                 if let lastDirectionsApiRequestCoordinate = lastDirectionsApiRequestCoordinate {
-                    let region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 10.0, identifier: "sufficientDeltaRegionMonitor")
+                    let region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 2.5, identifier: "sufficientDeltaRegionMonitor")
                     sufficientDelta = !region.contains(currentLocation.coordinate)
                 } else {
                     sufficientDelta = true
@@ -55,8 +55,9 @@ class DirectionService: NSObject {
         return sharedInstance
     }
 
-    func resetLastDirectionsApiRequestCoordinate() {
+    func resetLastDirectionsApiRequestCoordinateAndTimestamp() {
         lastDirectionsApiRequestCoordinate = nil
+        lastDirectionsApiRequestDate = nil
     }
 
     func fetchDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onEtaFetched: @escaping OnEtaFetched) {

@@ -111,7 +111,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         }
                     )
                 } else {
-                    DirectionService.sharedService().resetLastDirectionsApiRequestCoordinate()
+                    DirectionService.sharedService().resetLastDirectionsApiRequestCoordinateAndTimestamp()
                     
                     self.refreshAnnotations()
                     self.updatingWorkOrderContext = true
