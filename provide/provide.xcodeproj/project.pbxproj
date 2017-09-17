@@ -89,6 +89,7 @@
 		687CB59D1B07F6020048B692 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58F1B07F6020048B692 /* LocationService.swift */; };
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
+		6888BFD21F6ED75C00898189 /* quincy.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 6888BFD11F6ED75C00898189 /* quincy.gpx */; };
 		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
 		688CDCA41F53A1F8002060C1 /* ballston.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 688CDCA31F53A1F8002060C1 /* ballston.gpx */; };
 		6899CDD71F5BC4140074370C /* ProviderEnRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDD61F5BC4140074370C /* ProviderEnRouteViewController.swift */; };
@@ -271,6 +272,7 @@
 		687CB58F1B07F6020048B692 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
+		6888BFD11F6ED75C00898189 /* quincy.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = quincy.gpx; path = arlington/quincy.gpx; sourceTree = "<group>"; };
 		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		688CDCA31F53A1F8002060C1 /* ballston.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = ballston.gpx; path = arlington/ballston.gpx; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -533,6 +535,7 @@
 			children = (
 				688CDCA31F53A1F8002060C1 /* ballston.gpx */,
 				68E112FE1F5BD34F0069BD45 /* clarendon.gpx */,
+				6888BFD11F6ED75C00898189 /* quincy.gpx */,
 			);
 			name = arlington;
 			sourceTree = "<group>";
@@ -1145,6 +1148,7 @@
 				68B412781B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
+				6888BFD21F6ED75C00898189 /* quincy.gpx in Resources */,
 				68F537331B8373BD0007F480 /* cottage.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
