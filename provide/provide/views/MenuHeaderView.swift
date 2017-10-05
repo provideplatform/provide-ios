@@ -194,7 +194,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(true) {
+            navigationController.dismiss(animated: true) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }
@@ -204,7 +204,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(true) {
+            navigationController.dismiss(animated: true) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }

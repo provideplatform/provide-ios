@@ -406,7 +406,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController) {
         if let presentingViewController = viewController.presentingViewController {
-            presentingViewController.dismissViewController(true)
+            presentingViewController.dismiss(animated: true)
         }
     }
 

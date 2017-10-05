@@ -249,7 +249,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: ApplicationViewControllerDelegate
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
-        dismissViewController(true) {
+        dismiss(animated: true) {
 
         }
     }

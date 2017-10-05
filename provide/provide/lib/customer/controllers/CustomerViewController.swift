@@ -204,7 +204,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     @objc fileprivate func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
-        dismissViewController(true)
+        dismiss(animated: true)
     }
 
     @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {

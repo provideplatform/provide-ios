@@ -93,7 +93,7 @@ class NavigationRootViewController: ViewController,
     // MARK: ApplicationViewControllerDelegate
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
-        dismissViewController(true) {
+        dismiss(animated: true) {
 
         }
     }
@@ -114,7 +114,7 @@ class NavigationRootViewController: ViewController,
 
     func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String) {
         if let presentingViewController = pinInputViewController.presentingViewController {
-            presentingViewController.dismissViewController(true)
+            presentingViewController.dismiss(animated: true)
 
             MBProgressHUD.showAdded(to: presentingViewController.view, animated: true)
 

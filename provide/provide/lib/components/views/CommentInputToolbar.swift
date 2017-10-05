@@ -204,7 +204,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
-        commentsViewController?.dismissViewController(false)
+        commentsViewController?.dismiss(animated: false)
     }
 
     func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
