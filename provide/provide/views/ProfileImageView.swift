@@ -8,7 +8,7 @@
 
 import KTSwiftExtensions
 
-typealias OnProfileImageFetched = () -> ()
+typealias OnProfileImageFetched = () -> Void
 
 class ProfileImageView: UIImageView {
 

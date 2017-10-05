@@ -14,11 +14,11 @@ import AlamofireObjectMapper
 import ObjectMapper
 import JWTDecode
 
-typealias OnSuccess = (_ statusCode: Int, _ mappingResult: RKMappingResult?) -> ()
-typealias OnError = (_ error: NSError, _ statusCode: Int, _ responseString: String) -> ()
-typealias OnURLFetched = (_ statusCode: Int, _ response: Data) -> ()
-typealias OnImageFetched = (_ statusCode: Int, _ response: UIImage) -> ()
-typealias OnTotalResultsCount = (_ totalResultsCount: Int, _ error: NSError?) -> ()
+typealias OnSuccess = (_ statusCode: Int, _ mappingResult: RKMappingResult?) -> Void
+typealias OnError = (_ error: NSError, _ statusCode: Int, _ responseString: String) -> Void
+typealias OnURLFetched = (_ statusCode: Int, _ response: Data) -> Void
+typealias OnImageFetched = (_ statusCode: Int, _ response: UIImage) -> Void
+typealias OnTotalResultsCount = (_ totalResultsCount: Int, _ error: NSError?) -> Void
 
 let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/s3/presign")!
 

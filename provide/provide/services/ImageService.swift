@@ -10,9 +10,9 @@ import Foundation
 import SDWebImage
 import KTSwiftExtensions
 
-typealias OnDownloadProgress = (_ receivedSize: Int, _ expectedSize: Int) -> ()
-typealias OnImageDownloadSuccess = (_ image: UIImage) -> ()
-typealias OnImageDownloadFailure = (_ error: NSError) -> ()
+typealias OnDownloadProgress = (_ receivedSize: Int, _ expectedSize: Int) -> Void
+typealias OnImageDownloadSuccess = (_ image: UIImage) -> Void
+typealias OnImageDownloadFailure = (_ error: NSError) -> Void
 
 class ImageService {
 

@@ -11,7 +11,6 @@ disabled_rules: # rule identifiers to exclude from running
   - identifier_name                           # Count = 48   warning = Identifier Name Violation.
   - opening_brace                             # Count = 41   warning = Opening Brace Spacing Violation.
   - unused_optional_binding                   # Count = 33   warning: Unused Optional Binding Violation.
-  - void_return                               # Count = 28   warning = Void Return Violation.
   - todo                                      # Count = 26   warning = Todo Violation.
   - for_where                                 # Count = 25   warning = For Where Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.

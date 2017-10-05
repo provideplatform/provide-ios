@@ -9,10 +9,10 @@
 import Foundation
 import KTSwiftExtensions
 
-typealias OnHeadingResolved = (CLHeading) -> ()
-typealias OnLocationResolved = (CLLocation) -> ()
-typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> ()
-typealias OnReverseGeocodeResolved = (CLPlacemark) -> ()
+typealias OnHeadingResolved = (CLHeading) -> Void
+typealias OnLocationResolved = (CLLocation) -> Void
+typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> Void
+typealias OnReverseGeocodeResolved = (CLPlacemark) -> Void
 
 class LocationService: CLLocationManager, CLLocationManagerDelegate {
 

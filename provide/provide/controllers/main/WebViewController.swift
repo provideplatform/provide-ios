@@ -35,7 +35,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
     }
 
     fileprivate var stopBarButtonItem: UIBarButtonItem! {
-        let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(WebViewController.dismiss as (WebViewController) -> () -> ()))
+        let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(WebViewController.dismiss as (WebViewController) -> () -> Void))
         stopBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return stopBarButtonItem
     }

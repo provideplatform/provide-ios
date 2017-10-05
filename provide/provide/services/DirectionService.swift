@@ -8,8 +8,8 @@
 
 import Foundation
 
-typealias OnEtaFetched = (_ minutesEta: Int) -> ()
-typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> ()
+typealias OnEtaFetched = (_ minutesEta: Int) -> Void
+typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> Void
 
 class DirectionService: NSObject {
 

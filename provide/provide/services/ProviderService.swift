@@ -7,7 +7,7 @@
 //
 import KTSwiftExtensions
 
-typealias OnProvidersFetched = (_ providers: [Provider]) -> ()
+typealias OnProvidersFetched = (_ providers: [Provider]) -> Void
 
 class ProviderService: NSObject {
 

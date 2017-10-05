@@ -736,14 +736,14 @@ class WorkOrder: Model {
 
     func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().addComment(comment, toWorkOrderWithId: String(id),
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { (statusCode, mappingResult) -> Void in
                 if self.comments == nil {
                     self.comments = [Comment]()
                 }
                 self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { (error, statusCode, responseString) -> () in
+            onError: { (error, statusCode, responseString) -> Void in
                 onError(error, statusCode, responseString)
             }
         )

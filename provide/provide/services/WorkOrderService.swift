@@ -9,8 +9,8 @@
 import Foundation
 import KTSwiftExtensions
 
-typealias OnWorkOrdersFetched = (_ workOrders: [WorkOrder]) -> ()
-typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) -> ()
+typealias OnWorkOrdersFetched = (_ workOrders: [WorkOrder]) -> Void
+typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) -> Void
 
 class WorkOrderService: NSObject {
 
