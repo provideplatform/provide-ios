@@ -67,7 +67,6 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
                 delegate.confirmationRequiredForWorkOrderViewController?(self)
                 delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
             }
-            break
         case "WorkOrderAnnotationViewControllerUnwindSegue":
             assert(segue.source is WorkOrderAnnotationViewController)
             assert(segue.destination is WorkOrdersViewController)

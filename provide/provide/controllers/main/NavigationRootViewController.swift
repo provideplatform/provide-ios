@@ -77,7 +77,6 @@ class NavigationRootViewController: ViewController,
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
             (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
-            break
         case "AuthenticationViewControllerSegue":
             assert(segue.destination is AuthenticationViewController)
         case "PinInputViewControllerSegue":

@@ -204,12 +204,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     }
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
-                                break
-
                             case "comment_changed":
                                 let comment = Comment(string: payload!.toJSONString())
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
-
                             case "provider_became_available":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
@@ -219,8 +216,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     ProviderService.sharedService().appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
-                                break
-
                             case "provider_became_unavailable":
                                 if let providerId = payload?["provider_id"] as? Int {
                                     if let provider = ProviderService.sharedService().cachedProvider(providerId) {
@@ -228,8 +223,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
                                     }
                                 }
-                                break
-
                             case "provider_location_changed":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
@@ -239,8 +232,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     ProviderService.sharedService().appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
-                                break
-
                             case "work_order_changed":
                                 let workOrderJson = payload!.toJSONString()
                                 let workOrder = WorkOrder(string: workOrderJson)
@@ -249,8 +240,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
-                                break
-
                             case "work_order_provider_changed":
                                 let workOrderProviderJson = payload!.toJSONString()
                                 let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
@@ -258,21 +247,16 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
-                                break
-
                             case "work_order_provider_added":
                                 break
-
                             case "work_order_provider_removed":
                                 break
-
                             default:
                                 break
                             }
                         }
                     }
                 }
-
             }
         }
     }

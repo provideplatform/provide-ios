@@ -233,7 +233,6 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
             (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
-            break
         case "AuthenticationViewControllerUnwindSegue":
             if emailField.isFirstResponder {
                 emailField?.resignFirstResponder()

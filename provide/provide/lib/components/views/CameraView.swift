@@ -324,27 +324,22 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 } else {
                     // audioFileOutput.stopRecording()
                 }
-                break
             case .photo:
                 captureFrame()
-                break
             case .selfie:
                 captureFrame()
-                break
             case .video:
                 if recording == false {
                     captureVideo()
                 } else {
                     videoFileOutput.stopRecording()
                 }
-                break
             case .videoSampleBuffer:
                 if recording == false {
                     captureVideo()
                 } else {
                     captureSession.removeOutput(videoDataOutput)
                 }
-                break
             }
         }
     }
@@ -405,12 +400,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
                 let outputFileURL = URL(fileURLWithPath: "\(paths.first!)/\(Date().timeIntervalSince1970).m4v")
                 videoFileOutput.startRecording(toOutputFileURL: outputFileURL, recordingDelegate: self)
-                break
             case .videoSampleBuffer:
                 if captureSession.canAddOutput(videoDataOutput) {
                     captureSession.addOutput(videoDataOutput)
                 }
-                break
             default:
                 break
             }
