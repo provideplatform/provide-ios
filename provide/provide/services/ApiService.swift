@@ -254,7 +254,7 @@ class ApiService: NSObject {
             onError: onError
         )
     }
-    
+
     func addAttachment(_ data: Data,
                        withMimeType mimeType: String,
                        usingPresignedS3RequestURL presignedS3RequestURL: URL,
@@ -283,10 +283,10 @@ class ApiService: NSObject {
                               JSON: presignResponse as! [String : AnyObject],
                               toObject: true,
                               context: nil)
-                
+
                 let presignedRequest = KTPresignedS3Request()
                 presignedRequest.mapping(map: map)
-                
+
                 KTS3Service.upload(
                     presignedRequest,
                     data: data,
@@ -306,7 +306,7 @@ class ApiService: NSObject {
             }
         )
     }
-    
+
     func addAttachment(_ data: Data,
                        withMimeType mimeType: String,
                        toUserWithId id: String,
@@ -347,7 +347,7 @@ class ApiService: NSObject {
             onError: onError
         )
     }
-    
+
     func updateAttachmentWithId(
         _ id: String,
         onUserWithId userId: String,
@@ -797,7 +797,7 @@ class ApiService: NSObject {
                     onTotalResultsCount(-1, error as NSError?)
                 }
             )
-            
+
             op.start()
             requestOperations.append(op)
 
@@ -974,7 +974,7 @@ class ApiService: NSObject {
                     op.start()
                     self.requestOperations.append(op)
                 }
-                
+
                 return op
             }
         }

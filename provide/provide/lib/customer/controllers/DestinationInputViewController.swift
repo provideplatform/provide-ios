@@ -28,12 +28,12 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
     @IBOutlet fileprivate weak var originTextField: UITextField!
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
-    
+
     fileprivate var initialFrame: CGRect!
     fileprivate var initialDestinationTextFieldFrame: CGRect!
     fileprivate var initialDestinationResultsViewFrame: CGRect!
     fileprivate var initialDestinationResultsTableViewFrame: CGRect!
-    
+
     fileprivate var timer: Timer!
     fileprivate var pendingSearch = false
 
@@ -145,7 +145,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
         }
     }
-    
+
     // MARK: UITextFieldDelegate
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -175,7 +175,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     @IBAction fileprivate func textFieldChanged(_ textField: UITextField) {
         // TODO: use a LIFO queue and remove anything that is still queued
         // to allow only a single API request on the wire at a time
-        
+
         if textField.text == "" {
             timer?.invalidate()
             timer = nil

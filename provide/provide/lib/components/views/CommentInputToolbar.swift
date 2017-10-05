@@ -232,11 +232,11 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func cameraViewController(_ cameraViewController: CameraViewController, didFinishVideoCaptureAtURL fileURL: URL) {
-        
+
     }
-    
+
     func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
-        
+
     }
 
     deinit {

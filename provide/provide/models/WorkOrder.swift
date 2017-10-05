@@ -305,7 +305,7 @@ class WorkOrder: Model {
                 }
             }
         }
-        
+
         if let customer = customer {
             return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
                                               customer.contact.longitude.doubleValue)
@@ -397,7 +397,7 @@ class WorkOrder: Model {
         }
         return nil
     }
-    
+
     var providers: [Provider] {
         var providers = [Provider]()
         if let workOrderProviders = workOrderProviders {
@@ -662,7 +662,7 @@ class WorkOrder: Model {
 
     func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
-        
+
         updateWorkOrderWithStatus("arriving",
             onSuccess: { statusCode, mappingResult in
                 self.pendingArrival = false

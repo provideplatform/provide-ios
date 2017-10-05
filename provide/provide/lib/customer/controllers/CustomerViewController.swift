@@ -203,7 +203,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             presentViewController(messagesNavCon!, animated: true)
         }
     }
-    
+
     @objc fileprivate func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
         dismissViewController(true)
     }
@@ -305,12 +305,12 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
             }
         }
-        
+
         if let destinationResultsView = destinationResultsViewController.view {
             destinationResultsView.isHidden = true
             destinationResultsView.removeFromSuperview()
             mapView.addSubview(destinationResultsView)
-            
+
             destinationResultsView.frame.origin.y = mapView.frame.height
             destinationResultsView.frame.size.width = mapView.frame.width
             if let destinationResultsTableView = destinationResultsView.subviews.first as? UITableView {
@@ -320,13 +320,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationResultsView.isHidden = false
         }
     }
-    
+
     fileprivate func presentConfirmWorkOrderViewController() {
         if let confirmWorkOrderView = confirmWorkOrderViewController.view {
             confirmWorkOrderView.isHidden = true
             confirmWorkOrderView.removeFromSuperview()
             mapView.addSubview(confirmWorkOrderView)
-            
+
             confirmWorkOrderView.frame.size.width = mapView.frame.width
             confirmWorkOrderView.frame.origin.y = mapView.frame.size.height
             confirmWorkOrderView.isHidden = false

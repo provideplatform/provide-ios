@@ -116,7 +116,7 @@ class WorkOrderDetailsViewController: ViewController,
                 headerTableViewController.workOrder = workOrder
             }
         }
-        
+
         if tableView != nil {
             reloadTableView()
         }

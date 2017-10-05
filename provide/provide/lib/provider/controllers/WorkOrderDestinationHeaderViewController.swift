@@ -52,7 +52,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 } else if customer.contact.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
-                
+
                 titleLabel.text = customer.displayName
                 addressTextView.text = customer.contact.address
             } else if let user = workOrder.user {
@@ -61,7 +61,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 } else if user.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
-                
+
                 titleLabel.text = user.name
                 if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
                     if let formattedAddress = destination["formatted_address"] as? String {
@@ -71,7 +71,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                     }
                 }
             }
-            
+
             addressTextView.sizeToFit()
         }
 

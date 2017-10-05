@@ -40,7 +40,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
                     }
                 }
             }
-            
+
             customerLabel.sizeToFit()
             bringSubview(toFront: customerLabel)
 
@@ -55,7 +55,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
                     var coordinate = self!.workOrder.coordinate!
                     coordinate.latitude += self!.mapView.region.span.latitudeDelta * 0.1
                     coordinate.longitude += self!.mapView.region.span.longitudeDelta * 0.4
-                    
+
                     self!.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
                 }
 

@@ -69,7 +69,7 @@ class ZeroStateViewController: ViewController {
                     self.view.frame.origin.y -= self.view.frame.height
                 },
                 completion: { completed in
-                    
+
                 }
             )
         } else {

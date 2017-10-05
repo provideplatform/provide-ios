@@ -207,7 +207,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     func setCapturePreviewOrientationWithDeviceOrientation(_ deviceOrientation: UIDeviceOrientation, size: CGSize) {
         if  let capturePreviewLayer = capturePreviewLayer {
             capturePreviewLayer.frame.size = size
-            
+
             if let connection = capturePreviewLayer.connection {
                 switch deviceOrientation {
                 case .portrait:
@@ -444,7 +444,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         let quartzImage = context?.makeImage()!
         CVPixelBufferUnlockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-        
+
         let frame = UIImage(cgImage: quartzImage!)
 
         if outputOCRMetadata {

@@ -33,7 +33,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Public Variables
-    
+
     var delegate: PinInputViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
@@ -48,7 +48,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Private Variables
-    
+
     @IBOutlet fileprivate weak var messageLabel: UILabel!
     @IBOutlet fileprivate weak var pinInputControl: PinInputControl!
 

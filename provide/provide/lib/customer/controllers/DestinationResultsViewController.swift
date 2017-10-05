@@ -38,7 +38,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
     }
 
     // MARK: UITableViewDataSource
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

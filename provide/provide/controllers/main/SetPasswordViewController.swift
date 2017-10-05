@@ -22,7 +22,7 @@ class SetPasswordViewController: ViewController,
     var delegate: SetPasswordViewControllerDelegate!
 
     @IBOutlet fileprivate weak var tableView: UITableView!
-    
+
     @IBOutlet fileprivate weak var passwordField: UITextField!
     @IBOutlet fileprivate weak var confirmField: UITextField!
 
@@ -100,7 +100,7 @@ class SetPasswordViewController: ViewController,
 
         UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 0
-        }) 
+        })
     }
 
     fileprivate func showForm() {
@@ -111,7 +111,7 @@ class SetPasswordViewController: ViewController,
 
         UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 1
-        }) 
+        })
     }
 
     // MARK: UITableViewDataSource

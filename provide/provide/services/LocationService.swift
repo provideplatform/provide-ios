@@ -323,11 +323,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         var callbacks = geofenceCallbacks[identifier]
         if callbacks == nil {
             callbacks = [String: VoidBlock]()
-            
+
         }
         callbacks!["didEnterRegion"] = onDidEnterRegion
         callbacks!["didExitRegion"] = onDidExitRegion
-        
+
         var callbackCounts = geofenceCallbackCounts[identifier]
         if callbackCounts == nil {
             callbackCounts = [String: Int]()

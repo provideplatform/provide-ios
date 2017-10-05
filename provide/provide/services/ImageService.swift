@@ -72,7 +72,7 @@ class ImageService {
                                         dispatch_async_global_queue(DispatchQoS.default.qosClass) {
                                             self.cache.store(image, forKey: cacheKey)
                                         }
-                                        
+
                                         onDownloadSuccess(image!)
                                     } else if error != nil {
                                         if let onDownloadFailure = onDownloadFailure {

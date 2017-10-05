@@ -68,7 +68,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
 
     fileprivate var zeroStateViewController: ZeroStateViewController!
-    
+
     fileprivate var availabilityBarButtonItem: UIBarButtonItem!
 
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
         requireProviderContext()
-        
+
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
         NotificationCenter.default.addObserver(self, selector: #selector(clearProviderContext), name: "ApplicationUserLoggedOut")
 
@@ -112,7 +112,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     )
                 } else {
                     DirectionService.sharedService().resetLastDirectionsApiRequestCoordinateAndTimestamp()
-                    
+
                     self.refreshAnnotations()
                     self.updatingWorkOrderContext = true
                     self.loadWorkOrderContext()
@@ -158,7 +158,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
                     self!.availabilityBarButtonItem?.isEnabled = true
-                    
+
                     if currentProvider.isAvailable {
                         CheckinService.sharedService().start()
                         LocationService.sharedService().start()
@@ -222,7 +222,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
         return false
     }
-    
+
     fileprivate func setupAvailabilityBarButtonItem() {
         if availabilityBarButtonItem != nil {
             navigationItem.rightBarButtonItem = nil
@@ -264,7 +264,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             user.providerIds.append(provider.id)
                             self!.requireProviderContext()
                         }
-                        
+
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
                     }
@@ -276,7 +276,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         if let provider = mappingResult!.firstObject as? Provider {
                             logInfo("Fetched provider context for user: \(provider)")
                             currentProvider = provider
-                            
+
                             self!.setupAvailabilityBarButtonItem()
 
                             if currentProvider.isAvailable {
@@ -333,7 +333,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             } else {
                 performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
             }
-            
+
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
@@ -478,7 +478,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func switchToCustomerMode() {
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
-        
+
         KeyChainService.sharedService().mode = .Customer
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
@@ -506,7 +506,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 }
             }
         } else if annotation is User.Annotation {
-            
+
         }
 
         return annotationView
@@ -656,7 +656,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     self!.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
-                    
+
                 }
             )
         }

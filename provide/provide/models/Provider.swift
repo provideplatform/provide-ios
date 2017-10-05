@@ -51,14 +51,14 @@ class Provider: Model {
         }
         return nil
     }
-    
+
     var isAvailable: Bool {
         if let available = available {
             return available.boolValue
         }
         return false
     }
-    
+
     var annotation: Annotation {
         return Annotation(provider: self)
     }
@@ -146,7 +146,7 @@ class Provider: Model {
             )
         }
     }
-    
+
     func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let val = !isAvailable
         ApiService.sharedService().updateProviderWithId(
@@ -163,22 +163,22 @@ class Provider: Model {
             }
         )
     }
-    
+
     class Annotation: NSObject, MKAnnotation {
         fileprivate var provider: Provider!
 
         func matches(_ otherProvider: Provider) -> Bool {
             return otherProvider.id == provider.id
         }
-        
+
         required init(provider: Provider) {
             self.provider = provider
         }
-        
+
         @objc var profileImageUrl: URL? {
             return provider.profileImageUrl
         }
-        
+
         @objc var coordinate: CLLocationCoordinate2D {
             return provider.coordinate
         }
@@ -186,7 +186,7 @@ class Provider: Model {
         @objc var title: String? {
             return nil
         }
-        
+
         @objc var subtitle: String? {
             return nil
         }

@@ -167,7 +167,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
-        
+
     }
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
@@ -193,7 +193,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
-        
+
     }
 
     fileprivate func initCameraViewController() {
