@@ -15,7 +15,7 @@ class WorkOrderServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        OHHTTPStubs.onStubActivation() { request, stub in
+        OHHTTPStubs.onStubActivation { request, stub in
             logInfo("\(request.URL!) stubbed by \(stub.name).")
         }
 
