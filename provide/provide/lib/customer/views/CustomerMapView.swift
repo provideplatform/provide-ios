@@ -122,9 +122,9 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     }
     
     func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
-        var renderer: MKOverlayRenderer!
+        let renderer: MKOverlayRenderer? = nil
 
-        logWarn("Returning nil overlay renderer for customer map view; \(renderer)")
+        logWarn("Returning nil overlay renderer for customer map view; \(renderer!)")
 
         return renderer
     }
