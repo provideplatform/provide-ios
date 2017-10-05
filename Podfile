@@ -9,7 +9,7 @@ project 'provide/provide.xcodeproj'
 target 'provide' do
   pod 'Analytics'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
-  pod 'FontAwesomeKit/FontAwesome', git: 'https://github.com/PrideChung/FontAwesomeKit'
+  pod 'FontAwesomeKit/FontAwesome'
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
   pod 'KTSwiftExtensions', path: 'KTSwiftExtensions'

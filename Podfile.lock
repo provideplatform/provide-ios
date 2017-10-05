@@ -70,7 +70,7 @@ PODS:
 DEPENDENCIES:
   - Analytics
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont`)
-  - FontAwesomeKit/FontAwesome (from `https://github.com/PrideChung/FontAwesomeKit`)
+  - FontAwesomeKit/FontAwesome
   - jetfire
   - JSQMessagesViewController (~> 7.3.4)
   - KTSwiftExtensions (from `KTSwiftExtensions`)
@@ -86,8 +86,6 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   ELFixSecureTextFieldFont:
     :git: https://github.com/elegion/ELFixSecureTextFieldFont
-  FontAwesomeKit:
-    :git: https://github.com/PrideChung/FontAwesomeKit
   KTSwiftExtensions:
     :path: KTSwiftExtensions
   SWTableViewCell:
@@ -97,9 +95,6 @@ CHECKOUT OPTIONS:
   ELFixSecureTextFieldFont:
     :commit: bc0d5afecdfbae523ad3b6f855ea641fb980ef9e
     :git: https://github.com/elegion/ELFixSecureTextFieldFont
-  FontAwesomeKit:
-    :commit: ed5eb02f4bcf76e218bb1c966c551a7b5240b6b4
-    :git: https://github.com/PrideChung/FontAwesomeKit
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
     :git: https://github.com/kthomas/SWTableViewCell
@@ -130,6 +125,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
-PODFILE CHECKSUM: 77ac9963f6d2147e2503d6481e2da176325b17c7
+PODFILE CHECKSUM: 7f61457a81f89aed92a259eb95ba1afdb0ee0e5f
 
 COCOAPODS: 1.3.1
