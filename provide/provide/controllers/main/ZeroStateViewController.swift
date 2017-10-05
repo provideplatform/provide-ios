@@ -26,7 +26,7 @@ class ZeroStateViewController: ViewController {
         view.frame.origin.y = view.frame.height
 
         backgroundSubview = UIView(frame: view.bounds)
-        let size = max(backgroundSubview.frame.size.width, backgroundSubview.frame.size.height)
+        let size = max(backgroundSubview.frame.width, backgroundSubview.frame.height)
         backgroundSubview.frame.size = CGSize(width: size, height: size)
         backgroundSubview.alpha = 0.78
         backgroundSubview.backgroundColor = .black

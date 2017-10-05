@@ -327,7 +327,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             mapView.addSubview(confirmWorkOrderView)
 
             confirmWorkOrderView.frame.size.width = mapView.frame.width
-            confirmWorkOrderView.frame.origin.y = mapView.frame.size.height
+            confirmWorkOrderView.frame.origin.y = mapView.frame.height
             confirmWorkOrderView.isHidden = false
         }
     }
@@ -339,7 +339,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             mapView.addSubview(providerEnRouteView)
 
             providerEnRouteView.frame.size.width = mapView.frame.width
-            providerEnRouteView.frame.origin.y = mapView.frame.size.height
+            providerEnRouteView.frame.origin.y = mapView.frame.height
             providerEnRouteView.isHidden = false
         }
     }

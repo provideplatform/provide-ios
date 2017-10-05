@@ -76,7 +76,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 UIView.animate(withDuration: 0.3) {
                     self.destinationResultsViewController.view.frame.origin.y = self.view.frame.height
                     self.destinationResultsViewController.view.frame.size.height = self.view.superview!.frame.height - self.view.frame.height
-                    self.destinationResultsViewController.view.subviews.first!.frame.size.height = self.destinationResultsViewController.view.frame.size.height
+                    self.destinationResultsViewController.view.subviews.first!.frame.size.height = self.destinationResultsViewController.view.frame.height
                 }
             } else {
                 if destinationTextField.isFirstResponder {

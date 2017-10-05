@@ -94,8 +94,8 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
             }
         }
 
-        commentInputTextField.frame.size.width = bounds.size.width - offset
-        commentInputTextFieldBarButtonItem.width = commentInputTextField.frame.size.width
+        commentInputTextField.frame.size.width = bounds.width - offset
+        commentInputTextFieldBarButtonItem.width = commentInputTextField.frame.width
 
         sizeToFit()
 
