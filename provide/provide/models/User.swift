@@ -72,7 +72,7 @@ class User: Model {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {
                 if let item = menuItemPreference as? NSDictionary {
-                    menuItems.append(MenuItem(item: item as! [String : String]))
+                    menuItems.append(MenuItem(item: item as! [String: String]))
                 }
             }
             return menuItems
@@ -135,7 +135,7 @@ class User: Model {
 
     func reloadCompanies(_ onSuccess: OnSuccess!, onError: OnError!) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
-        let params: [String : AnyObject] = ["id": companyIdsQueryString as AnyObject]
+        let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
         ApiService.sharedService().fetchCompanies(params,
             onSuccess: { statusCode, mappingResult in
                 self.companies = mappingResult?.array() as! [Company]

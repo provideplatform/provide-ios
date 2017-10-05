@@ -180,15 +180,15 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             } else if message =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
                 if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary() {
-                    if let data = value["data"] as? [String : AnyObject] {
+                    if let data = value["data"] as? [String: AnyObject] {
                         let message = data["message"] as? String
-                        let payload = data["payload"] as? [String : AnyObject]
+                        let payload = data["payload"] as? [String: AnyObject]
 
                         if let message = message {
                             logInfo("Websocket message received: \(message)")
 
                             AnalyticsService.sharedService().track("Websocket Received Message",
-                                                                   properties: ["message": message as AnyObject] as [String : AnyObject])
+                                                                   properties: ["message": message as AnyObject] as [String: AnyObject])
 
                             switch message {
                             case "attachment_changed":

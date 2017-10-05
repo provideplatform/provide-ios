@@ -14,7 +14,7 @@ protocol CommentsViewControllerDelegate {
     func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)
     func commentableTypeForCommentsViewController(_ viewController: CommentsViewController) -> String
     func commentableIdForCommentsViewController(_ viewController: CommentsViewController) -> Int
-    func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String : AnyObject]!
+    func queryParamsForCommentsViewController(_ viewController: CommentsViewController) -> [String: AnyObject]!
 }
 
 class CommentsViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, CommentCreationViewControllerDelegate {

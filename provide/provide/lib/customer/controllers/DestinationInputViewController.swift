@@ -123,7 +123,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                         "q": query,
                         "latitude": currentCoordinate.latitude,
                         "longitude": currentCoordinate.longitude,
-                        ] as [String : Any]
+                        ] as [String: Any]
                     ApiService.sharedService().autocompletePlaces(
                         params as [String : AnyObject],
                         onSuccess: { [weak self] statusCode, mappingResult in

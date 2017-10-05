@@ -28,7 +28,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     @IBOutlet fileprivate weak var menuHeaderView: MenuHeaderView!
 
-    fileprivate var storyboardPaths = [String : AnyObject!]()
+    fileprivate var storyboardPaths = [String: AnyObject!]()
 
     fileprivate var lastSectionIndex: Int {
         return tableView.numberOfSections - 1

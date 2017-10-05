@@ -10,11 +10,11 @@ import UIKit
 import KTSwiftExtensions
 
 protocol PinInputControlDelegate {
-    func pinInputControl(_ pinInputControl : PinInputControl, didCompleteEnteringPin: String)
+    func pinInputControl(_ pinInputControl: PinInputControl, didCompleteEnteringPin: String)
 }
 
 // @IBDesignable // Comment out for now due to weird storyboard error
-class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextInputTraits {
+class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextInputTraits {
 
     let maxPinLength = 4
 
@@ -99,7 +99,7 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
         }
     }
 
-    var hasText : Bool  {
+    var hasText: Bool  {
         return pin.isEmpty
     }
 
@@ -110,7 +110,7 @@ class PinInputControl : UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextI
     }
 
     // UIResponder
-    override var canBecomeFirstResponder : Bool {
+    override var canBecomeFirstResponder: Bool {
         return true
     }
 

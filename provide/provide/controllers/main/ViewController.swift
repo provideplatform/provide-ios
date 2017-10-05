@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 
     func showError(_ errorMessage: String) {
         updateStatus(errorMessage, showActivity: false, isError: true)
-        AnalyticsService.sharedService().track("Showed User an Error", properties: ["errorMessage": errorMessage as AnyObject] as [String : AnyObject])
+        AnalyticsService.sharedService().track("Showed User an Error", properties: ["errorMessage": errorMessage as AnyObject] as [String: AnyObject])
         logWarn(errorMessage)
     }
 

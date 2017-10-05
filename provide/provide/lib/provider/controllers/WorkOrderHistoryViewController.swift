@@ -107,7 +107,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             refreshControl.beginRefreshing()
         }
 
-        let params: [String : AnyObject] = [
+        let params: [String: AnyObject] = [
             "page": page as AnyObject,
             "rpp": rpp as AnyObject,
             "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed" as AnyObject,

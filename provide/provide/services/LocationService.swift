@@ -36,18 +36,18 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     fileprivate var locationServiceStartedDate: Date!
     fileprivate var lastAccurateLocationDate: Date!
 
-    fileprivate var geofenceCallbacks = [String : [String : VoidBlock]]()
-    fileprivate var geofenceCallbackCounts = [String : [String : Int]]()
+    fileprivate var geofenceCallbacks = [String: [String: VoidBlock]]()
+    fileprivate var geofenceCallbackCounts = [String: [String: Int]]()
     fileprivate var onManagerAuthorizedCallbacks = [VoidBlock]()
 
     fileprivate var onHeadingResolvedCallbacks = [OnHeadingResolved]()
-    fileprivate var onHeadingResolvedDurableCallbacks = [String : OnHeadingResolved]()
+    fileprivate var onHeadingResolvedDurableCallbacks = [String: OnHeadingResolved]()
 
     fileprivate var onLocationResolvedCallbacks = [OnLocationResolved]()
-    fileprivate var onLocationResolvedDurableCallbacks = [String : OnLocationResolved]()
+    fileprivate var onLocationResolvedDurableCallbacks = [String: OnLocationResolved]()
 
     fileprivate var onLocationAndHeadingResolvedCallbacks = [OnLocationAndHeadingResolved]()
-    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String : OnLocationAndHeadingResolved]()
+    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String: OnLocationAndHeadingResolved]()
 
     fileprivate var requireNavigationAccuracy = false
 

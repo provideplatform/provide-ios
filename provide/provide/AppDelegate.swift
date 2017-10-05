@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         DBSession.setShared(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
 
-        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String : AnyObject])
+        AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String: AnyObject])
 
         RKLogConfigureFromEnvironment()
 
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnalyticsService.sharedService().track("App Will Terminate", properties: [:])
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
         return openURL(url)
     }
 
@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 handleScheme = scheme == "provide"
             }
             if handleScheme {
-                var params: [String : AnyObject] = [:]
+                var params: [String: AnyObject] = [:]
                 if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
                     params = queryComponent.toJSONObject()
                 }
@@ -169,11 +169,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log(error.localizedDescription)
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo as AnyObject, "received_at": "\(Date().timeIntervalSince1970)" as AnyObject] as [String : AnyObject])
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        AnalyticsService.sharedService().track("Remote notification received", properties: ["userInfo": userInfo as AnyObject, "received_at": "\(Date().timeIntervalSince1970)" as AnyObject] as [String: AnyObject])
 
         if ApiService.sharedService().hasCachedToken {
-            NotificationService.sharedService().dispatchRemoteNotification(userInfo as! [String : AnyObject])
+            NotificationService.sharedService().dispatchRemoteNotification(userInfo as! [String: AnyObject])
         }
 
         completionHandler(.newData)

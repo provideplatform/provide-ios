@@ -47,7 +47,7 @@ class Color {
     }
 
     class func pinInputControlBoxBorderColor() -> UIColor {
-        return UIColor(red:0.58, green:0.72, blue:0.84, alpha:1.0)
+        return UIColor(red: 0.58, green: 0.72, blue: 0.84, alpha: 1.0)
     }
     
     class func annotationViewBackgroundImage() -> UIImage {

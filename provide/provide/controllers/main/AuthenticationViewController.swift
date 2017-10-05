@@ -111,8 +111,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
-            "email" : emailField.text!,
-            "password" : passwordField.text!,
+            "email": emailField.text!,
+            "password": passwordField.text!,
         ]
 
         ApiService.sharedService().login(params,
