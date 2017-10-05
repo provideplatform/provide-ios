@@ -153,7 +153,7 @@ class NavigationRootViewController: ViewController,
                         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
                         alertController.addAction(cancelAction)
 
-                        presentingViewController.presentViewController(alertController, animated: true)
+                        presentingViewController.present(alertController, animated: true)
                     }
                 }
             )

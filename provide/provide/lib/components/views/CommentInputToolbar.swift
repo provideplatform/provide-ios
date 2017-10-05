@@ -115,7 +115,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
 
-        commentsViewController.presentViewController(cameraViewController, animated: true)
+        commentsViewController.present(cameraViewController, animated: true)
     }
 
     func addComment(_ sender: UIBarButtonItem!) {

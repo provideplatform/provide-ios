@@ -199,7 +199,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }
             messagesNavCon?.modalPresentationStyle = .overCurrentContext
-            presentViewController(messagesNavCon!, animated: true)
+            present(messagesNavCon!, animated: true)
         }
     }
 

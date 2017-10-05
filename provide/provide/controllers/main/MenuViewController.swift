@@ -152,9 +152,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         alertController.addAction(logoutAction)
 
         if let navigationController = self.navigationViewControllerForMenuHeaderView(self.menuHeaderView) {
-            navigationController.presentViewController(alertController, animated: true)
+            navigationController.present(alertController, animated: true)
         } else {
-            presentViewController(alertController, animated: true)
+            present(alertController, animated: true)
         }
     }
 

@@ -148,7 +148,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
-        presentViewController(messagesNavCon!, animated: true)
+        present(messagesNavCon!, animated: true)
     }
 
     @IBAction fileprivate func toggleAvailability(_ sender: UISwitch) {

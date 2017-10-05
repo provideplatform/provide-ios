@@ -77,7 +77,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         alertController.addAction(cameraRollAction)
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.presentViewController(alertController, animated: true)
+            navigationController.present(alertController, animated: true)
         }
     }
 
@@ -105,7 +105,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
-            navigationController.presentViewController(imagePickerViewController, animated: true)
+            navigationController.present(imagePickerViewController, animated: true)
         }
     }
 
