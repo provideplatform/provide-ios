@@ -1,0 +1,3 @@
+[submodule "KTSwiftExtensions"]
+	path = KTSwiftExtensions
+	url = git@github.com:kthomas/KTSwiftExtensions.git
