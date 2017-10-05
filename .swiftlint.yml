@@ -1,0 +1,55 @@
+excluded:
+  - Pods
+  - startrack
+
+disabled_rules: # rule identifiers to exclude from running
+  - line_length
+  - unused_closure_parameter                  # Count = 197  warning = Unused Closure Parameter Violation.
+  - force_cast                                # Count = 155  error   = Force Cast Violation.
+  - trailing_whitespace                       # Count = 132  warning = Trailing Whitespace Violation.
+  - colon                                     # Count = 75   warning = Colon Violation.
+  - identifier_name                           # Count = 48   warning = Identifier Name Violation.
+  - opening_brace                             # Count = 41   warning = Opening Brace Spacing Violation.
+  - unused_optional_binding                   # Count = 33   warning: Unused Optional Binding Violation.
+  - void_return                               # Count = 28   warning = Void Return Violation.
+  - todo                                      # Count = 26   warning = Todo Violation.
+  - trailing_comma                            # Count = 25   warning = Trailing Comma Violation.
+  - for_where                                 # Count = 25   warning = For Where Violation.
+  - vertical_parameter_alignment              # Count = 23   warning = Vertical Parameter Alignment Violation.
+  - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
+  - function_body_length                      # Count = 15   warning = Function Body Length Violation.
+  - legacy_constructor                        # Count = 14   warning = Legacy Constructor Violation.
+  - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.
+  - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
+  - file_length                               # Count = 10   warning = File Line Length Violation.
+  - type_body_length                          # Count = 7    warning = Type Body Length Violation.
+  - mark                                      # Count = 7    warning = Mark Violation.
+  - function_parameter_count                  # Count = 7    warning = Function Parameter Count Violation.
+  - vertical_whitespace                       # Count = 6    warning = Vertical Whitespace Violation.
+  - redundant_discardable_let                 # Count = 4    warning = Redundant Discardable Let Violation.
+  - trailing_semicolon                        # Count = 3    warning = Trailing Semicolon Violation.
+  - private_over_fileprivate                  # Count = 3    warning = Private over fileprivate Violation.
+  - implicit_getter                           # Count = 3    warning = Implicit Getter Violation.
+  - empty_parentheses_with_trailing_closure   # Count = 3    warning = Empty Parentheses with Trailing Closure Violation.
+  - comma                                     # Count = 3    warning = Comma Spacing Violation.
+  - shorthand_operator                        # Count = 3    error   = Shorthand Operator Violation.
+  - type_name                                 # Count = 2    warning = Type Name Violation.
+  - leading_whitespace                        # Count = 2    warning = Leading Whitespace Violation.
+  - control_statement                         # Count = 2    warning = Control Statement Violation.
+  - force_try                                 # Count = 2    error   = Force Try Violation.
+  - trailing_newline                          # Count = 1    warning = Trailing Newline Violation.
+  - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
+  - multiple_closures_with_trailing_closure   # Count = 1    warning = Multiple Closures with Trailing Closure Violation.
+  - discarded_notification_center_observer    # Count = 1    warning = Discarded Notification Center Observer Violation.
+  - unneeded_break_in_switch
+
+## Swiftlint Initial Setup Instructions
+##
+## Run this command to generate an initial list of violations that can be set as disabled_rules to get to green
+## Make sure to comment out existing disabled rules first
+##
+## Command:
+## swiftlint 2> /dev/null | ack -ho "((?:warning|error): .* Violation): (.*)[:\.].*(\(.+\))" --output '$1: $2 $3' | sort | uniq -c | sort -nr | ack -ho "\s*(\d+) ((?:warning|error): .* Violation): (.*) \((.+)\)" --output '  - $4 # Count = $1~$2. $3.' | sed 's/#/~#/g' | column -s'~' -t | sed 's/warning:/warning =/' | sed 's/error:/error   =/g'
+
+## Updated command to minimize duplicates:
+## swiftlint 2> /dev/null | ack -ho "((?:warning|error): .* Violation): (.*)[:\.].*(\(.+\))" --output '$1: $3' | sort | uniq -c | sort -nr | ack -ho "\s*(\d+) ((?:warning|error): .* Violation): \((.+)\)" --output '  - $3 # Count = $1~$2.' | sed 's/#/~#/g' | column -s'~' -t | sed 's/warning:/warning =/' | sed 's/error:/error   =/g'
