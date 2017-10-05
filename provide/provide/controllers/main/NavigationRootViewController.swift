@@ -22,16 +22,16 @@ class NavigationRootViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .white
 
         logoImageView.alpha = 0.0
 
         signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
-        signInButton.setTitleColor(UIColor.darkGray, for: .highlighted)
+        signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
-        codeButton.setTitleColor(UIColor.darkGray, for: .highlighted)
+        codeButton.setTitleColor(.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)

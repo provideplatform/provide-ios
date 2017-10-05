@@ -56,10 +56,10 @@ class NameValueTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        contentView.backgroundColor = UIColor.clear
+        contentView.backgroundColor = .clear
 
         backgroundView = UIView(frame: bounds)
-        backgroundView?.backgroundColor = UIColor.clear
+        backgroundView?.backgroundColor = .clear
 
         nameLabel?.text = ""
         nameLabel?.isHidden = true

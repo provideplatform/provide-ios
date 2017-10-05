@@ -52,7 +52,7 @@ class WorkOrderTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        backgroundView?.backgroundColor = UIColor.clear
+        backgroundView?.backgroundColor = .clear
         backgroundView?.alpha = 0.9
 
         customerLabel.text = ""

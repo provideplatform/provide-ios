@@ -19,7 +19,7 @@ class AppearenceProxy {
         UIBarButtonItem.appearance().tintColor = defaultBarTintColor()
         UIBarButtonItem.appearance().setTitleTextAttributes(barButtonItemTitleTextAttributes(), for: UIControlState())
 
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = UIColor.white
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).tintColor = .white
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIToolbar.self]).setTitleTextAttributes(whiteButtonItemTitleTextAttributes(), for: UIControlState())
 
         UITabBar.appearance().tintColor = defaultBarTintColor()

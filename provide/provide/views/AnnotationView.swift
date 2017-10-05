@@ -25,7 +25,7 @@ class AnnotationView: MKAnnotationView {
         isDraggable = false
 
         isOpaque = false
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
 
     @objc fileprivate func gestureRecognized(_: UIGestureRecognizer) {

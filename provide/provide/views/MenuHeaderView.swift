@@ -82,7 +82,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     fileprivate func refresh() {
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
 
         if let user = currentUser {
             profileImageUrl = user.profileImageUrl as URL!

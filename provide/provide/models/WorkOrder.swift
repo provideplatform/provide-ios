@@ -268,7 +268,7 @@ class WorkOrder: Model {
             return Color.abandonedStatusColor()
         }
 
-        return UIColor.clear
+        return .clear
     }
 
     var canBeAbandoned: Bool {

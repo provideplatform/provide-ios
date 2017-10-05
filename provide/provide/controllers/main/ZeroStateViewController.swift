@@ -19,8 +19,8 @@ class ZeroStateViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.clear
-        view.tintColor = UIColor.white
+        view.backgroundColor = .clear
+        view.tintColor = .white
 
         view.alpha = 0.0
         view.frame.origin.y = view.frame.height
@@ -29,7 +29,7 @@ class ZeroStateViewController: ViewController {
         let size = max(backgroundSubview.frame.size.width, backgroundSubview.frame.size.height)
         backgroundSubview.frame.size = CGSize(width: size, height: size)
         backgroundSubview.alpha = 0.78
-        backgroundSubview.backgroundColor = UIColor.black
+        backgroundSubview.backgroundColor = .black
         view.addSubview(backgroundSubview)
         view.sendSubview(toBack: backgroundSubview)
 

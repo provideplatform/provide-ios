@@ -104,7 +104,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.enableEdgeToEdgeDividers()
-        cell.backgroundColor = UIColor.clear
+        cell.backgroundColor = .clear
     }
 
     func alignSections() {
