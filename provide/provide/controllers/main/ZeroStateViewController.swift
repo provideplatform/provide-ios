@@ -76,7 +76,6 @@ class ZeroStateViewController: ViewController {
             view.alpha = 1.0
             view.frame.origin.y -= view.frame.height
         }
-
     }
 
     func dismiss() {

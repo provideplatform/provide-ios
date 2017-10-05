@@ -93,6 +93,5 @@ class AnnotationView: MKAnnotationView {
         @objc func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
             return true
         }
-
     }
 }

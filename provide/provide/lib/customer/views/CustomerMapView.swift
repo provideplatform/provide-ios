@@ -56,7 +56,6 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 //                                                  height: v.frame.size.height * scale)
 //                        }
                     }
-
                 }
             }
         }
@@ -99,7 +98,6 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                     view?.addSubview(imageView)
                 }
             }
-
         }
 
         return view

@@ -264,7 +264,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             user.providerIds.append(provider.id)
                             self!.requireProviderContext()
                         }
-
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
                     }
@@ -286,7 +285,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
                             self!.loadWorkOrderContext()
                         }
-
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
                     }

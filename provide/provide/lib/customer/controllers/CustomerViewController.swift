@@ -110,7 +110,6 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                         self?.handleInProgressWorkOrderStateChange()
                     }
                 }
-
             }
         }
     }
