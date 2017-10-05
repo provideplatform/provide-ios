@@ -16,7 +16,6 @@ disabled_rules: # rule identifiers to exclude from running
   - file_length                               # Count = 10   warning = File Line Length Violation.
   - type_body_length                          # Count = 7    warning = Type Body Length Violation.
   - function_parameter_count                  # Count = 7    warning = Function Parameter Count Violation.
-  - type_name                                 # Count = 2    warning = Type Name Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
   - discarded_notification_center_observer
 
@@ -34,6 +33,11 @@ identifier_name:
     - qa
     - CurrentBuildConfig
     - CurrentEnvironment
+
+type_name:
+  max_length: 45
+  excluded:
+    - WorkOrderDestinationConfirmationViewController
 
 
 ## Swiftlint Initial Setup Instructions
