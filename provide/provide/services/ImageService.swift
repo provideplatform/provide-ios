@@ -61,7 +61,7 @@ class ImageService {
                         } else {
                             let downloader = SDWebImageDownloader.shared()
                             downloader?.shouldDecompressImages = false
-                            let _ = downloader?.downloadImage(with: url, options: downloadOptions,
+                            _ = downloader?.downloadImage(with: url, options: downloadOptions,
                                 progress: { receivedSize, expectedSize in
                                     if let onDownloadProgress = onDownloadProgress {
                                         onDownloadProgress(receivedSize, expectedSize)

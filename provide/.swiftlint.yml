@@ -26,7 +26,6 @@ disabled_rules: # rule identifiers to exclude from running
   - mark                                      # Count = 7    warning = Mark Violation.
   - function_parameter_count                  # Count = 7    warning = Function Parameter Count Violation.
   - vertical_whitespace                       # Count = 6    warning = Vertical Whitespace Violation.
-  - redundant_discardable_let                 # Count = 4    warning = Redundant Discardable Let Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
