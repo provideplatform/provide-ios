@@ -29,7 +29,6 @@ disabled_rules: # rule identifiers to exclude from running
   - redundant_discardable_let                 # Count = 4    warning = Redundant Discardable Let Violation.
   - trailing_semicolon                        # Count = 3    warning = Trailing Semicolon Violation.
   - private_over_fileprivate                  # Count = 3    warning = Private over fileprivate Violation.
-  - implicit_getter                           # Count = 3    warning = Implicit Getter Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.

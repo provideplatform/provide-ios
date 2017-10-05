@@ -93,9 +93,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate var mic: AVCaptureDevice! {
-        get {
-            return AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
-        }
+        return AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
     }
 
     fileprivate var outputFaceMetadata: Bool {
