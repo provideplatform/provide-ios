@@ -195,7 +195,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate func startAudioLevelsPollingTimer() {
-        audioLevelsPollingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(CameraView.pollForAudioLevels), userInfo: nil, repeats: true)
+        audioLevelsPollingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(pollForAudioLevels), userInfo: nil, repeats: true)
         audioLevelsPollingTimer.fire()
     }
 

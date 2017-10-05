@@ -16,7 +16,7 @@ class MessageService {
     fileprivate var messages = [Message]()
 
     fileprivate init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(MessageService.handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
     fileprivate static let sharedInstance = MessageService()

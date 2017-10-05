@@ -173,7 +173,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func setupCancelWorkOrderBarButtonItem() {
-        let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(CustomerViewController.cancelButtonTapped(_:)))
+        let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped(_:)))
         navigationItem.leftBarButtonItem = cancelBarButtonItem
     }
 
@@ -195,7 +195,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 }
                 let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop,
                                                   target: self,
-                                                  action: #selector(CustomerViewController.dismissMessagesButtonTapped(_:)))
+                                                  action: #selector(dismissMessagesButtonTapped(_:)))
                 dismissItem.tintColor = .white
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }

@@ -23,7 +23,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
             LocationService.sharedService().start()
         }
 
-        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(CustomerMapView.mapViewPinchGestureRecognized(_:)))
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(mapViewPinchGestureRecognized(_:)))
         pinchGestureRecognizer.delegate = self
         addGestureRecognizer(pinchGestureRecognizer)
     }

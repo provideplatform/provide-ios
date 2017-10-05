@@ -55,7 +55,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         if let socket = socket {
             socket.connect()
 
-            socketTimer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(NotificationService.maintainWebsocketConnection), userInfo: nil, repeats: true)
+            socketTimer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(maintainWebsocketConnection), userInfo: nil, repeats: true)
         }
     }
 

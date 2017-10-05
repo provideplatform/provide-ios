@@ -37,7 +37,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(AuthenticationViewController.cancel(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancel(_:)))
     }
 
     override func viewWillAppear(_ animated: Bool) {

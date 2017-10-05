@@ -150,7 +150,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     fileprivate func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
-        //refreshControl.addTarget(self, action: #selector(CommentsViewController.refresh), forControlEvents: .ValueChanged)
+        //refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: .ValueChanged)
 
         collectionView.addSubview(refreshControl)
         //collectionView.alwaysBounceVertical = true

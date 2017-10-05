@@ -26,7 +26,7 @@ class ApplicationViewController: UIViewController,
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(ApplicationViewController.currentUserLoggedOut), name: "ApplicationUserLoggedOut")
+        NotificationCenter.default.addObserver(self, selector: #selector(currentUserLoggedOut), name: "ApplicationUserLoggedOut")
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

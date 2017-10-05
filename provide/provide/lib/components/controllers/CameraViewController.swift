@@ -70,7 +70,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
         setupNavigationItem()
 
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(CameraViewController.dismiss(_:)))
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         view.addGestureRecognizer(swipeGestureRecognizer)
 
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -83,10 +83,10 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         if let button = button {
             view.bringSubview(toFront: button)
 
-            button.addTarget(self, action: #selector(CameraViewController.capture), for: .touchUpInside)
+            button.addTarget(self, action: #selector(capture), for: .touchUpInside)
             let events = UIControlEvents.touchUpInside.union(.touchUpOutside).union(.touchCancel).union(.touchDragExit)
-            button.addTarget(self, action: #selector(CameraViewController.renderDefaultButtonAppearance), for: events)
-            button.addTarget(self, action: #selector(CameraViewController.renderTappedButtonAppearance), for: .touchDown)
+            button.addTarget(self, action: #selector(renderDefaultButtonAppearance), for: events)
+            button.addTarget(self, action: #selector(renderTappedButtonAppearance), for: .touchDown)
 
             button.addBorder(5.0, color: UIColor.white)
             button.makeCircular()
@@ -122,7 +122,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         navigationItem.title = "TAKE PHOTO"
         navigationItem.hidesBackButton = true
 
-        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(CameraViewController.dismiss(_:)))
+        let cancelItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(dismiss(_:)))
         cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
 
         navigationItem.leftBarButtonItems = [cancelItem]

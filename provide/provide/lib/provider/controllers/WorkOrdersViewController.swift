@@ -80,7 +80,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         requireProviderContext()
         
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
-        NotificationCenter.default.addObserver(self, selector: #selector(WorkOrdersViewController.clearProviderContext), name: "ApplicationUserLoggedOut")
+        NotificationCenter.default.addObserver(self, selector: #selector(clearProviderContext), name: "ApplicationUserLoggedOut")
 
         NotificationCenter.default.addObserverForName("SegueToWorkOrderHistoryStoryboard") { [weak self] sender in
             if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {
@@ -234,7 +234,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
 
         let availabilitySwitch = UISwitch()
-        availabilitySwitch.addTarget(self, action: #selector(WorkOrdersViewController.toggleAvailability), for: .valueChanged)
+        availabilitySwitch.addTarget(self, action: #selector(toggleAvailability), for: .valueChanged)
         availabilitySwitch.isHidden = false
         availabilitySwitch.isEnabled = true
         availabilitySwitch.isOn = currentProvider.isAvailable

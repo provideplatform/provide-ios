@@ -45,14 +45,14 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
 
     fileprivate var saveItem: UIBarButtonItem! {
         let saveIconImage = FAKFontAwesome.saveIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        let saveItem = UIBarButtonItem(image: saveIconImage, style: .plain, target: self, action: #selector(CommentInputToolbar.addComment(_:)))
+        let saveItem = UIBarButtonItem(image: saveIconImage, style: .plain, target: self, action: #selector(addComment(_:)))
         saveItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return saveItem
     }
 
     fileprivate var photoItem: UIBarButtonItem! {
         let photoItemImage = FAKFontAwesome.cameraIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        let photoItem = UIBarButtonItem(image: photoItemImage, style: .plain, target: self, action: #selector(CommentInputToolbar.addPhoto(_:)))
+        let photoItem = UIBarButtonItem(image: photoItemImage, style: .plain, target: self, action: #selector(addPhoto(_:)))
         photoItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return photoItem
     }
@@ -71,9 +71,9 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         items!.append(saveItem)
         items!.append(photoItem)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentInputToolbar.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow.rawValue)
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentInputToolbar.keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow.rawValue)
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentInputToolbar.keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow.rawValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide.rawValue)
     }
 
     func dismiss() {

@@ -95,7 +95,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         companyLabel.text = ""
         
-        changeProfileImageButton.addTarget(self, action: #selector(MenuHeaderView.changeProfileImage), for: .touchUpInside)
+        changeProfileImageButton.addTarget(self, action: #selector(changeProfileImage), for: .touchUpInside)
         
         profileImageActivityIndicatorView.stopAnimating()
     }

@@ -24,7 +24,7 @@ class RoundedButton: UIButton {
 
         roundCorners(5.0)
 
-        addTarget(self, action: #selector(RoundedButton.onTouchUpInside(_:)), for: .touchUpInside)
+        addTarget(self, action: #selector(onTouchUpInside(_:)), for: .touchUpInside)
     }
 
     var titleText: String = "" {

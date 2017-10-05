@@ -96,7 +96,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                     statusLabel.text = status.uppercased()
 
                     if status == "en_route" || status == "in_progress" {
-                        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(WorkOrderHistoryCollectionViewCell.refresh), userInfo: nil, repeats: true)
+                        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                         timer.fire()
                     } else if workOrder.status == "scheduled" {
                         durationLabel.text = workOrder.scheduledStartAtDate.timeString

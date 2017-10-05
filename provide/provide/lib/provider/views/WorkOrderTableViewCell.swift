@@ -40,7 +40,7 @@ class WorkOrderTableViewCell: UITableViewCell {
             backgroundView?.alpha = 0.9
 
             if workOrder.status == "in_progress" || workOrder.status == "en_route" {
-                timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(WorkOrderTableViewCell.refresh), userInfo: nil, repeats: true)
+                timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                 timer.fire()
             } else if workOrder.status == "scheduled" {
                 durationLabel.text = workOrder.scheduledStartAtDate.timeString
