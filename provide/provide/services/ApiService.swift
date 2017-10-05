@@ -807,11 +807,12 @@ class ApiService: NSObject {
 
     @discardableResult
     fileprivate func dispatchApiOperationForPath(_ path: String,
-                                             method: RKRequestMethod! = .GET,
-                                             params: [String: AnyObject]?,
-                                             startOperation: Bool = true,
-                                             onSuccess: @escaping OnSuccess,
-                                             onError: @escaping OnError) -> RKObjectRequestOperation! {
+                                                 method: RKRequestMethod! = .GET,
+                                                 params: [String: AnyObject]?,
+                                                 startOperation: Bool = true,
+                                                 onSuccess: @escaping OnSuccess,
+                                                 onError: @escaping OnError) -> RKObjectRequestOperation!
+    {
         return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!,
                                        path: "api/\(path)",
                                        method: method,
@@ -861,13 +862,14 @@ class ApiService: NSObject {
 
     @discardableResult
     fileprivate func dispatchOperationForURL(_ baseURL: URL,
-                                         path: String,
-                                         method: RKRequestMethod = .GET,
-                                         params: [String : AnyObject]!,
-                                         contentType: String = "application/json",
-                                         startOperation: Bool = true,
-                                         onSuccess: @escaping OnSuccess,
-                                         onError: @escaping OnError) -> RKObjectRequestOperation! {
+                                             path: String,
+                                             method: RKRequestMethod = .GET,
+                                             params: [String : AnyObject]!,
+                                             contentType: String = "application/json",
+                                             startOperation: Bool = true,
+                                             onSuccess: @escaping OnSuccess,
+                                             onError: @escaping OnError) -> RKObjectRequestOperation!
+    {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)

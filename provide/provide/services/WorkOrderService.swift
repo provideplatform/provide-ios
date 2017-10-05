@@ -97,11 +97,11 @@ class WorkOrderService: NSObject {
     }
 
     func fetch(_ page: Int = 1,
-        rpp: Int = 10,
-        status: String = "scheduled",
-        today: Bool = false,
-        includeProviders: Bool = true,
-        onWorkOrdersFetched: OnWorkOrdersFetched!)
+               rpp: Int = 10,
+               status: String = "scheduled",
+               today: Bool = false,
+               includeProviders: Bool = true,
+               onWorkOrdersFetched: OnWorkOrdersFetched!)
     {
         var params: [String: AnyObject] = [
             "page": page as AnyObject,

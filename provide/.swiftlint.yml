@@ -15,7 +15,6 @@ disabled_rules: # rule identifiers to exclude from running
   - todo                                      # Count = 26   warning = Todo Violation.
   - trailing_comma                            # Count = 25   warning = Trailing Comma Violation.
   - for_where                                 # Count = 25   warning = For Where Violation.
-  - vertical_parameter_alignment              # Count = 23   warning = Vertical Parameter Alignment Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
   - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.
