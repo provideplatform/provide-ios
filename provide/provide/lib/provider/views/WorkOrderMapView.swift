@@ -208,6 +208,6 @@ class WorkOrderMapView: MapView {
 
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
+        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
     }
 }

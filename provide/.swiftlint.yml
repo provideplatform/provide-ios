@@ -18,7 +18,6 @@ disabled_rules: # rule identifiers to exclude from running
   - vertical_parameter_alignment              # Count = 23   warning = Vertical Parameter Alignment Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
-  - legacy_constructor                        # Count = 14   warning = Legacy Constructor Violation.
   - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.
   - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
   - file_length                               # Count = 10   warning = File Line Length Violation.

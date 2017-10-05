@@ -646,7 +646,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -667,7 +667,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -683,7 +683,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -704,7 +704,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
