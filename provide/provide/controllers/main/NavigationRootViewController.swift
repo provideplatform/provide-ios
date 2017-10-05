@@ -37,7 +37,7 @@ class NavigationRootViewController: ViewController,
         MBProgressHUD.showAdded(to: view, animated: true)
 
         if ApiService.sharedService().hasCachedToken {
-            dispatch_after_delay(0.0) {
+            DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: true)
 
                 self.presentApplicationViewController()
@@ -165,7 +165,7 @@ class NavigationRootViewController: ViewController,
 
     func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool) {
         if success {
-            dispatch_after_delay(0.0) {
+            DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
                 dispatch_after_delay(1.0) {
                     self.signInButton.alpha = 1.0

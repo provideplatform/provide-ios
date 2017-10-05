@@ -81,7 +81,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         NotificationCenter.default.addObserverForName("ProviderBecameAvailable") { [weak self] notification in
             if let provider = notification?.object as? Provider {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     self?.updateProviderLocation(provider)
                 }
             }
@@ -89,7 +89,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         NotificationCenter.default.addObserverForName("ProviderBecameUnavailable") { [weak self] notification in
             if let provider = notification?.object as? Provider {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     self?.updateProviderLocation(provider)
                 }
             }
@@ -97,7 +97,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         NotificationCenter.default.addObserverForName("ProviderLocationChanged") { [weak self] notification in
             if let provider = notification?.object as? Provider {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     self?.updateProviderLocation(provider)
                 }
             }
@@ -105,7 +105,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
                         self?.handleInProgressWorkOrderStateChange()
                     }

@@ -248,7 +248,7 @@ class DirectionsViewController: ViewController {
                                                 }
                                             }
 
-                                            dispatch_after_delay(0.0) {
+                                            DispatchQueue.main.async {
                                                 self.resolveCurrentStep()
                                                 self.refreshInstructions()
                                                 self.renderRouteOverview()

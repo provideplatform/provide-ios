@@ -30,7 +30,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 if Thread.isMainThread {
                     self.refresh()
                 } else {
-                    dispatch_after_delay(0.0) {
+                    DispatchQueue.main.async {
                         self.refresh()
                     }
                 }

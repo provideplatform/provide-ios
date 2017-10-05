@@ -99,7 +99,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
 
         sizeToFit()
 
-        dispatch_after_delay(0.0) {
+        DispatchQueue.main.async {
             let toolbar = CommentInputToolbar(frame: self.frame.offsetBy(dx: 0.0, dy: self.frame.height))
             toolbar.barTintColor = self.barTintColor
             toolbar.commentsViewController = self.commentsViewController

@@ -192,7 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         NotificationCenter.default.addObserverForName(NSNotification.Name.UIApplicationDidChangeStatusBarOrientation.rawValue) { notification in
-            dispatch_after_delay(0.0) {
+            DispatchQueue.main.async {
                 self.launchScreenViewController.view.frame = self.window!.frame
             }
         }

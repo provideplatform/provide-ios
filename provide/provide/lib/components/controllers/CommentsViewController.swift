@@ -89,7 +89,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
         NotificationCenter.default.addObserverForName("CommentChanged") { notification in
             if let comment = notification.object as? Comment {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     let commentableType = self.commentsViewControllerDelegate?.commentableTypeForCommentsViewController(self)
                     let commentableId = self.commentsViewControllerDelegate?.commentableIdForCommentsViewController(self)
                     var indexPath = 0
@@ -132,7 +132,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { notification in
             if let workOrder = notification.object as? WorkOrder {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     var indexPath = 0
                     for comment in self.comments {
                         if comment.isWorkOrderComment {
@@ -315,7 +315,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
         hideActivity()
 
-        dispatch_after_delay(0.0) {
+        DispatchQueue.main.async {
             self.scrollToNewestComment(self.scrolledToNewestComment)
         }
     }

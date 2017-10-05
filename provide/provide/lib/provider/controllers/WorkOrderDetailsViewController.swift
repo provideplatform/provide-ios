@@ -23,7 +23,7 @@ class WorkOrderDetailsViewController: ViewController,
 
     var workOrder: WorkOrder! {
         didSet {
-            dispatch_after_delay(0.0) {
+            DispatchQueue.main.async {
                 self.refresh()
             }
         }
@@ -41,11 +41,11 @@ class WorkOrderDetailsViewController: ViewController,
 
         if let workOrder = workOrder {
             if workOrder.jobId == 0 {
-                dispatch_after_delay(0.0) {
+                DispatchQueue.main.async {
                     if let tableView = self.tableView {
                         self.headerView?.frame.size.width = tableView.frame.width
                     } else {
-                        dispatch_after_delay(0.0) {
+                        DispatchQueue.main.async {
                             self.headerView?.frame.size.width = self.view.frame.width
                         }
                     }

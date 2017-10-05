@@ -32,7 +32,7 @@ class MapView: MKMapView, MKMapViewDelegate {
         NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
             self.updateUserLocationAnnotation = true
             self.showsUserLocation = false
-            dispatch_after_delay(0.0) {
+            DispatchQueue.main.async {
                 self.showsUserLocation = true
             }
         }

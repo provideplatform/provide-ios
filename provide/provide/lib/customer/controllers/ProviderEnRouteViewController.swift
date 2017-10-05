@@ -78,7 +78,7 @@ class ProviderEnRouteViewController: ViewController {
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
-                    dispatch_after_delay(0.0) {
+                    DispatchQueue.main.async {
                         self?.refreshStatus()
                     }
                 }

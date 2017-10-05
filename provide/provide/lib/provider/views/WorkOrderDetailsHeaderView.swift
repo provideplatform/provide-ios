@@ -50,7 +50,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
             mapView.addAnnotation(workOrder.annotation)
 
-            dispatch_after_delay(0.0) { [weak self] in
+            DispatchQueue.main.async { [weak self] in
                 if let _ = self?.workOrder.coordinate {
                     var coordinate = self!.workOrder.coordinate!
                     coordinate.latitude += self!.mapView.region.span.latitudeDelta * 0.1

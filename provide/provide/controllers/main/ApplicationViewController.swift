@@ -93,7 +93,7 @@ class ApplicationViewController: UIViewController,
     fileprivate func refreshMenu() {
         teardownMenu()
 
-        dispatch_after_delay(0.0) {
+        DispatchQueue.main.async {
             self.menuContainerView = MenuContainerView(frame: self.view.bounds)
 
             if let tnc = self.topViewController as? UINavigationController {
@@ -171,7 +171,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
-        dispatch_after_delay(0.0) {
+        DispatchQueue.main.async {
             let _ = self.navigationController?.popViewController(animated: false)
         }
     }
@@ -200,7 +200,7 @@ class ApplicationViewController: UIViewController,
         let selfieViewController = UIStoryboard("Camera").instantiateViewController(withIdentifier: "SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
-        dispatch_after_delay(0.0) {
+        DispatchQueue.main.async {
             self.navigationController?.pushViewController(selfieViewController, animated: false)
         }
     }
