@@ -128,4 +128,3 @@ func addHexagonalOutline(to view: UIView, borderWidth: CGFloat = 1, cornerLength
     outlineLayer.path = outlinePath.cgPath
     view.layer.mask = maskLayer
 }
-

@@ -37,8 +37,8 @@ disabled_rules: # rule identifiers to exclude from running
   - leading_whitespace                        # Count = 2    warning = Leading Whitespace Violation.
   - control_statement                         # Count = 2    warning = Control Statement Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
-  - trailing_newline                          # Count = 1    warning = Trailing Newline Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
+
 
 ## Swiftlint Initial Setup Instructions
 ##
