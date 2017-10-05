@@ -16,7 +16,7 @@ target 'provide' do
   pod 'OHHTTPStubs', '~> 4.2.0'
   pod 'PDTSimpleCalendar'
   pod 'Reachability'
-  pod 'RestKit', '0.27.0'
+  pod 'RestKit'
   pod 'RFGravatarImageView'
   pod 'SDWebImage', '3.8.1'
   pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell'
