@@ -983,6 +983,7 @@
 				6868A484D324651DE63114D7 /* [CP] Copy Pods Resources */,
 				685C02791B36DD3500DA730A /* Run Fabric.framework Script */,
 				06E1273853D53BC4A3AA8FFC /* [CP] Embed Pods Frameworks */,
+				5CD785A81F86AF40007925B6 /* swiftlint */,
 			);
 			buildRules = (
 			);
@@ -1226,6 +1227,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$PROJECT_DIR/../scripts/run_swiftlint_from_xcode.sh\n";
+		};
+		5CD785A81F86AF40007925B6 /* swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		682D32691B07CBDD00BC4EEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

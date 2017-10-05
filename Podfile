@@ -20,5 +20,6 @@ target 'provide' do
   pod 'RFGravatarImageView'
   pod 'SDWebImage', '3.8.1'
   pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell'
+  pod 'SwiftLint'
   pod 'UICKeyChainStore'
 end
