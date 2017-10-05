@@ -117,7 +117,7 @@ class WorkOrderDetailsViewController: ViewController,
             }
         }
         
-        if let _ = tableView {
+        if tableView != nil {
             reloadTableView()
         }
     }

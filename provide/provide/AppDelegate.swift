@@ -208,7 +208,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     fileprivate func dismissLaunchScreenViewController() {
-        if let _ = launchScreenViewController?.view.superview {
+        if launchScreenViewController?.view.superview != nil {
             UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn,
                 animations: {
                     self.launchScreenViewController?.view.alpha = 0.0

@@ -24,7 +24,7 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
 
     weak var workOrder: WorkOrder! {
         didSet {
-            if let _ = workOrder {
+            if workOrder != nil {
                 reloadTableView()
             }
         }

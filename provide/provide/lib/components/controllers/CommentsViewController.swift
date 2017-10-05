@@ -21,7 +21,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     var commentsViewControllerDelegate: CommentsViewControllerDelegate! {
         didSet {
-            if let _ = commentsViewControllerDelegate {
+            if commentsViewControllerDelegate != nil {
                 reset()
             }
         }

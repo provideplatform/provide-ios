@@ -835,7 +835,7 @@ class ApiService: NSObject {
             path = [parts[1], parts[3]].joined(separator: "/")
             path = path.components(separatedBy: "/").last!
         } else {
-            if let _ = Int(parts.last!) {
+            if Int(parts.last!) != nil {
                 path = parts[1]
             } else {
                 path = parts.last!
@@ -897,7 +897,7 @@ class ApiService: NSObject {
             if [.POST, .PUT].contains(method) {
                 request.setValue(contentType, forHTTPHeaderField: "content-type")
 
-                if let _ = params {
+                if params != nil {
                     if contentType.lowercased() == "application/json" {
                         jsonParams = NSDictionary(dictionary: params).toJSON()
                         request.httpBody = jsonParams.data(using: String.Encoding.utf8)

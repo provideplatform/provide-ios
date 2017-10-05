@@ -134,7 +134,7 @@ class DirectionsViewController: ViewController {
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
-                    if let _ = self.directions {
+                    if self.directions != nil {
                         self.setCenterCoordinate(location)
                     }
 

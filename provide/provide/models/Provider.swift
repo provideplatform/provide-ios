@@ -37,7 +37,7 @@ class Provider: Model {
     }
 
     var initialsLabel: UILabel! {
-        if let _ = name {
+        if name != nil {
             let initialsLabel = UILabel()
             initialsLabel.text = ""
             if let firstName = self.firstName {

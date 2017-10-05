@@ -51,7 +51,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             mapView.addAnnotation(workOrder.annotation)
 
             DispatchQueue.main.async { [weak self] in
-                if let _ = self?.workOrder.coordinate {
+                if self?.workOrder.coordinate != nil {
                     var coordinate = self!.workOrder.coordinate!
                     coordinate.latitude += self!.mapView.region.span.latitudeDelta * 0.1
                     coordinate.longitude += self!.mapView.region.span.longitudeDelta * 0.4

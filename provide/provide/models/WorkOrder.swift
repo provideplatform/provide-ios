@@ -568,7 +568,7 @@ class WorkOrder: Model {
             }
             params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
 
-            if let _ = scheduledStartAt {
+            if scheduledStartAt != nil {
                 params.updateValue("scheduled" as AnyObject, forKey: "status")
             }
 

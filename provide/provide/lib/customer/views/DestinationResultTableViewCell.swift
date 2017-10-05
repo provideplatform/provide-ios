@@ -25,7 +25,7 @@ class DestinationResultTableViewCell: UITableViewCell {
                     st = city
                 }
                 if let state = result.state {
-                    if let _ = result.city {
+                    if result.city != nil {
                         st = "\(st), "
                     }
                     st = "\(st)\(state)"

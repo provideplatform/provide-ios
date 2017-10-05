@@ -49,7 +49,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             if let customer = workOrder.customer {
                 if customer.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl
-                } else if let _ = customer.contact.email {
+                } else if customer.contact.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
                 
@@ -58,7 +58,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             } else if let user = workOrder.user {
                 if user.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl
-                } else if let _ = user.email {
+                } else if user.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
                 

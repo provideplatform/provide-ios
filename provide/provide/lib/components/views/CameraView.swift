@@ -307,7 +307,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             captureSession = nil
         }
 
-        if let _ = capturePreviewLayer {
+        if capturePreviewLayer != nil {
             capturePreviewLayer.removeFromSuperlayer()
             capturePreviewLayer = nil
         }

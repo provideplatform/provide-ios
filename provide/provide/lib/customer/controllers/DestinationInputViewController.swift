@@ -20,7 +20,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
     weak var destinationResultsViewController: DestinationResultsViewController! {
         didSet {
-            if let _ = destinationResultsViewController {
+            if destinationResultsViewController != nil {
                 destinationResultsViewController.delegate = self
             }
         }

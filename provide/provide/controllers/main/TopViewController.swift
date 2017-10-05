@@ -38,7 +38,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func reload() {
-        if let _ = vc {
+        if vc != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)
             self.vc = nil

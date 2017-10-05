@@ -244,7 +244,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func requireProviderContext() {
-        if let _ = currentProvider {
+        if currentProvider != nil {
             logInfo("Current provider context has already been established: \(currentProvider)")
             if currentProvider.isAvailable {
                 CheckinService.sharedService().start()
@@ -328,7 +328,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             confirmationRequiredForWorkOrderViewController(self)
         } else if canAttemptSegueToInProgressWorkOrder {
             let workOrder = WorkOrderService.sharedService().inProgressWorkOrder
-            if let _ = workOrder?.user {
+            if workOrder?.user != nil {
                 performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             } else {
                 performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
@@ -459,7 +459,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     @objc fileprivate func clearProviderContext() {
-        if let _ = currentProvider {
+        if currentProvider != nil {
             if currentProvider.available.boolValue {
                 currentProvider.toggleAvailability(
                     onSuccess: { statusCode, mappingResult in
@@ -540,7 +540,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     fileprivate func popManagedNavigationController() -> UINavigationController! {
-        if let _ = managedViewControllers.last as? UINavigationController {
+        if managedViewControllers.last as? UINavigationController != nil {
             return managedViewControllers.removeLast() as! UINavigationController
         }
         return nil
@@ -586,7 +586,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
             "WorkOrderComponentViewControllerUnwindSegue",
             ].index(of: segueIdentifier)
-        if let _ = index {
+        if index != nil {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }
     }
