@@ -38,19 +38,19 @@ class ConfirmWorkOrderViewController: ViewController {
                 if oldValue != nil {
                     UIView.animate(
                         withDuration: 0.25,
-                        animations: { [weak self] in
-                            self!.view.frame.origin.y += self!.view.frame.height
+                        animations: {
+                            self.view.frame.origin.y += self.view.frame.height
                         },
-                        completion: { [weak self] completed in
-                            if self!.workOrder == nil {
-                                self!.activityIndicatorView.stopAnimating()
-                                self!.confirmButton.isHidden = false
-                                self!.creditCardIcon.isHidden = false
-                                self!.creditCardLastFour.isHidden = false
-                                self!.userIconImageView.isHidden = false
-                                self!.capacity.isHidden = false
-                                self!.distanceEstimate.isHidden = false
-                                self!.fareEstimate.isHidden = false
+                        completion: { completed in
+                            if self.workOrder == nil {
+                                self.activityIndicatorView.stopAnimating()
+                                self.confirmButton.isHidden = false
+                                self.creditCardIcon.isHidden = false
+                                self.creditCardLastFour.isHidden = false
+                                self.userIconImageView.isHidden = false
+                                self.capacity.isHidden = false
+                                self.distanceEstimate.isHidden = false
+                                self.fareEstimate.isHidden = false
                             }
                         }
                     )
@@ -89,11 +89,11 @@ class ConfirmWorkOrderViewController: ViewController {
                 if oldValue == nil {
                     UIView.animate(
                         withDuration: 0.25,
-                        animations: { [weak self] in
-                            self!.view.frame.origin.y -= self!.view.frame.height
+                        animations: {
+                            self.view.frame.origin.y -= self.view.frame.height
                         },
-                        completion: { [weak self] _ in
-                            logInfo("Presented work order for confirmation: \(self!.workOrder!)")
+                        completion: { _ in
+                            logInfo("Presented work order for confirmation: \(self.workOrder!)")
                         }
                     )
                 }

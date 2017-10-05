@@ -61,23 +61,23 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
                 navigationController?.setNavigationBarHidden(true, animated: true)
 
-                UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                    self!.view.frame.origin.y = 0.0
-                    self!.view.frame.size.width = self!.view.superview!.frame.width
-                    self!.view.backgroundColor = .white
+                UIView.animate(withDuration: 0.25) {
+                    self.view.frame.origin.y = 0.0
+                    self.view.frame.size.width = self.view.superview!.frame.width
+                    self.view.backgroundColor = .white
 
-                    self!.destinationTextField.frame.size.width = self!.view.frame.width
-                    self!.destinationTextField.becomeFirstResponder()
+                    self.destinationTextField.frame.size.width = self.view.frame.width
+                    self.destinationTextField.becomeFirstResponder()
 
-                    self!.originTextField.frame.size.width = self!.view.frame.width
-                    self!.originTextField.isHidden = false
-                })
+                    self.originTextField.frame.size.width = self.view.frame.width
+                    self.originTextField.isHidden = false
+                }
 
-                UIView.animate(withDuration: 0.3, animations: { [weak self] in
-                    self!.destinationResultsViewController.view.frame.origin.y = self!.view.frame.height
-                    self!.destinationResultsViewController.view.frame.size.height = self!.view.superview!.frame.height - self!.view.frame.height
-                    self!.destinationResultsViewController.view.subviews.first!.frame.size.height = self!.destinationResultsViewController.view.frame.size.height
-                })
+                UIView.animate(withDuration: 0.3) {
+                    self.destinationResultsViewController.view.frame.origin.y = self.view.frame.height
+                    self.destinationResultsViewController.view.frame.size.height = self.view.superview!.frame.height - self.view.frame.height
+                    self.destinationResultsViewController.view.subviews.first!.frame.size.height = self.destinationResultsViewController.view.frame.size.height
+                }
             } else {
                 if destinationTextField.isFirstResponder {
                     destinationTextField.resignFirstResponder()
@@ -88,13 +88,13 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
                 navigationController?.setNavigationBarHidden(false, animated: true)
 
-                UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                    self!.view.frame = self!.initialFrame
-                    self!.view.backgroundColor = .clear
+                UIView.animate(withDuration: 0.25) {
+                    self.view.frame = self.initialFrame
+                    self.view.backgroundColor = .clear
 
-                    self!.destinationResultsViewController.view.frame = self!.initialDestinationResultsViewFrame
-                    self!.destinationResultsViewController.view.subviews.first!.frame = self!.initialDestinationResultsTableViewFrame
-                })
+                    self.destinationResultsViewController.view.frame = self.initialDestinationResultsViewFrame
+                    self.destinationResultsViewController.view.subviews.first!.frame = self.initialDestinationResultsTableViewFrame
+                }
             }
         }
     }

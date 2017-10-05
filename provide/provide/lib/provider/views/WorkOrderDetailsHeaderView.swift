@@ -58,7 +58,6 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
                     self!.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
                 }
-
             }
         }
     }

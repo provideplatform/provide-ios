@@ -280,16 +280,16 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationResultsViewController?.prepareForReuse()
 
             presentDestinationInputViewController()
-            UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                if let destinationInputView = self?.destinationInputViewController.view {
+            UIView.animate(withDuration: 0.25) {
+                if let destinationInputView = self.destinationInputViewController.view {
                     if destinationInputView.frame.origin.y == 0.0 {
-                        destinationInputView.frame.origin.y += self!.view.frame.height * 0.1
+                        destinationInputView.frame.origin.y += self.view.frame.height * 0.1
                         if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                             destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
                         }
                     }
                 }
-            })
+            }
         }
     }
 
