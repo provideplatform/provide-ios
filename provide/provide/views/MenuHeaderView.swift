@@ -28,7 +28,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         super.awakeFromNib()
 
         refresh()
-        
+
         NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
             if let user = currentUser {
                 self.profileImageUrl = user.profileImageUrl as URL!
@@ -66,7 +66,6 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-
         let selfieAction = UIAlertAction(title: "Selfie", style: .default) { action in
             self.initSelfieViewController()
         }
@@ -84,7 +83,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     fileprivate func refresh() {
         backgroundColor = UIColor.clear
-        
+
         if let user = currentUser {
             profileImageUrl = user.profileImageUrl as URL!
             nameLabel.text = user.name
@@ -94,9 +93,9 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
 
         companyLabel.text = ""
-        
+
         changeProfileImageButton.addTarget(self, action: #selector(changeProfileImage), for: .touchUpInside)
-        
+
         profileImageActivityIndicatorView.stopAnimating()
     }
 
@@ -163,7 +162,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     }
 
     func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
-        
+
     }
 
     fileprivate func initSelfieViewController() {

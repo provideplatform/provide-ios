@@ -90,8 +90,8 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
-        var dictionary = [String : AnyObject]()
+    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: AnyObject] {
+        var dictionary = [String: AnyObject]()
 
         for ivar in ivars {
             var key = ivar

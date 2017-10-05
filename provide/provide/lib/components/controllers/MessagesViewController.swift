@@ -428,7 +428,7 @@ class MessagesViewController: JSQMessagesViewController {
 // MARK: - UIImagePickerControllerDelegate
 
 extension MessagesViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         dismiss(animated: true)
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         presentConfirmMediaViewController(image: image)

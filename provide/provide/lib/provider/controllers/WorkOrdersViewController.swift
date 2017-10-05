@@ -68,7 +68,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
 
     fileprivate var zeroStateViewController: ZeroStateViewController!
-    
+
     fileprivate var availabilityBarButtonItem: UIBarButtonItem!
 
     override func viewDidLoad() {
@@ -78,7 +78,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
         requireProviderContext()
-        
+
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
         NotificationCenter.default.addObserver(self, selector: #selector(clearProviderContext), name: "ApplicationUserLoggedOut")
 
@@ -112,7 +112,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     )
                 } else {
                     DirectionService.sharedService().resetLastDirectionsApiRequestCoordinateAndTimestamp()
-                    
+
                     self.refreshAnnotations()
                     self.updatingWorkOrderContext = true
                     self.loadWorkOrderContext()
@@ -158,7 +158,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 onSuccess: { [weak self] statusCode, mappingResult in
                     logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
                     self!.availabilityBarButtonItem?.isEnabled = true
-                    
+
                     if currentProvider.isAvailable {
                         CheckinService.sharedService().start()
                         LocationService.sharedService().start()
@@ -222,7 +222,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
         return false
     }
-    
+
     fileprivate func setupAvailabilityBarButtonItem() {
         if availabilityBarButtonItem != nil {
             navigationItem.rightBarButtonItem = nil
@@ -244,7 +244,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     func requireProviderContext() {
-        if let _ = currentProvider {
+        if currentProvider != nil {
             logInfo("Current provider context has already been established: \(currentProvider)")
             if currentProvider.isAvailable {
                 CheckinService.sharedService().start()
@@ -264,7 +264,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             user.providerIds.append(provider.id)
                             self!.requireProviderContext()
                         }
-                        
+
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
                     }
@@ -276,7 +276,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         if let provider = mappingResult!.firstObject as? Provider {
                             logInfo("Fetched provider context for user: \(provider)")
                             currentProvider = provider
-                            
+
                             self!.setupAvailabilityBarButtonItem()
 
                             if currentProvider.isAvailable {
@@ -328,12 +328,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             confirmationRequiredForWorkOrderViewController(self)
         } else if canAttemptSegueToInProgressWorkOrder {
             let workOrder = WorkOrderService.sharedService().inProgressWorkOrder
-            if let _ = workOrder?.user {
+            if workOrder?.user != nil {
                 performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             } else {
                 performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
             }
-            
+
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
@@ -355,7 +355,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {
@@ -459,7 +459,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     @objc fileprivate func clearProviderContext() {
-        if let _ = currentProvider {
+        if currentProvider != nil {
             if currentProvider.available.boolValue {
                 currentProvider.toggleAvailability(
                     onSuccess: { statusCode, mappingResult in
@@ -478,8 +478,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func switchToCustomerMode() {
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
-        
-        KeyChainService.sharedService().mode = .Customer
+
+        KeyChainService.sharedService().mode = .customer
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 
@@ -506,7 +506,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 }
             }
         } else if annotation is User.Annotation {
-            
+
         }
 
         return annotationView
@@ -540,7 +540,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     fileprivate func popManagedNavigationController() -> UINavigationController! {
-        if let _ = managedViewControllers.last as? UINavigationController {
+        if managedViewControllers.last as? UINavigationController != nil {
             return managedViewControllers.removeLast() as! UINavigationController
         }
         return nil
@@ -584,9 +584,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             "WorkOrderAnnotationViewControllerUnwindSegue",
             "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
-            "WorkOrderComponentViewControllerUnwindSegue"
+            "WorkOrderComponentViewControllerUnwindSegue",
             ].index(of: segueIdentifier)
-        if let _ = index {
+        if index != nil {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }
     }
@@ -646,7 +646,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -656,7 +656,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     self!.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
-                    
+
                 }
             )
         }
@@ -667,7 +667,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -683,7 +683,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()
@@ -704,7 +704,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {
                 var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSMakeRange(1, components.count - 1)))
+                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
                 workOrder.setComponents(components)
             }
             attemptSegueToValidWorkOrderContext()

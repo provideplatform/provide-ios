@@ -49,19 +49,19 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             if let customer = workOrder.customer {
                 if customer.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl
-                } else if let _ = customer.contact.email {
+                } else if customer.contact.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
-                
+
                 titleLabel.text = customer.displayName
                 addressTextView.text = customer.contact.address
             } else if let user = workOrder.user {
                 if user.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl
-                } else if let _ = user.email {
+                } else if user.email != nil {
                     logWarn("Not rendering gravatar image view for work order contact email")
                 }
-                
+
                 titleLabel.text = user.name
                 if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
                     if let formattedAddress = destination["formatted_address"] as? String {
@@ -71,7 +71,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                     }
                 }
             }
-            
+
             addressTextView.sizeToFit()
         }
 
@@ -123,7 +123,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         )
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {

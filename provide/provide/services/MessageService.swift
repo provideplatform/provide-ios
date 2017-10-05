@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias OnMessagesFetched = (_ messages: [Message]) -> ()
+typealias OnMessagesFetched = (_ messages: [Message]) -> Void
 typealias OnMessageCreated = (Message) -> Void
 
 class MessageService {

@@ -9,10 +9,10 @@
 import Foundation
 import KTSwiftExtensions
 
-typealias OnHeadingResolved = (CLHeading) -> ()
-typealias OnLocationResolved = (CLLocation) -> ()
-typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> ()
-typealias OnReverseGeocodeResolved = (CLPlacemark) -> ()
+typealias OnHeadingResolved = (CLHeading) -> Void
+typealias OnLocationResolved = (CLLocation) -> Void
+typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> Void
+typealias OnReverseGeocodeResolved = (CLPlacemark) -> Void
 
 class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
@@ -36,18 +36,18 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     fileprivate var locationServiceStartedDate: Date!
     fileprivate var lastAccurateLocationDate: Date!
 
-    fileprivate var geofenceCallbacks = [String : [String : VoidBlock]]()
-    fileprivate var geofenceCallbackCounts = [String : [String : Int]]()
+    fileprivate var geofenceCallbacks = [String: [String: VoidBlock]]()
+    fileprivate var geofenceCallbackCounts = [String: [String: Int]]()
     fileprivate var onManagerAuthorizedCallbacks = [VoidBlock]()
 
     fileprivate var onHeadingResolvedCallbacks = [OnHeadingResolved]()
-    fileprivate var onHeadingResolvedDurableCallbacks = [String : OnHeadingResolved]()
+    fileprivate var onHeadingResolvedDurableCallbacks = [String: OnHeadingResolved]()
 
     fileprivate var onLocationResolvedCallbacks = [OnLocationResolved]()
-    fileprivate var onLocationResolvedDurableCallbacks = [String : OnLocationResolved]()
+    fileprivate var onLocationResolvedDurableCallbacks = [String: OnLocationResolved]()
 
     fileprivate var onLocationAndHeadingResolvedCallbacks = [OnLocationAndHeadingResolved]()
-    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String : OnLocationAndHeadingResolved]()
+    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String: OnLocationAndHeadingResolved]()
 
     fileprivate var requireNavigationAccuracy = false
 
@@ -186,11 +186,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last , location.isAccurate {
+        if let location = locations.last, location.isAccurate {
             lastAccurateLocationDate = Date()
             locationResolved(location)
         } else if staleLocation {
-            if let location = locations.last , location.isAccurateForForcedLocationUpdate {
+            if let location = locations.last, location.isAccurateForForcedLocationUpdate {
                 lastAccurateLocationDate = Date()
                 locationResolved(location)
             }
@@ -323,11 +323,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         var callbacks = geofenceCallbacks[identifier]
         if callbacks == nil {
             callbacks = [String: VoidBlock]()
-            
+
         }
         callbacks!["didEnterRegion"] = onDidEnterRegion
         callbacks!["didExitRegion"] = onDidExitRegion
-        
+
         var callbackCounts = geofenceCallbackCounts[identifier]
         if callbackCounts == nil {
             callbackCounts = [String: Int]()

@@ -20,7 +20,7 @@ class MenuContainerView: UIView {
     fileprivate var menuViewControllerFrame: CGRect {
         var width = frame.width
         if isIPad() {
-            width = width * 0.5
+            width *= 0.5
         } else {
             width = min(274.0, width * 0.66)
         }
@@ -59,7 +59,7 @@ class MenuContainerView: UIView {
     }
 
     fileprivate func teardown() {
-        if let _ = superview {
+        if superview != nil {
             removeFromSuperview()
         }
 
@@ -152,7 +152,7 @@ class MenuContainerView: UIView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
 
-        if let _ = touchesBeganTimestamp {
+        if touchesBeganTimestamp != nil {
             let percentage = 1.0 + ((frame.origin.x + menuViewFrameOffsetX) / menuViewControllerFrame.width)
             if percentage > 0.5 {
                 openMenu()

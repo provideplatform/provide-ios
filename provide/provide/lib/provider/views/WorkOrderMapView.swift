@@ -115,7 +115,7 @@ class WorkOrderMapView: MapView {
                 let imageView = userLocationImageView
 
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
-                view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
+                view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0)
                 view?.addSubview(imageView)
             }
         } else {
@@ -208,6 +208,6 @@ class WorkOrderMapView: MapView {
 
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
+        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
     }
 }

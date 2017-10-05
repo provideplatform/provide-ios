@@ -134,7 +134,7 @@ class DirectionsViewController: ViewController {
             },
             completion: { complete in
                 LocationService.sharedService().resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
-                    if let _ = self.directions {
+                    if self.directions != nil {
                         self.setCenterCoordinate(location)
                     }
 
@@ -335,7 +335,7 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
@@ -349,10 +349,10 @@ class DirectionsViewController: ViewController {
 
     func unwind() {
         unregisterMonitoredRegions()
-        
+
         LocationService.sharedService().removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
         LocationService.sharedService().removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
-        
+
         CheckinService.sharedService().disableNavigationAccuracy()
         LocationService.sharedService().disableNavigationAccuracy()
 

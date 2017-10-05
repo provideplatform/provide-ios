@@ -69,7 +69,7 @@ class ZeroStateViewController: ViewController {
                     self.view.frame.origin.y -= self.view.frame.height
                 },
                 completion: { completed in
-                    
+
                 }
             )
         } else {
@@ -80,7 +80,7 @@ class ZeroStateViewController: ViewController {
     }
 
     func dismiss() {
-        if let _ = view.superview {
+        if view.superview != nil {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn,
                 animations: {
                     self.view.alpha = 0.0

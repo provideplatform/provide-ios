@@ -36,9 +36,10 @@ class OHHTTPStubsHelper {
                     "recipient_id": Int(recipientId)!,
                     "sender_id": currentUser.id,
                     "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
-                    "recipient_name":"Kyle Thomas",
-                    "sender_name": currentUser.name]
-                return OHHTTPStubsResponse(JSONObject: responseJSON, statusCode: 201, headers: ["Content-Type":"application/json"]).requestTime(1.0, responseTime: 1.0)
+                    "recipient_name": "Kyle Thomas",
+                    "sender_name": currentUser.name,
+                ]
+                return OHHTTPStubsResponse(JSONObject: responseJSON, statusCode: 201, headers: ["Content-Type": "application/json"]).requestTime(1.0, responseTime: 1.0)
             }
         )
     }
@@ -51,7 +52,7 @@ func stubRoute(_ httpMethod: String, path: String, withFile filePath: String, st
         },
         withStubResponse: { request in
             let fixture = OHPathForFile(filePath, OHHTTPStubsHelper.self)
-            return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type":"application/json"])
+            return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type": "application/json"])
         }
     ).name = stubName
 }

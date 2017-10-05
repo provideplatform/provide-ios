@@ -36,7 +36,7 @@ class ProvideTestCase: XCTestCase {
     func login() {
         let app = XCUIApplication()
         app.buttons["SIGN IN"].tap()
-        
+
         let tablesQuery = app.tables
         let emailTextField = tablesQuery.textFields["email"]
         emailTextField.typeText("kyle@unmarkedconsulting.com")

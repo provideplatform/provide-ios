@@ -103,11 +103,11 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                     }
                 } else {
                     statusLabel.text = ""
-                    
+
                     timer?.invalidate()
                     timer = nil
                 }
-                
+
                 statusLabel.sizeToFit()
             }
         }
@@ -151,7 +151,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 self.statusBackgroundView?.alpha = CGFloat(alpha)
             },
             completion: { complete in
-                
+
             }
         )
     }

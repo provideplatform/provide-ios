@@ -41,7 +41,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         }
 
         let title = textView.text.length > 0 ? "DISMISS + SAVE" : "DISMISS"
-        let dismissItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(CommentCreationViewController.dismiss as (CommentCreationViewController) -> () -> ()))
+        let dismissItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(CommentCreationViewController.dismiss as (CommentCreationViewController) -> () -> Void))
         dismissItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: .normal)
         return dismissItem
     }

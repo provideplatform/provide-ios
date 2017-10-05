@@ -81,7 +81,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 1
-        }) 
+        })
     }
 
     fileprivate func hideForm() {
@@ -89,7 +89,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         UIView.animate(withDuration: 0.15, animations: {
             self.tableView.alpha = 0
-        }) 
+        })
     }
 
     // MARK: Process Methods
@@ -111,8 +111,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
-            "email" : emailField.text!,
-            "password" : passwordField.text!
+            "email": emailField.text!,
+            "password": passwordField.text!,
         ]
 
         ApiService.sharedService().login(params,
@@ -233,7 +233,6 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
             (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
-            break
         case "AuthenticationViewControllerUnwindSegue":
             if emailField.isFirstResponder {
                 emailField?.resignFirstResponder()

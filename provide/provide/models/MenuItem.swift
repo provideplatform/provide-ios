@@ -29,7 +29,7 @@ class MenuItem: NSObject {
         return nil
     }
 
-    init(item: [String : String]) {
+    init(item: [String: String]) {
         super.init()
 
         if let label = item["label"] {

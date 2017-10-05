@@ -15,9 +15,9 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     fileprivate var topStoryboard: UIStoryboard! {
         if let mode = KeyChainService.sharedService().mode {
             switch mode {
-            case .Customer:
+            case .customer:
                 return UIStoryboard("Customer")
-            case .Provider:
+            case .provider:
                 return UIStoryboard("Provider")
             }
         } else {
@@ -28,9 +28,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     }
 
     var rootViewController: UIViewController! {
-        get {
-            return vc
-        }
+        return vc
     }
 
     override func viewDidLoad() {
@@ -40,7 +38,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func reload() {
-        if let _ = vc {
+        if vc != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)
             self.vc = nil

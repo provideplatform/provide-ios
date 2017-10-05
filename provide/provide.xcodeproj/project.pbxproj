@@ -177,7 +177,7 @@
 		68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
-		68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* provideTests.swift */; };
+		68DFB09D1B07C5C4002A72E8 /* ProvideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB09C1B07C5C4002A72E8 /* ProvideTests.swift */; };
 		68E113011F5CE3D60069BD45 /* SimulatedCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
@@ -367,7 +367,7 @@
 		68DFB08D1B07C5C4002A72E8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		68DFB0961B07C5C4002A72E8 /* provideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68DFB09C1B07C5C4002A72E8 /* provideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = provideTests.swift; sourceTree = "<group>"; };
+		68DFB09C1B07C5C4002A72E8 /* ProvideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideTests.swift; sourceTree = "<group>"; };
 		68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatedCLHeading.swift; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -880,7 +880,7 @@
 		68DFB0991B07C5C4002A72E8 /* provideTests */ = {
 			isa = PBXGroup;
 			children = (
-				68DFB09C1B07C5C4002A72E8 /* provideTests.swift */,
+				68DFB09C1B07C5C4002A72E8 /* ProvideTests.swift */,
 				5C0049541B1BE943000ACE9D /* services */,
 				5CAC66221B12B0140079A58E /* extensions */,
 				68DFB09A1B07C5C4002A72E8 /* Supporting Files */,
@@ -1240,7 +1240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "# PROJECT_DIR is provide-ios/provide so have to cd one level up to find the proper .swiftlint.yml file\ncd $PROJECT_DIR/..;\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		682D32691B07CBDD00BC4EEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1432,7 +1432,7 @@
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,
 				681417481B845D900076BFBD /* OHHTTPStubsHelper.swift in Sources */,
-				68DFB09D1B07C5C4002A72E8 /* provideTests.swift in Sources */,
+				68DFB09D1B07C5C4002A72E8 /* ProvideTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

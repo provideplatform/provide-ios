@@ -1,5 +1,5 @@
 //
-//  provideTests.swift
+//  ProvideTests.swift
 //  provideTests
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -9,7 +9,7 @@
 import UIKit
 import XCTest
 
-class provideTests: XCTestCase {
+class ProvideTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -28,7 +28,7 @@ class provideTests: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        measure() {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }

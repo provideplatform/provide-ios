@@ -27,11 +27,11 @@ class User: Model {
     var lastCheckinLatitude: NSNumber!
     var lastCheckinLongitude: NSNumber!
     var lastCheckinHeading: NSNumber!
-    
+
     var annotation: Annotation {
         return Annotation(user: self)
     }
-    
+
     var coordinate: CLLocationCoordinate2D! {
         if lastCheckinLatitude != nil && lastCheckinLongitude != nil {
             return CLLocationCoordinate2DMake(lastCheckinLatitude.doubleValue,
@@ -39,14 +39,14 @@ class User: Model {
         }
         return nil
     }
-    
+
     var profileImageUrl: URL! {
         if let profileImageUrlString = profileImageUrlString {
             return URL(string: profileImageUrlString)
         }
         return nil
     }
-    
+
     var firstName: String? {
         if let name = name {
             return name.components(separatedBy: " ").first!
@@ -54,7 +54,7 @@ class User: Model {
             return nil
         }
     }
-    
+
     var lastName: String? {
         if let name = name {
             if name.components(separatedBy: " ").count > 1 {
@@ -72,7 +72,7 @@ class User: Model {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {
                 if let item = menuItemPreference as? NSDictionary {
-                    menuItems.append(MenuItem(item: item as! [String : String]))
+                    menuItems.append(MenuItem(item: item as! [String: String]))
                 }
             }
             return menuItems
@@ -135,7 +135,7 @@ class User: Model {
 
     func reloadCompanies(_ onSuccess: OnSuccess!, onError: OnError!) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
-        let params: [String : AnyObject] = ["id": companyIdsQueryString as AnyObject]
+        let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
         ApiService.sharedService().fetchCompanies(params,
             onSuccess: { statusCode, mappingResult in
                 self.companies = mappingResult?.array() as! [Company]
@@ -150,14 +150,14 @@ class User: Model {
             }
         )
     }
-    
+
     class Annotation: NSObject, MKAnnotation {
         fileprivate var user: User!
-        
+
         required init(user: User) {
             self.user = user
         }
-        
+
         @objc var coordinate: CLLocationCoordinate2D {
             return user.coordinate
         }
@@ -165,7 +165,7 @@ class User: Model {
         @objc var title: String? {
             return nil
         }
-        
+
         @objc var subtitle: String? {
             return nil
         }

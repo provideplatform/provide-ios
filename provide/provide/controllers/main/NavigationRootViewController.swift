@@ -77,7 +77,6 @@ class NavigationRootViewController: ViewController,
         switch segue.identifier! {
         case "ApplicationViewControllerSegue":
             (segue.destination as! ApplicationViewController).applicationViewControllerDelegate = self
-            break
         case "AuthenticationViewControllerSegue":
             assert(segue.destination is AuthenticationViewController)
         case "PinInputViewControllerSegue":
@@ -126,7 +125,7 @@ class NavigationRootViewController: ViewController,
                     if let user = invitation.user {
                         let params: [String : AnyObject] = [
                             "email": user.email as AnyObject,
-                            "invitation_token": pin as AnyObject
+                            "invitation_token": pin as AnyObject,
                         ]
 
                         ApiService.sharedService().createUser(params,

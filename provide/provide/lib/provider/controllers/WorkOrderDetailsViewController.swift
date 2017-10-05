@@ -116,8 +116,8 @@ class WorkOrderDetailsViewController: ViewController,
                 headerTableViewController.workOrder = workOrder
             }
         }
-        
-        if let _ = tableView {
+
+        if tableView != nil {
             reloadTableView()
         }
     }
@@ -279,7 +279,7 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 
-    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
 
     }
 

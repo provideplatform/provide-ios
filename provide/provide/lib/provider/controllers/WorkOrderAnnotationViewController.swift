@@ -55,7 +55,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         }
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
@@ -67,7 +67,6 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
                 delegate.confirmationRequiredForWorkOrderViewController?(self)
                 delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
             }
-            break
         case "WorkOrderAnnotationViewControllerUnwindSegue":
             assert(segue.source is WorkOrderAnnotationViewController)
             assert(segue.destination is WorkOrdersViewController)

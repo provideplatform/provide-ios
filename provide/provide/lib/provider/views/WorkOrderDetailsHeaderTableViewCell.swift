@@ -26,7 +26,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     weak var workOrder: WorkOrder! {
         didSet {
-            if let _ = workOrder {
+            if workOrder != nil {
                 if Thread.isMainThread {
                     self.refresh()
                 } else {
@@ -237,7 +237,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             if let humanReadableScheduledStartTime = workOrder.humanReadableScheduledStartAtTimestamp {
                 scheduledStartTime = humanReadableScheduledStartTime
             }
-            
+
             cell.setName("START AT", value: scheduledStartTime)
         case 2:
             if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {

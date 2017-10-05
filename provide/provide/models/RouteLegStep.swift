@@ -13,37 +13,37 @@ import KTSwiftExtensions
 class RouteLegStep: Model {
 
     let maneuverIcons = [
-        "leftUTurn":            "uturn-left",
-        "leftTurn":             "turn-left",
-        "slightLeftTurn":       "turn-slight-left",
-        "sharpLeftTurn":        "turn-sharp-left",
-        "leftMerge":            "merge",
-        "leftExit":             "exit-left",
-        "leftLoop":             "",
-        "leftFork":             "fork-left",
-        "leftRamp":             "ramp-left",
-        "leftRoundaboutExit1":  "roundabout-left",
-        "rightUTurn":           "uturn-right",
-        "rightTurn":            "turn-right",
-        "slightRightTurn":      "turn-slight-right",
-        "sharpRightTurn":       "turn-sharp-right",
-        "rightMerge":           "merge",
-        "rightExit":            "exit-right",
-        "rightFork":            "fork-right",
-        "rightLoop":            "",
-        "rightRamp":            "ramp-right",
+        "leftUTurn": "uturn-left",
+        "leftTurn": "turn-left",
+        "slightLeftTurn": "turn-slight-left",
+        "sharpLeftTurn": "turn-sharp-left",
+        "leftMerge": "merge",
+        "leftExit": "exit-left",
+        "leftLoop": "",
+        "leftFork": "fork-left",
+        "leftRamp": "ramp-left",
+        "leftRoundaboutExit1": "roundabout-left",
+        "rightUTurn": "uturn-right",
+        "rightTurn": "turn-right",
+        "slightRightTurn": "turn-slight-right",
+        "sharpRightTurn": "turn-sharp-right",
+        "rightMerge": "merge",
+        "rightExit": "exit-right",
+        "rightFork": "fork-right",
+        "rightLoop": "",
+        "rightRamp": "ramp-right",
         "rightRoundaboutExit1": "roundabout-right",
-        "arrive":               "",
-        "arriveLeft":           "",
-        "arriveRight":          "",
-        "arriveAirport":        "",
-        "depart":               "",
-        "departAirport":        "",
-        "continue":             "straight",
-        "middleFork":           "straight",
-        "nameChange":           "",
-        "trafficCircle":        "",
-        "ferry":                "",
+        "arrive": "",
+        "arriveLeft": "",
+        "arriveRight": "",
+        "arriveAirport": "",
+        "depart": "",
+        "departAirport": "",
+        "continue": "straight",
+        "middleFork": "straight",
+        "nameChange": "",
+        "trafficCircle": "",
+        "ferry": "",
     ]
 
     var identifier: String!
@@ -77,7 +77,7 @@ class RouteLegStep: Model {
             "baseTime": "baseTime",
             "nextManeuver": "nextManeuver",
             "toLink": "toLink",
-            "id": "identifier"
+            "id": "identifier",
             ]
         )
         return mapping!
@@ -106,7 +106,7 @@ class RouteLegStep: Model {
     }
 
     var remainingDistanceString: String! {
-        if let shape = shape , shape.count > 0 {
+        if let shape = shape, shape.count > 0 {
             let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
             if distanceInMiles > 0.1 {
                 return String(format: "%.1f", distanceInMiles) + " mi"

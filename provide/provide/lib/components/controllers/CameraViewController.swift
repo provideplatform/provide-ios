@@ -1,4 +1,3 @@
-
 //
 //  CameraViewController.swift
 //  provide
@@ -90,7 +89,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
             button.addBorder(5.0, color: UIColor.white)
             button.makeCircular()
-            
+
             renderDefaultButtonAppearance()
         }
     }

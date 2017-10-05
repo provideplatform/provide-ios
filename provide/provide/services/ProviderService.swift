@@ -7,7 +7,7 @@
 //
 import KTSwiftExtensions
 
-typealias OnProvidersFetched = (_ providers: [Provider]) -> ()
+typealias OnProvidersFetched = (_ providers: [Provider]) -> Void
 
 class ProviderService: NSObject {
 
@@ -78,7 +78,7 @@ class ProviderService: NSObject {
         var params = [
             "page": page,
             "rpp": rpp,
-        ] as [String : Any]
+        ] as [String: Any]
 
         if let available = available {
             params["available"] = available

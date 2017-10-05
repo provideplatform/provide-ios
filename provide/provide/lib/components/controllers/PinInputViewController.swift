@@ -17,7 +17,6 @@ protocol PinInputViewControllerDelegate {
     @objc optional func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
 }
 
-
 class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     enum `Type` {
@@ -34,7 +33,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Public Variables
-    
+
     var delegate: PinInputViewControllerDelegate! {
         didSet {
             if let delegate = delegate {
@@ -49,7 +48,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
     }
 
     // MARK: Private Variables
-    
+
     @IBOutlet fileprivate weak var messageLabel: UILabel!
     @IBOutlet fileprivate weak var pinInputControl: PinInputControl!
 
@@ -138,16 +137,14 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         pinInputControl.resetView()
 
         dispatch_after_delay(fadeStartDelay) {
-            UIView.animate(withDuration: self.fadeDuration,
-                animations: {
-                    self.messageLabel.alpha = 0
-                }
-            ) { _ in
+            UIView.animate(withDuration: self.fadeDuration, animations: {
+                self.messageLabel.alpha = 0
+            }, completion: { _ in
                 UIView.animate(withDuration: self.fadeDuration) {
                     self.messageLabel.text = message
                     self.messageLabel.alpha = 1
                 }
-            }
+            })
         }
     }
 

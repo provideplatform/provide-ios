@@ -71,7 +71,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     func maintainWebsocketConnection() {
-        if let _ = socket {
+        if socket != nil {
             if !socketConnected {
                 connectWebsocket()
             }
@@ -82,7 +82,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
-        case .Attachment:
+        case .attachment:
             if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool {
                 if refreshProfileImage {
                     if let token = KeyChainService.sharedService().token {
@@ -104,17 +104,17 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
             }
 
-        case .Comment:
+        case .comment:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let comment = Comment(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
 
-        case .Message:
+        case .message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "NewMessageReceivedNotification"), object: message as Any)
 
-        case .WorkOrder:
+        case .workOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {
@@ -180,15 +180,15 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             } else if message =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
                 if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary() {
-                    if let data = value["data"] as? [String : AnyObject] {
+                    if let data = value["data"] as? [String: AnyObject] {
                         let message = data["message"] as? String
-                        let payload = data["payload"] as? [String : AnyObject]
+                        let payload = data["payload"] as? [String: AnyObject]
 
                         if let message = message {
                             logInfo("Websocket message received: \(message)")
 
                             AnalyticsService.sharedService().track("Websocket Received Message",
-                                                                   properties: ["message": message as AnyObject] as [String : AnyObject])
+                                                                   properties: ["message": message as AnyObject] as [String: AnyObject])
 
                             switch message {
                             case "attachment_changed":
@@ -204,12 +204,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     }
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
-                                break
-
                             case "comment_changed":
                                 let comment = Comment(string: payload!.toJSONString())
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
-
                             case "provider_became_available":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
@@ -219,8 +216,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     ProviderService.sharedService().appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
-                                break
-
                             case "provider_became_unavailable":
                                 if let providerId = payload?["provider_id"] as? Int {
                                     if let provider = ProviderService.sharedService().cachedProvider(providerId) {
@@ -228,8 +223,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
                                     }
                                 }
-                                break
-
                             case "provider_location_changed":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
@@ -239,8 +232,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     ProviderService.sharedService().appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
-                                break
-
                             case "work_order_changed":
                                 let workOrderJson = payload!.toJSONString()
                                 let workOrder = WorkOrder(string: workOrderJson)
@@ -249,8 +240,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
-                                break
-
                             case "work_order_provider_changed":
                                 let workOrderProviderJson = payload!.toJSONString()
                                 let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
@@ -258,21 +247,16 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 if WorkOrderService.sharedService().inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
-                                break
-
                             case "work_order_provider_added":
                                 break
-
                             case "work_order_provider_removed":
                                 break
-
                             default:
                                 break
                             }
                         }
                     }
                 }
-
             }
         }
     }

@@ -1,0 +1,52 @@
+excluded:
+  - Pods
+  - startrack
+
+disabled_rules: # rule identifiers to exclude from running
+  - line_length
+  - unused_closure_parameter                  # Count = 197  warning = Unused Closure Parameter Violation.
+  - force_cast                                # Count = 155  error   = Force Cast Violation.
+  - opening_brace                             # Count = 41   warning = Opening Brace Spacing Violation.
+  - todo                                      # Count = 26   warning = Todo Violation.
+  - for_where                                 # Count = 25   warning = For Where Violation.
+  - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
+  - function_body_length                      # Count = 15   warning = Function Body Length Violation.
+  - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.
+  - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
+  - file_length                               # Count = 10   warning = File Line Length Violation.
+  - type_body_length                          # Count = 7    warning = Type Body Length Violation.
+  - function_parameter_count                  # Count = 7    warning = Function Parameter Count Violation.
+  - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
+  - discarded_notification_center_observer
+
+trailing_comma:
+  mandatory_comma: true
+
+identifier_name:
+  max_length: 50
+  excluded:
+    - id
+    - x
+    - y
+    - i
+    - vc
+    - qa
+    - CurrentBuildConfig
+    - CurrentEnvironment
+
+type_name:
+  max_length: 45
+  excluded:
+    - WorkOrderDestinationConfirmationViewController
+
+
+## Swiftlint Initial Setup Instructions
+##
+## Run this command to generate an initial list of violations that can be set as disabled_rules to get to green
+## Make sure to comment out existing disabled rules first
+##
+## Command:
+## swiftlint 2> /dev/null | ack -ho "((?:warning|error): .* Violation): (.*)[:\.].*(\(.+\))" --output '$1: $2 $3' | sort | uniq -c | sort -nr | ack -ho "\s*(\d+) ((?:warning|error): .* Violation): (.*) \((.+)\)" --output '  - $4 # Count = $1~$2. $3.' | sed 's/#/~#/g' | column -s'~' -t | sed 's/warning:/warning =/' | sed 's/error:/error   =/g'
+
+## Updated command to minimize duplicates:
+## swiftlint 2> /dev/null | ack -ho "((?:warning|error): .* Violation): (.*)[:\.].*(\(.+\))" --output '$1: $3' | sort | uniq -c | sort -nr | ack -ho "\s*(\d+) ((?:warning|error): .* Violation): \((.+)\)" --output '  - $3 # Count = $1~$2.' | sed 's/#/~#/g' | column -s'~' -t | sed 's/warning:/warning =/' | sed 's/error:/error   =/g'

@@ -107,7 +107,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             refreshControl.beginRefreshing()
         }
 
-        let params: [String : AnyObject] = [
+        let params: [String: AnyObject] = [
             "page": page as AnyObject,
             "rpp": rpp as AnyObject,
             "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed" as AnyObject,
@@ -141,11 +141,11 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     // MARK: UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10.0, 5.0, 0.0, 5.0)
+        return UIEdgeInsets(top: 10.0, left: 5.0, bottom: 0.0, right: 5.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let inset = UIEdgeInsetsMake(10.0, 5.0, 10.0, 5.0)
+        let inset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
         return CGSize(width: collectionView.frame.width - insetWidthOffset, height: 175.0)

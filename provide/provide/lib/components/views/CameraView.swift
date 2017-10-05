@@ -1,4 +1,4 @@
- //
+//
 //  CameraView.swift
 //  provide
 //
@@ -93,9 +93,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate var mic: AVCaptureDevice! {
-        get {
-            return AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
-        }
+        return AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
     }
 
     fileprivate var outputFaceMetadata: Bool {
@@ -209,9 +207,9 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     func setCapturePreviewOrientationWithDeviceOrientation(_ deviceOrientation: UIDeviceOrientation, size: CGSize) {
         if  let capturePreviewLayer = capturePreviewLayer {
             capturePreviewLayer.frame.size = size
-            
+
             if let connection = capturePreviewLayer.connection {
-                switch (deviceOrientation) {
+                switch deviceOrientation {
                 case .portrait:
                     connection.videoOrientation = .portrait
                 case .landscapeRight:
@@ -309,7 +307,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             captureSession = nil
         }
 
-        if let _ = capturePreviewLayer {
+        if capturePreviewLayer != nil {
             capturePreviewLayer.removeFromSuperlayer()
             capturePreviewLayer = nil
         }
@@ -324,27 +322,22 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 } else {
                     // audioFileOutput.stopRecording()
                 }
-                break
             case .photo:
                 captureFrame()
-                break
             case .selfie:
                 captureFrame()
-                break
             case .video:
                 if recording == false {
                     captureVideo()
                 } else {
                     videoFileOutput.stopRecording()
                 }
-                break
             case .videoSampleBuffer:
                 if recording == false {
                     captureVideo()
                 } else {
                     captureSession.removeOutput(videoDataOutput)
                 }
-                break
             }
         }
     }
@@ -405,12 +398,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
                 let outputFileURL = URL(fileURLWithPath: "\(paths.first!)/\(Date().timeIntervalSince1970).m4v")
                 videoFileOutput.startRecording(toOutputFileURL: outputFileURL, recordingDelegate: self)
-                break
             case .videoSampleBuffer:
                 if captureSession.canAddOutput(videoDataOutput) {
                     captureSession.addOutput(videoDataOutput)
                 }
-                break
             default:
                 break
             }
@@ -453,7 +444,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         let quartzImage = context?.makeImage()!
         CVPixelBufferUnlockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-        
+
         let frame = UIImage(cgImage: quartzImage!)
 
         if outputOCRMetadata {

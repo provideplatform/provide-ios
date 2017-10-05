@@ -9,20 +9,20 @@
 import KTSwiftExtensions
 
 enum PushNotificationType: String {
-    case Attachment = "attachment_id"
-    case Checkin = "checkin"
-    case Comment = "comment"
-    case Job = "job_id"
-    case Message = "message"
-    case Route = "route_id"
-    case Unknown = ""
-    case WorkOrder = "work_order_id"
+    case attachment = "attachment_id"
+    case checkin = "checkin"
+    case comment = "comment"
+    case job = "job_id"
+    case message = "message"
+    case route = "route_id"
+    case unknown = ""
+    case workOrder = "work_order_id"
 
     var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [Attachment, Checkin, Job, Message, Route, WorkOrder]
+    static let allTypes = [attachment, checkin, job, message, route, workOrder]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: AnyObject]) -> (PushNotificationType, AnyObject?) {
         for type in allTypes {
@@ -31,6 +31,6 @@ enum PushNotificationType: String {
             }
         }
         logWarn("Existing notification type not found in userInfo: \(userInfo)")
-        return (Unknown, nil)
+        return (unknown, nil)
     }
 }

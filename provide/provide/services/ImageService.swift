@@ -10,9 +10,9 @@ import Foundation
 import SDWebImage
 import KTSwiftExtensions
 
-typealias OnDownloadProgress = (_ receivedSize: Int, _ expectedSize: Int) -> ()
-typealias OnImageDownloadSuccess = (_ image: UIImage) -> ()
-typealias OnImageDownloadFailure = (_ error: NSError) -> ()
+typealias OnDownloadProgress = (_ receivedSize: Int, _ expectedSize: Int) -> Void
+typealias OnImageDownloadSuccess = (_ image: UIImage) -> Void
+typealias OnImageDownloadFailure = (_ error: NSError) -> Void
 
 class ImageService {
 
@@ -61,7 +61,7 @@ class ImageService {
                         } else {
                             let downloader = SDWebImageDownloader.shared()
                             downloader?.shouldDecompressImages = false
-                            let _ = downloader?.downloadImage(with: url, options: downloadOptions,
+                            _ = downloader?.downloadImage(with: url, options: downloadOptions,
                                 progress: { receivedSize, expectedSize in
                                     if let onDownloadProgress = onDownloadProgress {
                                         onDownloadProgress(receivedSize, expectedSize)
@@ -72,7 +72,7 @@ class ImageService {
                                         dispatch_async_global_queue(DispatchQoS.default.qosClass) {
                                             self.cache.store(image, forKey: cacheKey)
                                         }
-                                        
+
                                         onDownloadSuccess(image!)
                                     } else if error != nil {
                                         if let onDownloadFailure = onDownloadFailure {

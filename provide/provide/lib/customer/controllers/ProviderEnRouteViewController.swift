@@ -71,7 +71,7 @@ class ProviderEnRouteViewController: ViewController {
             }
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,7 +91,7 @@ class ProviderEnRouteViewController: ViewController {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             view.bringSubview(toFront: activityIndicatorView)
             activityIndicatorView.startAnimating()
-            
+
             if let profileImageUrl = workOrder.providerProfileImageUrl {
                 profileImageView.setImageWithUrl(profileImageUrl) { [weak self] in
                     self?.activityIndicatorView.stopAnimating()
@@ -101,13 +101,13 @@ class ProviderEnRouteViewController: ViewController {
                 }
             } else {
                 activityIndicatorView.stopAnimating()
-                
+
                 profileImageView.image = nil  // TODO: render default profile pic
                 profileImageView.alpha = 0.0
             }
         }
     }
-    
+
     func refreshStatus() {
         if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
             if workOrder.status == nil {
@@ -115,7 +115,7 @@ class ProviderEnRouteViewController: ViewController {
                 providerStatusLabel?.isHidden = false
                 return
             }
-            
+
             if workOrder.status == "en_route" {
                 if workOrder.providerProfileImageUrl == nil {
                     workOrder.reload(
@@ -146,7 +146,7 @@ class ProviderEnRouteViewController: ViewController {
     func setWorkOrder(_ workOrder: WorkOrder) {
         self.workOrder = workOrder
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

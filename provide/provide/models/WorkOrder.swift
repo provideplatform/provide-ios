@@ -305,7 +305,7 @@ class WorkOrder: Model {
                 }
             }
         }
-        
+
         if let customer = customer {
             return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
                                               customer.contact.longitude.doubleValue)
@@ -326,7 +326,7 @@ class WorkOrder: Model {
     var currentComponentIdentifier: String! {
         var componentIdentifier: String!
         for component in components {
-            if let componentDict = component as? [String : AnyObject] {
+            if let componentDict = component as? [String: AnyObject] {
                 if let completed = componentDict["completed"] as? Bool {
                     if !completed {
                         componentIdentifier = componentDict["component"] as! String
@@ -397,7 +397,7 @@ class WorkOrder: Model {
         }
         return nil
     }
-    
+
     var providers: [Provider] {
         var providers = [Provider]()
         if let workOrderProviders = workOrderProviders {
@@ -425,7 +425,7 @@ class WorkOrder: Model {
         return 10.0
     }
 
-    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String : AnyObject] {
+    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: AnyObject] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValue(forKey: "preview_image")
         dictionary.removeValue(forKey: "id")
@@ -533,9 +533,9 @@ class WorkOrder: Model {
             if self.workOrderProviders == nil {
                 self.workOrderProviders = [WorkOrderProvider]()
             }
-            var workOrderProviders = [[String : AnyObject]]()
+            var workOrderProviders = [[String: AnyObject]]()
             for workOrderProvider in self.workOrderProviders {
-                var wop: [String : AnyObject] = ["provider_id": workOrderProvider.provider.id as AnyObject]
+                var wop: [String: AnyObject] = ["provider_id": workOrderProvider.provider.id as AnyObject]
                 if workOrderProvider.estimatedDuration > -1.0 {
                     wop.updateValue(workOrderProvider.estimatedDuration as AnyObject, forKey: "estimated_duration")
                 }
@@ -562,13 +562,13 @@ class WorkOrder: Model {
                 }
             )
         } else {
-            var workOrderProviders = [[String : AnyObject]]()
+            var workOrderProviders = [[String: AnyObject]]()
             for provider in providers {
                 workOrderProviders.append(["provider_id": provider.id as AnyObject])
             }
             params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
 
-            if let _ = scheduledStartAt {
+            if scheduledStartAt != nil {
                 params.updateValue("scheduled" as AnyObject, forKey: "status")
             }
 
@@ -591,7 +591,7 @@ class WorkOrder: Model {
         reload(["include_estimated_cost": "false" as AnyObject, "include_job": "false" as AnyObject, "include_supervisors": "true" as AnyObject, "include_work_order_providers": "true" as AnyObject], onSuccess: onSuccess, onError: onError)
     }
 
-    func reload(_ params: [String : AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reload(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
@@ -649,7 +649,7 @@ class WorkOrder: Model {
     func setComponents(_ components: NSMutableArray) {
         let mutableConfig = NSMutableDictionary(dictionary: config)
         mutableConfig.setObject(components, forKey: "components" as NSCopying)
-        config = mutableConfig as! [String : AnyObject]
+        config = mutableConfig as! [String: AnyObject]
     }
 
     func route(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -663,8 +663,6 @@ class WorkOrder: Model {
     func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
 
-        
-        
         updateWorkOrderWithStatus("arriving",
             onSuccess: { statusCode, mappingResult in
                 self.pendingArrival = false
@@ -738,14 +736,14 @@ class WorkOrder: Model {
 
     func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.sharedService().addComment(comment, toWorkOrderWithId: String(id),
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { (statusCode, mappingResult) -> Void in
                 if self.comments == nil {
                     self.comments = [Comment]()
                 }
                 self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { (error, statusCode, responseString) -> () in
+            onError: { (error, statusCode, responseString) -> Void in
                 onError(error, statusCode, responseString)
             }
         )

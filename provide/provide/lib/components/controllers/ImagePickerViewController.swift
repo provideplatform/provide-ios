@@ -18,11 +18,11 @@ class ImagePickerViewController: UIImagePickerController, UIImagePickerControlle
         allowsEditing = false
     }
 
-    override var childViewControllerForStatusBarHidden : UIViewController? {
+    override var childViewControllerForStatusBarHidden: UIViewController? {
         return nil
     }
 
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
 }

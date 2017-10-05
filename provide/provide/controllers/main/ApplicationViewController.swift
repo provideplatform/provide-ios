@@ -144,7 +144,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
-        let _ = navigationController?.popViewController(animated: false)
+        _ = navigationController?.popViewController(animated: false)
     }
 
     func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
@@ -167,12 +167,12 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {
-        
+
     }
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
         DispatchQueue.main.async {
-            let _ = self.navigationController?.popViewController(animated: false)
+            _ = self.navigationController?.popViewController(animated: false)
         }
     }
 
@@ -193,7 +193,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewController(_ viewController: CameraViewController, didRecognizeText text: String!) {
-        
+
     }
 
     fileprivate func initCameraViewController() {

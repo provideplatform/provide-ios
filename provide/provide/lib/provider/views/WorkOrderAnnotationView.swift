@@ -10,7 +10,7 @@ import Foundation
 
 class WorkOrderAnnotationView: AnnotationView {
 
-    fileprivate let defaultPadding = UIEdgeInsetsMake(5, 0, 100, 0)
+    fileprivate let defaultPadding = UIEdgeInsets(top: 5, left: 0, bottom: 100, right: 0)
 
     var minutesEta: Int! {
         didSet {

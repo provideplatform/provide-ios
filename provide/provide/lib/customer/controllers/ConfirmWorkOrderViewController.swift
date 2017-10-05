@@ -25,7 +25,7 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var fareEstimate: UILabel!
     @IBOutlet private weak var userIconImageView: UIImageView! {
         didSet {
-            if let _ = userIconImageView {
+            if userIconImageView != nil {
                 userIconImageView.image = userIconImageView.image!.withRenderingMode(.alwaysTemplate)
                 userIconImageView.tintColor = .lightGray
             }
@@ -152,8 +152,10 @@ class ConfirmWorkOrderViewController: ViewController {
         let pendingWorkOrder = WorkOrder()
         pendingWorkOrder.desc = destination.desc
         if let cfg = destination.data {
-            pendingWorkOrder.config = ["origin": origin.toDictionary() as AnyObject,
-                                       "destination": cfg as AnyObject]
+            pendingWorkOrder.config = [
+                "origin": origin.toDictionary() as AnyObject,
+                "destination": cfg as AnyObject,
+            ]
         }
 
         pendingWorkOrder.save(

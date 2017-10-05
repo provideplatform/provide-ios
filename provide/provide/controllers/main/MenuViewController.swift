@@ -20,7 +20,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     var delegate: MenuViewControllerDelegate! {
         didSet {
-            if let _ = delegate {
+            if delegate != nil {
                 tableView.reloadData()
             }
         }
@@ -28,7 +28,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     @IBOutlet fileprivate weak var menuHeaderView: MenuHeaderView!
 
-    fileprivate var storyboardPaths = [String : AnyObject!]()
+    fileprivate var storyboardPaths = [String: AnyObject!]()
 
     fileprivate var lastSectionIndex: Int {
         return tableView.numberOfSections - 1
@@ -193,7 +193,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
 
         var storyboardPath: String!
-        if let _ = storyboardPaths.keys.index(of: storyboardName) {
+        if storyboardPaths.keys.index(of: storyboardName) != nil {
             if storyboardPaths[storyboardName] != nil {
                 storyboardPath = storyboardPaths[storyboardName] as? String
             }

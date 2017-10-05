@@ -32,52 +32,52 @@ class AppearenceProxy {
         return Color.applicationDefaultBarTintColor()
     }
 
-    class func navBarTitleTextAttributes() -> [String : AnyObject] {
+    class func navBarTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 20)!,
-            NSForegroundColorAttributeName : Color.darkBlueBackground()
+            NSFontAttributeName: UIFont(name: "Exo2-Light", size: 20)!,
+            NSForegroundColorAttributeName: Color.darkBlueBackground(),
         ]
     }
 
-    class func inProgressBarButtonItemTitleTextAttributes() -> [String : AnyObject] {
+    class func inProgressBarButtonItemTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
-            NSForegroundColorAttributeName : Color.inProgressStatusColor()
+            NSFontAttributeName: UIFont(name: "Exo2-Bold", size: 14)!,
+            NSForegroundColorAttributeName: Color.inProgressStatusColor(),
         ]
     }
 
-    class func cancelBarButtonItemTitleTextAttributes() -> [String : AnyObject] {
+    class func cancelBarButtonItemTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : Color.canceledStatusColor()
+            NSFontAttributeName: UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName: Color.canceledStatusColor(),
         ]
     }
 
-    class func whiteButtonItemTitleTextAttributes() -> [String : AnyObject] {
+    class func whiteButtonItemTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.white
+            NSFontAttributeName: UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName: UIColor.white,
         ]
     }
 
-    class func barButtonItemTitleTextAttributes() -> [String : AnyObject] {
+    class func barButtonItemTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : Color.darkBlueBackground()
+            NSFontAttributeName: UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName: Color.darkBlueBackground(),
         ]
     }
 
-    class func selectedButtonItemTitleTextAttributes() -> [String : AnyObject] {
+    class func selectedButtonItemTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Bold", size: 14)!,
-            NSForegroundColorAttributeName : Color.darkBlueBackground()
+            NSFontAttributeName: UIFont(name: "Exo2-Bold", size: 14)!,
+            NSForegroundColorAttributeName: Color.darkBlueBackground(),
         ]
     }
 
-    class func barButtonItemDisabledTitleTextAttributes() -> [String : AnyObject] {
+    class func barButtonItemDisabledTitleTextAttributes() -> [String: AnyObject] {
         return [
-            NSFontAttributeName : UIFont(name: "Exo2-Light", size: 14)!,
-            NSForegroundColorAttributeName : UIColor.darkGray
+            NSFontAttributeName: UIFont(name: "Exo2-Light", size: 14)!,
+            NSForegroundColorAttributeName: UIColor.darkGray,
         ]
     }
 }
@@ -128,4 +128,3 @@ func addHexagonalOutline(to view: UIView, borderWidth: CGFloat = 1, cornerLength
     outlineLayer.path = outlinePath.cgPath
     view.layer.mask = maskLayer
 }
-

@@ -35,7 +35,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         }
         removeAnnotations(nonUserAnnotations)
     }
-    
+
     override func revealMap(_ force: Bool = false) {
         super.revealMap(
             force,
@@ -69,17 +69,17 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     }
 
     // MARK: MKMapViewDelegate
-    
+
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
         if fullyRendered {
             logInfo("Customer map view fully rendered")
         }
     }
-    
+
     func mapView(_ mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         var view: MKAnnotationView?
-        
+
         if annotation is MKUserLocation {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: userLocationAnnotationViewReuseIdentifier)
             if view == nil || updateUserLocationAnnotation {
@@ -95,32 +95,32 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                     let imageView = UIImageView(image: icon)
 
                     view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
-                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
+                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0)
                     view?.addSubview(imageView)
                 }
             }
-            
+
         }
-        
+
         return view
     }
-    
+
     func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
     }
-    
+
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
-    
+
     func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
     }
-    
+
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
         logWarn("MapView failed to locate user")
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
         let renderer: MKOverlayRenderer? = nil
 
@@ -128,19 +128,19 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 
         return renderer
     }
-    
+
     func mapView(_ mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
-        
+
     }
-    
+
     func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {
         log("Map view updated user location: \(location)")
-        
+
         if mapView.alpha == 0 {
             log("Adjusting visible map rect based on location: \(location)")
-            
+
             mapViewShouldRefreshVisibleMapRect(mapView)
-            
+
             mapView.revealMap(
                 false,
                 animations: {
@@ -150,7 +150,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                 completion: nil
             )
         }
-        
+
         mapView.setCenterCoordinate(location.coordinate,
                                     fromEyeCoordinate: mapView.centerCoordinate,
                                     eyeAltitude: 20000.0,
@@ -158,13 +158,13 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                                     heading: mapView.camera.heading,
                                     animated: false)
     }
-    
+
     func mapViewDidFailToUpdateUserLocation(_ mapView: MapView, error: NSError) {
         logWarn("Map view failed to update user location")
     }
-    
+
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsetsMake(0, 0, 0, 0), animated: animated)
+        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
     }
 }

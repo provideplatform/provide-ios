@@ -65,7 +65,7 @@ class CheckinService: NSObject {
             t.invalidate()
             timer = nil
         }
-        
+
         logInfo("Stopped checkin service")
     }
 
