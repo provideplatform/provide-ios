@@ -154,7 +154,6 @@ class SetPasswordViewController: ViewController,
         return cell
     }
 
-
     // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

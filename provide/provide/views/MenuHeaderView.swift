@@ -66,7 +66,6 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
 
-
         let selfieAction = UIAlertAction(title: "Selfie", style: .default) { action in
             self.initSelfieViewController()
         }

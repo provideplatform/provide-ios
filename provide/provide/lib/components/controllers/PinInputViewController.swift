@@ -17,7 +17,6 @@ protocol PinInputViewControllerDelegate {
     @objc optional func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
 }
 
-
 class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     enum `Type` {

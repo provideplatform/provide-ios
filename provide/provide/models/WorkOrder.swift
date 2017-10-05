@@ -662,8 +662,6 @@ class WorkOrder: Model {
 
     func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
-
-        
         
         updateWorkOrderWithStatus("arriving",
             onSuccess: { statusCode, mappingResult in
