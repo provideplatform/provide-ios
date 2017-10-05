@@ -32,7 +32,7 @@ class Customer: Model {
             "company_id": "companyId",
             "name": "name",
             "display_name": "displayName",
-            "profile_image_url": "profileImageUrlString"
+            "profile_image_url": "profileImageUrlString",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!

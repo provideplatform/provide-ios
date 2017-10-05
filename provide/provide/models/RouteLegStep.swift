@@ -77,7 +77,7 @@ class RouteLegStep: Model {
             "baseTime": "baseTime",
             "nextManeuver": "nextManeuver",
             "toLink": "toLink",
-            "id": "identifier"
+            "id": "identifier",
             ]
         )
         return mapping!

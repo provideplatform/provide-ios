@@ -13,7 +13,6 @@ disabled_rules: # rule identifiers to exclude from running
   - unused_optional_binding                   # Count = 33   warning: Unused Optional Binding Violation.
   - void_return                               # Count = 28   warning = Void Return Violation.
   - todo                                      # Count = 26   warning = Todo Violation.
-  - trailing_comma                            # Count = 25   warning = Trailing Comma Violation.
   - for_where                                 # Count = 25   warning = For Where Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
@@ -26,6 +25,8 @@ disabled_rules: # rule identifiers to exclude from running
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
 
+trailing_comma:
+  mandatory_comma: true
 
 ## Swiftlint Initial Setup Instructions
 ##

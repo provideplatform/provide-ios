@@ -74,7 +74,7 @@ class SetPasswordViewController: ViewController,
         MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
-            "password" : passwordField.text!
+            "password" : passwordField.text!,
         ]
 
         ApiService.sharedService().updateUser(params,

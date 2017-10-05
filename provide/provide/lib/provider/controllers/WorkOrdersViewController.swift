@@ -584,7 +584,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             "WorkOrderAnnotationViewControllerUnwindSegue",
             "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
-            "WorkOrderComponentViewControllerUnwindSegue"
+            "WorkOrderComponentViewControllerUnwindSegue",
             ].index(of: segueIdentifier)
         if let _ = index {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)

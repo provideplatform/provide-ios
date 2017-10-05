@@ -112,7 +112,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         let params = [
             "email" : emailField.text!,
-            "password" : passwordField.text!
+            "password" : passwordField.text!,
         ]
 
         ApiService.sharedService().login(params,
