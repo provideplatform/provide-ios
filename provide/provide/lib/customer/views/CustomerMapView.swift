@@ -95,7 +95,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                     let imageView = UIImageView(image: icon)
 
                     view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
-                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0);
+                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0)
                     view?.addSubview(imageView)
                 }
             }

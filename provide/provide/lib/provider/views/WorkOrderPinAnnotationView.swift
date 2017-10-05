@@ -25,7 +25,7 @@ class WorkOrderPinAnnotationView: MKAnnotationView {
         backgroundColor = UIColor.clear
         addSubview(imageView)
 
-        centerOffset = CGPoint(x: 0, y: (rect.height / 2.0) * -1.0);
+        centerOffset = CGPoint(x: 0, y: (rect.height / 2.0) * -1.0)
     }
 
     required init?(coder aDecoder: NSCoder) {
