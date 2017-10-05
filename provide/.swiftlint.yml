@@ -23,7 +23,6 @@ disabled_rules: # rule identifiers to exclude from running
   - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
   - file_length                               # Count = 10   warning = File Line Length Violation.
   - type_body_length                          # Count = 7    warning = Type Body Length Violation.
-  - mark                                      # Count = 7    warning = Mark Violation.
   - function_parameter_count                  # Count = 7    warning = Function Parameter Count Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.

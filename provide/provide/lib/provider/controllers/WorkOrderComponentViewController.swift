@@ -53,7 +53,7 @@ class WorkOrderComponentViewController: ViewController {
         view.removeFromSuperview()
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
@@ -66,7 +66,7 @@ class WorkOrderComponentViewController: ViewController {
         }
     }
 
-    // MARK Navigation item
+    // MARK: - Navigation item
 
     func clearNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {

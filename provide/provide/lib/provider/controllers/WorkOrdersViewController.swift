@@ -355,7 +355,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         }
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {

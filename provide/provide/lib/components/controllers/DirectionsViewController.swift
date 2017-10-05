@@ -335,7 +335,7 @@ class DirectionsViewController: ViewController {
         )
     }
 
-    // MARK Navigation
+    // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
