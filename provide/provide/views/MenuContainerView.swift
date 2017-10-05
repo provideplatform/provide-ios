@@ -20,7 +20,7 @@ class MenuContainerView: UIView {
     fileprivate var menuViewControllerFrame: CGRect {
         var width = frame.width
         if isIPad() {
-            width = width * 0.5
+            width *= 0.5
         } else {
             width = min(274.0, width * 0.66)
         }
