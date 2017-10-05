@@ -82,7 +82,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
-        case .Attachment:
+        case .attachment:
             if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool {
                 if refreshProfileImage {
                     if let token = KeyChainService.sharedService().token {
@@ -104,17 +104,17 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
             }
 
-        case .Comment:
+        case .comment:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let comment = Comment(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
 
-        case .Message:
+        case .message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "NewMessageReceivedNotification"), object: message as Any)
 
-        case .WorkOrder:
+        case .workOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {

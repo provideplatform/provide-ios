@@ -9,14 +9,14 @@
 import KTSwiftExtensions
 
 enum UserMode: String {
-    case Customer = "customer"
-    case Provider = "provider"
+    case customer
+    case provider
 
     var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [Customer, Provider]
+    static let allTypes = [customer, provider]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: AnyObject]) -> (UserMode, AnyObject?) {
         for type in allTypes {
@@ -25,6 +25,6 @@ enum UserMode: String {
             }
         }
         logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to customer...")
-        return (Customer, "customer" as AnyObject)  // default to customer
+        return (customer, "customer" as AnyObject)  // default to customer
     }
 }

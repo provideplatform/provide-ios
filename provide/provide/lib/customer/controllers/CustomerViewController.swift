@@ -401,7 +401,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     func provide() {
-        KeyChainService.sharedService().mode = .Provider
+        KeyChainService.sharedService().mode = .provider
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 
