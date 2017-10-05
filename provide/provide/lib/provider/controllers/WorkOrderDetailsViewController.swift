@@ -279,7 +279,7 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 
-    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)  {
+    func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder) {
 
     }
 
