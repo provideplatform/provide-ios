@@ -31,7 +31,6 @@ disabled_rules: # rule identifiers to exclude from running
   - private_over_fileprivate                  # Count = 3    warning = Private over fileprivate Violation.
   - implicit_getter                           # Count = 3    warning = Implicit Getter Violation.
   - empty_parentheses_with_trailing_closure   # Count = 3    warning = Empty Parentheses with Trailing Closure Violation.
-  - comma                                     # Count = 3    warning = Comma Spacing Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.

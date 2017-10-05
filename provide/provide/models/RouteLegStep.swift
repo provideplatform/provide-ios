@@ -106,7 +106,7 @@ class RouteLegStep: Model {
     }
 
     var remainingDistanceString: String! {
-        if let shape = shape , shape.count > 0 {
+        if let shape = shape, shape.count > 0 {
             let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
             if distanceInMiles > 0.1 {
                 return String(format: "%.1f", distanceInMiles) + " mi"
