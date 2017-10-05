@@ -34,7 +34,6 @@ disabled_rules: # rule identifiers to exclude from running
   - comma                                     # Count = 3    warning = Comma Spacing Violation.
   - shorthand_operator                        # Count = 3    error   = Shorthand Operator Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
-  - leading_whitespace                        # Count = 2    warning = Leading Whitespace Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
 
