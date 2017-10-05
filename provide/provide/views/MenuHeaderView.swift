@@ -77,12 +77,12 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         alertController.addAction(cameraRollAction)
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.presentViewController(alertController, animated: true)
+            navigationController.present(alertController, animated: true)
         }
     }
 
     fileprivate func refresh() {
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
 
         if let user = currentUser {
             profileImageUrl = user.profileImageUrl as URL!
@@ -105,7 +105,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
-            navigationController.presentViewController(imagePickerViewController, animated: true)
+            navigationController.present(imagePickerViewController, animated: true)
         }
     }
 
@@ -194,7 +194,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(true) {
+            navigationController.dismiss(animated: true) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }
@@ -204,7 +204,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismissViewController(true) {
+            navigationController.dismiss(animated: true) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }

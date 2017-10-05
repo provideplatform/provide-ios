@@ -125,7 +125,7 @@ class CastingDemandViewController: ViewController, CastingDemandRecommendationCo
         ]
 
         ApiService.sharedService().createWorkOrder(params as! [String : AnyObject],
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { statusCode, mappingResult in
                 self.pendingProvider = nil
 
                 self.castingDemand.quantityRemaining--

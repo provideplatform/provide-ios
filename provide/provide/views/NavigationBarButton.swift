@@ -69,5 +69,4 @@ class NavigationBarButton: UIButton {
     fileprivate func shouldPassTouchToSuperview(_ touch: UITouch) -> Bool {
         return false
     }
-
 }

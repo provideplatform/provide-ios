@@ -52,11 +52,10 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                 if let annotationView = view(for: annotation) {
                     for _ in annotationView.subviews {
 //                        if v is UIImageView {
-//                            v.frame.size = CGSize(width: v.frame.size.width * scale,
-//                                                  height: v.frame.size.height * scale)
+//                            v.frame.size = CGSize(width: v.frame.width * scale,
+//                                                  height: v.frame.height * scale)
 //                        }
                     }
-
                 }
             }
         }
@@ -99,7 +98,6 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                     view?.addSubview(imageView)
                 }
             }
-
         }
 
         return view

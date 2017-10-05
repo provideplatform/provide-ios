@@ -20,7 +20,7 @@ class RenderComponentSegue: UIStoryboardSegue {
             assert(source is WorkOrdersViewController)
             assert(destination is WorkOrderAnnotationViewController)
             (destination as! WorkOrderAnnotationViewController).render()
-            (destination as! WorkOrderAnnotationViewController).onConfirmationRequired = { () -> Void in
+            (destination as! WorkOrderAnnotationViewController).onConfirmationRequired = {
                 self.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.source)
             }
             if let mapView = (source as! WorkOrdersViewControllerDelegate).mapViewForViewController?(source as! ViewController) {
@@ -44,7 +44,7 @@ class RenderComponentSegue: UIStoryboardSegue {
 
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
-            destinationConfirmationViewController.onConfirmationReceived = { () -> Void in
+            destinationConfirmationViewController.onConfirmationReceived = {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate

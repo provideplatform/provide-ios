@@ -87,7 +87,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
             button.addTarget(self, action: #selector(renderDefaultButtonAppearance), for: events)
             button.addTarget(self, action: #selector(renderTappedButtonAppearance), for: .touchDown)
 
-            button.addBorder(5.0, color: UIColor.white)
+            button.addBorder(5.0, color: .white)
             button.makeCircular()
 
             renderDefaultButtonAppearance()
@@ -104,7 +104,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         button?.isEnabled = true
 
         DispatchQueue.main.async {
-            self.button?.frame.origin.y = self.view.frame.size.height - 8.0 - self.button.frame.height
+            self.button?.frame.origin.y = self.view.frame.height - 8.0 - self.button.frame.height
         }
     }
 

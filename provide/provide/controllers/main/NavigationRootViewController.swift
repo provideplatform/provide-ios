@@ -22,16 +22,16 @@ class NavigationRootViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .white
 
         logoImageView.alpha = 0.0
 
         signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
-        signInButton.setTitleColor(UIColor.darkGray, for: .highlighted)
+        signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
-        codeButton.setTitleColor(UIColor.darkGray, for: .highlighted)
+        codeButton.setTitleColor(.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)
@@ -93,7 +93,7 @@ class NavigationRootViewController: ViewController,
     // MARK: ApplicationViewControllerDelegate
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
-        dismissViewController(true) {
+        dismiss(animated: true) {
 
         }
     }
@@ -114,7 +114,7 @@ class NavigationRootViewController: ViewController,
 
     func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String) {
         if let presentingViewController = pinInputViewController.presentingViewController {
-            presentingViewController.dismissViewController(true)
+            presentingViewController.dismiss(animated: true)
 
             MBProgressHUD.showAdded(to: presentingViewController.view, animated: true)
 
@@ -153,7 +153,7 @@ class NavigationRootViewController: ViewController,
                         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
                         alertController.addAction(cancelAction)
 
-                        presentingViewController.presentViewController(alertController, animated: true)
+                        presentingViewController.present(alertController, animated: true)
                     }
                 }
             )

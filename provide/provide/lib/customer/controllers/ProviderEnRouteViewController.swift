@@ -24,18 +24,18 @@ class ProviderEnRouteViewController: ViewController {
                 if oldValue != nil {
                     UIView.animate(
                         withDuration: 0.25,
-                        animations: { [weak self] in
-                            self!.view.frame.origin.y += self!.view.frame.height
+                        animations: {
+                            self.view.frame.origin.y += self.view.frame.height
                         },
-                        completion: { [weak self] completed in
-                            if self!.workOrder == nil {
-                                self!.activityIndicatorView.startAnimating()
-                                self!.providerStatusLabel.isHidden = true
-                                self!.nameLabel.isHidden = true
-                                self!.categoryLabel.isHidden = true
-                                self!.makeLabel.isHidden = true
-                                self!.modelLabel.isHidden = true
-                                self!.profileImageView.isHidden = true
+                        completion: { completed in
+                            if self.workOrder == nil {
+                                self.activityIndicatorView.startAnimating()
+                                self.providerStatusLabel.isHidden = true
+                                self.nameLabel.isHidden = true
+                                self.categoryLabel.isHidden = true
+                                self.makeLabel.isHidden = true
+                                self.modelLabel.isHidden = true
+                                self.profileImageView.isHidden = true
                             }
                         }
                     )
@@ -60,11 +60,11 @@ class ProviderEnRouteViewController: ViewController {
                 if oldValue == nil {
                     UIView.animate(
                         withDuration: 0.25,
-                        animations: { [weak self] in
-                            self!.view.frame.origin.y -= self!.view.frame.height
+                        animations: {
+                            self.view.frame.origin.y -= self.view.frame.height
                         },
-                        completion: { [weak self] _ in
-                            logInfo("Presented provider en route for work order: \(self!.workOrder!)")
+                        completion: { _ in
+                            logInfo("Presented provider en route for work order: \(self.workOrder!)")
                         }
                     )
                 }
@@ -83,7 +83,6 @@ class ProviderEnRouteViewController: ViewController {
                     }
                 }
             }
-
         }
     }
 
@@ -122,7 +121,7 @@ class ProviderEnRouteViewController: ViewController {
                         { [weak self] _, _ in
                             self?.refreshProvider()
                         },
-                        onError: { (error, statusCode, response) in
+                        onError: { error, statusCode, response in
                             logWarn("Failed to reload work order")
                         }
                     )

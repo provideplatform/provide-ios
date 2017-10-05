@@ -206,7 +206,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                     self.collectionView.insertItems(at: indexPaths)
                 })
             },
-            completion: { (completed) in
+            completion: { completed in
                 self.collectionView.contentOffset = CGPoint(x: 0.0, y: self.collectionView.contentSize.height - bottom)
                 CATransaction.commit()
 
@@ -276,7 +276,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                                                                             self.collectionView.insertItems(at: indexPaths)
                                                                         })
                                                                     },
-                                                                    completion: { (completed) in
+                                                                    completion: { completed in
                                                                         self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottom)
                                                                         CATransaction.commit()
                                                                         self.hideActivity()
@@ -406,7 +406,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
     func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController) {
         if let presentingViewController = viewController.presentingViewController {
-            presentingViewController.dismissViewController(true)
+            presentingViewController.dismiss(animated: true)
         }
     }
 

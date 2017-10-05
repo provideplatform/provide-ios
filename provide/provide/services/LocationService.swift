@@ -405,7 +405,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func reverseGeocodeLocation(_ location: CLLocation, onResolved: @escaping OnReverseGeocodeResolved) {
         let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(self.location!) { (placemarks, error) in
+        geocoder.reverseGeocodeLocation(self.location!) { placemarks, error in
             if let placemarks = placemarks {
                 if placemarks.count > 0 {
                     onResolved(placemarks.first!)

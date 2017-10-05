@@ -104,7 +104,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.enableEdgeToEdgeDividers()
-        cell.backgroundColor = UIColor.clear
+        cell.backgroundColor = .clear
     }
 
     func alignSections() {
@@ -152,9 +152,9 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         alertController.addAction(logoutAction)
 
         if let navigationController = self.navigationViewControllerForMenuHeaderView(self.menuHeaderView) {
-            navigationController.presentViewController(alertController, animated: true)
+            navigationController.present(alertController, animated: true)
         } else {
-            presentViewController(alertController, animated: true)
+            present(alertController, animated: true)
         }
     }
 

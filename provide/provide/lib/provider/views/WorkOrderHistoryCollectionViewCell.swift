@@ -25,11 +25,11 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
 
     var workOrder: WorkOrder! {
         didSet {
-            addBorder(1.0, color: UIColor.lightGray)
+            addBorder(1.0, color: .lightGray)
             roundCorners(4.0)
 
-            contentView.backgroundColor = UIColor.clear
-            detailsContainerView.backgroundColor = UIColor.clear
+            contentView.backgroundColor = .clear
+            detailsContainerView.backgroundColor = .clear
 
             mapView.showsUserLocation = false
             mapView.removeAnnotations()
@@ -116,14 +116,14 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        contentView.backgroundColor = UIColor.clear
-        detailsContainerView.backgroundColor = UIColor.clear
+        contentView.backgroundColor = .clear
+        detailsContainerView.backgroundColor = .clear
 
         mapView.alpha = 0.0
         mapView.removeAnnotations()
         mapView.removeOverlays()
 
-        statusBackgroundView.backgroundColor = UIColor.clear
+        statusBackgroundView.backgroundColor = .clear
         statusBackgroundView.alpha = 0.9
 
         avatarImageView.image = nil

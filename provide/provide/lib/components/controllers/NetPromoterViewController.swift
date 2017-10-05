@@ -18,7 +18,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
         let transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         view.transform = transform
 
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.alpha = 1
 
         view.subviews[1].roundCorners(3.0)

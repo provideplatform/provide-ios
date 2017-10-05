@@ -43,7 +43,7 @@ class Color {
     }
 
     class func applicationDefaultBackgroundImageColor(_ rect: CGRect) -> UIColor {
-        return UIColor.resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
+        return .resizedColorWithPatternImage(applicationDefaultBackgroundImage(), rect: rect)
     }
 
     class func pinInputControlBoxBorderColor() -> UIColor {

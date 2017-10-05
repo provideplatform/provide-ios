@@ -22,7 +22,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
                 frame.size.width = superview.bounds.width
             }
 
-            gradientView.backgroundColor = UIColor.black
+            gradientView.backgroundColor = .black
             gradientView.alpha = 0.7
             bringSubview(toFront: gradientView)
 
@@ -58,7 +58,6 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
                     self!.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
                 }
-
             }
         }
     }

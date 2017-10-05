@@ -44,7 +44,7 @@ class ApplicationViewController: UIViewController,
             alongsideTransition: { context in
                 self.menuContainerView?.redraw(size)
             },
-            completion: { (context) in
+            completion: { context in
 
             }
         )

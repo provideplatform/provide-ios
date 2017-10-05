@@ -102,7 +102,7 @@ class MenuContainerView: UIView {
             backgroundView.frame.size.height = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
             backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeMenu)))
-            backgroundView.backgroundColor = UIColor.black
+            backgroundView.backgroundColor = .black
             backgroundView.alpha = 0.0
 
             frame = CGRect(x: 0.0,

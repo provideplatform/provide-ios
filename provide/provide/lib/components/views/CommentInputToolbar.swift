@@ -94,8 +94,8 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
             }
         }
 
-        commentInputTextField.frame.size.width = bounds.size.width - offset
-        commentInputTextFieldBarButtonItem.width = commentInputTextField.frame.size.width
+        commentInputTextField.frame.size.width = bounds.width - offset
+        commentInputTextFieldBarButtonItem.width = commentInputTextField.frame.width
 
         sizeToFit()
 
@@ -115,7 +115,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
 
-        commentsViewController.presentViewController(cameraViewController, animated: true)
+        commentsViewController.present(cameraViewController, animated: true)
     }
 
     func addComment(_ sender: UIBarButtonItem!) {
@@ -144,12 +144,12 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
 
     func disable() {
         commentInputTextField?.isEnabled = false
-        items?.each({ $0.isEnabled = false })
+        items?.forEach { $0.isEnabled = false }
     }
 
     func enable() {
         commentInputTextField?.isEnabled = true
-        items?.each({ $0.isEnabled = true })
+        items?.forEach { $0.isEnabled = true }
     }
 
     func keyboardWillShow() {
@@ -204,7 +204,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
-        commentsViewController?.dismissViewController(false)
+        commentsViewController?.dismiss(animated: false)
     }
 
     func cameraViewController(_ viewController: CameraViewController, didSelectImageFromCameraRoll image: UIImage) {

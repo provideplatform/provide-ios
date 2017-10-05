@@ -148,7 +148,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
-        presentViewController(messagesNavCon!, animated: true)
+        present(messagesNavCon!, animated: true)
     }
 
     @IBAction fileprivate func toggleAvailability(_ sender: UISwitch) {
@@ -264,7 +264,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             user.providerIds.append(provider.id)
                             self!.requireProviderContext()
                         }
-
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
                     }
@@ -286,7 +285,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
                             self!.loadWorkOrderContext()
                         }
-
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
                     }

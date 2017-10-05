@@ -114,7 +114,7 @@ class ProductionsViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     func refresh() {
-        WorkOrderService.sharedService().fetch(page, rpp: rpp, status: "scheduled,in_progress,completed,canceled", today: false, excludeRoutes: true) { (workOrders) -> () in
+        WorkOrderService.sharedService().fetch(page, rpp: rpp, status: "scheduled,in_progress,completed,canceled", today: false, excludeRoutes: true) { workOrders in
             self.workOrders += workOrders
 
             self.tableView.reloadData()

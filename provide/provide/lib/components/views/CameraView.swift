@@ -131,7 +131,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         super.awakeFromNib()
 
         isOpaque = false
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
     }
 
     fileprivate func configureAudioSession() {

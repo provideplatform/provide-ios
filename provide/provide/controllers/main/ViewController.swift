@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         if let status = statusLabel {
             status.text = text
             status.isHidden = false
-            status.textColor = isError ? UIColor.red : UIColor.darkText
+            status.textColor = isError ? .red : .darkText
         }
 
         if showActivity {

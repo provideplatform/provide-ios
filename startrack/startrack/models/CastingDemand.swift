@@ -53,7 +53,7 @@ class CastingDemand: Model {
 
     func fetchProviderRecommendations(onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchProviderRecommendationsForCastingDemandWithId(String(id),
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)
             },
             onError: { error, statusCode, responseString in

@@ -110,7 +110,6 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                         self?.handleInProgressWorkOrderStateChange()
                     }
                 }
-
             }
         }
     }
@@ -200,12 +199,12 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }
             messagesNavCon?.modalPresentationStyle = .overCurrentContext
-            presentViewController(messagesNavCon!, animated: true)
+            present(messagesNavCon!, animated: true)
         }
     }
 
     @objc fileprivate func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
-        dismissViewController(true)
+        dismiss(animated: true)
     }
 
     @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -280,16 +279,16 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationResultsViewController?.prepareForReuse()
 
             presentDestinationInputViewController()
-            UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                if let destinationInputView = self?.destinationInputViewController.view {
+            UIView.animate(withDuration: 0.25) {
+                if let destinationInputView = self.destinationInputViewController.view {
                     if destinationInputView.frame.origin.y == 0.0 {
-                        destinationInputView.frame.origin.y += self!.view.frame.height * 0.1
+                        destinationInputView.frame.origin.y += self.view.frame.height * 0.1
                         if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                             destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
                         }
                     }
                 }
-            })
+            }
         }
     }
 
@@ -328,7 +327,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             mapView.addSubview(confirmWorkOrderView)
 
             confirmWorkOrderView.frame.size.width = mapView.frame.width
-            confirmWorkOrderView.frame.origin.y = mapView.frame.size.height
+            confirmWorkOrderView.frame.origin.y = mapView.frame.height
             confirmWorkOrderView.isHidden = false
         }
     }
@@ -340,7 +339,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             mapView.addSubview(providerEnRouteView)
 
             providerEnRouteView.frame.size.width = mapView.frame.width
-            providerEnRouteView.frame.origin.y = mapView.frame.size.height
+            providerEnRouteView.frame.origin.y = mapView.frame.height
             providerEnRouteView.isHidden = false
         }
     }

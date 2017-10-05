@@ -40,7 +40,7 @@ class WorkOrderAnnotationView: AnnotationView {
         isDraggable = false
 
         isOpaque = false
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
 
         selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
         unselectedBackgroundColor = resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
