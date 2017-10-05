@@ -34,7 +34,7 @@ class Production: Model {
 
     func fetchUniqueShootingDates(onSuccess: OnSuccess, onError: OnError) {
         ApiService.sharedService().fetchUniqueShootingDatesForProductionWithId(String(id),
-            onSuccess: { (statusCode, mappingResult) -> () in
+            onSuccess: { statusCode, mappingResult in
                 self.shootingDates = mappingResult.array() as! [ShootingDate]
 
                 onSuccess(statusCode: statusCode, mappingResult: mappingResult)

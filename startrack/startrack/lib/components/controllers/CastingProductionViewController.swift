@@ -15,7 +15,7 @@ class CastingProductionViewController: ViewController, PDTSimpleCalendarViewDele
             navigationItem.title = production?.name.uppercaseString
 
             production?.fetchUniqueShootingDates(
-                { (statusCode, mappingResult) -> () in
+                { statusCode, mappingResult in
                     self.presentCalendarViewController()
                 },
                 onError: { error, statusCode, responseString in

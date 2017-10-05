@@ -121,7 +121,7 @@ class ProviderEnRouteViewController: ViewController {
                         { [weak self] _, _ in
                             self?.refreshProvider()
                         },
-                        onError: { (error, statusCode, response) in
+                        onError: { error, statusCode, response in
                             logWarn("Failed to reload work order")
                         }
                     )

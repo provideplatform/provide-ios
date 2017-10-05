@@ -510,10 +510,10 @@ class PackingSlipViewController: WorkOrderComponentViewController,
             }
 
             workOrder.attach(image, params: params,
-                onSuccess: { (statusCode, mappingResult) -> () in
+                onSuccess: { statusCode, mappingResult in
                     // TODO: show success
                 },
-                onError: { (error, statusCode, responseString) -> () in
+                onError: { error, statusCode, responseString in
 
                 }
             )
