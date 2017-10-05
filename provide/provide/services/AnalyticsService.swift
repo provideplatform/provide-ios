@@ -30,7 +30,7 @@ class AnalyticsService: NSObject {
         if analyticsEnabled {
             let configuration = SEGAnalyticsConfiguration(writeKey: "7c9wf6cpxb")
             //SEGAnalytics.debug(true)
-            configuration?.flushAt = 1
+            configuration.flushAt = 1
             log("Segment.io enabled with version \(SEGAnalytics.version())")
             SEGAnalytics.setup(with: configuration)
         }
@@ -42,7 +42,7 @@ class AnalyticsService: NSObject {
         if analyticsEnabled {
             let analytics = SEGAnalytics.shared()
             log("Analytics Identify: User id = \(user.id)")
-            analytics?.identify("\(user.id)", traits: user.toDictionary())
+            analytics.identify("\(user.id)", traits: user.toDictionary())
         }
     }
 
