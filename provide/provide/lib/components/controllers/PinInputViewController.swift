@@ -138,16 +138,14 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         pinInputControl.resetView()
 
         dispatch_after_delay(fadeStartDelay) {
-            UIView.animate(withDuration: self.fadeDuration,
-                animations: {
-                    self.messageLabel.alpha = 0
-                }
-            ) { _ in
+            UIView.animate(withDuration: self.fadeDuration, animations: {
+                self.messageLabel.alpha = 0
+            }, completion: { _ in
                 UIView.animate(withDuration: self.fadeDuration) {
                     self.messageLabel.text = message
                     self.messageLabel.alpha = 1
                 }
-            }
+            })
         }
     }
 
