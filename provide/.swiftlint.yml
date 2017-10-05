@@ -35,7 +35,6 @@ disabled_rules: # rule identifiers to exclude from running
   - shorthand_operator                        # Count = 3    error   = Shorthand Operator Violation.
   - type_name                                 # Count = 2    warning = Type Name Violation.
   - leading_whitespace                        # Count = 2    warning = Leading Whitespace Violation.
-  - control_statement                         # Count = 2    warning = Control Statement Violation.
   - force_try                                 # Count = 2    error   = Force Try Violation.
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
 

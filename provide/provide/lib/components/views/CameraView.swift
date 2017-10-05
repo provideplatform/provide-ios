@@ -211,7 +211,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             capturePreviewLayer.frame.size = size
             
             if let connection = capturePreviewLayer.connection {
-                switch (deviceOrientation) {
+                switch deviceOrientation {
                 case .portrait:
                     connection.videoOrientation = .portrait
                 case .landscapeRight:
