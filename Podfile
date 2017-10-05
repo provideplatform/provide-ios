@@ -12,7 +12,7 @@ target 'provide' do
   pod 'FontAwesomeKit/FontAwesome', git: 'https://github.com/PrideChung/FontAwesomeKit'
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
-  pod 'KTSwiftExtensions', git: 'https://github.com/kthomas/KTSwiftExtensions'
+  pod 'KTSwiftExtensions', path: 'KTSwiftExtensions'
   pod 'OHHTTPStubs', '~> 4.2.0'
   pod 'PDTSimpleCalendar'
   pod 'Reachability'
