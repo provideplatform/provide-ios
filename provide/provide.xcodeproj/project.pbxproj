@@ -1240,7 +1240,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "# PROJECT_DIR is provide-ios/provide so have to cd one level up to find the proper .swiftlint.yml file\ncd $PROJECT_DIR/..;\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		682D32691B07CBDD00BC4EEC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
