@@ -473,13 +473,6 @@
 			path = storyboards;
 			sourceTree = "<group>";
 		};
-		6845BB601BF1F4FD00AD3D79 /* gestures */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = gestures;
-			sourceTree = "<group>";
-		};
 		6846D9901F3EB35C004532BD /* customer */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,7 +684,6 @@
 			children = (
 				68B412B61B080D41009A4C05 /* controllers */,
 				68B412BE1B080D42009A4C05 /* views */,
-				6845BB601BF1F4FD00AD3D79 /* gestures */,
 				68B413231B083161009A4C05 /* storyboards */,
 			);
 			path = components;
