@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (4.5.1)
+  - Alamofire (4.5.0)
   - AlamofireObjectMapper (4.1.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 2.0)
-  - Analytics (3.5.7)
+  - Analytics (3.6.7)
   - ELFixSecureTextFieldFont (0.1.0)
   - FontAwesomeKit/Core (2.2.1)
   - FontAwesomeKit/FontAwesome (2.2.1):
@@ -14,7 +14,7 @@ PODS:
   - JSQMessagesViewController (7.3.5):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
-  - JWTDecode (2.1.1)
+  - JWTDecode (2.0.0)
   - KTSwiftExtensions (0.25.0):
     - Alamofire (~> 4.0)
     - AlamofireObjectMapper (~> 4.0)
@@ -22,7 +22,7 @@ PODS:
     - MBProgressHUD (~> 1.0)
     - ObjectMapper (~> 2.0)
   - MBProgressHUD (1.0.0)
-  - ObjectMapper (2.2.9)
+  - ObjectMapper (2.2.8)
   - OHHTTPStubs (4.2.1):
     - OHHTTPStubs/Default (= 4.2.1)
   - OHHTTPStubs/Core (4.2.1)
@@ -65,7 +65,7 @@ PODS:
   - SOCKit (1.1)
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.2.1)
-  - UICKeyChainStore (2.1.0)
+  - UICKeyChainStore (2.1.1)
 
 DEPENDENCIES:
   - Analytics
@@ -105,19 +105,19 @@ CHECKOUT OPTIONS:
     :git: https://github.com/kthomas/SWTableViewCell
 
 SPEC CHECKSUMS:
-  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
-  Analytics: f00fcfd37d8b4dbe765021e22a497d6c2d3de39b
+  Analytics: 2c09a50e3478a3a7ced08a22d00c43ba6f7011e6
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
   ISO8601DateFormatterValueTransformer: 52da467d6ec899d6aedda8e48280ac92e8ee97e6
   jetfire: 60c16cd6ae0282928e24203eb93f03b89c1929ce
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
-  JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
+  JWTDecode: 178e47e5d28d3abcff778bacced8342858cd6cb5
   KTSwiftExtensions: 74b948a7f1a48c7e2fca45a3f15bb2d1ae71840e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
+  ObjectMapper: 3d571bb5af471c779e1160828cd9ad5c4ef90958
   OHHTTPStubs: ea33adf65900e6bc8c31b80eb7d527e8874a559b
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
@@ -128,7 +128,7 @@ SPEC CHECKSUMS:
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
-  UICKeyChainStore: f1cbd42216a113f0165de1e733e62905b8823432
+  UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
 PODFILE CHECKSUM: 77ac9963f6d2147e2503d6481e2da176325b17c7
 
