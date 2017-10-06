@@ -17,7 +17,7 @@ class ProviderService: NSObject {
         self.providers = providers
     }
 
-    func cachedProvider(_ providerId: Int) -> Provider! {
+    func cachedProvider(_ providerId: Int) -> Provider? {
         for p in providers where providerId == p.id {
             return p
         }

@@ -77,7 +77,7 @@ class ImageService {
         }
     }
 
-    func fetchImageSync(_ url: URL) -> UIImage! {
+    func fetchImageSync(_ url: URL) -> UIImage? {
         var urlComponents = URLComponents()
         urlComponents.scheme = url.scheme
         urlComponents.host = url.host

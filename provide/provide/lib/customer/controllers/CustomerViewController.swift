@@ -345,11 +345,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     // MARK: MenuViewControllerDelegate
 
-    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController? {
         return navigationController
     }
 
-    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch (indexPath as NSIndexPath).row {
         case 0:
             return MenuItem(item: ["label": "History", "action": "history"])

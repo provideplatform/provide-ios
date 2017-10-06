@@ -111,7 +111,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         logWarn("MapView failed to locate user")
     }
 
-    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer? {
         let renderer: MKOverlayRenderer? = nil
 
         logWarn("Returning nil overlay renderer for customer map view; \(renderer!)")

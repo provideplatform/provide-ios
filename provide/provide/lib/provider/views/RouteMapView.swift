@@ -12,7 +12,7 @@ class RouteMapView: WorkOrderMapView {
 
     // MARK: MKMapViewDelegate
 
-    override func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    override func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer? {
         var renderer: MKOverlayRenderer!
 
         if overlay is MKPolyline {

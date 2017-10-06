@@ -11,10 +11,10 @@ import Foundation
 protocol DirectionsViewControllerDelegate: class {
     func isPresentingDirections() -> Bool
     func finalDestinationForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
-    func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView!
-    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String!
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
-    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
+    func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView
+    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String?
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
     func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
@@ -379,8 +379,8 @@ class DirectionsViewController: ViewController {
         return routeLeg
     }
 
-    func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep! {
-        var routeLegStep: RouteLegStep!
+    func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
+        var routeLegStep: RouteLegStep?
         if let routeLeg = routeLegAtIndex((indexPath as NSIndexPath).section) {
             if (indexPath as NSIndexPath).row < routeLeg.steps.count {
                 routeLegStep = routeLeg.steps[(indexPath as NSIndexPath).row]

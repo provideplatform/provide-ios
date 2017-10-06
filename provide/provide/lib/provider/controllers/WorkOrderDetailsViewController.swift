@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkOrderDetailsViewControllerDelegate: class {
-    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!
+    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
 }
 
@@ -291,11 +291,11 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // MARK: ManifestViewControllerDelegate
 
-    func workOrderForManifestViewController(_ viewController: UIViewController) -> WorkOrder! {
+    func workOrderForManifestViewController(_ viewController: UIViewController) -> WorkOrder {
         return workOrder
     }
 
-    func navigationControllerBackItemTitleForManifestViewController(_ viewController: UIViewController) -> String! {
+    func navigationControllerBackItemTitleForManifestViewController(_ viewController: UIViewController) -> String {
         return "BACK"
     }
 

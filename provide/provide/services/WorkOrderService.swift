@@ -59,7 +59,7 @@ class WorkOrderService: NSObject {
 
     fileprivate var workOrders = [WorkOrder]()
 
-    func workOrderWithId(_ id: Int) -> WorkOrder! {
+    func workOrderWithId(_ id: Int) -> WorkOrder? {
         for workOrder in workOrders where workOrder.id == id {
             return workOrder
         }

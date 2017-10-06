@@ -142,7 +142,7 @@ class WorkOrderMapView: MapView {
         logWarn("MapView failed to locate user")
     }
 
-    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer! {
+    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer? {
         var renderer: MKOverlayRenderer!
 
         if let route = overlay as? MKPolyline {

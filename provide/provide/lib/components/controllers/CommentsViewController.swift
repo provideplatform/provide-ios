@@ -398,11 +398,11 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String? {
         return nil
     }
 
-    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
+    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String {
         return "ADD COMMENT"
     }
 

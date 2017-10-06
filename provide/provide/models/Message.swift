@@ -123,7 +123,7 @@ extension Message: JSQMessageData, JSQMessageMediaData {
         return CGSize(width: 227.5, height: 128.0)
     }
 
-    public func mediaPlaceholderView() -> UIView! {
+    public func mediaPlaceholderView() -> UIView? {
         return mediaView()
     }
 

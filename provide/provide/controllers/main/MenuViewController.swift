@@ -9,8 +9,8 @@
 import UIKit
 
 protocol MenuViewControllerDelegate: NSObjectProtocol {
-    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController!
-    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem!
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController?
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem?
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int
 }
@@ -81,7 +81,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                     let webViewController = UIStoryboard("Main").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                     webViewController.url = url
                     NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
-                    delegate?.navigationControllerForMenuViewController(self).pushViewController(webViewController, animated: true)
+                    delegate?.navigationControllerForMenuViewController(self)?.pushViewController(webViewController, animated: true)
                 }
             }
         }
@@ -160,7 +160,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: MenuHeaderViewDelegate
 
-    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController! {
+    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController? {
         return delegate?.navigationControllerForMenuViewController(self) ?? navigationController
     }
 
@@ -194,7 +194,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 initialViewController = (initialViewController as! UINavigationController).viewControllers[0]
             }
             if !navigationControllerContains(type(of: initialViewController)) {
-                delegate?.navigationControllerForMenuViewController(self).pushViewController(initialViewController, animated: true)
+                delegate?.navigationControllerForMenuViewController(self)?.pushViewController(initialViewController, animated: true)
             }
         } else {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "SegueTo\(storyboardName)Storyboard"), object: self)

@@ -52,11 +52,11 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
 
     // MARK: MenuViewControllerDelegate
 
-    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController? {
         return navigationController
     }
 
-    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         if indexPath.section == numberOfSectionsInMenuViewController(menuViewController) - 1 {
             switch (indexPath as NSIndexPath).row {
             case 0:

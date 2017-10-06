@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkOrderHistoryViewControllerDelegate: class {
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
 }
 
 class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -194,7 +194,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     //    // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
     //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController! {
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController? {
         return navigationController
     }
 

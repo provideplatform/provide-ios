@@ -12,8 +12,8 @@ import UIKit
 protocol CommentCreationViewControllerDelegate {
     func commentCreationViewController(_ viewController: CommentCreationViewController, didSubmitComment comment: String)
     func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController)
-    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String!
-    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String!
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String?
+    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String
     @objc optional func saveItemForCommentCreationViewController(_ viewController: CommentCreationViewController) -> UIBarButtonItem!
     @objc optional func dismissItemForCommentCreationViewController(_ viewController: CommentCreationViewController) -> UIBarButtonItem!
 }

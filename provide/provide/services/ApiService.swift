@@ -385,27 +385,27 @@ class ApiService: NSObject {
 
     // MARK: Customer API
 
-    func countCustomers(_ params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation! {
+    func countCustomers(_ params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
         return countTotalResultsForPath("customers", params: params, onTotalResultsCount: onTotalResultsCount)
     }
 
-    func fetchCustomers(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    func fetchCustomers(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchApiOperationForPath("customers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    func fetchCustomerWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    func fetchCustomerWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchApiOperationForPath("customers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Provider API
 
     @discardableResult
-    func countProviders(_ params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation! {
+    func countProviders(_ params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
         return countTotalResultsForPath("providers", params: params, onTotalResultsCount: onTotalResultsCount)
     }
 
     @discardableResult
-    func fetchProviders(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    func fetchProviders(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -606,7 +606,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    func autocompletePlaces(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    func autocompletePlaces(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -633,7 +633,7 @@ class ApiService: NSObject {
     // MARK: Private methods
 
     @discardableResult
-    fileprivate func countTotalResultsForPath(_ path: String, params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation! {
+    fileprivate func countTotalResultsForPath(_ path: String, params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
         var params = params
 
         params["page"] = 1 as AnyObject
@@ -675,7 +675,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    fileprivate func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!, path: "api/\(path)", method: method, params: params, contentType: "application/json", startOperation: startOperation, onSuccess: onSuccess, onError: onError)
     }
 
@@ -717,7 +717,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)

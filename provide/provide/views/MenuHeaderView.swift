@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 protocol MenuHeaderViewDelegate: class {
-    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController!
+    func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController?
 }
 
 class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {

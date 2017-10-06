@@ -12,8 +12,8 @@ import FontAwesomeKit
 @objc
 protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this is not named correctly. need an abstract WorkOrderComponent class and repurpose this hack as that delegate.
     // general UIKit callbacks
-    @objc optional func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
-    @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem!
+    @objc optional func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
+    @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     @objc optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController!)
     @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView!
 
@@ -390,11 +390,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     // MARK: MenuViewControllerDelegate
 
-    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController! {
+    func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController? {
         return navigationController
     }
 
-    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem! {
+    func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch (indexPath as NSIndexPath).row {
         case 0:
             return MenuItem(item: ["label": "History", "action": "history"])
@@ -490,9 +490,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return view
     }
 
-    fileprivate func popManagedNavigationController() -> UINavigationController! {
+    fileprivate func popManagedNavigationController() -> UINavigationController? {
         if managedViewControllers.last as? UINavigationController != nil {
-            return managedViewControllers.removeLast() as! UINavigationController
+            return managedViewControllers.removeLast() as? UINavigationController
         }
         return nil
     }
@@ -649,11 +649,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String {
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String? {
         return "Anything worth mentioning?"
     }
 
-    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
+    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String {
         return "COMMENTS"
     }
 
@@ -661,11 +661,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         mapView.removeAnnotations()
     }
 
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController! {
-        return navigationController!
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController? {
+        return navigationController
     }
 
-    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem! {
+    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem? {
         return navigationItem
     }
 
@@ -680,7 +680,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return viewingDirections
     }
 
-    @nonobjc func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView! {
+    @nonobjc func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView {
         return mapView
     }
 
@@ -688,7 +688,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return WorkOrderService.shared.inProgressWorkOrder.coordinate
     }
 
-    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String! {
+    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String? {
         return nil
     }
 
