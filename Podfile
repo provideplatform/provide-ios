@@ -18,7 +18,7 @@ target 'provide' do
   pod 'Reachability'
   pod 'RestKit'
   pod 'RFGravatarImageView'
-  pod 'SDWebImage', '3.8.1'
+  pod 'SDWebImage'
   pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell'
   pod 'SwiftLint'
   pod 'UICKeyChainStore'
