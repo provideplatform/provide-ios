@@ -121,8 +121,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
                         width: frame.width,
                         height: frame.height
                     )
-                },
-                completion: nil
+                }
             )
         }
     }
@@ -140,8 +139,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
                     self.view.alpha = 0.0
                     navigationController.view.alpha = 0.0
                     navigationController.view.frame = self.hiddenNavigationControllerFrame
-                },
-                completion: nil
+                }
             )
         }
     }

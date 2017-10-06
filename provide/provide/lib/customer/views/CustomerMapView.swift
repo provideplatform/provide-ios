@@ -40,8 +40,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
             force,
             animations: {
                 self.alpha = 1.0
-            },
-            completion: nil
+            }
         )
     }
 
@@ -143,8 +142,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                 animations: {
                     log("Revealing map rect based on location: \(location)")
                     mapView.alpha = 1
-                },
-                completion: nil
+                }
             )
         }
 

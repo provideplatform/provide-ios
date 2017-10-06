@@ -26,8 +26,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                     animations: {
                         navigationController.navigationBar.alpha = 1.0
                         (self.destination as! AuthenticationViewController).view.alpha = 1.0
-                    },
-                    completion: nil
+                    }
                 )
             }
         case "AuthenticationViewControllerUnwindSegue":
@@ -62,8 +61,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                     animations: {
                         navigationController.navigationBar.alpha = 1.0
                         (self.destination as! SetPasswordViewController).view.alpha = 1.0
-                    },
-                    completion: nil
+                    }
                 )
             }
         case "SetPasswordViewControllerUnwindSegue":

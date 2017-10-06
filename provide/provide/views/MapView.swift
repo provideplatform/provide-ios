@@ -53,12 +53,11 @@ class MapView: MKMapView, MKMapViewDelegate {
         revealMap(force,
             animations: {
                 self.alpha = 1
-            },
-            completion: nil
+            }
         )
     }
 
-    func revealMap(_ force: Bool, animations: @escaping VoidBlock, completion: VoidBlock?) {
+    func revealMap(_ force: Bool, animations: @escaping VoidBlock, completion: VoidBlock? = nil) {
         if shouldReveal || force {
             UIView.animate(withDuration: 0.25,
                 animations: animations,

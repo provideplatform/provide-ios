@@ -87,8 +87,7 @@ class WorkOrderMapView: MapView {
         super.revealMap(force,
             animations: {
                 self.alpha = 1
-            },
-            completion: nil
+            }
         )
     }
 
@@ -176,8 +175,7 @@ class WorkOrderMapView: MapView {
                 animations: {
                     log("Revealing map rect based on location: \(location)")
                     mapView.alpha = 1
-                },
-                completion: nil
+                }
             )
         }
 

@@ -104,8 +104,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                     width: frame.width,
                     height: frame.height
                 )
-            },
-            completion: nil
+            }
         )
     }
 

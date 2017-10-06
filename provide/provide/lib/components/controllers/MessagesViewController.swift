@@ -330,8 +330,7 @@ class MessagesViewController: JSQMessagesViewController {
 
                     self.messages.append(msg)
                     self.collectionView.insertItems(at: [indexPath])
-                },
-                completion: nil)
+                })
             },
             onError: { _, _, _ in
                 logWarn("Failed to send message")
