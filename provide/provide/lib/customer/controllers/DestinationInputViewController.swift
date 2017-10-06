@@ -22,7 +22,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         }
     }
 
-    @IBOutlet fileprivate weak var originTextField: UITextField!
     @IBOutlet fileprivate weak var destinationTextField: UITextField!
 
     fileprivate var initialFrame: CGRect!
@@ -33,17 +32,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     fileprivate var timer: Timer!
     fileprivate var pendingSearch = false
 
-    fileprivate var placemark: CLPlacemark! {
-        didSet {
-            if let placemark = placemark {
-                if let subThoroughfare = placemark.subThoroughfare, let thoroughfare = placemark.thoroughfare {
-                    self.originTextField.text = "\(subThoroughfare) \(thoroughfare)"
-                }
-            } else {
-                self.originTextField.text = ""
-            }
-        }
-    }
+    fileprivate var placemark: CLPlacemark!
 
     fileprivate var expanded = false {
         didSet {
@@ -64,9 +53,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
                     self.destinationTextField.frame.size.width = self.view.width
                     self.destinationTextField.becomeFirstResponder()
-
-                    self.originTextField.frame.size.width = self.view.width
-                    self.originTextField.isHidden = false
                 }
 
                 UIView.animate(withDuration: 0.3) {
@@ -80,7 +66,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 }
 
                 destinationTextField.text = ""
-                originTextField.text = ""
 
                 navigationController?.setNavigationBarHidden(false, animated: true)
 
