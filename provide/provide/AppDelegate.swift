@@ -26,8 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics()])
         }
 
-        DBSession.setShared(DBSession(appKey: "el712k0lhw2f1h8", appSecret: "3kmiw9mmlpbxnob", root: kDBRootDropbox))
-
         AnalyticsService.sharedService().track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String: AnyObject])
 
         RKLogConfigureFromEnvironment()
@@ -89,56 +87,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     fileprivate func openURL(_ url: URL) -> Bool {
-        if DBChooser.default().handleOpen(url) {
-            return true
-        } else if DBSession.shared().handleOpen(url) {
-            if DBSession.shared().isLinked() {
-                AnalyticsService.sharedService().track("App Linked With Dropbox", properties: [:])
-                NotificationCenter.default.postNotificationName("ApplicationLinkedWithDropbox")
+        var handleScheme = false
+        if let scheme = url.scheme?.lowercased() {
+            handleScheme = scheme == "provide"
+        }
+        if handleScheme {
+            var params: [String: AnyObject] = [:]
+            if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
+                params = queryComponent.toJSONObject()
             }
-            return true
-        } else {
-            var handleScheme = false
-            if let scheme = url.scheme?.lowercased() {
-                handleScheme = scheme == "provide"
-            }
-            if handleScheme {
-                var params: [String: AnyObject] = [:]
-                if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
-                    params = queryComponent.toJSONObject()
-                }
-                let jwtToken = params["token"] as? String
+            let jwtToken = params["token"] as? String
 
-                if !ApiService.sharedService().hasCachedToken {
-                    if let jwtToken = jwtToken {
-                        if let jwt = KTJwtService.decode(jwtToken) {
-                            if ApiService.sharedService().login(jwt) {
-                                NotificationCenter.default.postNotificationName("ApplicationUserWasAuthenticated")
-                                return self.openURL(url)
-                            } else {
-                                NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
-                            }
+            if !ApiService.sharedService().hasCachedToken {
+                if let jwtToken = jwtToken {
+                    if let jwt = KTJwtService.decode(jwtToken) {
+                        if ApiService.sharedService().login(jwt) {
+                            NotificationCenter.default.postNotificationName("ApplicationUserWasAuthenticated")
+                            return self.openURL(url)
                         } else {
                             NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                         }
+                    } else {
+                        NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                     }
+                }
 
-                    if url.host == "accept-invitation" {
-                        NotificationCenter.default.postNotificationName("ApplicationShouldPresentPinInputViewController")
-                    }
-                } else {
-                    if let jwtToken = jwtToken {
-                        if let jwt = KTJwtService.decode(jwtToken) {
-                            if let userId = jwt.body["user_id"] as? Int {
-                                if userId != currentUser.id {
-                                    NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
-                                }
+                if url.host == "accept-invitation" {
+                    NotificationCenter.default.postNotificationName("ApplicationShouldPresentPinInputViewController")
+                }
+            } else {
+                if let jwtToken = jwtToken {
+                    if let jwt = KTJwtService.decode(jwtToken) {
+                        if let userId = jwt.body["user_id"] as? Int {
+                            if userId != currentUser.id {
+                                NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                             }
                         }
                     }
                 }
             }
         }
+
         return false
     }
 

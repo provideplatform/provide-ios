@@ -10,8 +10,6 @@
 
 // CocoaPods
 #import <Analytics/SEGAnalytics.h>
-#import <DBChooser/DBChooser.h>
-#import <DropboxSDK/DropboxSDK.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <jetfire/JFRWebSocket.h>
 #import <JSQMessagesViewController/JSQMessages.h>

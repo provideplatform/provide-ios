@@ -158,8 +158,6 @@
 		68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
 		68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413251B083161009A4C05 /* NetPromoter.storyboard */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
-		68B730D11C1ADF4200549D95 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D01C1ADF4200549D95 /* DropboxSDK.framework */; };
-		68B730D31C1AE5F100549D95 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68B730D21C1AE5F100549D95 /* DBChooser.framework */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
@@ -344,8 +342,6 @@
 		68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderMapView.swift; sourceTree = "<group>"; };
 		68B413251B083161009A4C05 /* NetPromoter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NetPromoter.storyboard; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
-		68B730D01C1ADF4200549D95 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
-		68B730D21C1AE5F100549D95 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -421,9 +417,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */,
-				68B730D11C1ADF4200549D95 /* DropboxSDK.framework in Frameworks */,
 				680B74AF1B36DDFA00181300 /* Crashlytics.framework in Frameworks */,
-				68B730D31C1AE5F100549D95 /* DBChooser.framework in Frameworks */,
 				680B74AE1B36DDFA00181300 /* Fabric.framework in Frameworks */,
 				EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */,
 			);
@@ -825,8 +819,6 @@
 				68DFB0801B07C5C4002A72E8 /* provide */,
 				68DFB0991B07C5C4002A72E8 /* provideTests */,
 				689608921B3A1F21008719B0 /* provideUITests */,
-				68B730D21C1AE5F100549D95 /* DBChooser.framework */,
-				68B730D01C1ADF4200549D95 /* DropboxSDK.framework */,
 				680B74AC1B36DDFA00181300 /* Fabric.framework */,
 				680B74AD1B36DDFA00181300 /* Crashlytics.framework */,
 				5C0049501B1BD9FF000ACE9D /* HTTPStubs */,
