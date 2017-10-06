@@ -61,8 +61,8 @@ class ProviderService: NSObject {
         available: Bool!,
         active: Bool!,
         nearbyCoordinate: CLLocationCoordinate2D!,
-        onProvidersFetched: @escaping OnProvidersFetched)
-    {
+        onProvidersFetched: @escaping OnProvidersFetched) {
+
         var params = [
             "page": page,
             "rpp": rpp,

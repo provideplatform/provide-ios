@@ -33,8 +33,8 @@ class ImageService {
                     downloadOptions: SDWebImageDownloaderOptions = .continueInBackground,
                     onDownloadSuccess: @escaping OnImageDownloadSuccess,
                     onDownloadFailure: OnImageDownloadFailure!,
-                    onDownloadProgress: OnDownloadProgress!)
-    {
+                    onDownloadProgress: OnDownloadProgress!) {
+
         var urlComponents = URLComponents()
         urlComponents.scheme = url.scheme
         urlComponents.host = url.host

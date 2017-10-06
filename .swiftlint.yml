@@ -6,7 +6,6 @@ disabled_rules: # rule identifiers to exclude from running
   - line_length
   - unused_closure_parameter                  # Count = 197  warning = Unused Closure Parameter Violation.
   - force_cast                                # Count = 155  error   = Force Cast Violation.
-  - opening_brace                             # Count = 41   warning = Opening Brace Spacing Violation.
   - todo                                      # Count = 26   warning = Todo Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
   - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.

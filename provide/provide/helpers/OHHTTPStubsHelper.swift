@@ -42,7 +42,7 @@ class OHHTTPStubsHelper {
     }
 }
 
-func stubRoute(_ httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil)  {
+func stubRoute(_ httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil) {
     OHHTTPStubs.stubRequestsPassingTest({ request in
         return request.URL!.path! == path && request.HTTPMethod == httpMethod
     }, withStubResponse: { request in

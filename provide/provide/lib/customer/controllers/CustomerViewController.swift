@@ -209,13 +209,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     func loadProviderContext() {
         let providerService = ProviderService.shared
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
-            providerService.fetch(
-                1,
-                rpp: 100,
-                available: true,
-                active: true,
-                nearbyCoordinate: coordinate)
-            { [weak self] (providers) in
+            providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] (providers) in
                 logInfo("Found \(providers.count) provider(s): \(providers)")
                 for provider in providers {
                     self!.updateProviderLocation(provider)

@@ -42,12 +42,13 @@ class WorkOrderService: NSObject {
                     return wo
                 }
             }
+
             if wo.status == "pending_acceptance"
                 || wo.status == "en_route"
                 || wo.status == "arriving"
                 || wo.status == "in_progress"
-                || wo.status == "rejected"
-            {
+                || wo.status == "rejected" {
+
                 for provider in wo.providers where provider.userId == currentUser.id && !wo.isCurrentProviderTimedOut {
                     return wo
                 }
@@ -86,8 +87,8 @@ class WorkOrderService: NSObject {
                status: String = "scheduled",
                today: Bool = false,
                includeProviders: Bool = true,
-               onWorkOrdersFetched: OnWorkOrdersFetched!)
-    {
+               onWorkOrdersFetched: OnWorkOrdersFetched!) {
+
         var params: [String: AnyObject] = [
             "page": page as AnyObject,
             "rpp": rpp as AnyObject,
