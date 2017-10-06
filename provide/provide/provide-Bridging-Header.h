@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
+@import KTSwiftExtensions;
+
 // CocoaPods
 #import <Analytics/SEGAnalytics.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>

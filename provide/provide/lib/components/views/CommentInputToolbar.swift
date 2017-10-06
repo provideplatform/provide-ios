@@ -10,7 +10,6 @@ import UIKit
 import AVKit
 import AVFoundation
 import FontAwesomeKit
-import KTSwiftExtensions
 
 class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerDelegate {
 

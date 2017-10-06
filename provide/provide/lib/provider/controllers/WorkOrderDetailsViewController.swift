@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 protocol WorkOrderDetailsViewControllerDelegate {
     func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int!

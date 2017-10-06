@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import KTSwiftExtensions
 
 private let defaultEnvironment = Environment.production
 private let productionApiHostSuffix = "provide.services"

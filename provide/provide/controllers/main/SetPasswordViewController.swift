@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import KTSwiftExtensions
 
 protocol SetPasswordViewControllerDelegate {
     func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool)

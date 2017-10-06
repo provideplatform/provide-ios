@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import KTSwiftExtensions
 
 class NavigationRootViewController: ViewController,
                                     ApplicationViewControllerDelegate,

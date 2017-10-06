@@ -8,7 +8,6 @@
 
 import UIKit
 import MBProgressHUD
-import KTSwiftExtensions
 
 class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ApplicationViewControllerDelegate {
 

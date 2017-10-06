@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import KTSwiftExtensions
 
 typealias OnEtaFetched = (_ minutesEta: Int) -> Void
 typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> Void

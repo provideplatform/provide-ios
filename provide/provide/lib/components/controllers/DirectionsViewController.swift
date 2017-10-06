@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import KTSwiftExtensions
 
 protocol DirectionsViewControllerDelegate {
     func isPresentingDirections() -> Bool

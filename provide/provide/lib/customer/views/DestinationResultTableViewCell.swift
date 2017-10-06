@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-import KTSwiftExtensions
 
 class DestinationResultTableViewCell: UITableViewCell {
 

@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-import KTSwiftExtensions
 
 protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
     func destinationInputViewController(_ viewController: DestinationInputViewController,

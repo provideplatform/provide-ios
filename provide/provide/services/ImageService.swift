@@ -8,7 +8,6 @@
 
 import Foundation
 import SDWebImage
-import KTSwiftExtensions
 
 typealias OnDownloadProgress = (_ receivedSize: Int, _ expectedSize: Int) -> Void
 typealias OnImageDownloadSuccess = (_ image: UIImage) -> Void

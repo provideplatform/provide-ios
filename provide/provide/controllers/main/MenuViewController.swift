@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 protocol MenuViewControllerDelegate: NSObjectProtocol {
     func navigationControllerForMenuViewController(_ menuViewController: MenuViewController) -> UINavigationController!

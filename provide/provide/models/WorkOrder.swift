@@ -8,7 +8,6 @@
 
 import Foundation
 import RestKit
-import KTSwiftExtensions
 
 class WorkOrder: Model {
 

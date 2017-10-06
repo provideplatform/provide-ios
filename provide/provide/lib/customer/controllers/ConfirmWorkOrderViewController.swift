@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-import KTSwiftExtensions
 
 protocol ConfirmWorkOrderViewControllerDelegate: NSObjectProtocol {
     func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder)

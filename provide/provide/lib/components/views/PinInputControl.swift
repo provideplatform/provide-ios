@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 protocol PinInputControlDelegate {
     func pinInputControl(_ pinInputControl: PinInputControl, didCompleteEnteringPin: String)

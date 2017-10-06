@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 @objc
 protocol PinInputViewControllerDelegate {

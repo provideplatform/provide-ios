@@ -8,7 +8,6 @@
 
 import UIKit
 import SWTableViewCell
-import KTSwiftExtensions
 
 protocol WorkOrderDetailsHeaderTableViewCellDelegate {
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)

@@ -5,7 +5,6 @@
 //  Created by Kyle Thomas on 5/16/15.
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
-import KTSwiftExtensions
 
 typealias OnProvidersFetched = (_ providers: [Provider]) -> Void
 

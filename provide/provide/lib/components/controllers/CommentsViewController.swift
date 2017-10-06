@@ -8,7 +8,6 @@
 
 import UIKit
 import FontAwesomeKit
-import KTSwiftExtensions
 
 protocol CommentsViewControllerDelegate {
     func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)

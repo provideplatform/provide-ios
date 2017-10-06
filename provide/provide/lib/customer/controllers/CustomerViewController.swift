@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 class CustomerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
 

@@ -8,7 +8,6 @@
 
 import Foundation
 import Analytics
-import KTSwiftExtensions
 
 class AnalyticsService: NSObject {
     static let shared = AnalyticsService()

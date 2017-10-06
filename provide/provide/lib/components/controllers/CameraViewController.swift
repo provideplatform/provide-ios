@@ -8,7 +8,6 @@
 
 import UIKit
 import AVFoundation
-import KTSwiftExtensions
 
 protocol CameraViewControllerDelegate {
     func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode

@@ -6,8 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-import KTSwiftExtensions
-
 enum UserMode: String {
     case customer
     case provider

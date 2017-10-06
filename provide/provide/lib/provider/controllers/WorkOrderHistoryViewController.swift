@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 protocol WorkOrderHistoryViewControllerDelegate {
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import KTSwiftExtensions
 
 class CommentCollectionViewCell: UICollectionViewCell {
 

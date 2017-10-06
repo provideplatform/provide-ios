@@ -8,7 +8,6 @@
 
 import Foundation
 import AVFoundation
-import KTSwiftExtensions
 
 enum ActiveDeviceCapturePosition {
     case back, front
