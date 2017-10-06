@@ -197,9 +197,9 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             workOrder.updateWorkOrderWithStatus("canceled", onSuccess: { [weak self] statusCode, result in
                 self?.attemptSegueToValidWorkOrderContext()
                 self?.loadWorkOrderContext()
-                }, onError: { [weak self] err, statusCode, response in
-                    logWarn("Failed to cancel work order; attempting to reload work order context")
-                    self?.loadWorkOrderContext()
+            }, onError: { [weak self] err, statusCode, response in
+                logWarn("Failed to cancel work order; attempting to reload work order context")
+                self?.loadWorkOrderContext()
             })
         }
     }
@@ -250,7 +250,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
             presentDestinationInputViewController()
             UIView.animate(withDuration: 0.25) {
-                if let destinationInputView = self.destinationInputViewController.view,  destinationInputView.frame.origin.y == 0 {
+                if let destinationInputView = self.destinationInputViewController.view, destinationInputView.frame.origin.y == 0 {
                     destinationInputView.frame.origin.y += self.view.height * 0.1
                     if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                         destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y

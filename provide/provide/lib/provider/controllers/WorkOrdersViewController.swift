@@ -155,10 +155,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                     CheckinService.shared.stop()
                     LocationService.shared.stop()
                 }
-                }, onError: { [weak self] error, statusCode, responseString in
-                    logWarn("Failed to update current provider availability")
-                    sender.isOn = !sender.isOn
-                    self!.availabilityBarButtonItem?.isEnabled = true
+            }, onError: { [weak self] error, statusCode, responseString in
+                logWarn("Failed to update current provider availability")
+                sender.isOn = !sender.isOn
+                self!.availabilityBarButtonItem?.isEnabled = true
             })
         }
     }
@@ -256,8 +256,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
                         self!.loadWorkOrderContext()
                     }
-                    }, onError: { err, statusCode, response in
-                        logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
+                }, onError: { err, statusCode, response in
+                    logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
                 })
             }
         } else {
@@ -345,18 +345,18 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                                 self?.nextWorkOrderContextShouldBeRewound()
                                 self?.attemptSegueToValidWorkOrderContext()
                             }
-                            }, onError: { error, statusCode, responseString in
-                                logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
-                                LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        }, onError: { error, statusCode, responseString in
+                            logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                         })
                     } else if wo.status == "in_progress" {
                         wo.complete(onSuccess: { [weak self] statusCode, responseString in
                             logInfo("Completed work order")
                             self?.nextWorkOrderContextShouldBeRewound()
                             self?.attemptSegueToValidWorkOrderContext()
-                            }, onError: { error, statusCode, responseString in
-                                logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
-                                LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        }, onError: { error, statusCode, responseString in
+                            logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                         })
                     }
                 }
@@ -559,16 +559,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                     logInfo("Work order en route")
                     self!.nextWorkOrderContextShouldBeRewound()
                     self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-                    }, onError: { error, statusCode, responseString in
-                        logWarn("Failed to start work order (\(statusCode))")
+                }, onError: { error, statusCode, responseString in
+                    logWarn("Failed to start work order (\(statusCode))")
                 })
             } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
                 workOrder.start(onSuccess: { [weak self] statusCode, responseString in
                     logInfo("Work order started")
                     self?.nextWorkOrderContextShouldBeRewound()
                     self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-                    }, onError: { error, statusCode, responseString in
-                        logWarn("Failed to start work order (\(statusCode))")
+                }, onError: { error, statusCode, responseString in
+                    logWarn("Failed to start work order (\(statusCode))")
                 })
             }
         }
@@ -578,8 +578,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.shared.inProgressWorkOrder.abandon(onSuccess: { [weak self] statusCode, responseString in
             self!.attemptSegueToValidWorkOrderContext()
-            }, onError: { error, statusCode, responseString in
-                logWarn("Failed to abandon work order (\(statusCode))")
+        }, onError: { error, statusCode, responseString in
+            logWarn("Failed to abandon work order (\(statusCode))")
         })
     }
 
@@ -594,9 +594,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             attemptSegueToValidWorkOrderContext()
 
             workOrder.scoreProvider(netPromoterScore, onSuccess: { [weak self] statusCode, responseString in
-                self!.attemptCompletionOfInProgressWorkOrder()
-                }, onError: { error, statusCode, responseString in
-                    logError(error)
+                self?.attemptCompletionOfInProgressWorkOrder()
+            }, onError: { error, statusCode, responseString in
+                logError(error)
             })
         }
     }
@@ -628,9 +628,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             attemptSegueToValidWorkOrderContext()
 
             workOrder.addComment(comment, onSuccess: { [weak self] statusCode, responseString in
-                self!.attemptCompletionOfInProgressWorkOrder()
-                }, onError: { error, statusCode, responseString in
-                    logError(error)
+                self?.attemptCompletionOfInProgressWorkOrder()
+            }, onError: { error, statusCode, responseString in
+                logError(error)
             })
         }
     }
@@ -715,10 +715,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     fileprivate func attemptCompletionOfInProgressWorkOrder() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.components.count == 0 {
             workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
-                self!.nextWorkOrderContextShouldBeRewound()
-                self!.attemptSegueToValidWorkOrderContext()
-                }, onError: { error, statusCode, responseString in
-                    logError(error)
+                self?.nextWorkOrderContextShouldBeRewound()
+                self?.attemptSegueToValidWorkOrderContext()
+            }, onError: { error, statusCode, responseString in
+                logError(error)
             })
         } else {
             // did not attempt to complete work order as there are outstanding components

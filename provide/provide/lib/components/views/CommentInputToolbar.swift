@@ -74,7 +74,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func dismiss() {
-        if let commentInputTextField = commentInputTextField,  commentInputTextField.isFirstResponder {
+        if let commentInputTextField = commentInputTextField, commentInputTextField.isFirstResponder {
             commentInputTextField.resignFirstResponder()
         }
     }

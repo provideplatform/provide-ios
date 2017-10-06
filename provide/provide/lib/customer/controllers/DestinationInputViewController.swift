@@ -126,9 +126,9 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     } else {
                         logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
                     }
-                    }, onError: { [weak self] err, statusCode, responseString in
-                        logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
-                        self!.pendingSearch = false
+                }, onError: { [weak self] err, statusCode, responseString in
+                    logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
+                    self!.pendingSearch = false
                 })
             })
         }
@@ -176,11 +176,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         if !pendingSearch {
             search()
         } else if timer == nil {
-            timer = Timer.scheduledTimer(timeInterval: 0.1,
-                                         target: self,
-                                         selector: #selector(search),
-                                         userInfo: nil,
-                                         repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(search), userInfo: nil, repeats: true)
         }
     }
 

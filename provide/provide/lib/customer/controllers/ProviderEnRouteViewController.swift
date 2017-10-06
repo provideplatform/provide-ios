@@ -107,8 +107,8 @@ class ProviderEnRouteViewController: ViewController {
                 if workOrder.providerProfileImageUrl == nil {
                     workOrder.reload(onSuccess: { [weak self] _, _ in
                         self?.refreshProvider()
-                        }, onError: { error, statusCode, response in
-                            logWarn("Failed to reload work order")
+                    }, onError: { error, statusCode, response in
+                        logWarn("Failed to reload work order")
                     })
                 }
                 providerStatusLabel?.text = "YOUR DRIVER IS EN ROUTE"

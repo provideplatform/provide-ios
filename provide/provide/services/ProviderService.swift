@@ -82,8 +82,8 @@ class ProviderService: NSObject {
             let fetchedProviders = mappingResult?.array() as! [Provider]
             self?.providers = fetchedProviders
             onProvidersFetched(fetchedProviders)
-            }, onError: { error, statusCode, responseString in
-                logWarn("Failed to fetch providers; \(statusCode)")
+        }, onError: { error, statusCode, responseString in
+            logWarn("Failed to fetch providers; \(statusCode)")
         })
     }
 }

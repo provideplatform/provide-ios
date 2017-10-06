@@ -121,13 +121,13 @@ class Provider: Model {
 
     func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let val = !isAvailable
-        ApiService.shared.updateProviderWithId(String(id), params: ["available": val as AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
-            logInfo("Provider (id: \(self!.id)) marked \(val ? "available" : "unavailable")")
-            self!.available = val ? 1 : 0
+        ApiService.shared.updateProviderWithId(String(id), params: ["available": val as AnyObject], onSuccess: { statusCode, mappingResult in
+            logInfo("Provider (id: \(self.id)) marked \(val ? "available" : "unavailable")")
+            self.available = val ? 1 : 0
             onSuccess(statusCode, mappingResult)
-            }, onError: { [weak self] error, statusCode, responseString in
-                logWarn("Failed to update provider (id: \(self!.id)) availability")
-                onError(error, statusCode, responseString)
+        }, onError: { [weak self] error, statusCode, responseString in
+            logWarn("Failed to update provider (id: \(self!.id)) availability")
+            onError(error, statusCode, responseString)
         })
     }
 

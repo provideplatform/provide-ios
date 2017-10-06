@@ -115,8 +115,8 @@ class ConfirmWorkOrderViewController: ViewController {
                 logInfo("Created work order for hire: \(workOrder)")
                 self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
             }
-            }, onError: { err, statusCode, responseString in
-                logWarn("Failed to create work order for hire (\(statusCode))")
+        }, onError: { err, statusCode, responseString in
+            logWarn("Failed to create work order for hire (\(statusCode))")
         })
     }
 
@@ -151,8 +151,8 @@ class ConfirmWorkOrderViewController: ViewController {
                 WorkOrderService.shared.setWorkOrders([workOrder])
                 self!.setWorkOrder(workOrder)
             }
-            }, onError: { err, statusCode, responseString in
-                logWarn("Failed to create work order for hire (\(statusCode))")
+        }, onError: { err, statusCode, responseString in
+            logWarn("Failed to create work order for hire (\(statusCode))")
         })
     }
 }
