@@ -75,9 +75,9 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
 
         navigationItem.title = "COMMENTS"
 
-//        if let navigationController = navigationController {
-//            navigationController.setNavigationBarHidden(true, animated: false)
-//        }
+        // if let navigationController = navigationController {
+        //     navigationController.setNavigationBarHidden(true, animated: false)
+        // }
 
         setupPullToRefresh()
 
@@ -197,20 +197,17 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
-        self.collectionView.performBatchUpdates(
-            {
-                UIView.animate(withDuration: 0.0, animations: {
-                    self.collectionView.insertItems(at: indexPaths)
-                })
-            },
-            completion: { completed in
-                self.collectionView.contentOffset = CGPoint(x: 0.0, y: self.collectionView.contentSize.height - bottom)
-                CATransaction.commit()
+        self.collectionView.performBatchUpdates({
+            UIView.animate(withDuration: 0.0, animations: {
+                self.collectionView.insertItems(at: indexPaths)
+            })
+        }, completion: { completed in
+            self.collectionView.contentOffset = CGPoint(x: 0.0, y: self.collectionView.contentSize.height - bottom)
+            CATransaction.commit()
 
-                self.scrollToNewestComment()
-                self.hideActivity()
-            }
-        )
+            self.scrollToNewestComment()
+            self.hideActivity()
+        })
     }
 
     func reset() {
@@ -242,58 +239,52 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                     refreshControl?.beginRefreshing()
                 }
 
-                ApiService.shared.fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId),
-                                                         onSuccess: { statusCode, mappingResult in
-                                                            let fetchedComments = mappingResult?.array() as! [Comment]
-                                                            if self.page == 1 {
-                                                                self.comments = [Comment]()
-                                                            }
-                                                            self.comments += fetchedComments
-
-                                                            self.hasNextPage = fetchedComments.count == self.rpp
-
-                                                            if self.page == 1 {
-                                                                self.reloadCollectionView()
-                                                            } else {
-                                                                var indexPaths = [IndexPath]()
-                                                                var indexPath = 0
-                                                                for _ in fetchedComments {
-                                                                    indexPaths.append(IndexPath(row: indexPath, section: 0))
-                                                                    indexPath += 1
-                                                                }
-
-                                                                let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
-
-                                                                CATransaction.begin()
-                                                                CATransaction.setDisableActions(true)
-
-                                                                self.collectionView.performBatchUpdates(
-                                                                    {
-                                                                        UIView.animate(withDuration: 0.0, animations: {
-                                                                            self.collectionView.insertItems(at: indexPaths)
-                                                                        })
-                                                                    },
-                                                                    completion: { completed in
-                                                                        self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottom)
-                                                                        CATransaction.commit()
-                                                                        self.hideActivity()
-                                                                    }
-                                                                )
-                                                            }
-
-                                                            self.page += 1
-
-                                                            self.fetchingComments = false
-
-                                                            if !self.hasNextPage {
-                                                                self.refreshControl?.removeFromSuperview()
-                                                                self.refreshControl = nil
-                                                            }
-                    },
-                                                         onError: { error, statusCode, responseString in
-                                                            self.fetchingComments = false
+                ApiService.shared.fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId), onSuccess: { statusCode, mappingResult in
+                    let fetchedComments = mappingResult?.array() as! [Comment]
+                    if self.page == 1 {
+                        self.comments = [Comment]()
                     }
-                )
+                    self.comments += fetchedComments
+
+                    self.hasNextPage = fetchedComments.count == self.rpp
+
+                    if self.page == 1 {
+                        self.reloadCollectionView()
+                    } else {
+                        var indexPaths = [IndexPath]()
+                        var indexPath = 0
+                        for _ in fetchedComments {
+                            indexPaths.append(IndexPath(row: indexPath, section: 0))
+                            indexPath += 1
+                        }
+
+                        let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
+
+                        CATransaction.begin()
+                        CATransaction.setDisableActions(true)
+
+                        self.collectionView.performBatchUpdates({
+                            UIView.animate(withDuration: 0.0, animations: {
+                                self.collectionView.insertItems(at: indexPaths)
+                            })
+                        }, completion: { completed in
+                            self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottom)
+                            CATransaction.commit()
+                            self.hideActivity()
+                        })
+                    }
+
+                    self.page += 1
+
+                    self.fetchingComments = false
+
+                    if !self.hasNextPage {
+                        self.refreshControl?.removeFromSuperview()
+                        self.refreshControl = nil
+                    }
+                }, onError: { error, statusCode, responseString in
+                    self.fetchingComments = false
+                })
             } else {
                 reloadCollectionView()
                 fetchingComments = false
@@ -317,14 +308,14 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-//    optional func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool
-//    optional func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath)
-//    optional func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath)
-//    optional func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool
-//    optional func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool // called when the user taps on an already-selected item in multi-select mode
-//    optional func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-//    optional func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
-//
+    //    optional func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool
+    //    optional func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath)
+    //    optional func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath)
+    //    optional func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool
+    //    optional func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool // called when the user taps on an already-selected item in multi-select mode
+    //    optional func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    //    optional func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath)
+    //
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if (indexPath as NSIndexPath).row == 0 {
@@ -334,19 +325,19 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-//    @availability(iOS, introduced=8.0)
-//    optional func collectionView(collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, atIndexPath indexPath: NSIndexPath)
-//    optional func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)
-//    optional func collectionView(collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, atIndexPath indexPath: NSIndexPath)
-//
-//    // These methods provide support for copy/paste actions on cells.
-//    // All three should be implemented if any are.
-//    optional func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool
-//    optional func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool
-//    optional func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!)
-//
-//    // support for custom transition layout
-//    optional func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout!
+    //    @availability(iOS, introduced=8.0)
+    //    optional func collectionView(collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, atIndexPath indexPath: NSIndexPath)
+    //    optional func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath)
+    //    optional func collectionView(collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, atIndexPath indexPath: NSIndexPath)
+    //
+    //    // These methods provide support for copy/paste actions on cells.
+    //    // All three should be implemented if any are.
+    //    optional func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool
+    //    optional func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!) -> Bool
+    //    optional func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject!)
+    //
+    //    // support for custom transition layout
+    //    optional func collectionView(collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout!
 
     // MARK: UICollectionViewDelegate
 
@@ -389,10 +380,10 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         return cell
     }
 
-//    optional func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
+    //    optional func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
 
     // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
-//    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+    //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
     // MARK: CommentCreationViewControllerDelegate
 

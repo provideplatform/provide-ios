@@ -47,11 +47,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func commentsViewControllerShouldBeDismissed(_ viewController: CommentsViewController)
 }
 
-class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
-                                                WorkOrdersViewControllerDelegate,
-                                                CommentCreationViewControllerDelegate,
-                                                DirectionsViewControllerDelegate,
-                                                WorkOrderComponentViewControllerDelegate {
+class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, CommentCreationViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
 
     fileprivate let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
@@ -91,22 +87,19 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             if !self.updatingWorkOrderContext && (WorkOrderService.shared.inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder || self.canAttemptSegueToPendingAcceptanceWorkOrder) {
                 if self.viewingDirections && WorkOrderService.shared.inProgressWorkOrder != nil {
                     self.updatingWorkOrderContext = true
-                    WorkOrderService.shared.inProgressWorkOrder?.reload(
-                        onSuccess: { statusCode, mappingResult in
-                            if let workOrder = mappingResult?.firstObject as? WorkOrder, workOrder.status != "en_route" {
-                                self.refreshAnnotations()
-                                self.loadWorkOrderContext()
-                            } else {
-                                log("not reloading context due to work order being routed to destination")
-                                self.updatingWorkOrderContext = false
-                            }
-                        },
-                        onError: { error, statusCode, responseString in
+                    WorkOrderService.shared.inProgressWorkOrder?.reload(onSuccess: { statusCode, mappingResult in
+                        if let workOrder = mappingResult?.firstObject as? WorkOrder, workOrder.status != "en_route" {
                             self.refreshAnnotations()
-                            self.updatingWorkOrderContext = true
                             self.loadWorkOrderContext()
+                        } else {
+                            log("not reloading context due to work order being routed to destination")
+                            self.updatingWorkOrderContext = false
                         }
-                    )
+                    }, onError: { error, statusCode, responseString in
+                        self.refreshAnnotations()
+                        self.updatingWorkOrderContext = true
+                        self.loadWorkOrderContext()
+                    })
                 } else {
                     DirectionService.shared.resetLastDirectionsApiRequestCoordinateAndTimestamp()
 
@@ -151,25 +144,22 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     @IBAction fileprivate func toggleAvailability(_ sender: UISwitch) {
         if let currentProvider = currentProvider {
             availabilityBarButtonItem?.isEnabled = false
-            currentProvider.toggleAvailability(
-                onSuccess: { [weak self] statusCode, mappingResult in
-                    logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
-                    self!.availabilityBarButtonItem?.isEnabled = true
+            currentProvider.toggleAvailability(onSuccess: { [weak self] statusCode, mappingResult in
+                logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
+                self!.availabilityBarButtonItem?.isEnabled = true
 
-                    if currentProvider.isAvailable {
-                        CheckinService.shared.start()
-                        LocationService.shared.start()
-                    } else {
-                        CheckinService.shared.stop()
-                        LocationService.shared.stop()
-                    }
-                },
-                onError: { [weak self] error, statusCode, responseString in
+                if currentProvider.isAvailable {
+                    CheckinService.shared.start()
+                    LocationService.shared.start()
+                } else {
+                    CheckinService.shared.stop()
+                    LocationService.shared.stop()
+                }
+                }, onError: { [weak self] error, statusCode, responseString in
                     logWarn("Failed to update current provider availability")
                     sender.isOn = !sender.isOn
                     self!.availabilityBarButtonItem?.isEnabled = true
-                }
-            )
+            })
         }
     }
 
@@ -244,39 +234,33 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
         if let user = currentUser {
             if user.providerIds.count == 0 {
-                ApiService.shared.createProvider(
-                    ["user_id": String(user.id) as AnyObject],
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        if let provider = mappingResult!.firstObject as? Provider {
-                            logInfo("Created new provider context for user: \(user)")
-                            user.providerIds.append(provider.id)
-                            self!.requireProviderContext()
-                        }
+                ApiService.shared.createProvider(["user_id": String(user.id) as AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
+                    if let provider = mappingResult!.firstObject as? Provider {
+                        logInfo("Created new provider context for user: \(user)")
+                        user.providerIds.append(provider.id)
+                        self!.requireProviderContext()
+                    }
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
-                    }
-                )
+                })
             } else if user.providerIds.count == 1 {
-                ApiService.shared.fetchProviderWithId(
-                    String(user.providerIds.first!),
-                    onSuccess: { [weak self] statusCode, mappingResult in
-                        if let provider = mappingResult!.firstObject as? Provider {
-                            logInfo("Fetched provider context for user: \(provider)")
-                            currentProvider = provider
+                ApiService.shared.fetchProviderWithId(String(user.providerIds.first!), onSuccess: { [weak self] statusCode, mappingResult in
+                    if let provider = mappingResult!.firstObject as? Provider {
+                        logInfo("Fetched provider context for user: \(provider)")
+                        currentProvider = provider
 
-                            self!.setupAvailabilityBarButtonItem()
+                        self!.setupAvailabilityBarButtonItem()
 
-                            if currentProvider.isAvailable {
-                                CheckinService.shared.start()
-                                LocationService.shared.start()
-                            }
-
-                            self!.loadWorkOrderContext()
+                        if currentProvider.isAvailable {
+                            CheckinService.shared.start()
+                            LocationService.shared.start()
                         }
+
+                        self!.loadWorkOrderContext()
+                    }
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
-                    }
-                )
+                })
             }
         } else {
             logWarn("No user for which provider context can be loaded")
@@ -286,22 +270,19 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.shared
 
-        workOrderService.fetch(
-            status: "pending_acceptance,en_route,arriving,in_progress",
-            onWorkOrdersFetched: { [weak self] workOrders in
-                workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
+        workOrderService.fetch(status: "pending_acceptance,en_route,arriving,in_progress", onWorkOrdersFetched: { [weak self] workOrders in
+            workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
-                if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
-                    if let zeroStateViewController = self!.zeroStateViewController {
-                        zeroStateViewController.render(self!.view)
-                    }
+            if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
+                if let zeroStateViewController = self!.zeroStateViewController {
+                    zeroStateViewController.render(self!.view)
                 }
-
-                self!.nextWorkOrderContextShouldBeRewound()
-                self!.attemptSegueToValidWorkOrderContext()
-                self!.updatingWorkOrderContext = false
             }
-        )
+
+            self!.nextWorkOrderContextShouldBeRewound()
+            self!.attemptSegueToValidWorkOrderContext()
+            self!.updatingWorkOrderContext = false
+        })
     }
 
     func attemptSegueToValidWorkOrderContext() {
@@ -355,44 +336,35 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
             refreshAnnotations()
 
-            WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks(
-                {
-                    logInfo("Entered monitored work order region")
-                    if let wo = WorkOrderService.shared.inProgressWorkOrder {
-                        if wo.canArrive {
-                            wo.arrive(
-                                onSuccess: { [weak self] statusCode, responseString in
-                                    logInfo("Work order marked as arriving")
-                                    LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                                    dispatch_after_delay(2.5) {
-                                        self?.nextWorkOrderContextShouldBeRewound()
-                                        self?.attemptSegueToValidWorkOrderContext()
-                                    }
-                                },
-                                onError: { error, statusCode, responseString in
-                                    logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
-                                    LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                                }
-                            )
-                        } else if wo.status == "in_progress" {
-                            wo.complete(
-                                onSuccess: { [weak self] statusCode, responseString in
-                                    logInfo("Completed work order")
-                                    self?.nextWorkOrderContextShouldBeRewound()
-                                    self?.attemptSegueToValidWorkOrderContext()
-                                },
-                                onError: { error, statusCode, responseString in
-                                    logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
-                                    LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                                }
-                            )
-                        }
+            WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({
+                logInfo("Entered monitored work order region")
+                if let wo = WorkOrderService.shared.inProgressWorkOrder {
+                    if wo.canArrive {
+                        wo.arrive(onSuccess: { [weak self] statusCode, responseString in
+                            logInfo("Work order marked as arriving")
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                            dispatch_after_delay(2.5) {
+                                self?.nextWorkOrderContextShouldBeRewound()
+                                self?.attemptSegueToValidWorkOrderContext()
+                            }
+                            }, onError: { error, statusCode, responseString in
+                                logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
+                                LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        })
+                    } else if wo.status == "in_progress" {
+                        wo.complete(onSuccess: { [weak self] statusCode, responseString in
+                            logInfo("Completed work order")
+                            self?.nextWorkOrderContextShouldBeRewound()
+                            self?.attemptSegueToValidWorkOrderContext()
+                            }, onError: { error, statusCode, responseString in
+                                logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
+                                LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        })
                     }
-                },
-                onDidExitRegion: {
-                    logInfo("Exited monitored work order region")
                 }
-            )
+            }, onDidExitRegion: {
+                logInfo("Exited monitored work order region")
+            })
 
             CheckinService.shared.enableNavigationAccuracy()
             LocationService.shared.enableNavigationAccuracy()
@@ -447,16 +419,13 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     @objc fileprivate func clearProviderContext() {
         if currentProvider != nil {
             if currentProvider.available.boolValue {
-                currentProvider.toggleAvailability(
-                    onSuccess: { statusCode, mappingResult in
-                        logInfo("Current provider context marked unavailable for hire")
-                        currentProvider = nil
-                    },
-                    onError: { error, statusCode, responseString in
-                        logWarn("Failed to update current provider availability; current provider context cleared anyway")
-                        currentProvider = nil
-                    }
-                )
+                currentProvider.toggleAvailability(onSuccess: { statusCode, mappingResult in
+                    logInfo("Current provider context marked unavailable for hire")
+                    currentProvider = nil
+                }, onError: { error, statusCode, responseString in
+                    logWarn("Failed to update current provider availability; current provider context cleared anyway")
+                    currentProvider = nil
+                })
             }
         }
     }
@@ -571,7 +540,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
             "WorkOrderComponentViewControllerUnwindSegue",
-            ].index(of: segueIdentifier)
+        ].index(of: segueIdentifier)
         if index != nil {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }
@@ -590,41 +559,32 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController) {
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.shared.nextWorkOrder {
-                workOrder.route(
-                    onSuccess: { [weak self] statusCode, responseString in
-                        logInfo("Work order en route")
-                        self!.nextWorkOrderContextShouldBeRewound()
-                        self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-                    },
-                    onError: { error, statusCode, responseString in
+                workOrder.route(onSuccess: { [weak self] statusCode, responseString in
+                    logInfo("Work order en route")
+                    self!.nextWorkOrderContextShouldBeRewound()
+                    self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+                    }, onError: { error, statusCode, responseString in
                         logWarn("Failed to start work order (\(statusCode))")
-                    }
-                )
+                })
             } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-                workOrder.start(
-                    onSuccess: { [weak self] statusCode, responseString in
-                        logInfo("Work order started")
-                        self?.nextWorkOrderContextShouldBeRewound()
-                        self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-                    },
-                    onError: { error, statusCode, responseString in
+                workOrder.start(onSuccess: { [weak self] statusCode, responseString in
+                    logInfo("Work order started")
+                    self?.nextWorkOrderContextShouldBeRewound()
+                    self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+                    }, onError: { error, statusCode, responseString in
                         logWarn("Failed to start work order (\(statusCode))")
-                    }
-                )
+                })
             }
         }
     }
 
     func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.shared.inProgressWorkOrder.abandon(
-            onSuccess: { [weak self] statusCode, responseString in
-                self!.attemptSegueToValidWorkOrderContext()
-            },
-            onError: { error, statusCode, responseString in
+        WorkOrderService.shared.inProgressWorkOrder.abandon(onSuccess: { [weak self] statusCode, responseString in
+            self!.attemptSegueToValidWorkOrderContext()
+            }, onError: { error, statusCode, responseString in
                 logWarn("Failed to abandon work order (\(statusCode))")
-            }
-        )
+        })
     }
 
     func netPromoterScoreReceived(_ netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
@@ -637,14 +597,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             }
             attemptSegueToValidWorkOrderContext()
 
-            workOrder.scoreProvider(netPromoterScore,
-                onSuccess: { [weak self] statusCode, responseString in
-                    self!.attemptCompletionOfInProgressWorkOrder()
-                },
-                onError: { error, statusCode, responseString in
+            workOrder.scoreProvider(netPromoterScore, onSuccess: { [weak self] statusCode, responseString in
+                self!.attemptCompletionOfInProgressWorkOrder()
+                }, onError: { error, statusCode, responseString in
                     logError(error)
-                }
-            )
+            })
         }
     }
 
@@ -674,14 +631,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
             }
             attemptSegueToValidWorkOrderContext()
 
-            workOrder.addComment(comment,
-                onSuccess: { [weak self] statusCode, responseString in
-                    self!.attemptCompletionOfInProgressWorkOrder()
-                },
-                onError: { error, statusCode, responseString in
+            workOrder.addComment(comment, onSuccess: { [weak self] statusCode, responseString in
+                self!.attemptCompletionOfInProgressWorkOrder()
+                }, onError: { error, statusCode, responseString in
                     logError(error)
-                }
-            )
+            })
         }
     }
 
@@ -764,15 +718,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
 
     fileprivate func attemptCompletionOfInProgressWorkOrder() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.components.count == 0 {
-            workOrder.complete(
-                onSuccess: { [weak self] statusCode, responseString in
-                    self!.nextWorkOrderContextShouldBeRewound()
-                    self!.attemptSegueToValidWorkOrderContext()
-                },
-                onError: { error, statusCode, responseString in
+            workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
+                self!.nextWorkOrderContextShouldBeRewound()
+                self!.attemptSegueToValidWorkOrderContext()
+                }, onError: { error, statusCode, responseString in
                     logError(error)
-            }
-            )
+            })
         } else {
             // did not attempt to complete work order as there are outstanding components
         }

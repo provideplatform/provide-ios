@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 typealias OnProfileImageFetched = () -> Void
 
 class ProfileImageView: UIImageView {

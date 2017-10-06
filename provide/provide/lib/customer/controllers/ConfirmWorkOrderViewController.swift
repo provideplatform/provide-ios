@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 protocol ConfirmWorkOrderViewControllerDelegate: NSObjectProtocol {
     func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder)
 }
@@ -35,24 +34,20 @@ class ConfirmWorkOrderViewController: ViewController {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
-                    UIView.animate(
-                        withDuration: 0.25,
-                        animations: {
-                            self.view.frame.origin.y += self.view.frame.height
-                        },
-                        completion: { completed in
-                            if self.workOrder == nil {
-                                self.activityIndicatorView.stopAnimating()
-                                self.confirmButton.isHidden = false
-                                self.creditCardIcon.isHidden = false
-                                self.creditCardLastFour.isHidden = false
-                                self.userIconImageView.isHidden = false
-                                self.capacity.isHidden = false
-                                self.distanceEstimate.isHidden = false
-                                self.fareEstimate.isHidden = false
-                            }
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.view.frame.origin.y += self.view.frame.height
+                    }, completion: { completed in
+                        if self.workOrder == nil {
+                            self.activityIndicatorView.stopAnimating()
+                            self.confirmButton.isHidden = false
+                            self.creditCardIcon.isHidden = false
+                            self.creditCardLastFour.isHidden = false
+                            self.userIconImageView.isHidden = false
+                            self.capacity.isHidden = false
+                            self.distanceEstimate.isHidden = false
+                            self.fareEstimate.isHidden = false
                         }
-                    )
+                    })
                 }
             } else {
                 if workOrder.status == "awaiting_schedule" {
@@ -72,8 +67,8 @@ class ConfirmWorkOrderViewController: ViewController {
                         fareEstimate.isHidden = false
                     }
 
-                    //                self.creditCardLastFour.text = "" // TODO
-                    //                self.capacity.text = "" // TODO
+                    // self.creditCardLastFour.text = "" // TODO
+                    // self.capacity.text = "" // TODO
                 } else if workOrder.status == "pending_acceptance" {
                     confirmButton.isHidden = true
                     creditCardIcon.isHidden = true
@@ -86,15 +81,11 @@ class ConfirmWorkOrderViewController: ViewController {
                 }
 
                 if oldValue == nil {
-                    UIView.animate(
-                        withDuration: 0.25,
-                        animations: {
-                            self.view.frame.origin.y -= self.view.frame.height
-                        },
-                        completion: { _ in
-                            logInfo("Presented work order for confirmation: \(self.workOrder!)")
-                        }
-                    )
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.view.frame.origin.y -= self.view.frame.height
+                    }, completion: { completed in
+                        logInfo("Presented work order for confirmation: \(self.workOrder!)")
+                    })
                 }
             }
         }
@@ -119,17 +110,14 @@ class ConfirmWorkOrderViewController: ViewController {
         // TODO: show progress HUD
 
         workOrder.status = "pending_acceptance"
-        workOrder.save(
-            onSuccess: { [weak self] statusCode, mappingResult in
-                if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                    logInfo("Created work order for hire: \(workOrder)")
-                    self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
-                }
-            },
-            onError: { err, statusCode, responseString in
-                logWarn("Failed to create work order for hire (\(statusCode))")
+        workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
+            if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                logInfo("Created work order for hire: \(workOrder)")
+                self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
             }
-        )
+            }, onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
+        })
     }
 
     func prepareForReuse() {
@@ -157,17 +145,14 @@ class ConfirmWorkOrderViewController: ViewController {
             ]
         }
 
-        pendingWorkOrder.save(
-            onSuccess: { [weak self] statusCode, mappingResult in
-                if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                    logInfo("Created work order for hire: \(workOrder)")
-                    WorkOrderService.shared.setWorkOrders([workOrder])
-                    self!.setWorkOrder(workOrder)
-                }
-            },
-            onError: { err, statusCode, responseString in
-                logWarn("Failed to create work order for hire (\(statusCode))")
+        pendingWorkOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
+            if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                logInfo("Created work order for hire: \(workOrder)")
+                WorkOrderService.shared.setWorkOrders([workOrder])
+                self!.setWorkOrder(workOrder)
             }
-        )
+            }, onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
+        })
     }
 }

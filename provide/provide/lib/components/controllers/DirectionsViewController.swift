@@ -119,46 +119,43 @@ class DirectionsViewController: ViewController {
         directionsInstructionView.routeLeg = nil
         refreshInstructions()
 
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-            animations: {
-                self.view.alpha = 1
-                self.view.frame = CGRect(
-                    x: frame.origin.x,
-                    y: frame.origin.y - self.view.frame.height,
-                    width: frame.width,
-                    height: frame.height
-                )
-            },
-            completion: { complete in
-                LocationService.shared.resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
-                    if self.directions != nil {
-                        self.setCenterCoordinate(location)
-                    }
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+            self.view.alpha = 1
+            self.view.frame = CGRect(
+                x: frame.origin.x,
+                y: frame.origin.y - self.view.frame.height,
+                width: frame.width,
+                height: frame.height
+            )
+        }, completion: { completed in
+            LocationService.shared.resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
+                if self.directions != nil {
+                    self.setCenterCoordinate(location)
+                }
 
+                if let lastRegionCrossing = self.lastRegionCrossing {
+                    if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.contains(location.coordinate) {
+                        self.directions = nil
+                    }
+                }
+
+                if self.directions == nil {
+                    self.regions = [CLCircularRegion]()
+                    self.lastRegionCrossing = nil
+                    self.lastRegionCrossed = nil
+
+                    self.fetchDrivingDirections(location)
+                } else {
                     if let lastRegionCrossing = self.lastRegionCrossing {
                         if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.contains(location.coordinate) {
                             self.directions = nil
                         }
-                    }
-
-                    if self.directions == nil {
-                        self.regions = [CLCircularRegion]()
-                        self.lastRegionCrossing = nil
-                        self.lastRegionCrossed = nil
-
-                        self.fetchDrivingDirections(location)
                     } else {
-                        if let lastRegionCrossing = self.lastRegionCrossing {
-                            if abs(lastRegionCrossing.timeIntervalSinceNow) >= 5.0 && self.lastRegionCrossed != nil && !self.lastRegionCrossed.contains(location.coordinate) {
-                                self.directions = nil
-                            }
-                        } else {
-                            self.fetchDrivingDirections(location)
-                        }
+                        self.fetchDrivingDirections(location)
                     }
                 }
             }
-        )
+        })
     }
 
     fileprivate func setCenterCoordinate(_ location: CLLocation) {
@@ -175,16 +172,16 @@ class DirectionsViewController: ViewController {
             if sufficientDelta {
                 if let directions = directions {
                     let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
-                        MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
+                                                            MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
 
                     let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 
                     mapView.setCenterCoordinate(location.coordinate,
-                        fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
-                        eyeAltitude: cameraAltitude,
-                        pitch: CGFloat(defaultMapCameraPitch),
-                        heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
-                        animated: false)
+                                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
+                                                eyeAltitude: cameraAltitude,
+                                                pitch: CGFloat(defaultMapCameraPitch),
+                                                heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
+                                                animated: false)
                 }
             }
         }
@@ -205,59 +202,56 @@ class DirectionsViewController: ViewController {
 
                         self.regions.append(region)
 
-                        LocationService.shared.monitorRegion(region,
-                            onDidEnterRegion: {
-                                self.lastRegionCrossed = region
-                                self.lastRegionCrossing = NSDate() as Date!
+                        LocationService.shared.monitorRegion(region, onDidEnterRegion: {
+                            self.lastRegionCrossed = region
+                            self.lastRegionCrossing = NSDate() as Date!
 
-                                self.regions.removeObject(region)
-                                LocationService.shared.unregisterRegionMonitor(region.identifier)
+                            self.regions.removeObject(region)
+                            LocationService.shared.unregisterRegionMonitor(region.identifier)
 
-                                if let directions = self.directions {
-                                    if let currentLeg = directions.selectedRoute.currentLeg {
-                                        if let currentStep = currentLeg.currentStep {
-                                            var identifier = ""
-                                            if let currentShapeCoordinate = currentStep.currentShapeCoordinate {
-                                                if let currentStepIdentifier = currentStep.identifier {
-                                                    identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
-                                                }
+                            if let directions = self.directions {
+                                if let currentLeg = directions.selectedRoute.currentLeg {
+                                    if let currentStep = currentLeg.currentStep {
+                                        var identifier = ""
+                                        if let currentShapeCoordinate = currentStep.currentShapeCoordinate {
+                                            if let currentStepIdentifier = currentStep.identifier {
+                                                identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
                                             }
+                                        }
 
-                                            if self.lastRegionCrossed.identifier == identifier {
-                                                currentStep.currentShapeIndex += 1
+                                        if self.lastRegionCrossed.identifier == identifier {
+                                            currentStep.currentShapeIndex += 1
 
-                                                if currentStep.isFinished {
-                                                    currentLeg.currentStepIndex += 1
-                                                }
-                                            } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
+                                            if currentStep.isFinished {
                                                 currentLeg.currentStepIndex += 1
-                                            } else {
-                                                var shapeIndex = currentStep.shape.count - 1
-                                                for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
-                                                    if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
-                                                        currentStep.currentShapeIndex = shapeIndex
-                                                        if currentStep.isFinished {
-                                                            currentLeg.currentStepIndex += 1
-                                                        }
-                                                        break
+                                            }
+                                        } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
+                                            currentLeg.currentStepIndex += 1
+                                        } else {
+                                            var shapeIndex = currentStep.shape.count - 1
+                                            for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
+                                                if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
+                                                    currentStep.currentShapeIndex = shapeIndex
+                                                    if currentStep.isFinished {
+                                                        currentLeg.currentStepIndex += 1
                                                     }
-                                                    shapeIndex -= 1
+                                                    break
                                                 }
+                                                shapeIndex -= 1
                                             }
+                                        }
 
-                                            DispatchQueue.main.async {
-                                                self.resolveCurrentStep()
-                                                self.refreshInstructions()
-                                                self.renderRouteOverview()
-                                            }
+                                        DispatchQueue.main.async {
+                                            self.resolveCurrentStep()
+                                            self.refreshInstructions()
+                                            self.renderRouteOverview()
                                         }
                                     }
                                 }
-                            },
-                            onDidExitRegion: {
-
                             }
-                        )
+                        }, onDidExitRegion: {
+
+                        })
                     }
                 }
             }
@@ -310,25 +304,19 @@ class DirectionsViewController: ViewController {
     // MARK: Status indicator
 
     func showProgressIndicator() {
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
-            animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
 
-            },
-            completion: { complete in
-                self.showActivity()
-            }
-        )
+        }, completion: { completed in
+            self.showActivity()
+        })
     }
 
     func hideProgressIndicator() {
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut,
-            animations: {
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
 
-            },
-            completion: { complete in
-                self.hideActivity()
-            }
-        )
+        }, completion: { completed in
+            self.hideActivity()
+        })
     }
 
     // MARK: - Navigation
@@ -363,25 +351,22 @@ class DirectionsViewController: ViewController {
             navigationItem.prompt = nil
         }
 
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                self.view.alpha = 0
-                self.view.frame = CGRect(
-                    x: self.view.frame.origin.x,
-                    y: self.view.frame.origin.y + self.view.frame.height,
-                    width: self.view.frame.width,
-                    height: self.view.frame.height
-                )
-            },
-            completion: { complete in
-                self.view.removeFromSuperview()
-                if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
-                    mapView.removeOverlays(mapView.overlays)
-                    mapView.enableUserInteraction()
-                    mapView.camera.pitch = 0.0
-                }
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+            self.view.alpha = 0
+            self.view.frame = CGRect(
+                x: self.view.frame.origin.x,
+                y: self.view.frame.origin.y + self.view.frame.height,
+                width: self.view.frame.width,
+                height: self.view.frame.height
+            )
+        }, completion: { completed in
+            self.view.removeFromSuperview()
+            if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+                mapView.removeOverlays(mapView.overlays)
+                mapView.enableUserInteraction()
+                mapView.camera.pitch = 0.0
             }
-        )
+        })
     }
 
     func routeLegAtIndex(_ i: Int) -> RouteLeg? {

@@ -49,7 +49,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
     var isRunning: Bool {
         if let backCameraView = backCameraView, backCameraView.isRunning {
-                return true
+            return true
         }
 
         if let frontCameraView = frontCameraView, frontCameraView.isRunning {
@@ -75,7 +75,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
 
     func setupCameraUI() {
         guard let button = button else { return }
-        
+
         view.bringSubview(toFront: button)
 
         button.addTarget(self, action: #selector(capture), for: .touchUpInside)

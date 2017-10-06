@@ -134,18 +134,15 @@ class ApiService: NSObject {
     }
 
     func login(_ params: [String: String], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("tokens", method: .POST, params: params as [String : AnyObject]?,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                let token = mappingResult?.firstObject as! Token
-                self.setToken(token)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-                KeyChainService.shared.clearStoredUserData()
-            }
-        )
+        dispatchApiOperationForPath("tokens", method: .POST, params: params as [String : AnyObject]?, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 201)
+            let token = mappingResult?.firstObject as! Token
+            self.setToken(token)
+            onSuccess(statusCode, mappingResult)
+        }, onError: { error, statusCode, responseString in
+            onError(error, statusCode, responseString)
+            KeyChainService.shared.clearStoredUserData()
+        })
     }
 
     func logout(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -168,16 +165,13 @@ class ApiService: NSObject {
 
     fileprivate func deleteToken(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let token = KeyChainService.shared.token {
-            dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
-                onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode, mappingResult)
-                    self.localLogout()
-                },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                    self.localLogout()
-                }
-            )
+            dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil, onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode, mappingResult)
+                self.localLogout()
+            }, onError: { error, statusCode, responseString in
+                onError(error, statusCode, responseString)
+                self.localLogout()
+            })
         }
     }
 
@@ -199,63 +193,29 @@ class ApiService: NSObject {
     func fetchURL(_ url: URL, onURLFetched: @escaping OnURLFetched, onError: OnError) {
         let params = url.query != nil ? url.query!.toJSONObject() : [:]
         let request = Alamofire.request(url.absoluteString, method: .get, parameters: params)
-        KTApiService.shared.execute(request,
-            successHandler: { response in
-                let statusCode = response!.response!.statusCode
-                onURLFetched(statusCode, response!.responseData)
-            },
-            failureHandler: { response, statusCode, error in
+        KTApiService.shared.execute(request, successHandler: { response in
+            let statusCode = response!.response!.statusCode
+            onURLFetched(statusCode, response!.responseData)
+        }, failureHandler: { response, statusCode, error in
 
-            }
-        )
+        })
     }
 
     // MARK: Attachments API
 
-    func createAttachment(
-        _ attachableType: String,
-        withAttachableId attachableId: String,
-        params: [String: AnyObject],
-        onSuccess: @escaping KTApiSuccessHandler,
-        onError: @escaping KTApiFailureHandler)
-    {
-        dispatchApiOperationForPath(
-            "\(attachableType)s/\(attachableId)/attachments",
-            method: .POST,
-            params: params,
-            onSuccess: { statusCode, response in
-                onSuccess(response)
-            },
-            onError: { resp, obj, err in
-                logWarn("Failed to create \(attachableType) attachment")
-            }
-        )
+    func createAttachment(_ attachableType: String, withAttachableId attachableId: String, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
+        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments", method: .POST, params: params, onSuccess: { statusCode, response in
+            onSuccess(response)
+        }, onError: { resp, obj, err in
+            logWarn("Failed to create \(attachableType) attachment")
+        })
     }
 
-    func updateAttachmentWithId(
-        _ id: String,
-        forAttachableType attachableType: String,
-        withAttachableId attachableId: String,
-        params: [String: AnyObject],
-        onSuccess: @escaping OnSuccess,
-        onError: @escaping OnError)
-    {
-        dispatchApiOperationForPath(
-            "\(attachableType)s/\(attachableId)/attachments/\(id)",
-            method: .PUT,
-            params: params,
-            onSuccess: onSuccess,
-            onError: onError
-        )
+    func updateAttachmentWithId(_ id: String, forAttachableType attachableType: String, withAttachableId attachableId: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("\(attachableType)s/\(attachableId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError )
     }
 
-    func addAttachment(_ data: Data,
-                       withMimeType mimeType: String,
-                       usingPresignedS3RequestURL presignedS3RequestURL: URL,
-                       params: [String: AnyObject],
-                       onSuccess: @escaping KTApiSuccessHandler,
-                       onError: @escaping KTApiFailureHandler)
-    {
+    func addAttachment(_ data: Data, withMimeType mimeType: String, usingPresignedS3RequestURL presignedS3RequestURL: URL, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         var tags: String! = nil
         if let t = params["tags"] as? [String] {
             tags = t.joined(separator: ",")
@@ -265,97 +225,54 @@ class ApiService: NSObject {
             "tags": tags,
         ] as [String: Any]
 
-        KTS3Service.presign(
-            presignedS3RequestURL,
-            bucket: nil,
-            filename: "upload.\(mimeMappings[mimeType]!)",
-            metadata: metadata as! [String : String],
-            headers: headers,
-            successHandler: { object in
-                let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
-                let map = Map(mappingType: .fromJSON,
-                              JSON: presignResponse as! [String : AnyObject],
-                              toObject: true,
-                              context: nil)
+        KTS3Service.presign(presignedS3RequestURL, bucket: nil, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata as! [String : String], headers: headers, successHandler: { object in
+            let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
+            let map = Map(mappingType: .fromJSON,
+                          JSON: presignResponse as! [String : AnyObject],
+                          toObject: true,
+                          context: nil)
 
-                let presignedRequest = KTPresignedS3Request()
-                presignedRequest.mapping(map: map)
+            let presignedRequest = KTPresignedS3Request()
+            presignedRequest.mapping(map: map)
 
-                KTS3Service.upload(
-                    presignedRequest,
-                    data: data,
-                    withMimeType: mimeType,
-                    successHandler: { _ in
-                        logInfo("Attachment uploaded to S3")
-                        onSuccess(presignResponse as AnyObject)
-                    },
-                    failureHandler: { resp, obj, err in
-                        logWarn("Failed to upload attachment to S3")
-                        onError(resp, obj, err)
+            KTS3Service.upload(presignedRequest, data: data, withMimeType: mimeType, successHandler: { _ in
+                logInfo("Attachment uploaded to S3")
+                onSuccess(presignResponse as AnyObject)
+            }, failureHandler: { resp, obj, err in
+                logWarn("Failed to upload attachment to S3")
+                onError(resp, obj, err)
+            })
+        }, failureHandler: { resp, code, err in
+            logWarn("Failed to presign S3")
+        })
+    }
+
+    func addAttachment(_ data: Data, withMimeType mimeType: String, toUserWithId id: String, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
+        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: { response in
+            var attachment = [String: AnyObject]()
+            if let response = response as? [String: AnyObject] {
+                let bucketBaseUrl = response["url"] as? String
+                if let fields = response["fields"] as? [String: AnyObject] {
+                    if let key = fields["key"] as? String {
+                        let url = "\(bucketBaseUrl!)/\(key)"
+                        attachment["url"] = url as AnyObject
+                        attachment["key"] = key as AnyObject
                     }
-                )
-            },
-            failureHandler: { resp, code, err in
-                logWarn("Failed to presign S3")
+                    if let mimeType = fields["Content-Type"] {
+                        attachment["mime_type"] = mimeType
+                    }
+                    attachment["metadata"] = fields as AnyObject
+                }
             }
-        )
+            for (k, v) in params {
+                attachment[k] = v
+            }
+            self.createAttachment("user", withAttachableId: id, params: attachment as [String : AnyObject], onSuccess: onSuccess, onError: onError)
+        }, onError: onError)
     }
 
-    func addAttachment(_ data: Data,
-                       withMimeType mimeType: String,
-                       toUserWithId id: String,
-                       params: [String: AnyObject],
-                       onSuccess: @escaping KTApiSuccessHandler,
-                       onError: @escaping KTApiFailureHandler)
-    {
-        addAttachment(
-            data,
-            withMimeType: mimeType,
-            usingPresignedS3RequestURL: presignedS3RequestURL,
-            params: params,
-            onSuccess: { response in
-                var attachment = [String: AnyObject]()
-                if let response = response as? [String: AnyObject] {
-                    let bucketBaseUrl = response["url"] as? String
-                    if let fields = response["fields"] as? [String: AnyObject] {
-                        if let key = fields["key"] as? String {
-                            let url = "\(bucketBaseUrl!)/\(key)"
-                            attachment["url"] = url as AnyObject
-                            attachment["key"] = key as AnyObject
-                        }
-                        if let mimeType = fields["Content-Type"] {
-                            attachment["mime_type"] = mimeType
-                        }
-                        attachment["metadata"] = fields as AnyObject
-                    }
-                }
-                for (k, v) in params {
-                    attachment[k] = v
-                }
-                self.createAttachment("user",
-                                      withAttachableId: id,
-                                      params: attachment as [String : AnyObject],
-                                      onSuccess: onSuccess,
-                                      onError: onError)
-        },
-            onError: onError
-        )
-    }
-
-    func updateAttachmentWithId(
-        _ id: String,
-        onUserWithId userId: String,
-        params: [String: AnyObject],
-        onSuccess: @escaping OnSuccess,
-        onError: @escaping OnError)
-    {
-        dispatchApiOperationForPath(
-            "users/\(userId)/attachments/\(id)",
-            method: .PUT,
-            params: params,
-            onSuccess: onSuccess,
-            onError: onError
-        )
+    func updateAttachmentWithId(_ id: String, onUserWithId userId: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError )
     }
 
     // MARK: Company API
@@ -373,44 +290,35 @@ class ApiService: NSObject {
     // MARK: User API
 
     func createUser(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users", method: .POST, params: params,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                let userToken = mappingResult?.firstObject as! UserToken
-                if let token = userToken.token {
-                    token.user = userToken.user
-                    self.setToken(token)
-                }
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("users", method: .POST, params: params, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 201)
+            let userToken = mappingResult?.firstObject as! UserToken
+            if let token = userToken.token {
+                token.user = userToken.user
+                self.setToken(token)
+            }
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func fetchUser(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users/\(currentUser.id)", method: .GET, params: [:],
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200)
-                let user = mappingResult?.firstObject as! User
-                if let token = KeyChainService.shared.token {
-                    currentUser = user
-                    token.user = user
-                    KeyChainService.shared.token = token
-                }
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("users/\(currentUser.id)", method: .GET, params: [:], onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 200)
+            let user = mappingResult?.firstObject as! User
+            if let token = KeyChainService.shared.token {
+                currentUser = user
+                token.user = user
+                KeyChainService.shared.token = token
+            }
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func updateUser(_ params: [String: String], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("users/\(currentUser.id)", method: .PUT, params: params as [String : AnyObject]?,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 204)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("users/\(currentUser.id)", method: .PUT, params: params as [String : AnyObject]?, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 204)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func setUserDefaultProfileImage(_ image: UIImage, onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
@@ -421,39 +329,26 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        ApiService.shared.addAttachment(
-            data!,
-            withMimeType: "image/jpg",
-            toUserWithId: String(currentUser.id),
-            params: params as [String : AnyObject],
-            onSuccess: { response in
-                onSuccess(response)
+        ApiService.shared.addAttachment(data!, withMimeType: "image/jpg", toUserWithId: String(currentUser.id), params: params as [String : AnyObject], onSuccess: { response in
+            onSuccess(response)
 
-                ApiService.shared.fetchUser(
-                    onSuccess: { statusCode, mappingResult in
-                        if !UIApplication.shared.isRegisteredForRemoteNotifications {
-                            NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
-                        }
-                    },
-                    onError: { error, statusCode, responseString in
-                        logWarn("Failed to fetch user (\(statusCode))")
-                    }
-                )
-            },
-            onError: onError
-        )
+            ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
+                if !UIApplication.shared.isRegisteredForRemoteNotifications {
+                    NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
+                }
+            }, onError: { error, statusCode, responseString in
+                logWarn("Failed to fetch user (\(statusCode))")
+            })
+        }, onError: onError)
     }
 
     // MARK: Device API
 
     func createDevice(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("devices", method: .POST, params: params,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("devices", method: .POST, params: params, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 201)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func deleteDeviceWithId(_ deviceId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -557,24 +452,18 @@ class ApiService: NSObject {
             params["heading"] = heading.magneticHeading as AnyObject
         }
 
-        return checkin(params,
-            onSuccess: { statusCode, mappingResult in
-                logInfo("Checkin succeeded; \(mappingResult!)")
-            },
-            onError: { error, statusCode, responseString in
-                logWarn("Checkin failed (\(statusCode))")
-            }
-        )
+        return checkin(params, onSuccess: { statusCode, mappingResult in
+            logInfo("Checkin succeeded; \(mappingResult!)")
+        }, onError: { error, statusCode, responseString in
+            logWarn("Checkin failed (\(statusCode))")
+        })
     }
 
     func checkin(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("checkins", method: .POST, params: params,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("checkins", method: .POST, params: params, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 201)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     // MARK: Task API
@@ -669,13 +558,10 @@ class ApiService: NSObject {
     }
 
     func addComment(_ comment: String, toWorkOrderWithId id: String!, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment as AnyObject],
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 201)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment as AnyObject], onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 201)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func addAttachment(_ data: Data, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
@@ -704,25 +590,19 @@ class ApiService: NSObject {
     func getDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let params = ["from_latitude": coordinate.latitude, "from_longitude": coordinate.longitude, "to_latitude": toCoordinate.latitude, "to_longitude": toCoordinate.longitude]
 
-        dispatchApiOperationForPath("directions", method: .GET, params: params as [String : AnyObject]?,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200 || statusCode == 304)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("directions", method: .GET, params: params as [String : AnyObject]?, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 200 || statusCode == 304)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func getDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let params = ["from_latitude": coordinate.latitude, "from_longitude": coordinate.longitude, "to_latitude": toCoordinate.latitude, "to_longitude": toCoordinate.longitude]
 
-        dispatchApiOperationForPath("directions/eta", method: .GET, params: params as [String : AnyObject]?,
-            onSuccess: { statusCode, mappingResult in
-                assert(statusCode == 200 || statusCode == 304)
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        dispatchApiOperationForPath("directions/eta", method: .GET, params: params as [String : AnyObject]?, onSuccess: { statusCode, mappingResult in
+            assert(statusCode == 200 || statusCode == 304)
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     @discardableResult
@@ -759,38 +639,31 @@ class ApiService: NSObject {
         params["page"] = 1 as AnyObject
         params["rpp"] = 0 as AnyObject
 
-        let op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false,
-            onSuccess: { statusCode, mappingResult in
-
-            },
-            onError: { error, statusCode, responseString in
-                logError(error)
-            }
-        )
+        let op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false, onSuccess: { statusCode, mappingResult in
+            // TODO
+        }, onError: { error, statusCode, responseString in
+            logError(error)
+        })
 
         if let op = op {
-            op.setCompletionBlockWithSuccess(
-                { operation, mappingResult in
-                    if self.requestOperations.contains(op) {
-                        self.requestOperations.removeObject(op)
-                    }
-
-                    let headers = operation?.httpRequestOperation.response.allHeaderFields
-                    if let totalResultsCountString = headers?["X-Total-Results-Count"] as? String {
-                        if let totalResultsCount = Int(totalResultsCountString) {
-                            onTotalResultsCount(totalResultsCount, nil)
-                        }
-                    }
-                },
-
-                failure: { operation, error in
-                    if self.requestOperations.contains(op) {
-                        self.requestOperations.removeObject(op)
-                    }
-
-                    onTotalResultsCount(-1, error as NSError?)
+            op.setCompletionBlockWithSuccess({ operation, mappingResult in
+                if self.requestOperations.contains(op) {
+                    self.requestOperations.removeObject(op)
                 }
-            )
+
+                let headers = operation?.httpRequestOperation.response.allHeaderFields
+                if let totalResultsCountString = headers?["X-Total-Results-Count"] as? String {
+                    if let totalResultsCount = Int(totalResultsCountString) {
+                        onTotalResultsCount(totalResultsCount, nil)
+                    }
+                }
+            }, failure: { operation, error in
+                if self.requestOperations.contains(op) {
+                    self.requestOperations.removeObject(op)
+                }
+
+                onTotalResultsCount(-1, error as NSError?)
+            })
 
             op.start()
             requestOperations.append(op)
@@ -802,21 +675,8 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchApiOperationForPath(_ path: String,
-                                                 method: RKRequestMethod! = .GET,
-                                                 params: [String: AnyObject]?,
-                                                 startOperation: Bool = true,
-                                                 onSuccess: @escaping OnSuccess,
-                                                 onError: @escaping OnError) -> RKObjectRequestOperation!
-    {
-        return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!,
-                                       path: "api/\(path)",
-                                       method: method,
-                                       params: params,
-                                       contentType: "application/json",
-                                       startOperation: startOperation,
-                                       onSuccess: onSuccess,
-                                       onError: onError)
+    fileprivate func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+        return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!, path: "api/\(path)", method: method, params: params, contentType: "application/json", startOperation: startOperation, onSuccess: onSuccess, onError: onError)
     }
 
     fileprivate func objectMappingForPath(_ path: String, method: String) -> RKObjectMapping? {
@@ -857,15 +717,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchOperationForURL(_ baseURL: URL,
-                                             path: String,
-                                             method: RKRequestMethod = .GET,
-                                             params: [String: AnyObject]!,
-                                             contentType: String = "application/json",
-                                             startOperation: Bool = true,
-                                             onSuccess: @escaping OnSuccess,
-                                             onError: @escaping OnError) -> RKObjectRequestOperation!
-    {
+    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]!, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)
@@ -902,67 +754,62 @@ class ApiService: NSObject {
             if let op = RKObjectRequestOperation(request: request as URLRequest!, responseDescriptors: [responseDescriptor]) {
                 let startDate = Date()
 
-                op.setCompletionBlockWithSuccess(
-                    { operation, mappingResult in
-                        AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
+                op.setCompletionBlockWithSuccess({ operation, mappingResult in
+                    AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
+                        "path": path as AnyObject,
+                        "statusCode": (operation?.httpRequestOperation.response.statusCode)! as AnyObject,
+                        "params": jsonParams as AnyObject,
+                        "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
+                    ] as [String : AnyObject])
+
+                    if self.requestOperations.contains(op) {
+                        self.requestOperations.removeObject(op)
+                    }
+
+                    onSuccess((operation?.httpRequestOperation.response.statusCode)!,
+                              mappingResult)
+                }, failure: { operation, error in
+                    let receivedResponse = operation?.httpRequestOperation.response != nil
+                    let responseString = receivedResponse ? (operation?.httpRequestOperation.responseString)! : "{}"
+                    let statusCode = receivedResponse ? (operation?.httpRequestOperation.response.statusCode)! : -1
+
+                    if receivedResponse {
+                        self.backoffTimeout = self.initialBackoffTimeout
+
+                        AnalyticsService.shared.track("HTTP Request Failed", properties: [
                             "path": path as AnyObject,
-                            "statusCode": (operation?.httpRequestOperation.response.statusCode)! as AnyObject,
+                            "statusCode": statusCode as AnyObject,
+                            "params": jsonParams as AnyObject,
+                            "responseString": responseString as AnyObject,
+                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
+                        ] as [String: AnyObject])
+
+                        if statusCode == 401 {
+                            if baseURL.absoluteString == CurrentEnvironment.baseUrlString {
+                                self.forceLogout()
+                            }
+                        }
+                    } else if let err = error as NSError? {
+                        AnalyticsService.shared.track("HTTP Request Failed", properties: [
+                            "error": err.localizedDescription as AnyObject,
+                            "code": err.code as AnyObject,
                             "params": jsonParams as AnyObject,
                             "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                        ] as [String : AnyObject])
+                        ] as [String: AnyObject])
 
-                        if self.requestOperations.contains(op) {
-                            self.requestOperations.removeObject(op)
+                        DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: .now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))) {
+                            _ = self.dispatchOperationForURL(baseURL, path: path, method: method, params: params, onSuccess: onSuccess, onError: onError)
                         }
 
-                        onSuccess((operation?.httpRequestOperation.response.statusCode)!,
-                                  mappingResult)
-                    },
-                    failure: { operation, error in
-                        let receivedResponse = operation?.httpRequestOperation.response != nil
-                        let responseString = receivedResponse ? (operation?.httpRequestOperation.responseString)! : "{}"
-                        let statusCode = receivedResponse ? (operation?.httpRequestOperation.response.statusCode)! : -1
-
-                        if receivedResponse {
-                            self.backoffTimeout = self.initialBackoffTimeout
-
-                            AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                                "path": path as AnyObject,
-                                "statusCode": statusCode as AnyObject,
-                                "params": jsonParams as AnyObject,
-                                "responseString": responseString as AnyObject,
-                                "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                            ] as [String: AnyObject])
-
-                            if statusCode == 401 {
-                                if baseURL.absoluteString == CurrentEnvironment.baseUrlString {
-                                    self.forceLogout()
-                                }
-                            }
-                        } else if let err = error as NSError? {
-                            AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                                "error": err.localizedDescription as AnyObject,
-                                "code": err.code as AnyObject,
-                                "params": jsonParams as AnyObject,
-                                "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                            ] as [String: AnyObject])
-
-                            DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: .now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))) {
-                                _ = self.dispatchOperationForURL(baseURL, path: path, method: method, params: params, onSuccess: onSuccess, onError: onError)
-                            }
-
-                            self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
-                        }
-
-                        if self.requestOperations.contains(op) {
-                            self.requestOperations.removeObject(op)
-                        }
-
-                        onError(error! as NSError,
-                                statusCode,
-                                responseString)
+                        self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
                     }
-                )
+
+                    if self.requestOperations.contains(op) {
+                        self.requestOperations.removeObject(op)
+                    }
+
+                    onError(error! as NSError, statusCode, responseString)
+                })
 
                 if startOperation {
                     op.start()

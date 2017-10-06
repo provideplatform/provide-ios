@@ -75,11 +75,9 @@ class WorkOrderTableViewCell: UITableViewCell {
     func refresh() {
         durationLabel.text = workOrder.humanReadableDuration
 
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                let alpha = self.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
-                self.backgroundView?.alpha = CGFloat(alpha)
-            }
-        )
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+            let alpha = self.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
+            self.backgroundView?.alpha = CGFloat(alpha)
+        })
     }
 }

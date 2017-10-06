@@ -58,7 +58,7 @@ class ProvideTestCase: XCTestCase {
             navbar.children(matching: .button).element(boundBy: 1).tap()
             app.tables.children(matching: .cell).element(boundBy: 3).tap()
         } else {
-//            app.otherElements["MenuContainerView"].swipeRight()
+            // app.otherElements["MenuContainerView"].swipeRight()
             app.otherElements["MenuContainerView"].tables.children(matching: .cell).element(boundBy: 3).tap()
         }
         isLoggedIn = false

@@ -19,8 +19,7 @@ class Device: Model {
         mapping?.addAttributeMappings(from: [
             "id",
             "apns_device_id",
-            ]
-        )
+        ])
         return mapping!
     }
 }

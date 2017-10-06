@@ -82,11 +82,9 @@ class MessageCell: JSQMessagesCollectionViewCell {
 
         avatarImageView.image = #imageLiteral(resourceName: "profile-image-placeholder")
         if let profileImageUrl = message.senderProfileImageUrl {
-            avatarImageView.sd_setImage(with: profileImageUrl,
-                completed: { image, err, cacheType, url in
-                    logInfo("load avatar image view")
-                }
-            )
+            avatarImageView.sd_setImage(with: profileImageUrl, completed: { image, err, cacheType, url in
+                logInfo("load avatar image view")
+            })
         }
 
         cellBottomLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 12.0)!

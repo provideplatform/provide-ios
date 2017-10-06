@@ -130,15 +130,12 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
             NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
 
-            ApiService.shared.logout(
-                onSuccess: { statusCode, _ in
-                    assert(statusCode == 204)
-                    log("Logout Successful")
-                },
-                onError: { error, _, _ in
-                    logWarn("Logout attempt failed; " + error.localizedDescription)
-                }
-            )
+            ApiService.shared.logout(onSuccess: { statusCode, _ in
+                assert(statusCode == 204)
+                log("Logout Successful")
+            }, onError: { error, _, _ in
+                logWarn("Logout attempt failed; " + error.localizedDescription)
+            })
         }
 
         alertController.addAction(cancelAction)

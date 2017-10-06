@@ -9,10 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class NavigationRootViewController: ViewController,
-                                    ApplicationViewControllerDelegate,
-                                    SetPasswordViewControllerDelegate,
-                                    PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, SetPasswordViewControllerDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet fileprivate var logoImageView: UIImageView!
     @IBOutlet fileprivate var signInButton: UIButton!
@@ -115,45 +112,39 @@ class NavigationRootViewController: ViewController,
 
             MBProgressHUD.showAdded(to: presentingViewController.view, animated: true)
 
-            ApiService.shared.fetchInvitationWithId(pin,
-                onSuccess: { statusCode, mappingResult in
-                    let invitation = mappingResult?.firstObject as! Invitation
+            ApiService.shared.fetchInvitationWithId(pin, onSuccess: { statusCode, mappingResult in
+                let invitation = mappingResult?.firstObject as! Invitation
 
-                    if let user = invitation.user {
-                        let params: [String : AnyObject] = [
-                            "email": user.email as AnyObject,
-                            "invitation_token": pin as AnyObject,
-                        ]
+                if let user = invitation.user {
+                    let params: [String : AnyObject] = [
+                        "email": user.email as AnyObject,
+                        "invitation_token": pin as AnyObject,
+                    ]
 
-                        ApiService.shared.createUser(params,
-                            onSuccess: { statusCode, mappingResult in
-                                MBProgressHUD.hide(for: presentingViewController.view, animated: true)
-                                self.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: self)
-                            },
-                            onError: { error, statusCode, responseString in
-                                MBProgressHUD.hide(for: presentingViewController.view, animated: true)
-                            }
-                        )
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    if statusCode == 404 {
+                    ApiService.shared.createUser(params, onSuccess: { statusCode, mappingResult in
                         MBProgressHUD.hide(for: presentingViewController.view, animated: true)
-
-                        let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .alert)
-
-                        let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { action in
-                            self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
-                        }
-                        alertController.addAction(tryAgainAction)
-
-                        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-                        alertController.addAction(cancelAction)
-
-                        presentingViewController.present(alertController, animated: true)
-                    }
+                        self.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: self)
+                    }, onError: { error, statusCode, responseString in
+                        MBProgressHUD.hide(for: presentingViewController.view, animated: true)
+                    })
                 }
-            )
+            }, onError: { error, statusCode, responseString in
+                if statusCode == 404 {
+                    MBProgressHUD.hide(for: presentingViewController.view, animated: true)
+
+                    let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .alert)
+
+                    let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { action in
+                        self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
+                    }
+                    alertController.addAction(tryAgainAction)
+
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+                    alertController.addAction(cancelAction)
+
+                    presentingViewController.present(alertController, animated: true)
+                }
+            })
         }
     }
 

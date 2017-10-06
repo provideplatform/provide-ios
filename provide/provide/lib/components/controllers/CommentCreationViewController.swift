@@ -111,18 +111,16 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
             targetView.addSubview(navigationController.view)
             targetView.bringSubview(toFront: navigationController.view)
 
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-                animations: {
-                    self.view.alpha = 1
-                    navigationController.view.alpha = 1
-                    navigationController.view.frame = CGRect(
-                        x: frame.origin.x,
-                        y: frame.origin.y - navigationController.view.frame.height,
-                        width: frame.width,
-                        height: frame.height
-                    )
-                }
-            )
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                self.view.alpha = 1
+                navigationController.view.alpha = 1
+                navigationController.view.frame = CGRect(
+                    x: frame.origin.x,
+                    y: frame.origin.y - navigationController.view.frame.height,
+                    width: frame.width,
+                    height: frame.height
+                )
+            })
         }
     }
 
@@ -134,13 +132,11 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         }
 
         if let navigationController = navigationController {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-                animations: {
-                    self.view.alpha = 0.0
-                    navigationController.view.alpha = 0.0
-                    navigationController.view.frame = self.hiddenNavigationControllerFrame
-                }
-            )
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                self.view.alpha = 0.0
+                navigationController.view.alpha = 0.0
+                navigationController.view.frame = self.hiddenNavigationControllerFrame
+            })
         }
     }
 

@@ -296,10 +296,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Geofencing
 
     func monitorRegion(_ region: CLCircularRegion, onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
-        monitorRegionWithCircularOverlay(MKCircle(center: region.center, radius: region.radius),
-                                         identifier: region.identifier,
-                                         onDidEnterRegion: onDidEnterRegion,
-                                         onDidExitRegion: onDidExitRegion)
+        monitorRegionWithCircularOverlay(MKCircle(center: region.center, radius: region.radius), identifier: region.identifier, onDidEnterRegion: onDidEnterRegion, onDidExitRegion: onDidExitRegion)
     }
 
     func monitorRegionWithCircularOverlay(_ overlay: MKCircle, identifier: String, onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {

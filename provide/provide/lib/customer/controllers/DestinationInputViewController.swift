@@ -108,38 +108,29 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             timer = nil
 
             pendingSearch = true
-            LocationService.shared.resolveCurrentLocation(
-                onResolved: { [weak self] location in
-                    LocationService.shared.reverseGeocodeLocation(
-                        location,
-                        onResolved: { [weak self] placemark in
-                            self?.placemark = placemark
-                        }
-                    )
-                    let currentCoordinate = location.coordinate
-                    let params = [
-                        "q": query,
-                        "latitude": currentCoordinate.latitude,
-                        "longitude": currentCoordinate.longitude,
-                        ] as [String: Any]
-                    ApiService.shared.autocompletePlaces(
-                        params as [String : AnyObject],
-                        onSuccess: { [weak self] statusCode, mappingResult in
-                            self!.pendingSearch = false
-                            if let suggestions = mappingResult?.array() as? [Contact] {
-                                logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
-                                self!.destinationResultsViewController.results = suggestions
-                            } else {
-                                logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
-                            }
-                        },
-                        onError: { [weak self] err, statusCode, responseString in
-                            logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
-                            self!.pendingSearch = false
-                        }
-                    )
-                }
-            )
+            LocationService.shared.resolveCurrentLocation( onResolved: { [weak self] location in
+                LocationService.shared.reverseGeocodeLocation(location, onResolved: { [weak self] placemark in
+                    self?.placemark = placemark
+                })
+                let currentCoordinate = location.coordinate
+                let params = [
+                    "q": query,
+                    "latitude": currentCoordinate.latitude,
+                    "longitude": currentCoordinate.longitude,
+                ] as [String: Any]
+                ApiService.shared.autocompletePlaces(params as [String : AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
+                    self!.pendingSearch = false
+                    if let suggestions = mappingResult?.array() as? [Contact] {
+                        logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
+                        self!.destinationResultsViewController.results = suggestions
+                    } else {
+                        logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
+                    }
+                    }, onError: { [weak self] err, statusCode, responseString in
+                        logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
+                        self!.pendingSearch = false
+                })
+            })
         }
     }
 
@@ -200,17 +191,15 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
-        LocationService.shared.resolveCurrentLocation(
-            onResolved: { [weak self] currentLocation in
-                let origin = Contact()
-                origin.latitude = currentLocation.coordinate.latitude as NSNumber
-                origin.longitude = currentLocation.coordinate.longitude as NSNumber
-                if let placemark = self?.placemark {
-                    origin.merge(placemark: placemark)
-                    self?.placemark = nil
-                }
-                self?.delegate?.destinationInputViewController(self!, didSelectDestination: result, startingFrom: origin)
+        LocationService.shared.resolveCurrentLocation(onResolved: { [weak self] currentLocation in
+            let origin = Contact()
+            origin.latitude = currentLocation.coordinate.latitude as NSNumber
+            origin.longitude = currentLocation.coordinate.longitude as NSNumber
+            if let placemark = self?.placemark {
+                origin.merge(placemark: placemark)
+                self?.placemark = nil
             }
-        )
+            self?.delegate?.destinationInputViewController(self!, didSelectDestination: result, startingFrom: origin)
+        })
     }
 }

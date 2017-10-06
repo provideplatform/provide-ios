@@ -39,13 +39,13 @@ class WorkOrderMapView: MapView {
             imageView = ProfileImageView(url: profileImageUrl)
         } else {
             imageView = ProfileImageView()
-            //imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-            //imageView.alpha = 0.0
-//            imageView.email = currentUser.email
-//            imageView.load { error in
-//                imageView.makeCircular()
-//                imageView.alpha = 1
-//            }
+            // imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+            // imageView.alpha = 0.0
+            //  imageView.email = currentUser.email
+            //  imageView.load { error in
+            //      imageView.makeCircular()
+            //      imageView.alpha = 1
+            //  }
         }
 
         return imageView
@@ -81,11 +81,9 @@ class WorkOrderMapView: MapView {
     }
 
     override func revealMap(_ force: Bool = false) {
-        super.revealMap(force,
-            animations: {
-                self.alpha = 1
-            }
-        )
+        super.revealMap(force, animations: {
+            self.alpha = 1
+        })
     }
 
     // MARK: MKMapViewDelegate
@@ -168,12 +166,10 @@ class WorkOrderMapView: MapView {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(false,
-                animations: {
-                    log("Revealing map rect based on location: \(location)")
-                    mapView.alpha = 1
-                }
-            )
+            mapView.revealMap(false, animations: {
+                log("Revealing map rect based on location: \(location)")
+                mapView.alpha = 1
+            })
         }
 
         if !viewingDirections && WorkOrderService.shared.nextWorkOrder != nil {
@@ -187,12 +183,7 @@ class WorkOrderMapView: MapView {
                 }
             }
         } else if viewingDirections {
-            mapView.setCenterCoordinate(location.coordinate,
-                fromEyeCoordinate: mapView.centerCoordinate,
-                eyeAltitude: mapView.camera.altitude,
-                pitch: mapView.camera.pitch,
-                heading: mapView.camera.heading,
-                animated: false)
+            mapView.setCenterCoordinate(location.coordinate, fromEyeCoordinate: mapView.centerCoordinate, eyeAltitude: mapView.camera.altitude, pitch: mapView.camera.pitch, heading: mapView.camera.heading, animated: false)
         }
     }
 

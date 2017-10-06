@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,12 +35,9 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     }
 
     override func revealMap(_ force: Bool = false) {
-        super.revealMap(
-            force,
-            animations: {
-                self.alpha = 1.0
-            }
-        )
+        super.revealMap(force, animations: {
+            self.alpha = 1.0
+        })
     }
 
     func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
@@ -49,10 +45,10 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
             if annotation is Provider.Annotation {
                 if let annotationView = view(for: annotation) {
                     for _ in annotationView.subviews {
-//                        if v is UIImageView {
-//                            v.frame.size = CGSize(width: v.frame.width * scale,
-//                                                  height: v.frame.height * scale)
-//                        }
+                        // if v is UIImageView {
+                        //     v.frame.size = CGSize(width: v.frame.width * scale,
+                        //                           height: v.frame.height * scale)
+                        // }
                     }
                 }
             }
@@ -86,8 +82,8 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)
             if view == nil {
                 if view == nil && annotation is Provider.Annotation {
-//                    let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
-//                    let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
+                    // let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
+                    // let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
                     let icon = #imageLiteral(resourceName: "prvd-reg")
                     let imageView = UIImageView(image: icon)
 
@@ -137,13 +133,10 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(
-                false,
-                animations: {
-                    log("Revealing map rect based on location: \(location)")
-                    mapView.alpha = 1
-                }
-            )
+            mapView.revealMap(false, animations: {
+                log("Revealing map rect based on location: \(location)")
+                mapView.alpha = 1
+            })
         }
 
         mapView.setCenterCoordinate(location.coordinate,

@@ -485,30 +485,30 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 dispatch_async_global_queue {
                     self.lastOCRTimestamp = NSDate() as Date!
 
-//                    let tesseract = G8Tesseract(language: "eng")
-//                    tesseract.delegate = self
-//
-//                    //            tesseract = G8Tesseract(language: "eng")
-//                    //            tesseract.delegate = self
-//                    //
-//                    //            // Optionaly: You could specify engine to recognize with.
-//                    //            // G8OCREngineModeTesseractOnly by default. It provides more features and faster
-//                    //            // than Cube engine. See G8Constants.h for more information.
-//                    //            //tesseract.engineMode = G8OCREngineModeTesseractOnly;
-//                    //
-//                    //            // This is wrapper for common Tesseract variable kG8ParamTesseditCharWhitelist:
-//                    //            // [tesseract setVariableValue:@"0123456789" forKey:kG8ParamTesseditCharBlacklist];
-//                    //            // See G8TesseractParameters.h for a complete list of Tesseract variables
-//                    //
-//                    //            // Optional: Limit the character set Tesseract should not try to recognize from
-//                    //            //tesseract.charBlacklist = @"OoZzBbSs";
-//
-//                    tesseract.image = frame
-//
-//                    // TODO: find receipt rect and use -- tesseract.rect = CGRectMake(20, 20, 100, 100)
-//
-//                    tesseract.maximumRecognitionTime = 2.0
-//                    tesseract.recognize()
+                    // let tesseract = G8Tesseract(language: "eng")
+                    // tesseract.delegate = self
+                    //
+                    // //            tesseract = G8Tesseract(language: "eng")
+                    // //            tesseract.delegate = self
+                    // //
+                    // //            // Optionaly: You could specify engine to recognize with.
+                    // //            // G8OCREngineModeTesseractOnly by default. It provides more features and faster
+                    // //            // than Cube engine. See G8Constants.h for more information.
+                    // //            //tesseract.engineMode = G8OCREngineModeTesseractOnly;
+                    // //
+                    // //            // This is wrapper for common Tesseract variable kG8ParamTesseditCharWhitelist:
+                    // //            // [tesseract setVariableValue:@"0123456789" forKey:kG8ParamTesseditCharBlacklist];
+                    // //            // See G8TesseractParameters.h for a complete list of Tesseract variables
+                    // //
+                    // //            // Optional: Limit the character set Tesseract should not try to recognize from
+                    // //            //tesseract.charBlacklist = @"OoZzBbSs";
+                    //
+                    // tesseract.image = frame
+                    //
+                    // // TODO: find receipt rect and use -- tesseract.rect = CGRectMake(20, 20, 100, 100)
+                    //
+                    // tesseract.maximumRecognitionTime = 2.0
+                    // tesseract.recognize()
 
                     if self.outputOCRMetadata {
                         //self.delegate?.cameraView(self, didRecognizeText: tesseract.recognizedText)

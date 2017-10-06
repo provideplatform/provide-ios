@@ -94,29 +94,24 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
         view.addDropShadow(CGSize(width: 1.0, height: 1.25), radius: 2.0, opacity: 0.3)
 
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                self.view.alpha = 1
-                self.view.frame = CGRect(
-                    x: frame.origin.x,
-                    y: frame.origin.y,
-                    width: frame.width,
-                    height: frame.height
-                )
-            }
-        )
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
+            self.view.alpha = 1
+            self.view.frame = CGRect(
+                x: frame.origin.x,
+                y: frame.origin.y,
+                width: frame.width,
+                height: frame.height
+            )
+        })
     }
 
     func unwind() {
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                self.view.alpha = 0
-                self.view.frame = self.initialFrame
-            },
-            completion: { complete in
-                self.view.removeFromSuperview()
-            }
-        )
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
+            self.view.alpha = 0
+            self.view.frame = self.initialFrame
+        }, completion: { complete in
+            self.view.removeFromSuperview()
+        })
     }
 
     // MARK: - Navigation

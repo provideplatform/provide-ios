@@ -19,8 +19,7 @@ class Directions: Model {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
             "minutes",
-            ]
-        )
+        ])
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "route", toKeyPath: "routes", with: Route.mapping()))
         return mapping!
     }

@@ -196,16 +196,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
             attemptSegueToValidWorkOrderContext()
 
-            workOrder.updateWorkOrderWithStatus("canceled",
-                onSuccess: { [weak self] statusCode, result in
-                    self?.attemptSegueToValidWorkOrderContext()
-                    self?.loadWorkOrderContext()
-                },
-                onError: { [weak self] err, statusCode, response in
+            workOrder.updateWorkOrderWithStatus("canceled", onSuccess: { [weak self] statusCode, result in
+                self?.attemptSegueToValidWorkOrderContext()
+                self?.loadWorkOrderContext()
+                }, onError: { [weak self] err, statusCode, response in
                     logWarn("Failed to cancel work order; attempting to reload work order context")
                     self?.loadWorkOrderContext()
-                }
-            )
+            })
         }
     }
 
@@ -233,14 +230,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         let workOrderService = WorkOrderService.shared
 
         updatingWorkOrderContext = true
-        workOrderService.fetch(
-            status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress",
-            onWorkOrdersFetched: { [weak self] workOrders in
-                workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
-                self!.attemptSegueToValidWorkOrderContext()
-                self!.updatingWorkOrderContext = false
-            }
-        )
+        workOrderService.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress", onWorkOrdersFetched: { [weak self] workOrders in
+            workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
+            self!.attemptSegueToValidWorkOrderContext()
+            self!.updatingWorkOrderContext = false
+        })
     }
 
     fileprivate func attemptSegueToValidWorkOrderContext() {

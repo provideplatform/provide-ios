@@ -100,48 +100,42 @@ class MessagesViewController: JSQMessagesViewController {
             }
 
             let params: [String: Any] = ["recipient_id": recipientId, "page": nextPage]
-            MessageService.shared.fetch(params: params as [String : AnyObject],
-                onMessagesFetched: { messages in
-                    self.hideHUD()
+            MessageService.shared.fetch(params: params as [String : AnyObject], onMessagesFetched: { messages in
+                self.hideHUD()
 
-                    self.shouldPage = messages.count == 10
+                self.shouldPage = messages.count == 10
 
-                    let originalContentSize = self.collectionView.contentSize
+                let originalContentSize = self.collectionView.contentSize
 
-                    UIView.animate(withDuration: 0.0) {
-                        self.collectionView.isScrollEnabled = false
-                        self.collectionView.scrollsToTop = false
-                        self.collectionView.performBatchUpdates(
-                            {
-                                var indexPaths = [IndexPath]()
-                                var i = 0
-                                for msg in messages {
-                                    self.messages.insert(msg, at: 0)
-                                    indexPaths.append(IndexPath(row: i, section: 0))
-                                    i += 1
-                                }
-                                self.collectionView.insertItems(at: indexPaths)
-                            },
-                            completion: { _ in
-                                self.page = nextPage
-                                if self.page == 1 {
-                                    self.scrollToBottom(animated: false)
-                                    self.collectionView.alpha = 1.0
-                                } else {
-                                    self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - originalContentSize.height)
-                                }
-                                self.collectionView.scrollsToTop = true
-                                self.collectionView.isScrollEnabled = true
-                                self.pendingFetch = false
-                            }
-                        )
-                    }
-                },
-                onError: { _, _, _ in
-                    self.hideHUD()
-                    self.pendingFetch = false
+                UIView.animate(withDuration: 0.0) {
+                    self.collectionView.isScrollEnabled = false
+                    self.collectionView.scrollsToTop = false
+                    self.collectionView.performBatchUpdates({
+                        var indexPaths = [IndexPath]()
+                        var i = 0
+                        for msg in messages {
+                            self.messages.insert(msg, at: 0)
+                            indexPaths.append(IndexPath(row: i, section: 0))
+                            i += 1
+                        }
+                        self.collectionView.insertItems(at: indexPaths)
+                    }, completion: { _ in
+                        self.page = nextPage
+                        if self.page == 1 {
+                            self.scrollToBottom(animated: false)
+                            self.collectionView.alpha = 1.0
+                        } else {
+                            self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - originalContentSize.height)
+                        }
+                        self.collectionView.scrollsToTop = true
+                        self.collectionView.isScrollEnabled = true
+                        self.pendingFetch = false
+                    })
                 }
-            )
+            }, onError: { _, _, _ in
+                self.hideHUD()
+                self.pendingFetch = false
+            })
         }
     }
 
@@ -210,10 +204,7 @@ class MessagesViewController: JSQMessagesViewController {
 
         let confirmMediaViewController = UIViewController()
         let mediaImageView = UIImageView()
-        mediaImageView.frame = CGRect(x: 0.0,
-                                      y: 0.0,
-                                      width: windowWidth,
-                                      height: windowHeight)
+        mediaImageView.frame = CGRect(x: 0.0, y: 0.0, width: windowWidth, height: windowHeight)
         mediaImageView.center = collectionView.center
         mediaImageView.contentMode = .scaleAspectFit
         mediaImageView.image = image
@@ -259,51 +250,51 @@ class MessagesViewController: JSQMessagesViewController {
     }
 
     private func sendMessage(with image: UIImage!, senderId: String, senderDisplayName: String, date: Date) {
-//        if let image = image {
-//            let filename = "\(senderId)-image-\(date.timeIntervalSince1970).jpg"
+        //        if let image = image {
+        //            let filename = "\(senderId)-image-\(date.timeIntervalSince1970).jpg"
 
-//            if let data = UIImageJPEGRepresentation(image, 1.0) {
-                // TODO: implement ApiService.shared.createAttachment .upload(data, withMimeType: "image/jpeg", toBucket: "blastcal-production", asKey: filename,
-//                    onSuccess: { response in
-//                        JSQSystemSoundPlayer.jsq_playMessageSentSound()
-//
-//                        let mediaUrl = "https://blastcal-production.s3.amazonaws.com/\(filename)"
-//                        let message = Message(body: "",
-//                                              mediaUrl: mediaUrl,
-//                                              recipientId: self.lastDispatcherId(),
-//                                              senderId: currentUser.id,
-//                                              senderUsername: currentUser.username)
-//
-//                        self.collectionView.performBatchUpdates({
-//                            self.messages.append(message)
-//                            self.collectionView.insertItems(at: [IndexPath(row: self.messages.count - 1, section: 0)])
-//                        }, completion: nil)
-//
-//                        self.finishSendingMessage(animated: true)
-//
-//                        let params: [String: Any] = ["media_url": mediaUrl, "recipient_id": self.lastDispatcherId()]
-//                        Message.create(params: params, onSuccess: { (msg: Message) in
-//                            self.collectionView.performBatchUpdates({
-//                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-//
-//                                self.messages.remove(at: indexPath.row)
-//                                self.messages.append(msg)
-//                                self.collectionView.reloadItems(at: [indexPath])
-//                            }, completion: nil)
-//                        }, onFailure: {
-//
-//                        })
-//                    },
-//                    onError: { response, _, error in
-//                        if let error = error {
-//                            logError("Media message upload error: \(error)")
-//                        } else {
-//                            logError("Media message upload error")
-//                        }
-//                    }
-//                )
-//            }
-//        }
+        //            if let data = UIImageJPEGRepresentation(image, 1.0) {
+        // TODO: implement ApiService.shared.createAttachment .upload(data, withMimeType: "image/jpeg", toBucket: "blastcal-production", asKey: filename,
+        //             onSuccess: { response in
+        //                 JSQSystemSoundPlayer.jsq_playMessageSentSound()
+        //
+        //                 let mediaUrl = "https://blastcal-production.s3.amazonaws.com/\(filename)"
+        //                 let message = Message(body: "",
+        //                                       mediaUrl: mediaUrl,
+        //                                       recipientId: self.lastDispatcherId(),
+        //                                       senderId: currentUser.id,
+        //                                       senderUsername: currentUser.username)
+        //
+        //                 self.collectionView.performBatchUpdates({
+        //                     self.messages.append(message)
+        //                     self.collectionView.insertItems(at: [IndexPath(row: self.messages.count - 1, section: 0)])
+        //                 }, completion: nil)
+        //
+        //                 self.finishSendingMessage(animated: true)
+        //
+        //                 let params: [String: Any] = ["media_url": mediaUrl, "recipient_id": self.lastDispatcherId()]
+        //                 Message.create(params: params, onSuccess: { (msg: Message) in
+        //                     self.collectionView.performBatchUpdates({
+        //                         let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+        //
+        //                         self.messages.remove(at: indexPath.row)
+        //                         self.messages.append(msg)
+        //                         self.collectionView.reloadItems(at: [indexPath])
+        //                     }, completion: nil)
+        //                 }, onFailure: {
+        //
+        //                 })
+        //             },
+        //             onError: { response, _, error in
+        //                 if let error = error {
+        //                     logError("Media message upload error: \(error)")
+        //                 } else {
+        //                     logError("Media message upload error")
+        //                 }
+        //             }
+        //         )
+        //     }
+        // }
     }
 
     // MARK: - JSQMessagesViewController method overrides
@@ -320,22 +311,19 @@ class MessagesViewController: JSQMessagesViewController {
 
         finishSendingMessage(animated: true)
 
-        MessageService.shared.createMessage(text, recipientId: lastDispatcherId(),
-            onMessageCreated: { (msg: Message) in
-                self.collectionView.performBatchUpdates({
-                    let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+        MessageService.shared.createMessage(text, recipientId: lastDispatcherId(), onMessageCreated: { (msg: Message) in
+            self.collectionView.performBatchUpdates({
+                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
 
-                    self.messages.remove(at: indexPath.row)
-                    self.collectionView.deleteItems(at: [indexPath])
+                self.messages.remove(at: indexPath.row)
+                self.collectionView.deleteItems(at: [indexPath])
 
-                    self.messages.append(msg)
-                    self.collectionView.insertItems(at: [indexPath])
-                })
-            },
-            onError: { _, _, _ in
-                logWarn("Failed to send message")
-            }
-        )
+                self.messages.append(msg)
+                self.collectionView.insertItems(at: [indexPath])
+            })
+        }, onError: { _, _, _ in
+            logWarn("Failed to send message")
+        })
     }
 
     // Find the last dispatcher that a message was received from

@@ -38,19 +38,19 @@ class WorkOrderService: NSObject {
         for wo in workOrders {
             if wo.userId == currentUser.id {
                 if wo.status == "awaiting_schedule"
-                        || wo.status == "pending_acceptance"
-                        || wo.status == "en_route"
-                        || wo.status == "arriving"
-                        || wo.status == "in_progress"
-                        || wo.status == "timed_out" {
+                    || wo.status == "pending_acceptance"
+                    || wo.status == "en_route"
+                    || wo.status == "arriving"
+                    || wo.status == "in_progress"
+                    || wo.status == "timed_out" {
                     return wo
                 }
             }
             if wo.status == "pending_acceptance"
-                    || wo.status == "en_route"
-                    || wo.status == "arriving"
-                    || wo.status == "in_progress"
-                    || wo.status == "rejected" {
+                || wo.status == "en_route"
+                || wo.status == "arriving"
+                || wo.status == "in_progress"
+                || wo.status == "rejected" {
                 for provider in wo.providers {
                     if provider.userId == currentUser.id {
                         if !wo.isCurrentProviderTimedOut {
@@ -115,16 +115,13 @@ class WorkOrderService: NSObject {
             params.updateValue("true" as AnyObject, forKey: "include_work_order_providers")
         }
 
-        ApiService.shared.fetchWorkOrders(params,
-            onSuccess: { statusCode, mappingResult in
-                let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
-                self.workOrders += fetchedWorkOrders
-                onWorkOrdersFetched(fetchedWorkOrders)
-            },
-            onError: { error, statusCode, responseString in
-                logWarn("Failed to retrieve work orders; \(error)")
-            }
-        )
+        ApiService.shared.fetchWorkOrders(params, onSuccess: { statusCode, mappingResult in
+            let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
+            self.workOrders += fetchedWorkOrders
+            onWorkOrdersFetched(fetchedWorkOrders)
+        }, onError: { error, statusCode, responseString in
+            logWarn("Failed to retrieve work orders; \(error)")
+        })
     }
 
     func fetchNextWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
@@ -158,10 +155,7 @@ class WorkOrderService: NSObject {
             LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
 
             let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
-            LocationService.shared.monitorRegionWithCircularOverlay(overlay,
-                                                                             identifier: workOrder.regionIdentifier,
-                                                                             onDidEnterRegion: onDidEnterRegion,
-                                                                             onDidExitRegion: onDidExitRegion)
+            LocationService.shared.monitorRegionWithCircularOverlay(overlay, identifier: workOrder.regionIdentifier, onDidEnterRegion: onDidEnterRegion, onDidExitRegion: onDidExitRegion)
         }
     }
 }

@@ -46,11 +46,10 @@ class Contact: Model {
             "latitude",
             "longitude",
             "data",
-            ]
-        )
+        ])
         mapping?.addAttributeMappings(from: [
             "description": "desc",
-            ])
+        ])
         return mapping!
     }
 

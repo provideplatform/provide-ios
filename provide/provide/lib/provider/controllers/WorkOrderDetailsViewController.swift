@@ -13,12 +13,7 @@ protocol WorkOrderDetailsViewControllerDelegate {
     func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
 }
 
-class WorkOrderDetailsViewController: ViewController,
-                                      UITableViewDelegate,
-                                      UITableViewDataSource,
-                                      UICollectionViewDelegate,
-                                      UICollectionViewDataSource,
-                                      WorkOrderDetailsHeaderTableViewControllerDelegate {
+class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, WorkOrderDetailsHeaderTableViewControllerDelegate {
 
     var workOrder: WorkOrder! {
         didSet {
@@ -47,7 +42,7 @@ class WorkOrderDetailsViewController: ViewController,
                         self.headerView?.frame.size.width = self.view.frame.width
                     }
                 }
-                
+
                 self.headerView?.addDropShadow()
                 self.headerView?.workOrder = self.workOrder
             }
@@ -68,41 +63,38 @@ class WorkOrderDetailsViewController: ViewController,
         }
 
         if workOrder.id > 0 {
-            //                workOrder.reload(
-            //                    onSuccess: { statusCode, mappingResult in
-            //                        self.reloadTableView()
-            //                    },
-            //                    onError: { error, statusCode, responseString in
+            // workOrder.reload(
+            //     onSuccess: { statusCode, mappingResult in
+            //         self.reloadTableView()
+            //     },
+            //     onError: { error, statusCode, responseString in
             //
-            //                    }
-            //                )
+            //     }
+            // )
 
-            workOrder.reloadAttachments(
-                onSuccess: { statusCode, mappingResult in
-                    self.mediaCollectionView?.reloadData()
-                },
-                onError: { error, statusCode, responseString in
-                    logError(error)
-                }
-            )
+            workOrder.reloadAttachments(onSuccess: { statusCode, mappingResult in
+                self.mediaCollectionView?.reloadData()
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
 
-            //                workOrder.reloadExpenses(
-            //                    { statusCode, mappingResult in
-            //                        self.reloadTableView()
-            //                    },
-            //                    onError: { error, statusCode, responseString in
+            // workOrder.reloadExpenses(
+            //     { statusCode, mappingResult in
+            //         self.reloadTableView()
+            //     },
+            //     onError: { error, statusCode, responseString in
             //
-            //                    }
-            //                )
+            //     }
+            // )
             //
-            //                workOrder.reloadInventory(
-            //                    { statusCode, mappingResult in
-            //                        self.reloadTableView()
-            //                    },
-            //                    onError: { error, statusCode, responseString in
+            // workOrder.reloadInventory(
+            //     { statusCode, mappingResult in
+            //         self.reloadTableView()
+            //     },
+            //     onError: { error, statusCode, responseString in
             //
-            //                    }
-            //                )
+            //     }
+            // )
 
             if let headerView = headerView {
                 headerView.workOrder = workOrder
@@ -239,13 +231,13 @@ class WorkOrderDetailsViewController: ViewController,
 
     // MARK: UICollectionViewDelegate
 
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsetsMake(10.0, 10.0, 0.0, 0.0)
-//    }
+    //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsetsMake(10.0, 10.0, 0.0, 0.0)
+    //    }
 
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        return CGSize(width: 180.0, height: 180.0)
-//    }
+    //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    //        return CGSize(width: 180.0, height: 180.0)
+    //    }
 
     // MARK: UICollectionViewDataSource
 
@@ -265,7 +257,7 @@ class WorkOrderDetailsViewController: ViewController,
     }
 
     // The view that is returned must be retrieved from a call to -dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
-//    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+    //    optional func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
 
     // MARK: WorkOrderDetailsHeaderTableViewControllerDelegate
 

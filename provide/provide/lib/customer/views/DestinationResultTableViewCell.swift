@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 class DestinationResultTableViewCell: UITableViewCell {
 
     @IBOutlet fileprivate weak var icon: UIImageView!

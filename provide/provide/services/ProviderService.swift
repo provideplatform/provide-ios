@@ -86,19 +86,15 @@ class ProviderService: NSObject {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"
         }
 
-        ApiService.shared.fetchProviders(
-            params as [String : AnyObject],
-            onSuccess: { [weak self] statusCode, mappingResult in
-                if page == 1 {
-                    self?.providers = [Provider]()
-                }
-                let fetchedProviders = mappingResult?.array() as! [Provider]
-                self?.providers = fetchedProviders
-                onProvidersFetched(fetchedProviders)
-            },
-            onError: { error, statusCode, responseString in
-                logWarn("Failed to fetch providers; \(statusCode)")
+        ApiService.shared.fetchProviders(params as [String : AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
+            if page == 1 {
+                self?.providers = [Provider]()
             }
-        )
+            let fetchedProviders = mappingResult?.array() as! [Provider]
+            self?.providers = fetchedProviders
+            onProvidersFetched(fetchedProviders)
+            }, onError: { error, statusCode, responseString in
+                logWarn("Failed to fetch providers; \(statusCode)")
+        })
     }
 }

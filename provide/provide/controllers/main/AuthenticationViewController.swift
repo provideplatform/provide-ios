@@ -49,22 +49,19 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: User Interface Methods
 
     @objc fileprivate func cancel(_: UIBarButtonItem) {
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                if self.emailField?.isFirstResponder == true {
-                    self.emailField?.resignFirstResponder()
-                }
-
-                if self.passwordField?.isFirstResponder == true {
-                    self.passwordField?.resignFirstResponder()
-                }
-
-                return
-            },
-            completion: { complete in
-                self.performSegue(withIdentifier: "AuthenticationViewControllerUnwindSegue", sender: self)
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
+            if self.emailField?.isFirstResponder == true {
+                self.emailField?.resignFirstResponder()
             }
-        )
+
+            if self.passwordField?.isFirstResponder == true {
+                self.passwordField?.resignFirstResponder()
+            }
+
+            return
+        }, completion: { complete in
+            self.performSegue(withIdentifier: "AuthenticationViewControllerUnwindSegue", sender: self)
+        })
     }
 
     fileprivate func showForm() {
@@ -114,20 +111,17 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             "password": passwordField.text!,
         ]
 
-        ApiService.shared.login(params,
-            onSuccess: { statusCode, responseString in
-                MBProgressHUD.hide(for: self.view, animated: true)
+        ApiService.shared.login(params, onSuccess: { statusCode, responseString in
+            MBProgressHUD.hide(for: self.view, animated: true)
 
-                self.userWasAuthenticated()
-            },
-            onError: { error, statusCode, responseString in
-                MBProgressHUD.hide(for: self.view, animated: true)
+            self.userWasAuthenticated()
+        }, onError: { error, statusCode, responseString in
+            MBProgressHUD.hide(for: self.view, animated: true)
 
-                logWarn("Failed to create API token")
-                self.showError("Authorization failed \(statusCode)")
-                self.showForm()
-            }
-        )
+            logWarn("Failed to create API token")
+            self.showError("Authorization failed \(statusCode)")
+            self.showForm()
+        })
     }
 
     fileprivate func userWasAuthenticated() {

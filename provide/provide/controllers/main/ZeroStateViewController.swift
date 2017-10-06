@@ -63,12 +63,10 @@ class ZeroStateViewController: ViewController {
         targetView.bringSubview(toFront: view)
 
         if animated {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-                animations: {
-                    self.view.alpha = 1.0
-                    self.view.frame.origin.y -= self.view.frame.height
-                }
-            )
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+                self.view.alpha = 1.0
+                self.view.frame.origin.y -= self.view.frame.height
+            })
         } else {
             view.alpha = 1.0
             view.frame.origin.y -= view.frame.height
@@ -77,15 +75,12 @@ class ZeroStateViewController: ViewController {
 
     func dismiss() {
         if view.superview != nil {
-            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn,
-                animations: {
-                    self.view.alpha = 0.0
-                    self.view.frame.origin.y += self.view.frame.height
-                },
-                completion: { completed in
-                    self.view.removeFromSuperview()
-                }
-            )
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
+                self.view.alpha = 0.0
+                self.view.frame.origin.y += self.view.frame.height
+            }, completion: { completed in
+                self.view.removeFromSuperview()
+            })
         }
     }
 }

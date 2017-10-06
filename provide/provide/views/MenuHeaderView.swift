@@ -179,14 +179,11 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         profileImageView.alpha = 0.0
         profileImageUrl = nil
 
-        ApiService.shared.setUserDefaultProfileImage(image,
-            onSuccess: { response in
+        ApiService.shared.setUserDefaultProfileImage(image, onSuccess: { response in
 
-            },
-            onError: { urlResponse, statusCode, error in
-                logError(error!)
-            }
-        )
+        }, onError: { urlResponse, statusCode, error in
+            logError(error!)
+        })
     }
 
     // MARK: UIImagePickerControllerDelegate

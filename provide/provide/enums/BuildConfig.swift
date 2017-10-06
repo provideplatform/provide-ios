@@ -9,11 +9,11 @@
 import Foundation
 
 #if DEBUG
-    let CurrentBuildConfig = BuildConfig.debug
+let CurrentBuildConfig = BuildConfig.debug
 #elseif AD_HOC
-    let CurrentBuildConfig = BuildConfig.adHoc
+let CurrentBuildConfig = BuildConfig.adHoc
 #elseif APP_STORE
-    let CurrentBuildConfig = BuildConfig.appStore
+let CurrentBuildConfig = BuildConfig.appStore
 #endif
 
 enum BuildConfig {

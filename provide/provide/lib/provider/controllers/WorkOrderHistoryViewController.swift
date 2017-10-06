@@ -117,19 +117,16 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             "include_checkin_coordinates": "true" as AnyObject,
         ]
 
-        ApiService.shared.fetchWorkOrders(params,
-            onSuccess: { statusCode, mappingResult in
-                let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
-                self.workOrders += fetchedWorkOrders
+        ApiService.shared.fetchWorkOrders(params, onSuccess: { statusCode, mappingResult in
+            let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
+            self.workOrders += fetchedWorkOrders
 
-                self.collectionView.reloadData()
-                self.collectionView.layoutIfNeeded()
-                self.refreshControl.endRefreshing()
-            },
-            onError: { error, statusCode, responseString in
-                logError(error)
-            }
-        )
+            self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
+            self.refreshControl.endRefreshing()
+        }, onError: { error, statusCode, responseString in
+            logError(error)
+        })
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

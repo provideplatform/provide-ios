@@ -99,7 +99,7 @@ class User: Model {
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
             "last_checkin_heading": "lastcheckinHeading",
-            ])
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "providers", toKeyPath: "providers", with: Provider.mapping()))
@@ -111,36 +111,30 @@ class User: Model {
     }
 
     func reload(onSuccess: OnSuccess!, onError: OnError!) {
-        ApiService.shared.fetchUser(
-            onSuccess: { statusCode, mappingResult in
-                if let onSuccess = onSuccess {
-                    onSuccess(statusCode, mappingResult)
-                }
-            },
-            onError: { error, statusCode, responseString in
-                if let onError = onError {
-                    onError(error, statusCode, responseString)
-                }
+        ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
+            if let onSuccess = onSuccess {
+                onSuccess(statusCode, mappingResult)
             }
-        )
+        }, onError: { error, statusCode, responseString in
+            if let onError = onError {
+                onError(error, statusCode, responseString)
+            }
+        })
     }
 
     func reloadCompanies(onSuccess: OnSuccess!, onError: OnError!) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
         let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
-        ApiService.shared.fetchCompanies(params,
-            onSuccess: { statusCode, mappingResult in
-                self.companies = mappingResult?.array() as! [Company]
-                if let onSuccess = onSuccess {
-                    onSuccess(statusCode, mappingResult)
-                }
-            },
-            onError: { error, statusCode, responseString in
-                if let onError = onError {
-                    onError(error, statusCode, responseString)
-                }
+        ApiService.shared.fetchCompanies(params, onSuccess: { statusCode, mappingResult in
+            self.companies = mappingResult?.array() as! [Company]
+            if let onSuccess = onSuccess {
+                onSuccess(statusCode, mappingResult)
             }
-        )
+        }, onError: { error, statusCode, responseString in
+            if let onError = onError {
+                onError(error, statusCode, responseString)
+            }
+        })
     }
 
     class Annotation: NSObject, MKAnnotation {

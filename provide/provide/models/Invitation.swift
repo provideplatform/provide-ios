@@ -18,8 +18,7 @@ class Invitation: Model {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
             "id",
-            ]
-        )
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         return mapping!
     }

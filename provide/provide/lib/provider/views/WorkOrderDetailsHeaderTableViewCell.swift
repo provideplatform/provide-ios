@@ -300,18 +300,16 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NameValueTableViewCell {
                 statusCell = cell
 
-                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
-                    animations: {
-                        statusCell.backgroundView?.backgroundColor = Color.inProgressStatusColor()
+                UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+                    statusCell.backgroundView?.backgroundColor = Color.inProgressStatusColor()
 
-                        let alpha = statusCell.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
-                        statusCell.backgroundView?.alpha = CGFloat(alpha)
+                    let alpha = statusCell.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
+                    statusCell.backgroundView?.alpha = CGFloat(alpha)
 
-                        if let workOrder = self.workOrder, let duration = workOrder.humanReadableDuration {
-                            statusCell.setName("\(workOrder.status.uppercased())", value: duration)
-                        }
+                    if let workOrder = self.workOrder, let duration = workOrder.humanReadableDuration {
+                        statusCell.setName("\(workOrder.status.uppercased())", value: duration)
                     }
-                )
+                })
             }
         }
     }

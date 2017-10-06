@@ -137,18 +137,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        ApiService.shared.createDevice(["user_id": currentUser.id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject],
-            onSuccess: { statusCode, responseString in
+        ApiService.shared.createDevice(["user_id": currentUser.id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject], onSuccess: { statusCode, responseString in
+            AnalyticsService.shared.track("App Registered For Remote Notifications")
+        }, onError: { error, statusCode, responseString in
+            if statusCode == 409 {
                 AnalyticsService.shared.track("App Registered For Remote Notifications")
-            },
-            onError: { error, statusCode, responseString in
-                if statusCode == 409 {
-                    AnalyticsService.shared.track("App Registered For Remote Notifications")
-                } else {
-                    logWarn("Failed to set apn device token for authenticated user; status code: \(statusCode)")
-                }
+            } else {
+                logWarn("Failed to set apn device token for authenticated user; status code: \(statusCode)")
             }
-        )
+        })
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -197,15 +194,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     fileprivate func dismissLaunchScreenViewController() {
         if launchScreenViewController?.view.superview != nil {
-            UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn,
-                animations: {
-                    self.launchScreenViewController?.view.alpha = 0.0
-                },
-                completion: { complete in
-                    self.launchScreenViewController?.view.removeFromSuperview()
-                    self.launchScreenViewController?.view.alpha = 1.0
-                }
-            )
+            UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn, animations: {
+                self.launchScreenViewController?.view.alpha = 0.0
+            }, completion: { complete in
+                self.launchScreenViewController?.view.removeFromSuperview()
+                self.launchScreenViewController?.view.alpha = 1.0
+            })
         }
     }
 }

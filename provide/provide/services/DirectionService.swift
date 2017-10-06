@@ -58,16 +58,13 @@ class DirectionService: NSObject {
     func fetchDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onEtaFetched: @escaping OnEtaFetched) {
         if canSendEtaApiRequest {
             lastEtaApiRequestDate = Date()
-            ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate,
-                onSuccess: { statusCode, mappingResult in
-                    if let directions = mappingResult?.firstObject as? Directions, let minutes = directions.minutes {
-                        onEtaFetched(minutes as! Int)
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    logError(error)
+            ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate, onSuccess: { statusCode, mappingResult in
+                if let directions = mappingResult?.firstObject as? Directions, let minutes = directions.minutes {
+                    onEtaFetched(minutes as! Int)
                 }
-            )
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
         }
     }
 
@@ -75,16 +72,13 @@ class DirectionService: NSObject {
         if canSendDirectionsApiRequest {
             lastDirectionsApiRequestDate = Date()
             lastDirectionsApiRequestCoordinate = coordinate
-            ApiService.shared.getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate,
-                onSuccess: { statusCode, mappingResult in
-                    if let directions = mappingResult?.firstObject as? Directions {
-                        onDrivingDirectionsFetched(directions)
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    logError(error)
+            ApiService.shared.getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate, onSuccess: { statusCode, mappingResult in
+                if let directions = mappingResult?.firstObject as? Directions {
+                    onDrivingDirectionsFetched(directions)
                 }
-            )
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
         }
     }
 }

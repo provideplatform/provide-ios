@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 protocol DestinationResultsViewControllerDelegate: NSObjectProtocol {
     func destinationResultsViewController(_ viewController: DestinationResultsViewController, didSelectResult result: Contact)
 }

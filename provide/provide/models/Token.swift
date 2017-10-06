@@ -22,8 +22,7 @@ class Token: Model {
             "id",
             "uuid",
             "token",
-            ]
-        )
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         return mapping!
     }

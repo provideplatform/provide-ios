@@ -145,11 +145,9 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             durationLabel.sizeToFit()
         }
 
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn,
-            animations: {
-                let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
-                self.statusBackgroundView?.alpha = CGFloat(alpha)
-            }
-        )
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {
+            let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
+            self.statusBackgroundView?.alpha = CGFloat(alpha)
+        })
     }
 }

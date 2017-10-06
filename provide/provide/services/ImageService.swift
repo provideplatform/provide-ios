@@ -46,38 +46,33 @@ class ImageService {
             let cacheKey = cacheUrl.absoluteString
 
             if let image = cache.imageFromMemoryCache(forKey: cacheKey) {
-                 onDownloadSuccess(image)
+                onDownloadSuccess(image)
             } else {
-                cache.queryDiskCache(forKey: cacheKey,
-                    done: { image, cacheType in
-                        if image != nil {
-                            onDownloadSuccess(image!)
-                        } else {
-                            let downloader = SDWebImageDownloader.shared()
-                            downloader?.shouldDecompressImages = false
-                            _ = downloader?.downloadImage(with: url, options: downloadOptions,
-                                progress: { receivedSize, expectedSize in
-                                    if let onDownloadProgress = onDownloadProgress {
-                                        onDownloadProgress(receivedSize, expectedSize)
-                                    }
-                                },
-                                completed: { image, data, error, finished in
-                                    if image != nil && finished {
-                                        dispatch_async_global_queue(DispatchQoS.default.qosClass) {
-                                            self.cache.store(image, forKey: cacheKey)
-                                        }
-
-                                        onDownloadSuccess(image!)
-                                    } else if error != nil {
-                                        if let onDownloadFailure = onDownloadFailure {
-                                            onDownloadFailure(error! as NSError)
-                                        }
-                                    }
+                cache.queryDiskCache(forKey: cacheKey, done: { image, cacheType in
+                    if image != nil {
+                        onDownloadSuccess(image!)
+                    } else {
+                        let downloader = SDWebImageDownloader.shared()
+                        downloader?.shouldDecompressImages = false
+                        _ = downloader?.downloadImage(with: url, options: downloadOptions, progress: { receivedSize, expectedSize in
+                            if let onDownloadProgress = onDownloadProgress {
+                                onDownloadProgress(receivedSize, expectedSize)
+                            }
+                        }, completed: { image, data, error, finished in
+                            if image != nil && finished {
+                                dispatch_async_global_queue(DispatchQoS.default.qosClass) {
+                                    self.cache.store(image, forKey: cacheKey)
                                 }
-                            )
-                        }
+
+                                onDownloadSuccess(image!)
+                            } else if error != nil {
+                                if let onDownloadFailure = onDownloadFailure {
+                                    onDownloadFailure(error! as NSError)
+                                }
+                            }
+                        })
                     }
-                )
+                })
             }
         }
     }

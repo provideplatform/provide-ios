@@ -60,14 +60,11 @@ class CommentCollectionViewCell: UICollectionViewCell {
                                 self.activityIndicatorView?.stopAnimating()
                             })
                         } else {
-                            comment.reload(
-                                onSuccess: { statusCode, mappingResult in
-                                    self.refresh()
-                                },
-                                onError: { error, statusCode, responseString in
-                                    logError(error)
-                                }
-                            )
+                            comment.reload(onSuccess: { statusCode, mappingResult in
+                                self.refresh()
+                            }, onError: { error, statusCode, responseString in
+                                logError(error)
+                            })
                         }
                     }
                 } else {

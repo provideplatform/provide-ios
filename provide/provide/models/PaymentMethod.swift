@@ -20,8 +20,7 @@ class PaymentMethod: Model {
             "id",
             "brand",
             "last4",
-            ]
-        )
+        ])
         return mapping!
     }
 }

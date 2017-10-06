@@ -65,24 +65,20 @@ class Message: Model {
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
 
-        mapping?.addAttributeMappings(
-            from: [
-                "body",
-                "media_url",
-                "created_at",
-                "id",
-                "recipient_id",
-                "recipient_name",
-                "sender_name",
-                "sender_profile_image_url",
-            ]
-        )
+        mapping?.addAttributeMappings(from: [
+            "body",
+            "media_url",
+            "created_at",
+            "id",
+            "recipient_id",
+            "recipient_name",
+            "sender_name",
+            "sender_profile_image_url",
+        ])
 
-        mapping?.addAttributeMappings(
-            from: [
-                "sender_id": "senderID",
-            ]
-        )
+        mapping?.addAttributeMappings(from: [
+            "sender_id": "senderID",
+        ])
 
         return mapping!
     }

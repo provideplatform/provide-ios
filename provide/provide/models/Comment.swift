@@ -43,7 +43,7 @@ class Comment: Model {
             "commentable_type": "commentableType",
             "commentable_id": "commentableId",
             "previous_comment_id": "previousCommentId",
-            ])
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
         return mapping!
@@ -85,19 +85,16 @@ class Comment: Model {
     }
 
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.fetchCommentWithId(String(id), forCommentableType: commentableType, withCommentableId: String(commentableId),
-            onSuccess: { statusCode, mappingResult in
-                let comment = mappingResult?.firstObject as! Comment
+        ApiService.shared.fetchCommentWithId(String(id), forCommentableType: commentableType, withCommentableId: String(commentableId), onSuccess: { statusCode, mappingResult in
+            let comment = mappingResult?.firstObject as! Comment
 
-                self.body = comment.body
+            self.body = comment.body
 
-                if let attachments = comment.attachments {
-                    self.attachments = attachments
-                }
+            if let attachments = comment.attachments {
+                self.attachments = attachments
+            }
 
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 }

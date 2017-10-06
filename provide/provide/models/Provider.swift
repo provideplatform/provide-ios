@@ -86,7 +86,7 @@ class Provider: Model {
 
     var lastName: String? {
         guard let name = name else { return nil }
-        
+
         if name.components(separatedBy: " ").count > 1 {
             return name.components(separatedBy: " ").last!
         } else {
@@ -95,12 +95,9 @@ class Provider: Model {
     }
 
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.fetchProviderWithId(String(id),
-            onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        ApiService.shared.fetchProviderWithId(String(id), onSuccess: { statusCode, mappingResult in
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     func save(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -108,41 +105,30 @@ class Provider: Model {
         params.removeValue(forKey: "id")
 
         if id > 0 {
-            ApiService.shared.updateProviderWithId(String(id), params: params,
-                onSuccess: { statusCode, mappingResult in
-                    onSuccess(statusCode, mappingResult)
-                },
-                onError: onError
-            )
+            ApiService.shared.updateProviderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
+                onSuccess(statusCode, mappingResult)
+            }, onError: onError)
         } else {
             params.removeValue(forKey: "user_id")
 
-            ApiService.shared.createProvider(params,
-                onSuccess: { statusCode, mappingResult in
-                    let provider = mappingResult?.firstObject as! Provider
-                    self.id = provider.id
-                    onSuccess(statusCode, mappingResult)
-                },
-                onError: onError
-            )
+            ApiService.shared.createProvider(params, onSuccess: { statusCode, mappingResult in
+                let provider = mappingResult?.firstObject as! Provider
+                self.id = provider.id
+                onSuccess(statusCode, mappingResult)
+            }, onError: onError)
         }
     }
 
     func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let val = !isAvailable
-        ApiService.shared.updateProviderWithId(
-            String(id),
-            params: ["available": val as AnyObject],
-            onSuccess: { [weak self] statusCode, mappingResult in
-                logInfo("Provider (id: \(self!.id)) marked \(val ? "available" : "unavailable")")
-                self!.available = val ? 1 : 0
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: { [weak self] error, statusCode, responseString in
+        ApiService.shared.updateProviderWithId(String(id), params: ["available": val as AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
+            logInfo("Provider (id: \(self!.id)) marked \(val ? "available" : "unavailable")")
+            self!.available = val ? 1 : 0
+            onSuccess(statusCode, mappingResult)
+            }, onError: { [weak self] error, statusCode, responseString in
                 logWarn("Failed to update provider (id: \(self!.id)) availability")
                 onError(error, statusCode, responseString)
-            }
-        )
+        })
     }
 
     class Annotation: NSObject, MKAnnotation {

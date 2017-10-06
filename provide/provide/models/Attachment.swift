@@ -50,14 +50,14 @@ class Attachment: Model {
     }
 
     class func mappingWithRepresentations(_ levels: Int = 1) -> RKObjectMapping {
-//        var i = 0
+        // var i = 0
         let mapping = Attachment.mapping()
-//        while i < levels - 1 {
-//            i += 1
-//
-//            let nestedMapping = Attachment.mapping()
-//            nestedMapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: mappingWithRepresentations(levels - i)))
-//        }
+        // while i < levels - 1 {
+        //     i += 1
+        //
+        //     let nestedMapping = Attachment.mapping()
+        //     nestedMapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", withMapping: mappingWithRepresentations(levels - i)))
+        // }
         mapping.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "representations", toKeyPath: "representations", with: Attachment.mapping()))
         return mapping
     }
@@ -114,26 +114,19 @@ class Attachment: Model {
     }
 
     func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
-        ApiService.shared.fetchURL(url,
-            onURLFetched: { statusCode, response in
-                self.data = response
-                onURLFetched(statusCode, response)
-            },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
-        )
+        ApiService.shared.fetchURL(url, onURLFetched: { statusCode, response in
+            self.data = response
+            onURLFetched(statusCode, response)
+        }, onError: onError)
     }
 
     func updateAttachment(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
-            onSuccess: { [weak self] statusCode, mappingResult in
-                if let metadata = params["metadata"] as? [String : AnyObject] {
-                    self?.metadata = metadata as NSDictionary!
-                }
-                onSuccess(statusCode, mappingResult)
-            },
-            onError: onError
-        )
+        ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params, onSuccess: { [weak self] statusCode, mappingResult in
+            if let metadata = params["metadata"] as? [String : AnyObject] {
+                self?.metadata = metadata as NSDictionary
+            }
+
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 }

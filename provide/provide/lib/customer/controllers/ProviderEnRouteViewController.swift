@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 class ProviderEnRouteViewController: ViewController {
 
     @IBOutlet private weak var providerStatusLabel: UILabel!
@@ -21,23 +20,19 @@ class ProviderEnRouteViewController: ViewController {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
-                    UIView.animate(
-                        withDuration: 0.25,
-                        animations: {
-                            self.view.frame.origin.y += self.view.frame.height
-                        },
-                        completion: { completed in
-                            if self.workOrder == nil {
-                                self.activityIndicatorView.startAnimating()
-                                self.providerStatusLabel.isHidden = true
-                                self.nameLabel.isHidden = true
-                                self.categoryLabel.isHidden = true
-                                self.makeLabel.isHidden = true
-                                self.modelLabel.isHidden = true
-                                self.profileImageView.isHidden = true
-                            }
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.view.frame.origin.y += self.view.frame.height
+                    }, completion: { completed in
+                        if self.workOrder == nil {
+                            self.activityIndicatorView.startAnimating()
+                            self.providerStatusLabel.isHidden = true
+                            self.nameLabel.isHidden = true
+                            self.categoryLabel.isHidden = true
+                            self.makeLabel.isHidden = true
+                            self.modelLabel.isHidden = true
+                            self.profileImageView.isHidden = true
                         }
-                    )
+                    })
                 }
             } else {
                 refreshStatus()
@@ -57,15 +52,11 @@ class ProviderEnRouteViewController: ViewController {
                 refreshProvider()
 
                 if oldValue == nil {
-                    UIView.animate(
-                        withDuration: 0.25,
-                        animations: {
-                            self.view.frame.origin.y -= self.view.frame.height
-                        },
-                        completion: { _ in
-                            logInfo("Presented provider en route for work order: \(self.workOrder!)")
-                        }
-                    )
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.view.frame.origin.y -= self.view.frame.height
+                    }, completion: { completed in
+                        logInfo("Presented provider en route for work order: \(self.workOrder!)")
+                    })
                 }
             }
         }
@@ -116,14 +107,11 @@ class ProviderEnRouteViewController: ViewController {
 
             if workOrder.status == "en_route" {
                 if workOrder.providerProfileImageUrl == nil {
-                    workOrder.reload(
-                        onSuccess: { [weak self] _, _ in
-                            self?.refreshProvider()
-                        },
-                        onError: { error, statusCode, response in
+                    workOrder.reload(onSuccess: { [weak self] _, _ in
+                        self?.refreshProvider()
+                        }, onError: { error, statusCode, response in
                             logWarn("Failed to reload work order")
-                        }
-                    )
+                    })
                 }
                 providerStatusLabel?.text = "YOUR DRIVER IS EN ROUTE"
             } else if workOrder.status == "arriving" {

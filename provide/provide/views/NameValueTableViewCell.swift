@@ -25,15 +25,15 @@ class NameValueTableViewCell: UITableViewCell {
         valueLabel?.font = valueLabel?.font.withSize(valueFontSize)
         valueLabel?.sizeToFit()
 
-//        if nameLabel != nil && valueLabel != nil {
-//            if CGRectIntersectsRect(nameLabel.frame, valueLabel.frame) {
-//                nameLabel.font = nameLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
-//                nameLabel.sizeToFit()
-//
-//                valueLabel.font = valueLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
-//                valueLabel.sizeToFit()
-//            }
-//        }
+        //  if nameLabel != nil && valueLabel != nil {
+        //     if CGRectIntersectsRect(nameLabel.frame, valueLabel.frame) {
+        //         nameLabel.font = nameLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
+        //         nameLabel.sizeToFit()
+        //
+        //         valueLabel.font = valueLabel.font.fontWithSize(valueLabel.font.pointSize * 0.9)
+        //         valueLabel.sizeToFit()
+        //     }
+        // }
 
         if !showActivity {
             hideActivity()

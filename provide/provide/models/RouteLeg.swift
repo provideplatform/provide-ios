@@ -22,8 +22,7 @@ class RouteLeg: Model {
         mapping?.addAttributeMappings(from: [
             "length": "distanceInMeters",
             "travelTime": "duration",
-            ]
-        )
+        ])
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "maneuver", toKeyPath: "steps", with: RouteLegStep.mapping()))
         return mapping!
     }

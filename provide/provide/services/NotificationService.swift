@@ -99,14 +99,11 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.shared.workOrderWithId(workOrderId) {
-                    workOrder.reload(
-                        onSuccess: { statusCode, mappingResult in
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
-                        },
-                        onError: { error, statusCode, responseString in
-                            logError(error)
-                        }
-                    )
+                    workOrder.reload(onSuccess: { statusCode, mappingResult in
+                        NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
+                    }, onError: { error, statusCode, responseString in
+                        logError(error)
+                    })
                 }
 
                 if let providerRemoved = userInfo["provider_removed"] as? Bool, providerRemoved {
@@ -114,21 +111,18 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 } else {
                     if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                         if inProgressWorkOrder.id == workOrderId {
-                            inProgressWorkOrder.reload(
-                                onSuccess: { statusCode, mappingResult in
-                                    WorkOrderService.shared.updateWorkOrder(inProgressWorkOrder)
+                            inProgressWorkOrder.reload(onSuccess: { statusCode, mappingResult in
+                                WorkOrderService.shared.updateWorkOrder(inProgressWorkOrder)
 
-                                    if inProgressWorkOrder.status == "canceled" {
-                                        LocationService.shared.unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                        NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-                                    }
-
-                                    NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: inProgressWorkOrder)
-                                },
-                                onError: { error, statusCode, responseString in
-                                    logError(error)
+                                if inProgressWorkOrder.status == "canceled" {
+                                    LocationService.shared.unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
-                            )
+
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: inProgressWorkOrder)
+                            }, onError: { error, statusCode, responseString in
+                                logError(error)
+                            })
                         }
                     } else {
                         NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
@@ -168,7 +162,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             logInfo("Websocket message received: \(message)")
 
                             AnalyticsService.shared.track("Websocket Received Message",
-                                                                   properties: ["message": message as AnyObject] as [String: AnyObject])
+                                                          properties: ["message": message as AnyObject] as [String: AnyObject])
 
                             switch message {
                             case "attachment_changed":

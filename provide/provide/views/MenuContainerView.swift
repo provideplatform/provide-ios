@@ -220,20 +220,17 @@ class MenuContainerView: UIView {
         backgroundView.superview!.bringSubview(toFront: backgroundView)
         superview?.bringSubview(toFront: self)
 
-        UIView.animate(withDuration: 0.1, delay: 0.0, options: UIViewAnimationOptions(),
-            animations: {
-                self.frame.origin.x = x
-                self.backgroundView.alpha = 0.75 * percentage
-            },
-            completion: { complete in
-                if !self.gestureInProgress {
-                    UIApplication.shared.setStatusBarHidden(self.isOpen, with: .slide)
-                }
-
-                if !self.isOpen {
-                    self.backgroundView.superview!.sendSubview(toBack: self.backgroundView)
-                }
+        UIView.animate(withDuration: 0.1, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+            self.frame.origin.x = x
+            self.backgroundView.alpha = 0.75 * percentage
+        }, completion: { completed in
+            if !self.gestureInProgress {
+                UIApplication.shared.setStatusBarHidden(self.isOpen, with: .slide)
             }
-        )
+
+            if !self.isOpen {
+                self.backgroundView.superview!.sendSubview(toBack: self.backgroundView)
+            }
+        })
     }
 }

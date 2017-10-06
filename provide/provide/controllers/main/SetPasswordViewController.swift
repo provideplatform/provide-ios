@@ -13,10 +13,7 @@ protocol SetPasswordViewControllerDelegate {
     func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool)
 }
 
-class SetPasswordViewController: ViewController,
-                                 UITableViewDelegate,
-                                 UITableViewDataSource,
-                                 UITextFieldDelegate {
+class SetPasswordViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     var delegate: SetPasswordViewControllerDelegate!
 
@@ -76,22 +73,19 @@ class SetPasswordViewController: ViewController,
             "password": passwordField.text!,
         ]
 
-        ApiService.shared.updateUser(params,
-            onSuccess: { statusCode, responseString in
-                MBProgressHUD.hide(for: self.view, animated: true)
+        ApiService.shared.updateUser(params, onSuccess: { statusCode, responseString in
+            MBProgressHUD.hide(for: self.view, animated: true)
 
-                self.performSegue(withIdentifier: "SetPasswordViewControllerUnwindSegue", sender: self)
-                self.delegate?.setPasswordViewController(self, didSetPassword: true)
-            },
-            onError: { error, statusCode, responseString in
-                MBProgressHUD.hide(for: self.view, animated: true)
+            self.performSegue(withIdentifier: "SetPasswordViewControllerUnwindSegue", sender: self)
+            self.delegate?.setPasswordViewController(self, didSetPassword: true)
+        }, onError: { error, statusCode, responseString in
+            MBProgressHUD.hide(for: self.view, animated: true)
 
-                self.showError("Failed to change password \(statusCode)")
-                self.showForm()
+            self.showError("Failed to change password \(statusCode)")
+            self.showForm()
 
-                self.delegate?.setPasswordViewController(self, didSetPassword: false)
-            }
-        )
+            self.delegate?.setPasswordViewController(self, didSetPassword: false)
+        })
     }
 
     fileprivate func hideForm() {

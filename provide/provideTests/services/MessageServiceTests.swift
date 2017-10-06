@@ -31,15 +31,12 @@ class MessageServiceTests: XCTestCase {
         let expectation = self.expectation(description: "GET messages")
 
         var fetchedMessages = [Message]()
-        MessageService.shared.fetch(
-            onMessagesFetched: { messages in
-                fetchedMessages = messages
-                expectation.fulfill()
-            },
-            onError: { error, statusCode, responseString in
-                logError(error)
-            }
-        )
+        MessageService.shared.fetch(onMessagesFetched: { messages in
+            fetchedMessages = messages
+            expectation.fulfill()
+        }, onError: { error, statusCode, responseString in
+            logError(error)
+        })
 
         waitForExpectations(timeout: 5) { error in
             XCTAssert(fetchedMessages.count == 16)
