@@ -6,7 +6,6 @@
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
-
 enum PushNotificationType: String {
     case attachment = "attachment_id"
     case checkin = "checkin"

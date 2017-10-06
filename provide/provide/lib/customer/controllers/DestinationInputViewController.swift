@@ -6,7 +6,6 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-
 protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
     func destinationInputViewController(_ viewController: DestinationInputViewController,
                                         didSelectDestination destination: Contact,

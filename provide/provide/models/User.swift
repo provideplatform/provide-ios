@@ -115,10 +115,10 @@ class User: Model {
     }
 
     func reload() {
-        reload(nil, onError: nil)
+        reload(onSuccess: nil, onError: nil)
     }
 
-    func reload(_ onSuccess: OnSuccess!, onError: OnError!) {
+    func reload(onSuccess: OnSuccess!, onError: OnError!) {
         ApiService.shared.fetchUser(
             onSuccess: { statusCode, mappingResult in
                 if let onSuccess = onSuccess {
@@ -133,7 +133,7 @@ class User: Model {
         )
     }
 
-    func reloadCompanies(_ onSuccess: OnSuccess!, onError: OnError!) {
+    func reloadCompanies(onSuccess: OnSuccess!, onError: OnError!) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
         let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
         ApiService.shared.fetchCompanies(params,

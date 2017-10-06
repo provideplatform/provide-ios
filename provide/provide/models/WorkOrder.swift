@@ -440,7 +440,7 @@ class WorkOrder: Model {
             }
             workOrderProviders.append(workOrderProvider)
             if id > 0 {
-                save(onSuccess, onError: onError)
+                save(onSuccess: onSuccess, onError: onError)
             }
         }
     }
@@ -458,7 +458,7 @@ class WorkOrder: Model {
                     self.workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
 
                     if id > 0 {
-                        save(onSuccess, onError: onError)
+                        save(onSuccess: onSuccess, onError: onError)
                     }
                 }
             }
@@ -490,12 +490,12 @@ class WorkOrder: Model {
         if hasProvider(provider) {
             removeProvider(provider)
             if id > 0 {
-                save(onSuccess, onError: onError)
+                save(onSuccess: onSuccess, onError: onError)
             }
         }
     }
 
-    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func save(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
 
         if let companyId = params["company_id"] as? Int {
@@ -582,7 +582,7 @@ class WorkOrder: Model {
         }
     }
 
-    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         reload(["include_estimated_cost": "false" as AnyObject, "include_job": "false" as AnyObject, "include_supervisors": "true" as AnyObject, "include_work_order_providers": "true" as AnyObject], onSuccess: onSuccess, onError: onError)
     }
 
@@ -603,7 +603,7 @@ class WorkOrder: Model {
         }
     }
 
-    func reloadAttachments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reloadAttachments(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.shared.fetchAttachments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
@@ -643,15 +643,15 @@ class WorkOrder: Model {
         config = mutableConfig as! [String: AnyObject]
     }
 
-    func route(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func route(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
     }
 
-    func start(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func start(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
     }
 
-    func arrive(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func arrive(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.pendingArrival = true
 
         updateWorkOrderWithStatus("arriving",
@@ -666,27 +666,27 @@ class WorkOrder: Model {
         )
     }
 
-    func abandon(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func abandon(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
-    func cancel(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func cancel(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
-    func approve(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        complete(onSuccess, onError: onError)
+    func approve(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        complete(onSuccess: onSuccess, onError: onError)
     }
 
-    func reject(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reject(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
-    func complete(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func complete(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("completed", onSuccess: onSuccess, onError: onError)
     }
 
-    func submitForApproval(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func submitForApproval(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
     }
 
@@ -734,7 +734,7 @@ class WorkOrder: Model {
         )
     }
 
-    func reloadComments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reloadComments(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             comments = [Comment]()
             ApiService.shared.fetchComments(forWorkOrderWithId: String(id),

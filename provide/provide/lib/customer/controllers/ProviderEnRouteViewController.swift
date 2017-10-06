@@ -117,7 +117,7 @@ class ProviderEnRouteViewController: ViewController {
             if workOrder.status == "en_route" {
                 if workOrder.providerProfileImageUrl == nil {
                     workOrder.reload(
-                        { [weak self] _, _ in
+                        onSuccess: { [weak self] _, _ in
                             self?.refreshProvider()
                         },
                         onError: { error, statusCode, response in

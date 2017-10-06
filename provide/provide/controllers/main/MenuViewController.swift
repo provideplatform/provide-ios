@@ -137,7 +137,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
             NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
 
             ApiService.shared.logout(
-                { statusCode, _ in
+                onSuccess: { statusCode, _ in
                     assert(statusCode == 204)
                     log("Logout Successful")
                 },

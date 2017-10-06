@@ -120,7 +120,7 @@ class ConfirmWorkOrderViewController: ViewController {
 
         workOrder.status = "pending_acceptance"
         workOrder.save(
-            { [weak self] statusCode, mappingResult in
+            onSuccess: { [weak self] statusCode, mappingResult in
                 if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
                     self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
@@ -158,7 +158,7 @@ class ConfirmWorkOrderViewController: ViewController {
         }
 
         pendingWorkOrder.save(
-            { [weak self] statusCode, mappingResult in
+            onSuccess: { [weak self] statusCode, mappingResult in
                 if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
                     WorkOrderService.shared.setWorkOrders([workOrder])

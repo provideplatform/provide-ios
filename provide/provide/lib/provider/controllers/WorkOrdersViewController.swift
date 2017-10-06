@@ -92,7 +92,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 if self.viewingDirections && WorkOrderService.shared.inProgressWorkOrder != nil {
                     self.updatingWorkOrderContext = true
                     WorkOrderService.shared.inProgressWorkOrder?.reload(
-                        { statusCode, mappingResult in
+                        onSuccess: { statusCode, mappingResult in
                             if let workOrder = mappingResult?.firstObject as? WorkOrder {
                                 if workOrder.status != "en_route" {
                                     self.refreshAnnotations()
@@ -372,7 +372,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     if let wo = WorkOrderService.shared.inProgressWorkOrder {
                         if wo.canArrive {
                             wo.arrive(
-                                { [weak self] statusCode, responseString in
+                                onSuccess: { [weak self] statusCode, responseString in
                                     logInfo("Work order marked as arriving")
                                     LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                                     dispatch_after_delay(2.5) {
@@ -387,7 +387,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                             )
                         } else if wo.status == "in_progress" {
                             wo.complete(
-                                { [weak self] statusCode, responseString in
+                                onSuccess: { [weak self] statusCode, responseString in
                                     logInfo("Completed work order")
                                     self?.nextWorkOrderContextShouldBeRewound()
                                     self?.attemptSegueToValidWorkOrderContext()
@@ -602,7 +602,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         if viewController is WorkOrderDestinationConfirmationViewController {
             if let workOrder = WorkOrderService.shared.nextWorkOrder {
                 workOrder.route(
-                    { [weak self] statusCode, responseString in
+                    onSuccess: { [weak self] statusCode, responseString in
                         logInfo("Work order en route")
                         self!.nextWorkOrderContextShouldBeRewound()
                         self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
@@ -613,7 +613,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                 )
             } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
                 workOrder.start(
-                    { [weak self] statusCode, responseString in
+                    onSuccess: { [weak self] statusCode, responseString in
                         logInfo("Work order started")
                         self?.nextWorkOrderContextShouldBeRewound()
                         self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
@@ -629,7 +629,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.shared.inProgressWorkOrder.abandon(
-            { [weak self] statusCode, responseString in
+            onSuccess: { [weak self] statusCode, responseString in
                 self!.attemptSegueToValidWorkOrderContext()
             },
             onError: { error, statusCode, responseString in
@@ -777,7 +777,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if workOrder.components.count == 0 {
                 workOrder.complete(
-                    { [weak self] statusCode, responseString in
+                    onSuccess: { [weak self] statusCode, responseString in
                         self!.nextWorkOrderContextShouldBeRewound()
                         self!.attemptSegueToValidWorkOrderContext()
                     },

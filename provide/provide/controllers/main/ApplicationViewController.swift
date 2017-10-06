@@ -104,7 +104,7 @@ class ApplicationViewController: UIViewController,
             currentUser = token!.user
         }
         currentUser?.reload(
-            { statusCode, mappingResult in
+            onSuccess: { statusCode, mappingResult in
                 if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
                     let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
                     if authorizationStatus == .authorized {

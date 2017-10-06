@@ -106,7 +106,7 @@ class Provider: Model {
         }
     }
 
-    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.fetchProviderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode, mappingResult)
@@ -115,7 +115,7 @@ class Provider: Model {
         )
     }
 
-    func save(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func save(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
         params.removeValue(forKey: "id")
 

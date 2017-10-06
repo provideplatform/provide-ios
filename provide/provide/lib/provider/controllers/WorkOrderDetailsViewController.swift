@@ -80,7 +80,7 @@ class WorkOrderDetailsViewController: ViewController,
             //                )
 
             workOrder.reloadAttachments(
-                { statusCode, mappingResult in
+                onSuccess: { statusCode, mappingResult in
                     self.mediaCollectionView?.reloadData()
                 },
                 onError: { error, statusCode, responseString in

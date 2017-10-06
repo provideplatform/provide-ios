@@ -86,7 +86,7 @@ class Comment: Model {
         }
     }
 
-    func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.fetchCommentWithId(String(id), forCommentableType: commentableType, withCommentableId: String(commentableId),
             onSuccess: { statusCode, mappingResult in
                 let comment = mappingResult?.firstObject as! Comment

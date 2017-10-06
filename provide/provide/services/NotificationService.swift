@@ -83,7 +83,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     if let token = KeyChainService.shared.token {
                         if let user = token.user {
                             user.reload(
-                                { statusCode, mappingResult in
+                                onSuccess: { statusCode, mappingResult in
                                     NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
                                 },
                                 onError: { error, statusCode, responseString in
@@ -114,7 +114,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.shared.workOrderWithId(workOrderId) {
                     workOrder.reload(
-                        { statusCode, mappingResult in
+                        onSuccess: { statusCode, mappingResult in
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
                         },
                         onError: { error, statusCode, responseString in
@@ -131,7 +131,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                         if inProgressWorkOrder.id == workOrderId {
                             inProgressWorkOrder.reload(
-                                { statusCode, mappingResult in
+                                onSuccess: { statusCode, mappingResult in
                                     WorkOrderService.shared.updateWorkOrder(inProgressWorkOrder)
 
                                     if inProgressWorkOrder.status == "canceled" {

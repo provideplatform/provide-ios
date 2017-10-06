@@ -148,12 +148,12 @@ class ApiService: NSObject {
         )
     }
 
-    func logout(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func logout(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if !isSimulator() {
             unregisterForRemoteNotifications()
         }
 
-        deleteToken(onSuccess, onError: onError)
+        deleteToken(onSuccess: onSuccess, onError: onError)
     }
 
     fileprivate func forceLogout() {
@@ -166,7 +166,7 @@ class ApiService: NSObject {
         NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
     }
 
-    fileprivate func deleteToken(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    fileprivate func deleteToken(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let token = KeyChainService.shared.token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in

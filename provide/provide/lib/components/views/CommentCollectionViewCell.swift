@@ -61,7 +61,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                             })
                         } else {
                             comment.reload(
-                                { statusCode, mappingResult in
+                                onSuccess: { statusCode, mappingResult in
                                     self.refresh()
                                 },
                                 onError: { error, statusCode, responseString in
