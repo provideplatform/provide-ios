@@ -342,7 +342,7 @@ class MessagesViewController: JSQMessagesViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let message = messages[(indexPath as NSIndexPath).row]
+        let message = messages[indexPath.row]
 
         let cell = super.collectionView(collectionView, cellForItemAt: indexPath) as! MessageCell
         cell.configure(message: message, collectionViewController: self)

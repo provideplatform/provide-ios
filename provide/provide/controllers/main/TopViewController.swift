@@ -58,7 +58,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
 
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         if indexPath.section == numberOfSectionsInMenuViewController(menuViewController) - 1 {
-            switch (indexPath as NSIndexPath).row {
+            switch indexPath.row {
             case 0:
                 return MenuItem(item: ["label": "Legal", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
             case 1:

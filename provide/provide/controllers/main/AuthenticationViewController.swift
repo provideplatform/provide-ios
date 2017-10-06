@@ -139,7 +139,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: AuthenticationCell!
 
-        switch (indexPath as NSIndexPath).row {
+        switch indexPath.row {
         case 0:
             cell = emailCell(tableView)
         case 1:

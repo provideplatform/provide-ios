@@ -350,7 +350,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
-        switch (indexPath as NSIndexPath).row {
+        switch indexPath.row {
         case 0:
             return MenuItem(item: ["label": "History", "action": "history"])
         case 1:

@@ -198,7 +198,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: "nameValueTableViewCellReuseIdentifier") as! NameValueTableViewCell
         cell.enableEdgeToEdgeDividers()
 
-        switch (indexPath as NSIndexPath).row {
+        switch indexPath.row {
         case 0:
             cell.backgroundView!.backgroundColor = workOrder.statusColor
 

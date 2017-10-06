@@ -318,7 +318,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
     //
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if (indexPath as NSIndexPath).row == 0 {
+        if indexPath.row == 0 {
             if scrolledToNewestComment {
                 self.refresh()
             }
@@ -372,8 +372,8 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCollectionViewCellReuseIdentifier", for: indexPath) as! CommentCollectionViewCell
-        if (indexPath as NSIndexPath).row <= comments.count - 1 {
-            cell.comment = comments.reversed()[(indexPath as NSIndexPath).row]
+        if indexPath.row <= comments.count - 1 {
+            cell.comment = comments.reversed()[indexPath.row]
         } else {
             cell.comment = nil
         }

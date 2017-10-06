@@ -52,11 +52,11 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     fileprivate func workOrderIndexAtIndexPath(_ indexPath: IndexPath) -> Int {
         if isColumnedLayout {
-            var i = (indexPath as NSIndexPath).section * 2
-            i += (indexPath as NSIndexPath).row
+            var i = indexPath.section * 2
+            i += indexPath.row
             return i
         }
-        return (indexPath as NSIndexPath).section
+        return indexPath.section
     }
 
     fileprivate func workOrderForRowAtIndexPath(_ indexPath: IndexPath) -> WorkOrder {

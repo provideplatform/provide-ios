@@ -166,9 +166,9 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
 
-        switch (indexPath as NSIndexPath).section {
+        switch indexPath.section {
         case 0:
-            switch (indexPath as NSIndexPath).row {
+            switch indexPath.row {
             case 0:
                 cell = tableView.dequeueReusableCell(withIdentifier: "mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
                 mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
@@ -185,11 +185,11 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     }
 
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return (indexPath as NSIndexPath).row == 5
+        return indexPath.row == 5
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if (indexPath as NSIndexPath).row == 5 {
+        if indexPath.row == 5 {
             return indexPath
         }
         return nil
@@ -248,7 +248,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "imageCollectionViewCellReuseIdentifier", for: indexPath) as! ImageCollectionViewCell
-        cell.imageUrl = workOrder.attachments[(indexPath as NSIndexPath).row].url
+        cell.imageUrl = workOrder.attachments[indexPath.row].url
         return cell
     }
 

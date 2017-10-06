@@ -116,7 +116,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: AuthenticationCell!
 
-        switch (indexPath as NSIndexPath).row {
+        switch indexPath.row {
         case 0:
             cell = passwordCell(tableView)
         case 1:

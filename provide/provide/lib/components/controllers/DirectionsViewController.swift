@@ -381,9 +381,9 @@ class DirectionsViewController: ViewController {
 
     func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
         var routeLegStep: RouteLegStep?
-        if let routeLeg = routeLegAtIndex((indexPath as NSIndexPath).section) {
-            if (indexPath as NSIndexPath).row < routeLeg.steps.count {
-                routeLegStep = routeLeg.steps[(indexPath as NSIndexPath).row]
+        if let routeLeg = routeLegAtIndex(indexPath.section) {
+            if indexPath.row < routeLeg.steps.count {
+                routeLegStep = routeLeg.steps[indexPath.row]
             }
         }
         return routeLegStep
