@@ -167,10 +167,6 @@ class WorkOrderDetailsViewController: ViewController,
         return nil
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     // MARK: UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
