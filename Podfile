@@ -13,7 +13,7 @@ target 'provide' do
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
   pod 'KTSwiftExtensions', path: 'KTSwiftExtensions'
-  pod 'OHHTTPStubs', '~> 4.2.0'
+  pod 'OHHTTPStubs'
   pod 'PDTSimpleCalendar'
   pod 'Reachability'
   pod 'RestKit'
