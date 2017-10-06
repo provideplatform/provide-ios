@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol MenuHeaderViewDelegate {
+protocol MenuHeaderViewDelegate: class {
     func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController!
 }
 

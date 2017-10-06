@@ -9,7 +9,7 @@
 import UIKit
 import SWTableViewCell
 
-protocol WorkOrderDetailsHeaderTableViewCellDelegate {
+protocol WorkOrderDetailsHeaderTableViewCellDelegate: class {
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewCell(_ tableViewCell: WorkOrderDetailsHeaderTableViewCell, shouldCompleteWorkOrder workOrder: WorkOrder)

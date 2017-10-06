@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DirectionsViewControllerDelegate {
+protocol DirectionsViewControllerDelegate: class {
     func isPresentingDirections() -> Bool
     func finalDestinationForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D
     func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView!

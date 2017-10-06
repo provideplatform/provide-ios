@@ -21,7 +21,7 @@ enum CameraOutputMode {
     case selfie
 }
 
-protocol CameraViewDelegate {
+protocol CameraViewDelegate: class {
     func outputModeForCameraView(_ cameraView: CameraView) -> CameraOutputMode
     func cameraView(_ cameraView: CameraView, didCaptureStillImage image: UIImage)
     func cameraView(_ cameraView: CameraView, didStartVideoCaptureAtURL fileURL: URL)

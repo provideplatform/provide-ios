@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-protocol SetPasswordViewControllerDelegate {
+protocol SetPasswordViewControllerDelegate: class {
     func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool)
 }
 

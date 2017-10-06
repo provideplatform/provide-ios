@@ -9,7 +9,7 @@
 import UIKit
 import FontAwesomeKit
 
-protocol CommentsViewControllerDelegate {
+protocol CommentsViewControllerDelegate: class {
     func commentsViewController(_ viewController: CommentsViewController, shouldCreateComment comment: String, withImageAttachment image: UIImage!)
     func commentableTypeForCommentsViewController(_ viewController: CommentsViewController) -> String
     func commentableIdForCommentsViewController(_ viewController: CommentsViewController) -> Int

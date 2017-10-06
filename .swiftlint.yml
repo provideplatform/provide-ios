@@ -10,7 +10,6 @@ disabled_rules: # rule identifiers to exclude from running
   - todo                                      # Count = 26   warning = Todo Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
-  - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.
   - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
   - file_length                               # Count = 10   warning = File Line Length Violation.
   - type_body_length                          # Count = 7    warning = Type Body Length Violation.

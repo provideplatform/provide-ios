@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol ApplicationViewControllerDelegate {
+protocol ApplicationViewControllerDelegate: class {
     func dismissApplicationViewController(_ viewController: ApplicationViewController)
 }
 

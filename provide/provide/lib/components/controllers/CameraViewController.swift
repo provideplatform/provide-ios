@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-protocol CameraViewControllerDelegate {
+protocol CameraViewControllerDelegate: class {
     func outputModeForCameraViewController(_ viewController: CameraViewController) -> CameraOutputMode
     func cameraViewControllerCanceled(_ viewController: CameraViewController)
 

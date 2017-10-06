@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol WorkOrderHistoryViewControllerDelegate {
+protocol WorkOrderHistoryViewControllerDelegate: class {
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
 }
 

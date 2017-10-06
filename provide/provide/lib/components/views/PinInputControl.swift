@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PinInputControlDelegate {
+protocol PinInputControlDelegate: class {
     func pinInputControl(_ pinInputControl: PinInputControl, didCompleteEnteringPin: String)
 }
 

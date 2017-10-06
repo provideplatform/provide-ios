@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol WorkOrderDetailsHeaderTableViewControllerDelegate {
+protocol WorkOrderDetailsHeaderTableViewControllerDelegate: class {
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldStartWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCancelWorkOrder workOrder: WorkOrder)
     func workOrderDetailsHeaderTableViewController(_ viewController: WorkOrderDetailsHeaderTableViewController, shouldCompleteWorkOrder workOrder: WorkOrder)
