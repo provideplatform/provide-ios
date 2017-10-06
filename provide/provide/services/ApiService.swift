@@ -557,7 +557,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("work_orders/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    func addComment(_ comment: String, toWorkOrderWithId id: String!, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func addComment(_ comment: String, toWorkOrderWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment as AnyObject], onSuccess: { statusCode, mappingResult in
             assert(statusCode == 201)
             onSuccess(statusCode, mappingResult)
@@ -717,7 +717,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]!, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
+    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation! {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)
@@ -725,8 +725,8 @@ class ApiService: NSObject {
 
         if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
             var urlComponents = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
-            if method == .GET && params.count > 0 {
-                urlComponents.query = params.toQueryString()
+            if method == .GET && params?.isEmpty == false {
+                urlComponents.query = params?.toQueryString()
             }
 
             let request = NSMutableURLRequest(url: urlComponents.url!)
@@ -743,7 +743,7 @@ class ApiService: NSObject {
             if [.POST, .PUT].contains(method) {
                 request.setValue(contentType, forHTTPHeaderField: "content-type")
 
-                if params != nil {
+                if let params = params {
                     if contentType.lowercased() == "application/json" {
                         jsonParams = NSDictionary(dictionary: params).toJSON()
                         request.httpBody = jsonParams.data(using: String.Encoding.utf8)

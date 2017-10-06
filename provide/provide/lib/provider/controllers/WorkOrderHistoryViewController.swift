@@ -9,7 +9,7 @@
 import UIKit
 
 protocol WorkOrderHistoryViewControllerDelegate: class {
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
+    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController
 }
 
 class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {

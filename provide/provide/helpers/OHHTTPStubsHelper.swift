@@ -36,7 +36,7 @@ class OHHTTPStubsHelper {
                 "created_at": OHHTTPStubsHelper.iso8601DateFormatter.stringFromDate(NSDate()),
                 "recipient_name": "Kyle Thomas",
                 "sender_name": currentUser.name,
-                ]
+            ]
             return OHHTTPStubsResponse(JSONObject: responseJSON, statusCode: 201, headers: ["Content-Type": "application/json"]).requestTime(1.0, responseTime: 1.0)
         })
     }

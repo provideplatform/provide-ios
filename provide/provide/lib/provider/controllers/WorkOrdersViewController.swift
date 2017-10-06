@@ -449,7 +449,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return annotations
     }
 
-    func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView! {
+    func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView {
         var annotationView: MKAnnotationView!
 
         if annotation is WorkOrder.Annotation {
@@ -467,7 +467,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes as NSNumber
     }
 
-    func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions! {
+    func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions? {
         return nil
     }
 
@@ -649,7 +649,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String! {
+    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String {
         return "Anything worth mentioning?"
     }
 
@@ -694,7 +694,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     // MARK: WorkOrderComponentViewControllerDelegate
 
-    func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController! {
+    func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController {
         var vc: WorkOrderComponentViewController!
         if let componentIdentifier = WorkOrderService.shared.inProgressWorkOrder.currentComponentIdentifier {
             let initialViewController: UIViewController = UIStoryboard(componentIdentifier).instantiateInitialViewController()!

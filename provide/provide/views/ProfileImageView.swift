@@ -27,7 +27,7 @@ class ProfileImageView: UIImageView {
         }
     }
 
-    func setImageWithUrl(_ url: URL!, callback: OnProfileImageFetched!) {
+    func setImageWithUrl(_ url: URL?, callback: OnProfileImageFetched!) {
         if let url = url {
             alpha = 0.0
             contentMode = .scaleAspectFit

@@ -51,7 +51,7 @@ class Message: Model {
         self.recipientId = recipientId
     }
 
-    convenience init(body: String!, mediaUrl: String!, recipientId: Int, senderId: Int, senderName: String) {
+    convenience init(body: String, mediaUrl: String?, recipientId: Int, senderId: Int, senderName: String) {
         self.init()
 
         self.body = body
@@ -94,7 +94,7 @@ extension Message: JSQMessageData, JSQMessageMediaData {
         return false
     }
 
-    func media() -> JSQMessageMediaData! {
+    func media() -> JSQMessageMediaData {
         return self
     }
 
@@ -115,7 +115,7 @@ extension Message: JSQMessageData, JSQMessageMediaData {
         return senderName
     }
 
-    public func mediaView() -> UIView! {
+    public func mediaView() -> UIView? {
         return nil
     }
 

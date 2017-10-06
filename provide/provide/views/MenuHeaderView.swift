@@ -188,7 +188,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     // MARK: UIImagePickerControllerDelegate
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [AnyHashable: Any]!) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [AnyHashable: Any]) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             navigationController.dismiss(animated: true) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")

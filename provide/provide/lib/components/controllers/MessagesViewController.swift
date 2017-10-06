@@ -249,7 +249,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    private func sendMessage(with image: UIImage!, senderId: String, senderDisplayName: String, date: Date) {
+    private func sendMessage(with image: UIImage, senderId: String, senderDisplayName: String, date: Date) {
         //        if let image = image {
         //            let filename = "\(senderId)-image-\(date.timeIntervalSince1970).jpg"
 

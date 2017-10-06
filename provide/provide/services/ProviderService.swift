@@ -58,8 +58,8 @@ class ProviderService: NSObject {
     func fetch(  // consider adding a radius param, in miles, configured server-side and fetched after authentication
         _ page: Int = 1,
         rpp: Int = 10,
-        available: Bool!,
-        active: Bool!,
+        available: Bool,
+        active: Bool,
         nearbyCoordinate: CLLocationCoordinate2D!,
         onProvidersFetched: @escaping OnProvidersFetched) {
 

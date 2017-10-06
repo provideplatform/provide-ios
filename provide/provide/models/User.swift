@@ -107,34 +107,20 @@ class User: Model {
     }
 
     func reload() {
-        reload(onSuccess: nil, onError: nil)
+        reload(onSuccess: { _, _ in }, onError: { _, _, _ in })
     }
 
-    func reload(onSuccess: OnSuccess!, onError: OnError!) {
-        ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
-            if let onSuccess = onSuccess {
-                onSuccess(statusCode, mappingResult)
-            }
-        }, onError: { error, statusCode, responseString in
-            if let onError = onError {
-                onError(error, statusCode, responseString)
-            }
-        })
+    func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        ApiService.shared.fetchUser(onSuccess: onSuccess, onError: onError)
     }
 
-    func reloadCompanies(onSuccess: OnSuccess!, onError: OnError!) {
+    func reloadCompanies(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
         let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
         ApiService.shared.fetchCompanies(params, onSuccess: { statusCode, mappingResult in
             self.companies = mappingResult?.array() as! [Company]
-            if let onSuccess = onSuccess {
-                onSuccess(statusCode, mappingResult)
-            }
-        }, onError: { error, statusCode, responseString in
-            if let onError = onError {
-                onError(error, statusCode, responseString)
-            }
-        })
+            onSuccess(statusCode, mappingResult)
+        }, onError: onError)
     }
 
     class Annotation: NSObject, MKAnnotation {

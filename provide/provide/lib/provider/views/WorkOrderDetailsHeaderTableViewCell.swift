@@ -312,11 +312,11 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     // MARK: SWTableViewCellDelegate
 
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerLeftUtilityButtonWith index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, didTriggerLeftUtilityButtonWith index: Int) {
         //  no-op
     }
 
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, didTriggerRightUtilityButtonWith index: Int) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, didTriggerRightUtilityButtonWith index: Int) {
         if index == 0 {
             if showsStartButton {
                 workOrderDetailsHeaderTableViewCellDelegate?.workOrderDetailsHeaderTableViewCell(self, shouldStartWorkOrder: workOrder)
@@ -340,7 +340,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, canSwipeTo state: SWCellState) -> Bool {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, canSwipeTo state: SWCellState) -> Bool {
         return true
     }
 
@@ -348,7 +348,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return true
     }
 
-    func swipeableTableViewCell(_ cell: SWTableViewCell!, scrollingTo state: SWCellState) {
+    func swipeableTableViewCell(_ cell: SWTableViewCell, scrollingTo state: SWCellState) {
         // no-op
     }
 
