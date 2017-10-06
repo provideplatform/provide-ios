@@ -68,13 +68,8 @@ class ProviderService: NSObject {
             "rpp": rpp,
         ] as [String: Any]
 
-        if let available = available {
-            params["available"] = available
-        }
-
-        if let active = active {
-            params["active"] = active
-        }
+        params["available"] = available
+        params["active"] = active
 
         if let nearbyCoordinate = nearbyCoordinate {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"

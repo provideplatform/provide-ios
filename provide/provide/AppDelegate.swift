@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if handleScheme {
             var params: [String: AnyObject] = [:]
             if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
-                params = queryComponent.toJSONObject()
+                params = queryComponent.toJSONObject()!
             }
             let jwtToken = params["token"] as? String
 
