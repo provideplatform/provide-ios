@@ -8,7 +8,6 @@ disabled_rules: # rule identifiers to exclude from running
   - force_cast                                # Count = 155  error   = Force Cast Violation.
   - opening_brace                             # Count = 41   warning = Opening Brace Spacing Violation.
   - todo                                      # Count = 26   warning = Todo Violation.
-  - for_where                                 # Count = 25   warning = For Where Violation.
   - weak_delegate                             # Count = 17   warning = Weak Delegate Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
   - class_delegate_protocol                   # Count = 14   warning = Class Delegate Protocol Violation.

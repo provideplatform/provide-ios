@@ -332,13 +332,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     func unregisterRegionMonitor(_ identifier: String) {
         regionMonitorModificationQueue.async { [weak self] in
-            for region in (self?.regions)! {
-                if region.identifier == identifier {
-                    self?.geofenceCallbacks.removeValue(forKey: region.identifier)
-                    self?.geofenceCallbackCounts.removeValue(forKey: region.identifier)
-                    self?.regions.removeObject(region)
-                    break
-                }
+            for region in (self?.regions)! where region.identifier == identifier {
+                self?.geofenceCallbacks.removeValue(forKey: region.identifier)
+                self?.geofenceCallbackCounts.removeValue(forKey: region.identifier)
+                self?.regions.removeObject(region)
+                break
             }
         }
     }

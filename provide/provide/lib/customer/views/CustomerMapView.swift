@@ -41,15 +41,13 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     }
 
     func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
-        for annotation in annotations {
-            if annotation is Provider.Annotation {
-                if let annotationView = view(for: annotation) {
-                    for _ in annotationView.subviews {
-                        // if v is UIImageView {
-                        //     v.frame.size = CGSize(width: v.frame.width * scale,
-                        //                           height: v.frame.height * scale)
-                        // }
-                    }
+        for annotation in annotations where annotation is Provider.Annotation {
+            if let annotationView = view(for: annotation) {
+                for _ in annotationView.subviews {
+                    // if v is UIImageView {
+                    //     v.frame.size = CGSize(width: v.frame.width * scale,
+                    //                           height: v.frame.height * scale)
+                    // }
                 }
             }
         }

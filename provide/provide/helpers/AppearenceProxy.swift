@@ -84,10 +84,8 @@ class AppearenceProxy {
 
 func addHexagonalOutline(to view: UIView, borderWidth: CGFloat = 1, cornerLength: CGFloat) {
     // Remove outline view layers if previously added (in the case of cell reuse)
-    for layer in view.layer.sublayers ?? [] {
-        if layer is CAShapeLayer {
-            layer.removeFromSuperlayer()
-        }
+    for layer in view.layer.sublayers ?? [] where layer is CAShapeLayer {
+        layer.removeFromSuperlayer()
     }
 
     // Bubble Styling

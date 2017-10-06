@@ -193,10 +193,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     fileprivate var viewingDirections: Bool {
-        for vc in managedViewControllers {
-            if vc is DirectionsViewController {
-                return true
-            }
+        for vc in managedViewControllers where vc is DirectionsViewController {
+            return true
         }
         return false
     }
@@ -455,10 +453,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         var annotationView: MKAnnotationView!
 
         if annotation is WorkOrder.Annotation {
-            for vc in managedViewControllers {
-                if vc is WorkOrderAnnotationViewController {
-                    annotationView = (vc as! WorkOrderAnnotationViewController).view as! WorkOrderAnnotationView
-                }
+            for vc in managedViewControllers where vc is WorkOrderAnnotationViewController {
+                annotationView = (vc as! WorkOrderAnnotationViewController).view as! WorkOrderAnnotationView
             }
         } else if annotation is User.Annotation {
 

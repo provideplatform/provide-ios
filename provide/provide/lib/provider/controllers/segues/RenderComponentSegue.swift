@@ -48,10 +48,8 @@ class RenderComponentSegue: UIStoryboardSegue {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate
-                    for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) {
-                        if vc != destinationConfirmationViewController {
-                            delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)
-                        }
+                    for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) where vc != destinationConfirmationViewController {
+                        delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)
                     }
                 }
 

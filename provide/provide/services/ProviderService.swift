@@ -18,19 +18,15 @@ class ProviderService: NSObject {
     }
 
     func cachedProvider(_ providerId: Int) -> Provider! {
-        for p in providers {
-            if providerId == p.id {
-                return p
-            }
+        for p in providers where providerId == p.id {
+            return p
         }
         return nil
     }
 
     func containsProvider(_ provider: Provider) -> Bool {
-        for p in providers {
-            if provider.id == p.id {
-                return true
-            }
+        for p in providers where provider.id == p.id {
+            return true
         }
         return false
     }
@@ -53,10 +49,8 @@ class ProviderService: NSObject {
 
     func removeProvider(_ providerId: Int) {
         var newProviders = [Provider]()
-        for p in providers {
-            if p.id != providerId {
-                newProviders.append(p)
-            }
+        for p in providers where p.id != providerId {
+            newProviders.append(p)
         }
         providers = newProviders
     }

@@ -353,10 +353,8 @@ class WorkOrder: Model {
 
     var isCurrentUserProvider: Bool {
         let user = currentUser
-        for provider in providers {
-            if provider.userId == user?.id {
-                return true
-            }
+        for provider in providers where provider.userId == user?.id {
+            return true
         }
         return false
     }
@@ -364,10 +362,8 @@ class WorkOrder: Model {
     var isCurrentProviderTimedOut: Bool {
         if isCurrentUserProvider {
             if let workOrderProviders = workOrderProviders {
-                for workOrderProvider in workOrderProviders {
-                    if workOrderProvider.provider.userId == currentUser.id, workOrderProvider.isTimedOut {
-                        return true
-                    }
+                for workOrderProvider in workOrderProviders where workOrderProvider.provider.userId == currentUser.id && workOrderProvider.isTimedOut {
+                    return true
                 }
             }
         }
@@ -376,11 +372,9 @@ class WorkOrder: Model {
 
     var provider: Provider? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
         if let workOrderProviders = workOrderProviders {
-            for workOrderProvider in workOrderProviders {
-                if !workOrderProvider.isTimedOut {
-                    if let provider = workOrderProvider.provider {
-                        return provider
-                    }
+            for workOrderProvider in workOrderProviders where !workOrderProvider.isTimedOut {
+                if let provider = workOrderProvider.provider {
+                    return provider
                 }
             }
         }
@@ -581,10 +575,8 @@ class WorkOrder: Model {
     }
 
     func hasProvider(_ provider: Provider) -> Bool {
-        for p in providers {
-            if p.id == provider.id {
-                return true
-            }
+        for p in providers where p.id == provider.id {
+            return true
         }
         return false
     }

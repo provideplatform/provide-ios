@@ -86,10 +86,8 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     func clipToBounds(_ bounds: CGRect) {
         var offset: CGFloat = 80.0 // account for bar item margins
         if let items = items {
-            for item in items {
-                if item != commentInputTextFieldBarButtonItem {
-                    offset += item.width + 25.0
-                }
+            for item in items where item != commentInputTextFieldBarButtonItem {
+                offset += item.width + 25.0
             }
         }
 

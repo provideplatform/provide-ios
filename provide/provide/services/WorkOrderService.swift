@@ -20,12 +20,8 @@ class WorkOrderService: NSObject {
                 if wo.userId == currentUser.id {
                     return wo
                 }
-                for provider in wo.providers {
-                    if provider.userId == currentUser.id {
-                        if !wo.isCurrentProviderTimedOut {
-                            return wo
-                        }
-                    }
+                for provider in wo.providers where provider.userId == currentUser.id && !wo.isCurrentProviderTimedOut {
+                    return wo
                 }
             }
         }
@@ -50,13 +46,10 @@ class WorkOrderService: NSObject {
                 || wo.status == "en_route"
                 || wo.status == "arriving"
                 || wo.status == "in_progress"
-                || wo.status == "rejected" {
-                for provider in wo.providers {
-                    if provider.userId == currentUser.id {
-                        if !wo.isCurrentProviderTimedOut {
-                            return wo
-                        }
-                    }
+                || wo.status == "rejected"
+            {
+                for provider in wo.providers where provider.userId == currentUser.id && !wo.isCurrentProviderTimedOut {
+                    return wo
                 }
             }
         }
@@ -66,10 +59,8 @@ class WorkOrderService: NSObject {
     fileprivate var workOrders = [WorkOrder]()
 
     func workOrderWithId(_ id: Int) -> WorkOrder! {
-        for workOrder in workOrders {
-            if workOrder.id == id {
-                return workOrder
-            }
+        for workOrder in workOrders where workOrder.id == id {
+            return workOrder
         }
         return nil
     }

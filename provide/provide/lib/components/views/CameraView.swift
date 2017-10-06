@@ -67,19 +67,15 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     fileprivate var lastOCRTimestamp: Date!
 
     fileprivate var backCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-            if (device as AnyObject).position == .back {
-                return device as! AVCaptureDevice
-            }
+        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) where (device as AnyObject).position == .back {
+            return device as! AVCaptureDevice
         }
         return nil
     }
 
     fileprivate var frontCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-            if (device as AnyObject).position == .front {
-                return device as? AVCaptureDevice
-            }
+        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) where (device as AnyObject).position == .front {
+            return device as? AVCaptureDevice
         }
         return nil
     }

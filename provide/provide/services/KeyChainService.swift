@@ -77,10 +77,8 @@ class KeyChainService {
         if CurrentBuildConfig != .debug {
             uicStore.removeAllItems()
         } else {
-            for key in ["user", "token", "email", "deviceId"] {
-                if self[key] != nil {
-                    self[key] = nil
-                }
+            for key in ["user", "token", "email", "deviceId"] where self[key] != nil {
+                self[key] = nil
             }
         }
     }

@@ -104,10 +104,8 @@ class Attachment: Model {
 
     func hasTag(_ tag: String) -> Bool {
         if let tags = tags {
-            for t in tags {
-                if t as? String == tag {
-                    return true
-                }
+            for t in tags where t as? String == tag {
+                return true
             }
         }
         return false
