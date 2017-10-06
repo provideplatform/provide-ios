@@ -96,7 +96,7 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "RKLogLevel.RestKit.Network"
-            value = "Trace"
+            value = "Info"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
