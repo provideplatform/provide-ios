@@ -15,14 +15,9 @@ typealias OnImageDownloadSuccess = (_ image: UIImage) -> Void
 typealias OnImageDownloadFailure = (_ error: NSError) -> Void
 
 class ImageService {
-
-    fileprivate static let sharedInstance = ImageService()
+    static let shared = ImageService()
 
     fileprivate var cache: SDImageCache!
-
-    class func sharedService() -> ImageService {
-        return sharedInstance
-    }
 
     required init() {
         cache = SDImageCache.shared()

@@ -10,16 +10,11 @@ import Foundation
 import UICKeyChainStore
 
 class KeyChainService {
+    static let shared = KeyChainService()
 
     fileprivate let uicStore = UICKeyChainStore()
 
-    fileprivate static let sharedInstance = KeyChainService()
-
     fileprivate var cachedToken: Token?
-
-    class func sharedService() -> KeyChainService {
-        return sharedInstance
-    }
 
     subscript(key: String) -> String? {
         get {

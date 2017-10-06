@@ -45,14 +45,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if WorkOrderService.sharedService().nextWorkOrder != nil {
+        if WorkOrderService.shared.nextWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
-        } else if WorkOrderService.sharedService().inProgressWorkOrder != nil {
+        } else if WorkOrderService.shared.inProgressWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
         }
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
 
-        minutesEta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes
+        minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
     }
 
     // MARK: Rendering

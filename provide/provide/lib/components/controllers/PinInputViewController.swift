@@ -67,7 +67,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
 
         modalTransitionStyle = .crossDissolve
 
-        if KeyChainService.sharedService().pin == nil {
+        if KeyChainService.shared.pin == nil {
             type = .createPinController
             state = .input
         } else {
@@ -112,14 +112,14 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
             }
         case .reInput:
             if firstPinInput == pin { // both match
-                KeyChainService.sharedService().pin = pin
+                KeyChainService.shared.pin = pin
                 delegate.pinInputViewControllerDidComplete(self)
             } else {
                 state = .input
                 resetWithMessage("Pins did not match. Please try again")
             }
         case .validate:
-            if KeyChainService.sharedService().pin != pin {
+            if KeyChainService.shared.pin != pin {
                 resetWithMessage("Invalid Pin. Please try again")
                 failedAttempts += 1
                 if failedAttempts >= maxAllowedAttempts {

@@ -101,7 +101,7 @@ class MessagesViewController: JSQMessagesViewController {
             }
 
             let params: [String: Any] = ["recipient_id": recipientId, "page": nextPage]
-            MessageService.sharedService().fetch(params: params as [String : AnyObject],
+            MessageService.shared.fetch(params: params as [String : AnyObject],
                 onMessagesFetched: { messages in
                     self.hideHUD()
 
@@ -264,7 +264,7 @@ class MessagesViewController: JSQMessagesViewController {
 //            let filename = "\(senderId)-image-\(date.timeIntervalSince1970).jpg"
 
 //            if let data = UIImageJPEGRepresentation(image, 1.0) {
-                // TODO: implement ApiService.sharedService().createAttachment .upload(data, withMimeType: "image/jpeg", toBucket: "blastcal-production", asKey: filename,
+                // TODO: implement ApiService.shared.createAttachment .upload(data, withMimeType: "image/jpeg", toBucket: "blastcal-production", asKey: filename,
 //                    onSuccess: { response in
 //                        JSQSystemSoundPlayer.jsq_playMessageSentSound()
 //
@@ -321,7 +321,7 @@ class MessagesViewController: JSQMessagesViewController {
 
         finishSendingMessage(animated: true)
 
-        MessageService.sharedService().createMessage(text, recipientId: lastDispatcherId(),
+        MessageService.shared.createMessage(text, recipientId: lastDispatcherId(),
             onMessageCreated: { (msg: Message) in
                 self.collectionView.performBatchUpdates({
                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)

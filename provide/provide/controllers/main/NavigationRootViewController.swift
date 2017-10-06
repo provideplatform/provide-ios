@@ -36,7 +36,7 @@ class NavigationRootViewController: ViewController,
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
-        if ApiService.sharedService().hasCachedToken {
+        if ApiService.shared.hasCachedToken {
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: true)
 
@@ -118,7 +118,7 @@ class NavigationRootViewController: ViewController,
 
             MBProgressHUD.showAdded(to: presentingViewController.view, animated: true)
 
-            ApiService.sharedService().fetchInvitationWithId(pin,
+            ApiService.shared.fetchInvitationWithId(pin,
                 onSuccess: { statusCode, mappingResult in
                     let invitation = mappingResult?.firstObject as! Invitation
 
@@ -128,7 +128,7 @@ class NavigationRootViewController: ViewController,
                             "invitation_token": pin as AnyObject,
                         ]
 
-                        ApiService.sharedService().createUser(params,
+                        ApiService.shared.createUser(params,
                             onSuccess: { statusCode, mappingResult in
                                 MBProgressHUD.hide(for: presentingViewController.view, animated: true)
                                 self.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: self)

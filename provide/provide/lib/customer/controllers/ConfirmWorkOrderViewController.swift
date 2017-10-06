@@ -162,7 +162,7 @@ class ConfirmWorkOrderViewController: ViewController {
             { [weak self] statusCode, mappingResult in
                 if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")
-                    WorkOrderService.sharedService().setWorkOrders([workOrder])
+                    WorkOrderService.shared.setWorkOrders([workOrder])
                     self!.setWorkOrder(workOrder)
                 }
             },

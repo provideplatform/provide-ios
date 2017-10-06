@@ -77,7 +77,7 @@ class SetPasswordViewController: ViewController,
             "password": passwordField.text!,
         ]
 
-        ApiService.sharedService().updateUser(params,
+        ApiService.shared.updateUser(params,
             onSuccess: { statusCode, responseString in
                 MBProgressHUD.hide(for: self.view, animated: true)
 

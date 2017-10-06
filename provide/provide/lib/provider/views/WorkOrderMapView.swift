@@ -13,10 +13,10 @@ class WorkOrderMapView: MapView {
 
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate! {
         didSet {
-            LocationService.sharedService().resolveCurrentLocation { [weak self] location in
+            LocationService.shared.resolveCurrentLocation { [weak self] location in
                 if let strongSelf = self {
                     strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
-                    LocationService.sharedService().background()
+                    LocationService.shared.background()
                 }
             }
         }
@@ -24,10 +24,10 @@ class WorkOrderMapView: MapView {
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate! {
         didSet {
-            LocationService.sharedService().resolveCurrentLocation { [weak self] location in
+            LocationService.shared.resolveCurrentLocation { [weak self] location in
                 if let strongSelf = self {
                     strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
-                    LocationService.sharedService().background()
+                    LocationService.shared.background()
                 }
             }
         }
@@ -70,9 +70,9 @@ class WorkOrderMapView: MapView {
         showsBuildings = true
         showsPointsOfInterest = true
 
-        LocationService.sharedService().requireAuthorization {
+        LocationService.shared.requireAuthorization {
             self.showsUserLocation = true
-            LocationService.sharedService().start()
+            LocationService.shared.start()
         }
     }
 
@@ -182,9 +182,9 @@ class WorkOrderMapView: MapView {
             )
         }
 
-        if !viewingDirections && WorkOrderService.sharedService().nextWorkOrder != nil {
+        if !viewingDirections && WorkOrderService.shared.nextWorkOrder != nil {
             if workOrdersViewControllerDelegate != nil {
-                WorkOrderService.sharedService().fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
+                WorkOrderService.shared.fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
                     for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
                         if let delegate = vc as? WorkOrdersViewControllerDelegate {
                             delegate.drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)

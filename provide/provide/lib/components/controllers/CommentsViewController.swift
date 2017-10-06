@@ -245,7 +245,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                     refreshControl?.beginRefreshing()
                 }
 
-                ApiService.sharedService().fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId),
+                ApiService.shared.fetchComments(params, forCommentableType: commentableType, withCommentableId: String(commentableId),
                                                          onSuccess: { statusCode, mappingResult in
                                                             let fetchedComments = mappingResult?.array() as! [Comment]
                                                             if self.page == 1 {

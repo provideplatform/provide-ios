@@ -31,7 +31,7 @@ class MessageServiceTests: XCTestCase {
         let expectation = self.expectation(description: "GET messages")
 
         var fetchedMessages = [Message]()
-        MessageService.sharedService().fetch(
+        MessageService.shared.fetch(
             onMessagesFetched: { messages in
                 fetchedMessages = messages
                 expectation.fulfill()

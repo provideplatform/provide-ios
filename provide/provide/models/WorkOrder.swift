@@ -552,9 +552,9 @@ class WorkOrder: Model {
             }
             params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
 
-            ApiService.sharedService().updateWorkOrderWithId(String(id), params: params,
+            ApiService.shared.updateWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
-                    WorkOrderService.sharedService().updateWorkOrder(self)
+                    WorkOrderService.shared.updateWorkOrder(self)
                     onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -572,12 +572,12 @@ class WorkOrder: Model {
                 params.updateValue("scheduled" as AnyObject, forKey: "status")
             }
 
-            ApiService.sharedService().createWorkOrder(params,
+            ApiService.shared.createWorkOrder(params,
                 onSuccess: { statusCode, mappingResult in
                     let workOrder = mappingResult?.firstObject as! WorkOrder
                     self.id = workOrder.id
                     self.status = workOrder.status
-                    WorkOrderService.sharedService().updateWorkOrder(workOrder)
+                    WorkOrderService.shared.updateWorkOrder(workOrder)
                     onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -593,14 +593,14 @@ class WorkOrder: Model {
 
     func reload(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
-            ApiService.sharedService().fetchWorkOrderWithId(String(id), params: params,
+            ApiService.shared.fetchWorkOrderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
                     let workOrder = mappingResult?.firstObject as! WorkOrder
                     self.status = workOrder.status
                     self.estimatedCost = workOrder.estimatedCost
                     self.supervisors = workOrder.supervisors
                     self.workOrderProviders = workOrder.workOrderProviders
-                    WorkOrderService.sharedService().updateWorkOrder(mappingResult?.firstObject as! WorkOrder)
+                    WorkOrderService.shared.updateWorkOrder(mappingResult?.firstObject as! WorkOrder)
                     onSuccess(statusCode, mappingResult)
                 },
                 onError: { error, statusCode, responseString in
@@ -612,7 +612,7 @@ class WorkOrder: Model {
 
     func reloadAttachments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
-            ApiService.sharedService().fetchAttachments(forWorkOrderWithId: String(id),
+            ApiService.shared.fetchAttachments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
                     self.attachments = mappingResult?.array() as! [Attachment]
                     onSuccess(statusCode, mappingResult)
@@ -701,9 +701,9 @@ class WorkOrder: Model {
 
     func updateWorkOrderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["status": status as AnyObject],
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status as AnyObject],
             onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
+                WorkOrderService.shared.updateWorkOrder(self)
                 onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in
@@ -720,7 +720,7 @@ class WorkOrder: Model {
     {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
-        ApiService.sharedService().addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params,
+        ApiService.shared.addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params,
             onSuccess: { response in
                 if self.attachments == nil {
                     self.attachments = [Attachment]()
@@ -735,7 +735,7 @@ class WorkOrder: Model {
     }
 
     func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.sharedService().addComment(comment, toWorkOrderWithId: String(id),
+        ApiService.shared.addComment(comment, toWorkOrderWithId: String(id),
             onSuccess: { statusCode, mappingResult in
                 if self.comments == nil {
                     self.comments = [Comment]()
@@ -752,7 +752,7 @@ class WorkOrder: Model {
     func reloadComments(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             comments = [Comment]()
-            ApiService.sharedService().fetchComments(forWorkOrderWithId: String(id),
+            ApiService.shared.fetchComments(forWorkOrderWithId: String(id),
                 onSuccess: { statusCode, mappingResult in
                     let fetchedComments = (mappingResult?.array() as! [Comment]).reversed()
                     for comment in fetchedComments {
@@ -769,9 +769,9 @@ class WorkOrder: Model {
 
     func scoreProvider(_ netPromoterScore: NSNumber, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         providerRating = netPromoterScore
-        ApiService.sharedService().updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating],
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating],
             onSuccess: { statusCode, mappingResult in
-                WorkOrderService.sharedService().updateWorkOrder(self)
+                WorkOrderService.shared.updateWorkOrder(self)
                 onSuccess(statusCode, mappingResult)
             },
             onError: { error, statusCode, responseString in

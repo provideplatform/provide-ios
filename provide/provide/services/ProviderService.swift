@@ -10,14 +10,9 @@ import KTSwiftExtensions
 typealias OnProvidersFetched = (_ providers: [Provider]) -> Void
 
 class ProviderService: NSObject {
+    static let shared = ProviderService()
 
     fileprivate var providers = [Provider]()
-
-    fileprivate static let sharedInstance = ProviderService()
-
-    class func sharedService() -> ProviderService {
-        return sharedInstance
-    }
 
     func setProviders(_ providers: [Provider]) {
         self.providers = providers
@@ -92,7 +87,7 @@ class ProviderService: NSObject {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"
         }
 
-        ApiService.sharedService().fetchProviders(
+        ApiService.shared.fetchProviders(
             params as [String : AnyObject],
             onSuccess: { [weak self] statusCode, mappingResult in
                 if page == 1 {

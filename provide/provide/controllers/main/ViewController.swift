@@ -26,7 +26,7 @@ class ViewController: UIViewController {
 
     func showError(_ errorMessage: String) {
         updateStatus(errorMessage, showActivity: false, isError: true)
-        AnalyticsService.sharedService().track("Showed User an Error", properties: ["errorMessage": errorMessage as AnyObject] as [String: AnyObject])
+        AnalyticsService.shared.track("Showed User an Error", properties: ["errorMessage": errorMessage as AnyObject] as [String: AnyObject])
         logWarn(errorMessage)
     }
 
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     }
 
     func swizzled_viewDidAppear(_ animated: Bool) {
-        AnalyticsService.sharedService().viewDidAppearForController(self, animated: animated)
+        AnalyticsService.shared.viewDidAppearForController(self, animated: animated)
         swizzled_viewDidAppear(animated)
     }
 }

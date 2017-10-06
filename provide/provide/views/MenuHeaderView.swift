@@ -180,7 +180,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         profileImageView.alpha = 0.0
         profileImageUrl = nil
 
-        ApiService.sharedService().setUserDefaultProfileImage(image,
+        ApiService.shared.setUserDefaultProfileImage(image,
             onSuccess: { response in
 
             },

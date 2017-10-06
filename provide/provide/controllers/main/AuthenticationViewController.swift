@@ -115,7 +115,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
             "password": passwordField.text!,
         ]
 
-        ApiService.sharedService().login(params,
+        ApiService.shared.login(params,
             onSuccess: { statusCode, responseString in
                 MBProgressHUD.hide(for: self.view, animated: true)
 
@@ -132,7 +132,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     fileprivate func userWasAuthenticated() {
-        if KeyChainService.sharedService().email != nil {
+        if KeyChainService.shared.email != nil {
             performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
         }
     }
@@ -166,7 +166,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     fileprivate func emailCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["EmailCell"] as! AuthenticationCell
         emailField = cell.textField
-        if let storedEmail = KeyChainService.sharedService().email {
+        if let storedEmail = KeyChainService.shared.email {
             emailField.text = storedEmail
         }
         if emailField.text!.isEmpty && tableView.alpha != 0 {

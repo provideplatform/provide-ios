@@ -9,6 +9,7 @@
 import KTSwiftExtensions
 
 class CheckinService: NSObject {
+    static let shared = CheckinService()
 
     let defaultCheckinTimeInterval: TimeInterval = 300
     let navigationCheckinTimeInterval: TimeInterval = 10
@@ -29,12 +30,6 @@ class CheckinService: NSObject {
         super.init()
 
         checkinTimeInterval = defaultCheckinTimeInterval
-    }
-
-    fileprivate static let sharedInstance = CheckinService()
-
-    class func sharedService() -> CheckinService {
-        return sharedInstance
     }
 
     // MARK: Navigation accuracy
@@ -70,9 +65,9 @@ class CheckinService: NSObject {
     }
 
     func checkin() {
-        LocationService.sharedService().resolveCurrentLocationAndHeading { location, heading in
-            ApiService.sharedService().checkin(location, heading: heading)
-            LocationService.sharedService().background()
+        LocationService.shared.resolveCurrentLocationAndHeading { location, heading in
+            ApiService.shared.checkin(location, heading: heading)
+            LocationService.shared.background()
         }
     }
 

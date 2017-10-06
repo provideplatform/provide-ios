@@ -21,35 +21,35 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     fileprivate var updatingWorkOrderContext = false
 
     fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "en_route"
         }
         return false
     }
 
     fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "pending_acceptance"
         }
         return false
     }
 
     fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "arriving"
         }
         return false
     }
 
     fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "in_progress"
         }
         return false
     }
 
     fileprivate var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "awaiting_schedule"
         }
         return false
@@ -64,13 +64,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
         loadWorkOrderContext()
 
-        LocationService.sharedService().resolveCurrentLocation { [weak self] (_) in
+        LocationService.shared.resolveCurrentLocation { [weak self] (_) in
             logInfo("Current location resolved for customer view controller... refreshing context")
             self?.loadProviderContext()
         }
 
         NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { [weak self] _ in
-            if !self!.updatingWorkOrderContext && WorkOrderService.sharedService().inProgressWorkOrder == nil {
+            if !self!.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
                 self!.loadWorkOrderContext()
             }
         }
@@ -106,7 +106,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 DispatchQueue.main.async {
-                    if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
+                    if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                         self?.handleInProgressWorkOrderStateChange()
                     }
                 }
@@ -115,7 +115,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func handleInProgressWorkOrderStateChange() {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if workOrder.status == "en_route" {
                 // ensure we weren't previously awaiting confirmation
                 if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
@@ -181,7 +181,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
             if let messagesVC = messagesNavCon?.viewControllers.first as? MessagesViewController {
                 if let provider = workOrder.provider {
@@ -208,7 +208,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
             attemptSegueToValidWorkOrderContext()
 
@@ -226,8 +226,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     func loadProviderContext() {
-        let providerService = ProviderService.sharedService()
-        if let coordinate = LocationService.sharedService().currentLocation?.coordinate {
+        let providerService = ProviderService.shared
+        if let coordinate = LocationService.shared.currentLocation?.coordinate {
             providerService.fetch(
                 1,
                 rpp: 100,
@@ -246,7 +246,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     func loadWorkOrderContext() {
-        let workOrderService = WorkOrderService.sharedService()
+        let workOrderService = WorkOrderService.shared
 
         updatingWorkOrderContext = true
         workOrderService.fetch(
@@ -260,7 +260,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func attemptSegueToValidWorkOrderContext() {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToArrivingWorkOrder || canAttemptSegueToInProgressWorkOrder {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
@@ -352,7 +352,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         if !mapView.annotations.contains(where: { annotation -> Bool in
             if let providerAnnotation = annotation as? Provider.Annotation {
                 if providerAnnotation.matches(provider) {
-                    if ProviderService.sharedService().containsProvider(provider) {
+                    if ProviderService.shared.containsProvider(provider) {
                         logWarn("Animated provider annotation movement not yet implemented")
                         mapView.removeAnnotation(annotation)
                         mapView.addAnnotation(provider.annotation)
@@ -400,7 +400,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     func provide() {
-        KeyChainService.sharedService().mode = .provider
+        KeyChainService.shared.mode = .provider
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 

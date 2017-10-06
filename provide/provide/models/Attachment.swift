@@ -127,7 +127,7 @@ class Attachment: Model {
     }
 
     func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
-        ApiService.sharedService().fetchURL(url,
+        ApiService.shared.fetchURL(url,
             onURLFetched: { statusCode, response in
                 self.data = response
                 onURLFetched(statusCode, response)
@@ -139,7 +139,7 @@ class Attachment: Model {
     }
 
     func updateAttachment(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.sharedService().updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
+        ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params,
             onSuccess: { [weak self] statusCode, mappingResult in
                 if let metadata = params["metadata"] as? [String : AnyObject] {
                     self?.metadata = metadata as NSDictionary!

@@ -13,7 +13,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     fileprivate var vc: UIViewController!
 
     fileprivate var topStoryboard: UIStoryboard! {
-        if let mode = KeyChainService.sharedService().mode {
+        if let mode = KeyChainService.shared.mode {
             switch mode {
             case .customer:
                 return UIStoryboard("Customer")

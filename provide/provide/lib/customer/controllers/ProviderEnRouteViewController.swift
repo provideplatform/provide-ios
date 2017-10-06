@@ -77,7 +77,7 @@ class ProviderEnRouteViewController: ViewController {
 
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
-                if WorkOrderService.sharedService().inProgressWorkOrder?.id == workOrder.id {
+                if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                     DispatchQueue.main.async {
                         self?.refreshStatus()
                     }
@@ -87,7 +87,7 @@ class ProviderEnRouteViewController: ViewController {
     }
 
     func refreshProvider() {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             view.bringSubview(toFront: activityIndicatorView)
             activityIndicatorView.startAnimating()
 
@@ -108,7 +108,7 @@ class ProviderEnRouteViewController: ViewController {
     }
 
     func refreshStatus() {
-        if let workOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if workOrder.status == nil {
                 providerStatusLabel?.text = ""
                 providerStatusLabel?.isHidden = false

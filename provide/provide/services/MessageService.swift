@@ -12,6 +12,7 @@ typealias OnMessagesFetched = (_ messages: [Message]) -> Void
 typealias OnMessageCreated = (Message) -> Void
 
 class MessageService {
+    static let shared = MessageService()
 
     fileprivate var messages = [Message]()
 
@@ -19,14 +20,8 @@ class MessageService {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
-    fileprivate static let sharedInstance = MessageService()
-
-    class func sharedService() -> MessageService {
-        return sharedInstance
-    }
-
     func fetch(params: [String: AnyObject], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
-        ApiService.sharedService().fetchMessages(params as [String : AnyObject],
+        ApiService.shared.fetchMessages(params as [String : AnyObject],
             onSuccess: { statusCode, mappingResult in
                 let fetchedMessages = mappingResult?.array() as! [Message]
                 self.messages += fetchedMessages
@@ -37,7 +32,7 @@ class MessageService {
     }
 
     func createMessage(_ text: String, recipientId: Int, onMessageCreated: @escaping OnMessageCreated, onError: @escaping OnError) {
-        ApiService.sharedService().createMessage(["body": text as AnyObject, "recipient_id": recipientId as AnyObject],
+        ApiService.shared.createMessage(["body": text as AnyObject, "recipient_id": recipientId as AnyObject],
             onSuccess: { statusCode, mappingResult in
                 let message = mappingResult?.firstObject as! Message
                 self.messages.append(message)

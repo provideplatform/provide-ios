@@ -117,7 +117,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             "include_checkin_coordinates": "true" as AnyObject,
         ]
 
-        ApiService.sharedService().fetchWorkOrders(params,
+        ApiService.shared.fetchWorkOrders(params,
             onSuccess: { statusCode, mappingResult in
                 let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
                 self.workOrders += fetchedWorkOrders

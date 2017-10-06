@@ -119,7 +119,7 @@ class User: Model {
     }
 
     func reload(_ onSuccess: OnSuccess!, onError: OnError!) {
-        ApiService.sharedService().fetchUser(
+        ApiService.shared.fetchUser(
             onSuccess: { statusCode, mappingResult in
                 if let onSuccess = onSuccess {
                     onSuccess(statusCode, mappingResult)
@@ -136,7 +136,7 @@ class User: Model {
     func reloadCompanies(_ onSuccess: OnSuccess!, onError: OnError!) {
         let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
         let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
-        ApiService.sharedService().fetchCompanies(params,
+        ApiService.shared.fetchCompanies(params,
             onSuccess: { statusCode, mappingResult in
                 self.companies = mappingResult?.array() as! [Company]
                 if let onSuccess = onSuccess {

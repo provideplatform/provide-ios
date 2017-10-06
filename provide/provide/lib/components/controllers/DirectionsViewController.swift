@@ -86,7 +86,7 @@ class DirectionsViewController: ViewController {
     func render() {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
-                if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                     mapView.addAnnotation(inProgressWorkOrder.annotation)
                 }
 
@@ -133,7 +133,7 @@ class DirectionsViewController: ViewController {
                 )
             },
             completion: { complete in
-                LocationService.sharedService().resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
+                LocationService.shared.resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
                     if self.directions != nil {
                         self.setCenterCoordinate(location)
                     }
@@ -167,7 +167,7 @@ class DirectionsViewController: ViewController {
     fileprivate func setCenterCoordinate(_ location: CLLocation) {
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             var sufficientDelta = false
-            if let lastLocation = LocationService.sharedService().currentLocation {
+            if let lastLocation = LocationService.shared.currentLocation {
                 let lastCoordinate = lastLocation.coordinate
                 let region = CLCircularRegion(center: lastCoordinate, radius: 2.5, identifier: "sufficientDeltaRegionMonitor")
                 sufficientDelta = !region.contains(location.coordinate)
@@ -208,13 +208,13 @@ class DirectionsViewController: ViewController {
 
                         self.regions.append(region)
 
-                        LocationService.sharedService().monitorRegion(region,
+                        LocationService.shared.monitorRegion(region,
                             onDidEnterRegion: {
                                 self.lastRegionCrossed = region
                                 self.lastRegionCrossing = NSDate() as Date!
 
                                 self.regions.removeObject(region)
-                                LocationService.sharedService().unregisterRegionMonitor(region.identifier)
+                                LocationService.shared.unregisterRegionMonitor(region.identifier)
 
                                 if let directions = self.directions {
                                     if let currentLeg = directions.selectedRoute.currentLeg {
@@ -266,7 +266,7 @@ class DirectionsViewController: ViewController {
             }
         }
 
-        WorkOrderService.sharedService().fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
+        WorkOrderService.shared.fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
     }
 
     fileprivate func unregisterMonitoredRegions() {
@@ -274,14 +274,14 @@ class DirectionsViewController: ViewController {
             if let regions = self!.regions {
                 for region in regions {
                     self!.regions.removeObject(region)
-                    LocationService.sharedService().unregisterRegionMonitor(region.identifier)
+                    LocationService.shared.unregisterRegionMonitor(region.identifier)
                 }
             }
         }
     }
 
     func calculateBearing(_ toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
-        if let location = LocationService.sharedService().location {
+        if let location = LocationService.shared.location {
             let lon = location.coordinate.longitude - toCoordinate.longitude
             let y = sin(lon) * cos(toCoordinate.latitude)
             let x = cos(location.coordinate.latitude) * sin(toCoordinate.latitude) - sin(location.coordinate.latitude) * cos(toCoordinate.latitude) * cos(lon)
@@ -350,11 +350,11 @@ class DirectionsViewController: ViewController {
     func unwind() {
         unregisterMonitoredRegions()
 
-        LocationService.sharedService().removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
-        LocationService.sharedService().removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
+        LocationService.shared.removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
+        LocationService.shared.removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
 
-        CheckinService.sharedService().disableNavigationAccuracy()
-        LocationService.sharedService().disableNavigationAccuracy()
+        CheckinService.shared.disableNavigationAccuracy()
+        LocationService.shared.disableNavigationAccuracy()
 
         if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {

@@ -11,15 +11,10 @@ import Analytics
 import KTSwiftExtensions
 
 class AnalyticsService: NSObject {
+    static let shared = AnalyticsService()
 
     fileprivate var analyticsEnabled: Bool {
         return !isSimulator() && !isRunningUnitTests()
-    }
-
-    fileprivate static let sharedInstance = AnalyticsService()
-
-    class func sharedService() -> AnalyticsService {
-        return sharedInstance
     }
 
     override init() {

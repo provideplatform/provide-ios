@@ -24,7 +24,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     }
 
     weak var workOrder: WorkOrder! {
-        return WorkOrderService.sharedService().nextWorkOrder ?? WorkOrderService.sharedService().inProgressWorkOrder
+        return WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
     }
 
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!

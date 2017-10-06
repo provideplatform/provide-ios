@@ -12,11 +12,12 @@ typealias OnEtaFetched = (_ minutesEta: Int) -> Void
 typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> Void
 
 class DirectionService: NSObject {
+    static let shared = DirectionService()
 
     fileprivate var canSendDirectionsApiRequest: Bool {
         if let lastRequestDate = lastDirectionsApiRequestDate {
             var sufficientDelta = false
-            if let currentLocation = LocationService.sharedService().currentLocation {
+            if let currentLocation = LocationService.shared.currentLocation {
                 if let lastDirectionsApiRequestCoordinate = lastDirectionsApiRequestCoordinate {
                     let region = CLCircularRegion(center: lastDirectionsApiRequestCoordinate, radius: 2.5, identifier: "sufficientDeltaRegionMonitor")
                     sufficientDelta = !region.contains(currentLocation.coordinate)
@@ -49,12 +50,6 @@ class DirectionService: NSObject {
     fileprivate var lastDirectionsApiRequestDate: Date!
     fileprivate var lastEtaApiRequestDate: Date!
 
-    fileprivate static let sharedInstance = DirectionService()
-
-    class func sharedService() -> DirectionService {
-        return sharedInstance
-    }
-
     func resetLastDirectionsApiRequestCoordinateAndTimestamp() {
         lastDirectionsApiRequestCoordinate = nil
         lastDirectionsApiRequestDate = nil
@@ -63,7 +58,7 @@ class DirectionService: NSObject {
     func fetchDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, toCoordinate: CLLocationCoordinate2D, onEtaFetched: @escaping OnEtaFetched) {
         if canSendEtaApiRequest {
             lastEtaApiRequestDate = Date()
-            ApiService.sharedService().getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate,
+            ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate,
                 onSuccess: { statusCode, mappingResult in
                     if let directions = mappingResult?.firstObject as? Directions {
                         if let minutes = directions.minutes {
@@ -82,7 +77,7 @@ class DirectionService: NSObject {
         if canSendDirectionsApiRequest {
             lastDirectionsApiRequestDate = Date()
             lastDirectionsApiRequestCoordinate = coordinate
-            ApiService.sharedService().getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate,
+            ApiService.shared.getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate,
                 onSuccess: { statusCode, mappingResult in
                     if let directions = mappingResult?.firstObject as? Directions {
                         onDrivingDirectionsFetched(directions)

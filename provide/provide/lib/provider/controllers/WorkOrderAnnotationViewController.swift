@@ -28,7 +28,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let eta = WorkOrderService.sharedService().nextWorkOrderDrivingEtaMinutes {
+        if let eta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes {
             minutesEta = eta
         }
     }
@@ -41,7 +41,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
                 delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
             }
 
-            mapView.addAnnotation(WorkOrderService.sharedService().nextWorkOrder.annotation)
+            mapView.addAnnotation(WorkOrderService.shared.nextWorkOrder.annotation)
         }
 
         (view as! WorkOrderAnnotationView).attachGestureRecognizers()

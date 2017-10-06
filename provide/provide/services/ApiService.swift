@@ -23,6 +23,7 @@ typealias OnTotalResultsCount = (_ totalResultsCount: Int, _ error: NSError?) ->
 let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/api/s3/presign")!
 
 class ApiService: NSObject {
+    static let shared = ApiService()
 
     fileprivate let mimeMappings = [
         "application/pdf": "pdf",
@@ -58,18 +59,12 @@ class ApiService: NSObject {
 
     fileprivate var requestOperations = [RKObjectRequestOperation]()
 
-    fileprivate static let sharedInstance = ApiService()
-
-    class func sharedService() -> ApiService {
-         return sharedInstance
-    }
-
     override init() {
         super.init()
 
         backoffTimeout = initialBackoffTimeout
 
-        if let token = KeyChainService.sharedService().token {
+        if let token = KeyChainService.shared.token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
         }
     }
@@ -87,10 +82,10 @@ class ApiService: NSObject {
     // MARK: Token API
 
     var hasCachedToken: Bool {
-        if let token = KeyChainService.sharedService().token {
+        if let token = KeyChainService.shared.token {
             let hasCachedToken = token.user != nil
             if !hasCachedToken {
-                KeyChainService.sharedService().token = nil
+                KeyChainService.shared.token = nil
             }
             return hasCachedToken
         }
@@ -100,14 +95,14 @@ class ApiService: NSObject {
 
     func setToken(_ token: Token) {
         self.headers["X-API-Authorization"] = token.authorizationHeaderString
-        KeyChainService.sharedService().token = token
-        KeyChainService.sharedService().email = token.user.email
+        KeyChainService.shared.token = token
+        KeyChainService.shared.email = token.user.email
 
-        AnalyticsService.sharedService().identify(token.user)
+        AnalyticsService.shared.identify(token.user)
 
         self.registerForRemoteNotifications()
 
-        NotificationService.sharedService().connectWebsocket()
+        NotificationService.shared.connectWebsocket()
     }
 
     func login(_ jwt: JWT) -> Bool {
@@ -149,7 +144,7 @@ class ApiService: NSObject {
             },
             onError: { error, statusCode, responseString in
                 onError(error, statusCode, responseString)
-                KeyChainService.sharedService().clearStoredUserData()
+                KeyChainService.shared.clearStoredUserData()
             }
         )
     }
@@ -173,7 +168,7 @@ class ApiService: NSObject {
     }
 
     fileprivate func deleteToken(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        if let token = KeyChainService.sharedService().token {
+        if let token = KeyChainService.shared.token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil,
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode, mappingResult)
@@ -188,13 +183,13 @@ class ApiService: NSObject {
     }
 
     fileprivate func localLogout() {
-        CheckinService.sharedService().stop()
-        LocationService.sharedService().stop()
-        NotificationService.sharedService().disconnectWebsocket()
+        CheckinService.shared.stop()
+        LocationService.shared.stop()
+        NotificationService.shared.disconnectWebsocket()
         headers.removeValue(forKey: "X-API-Authorization")
-        KeyChainService.sharedService().clearStoredUserData()
-        AnalyticsService.sharedService().logout()
-        ImageService.sharedService().clearCache()
+        KeyChainService.shared.clearStoredUserData()
+        AnalyticsService.shared.logout()
+        ImageService.shared.clearCache()
 
         currentUser = nil
         backoffTimeout = nil
@@ -205,7 +200,7 @@ class ApiService: NSObject {
     func fetchURL(_ url: URL, onURLFetched: @escaping OnURLFetched, onError: OnError) {
         let params = url.query != nil ? url.query!.toJSONObject() : [:]
         let request = Alamofire.request(url.absoluteString, method: .get, parameters: params)
-        KTApiService.sharedService().execute(request,
+        KTApiService.shared.execute(request,
             successHandler: { response in
                 let statusCode = response!.response!.statusCode
                 onURLFetched(statusCode, response!.responseData)
@@ -398,10 +393,10 @@ class ApiService: NSObject {
             onSuccess: { statusCode, mappingResult in
                 assert(statusCode == 200)
                 let user = mappingResult?.firstObject as! User
-                if let token = KeyChainService.sharedService().token {
+                if let token = KeyChainService.shared.token {
                     currentUser = user
                     token.user = user
-                    KeyChainService.sharedService().token = token
+                    KeyChainService.shared.token = token
                 }
                 onSuccess(statusCode, mappingResult)
             },
@@ -427,7 +422,7 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        ApiService.sharedService().addAttachment(
+        ApiService.shared.addAttachment(
             data!,
             withMimeType: "image/jpg",
             toUserWithId: String(currentUser.id),
@@ -435,7 +430,7 @@ class ApiService: NSObject {
             onSuccess: { response in
                 onSuccess(response)
 
-                ApiService.sharedService().fetchUser(
+                ApiService.shared.fetchUser(
                     onSuccess: { statusCode, mappingResult in
                         if !UIApplication.shared.isRegisteredForRemoteNotifications {
                             NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
@@ -910,7 +905,7 @@ class ApiService: NSObject {
 
                 op.setCompletionBlockWithSuccess(
                     { operation, mappingResult in
-                        AnalyticsService.sharedService().track("HTTP Request Succeeded", properties: [
+                        AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
                             "path": path as AnyObject,
                             "statusCode": (operation?.httpRequestOperation.response.statusCode)! as AnyObject,
                             "params": jsonParams as AnyObject,
@@ -932,7 +927,7 @@ class ApiService: NSObject {
                         if receivedResponse {
                             self.backoffTimeout = self.initialBackoffTimeout
 
-                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: [
+                            AnalyticsService.shared.track("HTTP Request Failed", properties: [
                                 "path": path as AnyObject,
                                 "statusCode": statusCode as AnyObject,
                                 "params": jsonParams as AnyObject,
@@ -946,7 +941,7 @@ class ApiService: NSObject {
                                 }
                             }
                         } else if let err = error as NSError? {
-                            AnalyticsService.sharedService().track("HTTP Request Failed", properties: [
+                            AnalyticsService.shared.track("HTTP Request Failed", properties: [
                                 "error": err.localizedDescription as AnyObject,
                                 "code": err.code as AnyObject,
                                 "params": jsonParams as AnyObject,

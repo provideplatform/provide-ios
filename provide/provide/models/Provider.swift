@@ -108,7 +108,7 @@ class Provider: Model {
     }
 
     func reload(_ onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.sharedService().fetchProviderWithId(String(id),
+        ApiService.shared.fetchProviderWithId(String(id),
             onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode, mappingResult)
             },
@@ -123,7 +123,7 @@ class Provider: Model {
         params.removeValue(forKey: "id")
 
         if id > 0 {
-            ApiService.sharedService().updateProviderWithId(String(id), params: params,
+            ApiService.shared.updateProviderWithId(String(id), params: params,
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode, mappingResult)
                 },
@@ -134,7 +134,7 @@ class Provider: Model {
         } else {
             params.removeValue(forKey: "user_id")
 
-            ApiService.sharedService().createProvider(params,
+            ApiService.shared.createProvider(params,
                 onSuccess: { statusCode, mappingResult in
                     let provider = mappingResult?.firstObject as! Provider
                     self.id = provider.id
@@ -149,7 +149,7 @@ class Provider: Model {
 
     func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let val = !isAvailable
-        ApiService.sharedService().updateProviderWithId(
+        ApiService.shared.updateProviderWithId(
             String(id),
             params: ["available": val as AnyObject],
             onSuccess: { [weak self] statusCode, mappingResult in

@@ -15,6 +15,7 @@ typealias OnLocationAndHeadingResolved = (CLLocation, CLHeading) -> Void
 typealias OnReverseGeocodeResolved = (CLPlacemark) -> Void
 
 class LocationService: CLLocationManager, CLLocationManagerDelegate {
+    static let shared = LocationService()
 
     let defaultAccuracy = kCLLocationAccuracyBest
     let defaultDistanceFilter = kCLDistanceFilterNone
@@ -71,12 +72,6 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
         desiredAccuracy = defaultAccuracy
         distanceFilter = defaultDistanceFilter
-    }
-
-    fileprivate static let sharedInstance = LocationService()
-
-    class func sharedService() -> LocationService {
-        return sharedInstance
     }
 
     // MARK: Authorization

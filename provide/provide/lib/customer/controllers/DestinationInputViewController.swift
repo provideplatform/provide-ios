@@ -110,9 +110,9 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             timer = nil
 
             pendingSearch = true
-            LocationService.sharedService().resolveCurrentLocation(
+            LocationService.shared.resolveCurrentLocation(
                 onResolved: { [weak self] location in
-                    LocationService.sharedService().reverseGeocodeLocation(
+                    LocationService.shared.reverseGeocodeLocation(
                         location,
                         onResolved: { [weak self] placemark in
                             self?.placemark = placemark
@@ -124,7 +124,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                         "latitude": currentCoordinate.latitude,
                         "longitude": currentCoordinate.longitude,
                         ] as [String: Any]
-                    ApiService.sharedService().autocompletePlaces(
+                    ApiService.shared.autocompletePlaces(
                         params as [String : AnyObject],
                         onSuccess: { [weak self] statusCode, mappingResult in
                             self!.pendingSearch = false
@@ -204,7 +204,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
-        LocationService.sharedService().resolveCurrentLocation(
+        LocationService.shared.resolveCurrentLocation(
             onResolved: { [weak self] currentLocation in
                 let origin = Contact()
                 origin.latitude = currentLocation.coordinate.latitude as NSNumber

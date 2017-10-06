@@ -18,9 +18,9 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
 
         delegate = self
 
-        LocationService.sharedService().requireAuthorization {
+        LocationService.shared.requireAuthorization {
             self.showsUserLocation = true
-            LocationService.sharedService().start()
+            LocationService.shared.start()
         }
 
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(mapViewPinchGestureRecognized(_:)))

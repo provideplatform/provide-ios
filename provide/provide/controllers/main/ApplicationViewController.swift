@@ -105,7 +105,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func refreshCurrentUser() {
-        let token = KeyChainService.sharedService().token
+        let token = KeyChainService.shared.token
         if currentUser == nil && token != nil {
             currentUser = token!.user
         }
@@ -148,7 +148,7 @@ class ApplicationViewController: UIViewController,
     }
 
     func cameraViewController(_ viewController: CameraViewController, didCaptureStillImage image: UIImage) {
-        ApiService.sharedService().setUserDefaultProfileImage(image,
+        ApiService.shared.setUserDefaultProfileImage(image,
             onSuccess: { response in
 
             },

@@ -12,8 +12,7 @@ import jetfire
 import KTSwiftExtensions
 
 class NotificationService: NSObject, JFRWebSocketDelegate {
-
-    fileprivate static let sharedInstance = NotificationService()
+    static let shared = NotificationService()
 
     fileprivate let socketQueue = DispatchQueue(label: "api.websocketQueue", attributes: [])
 
@@ -28,10 +27,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     fileprivate var socketTimer: Timer!
 
-    class func sharedService() -> NotificationService {
-        return sharedInstance
-    }
-
     override init() {
         super.init()
     }
@@ -43,7 +38,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         socket.queue = socketQueue
         socket.delegate = self
 
-        if let token = KeyChainService.sharedService().token {
+        if let token = KeyChainService.shared.token {
             socket.addHeader(token.authorizationHeaderString, forKey: "X-API-Authorization")
         }
     }
@@ -85,7 +80,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         case .attachment:
             if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool {
                 if refreshProfileImage {
-                    if let token = KeyChainService.sharedService().token {
+                    if let token = KeyChainService.shared.token {
                         if let user = token.user {
                             user.reload(
                                 { statusCode, mappingResult in
@@ -117,7 +112,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         case .workOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
-                if let workOrder = WorkOrderService.sharedService().workOrderWithId(workOrderId) {
+                if let workOrder = WorkOrderService.shared.workOrderWithId(workOrderId) {
                     workOrder.reload(
                         { statusCode, mappingResult in
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
@@ -132,14 +127,14 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         log("provider removed from work order id \(workOrderId)")
                     }
                 } else {
-                    if let inProgressWorkOrder = WorkOrderService.sharedService().inProgressWorkOrder {
+                    if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                         if inProgressWorkOrder.id == workOrderId {
                             inProgressWorkOrder.reload(
                                 { statusCode, mappingResult in
-                                    WorkOrderService.sharedService().updateWorkOrder(inProgressWorkOrder)
+                                    WorkOrderService.shared.updateWorkOrder(inProgressWorkOrder)
 
                                     if inProgressWorkOrder.status == "canceled" {
-                                        LocationService.sharedService().unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
+                                        LocationService.shared.unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
                                         NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                     }
 
@@ -163,16 +158,16 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     // MARK: JFRWebSocketDelegate
 
     @objc func websocketDidConnect(_ socket: JFRWebSocket) {
-        AnalyticsService.sharedService().track("Websocket Connected", properties: [:])
+        AnalyticsService.shared.track("Websocket Connected", properties: [:])
     }
 
     @objc func websocketDidDisconnect(_ socket: JFRWebSocket, error: Error?) {
-        AnalyticsService.sharedService().track("Websocket Disconnected", properties: [:])
+        AnalyticsService.shared.track("Websocket Disconnected", properties: [:])
         connectWebsocket()
     }
 
     @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage message: String) {
-        if let token = KeyChainService.sharedService().token {
+        if let token = KeyChainService.shared.token {
             if message =~ ".*(client_connected).*" {
                 socket.write("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")
             } else if message =~ ".*(websocket_rails.ping).*" {
@@ -187,7 +182,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         if let message = message {
                             logInfo("Websocket message received: \(message)")
 
-                            AnalyticsService.sharedService().track("Websocket Received Message",
+                            AnalyticsService.shared.track("Websocket Received Message",
                                                                    properties: ["message": message as AnyObject] as [String: AnyObject])
 
                             switch message {
@@ -198,7 +193,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 }
                                 if let attachableType = attachment.attachableType {
                                     if attachableType == "work_order" {
-                                        if let workOrder = WorkOrderService.sharedService().workOrderWithId(attachment.attachableId) {
+                                        if let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
                                             workOrder.mergeAttachment(attachment)
                                         }
                                     }
@@ -210,41 +205,41 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             case "provider_became_available":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
-                                if ProviderService.sharedService().containsProvider(provider) {
-                                    ProviderService.sharedService().updateProvider(provider)
+                                if ProviderService.shared.containsProvider(provider) {
+                                    ProviderService.shared.updateProvider(provider)
                                 } else {
-                                    ProviderService.sharedService().appendProvider(provider)
+                                    ProviderService.shared.appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
                             case "provider_became_unavailable":
                                 if let providerId = payload?["provider_id"] as? Int {
-                                    if let provider = ProviderService.sharedService().cachedProvider(providerId) {
-                                        ProviderService.sharedService().removeProvider(providerId)
+                                    if let provider = ProviderService.shared.cachedProvider(providerId) {
+                                        ProviderService.shared.removeProvider(providerId)
                                         NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
                                     }
                                 }
                             case "provider_location_changed":
                                 let providerJson = payload!.toJSONString()
                                 let provider = Provider(string: providerJson)
-                                if ProviderService.sharedService().containsProvider(provider) {
-                                    ProviderService.sharedService().updateProvider(provider)
+                                if ProviderService.shared.containsProvider(provider) {
+                                    ProviderService.shared.updateProvider(provider)
                                 } else {
-                                    ProviderService.sharedService().appendProvider(provider)
+                                    ProviderService.shared.appendProvider(provider)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
                             case "work_order_changed":
                                 let workOrderJson = payload!.toJSONString()
                                 let workOrder = WorkOrder(string: workOrderJson)
-                                WorkOrderService.sharedService().updateWorkOrder(workOrder)
+                                WorkOrderService.shared.updateWorkOrder(workOrder)
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
-                                if WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                                if WorkOrderService.shared.inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
                             case "work_order_provider_changed":
                                 let workOrderProviderJson = payload!.toJSONString()
                                 let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
-                                if WorkOrderService.sharedService().inProgressWorkOrder == nil {
+                                if WorkOrderService.shared.inProgressWorkOrder == nil {
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }
                             case "work_order_provider_added":
