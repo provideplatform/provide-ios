@@ -19,17 +19,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     fileprivate var socket: JFRWebSocket!
 
     fileprivate var socketConnected: Bool {
-        if let socket = socket {
-            return socket.isConnected
-        }
-        return false
+        return socket?.isConnected ?? false
     }
 
     fileprivate var socketTimer: Timer!
-
-    override init() {
-        super.init()
-    }
 
     func configureWebsocket() {
         disconnectWebsocket()

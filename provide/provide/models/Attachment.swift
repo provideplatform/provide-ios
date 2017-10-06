@@ -63,56 +63,43 @@ class Attachment: Model {
     }
 
     var filename: String! {
-        if let metadata = metadata {
-            if let filename = metadata["filename"] as? String {
-                return filename
-            }
-        }
-        return nil
+        return metadata?["filename"] as? String
     }
 
     var url: URL! {
-        if let status = status {
-            if status == "pending" {
-                return nil
-            }
-        }
-        if let displayUrlString = displayUrlString {
+        if let status = status, status == "pending" {
+            return nil
+        } else if let displayUrlString = displayUrlString {
             return URL(string: displayUrlString)
-        }
-        if let urlString = urlString {
+        } else if let urlString = urlString {
             return URL(string: urlString)
+        } else {
+            return nil
         }
-
-        return nil
     }
 
     var thumbnailUrl: URL! {
-        if let metadata = metadata {
-            if let thumbnailUrlString = metadata["thumbnail_url"] as? String {
-                return URL(string:
-                    thumbnailUrlString)
-            }
+        if let metadata = metadata, let thumbnailUrlString = metadata["thumbnail_url"] as? String {
+            return URL(string: thumbnailUrlString)
+        } else {
+            return nil
         }
-        return nil
     }
 
     var maxZoomLevel: Int! {
-        if let metadata = metadata {
-            if let maxZoomLevel = metadata["max_zoom_level"] as? Int {
-                return maxZoomLevel
-            }
+        if let metadata = metadata, let maxZoomLevel = metadata["max_zoom_level"] as? Int {
+            return maxZoomLevel
+        } else {
+            return nil
         }
-        return nil
     }
 
     var tilingBaseUrl: URL! {
-        if let metadata = metadata {
-            if let tilingBaseUrlString = metadata["tiling_base_url"] as? String {
-                return URL(string: tilingBaseUrlString)
-            }
+        if let metadata = metadata, let tilingBaseUrlString = metadata["tiling_base_url"] as? String {
+            return URL(string: tilingBaseUrlString)
+        } else {
+            return nil
         }
-        return nil
     }
 
     func hasTag(_ tag: String) -> Bool {

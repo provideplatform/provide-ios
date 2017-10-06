@@ -85,7 +85,8 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
             return 2
         } else if let delegate = vc as? MenuViewControllerDelegate {
             return delegate.menuViewController(menuViewController, numberOfRowsInSection: section)
+        } else {
+            return 0
         }
-        return 0
     }
 }

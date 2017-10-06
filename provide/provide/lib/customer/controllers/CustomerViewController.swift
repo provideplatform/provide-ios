@@ -20,38 +20,23 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     fileprivate var updatingWorkOrderContext = false
 
     fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "en_route"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
     }
 
     fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "pending_acceptance"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
     }
 
     fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "arriving"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
     }
 
     fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "in_progress"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "in_progress"
     }
 
     fileprivate var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "awaiting_schedule"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "awaiting_schedule"
     }
 
     override func viewDidLoad() {

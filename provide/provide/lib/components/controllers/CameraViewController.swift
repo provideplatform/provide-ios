@@ -175,15 +175,11 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func renderDefaultButtonAppearance() {
-        if let button = button {
-            button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
-        }
+        button?.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
     }
 
     func renderTappedButtonAppearance() {
-        if let button = button {
-            button.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
-        }
+        button?.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -198,10 +194,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     // MARK: CameraViewDelegate
 
     func outputModeForCameraView(_ cameraView: CameraView) -> CameraOutputMode {
-        if let delegate = delegate {
-            return delegate.outputModeForCameraViewController(self)
-        }
-        return outputMode
+        return delegate?.outputModeForCameraViewController(self) ?? outputMode
     }
 
     func cameraViewCaptureSessionFailedToInitializeWithError(_ error: NSError) {
@@ -241,24 +234,15 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func cameraViewShouldOutputFaceMetadata(_ cameraView: CameraView) -> Bool {
-        if let outputFaceMetadata = delegate?.cameraViewControllerShouldOutputFaceMetadata(self) {
-            return outputFaceMetadata
-        }
-        return false
+        return delegate?.cameraViewControllerShouldOutputFaceMetadata(self) ?? false
     }
 
     func cameraViewShouldOutputOCRMetadata(_ cameraView: CameraView) -> Bool {
-        if let outputOCRMetadata = delegate?.cameraViewControllerShouldOutputOCRMetadata(self) {
-            return outputOCRMetadata
-        }
-        return false
+        return delegate?.cameraViewControllerShouldOutputOCRMetadata(self) ?? false
     }
 
     func cameraViewShouldRenderFacialRecognition(_ cameraView: CameraView) -> Bool {
-        if let renderFacialRecognition = delegate?.cameraViewControllerShouldRenderFacialRecognition(self) {
-            return renderFacialRecognition
-        }
-        return false
+        return delegate?.cameraViewControllerShouldRenderFacialRecognition(self) ?? false
     }
 
     func cameraView(_ cameraView: CameraView, didRecognizeText text: String!) {

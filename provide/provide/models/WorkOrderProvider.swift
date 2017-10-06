@@ -33,8 +33,7 @@ class WorkOrderProvider: Model {
             "duration",
             "flat_fee",
             "timed_out_at",
-            ]
-        )
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "provider", mapping: Provider.mapping())
         return mapping!
     }

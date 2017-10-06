@@ -186,24 +186,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "en_route"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
     }
 
     fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "pending_acceptance"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
     }
 
     fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "arriving"
-        }
-        return false
+        return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
     }
 
     fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {

@@ -18,10 +18,7 @@ class Company: Model {
     var config: NSDictionary!
 
     var isIntegratedWithQuickbooks: Bool {
-        if let hasQuickbooksIntegration = hasQuickbooksIntegration {
-            return hasQuickbooksIntegration.boolValue
-        }
-        return false
+        return hasQuickbooksIntegration?.boolValue ?? false
     }
 
     var flooringMaterialTier1CostPerSqFt: Double {

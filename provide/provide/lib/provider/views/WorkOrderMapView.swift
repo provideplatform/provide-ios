@@ -52,10 +52,7 @@ class WorkOrderMapView: MapView {
     }
 
     fileprivate var viewingDirections: Bool {
-        if let delegate = directionsViewControllerDelegate {
-            return delegate.isPresentingDirections()
-        }
-        return false
+        return directionsViewControllerDelegate?.isPresentingDirections() ?? false
     }
 
     required init?(coder aDecoder: NSCoder) {

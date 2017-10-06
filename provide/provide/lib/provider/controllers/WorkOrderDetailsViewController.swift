@@ -156,7 +156,7 @@ class WorkOrderDetailsViewController: ViewController,
     // MARK: UITableViewDelegate
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
+        return 0
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -252,10 +252,7 @@ class WorkOrderDetailsViewController: ViewController,
     // MARK: UICollectionViewDataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let attachments = workOrder.attachments {
-            return attachments.count
-        }
-        return 0
+        return workOrder.attachments?.count ?? 0
     }
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:

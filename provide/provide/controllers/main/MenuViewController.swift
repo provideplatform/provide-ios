@@ -88,17 +88,11 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if let delegate = delegate {
-            return delegate.numberOfSectionsInMenuViewController(self)
-        }
-        return 0
+        return delegate?.numberOfSectionsInMenuViewController(self) ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let delegate = delegate {
-            return delegate.menuViewController(self, numberOfRowsInSection: section)
-        }
-        return 0
+        return delegate?.menuViewController(self, numberOfRowsInSection: section) ?? 0
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -170,11 +164,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     // MARK: MenuHeaderViewDelegate
 
     func navigationViewControllerForMenuHeaderView(_ view: MenuHeaderView) -> UINavigationController! {
-        if let delegate = delegate {
-            return delegate.navigationControllerForMenuViewController(self)
-        }
-
-        return navigationController
+        return delegate?.navigationControllerForMenuViewController(self) ?? navigationController
     }
 
     // MARK: Private Methods

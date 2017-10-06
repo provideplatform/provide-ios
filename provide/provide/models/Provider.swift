@@ -24,10 +24,7 @@ class Provider: Model {
     var lastCheckinHeading: NSNumber!
 
     var name: String? {
-        if let name = contact?.name {
-            return name
-        }
-        return nil
+        return contact?.name
     }
 
     var profileImageUrl: URL? {
@@ -52,10 +49,7 @@ class Provider: Model {
     }
 
     var isAvailable: Bool {
-        if let available = available {
-            return available.boolValue
-        }
-        return false
+        return available?.boolValue ?? false
     }
 
     var annotation: Annotation {
@@ -87,11 +81,7 @@ class Provider: Model {
     }
 
     var firstName: String? {
-        if let name = name {
-            return name.components(separatedBy: " ").first!
-        } else {
-            return nil
-        }
+        return name?.components(separatedBy: " ").first
     }
 
     var lastName: String? {

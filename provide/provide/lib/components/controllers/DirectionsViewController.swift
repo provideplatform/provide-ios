@@ -280,14 +280,13 @@ class DirectionsViewController: ViewController {
     }
 
     func calculateBearing(_ toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
-        if let location = LocationService.shared.location {
-            let lon = location.coordinate.longitude - toCoordinate.longitude
-            let y = sin(lon) * cos(toCoordinate.latitude)
-            let x = cos(location.coordinate.latitude) * sin(toCoordinate.latitude) - sin(location.coordinate.latitude) * cos(toCoordinate.latitude) * cos(lon)
-            let angle = atan2(y, x)
-            return angle
-        }
-        return 0.0
+        guard let location = LocationService.shared.location else { return 0 }
+
+        let lon = location.coordinate.longitude - toCoordinate.longitude
+        let y = sin(lon) * cos(toCoordinate.latitude)
+        let x = cos(location.coordinate.latitude) * sin(toCoordinate.latitude) - sin(location.coordinate.latitude) * cos(toCoordinate.latitude) * cos(lon)
+        let angle = atan2(y, x)
+        return angle
     }
 
     func refreshInstructions() {

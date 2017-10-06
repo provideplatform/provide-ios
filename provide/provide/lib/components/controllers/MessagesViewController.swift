@@ -316,7 +316,7 @@ class MessagesViewController: JSQMessagesViewController {
         collectionView.performBatchUpdates({
             self.messages.append(message)
             self.collectionView.insertItems(at: [IndexPath(row: self.messages.count - 1, section: 0)])
-        }, completion: nil)
+        })
 
         finishSendingMessage(animated: true)
 

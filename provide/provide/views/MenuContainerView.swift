@@ -51,10 +51,7 @@ class MenuContainerView: UIView {
     }
 
     fileprivate var targetView: UIView! {
-        if let targetView = UIApplication.shared.keyWindow {
-            return targetView
-        }
-        return nil
+        return UIApplication.shared.keyWindow
     }
 
     fileprivate func teardown() {

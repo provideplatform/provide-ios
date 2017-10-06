@@ -36,9 +36,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         if let mapView = workOrdersViewControllerDelegate.mapViewForViewController?(nil) {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
 
-            if let delegate = workOrdersViewControllerDelegate {
-                delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
-            }
+            workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
 
             mapView.addAnnotation(WorkOrderService.shared.nextWorkOrder.annotation)
         }
@@ -48,10 +46,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     func unwind() {
         (view as! WorkOrderAnnotationView).removeGestureRecognizers()
-
-        if let delegate = workOrdersViewControllerDelegate {
-            delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
-        }
+        workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
     }
 
     // MARK: - Navigation

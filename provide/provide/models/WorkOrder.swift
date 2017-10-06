@@ -306,8 +306,7 @@ class WorkOrder: Model {
         }
 
         if let customer = customer {
-            return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue,
-                                              customer.contact.longitude.doubleValue)
+            return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue, customer.contact.longitude.doubleValue)
         }
 
         return nil
@@ -410,10 +409,7 @@ class WorkOrder: Model {
     }
 
     var providerProfileImageUrl: URL? {
-        if let provider = provider {
-            return provider.profileImageUrl
-        }
-        return nil
+        return provider?.profileImageUrl
     }
 
     var regionIdentifier: String {

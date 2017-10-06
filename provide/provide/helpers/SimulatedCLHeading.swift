@@ -15,10 +15,10 @@ class SimulatedHeading: CLHeading {
     }
 
     override var headingAccuracy: CLLocationDirection {
-        return 0.0
+        return 0
     }
 
     override var magneticHeading: CLLocationDirection {
-        return 0.0
+        return 0
     }
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2016 Provide Technologies Inc. All rights reserved.
 //
 
-
 class WorkOrderDestinationHeaderViewController: ViewController {
 
     var initialFrame: CGRect {

@@ -85,10 +85,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     var isRunning: Bool {
-        if let captureSession = captureSession {
-            return captureSession.isRunning
-        }
-        return false
+        return captureSession?.isRunning ?? false
     }
 
     fileprivate var mic: AVCaptureDevice! {
@@ -96,17 +93,11 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate var outputFaceMetadata: Bool {
-        if let delegate = delegate {
-            return delegate.cameraViewShouldOutputFaceMetadata(self)
-        }
-        return false
+        return delegate?.cameraViewShouldOutputFaceMetadata(self) ?? false
     }
 
     fileprivate var outputOCRMetadata: Bool {
-        if let delegate = delegate {
-            return delegate.cameraViewShouldOutputOCRMetadata(self)
-        }
-        return false
+        return delegate?.cameraViewShouldOutputOCRMetadata(self) ?? false
     }
 
     fileprivate var recording = false {
@@ -120,10 +111,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate var renderFacialRecognition: Bool {
-        if let delegate = delegate {
-            return delegate.cameraViewShouldRenderFacialRecognition(self)
-        }
-        return false
+        return delegate?.cameraViewShouldRenderFacialRecognition(self) ?? false
     }
 
     override func awakeFromNib() {

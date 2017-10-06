@@ -34,8 +34,7 @@ class User: Model {
 
     var coordinate: CLLocationCoordinate2D! {
         if lastCheckinLatitude != nil && lastCheckinLongitude != nil {
-            return CLLocationCoordinate2DMake(lastCheckinLatitude.doubleValue,
-                                              lastCheckinLongitude.doubleValue)
+            return CLLocationCoordinate2DMake(lastCheckinLatitude.doubleValue, lastCheckinLongitude.doubleValue)
         }
         return nil
     }
@@ -48,11 +47,7 @@ class User: Model {
     }
 
     var firstName: String? {
-        if let name = name {
-            return name.components(separatedBy: " ").first!
-        } else {
-            return nil
-        }
+        return name?.components(separatedBy: " ").first
     }
 
     var lastName: String? {

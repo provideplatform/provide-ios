@@ -90,10 +90,7 @@ class RouteLegStep: Model {
     }
 
     var distance: CLLocationDistance! {
-        if let distanceInMeters = distanceInMeters {
-            return distanceInMeters.doubleValue
-        }
-        return 0.0
+        return distanceInMeters?.doubleValue ?? 0
     }
 
     var distanceInMiles: Double {
