@@ -654,7 +654,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     self!.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
-
+                    logError(error)
                 }
             )
         }
@@ -691,7 +691,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     self!.attemptCompletionOfInProgressWorkOrder()
                 },
                 onError: { error, statusCode, responseString in
-
+                    logError(error)
                 }
             )
         }
@@ -783,7 +783,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                         self!.attemptSegueToValidWorkOrderContext()
                     },
                     onError: { error, statusCode, responseString in
-
+                        logError(error)
                     }
                 )
             } else {

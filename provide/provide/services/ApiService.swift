@@ -765,7 +765,7 @@ class ApiService: NSObject {
 
             },
             onError: { error, statusCode, responseString in
-
+                logError(error)
             }
         )
 

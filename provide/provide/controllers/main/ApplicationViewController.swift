@@ -123,7 +123,7 @@ class ApplicationViewController: UIViewController,
                 }
             },
             onError: { error, statusCode, responseString in
-
+                logError(error)
             }
         )
     }
@@ -147,8 +147,8 @@ class ApplicationViewController: UIViewController,
             onSuccess: { response in
 
             },
-            onError: { error, statusCode, responseString in
-
+            onError: { urlResponse, statusCode, error in
+                logError(error!)
             }
         )
     }

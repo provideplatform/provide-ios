@@ -87,7 +87,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
                                 },
                                 onError: { error, statusCode, responseString in
-
+                                    logError(error)
                                 }
                             )
                         }
@@ -118,6 +118,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
                         },
                         onError: { error, statusCode, responseString in
+                            logError(error)
                         }
                     )
                 }
@@ -141,7 +142,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: inProgressWorkOrder)
                                 },
                                 onError: { error, statusCode, responseString in
-
+                                    logError(error)
                                 }
                             )
                         }

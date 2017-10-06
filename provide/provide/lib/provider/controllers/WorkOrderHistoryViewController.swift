@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KTSwiftExtensions
 
 protocol WorkOrderHistoryViewControllerDelegate {
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController!
@@ -127,7 +128,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
                 self.refreshControl.endRefreshing()
             },
             onError: { error, statusCode, responseString in
-                // TODO
+                logError(error)
             }
         )
     }

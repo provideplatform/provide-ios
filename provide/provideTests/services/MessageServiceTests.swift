@@ -37,7 +37,7 @@ class MessageServiceTests: XCTestCase {
                 expectation.fulfill()
             },
             onError: { error, statusCode, responseString in
-
+                logError(error)
             }
         )
 

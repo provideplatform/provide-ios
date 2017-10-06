@@ -66,7 +66,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
                                     self.refresh()
                                 },
                                 onError: { error, statusCode, responseString in
-
+                                    logError(error)
                                 }
                             )
                         }

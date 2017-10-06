@@ -85,7 +85,7 @@ class WorkOrderDetailsViewController: ViewController,
                     self.mediaCollectionView?.reloadData()
                 },
                 onError: { error, statusCode, responseString in
-
+                    logError(error)
                 }
             )
 

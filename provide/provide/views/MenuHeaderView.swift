@@ -184,8 +184,8 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
             onSuccess: { response in
 
             },
-            onError: { error, statusCode, responseString in
-
+            onError: { urlResponse, statusCode, error in
+                logError(error!)
             }
         )
     }

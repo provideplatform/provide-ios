@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import KTSwiftExtensions
 
 typealias OnEtaFetched = (_ minutesEta: Int) -> Void
 typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> Void
@@ -66,8 +67,8 @@ class DirectionService: NSObject {
                         }
                     }
                 },
-                onError: { _, statusCode, _ in
-
+                onError: { error, statusCode, responseString in
+                    logError(error)
                 }
             )
         }
@@ -83,8 +84,8 @@ class DirectionService: NSObject {
                         onDrivingDirectionsFetched(directions)
                     }
                 },
-                onError: { _, statusCode, _ in
-
+                onError: { error, statusCode, responseString in
+                    logError(error)
                 }
             )
         }

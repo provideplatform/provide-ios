@@ -112,9 +112,7 @@ class Provider: Model {
             onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 
@@ -127,9 +125,7 @@ class Provider: Model {
                 onSuccess: { statusCode, mappingResult in
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         } else {
             params.removeValue(forKey: "user_id")
@@ -140,9 +136,7 @@ class Provider: Model {
                     self.id = provider.id
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         }
     }

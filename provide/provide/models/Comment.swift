@@ -99,9 +99,7 @@ class Comment: Model {
 
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 }

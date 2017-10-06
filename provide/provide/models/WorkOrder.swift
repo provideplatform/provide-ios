@@ -557,9 +557,7 @@ class WorkOrder: Model {
                     WorkOrderService.shared.updateWorkOrder(self)
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         } else {
             var workOrderProviders = [[String: AnyObject]]()
@@ -580,9 +578,7 @@ class WorkOrder: Model {
                     WorkOrderService.shared.updateWorkOrder(workOrder)
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         }
     }
@@ -603,9 +599,7 @@ class WorkOrder: Model {
                     WorkOrderService.shared.updateWorkOrder(mappingResult?.firstObject as! WorkOrder)
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         }
     }
@@ -617,9 +611,7 @@ class WorkOrder: Model {
                     self.attachments = mappingResult?.array() as! [Attachment]
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         }
     }
@@ -706,9 +698,7 @@ class WorkOrder: Model {
                 WorkOrderService.shared.updateWorkOrder(self)
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 
@@ -728,9 +718,7 @@ class WorkOrder: Model {
                 self.attachments.append(response?.firstObject as! Attachment)
                 onSuccess(response)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 
@@ -743,9 +731,7 @@ class WorkOrder: Model {
                 self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 
@@ -760,9 +746,7 @@ class WorkOrder: Model {
                     }
                     onSuccess(statusCode, mappingResult)
                 },
-                onError: { error, statusCode, responseString in
-                    onError(error, statusCode, responseString)
-                }
+                onError: onError
             )
         }
     }
@@ -774,9 +758,7 @@ class WorkOrder: Model {
                 WorkOrderService.shared.updateWorkOrder(self)
                 onSuccess(statusCode, mappingResult)
             },
-            onError: { error, statusCode, responseString in
-                onError(error, statusCode, responseString)
-            }
+            onError: onError
         )
     }
 
