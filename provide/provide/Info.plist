@@ -78,6 +78,10 @@
 	<string>provide would like to use your camera</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>provide would like to use your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>provide would like to use your current location</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>provide would like to use your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>provide would like to use your photo library</string>
 	<key>UIBackgroundModes</key>
