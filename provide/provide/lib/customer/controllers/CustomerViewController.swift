@@ -99,15 +99,13 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     }
 
     fileprivate func handleInProgressWorkOrderStateChange() {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if workOrder.status == "en_route" {
-                // ensure we weren't previously awaiting confirmation
-                if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
-                    confirmWorkOrderViewController?.prepareForReuse()
-                }
-
-                attemptSegueToValidWorkOrderContext()
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == "en_route" {
+            // ensure we weren't previously awaiting confirmation
+            if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
+                confirmWorkOrderViewController?.prepareForReuse()
             }
+
+            attemptSegueToValidWorkOrderContext()
         }
     }
 
@@ -252,12 +250,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
             presentDestinationInputViewController()
             UIView.animate(withDuration: 0.25) {
-                if let destinationInputView = self.destinationInputViewController.view {
-                    if destinationInputView.frame.origin.y == 0.0 {
-                        destinationInputView.frame.origin.y += self.view.frame.height * 0.1
-                        if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-                            destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
-                        }
+                if let destinationInputView = self.destinationInputViewController.view,  destinationInputView.frame.origin.y == 0 {
+                    destinationInputView.frame.origin.y += self.view.frame.height * 0.1
+                    if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
+                        destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
                     }
                 }
             }
@@ -322,18 +318,16 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
 
         if !mapView.annotations.contains(where: { annotation -> Bool in
-            if let providerAnnotation = annotation as? Provider.Annotation {
-                if providerAnnotation.matches(provider) {
-                    if ProviderService.shared.containsProvider(provider) {
-                        logWarn("Animated provider annotation movement not yet implemented")
-                        mapView.removeAnnotation(annotation)
-                        mapView.addAnnotation(provider.annotation)
-                        return true
-                    } else {
-                        logInfo("Removing unavailable provider annotation from customer map view")
-                        mapView.removeAnnotation(annotation)
-                        return true
-                    }
+            if let providerAnnotation = annotation as? Provider.Annotation, providerAnnotation.matches(provider) {
+                if ProviderService.shared.containsProvider(provider) {
+                    logWarn("Animated provider annotation movement not yet implemented")
+                    mapView.removeAnnotation(annotation)
+                    mapView.addAnnotation(provider.annotation)
+                    return true
+                } else {
+                    logInfo("Removing unavailable provider annotation from customer map view")
+                    mapView.removeAnnotation(annotation)
+                    return true
                 }
             }
             return false

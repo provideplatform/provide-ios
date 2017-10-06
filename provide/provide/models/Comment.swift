@@ -53,10 +53,8 @@ class Comment: Model {
         var images = [Attachment]()
         if let attachments = attachments, attachments.count > 0 {
             for attachment in attachments {
-                if let mimeType = attachment.mimeType {
-                    if mimeType == "image/png" || mimeType == "image/jpg" {
-                        images.append(attachment)
-                    }
+                if let mimeType = attachment.mimeType, mimeType == "image/png" || mimeType == "image/jpg" {
+                    images.append(attachment)
                 }
             }
         }

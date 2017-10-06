@@ -88,13 +88,7 @@ class DirectionsViewController: ViewController {
                 }
 
                 mapView.disableUserInteraction()
-
-                mapView.setCenterCoordinate(mapView.userLocation.coordinate,
-                                            fromEyeCoordinate: mapView.userLocation.coordinate,
-                                            eyeAltitude: defaultMapCameraAltitude,
-                                            pitch: CGFloat(defaultMapCameraPitch),
-                                            animated: true)
-
+                mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: defaultMapCameraAltitude, pitch: CGFloat(defaultMapCameraPitch), animated: true)
                 mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
             }
         }
@@ -209,44 +203,38 @@ class DirectionsViewController: ViewController {
                             self.regions.removeObject(region)
                             LocationService.shared.unregisterRegionMonitor(region.identifier)
 
-                            if let directions = self.directions {
-                                if let currentLeg = directions.selectedRoute.currentLeg {
-                                    if let currentStep = currentLeg.currentStep {
-                                        var identifier = ""
-                                        if let currentShapeCoordinate = currentStep.currentShapeCoordinate {
-                                            if let currentStepIdentifier = currentStep.identifier {
-                                                identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
-                                            }
-                                        }
+                            if let directions = self.directions, let currentLeg = directions.selectedRoute.currentLeg, let currentStep = currentLeg.currentStep {
+                                var identifier = ""
+                                if let currentShapeCoordinate = currentStep.currentShapeCoordinate, let currentStepIdentifier = currentStep.identifier {
+                                    identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
+                                }
 
-                                        if self.lastRegionCrossed.identifier == identifier {
-                                            currentStep.currentShapeIndex += 1
+                                if self.lastRegionCrossed.identifier == identifier {
+                                    currentStep.currentShapeIndex += 1
 
+                                    if currentStep.isFinished {
+                                        currentLeg.currentStepIndex += 1
+                                    }
+                                } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
+                                    currentLeg.currentStepIndex += 1
+                                } else {
+                                    var shapeIndex = currentStep.shape.count - 1
+                                    for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
+                                        if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
+                                            currentStep.currentShapeIndex = shapeIndex
                                             if currentStep.isFinished {
                                                 currentLeg.currentStepIndex += 1
                                             }
-                                        } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
-                                            currentLeg.currentStepIndex += 1
-                                        } else {
-                                            var shapeIndex = currentStep.shape.count - 1
-                                            for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
-                                                if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
-                                                    currentStep.currentShapeIndex = shapeIndex
-                                                    if currentStep.isFinished {
-                                                        currentLeg.currentStepIndex += 1
-                                                    }
-                                                    break
-                                                }
-                                                shapeIndex -= 1
-                                            }
+                                            break
                                         }
-
-                                        DispatchQueue.main.async {
-                                            self.resolveCurrentStep()
-                                            self.refreshInstructions()
-                                            self.renderRouteOverview()
-                                        }
+                                        shapeIndex -= 1
                                     }
+                                }
+
+                                DispatchQueue.main.async {
+                                    self.resolveCurrentStep()
+                                    self.refreshInstructions()
+                                    self.renderRouteOverview()
                                 }
                             }
                         }, onDidExitRegion: {
@@ -371,20 +359,16 @@ class DirectionsViewController: ViewController {
 
     func routeLegAtIndex(_ i: Int) -> RouteLeg? {
         var routeLeg: RouteLeg!
-        if let directions = directions {
-            if let selectedRoute = directions.selectedRoute {
-                routeLeg = selectedRoute.legs[i]
-            }
+        if let directions = directions, let selectedRoute = directions.selectedRoute {
+            routeLeg = selectedRoute.legs[i]
         }
         return routeLeg
     }
 
     func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
         var routeLegStep: RouteLegStep?
-        if let routeLeg = routeLegAtIndex(indexPath.section) {
-            if indexPath.row < routeLeg.steps.count {
-                routeLegStep = routeLeg.steps[indexPath.row]
-            }
+        if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.steps.count {
+            routeLegStep = routeLeg.steps[indexPath.row]
         }
         return routeLegStep
     }

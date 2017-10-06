@@ -35,19 +35,17 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             mapView.removeAnnotations()
             mapView.removeOverlays()
 
-            if let workOrder = workOrder {
-                if let workOrderProviders = workOrder.workOrderProviders {
-                    for workOrderProvider in workOrderProviders {
-                        if let checkinsPolyline = workOrderProvider.checkinsPolyline {
-                            mapView.add(checkinsPolyline, level: .aboveRoads)
+            if let workOrder = workOrder, let workOrderProviders = workOrder.workOrderProviders {
+                for workOrderProvider in workOrderProviders {
+                    if let checkinsPolyline = workOrderProvider.checkinsPolyline {
+                        mapView.add(checkinsPolyline, level: .aboveRoads)
 
-                            let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
+                        let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
 
-                            if checkinsPolyline.pointCount > 0 {
-                                mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
-                            } else {
-                                mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
-                            }
+                        if checkinsPolyline.pointCount > 0 {
+                            mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
+                        } else {
+                            mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
                         }
                     }
                 }

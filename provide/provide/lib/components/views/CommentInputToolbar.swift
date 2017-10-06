@@ -19,10 +19,8 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     @IBOutlet fileprivate weak var commentInputTextField: UITextField!
 
     fileprivate weak var commentInputAccessoryTextField: UITextField! {
-        if let commentInputTextField = commentInputTextField {
-            if let accessoryToolbar = commentInputTextField.inputAccessoryView {
-                return (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
-            }
+        if let commentInputTextField = commentInputTextField, let accessoryToolbar = commentInputTextField.inputAccessoryView {
+            return (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
         }
 
         return nil
@@ -76,10 +74,8 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func dismiss() {
-        if let commentInputTextField = commentInputTextField {
-            if commentInputTextField.isFirstResponder {
-                commentInputTextField.resignFirstResponder()
-            }
+        if let commentInputTextField = commentInputTextField,  commentInputTextField.isFirstResponder {
+            commentInputTextField.resignFirstResponder()
         }
     }
 
@@ -150,14 +146,10 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func keyboardWillShow() {
-        if let commentInputTextField = commentInputTextField {
-            if let accessoryToolbar = commentInputTextField.inputAccessoryView {
-                if accessoryToolbar is CommentInputToolbar {
-                    let commentInputTextField = (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
-                    commentInputTextField.text = self.commentInputTextField.text
-                    commentInputTextField.becomeFirstResponder()
-                }
-            }
+        if let commentInputTextField = commentInputTextField, let accessoryToolbar = commentInputTextField.inputAccessoryView, accessoryToolbar is CommentInputToolbar {
+            let commentInputTextField = (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
+            commentInputTextField.text = self.commentInputTextField.text
+            commentInputTextField.becomeFirstResponder()
         }
     }
 
@@ -176,11 +168,9 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let comment = textField.text {
-            if comment.length > 0 {
-                addComment(nil)
-                return true
-            }
+        if let comment = textField.text, comment.length > 0 {
+            addComment(nil)
+            return true
         }
 
         return false

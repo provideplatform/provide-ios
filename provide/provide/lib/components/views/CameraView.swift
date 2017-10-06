@@ -118,19 +118,17 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate func configureAudioSession() {
-        if let delegate = delegate {
-            if delegate.cameraViewShouldEstablishAudioSession(self) {
-                do {
-                    let input = try AVCaptureDeviceInput(device: mic)
-                    captureSession.addInput(input)
+        if let delegate = delegate, delegate.cameraViewShouldEstablishAudioSession(self) {
+            do {
+                let input = try AVCaptureDeviceInput(device: mic)
+                captureSession.addInput(input)
 
-                    audioDataOutput = AVCaptureAudioDataOutput()
-                    if captureSession.canAddOutput(audioDataOutput) {
-                        captureSession.addOutput(audioDataOutput)
-                    }
-                } catch let error as NSError {
-                    logWarn(error.localizedDescription)
+                audioDataOutput = AVCaptureAudioDataOutput()
+                if captureSession.canAddOutput(audioDataOutput) {
+                    captureSession.addOutput(audioDataOutput)
                 }
+            } catch let error as NSError {
+                logWarn(error.localizedDescription)
             }
         }
     }
@@ -159,19 +157,17 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate func configureVideoSession() {
-        if let delegate = delegate {
-            if delegate.cameraViewShouldEstablishVideoSession(self) || outputOCRMetadata {
-                videoDataOutput = AVCaptureVideoDataOutput()
-                var settings = [AnyHashable: Any]()
-                settings.updateValue(NSNumber(value: kCVPixelFormatType_32BGRA as UInt32), forKey: String(kCVPixelBufferPixelFormatTypeKey))
-                videoDataOutput.videoSettings = settings
-                videoDataOutput.alwaysDiscardsLateVideoFrames = true
-                videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
+        if let delegate = delegate, delegate.cameraViewShouldEstablishVideoSession(self) || outputOCRMetadata {
+            videoDataOutput = AVCaptureVideoDataOutput()
+            var settings = [AnyHashable: Any]()
+            settings.updateValue(NSNumber(value: kCVPixelFormatType_32BGRA as UInt32), forKey: String(kCVPixelBufferPixelFormatTypeKey))
+            videoDataOutput.videoSettings = settings
+            videoDataOutput.alwaysDiscardsLateVideoFrames = true
+            videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
 
-                captureSession.addOutput(videoDataOutput)
+            captureSession.addOutput(videoDataOutput)
 
-                videoFileOutput = AVCaptureMovieFileOutput()
-            }
+            videoFileOutput = AVCaptureMovieFileOutput()
         }
     }
 
@@ -461,16 +457,14 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     fileprivate func showDetectedMetadataObjects(_ metadataObjects: [AnyObject]!) {
         for object in metadataObjects {
-            if let metadataFaceObject = object as? AVMetadataFaceObject {
-                if let detectedCode = capturePreviewLayer.transformedMetadataObject(for: metadataFaceObject) as? AVMetadataFaceObject {
-                    let shapeLayer = CAShapeLayer()
-                    shapeLayer.strokeColor = UIColor.green.cgColor
-                    shapeLayer.fillColor = UIColor.clear.cgColor
-                    shapeLayer.lineWidth = 1.0
-                    shapeLayer.lineJoin = kCALineJoinRound
-                    shapeLayer.path = UIBezierPath(rect: detectedCode.bounds).cgPath
-                    codeDetectionLayer.addSublayer(shapeLayer)
-                }
+            if let metadataFaceObject = object as? AVMetadataFaceObject, let detectedCode = capturePreviewLayer.transformedMetadataObject(for: metadataFaceObject) as? AVMetadataFaceObject {
+                let shapeLayer = CAShapeLayer()
+                shapeLayer.strokeColor = UIColor.green.cgColor
+                shapeLayer.fillColor = UIColor.clear.cgColor
+                shapeLayer.lineWidth = 1.0
+                shapeLayer.lineJoin = kCALineJoinRound
+                shapeLayer.path = UIBezierPath(rect: detectedCode.bounds).cgPath
+                codeDetectionLayer.addSublayer(shapeLayer)
             }
         }
     }

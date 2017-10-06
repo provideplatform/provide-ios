@@ -115,14 +115,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     NotificationCenter.default.postNotificationName("ApplicationShouldPresentPinInputViewController")
                 }
             } else {
-                if let jwtToken = jwtToken {
-                    if let jwt = KTJwtService.decode(jwtToken) {
-                        if let userId = jwt.body["user_id"] as? Int {
-                            if userId != currentUser.id {
-                                NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
-                            }
-                        }
-                    }
+                if let jwtToken = jwtToken, let jwt = KTJwtService.decode(jwtToken), let userId = jwt.body["user_id"] as? Int, userId != currentUser.id {
+                    NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                 }
             }
         }

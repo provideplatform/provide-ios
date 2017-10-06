@@ -89,10 +89,8 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         DispatchQueue.main.async {
             self.menuContainerView = MenuContainerView(frame: self.view.bounds)
 
-            if let tnc = self.topViewController as? UINavigationController {
-                if tnc.viewControllers.first is MenuViewControllerDelegate {
-                    self.menuContainerView.setupMenuViewController(tnc.viewControllers.first as! MenuViewControllerDelegate)
-                }
+            if let tnc = self.topViewController as? UINavigationController, tnc.viewControllers.first is MenuViewControllerDelegate {
+                self.menuContainerView.setupMenuViewController(tnc.viewControllers.first as! MenuViewControllerDelegate)
             }
         }
     }

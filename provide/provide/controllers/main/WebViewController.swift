@@ -23,13 +23,11 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
     @IBOutlet fileprivate weak var webView: UIWebView! {
         didSet {
-            if let webView = webView {
-                if let url = url {
-                    let request = URLRequest(url: url)
-                    webView.loadRequest(request)
-                } else if let html = html {
-                    webView.loadHTMLString(html, baseURL: URL(string: CurrentEnvironment.baseUrlString))
-                }
+            if let webView = webView, let url = url {
+                let request = URLRequest(url: url)
+                webView.loadRequest(request)
+            } else if let html = html {
+                webView.loadHTMLString(html, baseURL: URL(string: CurrentEnvironment.baseUrlString))
             }
         }
     }

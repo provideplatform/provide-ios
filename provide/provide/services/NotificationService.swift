@@ -171,10 +171,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     attachment.urlString = url // FIXME-- marshall with proper mapping
                                 }
 
-                                if let attachableType = attachment.attachableType, attachableType == "work_order" {
-                                    if let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
-                                        workOrder.mergeAttachment(attachment)
-                                    }
+                                if let attachableType = attachment.attachableType, attachableType == "work_order", let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
+                                    workOrder.mergeAttachment(attachment)
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
                             case "comment_changed":

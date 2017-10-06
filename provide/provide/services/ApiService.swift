@@ -652,10 +652,8 @@ class ApiService: NSObject {
                 }
 
                 let headers = operation?.httpRequestOperation.response.allHeaderFields
-                if let totalResultsCountString = headers?["X-Total-Results-Count"] as? String {
-                    if let totalResultsCount = Int(totalResultsCountString) {
-                        onTotalResultsCount(totalResultsCount, nil)
-                    }
+                if let totalResultsCountString = headers?["X-Total-Results-Count"] as? String, let totalResultsCount = Int(totalResultsCountString) {
+                    onTotalResultsCount(totalResultsCount, nil)
                 }
             }, failure: { operation, error in
                 if self.requestOperations.contains(op) {
@@ -743,11 +741,9 @@ class ApiService: NSObject {
             if [.POST, .PUT].contains(method) {
                 request.setValue(contentType, forHTTPHeaderField: "content-type")
 
-                if let params = params {
-                    if contentType.lowercased() == "application/json" {
-                        jsonParams = NSDictionary(dictionary: params).toJSON()
-                        request.httpBody = jsonParams.data(using: String.Encoding.utf8)
-                    }
+                if let params = params, contentType.lowercased() == "application/json" {
+                    jsonParams = NSDictionary(dictionary: params).toJSON()
+                    request.httpBody = jsonParams.data(using: String.Encoding.utf8)
                 }
             }
 
