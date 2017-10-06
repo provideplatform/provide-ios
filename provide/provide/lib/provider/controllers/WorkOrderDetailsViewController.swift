@@ -36,10 +36,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         if let workOrder = workOrder, workOrder.jobId == 0 {
             DispatchQueue.main.async {
                 if let tableView = self.tableView {
-                    self.headerView?.frame.size.width = tableView.frame.width
+                    self.headerView?.frame.size.width = tableView.width
                 } else {
                     DispatchQueue.main.async {
-                        self.headerView?.frame.size.width = self.view.frame.width
+                        self.headerView?.frame.size.width = self.view.width
                     }
                 }
 

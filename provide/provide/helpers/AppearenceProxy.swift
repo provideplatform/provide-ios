@@ -97,8 +97,8 @@ func addHexagonalOutline(to view: UIView, borderWidth: CGFloat = 1, cornerLength
     maskLayer.lineJoin = kCALineJoinMiter
 
     // Mask path
-    let width = view.frame.width
-    let height = view.frame.height
+    let width = view.width
+    let height = view.height
     let maskPath = UIBezierPath()
     maskPath.move(to: CGPoint(x: cornerLength + halfLineWidth, y: halfLineWidth))
     maskPath.addLine(to: CGPoint(x: width - cornerLength - halfLineWidth, y: halfLineWidth))

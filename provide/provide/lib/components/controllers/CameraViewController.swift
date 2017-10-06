@@ -99,7 +99,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         button?.isEnabled = true
 
         DispatchQueue.main.async {
-            self.button?.frame.origin.y = self.view.frame.height - 8.0 - self.button.frame.height
+            self.button?.frame.origin.y = self.view.height - 8.0 - self.button.frame.height
         }
     }
 
@@ -182,7 +182,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         super.viewWillTransition(to: size, with: coordinator)
 
         DispatchQueue.main.async {
-            self.button?.frame.origin.y = self.view.frame.height - 8.0 - self.button.frame.height
+            self.button?.frame.origin.y = self.view.height - 8.0 - self.button.frame.height
             self.activeCameraView?.setCapturePreviewOrientationWithDeviceOrientation(UIDevice.current.orientation, size: size)
         }
     }

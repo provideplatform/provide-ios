@@ -140,7 +140,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             previewImageView?.contentMode = .scaleAspectFit
             previewImageView?.image = nil
             if let previewImage = workOrder.previewImage {
-                previewImageView?.image = previewImage.scaledToWidth(previewImageView.frame.width)
+                previewImageView?.image = previewImage.scaledToWidth(previewImageView.width)
             }
         }
     }

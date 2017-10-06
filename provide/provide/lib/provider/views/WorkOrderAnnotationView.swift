@@ -40,8 +40,8 @@ class WorkOrderAnnotationView: AnnotationView {
         isOpaque = false
         backgroundColor = .clear
 
-        selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
-        unselectedBackgroundColor = resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.frame.width, height: containerView.frame.height))
+        selectedBackgroundColor = resizedSelectedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.width, height: containerView.frame.height))
+        unselectedBackgroundColor = resizedBackgroundColorForRect(CGRect(x: 0.0, y: 0.0, width: containerView.width, height: containerView.frame.height))
 
         containerView.backgroundColor = unselectedBackgroundColor
         containerView.addDropShadow()

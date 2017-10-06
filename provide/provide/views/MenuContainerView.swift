@@ -95,16 +95,16 @@ class MenuContainerView: UIView {
 
         if let targetView = targetView {
             backgroundView = UIView(frame: targetView.bounds)
-            backgroundView.frame.size.height = max(targetView.bounds.height, targetView.bounds.width)
-            backgroundView.frame.size.width = max(targetView.bounds.height, targetView.bounds.width)
+            backgroundView.frame.size.height = max(targetView.height, targetView.bounds.width)
+            backgroundView.frame.size.width = max(targetView.height, targetView.bounds.width)
             backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeMenu)))
             backgroundView.backgroundColor = .black
             backgroundView.alpha = 0.0
 
             frame = CGRect(x: 0.0,
                            y: 0.0,
-                           width: targetView.bounds.width,
-                           height: targetView.bounds.height)
+                           width: targetView.width,
+                           height: targetView.height)
             frame.origin.x = closedMenuOffsetX
 
             targetView.addSubview(backgroundView)
@@ -129,7 +129,7 @@ class MenuContainerView: UIView {
 
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         if let navigationController = menuViewController.delegate?.navigationControllerForMenuViewController(menuViewController) {
-            let navbarHeight = navigationController.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
+            let navbarHeight = navigationController.navigationBar.height + UIApplication.shared.statusBarFrame.height
             if point.y <= navbarHeight {
                 return menuViewController.view.point(inside: point, with: event)
             }

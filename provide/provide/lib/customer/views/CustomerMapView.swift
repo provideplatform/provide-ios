@@ -45,8 +45,8 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
             if let annotationView = view(for: annotation) {
                 for _ in annotationView.subviews {
                     // if v is UIImageView {
-                    //     v.frame.size = CGSize(width: v.frame.width * scale,
-                    //                           height: v.frame.height * scale)
+                    //     v.frame.size = CGSize(width: v.width * scale,
+                    //                           height: v.height * scale)
                     // }
                 }
             }
@@ -86,7 +86,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
                     let imageView = UIImageView(image: icon)
 
                     view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
-                    view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0)
+                    view?.centerOffset = CGPoint(x: 0, y: (imageView.height / 2.0) * -1.0)
                     view?.addSubview(imageView)
                 }
             }

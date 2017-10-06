@@ -18,7 +18,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
     var workOrder: WorkOrder! {
         didSet {
             if let superview = superview {
-                frame.size.width = superview.bounds.width
+                frame.size.width = superview.width
             }
 
             gradientView.backgroundColor = .black

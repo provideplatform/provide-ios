@@ -349,9 +349,9 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         let inset = UIEdgeInsets(top: 10.0, left: 10.0, bottom: 0.0, right: 10.0)
         let insetWidthOffset = inset.left + inset.right
         if let superview = collectionView.superview {
-            return CGSize(width: superview.bounds.width - insetWidthOffset, height: 125.0)
+            return CGSize(width: superview.width - insetWidthOffset, height: 125.0)
         }
-        return CGSize(width: collectionView.bounds.width - insetWidthOffset, height: 125.0)
+        return CGSize(width: collectionView.width - insetWidthOffset, height: 125.0)
     }
 
     //    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {

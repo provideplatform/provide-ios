@@ -199,8 +199,8 @@ class MessagesViewController: JSQMessagesViewController {
     fileprivate func presentConfirmMediaViewController(image: UIImage) {
         selectedImage = image
 
-        let windowWidth = UIApplication.shared.keyWindow!.frame.width
-        let windowHeight = UIApplication.shared.keyWindow!.frame.height
+        let windowWidth = UIApplication.shared.keyWindow!.width
+        let windowHeight = UIApplication.shared.keyWindow!.height
 
         let confirmMediaViewController = UIViewController()
         let mediaImageView = UIImageView()
@@ -216,10 +216,10 @@ class MessagesViewController: JSQMessagesViewController {
         cancelButton.backgroundColor = .clear
         cancelButton.addTarget(self, action: #selector(cancelMediaConfirmation), for: .touchUpInside)
         cancelButton.sizeToFit()
-        cancelButton.frame = CGRect(x: (windowWidth * 0.25) - (cancelButton.frame.width / 2.0),
-                                    y: windowHeight - cancelButton.frame.height,
-                                    width: cancelButton.frame.width,
-                                    height: cancelButton.frame.height)
+        cancelButton.frame = CGRect(x: (windowWidth * 0.25) - (cancelButton.width / 2.0),
+                                    y: windowHeight - cancelButton.height,
+                                    width: cancelButton.width,
+                                    height: cancelButton.height)
         confirmMediaViewController.view.addSubview(cancelButton)
 
         let confirmButton = UIButton(type: .custom)
@@ -228,10 +228,10 @@ class MessagesViewController: JSQMessagesViewController {
         confirmButton.backgroundColor = .clear
         confirmButton.addTarget(self, action: #selector(confirmMediaSelectionAndSend), for: .touchUpInside)
         confirmButton.sizeToFit()
-        confirmButton.frame = CGRect(x: (windowWidth * 0.75) - (confirmButton.frame.width / 2.0),
-                                     y: windowHeight - confirmButton.frame.height,
-                                     width: confirmButton.frame.width,
-                                     height: confirmButton.frame.height)
+        confirmButton.frame = CGRect(x: (windowWidth * 0.75) - (confirmButton.width / 2.0),
+                                     y: windowHeight - confirmButton.height,
+                                     width: confirmButton.width,
+                                     height: confirmButton.height)
         confirmMediaViewController.view.addSubview(confirmButton)
 
         present(confirmMediaViewController, animated: false)
@@ -392,7 +392,7 @@ class MessagesViewController: JSQMessagesViewController {
         if let recipient = recipient {
             (navigationItem.titleView as! MessagesTitleView).configure(name: (recipient.firstName ?? recipient.name),
                                                                        profileImageUrl: recipient.profileImageUrl,
-                                                                       height: navigationController?.navigationBar.frame.height ?? 64.0)
+                                                                       height: navigationController?.navigationBar.height ?? 64.0)
         }
     }
 

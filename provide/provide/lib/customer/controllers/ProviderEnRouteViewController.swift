@@ -21,7 +21,7 @@ class ProviderEnRouteViewController: ViewController {
             if workOrder == nil {
                 if oldValue != nil {
                     UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y += self.view.frame.height
+                        self.view.frame.origin.y += self.view.height
                     }, completion: { completed in
                         if self.workOrder == nil {
                             self.activityIndicatorView.startAnimating()
@@ -53,7 +53,7 @@ class ProviderEnRouteViewController: ViewController {
 
                 if oldValue == nil {
                     UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y -= self.view.frame.height
+                        self.view.frame.origin.y -= self.view.height
                     }, completion: { completed in
                         logInfo("Presented provider en route for work order: \(self.workOrder!)")
                     })

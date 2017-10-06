@@ -35,7 +35,7 @@ class ConfirmWorkOrderViewController: ViewController {
             if workOrder == nil {
                 if oldValue != nil {
                     UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y += self.view.frame.height
+                        self.view.frame.origin.y += self.view.height
                     }, completion: { completed in
                         if self.workOrder == nil {
                             self.activityIndicatorView.stopAnimating()
@@ -82,7 +82,7 @@ class ConfirmWorkOrderViewController: ViewController {
 
                 if oldValue == nil {
                     UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y -= self.view.frame.height
+                        self.view.frame.origin.y -= self.view.height
                     }, completion: { completed in
                         logInfo("Presented work order for confirmation: \(self.workOrder!)")
                     })

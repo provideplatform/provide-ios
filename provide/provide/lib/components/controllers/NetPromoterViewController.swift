@@ -27,9 +27,9 @@ class NetPromoterViewController: WorkOrderComponentViewController {
     override func render() {
         let frame = CGRect(
             x: 0.0,
-            y: targetView.frame.height,
-            width: targetView.frame.width,
-            height: targetView.frame.height)
+            y: targetView.height,
+            width: targetView.width,
+            height: targetView.height)
 
         view.alpha = 0.0
         view.frame = frame
@@ -49,9 +49,9 @@ class NetPromoterViewController: WorkOrderComponentViewController {
             self.view.alpha = 0
             self.view.frame = CGRect(
                 x: self.view.frame.origin.x,
-                y: -self.view.frame.height,
-                width: self.view.frame.width,
-                height: self.view.frame.height
+                y: -self.view.height,
+                width: self.view.width,
+                height: self.view.height
             )
         })
     }

@@ -11,9 +11,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     var initialFrame: CGRect {
         return CGRect(
             x: view.frame.origin.x,
-            y: view.frame.height * -2,
-            width: view.frame.width,
-            height: view.frame.height
+            y: view.height * -2,
+            width: view.width,
+            height: view.height
         )
     }
 
@@ -76,16 +76,16 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         //var frame = initialFrame
         var frame = CGRect(
             x: 0.0,
-            y: targetView.frame.height,
-            width: targetView.frame.width,
-            height: view.frame.height
+            y: targetView.height,
+            width: targetView.width,
+            height: view.height
         )
 
         if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
             frame = CGRect(
                 x: frame.origin.x,
-                y: navigationController.navigationBar.frame.height + navigationController.navigationBar.frame.origin.y,
-                width: navigationController.navigationBar.frame.width,
+                y: navigationController.navigationBar.height + navigationController.navigationBar.frame.origin.y,
+                width: navigationController.navigationBar.width,
                 height: frame.height
             )
         }

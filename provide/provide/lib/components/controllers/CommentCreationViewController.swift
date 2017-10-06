@@ -49,9 +49,9 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
     fileprivate var hiddenNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
-            y: targetView.frame.height,
-            width: targetView.frame.width,
-            height: targetView.frame.height / 1.333
+            y: targetView.height,
+            width: targetView.width,
+            height: targetView.height / 1.333
         )
     }
 
@@ -116,7 +116,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
                 navigationController.view.alpha = 1
                 navigationController.view.frame = CGRect(
                     x: frame.origin.x,
-                    y: frame.origin.y - navigationController.view.frame.height,
+                    y: frame.origin.y - navigationController.view.height,
                     width: frame.width,
                     height: frame.height
                 )

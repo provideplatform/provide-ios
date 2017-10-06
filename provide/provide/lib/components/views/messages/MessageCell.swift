@@ -58,16 +58,16 @@ class MessageCell: JSQMessagesCollectionViewCell {
     }
 
     private func presentMediaViewController(containerView: UIView?) {
-        //        let aspectWidth = collectionView Controller.navigationController!.view.frame.width
-        //        let aspectRatio = aspectWidth / collectionViewController.navigationController!.view.frame.height
+        //        let aspectWidth = collectionView Controller.navigationController!.view.width
+        //        let aspectRatio = aspectWidth / collectionViewController.navigationController!.view.height
 
         let mediaViewController = UIViewController()
         if let imageView = containerView?.subviews.first as? UIImageView, let image = imageView.image {
             let mediaImageView = UIImageView()
             mediaImageView.frame = CGRect(x: 0.0,
                                           y: 0.0,
-                                          width: collectionViewController.collectionView.frame.width,
-                                          height: collectionViewController.collectionView.frame.height)
+                                          width: collectionViewController.collectionView.width,
+                                          height: collectionViewController.collectionView.height)
             mediaImageView.center = collectionViewController.collectionView.center
             mediaImageView.contentMode = .scaleAspectFit
             mediaImageView.image = image
@@ -120,7 +120,7 @@ class MessageCell: JSQMessagesCollectionViewCell {
             textView?.sizeToFit()
 
             if let containerView = textView?.superview, message.senderID == currentUser.id {
-                textView?.frame.origin = CGPoint(x: containerView.frame.width - self.textView!.frame.width, y: 0.0)
+                textView?.frame.origin = CGPoint(x: containerView.width - self.textView!.frame.width, y: 0.0)
             }
 
             textView?.alpha = 1.0

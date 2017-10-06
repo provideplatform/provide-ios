@@ -251,7 +251,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             presentDestinationInputViewController()
             UIView.animate(withDuration: 0.25) {
                 if let destinationInputView = self.destinationInputViewController.view,  destinationInputView.frame.origin.y == 0 {
-                    destinationInputView.frame.origin.y += self.view.frame.height * 0.1
+                    destinationInputView.frame.origin.y += self.view.height * 0.1
                     if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
                         destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
                     }
@@ -266,10 +266,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationInputView.removeFromSuperview()
             mapView.addSubview(destinationInputView)
 
-            destinationInputView.frame.size.width = mapView.frame.width
+            destinationInputView.frame.size.width = mapView.width
             destinationInputView.isHidden = false
             if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-                destinationInputTextField.frame.size.width = destinationInputView.frame.width - (destinationInputTextField.frame.origin.x * 2.0)
+                destinationInputTextField.frame.size.width = destinationInputView.width - (destinationInputTextField.frame.origin.x * 2.0)
             }
         }
 
@@ -278,10 +278,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             destinationResultsView.removeFromSuperview()
             mapView.addSubview(destinationResultsView)
 
-            destinationResultsView.frame.origin.y = mapView.frame.height
-            destinationResultsView.frame.size.width = mapView.frame.width
+            destinationResultsView.frame.origin.y = mapView.height
+            destinationResultsView.frame.size.width = mapView.width
             if let destinationResultsTableView = destinationResultsView.subviews.first as? UITableView {
-                destinationResultsTableView.frame.size.width = destinationResultsView.frame.width
+                destinationResultsTableView.frame.size.width = destinationResultsView.width
             }
 
             destinationResultsView.isHidden = false
@@ -294,8 +294,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             confirmWorkOrderView.removeFromSuperview()
             mapView.addSubview(confirmWorkOrderView)
 
-            confirmWorkOrderView.frame.size.width = mapView.frame.width
-            confirmWorkOrderView.frame.origin.y = mapView.frame.height
+            confirmWorkOrderView.frame.size.width = mapView.width
+            confirmWorkOrderView.frame.origin.y = mapView.height
             confirmWorkOrderView.isHidden = false
         }
     }
@@ -306,8 +306,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             providerEnRouteView.removeFromSuperview()
             mapView.addSubview(providerEnRouteView)
 
-            providerEnRouteView.frame.size.width = mapView.frame.width
-            providerEnRouteView.frame.origin.y = mapView.frame.height
+            providerEnRouteView.frame.size.width = mapView.width
+            providerEnRouteView.frame.origin.y = mapView.height
             providerEnRouteView.isHidden = false
         }
     }

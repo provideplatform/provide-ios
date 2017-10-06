@@ -95,9 +95,9 @@ class DirectionsViewController: ViewController {
 
         let frame = CGRect(
             x: 0.0,
-            y: targetView.frame.height,
-            width: targetView.frame.width,
-            height: view.frame.height)
+            y: targetView.height,
+            width: targetView.width,
+            height: view.height)
 
         view.alpha = 0.0
         view.frame = frame
@@ -107,8 +107,8 @@ class DirectionsViewController: ViewController {
         directionsInstructionView.frame = CGRect(
             x: directionsInstructionView.frame.origin.x,
             y: directionsInstructionView.frame.origin.y,
-            width: targetView.frame.width,
-            height: directionsInstructionView.frame.height)
+            width: targetView.width,
+            height: directionsInstructionView.height)
 
         directionsInstructionView.routeLeg = nil
         refreshInstructions()
@@ -117,7 +117,7 @@ class DirectionsViewController: ViewController {
             self.view.alpha = 1
             self.view.frame = CGRect(
                 x: frame.origin.x,
-                y: frame.origin.y - self.view.frame.height,
+                y: frame.origin.y - self.view.height,
                 width: frame.width,
                 height: frame.height
             )
@@ -343,9 +343,9 @@ class DirectionsViewController: ViewController {
             self.view.alpha = 0
             self.view.frame = CGRect(
                 x: self.view.frame.origin.x,
-                y: self.view.frame.origin.y + self.view.frame.height,
-                width: self.view.frame.width,
-                height: self.view.frame.height
+                y: self.view.frame.origin.y + self.view.height,
+                width: self.view.width,
+                height: self.view.height
             )
         }, completion: { completed in
             self.view.removeFromSuperview()

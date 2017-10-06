@@ -33,7 +33,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     fileprivate var zeroStateViewController: ZeroStateViewController!
 
     fileprivate var isColumnedLayout: Bool {
-        return view.frame.width > 414.0
+        return view.width > 414.0
     }
 
     fileprivate var numberOfSections: Int {
@@ -145,7 +145,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         let inset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
-        return CGSize(width: collectionView.frame.width - insetWidthOffset, height: 175.0)
+        return CGSize(width: collectionView.width - insetWidthOffset, height: 175.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

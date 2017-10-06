@@ -108,7 +108,7 @@ class WorkOrderMapView: MapView {
                 let imageView = userLocationImageView
 
                 view = MKAnnotationView(annotation: annotation, reuseIdentifier: userLocationAnnotationViewReuseIdentifier)
-                view?.centerOffset = CGPoint(x: 0, y: (imageView.bounds.height / 2.0) * -1.0)
+                view?.centerOffset = CGPoint(x: 0, y: (imageView.height / 2.0) * -1.0)
                 view?.addSubview(imageView)
             }
         } else {

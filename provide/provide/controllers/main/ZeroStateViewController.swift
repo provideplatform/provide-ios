@@ -23,10 +23,10 @@ class ZeroStateViewController: ViewController {
         view.tintColor = .white
 
         view.alpha = 0.0
-        view.frame.origin.y = view.frame.height
+        view.frame.origin.y = view.height
 
         backgroundSubview = UIView(frame: view.bounds)
-        let size = max(backgroundSubview.frame.width, backgroundSubview.frame.height)
+        let size = max(backgroundSubview.width, backgroundSubview.frame.height)
         backgroundSubview.frame.size = CGSize(width: size, height: size)
         backgroundSubview.alpha = 0.78
         backgroundSubview.backgroundColor = .black
@@ -65,11 +65,11 @@ class ZeroStateViewController: ViewController {
         if animated {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.view.alpha = 1.0
-                self.view.frame.origin.y -= self.view.frame.height
+                self.view.frame.origin.y -= self.view.height
             })
         } else {
             view.alpha = 1.0
-            view.frame.origin.y -= view.frame.height
+            view.frame.origin.y -= view.height
         }
     }
 
@@ -77,7 +77,7 @@ class ZeroStateViewController: ViewController {
         if view.superview != nil {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
                 self.view.alpha = 0.0
-                self.view.frame.origin.y += self.view.frame.height
+                self.view.frame.origin.y += self.view.height
             }, completion: { completed in
                 self.view.removeFromSuperview()
             })
