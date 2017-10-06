@@ -279,22 +279,22 @@ class WorkOrder: Model {
                 if let destination = config["destination"] as? [String: AnyObject] {
                     let latitude = destination["latitude"] as? Double
                     let longitude = destination["longitude"] as? Double
-                    if latitude != nil && longitude != nil {
-                        return CLLocationCoordinate2DMake(latitude!, longitude!)
+                    if let latitude = latitude, let longitude = longitude {
+                        return CLLocationCoordinate2DMake(latitude, longitude)
                     }
                 }
             } else {
                 if let currentLocation = config["current_location"] as? [String: Double] {
                     let latitude = currentLocation["latitude"]
                     let longitude = currentLocation["longitude"]
-                    if latitude != nil && longitude != nil {
-                        return CLLocationCoordinate2DMake(latitude!, longitude!)
+                    if let latitude = latitude, let longitude = longitude {
+                        return CLLocationCoordinate2DMake(latitude, longitude)
                     }
                 } else if let origin = config["origin"] as? [String: AnyObject] {
                     let latitude = origin["latitude"] as? Double
                     let longitude = origin["longitude"] as? Double
-                    if latitude != nil && longitude != nil {
-                        return CLLocationCoordinate2DMake(latitude!, longitude!)
+                    if let latitude = latitude, let longitude = longitude {
+                        return CLLocationCoordinate2DMake(latitude, longitude)
                     }
                 }
             }

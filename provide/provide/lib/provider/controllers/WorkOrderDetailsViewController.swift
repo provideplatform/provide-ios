@@ -106,9 +106,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             }
         }
 
-        if tableView != nil {
-            reloadTableView()
-        }
+        reloadTableView()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -133,14 +131,8 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     func reloadTableView() {
         tableView?.reloadData()
-
-        if let headerTableViewController = headerTableViewController {
-            headerTableViewController.reloadTableView()
-        }
-
-        if let mediaCollectionView = mediaCollectionView {
-            mediaCollectionView.reloadData()
-        }
+        headerTableViewController?.reloadTableView()
+        mediaCollectionView?.reloadData()
     }
 
     // MARK: UITableViewDelegate

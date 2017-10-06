@@ -33,8 +33,8 @@ class User: Model {
     }
 
     var coordinate: CLLocationCoordinate2D! {
-        if lastCheckinLatitude != nil && lastCheckinLongitude != nil {
-            return CLLocationCoordinate2DMake(lastCheckinLatitude.doubleValue, lastCheckinLongitude.doubleValue)
+        if let latitude = lastCheckinLatitude, let longitude = lastCheckinLongitude {
+            return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue)
         }
         return nil
     }

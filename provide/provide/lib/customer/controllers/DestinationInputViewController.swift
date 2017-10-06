@@ -18,9 +18,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
     weak var destinationResultsViewController: DestinationResultsViewController! {
         didSet {
-            if destinationResultsViewController != nil {
-                destinationResultsViewController.delegate = self
-            }
+            destinationResultsViewController?.delegate = self
         }
     }
 
@@ -38,8 +36,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     fileprivate var placemark: CLPlacemark! {
         didSet {
             if let placemark = placemark {
-                if placemark.thoroughfare != nil && placemark.subThoroughfare != nil {
-                    self.originTextField.text = "\(placemark.subThoroughfare!) \(placemark.thoroughfare!)"
+                if let subThoroughfare = placemark.subThoroughfare, let thoroughfare = placemark.thoroughfare {
+                    self.originTextField.text = "\(subThoroughfare) \(thoroughfare)"
                 }
             } else {
                 self.originTextField.text = ""

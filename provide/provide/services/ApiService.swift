@@ -112,16 +112,16 @@ class ApiService: NSObject {
         let userEmail = jwt.body["email"] as? String
         let userName = jwt.body["name"] as? String
 
-        if tokenId != nil && token != nil && uuid != nil && userId != nil && userEmail != nil && userName != nil {
+        if let tokenId = tokenId, let token = token, let uuid = uuid, let userId = userId, let userEmail = userEmail, let userName = userName {
             let t = Token()
-            t.id = tokenId!
+            t.id = tokenId
             t.token = token
             t.uuid = uuid
 
             let user = User()
-            user.id = userId!
-            user.email = userEmail!
-            user.name = userName!
+            user.id = userId
+            user.email = userEmail
+            user.name = userName
             t.user = user
 
             currentUser = user

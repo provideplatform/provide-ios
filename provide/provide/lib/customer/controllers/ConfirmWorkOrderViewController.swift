@@ -23,10 +23,8 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var fareEstimate: UILabel!
     @IBOutlet private weak var userIconImageView: UIImageView! {
         didSet {
-            if userIconImageView != nil {
-                userIconImageView.image = userIconImageView.image!.withRenderingMode(.alwaysTemplate)
-                userIconImageView.tintColor = .lightGray
-            }
+            userIconImageView?.image = userIconImageView?.image?.withRenderingMode(.alwaysTemplate)
+            userIconImageView?.tintColor = .lightGray
         }
     }
 

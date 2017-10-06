@@ -32,8 +32,8 @@ class Token: Model {
     }
 
     var authorizationHeaderString: String! {
-        if token != nil && uuid != nil {
-            return "Basic " + "\(token!):\(uuid!)".base64EncodedString
+        if let token = token, let uuid = uuid {
+            return "Basic " + "\(token):\(uuid)".base64EncodedString
         }
         return nil
     }

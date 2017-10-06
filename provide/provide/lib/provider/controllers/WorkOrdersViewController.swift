@@ -220,7 +220,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func requireProviderContext() {
-        if currentProvider != nil {
+        if let currentProvider = currentProvider {
             logInfo("Current provider context has already been established: \(currentProvider)")
             if currentProvider.isAvailable {
                 CheckinService.shared.start()
@@ -537,6 +537,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
             "WorkOrderComponentViewControllerUnwindSegue",
         ].index(of: segueIdentifier)
+
         if index != nil {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }

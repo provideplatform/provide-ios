@@ -43,7 +43,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         titleLabel.text = ""
         addressTextView.text = ""
 
-        if workOrder != nil {
+        if let workOrder = workOrder {
             if let customer = workOrder.customer {
                 if customer.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl

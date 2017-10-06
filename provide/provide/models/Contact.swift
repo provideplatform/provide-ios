@@ -55,27 +55,27 @@ class Contact: Model {
 
     var address: String {
         var address = ""
-        if address1 != nil {
-            address += address1!
+        if let address1 = address1 {
+            address += address1
         }
-        if address2 != nil {
+        if let address2 = address2 {
             address += "\n\(address2)"
         }
-        if city != nil {
-            address += "\n\(city!), "
+        if let city = city {
+            address += "\n\(city), "
         }
-        if state != nil {
-            address += "\(state!) "
+        if let state = state {
+            address += "\(state) "
         }
-        if zip != nil {
-            address += "\(zip!)"
+        if let zip = zip {
+            address += "\(zip)"
         }
         return address
     }
 
     func merge(placemark: CLPlacemark) {
-        if placemark.thoroughfare != nil && placemark.subThoroughfare != nil {
-            address1 = "\(placemark.subThoroughfare!) \(placemark.thoroughfare!)"
+        if let subThoroughfare = placemark.subThoroughfare, let thoroughfare = placemark.thoroughfare {
+            address1 = "\(subThoroughfare) \(thoroughfare)"
         }
 
         if let locality = placemark.locality {

@@ -170,8 +170,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             foreground()
         }
 
-        if durableKey != nil {
-            onLocationResolvedDurableCallbacks[durableKey!] = onResolved
+        if let durableKey = durableKey {
+            onLocationResolvedDurableCallbacks[durableKey] = onResolved
         } else if !allowCachedLocation {
             onLocationResolvedCallbacks.append(onResolved)
         }
@@ -249,7 +249,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             return
         }
 
-        if allowCachedHeading && currentHeading != nil {
+        if let currentHeading = currentHeading, allowCachedHeading {
             onResolved(currentHeading)
         } else if !requireNavigationAccuracy {
             startUpdatingHeading()
