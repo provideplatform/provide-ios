@@ -40,14 +40,9 @@ class ApplicationViewController: UIViewController,
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        coordinator.animate(
-            alongsideTransition: { context in
-                self.menuContainerView?.redraw(size)
-            },
-            completion: { context in
-
-            }
-        )
+        coordinator.animate(alongsideTransition: { context in
+            self.menuContainerView?.redraw(size)
+        })
     }
 
     override func viewDidLoad() {

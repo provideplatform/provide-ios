@@ -315,9 +315,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                                 statusCell.setName("\(workOrder.status.uppercased())", value: duration)
                             }
                         }
-                    },
-                    completion: { complete in
-
                     }
                 )
             }

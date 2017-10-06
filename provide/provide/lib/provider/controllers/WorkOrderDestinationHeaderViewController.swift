@@ -115,7 +115,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             animations: {
                 self.view.alpha = 0
                 self.view.frame = self.initialFrame
-
             },
             completion: { complete in
                 self.view.removeFromSuperview()

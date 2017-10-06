@@ -318,7 +318,6 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         var callbacks = geofenceCallbacks[identifier]
         if callbacks == nil {
             callbacks = [String: VoidBlock]()
-
         }
         callbacks!["didEnterRegion"] = onDidEnterRegion
         callbacks!["didExitRegion"] = onDidExitRegion

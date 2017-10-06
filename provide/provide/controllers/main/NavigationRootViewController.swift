@@ -93,9 +93,7 @@ class NavigationRootViewController: ViewController,
     // MARK: ApplicationViewControllerDelegate
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
-        dismiss(animated: true) {
-
-        }
+        dismiss(animated: true)
     }
 
     // MARK: PinInputViewControllerDelegate

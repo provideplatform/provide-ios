@@ -142,7 +142,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     )
                 }
             )
-
         }
     }
 
@@ -193,7 +192,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                                          selector: #selector(search),
                                          userInfo: nil,
                                          repeats: true)
-
         }
     }
 

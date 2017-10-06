@@ -149,9 +149,6 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             animations: {
                 let alpha = self.statusBackgroundView?.alpha == 0.0 ? 0.9 : 0.0
                 self.statusBackgroundView?.alpha = CGFloat(alpha)
-            },
-            completion: { complete in
-
             }
         )
     }

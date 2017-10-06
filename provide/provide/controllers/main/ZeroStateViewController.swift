@@ -67,9 +67,6 @@ class ZeroStateViewController: ViewController {
                 animations: {
                     self.view.alpha = 1.0
                     self.view.frame.origin.y -= self.view.frame.height
-                },
-                completion: { completed in
-
                 }
             )
         } else {

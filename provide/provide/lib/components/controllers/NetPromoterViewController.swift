@@ -36,39 +36,24 @@ class NetPromoterViewController: WorkOrderComponentViewController {
 
         targetView.addSubview(view)
 
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-            animations: {
-                self.view.alpha = 1
-                self.view.frame = CGRect(
-                    x: 0.0,
-                    y: 0.0,
-                    width: frame.width,
-                    height: frame.height
-                )
-            },
-            completion: { complete in
-
-            }
-        )
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+            self.view.alpha = 1
+            self.view.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+        })
     }
 
     override func unwind() {
         clearNavigationItem()
 
-        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut,
-            animations: {
-                self.view.alpha = 0
-                self.view.frame = CGRect(
-                    x: self.view.frame.origin.x,
-                    y: -self.view.frame.height,
-                    width: self.view.frame.width,
-                    height: self.view.frame.height
-                )
-            },
-            completion: { complete in
-
-            }
-        )
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
+            self.view.alpha = 0
+            self.view.frame = CGRect(
+                x: self.view.frame.origin.x,
+                y: -self.view.frame.height,
+                width: self.view.frame.width,
+                height: self.view.frame.height
+            )
+        })
     }
 
     @IBAction func cancel(_ sender: UIButton) {

@@ -79,9 +79,6 @@ class WorkOrderTableViewCell: UITableViewCell {
             animations: {
                 let alpha = self.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
                 self.backgroundView?.alpha = CGFloat(alpha)
-            },
-            completion: { complete in
-
             }
         )
     }
