@@ -68,10 +68,10 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    var directionsViewControllerDelegate: DirectionsViewControllerDelegate!
+    weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
 
     fileprivate var targetView: UIView {
-        return directionsViewControllerDelegate.targetViewForViewController(self)
+        return directionsViewControllerDelegate!.targetViewForViewController(self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +81,7 @@ class DirectionsViewController: ViewController {
     // MARK: Rendering
 
     func render() {
-        if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
                 if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                     mapView.addAnnotation(inProgressWorkOrder.annotation)
@@ -159,7 +159,7 @@ class DirectionsViewController: ViewController {
     }
 
     fileprivate func setCenterCoordinate(_ location: CLLocation) {
-        if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             var sufficientDelta = false
             if let lastLocation = LocationService.shared.currentLocation {
                 let lastCoordinate = lastLocation.coordinate
@@ -292,7 +292,7 @@ class DirectionsViewController: ViewController {
     }
 
     fileprivate func renderRouteOverview() {
-        if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             mapView.removeOverlays(mapView.overlays)
 
             if let directions = directions {
@@ -340,7 +340,7 @@ class DirectionsViewController: ViewController {
         CheckinService.shared.disableNavigationAccuracy()
         LocationService.shared.disableNavigationAccuracy()
 
-        if let mapView = directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             if let mapView = mapView as? WorkOrderMapView {
                 mapView.removeAnnotations()
                 mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
@@ -361,7 +361,7 @@ class DirectionsViewController: ViewController {
             )
         }, completion: { completed in
             self.view.removeFromSuperview()
-            if let mapView = self.directionsViewControllerDelegate.mapViewForDirectionsViewController(self) {
+            if let mapView = self.directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
                 mapView.removeOverlays(mapView.overlays)
                 mapView.enableUserInteraction()
                 mapView.camera.pitch = 0.0

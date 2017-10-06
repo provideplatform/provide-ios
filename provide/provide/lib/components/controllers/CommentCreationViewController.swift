@@ -20,7 +20,7 @@ protocol CommentCreationViewControllerDelegate {
 
 class CommentCreationViewController: WorkOrderComponentViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITextViewDelegate {
 
-    var commentCreationViewControllerDelegate: CommentCreationViewControllerDelegate!
+    weak var commentCreationViewControllerDelegate: CommentCreationViewControllerDelegate?
 
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
     @IBOutlet fileprivate weak var textView: UITextView!

@@ -27,7 +27,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
 
     let fadeStartDelay = 0.1
 
-    var delegate: PinInputControlDelegate? // Public
+    weak var delegate: PinInputControlDelegate? // Public
 
     fileprivate var pin: String = ""
 

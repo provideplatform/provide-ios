@@ -22,7 +22,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         }
     }
 
-    var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
+    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,7 +33,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     }
 
     func render() {
-        if let mapView = workOrdersViewControllerDelegate.mapViewForViewController?(nil) {
+        if let mapView = workOrdersViewControllerDelegate?.mapViewForViewController?(nil) {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
 
             workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)

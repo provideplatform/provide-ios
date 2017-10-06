@@ -15,7 +15,7 @@ protocol SetPasswordViewControllerDelegate: class {
 
 class SetPasswordViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
-    var delegate: SetPasswordViewControllerDelegate!
+    weak var delegate: SetPasswordViewControllerDelegate?
 
     @IBOutlet fileprivate weak var tableView: UITableView!
 

@@ -19,10 +19,10 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     var targetView: UIView! {
-        return workOrdersViewControllerDelegate.targetViewForViewController?(self)
+        return workOrdersViewControllerDelegate?.targetViewForViewController?(self)
     }
 
-    var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
+    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
     fileprivate var minutesEta: Int! {
         didSet {
@@ -131,28 +131,28 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     fileprivate func setupNavigationItem() {
-        if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = "CONFIRMATION"
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
         }
     }
 
     fileprivate func clearNavigationItem() {
-        if let navigationItem = workOrdersViewControllerDelegate.navigationControllerNavigationItemForViewController?(self) {
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = nil
 
             navigationItem.leftBarButtonItems = []
             navigationItem.rightBarButtonItems = []
         }
 
-        workOrdersViewControllerDelegate.navigationControllerNavBarButtonItemsShouldBeResetForViewController?(self)
+        workOrdersViewControllerDelegate?.navigationControllerNavBarButtonItemsShouldBeResetForViewController?(self)
     }
 
     // MARK: Actions
 
     @objc fileprivate func cancel(_: UIBarButtonItem) {
         clearNavigationItem()
-        workOrdersViewControllerDelegate.confirmationCanceledForWorkOrderViewController?(self)
+        workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
     }
 
     // MARK: WorkOrdersViewControllerDelegate

@@ -41,7 +41,7 @@ protocol CameraViewDelegate: class {
 
 class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate, AVCaptureMetadataOutputObjectsDelegate {
 
-    var delegate: CameraViewDelegate!
+    weak var delegate: CameraViewDelegate?
 
     fileprivate let avAudioOutputQueue = DispatchQueue(label: "api.avAudioOutputQueue", attributes: [])
     fileprivate let avCameraOutputQueue = DispatchQueue(label: "api.avCameraOutputQueue", attributes: [])

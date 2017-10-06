@@ -20,7 +20,7 @@ protocol WorkOrderDetailsHeaderTableViewControllerDelegate: class {
 
 class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrderDetailsHeaderTableViewCellDelegate {
 
-    var workOrderDetailsHeaderTableViewControllerDelegate: WorkOrderDetailsHeaderTableViewControllerDelegate!
+    weak var workOrderDetailsHeaderTableViewControllerDelegate: WorkOrderDetailsHeaderTableViewControllerDelegate?
 
     weak var workOrder: WorkOrder! {
         didSet {

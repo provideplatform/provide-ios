@@ -15,7 +15,7 @@ protocol ApplicationViewControllerDelegate: class {
 
 class ApplicationViewController: UIViewController, CameraViewControllerDelegate {
 
-    var applicationViewControllerDelegate: ApplicationViewControllerDelegate!
+    weak var applicationViewControllerDelegate: ApplicationViewControllerDelegate?
 
     fileprivate var topViewController: UIViewController!
 

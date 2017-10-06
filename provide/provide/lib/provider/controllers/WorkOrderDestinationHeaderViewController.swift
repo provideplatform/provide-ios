@@ -18,14 +18,14 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     }
 
     var targetView: UIView! {
-        return workOrdersViewControllerDelegate.targetViewForViewController?(self)
+        return workOrdersViewControllerDelegate!.targetViewForViewController?(self)
     }
 
     weak var workOrder: WorkOrder! {
         return WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
     }
 
-    var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
+    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
     fileprivate let rendered = false
 
@@ -81,7 +81,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             height: view.frame.height
         )
 
-        if let navigationController = workOrdersViewControllerDelegate.navigationControllerForViewController?(self) {
+        if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
             frame = CGRect(
                 x: frame.origin.x,
                 y: navigationController.navigationBar.frame.height + navigationController.navigationBar.frame.origin.y,

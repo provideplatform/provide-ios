@@ -19,7 +19,7 @@ protocol WebViewControllerDelegate {
 
 class WebViewController: ViewController, UIWebViewDelegate {
 
-    var webViewControllerDelegate: WebViewControllerDelegate!
+    weak var webViewControllerDelegate: WebViewControllerDelegate?
 
     @IBOutlet fileprivate weak var webView: UIWebView! {
         didSet {

@@ -29,7 +29,7 @@ protocol CameraViewControllerDelegate: class {
 
 class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var delegate: CameraViewControllerDelegate!
+    weak var delegate: CameraViewControllerDelegate?
     var mode: ActiveDeviceCapturePosition = .back
     var outputMode: CameraOutputMode = .photo
 

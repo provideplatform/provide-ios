@@ -15,7 +15,7 @@ protocol MenuHeaderViewDelegate: class {
 
 class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    var delegate: MenuHeaderViewDelegate!
+    weak var delegate: MenuHeaderViewDelegate?
 
     @IBOutlet fileprivate weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var profileImageView: UIImageView!

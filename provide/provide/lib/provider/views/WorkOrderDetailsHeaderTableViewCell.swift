@@ -21,7 +21,7 @@ protocol WorkOrderDetailsHeaderTableViewCellDelegate: class {
 
 class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    var workOrderDetailsHeaderTableViewCellDelegate: WorkOrderDetailsHeaderTableViewCellDelegate!
+    weak var workOrderDetailsHeaderTableViewCellDelegate: WorkOrderDetailsHeaderTableViewCellDelegate?
 
     weak var workOrder: WorkOrder! {
         didSet {
