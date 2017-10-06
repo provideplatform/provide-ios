@@ -12,9 +12,7 @@ class DirectionsTableViewController: UITableViewController {
 
     var directions: Directions! {
         didSet {
-            if let tableView = tableView {
-                tableView.reloadData()
-            }
+            tableView?.reloadData()
         }
     }
 

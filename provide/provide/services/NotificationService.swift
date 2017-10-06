@@ -71,20 +71,13 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
         switch notificationType {
         case .attachment:
-            if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool {
-                if refreshProfileImage {
-                    if let token = KeyChainService.shared.token {
-                        if let user = token.user {
-                            user.reload(
-                                onSuccess: { statusCode, mappingResult in
-                                    NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
-                                },
-                                onError: { error, statusCode, responseString in
-                                    logError(error)
-                                }
-                            )
-                        }
-                    }
+            if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool, refreshProfileImage {
+                if let token = KeyChainService.shared.token, let user = token.user {
+                    user.reload(onSuccess: { statusCode, mappingResult in
+                        NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
+                    }, onError: { error, statusCode, responseString in
+                        logError(error)
+                    })
                 }
             }
 
@@ -116,10 +109,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     )
                 }
 
-                if let providerRemoved = userInfo["provider_removed"] as? Bool {
-                    if providerRemoved {
-                        log("provider removed from work order id \(workOrderId)")
-                    }
+                if let providerRemoved = userInfo["provider_removed"] as? Bool, providerRemoved {
+                    log("provider removed from work order id \(workOrderId)")
                 } else {
                     if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                         if inProgressWorkOrder.id == workOrderId {
@@ -185,11 +176,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 if let url = payload!["url"] as? String {
                                     attachment.urlString = url // FIXME-- marshall with proper mapping
                                 }
-                                if let attachableType = attachment.attachableType {
-                                    if attachableType == "work_order" {
-                                        if let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
-                                            workOrder.mergeAttachment(attachment)
-                                        }
+
+                                if let attachableType = attachment.attachableType, attachableType == "work_order" {
+                                    if let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
+                                        workOrder.mergeAttachment(attachment)
                                     }
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
@@ -206,11 +196,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 }
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
                             case "provider_became_unavailable":
-                                if let providerId = payload?["provider_id"] as? Int {
-                                    if let provider = ProviderService.shared.cachedProvider(providerId) {
-                                        ProviderService.shared.removeProvider(providerId)
-                                        NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
-                                    }
+                                if let providerId = payload?["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
+                                    ProviderService.shared.removeProvider(providerId)
+                                    NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
                                 }
                             case "provider_location_changed":
                                 let providerJson = payload!.toJSONString()

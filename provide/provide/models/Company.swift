@@ -22,28 +22,22 @@ class Company: Model {
     }
 
     var flooringMaterialTier1CostPerSqFt: Double {
-        if let config = config {
-            if let costPerSqFt = config["flooring_material_tier1_cost_per_sq_ft"] as? Double {
-                return costPerSqFt
-            }
+        if let config = config, let costPerSqFt = config["flooring_material_tier1_cost_per_sq_ft"] as? Double {
+            return costPerSqFt
         }
         return -1.0
     }
 
     var flooringMaterialTier2CostPerSqFt: Double {
-        if let config = config {
-            if let costPerSqFt = config["flooring_material_tier2_cost_per_sq_ft"] as? Double {
-                return costPerSqFt
-            }
+        if let config = config, let costPerSqFt = config["flooring_material_tier2_cost_per_sq_ft"] as? Double {
+            return costPerSqFt
         }
         return -1.0
     }
 
     var flooringMaterialTier3CostPerSqFt: Double {
-        if let config = config {
-            if let costPerSqFt = config["flooring_material_tier3_cost_per_sq_ft"] as? Double {
-                return costPerSqFt
-            }
+        if let config = config, let costPerSqFt = config["flooring_material_tier3_cost_per_sq_ft"] as? Double {
+            return costPerSqFt
         }
         return -1.0
     }
@@ -55,8 +49,7 @@ class Company: Model {
             "name",
             "has_quickbooks_integration",
             "config",
-            ]
-        )
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!
     }

@@ -62,20 +62,18 @@ class MessageCell: JSQMessagesCollectionViewCell {
         //        let aspectRatio = aspectWidth / collectionViewController.navigationController!.view.frame.height
 
         let mediaViewController = UIViewController()
-        if let imageView = containerView?.subviews.first as? UIImageView {
-            if let image = imageView.image {
-                let mediaImageView = UIImageView()
-                mediaImageView.frame = CGRect(x: 0.0,
-                                              y: 0.0,
-                                              width: collectionViewController.collectionView.frame.width,
-                                              height: collectionViewController.collectionView.frame.height)
-                mediaImageView.center = collectionViewController.collectionView.center
-                mediaImageView.contentMode = .scaleAspectFit
-                mediaImageView.image = image
-                mediaViewController.view.addSubview(mediaImageView)
-                mediaViewController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mediaViewControllerDismissed)))
-                collectionViewController.present(mediaViewController, animated: false)
-            }
+        if let imageView = containerView?.subviews.first as? UIImageView, let image = imageView.image {
+            let mediaImageView = UIImageView()
+            mediaImageView.frame = CGRect(x: 0.0,
+                                          y: 0.0,
+                                          width: collectionViewController.collectionView.frame.width,
+                                          height: collectionViewController.collectionView.frame.height)
+            mediaImageView.center = collectionViewController.collectionView.center
+            mediaImageView.contentMode = .scaleAspectFit
+            mediaImageView.image = image
+            mediaViewController.view.addSubview(mediaImageView)
+            mediaViewController.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mediaViewControllerDismissed)))
+            collectionViewController.present(mediaViewController, animated: false)
         }
     }
 
@@ -123,10 +121,8 @@ class MessageCell: JSQMessagesCollectionViewCell {
             textView?.textColor = .white
             textView?.sizeToFit()
 
-            if let containerView = textView?.superview {
-                if message.senderID == currentUser.id {
-                    textView?.frame.origin = CGPoint(x: containerView.frame.width - self.textView!.frame.width, y: 0.0)
-                }
+            if let containerView = textView?.superview, message.senderID == currentUser.id {
+                textView?.frame.origin = CGPoint(x: containerView.frame.width - self.textView!.frame.width, y: 0.0)
             }
 
             textView?.alpha = 1.0

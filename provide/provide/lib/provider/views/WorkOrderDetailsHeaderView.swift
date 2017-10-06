@@ -33,10 +33,8 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
                 addressLabel.text = customer.contact.address
             } else if let user = workOrder.user {
                 customerLabel.text = user.name
-                if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
-                    if let desc = destination["description"] as? String {
-                        addressLabel.text = desc
-                    }
+                if let destination = workOrder.config?["destination"] as? [String: AnyObject], let desc = destination["description"] as? String {
+                    addressLabel.text = desc
                 }
             }
 

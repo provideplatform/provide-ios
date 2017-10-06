@@ -38,23 +38,21 @@ class WorkOrderDetailsViewController: ViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let workOrder = workOrder {
-            if workOrder.jobId == 0 {
-                DispatchQueue.main.async {
-                    if let tableView = self.tableView {
-                        self.headerView?.frame.size.width = tableView.frame.width
-                    } else {
-                        DispatchQueue.main.async {
-                            self.headerView?.frame.size.width = self.view.frame.width
-                        }
+        if let workOrder = workOrder, workOrder.jobId == 0 {
+            DispatchQueue.main.async {
+                if let tableView = self.tableView {
+                    self.headerView?.frame.size.width = tableView.frame.width
+                } else {
+                    DispatchQueue.main.async {
+                        self.headerView?.frame.size.width = self.view.frame.width
                     }
-
-                    self.headerView?.addDropShadow()
-                    self.headerView?.workOrder = self.workOrder
                 }
-            } else {
-                headerView?.isHidden = true
+                
+                self.headerView?.addDropShadow()
+                self.headerView?.workOrder = self.workOrder
             }
+        } else {
+            headerView?.isHidden = true
         }
     }
 

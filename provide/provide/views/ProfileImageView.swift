@@ -37,9 +37,7 @@ class ProfileImageView: UIImageView {
                 self?.makeCircular()
                 self?.alpha = 1.0
 
-                if let callback = callback {
-                    callback()
-                }
+                callback?()
             }
         } else {
             alpha = 0.0

@@ -93,14 +93,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
                     self.updatingWorkOrderContext = true
                     WorkOrderService.shared.inProgressWorkOrder?.reload(
                         onSuccess: { statusCode, mappingResult in
-                            if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                                if workOrder.status != "en_route" {
-                                    self.refreshAnnotations()
-                                    self.loadWorkOrderContext()
-                                } else {
-                                    log("not reloading context due to work order being routed to destination")
-                                    self.updatingWorkOrderContext = false
-                                }
+                            if let workOrder = mappingResult?.firstObject as? WorkOrder, workOrder.status != "en_route" {
+                                self.refreshAnnotations()
+                                self.loadWorkOrderContext()
+                            } else {
+                                log("not reloading context due to work order being routed to destination")
+                                self.updatingWorkOrderContext = false
                             }
                         },
                         onError: { error, statusCode, responseString in
@@ -765,20 +763,18 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate,
     }
 
     fileprivate func attemptCompletionOfInProgressWorkOrder() {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if workOrder.components.count == 0 {
-                workOrder.complete(
-                    onSuccess: { [weak self] statusCode, responseString in
-                        self!.nextWorkOrderContextShouldBeRewound()
-                        self!.attemptSegueToValidWorkOrderContext()
-                    },
-                    onError: { error, statusCode, responseString in
-                        logError(error)
-                    }
-                )
-            } else {
-                // did not attempt to complete work order as there are outstanding components
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.components.count == 0 {
+            workOrder.complete(
+                onSuccess: { [weak self] statusCode, responseString in
+                    self!.nextWorkOrderContextShouldBeRewound()
+                    self!.attemptSegueToValidWorkOrderContext()
+                },
+                onError: { error, statusCode, responseString in
+                    logError(error)
             }
+            )
+        } else {
+            // did not attempt to complete work order as there are outstanding components
         }
     }
 

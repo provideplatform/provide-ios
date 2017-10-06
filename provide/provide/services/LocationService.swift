@@ -25,10 +25,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     var currentLocation: CLLocation!
 
     fileprivate var intervalSinceLastAccurateLocation: TimeInterval! {
-        if let locationServiceStartedDate = locationServiceStartedDate {
-            if let lastAccurateLocationDate = lastAccurateLocationDate {
-                return lastAccurateLocationDate.timeIntervalSince(locationServiceStartedDate)
-            }
+        if let locationServiceStartedDate = locationServiceStartedDate, let lastAccurateLocationDate = lastAccurateLocationDate {
+            return lastAccurateLocationDate.timeIntervalSince(locationServiceStartedDate)
         }
         return nil
     }

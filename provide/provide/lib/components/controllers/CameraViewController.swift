@@ -48,16 +48,12 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     var isRunning: Bool {
-        if let backCameraView = backCameraView {
-            if backCameraView.isRunning {
+        if let backCameraView = backCameraView, backCameraView.isRunning {
                 return true
-            }
         }
 
-        if let frontCameraView = frontCameraView {
-            if frontCameraView.isRunning {
-                return true
-            }
+        if let frontCameraView = frontCameraView, frontCameraView.isRunning {
+            return true
         }
 
         return false
@@ -78,19 +74,19 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func setupCameraUI() {
-        if let button = button {
-            view.bringSubview(toFront: button)
+        guard let button = button else { return }
+        
+        view.bringSubview(toFront: button)
 
-            button.addTarget(self, action: #selector(capture), for: .touchUpInside)
-            let events = UIControlEvents.touchUpInside.union(.touchUpOutside).union(.touchCancel).union(.touchDragExit)
-            button.addTarget(self, action: #selector(renderDefaultButtonAppearance), for: events)
-            button.addTarget(self, action: #selector(renderTappedButtonAppearance), for: .touchDown)
+        button.addTarget(self, action: #selector(capture), for: .touchUpInside)
+        let events = UIControlEvents.touchUpInside.union(.touchUpOutside).union(.touchCancel).union(.touchDragExit)
+        button.addTarget(self, action: #selector(renderDefaultButtonAppearance), for: events)
+        button.addTarget(self, action: #selector(renderTappedButtonAppearance), for: .touchDown)
 
-            button.addBorder(5.0, color: .white)
-            button.makeCircular()
+        button.addBorder(5.0, color: .white)
+        button.makeCircular()
 
-            renderDefaultButtonAppearance()
-        }
+        renderDefaultButtonAppearance()
     }
 
     override func viewWillAppear(_ animated: Bool) {

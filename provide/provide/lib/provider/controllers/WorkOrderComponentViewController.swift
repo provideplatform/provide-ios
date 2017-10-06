@@ -29,11 +29,9 @@ class WorkOrderComponentViewController: ViewController {
     }
 
     func render() {
-        if let mapView = delegate?.mapViewForWorkOrderViewController?(self) {
-            if mapView.alpha == 0 {
-                (mapView as! WorkOrderMapView).workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
-                mapView.revealMap()
-            }
+        if let mapView = delegate?.mapViewForWorkOrderViewController?(self), mapView.alpha == 0 {
+            (mapView as! WorkOrderMapView).workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
+            mapView.revealMap()
         }
 
         childViewController = delegate?.workOrderComponentViewControllerForParentViewController(self)

@@ -14,13 +14,11 @@ class WorkOrderAnnotationView: AnnotationView {
 
     var minutesEta: Int! {
         didSet {
-            if let eta = minutesEta {
-                if eta > -1 {
-                    travelMinutesLabelView.text = "\(eta)"
-                    travelMinutesLabelView.alpha = 1
-                    travelTimeUnitsLabelView.alpha = 1
-                    travelEtaActivityIndicatorView.stopAnimating()
-                }
+            if let eta = minutesEta, eta > -1 {
+                travelMinutesLabelView.text = "\(eta)"
+                travelMinutesLabelView.alpha = 1
+                travelTimeUnitsLabelView.alpha = 1
+                travelEtaActivityIndicatorView.stopAnimating()
             }
         }
     }

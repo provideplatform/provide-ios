@@ -14,10 +14,8 @@ class CheckinService: NSObject {
 
     fileprivate var checkinTimeInterval: TimeInterval! {
         didSet {
-            if let oldInterval = oldValue {
-                if oldInterval != checkinTimeInterval {
-                    restart()
-                }
+            if let oldInterval = oldValue,  oldInterval != checkinTimeInterval {
+                restart()
             }
         }
     }

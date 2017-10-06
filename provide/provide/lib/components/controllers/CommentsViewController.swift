@@ -134,10 +134,8 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                 DispatchQueue.main.async {
                     var indexPath = 0
                     for comment in self.comments {
-                        if comment.isWorkOrderComment {
-                            if comment.commentableId == workOrder.id {
-                                self.collectionView.reloadItems(at: [IndexPath(row: indexPath, section: 0)])
-                            }
+                        if comment.isWorkOrderComment && comment.commentableId == workOrder.id {
+                            self.collectionView.reloadItems(at: [IndexPath(row: indexPath, section: 0)])
                         }
 
                         indexPath += 1

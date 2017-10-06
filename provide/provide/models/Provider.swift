@@ -75,7 +75,7 @@ class Provider: Model {
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
             "last_checkin_heading": "lastcheckinHeading",
-            ])
+        ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!
     }
@@ -85,12 +85,10 @@ class Provider: Model {
     }
 
     var lastName: String? {
-        if let name = name {
-            if name.components(separatedBy: " ").count > 1 {
-                return name.components(separatedBy: " ").last!
-            } else {
-                return nil
-            }
+        guard let name = name else { return nil }
+        
+        if name.components(separatedBy: " ").count > 1 {
+            return name.components(separatedBy: " ").last!
         } else {
             return nil
         }

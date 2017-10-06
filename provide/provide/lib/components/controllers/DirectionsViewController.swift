@@ -51,7 +51,7 @@ class DirectionsViewController: ViewController {
                 renderRouteOverview()
 
                 if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {
-                    if let prompt =  directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
+                    if let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
                         navigationItem.prompt = prompt
                     } else {
                         navigationItem.prompt = nil
@@ -62,11 +62,9 @@ class DirectionsViewController: ViewController {
     }
 
     fileprivate func resolveCurrentStep() { // FIXME -- move this to the route model
-        if let leg = directions?.selectedRoute?.currentLeg {
-            if let nextStep = leg.nextStep {
-                leg.currentStep.instruction = nextStep.instruction
-                leg.currentStep.maneuver = nextStep.maneuver
-            }
+        if let leg = directions?.selectedRoute?.currentLeg, let nextStep = leg.nextStep {
+            leg.currentStep.instruction = nextStep.instruction
+            leg.currentStep.maneuver = nextStep.maneuver
         }
     }
 

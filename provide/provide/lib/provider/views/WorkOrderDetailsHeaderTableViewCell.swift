@@ -192,10 +192,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .none {
-                return nil
-            }
+        if let cell = tableView.cellForRow(at: indexPath), cell.accessoryType == .none {
+            return nil
         }
         return indexPath
     }
@@ -309,10 +307,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                         let alpha = statusCell.backgroundView?.alpha == 0.0 ? 0.9 : 0.0
                         statusCell.backgroundView?.alpha = CGFloat(alpha)
 
-                        if let workOrder = self.workOrder {
-                            if let duration = workOrder.humanReadableDuration {
-                                statusCell.setName("\(workOrder.status.uppercased())", value: duration)
-                            }
+                        if let workOrder = self.workOrder, let duration = workOrder.humanReadableDuration {
+                            statusCell.setName("\(workOrder.status.uppercased())", value: duration)
                         }
                     }
                 )

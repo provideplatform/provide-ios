@@ -51,12 +51,9 @@ class User: Model {
     }
 
     var lastName: String? {
-        if let name = name {
-            if name.components(separatedBy: " ").count > 1 {
-                return name.components(separatedBy: " ").last!
-            } else {
-                return nil
-            }
+        guard let name = name else { return nil }
+        if name.components(separatedBy: " ").count > 1 {
+            return name.components(separatedBy: " ").last!
         } else {
             return nil
         }

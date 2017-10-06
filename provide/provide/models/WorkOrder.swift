@@ -172,36 +172,35 @@ class WorkOrder: Model {
     }
 
     var humanReadableDuration: String! {
-        if let startedAtDate = startedAtDate {
-            var seconds = 0.0
+        guard let startedAtDate = startedAtDate else { return nil }
 
-            var endedAtDate = self.endedAtDate
+        var seconds = 0.0
 
-            if let date = endedAtDate {
-                endedAtDate = date
-            } else if let date = abandonedAtDate {
-                endedAtDate = date
-            } else if let date = canceledAtDate {
-                endedAtDate = date
-            }
+        var endedAtDate = self.endedAtDate
 
-            if let endedAtDate = endedAtDate {
-                seconds = endedAtDate.timeIntervalSince(startedAtDate)
-            } else {
-                seconds = Date().timeIntervalSince(startedAtDate)
-            }
-
-            let hours = Int(floor(Double(seconds) / 3600.0))
-            seconds = Double(seconds).truncatingRemainder(dividingBy: 3600.0)
-            let minutes = Int(floor(Double(seconds) / 60.0))
-            seconds = floor(Double(seconds).truncatingRemainder(dividingBy: 60.0))
-
-            let hoursString = hours >= 1 ? "\(hours):" : ""
-            let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
-            let secondsString = seconds < 10 ? "0\(Int(seconds))" : "\(Int(seconds))"
-            return "\(hoursString)\(minutesString):\(secondsString)"
+        if let date = endedAtDate {
+            endedAtDate = date
+        } else if let date = abandonedAtDate {
+            endedAtDate = date
+        } else if let date = canceledAtDate {
+            endedAtDate = date
         }
-        return nil
+
+        if let endedAtDate = endedAtDate {
+            seconds = endedAtDate.timeIntervalSince(startedAtDate)
+        } else {
+            seconds = Date().timeIntervalSince(startedAtDate)
+        }
+
+        let hours = Int(floor(Double(seconds) / 3600.0))
+        seconds = Double(seconds).truncatingRemainder(dividingBy: 3600.0)
+        let minutes = Int(floor(Double(seconds) / 60.0))
+        seconds = floor(Double(seconds).truncatingRemainder(dividingBy: 60.0))
+
+        let hoursString = hours >= 1 ? "\(hours):" : ""
+        let minutesString = minutes < 10 ? "0\(minutes)" : "\(minutes)"
+        let secondsString = seconds < 10 ? "0\(Int(seconds))" : "\(Int(seconds))"
+        return "\(hoursString)\(minutesString):\(secondsString)"
     }
 
     var humanReadableDueAtTimestamp: String! {
@@ -216,32 +215,28 @@ class WorkOrder: Model {
     }
 
     var humanReadableScheduledStartAtTimestamp: String! {
-        if let scheduledStartAtDate = scheduledStartAtDate {
-            if isIPad() {
-                return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
-            } else {
-                return "\(scheduledStartAtDate.month)/\(scheduledStartAtDate.dayOfMonth)/\(scheduledStartAtDate.year) @ \(scheduledStartAtDate.timeString!)"
-            }
+        guard let scheduledStartAtDate = scheduledStartAtDate else { return nil }
+
+        if isIPad() {
+            return "\(scheduledStartAtDate.dayOfWeek), \(scheduledStartAtDate.monthName) \(scheduledStartAtDate.dayOfMonth) @ \(scheduledStartAtDate.timeString!)"
+        } else {
+            return "\(scheduledStartAtDate.month)/\(scheduledStartAtDate.dayOfMonth)/\(scheduledStartAtDate.year) @ \(scheduledStartAtDate.timeString!)"
         }
-        return nil
     }
 
     var humanReadableScheduledEndAtTimestamp: String! {
-        if let scheduledEndAtDate = scheduledEndAtDate {
-            if isIPad() {
-                return "\(scheduledEndAtDate.dayOfWeek), \(scheduledEndAtDate.monthName) \(scheduledEndAtDate.dayOfMonth) @ \(scheduledEndAtDate.timeString!)"
-            } else {
-                return "\(scheduledEndAtDate.month)/\(scheduledEndAtDate.dayOfMonth)/\(scheduledEndAtDate.year) @ \(scheduledEndAtDate.timeString!)"
-            }
+        guard let scheduledEndAtDate = scheduledEndAtDate else { return nil }
+
+        if isIPad() {
+            return "\(scheduledEndAtDate.dayOfWeek), \(scheduledEndAtDate.monthName) \(scheduledEndAtDate.dayOfMonth) @ \(scheduledEndAtDate.timeString!)"
+        } else {
+            return "\(scheduledEndAtDate.month)/\(scheduledEndAtDate.dayOfMonth)/\(scheduledEndAtDate.year) @ \(scheduledEndAtDate.timeString!)"
         }
-        return nil
     }
 
     var humanReadableStartedAtTimestamp: String! {
-        if let startedAtDate = startedAtDate {
-            return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"
-        }
-        return nil
+        guard let startedAtDate = startedAtDate else { return nil }
+        return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"
     }
 
     var statusColor: UIColor {
@@ -313,10 +308,8 @@ class WorkOrder: Model {
     }
 
     var components: NSMutableArray {
-        if let config = config {
-            if let components = config["components"] as? NSMutableArray {
-                return components
-            }
+        if let config = config, let components = config["components"] as? NSMutableArray {
+            return components
         }
         return NSMutableArray()
     }
@@ -372,10 +365,8 @@ class WorkOrder: Model {
         if isCurrentUserProvider {
             if let workOrderProviders = workOrderProviders {
                 for workOrderProvider in workOrderProviders {
-                    if workOrderProvider.provider.userId == currentUser.id {
-                        if workOrderProvider.isTimedOut {
-                            return true
-                        }
+                    if workOrderProvider.provider.userId == currentUser.id, workOrderProvider.isTimedOut {
+                        return true
                     }
                 }
             }
@@ -442,20 +433,20 @@ class WorkOrder: Model {
     }
 
     func updateWorkOrderProvider(_ workOrderProvider: WorkOrderProvider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        if let provider = workOrderProvider.provider {
-            if hasProvider(provider) {
-                var index: Int?
-                for wop in workOrderProviders {
-                    if wop.id == workOrderProvider.id || wop.provider.id == workOrderProvider.provider.id {
-                        index = workOrderProviders.indexOfObject(wop)
-                    }
-                }
-                if let index = index {
-                    self.workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
+        guard let provider = workOrderProvider.provider else { return }
 
-                    if id > 0 {
-                        save(onSuccess: onSuccess, onError: onError)
-                    }
+        if hasProvider(provider) {
+            var index: Int?
+            for wop in workOrderProviders {
+                if wop.id == workOrderProvider.id || wop.provider.id == workOrderProvider.provider.id {
+                    index = workOrderProviders.indexOfObject(wop)
+                }
+            }
+            if let index = index {
+                self.workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
+
+                if id > 0 {
+                    save(onSuccess: onSuccess, onError: onError)
                 }
             }
         }
@@ -494,34 +485,24 @@ class WorkOrder: Model {
     func save(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
 
-        if let companyId = params["company_id"] as? Int {
-            if companyId == 0 {
-                params["company_id"] = nil
-            }
+        if let companyId = params["company_id"] as? Int, companyId == 0 {
+            params["company_id"] = nil
         }
 
-        if let categoryId = params["category_id"] as? Int {
-            if categoryId == 0 {
-                params["category_id"] = nil
-            }
+        if let categoryId = params["category_id"] as? Int, categoryId == 0 {
+            params["category_id"] = nil
         }
 
-        if let customerId = params["customer_id"] as? Int {
-            if customerId == 0 {
-                params["customer_id"] = nil
-            }
+        if let customerId = params["customer_id"] as? Int, customerId == 0 {
+            params["customer_id"] = nil
         }
 
-        if let jobId = params["job_id"] as? Int {
-            if jobId == 0 {
-                params["job_id"] = nil
-            }
+        if let jobId = params["job_id"] as? Int, jobId == 0 {
+            params["job_id"] = nil
         }
 
-        if let userId = params["user_id"] as? Int {
-            if userId == 0 {
-                params["user_id"] = nil
-            }
+        if let userId = params["user_id"] as? Int, userId == 0 {
+            params["user_id"] = nil
         }
 
         if id > 0 {

@@ -117,10 +117,8 @@ class Model: NSObject {
             }
         }
 
-        if let id = dictionary["id"] as? Int {
-            if id == 0 {
-                dictionary.removeValue(forKey: "id")
-            }
+        if let id = dictionary["id"] as? Int, id == 0 {
+            dictionary.removeValue(forKey: "id")
         }
 
         return dictionary

@@ -21,11 +21,9 @@ class MessagesCollectionViewFlowLayout: JSQMessagesCollectionViewFlowLayout {
         let messageData = collectionView.dataSource.collectionView(self.collectionView, messageDataForItemAt: indexPath)!
         var width = collectionView.bounds.width
         var height: CGFloat = 120.0
-        if !messageData.isMediaMessage() {
-            if let msg = messageData.text?() {
-                let inset = messageBubbleTextViewFrameInsets.left + messageBubbleTextViewFrameInsets.right + messageBubbleTextViewTextContainerInsets.left + messageBubbleTextViewTextContainerInsets.right
-                height = MessageCell.heightForMessageBubble(message: msg, width: width - 45.0 - 8.0 - inset)
-            }
+        if !messageData.isMediaMessage(), let msg = messageData.text?() {
+            let inset = messageBubbleTextViewFrameInsets.left + messageBubbleTextViewFrameInsets.right + messageBubbleTextViewTextContainerInsets.left + messageBubbleTextViewTextContainerInsets.right
+            height = MessageCell.heightForMessageBubble(message: msg, width: width - 45.0 - 8.0 - inset)
         } else if messageData.media?() != nil {
             width *= 0.80
             height = width / (16.0 / 9.0)

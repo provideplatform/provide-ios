@@ -34,11 +34,7 @@ class RoundedButton: UIButton {
 
     override var isHighlighted: Bool {
         didSet {
-            if isHighlighted {
-                backgroundColor = .darkGray
-            } else {
-                backgroundColor = initialBackgroundColor
-            }
+            backgroundColor = isHighlighted ? .darkGray : initialBackgroundColor
         }
     }
 
@@ -47,8 +43,6 @@ class RoundedButton: UIButton {
     var onTouchUpInsideCallback: VoidBlock!
 
     func onTouchUpInside(_ sender: RoundedButton) {
-        if let callback = onTouchUpInsideCallback {
-            callback()
-        }
+        onTouchUpInsideCallback()
     }
 }
