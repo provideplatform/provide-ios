@@ -146,7 +146,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             availabilityBarButtonItem?.isEnabled = false
             currentProvider.toggleAvailability(onSuccess: { [weak self] statusCode, mappingResult in
                 logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
-                self!.availabilityBarButtonItem?.isEnabled = true
+                self?.availabilityBarButtonItem?.isEnabled = true
 
                 if currentProvider.isAvailable {
                     CheckinService.shared.start()
@@ -158,7 +158,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             }, onError: { [weak self] error, statusCode, responseString in
                 logWarn("Failed to update current provider availability")
                 sender.isOn = !sender.isOn
-                self!.availabilityBarButtonItem?.isEnabled = true
+                self?.availabilityBarButtonItem?.isEnabled = true
             })
         }
     }
@@ -236,7 +236,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                     if let provider = mappingResult!.firstObject as? Provider {
                         logInfo("Created new provider context for user: \(user)")
                         user.providerIds.append(provider.id)
-                        self!.requireProviderContext()
+                        self?.requireProviderContext()
                     }
                     }, onError: { err, statusCode, response in
                         logWarn("Failed to create new provider for user (\(statusCode))")
@@ -247,14 +247,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                         logInfo("Fetched provider context for user: \(provider)")
                         currentProvider = provider
 
-                        self!.setupAvailabilityBarButtonItem()
+                        self?.setupAvailabilityBarButtonItem()
 
                         if currentProvider.isAvailable {
                             CheckinService.shared.start()
                             LocationService.shared.start()
                         }
 
-                        self!.loadWorkOrderContext()
+                        self?.loadWorkOrderContext()
                     }
                 }, onError: { err, statusCode, response in
                     logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
@@ -272,14 +272,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
             if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
-                if let zeroStateViewController = self!.zeroStateViewController {
+                if let zeroStateViewController = self?.zeroStateViewController {
                     zeroStateViewController.render(self!.view)
                 }
             }
 
-            self!.nextWorkOrderContextShouldBeRewound()
-            self!.attemptSegueToValidWorkOrderContext()
-            self!.updatingWorkOrderContext = false
+            self?.nextWorkOrderContextShouldBeRewound()
+            self?.attemptSegueToValidWorkOrderContext()
+            self?.updatingWorkOrderContext = false
         })
     }
 
@@ -557,8 +557,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             if let workOrder = WorkOrderService.shared.nextWorkOrder {
                 workOrder.route(onSuccess: { [weak self] statusCode, responseString in
                     logInfo("Work order en route")
-                    self!.nextWorkOrderContextShouldBeRewound()
-                    self!.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+                    self?.nextWorkOrderContextShouldBeRewound()
+                    self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
                 }, onError: { error, statusCode, responseString in
                     logWarn("Failed to start work order (\(statusCode))")
                 })
@@ -577,7 +577,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.shared.inProgressWorkOrder.abandon(onSuccess: { [weak self] statusCode, responseString in
-            self!.attemptSegueToValidWorkOrderContext()
+            self?.attemptSegueToValidWorkOrderContext()
         }, onError: { error, statusCode, responseString in
             logWarn("Failed to abandon work order (\(statusCode))")
         })

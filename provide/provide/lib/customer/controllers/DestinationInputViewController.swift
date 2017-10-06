@@ -119,16 +119,16 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     "longitude": currentCoordinate.longitude,
                 ] as [String: Any]
                 ApiService.shared.autocompletePlaces(params as [String : AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
-                    self!.pendingSearch = false
+                    self?.pendingSearch = false
                     if let suggestions = mappingResult?.array() as? [Contact] {
                         logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
-                        self!.destinationResultsViewController.results = suggestions
+                        self?.destinationResultsViewController.results = suggestions
                     } else {
                         logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
                     }
                 }, onError: { [weak self] err, statusCode, responseString in
                     logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
-                    self!.pendingSearch = false
+                    self?.pendingSearch = false
                 })
             })
         }

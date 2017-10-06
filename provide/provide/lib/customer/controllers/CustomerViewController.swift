@@ -210,7 +210,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
             providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] (providers) in
                 logInfo("Found \(providers.count) provider(s): \(providers)")
                 for provider in providers {
-                    self!.updateProviderLocation(provider)
+                    self?.updateProviderLocation(provider)
                 }
             }
         } else {
@@ -224,8 +224,8 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         updatingWorkOrderContext = true
         workOrderService.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress", onWorkOrdersFetched: { [weak self] workOrders in
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
-            self!.attemptSegueToValidWorkOrderContext()
-            self!.updatingWorkOrderContext = false
+            self?.attemptSegueToValidWorkOrderContext()
+            self?.updatingWorkOrderContext = false
         })
     }
 

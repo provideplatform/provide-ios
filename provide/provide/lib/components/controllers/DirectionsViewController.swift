@@ -250,9 +250,9 @@ class DirectionsViewController: ViewController {
 
     fileprivate func unregisterMonitoredRegions() {
         monitoredRegionsQueue.async { [weak self] in
-            if let regions = self!.regions {
+            if let regions = self?.regions {
                 for region in regions {
-                    self!.regions.removeObject(region)
+                    self?.regions.removeObject(region)
                     LocationService.shared.unregisterRegionMonitor(region.identifier)
                 }
             }

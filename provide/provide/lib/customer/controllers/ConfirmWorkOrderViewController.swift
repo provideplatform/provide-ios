@@ -149,7 +149,7 @@ class ConfirmWorkOrderViewController: ViewController {
             if let workOrder = mappingResult?.firstObject as? WorkOrder {
                 logInfo("Created work order for hire: \(workOrder)")
                 WorkOrderService.shared.setWorkOrders([workOrder])
-                self!.setWorkOrder(workOrder)
+                self?.setWorkOrder(workOrder)
             }
         }, onError: { err, statusCode, responseString in
             logWarn("Failed to create work order for hire (\(statusCode))")
