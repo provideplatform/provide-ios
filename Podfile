@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '9.3'
+platform :ios, '10.3'
 inhibit_all_warnings!
 use_frameworks!
 
