@@ -29,7 +29,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     override func removeAnnotations() {
         var nonUserAnnotations = annotations
         if userLocation.location != nil {
-            nonUserAnnotations.removeObject(mapView(self, viewForAnnotation: userLocation)!)
+            nonUserAnnotations.removeObject(mapView(self, viewFor: userLocation)!)
         }
         removeAnnotations(nonUserAnnotations)
     }
@@ -68,7 +68,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         }
     }
 
-    func mapView(_ mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         var view: MKAnnotationView?
 
         if annotation is MKUserLocation {
