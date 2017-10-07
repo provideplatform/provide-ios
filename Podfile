@@ -6,7 +6,7 @@ use_frameworks!
 
 project 'provide/provide.xcodeproj'
 
-target 'provide' do
+def shared_pods
   pod 'Analytics'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
   pod 'FontAwesomeKit/FontAwesome'
@@ -22,4 +22,17 @@ target 'provide' do
   pod 'SWTableViewCell', git: 'https://github.com/kthomas/SWTableViewCell'
   pod 'SwiftLint'
   pod 'UICKeyChainStore'
+end
+
+
+target 'provide' do
+  shared_pods
+end
+
+target 'provideTests' do
+  shared_pods
+end
+
+target 'provideUITests' do
+  shared_pods
 end

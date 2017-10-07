@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import OHHTTPStubs
 @testable import provide
 
 class MessageServiceTests: XCTestCase {
@@ -15,8 +16,8 @@ class MessageServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        OHHTTPStubs.onStubActivation { request, stub in
-            logInfo("\(request.URL!) stubbed by \(stub.name!).")
+        OHHTTPStubs.onStubActivation { request, stubsDescriptor, stubsResponse in
+            logInfo("\(request.url!) stubbed by \(stubsDescriptor.name!).")
         }
 
         stubRoute("GET", path: "/api/messages", withFile: "HTTPStubs/messages/conversation.json", stubName: "MessageServiceTests")
@@ -31,7 +32,7 @@ class MessageServiceTests: XCTestCase {
         let expectation = self.expectation(description: "GET messages")
 
         var fetchedMessages = [Message]()
-        MessageService.shared.fetch(onMessagesFetched: { messages in
+        MessageService.shared.fetch(params: [:], onMessagesFetched: { messages in
             fetchedMessages = messages
             expectation.fulfill()
         }, onError: { error, statusCode, responseString in
@@ -52,7 +53,7 @@ class MessageServiceTests: XCTestCase {
 
             XCTAssertTrue(message.body.hasPrefix("Hey Joe, its Don"))
             let expectedDateString = "2015-05-30T12:01:00Z"
-            let expectedDate = DateFormatter(coder: "yyyy-MM-dd'T'HH:mm:ssZZZZZ").dateFromString(expectedDateString)
+            let expectedDate = DateFormatter("yyyy-MM-dd'T'HH:mm:ssZZZZZ").date(from: expectedDateString)
             XCTAssertEqual(message.createdAt, expectedDate!)
             XCTAssertEqual(message.id, 1)
             XCTAssertEqual(message.recipientId, 2)

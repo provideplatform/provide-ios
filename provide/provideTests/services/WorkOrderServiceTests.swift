@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import OHHTTPStubs
 @testable import provide
 
 class WorkOrderServiceTests: XCTestCase {
@@ -15,8 +16,8 @@ class WorkOrderServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        OHHTTPStubs.onStubActivation { request, stub in
-            logInfo("\(request.URL!) stubbed by \(stub.name).")
+        OHHTTPStubs.onStubActivation { request, stubDescriptor, stopResponse in
+            logInfo("\(request.url!) stubbed by \(stubDescriptor.name!).")
         }
 
         stubRoute("GET", path: "/api/work_orders", withFile: "HTTPStubs/work_orders/work_orders.json", stubName: "WorkOrderServiceTests")
