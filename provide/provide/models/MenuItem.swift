@@ -10,38 +10,31 @@ import Foundation
 
 class MenuItem: NSObject {
 
-    var label: String!
-    var storyboard: String!
-    var urlString: String!
-    var action: String!
+    var label: String
+    var storyboard: String?
+    private var urlString: String?
+    private var actionString: String?
 
     init(label: String, action: String? = nil, urlString: String? = nil, storyboard: String? = nil) {
         self.label = label
-        self.action = action
+        self.actionString = action
         self.urlString = urlString
         self.storyboard = storyboard
     }
 
-    var url: URL! {
-        if let urlString = urlString {
-            return URL(string: urlString)
-        }
-        return nil
+    var url: URL? {
+        return urlString.flatMap { URL(string: $0) }
     }
 
-    var selector: Selector! {
-        if let action = action {
-            return Selector(action)
-        }
-        return nil
+    var selector: Selector? {
+        return actionString.flatMap { Selector($0) }
     }
 
-    init(item: [String: String]) {
-        super.init()
+    convenience init(item: [String: String]) {
+        self.init(label: item["label"]!)
 
-        label = item["label"]
         storyboard = item["storyboard"]
         urlString = item["url"]
-        action = item["action"]
+        actionString = item["action"]
     }
 }
