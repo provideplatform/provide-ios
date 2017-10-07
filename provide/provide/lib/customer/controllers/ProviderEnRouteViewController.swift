@@ -37,7 +37,7 @@ class ProviderEnRouteViewController: ViewController {
             } else {
                 refreshStatus()
 
-                nameLabel.text = workOrder.providers.first!.firstName!.uppercased()
+                nameLabel.text = workOrder.providers.last!.firstName!.uppercased()
                 nameLabel.isHidden = false
 
                 categoryLabel.text = ""  // FIXME -- workOrder.category.desc
