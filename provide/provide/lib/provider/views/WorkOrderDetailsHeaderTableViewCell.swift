@@ -128,10 +128,6 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         refreshUtilityButtons()
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-
     fileprivate func refresh() {
         refreshUtilityButtons()
         embeddedTableView.reloadData()

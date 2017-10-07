@@ -22,10 +22,6 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
     @IBOutlet fileprivate weak var passwordField: UITextField!
     @IBOutlet fileprivate weak var confirmField: UITextField!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 

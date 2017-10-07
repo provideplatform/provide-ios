@@ -13,10 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet fileprivate weak var statusLabel: UILabel!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

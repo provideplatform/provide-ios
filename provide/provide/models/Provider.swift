@@ -126,7 +126,7 @@ class Provider: Model {
             self.available = val ? 1 : 0
             onSuccess(statusCode, mappingResult)
         }, onError: { [weak self] error, statusCode, responseString in
-            logWarn("Failed to update provider (id: \(self?.id)) availability")
+            logWarn("Failed to update provider (id: \(self!.id)) availability")
             onError(error, statusCode, responseString)
         })
     }
