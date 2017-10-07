@@ -428,7 +428,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func switchToCustomerMode() {
+    @objc func switchToCustomerMode() {
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
 

@@ -119,7 +119,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
     }
 
-    func logout() {
+    @objc func logout() {
         let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
         let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to logout?", preferredStyle: preferredStyle)
 
