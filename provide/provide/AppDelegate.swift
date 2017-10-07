@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
 import RestKit
 
 @UIApplicationMain
@@ -21,10 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        if !isSimulator() {
-            Fabric.with([Crashlytics()])
-        }
-
         AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String: AnyObject])
 
         RKLogConfigureFromEnvironment()
