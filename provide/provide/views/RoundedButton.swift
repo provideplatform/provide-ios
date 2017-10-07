@@ -43,6 +43,6 @@ class RoundedButton: UIButton {
     var onTouchUpInsideCallback: VoidBlock!
 
     @objc func onTouchUpInside(_ sender: RoundedButton) {
-        onTouchUpInsideCallback()
+        onTouchUpInsideCallback?()
     }
 }
