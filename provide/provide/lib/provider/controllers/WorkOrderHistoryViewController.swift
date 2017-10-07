@@ -95,7 +95,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         refresh()
     }
 
-    func reset() {
+    @objc func reset() {
         workOrders = [WorkOrder]()
         page = 1
         lastWorkOrderIndex = -1

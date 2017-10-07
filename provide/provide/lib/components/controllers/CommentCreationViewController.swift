@@ -82,7 +82,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         textView.becomeFirstResponder()
     }
 
-    func dismiss() {
+    @objc func dismiss() {
         if textView.text.length > 0 {
             commentCreationViewControllerDelegate?.commentCreationViewController(self, didSubmitComment: textView.text)
         } else {

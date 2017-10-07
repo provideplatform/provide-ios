@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class User: Model {
 
     var id = 0

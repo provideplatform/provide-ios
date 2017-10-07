@@ -72,7 +72,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
         navigationItem.leftBarButtonItems = [stopBarButtonItem]
     }
 
-    func dismiss() {
+    @objc func dismiss() {
         if let fn = webViewControllerDelegate?.webViewControllerDismissed {
             fn(self)
         } else {

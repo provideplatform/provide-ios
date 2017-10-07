@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Directions: Model {
 
     var routes = [Route]()

@@ -95,9 +95,11 @@ class ApiService: NSObject {
     func setToken(_ token: Token) {
         self.headers["X-API-Authorization"] = token.authorizationHeaderString
         KeyChainService.shared.token = token
-        KeyChainService.shared.email = token.user.email
 
-        AnalyticsService.shared.identify(token.user)
+        if let user = token.user {
+            KeyChainService.shared.email = user.email
+            AnalyticsService.shared.identify(user)
+        }
 
         self.registerForRemoteNotifications()
 
@@ -762,8 +764,7 @@ class ApiService: NSObject {
                         self.requestOperations.removeObject(op)
                     }
 
-                    onSuccess((operation?.httpRequestOperation.response.statusCode)!,
-                              mappingResult)
+                    onSuccess((operation?.httpRequestOperation.response.statusCode)!, mappingResult)
                 }, failure: { operation, error in
                     let receivedResponse = operation?.httpRequestOperation.response != nil
                     let responseString = receivedResponse ? (operation?.httpRequestOperation.responseString)! : "{}"

@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Attachment: Model {
 
     var id = 0

@@ -143,7 +143,7 @@ class MessagesViewController: JSQMessagesViewController {
         logWarn("Recipient search view controller not implemented")
     }
 
-    dynamic private func dismiss(_: UIBarButtonItem) {
+    @objc dynamic private func dismiss(_: UIBarButtonItem) {
         dismiss(animated: true)
     }
 
@@ -159,7 +159,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    dynamic private func newMessageReceived(_ notification: Notification) {
+    @objc dynamic private func newMessageReceived(_ notification: Notification) {
         if let message = notification.object as? Message {
             messages.append(message) // FIXME: perform update on collection view
             collectionView?.reloadData()
@@ -167,7 +167,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    dynamic private func didPressCameraAccessoryButton(_ notification: AnyObject) {
+    @objc dynamic private func didPressCameraAccessoryButton(_ notification: AnyObject) {
         presentImagePickerViewController()
     }
 
@@ -237,12 +237,12 @@ class MessagesViewController: JSQMessagesViewController {
         present(confirmMediaViewController, animated: false)
     }
 
-    dynamic private func cancelMediaConfirmation(sender: UIButton) {
+    @objc dynamic private func cancelMediaConfirmation(sender: UIButton) {
         dismiss(animated: false)
         selectedImage = nil
     }
 
-    dynamic private func confirmMediaSelectionAndSend(sender: UIButton) {
+    @objc dynamic private func confirmMediaSelectionAndSend(sender: UIButton) {
         dismiss(animated: false)
         if let image = selectedImage {
             sendMessage(with: image, senderId: String(currentUser.id), senderDisplayName: currentUser.name, date: Date())

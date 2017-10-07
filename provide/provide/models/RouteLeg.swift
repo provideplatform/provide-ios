@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class RouteLeg: Model {
 
     var distanceInMeters: NSNumber!

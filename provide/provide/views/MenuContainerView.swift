@@ -189,11 +189,11 @@ class MenuContainerView: UIView {
         }
     }
 
-    func openMenu() {
+    @objc func openMenu() {
         dragMenu(0.0 - menuViewFrameOffsetX)
     }
 
-    func closeMenu() {
+    @objc func closeMenu() {
         dragMenu(closedMenuOffsetX)
     }
 

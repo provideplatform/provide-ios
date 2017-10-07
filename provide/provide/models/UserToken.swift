@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class UserToken: Model {
 
     var user: User!

@@ -137,7 +137,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
         timer?.invalidate()
     }
 
-    func refresh() {
+    @objc func refresh() {
         if let duration = workOrder.humanReadableDuration {
             durationLabel.text = duration.uppercased()
             durationLabel.sizeToFit()

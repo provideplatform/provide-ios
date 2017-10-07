@@ -1,8 +1,8 @@
 PODS:
   - Alamofire (4.5.1)
-  - AlamofireObjectMapper (4.1.0):
+  - AlamofireObjectMapper (5.0.0):
     - Alamofire (~> 4.1)
-    - ObjectMapper (~> 2.0)
+    - ObjectMapper (~> 3.0)
   - Analytics (3.6.7)
   - ELFixSecureTextFieldFont (0.1.0)
   - FontAwesomeKit/Core (2.2.1)
@@ -17,12 +17,12 @@ PODS:
   - JWTDecode (2.1.1)
   - KTSwiftExtensions (0.25.0):
     - Alamofire (~> 4.0)
-    - AlamofireObjectMapper (~> 4.0)
+    - AlamofireObjectMapper (~> 5.0)
     - JWTDecode (~> 2.0)
     - MBProgressHUD (~> 1.0)
-    - ObjectMapper (~> 2.0)
+    - ObjectMapper (~> 3.0)
   - MBProgressHUD (1.0.0)
-  - ObjectMapper (2.2.9)
+  - ObjectMapper (3.0.0)
   - OHHTTPStubs (6.0.0):
     - OHHTTPStubs/Default (= 6.0.0)
   - OHHTTPStubs/Core (6.0.0)
@@ -103,7 +103,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
+  AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
   Analytics: 2c09a50e3478a3a7ced08a22d00c43ba6f7011e6
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FontAwesomeKit: 3614979b3dbb0ec3f7fac1bd760b91f66c31db67
@@ -112,9 +112,9 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
-  KTSwiftExtensions: 9c8264362d2feb21db7f4507d929b62aadd2aa1e
+  KTSwiftExtensions: 74653550d254cf655d1d14051b0b6724f4934490
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
+  ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
   OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96

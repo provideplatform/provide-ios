@@ -60,7 +60,7 @@ class CheckinService: NSObject {
         logInfo("Stopped checkin service")
     }
 
-    func checkin() {
+    @objc func checkin() {
         LocationService.shared.resolveCurrentLocationAndHeading { location, heading in
             ApiService.shared.checkin(location, heading: heading)
             LocationService.shared.background()

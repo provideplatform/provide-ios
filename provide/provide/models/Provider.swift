@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Provider: Model {
 
     var id = 0
@@ -37,10 +38,10 @@ class Provider: Model {
             let initialsLabel = UILabel()
             initialsLabel.text = ""
             if let firstName = self.firstName {
-                initialsLabel.text = "\(firstName.substring(to: firstName.startIndex))"
+                initialsLabel.text = String(firstName[...firstName.startIndex])
             }
             if let lastName = self.firstName {
-                initialsLabel.text = "\(String(describing: initialsLabel.text))\(lastName.substring(to: lastName.startIndex))"
+                initialsLabel.text = "\(String(describing: initialsLabel.text!))\(String(lastName[...lastName.startIndex]))"
             }
             initialsLabel.sizeToFit()
             return initialsLabel

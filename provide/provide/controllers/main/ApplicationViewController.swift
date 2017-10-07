@@ -102,13 +102,13 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
         currentUser?.reload(onSuccess: { statusCode, mappingResult in
             if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
-                let authorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+                let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
                 if authorizationStatus == .authorized {
                     self.setHasBeenPromptedToTakeSelfieFlag()
                     self.initCameraViewController()
                 } else if authorizationStatus == .notDetermined {
                     NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
-                    AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
+                    AVCaptureDevice.requestAccess(for: .video) { granted in
                         if granted {
                             self.setHasBeenPromptedToTakeSelfieFlag()
                             self.initCameraViewController()
@@ -121,7 +121,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         })
     }
 
-    func currentUserLoggedOut() {
+    @objc func currentUserLoggedOut() {
         applicationViewControllerDelegate?.dismissApplicationViewController(self)
     }
 

@@ -107,7 +107,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         activeCameraView?.stopCapture()
     }
 
-    func capture() {
+    @objc func capture() {
         button?.isEnabled = false
         activeCameraView?.capture()
     }
@@ -166,15 +166,15 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         frontCameraView?.stopCapture()
     }
 
-    func dismiss(_ sender: UIBarButtonItem) {
+    @objc func dismiss(_ sender: UIBarButtonItem) {
         delegate?.cameraViewControllerCanceled(self)
     }
 
-    func renderDefaultButtonAppearance() {
+    @objc func renderDefaultButtonAppearance() {
         button?.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
     }
 
-    func renderTappedButtonAppearance() {
+    @objc func renderTappedButtonAppearance() {
         button?.backgroundColor = UIColor.resizedColorWithPatternImage(Color.annotationViewBackgroundImage(), rect: button.bounds).withAlphaComponent(0.75)
     }
 

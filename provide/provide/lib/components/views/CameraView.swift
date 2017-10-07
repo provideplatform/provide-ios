@@ -67,15 +67,15 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     fileprivate var lastOCRTimestamp: Date!
 
     fileprivate var backCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) where (device as AnyObject).position == .back {
-            return device as! AVCaptureDevice
+        for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .back {
+            return device
         }
         return nil
     }
 
     fileprivate var frontCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) where (device as AnyObject).position == .front {
-            return device as? AVCaptureDevice
+        for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .front {
+            return device
         }
         return nil
     }
@@ -85,7 +85,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     fileprivate var mic: AVCaptureDevice! {
-        return AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeAudio)
+        return AVCaptureDevice.default(for: .audio)
     }
 
     fileprivate var outputFaceMetadata: Bool {
@@ -161,7 +161,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             videoDataOutput = AVCaptureVideoDataOutput()
             var settings = [AnyHashable: Any]()
             settings.updateValue(NSNumber(value: kCVPixelFormatType_32BGRA as UInt32), forKey: String(kCVPixelBufferPixelFormatTypeKey))
-            videoDataOutput.videoSettings = settings
+            videoDataOutput.videoSettings = settings as! [String: Any]
             videoDataOutput.alwaysDiscardsLateVideoFrames = true
             videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
 
@@ -202,20 +202,20 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    func pollForAudioLevels() {
+    @objc func pollForAudioLevels() {
         if audioDataOutput == nil {
             return
         }
 
         if audioDataOutput.connections.count > 0 {
-            let connection = audioDataOutput.connections[0] as! AVCaptureConnection
+            let connection = audioDataOutput.connections[0]
             let channels = connection.audioChannels
 
-            for channel in channels! {
+            for channel in channels {
                 let avg = (channel as AnyObject).averagePowerLevel
                 let peak = (channel as AnyObject).peakHoldLevel
 
-                delegate?.cameraView(self, didMeasureAveragePower: avg!, peakHold: peak!, forAudioChannel: channel as! AVCaptureAudioChannel)
+                delegate?.cameraView(self, didMeasureAveragePower: avg!, peakHold: peak!, forAudioChannel: channel )
             }
         }
     }
@@ -237,7 +237,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             stopCapture()
         }
 
-        if AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .notDetermined {
+        if AVCaptureDevice.authorizationStatus(for: .video) == .notDetermined {
             NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
         }
 
@@ -260,12 +260,12 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             let input = try AVCaptureDeviceInput(device: device)
 
             captureSession = AVCaptureSession()
-            captureSession.sessionPreset = AVCaptureSessionPresetHigh
+            captureSession.sessionPreset = .high
             captureSession.addInput(input)
 
             capturePreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             capturePreviewLayer.frame = bounds
-            capturePreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+            capturePreviewLayer.videoGravity = .resizeAspectFill
             layer.addSublayer(capturePreviewLayer)
 
             configureAudioSession()
@@ -337,14 +337,14 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
         avCameraOutputQueue.async {
             if let cameraOutput = self.stillCameraOutput {
-                if let connection = cameraOutput.connection(withMediaType: AVMediaTypeVideo) {
+                if let connection = cameraOutput.connection(with: .video) {
                     if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
                         connection.videoOrientation = videoOrientation
                     }
 
                     cameraOutput.captureStillImageAsynchronously(from: connection) { imageDataSampleBuffer, error in
                         if error == nil {
-                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
+                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
 
                             if let image = UIImage(data: imageData!) {
                                 self.delegate?.cameraView(self, didCaptureStillImage: image)
@@ -376,7 +376,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
                 let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
                 let outputFileURL = URL(fileURLWithPath: "\(paths.first!)/\(Date().timeIntervalSince1970).m4v")
-                videoFileOutput.startRecording(toOutputFileURL: outputFileURL, recordingDelegate: self)
+                videoFileOutput.startRecording(to: outputFileURL, recordingDelegate: self)
             case .videoSampleBuffer:
                 if captureSession.canAddOutput(videoDataOutput) {
                     captureSession.addOutput(videoDataOutput)
@@ -389,13 +389,13 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     // MARK: AVCaptureFileOutputRecordingDelegate
 
-    func capture(_ captureOutput: AVCaptureFileOutput, didStartRecordingToOutputFileAt fileURL: URL, fromConnections connections: [Any]) {
+    func fileOutput(_ captureOutput: AVCaptureFileOutput, didStartRecordingTo fileURL: URL, from connections: [AVCaptureConnection]) {
         recording = true
 
         delegate?.cameraView(self, didStartVideoCaptureAtURL: fileURL)
     }
 
-    func capture(_ captureOutput: AVCaptureFileOutput, didFinishRecordingToOutputFileAt outputFileURL: URL, fromConnections connections: [Any], error: Error!) {
+    func fileOutput(_ captureOutput: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL, from connections: [AVCaptureConnection], error: Error?) {
         recording = false
 
         delegate?.cameraView(self, didFinishVideoCaptureAtURL: outputFileURL)
@@ -408,7 +408,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         //println("dropped samples \(sampleBuffer)")
     }
 
-    func captureOutput(_ captureOutput: AVCaptureOutput, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
         CVPixelBufferLockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
 
@@ -433,7 +433,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     // MARK: AVCaptureMetadataOutputObjectsDelegate
 
-    func captureOutput(_ captureOutput: AVCaptureOutput, didOutputMetadataObjects metadataObjects: [Any], from connection: AVCaptureConnection!) {
+    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         for object in metadataObjects {
             if let metadataFaceObject = object as? AVMetadataFaceObject {
                 let detectedFace = capturePreviewLayer.transformedMetadataObject(for: metadataFaceObject)

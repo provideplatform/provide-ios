@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class WorkOrderProvider: Model {
 
     var id = 0

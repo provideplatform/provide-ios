@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Comment: Model {
 
     var id = 0

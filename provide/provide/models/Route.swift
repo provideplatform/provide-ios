@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Route: Model {
 
     var legs = [RouteLeg]()

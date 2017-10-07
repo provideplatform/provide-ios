@@ -40,7 +40,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         })
     }
 
-    func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
+    @objc func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
         for annotation in annotations where annotation is Provider.Annotation {
             if let annotationView = view(for: annotation) {
                 for _ in annotationView.subviews {

@@ -9,6 +9,7 @@
 import Foundation
 import RestKit
 
+@objcMembers
 class Token: Model {
 
     var id = 0

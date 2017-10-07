@@ -1032,12 +1032,12 @@
 				TargetAttributes = {
 					689608901B3A1F21008719B0 = {
 						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						TestTargetID = 68DFB07D1B07C5C4002A72E8;
 					};
 					68DFB07D1B07C5C4002A72E8 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -1046,7 +1046,7 @@
 					};
 					68DFB0951B07C5C4002A72E8 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						TestTargetID = 68DFB07D1B07C5C4002A72E8;
 					};
 					68DFB0B21B07C6D9002A72E8 = {
@@ -1649,7 +1649,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
 			};
@@ -1691,7 +1691,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
 				VALIDATE_PRODUCT = YES;
@@ -1733,7 +1733,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
 				VALIDATE_PRODUCT = YES;
@@ -1868,7 +1868,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1891,7 +1891,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = AdHoc;
 		};
@@ -1912,7 +1912,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
 			};
 			name = Debug;
@@ -1933,7 +1933,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
 			};
 			name = AdHoc;
@@ -2023,7 +2023,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = AppStore;
 		};
@@ -2043,7 +2043,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "services.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(inherited)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/provide.app/provide";
 			};
 			name = AppStore;

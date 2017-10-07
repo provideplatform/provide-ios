@@ -24,6 +24,7 @@ private let elapsedTimeStringAbbreviatedFormatter: DateComponentsFormatter = {
     return $0
 }(DateComponentsFormatter())
 
+@objcMembers
 class Message: Model {
 
     var body = ""

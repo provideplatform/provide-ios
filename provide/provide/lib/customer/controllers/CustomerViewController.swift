@@ -174,9 +174,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
 
                     messagesVC.recipient = user
                 }
-                let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop,
-                                                  target: self,
-                                                  action: #selector(dismissMessagesButtonTapped(_:)))
+                let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissMessagesButtonTapped(_:)))
                 dismissItem.tintColor = .white
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }

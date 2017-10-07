@@ -72,7 +72,7 @@ class WorkOrderTableViewCell: UITableViewCell {
         enableEdgeToEdgeDividers()
     }
 
-    func refresh() {
+    @objc func refresh() {
         durationLabel.text = workOrder.humanReadableDuration
 
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseIn, animations: {

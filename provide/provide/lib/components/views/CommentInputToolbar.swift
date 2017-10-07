@@ -104,14 +104,14 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         }
     }
 
-    func addPhoto(_ sender: UIBarButtonItem!) {
+    @objc func addPhoto(_ sender: UIBarButtonItem!) {
         let cameraViewController = UIStoryboard("Camera").instantiateInitialViewController() as! CameraViewController
         cameraViewController.delegate = self
 
         commentsViewController.present(cameraViewController, animated: true)
     }
 
-    func addComment(_ sender: UIBarButtonItem!) {
+    @objc func addComment(_ sender: UIBarButtonItem!) {
         var comment: String!
         var textField: UITextField!
 
@@ -145,7 +145,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         items?.forEach { $0.isEnabled = true }
     }
 
-    func keyboardWillShow() {
+    @objc func keyboardWillShow() {
         if let commentInputTextField = commentInputTextField, let accessoryToolbar = commentInputTextField.inputAccessoryView, accessoryToolbar is CommentInputToolbar {
             let commentInputTextField = (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
             commentInputTextField.text = self.commentInputTextField.text
@@ -153,11 +153,11 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         }
     }
 
-    func keyboardDidShow() {
+    @objc func keyboardDidShow() {
 
     }
 
-    func keyboardDidHide() {
+    @objc func keyboardDidHide() {
 
     }
 

@@ -58,7 +58,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         socketTimer = nil
     }
 
-    func maintainWebsocketConnection() {
+    @objc func maintainWebsocketConnection() {
         if socket != nil {
             if !socketConnected {
                 connectWebsocket()

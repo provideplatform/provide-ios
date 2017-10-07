@@ -47,13 +47,13 @@ class MessageCell: JSQMessagesCollectionViewCell {
         }
     }
 
-    dynamic private func mediaContainerViewTapped(gestureRecognizer: UIGestureRecognizer) {
+    @objc dynamic private func mediaContainerViewTapped(gestureRecognizer: UIGestureRecognizer) {
         if let view = gestureRecognizer.view {
             presentMediaViewController(containerView: view)
         }
     }
 
-    dynamic private func mediaViewControllerDismissed(gestureRecognizer: UIGestureRecognizer) {
+    @objc dynamic private func mediaViewControllerDismissed(gestureRecognizer: UIGestureRecognizer) {
         collectionViewController?.dismiss(animated: false)
     }
 
