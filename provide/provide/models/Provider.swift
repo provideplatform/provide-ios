@@ -58,8 +58,7 @@ class Provider: Model {
     }
 
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2DMake(self.lastCheckinLatitude.doubleValue,
-                                          self.lastCheckinLongitude.doubleValue)
+        return CLLocationCoordinate2D(latitude: self.lastCheckinLatitude.doubleValue, longitude: self.lastCheckinLongitude.doubleValue)
     }
 
     override class func mapping() -> RKObjectMapping {

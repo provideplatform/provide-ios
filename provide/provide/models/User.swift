@@ -35,7 +35,7 @@ class User: Model {
 
     var coordinate: CLLocationCoordinate2D! {
         if let latitude = lastCheckinLatitude, let longitude = lastCheckinLongitude {
-            return CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue)
+            return CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
         }
         return nil
     }

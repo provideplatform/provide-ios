@@ -281,7 +281,7 @@ class WorkOrder: Model {
                     let latitude = destination["latitude"] as? Double
                     let longitude = destination["longitude"] as? Double
                     if let latitude = latitude, let longitude = longitude {
-                        return CLLocationCoordinate2DMake(latitude, longitude)
+                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 }
             } else {
@@ -289,20 +289,20 @@ class WorkOrder: Model {
                     let latitude = currentLocation["latitude"]
                     let longitude = currentLocation["longitude"]
                     if let latitude = latitude, let longitude = longitude {
-                        return CLLocationCoordinate2DMake(latitude, longitude)
+                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 } else if let origin = config["origin"] as? [String: AnyObject] {
                     let latitude = origin["latitude"] as? Double
                     let longitude = origin["longitude"] as? Double
                     if let latitude = latitude, let longitude = longitude {
-                        return CLLocationCoordinate2DMake(latitude, longitude)
+                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 }
             }
         }
 
         if let customer = customer {
-            return CLLocationCoordinate2DMake(customer.contact.latitude.doubleValue, customer.contact.longitude.doubleValue)
+            return CLLocationCoordinate2D(latitude: customer.contact.latitude.doubleValue, longitude: customer.contact.longitude.doubleValue)
         }
 
         return nil
