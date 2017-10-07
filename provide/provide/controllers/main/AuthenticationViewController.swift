@@ -11,10 +11,10 @@ import MBProgressHUD
 
 class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, ApplicationViewControllerDelegate {
 
-    fileprivate var emailField: UITextField!
-    fileprivate var passwordField: UITextField!
+    private var emailField: UITextField!
+    private var passwordField: UITextField!
 
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     // MARK: UIViewController Lifecycle
 
@@ -48,7 +48,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: User Interface Methods
 
-    @objc fileprivate func cancel(_: UIBarButtonItem) {
+    @objc private func cancel(_: UIBarButtonItem) {
         UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
             if self.emailField?.isFirstResponder == true {
                 self.emailField?.resignFirstResponder()
@@ -64,7 +64,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         })
     }
 
-    fileprivate func showForm() {
+    private func showForm() {
         passwordField?.text = ""
 
         if let emailField = emailField {
@@ -80,7 +80,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         })
     }
 
-    fileprivate func hideForm() {
+    private func hideForm() {
         view.endEditing(true)
 
         UIView.animate(withDuration: 0.15, animations: {
@@ -103,7 +103,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         login()
     }
 
-    fileprivate func login() {
+    private func login() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
@@ -124,7 +124,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         })
     }
 
-    fileprivate func userWasAuthenticated() {
+    private func userWasAuthenticated() {
         if KeyChainService.shared.email != nil {
             performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
         }
@@ -156,7 +156,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: AuthenticationCell setup methods
 
-    fileprivate func emailCell(_ tableView: UITableView) -> AuthenticationCell {
+    private func emailCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["EmailCell"] as! AuthenticationCell
         emailField = cell.textField
         if let storedEmail = KeyChainService.shared.email {
@@ -168,7 +168,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         return cell
     }
 
-    fileprivate func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
+    private func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["PasswordCell"] as! AuthenticationCell
         passwordField = cell.textField
         passwordField.text = ""
@@ -216,7 +216,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: Validation Methods
 
-    fileprivate func validFieldValues() -> Bool {
+    private func validFieldValues() -> Bool {
         return emailField != nil && emailField.text!.isValidEmail()
     }
 

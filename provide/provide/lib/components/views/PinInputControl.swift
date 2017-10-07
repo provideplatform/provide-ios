@@ -29,7 +29,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
 
     weak var delegate: PinInputControlDelegate? // Public
 
-    fileprivate var pin: String = ""
+    private var pin: String = ""
 
     // UITextInputTraits protocol
     var keyboardType: UIKeyboardType = .numberPad
@@ -102,7 +102,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
         return pin.isEmpty
     }
 
-    fileprivate func textChanged() {
+    private func textChanged() {
         setNeedsDisplay()
         UIDevice.current.playInputClick()
         sendActions(for: .editingChanged)

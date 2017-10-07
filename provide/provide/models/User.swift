@@ -125,7 +125,7 @@ class User: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        fileprivate var user: User!
+        private var user: User!
 
         required init(user: User) {
             self.user = user

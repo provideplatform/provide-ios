@@ -42,7 +42,7 @@ class MenuTableView: UITableView {
         }
     }
 
-    fileprivate func shouldPassTouchToSuperview(_ touch: UITouch) -> Bool {
+    private func shouldPassTouchToSuperview(_ touch: UITouch) -> Bool {
         if indexPathForRow(at: touch.location(in: self)) != nil {
             return false
         }

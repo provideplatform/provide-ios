@@ -11,7 +11,7 @@ typealias OnProvidersFetched = (_ providers: [Provider]) -> Void
 class ProviderService: NSObject {
     static let shared = ProviderService()
 
-    fileprivate var providers = [Provider]()
+    private var providers = [Provider]()
 
     func setProviders(_ providers: [Provider]) {
         self.providers = providers

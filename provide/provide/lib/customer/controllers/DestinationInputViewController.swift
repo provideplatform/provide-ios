@@ -22,19 +22,19 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         }
     }
 
-    @IBOutlet fileprivate weak var destinationTextField: UITextField!
+    @IBOutlet private weak var destinationTextField: UITextField!
 
-    fileprivate var initialFrame: CGRect!
-    fileprivate var initialDestinationTextFieldFrame: CGRect!
-    fileprivate var initialDestinationResultsViewFrame: CGRect!
-    fileprivate var initialDestinationResultsTableViewFrame: CGRect!
+    private var initialFrame: CGRect!
+    private var initialDestinationTextFieldFrame: CGRect!
+    private var initialDestinationResultsViewFrame: CGRect!
+    private var initialDestinationResultsTableViewFrame: CGRect!
 
-    fileprivate var timer: Timer!
-    fileprivate var pendingSearch = false
+    private var timer: Timer!
+    private var pendingSearch = false
 
-    fileprivate var placemark: CLPlacemark!
+    private var placemark: CLPlacemark!
 
-    fileprivate var expanded = false {
+    private var expanded = false {
         didSet {
             if expanded {
                 initialFrame = view.frame
@@ -80,7 +80,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         }
     }
 
-    @objc fileprivate func search() {
+    @objc private func search() {
         if pendingSearch {
             logInfo("Places autocomplete search API request still pending; will execute when it returns")
             return
@@ -143,7 +143,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         return false
     }
 
-    @IBAction fileprivate func textFieldChanged(_ textField: UITextField) {
+    @IBAction private func textFieldChanged(_ textField: UITextField) {
         // TODO: use a LIFO queue and remove anything that is still queued
         // to allow only a single API request on the wire at a time
 

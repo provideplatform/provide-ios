@@ -19,39 +19,39 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     let defaultAccuracy = kCLLocationAccuracyBest
     let defaultDistanceFilter = kCLDistanceFilterNone
 
-    fileprivate let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
+    private let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
 
     var currentHeading: CLHeading!
     var currentLocation: CLLocation!
 
-    fileprivate var intervalSinceLastAccurateLocation: TimeInterval! {
+    private var intervalSinceLastAccurateLocation: TimeInterval! {
         if let locationServiceStartedDate = locationServiceStartedDate, let lastAccurateLocationDate = lastAccurateLocationDate {
             return lastAccurateLocationDate.timeIntervalSince(locationServiceStartedDate)
         }
         return nil
     }
 
-    fileprivate var locationServiceStartedDate: Date!
-    fileprivate var lastAccurateLocationDate: Date!
+    private var locationServiceStartedDate: Date!
+    private var lastAccurateLocationDate: Date!
 
-    fileprivate var geofenceCallbacks = [String: [String: VoidBlock]]()
-    fileprivate var geofenceCallbackCounts = [String: [String: Int]]()
-    fileprivate var onManagerAuthorizedCallbacks = [VoidBlock]()
+    private var geofenceCallbacks = [String: [String: VoidBlock]]()
+    private var geofenceCallbackCounts = [String: [String: Int]]()
+    private var onManagerAuthorizedCallbacks = [VoidBlock]()
 
-    fileprivate var onHeadingResolvedCallbacks = [OnHeadingResolved]()
-    fileprivate var onHeadingResolvedDurableCallbacks = [String: OnHeadingResolved]()
+    private var onHeadingResolvedCallbacks = [OnHeadingResolved]()
+    private var onHeadingResolvedDurableCallbacks = [String: OnHeadingResolved]()
 
-    fileprivate var onLocationResolvedCallbacks = [OnLocationResolved]()
-    fileprivate var onLocationResolvedDurableCallbacks = [String: OnLocationResolved]()
+    private var onLocationResolvedCallbacks = [OnLocationResolved]()
+    private var onLocationResolvedDurableCallbacks = [String: OnLocationResolved]()
 
-    fileprivate var onLocationAndHeadingResolvedCallbacks = [OnLocationAndHeadingResolved]()
-    fileprivate var onLocationAndHeadingResolvedDurableCallbacks = [String: OnLocationAndHeadingResolved]()
+    private var onLocationAndHeadingResolvedCallbacks = [OnLocationAndHeadingResolved]()
+    private var onLocationAndHeadingResolvedDurableCallbacks = [String: OnLocationAndHeadingResolved]()
 
-    fileprivate var requireNavigationAccuracy = false
+    private var requireNavigationAccuracy = false
 
-    fileprivate var regions = [CLCircularRegion]()
+    private var regions = [CLCircularRegion]()
 
-    fileprivate var staleLocation: Bool {
+    private var staleLocation: Bool {
         if intervalSinceLastAccurateLocation != nil && abs(intervalSinceLastAccurateLocation) >= 15.0 {
             return true
         } else if locationServiceStartedDate != nil && abs(locationServiceStartedDate.timeIntervalSinceNow) >= 15.0 {
@@ -196,7 +196,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    fileprivate func locationResolved(_ location: CLLocation) {
+    private func locationResolved(_ location: CLLocation) {
         logInfo("Resolved current location: \(location)")
 
         currentLocation = location
@@ -275,7 +275,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    fileprivate func headingResolved(_ heading: CLHeading) {
+    private func headingResolved(_ heading: CLHeading) {
         logInfo("Resolved current heading: \(heading)")
         currentHeading = heading
 

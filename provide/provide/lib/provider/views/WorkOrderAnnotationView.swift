@@ -10,7 +10,7 @@ import Foundation
 
 class WorkOrderAnnotationView: AnnotationView {
 
-    fileprivate let defaultPadding = UIEdgeInsets(top: 5, left: 0, bottom: 100, right: 0)
+    private let defaultPadding = UIEdgeInsets(top: 5, left: 0, bottom: 100, right: 0)
 
     var minutesEta: Int! {
         didSet {
@@ -23,13 +23,13 @@ class WorkOrderAnnotationView: AnnotationView {
         }
     }
 
-    @IBOutlet fileprivate weak var pinPointerView: UIView!
+    @IBOutlet private weak var pinPointerView: UIView!
 
-    @IBOutlet fileprivate weak var titleLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
 
-    @IBOutlet fileprivate weak var travelMinutesLabelView: UILabel!
-    @IBOutlet fileprivate weak var travelTimeUnitsLabelView: UILabel!
-    @IBOutlet fileprivate weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var travelMinutesLabelView: UILabel!
+    @IBOutlet private weak var travelTimeUnitsLabelView: UILabel!
+    @IBOutlet private weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -65,7 +65,7 @@ class WorkOrderAnnotationView: AnnotationView {
         travelEtaActivityIndicatorView.startAnimating()
     }
 
-    fileprivate func backgroundImageForRect(_ rect: CGRect) -> UIImage {
+    private func backgroundImageForRect(_ rect: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0.0)
         let image = Color.annotationViewBackgroundImage()
         image.draw(in: rect)
@@ -74,11 +74,11 @@ class WorkOrderAnnotationView: AnnotationView {
         return resizedImage!
     }
 
-    fileprivate func resizedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
+    private func resizedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
         return UIColor(patternImage: backgroundImageForRect(rect)).withAlphaComponent(0.70)
     }
 
-    fileprivate func resizedSelectedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
+    private func resizedSelectedBackgroundColorForRect(_ rect: CGRect) -> UIColor {
         return UIColor(patternImage: backgroundImageForRect(rect)).withAlphaComponent(0.90)
     }
 }

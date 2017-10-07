@@ -18,7 +18,7 @@ class MenuTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet fileprivate weak var label: UILabel!
+    @IBOutlet private weak var label: UILabel!
 
     override func prepareForReuse() {
         super.prepareForReuse()

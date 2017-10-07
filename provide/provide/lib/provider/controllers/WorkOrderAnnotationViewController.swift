@@ -16,7 +16,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         }
     }
 
-    fileprivate var minutesEta: Int! {
+    private var minutesEta: Int! {
         didSet {
             (view as! WorkOrderAnnotationView).minutesEta = minutesEta
         }

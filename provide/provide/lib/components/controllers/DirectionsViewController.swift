@@ -21,19 +21,19 @@ protocol DirectionsViewControllerDelegate: class {
 
 class DirectionsViewController: ViewController {
 
-    fileprivate let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
+    private let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
 
-    fileprivate let defaultMapCameraPitch = 60.0
-    fileprivate let defaultMapCameraAltitude = 500.0
+    private let defaultMapCameraPitch = 60.0
+    private let defaultMapCameraAltitude = 500.0
 
-    fileprivate let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
-    fileprivate let defaultHeadingResolvedDurableCallbackKey = "directionsHeadingDurableCallback"
+    private let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
+    private let defaultHeadingResolvedDurableCallbackKey = "directionsHeadingDurableCallback"
 
-    fileprivate var regions: [CLCircularRegion]!
-    fileprivate var lastRegionCrossed: CLCircularRegion!
-    fileprivate var lastRegionCrossing: Date!
+    private var regions: [CLCircularRegion]!
+    private var lastRegionCrossed: CLCircularRegion!
+    private var lastRegionCrossing: Date!
 
-    @IBOutlet fileprivate weak var directionsInstructionView: DirectionsInstructionView!
+    @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
     var directions: Directions? {
         didSet {
@@ -61,7 +61,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    fileprivate func resolveCurrentStep() { // FIXME -- move this to the route model
+    private func resolveCurrentStep() { // FIXME -- move this to the route model
         if let leg = directions?.selectedRoute?.currentLeg, let nextStep = leg.nextStep {
             leg.currentStep.instruction = nextStep.instruction
             leg.currentStep.maneuver = nextStep.maneuver
@@ -70,7 +70,7 @@ class DirectionsViewController: ViewController {
 
     weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
 
-    fileprivate var targetView: UIView {
+    private var targetView: UIView {
         return directionsViewControllerDelegate!.targetViewForViewController(self)
     }
 
@@ -152,7 +152,7 @@ class DirectionsViewController: ViewController {
         })
     }
 
-    fileprivate func setCenterCoordinate(_ location: CLLocation) {
+    private func setCenterCoordinate(_ location: CLLocation) {
         if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             var sufficientDelta = false
             if let lastLocation = LocationService.shared.currentLocation {
@@ -181,7 +181,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    fileprivate func fetchDrivingDirections(_ location: CLLocation!) {
+    private func fetchDrivingDirections(_ location: CLLocation!) {
         let callback: OnDrivingDirectionsFetched = { directions in
             self.directions = directions
 
@@ -248,7 +248,7 @@ class DirectionsViewController: ViewController {
         WorkOrderService.shared.fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(location.coordinate, onDrivingDirectionsFetched: callback)
     }
 
-    fileprivate func unregisterMonitoredRegions() {
+    private func unregisterMonitoredRegions() {
         monitoredRegionsQueue.async { [weak self] in
             if let regions = self?.regions {
                 for region in regions {
@@ -279,7 +279,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    fileprivate func renderRouteOverview() {
+    private func renderRouteOverview() {
         if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
             mapView.removeOverlays(mapView.overlays)
 

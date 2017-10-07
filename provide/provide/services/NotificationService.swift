@@ -14,15 +14,15 @@ import KTSwiftExtensions
 class NotificationService: NSObject, JFRWebSocketDelegate {
     static let shared = NotificationService()
 
-    fileprivate let socketQueue = DispatchQueue(label: "api.websocketQueue", attributes: [])
+    private let socketQueue = DispatchQueue(label: "api.websocketQueue", attributes: [])
 
-    fileprivate var socket: JFRWebSocket!
+    private var socket: JFRWebSocket!
 
-    fileprivate var socketConnected: Bool {
+    private var socketConnected: Bool {
         return socket?.isConnected ?? false
     }
 
-    fileprivate var socketTimer: Timer!
+    private var socketTimer: Timer!
 
     func configureWebsocket() {
         disconnectWebsocket()

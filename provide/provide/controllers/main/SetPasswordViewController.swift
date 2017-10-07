@@ -17,10 +17,10 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
 
     weak var delegate: SetPasswordViewControllerDelegate?
 
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
-    @IBOutlet fileprivate weak var passwordField: UITextField!
-    @IBOutlet fileprivate weak var confirmField: UITextField!
+    @IBOutlet private weak var passwordField: UITextField!
+    @IBOutlet private weak var confirmField: UITextField!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -62,7 +62,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         setPassword()
     }
 
-    fileprivate func setPassword() {
+    private func setPassword() {
         MBProgressHUD.showAdded(to: self.view, animated: true)
 
         let params = [
@@ -84,7 +84,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         })
     }
 
-    fileprivate func hideForm() {
+    private func hideForm() {
         view.endEditing(true)
 
         UIView.animate(withDuration: 0.15, animations: {
@@ -92,7 +92,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         })
     }
 
-    fileprivate func showForm() {
+    private func showForm() {
         passwordField?.text = ""
         confirmField?.text = ""
 
@@ -127,7 +127,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         return cell
     }
 
-    fileprivate func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
+    private func passwordCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["PasswordCell"] as! AuthenticationCell
         passwordField = cell.textField
         passwordField.text = ""
@@ -135,7 +135,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         return cell
     }
 
-    fileprivate func confirmCell(_ tableView: UITableView) -> AuthenticationCell {
+    private func confirmCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["ConfirmCell"] as! AuthenticationCell
         confirmField = cell.textField
         confirmField.text = ""

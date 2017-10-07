@@ -16,12 +16,12 @@ class MapView: MKMapView, MKMapViewDelegate {
     var requireUserLocationBeforeRevealing = false
     var updateUserLocationAnnotation = true
 
-    fileprivate var shouldReveal: Bool {
+    private var shouldReveal: Bool {
         return !requireUserLocationBeforeRevealing || (alpha == 0 && mapFullyRenderedOnce && updatedUserLocationOnce)
     }
 
-    fileprivate var mapFullyRenderedOnce = false
-    fileprivate var updatedUserLocationOnce = false
+    private var mapFullyRenderedOnce = false
+    private var updatedUserLocationOnce = false
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

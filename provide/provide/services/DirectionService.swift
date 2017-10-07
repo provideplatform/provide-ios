@@ -14,7 +14,7 @@ typealias OnDrivingDirectionsFetched = (_ directions: Directions) -> Void
 class DirectionService: NSObject {
     static let shared = DirectionService()
 
-    fileprivate var canSendDirectionsApiRequest: Bool {
+    private var canSendDirectionsApiRequest: Bool {
         if let lastRequestDate = lastDirectionsApiRequestDate {
             var sufficientDelta = false
             if let currentLocation = LocationService.shared.currentLocation {
@@ -34,7 +34,7 @@ class DirectionService: NSObject {
         return false
     }
 
-    fileprivate var canSendEtaApiRequest: Bool {
+    private var canSendEtaApiRequest: Bool {
         if let lastRequestDate = lastEtaApiRequestDate {
             if abs(lastRequestDate.timeIntervalSinceNow) >= 1.0 {
                 return true
@@ -45,10 +45,10 @@ class DirectionService: NSObject {
         return false
     }
 
-    fileprivate var lastDirectionsApiRequestCoordinate: CLLocationCoordinate2D!
+    private var lastDirectionsApiRequestCoordinate: CLLocationCoordinate2D!
 
-    fileprivate var lastDirectionsApiRequestDate: Date!
-    fileprivate var lastEtaApiRequestDate: Date!
+    private var lastDirectionsApiRequestDate: Date!
+    private var lastEtaApiRequestDate: Date!
 
     func resetLastDirectionsApiRequestCoordinateAndTimestamp() {
         lastDirectionsApiRequestCoordinate = nil

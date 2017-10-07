@@ -10,10 +10,10 @@ import UIKit
 
 class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
-    @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
-    @IBOutlet fileprivate weak var gradientView: UIView!
-    @IBOutlet fileprivate weak var customerLabel: UILabel!
-    @IBOutlet fileprivate weak var addressLabel: UILabel!
+    @IBOutlet private weak var mapView: WorkOrderMapView!
+    @IBOutlet private weak var gradientView: UIView!
+    @IBOutlet private weak var customerLabel: UILabel!
+    @IBOutlet private weak var addressLabel: UILabel!
 
     var workOrder: WorkOrder! {
         didSet {

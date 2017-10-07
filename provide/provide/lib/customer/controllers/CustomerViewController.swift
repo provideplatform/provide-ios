@@ -10,32 +10,32 @@ import UIKit
 
 class CustomerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
 
-    @IBOutlet fileprivate weak var mapView: CustomerMapView!
+    @IBOutlet private weak var mapView: CustomerMapView!
 
-    fileprivate var destinationInputViewController: DestinationInputViewController!
-    fileprivate var destinationResultsViewController: DestinationResultsViewController!
-    fileprivate var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
-    fileprivate var providerEnRouteViewController: ProviderEnRouteViewController!
+    private var destinationInputViewController: DestinationInputViewController!
+    private var destinationResultsViewController: DestinationResultsViewController!
+    private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
+    private var providerEnRouteViewController: ProviderEnRouteViewController!
 
-    fileprivate var updatingWorkOrderContext = false
+    private var updatingWorkOrderContext = false
 
-    fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
+    private var canAttemptSegueToEnRouteWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
     }
 
-    fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
+    private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
     }
 
-    fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
+    private var canAttemptSegueToArrivingWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
     }
 
-    fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
+    private var canAttemptSegueToInProgressWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "in_progress"
     }
 
-    fileprivate var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
+    private var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "awaiting_schedule"
     }
 
@@ -98,7 +98,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func handleInProgressWorkOrderStateChange() {
+    private func handleInProgressWorkOrderStateChange() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == "en_route" {
             // ensure we weren't previously awaiting confirmation
             if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
@@ -135,34 +135,34 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func refreshContext() {
+    private func refreshContext() {
         loadWorkOrderContext()
         loadProviderContext()
     }
 
-    fileprivate func setupMenuBarButtonItem() {
+    private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: "menuButtonTapped:")
         navigationItem.leftBarButtonItem = menuBarButtonItem
         navigationItem.rightBarButtonItem = nil
     }
 
-    fileprivate func setupMessagesBarButtonItem() {
+    private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
         let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
         navigationItem.rightBarButtonItem = messagesBarButtonItem
     }
 
-    fileprivate func setupCancelWorkOrderBarButtonItem() {
+    private func setupCancelWorkOrderBarButtonItem() {
         let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped(_:)))
         navigationItem.leftBarButtonItem = cancelBarButtonItem
     }
 
-    @objc fileprivate func menuButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
         NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
     }
 
-    @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func messageButtonTapped(_ sender: UIBarButtonItem) {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
             if let messagesVC = messagesNavCon?.viewControllers.first as? MessagesViewController {
@@ -183,11 +183,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    @objc fileprivate func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
 
-    @objc fileprivate func cancelButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func cancelButtonTapped(_ sender: UIBarButtonItem) {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
             attemptSegueToValidWorkOrderContext()
@@ -227,7 +227,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         })
     }
 
-    fileprivate func attemptSegueToValidWorkOrderContext() {
+    private func attemptSegueToValidWorkOrderContext() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToArrivingWorkOrder || canAttemptSegueToInProgressWorkOrder {
                 setupCancelWorkOrderBarButtonItem()
@@ -258,7 +258,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func presentDestinationInputViewController() {
+    private func presentDestinationInputViewController() {
         if let destinationInputView = destinationInputViewController.view {
             destinationInputView.isHidden = true
             destinationInputView.removeFromSuperview()
@@ -286,7 +286,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func presentConfirmWorkOrderViewController() {
+    private func presentConfirmWorkOrderViewController() {
         if let confirmWorkOrderView = confirmWorkOrderViewController.view {
             confirmWorkOrderView.isHidden = true
             confirmWorkOrderView.removeFromSuperview()
@@ -298,7 +298,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func presentProviderEnRouteViewController() {
+    private func presentProviderEnRouteViewController() {
         if let providerEnRouteView = providerEnRouteViewController.view {
             providerEnRouteView.isHidden = true
             providerEnRouteView.removeFromSuperview()
@@ -310,7 +310,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    fileprivate func updateProviderLocation(_ provider: Provider) {
+    private func updateProviderLocation(_ provider: Provider) {
         if provider.userId == currentUser.id {
             return  // HACK!!! API should not return this
         }

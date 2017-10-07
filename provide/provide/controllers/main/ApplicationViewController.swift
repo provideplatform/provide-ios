@@ -17,9 +17,9 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
 
     weak var applicationViewControllerDelegate: ApplicationViewControllerDelegate?
 
-    fileprivate var topViewController: UIViewController!
+    private var topViewController: UIViewController!
 
-    fileprivate var menuContainerView: MenuContainerView!
+    private var menuContainerView: MenuContainerView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,7 +83,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
     }
 
-    fileprivate func refreshMenu() {
+    private func refreshMenu() {
         teardownMenu()
 
         DispatchQueue.main.async {
@@ -181,7 +181,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
 
     }
 
-    fileprivate func initCameraViewController() {
+    private func initCameraViewController() {
         let selfieViewController = UIStoryboard("Camera").instantiateViewController(withIdentifier: "SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
@@ -190,7 +190,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
     }
 
-    fileprivate func setHasBeenPromptedToTakeSelfieFlag() {
+    private func setHasBeenPromptedToTakeSelfieFlag() {
         let userDefaults = UserDefaults.standard
         userDefaults.set(true, forKey: "presentedSelfieViewController")
         userDefaults.synchronize()

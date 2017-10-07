@@ -12,7 +12,7 @@ import Analytics
 class AnalyticsService: NSObject {
     static let shared = AnalyticsService()
 
-    fileprivate var analyticsEnabled: Bool {
+    private var analyticsEnabled: Bool {
         return !isSimulator() && !isRunningUnitTests()
     }
 
@@ -98,7 +98,7 @@ class AnalyticsService: NSObject {
         }
     }
 
-    fileprivate func shouldIgnoreViewController(_ className: String) -> Bool {
+    private func shouldIgnoreViewController(_ className: String) -> Bool {
         let prefixes = ["UI", "_", "DD", "MK"]
         for prefix in prefixes {
             if className.hasPrefix(prefix) {

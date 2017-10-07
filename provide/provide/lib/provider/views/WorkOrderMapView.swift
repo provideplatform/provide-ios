@@ -32,7 +32,7 @@ class WorkOrderMapView: MapView {
         }
     }
 
-    fileprivate var userLocationImageView: UIImageView {
+    private var userLocationImageView: UIImageView {
         let imageView: ProfileImageView
 
         if let profileImageUrl = currentUser.profileImageUrl {
@@ -51,7 +51,7 @@ class WorkOrderMapView: MapView {
         return imageView
     }
 
-    fileprivate var viewingDirections: Bool {
+    private var viewingDirections: Bool {
         return directionsViewControllerDelegate?.isPresentingDirections() ?? false
     }
 

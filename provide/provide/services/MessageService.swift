@@ -14,9 +14,9 @@ typealias OnMessageCreated = (Message) -> Void
 class MessageService {
     static let shared = MessageService()
 
-    fileprivate var messages = [Message]()
+    private var messages = [Message]()
 
-    fileprivate init() {
+    private init() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
@@ -36,7 +36,7 @@ class MessageService {
         }, onError: onError)
     }
 
-    @objc fileprivate func handleNewMessageReceived(_ notification: Notification) {
+    @objc private func handleNewMessageReceived(_ notification: Notification) {
         let message = notification.object as! Message
         messages.append(message)
     }

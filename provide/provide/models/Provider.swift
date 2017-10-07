@@ -133,7 +133,7 @@ class Provider: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        fileprivate var provider: Provider!
+        private var provider: Provider!
 
         func matches(_ otherProvider: Provider) -> Bool {
             return otherProvider.id == provider.id

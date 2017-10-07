@@ -12,9 +12,9 @@ import UICKeyChainStore
 class KeyChainService {
     static let shared = KeyChainService()
 
-    fileprivate let uicStore = UICKeyChainStore()
+    private let uicStore = UICKeyChainStore()
 
-    fileprivate var cachedToken: Token?
+    private var cachedToken: Token?
 
     subscript(key: String) -> String? {
         get {

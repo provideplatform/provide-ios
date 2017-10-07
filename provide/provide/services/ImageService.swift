@@ -16,7 +16,7 @@ typealias OnImageDownloadFailure = (_ error: NSError) -> Void
 class ImageService {
     static let shared = ImageService()
 
-    fileprivate var cache: SDImageCache!
+    private var cache: SDImageCache!
 
     required init() {
         cache = SDImageCache.shared()

@@ -24,7 +24,7 @@ let presignedS3RequestURL = URL(string: "\(CurrentEnvironment.apiBaseUrlString)/
 class ApiService: NSObject {
     static let shared = ApiService()
 
-    fileprivate let mimeMappings = [
+    private let mimeMappings = [
         "application/pdf": "pdf",
         "image/jpg": "jpg",
         "image/jpeg": "jpg",
@@ -32,9 +32,9 @@ class ApiService: NSObject {
         "video/mp4": "m4v",
     ]
 
-    fileprivate static let usersMapping: [String: AnyObject] = ["*": User.mapping(), "post": UserToken.mapping()]
+    private static let usersMapping: [String: AnyObject] = ["*": User.mapping(), "post": UserToken.mapping()]
 
-    fileprivate let objectMappings: [String: AnyObject] = [
+    private let objectMappings: [String: AnyObject] = [
         "attachments": Attachment.mappingWithRepresentations(),
         "comments": Comment.mapping(),
         "companies": Company.mapping(),
@@ -51,12 +51,12 @@ class ApiService: NSObject {
         "messages": Message.mapping(),
     ]
 
-    fileprivate let initialBackoffTimeout: TimeInterval = 0.1
-    fileprivate var backoffTimeout: TimeInterval!
+    private let initialBackoffTimeout: TimeInterval = 0.1
+    private var backoffTimeout: TimeInterval!
 
-    fileprivate var headers = [String: String]()
+    private var headers = [String: String]()
 
-    fileprivate var requestOperations = [RKObjectRequestOperation]()
+    private var requestOperations = [RKObjectRequestOperation]()
 
     override init() {
         super.init()
@@ -155,7 +155,7 @@ class ApiService: NSObject {
         deleteToken(onSuccess: onSuccess, onError: onError)
     }
 
-    fileprivate func forceLogout() {
+    private func forceLogout() {
         if !isSimulator() {
             unregisterForRemoteNotifications()
         }
@@ -165,7 +165,7 @@ class ApiService: NSObject {
         NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
     }
 
-    fileprivate func deleteToken(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func deleteToken(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if let token = KeyChainService.shared.token {
             dispatchApiOperationForPath("tokens/\(token.id)", method: .DELETE, params: nil, onSuccess: { statusCode, mappingResult in
                 onSuccess(statusCode, mappingResult)
@@ -177,7 +177,7 @@ class ApiService: NSObject {
         }
     }
 
-    fileprivate func localLogout() {
+    private func localLogout() {
         CheckinService.shared.stop()
         LocationService.shared.stop()
         NotificationService.shared.disconnectWebsocket()
@@ -635,7 +635,7 @@ class ApiService: NSObject {
     // MARK: Private methods
 
     @discardableResult
-    fileprivate func countTotalResultsForPath(_ path: String, params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
+    private func countTotalResultsForPath(_ path: String, params: [String: AnyObject], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
         var params = params
 
         params["page"] = 1 as AnyObject
@@ -675,11 +675,11 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    private func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: AnyObject]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!, path: "api/\(path)", method: method, params: params, contentType: "application/json", startOperation: startOperation, onSuccess: onSuccess, onError: onError)
     }
 
-    fileprivate func objectMappingForPath(_ path: String, method: String) -> RKObjectMapping? {
+    private func objectMappingForPath(_ path: String, method: String) -> RKObjectMapping? {
         var path = path
         let parts = path.characters.split(separator: "/").map { String($0) }
         if parts.count > 5 {
@@ -717,7 +717,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    fileprivate func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    private func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: AnyObject]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)

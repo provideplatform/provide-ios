@@ -8,9 +8,9 @@
 
 class TopViewController: ViewController, MenuViewControllerDelegate {
 
-    fileprivate var vc: UIViewController!
+    private var vc: UIViewController!
 
-    fileprivate var topStoryboard: UIStoryboard! {
+    private var topStoryboard: UIStoryboard! {
         if let mode = KeyChainService.shared.mode {
             switch mode {
             case .customer:

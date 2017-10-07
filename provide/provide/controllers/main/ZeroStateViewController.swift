@@ -10,11 +10,11 @@ import UIKit
 
 class ZeroStateViewController: ViewController {
 
-    @IBOutlet fileprivate weak var imageView: UIImageView!
-    @IBOutlet fileprivate weak var label: UILabel!
-    @IBOutlet fileprivate weak var messageLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var label: UILabel!
+    @IBOutlet private weak var messageLabel: UILabel!
 
-    fileprivate var backgroundSubview: UIView!
+    private var backgroundSubview: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

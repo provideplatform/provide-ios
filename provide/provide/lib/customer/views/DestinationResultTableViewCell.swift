@@ -8,9 +8,9 @@
 
 class DestinationResultTableViewCell: UITableViewCell {
 
-    @IBOutlet fileprivate weak var icon: UIImageView!
-    @IBOutlet fileprivate weak var title: UILabel!
-    @IBOutlet fileprivate weak var subtitle: UILabel!
+    @IBOutlet private weak var icon: UIImageView!
+    @IBOutlet private weak var title: UILabel!
+    @IBOutlet private weak var subtitle: UILabel!
 
     var result: Contact! {
         didSet {

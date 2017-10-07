@@ -49,7 +49,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
 
 class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, CommentCreationViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
 
-    fileprivate let managedViewControllerSegues = [
+    private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
         "WorkOrderAnnotationViewControllerSegue",
         "WorkOrderComponentViewControllerSegue",
@@ -57,14 +57,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         "WorkOrderDestinationConfirmationViewControllerSegue",
     ]
 
-    fileprivate var managedViewControllers = [UIViewController]()
-    fileprivate var updatingWorkOrderContext = false
+    private var managedViewControllers = [UIViewController]()
+    private var updatingWorkOrderContext = false
 
-    @IBOutlet fileprivate weak var mapView: WorkOrderMapView!
+    @IBOutlet private weak var mapView: WorkOrderMapView!
 
-    fileprivate var zeroStateViewController: ZeroStateViewController!
+    private var zeroStateViewController: ZeroStateViewController!
 
-    fileprivate var availabilityBarButtonItem: UIBarButtonItem!
+    private var availabilityBarButtonItem: UIBarButtonItem!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,32 +116,32 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         setupZeroStateView()
     }
 
-    fileprivate func setupZeroStateView() {
+    private func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
-    fileprivate func setupMenuBarButtonItem() {
+    private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: "menuButtonTapped:")
         navigationItem.leftBarButtonItem = menuBarButtonItem
     }
 
-    fileprivate func setupMessagesBarButtonItem() {
+    private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
         let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: "messageButtonTapped:")
         navigationItem.rightBarButtonItem = messagesBarButtonItem
     }
 
-    @objc fileprivate func menuButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
         NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
     }
 
-    @objc fileprivate func messageButtonTapped(_ sender: UIBarButtonItem) {
+    @objc private func messageButtonTapped(_ sender: UIBarButtonItem) {
         let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
         present(messagesNavCon!, animated: true)
     }
 
-    @IBAction fileprivate func toggleAvailability(_ sender: UISwitch) {
+    @IBAction private func toggleAvailability(_ sender: UISwitch) {
         if let currentProvider = currentProvider {
             availabilityBarButtonItem?.isEnabled = false
             currentProvider.toggleAvailability(onSuccess: { [weak self] statusCode, mappingResult in
@@ -165,41 +165,41 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     // MARK: WorkOrder segue state interrogation
 
-    fileprivate var canAttemptSegueToValidWorkOrderContext: Bool {
+    private var canAttemptSegueToValidWorkOrderContext: Bool {
         return canAttemptSegueToInProgressWorkOrder || canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToNextWorkOrder
     }
 
-    fileprivate var canAttemptSegueToNextWorkOrder: Bool {
+    private var canAttemptSegueToNextWorkOrder: Bool {
         return WorkOrderService.shared.nextWorkOrder != nil
     }
 
-    fileprivate var canAttemptSegueToEnRouteWorkOrder: Bool {
+    private var canAttemptSegueToEnRouteWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
     }
 
-    fileprivate var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
+    private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
     }
 
-    fileprivate var canAttemptSegueToArrivingWorkOrder: Bool {
+    private var canAttemptSegueToArrivingWorkOrder: Bool {
         return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
     }
 
-    fileprivate var canAttemptSegueToInProgressWorkOrder: Bool {
+    private var canAttemptSegueToInProgressWorkOrder: Bool {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             return workOrder.status == "in_progress" || workOrder.status == "rejected"
         }
         return false
     }
 
-    fileprivate var viewingDirections: Bool {
+    private var viewingDirections: Bool {
         for vc in managedViewControllers where vc is DirectionsViewController {
             return true
         }
         return false
     }
 
-    fileprivate func setupAvailabilityBarButtonItem() {
+    private func setupAvailabilityBarButtonItem() {
         if availabilityBarButtonItem != nil {
             navigationItem.rightBarButtonItem = nil
             availabilityBarButtonItem = nil
@@ -310,7 +310,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         availabilityBarButtonItem?.isEnabled = availabilityBarButtonItemEnabled
     }
 
-    fileprivate func refreshAnnotations() {
+    private func refreshAnnotations() {
         DispatchQueue.main.async {
             self.shouldRemoveMapAnnotationsForWorkOrderViewController(self)
 
@@ -414,7 +414,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return 2
     }
 
-    @objc fileprivate func clearProviderContext() {
+    @objc private func clearProviderContext() {
         if currentProvider != nil {
             if currentProvider.available.boolValue {
                 currentProvider.toggleAvailability(onSuccess: { statusCode, mappingResult in
@@ -490,14 +490,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return view
     }
 
-    fileprivate func popManagedNavigationController() -> UINavigationController? {
+    private func popManagedNavigationController() -> UINavigationController? {
         if managedViewControllers.last as? UINavigationController != nil {
             return managedViewControllers.removeLast() as? UINavigationController
         }
         return nil
     }
 
-    fileprivate func navigationControllerContains(_ clazz: AnyClass) -> Bool {
+    private func navigationControllerContains(_ clazz: AnyClass) -> Bool {
         for viewController in (self.navigationController?.viewControllers)! {
             if viewController.isKind(of: clazz) {
                 return true
@@ -528,7 +528,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    fileprivate func unwindManagedViewController(_ viewController: UIViewController) {
+    private func unwindManagedViewController(_ viewController: UIViewController) {
         let segueIdentifier = ("\(NSStringFromClass(type(of: (viewController as AnyObject))))UnwindSegue" as String).components(separatedBy: ".").last!
         let index = [
             "DirectionsViewControllerUnwindSegue",
@@ -713,7 +713,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return vc
     }
 
-    fileprivate func attemptCompletionOfInProgressWorkOrder() {
+    private func attemptCompletionOfInProgressWorkOrder() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.components.count == 0 {
             workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
                 self?.nextWorkOrderContextShouldBeRewound()

@@ -26,13 +26,13 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-    @IBOutlet fileprivate weak var collectionView: UICollectionView!
-    @IBOutlet fileprivate weak var zeroStateLabel: UILabel!
-    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var zeroStateLabel: UILabel!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    fileprivate var refreshControl: UIRefreshControl!
+    private var refreshControl: UIRefreshControl!
 
-    @IBOutlet fileprivate weak var addCommentBarButtonItem: UIBarButtonItem! {
+    @IBOutlet private weak var addCommentBarButtonItem: UIBarButtonItem! {
         didSet {
             if let addCommentBarButtonItem = addCommentBarButtonItem {
                 let commentIconImage = FAKFontAwesome.commentIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
@@ -42,14 +42,14 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-    fileprivate var comments = [Comment]()
+    private var comments = [Comment]()
 
-    fileprivate var page = 1
-    fileprivate var rpp = 10
-    fileprivate var hasNextPage = true
+    private var page = 1
+    private var rpp = 10
+    private var hasNextPage = true
 
-    fileprivate var fetchingComments = false
-    fileprivate var scrolledToNewestComment = false
+    private var fetchingComments = false
+    private var scrolledToNewestComment = false
 
     func scrollToNewestComment(_ animated: Bool = true) {
         if comments.count > 0 {
@@ -145,7 +145,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-    fileprivate func setupPullToRefresh() {
+    private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
         //refreshControl.addTarget(self, action: #selector(refresh), forControlEvents: .ValueChanged)
 
@@ -166,7 +166,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         }
     }
 
-    fileprivate func containsComment(_ comment: Comment) -> Bool {
+    private func containsComment(_ comment: Comment) -> Bool {
         for c in comments {
             if c.id == comment.id && c.id > 0 {
                 return true
@@ -191,7 +191,7 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         zeroStateLabel?.alpha = 0.0
     }
 
-    fileprivate func performBatchUpdatesAtIndexPaths(_ indexPaths: [IndexPath]) {
+    private func performBatchUpdatesAtIndexPaths(_ indexPaths: [IndexPath]) {
         let bottom = self.collectionView.contentSize.height - self.collectionView.contentOffset.y
 
         CATransaction.begin()

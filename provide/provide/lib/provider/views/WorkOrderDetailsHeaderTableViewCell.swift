@@ -37,7 +37,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    fileprivate var isResponsibleSupervisor: Bool {
+    private var isResponsibleSupervisor: Bool {
         let user = currentUser
         if let supervisors = workOrder.supervisors {
             for supervisor in supervisors where supervisor.id == user?.id {
@@ -48,7 +48,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return false
     }
 
-    fileprivate var isResponsibleProvider: Bool {
+    private var isResponsibleProvider: Bool {
         let user = currentUser
         for provider in workOrder.providers where provider.userId == user?.id {
             return true
@@ -56,28 +56,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return false
     }
 
-    fileprivate var showsCancelButton: Bool {
+    private var showsCancelButton: Bool {
         if workOrder == nil {
             return false
         }
         return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "pending_approval"
     }
 
-    fileprivate var showsApproveButton: Bool {
+    private var showsApproveButton: Bool {
         if workOrder == nil {
             return false
         }
         return workOrder.status == "pending_approval" && isResponsibleSupervisor
     }
 
-    fileprivate var showsRejectButton: Bool {
+    private var showsRejectButton: Bool {
         if workOrder == nil {
             return false
         }
         return showsApproveButton
     }
 
-    fileprivate var showsSubmitForApprovalButton: Bool {
+    private var showsSubmitForApprovalButton: Bool {
         if workOrder == nil {
             return false
         }
@@ -85,28 +85,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         return workOrder.status == "in_progress" && isResponsibleProvider
     }
 
-    fileprivate var showsCompleteButton: Bool {
+    private var showsCompleteButton: Bool {
         if workOrder == nil {
             return false
         }
         return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor
     }
 
-    fileprivate var showsStartButton: Bool {
+    private var showsStartButton: Bool {
         if workOrder == nil {
             return false
         }
         return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].index(of: workOrder.status) != nil
     }
 
-    fileprivate var showsRestartButton: Bool {
+    private var showsRestartButton: Bool {
         if workOrder == nil {
             return false
         }
         return isResponsibleProvider && ["rejected"].index(of: workOrder.status) != nil
     }
 
-    @IBOutlet fileprivate weak var previewImageView: UIImageView! {
+    @IBOutlet private weak var previewImageView: UIImageView! {
         didSet {
             if let previewImageView = previewImageView {
                 previewImageView.superview?.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
@@ -115,7 +115,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    @IBOutlet fileprivate weak var embeddedTableView: UITableView!
+    @IBOutlet private weak var embeddedTableView: UITableView!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -128,7 +128,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         refreshUtilityButtons()
     }
 
-    fileprivate func refresh() {
+    private func refresh() {
         refreshUtilityButtons()
         embeddedTableView.reloadData()
 
@@ -141,7 +141,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         }
     }
 
-    fileprivate func refreshUtilityButtons() {
+    private func refreshUtilityButtons() {
         let leftUtilityButtons = NSMutableArray()
         let rightUtilityButtons = NSMutableArray()
 

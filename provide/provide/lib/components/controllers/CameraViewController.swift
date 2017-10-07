@@ -33,12 +33,12 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     var mode: ActiveDeviceCapturePosition = .back
     var outputMode: CameraOutputMode = .photo
 
-    @IBOutlet fileprivate weak var backCameraView: CameraView!
-    @IBOutlet fileprivate weak var frontCameraView: CameraView!
+    @IBOutlet private weak var backCameraView: CameraView!
+    @IBOutlet private weak var frontCameraView: CameraView!
 
-    @IBOutlet fileprivate weak var button: UIButton!
+    @IBOutlet private weak var button: UIButton!
 
-    fileprivate var activeCameraView: CameraView! {
+    private var activeCameraView: CameraView! {
         switch mode {
         case .back:
             return backCameraView

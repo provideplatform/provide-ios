@@ -10,11 +10,11 @@ import UIKit
 
 class WorkOrderPinAnnotationView: MKAnnotationView {
 
-    fileprivate var rect: CGRect {
+    private var rect: CGRect {
         return CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
     }
 
-    fileprivate var imageView: UIImageView {
+    private var imageView: UIImageView {
         let pin = #imageLiteral(resourceName: "provide-pin")
         return UIImageView(image: pin.resize(rect))
     }

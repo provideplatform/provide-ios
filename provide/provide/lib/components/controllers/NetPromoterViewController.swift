@@ -10,7 +10,7 @@ import Foundation
 
 class NetPromoterViewController: WorkOrderComponentViewController {
 
-    @IBOutlet fileprivate weak var promptTextView: UITextView!
+    @IBOutlet private weak var promptTextView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

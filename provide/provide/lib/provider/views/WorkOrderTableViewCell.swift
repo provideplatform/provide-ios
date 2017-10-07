@@ -10,12 +10,12 @@ import UIKit
 
 class WorkOrderTableViewCell: UITableViewCell {
 
-    @IBOutlet fileprivate weak var customerLabel: UILabel!
-    @IBOutlet fileprivate weak var durationLabel: UILabel!
-    @IBOutlet fileprivate weak var statusLabel: UILabel!
-    @IBOutlet fileprivate weak var inventoryLabel: UILabel!
+    @IBOutlet private weak var customerLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var inventoryLabel: UILabel!
 
-    fileprivate var timer: Timer!
+    private var timer: Timer!
 
     var workOrder: WorkOrder! {
         didSet {

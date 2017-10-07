@@ -15,10 +15,10 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
 
     weak var commentsViewController: CommentsViewController!
 
-    @IBOutlet fileprivate weak var commentInputTextFieldBarButtonItem: UIBarButtonItem!
-    @IBOutlet fileprivate weak var commentInputTextField: UITextField!
+    @IBOutlet private weak var commentInputTextFieldBarButtonItem: UIBarButtonItem!
+    @IBOutlet private weak var commentInputTextField: UITextField!
 
-    fileprivate weak var commentInputAccessoryTextField: UITextField! {
+    private weak var commentInputAccessoryTextField: UITextField! {
         if let commentInputTextField = commentInputTextField, let accessoryToolbar = commentInputTextField.inputAccessoryView {
             return (accessoryToolbar as! CommentInputToolbar).items!.first!.customView as! UITextField
         }
@@ -26,7 +26,7 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         return nil
     }
 
-    fileprivate var commentInputTextFieldItem: UIBarButtonItem! {
+    private var commentInputTextFieldItem: UIBarButtonItem! {
         let textField = UITextField(frame: commentInputTextField.bounds)
         textField.delegate = self
         textField.enablesReturnKeyAutomatically = commentInputTextField.enablesReturnKeyAutomatically
@@ -40,14 +40,14 @@ class CommentInputToolbar: UIToolbar, UITextFieldDelegate, CameraViewControllerD
         return commentInputTextFieldItem
     }
 
-    fileprivate var saveItem: UIBarButtonItem! {
+    private var saveItem: UIBarButtonItem! {
         let saveIconImage = FAKFontAwesome.saveIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         let saveItem = UIBarButtonItem(image: saveIconImage, style: .plain, target: self, action: #selector(addComment(_:)))
         saveItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return saveItem
     }
 
-    fileprivate var photoItem: UIBarButtonItem! {
+    private var photoItem: UIBarButtonItem! {
         let photoItemImage = FAKFontAwesome.cameraIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         let photoItem = UIBarButtonItem(image: photoItemImage, style: .plain, target: self, action: #selector(addPhoto(_:)))
         photoItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()

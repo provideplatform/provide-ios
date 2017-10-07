@@ -21,7 +21,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
 
     weak var webViewControllerDelegate: WebViewControllerDelegate?
 
-    @IBOutlet fileprivate weak var webView: UIWebView! {
+    @IBOutlet private weak var webView: UIWebView! {
         didSet {
             if let webView = webView, let url = url {
                 let request = URLRequest(url: url)
@@ -32,7 +32,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
         }
     }
 
-    fileprivate var stopBarButtonItem: UIBarButtonItem! {
+    private var stopBarButtonItem: UIBarButtonItem! {
         let stopBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(WebViewController.dismiss as (WebViewController) -> () -> Void))
         stopBarButtonItem.tintColor = Color.applicationDefaultBarButtonItemTintColor()
         return stopBarButtonItem

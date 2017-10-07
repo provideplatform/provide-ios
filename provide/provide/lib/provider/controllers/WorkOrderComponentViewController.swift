@@ -20,9 +20,9 @@ class WorkOrderComponentViewController: ViewController {
     weak var delegate: WorkOrderComponentViewControllerDelegate!
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate!
 
-    fileprivate var childViewController: WorkOrderComponentViewController!
+    private var childViewController: WorkOrderComponentViewController!
 
-    fileprivate var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
+    private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
 
     var targetView: UIView! {
         return delegate?.targetViewForViewController?(self)

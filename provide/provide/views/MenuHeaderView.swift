@@ -17,11 +17,11 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     weak var delegate: MenuHeaderViewDelegate?
 
-    @IBOutlet fileprivate weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet fileprivate weak var profileImageView: UIImageView!
-    @IBOutlet fileprivate weak var nameLabel: UILabel!
-    @IBOutlet fileprivate weak var companyLabel: UILabel!
-    @IBOutlet fileprivate weak var changeProfileImageButton: UIButton!
+    @IBOutlet private weak var profileImageActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var profileImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var companyLabel: UILabel!
+    @IBOutlet private weak var changeProfileImageButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,7 +80,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    fileprivate func refresh() {
+    private func refresh() {
         backgroundColor = .clear
 
         if let user = currentUser {
@@ -98,7 +98,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         profileImageActivityIndicatorView.stopAnimating()
     }
 
-    fileprivate func initImagePickerViewController() {
+    private func initImagePickerViewController() {
         let imagePickerViewController = ImagePickerViewController()
         imagePickerViewController.delegate = self
 
@@ -164,7 +164,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     }
 
-    fileprivate func initSelfieViewController() {
+    private func initSelfieViewController() {
         let selfieViewController = UIStoryboard("Camera").instantiateViewController(withIdentifier: "SelfieViewController") as! SelfieViewController
         selfieViewController.delegate = self
 
@@ -174,7 +174,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    fileprivate func setUserDefaultProfileImage(_ image: UIImage) {
+    private func setUserDefaultProfileImage(_ image: UIImage) {
         profileImageView.image = nil
         profileImageView.alpha = 0.0
         profileImageUrl = nil

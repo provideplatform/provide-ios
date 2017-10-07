@@ -196,7 +196,7 @@ class MessagesViewController: JSQMessagesViewController {
         NotificationCenter.default.removeObserver(self) // swiftlint:disable:this notification_center_detachment
     }
 
-    fileprivate func presentConfirmMediaViewController(image: UIImage) {
+    private func presentConfirmMediaViewController(image: UIImage) {
         selectedImage = image
 
         let windowWidth = UIApplication.shared.keyWindow!.width

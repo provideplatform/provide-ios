@@ -23,12 +23,12 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         }
     }
 
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
-    @IBOutlet fileprivate weak var headerView: WorkOrderDetailsHeaderView!
-    @IBOutlet fileprivate weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
+    @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
+    @IBOutlet private weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
 
-    fileprivate var mediaCollectionView: UICollectionView!
+    private var mediaCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         }
     }
 
-    fileprivate func refresh() {
+    private func refresh() {
         if title == nil {
             if let customer = workOrder.customer {
                 navigationItem.title = customer.contact.name

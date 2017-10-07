@@ -10,9 +10,9 @@ import UIKit
 
 class NameValueTableViewCell: UITableViewCell {
 
-    @IBOutlet fileprivate weak var nameLabel: UILabel!
-    @IBOutlet fileprivate weak var valueLabel: UILabel!
-    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     func setName(_ name: String, value: String, valueFontSize: CGFloat = 13.0, showActivity: Bool = false) {
         nameLabel?.isHidden = true

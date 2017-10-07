@@ -10,14 +10,14 @@ import UIKit
 
 class DirectionsInstructionView: UIView {
 
-    @IBOutlet fileprivate weak var backgroundView: UIView!
+    @IBOutlet private weak var backgroundView: UIView!
 
-    @IBOutlet fileprivate weak var icon: UIImageView!
-    @IBOutlet fileprivate weak var etaLabel: UILabel!
-    @IBOutlet fileprivate weak var instructionLabel: UILabel!
-    @IBOutlet fileprivate weak var stepDistanceLabel: UILabel!
-    @IBOutlet fileprivate weak var remainingDistanceLabel: UILabel!
-    @IBOutlet fileprivate weak var remainingTimeLabel: UILabel!
+    @IBOutlet private weak var icon: UIImageView!
+    @IBOutlet private weak var etaLabel: UILabel!
+    @IBOutlet private weak var instructionLabel: UILabel!
+    @IBOutlet private weak var stepDistanceLabel: UILabel!
+    @IBOutlet private weak var remainingDistanceLabel: UILabel!
+    @IBOutlet private weak var remainingTimeLabel: UILabel!
 
     override var frame: CGRect {
         didSet {

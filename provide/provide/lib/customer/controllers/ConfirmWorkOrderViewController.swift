@@ -28,7 +28,7 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
-    fileprivate var workOrder: WorkOrder! {
+    private var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
@@ -93,7 +93,7 @@ class ConfirmWorkOrderViewController: ViewController {
         return workOrder
     }
 
-    @IBAction fileprivate func confirm(_ sender: UIButton) {
+    @IBAction private func confirm(_ sender: UIButton) {
         sender.isHidden = true
         creditCardIcon.isHidden = true
         creditCardLastFour.isHidden = true

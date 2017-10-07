@@ -16,7 +16,7 @@ class ProviderEnRouteViewController: ViewController {
     @IBOutlet private weak var profileImageView: ProfileImageView!
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
-    fileprivate weak var workOrder: WorkOrder! {
+    private weak var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {

@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    fileprivate var launchScreenViewController: UIViewController!
+    private var launchScreenViewController: UIViewController!
 
-    fileprivate var suppressLaunchScreenViewController = false
+    private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if !isSimulator() {
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return openURL(url)
     }
 
-    fileprivate func openURL(_ url: URL) -> Bool {
+    private func openURL(_ url: URL) -> Bool {
         var handleScheme = false
         if let scheme = url.scheme?.lowercased() {
             handleScheme = scheme == "provide"
@@ -160,7 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: Privacy view controller
 
-    fileprivate func setupLaunchScreenViewController() {
+    private func setupLaunchScreenViewController() {
         launchScreenViewController = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.first as! UIViewController
 
         let notificationNames = ["ApplicationWillRegisterUserNotificationSettings", "ApplicationWillRequestLocationAuthorization", "ApplicationWillRequestMediaAuthorization"]
@@ -177,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
-    fileprivate func renderLaunchScreenViewController() {
+    private func renderLaunchScreenViewController() {
         if !suppressLaunchScreenViewController {
             window!.addSubview(launchScreenViewController.view)
             window!.bringSubview(toFront: launchScreenViewController.view)
@@ -186,7 +186,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         suppressLaunchScreenViewController = false
     }
 
-    fileprivate func dismissLaunchScreenViewController() {
+    private func dismissLaunchScreenViewController() {
         if launchScreenViewController?.view.superview != nil {
             UIView.animate(withDuration: 0.2, delay: 0.1, options: .curveEaseIn, animations: {
                 self.launchScreenViewController?.view.alpha = 0.0

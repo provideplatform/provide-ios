@@ -43,37 +43,37 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     weak var delegate: CameraViewDelegate?
 
-    fileprivate let avAudioOutputQueue = DispatchQueue(label: "api.avAudioOutputQueue", attributes: [])
-    fileprivate let avCameraOutputQueue = DispatchQueue(label: "api.avCameraOutputQueue", attributes: [])
-    fileprivate let avMetadataOutputQueue = DispatchQueue(label: "api.avMetadataOutputQueue", attributes: [])
-    fileprivate let avVideoOutputQueue = DispatchQueue(label: "api.avVideoOutputQueue", attributes: [])
+    private let avAudioOutputQueue = DispatchQueue(label: "api.avAudioOutputQueue", attributes: [])
+    private let avCameraOutputQueue = DispatchQueue(label: "api.avCameraOutputQueue", attributes: [])
+    private let avMetadataOutputQueue = DispatchQueue(label: "api.avMetadataOutputQueue", attributes: [])
+    private let avVideoOutputQueue = DispatchQueue(label: "api.avVideoOutputQueue", attributes: [])
 
-    fileprivate var captureInput: AVCaptureInput!
-    fileprivate var captureSession: AVCaptureSession!
+    private var captureInput: AVCaptureInput!
+    private var captureSession: AVCaptureSession!
 
-    fileprivate var capturePreviewLayer: AVCaptureVideoPreviewLayer!
-    fileprivate var codeDetectionLayer: CALayer!
+    private var capturePreviewLayer: AVCaptureVideoPreviewLayer!
+    private var codeDetectionLayer: CALayer!
 
-    fileprivate var capturePreviewOrientation: AVCaptureVideoOrientation!
+    private var capturePreviewOrientation: AVCaptureVideoOrientation!
 
-    fileprivate var audioDataOutput: AVCaptureAudioDataOutput!
-    fileprivate var audioLevelsPollingTimer: Timer!
+    private var audioDataOutput: AVCaptureAudioDataOutput!
+    private var audioLevelsPollingTimer: Timer!
 
-    fileprivate var videoDataOutput: AVCaptureVideoDataOutput!
-    fileprivate var videoFileOutput: AVCaptureMovieFileOutput!
+    private var videoDataOutput: AVCaptureVideoDataOutput!
+    private var videoFileOutput: AVCaptureMovieFileOutput!
 
-    fileprivate var stillCameraOutput: AVCaptureStillImageOutput!
+    private var stillCameraOutput: AVCaptureStillImageOutput!
 
-    fileprivate var lastOCRTimestamp: Date!
+    private var lastOCRTimestamp: Date!
 
-    fileprivate var backCamera: AVCaptureDevice! {
+    private var backCamera: AVCaptureDevice! {
         for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .back {
             return device
         }
         return nil
     }
 
-    fileprivate var frontCamera: AVCaptureDevice! {
+    private var frontCamera: AVCaptureDevice! {
         for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .front {
             return device
         }
@@ -84,19 +84,19 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         return captureSession?.isRunning ?? false
     }
 
-    fileprivate var mic: AVCaptureDevice! {
+    private var mic: AVCaptureDevice! {
         return AVCaptureDevice.default(for: .audio)
     }
 
-    fileprivate var outputFaceMetadata: Bool {
+    private var outputFaceMetadata: Bool {
         return delegate?.cameraViewShouldOutputFaceMetadata(self) ?? false
     }
 
-    fileprivate var outputOCRMetadata: Bool {
+    private var outputOCRMetadata: Bool {
         return delegate?.cameraViewShouldOutputOCRMetadata(self) ?? false
     }
 
-    fileprivate var recording = false {
+    private var recording = false {
         didSet {
             if recording == true {
                 startAudioLevelsPollingTimer()
@@ -106,7 +106,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate var renderFacialRecognition: Bool {
+    private var renderFacialRecognition: Bool {
         return delegate?.cameraViewShouldRenderFacialRecognition(self) ?? false
     }
 
@@ -117,7 +117,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         backgroundColor = .clear
     }
 
-    fileprivate func configureAudioSession() {
+    private func configureAudioSession() {
         if let delegate = delegate, delegate.cameraViewShouldEstablishAudioSession(self) {
             do {
                 let input = try AVCaptureDeviceInput(device: mic)
@@ -133,7 +133,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func configureFacialRecognition() {
+    private func configureFacialRecognition() {
         if outputFaceMetadata {
             let metadataOutput = AVCaptureMetadataOutput()
             captureSession.addOutput(metadataOutput)
@@ -149,14 +149,14 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func configurePhotoSession() {
+    private func configurePhotoSession() {
         stillCameraOutput = AVCaptureStillImageOutput()
         if captureSession.canAddOutput(stillCameraOutput) {
             captureSession.addOutput(stillCameraOutput)
         }
     }
 
-    fileprivate func configureVideoSession() {
+    private func configureVideoSession() {
         if let delegate = delegate, delegate.cameraViewShouldEstablishVideoSession(self) || outputOCRMetadata {
             videoDataOutput = AVCaptureVideoDataOutput()
             var settings = [AnyHashable: Any]()
@@ -171,12 +171,12 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func startAudioLevelsPollingTimer() {
+    private func startAudioLevelsPollingTimer() {
         audioLevelsPollingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(pollForAudioLevels), userInfo: nil, repeats: true)
         audioLevelsPollingTimer.fire()
     }
 
-    fileprivate func stopAudioLevelsPollingTimer() {
+    private func stopAudioLevelsPollingTimer() {
         if let timer = audioLevelsPollingTimer {
             timer.invalidate()
             audioLevelsPollingTimer = nil
@@ -321,7 +321,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func captureFrame() {
+    private func captureFrame() {
         delegate?.cameraViewBeganAsyncStillImageCapture(self)
 
         if isSimulator() {
@@ -362,7 +362,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func captureVideo() {
+    private func captureVideo() {
         if isSimulator() {
             return
         }
@@ -449,13 +449,13 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func clearDetectedMetadataObjects() {
+    private func clearDetectedMetadataObjects() {
         if let codeDetectionLayer = codeDetectionLayer {
             codeDetectionLayer.sublayers = nil
         }
     }
 
-    fileprivate func showDetectedMetadataObjects(_ metadataObjects: [AnyObject]!) {
+    private func showDetectedMetadataObjects(_ metadataObjects: [AnyObject]!) {
         for object in metadataObjects {
             if let metadataFaceObject = object as? AVMetadataFaceObject, let detectedCode = capturePreviewLayer.transformedMetadataObject(for: metadataFaceObject) as? AVMetadataFaceObject {
                 let shapeLayer = CAShapeLayer()
@@ -469,7 +469,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    fileprivate func ocrFrame(_ frame: UIImage) {
+    private func ocrFrame(_ frame: UIImage) {
         if let lastOCRTimestamp = lastOCRTimestamp {
             if abs(lastOCRTimestamp.timeIntervalSinceNow) >= 2.0 {
                 dispatch_async_global_queue {

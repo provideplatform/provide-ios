@@ -24,7 +24,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
-    fileprivate var minutesEta: Int! {
+    private var minutesEta: Int! {
         didSet {
             if let eta = minutesEta, eta > 0 {
                 arrivalEtaEstimateLabel.text = "ARRIVAL TIME IS APPROXIMATELY \(eta) MIN"
@@ -36,8 +36,8 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         }
     }
 
-    @IBOutlet fileprivate weak var arrivalEtaEstimateLabel: UILabel!
-    @IBOutlet fileprivate weak var confirmStartWorkOrderButton: RoundedButton!
+    @IBOutlet private weak var arrivalEtaEstimateLabel: UILabel!
+    @IBOutlet private weak var confirmStartWorkOrderButton: RoundedButton!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -130,14 +130,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         })
     }
 
-    fileprivate func setupNavigationItem() {
+    private func setupNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = "CONFIRMATION"
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
         }
     }
 
-    fileprivate func clearNavigationItem() {
+    private func clearNavigationItem() {
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
             navigationItem.title = nil
 
@@ -150,7 +150,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     // MARK: Actions
 
-    @objc fileprivate func cancel(_: UIBarButtonItem) {
+    @objc private func cancel(_: UIBarButtonItem) {
         clearNavigationItem()
         workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
     }

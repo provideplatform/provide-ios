@@ -25,11 +25,11 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         }
     }
 
-    @IBOutlet fileprivate weak var menuHeaderView: MenuHeaderView!
+    @IBOutlet private weak var menuHeaderView: MenuHeaderView!
 
-    fileprivate var storyboardPaths = [String: AnyObject!]()
+    private var storyboardPaths = [String: AnyObject!]()
 
-    fileprivate var lastSectionIndex: Int {
+    private var lastSectionIndex: Int {
         return tableView.numberOfSections - 1
     }
 
@@ -166,7 +166,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     // MARK: Private Methods
 
-    fileprivate func navigationControllerContains(_ clazz: AnyClass) -> Bool {
+    private func navigationControllerContains(_ clazz: AnyClass) -> Bool {
         for viewController in (delegate?.navigationControllerForMenuViewController(self)?.viewControllers)! {
             if viewController.isKind(of: clazz) {
                 return true
@@ -175,7 +175,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         return false
     }
 
-    fileprivate func segueToInitialViewControllerInStoryboard(_ storyboardName: String) {
+    private func segueToInitialViewControllerInStoryboard(_ storyboardName: String) {
         NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
 
         var storyboardPath: String!

@@ -27,7 +27,7 @@ class AnnotationView: MKAnnotationView {
         backgroundColor = .clear
     }
 
-    @objc fileprivate func gestureRecognized(_: UIGestureRecognizer) {
+    @objc private func gestureRecognized(_: UIGestureRecognizer) {
         log("recognized")
     }
 
@@ -42,9 +42,9 @@ class AnnotationView: MKAnnotationView {
         }
     }
 
-    fileprivate class GestureRecognizer: UIGestureRecognizer, UIGestureRecognizerDelegate {
+    private class GestureRecognizer: UIGestureRecognizer, UIGestureRecognizerDelegate {
 
-        fileprivate weak var annotationView: AnnotationView!
+        private weak var annotationView: AnnotationView!
 
         var selected: Bool = false {
             didSet {

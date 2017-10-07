@@ -44,18 +44,18 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     // MARK: Private Variables
 
-    @IBOutlet fileprivate weak var messageLabel: UILabel!
-    @IBOutlet fileprivate weak var pinInputControl: PinInputControl!
+    @IBOutlet private weak var messageLabel: UILabel!
+    @IBOutlet private weak var pinInputControl: PinInputControl!
 
-    fileprivate var state: State!
-    fileprivate var type: Type!
-    fileprivate var failedAttempts = 0
-    fileprivate let maxAllowedAttempts = 3
+    private var state: State!
+    private var type: Type!
+    private var failedAttempts = 0
+    private let maxAllowedAttempts = 3
 
-    fileprivate let fadeStartDelay = 0.1
-    fileprivate let fadeDuration = 0.3
+    private let fadeStartDelay = 0.1
+    private let fadeDuration = 0.3
 
-    fileprivate var firstPinInput: String!
+    private var firstPinInput: String!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -128,7 +128,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         }
     }
 
-    fileprivate func resetWithMessage(_ message: String) {
+    private func resetWithMessage(_ message: String) {
         pinInputControl.resetView()
 
         dispatch_after_delay(fadeStartDelay) {
@@ -143,7 +143,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         }
     }
 
-    fileprivate func getMessage(_ controllerType: Type, _ inputState: State) -> String {
+    private func getMessage(_ controllerType: Type, _ inputState: State) -> String {
         switch controllerType {
         case .createPinController:
             switch inputState {

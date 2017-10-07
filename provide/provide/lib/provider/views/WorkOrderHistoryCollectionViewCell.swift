@@ -10,18 +10,18 @@ import UIKit
 
 class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
-    @IBOutlet fileprivate weak var avatarImageView: UIImageView!
-    @IBOutlet fileprivate weak var mapView: RouteMapView!
+    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var mapView: RouteMapView!
 
-    @IBOutlet fileprivate weak var detailsContainerView: UIView!
-    @IBOutlet fileprivate weak var statusBackgroundView: UIView!
-    @IBOutlet fileprivate weak var timestampLabel: UILabel!
-    @IBOutlet fileprivate weak var durationLabel: UILabel!
-    @IBOutlet fileprivate weak var statusLabel: UILabel!
+    @IBOutlet private weak var detailsContainerView: UIView!
+    @IBOutlet private weak var statusBackgroundView: UIView!
+    @IBOutlet private weak var timestampLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
+    @IBOutlet private weak var statusLabel: UILabel!
 
-    fileprivate var gravatarImageView: UIImageView!
+    private var gravatarImageView: UIImageView!
 
-    fileprivate var timer: Timer!
+    private var timer: Timer!
 
     var workOrder: WorkOrder! {
         didSet {

@@ -27,11 +27,11 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
-    fileprivate let rendered = false
+    private let rendered = false
 
-    @IBOutlet fileprivate weak var titleImageView: UIImageView!
-    @IBOutlet fileprivate weak var titleLabel: UILabel!
-    @IBOutlet fileprivate weak var addressTextView: UITextView!
+    @IBOutlet private weak var titleImageView: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var addressTextView: UITextView!
 
     func render() {
         view.removeFromSuperview()

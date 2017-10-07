@@ -14,43 +14,43 @@ protocol WorkOrderHistoryViewControllerDelegate: class {
 
 class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    fileprivate var page = 1
-    fileprivate let rpp = 10
-    fileprivate var lastWorkOrderIndex = -1
+    private var page = 1
+    private let rpp = 10
+    private var lastWorkOrderIndex = -1
 
-    @IBOutlet fileprivate weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
 
-    fileprivate var refreshControl: UIRefreshControl!
+    private var refreshControl: UIRefreshControl!
 
-    fileprivate var workOrders = [WorkOrder]() {
+    private var workOrders = [WorkOrder]() {
         didSet {
             collectionView?.reloadData()
         }
     }
 
-    fileprivate weak var selectedWorkOrder: WorkOrder!
+    private weak var selectedWorkOrder: WorkOrder!
 
-    fileprivate var zeroStateViewController: ZeroStateViewController!
+    private var zeroStateViewController: ZeroStateViewController!
 
-    fileprivate var isColumnedLayout: Bool {
+    private var isColumnedLayout: Bool {
         return view.width > 414.0
     }
 
-    fileprivate var numberOfSections: Int {
+    private var numberOfSections: Int {
         if isColumnedLayout {
             return Int(ceil(Double(workOrders.count) / Double(numberOfItemsPerSection)))
         }
         return workOrders.count
     }
 
-    fileprivate var numberOfItemsPerSection: Int {
+    private var numberOfItemsPerSection: Int {
         if isColumnedLayout {
             return 2
         }
         return 1
     }
 
-    fileprivate func workOrderIndexAtIndexPath(_ indexPath: IndexPath) -> Int {
+    private func workOrderIndexAtIndexPath(_ indexPath: IndexPath) -> Int {
         if isColumnedLayout {
             var i = indexPath.section * 2
             i += indexPath.row
@@ -59,11 +59,11 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         return indexPath.section
     }
 
-    fileprivate func workOrderForRowAtIndexPath(_ indexPath: IndexPath) -> WorkOrder {
+    private func workOrderForRowAtIndexPath(_ indexPath: IndexPath) -> WorkOrder {
         return workOrders[workOrderIndexAtIndexPath(indexPath)]
     }
 
-    fileprivate func setupZeroStateView() {
+    private func setupZeroStateView() {
         zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
@@ -85,7 +85,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         collectionView.frame = view.bounds
     }
 
-    fileprivate func setupPullToRefresh() {
+    private func setupPullToRefresh() {
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(reset), for: .valueChanged)
 

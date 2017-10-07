@@ -22,16 +22,16 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
 
     weak var commentCreationViewControllerDelegate: CommentCreationViewControllerDelegate?
 
-    @IBOutlet fileprivate weak var collectionView: UICollectionView!
-    @IBOutlet fileprivate weak var textView: UITextView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var textView: UITextView!
 
-    fileprivate var comments = [Comment]() {
+    private var comments = [Comment]() {
         didSet {
             collectionView.reloadData()
         }
     }
 
-    fileprivate var dismissItem: UIBarButtonItem! {
+    private var dismissItem: UIBarButtonItem! {
         if textView.text.length > 0 {
             if let dismissItem = commentCreationViewControllerDelegate?.saveItemForCommentCreationViewController?(self) {
                 return dismissItem
@@ -46,7 +46,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         return dismissItem
     }
 
-    fileprivate var hiddenNavigationControllerFrame: CGRect {
+    private var hiddenNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
             y: targetView.height,
@@ -55,7 +55,7 @@ class CommentCreationViewController: WorkOrderComponentViewController, UICollect
         )
     }
 
-    fileprivate var renderedNavigationControllerFrame: CGRect {
+    private var renderedNavigationControllerFrame: CGRect {
         return CGRect(
             x: 0.0,
             y: hiddenNavigationControllerFrame.origin.y - hiddenNavigationControllerFrame.height,

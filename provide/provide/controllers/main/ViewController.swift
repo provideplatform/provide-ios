@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet fileprivate weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet fileprivate weak var statusLabel: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var statusLabel: UILabel!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         updateStatus("", showActivity: false, isError: false)
     }
 
-    fileprivate func updateStatus(_ text: String, showActivity: Bool, isError: Bool) {
+    private func updateStatus(_ text: String, showActivity: Bool, isError: Bool) {
         if let status = statusLabel {
             status.text = text
             status.isHidden = false

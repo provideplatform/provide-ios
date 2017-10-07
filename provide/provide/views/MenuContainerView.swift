@@ -10,13 +10,13 @@ import UIKit
 
 class MenuContainerView: UIView {
 
-    fileprivate var backgroundView: UIView!
+    private var backgroundView: UIView!
 
-    fileprivate var menuViewController: MenuViewController!
+    private var menuViewController: MenuViewController!
 
-    fileprivate var touchesBeganTimestamp: Date!
+    private var touchesBeganTimestamp: Date!
 
-    fileprivate var menuViewControllerFrame: CGRect {
+    private var menuViewControllerFrame: CGRect {
         var width = frame.width
         if isIPad() {
             width *= 0.5
@@ -30,31 +30,31 @@ class MenuContainerView: UIView {
                       height: frame.height)
     }
 
-    fileprivate var menuViewFrameOffsetX: CGFloat {
+    private var menuViewFrameOffsetX: CGFloat {
         return frame.width * (1.0 - ((isIPad() ? 0.5 : 0.66) + exposedMenuViewPercentage))
     }
 
-    fileprivate var exposedMenuViewPercentage: CGFloat {
+    private var exposedMenuViewPercentage: CGFloat {
         return 0.025
     }
 
-    fileprivate var closedMenuOffsetX: CGFloat {
+    private var closedMenuOffsetX: CGFloat {
         return (frame.width * (1.0 - exposedMenuViewPercentage)) * -1.0
     }
 
-    fileprivate var gestureInProgress: Bool {
+    private var gestureInProgress: Bool {
         return touchesBeganTimestamp != nil
     }
 
-    fileprivate var isOpen: Bool {
+    private var isOpen: Bool {
         return frame.origin.x > closedMenuOffsetX
     }
 
-    fileprivate var targetView: UIView! {
+    private var targetView: UIView! {
         return UIApplication.shared.keyWindow
     }
 
-    fileprivate func teardown() {
+    private func teardown() {
         if superview != nil {
             removeFromSuperview()
         }
@@ -197,19 +197,19 @@ class MenuContainerView: UIView {
         dragMenu(closedMenuOffsetX)
     }
 
-    fileprivate func applyTouches(_ touches: Set<NSObject>) {
+    private func applyTouches(_ touches: Set<NSObject>) {
         for touch in touches {
             dragMenu(touch as! UITouch)
         }
     }
 
-    fileprivate func dragMenu(_ touch: UITouch) {
+    private func dragMenu(_ touch: UITouch) {
         let xOffset = touch.location(in: nil).x - touch.previousLocation(in: nil).x
         let x = frame.origin.x + xOffset
         dragMenu(x)
     }
 
-    fileprivate func dragMenu(_ x: CGFloat) {
+    private func dragMenu(_ x: CGFloat) {
         let percentage = 1.0 + (x / frame.width)
         layer.shadowOpacity = percentage == exposedMenuViewPercentage ? 0.0 : (Float(percentage - exposedMenuViewPercentage) * 2.0)
 

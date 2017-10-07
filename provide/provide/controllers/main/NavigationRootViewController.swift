@@ -11,9 +11,9 @@ import MBProgressHUD
 
 class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, SetPasswordViewControllerDelegate, PinInputViewControllerDelegate {
 
-    @IBOutlet fileprivate var logoImageView: UIImageView!
-    @IBOutlet fileprivate var signInButton: UIButton!
-    @IBOutlet fileprivate var codeButton: UIButton!
+    @IBOutlet private var logoImageView: UIImageView!
+    @IBOutlet private var signInButton: UIButton!
+    @IBOutlet private var codeButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +59,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         }
     }
 
-    fileprivate func presentApplicationViewController() {
+    private func presentApplicationViewController() {
         performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
 
         dispatch_after_delay(1.0) {

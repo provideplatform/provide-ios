@@ -20,7 +20,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
         }
     }
 
-    @IBOutlet fileprivate weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     func prepareForReuse() {
         results = [Contact]()

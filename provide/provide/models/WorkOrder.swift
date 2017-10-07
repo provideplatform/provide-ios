@@ -99,7 +99,7 @@ class WorkOrder: Model {
         return Annotation(workOrder: self)
     }
 
-    fileprivate var pendingArrival = false
+    private var pendingArrival = false
 
     var canArrive: Bool {
         return !pendingArrival && status == "en_route"
@@ -697,7 +697,7 @@ class WorkOrder: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        fileprivate var workOrder: WorkOrder!
+        private var workOrder: WorkOrder!
 
         required init(workOrder: WorkOrder) {
             self.workOrder = workOrder

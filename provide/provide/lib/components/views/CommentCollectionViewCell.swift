@@ -22,12 +22,12 @@ class CommentCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    @IBOutlet fileprivate weak var nameLabel: UILabel!
-    @IBOutlet fileprivate weak var timestampLabel: UILabel!
-    @IBOutlet fileprivate weak var imageView: UIImageView!
-    @IBOutlet fileprivate weak var bodyTextView: UITextView!
-    @IBOutlet fileprivate weak var attachmentPreviewImageView: UIImageView!
-    @IBOutlet fileprivate weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var timestampLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var bodyTextView: UITextView!
+    @IBOutlet private weak var attachmentPreviewImageView: UIImageView!
+    @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -38,7 +38,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         activityIndicatorView?.stopAnimating()
     }
 
-    fileprivate func refresh() {
+    private func refresh() {
         if let comment = comment {
             if let activityIndicatorView = activityIndicatorView {
                 if comment.body == nil || comment.body.length == 0 {

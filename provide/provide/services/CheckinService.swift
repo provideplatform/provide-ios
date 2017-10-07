@@ -12,7 +12,7 @@ class CheckinService: NSObject {
     let defaultCheckinTimeInterval: TimeInterval = 300
     let navigationCheckinTimeInterval: TimeInterval = 10
 
-    fileprivate var checkinTimeInterval: TimeInterval! {
+    private var checkinTimeInterval: TimeInterval! {
         didSet {
             if let oldInterval = oldValue, oldInterval != checkinTimeInterval {
                 restart()
@@ -20,7 +20,7 @@ class CheckinService: NSObject {
         }
     }
 
-    fileprivate var timer: Timer!
+    private var timer: Timer!
 
     required override init() {
         super.init()
@@ -67,7 +67,7 @@ class CheckinService: NSObject {
         }
     }
 
-    fileprivate func restart() {
+    private func restart() {
         stop()
 
         if let timer = timer {
