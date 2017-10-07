@@ -22,19 +22,15 @@ class MenuItem: NSObject {
         self.storyboard = storyboard
     }
 
+    convenience init(dict: [String: String]) {
+        self.init(label: dict["label"]!, action: dict["action"], urlString: dict["url"], storyboard: dict["storyboard"])
+    }
+
     var url: URL? {
         return urlString.flatMap { URL(string: $0) }
     }
 
     var selector: Selector? {
         return actionString.flatMap { Selector($0) }
-    }
-
-    convenience init(item: [String: String]) {
-        self.init(label: item["label"]!)
-
-        storyboard = item["storyboard"]
-        urlString = item["url"]
-        actionString = item["action"]
     }
 }

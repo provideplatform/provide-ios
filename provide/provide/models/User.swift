@@ -64,14 +64,14 @@ class User: Model {
         if let menuItemsPreference = menuItemsPreference {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {
-                if let item = menuItemPreference as? NSDictionary {
-                    menuItems.append(MenuItem(item: item as! [String: String]))
+                if let dict = menuItemPreference as? NSDictionary {
+                    menuItems.append(MenuItem(dict: dict as! [String: String]))
                 }
             }
             return menuItems
         } else {
             var defaultMenuItems = [MenuItem]()
-            defaultMenuItems.append(MenuItem(item: ["label": "History", "storyboard": "Jobs"]))
+            defaultMenuItems.append(MenuItem(label: "History", storyboard: "Jobs"))
             return defaultMenuItems
         }
     }
