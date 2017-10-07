@@ -7,17 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		5C2A5A431B3B96F30053AABC /* swiftlint */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 5C2A5A441B3B96F30053AABC /* Build configuration list for PBXAggregateTarget "swiftlint" */;
-			buildPhases = (
-				5C2A5A481B3B96FF0053AABC /* Run /usr/local/bin/swiftlint */,
-			);
-			dependencies = (
-			);
-			name = swiftlint;
-			productName = swiftlint;
-		};
 		68DFB0B21B07C6D9002A72E8 /* version */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 68DFB0B31B07C6D9002A72E8 /* Build configuration list for PBXAggregateTarget "version" */;
@@ -1015,9 +1004,6 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Provide Technologies Inc.";
 				TargetAttributes = {
-					5C2A5A431B3B96F30053AABC = {
-						CreatedOnToolsVersion = 7.0;
-					};
 					689608901B3A1F21008719B0 = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0800;
@@ -1059,7 +1045,6 @@
 				68DFB0951B07C5C4002A72E8 /* provideTests */,
 				689608901B3A1F21008719B0 /* provideUITests */,
 				68DFB0B21B07C6D9002A72E8 /* version */,
-				5C2A5A431B3B96F30053AABC /* swiftlint */,
 			);
 		};
 /* End PBXProject section */
@@ -1205,20 +1190,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-provide/Pods-provide-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		5C2A5A481B3B96FF0053AABC /* Run /usr/local/bin/swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run /usr/local/bin/swiftlint";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "$PROJECT_DIR/../scripts/run_swiftlint_from_xcode.sh\n";
 		};
 		5CD785A81F86AF40007925B6 /* swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1449,27 +1420,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		5C2A5A451B3B96F30053AABC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		5C2A5A461B3B96F30053AABC /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = AdHoc;
-		};
-		5C2A5A471B3B96F30053AABC /* AppStore */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = AppStore;
-		};
 		689608981B3A1F21008719B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1889,16 +1839,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C2A5A441B3B96F30053AABC /* Build configuration list for PBXAggregateTarget "swiftlint" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5C2A5A451B3B96F30053AABC /* Debug */,
-				5C2A5A461B3B96F30053AABC /* AdHoc */,
-				5C2A5A471B3B96F30053AABC /* AppStore */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = AppStore;
-		};
 		6896089B1B3A1F21008719B0 /* Build configuration list for PBXNativeTarget "provideUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
