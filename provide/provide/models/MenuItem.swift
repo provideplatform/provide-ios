@@ -15,6 +15,13 @@ class MenuItem: NSObject {
     var urlString: String!
     var action: String!
 
+    init(label: String, action: String? = nil, urlString: String? = nil, storyboard: String? = nil) {
+        self.label = label
+        self.action = action
+        self.urlString = urlString
+        self.storyboard = storyboard
+    }
+
     var url: URL! {
         if let urlString = urlString {
             return URL(string: urlString)
@@ -32,20 +39,9 @@ class MenuItem: NSObject {
     init(item: [String: String]) {
         super.init()
 
-        if let label = item["label"] {
-            self.label = label
-        }
-
-        if let storyboard = item["storyboard"] {
-            self.storyboard = storyboard
-        }
-
-        if let urlString = item["url"] {
-            self.urlString = urlString
-        }
-
-        if let action = item["action"] {
-            self.action = action
-        }
+        label = item["label"]
+        storyboard = item["storyboard"]
+        urlString = item["url"]
+        action = item["action"]
     }
 }

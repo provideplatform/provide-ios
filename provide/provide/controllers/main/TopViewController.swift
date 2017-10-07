@@ -60,9 +60,9 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         if indexPath.section == numberOfSectionsInMenuViewController(menuViewController) - 1 {
             switch indexPath.row {
             case 0:
-                return MenuItem(item: ["label": "Legal", "url": "\(CurrentEnvironment.baseUrlString)/#/legal"])
+                return MenuItem(label: "Legal", urlString: "\(CurrentEnvironment.baseUrlString)/#/legal")
             case 1:
-                return MenuItem(item: ["label": "Logout", "action": "logout"])
+                return MenuItem(label: "Logout", action: "logout")
             default:
                 break
             }

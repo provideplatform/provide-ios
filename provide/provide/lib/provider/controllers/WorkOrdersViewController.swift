@@ -397,9 +397,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch indexPath.row {
         case 0:
-            return MenuItem(item: ["label": "History", "action": "history"])
+            return MenuItem(label: "History", action: "history")
         case 1:
-            return MenuItem(item: ["label": "Ride Mode", "action": "switchToCustomerMode"])
+            return MenuItem(label: "Ride Mode", action: "switchToCustomerMode")
         default:
             break
         }

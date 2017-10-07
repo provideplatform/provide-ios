@@ -344,11 +344,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch indexPath.row {
         case 0:
-            return MenuItem(item: ["label": "History", "action": "history"])
+            return MenuItem(label: "History", action: "history")
         case 1:
-            return MenuItem(item: ["label": "Payment Methods", "action": "paymentMethods"])
+            return MenuItem(label: "Payment Methods", action: "paymentMethods")
         case 2:
-            return MenuItem(item: ["label": "Driver Mode", "action": "provide"])
+            return MenuItem(label: "Driver Mode", action: "provide")
         default:
             break
         }
