@@ -53,10 +53,8 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
 
         NotificationCenter.default.addObserverForName("ApplicationShouldReloadTopViewController") { _ in
-            if let tnc = self.topViewController as? UINavigationController {
-                if let tvc = tnc.viewControllers.first as? TopViewController {
-                    tvc.reload()
-                }
+            if let tnc = self.topViewController as? UINavigationController, let tvc = tnc.viewControllers.first as? TopViewController {
+                tvc.reload()
             }
 
             self.refreshMenu()

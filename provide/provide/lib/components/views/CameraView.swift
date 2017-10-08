@@ -336,26 +336,24 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
 
         avCameraOutputQueue.async {
-            if let cameraOutput = self.stillCameraOutput {
-                if let connection = cameraOutput.connection(with: .video) {
-                    if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
-                        connection.videoOrientation = videoOrientation
-                    }
-
-                    cameraOutput.captureStillImageAsynchronously(from: connection) { imageDataSampleBuffer, error in
-                        if error == nil {
-                            let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
-
-                            if let image = UIImage(data: imageData!) {
-                                self.delegate?.cameraView(self, didCaptureStillImage: image)
-
-                                if self.outputOCRMetadata {
-                                    self.ocrFrame(image)
-                                }
+            if let cameraOutput = self.stillCameraOutput, let connection = cameraOutput.connection(with: .video) {
+                if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
+                    connection.videoOrientation = videoOrientation
+                }
+                
+                cameraOutput.captureStillImageAsynchronously(from: connection) { imageDataSampleBuffer, error in
+                    if error == nil {
+                        let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
+                        
+                        if let image = UIImage(data: imageData!) {
+                            self.delegate?.cameraView(self, didCaptureStillImage: image)
+                            
+                            if self.outputOCRMetadata {
+                                self.ocrFrame(image)
                             }
-                        } else {
-                            logWarn("Error capturing still image \(String(describing: error))")
                         }
+                    } else {
+                        logWarn("Error capturing still image \(String(describing: error))")
                     }
                 }
             }

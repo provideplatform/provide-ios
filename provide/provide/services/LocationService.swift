@@ -204,19 +204,17 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         DispatchQueue.global(qos: DispatchQoS.default.qosClass).async { [weak self] in
             for region in (self?.regions)! {
                 if region.contains(location.coordinate) {
-                    if let callbacks = self?.geofenceCallbacks[region.identifier] {
-                        if let callback = callbacks["didEnterRegion"] {
-                            if let callbackCounts = self?.geofenceCallbackCounts[region.identifier] {
-                                let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
-                                let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
-                                if didEnterRegionCallCount > didExitRegionCallCount {
-                                    logWarn("Not invoking didEnterRegion callback without first exiting")
-                                    return
-                                }
-                                self?.geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
+                    if let callbacks = self?.geofenceCallbacks[region.identifier], let callback = callbacks["didEnterRegion"] {
+                        if let callbackCounts = self?.geofenceCallbackCounts[region.identifier] {
+                            let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
+                            let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
+                            if didEnterRegionCallCount > didExitRegionCallCount {
+                                logWarn("Not invoking didEnterRegion callback without first exiting")
+                                return
                             }
-                            callback()
+                            self?.geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
                         }
+                        callback()
                     }
                 }
             }
@@ -356,36 +354,32 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        if let callbacks = geofenceCallbacks[region.identifier] {
-            if let callback = callbacks["didEnterRegion"] {
-                if let callbackCounts = geofenceCallbackCounts[region.identifier] {
-                    let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
-                    let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
-                    if didEnterRegionCallCount > didExitRegionCallCount {
-                        logWarn("Not invoking didEnterRegion callback without first exiting")
-                        return
-                    }
-                    geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
+        if let callbacks = geofenceCallbacks[region.identifier], let callback = callbacks["didEnterRegion"] {
+            if let callbackCounts = geofenceCallbackCounts[region.identifier] {
+                let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
+                let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
+                if didEnterRegionCallCount > didExitRegionCallCount {
+                    logWarn("Not invoking didEnterRegion callback without first exiting")
+                    return
                 }
-                callback()
+                geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
             }
+            callback()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        if let callbacks = geofenceCallbacks[region.identifier] {
-            if let callback = callbacks["didExitRegion"] {
-                if let callbackCounts = geofenceCallbackCounts[region.identifier] {
-                    let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
-                    let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
-                    if didExitRegionCallCount != didEnterRegionCallCount - 1 {
-                        logWarn("Not invoking didExitRegion callback without first entering")
-                        return
-                    }
-                    geofenceCallbackCounts[region.identifier]?["didExitRegion"] = didExitRegionCallCount + 1
+        if let callbacks = geofenceCallbacks[region.identifier], let callback = callbacks["didExitRegion"] {
+            if let callbackCounts = geofenceCallbackCounts[region.identifier] {
+                let didEnterRegionCallCount = callbackCounts["didEnterRegion"] ?? 0
+                let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
+                if didExitRegionCallCount != didEnterRegionCallCount - 1 {
+                    logWarn("Not invoking didExitRegion callback without first entering")
+                    return
                 }
-                callback()
+                geofenceCallbackCounts[region.identifier]?["didExitRegion"] = didExitRegionCallCount + 1
             }
+            callback()
         }
     }
 

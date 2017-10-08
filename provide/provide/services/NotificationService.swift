@@ -71,14 +71,12 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
         switch notificationType {
         case .attachment:
-            if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool, refreshProfileImage {
-                if let token = KeyChainService.shared.token, let user = token.user {
-                    user.reload(onSuccess: { statusCode, mappingResult in
-                        NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
-                    }, onError: { error, statusCode, responseString in
-                        logError(error)
-                    })
-                }
+            if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool, let token = KeyChainService.shared.token, let user = token.user, refreshProfileImage {
+                user.reload(onSuccess: { statusCode, mappingResult in
+                    NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
+                }, onError: { error, statusCode, responseString in
+                    logError(error)
+                })
             }
 
             if !socketConnected {
@@ -153,76 +151,74 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 socket.write("[\"websocket_rails.pong\",{\"data\":{}}]")
             } else if message =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
-                if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary() {
-                    if let data = value["data"] as? [String: AnyObject] {
-                        let message = data["message"] as? String
-                        let payload = data["payload"] as? [String: AnyObject]
+                if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: AnyObject] {
+                    let message = data["message"] as? String
+                    let payload = data["payload"] as? [String: AnyObject]
 
-                        if let message = message {
-                            logInfo("Websocket message received: \(message)")
+                    if let message = message {
+                        logInfo("Websocket message received: \(message)")
 
-                            AnalyticsService.shared.track("Websocket Received Message",
-                                                          properties: ["message": message as AnyObject] as [String: AnyObject])
+                        AnalyticsService.shared.track("Websocket Received Message",
+                                                      properties: ["message": message as AnyObject] as [String: AnyObject])
 
-                            switch message {
-                            case "attachment_changed":
-                                let attachment = Attachment(string: payload!.toJSONString())
-                                if let url = payload!["url"] as? String {
-                                    attachment.urlString = url // FIXME-- marshall with proper mapping
-                                }
-
-                                if let attachableType = attachment.attachableType, attachableType == "work_order", let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
-                                    workOrder.mergeAttachment(attachment)
-                                }
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
-                            case "comment_changed":
-                                let comment = Comment(string: payload!.toJSONString())
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
-                            case "provider_became_available":
-                                let providerJson = payload!.toJSONString()
-                                let provider = Provider(string: providerJson)
-                                if ProviderService.shared.containsProvider(provider) {
-                                    ProviderService.shared.updateProvider(provider)
-                                } else {
-                                    ProviderService.shared.appendProvider(provider)
-                                }
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
-                            case "provider_became_unavailable":
-                                if let providerId = payload?["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
-                                    ProviderService.shared.removeProvider(providerId)
-                                    NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
-                                }
-                            case "provider_location_changed":
-                                let providerJson = payload!.toJSONString()
-                                let provider = Provider(string: providerJson)
-                                if ProviderService.shared.containsProvider(provider) {
-                                    ProviderService.shared.updateProvider(provider)
-                                } else {
-                                    ProviderService.shared.appendProvider(provider)
-                                }
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
-                            case "work_order_changed":
-                                let workOrderJson = payload!.toJSONString()
-                                let workOrder = WorkOrder(string: workOrderJson)
-                                WorkOrderService.shared.updateWorkOrder(workOrder)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
-                                if WorkOrderService.shared.inProgressWorkOrder == nil {
-                                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-                                }
-                            case "work_order_provider_changed":
-                                let workOrderProviderJson = payload!.toJSONString()
-                                let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
-                                if WorkOrderService.shared.inProgressWorkOrder == nil {
-                                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
-                                }
-                            case "work_order_provider_added":
-                                break
-                            case "work_order_provider_removed":
-                                break
-                            default:
-                                break
+                        switch message {
+                        case "attachment_changed":
+                            let attachment = Attachment(string: payload!.toJSONString())
+                            if let url = payload!["url"] as? String {
+                                attachment.urlString = url // FIXME-- marshall with proper mapping
                             }
+
+                            if let attachableType = attachment.attachableType, attachableType == "work_order", let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
+                                workOrder.mergeAttachment(attachment)
+                            }
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
+                        case "comment_changed":
+                            let comment = Comment(string: payload!.toJSONString())
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
+                        case "provider_became_available":
+                            let providerJson = payload!.toJSONString()
+                            let provider = Provider(string: providerJson)
+                            if ProviderService.shared.containsProvider(provider) {
+                                ProviderService.shared.updateProvider(provider)
+                            } else {
+                                ProviderService.shared.appendProvider(provider)
+                            }
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
+                        case "provider_became_unavailable":
+                            if let providerId = payload?["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
+                                ProviderService.shared.removeProvider(providerId)
+                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
+                            }
+                        case "provider_location_changed":
+                            let providerJson = payload!.toJSONString()
+                            let provider = Provider(string: providerJson)
+                            if ProviderService.shared.containsProvider(provider) {
+                                ProviderService.shared.updateProvider(provider)
+                            } else {
+                                ProviderService.shared.appendProvider(provider)
+                            }
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
+                        case "work_order_changed":
+                            let workOrderJson = payload!.toJSONString()
+                            let workOrder = WorkOrder(string: workOrderJson)
+                            WorkOrderService.shared.updateWorkOrder(workOrder)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
+                            if WorkOrderService.shared.inProgressWorkOrder == nil {
+                                NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                            }
+                        case "work_order_provider_changed":
+                            let workOrderProviderJson = payload!.toJSONString()
+                            let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
+                            NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
+                            if WorkOrderService.shared.inProgressWorkOrder == nil {
+                                NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                            }
+                        case "work_order_provider_added":
+                            break
+                        case "work_order_provider_removed":
+                            break
+                        default:
+                            break
                         }
                     }
                 }

@@ -50,12 +50,10 @@ class DirectionsViewController: ViewController {
                 refreshInstructions()
                 renderRouteOverview()
 
-                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {
-                    if let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
-                        navigationItem.prompt = prompt
-                    } else {
-                        navigationItem.prompt = nil
-                    }
+                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self), let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
+                    navigationItem.prompt = prompt
+                } else {
+                    navigationItem.prompt = nil
                 }
             }
         }
@@ -81,16 +79,14 @@ class DirectionsViewController: ViewController {
     // MARK: Rendering
 
     func render() {
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
-            if let mapView = mapView as? WorkOrderMapView {
-                if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
-                    mapView.addAnnotation(inProgressWorkOrder.annotation)
-                }
-
-                mapView.disableUserInteraction()
-                mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: defaultMapCameraAltitude, pitch: CGFloat(defaultMapCameraPitch), animated: true)
-                mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) as? WorkOrderMapView {
+            if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
+                mapView.addAnnotation(inProgressWorkOrder.annotation)
             }
+
+            mapView.disableUserInteraction()
+            mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: defaultMapCameraAltitude, pitch: CGFloat(defaultMapCameraPitch), animated: true)
+            mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
         }
 
         let frame = CGRect(
@@ -324,11 +320,9 @@ class DirectionsViewController: ViewController {
         CheckinService.shared.disableNavigationAccuracy()
         LocationService.shared.disableNavigationAccuracy()
 
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
-            if let mapView = mapView as? WorkOrderMapView {
-                mapView.removeAnnotations()
-                mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
-            }
+        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) as? WorkOrderMapView {
+            mapView.removeAnnotations()
+            mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
         }
 
         if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {

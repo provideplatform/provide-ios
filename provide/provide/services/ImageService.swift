@@ -65,10 +65,8 @@ class ImageService {
                                 }
 
                                 onDownloadSuccess(image!)
-                            } else if let error = error {
-                                if let onDownloadFailure = onDownloadFailure {
-                                    onDownloadFailure(error as NSError)
-                                }
+                            } else if let error = error, let onDownloadFailure = onDownloadFailure {
+                                onDownloadFailure(error as NSError)
                             }
                         })
                     }

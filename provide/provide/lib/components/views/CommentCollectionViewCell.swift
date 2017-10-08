@@ -40,11 +40,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
     private func refresh() {
         if let comment = comment {
-            if let activityIndicatorView = activityIndicatorView {
-                if comment.body == nil || comment.body.length == 0 {
-                    activityIndicatorView.startAnimating()
-                    bringSubview(toFront: activityIndicatorView)
-                }
+            if let activityIndicatorView = activityIndicatorView, (comment.body == nil || comment.body.length == 0) {
+                activityIndicatorView.startAnimating()
+                bringSubview(toFront: activityIndicatorView)
             }
 
             if let imageAttachments = comment.attachments {
