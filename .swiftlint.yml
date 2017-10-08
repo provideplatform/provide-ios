@@ -7,6 +7,7 @@ disabled_rules: # rule identifiers to exclude from running
   - line_length
   - unused_closure_parameter                  # Count = 197  warning = Unused Closure Parameter Violation.
   - force_cast                                # Count = 155  error   = Force Cast Violation.
+  - force_try
   - todo                                      # Count = 26   warning = Todo Violation.
   - function_body_length                      # Count = 15   warning = Function Body Length Violation.
   - cyclomatic_complexity                     # Count = 12   warning = Cyclomatic Complexity Violation.
@@ -18,6 +19,9 @@ disabled_rules: # rule identifiers to exclude from running
 
 trailing_comma:
   mandatory_comma: true
+
+vertical_whitespace:
+  max_empty_lines: 2
 
 identifier_name:
   max_length: 50
