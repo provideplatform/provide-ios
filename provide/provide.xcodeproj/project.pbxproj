@@ -25,6 +25,7 @@
 		5C0049521B1BD9FF000ACE9D /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
 		5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */; };
 		5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */; };
+		5C16BDAE1F8AE414005012BB /* Model+Provide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16BDAD1F8AE414005012BB /* Model+Provide.swift */; };
 		5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */; };
 		5C41C5931B21457800FA7783 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5921B21457800FA7783 /* MessageService.swift */; };
 		5C46AC641F886D8300989D0A /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
@@ -220,6 +221,7 @@
 		53B9F12E1B9F025FEB2EB8BB /* Pods-provideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C0049501B1BD9FF000ACE9D /* HTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPStubs; sourceTree = "<group>"; };
 		5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderServiceTests.swift; sourceTree = "<group>"; };
+		5C16BDAD1F8AE414005012BB /* Model+Provide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Provide.swift"; sourceTree = "<group>"; };
 		5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationType.swift; sourceTree = "<group>"; };
 		5C41C5921B21457800FA7783 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServiceTests.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 		5C51E8DB1F89B195001EABC4 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				5C16BDAD1F8AE414005012BB /* Model+Provide.swift */,
 				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
 			);
 			path = models;
@@ -1598,6 +1601,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */,
+				5C16BDAE1F8AE414005012BB /* Model+Provide.swift in Sources */,
 				5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */,
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,

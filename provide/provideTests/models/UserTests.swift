@@ -15,14 +15,7 @@ import XCTest
 class UserTests: XCTestCase {
 
     func testObjectMapping() {
-        let url = Bundle.main.url(forResource: "user", withExtension: "json", subdirectory: "HTTPStubs/api/users")!
-        let data = try! Data(contentsOf: url)
-        let dictionary = decodeJSON(data)
-
-        let mapper = RKMapperOperation(representation: dictionary, mappingsDictionary: ["user": User.mapping()])!
-        try! mapper.execute()
-
-        let user = mapper.mappingResult.firstObject as! User
+        let user = User.from(file: "HTTPStubs/api/users/user.json")
         XCTAssertEqual(user.id, 3)
         XCTAssertEqual(user.name, "TestUser")
         XCTAssertEqual(user.email, "test@example.com")

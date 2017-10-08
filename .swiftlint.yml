@@ -17,6 +17,9 @@ disabled_rules: # rule identifiers to exclude from running
   - notification_center_detachment            # Count = 1    warning = Notification Center Detachment Violation.
   - discarded_notification_center_observer
 
+large_tuple:
+  warning: 4
+
 trailing_comma:
   mandatory_comma: true
 
