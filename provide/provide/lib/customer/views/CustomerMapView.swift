@@ -95,20 +95,14 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         return view
     }
 
-    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-    }
-
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
-    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-    }
-
-    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
-        logWarn("MapView failed to locate user")
+    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
+         logWarn("MapView failed to locate user")
     }
 
     func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer? {
@@ -117,10 +111,6 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
         logWarn("Returning nil overlay renderer for customer map view; \(renderer!)")
 
         return renderer
-    }
-
-    func mapView(_ mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
-
     }
 
     func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {

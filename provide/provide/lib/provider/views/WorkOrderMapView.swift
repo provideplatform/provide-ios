@@ -126,23 +126,17 @@ class WorkOrderMapView: MapView {
         return view
     }
 
-    func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
-    }
-
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
-    func mapViewDidStopLocatingUser(_ mapView: MKMapView) {
-    }
-
-    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: NSError) {
+    func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
         logWarn("MapView failed to locate user")
     }
 
-    func mapView(_ mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer? {
+    override func renderer(for overlay: MKOverlay) -> MKOverlayRenderer? {
         var renderer: MKOverlayRenderer!
 
         if let route = overlay as? MKPolyline {
@@ -152,10 +146,6 @@ class WorkOrderMapView: MapView {
         }
 
         return renderer
-    }
-
-    func mapView(_ mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
-
     }
 
     func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {
