@@ -1,0 +1,38 @@
+{
+    "user": {
+        "id": 3,
+        "name": "TestUser",
+        "email": "test@example.com",
+        "profile_image_url": null,
+        "company_ids": [
+
+        ],
+        "default_company_id": null,
+        "menu_items": [
+            {
+                "storyboard": "Jobs",
+                "label": "Jobs"
+            },
+            {
+                "storyboard": "WorkOrderHistory",
+                "label": "Work Orders"
+            }
+        ],
+        "last_checkin_latitude": 38.891015,
+        "last_checkin_longitude": -77.0882267,
+        "last_checkin_heading": 9.99,
+        "stripe_customer_id": "cus_BVaw6L5af5Kixa",
+        "last_checkin_at": "2017-10-08T01:04:12Z",
+        "provider_ids": [
+            3
+        ],
+        "wallets": [
+            {
+                "id": 3,
+                "type": "eth",
+                "address": "0x1FD4f7F930c22DdC15A9Bf2b85636B95412A8523",
+                "balance": 0.0
+            }
+        ]
+    }
+}

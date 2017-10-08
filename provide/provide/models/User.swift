@@ -99,7 +99,7 @@ class User: Model {
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
-            "last_checkin_heading": "lastcheckinHeading",
+            "last_checkin_heading": "lastCheckinHeading",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))

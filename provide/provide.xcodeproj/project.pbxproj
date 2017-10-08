@@ -28,6 +28,7 @@
 		5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */; };
 		5C41C5931B21457800FA7783 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5921B21457800FA7783 /* MessageService.swift */; };
 		5C46AC641F886D8300989D0A /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
+		5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */; };
 		5C68C6B31F86792E00BBD3B9 /* ballston.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B01F86792D00BBD3B9 /* ballston.gpx */; };
 		5C68C6B41F86792E00BBD3B9 /* clarendon.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B11F86792D00BBD3B9 /* clarendon.gpx */; };
 		5C68C6B51F86792E00BBD3B9 /* quincy.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B21F86792D00BBD3B9 /* quincy.gpx */; };
@@ -223,6 +224,7 @@
 		5C41C5921B21457800FA7783 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServiceTests.swift; sourceTree = "<group>"; };
 		5C4AF39E1B13A3ED00423B71 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OHHTTPStubsHelper.swift; sourceTree = "<group>"; };
 		5C68C6B01F86792D00BBD3B9 /* ballston.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ballston.gpx; sourceTree = "<group>"; };
 		5C68C6B11F86792D00BBD3B9 /* clarendon.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = clarendon.gpx; sourceTree = "<group>"; };
@@ -433,6 +435,14 @@
 				5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */,
 			);
 			path = services;
+			sourceTree = "<group>";
+		};
+		5C51E8DB1F89B195001EABC4 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
+			);
+			path = models;
 			sourceTree = "<group>";
 		};
 		5C68C6C21F86804300BBD3B9 /* controllers */ = {
@@ -863,6 +873,7 @@
 		68DFB0991B07C5C4002A72E8 /* provideTests */ = {
 			isa = PBXGroup;
 			children = (
+				5C51E8DB1F89B195001EABC4 /* models */,
 				5C0049541B1BE943000ACE9D /* services */,
 				5CAC66221B12B0140079A58E /* extensions */,
 				68DFB09A1B07C5C4002A72E8 /* Supporting Files */,
@@ -1586,6 +1597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */,
 				5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */,
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,
