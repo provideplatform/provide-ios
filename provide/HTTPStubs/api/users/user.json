@@ -3,14 +3,15 @@
         "id": 3,
         "name": "TestUser",
         "email": "test@example.com",
-        "profile_image_url": null,
+        "profile_image_url": "http://test.example.com/image.png",
         "company_ids": [
-
+            999,
+            888
         ],
-        "default_company_id": null,
+        "default_company_id": 999,
         "menu_items": [
             {
-                "storyboard": "Jobs",
+                "storyboard": "JobsStoryboard",
                 "label": "Jobs"
             },
             {
