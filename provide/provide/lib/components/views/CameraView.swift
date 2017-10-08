@@ -340,14 +340,14 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                 if let videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.current.orientation.rawValue) {
                     connection.videoOrientation = videoOrientation
                 }
-                
+
                 cameraOutput.captureStillImageAsynchronously(from: connection) { imageDataSampleBuffer, error in
                     if error == nil {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
-                        
+
                         if let image = UIImage(data: imageData!) {
                             self.delegate?.cameraView(self, didCaptureStillImage: image)
-                            
+
                             if self.outputOCRMetadata {
                                 self.ocrFrame(image)
                             }
