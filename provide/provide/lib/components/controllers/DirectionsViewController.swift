@@ -270,12 +270,8 @@ class DirectionsViewController: ViewController {
     }
 
     func refreshInstructions() {
-        if let directions = directions {
-            if let route = directions.selectedRoute {
-                if let leg = route.currentLeg {
-                    directionsInstructionView.routeLeg = leg
-                }
-            }
+        if let leg = directions?.selectedRoute?.currentLeg {
+            directionsInstructionView.routeLeg = leg
         }
     }
 
