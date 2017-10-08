@@ -54,8 +54,10 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
 
         NotificationCenter.default.addObserverForName("WorkOrderContextShouldRefresh") { [weak self] _ in
-            if !self!.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
-                self!.loadWorkOrderContext()
+            if let weakSelf = self {
+                if !weakSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
+                    weakSelf.loadWorkOrderContext()
+                }
             }
         }
 

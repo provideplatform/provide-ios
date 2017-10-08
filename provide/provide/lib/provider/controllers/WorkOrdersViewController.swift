@@ -449,7 +449,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return annotations
     }
 
-    func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView {
+    func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKAnnotationView!
 
         if annotation is WorkOrder.Annotation {
