@@ -13,7 +13,7 @@ import XCTest
 class DirectionsTests: XCTestCase {
 
     func testObjectMapping() {
-        let object = Directions.from(file: "HTTPStubs/api/directions.json")
+        let object = Directions.from(file: "HTTPStubs/api/directions/directions.json")
         XCTAssertEqual(object.routes.count, 1)
         XCTAssertNotNil(object.routes.first?.legs)
     }

@@ -13,7 +13,7 @@ import XCTest
 class ContactTests: XCTestCase {
 
     func testObjectMapping() {
-        let object = Contact.from(file: "HTTPStubs/api/contact.json")
+        let object = Contact.from(file: "HTTPStubs/api/contacts/contact.json")
         XCTAssertEqual(object.address1, "123 Sesame Street")
         XCTAssertEqual(object.address2, nil)
         XCTAssertEqual(object.city, "Springfield")
