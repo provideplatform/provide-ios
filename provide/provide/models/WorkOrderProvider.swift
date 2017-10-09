@@ -13,7 +13,7 @@ import RestKit
 class WorkOrderProvider: Model {
 
     var id = 0
-    var providerRating: NSNumber!
+    var rating = 0.0
     var provider: Provider!
     var checkinCoordinates: NSArray!
     var hourlyRate = -1.0
@@ -33,7 +33,7 @@ class WorkOrderProvider: Model {
             "flat_fee",
             "hourly_rate",
             "id",
-            "provider_rating",
+            "rating",
             "timed_out_at",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "provider", mapping: Provider.mapping())

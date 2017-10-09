@@ -21,7 +21,9 @@ class WorkOrderProviderTests: XCTestCase {
         XCTAssertEqual(object.flatFee, 0.0)
         XCTAssertEqual(object.hourlyRate, 9.99)
         XCTAssertEqual(object.id, 44)
-        // XCTAssertEqual(object.providerRating, nil)
+        XCTAssertEqual(object.rating, 4.5)
         XCTAssertEqual(object.timedOutAt, "2017-10-09T00:52:14Z")
+        XCTAssertNotNil(object.provider)
+        XCTAssertTrue(object.provider.isAvailable)
     }
 }
