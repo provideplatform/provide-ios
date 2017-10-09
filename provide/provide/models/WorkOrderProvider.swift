@@ -17,6 +17,7 @@ class WorkOrderProvider: Model {
     var provider: Provider!
     var checkinCoordinates: NSArray!
     var hourlyRate = -1.0
+    var estimatedCost = -1.0
     var estimatedDuration = -1.0
     var duration = -1.0
     var flatFee = -1.0
@@ -41,13 +42,6 @@ class WorkOrderProvider: Model {
 
     var isTimedOut: Bool {
         return timedOutAt != nil
-    }
-
-    var estimatedCost: Double {
-        if hourlyRate > -1.0 && estimatedDuration > -1.0 {
-            return hourlyRate * (estimatedDuration / 3600.0)
-        }
-        return -1.0
     }
 
     var checkinsPolyline: MKPolyline! {
