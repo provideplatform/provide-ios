@@ -459,15 +459,15 @@
 			isa = PBXGroup;
 			children = (
 				5C16BDAD1F8AE414005012BB /* Model+Provide.swift */,
-				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
+				5CE4D6D31F8B2CE800839001 /* ContactTests.swift */,
 				5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */,
+				5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */,
 				5CDAA4B51F8B1535001C6240 /* RouteTests.swift */,
-				5CE4D6CB1F8B19F500839001 /* RouteLegTests.swift */,
 				5CE4D6CD1F8B1B7600839001 /* RouteLegStepTests.swift */,
+				5CE4D6CB1F8B19F500839001 /* RouteLegTests.swift */,
+				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
 				5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */,
 				5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */,
-				5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */,
-				5CE4D6D31F8B2CE800839001 /* ContactTests.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
