@@ -56,6 +56,7 @@
 		5CE4D6CE1F8B1B7600839001 /* RouteLegStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6CD1F8B1B7600839001 /* RouteLegStepTests.swift */; };
 		5CE4D6D01F8B219200839001 /* WorkOrderProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */; };
 		5CE4D6D21F8B2A6400839001 /* ProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */; };
+		5CE4D6D41F8B2CE800839001 /* ContactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6D31F8B2CE800839001 /* ContactTests.swift */; };
 		68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
 		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
 		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
@@ -261,6 +262,7 @@
 		5CE4D6CD1F8B1B7600839001 /* RouteLegStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteLegStepTests.swift; sourceTree = "<group>"; };
 		5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderProviderTests.swift; sourceTree = "<group>"; };
 		5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderTests.swift; sourceTree = "<group>"; };
+		5CE4D6D31F8B2CE800839001 /* ContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
 		68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderDetails.storyboard; sourceTree = "<group>"; };
 		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */,
 				5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */,
 				5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */,
+				5CE4D6D31F8B2CE800839001 /* ContactTests.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -1629,6 +1632,7 @@
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,
 				5CE4D6CE1F8B1B7600839001 /* RouteLegStepTests.swift in Sources */,
+				5CE4D6D41F8B2CE800839001 /* ContactTests.swift in Sources */,
 				5CE4D6D01F8B219200839001 /* WorkOrderProviderTests.swift in Sources */,
 				5CDAA4B61F8B1535001C6240 /* RouteTests.swift in Sources */,
 				5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */,
