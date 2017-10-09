@@ -214,7 +214,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
     }
 
     func cameraView(_ cameraView: CameraView, didMeasureAveragePower avgPower: Float, peakHold: Float, forAudioChannel channel: AVCaptureAudioChannel) {
-        print("average power: \(avgPower); peak hold: \(peakHold); channel: \(channel)")
+        logInfo("Camera view measured average power: \(avgPower); peak hold: \(peakHold); channel: \(channel)")
     }
 
     func cameraView(_ cameraView: CameraView, didOutputMetadataFaceObject metadataFaceObject: AVMetadataFaceObject) {
