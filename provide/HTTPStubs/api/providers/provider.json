@@ -1,0 +1,31 @@
+{
+    "available": true,
+    "category_ids": [],
+    "contact": {
+        "address1": null,
+        "address2": null,
+        "city": null,
+        "data": null,
+        "description": null,
+        "dob": null,
+        "email": "kyle@provide.services",
+        "fax": null,
+        "id": 5,
+        "latitude": null,
+        "longitude": null,
+        "mobile": null,
+        "name": "Kyle Thomas",
+        "phone": null,
+        "state": null,
+        "time_zone_id": "Pacific Time (US & Canada)",
+        "website": null,
+        "zip": null
+    },
+    "id": 5,
+    "last_checkin_at": "2017-10-09T03:46:46Z",
+    "last_checkin_heading": 99.0,
+    "last_checkin_latitude": 38.891614,
+    "last_checkin_longitude": -77.0855337,
+    "profile_image_url": null,
+    "user_id": 5
+}

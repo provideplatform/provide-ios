@@ -13,7 +13,7 @@ import RestKit
 class Provider: Model {
 
     var id = 0
-    var companyId = 0
+    var companyId = 0 // not in response
     var userId = 0
     var contact: Contact!
     var profileImageUrlString: String!
@@ -74,7 +74,7 @@ class Provider: Model {
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
-            "last_checkin_heading": "lastcheckinHeading",
+            "last_checkin_heading": "lastCheckinHeading",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
         return mapping!
