@@ -1,0 +1,74 @@
+{
+    "abandoned_at": null,
+    "arrived_at": null,
+    "canceled_at": null,
+    "checkin_coordinates": [
+        [
+            38.891015,
+            -77.0882267
+        ],
+        [
+            38.891015,
+            -77.0882267
+        ],
+        [
+            38.891015,
+            -77.0882267
+        ],
+        [
+            38.891015,
+            -77.0882267
+        ],
+        [
+            38.891015,
+            -77.0882267
+        ]
+    ],
+    "confirmed_at": null,
+    "duration": 99.99,
+    "ended_at": null,
+    "estimated_cost": 999.99,
+    "estimated_duration": 991,
+    "estimated_revenue": null,
+    "flat_fee": null,
+    "flat_fee_due": null,
+    "hourly_rate": 9.99,
+    "hourly_rate_due": null,
+    "id": 44,
+    "provider": {
+        "available": true,
+        "category_ids": [
+
+        ],
+        "contact": {
+            "address1": null,
+            "address2": null,
+            "city": null,
+            "data": null,
+            "description": null,
+            "dob": null,
+            "email": "driver@provide.services",
+            "fax": null,
+            "id": 7,
+            "latitude": null,
+            "longitude": null,
+            "mobile": null,
+            "name": "Dan Driver",
+            "phone": null,
+            "state": null,
+            "time_zone_id": "Pacific Time (US & Canada)",
+            "website": null,
+            "zip": null
+        },
+        "id": 7,
+        "last_checkin_at": "2017-10-09T03:13:12Z",
+        "last_checkin_heading": 0.0,
+        "last_checkin_latitude": 38.8976758,
+        "last_checkin_longitude": -77.0364823,
+        "profile_image_url": null,
+        "user_id": 7
+    },
+    "rating": null,
+    "started_at": null,
+    "timed_out_at": "2017-10-09T00:52:14Z"
+}
