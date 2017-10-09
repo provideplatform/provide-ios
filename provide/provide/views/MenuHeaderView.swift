@@ -179,28 +179,43 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         profileImageView.alpha = 0.0
         profileImageUrl = nil
 
-        ApiService.shared.setUserDefaultProfileImage(image, onSuccess: { response in
-
-        }, onError: { urlResponse, statusCode, error in
-            logError(error!)
-        })
+        ApiService.shared.setUserDefaultProfileImage(image,
+            onSuccess: { response in
+                logInfo("Updated default profile image")
+            },
+            onError: { urlResponse, statusCode, error in
+                logError(error!)
+            }
+        )
     }
 
     // MARK: UIImagePickerControllerDelegate
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [AnyHashable: Any]) {
-        if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            navigationController.dismiss(animated: true) {
-                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
+                navigationController.dismiss(animated: false) {
+                    NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                }
+            } else {
+                picker.presentingViewController?.dismiss(animated: false) {
+                    NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                }
             }
-        }
 
-        setUserDefaultProfileImage(image)
+            setUserDefaultProfileImage(image)
+        } else {
+            logWarn("UIImagePickerController selected invalid image media: \(info)")
+        }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             navigationController.dismiss(animated: true) {
+                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+            }
+        } else {
+            picker.presentingViewController?.dismiss(animated: false) {
                 NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
             }
         }

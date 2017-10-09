@@ -19,7 +19,6 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
                 return UIStoryboard("Provider")
             }
         } else {
-            // this should never happen...
             logWarn("No user mode resolved... panic!!!") // this should never happen...
         }
         return nil
