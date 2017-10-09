@@ -341,15 +341,18 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
                     connection.videoOrientation = videoOrientation
                 }
 
-                cameraOutput.captureStillImageAsynchronously(from: connection) { imageDataSampleBuffer, error in
+                let delegate = self.delegate  // HACK -- this keeps a reference to the delegate around... holistic audit of all optionality refactoring required ASAP
+                                              // weak var delegeate is no longer behaving the way it once did...
+
+                cameraOutput.captureStillImageAsynchronously(from: connection) { [weak self] imageDataSampleBuffer, error in
                     if error == nil {
                         let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer!)
 
                         if let image = UIImage(data: imageData!) {
-                            self.delegate?.cameraView(self, didCaptureStillImage: image)
+                            delegate?.cameraView(self!, didCaptureStillImage: image)
 
-                            if self.outputOCRMetadata {
-                                self.ocrFrame(image)
+                            if self?.outputOCRMetadata ?? false {
+                                self?.ocrFrame(image)
                             }
                         }
                     } else {
