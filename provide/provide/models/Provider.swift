@@ -13,7 +13,6 @@ import RestKit
 class Provider: Model {
 
     var id = 0
-    var companyId = 0 // not in response
     var userId = 0
     var contact: Contact!
     var profileImageUrlString: String!
@@ -65,7 +64,6 @@ class Provider: Model {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
             "id": "id",
-            "company_id": "companyId",
             "user_id": "userId",
             "name": "name",
             "services": "services",

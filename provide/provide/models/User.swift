@@ -17,11 +17,8 @@ class User: Model {
     var email: String!
     var profileImageUrlString: String!
     var contact: Contact!
-    var companies: [Company]!
-    var companyIds = [Int]()
     var providers: [Provider]!
     var providerIds = [Int]()
-    var defaultCompanyId = 0
     var menuItemsPreference: NSArray!
     var paymentMethods: [Any]!
     var lastCheckinAt: String!
@@ -91,9 +88,7 @@ class User: Model {
             "name": "name",
             "email": "email",
             "profile_image_url": "profileImageUrlString",
-            "company_ids": "companyIds",
             "provider_ids": "providerIds",
-            "default_company_id": "defaultCompanyId",
             "menu_items": "menuItemsPreference",
             "payment_methods": "paymentMethods",
             "last_checkin_at": "lastCheckinAt",
@@ -102,7 +97,6 @@ class User: Model {
             "last_checkin_heading": "lastCheckinHeading",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "companies", toKeyPath: "companies", with: Company.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "providers", toKeyPath: "providers", with: Provider.mapping()))
         return mapping!
     }
@@ -113,15 +107,6 @@ class User: Model {
 
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.fetchUser(onSuccess: onSuccess, onError: onError)
-    }
-
-    func reloadCompanies(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        let companyIdsQueryString = companyIds.map({ String($0) }).joined(separator: "|")
-        let params: [String: AnyObject] = ["id": companyIdsQueryString as AnyObject]
-        ApiService.shared.fetchCompanies(params, onSuccess: { statusCode, mappingResult in
-            self.companies = mappingResult?.array() as! [Company]
-            onSuccess(statusCode, mappingResult)
-        }, onError: onError)
     }
 
     class Annotation: NSObject, MKAnnotation {

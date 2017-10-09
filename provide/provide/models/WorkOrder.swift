@@ -15,8 +15,6 @@ class WorkOrder: Model {
     var id = 0
     var categoryId = 0
     var category: Category!
-    var companyId = 0
-    var company: Company!
     var customerId = 0
     var customer: Customer!
     var userId = 0
@@ -55,7 +53,6 @@ class WorkOrder: Model {
         mapping?.addAttributeMappings(from: [
             "id": "id",
             "category_id": "categoryId",
-            "company_id": "companyId",
             "customer_id": "customerId",
             "job_id": "jobId",
             "config": "config",
@@ -81,7 +78,6 @@ class WorkOrder: Model {
             "user_id": "userId",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
-        mapping?.addRelationshipMapping(withSourceKeyPath: "company", mapping: Company.mapping())
         mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", with: Comment.mapping()))
@@ -479,10 +475,6 @@ class WorkOrder: Model {
 
     func save(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var params = toDictionary()
-
-        if let companyId = params["company_id"] as? Int, companyId == 0 {
-            params["company_id"] = nil
-        }
 
         if let categoryId = params["category_id"] as? Int, categoryId == 0 {
             params["category_id"] = nil

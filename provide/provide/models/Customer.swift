@@ -13,7 +13,6 @@ import RestKit
 class Customer: Model {
 
     var id = 0
-    var companyId = 0
     var name: String!
     var displayName: String!
     var profileImageUrlString: String!
@@ -30,7 +29,6 @@ class Customer: Model {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
             "id": "id",
-            "company_id": "companyId",
             "name": "name",
             "display_name": "displayName",
             "profile_image_url": "profileImageUrlString",

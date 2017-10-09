@@ -26,17 +26,12 @@ class UserTests: XCTestCase {
 
         XCTAssertEqual(user.profileImageUrlString, "http://test.example.com/image.png")
 
-        XCTAssertEqual(user.companyIds.count, 2)
-        XCTAssertEqual(user.companyIds.first, 999)
-
         XCTAssertEqual(user.menuItems.count, 2)
 
         let menuItem = user.menuItems.first!
 
         XCTAssertEqual(menuItem.label, "Jobs")
         XCTAssertEqual(menuItem.storyboard, "JobsStoryboard")
-
-        XCTAssertEqual(user.defaultCompanyId, 999)
 
         XCTAssertEqual(user.lastCheckinAt, "2017-10-08T01:04:12Z")
 

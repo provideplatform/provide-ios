@@ -37,7 +37,6 @@ class ApiService: NSObject {
     private let objectMappings: [String: AnyObject] = [
         "attachments": Attachment.mappingWithRepresentations(),
         "comments": Comment.mapping(),
-        "companies": Company.mapping(),
         "customers": Customer.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
@@ -66,16 +65,6 @@ class ApiService: NSObject {
         if let token = KeyChainService.shared.token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
         }
-    }
-
-    var defaultCompanyId: Int! {
-        if let user = currentUser {
-            let defaultCompanyId = user.defaultCompanyId
-            if defaultCompanyId > 0 {
-                return defaultCompanyId
-            }
-        }
-        return nil
     }
 
     // MARK: Token API
@@ -275,12 +264,6 @@ class ApiService: NSObject {
 
     func updateAttachmentWithId(_ id: String, onUserWithId userId: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("users/\(userId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError )
-    }
-
-    // MARK: Company API
-
-    func fetchCompanies(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("companies", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Invitation API
@@ -516,7 +499,6 @@ class ApiService: NSObject {
         var realParams = params
         realParams["id"] = nil
         realParams["customer"] = nil
-        realParams["companyId"] = nil
         realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
@@ -525,9 +507,7 @@ class ApiService: NSObject {
     func updateWorkOrderWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams["id"] = nil
-        realParams["company"] = nil
         realParams["customer"] = nil
-        realParams["companyId"] = nil
         realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
