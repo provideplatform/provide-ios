@@ -51,7 +51,6 @@ class RouteLegStep: Model {
     var instruction: String!
     var distanceInMeters: NSNumber!
     var duration: NSNumber!
-    // var placeEquipment = [AnyObject]() // unused
     var shape: [String]!
     var direction: String!
     var maneuver: String!
@@ -67,7 +66,6 @@ class RouteLegStep: Model {
         mapping?.addAttributeMappings(from: [
             "position": "position",
             "instruction": "instruction",
-            "placeEquipment": "placeEquipment",
             "length": "distanceInMeters",
             "travelTime": "duration",
             "shape": "shape",
