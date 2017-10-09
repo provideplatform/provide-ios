@@ -1,0 +1,165 @@
+{
+    "abandoned_at": null,
+    "approved_at": null,
+    "arrived_at": "2017-10-09T00:53:41Z",
+    "canceled_at": null,
+    "category": null,
+    "category_id": 991,
+    "company_id": 992,
+    "config": {
+        "destination": {
+            "address_components": [
+                {
+                    "long_name": "1600",
+                    "short_name": "1600",
+                    "types": [
+                        "street_number"
+                    ]
+                },
+                {
+                    "long_name": "Pennsylvania Avenue Northwest",
+                    "short_name": "Pennsylvania Ave NW",
+                    "types": [
+                        "route"
+                    ]
+                },
+                {
+                    "long_name": "Northwest Washington",
+                    "short_name": "Northwest Washington",
+                    "types": [
+                        "neighborhood",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Washington",
+                    "short_name": "Washington",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "District of Columbia",
+                    "short_name": "DC",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "United States",
+                    "short_name": "US",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "20500",
+                    "short_name": "20500",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "1600 Pennsylvania Ave NW, Washington, DC 20500, USA",
+            "geometry": {
+                "location": {
+                    "lat": 38.8976758,
+                    "lng": -77.0364823
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 38.8991597302915,
+                        "lng": -77.0351457197085
+                    },
+                    "southwest": {
+                        "lat": 38.8964617697085,
+                        "lng": -77.0378436802915
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+            "id": "cc1f78b49761a4afedfe148cf25eaf3eeacb5823",
+            "latitude": 38.8976758,
+            "longitude": -77.0364823,
+            "name": "1600 Pennsylvania Ave NW",
+            "place_id": "ChIJ437B3ry3t4kRRV7Us0ixIPk",
+            "reference": "CmRbAAAAcTjmRdXlxAgMBL1WuOclbL1KrAWUb-VJkiORpxBy83WlBTMk6IlxrIOchVoiBGU02OwLQm_Wb0HiDsf4hpPeDPbVo5k92rNz_CTWeBzeub0BIfZxER2HwNiluPXpvCGFEhDiprFuvFoexUu0Xs6nYkIzGhQ3Q9i2YW_F7ESDhE3u0E6_i8UC1A",
+            "scope": "GOOGLE",
+            "types": [
+                "street_address"
+            ],
+            "url": "https://maps.google.com/?q=1600+Pennsylvania+Ave+NW,+Washington,+DC+20500,+USA&ftid=0x89b7b7bcdec17ee3:0xf920b148b3d45e45",
+            "utc_offset": -240,
+            "vicinity": "Washington"
+        },
+        "origin": {
+            "address1": "2425 Wilson Blvd",
+            "city": "Arlington",
+            "latitude": 38.891015,
+            "longitude": -77.0882267,
+            "state": "VA",
+            "zip": "22201"
+        },
+        "timeout_at": "2017-10-09T00:52:54.766+00:00"
+    },
+    "customer": null,
+    "customer_id": 993,
+    "customer_rating": null,
+    "description": null,
+    "due_at": null,
+    "duration": 255.759392,
+    "ended_at": "2017-10-09T00:58:12Z",
+    "estimated_distance": 3.9,
+    "estimated_duration": 22,
+    "estimated_price": 6.76,
+    "floorplan_id": null,
+    "id": 63,
+    "job_id": 994,
+    "priority": 0,
+    "provider_rating": null,
+    "rejected_at": null,
+    "scheduled_end_at": null,
+    "scheduled_start_at": null,
+    "started_at": "2017-10-09T00:53:56Z",
+    "status": "completed",
+    "submitted_for_approval_at": null,
+    "user": {
+        "company_ids": [],
+        "default_company_id": null,
+        "email": "rider@provide.services",
+        "id": 6,
+        "last_checkin_at": "2017-10-09T00:51:08Z",
+        "last_checkin_heading": 0.0,
+        "last_checkin_latitude": 38.880779,
+        "last_checkin_longitude": -77.107785,
+        "menu_items": [
+            {
+                "label": "Jobs",
+                "storyboard": "Jobs"
+            },
+            {
+                "label": "Work Orders",
+                "storyboard": "WorkOrderHistory"
+            }
+        ],
+        "name": "Roy Rider",
+        "profile_image_url": null,
+        "provider_ids": [
+            6
+        ],
+        "stripe_customer_id": "cus_BXuTIqAqMNjgNY",
+        "wallets": [
+            {
+                "address": "0x54d89FBab57Bb41a6fc419Ac2c963Afa31a31e89",
+                "balance": 0.0,
+                "id": 6,
+                "type": "eth"
+            }
+        ]
+    },
+    "user_id": 6,
+    "user_rating": null
+}
