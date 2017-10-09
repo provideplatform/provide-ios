@@ -47,6 +47,10 @@ private func testWriter(dictionary: [String: Any]) {
             print("XCTAssertEqual(\(variableName).\(camelKey), \"\(value)\")")
         case is NSNumber:
             print("XCTAssertEqual(\(variableName).\(camelKey), \(value))")
+        case let array as [Any]:
+            print("XCTAssertEqual(\(variableName).\(camelKey).count, \(array.count))")
+        case is NSDictionary:
+            print("Property not mapped to object: \(camelKey)")
         default:
             print("XCTAssertNotNil(\(variableName).\(camelKey))")
         }

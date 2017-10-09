@@ -50,6 +50,7 @@
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		5CDAA4B21F8AF587001C6240 /* WorkOrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */; };
+		5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */; };
 		68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
 		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
 		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
@@ -249,6 +250,7 @@
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderTests.swift; sourceTree = "<group>"; };
+		5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsTests.swift; sourceTree = "<group>"; };
 		68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderDetails.storyboard; sourceTree = "<group>"; };
 		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 			children = (
 				5C16BDAD1F8AE414005012BB /* Model+Provide.swift */,
 				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
+				5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */,
 				5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */,
 			);
 			path = models;
@@ -1608,6 +1611,7 @@
 				5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */,
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,
+				5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */,
 				5CDAA4B21F8AF587001C6240 /* WorkOrderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
