@@ -5,7 +5,6 @@
     "canceled_at": null,
     "category": null,
     "category_id": 991,
-    "company_id": 992,
     "config": {
         "destination": {
             "address_components": [
@@ -127,8 +126,6 @@
     "status": "completed",
     "submitted_for_approval_at": null,
     "user": {
-        "company_ids": [],
-        "default_company_id": null,
         "email": "rider@provide.services",
         "id": 6,
         "last_checkin_at": "2017-10-09T00:51:08Z",

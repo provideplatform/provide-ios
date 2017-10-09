@@ -1,7 +1,6 @@
 [
     {
         "arrived_at": null,
-        "company_id": 2,
         "components": [],
         "customer": {
             "contact": {

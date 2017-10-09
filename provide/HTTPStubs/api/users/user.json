@@ -1,9 +1,4 @@
 {
-    "company_ids": [
-        999,
-        888
-    ],
-    "default_company_id": 999,
     "email": "test@example.com",
     "id": 3,
     "last_checkin_at": "2017-10-08T01:04:12Z",
