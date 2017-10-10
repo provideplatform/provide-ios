@@ -24,8 +24,8 @@ class Contact: Model {
     var fax: String!
     var mobile: String!
     var timeZoneId: String!
-    var latitude: NSNumber!
-    var longitude: NSNumber!
+    var latitude: Double = 0
+    var longitude: Double = 0
     var desc: String!
     var data: [String: AnyObject]!
 

@@ -172,8 +172,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
 
         LocationService.shared.resolveCurrentLocation { [weak self] currentLocation in
             let origin = Contact()
-            origin.latitude = currentLocation.coordinate.latitude as NSNumber
-            origin.longitude = currentLocation.coordinate.longitude as NSNumber
+            origin.latitude = currentLocation.coordinate.latitude
+            origin.longitude = currentLocation.coordinate.longitude
             if let placemark = self?.placemark {
                 origin.merge(placemark: placemark)
                 self?.placemark = nil

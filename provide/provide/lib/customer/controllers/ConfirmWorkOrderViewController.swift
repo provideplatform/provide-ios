@@ -127,10 +127,10 @@ class ConfirmWorkOrderViewController: ViewController {
     }
 
     func confirmWorkOrderWithOrigin(_ origin: Contact, destination: Contact) {
-        let latitude = origin.latitude!
-        let longitude = origin.longitude!
+        let latitude = origin.latitude
+        let longitude = origin.longitude
 
-        logInfo("Creating work order from \(latitude.doubleValue),\(longitude.doubleValue) -> \(destination.desc!)")
+        logInfo("Creating work order from \(latitude),\(longitude) -> \(destination.desc!)")
 
         // TODO: show progress HUD
 
