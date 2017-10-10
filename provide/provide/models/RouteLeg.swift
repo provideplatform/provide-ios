@@ -12,8 +12,8 @@ import RestKit
 @objcMembers
 class RouteLeg: Model {
 
-    var distanceInMeters: NSNumber!
-    var duration: NSNumber!
+    var distanceInMeters: Double = 0
+    var duration: Double = 0
     var steps = [RouteLegStep]()
 
     var currentStepIndex: Int = 0
@@ -29,7 +29,7 @@ class RouteLeg: Model {
     }
 
     var distance: CLLocationDistance {
-        return distanceInMeters.doubleValue
+        return distanceInMeters
     }
 
     var distanceInMiles: Double {
@@ -57,7 +57,7 @@ class RouteLeg: Model {
     }
 
     var etaMinutes: Int {
-        let minutes = duration.doubleValue / 60.0 //duration.doubleValue / Double(steps.count - 1) / 60.0
+        let minutes = duration / 60
         return Int(round(minutes))
     }
 

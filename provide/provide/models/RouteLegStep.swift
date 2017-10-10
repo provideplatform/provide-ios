@@ -49,13 +49,13 @@ class RouteLegStep: Model {
     var identifier: String!
     var position: [String: AnyObject]!
     var instruction: String!
-    var distanceInMeters: NSNumber!
-    var duration: NSNumber!
+    var distanceInMeters: Double = 0
+    var duration: Double = 0
     var shape: [String]!
     var direction: String!
     var maneuver: String!
     var time: String!
-    var baseTime: NSNumber!
+    var baseTime: Double = 0
     var nextManeuver: String!
     var toLink: String!
 
@@ -87,8 +87,8 @@ class RouteLegStep: Model {
         return nil
     }
 
-    var distance: CLLocationDistance! {
-        return distanceInMeters?.doubleValue ?? 0
+    var distance: CLLocationDistance {
+        return distanceInMeters
     }
 
     var distanceInMiles: Double {

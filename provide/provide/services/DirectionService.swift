@@ -59,8 +59,8 @@ class DirectionService: NSObject {
         if canSendEtaApiRequest {
             lastEtaApiRequestDate = Date()
             ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate, onSuccess: { statusCode, mappingResult in
-                if let directions = mappingResult?.firstObject as? Directions, let minutes = directions.minutes {
-                    onEtaFetched(minutes.intValue)
+                if let directions = mappingResult?.firstObject as? Directions, directions.minutes != 0 {
+                    onEtaFetched(directions.minutes)
                 }
             }, onError: { error, statusCode, responseString in
                 logError(error)
