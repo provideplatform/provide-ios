@@ -65,29 +65,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
             self?.loadProviderContext()
         }
 
-        NotificationCenter.default.addObserverForName("ProviderBecameAvailable") { [weak self] notification in
-            if let provider = notification?.object as? Provider {
-                DispatchQueue.main.async {
-                    self?.updateProviderLocation(provider)
-                }
-            }
-        }
-
-        NotificationCenter.default.addObserverForName("ProviderBecameUnavailable") { [weak self] notification in
-            if let provider = notification?.object as? Provider {
-                DispatchQueue.main.async {
-                    self?.updateProviderLocation(provider)
-                }
-            }
-        }
-
-        NotificationCenter.default.addObserverForName("ProviderLocationChanged") { [weak self] notification in
-            if let provider = notification?.object as? Provider {
-                DispatchQueue.main.async {
-                    self?.updateProviderLocation(provider)
-                }
-            }
-        }
+        NotificationCenter.default.addObserverForName("ProviderBecameAvailable", usingBlock: updateProviderLocationFromNotification)
+        NotificationCenter.default.addObserverForName("ProviderBecameUnavailable", usingBlock: updateProviderLocationFromNotification)
+        NotificationCenter.default.addObserverForName("ProviderLocationChanged", usingBlock: updateProviderLocationFromNotification)
 
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
@@ -309,6 +289,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
             providerEnRouteView.frame.size.width = mapView.width
             providerEnRouteView.frame.origin.y = mapView.height
             providerEnRouteView.isHidden = false
+        }
+    }
+
+    func updateProviderLocationFromNotification(_ notification: Notification?) {
+        if let provider = notification?.object as? Provider {
+            DispatchQueue.main.async {
+                self.updateProviderLocation(provider)
+            }
         }
     }
 
