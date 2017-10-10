@@ -25,9 +25,9 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func shouldRemoveMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController)
 
     // eta and driving directions callbacks
-    @objc optional func drivingEtaToNextWorkOrderChanged(_ minutesEta: NSNumber)
-    @objc optional func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> NSNumber
-    @objc optional func drivingEtaToInProgressWorkOrderChanged(_ minutesEta: NSNumber)
+    @objc optional func drivingEtaToNextWorkOrderChanged(_ minutesEta: Int)
+    @objc optional func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> Int
+    @objc optional func drivingEtaToInProgressWorkOrderChanged(_ minutesEta: Int)
     @objc optional func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions!
 
     // next work order context and related segue callbacks
@@ -39,7 +39,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController)
 
     // net promoter
-    @objc optional func netPromoterScoreReceived(_ netPromoterScore: NSNumber, forWorkOrderViewController: ViewController)
+    @objc optional func netPromoterScoreReceived(_ netPromoterScore: Double, forWorkOrderViewController: ViewController)
     @objc optional func netPromoterScoreDeclinedForWorkOrderViewController(_ viewController: ViewController)
 }
 
@@ -412,7 +412,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     @objc private func clearProviderContext() {
         if currentProvider != nil {
-            if currentProvider.available.boolValue {
+            if currentProvider.available {
                 currentProvider.toggleAvailability(onSuccess: { statusCode, mappingResult in
                     logInfo("Current provider context marked unavailable for hire")
                     currentProvider = nil
@@ -459,8 +459,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return annotationView
     }
 
-    func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> NSNumber {
-        return WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes as NSNumber
+    func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> Int {
+        return WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
     }
 
     func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions? {
@@ -580,7 +580,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         })
     }
 
-    func netPromoterScoreReceived(_ netPromoterScore: NSNumber, forWorkOrderViewController: ViewController) {
+    func netPromoterScoreReceived(_ netPromoterScore: Double, forWorkOrderViewController: ViewController) {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             nextWorkOrderContextShouldBeRewound()
             if workOrder.components.count > 0 {

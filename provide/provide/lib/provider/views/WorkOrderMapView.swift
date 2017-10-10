@@ -167,7 +167,7 @@ class WorkOrderMapView: MapView {
                 WorkOrderService.shared.fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
                     for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
                         if let delegate = vc as? WorkOrdersViewControllerDelegate {
-                            delegate.drivingEtaToNextWorkOrderChanged?(minutesEta as NSNumber)
+                            delegate.drivingEtaToNextWorkOrderChanged?(minutesEta)
                         }
                     }
                 }

@@ -61,7 +61,7 @@ class NetPromoterViewController: WorkOrderComponentViewController {
     }
 
     @IBAction func rate(_ sender: UIButton) {
-        let tag = NSNumber(value: Double(sender.tag) / 1000.0)
+        let tag = Double(sender.tag) / 1000
         workOrdersViewControllerDelegate?.netPromoterScoreReceived?(tag, forWorkOrderViewController: self)
     }
 }

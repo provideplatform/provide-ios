@@ -647,8 +647,8 @@ class WorkOrder: Model {
         }, onError: onError)
     }
 
-    func scoreProvider(_ netPromoterScore: NSNumber, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        providerRating = netPromoterScore.doubleValue
+    func scoreProvider(_ netPromoterScore: Double, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        providerRating = netPromoterScore
         ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating as AnyObject], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)

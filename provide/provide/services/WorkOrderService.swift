@@ -14,6 +14,8 @@ typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) ->
 class WorkOrderService: NSObject {
     static let shared = WorkOrderService()
 
+    var nextWorkOrderDrivingEtaMinutes: Int = 0
+
     weak var nextWorkOrder: WorkOrder! {
         for wo in workOrders {
             if wo.status == "scheduled" || wo.status == "pending_acceptance" {
@@ -27,8 +29,6 @@ class WorkOrderService: NSObject {
         }
         return nil
     }
-
-    var nextWorkOrderDrivingEtaMinutes: Int!
 
     weak var inProgressWorkOrder: WorkOrder! {
         for wo in workOrders {

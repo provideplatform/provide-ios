@@ -28,10 +28,6 @@ class Token: Model {
         return mapping!
     }
 
-    var userId: NSNumber {
-        return NSNumber(value: user.id)
-    }
-
     var authorizationHeaderString: String! {
         if let token = token, let uuid = uuid {
             return "Basic " + "\(token):\(uuid)".base64EncodedString

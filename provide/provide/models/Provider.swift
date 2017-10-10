@@ -17,7 +17,7 @@ class Provider: Model {
     var contact: Contact!
     var profileImageUrlString: String!
     var services: NSSet!
-    var available: NSNumber!
+    var available: Bool = false
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
     var lastCheckinLongitude: Double = 0
@@ -49,7 +49,7 @@ class Provider: Model {
     }
 
     var isAvailable: Bool {
-        return available?.boolValue ?? false
+        return available
     }
 
     var annotation: Annotation {
@@ -121,7 +121,7 @@ class Provider: Model {
         let val = !isAvailable
         ApiService.shared.updateProviderWithId(String(id), params: ["available": val as AnyObject], onSuccess: { statusCode, mappingResult in
             logInfo("Provider (id: \(self.id)) marked \(val ? "available" : "unavailable")")
-            self.available = val ? 1 : 0
+            self.available = val
             onSuccess(statusCode, mappingResult)
         }, onError: { [weak self] error, statusCode, responseString in
             logWarn("Failed to update provider (id: \(self!.id)) availability")
