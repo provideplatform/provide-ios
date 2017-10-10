@@ -35,7 +35,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             mapView.removeAnnotations()
             mapView.removeOverlays()
 
-            if let workOrder = workOrder, let workOrderProviders = workOrder.workOrderProviders {
+            if let workOrderProviders = workOrder?.workOrderProviders {
                 for workOrderProvider in workOrderProviders {
                     if let checkinsPolyline = workOrderProvider.checkinsPolyline {
                         mapView.add(checkinsPolyline, level: .aboveRoads)

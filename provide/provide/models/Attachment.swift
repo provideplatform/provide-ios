@@ -80,7 +80,7 @@ class Attachment: Model {
     }
 
     var thumbnailUrl: URL! {
-        if let metadata = metadata, let thumbnailUrlString = metadata["thumbnail_url"] as? String {
+        if let thumbnailUrlString = metadata?["thumbnail_url"] as? String {
             return URL(string: thumbnailUrlString)
         } else {
             return nil
@@ -88,7 +88,7 @@ class Attachment: Model {
     }
 
     var maxZoomLevel: Int! {
-        if let metadata = metadata, let maxZoomLevel = metadata["max_zoom_level"] as? Int {
+        if let maxZoomLevel = metadata?["max_zoom_level"] as? Int {
             return maxZoomLevel
         } else {
             return nil
@@ -96,7 +96,7 @@ class Attachment: Model {
     }
 
     var tilingBaseUrl: URL! {
-        if let metadata = metadata, let tilingBaseUrlString = metadata["tiling_base_url"] as? String {
+        if let tilingBaseUrlString = metadata?["tiling_base_url"] as? String {
             return URL(string: tilingBaseUrlString)
         } else {
             return nil

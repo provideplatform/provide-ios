@@ -190,7 +190,7 @@ class DirectionsViewController: ViewController {
                             self.regions.removeObject(region)
                             LocationService.shared.unregisterRegionMonitor(region.identifier)
 
-                            if let directions = self.directions, let currentLeg = directions.selectedRoute.currentLeg, let currentStep = currentLeg.currentStep {
+                            if let currentLeg = self.directions?.selectedRoute.currentLeg, let currentStep = currentLeg.currentStep {
                                 var identifier = ""
                                 if let currentShapeCoordinate = currentStep.currentShapeCoordinate, let currentStepIdentifier = currentStep.identifier {
                                     identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
@@ -340,7 +340,7 @@ class DirectionsViewController: ViewController {
 
     func routeLegAtIndex(_ i: Int) -> RouteLeg? {
         var routeLeg: RouteLeg!
-        if let directions = directions, let selectedRoute = directions.selectedRoute {
+        if let selectedRoute = directions?.selectedRoute {
             routeLeg = selectedRoute.legs[i]
         }
         return routeLeg

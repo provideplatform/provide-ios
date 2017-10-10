@@ -35,7 +35,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
 
     var delegate: PinInputViewControllerDelegate! {
         didSet {
-            if let delegate = delegate, let isInviteRedemption = delegate.isInviteRedeptionPinInputViewController?(self), isInviteRedemption == true {
+            if let isInviteRedemption = delegate?.isInviteRedeptionPinInputViewController?(self), isInviteRedemption == true {
                 type = .redeemPinController
                 state = .input
             }

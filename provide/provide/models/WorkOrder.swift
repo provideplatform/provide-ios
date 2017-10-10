@@ -267,18 +267,12 @@ class WorkOrder: Model {
     var coordinate: CLLocationCoordinate2D! {
         if let config = config {
             if status == "in_progress" {
-                if let destination = config["destination"] as? [String: Double] {
-                    let latitude = destination["latitude"]
-                    let longitude = destination["longitude"]
-                    if let latitude = latitude, let longitude = longitude {
-                        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    }
+                if let destination = config["destination"] as? [String: Double], let latitude = destination["latitude"], let longitude = destination["longitude"] {
+                    return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 }
             } else {
                 if let currentLocation = config["current_location"] as? [String: Double] {
-                    let latitude = currentLocation["latitude"]
-                    let longitude = currentLocation["longitude"]
-                    if let latitude = latitude, let longitude = longitude {
+                    if let latitude = currentLocation["latitude"], let longitude = currentLocation["longitude"] {
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 } else if let origin = config["origin"] as? [String: Double] {
@@ -299,7 +293,7 @@ class WorkOrder: Model {
     }
 
     var components: NSMutableArray {
-        if let config = config, let components = config["components"] as? NSMutableArray {
+        if let components = config?["components"] as? NSMutableArray {
             return components
         }
         return NSMutableArray()
