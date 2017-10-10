@@ -45,9 +45,9 @@ class MessageServiceTests: XCTestCase {
             // 3 participants
             XCTAssertEqual(Set(fetchedMessages.map { $0.senderID }).count, 3)
 
-            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Joe Driver"}.count, 7)
-            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Don Dispatcher"}.count, 6)
-            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Jim Dispatcher"}.count, 3)
+            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Joe Driver" }.count, 7)
+            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Don Dispatcher" }.count, 6)
+            XCTAssertEqual(fetchedMessages.filter { $0.senderName == "Jim Dispatcher" }.count, 3)
 
             let message = fetchedMessages.first!
 
