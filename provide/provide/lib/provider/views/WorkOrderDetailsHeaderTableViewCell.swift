@@ -191,7 +191,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NameValueTableViewCell") as! NameValueTableViewCell
+        let cell = tableView.dequeue(NameValueTableViewCell.self, for: indexPath)
         cell.enableEdgeToEdgeDividers()
 
         switch indexPath.row {

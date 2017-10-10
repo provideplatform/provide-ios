@@ -237,7 +237,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCollectionViewCell", for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeue(ImageCollectionViewCell.self, for: indexPath)
         cell.imageUrl = workOrder.attachments[indexPath.row].url
         return cell
     }

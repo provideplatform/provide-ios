@@ -182,7 +182,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WorkOrderHistoryCollectionViewCell", for: indexPath) as! WorkOrderHistoryCollectionViewCell
+        let cell = collectionView.dequeue(WorkOrderHistoryCollectionViewCell.self, for: indexPath)
         cell.workOrder = workOrderForRowAtIndexPath(indexPath)
         return cell
     }

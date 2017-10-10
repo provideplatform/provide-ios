@@ -45,7 +45,7 @@ class WorkOrderDetailsHeaderTableViewController: UITableViewController, WorkOrde
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WorkOrderDetailsHeaderTableViewCell") as! WorkOrderDetailsHeaderTableViewCell
+        let cell = tableView.dequeue(WorkOrderDetailsHeaderTableViewCell.self, for: indexPath)
         cell.workOrderDetailsHeaderTableViewCellDelegate = self
         cell.workOrder = workOrder
         return cell
