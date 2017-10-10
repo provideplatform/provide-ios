@@ -21,7 +21,7 @@ class MessageService {
     }
 
     func fetch(params: [String: Any], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
-        ApiService.shared.fetchMessages(params as [String : AnyObject], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.fetchMessages(params, onSuccess: { statusCode, mappingResult in
             let fetchedMessages = mappingResult?.array() as! [Message]
             self.messages += fetchedMessages
             onMessagesFetched(fetchedMessages)
@@ -29,7 +29,7 @@ class MessageService {
     }
 
     func createMessage(_ text: String, recipientId: Int, onMessageCreated: @escaping OnMessageCreated, onError: @escaping OnError) {
-        ApiService.shared.createMessage(["body": text as AnyObject, "recipient_id": recipientId as AnyObject], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.createMessage(["body": text, "recipient_id": recipientId], onSuccess: { statusCode, mappingResult in
             let message = mappingResult?.firstObject as! Message
             self.messages.append(message)
             onMessageCreated(message)

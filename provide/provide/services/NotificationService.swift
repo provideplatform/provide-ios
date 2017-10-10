@@ -83,7 +83,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
             }
         case .message:
-            let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
+            let jsonString = (notificationValue as! [String: Any]).toJSONString()
             let message = Message(string: jsonString)
             NotificationCenter.default.post(name: Notification.Name(rawValue: "NewMessageReceivedNotification"), object: message as Any)
 
@@ -145,9 +145,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 socket.write("[\"websocket_rails.pong\",{\"data\":{}}]")
             } else if message =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
-                if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: AnyObject] {
+                if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: Any] {
                     let message = data["message"] as? String
-                    let payload = data["payload"] as? [String: AnyObject]
+                    let payload = data["payload"] as? [String: Any]
 
                     if let message = message {
                         logInfo("Websocket message received: \(message)")

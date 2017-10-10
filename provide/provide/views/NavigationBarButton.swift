@@ -18,7 +18,7 @@ class NavigationBarButton: UIButton {
         super.init(frame: frame)
     }
 
-    class func barButtonItemWithImage(_ image: UIImage, target: AnyObject?, action: String, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
+    class func barButtonItemWithImage(_ image: UIImage, target: Any?, action: String, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
         let button = NavigationBarButton(type: .custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.width, height: image.height)
         button.setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())

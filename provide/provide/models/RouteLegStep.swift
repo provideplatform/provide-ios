@@ -47,7 +47,7 @@ class RouteLegStep: Model {
     ]
 
     var identifier: String!
-    var position: [String: AnyObject]!
+    var position: [String: Double]!
     var instruction: String!
     var distanceInMeters: Double = 0
     var duration: Double = 0

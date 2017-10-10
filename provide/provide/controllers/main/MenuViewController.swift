@@ -27,7 +27,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
 
     @IBOutlet private weak var menuHeaderView: MenuHeaderView!
 
-    private var storyboardPaths = [String: AnyObject!]()
+    private var storyboardPaths = [String: String]()
 
     private var lastSectionIndex: Int {
         return tableView.numberOfSections - 1
@@ -179,11 +179,10 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         var storyboardPath: String!
         if storyboardPaths.keys.index(of: storyboardName) != nil {
             if storyboardPaths[storyboardName] != nil {
-                storyboardPath = storyboardPaths[storyboardName] as? String
+                storyboardPath = storyboardPaths[storyboardName]
             }
         } else {
-            storyboardPath = Bundle.main.path(forResource: storyboardName, ofType: "storyboardc")
-            storyboardPaths.updateValue(storyboardPath as AnyObject!, forKey: storyboardName)
+            storyboardPaths[storyboardName] = Bundle.main.path(forResource: storyboardName, ofType: "storyboardc")
         }
 
         if storyboardPath != nil {

@@ -89,10 +89,10 @@ class WorkOrderService: NSObject {
                includeProviders: Bool = true,
                onWorkOrdersFetched: OnWorkOrdersFetched!) {
 
-        var params: [String: AnyObject] = [
-            "page": page as AnyObject,
-            "rpp": rpp as AnyObject,
-            "status": status as AnyObject,
+        var params: [String: Any] = [
+            "page": page,
+            "rpp": rpp,
+            "status": status,
         ]
 
         if today {
@@ -100,11 +100,11 @@ class WorkOrderService: NSObject {
             let midnightToday = today.atMidnight.utcString
             let midnightTomorrow = today.atMidnight.addingTimeInterval(60 * 60 * 24).utcString
 
-            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)" as AnyObject
+            params["date_range"] = "\(midnightToday)..\(midnightTomorrow)"
         }
 
         if includeProviders {
-            params.updateValue("true" as AnyObject, forKey: "include_work_order_providers")
+            params["include_work_order_providers"] = "true"
         }
 
         ApiService.shared.fetchWorkOrders(params, onSuccess: { statusCode, mappingResult in

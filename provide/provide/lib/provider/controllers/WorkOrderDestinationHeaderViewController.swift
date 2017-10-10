@@ -52,7 +52,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
                 }
 
                 titleLabel.text = user.name
-                if let destination = workOrder.config?["destination"] as? [String: AnyObject] {
+                if let destination = workOrder.config?["destination"] as? [String: Any] {
                     if let formattedAddress = destination["formatted_address"] as? String {
                         addressTextView.text = formattedAddress
                     } else if let desc = destination["description"] as? String {

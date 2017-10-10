@@ -38,7 +38,7 @@ class WorkOrder: Model {
     var providerRating: Double = 0
     var customerRating: Double = 0
     var attachments: [Attachment]!
-    var config: [String: AnyObject]!
+    var config: [String: Any]!
     var configJson: String!
     var expensesCount = 0
     var expensedAmount: Double!
@@ -267,9 +267,9 @@ class WorkOrder: Model {
     var coordinate: CLLocationCoordinate2D! {
         if let config = config {
             if status == "in_progress" {
-                if let destination = config["destination"] as? [String: AnyObject] {
-                    let latitude = destination["latitude"] as? Double
-                    let longitude = destination["longitude"] as? Double
+                if let destination = config["destination"] as? [String: Double] {
+                    let latitude = destination["latitude"]
+                    let longitude = destination["longitude"]
                     if let latitude = latitude, let longitude = longitude {
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
@@ -281,9 +281,9 @@ class WorkOrder: Model {
                     if let latitude = latitude, let longitude = longitude {
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
-                } else if let origin = config["origin"] as? [String: AnyObject] {
-                    let latitude = origin["latitude"] as? Double
-                    let longitude = origin["longitude"] as? Double
+                } else if let origin = config["origin"] as? [String: Double] {
+                    let latitude = origin["latitude"]
+                    let longitude = origin["longitude"]
                     if let latitude = latitude, let longitude = longitude {
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
@@ -308,7 +308,7 @@ class WorkOrder: Model {
     var currentComponentIdentifier: String! {
         var componentIdentifier: String!
         for component in components {
-            if let componentDict = component as? [String: AnyObject] {
+            if let componentDict = component as? [String: Any] {
                 if let completed = componentDict["completed"] as? Bool {
                     if !completed {
                         componentIdentifier = componentDict["component"] as! String
@@ -396,7 +396,7 @@ class WorkOrder: Model {
         return 10.0
     }
 
-    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: AnyObject] {
+    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: Any] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValue(forKey: "preview_image")
         dictionary.removeValue(forKey: "id")
@@ -486,38 +486,39 @@ class WorkOrder: Model {
             if self.workOrderProviders == nil {
                 self.workOrderProviders = [WorkOrderProvider]()
             }
-            var workOrderProviders = [[String: AnyObject]]()
+            var workOrderProviders = [[String: Any]]()
             for workOrderProvider in self.workOrderProviders {
-                var wop: [String: AnyObject] = ["provider_id": workOrderProvider.provider.id as AnyObject]
+                var wop: [String: Any] = ["provider_id": workOrderProvider.provider.id]
                 if workOrderProvider.estimatedDuration > -1.0 {
-                    wop.updateValue(workOrderProvider.estimatedDuration as AnyObject, forKey: "estimated_duration")
+                    wop["estimated_duration"] = workOrderProvider.estimatedDuration
                 }
                 if workOrderProvider.hourlyRate > -1.0 {
-                    wop.updateValue(workOrderProvider.hourlyRate as AnyObject, forKey: "hourly_rate")
+                    wop["hourly_rate"] = workOrderProvider.hourlyRate
                 }
                 if workOrderProvider.flatFee > -1.0 {
-                    wop.updateValue(workOrderProvider.flatFee as AnyObject, forKey: "flat_fee")
+                    wop["flat_fee"] = workOrderProvider.flatFee
                 }
                 if workOrderProvider.id > 0 {
-                    wop.updateValue(workOrderProvider.id as AnyObject, forKey: "id")
+                    wop["id"] = workOrderProvider.id
                 }
                 workOrderProviders.append(wop)
             }
-            params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
+
+            params["work_order_providers"] = workOrderProviders
 
             ApiService.shared.updateWorkOrderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
                 WorkOrderService.shared.updateWorkOrder(self)
                 onSuccess(statusCode, mappingResult)
             }, onError: onError)
         } else {
-            var workOrderProviders = [[String: AnyObject]]()
+            var workOrderProviders = [[String: Any]]()
             for provider in providers {
-                workOrderProviders.append(["provider_id": provider.id as AnyObject])
+                workOrderProviders.append(["provider_id": provider.id])
             }
-            params.updateValue(workOrderProviders as AnyObject, forKey: "work_order_providers")
+            params["work_order_providers"] = workOrderProviders
 
             if scheduledStartAt != nil {
-                params.updateValue("scheduled" as AnyObject, forKey: "status")
+                params["status"] = "scheduled"
             }
 
             ApiService.shared.createWorkOrder(params, onSuccess: { statusCode, mappingResult in
@@ -531,7 +532,7 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        reload(["include_estimated_cost": "false" as AnyObject, "include_job": "false" as AnyObject, "include_supervisors": "true" as AnyObject, "include_work_order_providers": "true" as AnyObject], onSuccess: onSuccess, onError: onError)
+        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true", "include_work_order_providers": "true"], onSuccess: onSuccess, onError: onError)
     }
 
     func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -580,7 +581,7 @@ class WorkOrder: Model {
     func setComponents(_ components: NSMutableArray) {
         let mutableConfig = NSMutableDictionary(dictionary: config)
         mutableConfig.setObject(components, forKey: "components" as NSCopying)
-        config = mutableConfig as! [String: AnyObject]
+        config = mutableConfig as! [String: Any]
     }
 
     func route(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -629,7 +630,7 @@ class WorkOrder: Model {
 
     func updateWorkOrderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
-        ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status as AnyObject], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)
         }, onError: onError)
@@ -649,7 +650,7 @@ class WorkOrder: Model {
 
     func scoreProvider(_ netPromoterScore: Double, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         providerRating = netPromoterScore
-        ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating as AnyObject], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)
         }, onError: onError)

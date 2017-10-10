@@ -206,7 +206,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     //
     //    // Index
     //
-    //    optional func sectionIndexTitlesForTableView(tableView: UITableView) -> [AnyObject]! // return list of section titles to display in section index view (e.g. "ABCD...Z#")
+    //    optional func sectionIndexTitlesForTableView(tableView: UITableView) -> [Any]! // return list of section titles to display in section index view (e.g. "ABCD...Z#")
     //    optional func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int // tell table which section corresponds to section title/index (e.g. "B",1))
     //
     //    // Data manipulation - insert and delete support

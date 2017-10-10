@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             handleScheme = scheme == "provide"
         }
         if handleScheme {
-            var params: [String: AnyObject] = [:]
+            var params: [String: Any] = [:]
             if let queryComponent = url.query?.components(separatedBy: "params=").last?.removingPercentEncoding {
                 params = queryComponent.toJSONObject()!
             }
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        ApiService.shared.createDevice(["user_id": currentUser.id as AnyObject, "apns_device_id": "\(deviceToken)" as AnyObject], onSuccess: { statusCode, responseString in
+        ApiService.shared.createDevice(["user_id": currentUser.id, "apns_device_id": "\(deviceToken)"], onSuccess: { statusCode, responseString in
             AnalyticsService.shared.track("App Registered For Remote Notifications")
         }, onError: { error, statusCode, responseString in
             if statusCode == 409 {
@@ -146,7 +146,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnalyticsService.shared.track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(Date().timeIntervalSince1970)"])
 
         if ApiService.shared.hasCachedToken {
-            NotificationService.shared.dispatchRemoteNotification(userInfo as! [String: AnyObject])
+            NotificationService.shared.dispatchRemoteNotification(userInfo as! [String: Any])
         }
 
         completionHandler(.newData)

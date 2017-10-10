@@ -32,9 +32,9 @@ class ApiService: NSObject {
         "video/mp4": "m4v",
     ]
 
-    private static let usersMapping: [String: AnyObject] = ["*": User.mapping(), "post": UserToken.mapping()]
+    private static let usersMapping = ["*": User.mapping(), "post": UserToken.mapping()]
 
-    private let objectMappings: [String: AnyObject] = [
+    private let objectMappings: [String: Any] = [
         "attachments": Attachment.mappingWithRepresentations(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
@@ -44,7 +44,7 @@ class ApiService: NSObject {
         "providers": Provider.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
-        "users": ApiService.usersMapping as AnyObject,
+        "users": ApiService.usersMapping,
         "messages": Message.mapping(),
     ]
 
@@ -217,7 +217,7 @@ class ApiService: NSObject {
         KTS3Service.presign(presignedS3RequestURL, bucket: nil, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata as! [String : String], headers: headers, successHandler: { object in
             let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
             let map = Map(mappingType: .fromJSON,
-                          JSON: presignResponse as! [String : AnyObject],
+                          JSON: presignResponse as! [String: Any],
                           toObject: true,
                           context: nil)
 
@@ -244,8 +244,8 @@ class ApiService: NSObject {
                 if let fields = response["fields"] as? [String: Any] {
                     if let key = fields["key"] as? String {
                         let url = "\(bucketBaseUrl!)/\(key)"
-                        attachment["url"] = url as AnyObject
-                        attachment["key"] = key as AnyObject
+                        attachment["url"] = url
+                        attachment["key"] = key
                     }
                     if let mimeType = fields["Content-Type"] {
                         attachment["mime_type"] = mimeType
@@ -312,7 +312,7 @@ class ApiService: NSObject {
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 
-        ApiService.shared.addAttachment(data!, withMimeType: "image/jpg", toUserWithId: String(currentUser.id), params: params as [String : AnyObject], onSuccess: { response in
+        ApiService.shared.addAttachment(data!, withMimeType: "image/jpg", toUserWithId: String(currentUser.id), params: params, onSuccess: { response in
             onSuccess(response)
 
             ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
@@ -424,14 +424,14 @@ class ApiService: NSObject {
         let longitude = location.coordinate.longitude
         let latitude = location.coordinate.latitude
 
-        var params: [String: AnyObject] = [
-            "latitude": latitude as AnyObject,
-            "longitude": longitude as AnyObject,
-            "checkin_at": checkinDate as AnyObject,
+        var params: [String: Any] = [
+            "latitude": latitude,
+            "longitude": longitude,
+            "checkin_at": checkinDate,
         ]
 
         if let heading = heading {
-            params["heading"] = heading.magneticHeading as AnyObject
+            params["heading"] = heading.magneticHeading
         }
 
         return checkin(params, onSuccess: { statusCode, mappingResult in

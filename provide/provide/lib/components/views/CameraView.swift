@@ -445,7 +445,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if renderFacialRecognition {
             DispatchQueue.main.async {
                 self.clearDetectedMetadataObjects()
-                self.showDetectedMetadataObjects(metadataObjects as [AnyObject]!)
+                self.showDetectedMetadataObjects(metadataObjects as [Any]!)
             }
         }
     }
@@ -456,7 +456,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         }
     }
 
-    private func showDetectedMetadataObjects(_ metadataObjects: [AnyObject]!) {
+    private func showDetectedMetadataObjects(_ metadataObjects: [Any]!) {
         for object in metadataObjects {
             if let metadataFaceObject = object as? AVMetadataFaceObject, let detectedCode = capturePreviewLayer.transformedMetadataObject(for: metadataFaceObject) as? AVMetadataFaceObject {
                 let shapeLayer = CAShapeLayer()

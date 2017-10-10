@@ -100,7 +100,7 @@ class MessagesViewController: JSQMessagesViewController {
             }
 
             let params: [String: Any] = ["recipient_id": recipientId, "page": nextPage]
-            MessageService.shared.fetch(params: params as [String : AnyObject], onMessagesFetched: { messages in
+            MessageService.shared.fetch(params: params, onMessagesFetched: { messages in
                 self.hideHUD()
 
                 self.shouldPage = messages.count == 10
@@ -167,7 +167,7 @@ class MessagesViewController: JSQMessagesViewController {
         }
     }
 
-    @objc dynamic private func didPressCameraAccessoryButton(_ notification: AnyObject) {
+    @objc dynamic private func didPressCameraAccessoryButton(_ notification: UIBarButtonItem) {
         presentImagePickerViewController()
     }
 

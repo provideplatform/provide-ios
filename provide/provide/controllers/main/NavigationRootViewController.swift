@@ -116,9 +116,9 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                 let invitation = mappingResult?.firstObject as! Invitation
 
                 if let user = invitation.user {
-                    let params: [String : AnyObject] = [
-                        "email": user.email as AnyObject,
-                        "invitation_token": pin as AnyObject,
+                    let params = [
+                        "email": user.email!,
+                        "invitation_token": pin,
                     ]
 
                     ApiService.shared.createUser(params, onSuccess: { statusCode, mappingResult in

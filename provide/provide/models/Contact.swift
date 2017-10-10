@@ -27,7 +27,7 @@ class Contact: Model {
     var latitude: Double = 0
     var longitude: Double = 0
     var desc: String!
-    var data: [String: AnyObject]!
+    var data: [String: Any]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

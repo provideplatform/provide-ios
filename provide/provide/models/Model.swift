@@ -90,24 +90,24 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: AnyObject] {
-        var dictionary = [String: AnyObject]()
+    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: Any] {
+        var dictionary = [String: Any]()
 
         for ivar in ivars {
             var key = ivar
-            var value: AnyObject = NSNull()
+            var value: Any = NSNull()
 
             if ignoreKeys.index(of: key) == nil {
                 if let unwrappedValue = self.value(forKey: key) {
-                    value = unwrappedValue as AnyObject
+                    value = unwrappedValue
                     if value is Model {
-                        value = (value as! Model).toDictionary(snakeKeys) as AnyObject
+                        value = (value as! Model).toDictionary(snakeKeys)
                     } else if value is [Model] {
-                        var newValue = [AnyObject]()
+                        var newValue = [Any]()
                         for val in value as! [Model] {
-                            newValue.append(val.toDictionary(snakeKeys) as AnyObject)
+                            newValue.append(val.toDictionary(snakeKeys))
                         }
-                        value = newValue as AnyObject
+                        value = newValue
                     }
                 }
 

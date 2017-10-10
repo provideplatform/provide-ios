@@ -75,7 +75,7 @@ class ProviderService: NSObject {
             params["nearby"] = "\(nearbyCoordinate.latitude),\(nearbyCoordinate.longitude)"
         }
 
-        ApiService.shared.fetchProviders(params as [String : AnyObject], onSuccess: { [weak self] statusCode, mappingResult in
+        ApiService.shared.fetchProviders(params, onSuccess: { [weak self] statusCode, mappingResult in
             if page == 1 {
                 self?.providers = [Provider]()
             }

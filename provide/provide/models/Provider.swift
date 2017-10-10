@@ -119,7 +119,7 @@ class Provider: Model {
 
     func toggleAvailability(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         let val = !isAvailable
-        ApiService.shared.updateProviderWithId(String(id), params: ["available": val as AnyObject], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.updateProviderWithId(String(id), params: ["available": val], onSuccess: { statusCode, mappingResult in
             logInfo("Provider (id: \(self.id)) marked \(val ? "available" : "unavailable")")
             self.available = val
             onSuccess(statusCode, mappingResult)

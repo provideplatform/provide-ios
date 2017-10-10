@@ -107,14 +107,14 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             refreshControl.beginRefreshing()
         }
 
-        let params: [String: AnyObject] = [
-            "page": page as AnyObject,
-            "rpp": rpp as AnyObject,
-            "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed" as AnyObject,
-            "sort_priority_and_due_at_asc": "true" as AnyObject,
-            "include_products": "false" as AnyObject,
-            "include_work_order_providers": "false" as AnyObject,
-            "include_checkin_coordinates": "true" as AnyObject,
+        let params: [String: Any] = [
+            "page": page,
+            "rpp": rpp,
+            "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed",
+            "sort_priority_and_due_at_asc": "true",
+            "include_products": "false",
+            "include_work_order_providers": "false",
+            "include_checkin_coordinates": "true",
         ]
 
         ApiService.shared.fetchWorkOrders(params, onSuccess: { statusCode, mappingResult in

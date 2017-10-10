@@ -138,8 +138,8 @@ class ConfirmWorkOrderViewController: ViewController {
         pendingWorkOrder.desc = destination.desc
         if let cfg = destination.data {
             pendingWorkOrder.config = [
-                "origin": origin.toDictionary() as AnyObject,
-                "destination": cfg as AnyObject,
+                "origin": origin.toDictionary(),
+                "destination": cfg,
             ]
         }
 
