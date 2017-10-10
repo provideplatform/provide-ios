@@ -104,8 +104,6 @@
         },
         "timeout_at": "2017-10-09T00:52:54.766+00:00"
     },
-    "customer": null,
-    "customer_id": 993,
     "customer_rating": null,
     "description": null,
     "due_at": null,

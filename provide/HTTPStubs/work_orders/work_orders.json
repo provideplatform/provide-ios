@@ -2,29 +2,6 @@
     {
         "arrived_at": null,
         "components": [],
-        "customer": {
-            "contact": {
-                "address1": "111 Summer Dr NE",
-                "address2": null,
-                "city": "Atlanta",
-                "email": "kyle+jawwadinc@unmarkedconsulting.com",
-                "fax": null,
-                "id": 7,
-                "latitude": 33.9242439,
-                "longitude": -84.3523026,
-                "mobile": "8599673476",
-                "name": "Kyle Thomas",
-                "phone": null,
-                "state": "GA",
-                "time_zone_id": "Eastern Time (US & Canada)",
-                "zip": "30328"
-            },
-            "display_name": "Kyle Thomas",
-            "id": 3,
-            "name": "Kyle Thomas",
-            "profile_image_url": null
-        },
-        "customer_id": 3,
         "description": "This is a new work order being created by admin: jawwad@provide.services and will be sent to provider: Joe Driver to deliver a mattress to the customer Kyle Thomas",
         "duration": null,
         "ended_at": null,
