@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if let jwt = KTJwtService.decode(jwtToken) {
                         if ApiService.shared.login(jwt) {
                             NotificationCenter.default.postNotificationName("ApplicationUserWasAuthenticated")
-                            return self.openURL(url)
+                            return openURL(url)
                         } else {
                             NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
                         }

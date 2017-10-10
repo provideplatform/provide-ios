@@ -38,7 +38,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         if vc != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)
-            self.vc = nil
+            vc = nil
         }
 
         vc = topStoryboard.instantiateInitialViewController()

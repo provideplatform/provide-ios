@@ -37,10 +37,10 @@ class Provider: Model {
         if name != nil {
             let initialsLabel = UILabel()
             initialsLabel.text = ""
-            if let firstName = self.firstName {
+            if let firstName = firstName {
                 initialsLabel.text = String(firstName[...firstName.startIndex])
             }
-            if let lastName = self.firstName {
+            if let lastName = firstName {
                 initialsLabel.text = "\(String(describing: initialsLabel.text!))\(String(lastName[...lastName.startIndex]))"
             }
             initialsLabel.sizeToFit()

@@ -27,7 +27,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         didSet {
             if workOrder != nil {
                 if Thread.isMainThread {
-                    self.refresh()
+                    refresh()
                 } else {
                     DispatchQueue.main.async {
                         self.refresh()

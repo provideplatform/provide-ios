@@ -120,7 +120,7 @@ class MessageCell: JSQMessagesCollectionViewCell {
             textView?.sizeToFit()
 
             if let containerView = textView?.superview, message.senderID == currentUser.id {
-                textView?.frame.origin = CGPoint(x: containerView.width - self.textView!.frame.width, y: 0.0)
+                textView?.frame.origin = CGPoint(x: containerView.width - textView!.frame.width, y: 0.0)
             }
 
             textView?.alpha = 1.0

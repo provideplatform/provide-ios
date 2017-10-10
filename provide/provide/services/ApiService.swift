@@ -80,7 +80,7 @@ class ApiService: NSObject {
     }
 
     func setToken(_ token: Token) {
-        self.headers["X-API-Authorization"] = token.authorizationHeaderString
+        headers["X-API-Authorization"] = token.authorizationHeaderString
         KeyChainService.shared.token = token
 
         if let user = token.user {
@@ -88,7 +88,7 @@ class ApiService: NSObject {
             AnalyticsService.shared.identify(user)
         }
 
-        self.registerForRemoteNotifications()
+        registerForRemoteNotifications()
 
         NotificationService.shared.connectWebsocket()
     }
@@ -744,7 +744,7 @@ class ApiService: NSObject {
 
                 if startOperation {
                     op.start()
-                    self.requestOperations.append(op)
+                    requestOperations.append(op)
                 }
 
                 return op

@@ -305,8 +305,8 @@ class MessagesViewController: JSQMessagesViewController {
         let message = Message(body: text, mediaUrl: nil, recipientId: lastDispatcherId(), senderId: currentUser.id, senderName: currentUser.name)
 
         collectionView.performBatchUpdates({
-            self.messages.append(message)
-            self.collectionView.insertItems(at: [IndexPath(row: self.messages.count - 1, section: 0)])
+            messages.append(message)
+            collectionView.insertItems(at: [IndexPath(row: self.messages.count - 1, section: 0)])
         })
 
         finishSendingMessage(animated: true)

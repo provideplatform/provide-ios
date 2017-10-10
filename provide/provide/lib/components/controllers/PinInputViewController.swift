@@ -121,7 +121,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
                     delegate.pinInputViewControllerDidExceedMaxAttempts?(self)
                 }
             } else {
-                dispatch_after_delay(self.fadeDuration) {
+                dispatch_after_delay(fadeDuration) {
                     self.delegate.pinInputViewControllerDidComplete(self)
                 }
             }

@@ -305,8 +305,8 @@ class DirectionsViewController: ViewController {
     func unwind() {
         unregisterMonitoredRegions()
 
-        LocationService.shared.removeOnHeadingResolvedDurableCallback(self.defaultHeadingResolvedDurableCallbackKey)
-        LocationService.shared.removeOnLocationResolvedDurableCallback(self.defaultLocationResolvedDurableCallbackKey)
+        LocationService.shared.removeOnHeadingResolvedDurableCallback(defaultHeadingResolvedDurableCallbackKey)
+        LocationService.shared.removeOnLocationResolvedDurableCallback(defaultLocationResolvedDurableCallbackKey)
 
         CheckinService.shared.disableNavigationAccuracy()
         LocationService.shared.disableNavigationAccuracy()

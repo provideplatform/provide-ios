@@ -420,7 +420,7 @@ class WorkOrder: Model {
                 }
             }
             if let index = index {
-                self.workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
+                workOrderProviders.replaceSubrange(index...index, with: [workOrderProvider])
 
                 if id > 0 {
                     save(onSuccess: onSuccess, onError: onError)
@@ -438,7 +438,7 @@ class WorkOrder: Model {
         var index = 0
         for a in attachments {
             if a.id == attachment.id {
-                self.attachments[index] = attachment
+                attachments[index] = attachment
                 replaced = true
                 break
             }
@@ -585,7 +585,7 @@ class WorkOrder: Model {
     }
 
     func arrive(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        self.pendingArrival = true
+        pendingArrival = true
 
         updateWorkOrderWithStatus("arriving", onSuccess: { statusCode, mappingResult in
             self.pendingArrival = false

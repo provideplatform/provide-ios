@@ -18,7 +18,7 @@ class MessagesCollectionViewFlowLayout: JSQMessagesCollectionViewFlowLayout {
     }
 
     override func messageBubbleSizeForItem(at indexPath: IndexPath!) -> CGSize {
-        let messageData = collectionView.dataSource.collectionView(self.collectionView, messageDataForItemAt: indexPath)!
+        let messageData = collectionView.dataSource.collectionView(collectionView, messageDataForItemAt: indexPath)!
         var width = collectionView.width
         var height: CGFloat = 120.0
         if !messageData.isMediaMessage(), let msg = messageData.text?() {
