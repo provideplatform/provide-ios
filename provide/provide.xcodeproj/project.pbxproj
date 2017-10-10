@@ -61,7 +61,6 @@
 		68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
 		68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA71C1C28D9008F7E3A /* Provider.storyboard */; };
 		681416E51B8457870076BFBD /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F730591B07DE94001A21B0 /* Attachment.swift */; };
-		681416E61B8457870076BFBD /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537281B8350AB0007F480 /* Comment.swift */; };
 		681416E81B8457870076BFBD /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305B1B07DE94001A21B0 /* Contact.swift */; };
 		681416EA1B8457870076BFBD /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305D1B07DE94001A21B0 /* Device.swift */; };
 		681416EB1B8457870076BFBD /* Directions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F7305E1B07DE94001A21B0 /* Directions.swift */; };
@@ -81,14 +80,10 @@
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
-		683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */; };
-		683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */; };
-		683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */; };
 		6846D9921F3EC187004532BD /* UserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9911F3EC187004532BD /* UserMode.swift */; };
 		6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D99A1F3ED90B004532BD /* CheckinService.swift */; };
 		6846D9A11F3EDF2A004532BD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A01F3EDF2A004532BD /* Route.swift */; };
 		6846D9A31F3EE08B004532BD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A21F3EE08B004532BD /* RouteMapView.swift */; };
-		6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */; };
 		6855D0BD1F6EBCF3001A4D33 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D0BC1F6EBCF3001A4D33 /* ProfileImageView.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
@@ -173,11 +168,9 @@
 		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68E113011F5CE3D60069BD45 /* SimulatedCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
-		68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C91B834A080007F480 /* CommentsViewController.swift */; };
 		68F536D21B834A080007F480 /* DirectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */; };
 		68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CB1B834A080007F480 /* ImagePickerViewController.swift */; };
 		68F536DA1B834A330007F480 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F536D81B834A330007F480 /* Camera.storyboard */; };
-		68F536DD1B834A330007F480 /* Comments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F536D91B834A330007F480 /* Comments.storyboard */; };
 		68F536ED1B834A5C0007F480 /* WorkOrderDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */; };
 		68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */; };
 		68F536FE1B834A720007F480 /* WorkOrderPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */; };
@@ -274,14 +267,10 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
-		683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CommentCreation.storyboard; sourceTree = "<group>"; };
-		683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCreationViewController.swift; sourceTree = "<group>"; };
-		683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		6846D9911F3EC187004532BD /* UserMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMode.swift; sourceTree = "<group>"; };
 		6846D99A1F3ED90B004532BD /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		6846D9A01F3EDF2A004532BD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		6846D9A21F3EE08B004532BD /* RouteMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
-		6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentInputToolbar.swift; sourceTree = "<group>"; };
 		6855D0BC1F6EBCF3001A4D33 /* ProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
@@ -373,11 +362,9 @@
 		68DFB09B1B07C5C4002A72E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimulatedCLHeading.swift; sourceTree = "<group>"; };
 		68F536C81B834A080007F480 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		68F536C91B834A080007F480 /* CommentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsTableViewController.swift; sourceTree = "<group>"; };
 		68F536CB1B834A080007F480 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		68F536D81B834A330007F480 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
-		68F536D91B834A330007F480 /* Comments.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Comments.storyboard; sourceTree = "<group>"; };
 		68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsViewController.swift; sourceTree = "<group>"; };
 		68F536F21B834A720007F480 /* WorkOrderDetailsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderView.swift; sourceTree = "<group>"; };
 		68F536F31B834A720007F480 /* WorkOrderPinAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderPinAnnotationView.swift; sourceTree = "<group>"; };
@@ -390,7 +377,6 @@
 		68F5370F1B834A9A0007F480 /* MenuTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableView.swift; sourceTree = "<group>"; };
 		68F537101B834A9A0007F480 /* NameValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameValueTableViewCell.swift; sourceTree = "<group>"; };
 		68F537111B834A9A0007F480 /* NavigationBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarButton.swift; sourceTree = "<group>"; };
-		68F537281B8350AB0007F480 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		68F537321B8373BD0007F480 /* cottage.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = cottage.gpx; sourceTree = "<group>"; };
 		68F730591B07DE94001A21B0 /* Attachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		68F7305B1B07DE94001A21B0 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -709,8 +695,6 @@
 			isa = PBXGroup;
 			children = (
 				68F536C81B834A080007F480 /* CameraViewController.swift */,
-				683AC0FC1C21DFA000391A0B /* CommentCreationViewController.swift */,
-				68F536C91B834A080007F480 /* CommentsViewController.swift */,
 				68F536CA1B834A080007F480 /* DirectionsTableViewController.swift */,
 				68B412B81B080D41009A4C05 /* DirectionsViewController.swift */,
 				68F536CB1B834A080007F480 /* ImagePickerViewController.swift */,
@@ -729,8 +713,6 @@
 			children = (
 				6899CDF71F5D8E7A0074370C /* messages */,
 				68B412D51B080E6D009A4C05 /* CameraView.swift */,
-				683AC0FE1C21E32000391A0B /* CommentCollectionViewCell.swift */,
-				6853832C1C9FC9AB00C6957B /* CommentInputToolbar.swift */,
 				68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */,
 				6899CDDD1F5D8CD60074370C /* PinInputControl.swift */,
 			);
@@ -782,8 +764,6 @@
 			isa = PBXGroup;
 			children = (
 				68F536D81B834A330007F480 /* Camera.storyboard */,
-				683AC0FA1C21DEDA00391A0B /* CommentCreation.storyboard */,
-				68F536D91B834A330007F480 /* Comments.storyboard */,
 				6899CDD81F5D8B120074370C /* Messages.storyboard */,
 				68B413251B083161009A4C05 /* NetPromoter.storyboard */,
 				6884415B1C06F6810017D4AA /* PinInput.storyboard */,
@@ -927,7 +907,6 @@
 			isa = PBXGroup;
 			children = (
 				68F730591B07DE94001A21B0 /* Attachment.swift */,
-				68F537281B8350AB0007F480 /* Comment.swift */,
 				68F7305B1B07DE94001A21B0 /* Contact.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				68F7305E1B07DE94001A21B0 /* Directions.swift */,
@@ -1129,8 +1108,6 @@
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
 				5C68C6BE1F867F9700BBD3B9 /* OutboundMediaMessageCell.xib in Resources */,
 				68B4132E1B083161009A4C05 /* NetPromoter.storyboard in Resources */,
-				683AC0FB1C21DEDA00391A0B /* CommentCreation.storyboard in Resources */,
-				68F536DD1B834A330007F480 /* Comments.storyboard in Resources */,
 				68B4127E1B07FC15009A4C05 /* Exo2-ThinItalic.ttf in Resources */,
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
@@ -1520,7 +1497,6 @@
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
-				683AC0FF1C21E32000391A0B /* CommentCollectionViewCell.swift in Sources */,
 				5C68C6CF1F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */,
@@ -1538,7 +1514,6 @@
 				68B412C51B080D42009A4C05 /* NetPromoterViewController.swift in Sources */,
 				687B650E1C2431800088E539 /* MenuItem.swift in Sources */,
 				6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */,
-				681416E61B8457870076BFBD /* Comment.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,
 				5C68C6D21F86804300BBD3B9 /* DestinationResultTableViewCell.swift in Sources */,
@@ -1555,7 +1530,6 @@
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68A653A31F4C20D7007CC52F /* ProviderService.swift in Sources */,
-				6853832D1C9FC9AB00C6957B /* CommentInputToolbar.swift in Sources */,
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,
 				6899CDE91F5D8D200074370C /* PinInputViewController.swift in Sources */,
@@ -1590,13 +1564,11 @@
 				68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */,
 				68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */,
 				68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */,
-				683AC0FD1C21DFA000391A0B /* CommentCreationViewController.swift in Sources */,
 				6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */,
 				681416E81B8457870076BFBD /* Contact.swift in Sources */,
 				68B412841B0802AF009A4C05 /* AnnotationView.swift in Sources */,
 				681416EA1B8457870076BFBD /* Device.swift in Sources */,
 				681416F71B8457870076BFBD /* WorkOrder.swift in Sources */,
-				68F536CF1B834A080007F480 /* CommentsViewController.swift in Sources */,
 				687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */,
 				68F536FE1B834A720007F480 /* WorkOrderPinAnnotationView.swift in Sources */,
 				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,

@@ -82,12 +82,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if !socketConnected {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
             }
-
-        case .comment:
-            let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
-            let comment = Comment(string: jsonString)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
-
         case .message:
             let jsonString = (notificationValue as! [String: AnyObject]).toJSONString()
             let message = Message(string: jsonString)
@@ -172,9 +166,6 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                 workOrder.mergeAttachment(attachment)
                             }
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
-                        case "comment_changed":
-                            let comment = Comment(string: payload!.toJSONString())
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "CommentChanged"), object: comment as Any)
                         case "provider_became_available":
                             let providerJson = payload!.toJSONString()
                             let provider = Provider(string: providerJson)

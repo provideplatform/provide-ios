@@ -41,13 +41,9 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     // net promoter
     @objc optional func netPromoterScoreReceived(_ netPromoterScore: NSNumber, forWorkOrderViewController: ViewController)
     @objc optional func netPromoterScoreDeclinedForWorkOrderViewController(_ viewController: ViewController)
-
-    // comments
-    @objc optional func commentsViewController(_ viewController: CommentsViewController, didSubmitComment comment: String)
-    @objc optional func commentsViewControllerShouldBeDismissed(_ viewController: CommentsViewController)
 }
 
-class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, CommentCreationViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
+class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
@@ -616,48 +612,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    // MARK: CommentsCreationViewControllerDelegate
-
-    func commentCreationViewController(_ viewController: CommentCreationViewController, didSubmitComment comment: String) {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            nextWorkOrderContextShouldBeRewound()
-            if workOrder.components.count > 0 {
-                var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
-                workOrder.setComponents(components)
-            }
-            attemptSegueToValidWorkOrderContext()
-
-            workOrder.addComment(comment, onSuccess: { [weak self] statusCode, responseString in
-                self?.attemptCompletionOfInProgressWorkOrder()
-            }, onError: { error, statusCode, responseString in
-                logError(error)
-            })
-        }
-    }
-
-    func commentCreationViewControllerShouldBeDismissed(_ viewController: CommentCreationViewController) {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            nextWorkOrderContextShouldBeRewound()
-            if workOrder.components.count > 0 {
-                var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
-                workOrder.setComponents(components)
-            }
-            attemptSegueToValidWorkOrderContext()
-
-            attemptCompletionOfInProgressWorkOrder()
-        }
-    }
-
-    func promptForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String? {
-        return "Anything worth mentioning?"
-    }
-
-    func titleForCommentCreationViewController(_ viewController: CommentCreationViewController) -> String {
-        return "COMMENTS"
-    }
-
     func shouldRemoveMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
         mapView.removeAnnotations()
     }
@@ -702,10 +656,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             if initialViewController is UINavigationController {
                 managedViewControllers.append(initialViewController)
                 vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
-
-                if vc is CommentsViewController {
-                    (vc as! CommentCreationViewController).commentCreationViewControllerDelegate = self
-                }
             } else {
                 vc = initialViewController as! WorkOrderComponentViewController
             }

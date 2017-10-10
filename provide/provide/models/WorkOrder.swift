@@ -17,7 +17,6 @@ class WorkOrder: Model {
     var category: Category!
     var userId = 0
     var user: User!
-    var comments: [Comment]!
     var jobId = 0
     var desc: String!
     var workOrderProviders: [WorkOrderProvider]!
@@ -76,7 +75,6 @@ class WorkOrder: Model {
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", with: Comment.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: User.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", with: WorkOrderProvider.mapping()))
 
@@ -647,29 +645,6 @@ class WorkOrder: Model {
             self.attachments.append(response?.firstObject as! Attachment)
             onSuccess(response)
         }, onError: onError)
-    }
-
-    func addComment(_ comment: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.addComment(comment, toWorkOrderWithId: String(id), onSuccess: { statusCode, mappingResult in
-            if self.comments == nil {
-                self.comments = [Comment]()
-            }
-            self.comments.insert(mappingResult?.firstObject as! Comment, at: 0)
-            onSuccess(statusCode, mappingResult)
-        }, onError: onError)
-    }
-
-    func reloadComments(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        if id > 0 {
-            comments = [Comment]()
-            ApiService.shared.fetchComments(forWorkOrderWithId: String(id), onSuccess: { statusCode, mappingResult in
-                let fetchedComments = (mappingResult?.array() as! [Comment]).reversed()
-                for comment in fetchedComments {
-                    self.comments.append(comment)
-                }
-                onSuccess(statusCode, mappingResult)
-            }, onError: onError)
-        }
     }
 
     func scoreProvider(_ netPromoterScore: NSNumber, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {

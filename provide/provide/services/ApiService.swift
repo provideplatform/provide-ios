@@ -36,7 +36,6 @@ class ApiService: NSObject {
 
     private let objectMappings: [String: AnyObject] = [
         "attachments": Attachment.mappingWithRepresentations(),
-        "comments": Comment.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
@@ -517,31 +516,6 @@ class ApiService: NSObject {
 
     func updateAttachmentWithId(_ id: String, onWorkOrderWithId workOrderId: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("work_orders/\(workOrderId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    // MARK: Comments API
-
-    func fetchCommentWithId(_ id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchComments(_ params: [String: AnyObject], forCommentableType commentableType: String, withCommentableId commentableId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("\(commentableType)s/\(commentableId)/comments", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    func fetchComments(forWorkOrderWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    func addComment(_ comment: String, toWorkOrderWithId id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("work_orders/\(id)/comments", method: .POST, params: ["body": comment as AnyObject], onSuccess: { statusCode, mappingResult in
-            assert(statusCode == 201)
-            onSuccess(statusCode, mappingResult)
-        }, onError: onError)
-    }
-
-    func addAttachment(_ data: Data, withMimeType mimeType: String, toCommentWithId id: String, forCommentableType commentableType: String, withCommentableId commentableId: String, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
-        addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Route API

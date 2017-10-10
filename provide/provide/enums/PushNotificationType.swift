@@ -9,7 +9,6 @@
 enum PushNotificationType: String {
     case attachment = "attachment_id"
     case checkin = "checkin"
-    case comment = "comment"
     case job = "job_id"
     case message = "message"
     case route = "route_id"
