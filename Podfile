@@ -9,6 +9,7 @@ project 'provide/provide.xcodeproj'
 def shared_pods
   pod 'Analytics'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
+  pod 'Firebase/Core'
   pod 'FontAwesomeKit/FontAwesome'
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
