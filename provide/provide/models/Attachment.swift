@@ -119,7 +119,7 @@ class Attachment: Model {
         }, onError: onError)
     }
 
-    func updateAttachment(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func updateAttachment(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params, onSuccess: { statusCode, mappingResult in
             if let metadata = params["metadata"] as? [String : AnyObject] {
                 self.metadata = metadata as NSDictionary

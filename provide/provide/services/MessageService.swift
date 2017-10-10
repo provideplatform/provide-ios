@@ -20,7 +20,7 @@ class MessageService {
         NotificationCenter.default.addObserver(self, selector: #selector(handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
     }
 
-    func fetch(params: [String: AnyObject], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
+    func fetch(params: [String: Any], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {
         ApiService.shared.fetchMessages(params as [String : AnyObject], onSuccess: { statusCode, mappingResult in
             let fetchedMessages = mappingResult?.array() as! [Message]
             self.messages += fetchedMessages

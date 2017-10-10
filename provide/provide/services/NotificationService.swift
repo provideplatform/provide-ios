@@ -66,7 +66,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         }
     }
 
-    func dispatchRemoteNotification(_ userInfo: [String: AnyObject]) {
+    func dispatchRemoteNotification(_ userInfo: [String: Any]) {
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {

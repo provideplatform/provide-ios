@@ -16,13 +16,13 @@ enum UserMode: String {
 
     static let allTypes = [consumer, provider]
 
-    static func typeAndValueFromUserInfo(_ userInfo: [String: AnyObject]) -> (UserMode, AnyObject?) {
+    static func typeAndValueFromUserInfo(_ userInfo: [String: Any]) -> (UserMode, Any?) {
         for type in allTypes {
-            if let value: AnyObject = userInfo[type.rawValue] {
+            if let value = userInfo[type.rawValue] {
                 return (type, value)
             }
         }
         logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to customer...")
-        return (consumer, "consumer" as AnyObject)  // default to customer
+        return (consumer, "consumer")  // default to customer
     }
 }

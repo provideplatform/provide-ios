@@ -534,7 +534,7 @@ class WorkOrder: Model {
         reload(["include_estimated_cost": "false" as AnyObject, "include_job": "false" as AnyObject, "include_supervisors": "true" as AnyObject, "include_work_order_providers": "true" as AnyObject], onSuccess: onSuccess, onError: onError)
     }
 
-    func reload(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.shared.fetchWorkOrderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
                 let workOrder = mappingResult?.firstObject as! WorkOrder
@@ -635,7 +635,7 @@ class WorkOrder: Model {
         }, onError: onError)
     }
 
-    func attach( _ image: UIImage, params: [String: AnyObject], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
+    func attach( _ image: UIImage, params: [String: Any], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.shared.addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params, onSuccess: { response in
