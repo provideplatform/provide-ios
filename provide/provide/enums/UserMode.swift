@@ -22,7 +22,7 @@ enum UserMode: String {
                 return (type, value)
             }
         }
-        logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to customer...")
-        return (consumer, "consumer")  // default to customer
+        logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to consumer...")
+        return (consumer, "consumer")  // default to consumer
     }
 }

@@ -12,7 +12,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
     @IBOutlet private weak var gradientView: UIView!
-    @IBOutlet private weak var customerLabel: UILabel!
+    @IBOutlet private weak var consumerLabel: UILabel!
     @IBOutlet private weak var addressLabel: UILabel!
 
     var workOrder: WorkOrder! {
@@ -25,18 +25,18 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             gradientView.alpha = 0.7
             bringSubview(toFront: gradientView)
 
-            customerLabel.text = ""
+            consumerLabel.text = ""
             addressLabel.text = ""
 
             if let user = workOrder.user {
-                customerLabel.text = user.name
+                consumerLabel.text = user.name
                 if let destination = workOrder.config?["destination"] as? [String: String], let desc = destination["description"] {
                     addressLabel.text = desc
                 }
             }
 
-            customerLabel.sizeToFit()
-            bringSubview(toFront: customerLabel)
+            consumerLabel.sizeToFit()
+            bringSubview(toFront: consumerLabel)
 
             addressLabel.sizeToFit()
             bringSubview(toFront: addressLabel)

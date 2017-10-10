@@ -1,12 +1,12 @@
 //
-//  CustomerMapView.swift
+//  ConsumerMapView.swift
 //  provide
 //
 //  Created by Kyle Thomas on 8/22/17.
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-class CustomerMapView: MapView, UIGestureRecognizerDelegate {
+class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -64,7 +64,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
         if fullyRendered {
-            logInfo("Customer map view fully rendered")
+            logInfo("Consumer map view fully rendered")
         }
     }
 
@@ -108,7 +108,7 @@ class CustomerMapView: MapView, UIGestureRecognizerDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer? {
         let renderer: MKOverlayRenderer? = nil
 
-        logWarn("Returning nil overlay renderer for customer map view; \(renderer!)")
+        logWarn("Returning nil overlay renderer for consumer map view; \(renderer!)")
 
         return renderer
     }

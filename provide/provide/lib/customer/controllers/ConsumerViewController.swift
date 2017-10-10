@@ -1,5 +1,5 @@
 //
-//  CustomerViewController.swift
+//  ConsumerViewController.swift
 //  provide
 //
 //  Created by Kyle Thomas on 8/12/17.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CustomerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
+class ConsumerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
 
-    @IBOutlet private weak var mapView: CustomerMapView!
+    @IBOutlet private weak var mapView: ConsumerMapView!
 
     private var destinationInputViewController: DestinationInputViewController!
     private var destinationResultsViewController: DestinationResultsViewController!
@@ -49,7 +49,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         loadWorkOrderContext()
 
         LocationService.shared.resolveCurrentLocation { [weak self] (_) in
-            logInfo("Current location resolved for customer view controller... refreshing context")
+            logInfo("Current location resolved for consumer view controller... refreshing context")
             self?.loadProviderContext()
         }
 
@@ -214,7 +214,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                 }
             }
         } else {
-            logWarn("No current location resolved for customer view controller; nearby providers not fetched")
+            logWarn("No current location resolved for consumer view controller; nearby providers not fetched")
         }
     }
 
@@ -325,7 +325,7 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
                     mapView.addAnnotation(provider.annotation)
                     return true
                 } else {
-                    logInfo("Removing unavailable provider annotation from customer map view")
+                    logInfo("Removing unavailable provider annotation from consumer map view")
                     mapView.removeAnnotation(annotation)
                     return true
                 }

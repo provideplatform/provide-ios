@@ -36,7 +36,6 @@ class WorkOrder: Model {
     var status: String!
     var previewImage: UIImage!
     var providerRating: Double = 0
-    var customerRating: Double = 0
     var attachments: [Attachment]!
     var config: [String: Any]!
     var configJson: String!
@@ -67,7 +66,6 @@ class WorkOrder: Model {
             "estimated_price": "estimatedPrice",
             "status": "status",
             "provider_rating": "providerRating",
-            "customer_rating": "customerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
             "priority": "priority",

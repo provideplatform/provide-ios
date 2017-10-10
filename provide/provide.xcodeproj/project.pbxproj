@@ -40,11 +40,11 @@
 		5C68C6C01F867F9700BBD3B9 /* OutboundMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BA1F867F9700BBD3B9 /* OutboundMessageCell.xib */; };
 		5C68C6C11F867F9700BBD3B9 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
 		5C68C6CC1F86804300BBD3B9 /* ProviderEnRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6C31F86804300BBD3B9 /* ProviderEnRouteViewController.swift */; };
-		5C68C6CD1F86804300BBD3B9 /* CustomerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6C41F86804300BBD3B9 /* CustomerViewController.swift */; };
+		5C68C6CD1F86804300BBD3B9 /* ConsumerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6C41F86804300BBD3B9 /* ConsumerViewController.swift */; };
 		5C68C6CE1F86804300BBD3B9 /* DestinationResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6C51F86804300BBD3B9 /* DestinationResultsViewController.swift */; };
 		5C68C6CF1F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6C61F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift */; };
-		5C68C6D01F86804300BBD3B9 /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Customer.storyboard */; };
-		5C68C6D11F86804300BBD3B9 /* CustomerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CA1F86804300BBD3B9 /* CustomerMapView.swift */; };
+		5C68C6D01F86804300BBD3B9 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
+		5C68C6D11F86804300BBD3B9 /* ConsumerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */; };
 		5C68C6D21F86804300BBD3B9 /* DestinationResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */; };
 		5C68C6D41F86812000BBD3B9 /* DestinationInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */; };
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
@@ -238,11 +238,11 @@
 		5C68C6BA1F867F9700BBD3B9 /* OutboundMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OutboundMessageCell.xib; sourceTree = "<group>"; };
 		5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InboundMediaMessageCell.xib; sourceTree = "<group>"; };
 		5C68C6C31F86804300BBD3B9 /* ProviderEnRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderEnRouteViewController.swift; sourceTree = "<group>"; };
-		5C68C6C41F86804300BBD3B9 /* CustomerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerViewController.swift; sourceTree = "<group>"; };
+		5C68C6C41F86804300BBD3B9 /* ConsumerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumerViewController.swift; sourceTree = "<group>"; };
 		5C68C6C51F86804300BBD3B9 /* DestinationResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationResultsViewController.swift; sourceTree = "<group>"; };
 		5C68C6C61F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmWorkOrderViewController.swift; sourceTree = "<group>"; };
-		5C68C6C81F86804300BBD3B9 /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
-		5C68C6CA1F86804300BBD3B9 /* CustomerMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomerMapView.swift; sourceTree = "<group>"; };
+		5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Consumer.storyboard; sourceTree = "<group>"; };
+		5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumerMapView.swift; sourceTree = "<group>"; };
 		5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationResultTableViewCell.swift; sourceTree = "<group>"; };
 		5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationInputViewController.swift; sourceTree = "<group>"; };
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 		5C68C6C21F86804300BBD3B9 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5C68C6C41F86804300BBD3B9 /* CustomerViewController.swift */,
+				5C68C6C41F86804300BBD3B9 /* ConsumerViewController.swift */,
 				5C68C6C61F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift */,
 				5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */,
 				5C68C6C51F86804300BBD3B9 /* DestinationResultsViewController.swift */,
@@ -472,7 +472,7 @@
 		5C68C6C71F86804300BBD3B9 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				5C68C6C81F86804300BBD3B9 /* Customer.storyboard */,
+				5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -480,7 +480,7 @@
 		5C68C6C91F86804300BBD3B9 /* views */ = {
 			isa = PBXGroup;
 			children = (
-				5C68C6CA1F86804300BBD3B9 /* CustomerMapView.swift */,
+				5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */,
 				5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */,
 			);
 			path = views;
@@ -1093,7 +1093,7 @@
 				68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */,
 				68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */,
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
-				5C68C6D01F86804300BBD3B9 /* Customer.storyboard in Resources */,
+				5C68C6D01F86804300BBD3B9 /* Consumer.storyboard in Resources */,
 				6899CDD91F5D8B120074370C /* Messages.storyboard in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
 				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
@@ -1586,12 +1586,12 @@
 				68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */,
 				5C68C6CC1F86804300BBD3B9 /* ProviderEnRouteViewController.swift in Sources */,
 				6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
-				5C68C6D11F86804300BBD3B9 /* CustomerMapView.swift in Sources */,
+				5C68C6D11F86804300BBD3B9 /* ConsumerMapView.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
-				5C68C6CD1F86804300BBD3B9 /* CustomerViewController.swift in Sources */,
+				5C68C6CD1F86804300BBD3B9 /* ConsumerViewController.swift in Sources */,
 				5C68C6BF1F867F9700BBD3B9 /* MessageCell.swift in Sources */,
 				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,
 				6899CDDE1F5D8CD60074370C /* PinInputControl.swift in Sources */,

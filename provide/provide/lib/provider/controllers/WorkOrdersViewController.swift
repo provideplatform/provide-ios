@@ -395,7 +395,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         case 0:
             return MenuItem(label: "History", action: "history")
         case 1:
-            return MenuItem(label: "Ride Mode", action: "switchToCustomerMode")
+            return MenuItem(label: "Ride Mode", action: "switchToConsumerMode")
         default:
             break
         }
@@ -424,7 +424,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    @objc func switchToCustomerMode() {
+    @objc func switchToConsumerMode() {
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
 

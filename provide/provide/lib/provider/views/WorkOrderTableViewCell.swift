@@ -10,7 +10,7 @@ import UIKit
 
 class WorkOrderTableViewCell: UITableViewCell {
 
-    @IBOutlet private weak var customerLabel: UILabel!
+    @IBOutlet private weak var consumerLabel: UILabel!
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
     @IBOutlet private weak var inventoryLabel: UILabel!
@@ -22,7 +22,7 @@ class WorkOrderTableViewCell: UITableViewCell {
             timer?.invalidate()
 
             if let user = workOrder.user {
-                customerLabel.text = user.name
+                consumerLabel.text = user.name
             }
 
             statusLabel.text = workOrder.status
@@ -53,7 +53,7 @@ class WorkOrderTableViewCell: UITableViewCell {
         backgroundView?.backgroundColor = .clear
         backgroundView?.alpha = 0.9
 
-        customerLabel.text = ""
+        consumerLabel.text = ""
         durationLabel.text = ""
         durationLabel.alpha = 0.0
         statusLabel.text = ""
