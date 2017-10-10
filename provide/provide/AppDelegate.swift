@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())" as AnyObject] as [String: AnyObject])
+        AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
 
         RKLogConfigureFromEnvironment()
 
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        AnalyticsService.shared.track("App Entered Background", properties: [:])
+        AnalyticsService.shared.track("App Entered Background")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        AnalyticsService.shared.track("App Became Active", properties: [:])
+        AnalyticsService.shared.track("App Became Active")
 
         if launchScreenViewController == nil {
             setupLaunchScreenViewController()
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        AnalyticsService.shared.track("App Will Terminate", properties: [:])
+        AnalyticsService.shared.track("App Will Terminate")
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
@@ -143,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        AnalyticsService.shared.track("Remote notification received", properties: ["userInfo": userInfo as AnyObject, "received_at": "\(Date().timeIntervalSince1970)" as AnyObject] as [String: AnyObject])
+        AnalyticsService.shared.track("Remote notification received", properties: ["userInfo": userInfo, "received_at": "\(Date().timeIntervalSince1970)"])
 
         if ApiService.shared.hasCachedToken {
             NotificationService.shared.dispatchRemoteNotification(userInfo as! [String: AnyObject])

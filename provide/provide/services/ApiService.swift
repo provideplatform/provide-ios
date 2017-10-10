@@ -693,7 +693,7 @@ class ApiService: NSObject {
 
                 if let params = params, contentType.lowercased() == "application/json" {
                     jsonParams = NSDictionary(dictionary: params).toJSON()
-                    request.httpBody = jsonParams.data(using: String.Encoding.utf8)
+                    request.httpBody = jsonParams.data(using: .utf8)
                 }
             }
 
@@ -702,11 +702,11 @@ class ApiService: NSObject {
 
                 op.setCompletionBlockWithSuccess({ operation, mappingResult in
                     AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
-                        "path": path as AnyObject,
-                        "statusCode": (operation?.httpRequestOperation.response.statusCode)! as AnyObject,
-                        "params": jsonParams as AnyObject,
-                        "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                    ] as [String : AnyObject])
+                        "path": path,
+                        "statusCode": (operation?.httpRequestOperation.response.statusCode)!,
+                        "params": jsonParams,
+                        "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
+                    ])
 
                     if self.requestOperations.contains(op) {
                         self.requestOperations.removeObject(op)
@@ -722,12 +722,12 @@ class ApiService: NSObject {
                         self.backoffTimeout = self.initialBackoffTimeout
 
                         AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                            "path": path as AnyObject,
-                            "statusCode": statusCode as AnyObject,
-                            "params": jsonParams as AnyObject,
-                            "responseString": responseString as AnyObject,
-                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                        ] as [String: AnyObject])
+                            "path": path,
+                            "statusCode": statusCode,
+                            "params": jsonParams,
+                            "responseString": responseString,
+                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
+                        ])
 
                         if statusCode == 401 {
                             if baseURL.absoluteString == CurrentEnvironment.baseUrlString {
@@ -736,11 +736,11 @@ class ApiService: NSObject {
                         }
                     } else if let err = error as NSError? {
                         AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                            "error": err.localizedDescription as AnyObject,
-                            "code": err.code as AnyObject,
-                            "params": jsonParams as AnyObject,
-                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0) as AnyObject,
-                        ] as [String: AnyObject])
+                            "error": err.localizedDescription,
+                            "code": err.code,
+                            "params": jsonParams,
+                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
+                        ])
 
                         DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: .now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))) {
                             _ = self.dispatchOperationForURL(baseURL, path: path, method: method, params: params, onSuccess: onSuccess, onError: onError)

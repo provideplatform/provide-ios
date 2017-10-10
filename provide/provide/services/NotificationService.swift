@@ -129,11 +129,11 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     // MARK: JFRWebSocketDelegate
 
     @objc func websocketDidConnect(_ socket: JFRWebSocket) {
-        AnalyticsService.shared.track("Websocket Connected", properties: [:])
+        AnalyticsService.shared.track("Websocket Connected")
     }
 
     @objc func websocketDidDisconnect(_ socket: JFRWebSocket, error: Error?) {
-        AnalyticsService.shared.track("Websocket Disconnected", properties: [:])
+        AnalyticsService.shared.track("Websocket Disconnected")
         connectWebsocket()
     }
 
@@ -152,8 +152,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     if let message = message {
                         logInfo("Websocket message received: \(message)")
 
-                        AnalyticsService.shared.track("Websocket Received Message",
-                                                      properties: ["message": message as AnyObject] as [String: AnyObject])
+                        AnalyticsService.shared.track("Websocket Received Message", properties: ["message": message])
 
                         switch message {
                         case "attachment_changed":

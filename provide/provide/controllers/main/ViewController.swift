@@ -21,7 +21,7 @@ class ViewController: UIViewController {
 
     func showError(_ errorMessage: String) {
         updateStatus(errorMessage, showActivity: false, isError: true)
-        AnalyticsService.shared.track("Showed User an Error", properties: ["errorMessage": errorMessage as AnyObject] as [String: AnyObject])
+        AnalyticsService.shared.track("Showed User an Error", properties: ["errorMessage": errorMessage])
         logWarn(errorMessage)
     }
 
