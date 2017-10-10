@@ -23,7 +23,7 @@ class AttachmentTests: XCTestCase {
         XCTAssertEqual(attachment.userId, 1)
         XCTAssertEqual(attachment.attachableId, 1)
         XCTAssertEqual(attachment.attachableType, "user")
-        XCTAssertEqual(attachment.tags as! [String], ["profile_image", "default"])
+        XCTAssertEqual(attachment.tags, ["profile_image", "default"])
         XCTAssertTrue(attachment.metadata is [String: String])
     }
 }

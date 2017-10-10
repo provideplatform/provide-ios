@@ -22,7 +22,7 @@ class Attachment: Model {
     var metadata: NSDictionary!
     var mimeType: String!
     var status: String!
-    var tags: NSArray!
+    var tags: [String] = []
     var displayUrlString: String!
     var urlString: String!
     var data: Data!
@@ -104,8 +104,8 @@ class Attachment: Model {
     }
 
     func hasTag(_ tag: String) -> Bool {
-        if let tags = tags {
-            for t in tags where t as? String == tag {
+        if !tags.isEmpty {
+            for t in tags where t == tag {
                 return true
             }
         }

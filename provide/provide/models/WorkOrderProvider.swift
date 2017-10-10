@@ -15,7 +15,7 @@ class WorkOrderProvider: Model {
     var id = 0
     var rating = 0.0
     var provider: Provider!
-    var checkinCoordinates: NSArray!
+    var checkinCoordinates: [[Double]] = []
     var hourlyRate = -1.0
     var estimatedCost = -1.0
     var estimatedDuration = -1.0
@@ -46,11 +46,9 @@ class WorkOrderProvider: Model {
 
     var checkinsPolyline: MKPolyline! {
         var coords = [CLLocationCoordinate2D]()
-        if let checkinCoordinates = checkinCoordinates as? [[NSNumber]] {
+        if !checkinCoordinates.isEmpty {
             for checkinCoordinate in checkinCoordinates {
-                let latitude = checkinCoordinate[0].doubleValue
-                let longitude = checkinCoordinate[1].doubleValue
-                coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                coords.append(CLLocationCoordinate2D(latitude: checkinCoordinate[0], longitude: checkinCoordinate[1]))
             }
             return MKPolyline(coordinates: &coords, count: coords.count)
         }

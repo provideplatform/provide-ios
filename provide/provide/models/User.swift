@@ -19,7 +19,7 @@ class User: Model {
     var contact: Contact!
     var providers: [Provider]!
     var providerIds = [Int]()
-    var menuItemsPreference: NSArray!
+    var menuItemsPreference: [[String: String]] = []
     var paymentMethods: [Any]!
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
@@ -58,12 +58,10 @@ class User: Model {
     }
 
     var menuItems: [MenuItem]! {
-        if let menuItemsPreference = menuItemsPreference {
+        if !menuItemsPreference.isEmpty {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {
-                if let dict = menuItemPreference as? NSDictionary {
-                    menuItems.append(MenuItem(dict: dict as! [String: String]))
-                }
+                menuItems.append(MenuItem(dict: menuItemPreference))
             }
             return menuItems
         } else {
