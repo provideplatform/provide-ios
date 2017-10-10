@@ -285,8 +285,8 @@ class WorkOrder: Model {
             }
         }
 
-        if let user = user {
-            return CLLocationCoordinate2D(latitude: user.contact.latitude, longitude: user.contact.longitude)
+        if let latitude = user?.lastCheckinLatitude, let longitude = user?.lastCheckinLongitude {
+            return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         }
 
         return nil
