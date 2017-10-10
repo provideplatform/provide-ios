@@ -546,7 +546,7 @@
                             </connections>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="menuTableViewCellReuseIdentifier" id="oGi-d1-paG" userLabel="MenuTableViewCell" customClass="MenuTableViewCell" customModule="provide" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MenuTableViewCell" id="oGi-d1-paG" userLabel="MenuTableViewCell" customClass="MenuTableViewCell" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="205.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oGi-d1-paG" id="Ljp-YN-v2Z">

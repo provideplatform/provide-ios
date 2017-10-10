@@ -46,7 +46,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     // MARK: UITableViewDataSource
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "menuTableViewCellReuseIdentifier") as! MenuTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell") as! MenuTableViewCell
         cell.menuItem = delegate.menuItemForMenuViewController(self, at: indexPath)
         return cell
     }

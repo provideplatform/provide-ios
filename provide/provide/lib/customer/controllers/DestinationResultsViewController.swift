@@ -42,7 +42,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "destinationResultTableViewCellReuseIdentifier") as! DestinationResultTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DestinationResultTableViewCell") as! DestinationResultTableViewCell
         cell.result = results[indexPath.row]
         return cell
     }
