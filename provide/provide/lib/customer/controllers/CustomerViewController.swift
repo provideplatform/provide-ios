@@ -222,11 +222,11 @@ class CustomerViewController: ViewController, MenuViewControllerDelegate, Destin
         let workOrderService = WorkOrderService.shared
 
         updatingWorkOrderContext = true
-        workOrderService.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress", onWorkOrdersFetched: { [weak self] workOrders in
+        workOrderService.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress") { [weak self] workOrders in
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
             self?.attemptSegueToValidWorkOrderContext()
             self?.updatingWorkOrderContext = false
-        })
+        }
     }
 
     private func attemptSegueToValidWorkOrderContext() {

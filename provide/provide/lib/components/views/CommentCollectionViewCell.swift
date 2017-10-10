@@ -50,13 +50,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
                     for attachment in imageAttachments {
                         attachmentPreviewImageView?.contentMode = .scaleAspectFit
                         if let attachmentURL = attachment.url {
-                            attachmentPreviewImageView?.sd_setImage(with: attachmentURL, completed: { image, error, cacheType, url in
+                            attachmentPreviewImageView?.sd_setImage(with: attachmentURL) { image, error, cacheType, url in
                                 if let attachmentPreviewImageView = self.attachmentPreviewImageView {
                                     attachmentPreviewImageView.alpha = 1.0
                                     self.bringSubview(toFront: attachmentPreviewImageView)
                                 }
                                 self.activityIndicatorView?.stopAnimating()
-                            })
+                            }
                         } else {
                             comment.reload(onSuccess: { statusCode, mappingResult in
                                 self.refresh()
@@ -80,12 +80,12 @@ class CommentCollectionViewCell: UICollectionViewCell {
 
             if let imageUrl = comment.user.profileImageUrl {
                 imageView.contentMode = .scaleAspectFit
-                imageView.sd_setImage(with: imageUrl as URL!, completed: { image, error, cacheType, url in
+                imageView.sd_setImage(with: imageUrl as URL!) { image, error, cacheType, url in
                     self.contentView.bringSubview(toFront: self.imageView)
                     self.imageView.makeCircular()
 
                     self.imageView.alpha = 1.0
-                })
+                }
             } else {
                 imageView.alpha = 0.0
                 imageView.image = nil

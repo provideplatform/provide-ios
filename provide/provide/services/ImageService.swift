@@ -48,7 +48,7 @@ class ImageService {
             if let image = cache.imageFromMemoryCache(forKey: cacheKey) {
                 onDownloadSuccess(image)
             } else {
-                cache.queryDiskCache(forKey: cacheKey, done: { image, cacheType in
+                cache.queryDiskCache(forKey: cacheKey) { image, cacheType in
                     if image != nil {
                         onDownloadSuccess(image!)
                     } else {
@@ -70,7 +70,7 @@ class ImageService {
                             }
                         })
                     }
-                })
+                }
             }
         }
     }

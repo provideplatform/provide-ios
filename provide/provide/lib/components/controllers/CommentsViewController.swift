@@ -198,9 +198,9 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
         CATransaction.setDisableActions(true)
 
         self.collectionView.performBatchUpdates({
-            UIView.animate(withDuration: 0.0, animations: {
+            UIView.animate(withDuration: 0) {
                 self.collectionView.insertItems(at: indexPaths)
-            })
+            }
         }, completion: { completed in
             self.collectionView.contentOffset = CGPoint(x: 0.0, y: self.collectionView.contentSize.height - bottom)
             CATransaction.commit()
@@ -264,9 +264,9 @@ class CommentsViewController: WorkOrderComponentViewController, UICollectionView
                         CATransaction.setDisableActions(true)
 
                         self.collectionView.performBatchUpdates({
-                            UIView.animate(withDuration: 0.0, animations: {
+                            UIView.animate(withDuration: 0) {
                                 self.collectionView.insertItems(at: indexPaths)
-                            })
+                            }
                         }, completion: { completed in
                             self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottom)
                             CATransaction.commit()

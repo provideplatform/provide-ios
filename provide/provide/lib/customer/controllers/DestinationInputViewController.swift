@@ -91,10 +91,10 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             timer = nil
 
             pendingSearch = true
-            LocationService.shared.resolveCurrentLocation( onResolved: { [weak self] location in
-                LocationService.shared.reverseGeocodeLocation(location, onResolved: { [weak self] placemark in
+            LocationService.shared.resolveCurrentLocation { [weak self] location in
+                LocationService.shared.reverseGeocodeLocation(location) { [weak self] placemark in
                     self?.placemark = placemark
-                })
+                }
                 let currentCoordinate = location.coordinate
                 let params = [
                     "q": query,
@@ -113,7 +113,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
                     self?.pendingSearch = false
                 })
-            })
+            }
         }
     }
 
@@ -170,7 +170,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
-        LocationService.shared.resolveCurrentLocation(onResolved: { [weak self] currentLocation in
+        LocationService.shared.resolveCurrentLocation { [weak self] currentLocation in
             let origin = Contact()
             origin.latitude = currentLocation.coordinate.latitude as NSNumber
             origin.longitude = currentLocation.coordinate.longitude as NSNumber
@@ -179,6 +179,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                 self?.placemark = nil
             }
             self?.delegate?.destinationInputViewController(self!, didSelectDestination: result, startingFrom: origin)
-        })
+        }
     }
 }
