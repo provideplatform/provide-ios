@@ -19,9 +19,9 @@ class Provider: Model {
     var services: NSSet!
     var available: NSNumber!
     var lastCheckinAt: String!
-    var lastCheckinLatitude: NSNumber!
-    var lastCheckinLongitude: NSNumber!
-    var lastCheckinHeading: NSNumber!
+    var lastCheckinLatitude: Double = 0
+    var lastCheckinLongitude: Double = 0
+    var lastCheckinHeading: Double = 0
 
     var name: String? {
         return contact?.name
@@ -57,7 +57,7 @@ class Provider: Model {
     }
 
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: self.lastCheckinLatitude.doubleValue, longitude: self.lastCheckinLongitude.doubleValue)
+        return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLongitude)
     }
 
     override class func mapping() -> RKObjectMapping {

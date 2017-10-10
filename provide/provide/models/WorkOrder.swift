@@ -27,16 +27,16 @@ class WorkOrder: Model {
     var endedAt: String!
     var abandonedAt: String!
     var canceledAt: String!
-    var duration: NSNumber!
+    var duration: Double = 0
     var estimatedCost = -1.0
     var estimatedPrice = -1.0
-    var estimatedDistance: NSNumber!
-    var estimatedDuration: NSNumber!
+    var estimatedDistance: Double = 0
+    var estimatedDuration: Double = 0
     var estimatedSqFt = -1.0
     var status: String!
     var previewImage: UIImage!
-    var providerRating: NSNumber!
-    var customerRating: NSNumber!
+    var providerRating: Double = 0
+    var customerRating: Double = 0
     var attachments: [Attachment]!
     var config: [String: AnyObject]!
     var configJson: String!
@@ -648,8 +648,8 @@ class WorkOrder: Model {
     }
 
     func scoreProvider(_ netPromoterScore: NSNumber, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        providerRating = netPromoterScore
-        ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating], onSuccess: { statusCode, mappingResult in
+        providerRating = netPromoterScore.doubleValue
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["provider_rating": providerRating as AnyObject], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)
         }, onError: onError)
