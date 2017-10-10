@@ -53,9 +53,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     private func refresh() {
         if title == nil {
-            if let customer = workOrder.customer {
-                navigationItem.title = customer.contact.name
-            } else if let user = workOrder.user {
+            if let user = workOrder.user {
                 navigationItem.title = user.name
             }
         } else {

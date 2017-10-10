@@ -21,9 +21,7 @@ class WorkOrderTableViewCell: UITableViewCell {
         didSet {
             timer?.invalidate()
 
-            if let customer = workOrder.customer {
-                customerLabel.text = customer.contact.name
-            } else if let user = workOrder.user {
+            if let user = workOrder.user {
                 customerLabel.text = user.name
             }
 

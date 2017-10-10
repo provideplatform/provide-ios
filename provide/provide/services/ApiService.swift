@@ -37,7 +37,6 @@ class ApiService: NSObject {
     private let objectMappings: [String: AnyObject] = [
         "attachments": Attachment.mappingWithRepresentations(),
         "comments": Comment.mapping(),
-        "customers": Customer.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
@@ -412,7 +411,6 @@ class ApiService: NSObject {
     func updateProviderWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams["id"] = nil
-        realParams["customerId"] = nil
 
         dispatchApiOperationForPath("providers/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }
@@ -498,8 +496,6 @@ class ApiService: NSObject {
     func createWorkOrder(_ params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams["id"] = nil
-        realParams["customer"] = nil
-        realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
@@ -507,8 +503,6 @@ class ApiService: NSObject {
     func updateWorkOrderWithId(_ id: String, params: [String: AnyObject], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams["id"] = nil
-        realParams["customer"] = nil
-        realParams["customerId"] = nil
 
         dispatchApiOperationForPath("work_orders/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
     }

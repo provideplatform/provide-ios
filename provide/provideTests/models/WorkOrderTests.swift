@@ -23,8 +23,6 @@ class WorkOrderTests: XCTestCase {
         XCTAssertEqual(object.category, nil)
         XCTAssertEqual(object.categoryId, 991)
         XCTAssertNotNil(object.config)
-        XCTAssertEqual(object.customer, nil)
-        XCTAssertEqual(object.customerId, 993)
         XCTAssertEqual(object.customerRating, nil)
         XCTAssertEqual(object.desc, nil)
         XCTAssertEqual(object.dueAt, nil)

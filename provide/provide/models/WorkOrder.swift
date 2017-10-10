@@ -15,8 +15,6 @@ class WorkOrder: Model {
     var id = 0
     var categoryId = 0
     var category: Category!
-    var customerId = 0
-    var customer: Customer!
     var userId = 0
     var user: User!
     var comments: [Comment]!
@@ -53,7 +51,6 @@ class WorkOrder: Model {
         mapping?.addAttributeMappings(from: [
             "id": "id",
             "category_id": "categoryId",
-            "customer_id": "customerId",
             "job_id": "jobId",
             "config": "config",
             "description": "desc",
@@ -78,7 +75,6 @@ class WorkOrder: Model {
             "user_id": "userId",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
-        mapping?.addRelationshipMapping(withSourceKeyPath: "customer", mapping: Customer.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "comments", toKeyPath: "comments", with: Comment.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: User.mapping()))
@@ -267,7 +263,7 @@ class WorkOrder: Model {
     }
 
     var contact: Contact! {
-        return customer.contact
+        return user.contact
     }
 
     var coordinate: CLLocationCoordinate2D! {
@@ -297,8 +293,8 @@ class WorkOrder: Model {
             }
         }
 
-        if let customer = customer {
-            return CLLocationCoordinate2D(latitude: customer.contact.latitude.doubleValue, longitude: customer.contact.longitude.doubleValue)
+        if let user = user {
+            return CLLocationCoordinate2D(latitude: user.contact.latitude.doubleValue, longitude: user.contact.longitude.doubleValue)
         }
 
         return nil
@@ -478,10 +474,6 @@ class WorkOrder: Model {
 
         if let categoryId = params["category_id"] as? Int, categoryId == 0 {
             params["category_id"] = nil
-        }
-
-        if let customerId = params["customer_id"] as? Int, customerId == 0 {
-            params["customer_id"] = nil
         }
 
         if let jobId = params["job_id"] as? Int, jobId == 0 {

@@ -44,16 +44,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         addressTextView.text = ""
 
         if let workOrder = workOrder {
-            if let customer = workOrder.customer {
-                if customer.profileImageUrl != nil {
-                    // TODO -- load the image view using the profileImageUrl
-                } else if customer.contact.email != nil {
-                    logWarn("Not rendering gravatar image view for work order contact email")
-                }
-
-                titleLabel.text = customer.displayName
-                addressTextView.text = customer.contact.address
-            } else if let user = workOrder.user {
+            if let user = workOrder.user {
                 if user.profileImageUrl != nil {
                     // TODO -- load the image view using the profileImageUrl
                 } else if user.email != nil {
