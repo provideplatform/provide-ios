@@ -51,7 +51,7 @@ class Model: NSObject {
     required init(string: String) {
         super.init()
 
-        let data = string.data(using: String.Encoding.utf8)!
+        let data = string.data(using: .utf8)!
         let dictionary = decodeJSON(data)
 
         for (key, var value) in dictionary {

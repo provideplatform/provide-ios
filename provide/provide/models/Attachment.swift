@@ -17,9 +17,8 @@ class Attachment: Model {
     var attachableType: String!
     var attachableId = 0
     var desc: String!
-    var fields: NSDictionary!
     var key: String!
-    var metadata: NSDictionary!
+    var metadata: [String: Any]!
     var mimeType: String!
     var status: String!
     var tags: [String] = []
@@ -80,34 +79,20 @@ class Attachment: Model {
     }
 
     var thumbnailUrl: URL! {
-        if let thumbnailUrlString = metadata?["thumbnail_url"] as? String {
-            return URL(string: thumbnailUrlString)
-        } else {
-            return nil
-        }
+        return (metadata?["thumbnail_url"] as? String).flatMap { URL(string: $0) }
     }
 
     var maxZoomLevel: Int! {
-        if let maxZoomLevel = metadata?["max_zoom_level"] as? Int {
-            return maxZoomLevel
-        } else {
-            return nil
-        }
+        return metadata?["max_zoom_level"] as? Int
     }
 
     var tilingBaseUrl: URL! {
-        if let tilingBaseUrlString = metadata?["tiling_base_url"] as? String {
-            return URL(string: tilingBaseUrlString)
-        } else {
-            return nil
-        }
+        return (metadata?["tiling_base_url"] as? String).flatMap { URL(string: $0) }
     }
 
     func hasTag(_ tag: String) -> Bool {
-        if !tags.isEmpty {
-            for t in tags where t == tag {
-                return true
-            }
+        for t in tags where t == tag {
+            return true
         }
         return false
     }
@@ -121,8 +106,8 @@ class Attachment: Model {
 
     func updateAttachment(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params, onSuccess: { statusCode, mappingResult in
-            if let metadata = params["metadata"] as? [String : AnyObject] {
-                self.metadata = metadata as NSDictionary
+            if let metadata = params["metadata"] as? [String: Any] {
+                self.metadata = metadata
             }
 
             onSuccess(statusCode, mappingResult)

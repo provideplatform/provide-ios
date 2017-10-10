@@ -9,6 +9,9 @@
 import Foundation
 import RestKit
 
+// Global user
+var currentUser: User!
+
 @objcMembers
 class User: Model {
 
@@ -127,7 +130,3 @@ class User: Model {
         }
     }
 }
-
-// MARK: - Global user
-
-var currentUser: User!

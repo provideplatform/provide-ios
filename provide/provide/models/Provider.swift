@@ -9,6 +9,8 @@
 import Foundation
 import RestKit
 
+var currentProvider: Provider!
+
 @objcMembers
 class Provider: Model {
 
@@ -16,7 +18,6 @@ class Provider: Model {
     var userId = 0
     var contact: Contact!
     var profileImageUrlString: String!
-    var services: NSSet!
     var available: Bool = false
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
@@ -66,7 +67,6 @@ class Provider: Model {
             "id": "id",
             "user_id": "userId",
             "name": "name",
-            "services": "services",
             "profile_image_url": "profileImageUrlString",
             "available": "available",
             "last_checkin_at": "lastCheckinAt",
@@ -103,9 +103,7 @@ class Provider: Model {
         params.removeValue(forKey: "id")
 
         if id > 0 {
-            ApiService.shared.updateProviderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
-                onSuccess(statusCode, mappingResult)
-            }, onError: onError)
+            ApiService.shared.updateProviderWithId(String(id), params: params, onSuccess: onSuccess, onError: onError)
         } else {
             params.removeValue(forKey: "user_id")
 
@@ -157,5 +155,3 @@ class Provider: Model {
         }
     }
 }
-
-var currentProvider: Provider!
