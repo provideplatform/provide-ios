@@ -89,11 +89,7 @@ class DirectionsViewController: ViewController {
             mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
         }
 
-        let frame = CGRect(
-            x: 0.0,
-            y: targetView.height,
-            width: targetView.width,
-            height: view.height)
+        let frame = CGRect(x: 0, y: targetView.height, width: targetView.width, height: view.height)
 
         view.alpha = 0.0
         view.frame = frame
@@ -104,19 +100,15 @@ class DirectionsViewController: ViewController {
             x: directionsInstructionView.frame.origin.x,
             y: directionsInstructionView.frame.origin.y,
             width: targetView.width,
-            height: directionsInstructionView.height)
+            height: directionsInstructionView.height
+        )
 
         directionsInstructionView.routeLeg = nil
         refreshInstructions()
 
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
             self.view.alpha = 1
-            self.view.frame = CGRect(
-                x: frame.origin.x,
-                y: frame.origin.y - self.view.height,
-                width: frame.width,
-                height: frame.height
-            )
+            self.view.frame = CGRect(x: frame.origin.x, y: frame.origin.y - self.view.height, width: frame.width, height: frame.height)
         }, completion: { completed in
             LocationService.shared.resolveCurrentLocation(self.defaultLocationResolvedDurableCallbackKey, allowCachedLocation: false) { location in
                 if self.directions != nil {
@@ -161,8 +153,7 @@ class DirectionsViewController: ViewController {
 
             if sufficientDelta {
                 if let directions = directions {
-                    let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
-                                                            MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
+                    let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate), MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
 
                     let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 

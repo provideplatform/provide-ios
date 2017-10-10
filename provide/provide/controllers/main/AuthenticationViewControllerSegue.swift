@@ -13,8 +13,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
     override func perform() {
         switch identifier! {
         case "AuthenticationViewControllerSegue":
-            assert(source is NavigationRootViewController)
-            assert(destination is AuthenticationViewController)
+            assert(source is NavigationRootViewController && destination is AuthenticationViewController)
 
             if let navigationController = source.navigationController {
                 destination.view.alpha = 0.0
@@ -28,8 +27,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 })
             }
         case "AuthenticationViewControllerUnwindSegue":
-            assert(source is AuthenticationViewController)
-            assert(destination is NavigationRootViewController)
+            assert(source is AuthenticationViewController && destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
@@ -43,8 +41,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 })
             }
         case "SetPasswordViewControllerSegue":
-            assert(source is NavigationRootViewController)
-            assert(destination is SetPasswordViewController)
+            assert(source is NavigationRootViewController && destination is SetPasswordViewController)
 
             if let navigationController = source.navigationController {
                 destination.view.alpha = 0.0
@@ -58,8 +55,7 @@ class AuthenticationViewControllerSegue: UIStoryboardSegue {
                 })
             }
         case "SetPasswordViewControllerUnwindSegue":
-            assert(source is SetPasswordViewController)
-            assert(destination is NavigationRootViewController)
+            assert(source is SetPasswordViewController && destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
