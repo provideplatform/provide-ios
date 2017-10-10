@@ -20,9 +20,9 @@ class UserTests: XCTestCase {
         XCTAssertEqual(user.name, "TestUser")
         XCTAssertEqual(user.email, "test@example.com")
 
-        XCTAssertEqual(user.lastCheckinLatitude.doubleValue, 38.891015)
-        XCTAssertEqual(user.lastCheckinLongitude.doubleValue, -77.0882267)
-        XCTAssertEqual(user.lastCheckinHeading.doubleValue, 9.99)
+        XCTAssertEqual(user.lastCheckinLatitude, 38.891015)
+        XCTAssertEqual(user.lastCheckinLongitude, -77.0882267)
+        XCTAssertEqual(user.lastCheckinHeading, 9.99)
 
         XCTAssertEqual(user.profileImageUrlString, "http://test.example.com/image.png")
 

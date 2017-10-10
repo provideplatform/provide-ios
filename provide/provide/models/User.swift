@@ -22,17 +22,17 @@ class User: Model {
     var menuItemsPreference: NSArray!
     var paymentMethods: [Any]!
     var lastCheckinAt: String!
-    var lastCheckinLatitude: NSNumber!
-    var lastCheckinLongitude: NSNumber!
-    var lastCheckinHeading: NSNumber!
+    var lastCheckinLatitude: Double = 0
+    var lastCheckinLongitude: Double = 0
+    var lastCheckinHeading: Double = 0
 
     var annotation: Annotation {
         return Annotation(user: self)
     }
 
     var coordinate: CLLocationCoordinate2D! {
-        if let latitude = lastCheckinLatitude, let longitude = lastCheckinLongitude {
-            return CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
+        if lastCheckinLatitude != 0 && lastCheckinLongitude != 0 {
+            return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLatitude)
         }
         return nil
     }
