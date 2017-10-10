@@ -432,7 +432,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
 
-        KeyChainService.shared.mode = .customer
+        KeyChainService.shared.mode = .consumer
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
     }
 

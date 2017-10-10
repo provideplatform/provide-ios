@@ -7,14 +7,14 @@
 //
 
 enum UserMode: String {
-    case customer
+    case consumer
     case provider
 
     var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [customer, provider]
+    static let allTypes = [consumer, provider]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: AnyObject]) -> (UserMode, AnyObject?) {
         for type in allTypes {
@@ -23,6 +23,6 @@ enum UserMode: String {
             }
         }
         logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to customer...")
-        return (customer, "customer" as AnyObject)  // default to customer
+        return (consumer, "consumer" as AnyObject)  // default to customer
     }
 }
