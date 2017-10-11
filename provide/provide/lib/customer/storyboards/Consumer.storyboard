@@ -41,7 +41,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-CY-FCD" userLabel="destination-input-vc">
-                                <rect key="frame" x="27" y="-75" width="320" height="75"/>
+                                <rect key="frame" x="27" y="-75" width="320" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Yx6-g0-wrR"/>
+                                </constraints>
                                 <connections>
                                     <segue destination="9XP-iM-cxc" kind="embed" identifier="DestinationInputViewControllerEmbedSegue" id="c7H-e5-tbC"/>
                                 </connections>
@@ -74,7 +77,6 @@
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="bottom" secondItem="XKs-fz-a12" secondAttribute="top" id="DS7-EG-ZMR"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="FA2-EL-1l0"/>
                             <constraint firstItem="yuA-CY-FCD" firstAttribute="centerX" secondItem="u6f-jT-dJR" secondAttribute="centerX" id="Iwb-Ij-U8W"/>
-                            <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="yuA-CY-FCD" secondAttribute="bottom" constant="667" id="dJk-Fg-Xgs"/>
                             <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="5Lx-mI-Cuo" secondAttribute="bottom" constant="-95" id="kMq-1O-vq9"/>
                             <constraint firstItem="yuA-CY-FCD" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leadingMargin" constant="11" id="oG3-QX-Blc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="yuA-CY-FCD" secondAttribute="trailing" constant="12" id="oZz-4N-jD0"/>
@@ -98,11 +100,11 @@
                         <viewControllerLayoutGuide type="bottom" id="CmA-yP-9ss"/>
                     </layoutGuides>
                     <view key="view" hidden="YES" contentMode="scaleToFill" id="aeU-ar-cbC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where to?" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cyP-qn-7h8">
-                                <rect key="frame" x="16" y="22" width="288" height="30"/>
+                                <rect key="frame" x="16" y="22" width="288" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Tet"/>
                                 <nil key="textColor"/>
