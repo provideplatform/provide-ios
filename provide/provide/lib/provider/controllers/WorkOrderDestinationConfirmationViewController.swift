@@ -93,7 +93,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         })
     }
 
-    func hideProgressIndicator() {
+    private func hideProgressIndicator() {
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
             self.confirmStartWorkOrderButton.alpha = 1
             self.arrivalEtaEstimateLabel.alpha = 1
@@ -115,7 +115,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         }
     }
 
-    func unwind() {
+    private func unwind() {
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.alpha = 0
             self.view.frame = CGRect(

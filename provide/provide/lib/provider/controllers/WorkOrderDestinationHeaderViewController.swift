@@ -96,7 +96,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         })
     }
 
-    func unwind() {
+    private func unwind() {
         UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.alpha = 0
             self.view.frame = self.initialFrame

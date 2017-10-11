@@ -44,7 +44,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         (view as! WorkOrderAnnotationView).attachGestureRecognizers()
     }
 
-    func unwind() {
+    private func unwind() {
         (view as! WorkOrderAnnotationView).removeGestureRecognizers()
         workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
     }

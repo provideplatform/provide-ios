@@ -32,7 +32,7 @@ class Model: NSObject {
 
     var lastRefreshDate: Date!
 
-    func timeIntervalSinceLastRefreshDate() -> TimeInterval {
+    private func timeIntervalSinceLastRefreshDate() -> TimeInterval {
         if let lastRefreshDate = lastRefreshDate {
             return abs(lastRefreshDate.timeIntervalSinceNow)
         }

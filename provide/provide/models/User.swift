@@ -102,7 +102,7 @@ class User: Model {
         return mapping!
     }
 
-    func reload() {
+    private func reload() {
         reload(onSuccess: { _, _ in }, onError: { _, _, _ in })
     }
 

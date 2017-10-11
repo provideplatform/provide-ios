@@ -215,7 +215,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         navigationItem.rightBarButtonItem = availabilityBarButtonItem
     }
 
-    func requireProviderContext() {
+    private func requireProviderContext() {
         if let currentProvider = currentProvider {
             logInfo("Current provider context has already been established: \(currentProvider)")
             if currentProvider.isAvailable {
@@ -261,7 +261,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func loadWorkOrderContext() {
+    private func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.shared
 
         workOrderService.fetch(status: "pending_acceptance,en_route,arriving,in_progress") { [weak self] workOrders in
@@ -279,7 +279,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func attemptSegueToValidWorkOrderContext() {
+    private func attemptSegueToValidWorkOrderContext() {
         var availabilityBarButtonItemEnabled = true
 
         if canAttemptSegueToEnRouteWorkOrder {
@@ -571,7 +571,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func workOrderAbandonedForViewController(_ viewController: ViewController) {
+    private func workOrderAbandonedForViewController(_ viewController: ViewController) {
         nextWorkOrderContextShouldBeRewound()
         WorkOrderService.shared.inProgressWorkOrder.abandon(onSuccess: { [weak self] statusCode, responseString in
             self?.attemptSegueToValidWorkOrderContext()

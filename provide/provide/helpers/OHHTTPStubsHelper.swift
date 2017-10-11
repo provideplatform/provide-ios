@@ -18,7 +18,7 @@ class OHHTTPStubsHelper {
         return dateFormatter
     }()
 
-    func stubMessagesNetworkRequests() {
+    private func stubMessagesNetworkRequests() {
         stubRoute("GET", path: "/api/messages", withFile: "HTTPStubs/messages/conversation.json")
 
         // POST messages

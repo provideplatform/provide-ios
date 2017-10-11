@@ -74,7 +74,7 @@ class ProviderEnRouteViewController: ViewController {
         }
     }
 
-    func refreshProvider() {
+    private func refreshProvider() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             view.bringSubview(toFront: activityIndicatorView)
             activityIndicatorView.startAnimating()
@@ -95,7 +95,7 @@ class ProviderEnRouteViewController: ViewController {
         }
     }
 
-    func refreshStatus() {
+    private func refreshStatus() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if workOrder.status == nil {
                 providerStatusLabel?.text = ""

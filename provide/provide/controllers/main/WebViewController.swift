@@ -57,7 +57,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
         }
     }
 
-    func loadRequest(_ url: URL, headers: [String: String]) {
+    private func loadRequest(_ url: URL, headers: [String: String]) {
         let request = NSMutableURLRequest(url: url)
         for (name, value) in headers {
             request.setValue(name, forHTTPHeaderField: value)

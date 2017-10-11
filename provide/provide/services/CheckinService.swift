@@ -40,7 +40,7 @@ class CheckinService: NSObject {
 
     // MARK: Checkin frequency
 
-    func setCheckinTimeInterval(_ checkinTimeInterval: TimeInterval) {
+    private func setCheckinTimeInterval(_ checkinTimeInterval: TimeInterval) {
         self.checkinTimeInterval = checkinTimeInterval
     }
 

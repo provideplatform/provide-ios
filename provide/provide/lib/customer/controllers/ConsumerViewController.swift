@@ -184,7 +184,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    func loadProviderContext() {
+    private func loadProviderContext() {
         let providerService = ProviderService.shared
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
             providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] providers in
@@ -198,7 +198,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    func loadWorkOrderContext() {
+    private func loadWorkOrderContext() {
         let workOrderService = WorkOrderService.shared
 
         updatingWorkOrderContext = true
@@ -292,7 +292,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
         }
     }
 
-    func updateProviderLocationFromNotification(_ notification: Notification?) {
+    private func updateProviderLocationFromNotification(_ notification: Notification?) {
         if let provider = notification?.object as? Provider {
             DispatchQueue.main.async {
                 self.updateProviderLocation(provider)

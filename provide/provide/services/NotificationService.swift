@@ -24,7 +24,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     private var socketTimer: Timer!
 
-    func configureWebsocket() {
+    private func configureWebsocket() {
         disconnectWebsocket()
 
         socket = JFRWebSocket(url: URL(string: CurrentEnvironment.websocketBaseUrlString), protocols: [])

@@ -13,7 +13,7 @@ class ProviderService: NSObject {
 
     private var providers = [Provider]()
 
-    func setProviders(_ providers: [Provider]) {
+    private func setProviders(_ providers: [Provider]) {
         self.providers = providers
     }
 

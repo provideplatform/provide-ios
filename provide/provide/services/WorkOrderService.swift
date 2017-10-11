@@ -125,7 +125,7 @@ class WorkOrderService: NSObject {
         }
     }
 
-    func fetchInProgressWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
+    private func fetchInProgressWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
         if let workOrder = inProgressWorkOrder {
             DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
                 self.nextWorkOrderDrivingEtaMinutes = minutesEta

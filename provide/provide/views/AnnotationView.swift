@@ -36,7 +36,7 @@ class AnnotationView: MKAnnotationView {
         containerView.addGestureRecognizer(recognizer)
     }
 
-    func detatchGestureRecognizers() {
+    private func detatchGestureRecognizers() {
         for recognizer in containerView.gestureRecognizers! {
             containerView.removeGestureRecognizer(recognizer)
         }

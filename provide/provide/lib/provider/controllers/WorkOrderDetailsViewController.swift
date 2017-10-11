@@ -127,7 +127,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         tableView?.reloadData()
     }
 
-    func reloadTableView() {
+    private func reloadTableView() {
         tableView?.reloadData()
         headerTableViewController?.reloadTableView()
         mediaCollectionView?.reloadData()

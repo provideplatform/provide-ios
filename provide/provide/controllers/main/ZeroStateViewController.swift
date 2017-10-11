@@ -40,11 +40,11 @@ class ZeroStateViewController: ViewController {
         }
     }
 
-    func setLabelText(_ labelText: String) {
+    private func setLabelText(_ labelText: String) {
         label.text = labelText
     }
 
-    func setMessage(_ message: String) {
+    private func setMessage(_ message: String) {
         messageLabel.text = message
     }
 
@@ -52,7 +52,7 @@ class ZeroStateViewController: ViewController {
         render(targetView, animated: true)
     }
 
-    func render(_ targetView: UIView, animated: Bool) {
+    private func render(_ targetView: UIView, animated: Bool) {
         if let superview = view.superview {
             if targetView == superview {
                 return

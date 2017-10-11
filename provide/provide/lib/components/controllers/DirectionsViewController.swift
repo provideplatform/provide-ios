@@ -246,7 +246,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    func calculateBearing(_ toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
+    private func calculateBearing(_ toCoordinate: CLLocationCoordinate2D) -> CLLocationDegrees {
         guard let location = LocationService.shared.location else { return 0 }
 
         let lon = location.coordinate.longitude - toCoordinate.longitude
@@ -256,7 +256,7 @@ class DirectionsViewController: ViewController {
         return angle
     }
 
-    func refreshInstructions() {
+    private func refreshInstructions() {
         if let leg = directions?.selectedRoute?.currentLeg {
             directionsInstructionView.routeLeg = leg
         }
@@ -274,7 +274,7 @@ class DirectionsViewController: ViewController {
 
     // MARK: Status indicator
 
-    func showProgressIndicator() {
+    private func showProgressIndicator() {
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
 
         }, completion: { completed in
@@ -282,7 +282,7 @@ class DirectionsViewController: ViewController {
         })
     }
 
-    func hideProgressIndicator() {
+    private func hideProgressIndicator() {
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseOut, animations: {
 
         }, completion: { completed in
@@ -302,7 +302,7 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    func unwind() {
+    private func unwind() {
         unregisterMonitoredRegions()
 
         LocationService.shared.removeOnHeadingResolvedDurableCallback(defaultHeadingResolvedDurableCallbackKey)
@@ -338,7 +338,7 @@ class DirectionsViewController: ViewController {
         })
     }
 
-    func routeLegAtIndex(_ i: Int) -> RouteLeg? {
+    private func routeLegAtIndex(_ i: Int) -> RouteLeg? {
         var routeLeg: RouteLeg!
         if let selectedRoute = directions?.selectedRoute {
             routeLeg = selectedRoute.legs[i]
@@ -346,7 +346,7 @@ class DirectionsViewController: ViewController {
         return routeLeg
     }
 
-    func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
+    private func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
         var routeLegStep: RouteLegStep?
         if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.steps.count {
             routeLegStep = routeLeg.steps[indexPath.row]

@@ -49,7 +49,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
         navigationItem.hidesBackButton = true
     }
 
-    func submit() {
+    private func submit() {
         let passwordValid = passwordField != nil && confirmField != nil && passwordField.text!.length >= 7 && passwordField.text == confirmField.text
         if !passwordValid {
             showToast("Please enter and confirm your new password.")

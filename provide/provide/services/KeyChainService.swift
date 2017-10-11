@@ -83,7 +83,7 @@ class KeyChainService {
         }
     }
 
-    func envPrefixedKey(_ key: String) -> String {
+    private func envPrefixedKey(_ key: String) -> String {
         if CurrentEnvironment == .production {
             return key
         } else {

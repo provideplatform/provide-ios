@@ -395,7 +395,7 @@ class WorkOrder: Model {
         return dictionary
     }
 
-    func addProvider(_ provider: Provider, flatFee: Double = -1.0, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func addProvider(_ provider: Provider, flatFee: Double = -1.0, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if !hasProvider(provider) {
             let workOrderProvider = WorkOrderProvider()
             workOrderProvider.provider = provider
@@ -409,7 +409,7 @@ class WorkOrder: Model {
         }
     }
 
-    func updateWorkOrderProvider(_ workOrderProvider: WorkOrderProvider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func updateWorkOrderProvider(_ workOrderProvider: WorkOrderProvider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         guard let provider = workOrderProvider.provider else { return }
 
         if hasProvider(provider) {
@@ -450,7 +450,7 @@ class WorkOrder: Model {
         }
     }
 
-    func removeProvider(_ provider: Provider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func removeProvider(_ provider: Provider, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if hasProvider(provider) {
             removeProvider(provider)
             if id > 0 {
@@ -527,7 +527,7 @@ class WorkOrder: Model {
         reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "true", "include_work_order_providers": "true"], onSuccess: onSuccess, onError: onError)
     }
 
-    func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.shared.fetchWorkOrderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
                 let workOrder = mappingResult?.firstObject as! WorkOrder
@@ -550,14 +550,14 @@ class WorkOrder: Model {
         }
     }
 
-    func hasProvider(_ provider: Provider) -> Bool {
+    private func hasProvider(_ provider: Provider) -> Bool {
         for p in providers where p.id == provider.id {
             return true
         }
         return false
     }
 
-    func removeProvider(_ provider: Provider) {
+    private func removeProvider(_ provider: Provider) {
         if hasProvider(provider) {
             var i = -1
             for p in providers {
@@ -600,15 +600,15 @@ class WorkOrder: Model {
         updateWorkOrderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
-    func cancel(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func cancel(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
     }
 
-    func approve(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func approve(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         complete(onSuccess: onSuccess, onError: onError)
     }
 
-    func reject(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func reject(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
@@ -616,7 +616,7 @@ class WorkOrder: Model {
         updateWorkOrderWithStatus("completed", onSuccess: onSuccess, onError: onError)
     }
 
-    func submitForApproval(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func submitForApproval(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         updateWorkOrderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
     }
 
@@ -628,7 +628,7 @@ class WorkOrder: Model {
         }, onError: onError)
     }
 
-    func attach( _ image: UIImage, params: [String: Any], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
+    private func attach( _ image: UIImage, params: [String: Any], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
         let data = UIImageJPEGRepresentation(image, 1.0)!
 
         ApiService.shared.addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params, onSuccess: { response in

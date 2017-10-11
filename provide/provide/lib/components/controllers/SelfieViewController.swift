@@ -27,7 +27,7 @@ class SelfieViewController: CameraViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "SKIP", style: .plain, target: self, action: #selector(dismiss(_:)))
     }
 
-    func setupCameraView() {
+    private func setupCameraView() {
         setupFrontCameraView()
     }
 }

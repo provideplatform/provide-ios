@@ -73,7 +73,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         teardownMenu()
     }
 
-    func teardownMenu() {
+    private func teardownMenu() {
         if let menuContainerView = menuContainerView {
             menuContainerView.closeMenu()
             menuContainerView.removeFromSuperview()
@@ -93,7 +93,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
     }
 
-    func refreshCurrentUser() {
+    private func refreshCurrentUser() {
         let token = KeyChainService.shared.token
         if currentUser == nil && token != nil {
             currentUser = token!.user

@@ -28,7 +28,7 @@ class ImageService {
         cache.cleanDisk()
     }
 
-    func fetchImage(_ url: URL,
+    private func fetchImage(_ url: URL,
                     cacheOnDisk: Bool = false,
                     downloadOptions: SDWebImageDownloaderOptions = .continueInBackground,
                     onDownloadSuccess: @escaping OnImageDownloadSuccess,
@@ -75,7 +75,7 @@ class ImageService {
         }
     }
 
-    func fetchImageSync(_ url: URL) -> UIImage? {
+    private func fetchImageSync(_ url: URL) -> UIImage? {
         var urlComponents = URLComponents()
         urlComponents.scheme = url.scheme
         urlComponents.host = url.host

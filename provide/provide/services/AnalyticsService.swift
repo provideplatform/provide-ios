@@ -52,7 +52,7 @@ class AnalyticsService: NSObject {
         track(event, properties: nil, options: nil)
     }
 
-    func track(_ event: String, properties: [String: Any]) {
+    private func track(_ event: String, properties: [String: Any]) {
         track(event, properties: properties, options: nil)
     }
 
@@ -69,15 +69,15 @@ class AnalyticsService: NSObject {
 
     // MARK: UI event tracking methods
 
-    func screen(_ screenTitle: String) {
+    private func screen(_ screenTitle: String) {
         screen(screenTitle, properties: nil, options: nil)
     }
 
-    func screen(_ screenTitle: String, properties: [String: Any]) {
+    private func screen(_ screenTitle: String, properties: [String: Any]) {
         screen(screenTitle, properties: properties, options: nil)
     }
 
-    func screen(_ screenTitle: String, properties: [String: Any]?, options: [String: Any]?) {
+    private func screen(_ screenTitle: String, properties: [String: Any]?, options: [String: Any]?) {
         if analyticsEnabled {
             var message = "Screen: \(screenTitle)"
             if let populatedProperties = properties {

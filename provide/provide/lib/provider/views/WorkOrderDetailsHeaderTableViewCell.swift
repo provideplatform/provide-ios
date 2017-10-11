@@ -285,7 +285,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     }
 
-    func refreshInProgress() {
+    private func refreshInProgress() {
         if let tableView = embeddedTableView {
             var statusCell: NameValueTableViewCell!
 

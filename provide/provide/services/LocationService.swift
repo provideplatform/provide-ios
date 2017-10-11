@@ -114,7 +114,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         logInfo("Stopped location service updates")
     }
 
-    func foreground() {
+    private func foreground() {
         if requireNavigationAccuracy {
             desiredAccuracy = kCLLocationAccuracyBestForNavigation
             distanceFilter = kCLDistanceFilterNone
@@ -232,15 +232,15 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Heading resolution
 
-    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved) {
+    private func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved) {
         resolveCurrentHeading(onResolved, durableKey: nil)
     }
 
-    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, allowCachedHeading: Bool) {
+    private func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, allowCachedHeading: Bool) {
         resolveCurrentHeading(onResolved, durableKey: nil, allowCachedHeading: allowCachedHeading)
     }
 
-    func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
+    private func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
         if isSimulator() {
             logInfo("Returning simulated heading details; simulator does not support heading")
             onResolved(SimulatedHeading())
@@ -339,7 +339,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    func unregisterRegionMonitors() {
+    private func unregisterRegionMonitors() {
         if regions.count > 0 {
             for region in regions {
                 geofenceCallbacks.removeValue(forKey: region.identifier)

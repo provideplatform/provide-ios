@@ -98,7 +98,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         cell.backgroundColor = .clear
     }
 
-    func alignSections() {
+    private func alignSections() {
         var totalCellCount = 0
         var i = 0
         while i < tableView.numberOfSections {

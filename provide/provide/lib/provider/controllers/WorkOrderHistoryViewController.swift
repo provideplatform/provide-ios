@@ -102,7 +102,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         refresh()
     }
 
-    func refresh() {
+    private func refresh() {
         if page == 1 {
             refreshControl.beginRefreshing()
         }
