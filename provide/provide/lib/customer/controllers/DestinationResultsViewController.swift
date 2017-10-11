@@ -6,24 +6,26 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-protocol DestinationResultsViewControllerDelegate: NSObjectProtocol {
-    func destinationResultsViewController(_ viewController: DestinationResultsViewController, didSelectResult result: Contact)
-}
+typealias OnResultSelected = (Contact) -> Void
 
 class DestinationResultsViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
-    weak var delegate: DestinationResultsViewControllerDelegate!
-
-    var results: [Contact] = [Contact]() {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
-
+    private var results: [Contact] = []
+    private var onResultSelected: OnResultSelected!
     @IBOutlet private weak var tableView: UITableView!
 
+    func configure(results: [Contact], onResultSelected: @escaping OnResultSelected) {
+        self.results = results
+        self.onResultSelected = onResultSelected
+    }
+
+    func updateResults(_ results: [Contact]) {
+        self.results = results
+        tableView.reloadData()
+    }
+
     func prepareForReuse() {
-        results = [Contact]()
+        results = []
     }
 
     // MARK: UITableViewDelegate
@@ -31,7 +33,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = results[indexPath.row]
         logInfo("Selected destination result: \(contact.desc)")
-        delegate?.destinationResultsViewController(self, didSelectResult: contact)
+        onResultSelected(contact)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

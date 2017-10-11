@@ -12,15 +12,11 @@ protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
                                         startingFrom origin: Contact)
 }
 
-class DestinationInputViewController: ViewController, UITextFieldDelegate, DestinationResultsViewControllerDelegate {
+class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
     weak var delegate: DestinationInputViewControllerDelegate!
 
-    weak var destinationResultsViewController: DestinationResultsViewController! {
-        didSet {
-            destinationResultsViewController?.delegate = self
-        }
-    }
+    weak var destinationResultsViewController: DestinationResultsViewController!
 
     @IBOutlet private weak var destinationTextField: UITextField!
 
@@ -33,6 +29,12 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     private var pendingSearch = false
 
     private var placemark: CLPlacemark!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
+    }
 
     private var expanded = false {
         didSet {
@@ -105,7 +107,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
                     self?.pendingSearch = false
                     if let suggestions = mappingResult?.array() as? [Contact] {
                         logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
-                        self?.destinationResultsViewController.results = suggestions
+                        self?.destinationResultsViewController.updateResults(suggestions)
                     } else {
                         logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
                     }
@@ -128,7 +130,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        destinationResultsViewController.results = [Contact]()
+        destinationResultsViewController.updateResults([])
         return true
     }
 
@@ -152,7 +154,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
             timer = nil
 
             pendingSearch = false
-            destinationResultsViewController.results = [Contact]() // FIXME-- make sure a pending request race doesn't lose to this
+            destinationResultsViewController.updateResults([]) // FIXME-- make sure a pending request race doesn't lose to this
             return
         }
 
@@ -163,9 +165,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate, Desti
         }
     }
 
-    // MARK: DestinationResultsViewControllerDelegate
-
-    func destinationResultsViewController(_ viewController: DestinationResultsViewController, didSelectResult result: Contact) {
+    func onResultSelected(result: Contact) {
         expanded = false
         view.isHidden = true
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
