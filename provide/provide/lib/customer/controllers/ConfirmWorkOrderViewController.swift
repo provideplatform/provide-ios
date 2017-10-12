@@ -37,13 +37,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     }, completion: { completed in
                         if self.workOrder == nil {
                             self.activityIndicatorView.stopAnimating()
-                            self.confirmButton.isHidden = false
-                            self.creditCardIcon.isHidden = false
-                            self.creditCardLastFour.isHidden = false
-                            self.userIconImageView.isHidden = false
-                            self.capacity.isHidden = false
-                            self.distanceEstimate.isHidden = false
-                            self.fareEstimate.isHidden = false
+                            self.setViews(hidden: false)
                         }
                     })
                 }
@@ -68,13 +62,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     // self.creditCardLastFour.text = "" // TODO
                     // self.capacity.text = "" // TODO
                 } else if workOrder.status == "pending_acceptance" {
-                    confirmButton.isHidden = true
-                    creditCardIcon.isHidden = true
-                    creditCardLastFour.isHidden = true
-                    userIconImageView.isHidden = true
-                    capacity.isHidden = true
-                    distanceEstimate.isHidden = true
-                    fareEstimate.isHidden = true
+                    setViews(hidden: true)
                     activityIndicatorView.startAnimating()
                 }
 
@@ -90,18 +78,25 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
+    private func setViews(hidden: Bool) {
+        let views: [UIView] = [
+            confirmButton,
+            creditCardIcon,
+            creditCardLastFour,
+            userIconImageView,
+            capacity,
+            distanceEstimate,
+            fareEstimate,
+        ]
+        views.forEach { $0.isHidden = hidden }
+    }
+
     var inProgressWorkOrder: WorkOrder! {
         return workOrder
     }
 
     @IBAction private func confirm(_ sender: UIButton) {
-        sender.isHidden = true
-        creditCardIcon.isHidden = true
-        creditCardLastFour.isHidden = true
-        userIconImageView.isHidden = true
-        capacity.isHidden = true
-        distanceEstimate.isHidden = true
-        fareEstimate.isHidden = true
+        setViews(hidden: true)
         activityIndicatorView.startAnimating()
 
         logInfo("Waiting for a provider to accept the request")
