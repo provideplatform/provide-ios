@@ -145,9 +145,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c4o-4k-HMi">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="c4o-4k-HMi">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationResultTableViewCell" id="yoF-Z4-d8n" customClass="DestinationResultTableViewCell" customModule="provide" customModuleProvider="target">
@@ -205,6 +204,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="c4o-4k-HMi" firstAttribute="top" secondItem="W7Q-rt-4q8" secondAttribute="bottom" id="ADu-ij-mhC"/>
+                            <constraint firstItem="c4o-4k-HMi" firstAttribute="leading" secondItem="ca2-OC-47T" secondAttribute="leading" id="KQp-sS-BzT"/>
+                            <constraint firstAttribute="trailing" secondItem="c4o-4k-HMi" secondAttribute="trailing" id="YPr-5z-O1Z"/>
+                            <constraint firstItem="Kvt-GH-Q2h" firstAttribute="top" secondItem="c4o-4k-HMi" secondAttribute="bottom" id="sAL-64-pBT"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="c4o-4k-HMi" id="5F6-5u-Le1"/>

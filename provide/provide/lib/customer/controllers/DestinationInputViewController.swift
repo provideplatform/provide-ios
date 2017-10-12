@@ -15,7 +15,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     private var initialFrame: CGRect!
     private var initialDestinationTextFieldFrame: CGRect!
     private var initialDestinationResultsViewFrame: CGRect!
-    private var initialDestinationResultsTableViewFrame: CGRect!
 
     private var timer: Timer!
     private var pendingSearch = false
@@ -28,7 +27,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 initialFrame = view.frame
                 initialDestinationTextFieldFrame = destinationTextField.frame
                 initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
-                initialDestinationResultsTableViewFrame = destinationResultsViewController?.view.subviews.first!.frame
 
                 placemark = nil
 
@@ -46,7 +44,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 UIView.animate(withDuration: 0.3) {
                     self.destinationResultsViewController.view.frame.origin.y = self.view.height
                     self.destinationResultsViewController.view.frame.size.height = self.view.superview!.height - self.view.frame.height
-                    self.destinationResultsViewController.view.subviews.first!.frame.size.height = self.destinationResultsViewController.view.height
                 }
             } else {
                 if destinationTextField.isFirstResponder {
@@ -62,7 +59,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self.view.backgroundColor = .clear
 
                     self.destinationResultsViewController.view.frame = self.initialDestinationResultsViewFrame
-                    self.destinationResultsViewController.view.subviews.first!.frame = self.initialDestinationResultsTableViewFrame
                 }
             }
         }
