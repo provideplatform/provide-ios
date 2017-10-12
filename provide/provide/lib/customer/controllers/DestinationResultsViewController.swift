@@ -10,7 +10,12 @@ typealias OnResultSelected = (Contact) -> Void
 
 class DestinationResultsViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private var results: [Contact] = []
+    private var results: [Contact] = [Contact]() {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    
     private var onResultSelected: OnResultSelected!
     @IBOutlet private weak var tableView: UITableView!
 
@@ -21,7 +26,6 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
 
     func updateResults(_ results: [Contact]) {
         self.results = results
-        tableView.reloadData()
     }
 
     func prepareForReuse() {
