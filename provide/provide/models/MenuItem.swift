@@ -10,8 +10,8 @@ import Foundation
 
 class MenuItem: NSObject {
 
-    var label: String
-    var storyboard: String?
+    private(set) var label: String
+    private(set) var storyboard: String?
     private var urlString: String?
     private var actionString: String?
 

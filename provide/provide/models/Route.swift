@@ -12,7 +12,7 @@ import RestKit
 @objcMembers
 class Route: Model {
 
-    var legs = [RouteLeg]()
+    private(set) var legs = [RouteLeg]()
     private var currentLegIndex = 0
 
     override class func mapping() -> RKObjectMapping {

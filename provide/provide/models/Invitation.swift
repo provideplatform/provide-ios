@@ -13,7 +13,7 @@ import RestKit
 class Invitation: Model {
 
     private var id = 0
-    var user: User!
+    private(set) var user: User!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

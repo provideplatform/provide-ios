@@ -14,11 +14,11 @@ var currentProvider: Provider!
 @objcMembers
 class Provider: Model {
 
-    var id = 0
-    var userId = 0
-    var contact: Contact!
-    var profileImageUrlString: String!
-    var available: Bool = false
+    private(set) var id = 0
+    private(set) var userId = 0
+    private(set) var contact: Contact!
+    private(set) var profileImageUrlString: String!
+    private(set) var available: Bool = false
     private var lastCheckinAt: String!
     private var lastCheckinLatitude: Double = 0
     private var lastCheckinLongitude: Double = 0

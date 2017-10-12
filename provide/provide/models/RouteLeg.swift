@@ -13,8 +13,8 @@ import RestKit
 class RouteLeg: Model {
 
     private var distanceInMeters: Double = 0
-    var duration: Double = 0
-    var steps = [RouteLegStep]()
+    private(set) var duration: Double = 0
+    private(set) var steps = [RouteLegStep]()
 
     var currentStepIndex: Int = 0
 

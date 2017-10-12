@@ -46,12 +46,12 @@ class RouteLegStep: Model {
         "ferry": "",
     ]
 
-    var identifier: String!
+    private(set) var identifier: String!
     private var position: [String: Double]!
     var instruction: String!
     private var distanceInMeters: Double = 0
     private var duration: Double = 0
-    var shape: [String]!
+    private(set) var shape: [String]!
     private var direction: String!
     var maneuver: String!
     private var time: String!

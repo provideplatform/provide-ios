@@ -12,14 +12,14 @@ import RestKit
 @objcMembers
 class Attachment: Model {
 
-    var id = 0
+    private(set) var id = 0
     private var userId = 0
-    var attachableType: String!
-    var attachableId = 0
+    private(set) var attachableType: String!
+    private(set) var attachableId = 0
     private var desc: String!
     private var key: String!
     private var metadata: [String: Any]!
-    var mimeType: String!
+    private(set) var mimeType: String!
     private var status: String!
     private var tags: [String] = []
     private var displayUrlString: String!

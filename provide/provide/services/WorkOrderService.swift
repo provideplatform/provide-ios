@@ -14,7 +14,7 @@ typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) ->
 class WorkOrderService: NSObject {
     static let shared = WorkOrderService()
 
-    var nextWorkOrderDrivingEtaMinutes: Int = 0
+    private(set) var nextWorkOrderDrivingEtaMinutes: Int = 0
 
     weak var nextWorkOrder: WorkOrder! {
         for wo in workOrders {

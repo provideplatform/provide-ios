@@ -22,7 +22,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     private let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
 
     private var currentHeading: CLHeading!
-    var currentLocation: CLLocation!
+    private(set) var currentLocation: CLLocation!
 
     private var intervalSinceLastAccurateLocation: TimeInterval! {
         if let locationServiceStartedDate = locationServiceStartedDate, let lastAccurateLocationDate = lastAccurateLocationDate {
