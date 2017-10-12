@@ -82,7 +82,8 @@ class ConfirmWorkOrderViewController: ViewController {
                     UIView.animate(withDuration: 0.25, animations: {
                         self.view.frame.origin.y -= self.view.height
                     }, completion: { completed in
-                        logInfo("Presented work order for confirmation: \(self.workOrder!)")
+                        guard let workOrder = self.workOrder else { return }
+                        logInfo("Presented work order for confirmation: \(workOrder)")
                     })
                 }
             }
