@@ -15,7 +15,7 @@ enum PushNotificationType: String {
     case unknown = ""
     case workOrder = "work_order_id"
 
-    var typeKey: String {
+    private var typeKey: String {
         return rawValue
     }
 

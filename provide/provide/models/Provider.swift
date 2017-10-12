@@ -19,10 +19,10 @@ class Provider: Model {
     var contact: Contact!
     var profileImageUrlString: String!
     var available: Bool = false
-    var lastCheckinAt: String!
-    var lastCheckinLatitude: Double = 0
-    var lastCheckinLongitude: Double = 0
-    var lastCheckinHeading: Double = 0
+    private var lastCheckinAt: String!
+    private var lastCheckinLatitude: Double = 0
+    private var lastCheckinLongitude: Double = 0
+    private var lastCheckinHeading: Double = 0
 
     var name: String? {
         return contact?.name
@@ -33,7 +33,7 @@ class Provider: Model {
         return URL(string: profileImageUrlString)
     }
 
-    var initialsLabel: UILabel! {
+    private var initialsLabel: UILabel! {
         if name != nil {
             let initialsLabel = UILabel()
             initialsLabel.text = ""
@@ -57,7 +57,7 @@ class Provider: Model {
         return Annotation(provider: self)
     }
 
-    var coordinate: CLLocationCoordinate2D {
+    private var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLongitude)
     }
 
@@ -82,7 +82,7 @@ class Provider: Model {
         return name?.components(separatedBy: " ").first
     }
 
-    var lastName: String? {
+    private var lastName: String? {
         guard let name = name else { return nil }
 
         if name.components(separatedBy: " ").count > 1 {

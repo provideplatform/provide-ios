@@ -17,7 +17,7 @@ class WorkOrderTableViewCell: UITableViewCell {
 
     private var timer: Timer!
 
-    var workOrder: WorkOrder! {
+    private var workOrder: WorkOrder! {
         didSet {
             timer?.invalidate()
 

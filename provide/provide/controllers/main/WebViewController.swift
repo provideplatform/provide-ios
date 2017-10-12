@@ -38,9 +38,9 @@ class WebViewController: ViewController, UIWebViewDelegate {
         return stopBarButtonItem
     }
 
-    var loadingText: String!
+    private var loadingText: String!
 
-    var html: String! {
+    private var html: String! {
         didSet {
             if let html = html {
                 webView?.loadHTMLString(html, baseURL: URL(string: CurrentEnvironment.baseUrlString))

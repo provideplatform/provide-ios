@@ -27,7 +27,7 @@ enum Environment: String {
         return "\(scheme)://\(apiHostname)"
     }
 
-    var apiHostname: String {
+    private var apiHostname: String {
         var hostName = productionApiHostSuffix
         switch self {
         case .qa:
@@ -39,7 +39,7 @@ enum Environment: String {
         return ENV("OVERRIDE_HOST") ?? hostName
     }
 
-    var apiUseSSL: Bool {
+    private var apiUseSSL: Bool {
         return apiHostname.hasSuffix(productionApiHostSuffix)
     }
 
@@ -48,12 +48,12 @@ enum Environment: String {
         return "\(scheme)://\(apiHostname)/websocket"
     }
 
-    var marketingBaseUrlString: String {
+    private var marketingBaseUrlString: String {
         let scheme = marketingUseSSL ? "https" : "http"
         return "\(scheme)://\(marketingHostname)"
     }
 
-    var marketingHostname: String {
+    private var marketingHostname: String {
         var hostName = productionMarketingHostSuffix
         switch self {
         case .qa:
@@ -65,7 +65,7 @@ enum Environment: String {
         return ENV("OVERRIDE_HOST") ?? hostName
     }
 
-    var marketingUseSSL: Bool {
+    private var marketingUseSSL: Bool {
         return marketingHostname.hasSuffix(productionMarketingHostSuffix)
     }
 

@@ -30,8 +30,8 @@ protocol CameraViewControllerDelegate: class {
 class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     weak var delegate: CameraViewControllerDelegate?
-    var mode: ActiveDeviceCapturePosition = .back
-    var outputMode: CameraOutputMode = .photo
+    private var mode: ActiveDeviceCapturePosition = .back
+    private var outputMode: CameraOutputMode = .photo
 
     @IBOutlet private weak var backCameraView: CameraView!
     @IBOutlet private weak var frontCameraView: CameraView!
@@ -47,7 +47,7 @@ class CameraViewController: ViewController, CameraViewDelegate, UIImagePickerCon
         }
     }
 
-    var isRunning: Bool {
+    private var isRunning: Bool {
         if let backCameraView = backCameraView, backCameraView.isRunning {
             return true
         }

@@ -13,20 +13,20 @@ import RestKit
 class Attachment: Model {
 
     var id = 0
-    var userId = 0
+    private var userId = 0
     var attachableType: String!
     var attachableId = 0
-    var desc: String!
-    var key: String!
-    var metadata: [String: Any]!
+    private var desc: String!
+    private var key: String!
+    private var metadata: [String: Any]!
     var mimeType: String!
-    var status: String!
-    var tags: [String] = []
-    var displayUrlString: String!
+    private var status: String!
+    private var tags: [String] = []
+    private var displayUrlString: String!
     var urlString: String!
-    var data: Data!
-    var parentAttachmentId = 0
-    var representations = [Attachment]()
+    private var data: Data!
+    private var parentAttachmentId = 0
+    private var representations = [Attachment]()
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -62,7 +62,7 @@ class Attachment: Model {
         return mapping
     }
 
-    var filename: String! {
+    private var filename: String! {
         return metadata?["filename"] as? String
     }
 
@@ -78,15 +78,15 @@ class Attachment: Model {
         }
     }
 
-    var thumbnailUrl: URL! {
+    private var thumbnailUrl: URL! {
         return (metadata?["thumbnail_url"] as? String).flatMap { URL(string: $0) }
     }
 
-    var maxZoomLevel: Int! {
+    private var maxZoomLevel: Int! {
         return metadata?["max_zoom_level"] as? Int
     }
 
-    var tilingBaseUrl: URL! {
+    private var tilingBaseUrl: URL! {
         return (metadata?["tiling_base_url"] as? String).flatMap { URL(string: $0) }
     }
 

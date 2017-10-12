@@ -21,7 +21,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     private let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
 
-    var currentHeading: CLHeading!
+    private var currentHeading: CLHeading!
     var currentLocation: CLLocation!
 
     private var intervalSinceLastAccurateLocation: TimeInterval! {

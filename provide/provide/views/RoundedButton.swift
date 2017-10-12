@@ -26,7 +26,7 @@ class RoundedButton: UIButton {
         addTarget(self, action: #selector(onTouchUpInside(_:)), for: .touchUpInside)
     }
 
-    var titleText: String = "" {
+    private var titleText: String = "" {
         didSet {
             titleLabel!.text = titleText
         }

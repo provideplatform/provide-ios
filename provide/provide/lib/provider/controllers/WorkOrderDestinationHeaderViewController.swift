@@ -8,7 +8,7 @@
 
 class WorkOrderDestinationHeaderViewController: ViewController {
 
-    var initialFrame: CGRect {
+    private var initialFrame: CGRect {
         return CGRect(
             x: view.frame.origin.x,
             y: view.height * -2,
@@ -17,7 +17,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         )
     }
 
-    var targetView: UIView! {
+    private var targetView: UIView! {
         return workOrdersViewControllerDelegate!.targetViewForViewController?(self)
     }
 

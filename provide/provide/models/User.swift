@@ -20,20 +20,20 @@ class User: Model {
     var email: String!
     var profileImageUrlString: String!
     var contact: Contact!
-    var providers: [Provider]!
+    private var providers: [Provider]!
     var providerIds = [Int]()
-    var menuItemsPreference: [[String: String]] = []
-    var paymentMethods: [Any]!
-    var lastCheckinAt: String!
+    private var menuItemsPreference: [[String: String]] = []
+    private var paymentMethods: [Any]!
+    private var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
     var lastCheckinLongitude: Double = 0
-    var lastCheckinHeading: Double = 0
+    private var lastCheckinHeading: Double = 0
 
     var annotation: Annotation {
         return Annotation(user: self)
     }
 
-    var coordinate: CLLocationCoordinate2D! {
+    private var coordinate: CLLocationCoordinate2D! {
         if lastCheckinLatitude != 0 && lastCheckinLongitude != 0 {
             return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLatitude)
         }
@@ -51,7 +51,7 @@ class User: Model {
         return name?.components(separatedBy: " ").first
     }
 
-    var lastName: String? {
+    private var lastName: String? {
         guard let name = name else { return nil }
         if name.components(separatedBy: " ").count > 1 {
             return name.components(separatedBy: " ").last!
@@ -60,7 +60,7 @@ class User: Model {
         }
     }
 
-    var menuItems: [MenuItem]! {
+    private var menuItems: [MenuItem]! {
         if !menuItemsPreference.isEmpty {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {
@@ -74,7 +74,7 @@ class User: Model {
         }
     }
 
-    var hasBeenPromptedToIntegrateQuickbooks: Bool {
+    private var hasBeenPromptedToIntegrateQuickbooks: Bool {
         return UserDefaults.standard.bool(forKey: "presentedQuickbooksAuthorizationDialog")
     }
 

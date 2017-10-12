@@ -15,13 +15,13 @@ class ProfileImageView: UIImageView {
         self.url = url
     }
 
-    var urlString: String! {
+    private var urlString: String! {
         didSet {
             url = URL(string: urlString)
         }
     }
 
-    var url: URL! {
+    private var url: URL! {
         didSet {
             setImageWithUrl(url, callback: nil)
         }

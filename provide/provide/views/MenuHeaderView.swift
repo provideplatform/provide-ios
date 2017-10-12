@@ -37,7 +37,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         }
     }
 
-    var profileImageUrl: URL! {
+    private var profileImageUrl: URL! {
         didSet {
             bringSubview(toFront: profileImageActivityIndicatorView)
             profileImageActivityIndicatorView.startAnimating()

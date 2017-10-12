@@ -12,18 +12,18 @@ import RestKit
 @objcMembers
 class Contact: Model {
 
-    var id = 0
+    private var id = 0
     var name: String!
-    var address1: String!
-    var address2: String!
+    private var address1: String!
+    private var address2: String!
     var city: String!
     var state: String!
-    var zip: String!
-    var email: String!
-    var phone: String!
-    var fax: String!
-    var mobile: String!
-    var timeZoneId: String!
+    private var zip: String!
+    private var email: String!
+    private var phone: String!
+    private var fax: String!
+    private var mobile: String!
+    private var timeZoneId: String!
     var latitude: Double = 0
     var longitude: Double = 0
     var desc: String!
@@ -54,7 +54,7 @@ class Contact: Model {
         return mapping!
     }
 
-    var address: String {
+    private var address: String {
         var address = ""
         if let address1 = address1 {
             address += address1

@@ -31,7 +31,7 @@ class ProvideTestCase: XCTestCase {
         }
     }
 
-    var isLoggedIn = false
+    private var isLoggedIn = false
 
     func login() {
         let app = XCUIApplication()

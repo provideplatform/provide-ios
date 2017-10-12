@@ -13,7 +13,7 @@ import RestKit
 class Route: Model {
 
     var legs = [RouteLeg]()
-    var currentLegIndex = 0
+    private var currentLegIndex = 0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

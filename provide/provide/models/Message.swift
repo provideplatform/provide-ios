@@ -27,17 +27,17 @@ private let elapsedTimeStringAbbreviatedFormatter: DateComponentsFormatter = {
 @objcMembers
 class Message: Model {
 
-    var body = ""
+    private var body = ""
     var mediaUrl: String!
-    var createdAt: Date!
-    var id = 0
+    private var createdAt: Date!
+    private var id = 0
     var recipientId = 0
-    var recipientName: String!
+    private var recipientName: String!
     var senderID = 0
     var senderName: String!
     var senderProfileImageUrl: URL!
 
-    var elapsedTimeString: String {
+    private var elapsedTimeString: String {
         return elapsedTimeStringFormatter.string(from: createdAt, to: Date())!.components(separatedBy: ", ").first! + " ago"
     }
 

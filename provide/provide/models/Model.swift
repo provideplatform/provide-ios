@@ -17,7 +17,7 @@ class Model: NSObject {
         return mapping!
     }
 
-    var ivars: [String] {
+    private var ivars: [String] {
         var count: UInt32 = 0
         let ivars: UnsafeMutablePointer<OpaquePointer> = class_copyIvarList(type(of: self), &count)!
 
@@ -30,7 +30,7 @@ class Model: NSObject {
         return ivarStrings
     }
 
-    var lastRefreshDate: Date!
+    private var lastRefreshDate: Date!
 
     private func timeIntervalSinceLastRefreshDate() -> TimeInterval {
         if let lastRefreshDate = lastRefreshDate {

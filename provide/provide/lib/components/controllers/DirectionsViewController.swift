@@ -35,7 +35,7 @@ class DirectionsViewController: ViewController {
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
-    var directions: Directions? {
+    private var directions: Directions? {
         didSet {
             if directions == nil {
                 showProgressIndicator()

@@ -10,7 +10,7 @@ enum UserMode: String {
     case consumer
     case provider
 
-    var typeKey: String {
+    private var typeKey: String {
         return rawValue
     }
 

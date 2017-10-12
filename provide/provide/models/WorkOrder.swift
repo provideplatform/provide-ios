@@ -13,35 +13,35 @@ import RestKit
 class WorkOrder: Model {
 
     var id = 0
-    var categoryId = 0
-    var category: Category!
+    private var categoryId = 0
+    private var category: Category!
     var userId = 0
     var user: User!
     var jobId = 0
     var desc: String!
     var workOrderProviders: [WorkOrderProvider]!
-    var scheduledStartAt: String!
-    var scheduledEndAt: String!
-    var startedAt: String!
-    var dueAt: String!
-    var endedAt: String!
-    var abandonedAt: String!
-    var canceledAt: String!
-    var duration: Double = 0
-    var estimatedCost = -1.0
+    private var scheduledStartAt: String!
+    private var scheduledEndAt: String!
+    private var startedAt: String!
+    private var dueAt: String!
+    private var endedAt: String!
+    private var abandonedAt: String!
+    private var canceledAt: String!
+    private var duration: Double = 0
+    private var estimatedCost = -1.0
     var estimatedPrice = -1.0
     var estimatedDistance: Double = 0
     var estimatedDuration: Double = 0
-    var estimatedSqFt = -1.0
+    private var estimatedSqFt = -1.0
     var status: String!
     var previewImage: UIImage!
-    var providerRating: Double = 0
+    private var providerRating: Double = 0
     var attachments: [Attachment]!
     var config: [String: Any]!
-    var configJson: String!
-    var expensesCount = 0
-    var expensedAmount: Double!
-    var priority = 0
+    private var configJson: String!
+    private var expensesCount = 0
+    private var expensedAmount: Double!
+    private var priority = 0
     var supervisors: [User]!
 
     override class func mapping() -> RKObjectMapping {
@@ -79,7 +79,7 @@ class WorkOrder: Model {
         return mapping!
     }
 
-    var allowNewComments: Bool {
+    private var allowNewComments: Bool {
         return status != nil && status != "awaiting_schedule"
     }
 
@@ -100,60 +100,60 @@ class WorkOrder: Model {
         return nil
     }
 
-    var dueAtDate: Date! {
+    private var dueAtDate: Date! {
         if let dueAt = dueAt {
             return Date.fromString(dueAt)
         }
         return nil
     }
 
-    var scheduledEndAtDate: Date! {
+    private var scheduledEndAtDate: Date! {
         if let scheduledEndAt = scheduledEndAt {
             return Date.fromString(scheduledEndAt)
         }
         return nil
     }
 
-    var scheduledDueDate: Date! {
+    private var scheduledDueDate: Date! {
         return scheduledEndAtDate
     }
 
-    var startedAtDate: Date! {
+    private var startedAtDate: Date! {
         if let startedAt = startedAt {
             return Date.fromString(startedAt)
         }
         return nil
     }
 
-    var endedAtDate: Date! {
+    private var endedAtDate: Date! {
         if let endedAt = endedAt {
             return Date.fromString(endedAt)
         }
         return nil
     }
 
-    var abandonedAtDate: Date! {
+    private var abandonedAtDate: Date! {
         if let abandonedAt = abandonedAt {
             return Date.fromString(abandonedAt)
         }
         return nil
     }
 
-    var canceledAtDate: Date! {
+    private var canceledAtDate: Date! {
         if let canceledAt = canceledAt {
             return Date.fromString(canceledAt)
         }
         return nil
     }
 
-    var humanReadableEstimatedCost: String! {
+    private var humanReadableEstimatedCost: String! {
         if estimatedCost > -1.0 {
             return "$\(NSString(format: "%.02f", estimatedCost))"
         }
         return nil
     }
 
-    var humanReadableEstimatedSqFt: String! {
+    private var humanReadableEstimatedSqFt: String! {
         if estimatedSqFt > -1.0 {
             return "\(NSString(format: "%.03f", estimatedSqFt)) sq ft"
         }
@@ -213,7 +213,7 @@ class WorkOrder: Model {
         }
     }
 
-    var humanReadableScheduledEndAtTimestamp: String! {
+    private var humanReadableScheduledEndAtTimestamp: String! {
         guard let scheduledEndAtDate = scheduledEndAtDate else { return nil }
 
         if isIPad() {
@@ -254,11 +254,11 @@ class WorkOrder: Model {
         return .clear
     }
 
-    var canBeAbandoned: Bool {
+    private var canBeAbandoned: Bool {
         return true
     }
 
-    var contact: Contact! {
+    private var contact: Contact! {
         return user.contact
     }
 
@@ -315,7 +315,7 @@ class WorkOrder: Model {
         return componentIdentifier
     }
 
-    var imageCount: Int {
+    private var imageCount: Int {
         var imageCount = 0
         if let attachments = attachments {
             for attachment in attachments {
@@ -327,14 +327,14 @@ class WorkOrder: Model {
         return imageCount
     }
 
-    var isCompleted: Bool {
+    private var isCompleted: Bool {
         if let status = status {
             return status == "completed"
         }
         return false
     }
 
-    var isCurrentUserProvider: Bool {
+    private var isCurrentUserProvider: Bool {
         let user = currentUser
         for provider in providers where provider.userId == user?.id {
             return true

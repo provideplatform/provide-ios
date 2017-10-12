@@ -47,17 +47,17 @@ class RouteLegStep: Model {
     ]
 
     var identifier: String!
-    var position: [String: Double]!
+    private var position: [String: Double]!
     var instruction: String!
-    var distanceInMeters: Double = 0
-    var duration: Double = 0
+    private var distanceInMeters: Double = 0
+    private var duration: Double = 0
     var shape: [String]!
-    var direction: String!
+    private var direction: String!
     var maneuver: String!
-    var time: String!
-    var baseTime: Double = 0
-    var nextManeuver: String!
-    var toLink: String!
+    private var time: String!
+    private var baseTime: Double = 0
+    private var nextManeuver: String!
+    private var toLink: String!
 
     var currentShapeIndex: Int = 0
 
@@ -87,15 +87,15 @@ class RouteLegStep: Model {
         return nil
     }
 
-    var distance: CLLocationDistance {
+    private var distance: CLLocationDistance {
         return distanceInMeters
     }
 
-    var distanceInMiles: Double {
+    private var distanceInMiles: Double {
         return distance * 0.000621371
     }
 
-    var distanceInFeet: Double! {
+    private var distanceInFeet: Double! {
         return distanceInMiles * 5820.0
     }
 
@@ -112,7 +112,7 @@ class RouteLegStep: Model {
         return "--"
     }
 
-    var distanceString: String {
+    private var distanceString: String {
         if distanceInMiles > 0.1 {
             return String(format: "%.1f", distanceInMiles) + " mi"
         } else {
@@ -124,15 +124,15 @@ class RouteLegStep: Model {
         return currentShapeIndex == shape.count - 1
     }
 
-    var regionIdentifier: String {
+    private var regionIdentifier: String {
         return identifier
     }
 
-    var regionMonitoringRadius: CLLocationDistance {
+    private var regionMonitoringRadius: CLLocationDistance {
         return 25.0
     }
 
-    var regionOverlay: MKCircle! {
+    private var regionOverlay: MKCircle! {
         if let endCoordinate = endCoordinate {
             return MKCircle(center: endCoordinate, radius: regionMonitoringRadius)
         }
