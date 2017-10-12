@@ -109,6 +109,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             assert(segue.destination is ConfirmWorkOrderViewController)
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
+            confirmWorkOrderViewController.configure { workOrder in
+                self.setupCancelWorkOrderBarButtonItem()
+            }
         case "ProviderEnRouteViewControllerEmbedSegue":
             assert(segue.destination is ProviderEnRouteViewController)
             providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
@@ -356,12 +359,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     @objc func provide() {
         KeyChainService.shared.mode = .provider
         NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
-    }
-
-    // MARK: ConfirmWorkOrderViewControllerDelegate
-
-    func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder) {
-        setupCancelWorkOrderBarButtonItem()
     }
 
     // MARK: DestinationInputViewControllerDelegate

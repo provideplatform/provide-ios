@@ -6,13 +6,13 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-protocol ConfirmWorkOrderViewControllerDelegate: NSObjectProtocol {
-    func confirmWorkOrderViewController(_ viewController: ConfirmWorkOrderViewController, didConfirmWorkOrder workOrder: WorkOrder)
-}
-
 class ConfirmWorkOrderViewController: ViewController {
 
-    weak var delegate: ConfirmWorkOrderViewControllerDelegate!
+    func configure(onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
+        self.onWorkOrderConfirmed = onWorkOrderConfirmed
+    }
+
+    private var onWorkOrderConfirmed: ((WorkOrder) -> Void)!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var confirmButton: UIButton!
@@ -111,7 +111,7 @@ class ConfirmWorkOrderViewController: ViewController {
         workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
             if let workOrder = mappingResult?.firstObject as? WorkOrder {
                 logInfo("Created work order for hire: \(workOrder)")
-                self?.delegate?.confirmWorkOrderViewController(self!, didConfirmWorkOrder: workOrder)
+                self?.onWorkOrderConfirmed(workOrder)
             }
         }, onError: { err, statusCode, responseString in
             logWarn("Failed to create work order for hire (\(statusCode))")
