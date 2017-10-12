@@ -698,6 +698,10 @@ class ApiService: NSObject {
                         self.requestOperations.removeObject(op)
                     }
 
+                    if ProcessInfo.processInfo.environment["WRITE_JSON_RESPONSES"] != nil {
+                        JSONResponseWriter.writeResponseToFile(operation!)
+                    }
+
                     onSuccess((operation?.httpRequestOperation.response.statusCode)!, mappingResult)
                 }, failure: { operation, error in
                     let receivedResponse = operation?.httpRequestOperation.response != nil

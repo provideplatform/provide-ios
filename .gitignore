@@ -1,11 +1,11 @@
 build/*
 DerivedData/*
-  
+
 *~.nib
 *.swp
-  
+
 .DS_Store
-  
+
 *.mode1
 *.mode1v3
 *.mode2v3
@@ -16,6 +16,7 @@ DerivedData/*
 xcuserdata
 Snapshots
 Pods
+provide/HTTPResponses
 
 # versioning
 InfoPlist.h

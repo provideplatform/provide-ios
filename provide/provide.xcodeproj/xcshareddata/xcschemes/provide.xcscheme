@@ -108,6 +108,11 @@
             value = "Trace"
             isEnabled = "NO">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "WRITE_JSON_RESPONSES"
+            value = "$PROJECT_DIR/HTTPResponses"
+            isEnabled = "NO">
+         </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
