@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConsumerViewController: ViewController, MenuViewControllerDelegate, DestinationInputViewControllerDelegate {
+class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet private weak var mapView: ConsumerMapView!
 
@@ -96,13 +96,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
         case "DestinationInputViewControllerEmbedSegue":
             assert(segue.destination is DestinationInputViewController)
             destinationInputViewController = segue.destination as! DestinationInputViewController
-            destinationInputViewController.delegate = self
             if let destinationResultsViewController = destinationResultsViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
         case "DestinationResultsViewControllerEmbedSegue":
             assert(segue.destination is DestinationResultsViewController)
             destinationResultsViewController = segue.destination as! DestinationResultsViewController
+            destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
             if let destinationInputViewController = destinationInputViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
@@ -366,13 +366,27 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, Destin
 
     // MARK: DestinationInputViewControllerDelegate
 
-    func destinationInputViewController(_ viewController: DestinationInputViewController,
-                                        didSelectDestination destination: Contact,
-                                        startingFrom origin: Contact) {
+    func selectDestination(destination: Contact, startingFrom origin: Contact) {
         setupCancelWorkOrderBarButtonItem()
         presentConfirmWorkOrderViewController()
 
         confirmWorkOrderViewController.confirmWorkOrderWithOrigin(origin, destination: destination)
+    }
+
+    func onResultSelected(result: Contact) {
+        destinationInputViewController.collapseAndHide()
+        // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
+
+        LocationService.shared.resolveCurrentLocation { currentLocation in
+            let origin = Contact()
+            origin.latitude = currentLocation.coordinate.latitude
+            origin.longitude = currentLocation.coordinate.longitude
+            if let placemark = self.destinationInputViewController?.placemark {
+                origin.merge(placemark: placemark)
+                self.destinationInputViewController?.placemark = nil
+            }
+            self.selectDestination(destination: result, startingFrom: origin)
+        }
     }
 
     deinit {

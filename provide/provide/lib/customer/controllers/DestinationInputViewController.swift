@@ -6,15 +6,7 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-protocol DestinationInputViewControllerDelegate: NSObjectProtocol {
-    func destinationInputViewController(_ viewController: DestinationInputViewController,
-                                        didSelectDestination destination: Contact,
-                                        startingFrom origin: Contact)
-}
-
 class DestinationInputViewController: ViewController, UITextFieldDelegate {
-
-    weak var delegate: DestinationInputViewControllerDelegate!
 
     weak var destinationResultsViewController: DestinationResultsViewController!
 
@@ -28,13 +20,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     private var timer: Timer!
     private var pendingSearch = false
 
-    private var placemark: CLPlacemark!
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
-    }
+    var placemark: CLPlacemark!
 
     private var expanded = false {
         didSet {
@@ -119,6 +105,11 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         }
     }
 
+    func collapseAndHide() {
+        expanded = false
+        view.isHidden = true
+    }
+
     // MARK: UITextFieldDelegate
 
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -162,23 +153,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
             search()
         } else if timer == nil {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(search), userInfo: nil, repeats: true)
-        }
-    }
-
-    func onResultSelected(result: Contact) {
-        expanded = false
-        view.isHidden = true
-        // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
-
-        LocationService.shared.resolveCurrentLocation { [weak self] currentLocation in
-            let origin = Contact()
-            origin.latitude = currentLocation.coordinate.latitude
-            origin.longitude = currentLocation.coordinate.longitude
-            if let placemark = self?.placemark {
-                origin.merge(placemark: placemark)
-                self?.placemark = nil
-            }
-            self?.delegate?.destinationInputViewController(self!, didSelectDestination: result, startingFrom: origin)
         }
     }
 }
