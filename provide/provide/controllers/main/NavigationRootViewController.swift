@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, SetPasswordViewControllerDelegate, PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
@@ -80,7 +80,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             (segue.destination as! PinInputViewController).delegate = self
         case "SetPasswordViewControllerSegue":
             assert(segue.destination is SetPasswordViewController)
-            (segue.destination as! SetPasswordViewController).delegate = self
+            (segue.destination as! SetPasswordViewController).configure(onPasswordSet: onPasswordSet)
         default:
             break
         }
@@ -150,7 +150,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     // MARK: SetPasswordViewControllerDelegate
 
-    func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool) {
+    func onPasswordSet(success: Bool) {
         if success {
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)

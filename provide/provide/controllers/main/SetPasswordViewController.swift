@@ -9,18 +9,19 @@
 import UIKit
 import MBProgressHUD
 
-protocol SetPasswordViewControllerDelegate: class {
-    func setPasswordViewController(_ viewController: SetPasswordViewController, didSetPassword success: Bool)
-}
-
 class SetPasswordViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
-    weak var delegate: SetPasswordViewControllerDelegate?
+    private var onPasswordSet: ((Bool) -> Void)!
 
     @IBOutlet private weak var tableView: UITableView!
 
     @IBOutlet private weak var passwordField: UITextField!
     @IBOutlet private weak var confirmField: UITextField!
+
+
+    func configure(onPasswordSet: @escaping (Bool) -> Void) {
+        self.onPasswordSet = onPasswordSet
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -73,14 +74,13 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
             MBProgressHUD.hide(for: self.view, animated: true)
 
             self.performSegue(withIdentifier: "SetPasswordViewControllerUnwindSegue", sender: self)
-            self.delegate?.setPasswordViewController(self, didSetPassword: true)
+            self.onPasswordSet(true)
         }, onError: { error, statusCode, responseString in
             MBProgressHUD.hide(for: self.view, animated: true)
 
             self.showError("Failed to change password \(statusCode)")
             self.showForm()
-
-            self.delegate?.setPasswordViewController(self, didSetPassword: false)
+            self.onPasswordSet(false)
         })
     }
 
