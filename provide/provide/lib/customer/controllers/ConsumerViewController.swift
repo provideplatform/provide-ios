@@ -361,10 +361,16 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         confirmWorkOrderViewController.confirmWorkOrderWithOrigin(origin, destination: destination)
     }
 
-    func onResultSelected(result: Contact) {
+    func onResultSelected(result: Contact?) {
+        destinationInputViewController.collapseAndHide()
+
+        guard let result = result else {
+            animateDestinationInputView(toState: .normal)
+            return
+        }
+
         animateDestinationInputView(toState: .hidden)
 
-        destinationInputViewController.collapseAndHide()
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
         LocationService.shared.resolveCurrentLocation { currentLocation in

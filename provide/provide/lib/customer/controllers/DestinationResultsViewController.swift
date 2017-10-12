@@ -6,7 +6,7 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-typealias OnResultSelected = (Contact) -> Void
+typealias OnResultSelected = (Contact?) -> Void
 
 class DestinationResultsViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -15,7 +15,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
             tableView?.reloadData()
         }
     }
-    
+
     private var onResultSelected: OnResultSelected!
     @IBOutlet private weak var tableView: UITableView!
 
@@ -51,5 +51,13 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
         let cell = tableView.dequeue(DestinationResultTableViewCell.self, for: indexPath)
         cell.result = results[indexPath.row]
         return cell
+    }
+}
+
+extension DestinationResultsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < -100 {
+            onResultSelected(nil)
+        }
     }
 }
