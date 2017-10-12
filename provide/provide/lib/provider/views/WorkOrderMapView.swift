@@ -80,12 +80,6 @@ class WorkOrderMapView: MapView {
         removeAnnotations(nonUserAnnotations)
     }
 
-    override func revealMap(_ force: Bool = false) {
-        super.revealMap(force, animations: {
-            self.alpha = 1
-        })
-    }
-
     // MARK: MKMapViewDelegate
 
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -156,10 +150,7 @@ class WorkOrderMapView: MapView {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(false, animations: {
-                log("Revealing map rect based on location: \(location)")
-                mapView.alpha = 1
-            })
+            mapView.revealMap()
         }
 
         if !viewingDirections && WorkOrderService.shared.nextWorkOrder != nil {

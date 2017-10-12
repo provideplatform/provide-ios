@@ -49,18 +49,13 @@ class MapView: MKMapView, MKMapViewDelegate {
         removeOverlays(overlays)
     }
 
-    func revealMap(_ force: Bool = false) {
-        revealMap(force, animations: {
-            self.alpha = 1
-        })
-    }
-
     var onMapRevealed: VoidBlock?
 
-    func revealMap(_ force: Bool, animations: @escaping VoidBlock, completion: VoidBlock? = nil) {
-        if shouldReveal || force {
-            UIView.animate(withDuration: 0.25, animations: animations, completion: { finished in
-                completion?()
+    func revealMap() {
+        if shouldReveal {
+            UIView.animate(withDuration: 0.25, animations: {
+                self.alpha = 1
+            }, completion: { finished in
                 UIView.animate(withDuration: 0.25) {
                     self.onMapRevealed?()
                 }

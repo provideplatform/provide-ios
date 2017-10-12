@@ -34,12 +34,6 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
         removeAnnotations(nonUserAnnotations)
     }
 
-    override func revealMap(_ force: Bool = false) {
-        super.revealMap(force, animations: {
-            self.alpha = 1.0
-        })
-    }
-
     @objc func mapViewPinchGestureRecognized(_ gesture: UIPinchGestureRecognizer) {
         for annotation in annotations where annotation is Provider.Annotation {
             if let annotationView = view(for: annotation) {
@@ -121,10 +115,7 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
 
             mapViewShouldRefreshVisibleMapRect(mapView)
 
-            mapView.revealMap(false, animations: {
-                log("Revealing map rect based on location: \(location)")
-                mapView.alpha = 1
-            })
+            mapView.revealMap()
         }
 
         mapView.setCenterCoordinate(location.coordinate,
