@@ -12,7 +12,7 @@ import RestKit
 @objcMembers
 class Directions: Model {
 
-    private var routes = [Route]()
+    var routes = [Route]()
     private(set) var minutes: Int = 0
     private var selectedRouteIndex: Int!
 
