@@ -113,6 +113,11 @@
             value = "$PROJECT_DIR/HTTPResponses"
             isEnabled = "NO">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "SERVE_JSON_RESPONSES"
+            value = "$PROJECT_DIR/HTTPResponses"
+            isEnabled = "NO">
+         </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>

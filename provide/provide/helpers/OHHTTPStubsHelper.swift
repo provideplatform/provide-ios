@@ -41,6 +41,31 @@ class OHHTTPStubsHelper {
             return OHHTTPStubsResponse(jsonObject: responseJSON, statusCode: 201, headers: ["Content-Type": "application/json"]).requestTime(1.0, responseTime: 1.0)
         })
     }
+
+    static func serveJsonResponses(fromDir baseDir: String) {
+        OHHTTPStubs.stubRequests(passingTest: { request in
+            guard request.url?.host == "provide.services" else { return false }
+
+            let expectedPath = JSONResponseWriter.pathForFile(withRequest: request, baseDir: baseDir)
+            return FileManager.default.fileExists(atPath: expectedPath)
+        }, withStubResponse: { request in
+            let filePath = JSONResponseWriter.pathForFile(withRequest: request, baseDir: baseDir)
+
+            let statusCode: Int32
+            switch request.httpMethod! {
+            case "GET":  statusCode = 200
+            case "PUT":  statusCode = 204
+            case "POST": statusCode = 201
+            default:     statusCode = 555
+            }
+
+            return OHHTTPStubsResponse(fileAtPath: filePath, statusCode: statusCode, headers: ["Content-Type": "application/json"])
+        })
+
+        OHHTTPStubs.onStubActivation { request, httpStubsDescriptor, httpStubsResponse in
+            print("🔔 Stubbing: \(request.url!) 🔔")
+        }
+    }
 }
 
 func stubRoute(_ httpMethod: String, path: String, withFile filePath: String, stubName: String? = nil) {
