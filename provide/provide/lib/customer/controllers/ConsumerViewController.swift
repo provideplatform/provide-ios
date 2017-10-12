@@ -11,6 +11,7 @@ import UIKit
 class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet private weak var mapView: ConsumerMapView!
+    @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
 
     private var destinationInputViewController: DestinationInputViewController!
     private var destinationResultsViewController: DestinationResultsViewController!
@@ -42,6 +43,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        destinationInputViewController.view.alpha = 0
+        mapView.onMapRevealed = {
+            self.destinationInputViewController.view.alpha = 1
+        }
+
+        destinationInputViewControllerTopConstraint.constant = -destinationInputViewController.view.height
+        destinationInputViewController.destinationTextField.addTarget(self, action: #selector(destinationTextFieldEditingDidBegin), for: .editingDidBegin)
         navigationItem.hidesBackButton = true
 
         setupMenuBarButtonItem()
@@ -232,29 +240,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             destinationResultsViewController?.prepareForReuse()
 
             presentDestinationInputViewController()
-            UIView.animate(withDuration: 0.25) {
-                if let destinationInputView = self.destinationInputViewController.view, destinationInputView.frame.origin.y == 0 {
-                    destinationInputView.frame.origin.y += self.view.height * 0.1
-                    if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-                        destinationInputTextField.frame.origin.y = destinationInputTextField.frame.origin.y
-                    }
-                }
-            }
+
+            animateDestinationInputView(toState: .normal)
         }
     }
 
     private func presentDestinationInputViewController() {
-        if let destinationInputView = destinationInputViewController.view {
-            destinationInputView.isHidden = true
-            destinationInputView.removeFromSuperview()
-            mapView.addSubview(destinationInputView)
-
-            destinationInputView.frame.size.width = mapView.width
-            destinationInputView.isHidden = false
-            if let destinationInputTextField = destinationInputView.subviews.first as? UITextField {
-                destinationInputTextField.frame.size.width = destinationInputView.width - (destinationInputTextField.frame.origin.x * 2.0)
-            }
-        }
 
         if let destinationResultsView = destinationResultsViewController.view {
             destinationResultsView.isHidden = true
@@ -371,6 +362,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func onResultSelected(result: Contact) {
+        animateDestinationInputView(toState: .hidden)
+
         destinationInputViewController.collapseAndHide()
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
@@ -383,6 +376,36 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 self.destinationInputViewController?.placemark = nil
             }
             self.selectDestination(destination: result, startingFrom: origin)
+        }
+    }
+
+    // MARK: - DestinationInputViewController
+
+    @objc func destinationTextFieldEditingDidBegin(_ sender: UITextField) {
+        animateDestinationInputView(toState: .active)
+    }
+
+    func animateDestinationInputView(toState state: DestinationInputViewState) {
+        view.layoutIfNeeded()
+        destinationInputViewControllerTopConstraint.constant = state.config.topConstraint
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+            self.destinationInputViewController.view.backgroundColor = state.config.backgroundColor
+            self.destinationInputViewController.destinationTextFieldTopConstraint.constant = state.config.textFieldTopConstraintConstant
+        }
+    }
+
+    enum DestinationInputViewState {
+        case hidden
+        case active
+        case normal
+
+        var config: (backgroundColor: UIColor, textFieldTopConstraintConstant: CGFloat, topConstraint: CGFloat) {
+            switch self {
+            case .hidden: return (.clear, 22, -100)
+            case .active: return (.white, 42, 0)
+            case .normal: return (.clear, 22, 80)
+            }
         }
     }
 

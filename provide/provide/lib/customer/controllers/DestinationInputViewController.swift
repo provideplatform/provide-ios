@@ -10,10 +10,9 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
     weak var destinationResultsViewController: DestinationResultsViewController!
 
-    @IBOutlet private weak var destinationTextField: UITextField!
+    @IBOutlet weak var destinationTextField: UITextField!
+    @IBOutlet weak var destinationTextFieldTopConstraint: NSLayoutConstraint!
 
-    private var initialFrame: CGRect!
-    private var initialDestinationTextFieldFrame: CGRect!
     private var initialDestinationResultsViewFrame: CGRect!
 
     private var timer: Timer!
@@ -24,8 +23,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     private var expanded = false {
         didSet {
             if expanded {
-                initialFrame = view.frame
-                initialDestinationTextFieldFrame = destinationTextField.frame
                 initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
 
                 placemark = nil
@@ -33,17 +30,12 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 navigationController?.setNavigationBarHidden(true, animated: true)
 
                 UIView.animate(withDuration: 0.25) {
-                    self.view.frame.origin.y = 0.0
-                    self.view.frame.size.width = self.view.superview!.width
-                    self.view.backgroundColor = .white
-
-                    self.destinationTextField.frame.size.width = self.view.width
                     self.destinationTextField.becomeFirstResponder()
                 }
 
                 UIView.animate(withDuration: 0.3) {
                     self.destinationResultsViewController.view.frame.origin.y = self.view.height
-                    self.destinationResultsViewController.view.frame.size.height = self.view.superview!.height - self.view.frame.height
+                    self.destinationResultsViewController.view.frame.size.height = self.parent!.view.height - self.view.height
                 }
             } else {
                 if destinationTextField.isFirstResponder {
@@ -55,9 +47,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 navigationController?.setNavigationBarHidden(false, animated: true)
 
                 UIView.animate(withDuration: 0.25) {
-                    self.view.frame = self.initialFrame
-                    self.view.backgroundColor = .clear
-
                     self.destinationResultsViewController.view.frame = self.initialDestinationResultsViewFrame
                 }
             }
@@ -103,7 +92,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
     func collapseAndHide() {
         expanded = false
-        view.isHidden = true
     }
 
     // MARK: UITextFieldDelegate

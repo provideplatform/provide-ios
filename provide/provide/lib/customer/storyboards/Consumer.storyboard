@@ -41,10 +41,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-CY-FCD" userLabel="destination-input-vc">
-                                <rect key="frame" x="27" y="-75" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Yx6-g0-wrR"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="9XP-iM-cxc" kind="embed" identifier="DestinationInputViewControllerEmbedSegue" id="c7H-e5-tbC"/>
                                 </connections>
@@ -74,16 +80,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Q4r-Uq-ubh" secondAttribute="trailing" id="7ao-JB-r5r"/>
+                            <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" constant="100" id="D8Z-S8-vE7"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="bottom" secondItem="XKs-fz-a12" secondAttribute="top" id="DS7-EG-ZMR"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="FA2-EL-1l0"/>
-                            <constraint firstItem="yuA-CY-FCD" firstAttribute="centerX" secondItem="u6f-jT-dJR" secondAttribute="centerX" id="Iwb-Ij-U8W"/>
-                            <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="5Lx-mI-Cuo" secondAttribute="bottom" constant="-95" id="kMq-1O-vq9"/>
-                            <constraint firstItem="yuA-CY-FCD" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leadingMargin" constant="11" id="oG3-QX-Blc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yuA-CY-FCD" secondAttribute="trailing" constant="12" id="oZz-4N-jD0"/>
+                            <constraint firstAttribute="trailing" secondItem="yuA-CY-FCD" secondAttribute="trailing" id="VPQ-ls-jwe"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" id="vRT-2K-k0Y"/>
+                            <constraint firstItem="yuA-CY-FCD" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="xlc-tB-y5u"/>
                         </constraints>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="destinationInputViewControllerTopConstraint" destination="D8Z-S8-vE7" id="o5R-Lk-PvW"/>
                         <outlet property="mapView" destination="Q4r-Uq-ubh" id="wTq-6o-sbU"/>
                     </connections>
                 </viewController>
@@ -99,12 +106,12 @@
                         <viewControllerLayoutGuide type="top" id="lDm-3e-tgf"/>
                         <viewControllerLayoutGuide type="bottom" id="CmA-yP-9ss"/>
                     </layoutGuides>
-                    <view key="view" hidden="YES" contentMode="scaleToFill" id="aeU-ar-cbC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                    <view key="view" contentMode="scaleToFill" id="aeU-ar-cbC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Where to?" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="cyP-qn-7h8">
-                                <rect key="frame" x="16" y="22" width="288" height="55"/>
+                                <rect key="frame" x="16" y="22" width="343" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" label="Tet"/>
                                 <nil key="textColor"/>
@@ -116,17 +123,18 @@
                                 </connections>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cyP-qn-7h8" firstAttribute="top" secondItem="lDm-3e-tgf" secondAttribute="bottom" constant="22" id="00v-s9-eEe"/>
-                            <constraint firstItem="CmA-yP-9ss" firstAttribute="top" secondItem="cyP-qn-7h8" secondAttribute="bottom" constant="23" id="PcS-e0-NXN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cyP-qn-7h8" secondAttribute="trailing" id="Wi4-AF-Uxe"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="cyP-qn-7h8" secondAttribute="leading" id="qxA-8U-gzk"/>
+                            <constraint firstItem="cyP-qn-7h8" firstAttribute="top" secondItem="aeU-ar-cbC" secondAttribute="top" constant="22" id="00v-s9-eEe"/>
+                            <constraint firstAttribute="bottom" secondItem="cyP-qn-7h8" secondAttribute="bottom" constant="22" id="PcS-e0-NXN"/>
+                            <constraint firstAttribute="trailing" secondItem="cyP-qn-7h8" secondAttribute="trailing" constant="16" id="Wi4-AF-Uxe"/>
+                            <constraint firstAttribute="leading" secondItem="cyP-qn-7h8" secondAttribute="leading" constant="-16" id="qxA-8U-gzk"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="destinationTextField" destination="cyP-qn-7h8" id="G6U-tt-1X0"/>
+                        <outlet property="destinationTextFieldTopConstraint" destination="00v-s9-eEe" id="dBP-cn-h69"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bdu-Of-7jU" userLabel="First Responder" sceneMemberID="firstResponder"/>

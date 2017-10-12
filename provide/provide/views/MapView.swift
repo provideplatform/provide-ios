@@ -55,10 +55,15 @@ class MapView: MKMapView, MKMapViewDelegate {
         })
     }
 
+    var onMapRevealed: VoidBlock?
+
     func revealMap(_ force: Bool, animations: @escaping VoidBlock, completion: VoidBlock? = nil) {
         if shouldReveal || force {
             UIView.animate(withDuration: 0.25, animations: animations, completion: { finished in
                 completion?()
+                UIView.animate(withDuration: 0.25) {
+                    self.onMapRevealed?()
+                }
             })
         }
     }
