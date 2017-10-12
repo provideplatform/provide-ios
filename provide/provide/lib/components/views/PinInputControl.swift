@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol PinInputControlDelegate: class {
-    func pinInputControl(_ pinInputControl: PinInputControl, didCompleteEnteringPin: String)
-}
-
 // @IBDesignable // Comment out for now due to weird storyboard error
 class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextInputTraits {
 
@@ -27,7 +23,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
 
     let fadeStartDelay = 0.1
 
-    weak var delegate: PinInputControlDelegate? // Public
+    private var onPinEntered: ((String) -> Void)!
 
     private var pin: String = ""
 
@@ -37,6 +33,10 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
     // UIInputViewAudioFeedback protocol
     var enableInputClicksWhenVisible: Bool {
         return true
+    }
+
+    func configure(onPinEntered: @escaping (String) -> Void) {
+        self.onPinEntered = onPinEntered
     }
 
     override func draw(_ rect: CGRect) {
@@ -76,7 +76,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
             textChanged()
 
             if pin.length == maxPinLength {
-                delegate?.pinInputControl(self, didCompleteEnteringPin: pin)
+                onPinEntered(pin)
             }
         }
     }

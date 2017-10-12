@@ -16,7 +16,7 @@ protocol PinInputViewControllerDelegate {
     @objc optional func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
 }
 
-class PinInputViewController: UIViewController, PinInputControlDelegate {
+class PinInputViewController: UIViewController {
 
     enum `Type` {
         case createPinController    // 1. create, 2. confirm creation
@@ -76,7 +76,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
 
         precondition(delegate != nil, "delegate must be set")
 
-        pinInputControl.delegate = self
+        pinInputControl.configure(onPinEntered: onPinEntered)
         messageLabel.text = getMessage(type, state)
     }
 
@@ -92,9 +92,7 @@ class PinInputViewController: UIViewController, PinInputControlDelegate {
         pinInputControl.becomeFirstResponder()
     }
 
-    // MARK: PinInputControlDelegate
-
-    func pinInputControl(_ pinInputControl: PinInputControl, didCompleteEnteringPin pin: String) {
+    func onPinEntered(pin: String) {
         switch state! {
         case .input:
             if type != .redeemPinController {
