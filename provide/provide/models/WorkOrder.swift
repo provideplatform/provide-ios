@@ -279,8 +279,8 @@ class WorkOrder: Model {
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 } else if let origin = config["origin"] as? [String: AnyObject] {
-                    if let latitude = origin["latitude"],
-                        let longitude = origin["longitude"] {
+                    if let latitude = origin["latitude"] as? Double,
+                        let longitude = origin["longitude"] as? Double {
 
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
