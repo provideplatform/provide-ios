@@ -75,6 +75,10 @@ class CheckinService: NSObject {
             self.timer = nil
         }
 
-        timer = Timer.scheduledTimer(timeInterval: checkinTimeInterval, target: self, selector: #selector(checkin), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: checkinTimeInterval,
+                                     target: self,
+                                     selector: #selector(checkin),
+                                     userInfo: nil,
+                                     repeats: true)
     }
 }
