@@ -189,10 +189,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private var viewingDirections: Bool {
-        for vc in managedViewControllers where vc is DirectionsViewController {
-            return true
-        }
-        return false
+        return managedViewControllers.contains { $0 is DirectionsViewController }
     }
 
     private func setupAvailabilityBarButtonItem() {

@@ -38,20 +38,11 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     private var isResponsibleSupervisor: Bool {
-        if let supervisors = workOrder.supervisors {
-            for supervisor in supervisors where supervisor.id == currentUser?.id {
-                return true
-            }
-        }
-
-        return false
+        return workOrder.supervisors.contains { $0.id == currentUser.id }
     }
 
     private var isResponsibleProvider: Bool {
-        for provider in workOrder.providers where provider.userId == currentUser?.id {
-            return true
-        }
-        return false
+        return workOrder.providers.contains { $0.userId == currentUser.id }
     }
 
     private var showsCancelButton: Bool {

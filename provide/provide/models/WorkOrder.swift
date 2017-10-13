@@ -340,10 +340,7 @@ class WorkOrder: Model {
     }
 
     private var isCurrentUserProvider: Bool {
-        for provider in providers where provider.userId == currentUser?.id {
-            return true
-        }
-        return false
+        return providers.contains { $0.userId == currentUser.id }
     }
 
     var isCurrentProviderTimedOut: Bool {
@@ -548,10 +545,7 @@ class WorkOrder: Model {
     }
 
     private func hasProvider(_ provider: Provider) -> Bool {
-        for p in providers where p.id == provider.id {
-            return true
-        }
-        return false
+        return providers.contains { $0.id == provider.id }
     }
 
     private func removeProvider(_ provider: Provider) {

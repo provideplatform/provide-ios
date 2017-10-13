@@ -22,10 +22,7 @@ class ProviderService: NSObject {
     }
 
     func containsProvider(_ provider: Provider) -> Bool {
-        for p in providers where provider.id == p.id {
-            return true
-        }
-        return false
+        return providers.contains { $0.id == provider.id }
     }
 
     func appendProvider(_ provider: Provider) {

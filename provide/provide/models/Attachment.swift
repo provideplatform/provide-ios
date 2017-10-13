@@ -91,10 +91,7 @@ class Attachment: Model {
     }
 
     private func hasTag(_ tag: String) -> Bool {
-        for t in tags where t == tag {
-            return true
-        }
-        return false
+        return tags.contains(tag)
     }
 
     private func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
