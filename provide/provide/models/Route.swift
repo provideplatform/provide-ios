@@ -12,8 +12,8 @@ import RestKit
 @objcMembers
 class Route: Model {
 
-    private(set) var legs = [RouteLeg]()
-    private var currentLegIndex = 0
+    var legs = [RouteLeg]()
+    var currentLegIndex = 0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

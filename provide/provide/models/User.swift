@@ -19,15 +19,15 @@ class User: Model {
     var name: String!
     var email: String!
     var profileImageUrlString: String!
-    private(set) var contact: Contact!
-    private var providers: [Provider]!
+    var contact: Contact!
+    var providers: [Provider]!
     var providerIds = [Int]()
-    private var menuItemsPreference: [[String: String]] = []
-    private var paymentMethods: [Any]!
-    private var lastCheckinAt: String!
-    private(set) var lastCheckinLatitude: Double = 0
-    private(set) var lastCheckinLongitude: Double = 0
-    private var lastCheckinHeading: Double = 0
+    var menuItemsPreference: [[String: String]] = []
+    var paymentMethods: [Any]!
+    var lastCheckinAt: String!
+    var lastCheckinLatitude: Double = 0
+    var lastCheckinLongitude: Double = 0
+    var lastCheckinHeading: Double = 0
 
     var annotation: Annotation {
         return Annotation(user: self)
@@ -111,7 +111,7 @@ class User: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        private var user: User!
+        var user: User!
 
         required init(user: User) {
             self.user = user

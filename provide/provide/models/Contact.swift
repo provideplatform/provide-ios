@@ -12,22 +12,22 @@ import RestKit
 @objcMembers
 class Contact: Model {
 
-    private var id = 0
-    private(set) var name: String!
-    private var address1: String!
-    private var address2: String!
-    private(set) var city: String!
-    private(set) var state: String!
-    private var zip: String!
-    private var email: String!
-    private var phone: String!
-    private var fax: String!
-    private var mobile: String!
-    private var timeZoneId: String!
+    var id = 0
+    var name: String!
+    var address1: String!
+    var address2: String!
+    var city: String!
+    var state: String!
+    var zip: String!
+    var email: String!
+    var phone: String!
+    var fax: String!
+    var mobile: String!
+    var timeZoneId: String!
     var latitude: Double = 0
     var longitude: Double = 0
-    private(set) var desc: String!
-    private(set) var data: [String: Any]!
+    var desc: String!
+    var data: [String: Any]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

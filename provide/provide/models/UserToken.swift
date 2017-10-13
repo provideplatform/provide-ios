@@ -12,8 +12,8 @@ import RestKit
 @objcMembers
 class UserToken: Model {
 
-    private(set) var user: User!
-    private(set) var token: Token!
+    var user: User!
+    var token: Token!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

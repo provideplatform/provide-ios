@@ -30,7 +30,7 @@ class Model: NSObject {
         return ivarStrings
     }
 
-    private var lastRefreshDate: Date!
+    var lastRefreshDate: Date!
 
     private func timeIntervalSinceLastRefreshDate() -> TimeInterval {
         if let lastRefreshDate = lastRefreshDate {

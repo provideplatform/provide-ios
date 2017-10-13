@@ -10,10 +10,10 @@ import Foundation
 
 class MenuItem: NSObject {
 
-    private(set) var label: String
-    private(set) var storyboard: String?
-    private var urlString: String?
-    private var actionString: String?
+    var label: String
+    var storyboard: String?
+    var urlString: String?
+    var actionString: String?
 
     init(label: String, action: String? = nil, urlString: String? = nil, storyboard: String? = nil) {
         self.label = label

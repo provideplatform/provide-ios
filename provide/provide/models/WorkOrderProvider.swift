@@ -12,16 +12,16 @@ import RestKit
 @objcMembers
 class WorkOrderProvider: Model {
 
-    private(set) var id = 0
-    private var rating = 0.0
+    var id = 0
+    var rating = 0.0
     var provider: Provider!
-    private var checkinCoordinates: [[Double]] = []
-    private(set) var hourlyRate = -1.0
-    private var estimatedCost = -1.0
-    private(set) var estimatedDuration = -1.0
-    private var duration = -1.0
+    var checkinCoordinates: [[Double]] = []
+    var hourlyRate = -1.0
+    var estimatedCost = -1.0
+    var estimatedDuration = -1.0
+    var duration = -1.0
     var flatFee = -1.0
-    private var timedOutAt: String!
+    var timedOutAt: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

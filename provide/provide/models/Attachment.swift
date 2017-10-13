@@ -12,21 +12,21 @@ import RestKit
 @objcMembers
 class Attachment: Model {
 
-    private(set) var id = 0
-    private var userId = 0
-    private(set) var attachableType: String!
-    private(set) var attachableId = 0
-    private var desc: String!
-    private var key: String!
-    private var metadata: [String: Any]!
-    private(set) var mimeType: String!
-    private var status: String!
-    private var tags: [String] = []
-    private var displayUrlString: String!
+    var id = 0
+    var userId = 0
+    var attachableType: String!
+    var attachableId = 0
+    var desc: String!
+    var key: String!
+    var metadata: [String: Any]!
+    var mimeType: String!
+    var status: String!
+    var tags: [String] = []
+    var displayUrlString: String!
     var urlString: String!
-    private var data: Data!
-    private var parentAttachmentId = 0
-    private var representations = [Attachment]()
+    var data: Data!
+    var parentAttachmentId = 0
+    var representations = [Attachment]()
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

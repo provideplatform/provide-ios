@@ -10,9 +10,9 @@ import Foundation
 
 class PaymentMethod: Model {
 
-    private var id = 0
-    private var brand: String!
-    private var last4: String!
+    var id = 0
+    var brand: String!
+    var last4: String!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)

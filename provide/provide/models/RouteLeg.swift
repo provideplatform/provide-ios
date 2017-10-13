@@ -12,9 +12,9 @@ import RestKit
 @objcMembers
 class RouteLeg: Model {
 
-    private var distanceInMeters: Double = 0
-    private(set) var duration: Double = 0
-    private(set) var steps = [RouteLegStep]()
+    var distanceInMeters: Double = 0
+    var duration: Double = 0
+    var steps = [RouteLegStep]()
 
     var currentStepIndex: Int = 0
 

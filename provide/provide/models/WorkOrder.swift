@@ -12,37 +12,37 @@ import RestKit
 @objcMembers
 class WorkOrder: Model {
 
-    private(set) var id = 0
-    private var categoryId = 0
-    private var category: Category!
-    private(set) var userId = 0
-    private(set) var user: User!
-    private(set) var jobId = 0
+    var id = 0
+    var categoryId = 0
+    var category: Category!
+    var userId = 0
+    var user: User!
+    var jobId = 0
     var desc: String!
-    private(set) var workOrderProviders: [WorkOrderProvider]!
-    private var scheduledStartAt: String!
-    private var scheduledEndAt: String!
-    private var startedAt: String!
-    private var dueAt: String!
-    private var endedAt: String!
-    private var abandonedAt: String!
-    private var canceledAt: String!
-    private var duration: Double = 0
-    private var estimatedCost = -1.0
-    private(set) var estimatedPrice = -1.0
-    private(set) var estimatedDistance: Double = 0
-    private(set) var estimatedDuration: Double = 0
-    private var estimatedSqFt = -1.0
+    var workOrderProviders: [WorkOrderProvider]!
+    var scheduledStartAt: String!
+    var scheduledEndAt: String!
+    var startedAt: String!
+    var dueAt: String!
+    var endedAt: String!
+    var abandonedAt: String!
+    var canceledAt: String!
+    var duration: Double = 0
+    var estimatedCost = -1.0
+    var estimatedPrice = -1.0
+    var estimatedDistance: Double = 0
+    var estimatedDuration: Double = 0
+    var estimatedSqFt = -1.0
     var status: String!
-    private(set) var previewImage: UIImage!
-    private var providerRating: Double = 0
-    private(set) var attachments: [Attachment]!
+    var previewImage: UIImage!
+    var providerRating: Double = 0
+    var attachments: [Attachment]!
     var config: [String: Any]!
-    private var configJson: String!
-    private var expensesCount = 0
-    private var expensedAmount: Double!
-    private var priority = 0
-    private(set) var supervisors: [User]!
+    var configJson: String!
+    var expensesCount = 0
+    var expensedAmount: Double!
+    var priority = 0
+    var supervisors: [User]!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -649,7 +649,7 @@ class WorkOrder: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        private var workOrder: WorkOrder!
+        var workOrder: WorkOrder!
 
         required init(workOrder: WorkOrder) {
             self.workOrder = workOrder

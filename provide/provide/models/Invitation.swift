@@ -12,8 +12,8 @@ import RestKit
 @objcMembers
 class Invitation: Model {
 
-    private var id = 0
-    private(set) var user: User!
+    var id = 0
+    var user: User!
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
