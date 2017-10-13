@@ -307,19 +307,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             radius = maximumRegionMonitoringDistance
         }
 
-        var callbacks = geofenceCallbacks[identifier]
-        if callbacks == nil {
-            callbacks = [String: VoidBlock]()
-        }
-        callbacks!["didEnterRegion"] = onDidEnterRegion
-        callbacks!["didExitRegion"] = onDidExitRegion
+        var callbacks = geofenceCallbacks[identifier] ?? [String: VoidBlock]()
+        callbacks["didEnterRegion"] = onDidEnterRegion
+        callbacks["didExitRegion"] = onDidExitRegion
 
-        var callbackCounts = geofenceCallbackCounts[identifier]
-        if callbackCounts == nil {
-            callbackCounts = [String: Int]()
-        }
-        callbackCounts!["didEnterRegion"] = 0
-        callbackCounts!["didExitRegion"] = 0
+        var callbackCounts = geofenceCallbackCounts[identifier] ?? [String: Int]()
+        callbackCounts["didEnterRegion"] = 0
+        callbackCounts["didExitRegion"] = 0
 
         geofenceCallbacks[identifier] = callbacks
         geofenceCallbackCounts[identifier] = callbackCounts
@@ -386,10 +380,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     func reverseGeocodeLocation(_ location: CLLocation, onResolved: @escaping OnReverseGeocodeResolved) {
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(self.location!) { placemarks, error in
-            if let placemarks = placemarks {
-                if placemarks.count > 0 {
-                    onResolved(placemarks.first!)
-                }
+            if let placemarks = placemarks, placemarks.count > 0 {
+                onResolved(placemarks.first!)
             }
         }
     }

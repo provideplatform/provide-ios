@@ -98,37 +98,32 @@ class WorkOrderService: NSObject {
     }
 
     func fetchNextWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
-        if let workOrder = nextWorkOrder {
-            DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
-                self.nextWorkOrderDrivingEtaMinutes = minutesEta
-                onWorkOrderEtaFetched(workOrder, minutesEta)
-            }
+        guard let workOrder = nextWorkOrder else { return }
+
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
+            self.nextWorkOrderDrivingEtaMinutes = minutesEta
+            onWorkOrderEtaFetched(workOrder, minutesEta)
         }
     }
 
     private func fetchInProgressWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
-        if let workOrder = inProgressWorkOrder {
-            DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
-                self.nextWorkOrderDrivingEtaMinutes = minutesEta
-                onWorkOrderEtaFetched(workOrder, minutesEta)
-            }
+        guard let workOrder = inProgressWorkOrder else { return }
+
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
+            self.nextWorkOrderDrivingEtaMinutes = minutesEta
+            onWorkOrderEtaFetched(workOrder, minutesEta)
         }
     }
 
     func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: @escaping OnDrivingDirectionsFetched) {
-        if let workOrder = inProgressWorkOrder {
-            DirectionService.shared.fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { directions in
-                onDrivingDirectionsFetched(directions)
-            }
-        }
+        guard let workOrder = inProgressWorkOrder else { return }
+        DirectionService.shared.fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onDrivingDirectionsFetched: onDrivingDirectionsFetched)
     }
 
     func setInProgressWorkOrderRegionMonitoringCallbacks(_ onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
-        if let workOrder = inProgressWorkOrder {
-            LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
-
-            let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
-            LocationService.shared.monitorRegionWithCircularOverlay(overlay, identifier: workOrder.regionIdentifier, onDidEnterRegion: onDidEnterRegion, onDidExitRegion: onDidExitRegion)
-        }
+        guard let workOrder = inProgressWorkOrder else { return }
+        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
+        let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
+        LocationService.shared.monitorRegionWithCircularOverlay(overlay, identifier: workOrder.regionIdentifier, onDidEnterRegion: onDidEnterRegion, onDidExitRegion: onDidExitRegion)
     }
 }
