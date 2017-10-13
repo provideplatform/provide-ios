@@ -265,18 +265,23 @@ class WorkOrder: Model {
     var coordinate: CLLocationCoordinate2D! {
         if let config = config {
             if status == "in_progress" {
-                if let destination = config["destination"] as? [String: Double], let latitude = destination["latitude"], let longitude = destination["longitude"] {
+                if let destination = config["destination"] as? [String: AnyObject],
+                    let latitude = destination["latitude"] as? Double,
+                    let longitude = destination["longitude"] as? Double {
+
                     return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 }
             } else {
                 if let currentLocation = config["current_location"] as? [String: Double] {
-                    if let latitude = currentLocation["latitude"], let longitude = currentLocation["longitude"] {
+                    if let latitude = currentLocation["latitude"],
+                        let longitude = currentLocation["longitude"] {
+                        
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 } else if let origin = config["origin"] as? [String: Double] {
-                    let latitude = origin["latitude"]
-                    let longitude = origin["longitude"]
-                    if let latitude = latitude, let longitude = longitude {
+                    if let latitude = origin["latitude"],
+                        let longitude = origin["longitude"] {
+                        
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 }
