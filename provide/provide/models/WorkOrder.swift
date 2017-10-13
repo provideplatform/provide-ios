@@ -275,13 +275,13 @@ class WorkOrder: Model {
                 if let currentLocation = config["current_location"] as? [String: Double] {
                     if let latitude = currentLocation["latitude"],
                         let longitude = currentLocation["longitude"] {
-                        
+
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
-                } else if let origin = config["origin"] as? [String: Double] {
+                } else if let origin = config["origin"] as? [String: AnyObject] {
                     if let latitude = origin["latitude"],
                         let longitude = origin["longitude"] {
-                        
+
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
                 }
