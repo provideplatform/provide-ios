@@ -67,17 +67,11 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var lastOCRTimestamp: Date!
 
     private var backCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .back {
-            return device
-        }
-        return nil
+        return AVCaptureDevice.devices(for: .video).first { ($0 as AnyObject).position == .back }
     }
 
     private var frontCamera: AVCaptureDevice! {
-        for device in AVCaptureDevice.devices(for: .video) where (device as AnyObject).position == .front {
-            return device
-        }
-        return nil
+        return AVCaptureDevice.devices(for: .video).first { ($0 as AnyObject).position == .front }
     }
 
     var isRunning: Bool {
@@ -98,7 +92,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     private var recording = false {
         didSet {
-            if recording == true {
+            if recording {
                 startAudioLevelsPollingTimer()
             } else {
                 stopAudioLevelsPollingTimer()

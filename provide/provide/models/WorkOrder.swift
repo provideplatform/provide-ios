@@ -358,14 +358,7 @@ class WorkOrder: Model {
     }
 
     var provider: Provider? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
-        if let workOrderProviders = workOrderProviders {
-            for workOrderProvider in workOrderProviders where !workOrderProvider.isTimedOut {
-                if let provider = workOrderProvider.provider {
-                    return provider
-                }
-            }
-        }
-        return nil
+        return (workOrderProviders?.first { !$0.isTimedOut })?.provider
     }
 
     var providers: [Provider] {
