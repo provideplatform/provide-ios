@@ -365,7 +365,7 @@ class WorkOrder: Model {
                 providers.append(workOrderProvider.provider)
             }
         } else {
-            workOrderProviders = [WorkOrderProvider]()
+            workOrderProviders = []
         }
         return providers
     }
@@ -382,7 +382,7 @@ class WorkOrder: Model {
         return 10.0
     }
 
-    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: Any] {
+    override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = []) -> [String: Any] {
         var dictionary = super.toDictionary(ignoreKeys: ["job"])
         dictionary.removeValue(forKey: "preview_image")
         dictionary.removeValue(forKey: "id")
@@ -425,7 +425,7 @@ class WorkOrder: Model {
 
     func mergeAttachment(_ attachment: Attachment) {
         if attachments == nil {
-            attachments = [Attachment]()
+            attachments = []
         }
 
         var replaced = false
@@ -470,7 +470,7 @@ class WorkOrder: Model {
 
         if id > 0 {
             if self.workOrderProviders == nil {
-                self.workOrderProviders = [WorkOrderProvider]()
+                self.workOrderProviders = []
             }
             var workOrderProviders = [[String: Any]]()
             for workOrderProvider in self.workOrderProviders {
@@ -624,7 +624,7 @@ class WorkOrder: Model {
 
         ApiService.shared.addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params, onSuccess: { response in
             if self.attachments == nil {
-                self.attachments = [Attachment]()
+                self.attachments = []
             }
             self.attachments.append(response?.firstObject as! Attachment)
             onSuccess(response)

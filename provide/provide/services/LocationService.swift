@@ -345,7 +345,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                 geofenceCallbacks.removeValue(forKey: region.identifier)
             }
 
-            regions = [CLCircularRegion]()
+            regions = []
         }
     }
 

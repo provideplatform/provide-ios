@@ -90,7 +90,7 @@ class Model: NSObject {
         }
     }
 
-    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = [String]()) -> [String: Any] {
+    func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = []) -> [String: Any] {
         var dictionary = [String: Any]()
 
         for ivar in ivars {

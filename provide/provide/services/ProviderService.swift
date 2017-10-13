@@ -71,7 +71,7 @@ class ProviderService: NSObject {
 
         ApiService.shared.fetchProviders(params, onSuccess: { [weak self] statusCode, mappingResult in
             if page == 1 {
-                self?.providers = [Provider]()
+                self?.providers = []
             }
             let fetchedProviders = mappingResult?.array() as! [Provider]
             self?.providers = fetchedProviders

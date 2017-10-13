@@ -41,7 +41,7 @@ class DirectionsViewController: ViewController {
                 showProgressIndicator()
 
                 unregisterMonitoredRegions()
-                regions = [CLCircularRegion]()
+                regions = []
                 lastRegionCrossing = nil
             } else {
                 hideProgressIndicator()
@@ -122,7 +122,7 @@ class DirectionsViewController: ViewController {
                 }
 
                 if self.directions == nil {
-                    self.regions = [CLCircularRegion]()
+                    self.regions = []
                     self.lastRegionCrossing = nil
                     self.lastRegionCrossed = nil
 
