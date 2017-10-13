@@ -38,9 +38,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     private var isResponsibleSupervisor: Bool {
-        let user = currentUser
         if let supervisors = workOrder.supervisors {
-            for supervisor in supervisors where supervisor.id == user?.id {
+            for supervisor in supervisors where supervisor.id == currentUser?.id {
                 return true
             }
         }
@@ -49,8 +48,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
     }
 
     private var isResponsibleProvider: Bool {
-        let user = currentUser
-        for provider in workOrder.providers where provider.userId == user?.id {
+        for provider in workOrder.providers where provider.userId == currentUser?.id {
             return true
         }
         return false
