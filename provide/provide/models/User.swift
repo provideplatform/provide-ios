@@ -60,7 +60,7 @@ class User: Model {
         }
     }
 
-    private var menuItems: [MenuItem]! {
+    var menuItems: [MenuItem]! {
         if !menuItemsPreference.isEmpty {
             var menuItems = [MenuItem]()
             for menuItemPreference in menuItemsPreference {

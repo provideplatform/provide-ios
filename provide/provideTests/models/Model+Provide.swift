@@ -61,7 +61,7 @@ private func testWriter(dictionary: [String: Any]) {
 
 
 private func componentsFrom(filePath: String) -> (String, String, String) {
-    private var url = URL(fileURLWithPath: filePath)
+    var url = URL(fileURLWithPath: filePath)
 
     let ext = url.pathExtension
     url.deletePathExtension()
