@@ -47,6 +47,10 @@
 		5C68C6D11F86804300BBD3B9 /* ConsumerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */; };
 		5C68C6D21F86804300BBD3B9 /* DestinationResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */; };
 		5C68C6D41F86812000BBD3B9 /* DestinationInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */; };
+		5C908DB21F918635006C53D7 /* apple.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C908DB11F918635006C53D7 /* apple.gpx */; };
+		5C908DB51F9186DC006C53D7 /* google.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C908DB31F9186DC006C53D7 /* google.gpx */; };
+		5C908DB61F9186DC006C53D7 /* facebook.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C908DB41F9186DC006C53D7 /* facebook.gpx */; };
+		5C908DB81F91896C006C53D7 /* yahoo.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5C908DB71F91896C006C53D7 /* yahoo.gpx */; };
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		5CD54CC51F8FE2AD00A24B5E /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
@@ -246,6 +250,10 @@
 		5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConsumerMapView.swift; sourceTree = "<group>"; };
 		5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationResultTableViewCell.swift; sourceTree = "<group>"; };
 		5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationInputViewController.swift; sourceTree = "<group>"; };
+		5C908DB11F918635006C53D7 /* apple.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = apple.gpx; sourceTree = "<group>"; };
+		5C908DB31F9186DC006C53D7 /* google.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = google.gpx; sourceTree = "<group>"; };
+		5C908DB41F9186DC006C53D7 /* facebook.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = facebook.gpx; sourceTree = "<group>"; };
+		5C908DB71F91896C006C53D7 /* yahoo.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = yahoo.gpx; sourceTree = "<group>"; };
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseWriter.swift; sourceTree = "<group>"; };
@@ -495,6 +503,17 @@
 				5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		5CDC85111F9183830085DBF8 /* bay_area */ = {
+			isa = PBXGroup;
+			children = (
+				5C908DB11F918635006C53D7 /* apple.gpx */,
+				5C908DB41F9186DC006C53D7 /* facebook.gpx */,
+				5C908DB31F9186DC006C53D7 /* google.gpx */,
+				5C908DB71F91896C006C53D7 /* yahoo.gpx */,
+			);
+			path = bay_area;
 			sourceTree = "<group>";
 		};
 		68140D9A1C1C23A5008F7E3A /* storyboards */ = {
@@ -789,6 +808,7 @@
 			children = (
 				688CDCA21F53A1C9002060C1 /* arlington */,
 				68D2189E1B0861EF000D3ABA /* atlanta */,
+				5CDC85111F9183830085DBF8 /* bay_area */,
 				68D218A11B0861EF000D3ABA /* directions */,
 				68D218A31B0861EF000D3ABA /* houston */,
 				68F537311B8373BD0007F480 /* lexington */,
@@ -1097,6 +1117,7 @@
 			files = (
 				68D218BB1B0861EF000D3ABA /* houston-4.gpx in Resources */,
 				68140DA01C1C23EF008F7E3A /* WorkOrderDetails.storyboard in Resources */,
+				5C908DB81F91896C006C53D7 /* yahoo.gpx in Resources */,
 				68D218B51B0861EF000D3ABA /* houston-2.gpx in Resources */,
 				5C68C6D01F86804300BBD3B9 /* Consumer.storyboard in Resources */,
 				6899CDD91F5D8B120074370C /* Messages.storyboard in Resources */,
@@ -1109,6 +1130,7 @@
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
 				68D218AF1B0861EF000D3ABA /* directions_0.gpx in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
+				5C908DB21F918635006C53D7 /* apple.gpx in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
 				5C68C6BE1F867F9700BBD3B9 /* OutboundMediaMessageCell.xib in Resources */,
@@ -1125,6 +1147,7 @@
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68D218BE1B0861EF000D3ABA /* houston-mfrm.gpx in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
+				5C908DB51F9186DC006C53D7 /* google.gpx in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
@@ -1132,6 +1155,7 @@
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
 				5C68C6C01F867F9700BBD3B9 /* OutboundMessageCell.xib in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,
+				5C908DB61F9186DC006C53D7 /* facebook.gpx in Resources */,
 				68B412571B07FC15009A4C05 /* Exo2-ExtraBold.ttf in Resources */,
 				68D218B21B0861EF000D3ABA /* houston-1.gpx in Resources */,
 				68B4127B1B07FC15009A4C05 /* Exo2-Thin.ttf in Resources */,
