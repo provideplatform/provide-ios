@@ -21,23 +21,23 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var updatingWorkOrderContext = false
 
     private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .enRoute
     }
 
     private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .pendingAcceptance
     }
 
     private var canAttemptSegueToArrivingWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .arriving
     }
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "in_progress"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .inProgress
     }
 
     private var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "awaiting_schedule"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .awaitingSchedule
     }
 
     override func viewDidLoad() {
@@ -89,7 +89,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     private func handleInProgressWorkOrderStateChange() {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == "en_route" {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == .enRoute {
             // ensure we weren't previously awaiting confirmation
             if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
                 confirmWorkOrderViewController?.prepareForReuse()
@@ -182,10 +182,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @objc private func cancelButtonTapped(_ sender: UIBarButtonItem) {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
+            workOrder.status = .canceled  // HACK to allow immediate segue to empty work order context
             attemptSegueToValidWorkOrderContext()
 
-            workOrder.updateWorkOrderWithStatus("canceled", onSuccess: { [weak self] statusCode, result in
+            workOrder.updateWorkOrderWithStatus(.canceled, onSuccess: { [weak self] statusCode, result in
                 self?.attemptSegueToValidWorkOrderContext()
                 self?.loadWorkOrderContext()
             }, onError: { [weak self] err, statusCode, response in

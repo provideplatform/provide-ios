@@ -84,7 +84,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 if self.viewingDirections && WorkOrderService.shared.inProgressWorkOrder != nil {
                     self.updatingWorkOrderContext = true
                     WorkOrderService.shared.inProgressWorkOrder?.reload(onSuccess: { statusCode, mappingResult in
-                        if let workOrder = mappingResult?.firstObject as? WorkOrder, workOrder.status != "en_route" {
+                        if let workOrder = mappingResult?.firstObject as? WorkOrder, workOrder.status != .enRoute {
                             self.refreshAnnotations()
                             self.loadWorkOrderContext()
                         } else {
@@ -170,20 +170,20 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .enRoute
     }
 
     private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .pendingAcceptance
     }
 
     private var canAttemptSegueToArrivingWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
+        return WorkOrderService.shared.inProgressWorkOrder?.status == .arriving
     }
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "in_progress" || workOrder.status == "rejected"
+            return workOrder.status == .inProgress || workOrder.status == .rejected
         }
         return false
     }
@@ -342,7 +342,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                             logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
                             LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                         })
-                    } else if wo.status == "in_progress" {
+                    } else if wo.status == .inProgress {
                         wo.complete(onSuccess: { [weak self] statusCode, responseString in
                             logInfo("Completed work order")
                             self?.nextWorkOrderContextShouldBeRewound()

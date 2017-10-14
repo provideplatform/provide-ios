@@ -12,6 +12,32 @@ import RestKit
 @objcMembers
 class WorkOrder: Model {
 
+    enum Status: String {
+        case abandoned = "abandoned"
+        case accepted = "accepted"
+        case arriving = "arriving"
+        case awaitingSchedule = "awaiting_schedule"
+        case canceled = "canceled"
+        case completed = "completed"
+        case delayed = "delayed"
+        case enRoute = "en_route"
+        case inProgress = "in_progress"
+        case pendingAcceptance = "pending_acceptance"
+        case pendingApproval = "pending_approval"
+        case rejected = "rejected"
+        case scheduled = "scheduled"
+        case timedOut = "timed_out"
+    }
+
+    var status: Status! {
+        get {
+            return Status(rawValue: statusString)!
+        }
+        set {
+            statusString = newValue.rawValue
+        }
+    }
+
     var id = 0
     var categoryId = 0
     var category: Category!
@@ -33,7 +59,7 @@ class WorkOrder: Model {
     var estimatedDistance: Double = 0
     var estimatedDuration: Double = 0
     var estimatedSqFt = -1.0
-    var status: String!
+    var statusString: String!
     var previewImage: UIImage!
     var providerRating: Double = 0
     var attachments: [Attachment]!
@@ -64,7 +90,7 @@ class WorkOrder: Model {
             "estimated_distance": "estimatedDistance",
             "estimated_duration": "estimatedDuration",
             "estimated_price": "estimatedPrice",
-            "status": "status",
+            "status": "statusString",
             "provider_rating": "providerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
@@ -80,7 +106,7 @@ class WorkOrder: Model {
     }
 
     private var allowNewComments: Bool {
-        return status != nil && status != "awaiting_schedule"
+        return status != nil && status != .awaitingSchedule
     }
 
     var annotation: Annotation {
@@ -90,7 +116,7 @@ class WorkOrder: Model {
     private var pendingArrival = false
 
     var canArrive: Bool {
-        return !pendingArrival && status == "en_route"
+        return !pendingArrival && status == .enRoute
     }
 
     var scheduledStartAtDate: Date! {
@@ -229,25 +255,25 @@ class WorkOrder: Model {
     }
 
     var statusColor: UIColor {
-        if status == "awaiting_schedule" {
+        if status == .awaitingSchedule {
             return Color.awaitingScheduleStatusColor()
-        } else if status == "scheduled" {
+        } else if status == .scheduled {
             return Color.scheduledStatusColor()
-        } else if status == "delayed" {
+        } else if status == .delayed {
             return Color.enRouteStatusColor()
-        } else if status == "en_route" {
+        } else if status == .enRoute {
             return Color.enRouteStatusColor()
-        } else if status == "in_progress" {
+        } else if status == .inProgress {
             return Color.inProgressStatusColor()
-        } else if status == "canceled" {
+        } else if status == .canceled {
             return Color.canceledStatusColor()
-        } else if status == "completed" {
+        } else if status == .completed {
             return Color.completedStatusColor()
-        } else if status == "abandoned" {
+        } else if status == .abandoned {
             return Color.abandonedStatusColor()
-        } else if status == "pending_approval" {
+        } else if status == .pendingApproval {
             return Color.pendingCompletionStatusColor()
-        } else if status == "rejected" {
+        } else if status == .rejected {
             return Color.abandonedStatusColor()
         }
 
@@ -264,7 +290,7 @@ class WorkOrder: Model {
 
     var coordinate: CLLocationCoordinate2D! {
         if let config = config {
-            if status == "in_progress" {
+            if status == .inProgress {
                 if let destination = config["destination"] as? [String: AnyObject],
                     let latitude = destination["latitude"] as? Double,
                     let longitude = destination["longitude"] as? Double {
@@ -334,7 +360,7 @@ class WorkOrder: Model {
 
     private var isCompleted: Bool {
         if let status = status {
-            return status == "completed"
+            return status == .completed
         }
         return false
     }
@@ -568,17 +594,17 @@ class WorkOrder: Model {
     }
 
     func route(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("en_route", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.enRoute, onSuccess: onSuccess, onError: onError)
     }
 
     func start(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("in_progress", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.inProgress, onSuccess: onSuccess, onError: onError)
     }
 
     func arrive(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         pendingArrival = true
 
-        updateWorkOrderWithStatus("arriving", onSuccess: { statusCode, mappingResult in
+        updateWorkOrderWithStatus(.arriving, onSuccess: { statusCode, mappingResult in
             self.pendingArrival = false
             onSuccess(statusCode, mappingResult)
         }, onError: { error, statusCode, responseString in
@@ -588,11 +614,11 @@ class WorkOrder: Model {
     }
 
     func abandon(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.abandoned, onSuccess: onSuccess, onError: onError)
     }
 
     private func cancel(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("canceled", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.canceled, onSuccess: onSuccess, onError: onError)
     }
 
     private func approve(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -600,20 +626,20 @@ class WorkOrder: Model {
     }
 
     private func reject(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.rejected, onSuccess: onSuccess, onError: onError)
     }
 
     func complete(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("completed", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.completed, onSuccess: onSuccess, onError: onError)
     }
 
     private func submitForApproval(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
+        updateWorkOrderWithStatus(.pendingApproval, onSuccess: onSuccess, onError: onError)
     }
 
-    func updateWorkOrderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func updateWorkOrderWithStatus(_ status: Status, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
-        ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status], onSuccess: { statusCode, mappingResult in
+        ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status.rawValue], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)
         }, onError: onError)

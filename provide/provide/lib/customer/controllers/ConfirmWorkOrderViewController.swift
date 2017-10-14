@@ -42,7 +42,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     })
                 }
             } else {
-                if workOrder.status == "awaiting_schedule" {
+                if workOrder.status == .awaitingSchedule {
                     var distanceTimeEstimate = ""
                     if workOrder.estimatedDistance != 0 {
                         distanceTimeEstimate = "\(workOrder.estimatedDistance) miles"
@@ -61,7 +61,7 @@ class ConfirmWorkOrderViewController: ViewController {
 
                     // self.creditCardLastFour.text = "" // TODO
                     // self.capacity.text = "" // TODO
-                } else if workOrder.status == "pending_acceptance" {
+                } else if workOrder.status == .pendingAcceptance {
                     setViews(hidden: true)
                     activityIndicatorView.startAnimating()
                 }
@@ -103,7 +103,7 @@ class ConfirmWorkOrderViewController: ViewController {
 
         // TODO: show progress HUD
 
-        workOrder.status = "pending_acceptance"
+        workOrder.status = .pendingAcceptance
         workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
             if let workOrder = mappingResult?.firstObject as? WorkOrder {
                 logInfo("Created work order for hire: \(workOrder)")

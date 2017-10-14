@@ -103,7 +103,7 @@ class ProviderEnRouteViewController: ViewController {
                 return
             }
 
-            if workOrder.status == "en_route" {
+            if workOrder.status == .enRoute {
                 if workOrder.providerProfileImageUrl == nil {
                     workOrder.reload(onSuccess: { [weak self] _, _ in
                         self?.refreshProvider()
@@ -112,11 +112,11 @@ class ProviderEnRouteViewController: ViewController {
                     })
                 }
                 providerStatusLabel?.text = "YOUR DRIVER IS EN ROUTE"
-            } else if workOrder.status == "arriving" {
+            } else if workOrder.status == .arriving {
                 providerStatusLabel?.text = "YOUR DRIVER IS ARRIVING NOW"
-            } else if workOrder.status == "in_progress" {
+            } else if workOrder.status == .inProgress {
                 providerStatusLabel?.text = "HEADING TO DESTINATION"
-            } else if workOrder.status == "completed" {
+            } else if workOrder.status == .completed {
                 providerStatusLabel?.text = "YOU HAVE ARRIVED"
             }
             providerStatusLabel?.isHidden = false

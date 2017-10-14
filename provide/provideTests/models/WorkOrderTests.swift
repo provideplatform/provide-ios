@@ -39,7 +39,7 @@ class WorkOrderTests: XCTestCase {
         XCTAssertEqual(object.scheduledEndAt, nil)
         XCTAssertEqual(object.scheduledStartAt, nil)
         XCTAssertEqual(object.startedAt, "2017-10-09T00:53:56Z")
-        XCTAssertEqual(object.status, "completed")
+        XCTAssertEqual(object.status, .completed)
         // XCTAssertEqual(object.submittedForApprovalAt, nil)
         XCTAssertNotNil(object.user)
         XCTAssertEqual(object.userId, 6)

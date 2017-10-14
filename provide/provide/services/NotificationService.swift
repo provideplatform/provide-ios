@@ -106,7 +106,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             inProgressWorkOrder.reload(onSuccess: { statusCode, mappingResult in
                                 WorkOrderService.shared.updateWorkOrder(inProgressWorkOrder)
 
-                                if inProgressWorkOrder.status == "canceled" {
+                                if inProgressWorkOrder.status == .canceled {
                                     LocationService.shared.unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
                                     NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
                                 }

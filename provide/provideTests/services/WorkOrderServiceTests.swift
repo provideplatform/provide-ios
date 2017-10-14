@@ -45,7 +45,7 @@ class WorkOrderServiceTests: XCTestCase {
             // XCTAssertEqual(workOrder.customer.name, "Kyle Thomas")
             XCTAssertEqual(workOrder.id, 42)
             // XCTAssertEqual(workOrder.customer.contact.address1, "111 Summer Dr NE")
-            XCTAssertEqual(workOrder.status, "scheduled")
+            XCTAssertEqual(workOrder.status, .scheduled)
 
             let provider = workOrder.workOrderProviders.first!
             XCTAssertEqual(provider.provider.contact.address1, "123 Elm St")

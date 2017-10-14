@@ -49,14 +49,14 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != "completed" && workOrder.status != "canceled" && workOrder.status != "pending_approval"
+        return !showsCompleteButton && isResponsibleSupervisor && workOrder.status != .completed && workOrder.status != .canceled && workOrder.status != .pendingApproval
     }
 
     private var showsApproveButton: Bool {
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "pending_approval" && isResponsibleSupervisor
+        return workOrder.status == .pendingApproval && isResponsibleSupervisor
     }
 
     private var showsRejectButton: Bool {
@@ -71,28 +71,28 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             return false
         }
 
-        return workOrder.status == "in_progress" && isResponsibleProvider
+        return workOrder.status == .inProgress && isResponsibleProvider
     }
 
     private var showsCompleteButton: Bool {
         if workOrder == nil {
             return false
         }
-        return workOrder.status == "in_progress" && !showsSubmitForApprovalButton && isResponsibleSupervisor
+        return workOrder.status == .inProgress && !showsSubmitForApprovalButton && isResponsibleSupervisor
     }
 
     private var showsStartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].index(of: workOrder.status) != nil
+        return showsCancelButton && !showsSubmitForApprovalButton && [WorkOrder.Status.scheduled].index(of: workOrder.status) != nil
     }
 
     private var showsRestartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return isResponsibleProvider && ["rejected"].index(of: workOrder.status) != nil
+        return isResponsibleProvider && [WorkOrder.Status.rejected].index(of: workOrder.status) != nil
     }
 
     @IBOutlet private weak var previewImageView: UIImageView! {
@@ -188,7 +188,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             cell.backgroundView!.backgroundColor = workOrder.statusColor
 
             cell.accessoryType = .none
-            cell.setName(workOrder.status.uppercased().replacingOccurrences(of: "_", with: " "), value: "")
+            cell.setName(workOrder.status.rawValue.uppercased().replacingOccurrences(of: "_", with: " "), value: "")
         case 1:
             //            if workOrder.status == "en_route" || workOrder.status == "in_progress" {
             //                if let duration = self.workOrder.humanReadableDuration {
@@ -205,7 +205,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             //                cell.accessoryType = .DisclosureIndicator
             //            }
 
-            if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
+            if workOrder.status == .scheduled || workOrder.status == .awaitingSchedule {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -218,7 +218,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
             cell.setName("START AT", value: scheduledStartTime)
         case 2:
-            if workOrder.status == "scheduled" || workOrder.status == "awaiting_schedule" {
+            if workOrder.status == .scheduled || workOrder.status == .awaitingSchedule {
                 cell.accessoryType = .disclosureIndicator
             } else {
                 cell.accessoryType = .none
@@ -288,7 +288,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                     statusCell.backgroundView?.alpha = CGFloat(alpha)
 
                     if let workOrder = self.workOrder, let duration = workOrder.humanReadableDuration {
-                        statusCell.setName("\(workOrder.status.uppercased())", value: duration)
+                        statusCell.setName("\(workOrder.status.rawValue.uppercased())", value: duration)
                     }
                 })
             }

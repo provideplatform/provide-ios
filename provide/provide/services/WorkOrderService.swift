@@ -18,7 +18,7 @@ class WorkOrderService: NSObject {
 
     weak var nextWorkOrder: WorkOrder! {
         for wo in workOrders {
-            if wo.status == "scheduled" || wo.status == "pending_acceptance" {
+            if wo.status == .scheduled || wo.status == .pendingAcceptance {
                 if wo.userId == currentUser.id {
                     return wo
                 }
@@ -33,12 +33,12 @@ class WorkOrderService: NSObject {
     weak var inProgressWorkOrder: WorkOrder! {
         for wo in workOrders {
             if wo.userId == currentUser.id {
-                if Set(["awaiting_schedule", "pending_acceptance", "en_route", "arriving", "in_progress", "timed_out"]).contains(wo.status) {
+                if Set([.awaitingSchedule, .pendingAcceptance, .enRoute, .arriving, .inProgress, .timedOut]).contains(wo.status) {
                     return wo
                 }
             }
 
-            if Set(["pending_acceptance", "en_route", "arriving", "in_progress", "rejected"]).contains(wo.status) {
+            if Set([.pendingAcceptance, .enRoute, .arriving, .inProgress, .rejected]).contains(wo.status) {
                 for provider in wo.providers where provider.userId == currentUser.id && !wo.isCurrentProviderTimedOut {
                     return wo
                 }
@@ -69,7 +69,7 @@ class WorkOrderService: NSObject {
         workOrders = newWorkOrders
     }
 
-    func fetch(_ page: Int = 1, rpp: Int = 10, status: String = "scheduled", today: Bool = false, includeProviders: Bool = true, onWorkOrdersFetched: OnWorkOrdersFetched!) {
+    func fetch(_ page: Int = 1, rpp: Int = 10, status: String = WorkOrder.Status.scheduled.rawValue, today: Bool = false, includeProviders: Bool = true, onWorkOrdersFetched: OnWorkOrdersFetched!) {
         var params: [String: Any] = [
             "page": page,
             "rpp": rpp,

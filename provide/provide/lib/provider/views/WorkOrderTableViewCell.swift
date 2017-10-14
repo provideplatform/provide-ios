@@ -25,7 +25,7 @@ class WorkOrderTableViewCell: UITableViewCell {
                 consumerLabel.text = user.name
             }
 
-            statusLabel.text = workOrder.status
+            statusLabel.text = workOrder.status.rawValue
 
             if let duration = workOrder.humanReadableDuration {
                 durationLabel.text = duration
@@ -37,10 +37,10 @@ class WorkOrderTableViewCell: UITableViewCell {
             backgroundView?.backgroundColor = workOrder.statusColor
             backgroundView?.alpha = 0.9
 
-            if workOrder.status == "in_progress" || workOrder.status == "en_route" {
+            if workOrder.status == .inProgress || workOrder.status == .enRoute {
                 timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                 timer.fire()
-            } else if workOrder.status == "scheduled" {
+            } else if workOrder.status == .scheduled {
                 durationLabel.text = workOrder.scheduledStartAtDate.timeString
                 durationLabel.alpha = 1.0
             }

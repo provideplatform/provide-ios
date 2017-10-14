@@ -91,12 +91,12 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 }
 
                 if let status = workOrder.status {
-                    statusLabel.text = status.uppercased()
+                    statusLabel.text = status.rawValue.uppercased()
 
-                    if status == "en_route" || status == "in_progress" {
+                    if status == .enRoute || status == .inProgress {
                         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                         timer.fire()
-                    } else if workOrder.status == "scheduled" {
+                    } else if workOrder.status == .scheduled {
                         durationLabel.text = workOrder.scheduledStartAtDate.timeString
                     }
                 } else {
