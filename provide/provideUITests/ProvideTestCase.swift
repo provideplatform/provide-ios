@@ -27,7 +27,7 @@ class ProvideTestCase: XCTestCase {
         super.tearDown()
 
         if isLoggedIn {
-            logout()
+            // logout()
         }
     }
 
@@ -62,5 +62,13 @@ class ProvideTestCase: XCTestCase {
             app.otherElements["MenuContainerView"].tables.children(matching: .cell).element(boundBy: 3).tap()
         }
         isLoggedIn = false
+    }
+
+    func testUserCanTypeInDestinationTextField() {
+        let app = XCUIApplication()
+        let whereToTextField = app.textFields["Where to?"]
+        whereToTextField.waitForExistence(timeout: 15)
+        whereToTextField/*@START_MENU_TOKEN@*/.tap()/*[[".tap()",".press(forDuration: 0.9);"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/
+        whereToTextField.typeText("white house")
     }
 }
