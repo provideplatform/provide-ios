@@ -12,9 +12,14 @@ import RestKit
 @objcMembers
 class Model: NSObject {
 
+    var id = 0
+
+    static func == (lhs: Model, rhs: Model) -> Bool {
+        return lhs.id == rhs.id && lhs.id > 0
+    }
+
     class func mapping() -> RKObjectMapping {
-        let mapping = RKObjectMapping(for: self)
-        return mapping!
+        return RKObjectMapping(for: self)!
     }
 
     private var ivars: [String] {

@@ -30,7 +30,6 @@ class Message: Model {
     var body = ""
     var mediaUrl: String!
     var createdAt: Date!
-    var id = 0
     var recipientId = 0
     var recipientName: String!
     var senderID = 0

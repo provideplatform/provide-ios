@@ -14,7 +14,6 @@ var currentProvider: Provider!
 @objcMembers
 class Provider: Model {
 
-    var id = 0
     var userId = 0
     var categoryId = 0
     var contact: Contact!

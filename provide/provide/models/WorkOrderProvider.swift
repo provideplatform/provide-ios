@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class WorkOrderProvider: Model {
 
-    var id = 0
     var rating = 0.0
     var provider: Provider!
     var checkinCoordinates: [[Double]] = []

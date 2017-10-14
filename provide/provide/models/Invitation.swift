@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class Invitation: Model {
 
-    var id = 0
     var user: User!
 
     override class func mapping() -> RKObjectMapping {

@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class WorkOrder: Model {
 
-    var id = 0
     var categoryId = 0
     var category: Category!
     var userId = 0

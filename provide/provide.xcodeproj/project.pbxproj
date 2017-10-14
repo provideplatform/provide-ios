@@ -61,6 +61,7 @@
 		5CDAA4B21F8AF587001C6240 /* WorkOrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */; };
 		5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */; };
 		5CDAA4B61F8B1535001C6240 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B51F8B1535001C6240 /* RouteTests.swift */; };
+		5CDB27411F924B10002DBA38 /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDB27401F924B10002DBA38 /* ModelTests.swift */; };
 		5CE4D6CC1F8B19F500839001 /* RouteLegTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6CB1F8B19F500839001 /* RouteLegTests.swift */; };
 		5CE4D6CE1F8B1B7600839001 /* ManeuverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6CD1F8B1B7600839001 /* ManeuverTests.swift */; };
 		5CE4D6D01F8B219200839001 /* WorkOrderProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */; };
@@ -263,6 +264,7 @@
 		5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderTests.swift; sourceTree = "<group>"; };
 		5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsTests.swift; sourceTree = "<group>"; };
 		5CDAA4B51F8B1535001C6240 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
+		5CDB27401F924B10002DBA38 /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		5CE4D6CB1F8B19F500839001 /* RouteLegTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteLegTests.swift; sourceTree = "<group>"; };
 		5CE4D6CD1F8B1B7600839001 /* ManeuverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeuverTests.swift; sourceTree = "<group>"; };
 		5CE4D6CF1F8B219200839001 /* WorkOrderProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderProviderTests.swift; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 			children = (
 				68F5DE781F96C657005D3039 /* directions */,
 				5C16BDAD1F8AE414005012BB /* Model+Provide.swift */,
+				5CDB27401F924B10002DBA38 /* ModelTests.swift */,
 				688127131F8B67BC00BE7971 /* AttachmentTests.swift */,
 				5CB25A911F9882F30018D30F /* CategoryTests.swift */,
 				5CE4D6D31F8B2CE800839001 /* ContactTests.swift */,
@@ -1622,6 +1625,7 @@
 				5CE4D6D21F8B2A6400839001 /* ProviderTests.swift in Sources */,
 				5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */,
 				5CE4D6CC1F8B19F500839001 /* RouteLegTests.swift in Sources */,
+				5CDB27411F924B10002DBA38 /* ModelTests.swift in Sources */,
 				5C16BDAE1F8AE414005012BB /* Model+Provide.swift in Sources */,
 				5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */,
 				5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */,

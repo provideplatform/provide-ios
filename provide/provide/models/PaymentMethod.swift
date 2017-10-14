@@ -10,7 +10,6 @@ import Foundation
 
 class PaymentMethod: Model {
 
-    var id = 0
     var brand: String!
     var last4: String!
 

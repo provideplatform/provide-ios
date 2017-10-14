@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class Token: Model {
 
-    var id = 0
     var uuid: String!
     var token: String!
     var user: User!

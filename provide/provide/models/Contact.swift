@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class Contact: Model {
 
-    var id = 0
     var name: String!
     var address1: String!
     var address2: String!

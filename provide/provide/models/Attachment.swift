@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class Attachment: Model {
 
-    var id = 0
     var userId = 0
     var attachableType: String!
     var attachableId = 0

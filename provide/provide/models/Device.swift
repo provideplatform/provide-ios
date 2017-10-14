@@ -12,7 +12,6 @@ import RestKit
 @objcMembers
 class Device: Model {
 
-    var id = 0
     var apnsDeviceId: String!
 
     override class func mapping() -> RKObjectMapping {
