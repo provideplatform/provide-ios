@@ -27,9 +27,10 @@ class WorkOrder: Model {
         case rejected = "rejected"
         case scheduled = "scheduled"
         case timedOut = "timed_out"
+        case undefined = "undefined"
     }
 
-    var status: Status! {
+    var status: Status {
         get {
             return Status(rawValue: statusString)!
         }
@@ -59,7 +60,7 @@ class WorkOrder: Model {
     var estimatedDistance: Double = 0
     var estimatedDuration: Double = 0
     var estimatedSqFt = -1.0
-    var statusString: String!
+    var statusString: String = WorkOrder.Status.undefined.rawValue
     var previewImage: UIImage!
     var providerRating: Double = 0
     var attachments: [Attachment]!
@@ -106,7 +107,7 @@ class WorkOrder: Model {
     }
 
     private var allowNewComments: Bool {
-        return status != nil && status != .awaitingSchedule
+        return status != .undefined && status != .awaitingSchedule
     }
 
     var annotation: Annotation {
@@ -359,10 +360,7 @@ class WorkOrder: Model {
     }
 
     private var isCompleted: Bool {
-        if let status = status {
-            return status == .completed
-        }
-        return false
+        return status == .completed
     }
 
     private var isCurrentUserProvider: Bool {

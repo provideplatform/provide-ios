@@ -90,7 +90,8 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                     durationLabel.sizeToFit()
                 }
 
-                if let status = workOrder.status {
+                if workOrder.status != .undefined {
+                    let status = workOrder.status
                     statusLabel.text = status.rawValue.uppercased()
 
                     if status == .enRoute || status == .inProgress {
