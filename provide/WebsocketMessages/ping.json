@@ -1,0 +1,16 @@
+[
+    [
+        "websocket_rails.ping",
+        {
+            "result": null,
+            "channel": null,
+            "server_token": null,
+            "id": null,
+            "data": {
+            },
+            "success": null,
+            "user_id": null,
+            "token": null
+        }
+    ]
+]

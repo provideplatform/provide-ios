@@ -67,6 +67,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     func dispatchRemoteNotification(_ userInfo: [String: Any]) {
+        // print("📣 dispatchRemoteNotification: \(userInfo)")
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
@@ -138,6 +139,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage message: String) {
+        if !(message =~ ".*websocket_rails.ping.*") {
+            // print("🔔 websocket:didReceiveMessage: \(prettyPrintedJson(message))")
+        }
+
         if let token = KeyChainService.shared.token {
             if message =~ ".*(client_connected).*" {
                 socket.write("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")

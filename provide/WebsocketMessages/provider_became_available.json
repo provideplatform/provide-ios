@@ -1,0 +1,50 @@
+[
+    [
+        "push",
+        {
+            "result": null,
+            "channel": "user_3",
+            "server_token": "lOLp_mNYkHzwyTlAiERi3g",
+            "id": null,
+            "data": {
+                "message": "provider_became_available",
+                "payload": {
+                    "last_checkin_heading": "0.0",
+                    "profile_image_url": null,
+                    "id": 7,
+                    "available": true,
+                    "last_checkin_longitude": "-77.107785",
+                    "contact": {
+                        "id": 7,
+                        "state": null,
+                        "description": null,
+                        "address1": null,
+                        "zip": null,
+                        "phone": null,
+                        "mobile": null,
+                        "address2": null,
+                        "time_zone_id": "Pacific Time (US & Canada)",
+                        "latitude": null,
+                        "longitude": null,
+                        "dob": null,
+                        "fax": null,
+                        "data": null,
+                        "city": null,
+                        "website": null,
+                        "email": "driver@provide.services",
+                        "name": "Dan Driver"
+                    },
+                    "user_id": 7,
+                    "category_ids": [
+
+                    ],
+                    "last_checkin_latitude": "38.880779",
+                    "last_checkin_at": "2017-10-14T12:39:22Z"
+                }
+            },
+            "success": null,
+            "user_id": null,
+            "token": "1111ebe4-67a2-4622-997a-3b5170822e7a"
+        }
+    ]
+]
