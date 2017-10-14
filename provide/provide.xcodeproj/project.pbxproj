@@ -44,6 +44,7 @@
 		5C68C6D11F86804300BBD3B9 /* ConsumerMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CA1F86804300BBD3B9 /* ConsumerMapView.swift */; };
 		5C68C6D21F86804300BBD3B9 /* DestinationResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */; };
 		5C68C6D41F86812000BBD3B9 /* DestinationInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */; };
+		5CA86B1E1F92372B0027B94F /* NSNotification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA86B1D1F92372B0027B94F /* NSNotification.Name.swift */; };
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		5CD54CC51F8FE2AD00A24B5E /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
@@ -230,6 +231,7 @@
 		5C68C6CB1F86804300BBD3B9 /* DestinationResultTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationResultTableViewCell.swift; sourceTree = "<group>"; };
 		5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationInputViewController.swift; sourceTree = "<group>"; };
 		5C908DBC1F91DA30006C53D7 /* gpx */ = {isa = PBXFileReference; lastKnownFileType = folder; path = gpx; sourceTree = "<group>"; };
+		5CA86B1D1F92372B0027B94F /* NSNotification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.Name.swift; sourceTree = "<group>"; };
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseWriter.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				689B0CB51B07E0A7005694B7 /* KeyChainService.swift */,
 				687CB58F1B07F6020048B692 /* LocationService.swift */,
 				68D843C01BFAA73800DE7400 /* NotificationService.swift */,
+				5CA86B1D1F92372B0027B94F /* NSNotification.Name.swift */,
 				5C41C5921B21457800FA7783 /* MessageService.swift */,
 				68A653A21F4C20D7007CC52F /* ProviderService.swift */,
 				687CB5931B07F6020048B692 /* WorkOrderService.swift */,
@@ -1452,6 +1455,7 @@
 				681416ED1B8457870076BFBD /* Model.swift in Sources */,
 				68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */,
 				5C68C6D41F86812000BBD3B9 /* DestinationInputViewController.swift in Sources */,
+				5CA86B1E1F92372B0027B94F /* NSNotification.Name.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
 				681416F81B8457870076BFBD /* WorkOrderProvider.swift in Sources */,
 				68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,

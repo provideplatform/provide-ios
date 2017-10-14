@@ -108,7 +108,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
                                 if inProgressWorkOrder.status == "canceled" {
                                     LocationService.shared.unregisterRegionMonitor(inProgressWorkOrder.regionIdentifier) // FIXME-- put this somewhere else, like in the workorder service
-                                    NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                                    NotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                                 }
 
                                 NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: inProgressWorkOrder)
@@ -117,7 +117,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             })
                         }
                     } else {
-                        NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                        NotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                     }
                 }
             }
@@ -194,14 +194,14 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             WorkOrderService.shared.updateWorkOrder(workOrder)
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
-                                NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                                NotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                             }
                         case "work_order_provider_changed":
                             let workOrderProviderJson = payload!.toJSONString()
                             let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
-                                NotificationCenter.default.postNotificationName("WorkOrderContextShouldRefresh")
+                                NotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                             }
                         case "work_order_provider_added":
                             break
