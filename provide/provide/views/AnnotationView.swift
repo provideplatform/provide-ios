@@ -46,6 +46,12 @@ class AnnotationView: MKAnnotationView {
 
         private weak var annotationView: AnnotationView!
 
+        private var initialTouch: UITouch? {
+            didSet {
+                selected = initialTouch != nil
+            }
+        }
+
         var selected: Bool = false {
             didSet {
                 var color = annotationView.unselectedBackgroundColor
@@ -66,11 +72,11 @@ class AnnotationView: MKAnnotationView {
         }
 
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
-            selected = true
+            initialTouch = touches.first
         }
 
         override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
-            selected = false
+
         }
 
         override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -80,7 +86,7 @@ class AnnotationView: MKAnnotationView {
                 }
             }
 
-            selected = false
+            initialTouch = nil
         }
 
         // MARK: UIGestureRecognizerDelegate
