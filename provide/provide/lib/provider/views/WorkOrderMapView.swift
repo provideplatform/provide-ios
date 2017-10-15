@@ -170,7 +170,12 @@ class WorkOrderMapView: MapView {
                 }
             }
         } else if viewingDirections {
-            mapView.setCenterCoordinate(location.coordinate, fromEyeCoordinate: mapView.centerCoordinate, eyeAltitude: mapView.camera.altitude, pitch: mapView.camera.pitch, heading: mapView.camera.heading, animated: false)
+            mapView.setCenterCoordinate(location.coordinate,
+                                        fromEyeCoordinate: mapView.centerCoordinate,
+                                        eyeAltitude: mapView.camera.altitude,
+                                        pitch: mapView.camera.pitch,
+                                        heading: mapView.camera.heading,
+                                        animated: false)
         }
     }
 
