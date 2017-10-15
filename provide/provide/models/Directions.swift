@@ -13,7 +13,7 @@ import RestKit
 class Directions: Model {
 
     var routes = [Route]()
-    var minutes: Int = 0
+    var minutes: Int!
     var selectedRouteIndex: Int!
 
     override class func mapping() -> RKObjectMapping {
