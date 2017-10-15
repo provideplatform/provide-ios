@@ -295,6 +295,23 @@ class WorkOrder: Model {
         return nil
     }
 
+    var etaCoordinate: CLLocationCoordinate2D! {
+        if let config = config {
+            if status == "in_progress" || status == "arriving" {
+                if let destination = config["destination"] as? [String: AnyObject],
+                    let latitude = destination["latitude"] as? Double,
+                    let longitude = destination["longitude"] as? Double {
+                    
+                    return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+                }
+            } else {
+                return coordinate
+            }
+        }
+
+        return nil
+    }
+
     var components: NSMutableArray {
         if let components = config?["components"] as? NSMutableArray {
             return components

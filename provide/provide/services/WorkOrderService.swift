@@ -14,7 +14,9 @@ typealias OnWorkOrderEtaFetched = (_ workOrder: WorkOrder, _ minutesEta: Int) ->
 class WorkOrderService: NSObject {
     static let shared = WorkOrderService()
 
-    private(set) var nextWorkOrderDrivingEtaMinutes: Int = 0
+    private(set) var nextWorkOrderDrivingEtaMinutes: Int!
+
+    private(set) var inProgressWorkOrderDrivingEtaMinutes: Int!
 
     weak var nextWorkOrder: WorkOrder! {
         for wo in workOrders {
@@ -97,33 +99,43 @@ class WorkOrderService: NSObject {
         })
     }
 
-    func fetchNextWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
+    func fetchNextWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D,
+                                                    onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
         guard let workOrder = nextWorkOrder else { return }
 
-        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
-            self.nextWorkOrderDrivingEtaMinutes = minutesEta
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate) { [weak self] minutesEta in
+            self?.nextWorkOrderDrivingEtaMinutes = minutesEta
             onWorkOrderEtaFetched(workOrder, minutesEta)
         }
     }
 
-    private func fetchInProgressWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D, onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
+    func fetchInProgressWorkOrderDrivingEtaFromCoordinate(_ coordinate: CLLocationCoordinate2D,
+                                                          onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
         guard let workOrder = inProgressWorkOrder else { return }
+        nextWorkOrderDrivingEtaMinutes = nil
 
-        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.coordinate) { minutesEta in
-            self.nextWorkOrderDrivingEtaMinutes = minutesEta
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate) { [weak self] minutesEta in
+            self?.inProgressWorkOrderDrivingEtaMinutes = minutesEta
             onWorkOrderEtaFetched(workOrder, minutesEta)
         }
     }
 
-    func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D, onDrivingDirectionsFetched: @escaping OnDrivingDirectionsFetched) {
+    func fetchInProgressWorkOrderDrivingDirectionsFromCoordinate(_ coordinate: CLLocationCoordinate2D,
+                                                                 onDrivingDirectionsFetched: @escaping OnDrivingDirectionsFetched) {
         guard let workOrder = inProgressWorkOrder else { return }
-        DirectionService.shared.fetchDrivingDirectionsFromCoordinate(coordinate, toCoordinate: workOrder.coordinate, onDrivingDirectionsFetched: onDrivingDirectionsFetched)
+        DirectionService.shared.fetchDrivingDirectionsFromCoordinate(coordinate,
+                                                                     toCoordinate: workOrder.coordinate,
+                                                                     onDrivingDirectionsFetched: onDrivingDirectionsFetched)
     }
 
-    func setInProgressWorkOrderRegionMonitoringCallbacks(_ onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
+    func setInProgressWorkOrderRegionMonitoringCallbacks(_ onDidEnterRegion: @escaping VoidBlock,
+                                                         onDidExitRegion: @escaping VoidBlock) {
         guard let workOrder = inProgressWorkOrder else { return }
         LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
         let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
-        LocationService.shared.monitorRegionWithCircularOverlay(overlay, identifier: workOrder.regionIdentifier, onDidEnterRegion: onDidEnterRegion, onDidExitRegion: onDidExitRegion)
+        LocationService.shared.monitorRegionWithCircularOverlay(overlay,
+                                                                identifier: workOrder.regionIdentifier,
+                                                                onDidEnterRegion: onDidEnterRegion,
+                                                                onDidExitRegion: onDidExitRegion)
     }
 }

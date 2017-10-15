@@ -42,14 +42,25 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if WorkOrderService.shared.nextWorkOrder != nil {
-            confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
-        } else if WorkOrderService.shared.inProgressWorkOrder != nil {
-            confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
-        }
+        minutesEta = nil
+
         confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
 
-        minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
+        if WorkOrderService.shared.nextWorkOrder != nil {
+            confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
+            minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
+        } else if WorkOrderService.shared.inProgressWorkOrder != nil {
+            confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
+            refreshEta()
+        }
+    }
+
+    private func refreshEta() {
+        LocationService.shared.resolveCurrentLocation { [weak self] location in
+            WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in
+                self?.minutesEta = minutesEta
+            }
+        }
     }
 
     // MARK: Rendering

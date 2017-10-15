@@ -27,7 +27,9 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
+        if let minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes {
+            self.minutesEta = minutesEta
+        }
     }
 
     func render() {

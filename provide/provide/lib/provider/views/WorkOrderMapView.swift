@@ -160,15 +160,7 @@ class WorkOrderMapView: MapView {
         }
 
         if !viewingDirections && WorkOrderService.shared.nextWorkOrder != nil {
-            if workOrdersViewControllerDelegate != nil {
-                WorkOrderService.shared.fetchNextWorkOrderDrivingEtaFromCoordinate(location.coordinate) { workOrder, minutesEta in
-                    for vc in self.workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
-                        if let delegate = vc as? WorkOrdersViewControllerDelegate {
-                            delegate.drivingEtaToNextWorkOrderChanged?(minutesEta)
-                        }
-                    }
-                }
-            }
+            refreshEta(from: location.coordinate)
         } else if viewingDirections {
             mapView.setCenterCoordinate(location.coordinate,
                                         fromEyeCoordinate: mapView.centerCoordinate,
@@ -186,5 +178,23 @@ class WorkOrderMapView: MapView {
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
+    }
+
+    private func refreshEta(from coordinate: CLLocationCoordinate2D) {
+        if let workOrdersViewControllerDelegate = workOrdersViewControllerDelegate {
+            let onEtaFetched: (WorkOrder, Int) -> Void = { _, minutesEta in
+                for vc in workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
+                    if let delegate = vc as? WorkOrdersViewControllerDelegate {
+                        delegate.drivingEtaToNextWorkOrderChanged?(minutesEta)
+                    }
+                }
+            }
+
+            if WorkOrderService.shared.nextWorkOrder != nil {
+                WorkOrderService.shared.fetchNextWorkOrderDrivingEtaFromCoordinate(coordinate, onWorkOrderEtaFetched: onEtaFetched)
+            } else if  WorkOrderService.shared.inProgressWorkOrder != nil {
+                WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(coordinate, onWorkOrderEtaFetched: onEtaFetched)
+            }
+        }
     }
 }
