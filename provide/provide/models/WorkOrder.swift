@@ -301,7 +301,7 @@ class WorkOrder: Model {
                 if let destination = config["destination"] as? [String: AnyObject],
                     let latitude = destination["latitude"] as? Double,
                     let longitude = destination["longitude"] as? Double {
-                    
+
                     return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                 }
             } else {
