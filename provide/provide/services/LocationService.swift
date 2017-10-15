@@ -106,12 +106,14 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func stop() {
-        locationServiceStartedDate = nil
+        if locationServiceStartedDate != nil {
+            disableNavigationAccuracy()
 
-        stopUpdatingLocation()
-        stopUpdatingHeading()
+            stopUpdatingLocation()
+            stopUpdatingHeading()
 
-        logInfo("Stopped location service updates")
+            logInfo("Stopped location service updates")
+        }
     }
 
     private func foreground() {
@@ -132,11 +134,11 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     // MARK: Navigation accuracy
 
-    func enableNavigationAccuracy() {
+    func enableNavigationAccuracy(disableIdleTimer: Bool = true) {
         requireNavigationAccuracy = true
         desiredAccuracy = kCLLocationAccuracyBestForNavigation
 
-        UIApplication.shared.isIdleTimerDisabled = true
+        UIApplication.shared.isIdleTimerDisabled = disableIdleTimer
 
         startUpdatingHeading()
     }

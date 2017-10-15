@@ -19,6 +19,12 @@ class ProviderEnRouteViewController: ViewController {
     private weak var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
+                CheckinService.shared.stop()
+                LocationService.shared.disableNavigationAccuracy()
+                if oldValue != nil {
+                    LocationService.shared.background()
+                }
+
                 if oldValue != nil {
                     UIView.animate(withDuration: 0.25, animations: {
                         self.view.frame.origin.y += self.view.height
@@ -35,6 +41,11 @@ class ProviderEnRouteViewController: ViewController {
                     })
                 }
             } else {
+                LocationService.shared.start()
+                LocationService.shared.enableNavigationAccuracy(disableIdleTimer: false)
+                CheckinService.shared.start()
+                CheckinService.shared.enableNavigationAccuracy()
+
                 refreshStatus()
 
                 nameLabel.text = workOrder.providers.last!.firstName!.uppercased()
