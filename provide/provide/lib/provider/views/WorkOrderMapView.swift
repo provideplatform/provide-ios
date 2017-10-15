@@ -75,7 +75,9 @@ class WorkOrderMapView: MapView {
     override func removeAnnotations() {
         var nonUserAnnotations = annotations
         if userLocation.location != nil {
-            nonUserAnnotations.removeObject(mapView(self, viewFor: userLocation)!)
+            if let annotation = mapView(self, viewFor: userLocation) {
+                nonUserAnnotations.removeObject(annotation)
+            }
         }
         removeAnnotations(nonUserAnnotations)
     }
