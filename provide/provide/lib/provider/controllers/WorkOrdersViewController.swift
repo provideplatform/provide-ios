@@ -334,6 +334,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                         wo.arrive(onSuccess: { [weak self] statusCode, responseString in
                             logInfo("Work order marked as arriving")
                             LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                            DirectionService.shared.resetLastDirectionsApiRequestCoordinateAndTimestamp()
                             dispatch_after_delay(2.5) {
                                 self?.nextWorkOrderContextShouldBeRewound()
                                 self?.attemptSegueToValidWorkOrderContext()
