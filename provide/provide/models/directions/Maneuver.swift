@@ -1,5 +1,5 @@
 //
-//  RouteLegStep.swift
+//  Maneuver.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -10,7 +10,7 @@ import Foundation
 import RestKit
 
 @objcMembers
-class RouteLegStep: Model {
+class Maneuver: Model {
 
     let maneuverIcons = [
         "leftUTurn": "uturn-left",
@@ -46,17 +46,18 @@ class RouteLegStep: Model {
         "ferry": "",
     ]
 
-    var identifier: String!
-    var position: [String: Double]!
-    var instruction: String!
-    var distanceInMeters: Double = 0
-    var duration: Double = 0
-    var shape: [String]!
+    var action: String!
+    var coordinates: [String: Double]!
     var direction: String!
-    var maneuver: String!
-    var time: String!
-    var baseTime: Double = 0
+    var distance: Double = 0
+    var duration: Double = 0
+    var id: String!
+    var instruction: String!
+    var miles: Double = 0
+    var minutes: Double = 0
     var nextManeuver: String!
+    var shapes: [String]!
+    var time: String!
     var toLink: String!
 
     var currentShapeIndex: Int = 0
@@ -64,48 +65,41 @@ class RouteLegStep: Model {
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
-            "position": "position",
-            "instruction": "instruction",
-            "length": "distanceInMeters",
-            "travelTime": "duration",
-            "shape": "shape",
-            "time": "time",
-            "direction": "direction",
-            "action": "maneuver",
-            "baseTime": "baseTime",
-            "nextManeuver": "nextManeuver",
-            "toLink": "toLink",
-            "id": "identifier",
+            "action",
+            "coordinates",
+            "direction",
+            "distance",
+            "duration",
+            "id",
+            "instruction",
+            "miles",
+            "minutes",
+            "next_maneuver",
+            "shapes",
+            "time",
+            "to_link",
         ])
         return mapping!
     }
 
     var maneuverIcon: UIImage! {
-        if let iconName = maneuverIcons[maneuver] {
+        if let iconName = maneuverIcons[action] {
             return UIImage(iconName)
         }
         return nil
     }
 
-    private var distance: CLLocationDistance {
-        return distanceInMeters
-    }
-
-    private var distanceInMiles: Double {
-        return distance * 0.000621371
-    }
-
-    private var distanceInFeet: Double! {
-        return distanceInMiles * 5820.0
+    private var feet: Double! {
+        return miles * 5820.0
     }
 
     var remainingDistanceString: String! {
-        if let shape = shape, shape.count > 0 {
-            let distanceInMiles = self.distanceInMiles - (self.distanceInMiles * (Double(currentShapeIndex) / Double(shape.count)))
-            if distanceInMiles > 0.1 {
-                return String(format: "%.1f", distanceInMiles) + " mi"
+        if let shapes = shapes, shapes.count > 0 {
+            let miles = self.miles - (self.miles * (Double(currentShapeIndex) / Double(shapes.count)))
+            if miles > 0.1 {
+                return String(format: "%.1f", miles) + " mi"
             } else {
-                let distanceInFeet = self.distanceInFeet - (self.distanceInFeet * (Double(currentShapeIndex) / Double(shape.count)))
+                let distanceInFeet = self.feet - (self.feet * (Double(currentShapeIndex) / Double(shapes.count)))
                 return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
             }
         }
@@ -113,19 +107,19 @@ class RouteLegStep: Model {
     }
 
     private var distanceString: String {
-        if distanceInMiles > 0.1 {
-            return String(format: "%.1f", distanceInMiles) + " mi"
+        if miles > 0.1 {
+            return String(format: "%.1f", miles) + " mi"
         } else {
-            return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
+            return String(format: "%.0f", ceil(feet)) + " ft"
         }
     }
 
     var isFinished: Bool {
-        return currentShapeIndex == shape.count - 1
+        return currentShapeIndex == shapes.count - 1
     }
 
     private var regionIdentifier: String {
-        return identifier
+        return id
     }
 
     private var regionMonitoringRadius: CLLocationDistance {
@@ -149,8 +143,8 @@ class RouteLegStep: Model {
 
     var shapeCoordinates: [CLLocationCoordinate2D] {
         var coords = [CLLocationCoordinate2D]()
-        for shapeString in shape {
-            let shapeCoords = shapeString.components(separatedBy: ",")
+        for str in shapes {
+            let shapeCoords = str.components(separatedBy: ",")
 
             if let latitude = Double(shapeCoords.first!), let longitude = Double(shapeCoords.last!) {
                 coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
@@ -160,7 +154,7 @@ class RouteLegStep: Model {
     }
 
     var startCoordinate: CLLocationCoordinate2D! {
-        if let shape = shape {
+        if let shape = shapes {
             if shape.count == 0 {
                 return nil
             }
@@ -177,12 +171,12 @@ class RouteLegStep: Model {
     }
 
     var endCoordinate: CLLocationCoordinate2D! {
-        if let shape = shape {
-            if shape.count == 0 {
+        if let shapes = shapes {
+            if shapes.count == 0 {
                 return nil
             }
 
-            if let endLocation = shape.last {
+            if let endLocation = shapes.last {
                 let endCoords = endLocation.components(separatedBy: ",")
                 let latitude = (endCoords.first! as NSString).doubleValue
                 let longitude = (endCoords.last! as NSString).doubleValue

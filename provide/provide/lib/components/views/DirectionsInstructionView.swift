@@ -37,17 +37,17 @@ class DirectionsInstructionView: UIView {
                     etaLabel.text = "\(time) arrival"
                 }
 
-                if let icon = routeLeg.currentStep?.maneuverIcon {
+                if let icon = routeLeg.currentManeuver?.maneuverIcon {
                     self.icon.image = icon
                 } else {
                     icon.image = nil
                 }
 
-                if let distance = routeLeg.currentStep?.remainingDistanceString {
+                if let distance = routeLeg.currentManeuver?.remainingDistanceString {
                     stepDistanceLabel.text = distance
                 }
 
-                if let instruction = routeLeg.nextStep?.instruction {
+                if let instruction = routeLeg.currentManeuver?.instruction {
                     instructionLabel.text = instruction.stringByStrippingHTML()
                 }
             } else {

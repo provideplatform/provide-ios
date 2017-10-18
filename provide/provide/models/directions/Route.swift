@@ -17,15 +17,15 @@ class Route: Model {
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
-        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "leg", toKeyPath: "legs", with: RouteLeg.mapping()))
+        mapping?.addRelationshipMapping(withSourceKeyPath: "legs", mapping: RouteLeg.mapping())
         return mapping!
     }
 
     var overviewPolyline: MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
-            for step in leg.steps {
-                if let shapes = step.shape {
+            for maneuver in leg.maneuvers {
+                if let shapes = maneuver.shapes {
                     for shape in shapes {
                         let shapeCoords = shape.components(separatedBy: ",")
                         let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0

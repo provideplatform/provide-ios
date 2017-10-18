@@ -46,11 +46,13 @@ class DirectionsViewController: ViewController {
             } else {
                 hideProgressIndicator()
 
-                resolveCurrentStep()
+                resolveCurrentManeuver()
                 refreshInstructions()
                 renderRouteOverview()
 
-                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self), let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
+                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self),
+                    let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
+
                     navigationItem.prompt = prompt
                 } else {
                     navigationItem.prompt = nil
@@ -59,10 +61,10 @@ class DirectionsViewController: ViewController {
         }
     }
 
-    private func resolveCurrentStep() { // FIXME -- move this to the route model
-        if let leg = directions?.selectedRoute?.currentLeg, let nextStep = leg.nextStep {
-            leg.currentStep.instruction = nextStep.instruction
-            leg.currentStep.maneuver = nextStep.maneuver
+    private func resolveCurrentManeuver() { // FIXME -- move this to the route model
+        if let leg = directions?.selectedRoute?.currentLeg, let nextManeuver = leg.nextManeuver {
+            leg.currentManeuver.instruction = nextManeuver.instruction
+            leg.currentManeuver.action = nextManeuver.action  // FIXME-- is this a bug?
         }
     }
 
@@ -153,15 +155,16 @@ class DirectionsViewController: ViewController {
 
             if sufficientDelta {
                 if let directions = directions {
-                    let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate), MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentStep.startCoordinate))
+                    let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
+                                                            MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentManeuver.startCoordinate))
 
                     let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 
                     mapView.setCenterCoordinate(location.coordinate,
-                                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentStep.startCoordinate,
+                                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentManeuver.startCoordinate,
                                                 eyeAltitude: cameraAltitude,
                                                 pitch: CGFloat(defaultMapCameraPitch),
-                                                heading: calculateBearing(directions.selectedRoute.currentLeg.currentStep.startCoordinate),
+                                                heading: calculateBearing(directions.selectedRoute.currentLeg.currentManeuver.startCoordinate),
                                                 animated: false)
                 }
             }
@@ -175,10 +178,10 @@ class DirectionsViewController: ViewController {
             self.setCenterCoordinate(location)
 
             for leg in directions.selectedRoute.legs {
-                for step in [leg.currentStep] {
+                for step in [leg.currentManeuver] {
                     for coordinate in (step?.shapeCoordinates)! {
                         let overlay = MKCircle(center: coordinate, radius: 5.0)
-                        let identifier = (step?.identifier)! + "_\(coordinate.latitude),\(coordinate.longitude)"
+                        let identifier = (step?.id)! + "_\(coordinate.latitude),\(coordinate.longitude)"
                         let region = CLCircularRegion(center: overlay.coordinate, radius: overlay.radius, identifier: identifier)
 
                         self.regions.append(region)
@@ -190,27 +193,27 @@ class DirectionsViewController: ViewController {
                             self.regions.removeObject(region)
                             LocationService.shared.unregisterRegionMonitor(region.identifier)
 
-                            if let currentLeg = self.directions?.selectedRoute.currentLeg, let currentStep = currentLeg.currentStep {
+                            if let currentLeg = self.directions?.selectedRoute.currentLeg, let currentManeuver = currentLeg.currentManeuver {
                                 var identifier = ""
-                                if let currentShapeCoordinate = currentStep.currentShapeCoordinate, let currentStepIdentifier = currentStep.identifier {
-                                    identifier = currentStepIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
+                                if let currentShapeCoordinate = currentManeuver.currentShapeCoordinate, let currentManeuverIdentifier = currentManeuver.id {
+                                    identifier = currentManeuverIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
                                 }
 
                                 if self.lastRegionCrossed.identifier == identifier {
-                                    currentStep.currentShapeIndex += 1
+                                    currentManeuver.currentShapeIndex += 1
 
-                                    if currentStep.isFinished {
-                                        currentLeg.currentStepIndex += 1
+                                    if currentManeuver.isFinished {
+                                        currentLeg.currentManeuverIndex += 1
                                     }
-                                } else if self.lastRegionCrossed.center.latitude == currentStep.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentStep.endCoordinate.longitude {
-                                    currentLeg.currentStepIndex += 1
+                                } else if self.lastRegionCrossed.center.latitude == currentManeuver.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentManeuver.endCoordinate.longitude {
+                                    currentLeg.currentManeuverIndex += 1
                                 } else {
-                                    var shapeIndex = currentStep.shape.count - 1
-                                    for shapeCoord in Array(currentStep.shapeCoordinates.reversed()) {
+                                    var shapeIndex = currentManeuver.shapes.count - 1
+                                    for shapeCoord in Array(currentManeuver.shapeCoordinates.reversed()) {
                                         if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
-                                            currentStep.currentShapeIndex = shapeIndex
-                                            if currentStep.isFinished {
-                                                currentLeg.currentStepIndex += 1
+                                            currentManeuver.currentShapeIndex = shapeIndex
+                                            if currentManeuver.isFinished {
+                                                currentLeg.currentManeuverIndex += 1
                                             }
                                             break
                                         }
@@ -219,7 +222,7 @@ class DirectionsViewController: ViewController {
                                 }
 
                                 DispatchQueue.main.async {
-                                    self.resolveCurrentStep()
+                                    self.resolveCurrentManeuver()
                                     self.refreshInstructions()
                                     self.renderRouteOverview()
                                 }
@@ -346,11 +349,11 @@ class DirectionsViewController: ViewController {
         return routeLeg
     }
 
-    private func routeLegStepAtIndexPath(_ indexPath: IndexPath) -> RouteLegStep? {
-        var routeLegStep: RouteLegStep?
-        if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.steps.count {
-            routeLegStep = routeLeg.steps[indexPath.row]
+    private func maneuverAtIndexPath(_ indexPath: IndexPath) -> Maneuver? {
+        var Maneuver: Maneuver?
+        if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.maneuvers.count {
+            Maneuver = routeLeg.maneuvers[indexPath.row]
         }
-        return routeLegStep
+        return Maneuver
     }
 }
