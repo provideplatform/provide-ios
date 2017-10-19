@@ -100,26 +100,30 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
 
         ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
             if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
-                let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-                switch authorizationStatus {
-                case .authorized:
-                    self.setHasBeenPromptedToTakeSelfieFlag()
-                    self.initCameraViewController()
-                case .notDetermined:
-                    NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
-                    AVCaptureDevice.requestAccess(for: .video) { granted in
-                        if granted {
-                            self.setHasBeenPromptedToTakeSelfieFlag()
-                            self.initCameraViewController()
-                        }
-                    }
-                case .restricted, .denied:
-                    break
-                }
+                promptUserToTakeSelfie()
             }
         }, onError: { error, statusCode, responseString in
             logError(error)
         })
+
+        func promptUserToTakeSelfie() {
+            let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+            switch authorizationStatus {
+            case .authorized:
+                self.setHasBeenPromptedToTakeSelfieFlag()
+                self.initCameraViewController()
+            case .notDetermined:
+                NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    if granted {
+                        self.setHasBeenPromptedToTakeSelfieFlag()
+                        self.initCameraViewController()
+                    }
+                }
+            case .restricted, .denied:
+                break
+            }
+        }
     }
 
     @objc func currentUserLoggedOut() {
