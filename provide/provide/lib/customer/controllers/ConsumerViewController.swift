@@ -71,7 +71,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private func handleInProgressWorkOrderStateChange() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == "en_route" {
             // ensure we weren't previously awaiting confirmation
-            if confirmWorkOrderViewController?.inProgressWorkOrder != nil {
+            if confirmWorkOrderViewController?.workOrder != nil {
                 confirmWorkOrderViewController?.prepareForReuse()
             }
 

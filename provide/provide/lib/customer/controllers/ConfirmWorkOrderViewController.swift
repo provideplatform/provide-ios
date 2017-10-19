@@ -29,7 +29,7 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
-    private var workOrder: WorkOrder! {
+    private(set) var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
@@ -90,10 +90,6 @@ class ConfirmWorkOrderViewController: ViewController {
             fareEstimate,
         ]
         views.forEach { $0.isHidden = hidden }
-    }
-
-    var inProgressWorkOrder: WorkOrder! {
-        return workOrder
     }
 
     @IBAction private func confirm(_ sender: UIButton) {
