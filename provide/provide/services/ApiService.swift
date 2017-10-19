@@ -358,7 +358,7 @@ class ApiService: NSObject {
 
     // MARK: Category API
 
-    private func fetchCategories(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func fetchCategories(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("categories", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 

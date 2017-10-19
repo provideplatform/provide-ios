@@ -25,4 +25,17 @@ class Category: Model {
         ])
         return mapping!
     }
+
+    static func fetchAll(latitude: Double, longitude: Double, radius: Double, onSuccess: @escaping ([Category]) -> Void, onError: @escaping OnError) {
+        let params: [String: Any] = [
+            "latitude": latitude,
+            "longitude": longitude,
+            "radius": radius,
+        ]
+
+        ApiService.shared.fetchCategories(params, onSuccess: { statusCode, mappingResult in
+            let categories = mappingResult?.array() as! [Category]
+            onSuccess(categories)
+        }, onError: onError)
+    }
 }
