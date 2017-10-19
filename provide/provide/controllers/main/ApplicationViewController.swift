@@ -98,13 +98,15 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         if currentUser == nil && token != nil {
             currentUser = token!.user
         }
+
         ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
             if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
                 let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
-                if authorizationStatus == .authorized {
+                switch authorizationStatus {
+                case .authorized:
                     self.setHasBeenPromptedToTakeSelfieFlag()
                     self.initCameraViewController()
-                } else if authorizationStatus == .notDetermined {
+                case .notDetermined:
                     NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
                     AVCaptureDevice.requestAccess(for: .video) { granted in
                         if granted {
@@ -112,6 +114,8 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
                             self.initCameraViewController()
                         }
                     }
+                case .restricted, .denied:
+                    break
                 }
             }
         }, onError: { error, statusCode, responseString in
