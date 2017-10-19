@@ -110,7 +110,7 @@ class MenuContainerView: UIView {
             targetView.addSubview(backgroundView)
             targetView.bringSubview(toFront: backgroundView)
 
-            menuViewController = UIStoryboard("Main").instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            menuViewController = UIStoryboard("Menu").instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
             menuViewController.delegate = delegate
             menuViewController.view.frame = menuViewControllerFrame
             addSubview(menuViewController.view)

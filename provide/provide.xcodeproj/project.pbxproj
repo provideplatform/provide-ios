@@ -49,6 +49,7 @@
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
 		5CB25A901F9882470018D30F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB25A8F1F9882470018D30F /* Category.swift */; };
 		5CB25A921F9882F30018D30F /* CategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB25A911F9882F30018D30F /* CategoryTests.swift */; };
+		5CB25A941F98A3770018D30F /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CB25A931F98A3770018D30F /* Menu.storyboard */; };
 		5CD54CC51F8FE2AD00A24B5E /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		5CDAA4B21F8AF587001C6240 /* WorkOrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */; };
 		5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */; };
@@ -238,6 +239,7 @@
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		5CB25A8F1F9882470018D30F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		5CB25A911F9882F30018D30F /* CategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTests.swift; sourceTree = "<group>"; };
+		5CB25A931F98A3770018D30F /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		5CC5B9191F92D4230059A923 /* WebsocketMessages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebsocketMessages; sourceTree = "<group>"; };
 		5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseWriter.swift; sourceTree = "<group>"; };
 		5CD54CC71F90123F00A24B5E /* HTTPResponses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPResponses; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 			children = (
 				5CAC66201B1291620079A58E /* LaunchScreen.xib */,
 				68B412341B07FBEB009A4C05 /* Main.storyboard */,
+				5CB25A931F98A3770018D30F /* Menu.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
+				5CB25A941F98A3770018D30F /* Menu.storyboard in Resources */,
 				68F536DA1B834A330007F480 /* Camera.storyboard in Resources */,
 				5C68C6C01F867F9700BBD3B9 /* OutboundMessageCell.xib in Resources */,
 				68B412631B07FC15009A4C05 /* Exo2-Italic.ttf in Resources */,

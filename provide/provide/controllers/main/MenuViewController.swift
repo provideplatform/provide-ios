@@ -76,7 +76,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 } else if let storyboard = menuItem.storyboard {
                     segueToInitialViewControllerInStoryboard(storyboard)
                 } else if let url = menuItem.url {
-                    let webViewController = UIStoryboard("Main").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
+                    let webViewController = UIStoryboard("Menu").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                     webViewController.url = url
                     NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
                     delegate?.navigationControllerForMenuViewController(self)?.pushViewController(webViewController, animated: true)
