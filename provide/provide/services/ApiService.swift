@@ -284,7 +284,7 @@ class ApiService: NSObject {
         }, onError: onError)
     }
 
-    func fetchUser(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    func fetchCurrentUser(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("users/\(currentUser.id)", method: .GET, params: [:], onSuccess: { statusCode, mappingResult in
             assert(statusCode == 200)
             let user = mappingResult?.firstObject as! User
@@ -315,7 +315,7 @@ class ApiService: NSObject {
         ApiService.shared.addAttachment(data!, withMimeType: "image/jpg", toUserWithId: String(currentUser.id), params: params, onSuccess: { response in
             onSuccess(response)
 
-            ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
+            ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
                 if !UIApplication.shared.isRegisteredForRemoteNotifications {
                     NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
                 }

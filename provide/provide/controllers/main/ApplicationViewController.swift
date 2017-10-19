@@ -98,7 +98,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         if currentUser == nil && token != nil {
             currentUser = token!.user
         }
-        ApiService.shared.fetchUser(onSuccess: { statusCode, mappingResult in
+        ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
             if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
                 let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
                 if authorizationStatus == .authorized {
