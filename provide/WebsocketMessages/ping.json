@@ -2,15 +2,14 @@
     [
         "websocket_rails.ping",
         {
-            "result": null,
             "channel": null,
-            "server_token": null,
+            "data": {},
             "id": null,
-            "data": {
-            },
+            "result": null,
+            "server_token": null,
             "success": null,
-            "user_id": null,
-            "token": null
+            "token": null,
+            "user_id": null
         }
     ]
 ]

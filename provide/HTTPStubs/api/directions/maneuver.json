@@ -1,37 +1,37 @@
 {
-  "duration": 38354,
-  "distance": 1027428,
-  "miles": 638.4167,
-  "minutes": 639.23334,
-  "action": "depart",
-  "bounding_box": {
-    "northwest": {
-      "latitude": 33.749058,
-      "longitude": -84.38747
+    "action": "depart",
+    "bounding_box": {
+        "northwest": {
+            "latitude": 33.749058,
+            "longitude": -84.38747
+        },
+        "southeast": {
+            "latitude": 33.74886,
+            "longitude": -84.38739
+        }
     },
-    "southeast": {
-      "latitude": 33.74886,
-      "longitude": -84.38739
-    }
-  },
-  "coordinates": {
-    "latitude": 33.74886,
-    "longitude": -84.38747
-  },
-  "direction": "forward",
-  "id": "M1",
-  "instruction": "Head north on Capitol Ave SE. Go for 23 m.",
-  "length": 23,
-  "next_maneuver": "M2",
-  "next_road_name": "Capitol Ave SE",
-  "notes": null,
-  "road_name": null,
-  "shapes": [
-    "33.7488602,-84.3874652",
-    "33.7490559,-84.3873918"
-  ],
-  "shape_quality": "exact",
-  "start_angle": 17,
-  "time": "2017-10-17T20:44:28-04:00",
-  "to_link": "+723646681"
+    "coordinates": {
+        "latitude": 33.74886,
+        "longitude": -84.38747
+    },
+    "direction": "forward",
+    "distance": 1027428,
+    "duration": 38354,
+    "id": "M1",
+    "instruction": "Head north on Capitol Ave SE. Go for 23 m.",
+    "length": 23,
+    "miles": 638.4167,
+    "minutes": 639.23334,
+    "next_maneuver": "M2",
+    "next_road_name": "Capitol Ave SE",
+    "notes": null,
+    "road_name": null,
+    "shape_quality": "exact",
+    "shapes": [
+        "33.7488602,-84.3874652",
+        "33.7490559,-84.3873918"
+    ],
+    "start_angle": 17,
+    "time": "2017-10-17T20:44:28-04:00",
+    "to_link": "+723646681"
 }

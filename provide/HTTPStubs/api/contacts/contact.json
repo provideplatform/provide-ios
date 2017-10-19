@@ -2,7 +2,9 @@
     "address1": "123 Sesame Street",
     "address2": null,
     "city": "Springfield",
-    "data": {"key": "value"},
+    "data": {
+        "key": "value"
+    },
     "description": "the description",
     "dob": null,
     "email": "kyle@provide.services",

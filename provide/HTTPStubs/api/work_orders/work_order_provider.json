@@ -37,9 +37,7 @@
     "id": 44,
     "provider": {
         "available": true,
-        "category_ids": [
-
-        ],
+        "category_ids": [],
         "contact": {
             "address1": null,
             "address2": null,

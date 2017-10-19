@@ -1,24 +1,6 @@
-
 {
     "routes": [
         {
-            "mode": {
-                "type": "fastest",
-                "transport_modes": [
-                    "car"
-                ],
-                "traffic_mode": "enabled",
-                "features": []
-            },
-            "summary": {
-                "duration": 38354,
-                "miles": 638.4167,
-                "minutes": 639.23334,
-                "flags": [
-                    "motorway",
-                    "builtUpArea"
-                ]
-            },
             "bounding_box": {
                 "northwest": {
                     "latitude": 38.880898,
@@ -32,25 +14,6 @@
             "legs": [
                 {
                     "duration": 38354,
-                    "miles": 638.4167,
-                    "minutes": 639.23334,
-                    "start": {
-                        "label": "Capitol Ave SE",
-                        "link_id": "+723646681",
-                        "mapped_position": {
-                            "latitude": 33.74886,
-                            "longitude": -84.38747
-                        },
-                        "mapped_road_name": "Capitol Ave SE",
-                        "original_position": {
-                            "latitude": 33.748997,
-                            "longitude": -84.387985
-                        },
-                        "side_of_street": "left",
-                        "shape_index": 0,
-                        "spot": 0.4651163,
-                        "type": "stopOver"
-                    },
                     "end": {
                         "label": "N Quincy St",
                         "link_id": "+762764135",
@@ -63,16 +26,13 @@
                             "latitude": 38.88087,
                             "longitude": -77.10797
                         },
-                        "side_of_street": "left",
                         "shape_index": 7043,
+                        "side_of_street": "left",
                         "spot": 0.3265306,
                         "type": "stopOver"
                     },
                     "maneuvers": [
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "depart",
                             "bounding_box": {
                                 "northwest": {
@@ -89,26 +49,26 @@
                                 "longitude": -84.38747
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M1",
                             "instruction": "Head north on Capitol Ave SE. Go for 23 m.",
                             "length": 23,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M2",
                             "next_road_name": "Capitol Ave SE",
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "33.7488602,-84.3874652",
                                 "33.7490559,-84.3873918"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 17,
                             "time": "2017-10-17T20:44:28-04:00",
                             "to_link": "+723646681"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightTurn",
                             "bounding_box": {
                                 "northwest": {
@@ -125,27 +85,27 @@
                                 "longitude": -84.38739
                             },
                             "direction": "right",
+                            "duration": 38354,
                             "id": "M2",
                             "instruction": "Turn right toward Martin Luther King Jr Dr SE. Go for 54 m.",
                             "length": 54,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M3",
                             "next_road_name": null,
                             "notes": null,
                             "road_name": "Capitol Ave SE",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "33.7490559,-84.3873918",
                                 "33.7491095,-84.3871665",
                                 "33.7490451,-84.3868232"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 17,
                             "time": "2017-10-17T20:44:35-04:00",
                             "to_link": "-127166211"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -162,13 +122,17 @@
                                 "longitude": -84.386826
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M3",
                             "instruction": "Continue on Martin Luther King Jr Dr SE. Go for 261 m.",
                             "length": 261,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M4",
                             "next_road_name": "Martin Luther King Jr Dr SE",
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "33.7490451,-84.3868232",
                                 "33.7489271,-84.3866515",
@@ -179,15 +143,11 @@
                                 "33.7481225,-84.384613",
                                 "33.7480259,-84.3843234"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 103,
                             "time": "2017-10-17T20:44:46-04:00",
                             "to_link": "-1148122610"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "leftRamp",
                             "bounding_box": {
                                 "northwest": {
@@ -204,13 +164,17 @@
                                 "longitude": -84.38432
                             },
                             "direction": "left",
+                            "duration": 38354,
                             "id": "M4",
                             "instruction": "Turn left and take ramp onto I-75 N/I-85 N (Honorable Rodney Mims Cook Memorial Hwy). Go for 5.3 km.",
                             "length": 5340,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M5",
                             "next_road_name": "Honorable Rodney Mims Cook Memorial Hwy",
                             "notes": null,
                             "road_name": "Martin Luther King Jr Dr SE",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "33.7480259,-84.3843234",
                                 "33.7484229,-84.3836904",
@@ -304,15 +268,11 @@
                                 "33.7898362,-84.3908358",
                                 "33.7901044,-84.390825"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 111,
                             "time": "2017-10-17T20:45:42-04:00",
                             "to_link": "+22721813"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "leftFork",
                             "bounding_box": {
                                 "northwest": {
@@ -329,13 +289,17 @@
                                 "longitude": -84.39082
                             },
                             "direction": "bearLeft",
+                            "duration": 38354,
                             "id": "M5",
                             "instruction": "Keep left onto I-85 N toward Greenville/GA-400. Go for 152 km.",
                             "length": 152423,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M6",
                             "next_road_name": null,
                             "notes": null,
                             "road_name": "Honorable Rodney Mims Cook Memorial Hwy",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "33.7901044,-84.390825",
                                 "33.7911129,-84.3909752",
@@ -1305,15 +1269,11 @@
                                 "34.482919,-83.0290782",
                                 "34.4838095,-83.028338"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 1,
                             "time": "2017-10-17T20:50:45-04:00",
                             "to_link": "+124531846"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -1330,15 +1290,18 @@
                                 "longitude": -83.028336
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M6",
                             "instruction": "Continue on I-85. Go for 172 km.",
                             "length": 171737,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M7",
                             "next_road_name": null,
                             "notes": [
                                 {
                                     "code": "adminDivisionChange",
-                                    "text": "Entering \u003cspan class=\"admin_division\"\u003eSouth Carolina\u003c/span\u003e",
+                                    "text": "Entering <span class=\"admin_division\">South Carolina</span>",
                                     "type": "info"
                                 },
                                 {
@@ -1348,6 +1311,7 @@
                                 }
                             ],
                             "road_name": "Ernest Vandiver Hwy",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "34.4838095,-83.028338",
                                 "34.4841313,-83.0280912",
@@ -2387,15 +2351,11 @@
                                 "35.1677942,-81.443367",
                                 "35.167923,-81.4428949"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 34,
                             "time": "2017-10-17T22:20:16-04:00",
                             "to_link": "+112129914"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -2412,15 +2372,18 @@
                                 "longitude": -81.442894
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M7",
                             "instruction": "Continue on I-85. Go for 263 km.",
                             "length": 263330,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M8",
                             "next_road_name": null,
                             "notes": [
                                 {
                                     "code": "adminDivisionChange",
-                                    "text": "Entering \u003cspan class=\"admin_division\"\u003eNorth Carolina\u003c/span\u003e",
+                                    "text": "Entering <span class=\"admin_division\">North Carolina</span>",
                                     "type": "info"
                                 },
                                 {
@@ -2430,6 +2393,7 @@
                                 }
                             ],
                             "road_name": "Veterans Memorial Hwy",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "35.167923,-81.4428949",
                                 "35.1679981,-81.4425945",
@@ -4268,15 +4232,11 @@
                                 "36.0615063,-79.1351438",
                                 "36.0605729,-79.133234"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 71,
                             "time": "2017-10-18T00:03:58-04:00",
                             "to_link": "+112127603"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "leftFork",
                             "bounding_box": {
                                 "northwest": {
@@ -4293,13 +4253,17 @@
                                 "longitude": -79.13323
                             },
                             "direction": "bearLeft",
+                            "duration": 38354,
                             "id": "M8",
                             "instruction": "Keep left onto I-85 toward Durham. Go for 114 km.",
                             "length": 114243,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M9",
                             "next_road_name": null,
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "36.0605729,-79.133234",
                                 "36.0598004,-79.1315174",
@@ -5019,15 +4983,11 @@
                                 "36.5437353,-78.1843007",
                                 "36.5441215,-78.1840754"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 121,
                             "time": "2017-10-18T02:40:18-04:00",
                             "to_link": "-125338726"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -5044,19 +5004,23 @@
                                 "longitude": -78.184074
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M9",
                             "instruction": "Continue on I-85. Go for 110 km.",
                             "length": 110055,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M10",
                             "next_road_name": null,
                             "notes": [
                                 {
                                     "code": "adminDivisionChange",
-                                    "text": "Entering \u003cspan class=\"admin_division\"\u003eVirginia\u003c/span\u003e",
+                                    "text": "Entering <span class=\"admin_division\">Virginia</span>",
                                     "type": "info"
                                 }
                             ],
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "36.5441215,-78.1840754",
                                 "36.5442395,-78.1840324",
@@ -5610,15 +5574,11 @@
                                 "37.2173238,-77.3918152",
                                 "37.2175598,-77.3914611"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 25,
                             "time": "2017-10-18T03:47:12-04:00",
                             "to_link": "+108606965"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "leftExit",
                             "bounding_box": {
                                 "northwest": {
@@ -5635,13 +5595,17 @@
                                 "longitude": -77.391464
                             },
                             "direction": "bearLeft",
+                            "duration": 38354,
                             "id": "M10",
                             "instruction": "Take the left exit toward Richmond onto I-95 N. Go for 44.4 km.",
                             "length": 44380,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M11",
                             "next_road_name": null,
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "37.2175598,-77.3914611",
                                 "37.2180748,-77.3907852",
@@ -6141,15 +6105,11 @@
                                 "37.5811064,-77.4692023",
                                 "37.5814605,-77.4693632"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 50,
                             "time": "2017-10-18T04:48:08-04:00",
                             "to_link": "+123659598"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -6166,13 +6126,17 @@
                                 "longitude": -77.46936
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M11",
                             "instruction": "Continue on I-95 N (Richmond-Petersburg Tpke) toward Washington. Go for 107 km.",
                             "length": 106968,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M12",
                             "next_road_name": "Richmond-Petersburg Tpke",
                             "notes": null,
                             "road_name": "Richmond-Petersburg Tpke",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "37.5814605,-77.4693632",
                                 "37.5817287,-77.4695027",
@@ -6961,15 +6925,11 @@
                                 "38.485558,-77.3915577",
                                 "38.4862447,-77.3909354"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 340,
                             "time": "2017-10-18T05:17:52-04:00",
                             "to_link": "+19446754"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightFork",
                             "bounding_box": {
                                 "northwest": {
@@ -6986,13 +6946,17 @@
                                 "longitude": -77.39094
                             },
                             "direction": "bearRight",
+                            "duration": 38354,
                             "id": "M12",
                             "instruction": "Keep right onto I-95. Go for 38.6 km.",
                             "length": 38577,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M13",
                             "next_road_name": null,
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.4862447,-77.3909354",
                                 "38.4881651,-77.3891652",
@@ -7300,15 +7264,11 @@
                                 "38.7733161,-77.1815944",
                                 "38.7741852,-77.1812189"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 35,
                             "time": "2017-10-18T06:24:07-04:00",
                             "to_link": "+1076715120"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightExit",
                             "bounding_box": {
                                 "northwest": {
@@ -7325,13 +7285,17 @@
                                 "longitude": -77.18122
                             },
                             "direction": "bearRight",
+                            "duration": 38354,
                             "id": "M13",
                             "instruction": "Take exit 170A-B toward Washington/I-395 N/Tysons Corner/I-495 N. Go for 989 m.",
                             "length": 989,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M14",
                             "next_road_name": "Henry G Shirley Memorial Hwy",
                             "notes": null,
                             "road_name": "Henry G Shirley Memorial Hwy",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.7741852,-77.1812189",
                                 "38.7748718,-77.1809292",
@@ -7349,15 +7313,11 @@
                                 "38.7818563,-77.1790946",
                                 "38.7828434,-77.1787727"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 18,
                             "time": "2017-10-18T06:58:07-04:00",
                             "to_link": "+128073258"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "leftFork",
                             "bounding_box": {
                                 "northwest": {
@@ -7374,13 +7334,17 @@
                                 "longitude": -77.17877
                             },
                             "direction": "bearLeft",
+                            "duration": 38354,
                             "id": "M14",
                             "instruction": "Keep left onto I-395 N (Henry G Shirley Memorial Hwy) toward Washington. Go for 13.1 km.",
                             "length": 13107,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M15",
                             "next_road_name": "Henry G Shirley Memorial Hwy",
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.7828434,-77.1787727",
                                 "38.7833154,-77.1786118",
@@ -7501,15 +7465,11 @@
                                 "38.8582885,-77.070508",
                                 "38.8589537,-77.0700681"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 14,
                             "time": "2017-10-18T06:58:59-04:00",
                             "to_link": "+1184619129"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightExit",
                             "bounding_box": {
                                 "northwest": {
@@ -7526,13 +7486,17 @@
                                 "longitude": -77.07007
                             },
                             "direction": "bearRight",
+                            "duration": 38354,
                             "id": "M15",
                             "instruction": "Take exit 8A toward Washington Blvd/Columbia Pike/VA-244 onto VA-27 (Washington Blvd). Go for 2.6 km.",
                             "length": 2599,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M16",
                             "next_road_name": "Washington Blvd",
                             "notes": null,
                             "road_name": "Henry G Shirley Memorial Hwy",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8589537,-77.0700681",
                                 "38.8592756,-77.0697355",
@@ -7588,15 +7552,11 @@
                                 "38.8753474,-77.0836294",
                                 "38.8754654,-77.0837903"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 27,
                             "time": "2017-10-18T07:14:12-04:00",
                             "to_link": "+777789696"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightRamp",
                             "bounding_box": {
                                 "northwest": {
@@ -7613,13 +7573,17 @@
                                 "longitude": -77.08379
                             },
                             "direction": "bearRight",
+                            "duration": 38354,
                             "id": "M16",
                             "instruction": "Take ramp onto Arlington Blvd (US-50 W) toward Falls Church. Go for 1.7 km.",
                             "length": 1716,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M17",
                             "next_road_name": "Arlington Blvd",
                             "notes": null,
                             "road_name": "Washington Blvd",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8754654,-77.0837903",
                                 "38.8756156,-77.0839405",
@@ -7661,15 +7625,11 @@
                                 "38.8714743,-77.0976949",
                                 "38.8712919,-77.0983708"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 313,
                             "time": "2017-10-18T07:17:20-04:00",
                             "to_link": "+946807327"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightRamp",
                             "bounding_box": {
                                 "northwest": {
@@ -7686,13 +7646,17 @@
                                 "longitude": -77.09837
                             },
                             "direction": "bearRight",
+                            "duration": 38354,
                             "id": "M17",
                             "instruction": "Take ramp toward Glebe Road. Go for 226 m.",
                             "length": 226,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M18",
                             "next_road_name": "N Glebe Rd",
                             "notes": null,
                             "road_name": "Arlington Blvd",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8712919,-77.0983708",
                                 "38.8712597,-77.098875",
@@ -7700,15 +7664,11 @@
                                 "38.87097,-77.1005166",
                                 "38.870852,-77.1009135"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 250,
                             "time": "2017-10-18T07:19:43-04:00",
                             "to_link": "-18477104"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightTurn",
                             "bounding_box": {
                                 "northwest": {
@@ -7725,13 +7685,17 @@
                                 "longitude": -77.100914
                             },
                             "direction": "right",
+                            "duration": 38354,
                             "id": "M18",
                             "instruction": "Turn right onto N Glebe Rd (VA-120). Go for 871 m.",
                             "length": 871,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M19",
                             "next_road_name": "N Glebe Rd",
                             "notes": null,
                             "road_name": null,
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.870852,-77.1009135",
                                 "38.8714528,-77.1017182",
@@ -7751,15 +7715,11 @@
                                 "38.8759482,-77.1079946",
                                 "38.8761628,-77.1082735"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 249,
                             "time": "2017-10-18T07:20:18-04:00",
                             "to_link": "+18564842"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "rightTurn",
                             "bounding_box": {
                                 "northwest": {
@@ -7776,13 +7736,17 @@
                                 "longitude": -77.10828
                             },
                             "direction": "right",
+                            "duration": 38354,
                             "id": "M19",
                             "instruction": "Turn right onto N Quincy St. Go for 423 m.",
                             "length": 423,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M20",
                             "next_road_name": "N Quincy St",
                             "notes": null,
                             "road_name": "N Glebe Rd",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8761628,-77.1082735",
                                 "38.8763452,-77.1081233",
@@ -7796,15 +7760,11 @@
                                 "38.8794351,-77.1075761",
                                 "38.8798964,-77.1075761"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 314,
                             "time": "2017-10-18T07:22:19-04:00",
                             "to_link": "+762705158"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "continue",
                             "bounding_box": {
                                 "northwest": {
@@ -7821,13 +7781,17 @@
                                 "longitude": -77.107574
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M20",
                             "instruction": "Continue on N Quincy St. Go for 110 m.",
                             "length": 110,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": "M21",
                             "next_road_name": "N Quincy St",
                             "notes": null,
                             "road_name": "N Quincy St",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8798964,-77.1075761",
                                 "38.8802075,-77.1075869",
@@ -7835,15 +7799,11 @@
                                 "38.8807547,-77.1076405",
                                 "38.8808971,-77.1076604"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 0,
                             "time": "2017-10-18T07:23:24-04:00",
                             "to_link": "+762764133"
                         },
                         {
-                            "duration": 38354,
-                            "miles": 638.4167,
-                            "minutes": 639.23334,
                             "action": "arrive",
                             "bounding_box": {
                                 "northwest": {
@@ -7860,35 +7820,74 @@
                                 "longitude": -77.10766
                             },
                             "direction": "forward",
+                            "duration": 38354,
                             "id": "M21",
                             "instruction": "Arrive at N Quincy St. Your destination is on the left.",
                             "length": 0,
+                            "miles": 638.4167,
+                            "minutes": 639.23334,
                             "next_maneuver": null,
                             "next_road_name": null,
                             "notes": [
                                 {
                                     "code": "previousIntersection",
-                                    "text": "The last intersection is \u003cspan class=\"street\"\u003eWilson Blvd\u003c/span\u003e",
+                                    "text": "The last intersection is <span class=\"street\">Wilson Blvd</span>",
                                     "type": "info"
                                 },
                                 {
                                     "code": "nextIntersection",
-                                    "text": "If you reach \u003cspan class=\"next-street\"\u003e9th St N\u003c/span\u003e, you’ve gone too far",
+                                    "text": "If you reach <span class=\"next-street\">9th St N</span>, you’ve gone too far",
                                     "type": "info"
                                 }
                             ],
                             "road_name": "N Quincy St",
+                            "shape_quality": "exact",
                             "shapes": [
                                 "38.8808971,-77.1076604"
                             ],
-                            "shape_quality": "exact",
                             "start_angle": 353,
                             "time": "2017-10-18T07:23:42-04:00",
                             "to_link": null
                         }
-                    ]
+                    ],
+                    "miles": 638.4167,
+                    "minutes": 639.23334,
+                    "start": {
+                        "label": "Capitol Ave SE",
+                        "link_id": "+723646681",
+                        "mapped_position": {
+                            "latitude": 33.74886,
+                            "longitude": -84.38747
+                        },
+                        "mapped_road_name": "Capitol Ave SE",
+                        "original_position": {
+                            "latitude": 33.748997,
+                            "longitude": -84.387985
+                        },
+                        "shape_index": 0,
+                        "side_of_street": "left",
+                        "spot": 0.4651163,
+                        "type": "stopOver"
+                    }
                 }
             ],
+            "mode": {
+                "features": [],
+                "traffic_mode": "enabled",
+                "transport_modes": [
+                    "car"
+                ],
+                "type": "fastest"
+            },
+            "summary": {
+                "duration": 38354,
+                "flags": [
+                    "motorway",
+                    "builtUpArea"
+                ],
+                "miles": 638.4167,
+                "minutes": 639.23334
+            },
             "waypoints": [
                 {
                     "label": "Capitol Ave SE",
@@ -7902,8 +7901,8 @@
                         "latitude": 33.748997,
                         "longitude": -84.387985
                     },
-                    "side_of_street": "left",
                     "shape_index": 0,
+                    "side_of_street": "left",
                     "spot": 0.4651163,
                     "type": "stopOver"
                 },
@@ -7919,8 +7918,8 @@
                         "latitude": 38.88087,
                         "longitude": -77.10797
                     },
-                    "side_of_street": "left",
                     "shape_index": 7043,
+                    "side_of_street": "left",
                     "spot": 0.3265306,
                     "type": "stopOver"
                 }

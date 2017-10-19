@@ -2,19 +2,19 @@
     [
         "push",
         {
-            "result": null,
             "channel": "user_3",
-            "server_token": "lOLp_mNYkHzwyTlAiERi3g",
-            "id": null,
             "data": {
                 "message": "provider_became_unavailable",
                 "payload": {
                     "provider_id": 7
                 }
             },
+            "id": null,
+            "result": null,
+            "server_token": "lOLp_mNYkHzwyTlAiERi3g",
             "success": null,
-            "user_id": null,
-            "token": "1111ebe4-67a2-4622-997a-3b5170822e7a"
+            "token": "1111ebe4-67a2-4622-997a-3b5170822e7a",
+            "user_id": null
         }
     ]
 ]
