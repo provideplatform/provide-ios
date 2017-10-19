@@ -97,9 +97,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             assert(segue.destination is ConfirmWorkOrderViewController)
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
-            confirmWorkOrderViewController.configure { workOrder in
-                self.setupCancelWorkOrderBarButtonItem()
-            }
         case "ProviderEnRouteViewControllerEmbedSegue":
             assert(segue.destination is ProviderEnRouteViewController)
             providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
@@ -210,7 +207,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 presentConfirmWorkOrderViewController()
-                confirmWorkOrderViewController?.setWorkOrder(workOrder)
+                confirmWorkOrderViewController.configure(workOrder: workOrder) { _ in
+                    self.setupCancelWorkOrderBarButtonItem()
+                }
             }
         } else {
             setupMenuBarButtonItem()

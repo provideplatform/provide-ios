@@ -8,7 +8,8 @@
 
 class ConfirmWorkOrderViewController: ViewController {
 
-    func configure(onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
+    func configure(workOrder: WorkOrder, onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
+        self.workOrder = workOrder
         self.onWorkOrderConfirmed = onWorkOrderConfirmed
     }
 
@@ -118,10 +119,6 @@ class ConfirmWorkOrderViewController: ViewController {
         workOrder = nil
     }
 
-    func setWorkOrder(_ workOrder: WorkOrder) {
-        self.workOrder = workOrder
-    }
-
     func confirmWorkOrderWithOrigin(_ origin: Contact, destination: Contact) {
         let latitude = origin.latitude
         let longitude = origin.longitude
@@ -143,7 +140,7 @@ class ConfirmWorkOrderViewController: ViewController {
             if let workOrder = mappingResult?.firstObject as? WorkOrder {
                 logInfo("Created work order for hire: \(workOrder)")
                 WorkOrderService.shared.setWorkOrders([workOrder])
-                self?.setWorkOrder(workOrder)
+                self?.workOrder = workOrder
             }
         }, onError: { err, statusCode, responseString in
             logWarn("Failed to create work order for hire (\(statusCode))")
