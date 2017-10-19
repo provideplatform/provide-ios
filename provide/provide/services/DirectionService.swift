@@ -60,16 +60,13 @@ class DirectionService: NSObject {
                                        onEtaFetched: @escaping OnEtaFetched) {
         if canSendEtaApiRequest {
             lastEtaApiRequestDate = Date()
-            ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate,
-                onSuccess: { statusCode, mappingResult in
-                    if let directions = mappingResult?.firstObject as? Directions {
-                        onEtaFetched(directions.minutes)
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    logError(error)
+            ApiService.shared.getDrivingEtaFromCoordinate(coordinate, toCoordinate: toCoordinate, onSuccess: { statusCode, mappingResult in
+                if let directions = mappingResult?.firstObject as? Directions {
+                    onEtaFetched(directions.minutes)
                 }
-            )
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
         }
     }
 
@@ -79,16 +76,13 @@ class DirectionService: NSObject {
         if canSendDirectionsApiRequest {
             lastDirectionsApiRequestDate = Date()
             lastDirectionsApiRequestCoordinate = coordinate
-            ApiService.shared.getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate,
-                onSuccess: { statusCode, mappingResult in
-                    if let directions = mappingResult?.firstObject as? Directions {
-                        onDrivingDirectionsFetched(directions)
-                    }
-                },
-                onError: { error, statusCode, responseString in
-                    logError(error)
+            ApiService.shared.getDrivingDirectionsFromCoordinate(coordinate, toCoordinate: toCoordinate, onSuccess: { statusCode, mappingResult in
+                if let directions = mappingResult?.firstObject as? Directions {
+                    onDrivingDirectionsFetched(directions)
                 }
-            )
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
         }
     }
 }
