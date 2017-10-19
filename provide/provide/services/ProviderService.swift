@@ -57,10 +57,10 @@ class ProviderService: NSObject {
         nearbyCoordinate: CLLocationCoordinate2D!,
         onProvidersFetched: @escaping OnProvidersFetched) {
 
-        var params = [
+        var params: [String: Any] = [
             "page": page,
             "rpp": rpp,
-        ] as [String: Any]
+        ]
 
         params["available"] = available
         params["active"] = active

@@ -205,16 +205,16 @@ class ApiService: NSObject {
     }
 
     private func addAttachment(_ data: Data, withMimeType mimeType: String, usingPresignedS3RequestURL presignedS3RequestURL: URL, params: [String: Any], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
-        var tags: String! = nil
+        var tags = ""
         if let t = params["tags"] as? [String] {
             tags = t.joined(separator: ",")
         }
         let metadata = [
             "sqs-queue-url": "https://sqs.us-east-1.amazonaws.com/562811387569/prvd-production",
             "tags": tags,
-        ] as [String: Any]
+        ]
 
-        KTS3Service.presign(presignedS3RequestURL, bucket: nil, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata as! [String : String], headers: headers, successHandler: { object in
+        KTS3Service.presign(presignedS3RequestURL, bucket: nil, filename: "upload.\(mimeMappings[mimeType]!)", metadata: metadata, headers: headers, successHandler: { object in
             let presignResponse = try? JSONSerialization.jsonObject(with: (object! as! NSData) as Data, options: [])
             let map = Map(mappingType: .fromJSON,
                           JSON: presignResponse as! [String: Any],
@@ -305,10 +305,10 @@ class ApiService: NSObject {
     }
 
     func setUserDefaultProfileImage(_ image: UIImage, onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
-        let params = [
+        let params: [String: Any] = [
             "public": true,
             "tags": ["profile_image", "default"],
-        ] as [String: Any]
+        ]
 
         let data = UIImageJPEGRepresentation(image, 1.0)
 

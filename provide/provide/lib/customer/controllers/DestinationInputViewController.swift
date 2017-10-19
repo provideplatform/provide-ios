@@ -69,11 +69,11 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     self?.placemark = placemark
                 }
                 let currentCoordinate = location.coordinate
-                let params = [
+                let params: [String: Any] = [
                     "q": query,
                     "latitude": currentCoordinate.latitude,
                     "longitude": currentCoordinate.longitude,
-                ] as [String: Any]
+                ]
                 ApiService.shared.autocompletePlaces(params, onSuccess: { [weak self] statusCode, mappingResult in
                     self?.pendingSearch = false
                     if let suggestions = mappingResult?.array() as? [Contact] {
