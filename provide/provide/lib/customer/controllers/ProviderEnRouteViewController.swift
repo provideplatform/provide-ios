@@ -8,6 +8,10 @@
 
 class ProviderEnRouteViewController: ViewController {
 
+    func configure(workOrder: WorkOrder) {
+        self.workOrder = workOrder
+    }
+
     @IBOutlet private weak var providerStatusLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
@@ -136,9 +140,5 @@ class ProviderEnRouteViewController: ViewController {
 
     func prepareForReuse() {
         workOrder = nil
-    }
-
-    func setWorkOrder(_ workOrder: WorkOrder) {
-        self.workOrder = workOrder
     }
 }

@@ -203,7 +203,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
                 presentProviderEnRouteViewController()
-                providerEnRouteViewController?.setWorkOrder(workOrder)
+                providerEnRouteViewController?.configure(workOrder: workOrder)
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 presentConfirmWorkOrderViewController()
