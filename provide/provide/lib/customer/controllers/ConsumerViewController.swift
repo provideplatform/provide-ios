@@ -20,30 +20,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private var updatingWorkOrderContext = false
 
-    private var inProgressWorkOrderStatus: String? {
-        return WorkOrderService.shared.inProgressWorkOrder?.status
-    }
-
-    private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        return inProgressWorkOrderStatus == "en_route"
-    }
-
-    private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        return inProgressWorkOrderStatus == "pending_acceptance"
-    }
-
-    private var canAttemptSegueToArrivingWorkOrder: Bool {
-        return inProgressWorkOrderStatus == "arriving"
-    }
-
-    private var canAttemptSegueToInProgressWorkOrder: Bool {
-        return inProgressWorkOrderStatus == "in_progress"
-    }
-
-    private var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
-        return inProgressWorkOrderStatus == "awaiting_schedule"
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -226,12 +202,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func attemptSegueToValidWorkOrderContext() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if canAttemptSegueToEnRouteWorkOrder || canAttemptSegueToArrivingWorkOrder || canAttemptSegueToInProgressWorkOrder {
+            if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
                 presentProviderEnRouteViewController()
                 providerEnRouteViewController?.setWorkOrder(workOrder)
-            } else if canAttemptSegueToAwaitingScheduleWorkOrder || canAttemptSegueToPendingAcceptanceWorkOrder {
+            } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 presentConfirmWorkOrderViewController()
                 confirmWorkOrderViewController?.setWorkOrder(workOrder)
