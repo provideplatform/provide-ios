@@ -13,12 +13,10 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
     override func perform() {
         switch identifier! {
         case "DirectionsViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is DirectionsViewController)
+            assert(source is WorkOrdersViewController && destination is DirectionsViewController)
             (destination as! DirectionsViewController).render()
         case "WorkOrderAnnotationViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is WorkOrderAnnotationViewController)
+            assert(source is WorkOrdersViewController && destination is WorkOrderAnnotationViewController)
             (destination as! WorkOrderAnnotationViewController).render()
             (destination as! WorkOrderAnnotationViewController).onConfirmationRequired = {
                 self.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.source)
@@ -27,21 +25,16 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
                 mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
             }
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
-            assert(source is WorkOrderAnnotationViewController)
-            assert(destination is WorkOrdersViewController)
+            assert(source is WorkOrderAnnotationViewController && destination is WorkOrdersViewController)
             source.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
         case "WorkOrderComponentViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is WorkOrderComponentViewController)
+            assert(source is WorkOrdersViewController && destination is WorkOrderComponentViewController)
             (destination as! WorkOrderComponentViewController).render()
         case "WorkOrderDestinationHeaderViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is WorkOrderDestinationHeaderViewController)
+            assert(source is WorkOrdersViewController && destination is WorkOrderDestinationHeaderViewController)
             (destination as! WorkOrderDestinationHeaderViewController).render()
         case "WorkOrderDestinationConfirmationViewControllerSegue":
-            assert(source is WorkOrdersViewController)
-            assert(destination is WorkOrderDestinationConfirmationViewController)
-
+            assert(source is WorkOrdersViewController && destination is WorkOrderDestinationConfirmationViewController)
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
             destinationConfirmationViewController.onConfirmationReceived = {
