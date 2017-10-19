@@ -154,12 +154,12 @@ class Maneuver: Model {
     }
 
     var startCoordinate: CLLocationCoordinate2D! {
-        if let shape = shapes {
-            if shape.count == 0 {
+        if let shapes = shapes {
+            if shapes.count == 0 {
                 return nil
             }
 
-            if let startLocation = shape.first {
+            if let startLocation = shapes.first {
                 let startCoords = startLocation.components(separatedBy: ",")
                 let latitude = (startCoords.first! as NSString).doubleValue
                 let longitude = (startCoords.last! as NSString).doubleValue

@@ -30,6 +30,5 @@ class ManeuverTests: XCTestCase {
         XCTAssertEqual(object.shapes.count, 2)
         XCTAssertEqual(object.time, "2017-10-17T20:44:28-04:00")
         XCTAssertEqual(object.toLink, "+723646681")
-
     }
 }
