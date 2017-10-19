@@ -94,9 +94,8 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
     }
 
     private func refreshCurrentUser() {
-        let token = KeyChainService.shared.token
-        if currentUser == nil && token != nil {
-            currentUser = token!.user
+        if let user = KeyChainService.shared.token?.user, currentUser == nil {
+            currentUser = user
         }
 
         ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
