@@ -42,9 +42,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
 
         NotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] _ in
-            if let weakSelf = self {
-                if !weakSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
-                    weakSelf.loadWorkOrderContext()
+            if let strongSelf = self {
+                if !strongSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
+                    strongSelf.loadWorkOrderContext()
                 }
             }
         }
