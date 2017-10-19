@@ -118,14 +118,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
-        navigationItem.leftBarButtonItem = menuBarButtonItem
+        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
     }
 
     private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
-        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
-        navigationItem.rightBarButtonItem = messagesBarButtonItem
+        navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {

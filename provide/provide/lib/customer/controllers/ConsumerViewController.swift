@@ -112,20 +112,17 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        let menuBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
-        navigationItem.leftBarButtonItem = menuBarButtonItem
+        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = nil
     }
 
     private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
-        let messagesBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
-        navigationItem.rightBarButtonItem = messagesBarButtonItem
+        navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
     }
 
     private func setupCancelWorkOrderBarButtonItem() {
-        let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        navigationItem.leftBarButtonItem = cancelBarButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped))
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
