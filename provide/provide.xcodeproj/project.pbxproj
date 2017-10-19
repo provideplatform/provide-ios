@@ -47,6 +47,8 @@
 		5CA86B1E1F92372B0027B94F /* NSNotification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA86B1D1F92372B0027B94F /* NSNotification.Name.swift */; };
 		5CAC66211B1291620079A58E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		5CAC66241B12B0260079A58E /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */; };
+		5CB25A901F9882470018D30F /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB25A8F1F9882470018D30F /* Category.swift */; };
+		5CB25A921F9882F30018D30F /* CategoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB25A911F9882F30018D30F /* CategoryTests.swift */; };
 		5CD54CC51F8FE2AD00A24B5E /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		5CDAA4B21F8AF587001C6240 /* WorkOrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B11F8AF587001C6240 /* WorkOrderTests.swift */; };
 		5CDAA4B41F8B0FF9001C6240 /* DirectionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDAA4B31F8B0FF9001C6240 /* DirectionsTests.swift */; };
@@ -234,6 +236,8 @@
 		5CA86B1D1F92372B0027B94F /* NSNotification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.Name.swift; sourceTree = "<group>"; };
 		5CAC66201B1291620079A58E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		5CAC66231B12B0260079A58E /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		5CB25A8F1F9882470018D30F /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		5CB25A911F9882F30018D30F /* CategoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTests.swift; sourceTree = "<group>"; };
 		5CC5B9191F92D4230059A923 /* WebsocketMessages */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebsocketMessages; sourceTree = "<group>"; };
 		5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONResponseWriter.swift; sourceTree = "<group>"; };
 		5CD54CC71F90123F00A24B5E /* HTTPResponses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPResponses; sourceTree = "<group>"; };
@@ -426,6 +430,7 @@
 				68F5DE781F96C657005D3039 /* directions */,
 				5C16BDAD1F8AE414005012BB /* Model+Provide.swift */,
 				688127131F8B67BC00BE7971 /* AttachmentTests.swift */,
+				5CB25A911F9882F30018D30F /* CategoryTests.swift */,
 				5CE4D6D31F8B2CE800839001 /* ContactTests.swift */,
 				5CE4D6D11F8B2A6400839001 /* ProviderTests.swift */,
 				5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */,
@@ -853,6 +858,7 @@
 			children = (
 				68F5DE791F96C6DC005D3039 /* directions */,
 				68F730591B07DE94001A21B0 /* Attachment.swift */,
+				5CB25A8F1F9882470018D30F /* Category.swift */,
 				68F7305B1B07DE94001A21B0 /* Contact.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
 				6837AF8E1C8BAB2D0082F4EC /* Invitation.swift */,
@@ -1524,6 +1530,7 @@
 				6816FD3E1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
 				5C68C6D11F86804300BBD3B9 /* ConsumerMapView.swift in Sources */,
 				687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */,
+				5CB25A901F9882470018D30F /* Category.swift in Sources */,
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
@@ -1548,6 +1555,7 @@
 				5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */,
 				5CE4D6CE1F8B1B7600839001 /* ManeuverTests.swift in Sources */,
 				5CE4D6D41F8B2CE800839001 /* ContactTests.swift in Sources */,
+				5CB25A921F9882F30018D30F /* CategoryTests.swift in Sources */,
 				5CE4D6D01F8B219200839001 /* WorkOrderProviderTests.swift in Sources */,
 				688127141F8B67BC00BE7971 /* AttachmentTests.swift in Sources */,
 				5CDAA4B61F8B1535001C6240 /* RouteTests.swift in Sources */,
