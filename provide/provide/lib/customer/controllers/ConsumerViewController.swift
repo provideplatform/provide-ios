@@ -20,24 +20,28 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private var updatingWorkOrderContext = false
 
+    private var inProgressWorkOrderStatus: String? {
+        return WorkOrderService.shared.inProgressWorkOrder?.status
+    }
+
     private var canAttemptSegueToEnRouteWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "en_route"
+        return inProgressWorkOrderStatus == "en_route"
     }
 
     private var canAttemptSegueToPendingAcceptanceWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "pending_acceptance"
+        return inProgressWorkOrderStatus == "pending_acceptance"
     }
 
     private var canAttemptSegueToArrivingWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "arriving"
+        return inProgressWorkOrderStatus == "arriving"
     }
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "in_progress"
+        return inProgressWorkOrderStatus == "in_progress"
     }
 
     private var canAttemptSegueToAwaitingScheduleWorkOrder: Bool {
-        return WorkOrderService.shared.inProgressWorkOrder?.status == "awaiting_schedule"
+        return inProgressWorkOrderStatus == "awaiting_schedule"
     }
 
     override func viewDidLoad() {
@@ -334,9 +338,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case 2:
             return MenuItem(label: "Driver Mode", action: "provide")
         default:
-            break
+            return nil
         }
-        return nil
     }
 
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
