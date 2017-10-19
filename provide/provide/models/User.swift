@@ -102,10 +102,6 @@ class User: Model {
         return mapping!
     }
 
-    func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.fetchUser(onSuccess: onSuccess, onError: onError)
-    }
-
     class Annotation: NSObject, MKAnnotation {
         var user: User!
 
