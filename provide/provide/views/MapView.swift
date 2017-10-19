@@ -76,8 +76,4 @@ class MapView: MKMapView, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         updatedUserLocationOnce = true
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

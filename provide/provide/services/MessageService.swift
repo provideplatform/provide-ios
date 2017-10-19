@@ -40,8 +40,4 @@ class MessageService {
         let message = notification.object as! Message
         messages.append(message)
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

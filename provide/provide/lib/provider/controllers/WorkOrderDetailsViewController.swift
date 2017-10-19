@@ -288,8 +288,4 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     func navigationControllerBackItemTitleForManifestViewController(_ viewController: UIViewController) -> String {
         return "BACK"
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

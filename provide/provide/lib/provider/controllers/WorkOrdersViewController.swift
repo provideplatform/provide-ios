@@ -673,8 +673,4 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             // did not attempt to complete work order as there are outstanding components
         }
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

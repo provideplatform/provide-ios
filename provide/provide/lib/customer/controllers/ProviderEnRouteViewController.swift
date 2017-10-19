@@ -141,8 +141,4 @@ class ProviderEnRouteViewController: ViewController {
     func setWorkOrder(_ workOrder: WorkOrder) {
         self.workOrder = workOrder
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

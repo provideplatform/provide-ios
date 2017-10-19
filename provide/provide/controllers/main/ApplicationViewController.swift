@@ -200,8 +200,4 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         userDefaults.set(true, forKey: "presentedSelfieViewController")
         userDefaults.synchronize()
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

@@ -414,8 +414,4 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
         }
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

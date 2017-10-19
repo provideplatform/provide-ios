@@ -244,8 +244,4 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
         dismiss(animated: true)
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }

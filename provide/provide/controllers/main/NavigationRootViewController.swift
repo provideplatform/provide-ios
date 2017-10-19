@@ -160,8 +160,4 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             }
         }
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 }
