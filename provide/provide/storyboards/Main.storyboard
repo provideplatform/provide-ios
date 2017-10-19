@@ -67,7 +67,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
+                                    <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
@@ -115,7 +115,7 @@
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                         <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="EM1-MG-mRJ"/>
-                        <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
+                        <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -474,7 +474,7 @@
                     <connections>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="flA-yQ-9Vg"/>
-                        <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="baH-vf-SLM"/>
+                        <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="baH-vf-SLM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moV-Id-8Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -679,7 +679,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="330" width="335" height="21"/>
+                                <rect key="frame" x="20" y="329" width="335" height="22"/>
                                 <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1095,7 +1095,7 @@
                     <navigationItem key="navigationItem" id="2dd-Ib-vnq"/>
                     <connections>
                         <outlet property="tableView" destination="VLD-NA-j6N" id="n6g-k2-VbX"/>
-                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SetPasswordViewControllerUnwindSegue" customClass="AuthenticationViewControllerSegue" customModule="provide" customModuleProvider="target" id="Dg0-CW-FQe"/>
+                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SetPasswordViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="Dg0-CW-FQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsj-Ce-Btr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1110,6 +1110,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Wzh-ch-uKh"/>
         <segue reference="flA-yQ-9Vg"/>
-        <segue reference="pyb-Ej-lW7"/>
+        <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>

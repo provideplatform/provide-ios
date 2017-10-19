@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AuthenticationViewControllerSegue: UIStoryboardSegue {
+class AuthenticationStoryboardSegue: UIStoryboardSegue {
 
     override func perform() {
         switch identifier! {
