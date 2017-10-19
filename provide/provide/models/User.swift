@@ -102,10 +102,6 @@ class User: Model {
         return mapping!
     }
 
-    private func reload() {
-        reload(onSuccess: { _, _ in }, onError: { _, _, _ in })
-    }
-
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         ApiService.shared.fetchUser(onSuccess: onSuccess, onError: onError)
     }
