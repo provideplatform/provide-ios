@@ -111,7 +111,6 @@
                         <outlet property="logoImageView" destination="Isk-bN-U1h" id="TW4-Ea-QhM"/>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
-                        <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="EM1-MG-mRJ"/>
                         <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
                     </connections>
                 </viewController>
@@ -918,7 +917,6 @@
         <image name="provide-logo" width="341" height="170"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Wzh-ch-uKh"/>
         <segue reference="flA-yQ-9Vg"/>
         <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
