@@ -1,5 +1,5 @@
 //
-//  RenderComponentSegue.swift
+//  RenderComponentStoryboardSegue.swift
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RenderComponentSegue: UIStoryboardSegue {
+class RenderComponentStoryboardSegue: UIStoryboardSegue {
 
     override func perform() {
         switch identifier! {
