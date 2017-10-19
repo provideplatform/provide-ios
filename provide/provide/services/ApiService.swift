@@ -358,10 +358,6 @@ class ApiService: NSObject {
 
     // MARK: Category API
 
-    private func countCategories(_ params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) {
-        countTotalResultsForPath("categories", params: params, onTotalResultsCount: onTotalResultsCount)
-    }
-
     private func fetchCategories(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("categories", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
