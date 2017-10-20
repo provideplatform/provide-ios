@@ -44,11 +44,6 @@ class WorkOrderTests: XCTestCase {
         XCTAssertNotNil(object.user)
         XCTAssertEqual(object.userId, 6)
         // XCTAssertEqual(object.userRating, nil)
-        XCTAssertEqual(object.estimatesByCategory.count, 3)
-        let firstEstimate = object.estimatesByCategory.first!
-        XCTAssertEqual(firstEstimate["category_id"], 1)
-        XCTAssertEqual(firstEstimate["price"], 11.11)
-        XCTAssertEqual(object.estimatedPriceMap[2], 22.22)
         XCTAssertEqual(object.estimatedPriceForCategory(3), 33.33)
     }
 }

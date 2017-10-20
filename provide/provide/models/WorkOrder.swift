@@ -43,21 +43,18 @@ class WorkOrder: Model {
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
-    var estimatedPriceMap: [Int: Double] = [:]
-
-    var estimatesByCategory: [[String: Double]] = [] {
-        didSet {
-            estimatedPriceMap = [:]
-            for object in self.estimatesByCategory {
-                let categoryId = object["category_id"]!
-                let price = object["price"]
-                estimatedPriceMap[Int(categoryId)] = price
-            }
-        }
-    }
 
     func estimatedPriceForCategory(_ categoryId: Int) -> Double? {
-        return estimatedPriceMap[categoryId]
+        if let estimatesByCategory = config["estimates_by_category"] as? [[String: Double]] {
+            for object in estimatesByCategory {
+                let _categoryId = Int(object["category_id"]!)
+                let price = object["price"]
+                if categoryId == _categoryId {
+                    return price
+                }
+            }
+        }
+        return nil
     }
 
     override class func mapping() -> RKObjectMapping {
@@ -80,7 +77,6 @@ class WorkOrder: Model {
             "estimated_distance": "estimatedDistance",
             "estimated_duration": "estimatedDuration",
             "estimated_price": "estimatedPrice",
-            "config.estimates_by_category": "estimatesByCategory",
             "status": "status",
             "provider_rating": "providerRating",
             "expenses_count": "expensesCount",
