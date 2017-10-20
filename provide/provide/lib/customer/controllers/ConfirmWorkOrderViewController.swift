@@ -35,6 +35,7 @@ class ConfirmWorkOrderViewController: ViewController {
         let price = workOrder.estimatedPriceForCategory(categoryId) ?? 0
         fareEstimateLabel.text = "$\(price)"
         workOrder.categoryId = categoryId
+        saveWorkOrder()
     }
 
     private(set) var workOrder: WorkOrder! {
@@ -88,17 +89,24 @@ class ConfirmWorkOrderViewController: ViewController {
 
         logInfo("Waiting for a provider to accept the request")
 
+        workOrder.status = "pending_acceptance"
+        saveWorkOrder()
+    }
+    
+    private func saveWorkOrder() {
         // TODO: show progress HUD
 
-        workOrder.status = "pending_acceptance"
-        workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
-            if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                logInfo("Created work order for hire: \(workOrder)")
-                self?.onWorkOrderConfirmed(workOrder)
+        workOrder.save(
+            onSuccess: { [weak self] statusCode, mappingResult in
+                if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                    logInfo("Created work order for hire: \(workOrder)")
+                    self?.onWorkOrderConfirmed(workOrder)
+                }
+            },
+            onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
             }
-        }, onError: { err, statusCode, responseString in
-            logWarn("Failed to create work order for hire (\(statusCode))")
-        })
+        )
     }
 
     func prepareForReuse() {
