@@ -29,6 +29,13 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
+    @IBAction func categoryChanged(_ sender: CategorySelectionControl) {
+        let categoryId = sender.selectedIndex + 1 // TODO: Make robust
+        let price = workOrder.estimatedPriceForCategory(categoryId) ?? 0
+        fareEstimateLabel.text = "$\(price)"
+        workOrder.categoryId = categoryId
+    }
+
     private(set) var workOrder: WorkOrder! {
         didSet {
             if workOrder == nil {
@@ -42,11 +49,9 @@ class ConfirmWorkOrderViewController: ViewController {
                     distanceEstimateLabel.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
                     distanceEstimateLabel.isHidden = false
 
-                    fareEstimateLabel.text = ""
-                    if workOrder.estimatedPrice != -1.0 {
-                        fareEstimateLabel.text = "$\(workOrder.estimatedPrice)"
-                        fareEstimateLabel.isHidden = false
-                    }
+                    let price = workOrder.estimatedPriceForCategory(1) ?? 0
+                    fareEstimateLabel.text = "$\(price)"
+                    fareEstimateLabel.isHidden = false
 
                     // self.creditCardLastFour.text = "" // TODO
                     // self.capacity.text = "" // TODO
