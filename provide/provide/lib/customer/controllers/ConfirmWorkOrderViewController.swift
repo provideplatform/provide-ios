@@ -18,10 +18,10 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var creditCardIcon: UIImageView!
-    @IBOutlet private weak var creditCardLastFour: UILabel!
-    @IBOutlet private weak var capacity: UILabel!
-    @IBOutlet private weak var distanceEstimate: UILabel!
-    @IBOutlet private weak var fareEstimate: UILabel!
+    @IBOutlet private weak var creditCardLastFourLabel: UILabel!
+    @IBOutlet private weak var capacityLabel: UILabel!
+    @IBOutlet private weak var distanceEstimateLabel: UILabel!
+    @IBOutlet private weak var fareEstimateLabel: UILabel!
     @IBOutlet private weak var userIconImageView: UIImageView! {
         didSet {
             userIconImageView?.image = userIconImageView?.image?.withRenderingMode(.alwaysTemplate)
@@ -39,13 +39,13 @@ class ConfirmWorkOrderViewController: ViewController {
                 }
             } else {
                 if workOrder.status == "awaiting_schedule" {
-                    distanceEstimate.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
-                    distanceEstimate.isHidden = false
+                    distanceEstimateLabel.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
+                    distanceEstimateLabel.isHidden = false
 
-                    fareEstimate.text = ""
+                    fareEstimateLabel.text = ""
                     if workOrder.estimatedPrice != -1.0 {
-                        fareEstimate.text = "$\(workOrder.estimatedPrice)"
-                        fareEstimate.isHidden = false
+                        fareEstimateLabel.text = "$\(workOrder.estimatedPrice)"
+                        fareEstimateLabel.isHidden = false
                     }
 
                     // self.creditCardLastFour.text = "" // TODO
@@ -66,11 +66,11 @@ class ConfirmWorkOrderViewController: ViewController {
         let views: [UIView] = [
             confirmButton,
             creditCardIcon,
-            creditCardLastFour,
+            creditCardLastFourLabel,
             userIconImageView,
-            capacity,
-            distanceEstimate,
-            fareEstimate,
+            capacityLabel,
+            distanceEstimateLabel,
+            fareEstimateLabel,
         ]
         views.forEach { $0.isHidden = hidden }
     }

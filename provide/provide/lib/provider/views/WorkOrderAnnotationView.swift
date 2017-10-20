@@ -15,9 +15,9 @@ class WorkOrderAnnotationView: AnnotationView {
     var minutesEta: Int! {
         didSet {
             if let eta = minutesEta, eta > -1 {
-                travelMinutesLabelView.text = "\(eta)"
-                travelMinutesLabelView.alpha = 1
-                travelTimeUnitsLabelView.alpha = 1
+                travelMinutesLabel.text = "\(eta)"
+                travelMinutesLabel.alpha = 1
+                travelTimeUnitsLabel.alpha = 1
                 travelEtaActivityIndicatorView.stopAnimating()
             }
         }
@@ -27,8 +27,8 @@ class WorkOrderAnnotationView: AnnotationView {
 
     @IBOutlet private weak var titleLabel: UILabel!
 
-    @IBOutlet private weak var travelMinutesLabelView: UILabel!
-    @IBOutlet private weak var travelTimeUnitsLabelView: UILabel!
+    @IBOutlet private weak var travelMinutesLabel: UILabel!
+    @IBOutlet private weak var travelTimeUnitsLabel: UILabel!
     @IBOutlet private weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
 
     override func awakeFromNib() {
@@ -51,7 +51,7 @@ class WorkOrderAnnotationView: AnnotationView {
         pinPointerView.addDropShadow()
         sendSubview(toBack: pinPointerView)
 
-        travelMinutesLabelView.alpha = 0
+        travelMinutesLabel.alpha = 0
 
         selectableViews = [containerView, pinPointerView]
     }
@@ -59,9 +59,9 @@ class WorkOrderAnnotationView: AnnotationView {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        travelMinutesLabelView.alpha = 0
-        travelMinutesLabelView.text = ""
-        travelTimeUnitsLabelView.alpha = 0
+        travelMinutesLabel.alpha = 0
+        travelMinutesLabel.text = ""
+        travelTimeUnitsLabel.alpha = 0
         travelEtaActivityIndicatorView.startAnimating()
     }
 

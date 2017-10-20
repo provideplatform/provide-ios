@@ -206,8 +206,8 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="icon" destination="eAy-9B-4AI" id="nib-2t-m9v"/>
-                                            <outlet property="subtitle" destination="6d6-aP-dIO" id="NpW-iN-qRb"/>
-                                            <outlet property="title" destination="ve1-g6-DdW" id="kxk-9T-7EA"/>
+                                            <outlet property="subtitleLabel" destination="6d6-aP-dIO" id="NpW-iN-qRb"/>
+                                            <outlet property="titleLabel" destination="ve1-g6-DdW" id="kxk-9T-7EA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -288,12 +288,12 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 miles / 20 minutes" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="SeR-ao-OhO">
-                                <rect key="frame" x="16" y="20" width="134" height="17"/>
+                                <rect key="frame" x="16" y="20" width="136" height="17"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Ur-DnX">
-                                <rect key="frame" x="335.5" y="20" width="23.5" height="17"/>
+                                <rect key="frame" x="337.5" y="20" width="21.5" height="17"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -327,12 +327,12 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicatorView" destination="f7X-Fg-TVf" id="BqJ-N9-izg"/>
-                        <outlet property="capacity" destination="3ew-Eg-3DR" id="mth-aK-2zt"/>
+                        <outlet property="capacityLabel" destination="3ew-Eg-3DR" id="mth-aK-2zt"/>
                         <outlet property="confirmButton" destination="kHE-A0-35R" id="o2Z-NI-pMM"/>
                         <outlet property="creditCardIcon" destination="9xf-dL-czH" id="vKz-1J-s73"/>
-                        <outlet property="creditCardLastFour" destination="doh-wC-dlI" id="uTv-rB-tY2"/>
-                        <outlet property="distanceEstimate" destination="SeR-ao-OhO" id="EsL-N1-7xM"/>
-                        <outlet property="fareEstimate" destination="xkL-Ur-DnX" id="Vo7-MZ-rFe"/>
+                        <outlet property="creditCardLastFourLabel" destination="doh-wC-dlI" id="uTv-rB-tY2"/>
+                        <outlet property="distanceEstimateLabel" destination="SeR-ao-OhO" id="EsL-N1-7xM"/>
+                        <outlet property="fareEstimateLabel" destination="xkL-Ur-DnX" id="Vo7-MZ-rFe"/>
                         <outlet property="userIconImageView" destination="50S-DP-wW6" id="pAr-8L-17J"/>
                     </connections>
                 </viewController>
@@ -359,10 +359,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Qq-h5l" customClass="ProfileImageView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="150" y="38" width="75" height="75"/>
+                                <rect key="frame" x="150.5" y="38" width="75" height="75"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAULO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1c-NC-gGu">
-                                <rect key="frame" x="11" y="55" width="131" height="20"/>
+                                <rect key="frame" x="11" y="55" width="131.5" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="a7M-ur-3Di"/>
                                 </constraints>
@@ -371,25 +371,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOYOTA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-TN-Unf">
-                                <rect key="frame" x="233" y="56" width="131" height="19"/>
+                                <rect key="frame" x="233.5" y="56" width="130.5" height="19"/>
                                 <fontDescription key="fontDescription" name="Exo2-Medium" family="Exo 2" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="prvdX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ7-lL-A5U">
-                                <rect key="frame" x="11" y="83" width="131" height="20"/>
+                                <rect key="frame" x="11" y="83" width="131.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIUS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uum-f1-t1r">
-                                <rect key="frame" x="233" y="83" width="131" height="20"/>
+                                <rect key="frame" x="233.5" y="83" width="130.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-nx-Lxe">
-                                <rect key="frame" x="177" y="61" width="20" height="28"/>
+                                <rect key="frame" x="177.5" y="61" width="20" height="28"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -9,14 +9,14 @@
 class DestinationResultTableViewCell: UITableViewCell {
 
     @IBOutlet private weak var icon: UIImageView!
-    @IBOutlet private weak var title: UILabel!
-    @IBOutlet private weak var subtitle: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var subtitleLabel: UILabel!
 
     var result: Contact! {
         didSet {
             if let result = result {
                 icon.image = #imageLiteral(resourceName: "provide-pin")
-                title.text = result.desc
+                titleLabel.text = result.desc
 
                 var st = ""
                 if let city = result.city {
@@ -28,11 +28,11 @@ class DestinationResultTableViewCell: UITableViewCell {
                     }
                     st = "\(st)\(state)"
                 }
-                subtitle.text = st
+                subtitleLabel.text = st
             } else {
                 icon.image = nil
-                title.text = ""
-                subtitle.text = ""
+                titleLabel.text = ""
+                subtitleLabel.text = ""
             }
         }
     }
