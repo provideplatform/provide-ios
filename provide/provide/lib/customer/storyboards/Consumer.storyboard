@@ -388,6 +388,7 @@
                     <connections>
                         <outlet property="activityIndicatorView" destination="f7X-Fg-TVf" id="BqJ-N9-izg"/>
                         <outlet property="capacityLabel" destination="3ew-Eg-3DR" id="mth-aK-2zt"/>
+                        <outlet property="categorySelectionControl" destination="lHM-7B-TGH" id="bsQ-Gs-UJP"/>
                         <outlet property="confirmButton" destination="kHE-A0-35R" id="o2Z-NI-pMM"/>
                         <outlet property="creditCardIcon" destination="9xf-dL-czH" id="vKz-1J-s73"/>
                         <outlet property="creditCardLastFourLabel" destination="doh-wC-dlI" id="uTv-rB-tY2"/>

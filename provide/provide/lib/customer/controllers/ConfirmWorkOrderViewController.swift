@@ -16,6 +16,7 @@ class ConfirmWorkOrderViewController: ViewController {
     private var onWorkOrderConfirmed: ((WorkOrder) -> Void)!
 
     @IBOutlet private weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet private weak var categorySelectionControl: CategorySelectionControl!
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var creditCardIcon: UIImageView!
     @IBOutlet private weak var creditCardLastFourLabel: UILabel!
@@ -69,6 +70,7 @@ class ConfirmWorkOrderViewController: ViewController {
 
     private func setViews(hidden: Bool) {
         let views: [UIView] = [
+            categorySelectionControl,
             confirmButton,
             creditCardIcon,
             creditCardLastFourLabel,
