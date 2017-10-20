@@ -36,10 +36,8 @@ class ConfirmWorkOrderViewController: ViewController {
                     UIView.animate(withDuration: 0.25, animations: {
                         self.view.frame.origin.y += self.view.height
                     }, completion: { completed in
-                        if self.workOrder == nil {
-                            self.activityIndicatorView.stopAnimating()
-                            self.setViews(hidden: false)
-                        }
+                        self.activityIndicatorView.stopAnimating()
+                        self.setViews(hidden: false)
                     })
                 }
             } else {
