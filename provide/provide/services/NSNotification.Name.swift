@@ -10,4 +10,5 @@ import Foundation
 
 extension NSNotification.Name {
     public static let WorkOrderContextShouldRefresh = NSNotification.Name("WorkOrderContextShouldRefresh")
+    public static let CategorySelectionChanged = NSNotification.Name("CategorySelectionChanged")
 }

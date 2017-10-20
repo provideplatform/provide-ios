@@ -69,7 +69,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         NotificationCenter.default.addObserverForName("ProviderBecameUnavailable", usingBlock: updateProviderLocationFromNotification)
         NotificationCenter.default.addObserverForName("ProviderLocationChanged", usingBlock: updateProviderLocationFromNotification)
 
-        NotificationCenter.default.addObserverForName("CategorySelectionChanged", usingBlock: filterProvidersByCategoryFromNotification)
+        NotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
