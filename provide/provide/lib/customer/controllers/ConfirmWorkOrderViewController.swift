@@ -33,12 +33,9 @@ class ConfirmWorkOrderViewController: ViewController {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
-                    UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y += self.view.height
-                    }, completion: { completed in
-                        self.activityIndicatorView.stopAnimating()
-                        self.setViews(hidden: false)
-                    })
+                    (parent as? ConsumerViewController)?.animateConfirmWorkOrderView(toHidden: true)
+                    self.activityIndicatorView.stopAnimating()
+                    self.setViews(hidden: false)
                 }
             } else {
                 if workOrder.status == "awaiting_schedule" {
@@ -66,12 +63,7 @@ class ConfirmWorkOrderViewController: ViewController {
                 }
 
                 if oldValue == nil {
-                    UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y -= self.view.height
-                    }, completion: { completed in
-                        guard let workOrder = self.workOrder else { return }
-                        logInfo("Presented work order for confirmation: \(workOrder)")
-                    })
+                    (parent as? ConsumerViewController)?.animateConfirmWorkOrderView(toHidden: false)
                 }
             }
         }

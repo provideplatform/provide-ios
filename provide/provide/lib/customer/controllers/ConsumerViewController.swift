@@ -12,6 +12,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet private weak var mapView: ConsumerMapView!
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
+    @IBOutlet var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
 
     private var destinationInputViewController: DestinationInputViewController!
     private var destinationResultsViewController: DestinationResultsViewController!
@@ -29,6 +30,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
 
         destinationInputViewControllerTopConstraint.constant = -destinationInputViewController.view.height
+        confirmWorkOrderViewControllerBottomConstraint.constant = -confirmWorkOrderViewController.view.height
+
         destinationInputViewController.destinationTextField.addTarget(self, action: #selector(destinationTextFieldEditingDidBegin), for: .editingDidBegin)
         navigationItem.hidesBackButton = true
 
@@ -203,7 +206,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 providerEnRouteViewController?.configure(workOrder: workOrder)
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
-                presentConfirmWorkOrderViewController()
                 confirmWorkOrderViewController.configure(workOrder: workOrder) { _ in
                     self.setupCancelWorkOrderBarButtonItem()
                 }
@@ -235,18 +237,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
 
             destinationResultsView.isHidden = false
-        }
-    }
-
-    private func presentConfirmWorkOrderViewController() {
-        if let confirmWorkOrderView = confirmWorkOrderViewController.view {
-            confirmWorkOrderView.isHidden = true
-            confirmWorkOrderView.removeFromSuperview()
-            mapView.addSubview(confirmWorkOrderView)
-
-            confirmWorkOrderView.frame.size.width = mapView.width
-            confirmWorkOrderView.frame.origin.y = mapView.height
-            confirmWorkOrderView.isHidden = false
         }
     }
 
@@ -331,8 +321,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     func selectDestination(destination: Contact, startingFrom origin: Contact) {
         setupCancelWorkOrderBarButtonItem()
-        presentConfirmWorkOrderViewController()
-
         confirmWorkOrderViewController.confirmWorkOrderWithOrigin(origin, destination: destination)
     }
 
@@ -364,6 +352,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @objc func destinationTextFieldEditingDidBegin(_ sender: UITextField) {
         animateDestinationInputView(toState: .active)
+    }
+
+    func animateConfirmWorkOrderView(toHidden hidden: Bool) {
+        print("hidden: \(hidden)")
+        view.layoutIfNeeded()
+        confirmWorkOrderViewControllerBottomConstraint.constant = hidden ? -confirmWorkOrderViewController.view.height : 0
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
     }
 
     func animateDestinationInputView(toState state: DestinationInputViewState) {
