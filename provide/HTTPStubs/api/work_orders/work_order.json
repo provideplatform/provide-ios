@@ -112,6 +112,20 @@
     "estimated_distance": 3.9,
     "estimated_duration": 22,
     "estimated_price": 6.76,
+    "estimates_by_category": [
+        {
+            "price": 11.11,
+            "category_id": 1
+        },
+        {
+            "price": 22.22,
+            "category_id": 2
+        },
+        {
+            "price": 33.33,
+            "category_id": 3
+        }
+    ],
     "floorplan_id": null,
     "id": 63,
     "job_id": 994,

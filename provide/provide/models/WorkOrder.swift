@@ -43,6 +43,7 @@ class WorkOrder: Model {
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
+    var estimatesByCategory: [[String: Double]] = []
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -64,6 +65,7 @@ class WorkOrder: Model {
             "estimated_distance": "estimatedDistance",
             "estimated_duration": "estimatedDuration",
             "estimated_price": "estimatedPrice",
+            "estimates_by_category": "estimatesByCategory",
             "status": "status",
             "provider_rating": "providerRating",
             "expenses_count": "expensesCount",
