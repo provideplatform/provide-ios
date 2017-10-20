@@ -293,7 +293,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
                 let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
                 for annotation in annotations {
-                    if !strongSelf.mapView.annotations.contains(where: { (ann) -> Bool in
+                    if !strongSelf.mapView.annotations.contains(where: { ann -> Bool in
                         if let providerAnnotation = ann as? Provider.Annotation, providerAnnotation.matches(annotation.provider) {
                             return true
                         }
