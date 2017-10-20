@@ -43,7 +43,22 @@ class WorkOrder: Model {
     var expensedAmount: Double!
     var priority = 0
     var supervisors: [User]!
-    var estimatesByCategory: [[String: Double]] = []
+    var estimatedPriceMap: [Int: Double] = [:]
+
+    var estimatesByCategory: [[String: Double]] = [] {
+        didSet {
+            estimatedPriceMap = [:]
+            for object in self.estimatesByCategory {
+                let categoryId = object["category_id"]!
+                let price = object["price"]
+                estimatedPriceMap[Int(categoryId)] = price
+            }
+        }
+    }
+
+    func estimatedPriceForCategory(_ categoryId: Int) -> Double? {
+        return estimatedPriceMap[categoryId]
+    }
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
