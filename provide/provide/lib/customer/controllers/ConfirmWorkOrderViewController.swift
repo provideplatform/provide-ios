@@ -39,14 +39,7 @@ class ConfirmWorkOrderViewController: ViewController {
                 }
             } else {
                 if workOrder.status == "awaiting_schedule" {
-                    var distanceTimeEstimate = ""
-                    if workOrder.estimatedDistance != 0 {
-                        distanceTimeEstimate = "\(workOrder.estimatedDistance) miles"
-                    }
-                    if workOrder.estimatedDuration != 0 {
-                        distanceTimeEstimate = "\(distanceTimeEstimate) / \(workOrder.estimatedDuration) minutes"
-                    }
-                    distanceEstimate.text = distanceTimeEstimate
+                    distanceEstimate.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
                     distanceEstimate.isHidden = false
 
                     fareEstimate.text = ""
