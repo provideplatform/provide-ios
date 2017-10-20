@@ -69,6 +69,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         NotificationCenter.default.addObserverForName("ProviderBecameUnavailable", usingBlock: updateProviderLocationFromNotification)
         NotificationCenter.default.addObserverForName("ProviderLocationChanged", usingBlock: updateProviderLocationFromNotification)
 
+        NotificationCenter.default.addObserverForName("CategorySelectionChanged", usingBlock: filterProvidersByCategoryFromNotification)
+
         NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 DispatchQueue.main.async {
@@ -278,7 +280,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     private func filterProvidersByCategoryFromNotification(_ notification: Notification?) {
-        if let category = notification?.object as? Category {
+        if let categoryId = notification?.object as? Int {
+            if let category = categories.filter({ $0.id == categoryId }).first {
+                filterProvidersByCategory(category)
+            }
+        } else if let category = notification?.object as? Category {
             filterProvidersByCategory(category)
         } else {
             logWarn("Filter providers notification received without category")

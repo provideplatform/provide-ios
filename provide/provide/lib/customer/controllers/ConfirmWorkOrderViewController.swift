@@ -36,6 +36,8 @@ class ConfirmWorkOrderViewController: ViewController {
         fareEstimateLabel.text = "$\(price)"
         workOrder.categoryId = categoryId
         saveWorkOrder()
+
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: "CategorySelectionChanged"), object: categoryId))
     }
 
     private(set) var workOrder: WorkOrder! {
