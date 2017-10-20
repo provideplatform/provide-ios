@@ -92,7 +92,7 @@ class ConfirmWorkOrderViewController: ViewController {
         workOrder.status = "pending_acceptance"
         saveWorkOrder()
     }
-    
+
     private func saveWorkOrder() {
         // TODO: show progress HUD
 
