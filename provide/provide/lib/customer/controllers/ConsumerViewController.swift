@@ -20,6 +20,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var providerEnRouteViewController: ProviderEnRouteViewController!
 
     private var updatingWorkOrderContext = false
+    private var categories = [Category]()
+    private var providers = [Provider]() {
+        didSet {
+            mapView.removeAnnotations()
+            for provider in providers {
+                updateProviderLocation(provider)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +50,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
         LocationService.shared.resolveCurrentLocation { [weak self] (_) in
             logInfo("Current location resolved for consumer view controller... refreshing context")
-            self?.loadProviderContext()
+            self?.loadCategoriesContext()
         }
 
         NotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] _ in
@@ -110,7 +119,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func refreshContext() {
         loadWorkOrderContext()
-        loadProviderContext()
+        loadCategoriesContext()
     }
 
     private func setupMenuBarButtonItem() {
@@ -172,14 +181,30 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
+    private func loadCategoriesContext() {
+        if let coordinate = LocationService.shared.currentLocation?.coordinate {
+            Category.nearby(coordinate: coordinate, radius: 50.0,
+                onSuccess: { [weak self] categories in
+                    logInfo("Found \(categories.count) categories: \(categories)")
+                    self?.categories = categories
+                    self?.loadProviderContext()
+                },
+                onError: { error, statusCode, response in
+                    logWarn("Failed to fetch categories near \(coordinate)")
+                }
+            )
+        } else {
+            logWarn("No current location resolved for consumer view controller; nearby categories not fetched")
+        }
+    }
+
     private func loadProviderContext() {
         let providerService = ProviderService.shared
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
             providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] providers in
                 logInfo("Found \(providers.count) provider(s): \(providers)")
-                for provider in providers {
-                    self?.updateProviderLocation(provider)
-                }
+                self?.providers = providers
+                logWarn("Categories resolved but initial filtering by category not yet implemented")
             }
         } else {
             logWarn("No current location resolved for consumer view controller; nearby providers not fetched")
@@ -249,6 +274,37 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             providerEnRouteView.frame.size.width = mapView.width
             providerEnRouteView.frame.origin.y = mapView.height
             providerEnRouteView.isHidden = false
+        }
+    }
+
+    private func filterProvidersByCategoryFromNotification(_ notification: Notification?) {
+        if let category = notification?.object as? Category {
+            filterProvidersByCategory(category)
+        } else {
+            logWarn("Filter providers notification received without category")
+        }
+    }
+
+    private func filterProvidersByCategory(_ category: Category) {
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                let invalidAnnotations = strongSelf.providers.filter({ $0.categoryId != category.id }).map({ $0.annotation })
+                strongSelf.mapView.removeAnnotations(invalidAnnotations)
+
+                let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
+                for annotation in annotations {
+                    if !strongSelf.mapView.annotations.contains(where: { (ann) -> Bool in
+                        if let providerAnnotation = ann as? Provider.Annotation, providerAnnotation.matches(annotation.provider) {
+                            return true
+                        }
+                        return false
+                    }) {
+                        strongSelf.mapView.addAnnotation(annotation)
+                    }
+                }
+
+                logWarn("Filtered provider annotations by category id: \(category.id)")
+            }
         }
     }
 

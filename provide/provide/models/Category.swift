@@ -26,10 +26,10 @@ class Category: Model {
         return mapping!
     }
 
-    static func fetchAll(latitude: Double, longitude: Double, radius: Double, onSuccess: @escaping ([Category]) -> Void, onError: @escaping OnError) {
+    static func nearby(coordinate: CLLocationCoordinate2D, radius: Double, onSuccess: @escaping ([Category]) -> Void, onError: @escaping OnError) {
         let params: [String: Any] = [
-            "latitude": latitude,
-            "longitude": longitude,
+            "latitude": coordinate.latitude,
+            "longitude": coordinate.longitude,
             "radius": radius,
         ]
 

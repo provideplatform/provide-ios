@@ -16,6 +16,7 @@ class Provider: Model {
 
     var id = 0
     var userId = 0
+    var categoryId = 0
     var contact: Contact!
     var profileImageUrlString: String!
     var available: Bool = false
@@ -66,6 +67,7 @@ class Provider: Model {
         mapping?.addAttributeMappings(from: [
             "id": "id",
             "user_id": "userId",
+            "category_id": "categoryId",
             "name": "name",
             "profile_image_url": "profileImageUrlString",
             "available": "available",
@@ -132,6 +134,10 @@ class Provider: Model {
 
         func matches(_ otherProvider: Provider) -> Bool {
             return otherProvider.id == provider.id
+        }
+        
+        func matchesCategory(_ category: Category) -> Bool {
+            return category.id == provider.categoryId
         }
 
         required init(provider: Provider) {
