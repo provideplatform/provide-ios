@@ -98,9 +98,11 @@ class ConfirmWorkOrderViewController: ViewController {
 
         workOrder.save(
             onSuccess: { [weak self] statusCode, mappingResult in
-                if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                    logInfo("Created work order for hire: \(workOrder)")
-                    self?.onWorkOrderConfirmed(workOrder)
+                if statusCode == 201 {
+                    if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                        logInfo("Created work order for hire: \(workOrder)")
+                        self?.onWorkOrderConfirmed(workOrder)
+                    }
                 }
             },
             onError: { err, statusCode, responseString in
