@@ -135,7 +135,7 @@ class Provider: Model {
         func matches(_ otherProvider: Provider) -> Bool {
             return otherProvider.id == provider.id
         }
-        
+
         func matchesCategory(_ category: Category) -> Bool {
             return category.id == provider.categoryId
         }

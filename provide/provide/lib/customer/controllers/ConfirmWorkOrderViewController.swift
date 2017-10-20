@@ -8,8 +8,9 @@
 
 class ConfirmWorkOrderViewController: ViewController {
 
-    func configure(workOrder: WorkOrder, onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
+    func configure(workOrder: WorkOrder!, categories: [Category], onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
         self.workOrder = workOrder
+        self.categories = categories
         self.onWorkOrderConfirmed = onWorkOrderConfirmed
     }
 
@@ -38,6 +39,12 @@ class ConfirmWorkOrderViewController: ViewController {
         saveWorkOrder()
 
         NotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
+    }
+
+    private(set) var categories: [Category]! {
+        didSet {
+            categorySelectionControl?.configure(categories: categories)
+        }
     }
 
     private(set) var workOrder: WorkOrder! {

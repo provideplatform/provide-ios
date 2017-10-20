@@ -11,11 +11,11 @@ import UIKit
 class CategorySelectionControl: UIControl {
 
     var selectedIndex = 0
-    private var selectedButton: UIButton?
+    private var selectedButton: CategoryButton?
 
     @IBOutlet var stackView: UIStackView!
 
-    @IBAction func categoryButtonTapped(_ sender: UIButton) {
+    @IBAction func categoryButtonTapped(_ sender: CategoryButton) {
         selectedButton?.isSelected = false
         sender.isSelected = true
         selectedButton = sender
@@ -24,10 +24,20 @@ class CategorySelectionControl: UIControl {
         sendActions(for: .valueChanged)
     }
 
+    func configure(categories: [Category]) {
+        for view in stackView.arrangedSubviews {
+            view.removeFromSuperview()
+        }
+
+        for category in categories {
+            let button = CategoryButton()
+            button.configure(category: category, selectionControl: self)
+
+            stackView.addArrangedSubview(button)
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        selectedButton = stackView.arrangedSubviews.filter { $0 is UIButton }.map { $0 as! UIButton }.first
-        selectedButton?.isSelected = true
     }
 }
