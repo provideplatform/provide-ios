@@ -155,7 +155,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     let payload = data["payload"] as? [String: Any]
 
                     if let message = message {
-                        logInfo("Websocket message received: \(message)")
+                        print("✴️ \(message) ✴️")
 
                         AnalyticsService.shared.track("Websocket Received Message", properties: ["message": message])
 
