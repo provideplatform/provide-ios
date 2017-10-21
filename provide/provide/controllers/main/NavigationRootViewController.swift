@@ -46,15 +46,15 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             codeButton.alpha = 1.0
         }
 
-        NotificationCenter.default.addObserverForName("ApplicationShouldPresentPinInputViewController") { _ in
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { _ in
             self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
         }
 
-        NotificationCenter.default.addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldShowInvalidCredentialsToast) { _ in
             self.showToast("The supplied credentials are invalid...")
         }
 
-        NotificationCenter.default.addObserverForName("ApplicationUserWasAuthenticated") { _ in
+        KTNotificationCenter.addObserver(forName: .ApplicationUserWasAuthenticated) { _ in
             self.presentApplicationViewController()
         }
     }

@@ -73,7 +73,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
         NotificationCenter.default.addObserver(self, selector: #selector(clearProviderContext), name: "ApplicationUserLoggedOut")
 
-        NotificationCenter.default.addObserverForName("SegueToWorkOrderHistoryStoryboard") { [weak self] sender in
+        KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
             if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {
                 self!.performSegue(withIdentifier: "WorkOrderHistoryViewControllerSegue", sender: self!)
             }

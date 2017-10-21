@@ -28,7 +28,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
         refresh()
 
-        NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
+        KTNotificationCenter.addObserver(forName: .ProfileImageShouldRefresh) { _ in
             if let user = currentUser {
                 self.profileImageUrl = user.profileImageUrl as URL!
             } else {

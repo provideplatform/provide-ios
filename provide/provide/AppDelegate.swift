@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        NotificationCenter.default.addObserverForName(NSNotification.Name.UIApplicationDidChangeStatusBarOrientation.rawValue) { notification in
+        KTNotificationCenter.addObserver(forName: .UIApplicationDidChangeStatusBarOrientation) { notification in
             DispatchQueue.main.async {
                 self.launchScreenViewController.view.frame = self.window!.frame
             }

@@ -48,11 +48,11 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
 
         refreshCurrentUser()
 
-        NotificationCenter.default.addObserverForName("ApplicationShouldShowInvalidCredentialsToast") { _ in
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldShowInvalidCredentialsToast) { _ in
             self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
         }
 
-        NotificationCenter.default.addObserverForName("ApplicationShouldReloadTopViewController") { _ in
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldReloadTopViewController) { _ in
             if let tnc = self.topViewController as? UINavigationController, let tvc = tnc.viewControllers.first as? TopViewController {
                 tvc.reload()
             }

@@ -71,13 +71,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             self?.loadProviderContext()
         }
 
-        NotificationCenter.default.addObserverForName("ProviderBecameAvailable", usingBlock: updateProviderLocationFromNotification)
-        NotificationCenter.default.addObserverForName("ProviderBecameUnavailable", usingBlock: updateProviderLocationFromNotification)
-        NotificationCenter.default.addObserverForName("ProviderLocationChanged", usingBlock: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
 
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
-        NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
+        KTNotificationCenter.addObserver(forName: .WorkOrderChanged) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 DispatchQueue.main.async {
                     if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {

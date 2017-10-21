@@ -28,7 +28,7 @@ class MapView: MKMapView, MKMapViewDelegate {
 
         delegate = self
 
-        NotificationCenter.default.addObserverForName("ProfileImageShouldRefresh") { _ in
+        KTNotificationCenter.addObserver(forName: .ProfileImageShouldRefresh) { _ in
             self.updateUserLocationAnnotation = true
             self.showsUserLocation = false
             DispatchQueue.main.async {

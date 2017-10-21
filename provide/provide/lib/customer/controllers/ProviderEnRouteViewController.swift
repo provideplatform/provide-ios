@@ -80,7 +80,7 @@ class ProviderEnRouteViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserverForName("WorkOrderChanged") { [weak self] notification in
+        KTNotificationCenter.addObserver(forName: .WorkOrderChanged) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder, WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                 DispatchQueue.main.async {
                     self?.refreshStatus()

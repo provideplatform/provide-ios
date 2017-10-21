@@ -152,10 +152,8 @@ class MessagesViewController: JSQMessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        NotificationCenter.default.addObserverForName("NewMessageReceivedNotification") { [weak self] notification in
-            if let notification = notification {
-                self?.newMessageReceived(notification)
-            }
+        KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
+            self?.newMessageReceived(notification)
         }
     }
 
