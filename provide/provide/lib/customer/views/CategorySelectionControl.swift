@@ -42,5 +42,8 @@ class CategorySelectionControl: UIControl {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        selectedButton = stackView.arrangedSubviews.filter { $0 is CategoryButton }.map { $0 as! CategoryButton }.first
+        selectedButton?.isSelected = true
     }
 }
