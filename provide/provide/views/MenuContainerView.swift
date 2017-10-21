@@ -87,8 +87,8 @@ class MenuContainerView: UIView {
 
         accessibilityIdentifier = "MenuContainerView"
 
-        NotificationCenter.default.addObserver(self, selector: #selector(openMenu), name: "MenuContainerShouldOpen")
-        NotificationCenter.default.addObserver(self, selector: #selector(closeMenu), name: "MenuContainerShouldReset")
+        KTNotificationCenter.addObserver(observer: self, selector: #selector(openMenu), name: .MenuContainerShouldOpen)
+        KTNotificationCenter.addObserver(observer: self, selector: #selector(closeMenu), name: .MenuContainerShouldReset)
 
         addDropShadow(CGSize(width: 2.5, height: 2.0), radius: 10.0, opacity: 0.75)
         layer.shadowOpacity = 0.0

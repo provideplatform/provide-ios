@@ -17,7 +17,7 @@ class MessageService {
     private var messages = [Message]()
 
     private init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNewMessageReceived(_:)), name: "NewMessageReceivedNotification")
+        KTNotificationCenter.addObserver(observer: self, selector: #selector(handleNewMessageReceived), name: .NewMessageReceivedNotification)
     }
 
     func fetch(params: [String: Any], onMessagesFetched: @escaping OnMessagesFetched, onError: @escaping OnError) {

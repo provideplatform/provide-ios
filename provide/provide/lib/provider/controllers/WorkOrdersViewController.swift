@@ -71,7 +71,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         requireProviderContext()
 
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
-        NotificationCenter.default.addObserver(self, selector: #selector(clearProviderContext), name: "ApplicationUserLoggedOut")
+        KTNotificationCenter.addObserver(observer: self, selector: #selector(clearProviderContext), name: .ApplicationUserLoggedOut)
 
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
             if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {

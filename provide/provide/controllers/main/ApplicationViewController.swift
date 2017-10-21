@@ -24,7 +24,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(currentUserLoggedOut), name: "ApplicationUserLoggedOut")
+        KTNotificationCenter.addObserver(observer: self, selector: #selector(currentUserLoggedOut), name: .ApplicationUserLoggedOut)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
