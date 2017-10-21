@@ -81,19 +81,19 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             }
 
             if !socketConnected {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: userInfo)
+                KTNotificationCenter.post(name: .AttachmentChanged, object: userInfo)
             }
         case .message:
             let jsonString = (notificationValue as! [String: Any]).toJSONString()
             let message = Message(string: jsonString)
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "NewMessageReceivedNotification"), object: message as Any)
+            KTNotificationCenter.post(name: .NewMessageReceivedNotification, object: message as Any)
 
         case .workOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
                 if let workOrder = WorkOrderService.shared.workOrderWithId(workOrderId) {
                     workOrder.reload(onSuccess: { statusCode, mappingResult in
-                        NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder)
+                        KTNotificationCenter.post(name: .WorkOrderChanged, object: workOrder)
                     }, onError: { error, statusCode, responseString in
                         logError(error)
                     })
@@ -112,7 +112,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                                     KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                                 }
 
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: inProgressWorkOrder)
+                                KTNotificationCenter.post(name: .WorkOrderChanged, object: inProgressWorkOrder)
                             }, onError: { error, statusCode, responseString in
                                 logError(error)
                             })
@@ -169,7 +169,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             if let attachableType = attachment.attachableType, attachableType == "work_order", let workOrder = WorkOrderService.shared.workOrderWithId(attachment.attachableId) {
                                 workOrder.mergeAttachment(attachment)
                             }
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "AttachmentChanged"), object: attachment as Any)
+                            KTNotificationCenter.post(name: .AttachmentChanged, object: attachment as Any)
                         case "provider_became_available":
                             let providerJson = payload!.toJSONString()
                             let provider = Provider(string: providerJson)
@@ -178,11 +178,11 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             } else {
                                 ProviderService.shared.appendProvider(provider)
                             }
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameAvailable"), object: provider as Any)
+                            KTNotificationCenter.post(name: .ProviderBecameAvailable, object: provider as Any)
                         case "provider_became_unavailable":
                             if let providerId = payload?["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
                                 ProviderService.shared.removeProvider(providerId)
-                                NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderBecameUnavailable"), object: provider as Any)
+                                KTNotificationCenter.post(name: .ProviderBecameUnavailable, object: provider as Any)
                             }
                         case "provider_location_changed":
                             let providerJson = payload!.toJSONString()
@@ -192,19 +192,19 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             } else {
                                 ProviderService.shared.appendProvider(provider)
                             }
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "ProviderLocationChanged"), object: provider as Any)
+                            KTNotificationCenter.post(name: .ProviderLocationChanged, object: provider as Any)
                         case "work_order_changed":
                             let workOrderJson = payload!.toJSONString()
                             let workOrder = WorkOrder(string: workOrderJson)
                             WorkOrderService.shared.updateWorkOrder(workOrder)
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderChanged"), object: workOrder as Any)
+                            KTNotificationCenter.post(name: .WorkOrderChanged, object: workOrder as Any)
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
                                 KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                             }
                         case "work_order_provider_changed":
                             let workOrderProviderJson = payload!.toJSONString()
                             let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
-                            NotificationCenter.default.post(name: Notification.Name(rawValue: "WorkOrderProviderChanged"), object: workOrderProvider as Any)
+                            KTNotificationCenter.post(name: .WorkOrderProviderChanged, object: workOrderProvider as Any)
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
                                 KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                             }

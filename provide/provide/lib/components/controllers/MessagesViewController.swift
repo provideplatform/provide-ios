@@ -190,7 +190,7 @@ class MessagesViewController: JSQMessagesViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         if !navigationController!.viewControllers.contains(self) {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "MessagesViewControllerPoppedNotification"), object: self)
+            KTNotificationCenter.post(name: .MessagesViewControllerPoppedNotification, object: self)
         }
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self) // swiftlint:disable:this notification_center_detachment

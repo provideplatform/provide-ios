@@ -194,7 +194,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 delegate?.navigationControllerForMenuViewController(self)?.pushViewController(initialViewController, animated: true)
             }
         } else {
-            NotificationCenter.default.post(name: Notification.Name(rawValue: "SegueTo\(storyboardName)Storyboard"), object: self)
+            KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueTo\(storyboardName)Storyboard"), object: self)
         }
     }
 }
