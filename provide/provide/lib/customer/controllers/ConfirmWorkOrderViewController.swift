@@ -105,19 +105,16 @@ class ConfirmWorkOrderViewController: ViewController {
     private func saveWorkOrder() {
         // TODO: show progress HUD
 
-        workOrder.save(
-            onSuccess: { [weak self] statusCode, mappingResult in
-                if statusCode == 201 {
-                    if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                        logInfo("Created work order for hire: \(workOrder)")
-                        self?.onWorkOrderConfirmed(workOrder)
-                    }
+        workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
+            if statusCode == 201 {
+                if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                    logInfo("Created work order for hire: \(workOrder)")
+                    self?.onWorkOrderConfirmed(workOrder)
                 }
-            },
-            onError: { err, statusCode, responseString in
-                logWarn("Failed to create work order for hire (\(statusCode))")
             }
-        )
+        }, onError: { err, statusCode, responseString in
+            logWarn("Failed to create work order for hire (\(statusCode))")
+        })
     }
 
     func prepareForReuse() {

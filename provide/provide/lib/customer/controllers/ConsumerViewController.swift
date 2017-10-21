@@ -188,16 +188,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func loadCategoriesContext() {
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
-            Category.nearby(coordinate: coordinate, radius: 50.0,
-                onSuccess: { [weak self] categories in
-                    logInfo("Found \(categories.count) categories: \(categories)")
-                    self?.categories = categories
-                    self?.loadProviderContext()
-                },
-                onError: { error, statusCode, response in
-                    logWarn("Failed to fetch categories near \(coordinate)")
-                }
-            )
+            Category.nearby(coordinate: coordinate, radius: 50.0, onSuccess: { [weak self] categories in
+                logInfo("Found \(categories.count) categories: \(categories)")
+                self?.categories = categories
+                self?.loadProviderContext()
+            }, onError: { error, statusCode, response in
+                logWarn("Failed to fetch categories near \(coordinate)")
+            })
         } else {
             logWarn("No current location resolved for consumer view controller; nearby categories not fetched")
         }
